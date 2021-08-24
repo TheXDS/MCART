@@ -1,0 +1,644 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class AutoDictionary&lt;TKey, TValue&gt;
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class AutoDictionary&lt;TKey, TValue&gt;
+   ">
+    <meta name="generator" content="docfx 2.58.0.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="TheXDS.MCART.Types.AutoDictionary`2">
+  
+  
+  <h1 id="TheXDS_MCART_Types_AutoDictionary_2" data-uid="TheXDS.MCART.Types.AutoDictionary`2" class="text-break">Class AutoDictionary&lt;TKey, TValue&gt;
+  </h1>
+  <div class="markdown level0 summary"><p>Diccionario con soporte para instanciación automática de claves no
+existentes.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">System.Collections.Generic.Dictionary</span>&lt;TKey, TValue&gt;</div>
+    <div class="level2"><span class="xref">AutoDictionary&lt;TKey, TValue&gt;</span></div>
+  </div>
+  <div classs="implements">
+    <h5>Implements</h5>
+    <div><span class="xref">System.Collections.Generic.IDictionary</span>&lt;TKey, TValue&gt;</div>
+    <div><span class="xref">System.Collections.Generic.ICollection</span>&lt;<span class="xref">System.Collections.Generic.KeyValuePair</span>&lt;TKey, TValue&gt;&gt;</div>
+    <div><span class="xref">System.Collections.Generic.IReadOnlyDictionary</span>&lt;TKey, TValue&gt;</div>
+    <div><span class="xref">System.Collections.Generic.IReadOnlyCollection</span>&lt;<span class="xref">System.Collections.Generic.KeyValuePair</span>&lt;TKey, TValue&gt;&gt;</div>
+    <div><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.Collections.Generic.KeyValuePair</span>&lt;TKey, TValue&gt;&gt;</div>
+    <div><span class="xref">System.Collections.IDictionary</span></div>
+    <div><span class="xref">System.Collections.ICollection</span></div>
+    <div><span class="xref">System.Collections.IEnumerable</span></div>
+    <div><span class="xref">System.Runtime.Serialization.IDeserializationCallback</span></div>
+    <div><span class="xref">System.Runtime.Serialization.ISerializable</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.Collections.Generic.Dictionary&lt;TKey, TValue&gt;.System.Collections.IDictionary.get_Item(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.Generic.Dictionary&lt;TKey, TValue&gt;.System.Collections.IDictionary.set_Item(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.Generic.Dictionary&lt;TKey, TValue&gt;.Add(TKey, TValue)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.Generic.Dictionary&lt;TKey, TValue&gt;.Clear()</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.Generic.Dictionary&lt;TKey, TValue&gt;.ContainsKey(TKey)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.Generic.Dictionary&lt;TKey, TValue&gt;.ContainsValue(TValue)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.Generic.Dictionary&lt;TKey, TValue&gt;.EnsureCapacity(System.Int32)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.Generic.Dictionary&lt;TKey, TValue&gt;.GetEnumerator()</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.Generic.Dictionary&lt;TKey, TValue&gt;.GetObjectData(System.Runtime.Serialization.SerializationInfo, System.Runtime.Serialization.StreamingContext)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.Generic.Dictionary&lt;TKey, TValue&gt;.OnDeserialization(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.Generic.Dictionary&lt;TKey, TValue&gt;.Remove(TKey)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.Generic.Dictionary&lt;TKey, TValue&gt;.Remove(TKey, TValue)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.Generic.Dictionary&lt;TKey, TValue&gt;.System.Collections.Generic.ICollection&lt;System.Collections.Generic.KeyValuePair&lt;TKey, TValue&gt;&gt;.Add(System.Collections.Generic.KeyValuePair&lt;TKey, TValue&gt;)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.Generic.Dictionary&lt;TKey, TValue&gt;.System.Collections.Generic.ICollection&lt;System.Collections.Generic.KeyValuePair&lt;TKey, TValue&gt;&gt;.Contains(System.Collections.Generic.KeyValuePair&lt;TKey, TValue&gt;)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.Generic.Dictionary&lt;TKey, TValue&gt;.System.Collections.Generic.ICollection&lt;System.Collections.Generic.KeyValuePair&lt;TKey, TValue&gt;&gt;.CopyTo(System.Collections.Generic.KeyValuePair&lt;TKey, TValue&gt;[], System.Int32)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.Generic.Dictionary&lt;TKey, TValue&gt;.System.Collections.Generic.ICollection&lt;System.Collections.Generic.KeyValuePair&lt;TKey, TValue&gt;&gt;.Remove(System.Collections.Generic.KeyValuePair&lt;TKey, TValue&gt;)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.Generic.Dictionary&lt;TKey, TValue&gt;.System.Collections.Generic.IEnumerable&lt;System.Collections.Generic.KeyValuePair&lt;TKey, TValue&gt;&gt;.GetEnumerator()</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.Generic.Dictionary&lt;TKey, TValue&gt;.System.Collections.ICollection.CopyTo(System.Array, System.Int32)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.Generic.Dictionary&lt;TKey, TValue&gt;.System.Collections.IDictionary.Add(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.Generic.Dictionary&lt;TKey, TValue&gt;.System.Collections.IDictionary.Contains(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.Generic.Dictionary&lt;TKey, TValue&gt;.System.Collections.IDictionary.GetEnumerator()</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.Generic.Dictionary&lt;TKey, TValue&gt;.System.Collections.IDictionary.Remove(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.Generic.Dictionary&lt;TKey, TValue&gt;.System.Collections.IEnumerable.GetEnumerator()</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.Generic.Dictionary&lt;TKey, TValue&gt;.TrimExcess()</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.Generic.Dictionary&lt;TKey, TValue&gt;.TrimExcess(System.Int32)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.Generic.Dictionary&lt;TKey, TValue&gt;.TryAdd(TKey, TValue)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.Generic.Dictionary&lt;TKey, TValue&gt;.TryGetValue(TKey, TValue)</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.Generic.Dictionary&lt;TKey, TValue&gt;.Comparer</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.Generic.Dictionary&lt;TKey, TValue&gt;.Count</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.Generic.Dictionary&lt;TKey, TValue&gt;.Item[TKey]</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.Generic.Dictionary&lt;TKey, TValue&gt;.Keys</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.Generic.Dictionary&lt;TKey, TValue&gt;.System.Collections.Generic.ICollection&lt;System.Collections.Generic.KeyValuePair&lt;TKey, TValue&gt;&gt;.IsReadOnly</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.Generic.Dictionary&lt;TKey, TValue&gt;.System.Collections.Generic.IDictionary&lt;TKey, TValue&gt;.Keys</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.Generic.Dictionary&lt;TKey, TValue&gt;.System.Collections.Generic.IDictionary&lt;TKey, TValue&gt;.Values</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.Generic.Dictionary&lt;TKey, TValue&gt;.System.Collections.Generic.IReadOnlyDictionary&lt;TKey, TValue&gt;.Keys</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.Generic.Dictionary&lt;TKey, TValue&gt;.System.Collections.Generic.IReadOnlyDictionary&lt;TKey, TValue&gt;.Values</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.Generic.Dictionary&lt;TKey, TValue&gt;.System.Collections.ICollection.IsSynchronized</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.Generic.Dictionary&lt;TKey, TValue&gt;.System.Collections.ICollection.SyncRoot</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.Generic.Dictionary&lt;TKey, TValue&gt;.System.Collections.IDictionary.IsFixedSize</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.Generic.Dictionary&lt;TKey, TValue&gt;.System.Collections.IDictionary.IsReadOnly</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.Generic.Dictionary&lt;TKey, TValue&gt;.System.Collections.IDictionary.Item[System.Object]</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.Generic.Dictionary&lt;TKey, TValue&gt;.System.Collections.IDictionary.Keys</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.Generic.Dictionary&lt;TKey, TValue&gt;.System.Collections.IDictionary.Values</span>
+    </div>
+    <div>
+      <span class="xref">System.Collections.Generic.Dictionary&lt;TKey, TValue&gt;.Values</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="TheXDS.MCART.Types.html">TheXDS.MCART.Types</a></h6>
+  <h6><strong>Assembly</strong>: MCART.dll</h6>
+  <h5 id="TheXDS_MCART_Types_AutoDictionary_2_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class AutoDictionary&lt;TKey, TValue&gt; : Dictionary&lt;TKey, TValue&gt;, IDictionary&lt;TKey, TValue&gt;, ICollection&lt;KeyValuePair&lt;TKey, TValue&gt;&gt;, IReadOnlyDictionary&lt;TKey, TValue&gt;, IReadOnlyCollection&lt;KeyValuePair&lt;TKey, TValue&gt;&gt;, IEnumerable&lt;KeyValuePair&lt;TKey, TValue&gt;&gt;, IDictionary, ICollection, IEnumerable, IDeserializationCallback, ISerializable where TValue : new()</code></pre>
+  </div>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TKey</span></td>
+        <td><p>Tipo de llave a utilizar.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">TValue</span></td>
+        <td><p>Tipo del valor contenido en este diccionario.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_Types_AutoDictionary_2_Item__0_.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Types.AutoDictionary%602.Item(%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/MCART/Types/AutoDictionary.cs/#L53">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Types_AutoDictionary_2_Item_" data-uid="TheXDS.MCART.Types.AutoDictionary`2.Item*"></a>
+  <h4 id="TheXDS_MCART_Types_AutoDictionary_2_Item__0_" data-uid="TheXDS.MCART.Types.AutoDictionary`2.Item(`0)">Item[TKey]</h4>
+  <div class="markdown level1 summary"><p>Obtiene o establece el valor asociado con la llave
+especificada, instanciando un nuevo valor si la misma no
+existe.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TValue this[TKey key] { get; set; }</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TKey</span></td>
+        <td><span class="parametername">key</span></td>
+        <td><p>Llave del valor a obtener o establecer.
+Se creará un nuevo valor si la llave no existe.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TValue</span></td>
+        <td><p>Valor asociado a la clave especificada. Si no se encuentra la
+clave especificada, se creará un nuevo elemento con dicha
+clave.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <span class="xref">System.Collections.Generic.IDictionary&lt;TKey, TValue&gt;</span>
+  </div>
+  <div>
+      <span class="xref">System.Collections.Generic.ICollection&lt;T&gt;</span>
+  </div>
+  <div>
+      <span class="xref">System.Collections.Generic.IReadOnlyDictionary&lt;TKey, TValue&gt;</span>
+  </div>
+  <div>
+      <span class="xref">System.Collections.Generic.IReadOnlyCollection&lt;T&gt;</span>
+  </div>
+  <div>
+      <span class="xref">System.Collections.Generic.IEnumerable&lt;T&gt;</span>
+  </div>
+  <div>
+      <span class="xref">System.Collections.IDictionary</span>
+  </div>
+  <div>
+      <span class="xref">System.Collections.ICollection</span>
+  </div>
+  <div>
+      <span class="xref">System.Collections.IEnumerable</span>
+  </div>
+  <div>
+      <span class="xref">System.Runtime.Serialization.IDeserializationCallback</span>
+  </div>
+  <div>
+      <span class="xref">System.Runtime.Serialization.ISerializable</span>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_FieldsOf__1_System_Object_">Objects.FieldsOf&lt;T&gt;(Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_GetAttr__1_System_Object_">Objects.GetAttr&lt;T&gt;(Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_GetAttrs__1_System_Object_">Objects.GetAttrs&lt;T&gt;(Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_HasAttr__1_System_Object___0__">Objects.HasAttr&lt;T&gt;(Object, out T)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_HasAttrValue__2_System_Object___1__">Objects.HasAttrValue&lt;TAttribute, TValue&gt;(Object, out TValue)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_HasAttr__1_System_Object_">Objects.HasAttr&lt;T&gt;(Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_HasAttrs__1_System_Object_System_Collections_Generic_IEnumerable___0___">Objects.HasAttrs&lt;T&gt;(Object, out IEnumerable&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_Is_System_Object_System_Object_">Objects.Is(Object, Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_IsEither__1___0___0___">Objects.IsEither&lt;T&gt;(T, T[])</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_IsEither__1___0_System_Collections_Generic_IEnumerable___0__">Objects.IsEither&lt;T&gt;(T, IEnumerable&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_IsNeither__1___0___0___">Objects.IsNeither&lt;T&gt;(T, T[])</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_IsNeither__1___0_System_Collections_Generic_IEnumerable___0__">Objects.IsNeither&lt;T&gt;(T, IEnumerable&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_IsNot_System_Object_System_Object_">Objects.IsNot(Object, Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_Itself__1___0_">Objects.Itself&lt;T&gt;(T)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_PropertiesOf__1_System_Object_">Objects.PropertiesOf&lt;T&gt;(Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_ToTypes_System_Collections_IEnumerable_">Objects.ToTypes(IEnumerable)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_WhichAre_System_Object_System_Collections_Generic_IEnumerable_System_Object__">Objects.WhichAre(Object, IEnumerable&lt;Object&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_WhichAre_System_Object_System_Object___">Objects.WhichAre(Object, Object[])</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.CollectionExtensions.html#TheXDS_MCART_Types_Extensions_CollectionExtensions_RemoveOf__2_System_Collections_Generic_ICollection___0__">CollectionExtensions.RemoveOf&lt;TItem, TRemove&gt;(ICollection&lt;TItem&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.CollectionExtensions.html#TheXDS_MCART_Types_Extensions_CollectionExtensions_RemoveAll__1_System_Collections_Generic_ICollection___0__System_Predicate___0___System_Action___0___">CollectionExtensions.RemoveAll&lt;T&gt;(ICollection&lt;T&gt;, in Predicate&lt;T&gt;, in Action&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.CollectionExtensions.html#TheXDS_MCART_Types_Extensions_CollectionExtensions_RemoveAll__1_System_Collections_Generic_ICollection___0__System_Action___0___">CollectionExtensions.RemoveAll&lt;T&gt;(ICollection&lt;T&gt;, in Action&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.CollectionExtensions.html#TheXDS_MCART_Types_Extensions_CollectionExtensions_RemoveAll__1_System_Collections_Generic_ICollection___0__System_Predicate___0___">CollectionExtensions.RemoveAll&lt;T&gt;(ICollection&lt;T&gt;, in Predicate&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.CollectionExtensions.html#TheXDS_MCART_Types_Extensions_CollectionExtensions_RemoveAll__1_System_Collections_Generic_ICollection___0__">CollectionExtensions.RemoveAll&lt;T&gt;(ICollection&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.CollectionExtensions.html#TheXDS_MCART_Types_Extensions_CollectionExtensions_Pop__1_System_Collections_Generic_ICollection___0__">CollectionExtensions.Pop&lt;T&gt;(ICollection&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.CollectionExtensions.html#TheXDS_MCART_Types_Extensions_CollectionExtensions_PopFirst__1_System_Collections_Generic_ICollection___0__">CollectionExtensions.PopFirst&lt;T&gt;(ICollection&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.CollectionExtensions.html#TheXDS_MCART_Types_Extensions_CollectionExtensions_Push__1_System_Collections_Generic_ICollection___0__">CollectionExtensions.Push&lt;T&gt;(ICollection&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.CollectionExtensions.html#TheXDS_MCART_Types_Extensions_CollectionExtensions_PushInto__2___0_System_Collections_Generic_ICollection___1__">CollectionExtensions.PushInto&lt;TItem, TCollection&gt;(TItem, ICollection&lt;TCollection&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.CollectionExtensions.html#TheXDS_MCART_Types_Extensions_CollectionExtensions_Push__2_System_Collections_Generic_ICollection___1____0_">CollectionExtensions.Push&lt;TItem, TCollection&gt;(ICollection&lt;TCollection&gt;, TItem)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.CollectionExtensions.html#TheXDS_MCART_Types_Extensions_CollectionExtensions_Push__2_System_Collections_Generic_ICollection___1__">CollectionExtensions.Push&lt;TItem, TCollection&gt;(ICollection&lt;TCollection&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.CollectionExtensions.html#TheXDS_MCART_Types_Extensions_CollectionExtensions_ToObservable__1_System_Collections_Generic_ICollection___0__">CollectionExtensions.ToObservable&lt;T&gt;(ICollection&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.CollectionExtensions.html#TheXDS_MCART_Types_Extensions_CollectionExtensions_AddRange__1_System_Collections_Generic_ICollection___0__System_Collections_Generic_IEnumerable___0__">CollectionExtensions.AddRange&lt;T&gt;(ICollection&lt;T&gt;, IEnumerable&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.DictionaryExtensions.html#TheXDS_MCART_Types_Extensions_DictionaryExtensions_Push__2_System_Collections_Generic_IDictionary___0___1____0___1_">DictionaryExtensions.Push&lt;TKey, TValue&gt;(IDictionary&lt;TKey, TValue&gt;, TKey, TValue)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.DictionaryExtensions.html#TheXDS_MCART_Types_Extensions_DictionaryExtensions_PushInto__2___1___0_System_Collections_Generic_IDictionary___0___1__">DictionaryExtensions.PushInto&lt;TKey, TValue&gt;(TValue, TKey, IDictionary&lt;TKey, TValue&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.DictionaryExtensions.html#TheXDS_MCART_Types_Extensions_DictionaryExtensions_Pop__2_System_Collections_Generic_IDictionary___0___1____0___1__">DictionaryExtensions.Pop&lt;TKey, TValue&gt;(IDictionary&lt;TKey, TValue&gt;, TKey, out TValue)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.EnumerableExtensions.html#TheXDS_MCART_Types_Extensions_EnumerableExtensions_IsAnyOf__1_System_Collections_IEnumerable_">EnumerableExtensions.IsAnyOf&lt;T&gt;(IEnumerable)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.EnumerableExtensions.html#TheXDS_MCART_Types_Extensions_EnumerableExtensions_IsAnyOf_System_Collections_IEnumerable_System_Type_">EnumerableExtensions.IsAnyOf(IEnumerable, Type)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.EnumerableExtensions.html#TheXDS_MCART_Types_Extensions_EnumerableExtensions_Locked__1___0_System_Action___0__">EnumerableExtensions.Locked&lt;T&gt;(T, Action&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.EnumerableExtensions.html#TheXDS_MCART_Types_Extensions_EnumerableExtensions_Locked__2___0_System_Func___0___1__">EnumerableExtensions.Locked&lt;TCollection, TResult&gt;(TCollection, Func&lt;TCollection, TResult&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.EnumerableExtensions.html#TheXDS_MCART_Types_Extensions_EnumerableExtensions_YieldAsync__1_System_Collections_Generic_IEnumerable___0__System_Func___0_System_Threading_Tasks_Task__">EnumerableExtensions.YieldAsync&lt;T&gt;(IEnumerable&lt;T&gt;, Func&lt;T, Task&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.EnumerableExtensions.html#TheXDS_MCART_Types_Extensions_EnumerableExtensions_SelectAsync__2_System_Collections_Generic_IEnumerable___0__System_Func___0_System_Threading_Tasks_Task___1___">EnumerableExtensions.SelectAsync&lt;TIn, TOut&gt;(IEnumerable&lt;TIn&gt;, Func&lt;TIn, Task&lt;TOut&gt;&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.EnumerableExtensions.html#TheXDS_MCART_Types_Extensions_EnumerableExtensions_NullCount_System_Collections_IEnumerable_">EnumerableExtensions.NullCount(IEnumerable)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.EnumerableExtensions.html#TheXDS_MCART_Types_Extensions_EnumerableExtensions_GroupByType_System_Collections_IEnumerable_">EnumerableExtensions.GroupByType(IEnumerable)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.EnumerableExtensions.html#TheXDS_MCART_Types_Extensions_EnumerableExtensions_ToGeneric_System_Collections_IEnumerable_">EnumerableExtensions.ToGeneric(IEnumerable)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.EnumerableExtensions.html#TheXDS_MCART_Types_Extensions_EnumerableExtensions_FirstOf__1_System_Collections_IEnumerable_">EnumerableExtensions.FirstOf&lt;T&gt;(IEnumerable)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.EnumerableExtensions.html#TheXDS_MCART_Types_Extensions_EnumerableExtensions_FirstOf__1_System_Collections_Generic_IEnumerable___0__System_Type_">EnumerableExtensions.FirstOf&lt;T&gt;(IEnumerable&lt;T&gt;, Type)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.EnumerableExtensions.html#TheXDS_MCART_Types_Extensions_EnumerableExtensions_OfType__1_System_Collections_Generic_IEnumerable___0__System_Type_">EnumerableExtensions.OfType&lt;T&gt;(IEnumerable&lt;T&gt;, Type)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.EnumerableExtensions.html#TheXDS_MCART_Types_Extensions_EnumerableExtensions_ExceptFor__1_System_Collections_Generic_IEnumerable___0____0___">EnumerableExtensions.ExceptFor&lt;T&gt;(IEnumerable&lt;T&gt;, T[])</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.EnumerableExtensions.html#TheXDS_MCART_Types_Extensions_EnumerableExtensions_NotNull_System_Collections_IEnumerable_">EnumerableExtensions.NotNull(IEnumerable)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.EnumerableExtensions.html#TheXDS_MCART_Types_Extensions_EnumerableExtensions_OrNull__1_System_Collections_Generic_IEnumerable___0__">EnumerableExtensions.OrNull&lt;T&gt;(IEnumerable&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.EnumerableExtensions.html#TheXDS_MCART_Types_Extensions_EnumerableExtensions_NonDefaults__1_System_Collections_Generic_IEnumerable___0__">EnumerableExtensions.NonDefaults&lt;T&gt;(IEnumerable&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.EnumerableExtensions.html#TheXDS_MCART_Types_Extensions_EnumerableExtensions_Range__1_System_Collections_Generic_IEnumerable___0__System_Int32_System_Int32_">EnumerableExtensions.Range&lt;T&gt;(IEnumerable&lt;T&gt;, Int32, Int32)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.EnumerableExtensions.html#TheXDS_MCART_Types_Extensions_EnumerableExtensions_Copy__1_System_Collections_Generic_IEnumerable___0__">EnumerableExtensions.Copy&lt;T&gt;(IEnumerable&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.EnumerableExtensions.html#TheXDS_MCART_Types_Extensions_EnumerableExtensions_Shuffled__1_System_Collections_Generic_IEnumerable___0__">EnumerableExtensions.Shuffled&lt;T&gt;(IEnumerable&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.EnumerableExtensions.html#TheXDS_MCART_Types_Extensions_EnumerableExtensions_Shuffled__1_System_Collections_Generic_IEnumerable___0__System_Int32__">EnumerableExtensions.Shuffled&lt;T&gt;(IEnumerable&lt;T&gt;, in Int32)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.EnumerableExtensions.html#TheXDS_MCART_Types_Extensions_EnumerableExtensions_Shuffled__1_System_Collections_Generic_IEnumerable___0__System_Int32__System_Int32__">EnumerableExtensions.Shuffled&lt;T&gt;(IEnumerable&lt;T&gt;, in Int32, in Int32)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.EnumerableExtensions.html#TheXDS_MCART_Types_Extensions_EnumerableExtensions_Shuffled__1_System_Collections_Generic_IEnumerable___0__System_Int32__System_Int32__System_Int32__System_Random__">EnumerableExtensions.Shuffled&lt;T&gt;(IEnumerable&lt;T&gt;, in Int32, in Int32, in Int32, in Random)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.EnumerableExtensions.html#TheXDS_MCART_Types_Extensions_EnumerableExtensions_Pick__1_System_Collections_Generic_IEnumerable___0__">EnumerableExtensions.Pick&lt;T&gt;(IEnumerable&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.EnumerableExtensions.html#TheXDS_MCART_Types_Extensions_EnumerableExtensions_Pick__1_System_Collections_Generic_IEnumerable___0__System_Random__">EnumerableExtensions.Pick&lt;T&gt;(IEnumerable&lt;T&gt;, in Random)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.EnumerableExtensions.html#TheXDS_MCART_Types_Extensions_EnumerableExtensions_PickAsync__1_System_Collections_Generic_IEnumerable___0__">EnumerableExtensions.PickAsync&lt;T&gt;(IEnumerable&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.EnumerableExtensions.html#TheXDS_MCART_Types_Extensions_EnumerableExtensions_ToExtendedList__1_System_Collections_Generic_IEnumerable___0__">EnumerableExtensions.ToExtendedList&lt;T&gt;(IEnumerable&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.EnumerableExtensions.html#TheXDS_MCART_Types_Extensions_EnumerableExtensions_ToListAsync__1_System_Collections_Generic_IEnumerable___0__">EnumerableExtensions.ToListAsync&lt;T&gt;(IEnumerable&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.EnumerableExtensions.html#TheXDS_MCART_Types_Extensions_EnumerableExtensions_ToExtendedListAsync__1_System_Collections_Generic_IEnumerable___0__">EnumerableExtensions.ToExtendedListAsync&lt;T&gt;(IEnumerable&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.EnumerableExtensions.html#TheXDS_MCART_Types_Extensions_EnumerableExtensions_Rotate__1_System_Collections_Generic_IEnumerable___0__System_Int32_">EnumerableExtensions.Rotate&lt;T&gt;(IEnumerable&lt;T&gt;, Int32)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.EnumerableExtensions.html#TheXDS_MCART_Types_Extensions_EnumerableExtensions_Shift__1_System_Collections_Generic_IEnumerable___0__System_Int32_">EnumerableExtensions.Shift&lt;T&gt;(IEnumerable&lt;T&gt;, Int32)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.EnumerableExtensions.html#TheXDS_MCART_Types_Extensions_EnumerableExtensions_ItemsEqual_System_Collections_IEnumerable_System_Collections_IEnumerable_">EnumerableExtensions.ItemsEqual(IEnumerable, IEnumerable)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.EnumerableExtensions.html#TheXDS_MCART_Types_Extensions_EnumerableExtensions_ContainsAll_System_Collections_IEnumerable_System_Collections_IEnumerable_">EnumerableExtensions.ContainsAll(IEnumerable, IEnumerable)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.EnumerableExtensions.html#TheXDS_MCART_Types_Extensions_EnumerableExtensions_ContainsAll_System_Collections_IEnumerable_System_Object___">EnumerableExtensions.ContainsAll(IEnumerable, Object[])</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.EnumerableExtensions.html#TheXDS_MCART_Types_Extensions_EnumerableExtensions_ContainsAny_System_Collections_IEnumerable_System_Collections_IEnumerable_">EnumerableExtensions.ContainsAny(IEnumerable, IEnumerable)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.EnumerableExtensions.html#TheXDS_MCART_Types_Extensions_EnumerableExtensions_ContainsAny_System_Collections_IEnumerable_System_Object___">EnumerableExtensions.ContainsAny(IEnumerable, Object[])</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.EnumerableExtensions.html#TheXDS_MCART_Types_Extensions_EnumerableExtensions_Contains_System_Collections_IEnumerable_System_Object_">EnumerableExtensions.Contains(IEnumerable, Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.EnumerableExtensions.html#TheXDS_MCART_Types_Extensions_EnumerableExtensions_Prioritized__1_System_Collections_Generic_IEnumerable___0__">EnumerableExtensions.Prioritized&lt;T&gt;(IEnumerable&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.EnumerableExtensions.html#TheXDS_MCART_Types_Extensions_EnumerableExtensions_Ordered__3_System_Collections_Generic_IEnumerable___0__">EnumerableExtensions.Ordered&lt;T, TAttr, TAttrValue&gt;(IEnumerable&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.EnumerableExtensions.html#TheXDS_MCART_Types_Extensions_EnumerableExtensions_Ordered__2_System_Collections_Generic_IEnumerable___0__">EnumerableExtensions.Ordered&lt;T, TAttr&gt;(IEnumerable&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.EnumerableExtensions.html#TheXDS_MCART_Types_Extensions_EnumerableExtensions_Count_System_Collections_IEnumerable_">EnumerableExtensions.Count(IEnumerable)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.EnumerableExtensions.html#TheXDS_MCART_Types_Extensions_EnumerableExtensions_IsPropertyEqual__1_System_Collections_Generic_IEnumerable___0__System_Func___0_System_Object__">EnumerableExtensions.IsPropertyEqual&lt;T&gt;(IEnumerable&lt;T&gt;, Func&lt;T, Object&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.EnumerableExtensions.html#TheXDS_MCART_Types_Extensions_EnumerableExtensions_AreAllEqual__1_System_Collections_Generic_IEnumerable___0__">EnumerableExtensions.AreAllEqual&lt;T&gt;(IEnumerable&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.EnumerableExtensions.html#TheXDS_MCART_Types_Extensions_EnumerableExtensions_FindIndexOf__1_System_Collections_Generic_IEnumerable___0____0_">EnumerableExtensions.FindIndexOf&lt;T&gt;(IEnumerable&lt;T&gt;, T)</a>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_Types_AutoDictionary_2.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Types.AutoDictionary%602%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/MCART/Types/AutoDictionary.cs/#L37" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

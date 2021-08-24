@@ -1,0 +1,826 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class ObservingCommand
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class ObservingCommand
+   ">
+    <meta name="generator" content="docfx 2.58.0.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="TheXDS.MCART.ViewModel.ObservingCommand">
+  
+  
+  <h1 id="TheXDS_MCART_ViewModel_ObservingCommand" data-uid="TheXDS.MCART.ViewModel.ObservingCommand" class="text-break">Class ObservingCommand
+  </h1>
+  <div class="markdown level0 summary"><p>Describe un comando que observa a un objeto que implemente
+<span class="xref">System.ComponentModel.INotifyPropertyChanged</span> y
+escucha cualquier cambio ocurrido en el valor de sus propiedades
+para habilitar o deshabilitar automáticamente la ejecución del
+comando.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><a class="xref" href="TheXDS.MCART.ViewModel.CommandBase.html">CommandBase</a></div>
+    <div class="level2"><span class="xref">ObservingCommand</span></div>
+  </div>
+  <div classs="implements">
+    <h5>Implements</h5>
+    <div><span class="xref">System.Windows.Input.ICommand</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="TheXDS.MCART.ViewModel.CommandBase.html#TheXDS_MCART_ViewModel_CommandBase_CanExecuteChanged">CommandBase.CanExecuteChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.ViewModel.CommandBase.html#TheXDS_MCART_ViewModel_CommandBase_CanExecute">CommandBase.CanExecute()</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.ViewModel.CommandBase.html#TheXDS_MCART_ViewModel_CommandBase_Execute_System_Object_">CommandBase.Execute(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.ViewModel.CommandBase.html#TheXDS_MCART_ViewModel_CommandBase_Execute">CommandBase.Execute()</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.ViewModel.CommandBase.html#TheXDS_MCART_ViewModel_CommandBase_TryExecute_System_Object_">CommandBase.TryExecute(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.ViewModel.CommandBase.html#TheXDS_MCART_ViewModel_CommandBase_TryExecute">CommandBase.TryExecute()</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.ViewModel.CommandBase.html#TheXDS_MCART_ViewModel_CommandBase_RaiseCanExecuteChanged">CommandBase.RaiseCanExecuteChanged()</a>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="TheXDS.MCART.ViewModel.html">TheXDS.MCART.ViewModel</a></h6>
+  <h6><strong>Assembly</strong>: MCART.UI.dll</h6>
+  <h5 id="TheXDS_MCART_ViewModel_ObservingCommand_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class ObservingCommand : CommandBase, ICommand</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_ViewModel_ObservingCommand__ctor_System_ComponentModel_INotifyPropertyChanged_System_Action_.md&amp;value=---%0Auid%3A%20TheXDS.MCART.ViewModel.ObservingCommand.%23ctor(System.ComponentModel.INotifyPropertyChanged%2CSystem.Action)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Lib/MCART-UI/ViewModel/ObservingCommand.cs/#L56">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_ViewModel_ObservingCommand__ctor_" data-uid="TheXDS.MCART.ViewModel.ObservingCommand.#ctor*"></a>
+  <h4 id="TheXDS_MCART_ViewModel_ObservingCommand__ctor_System_ComponentModel_INotifyPropertyChanged_System_Action_" data-uid="TheXDS.MCART.ViewModel.ObservingCommand.#ctor(System.ComponentModel.INotifyPropertyChanged,System.Action)">ObservingCommand(INotifyPropertyChanged, Action)</h4>
+  <div class="markdown level1 summary"><p>Inicializa una nueva instancia de la clase
+<a class="xref" href="TheXDS.MCART.ViewModel.ObservingCommand.html">ObservingCommand</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ObservingCommand(INotifyPropertyChanged observedSource, Action action)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ComponentModel.INotifyPropertyChanged</span></td>
+        <td><span class="parametername">observedSource</span></td>
+        <td><p>Origen de datos observado.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Action</span></td>
+        <td><span class="parametername">action</span></td>
+        <td><p>Acción a ejecutar.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_ViewModel_ObservingCommand__ctor_System_ComponentModel_INotifyPropertyChanged_System_Action_System_Object__.md&amp;value=---%0Auid%3A%20TheXDS.MCART.ViewModel.ObservingCommand.%23ctor(System.ComponentModel.INotifyPropertyChanged%2CSystem.Action%7BSystem.Object%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Lib/MCART-UI/ViewModel/ObservingCommand.cs/#L80">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_ViewModel_ObservingCommand__ctor_" data-uid="TheXDS.MCART.ViewModel.ObservingCommand.#ctor*"></a>
+  <h4 id="TheXDS_MCART_ViewModel_ObservingCommand__ctor_System_ComponentModel_INotifyPropertyChanged_System_Action_System_Object__" data-uid="TheXDS.MCART.ViewModel.ObservingCommand.#ctor(System.ComponentModel.INotifyPropertyChanged,System.Action{System.Object})">ObservingCommand(INotifyPropertyChanged, Action&lt;Object&gt;)</h4>
+  <div class="markdown level1 summary"><p>Inicializa una nueva instancia de la clase
+<a class="xref" href="TheXDS.MCART.ViewModel.ObservingCommand.html">ObservingCommand</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ObservingCommand(INotifyPropertyChanged observedSource, Action&lt;object&gt; action)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ComponentModel.INotifyPropertyChanged</span></td>
+        <td><span class="parametername">observedSource</span></td>
+        <td><p>Origen de datos observado.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Action</span>&lt;<span class="xref">System.Object</span>&gt;</td>
+        <td><span class="parametername">action</span></td>
+        <td><p>Acción a ejecutar.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_ViewModel_ObservingCommand__ctor_System_ComponentModel_INotifyPropertyChanged_System_Func_System_Object_System_Threading_Tasks_Task__.md&amp;value=---%0Auid%3A%20TheXDS.MCART.ViewModel.ObservingCommand.%23ctor(System.ComponentModel.INotifyPropertyChanged%2CSystem.Func%7BSystem.Object%2CSystem.Threading.Tasks.Task%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Lib/MCART-UI/ViewModel/ObservingCommand.cs/#L72">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_ViewModel_ObservingCommand__ctor_" data-uid="TheXDS.MCART.ViewModel.ObservingCommand.#ctor*"></a>
+  <h4 id="TheXDS_MCART_ViewModel_ObservingCommand__ctor_System_ComponentModel_INotifyPropertyChanged_System_Func_System_Object_System_Threading_Tasks_Task__" data-uid="TheXDS.MCART.ViewModel.ObservingCommand.#ctor(System.ComponentModel.INotifyPropertyChanged,System.Func{System.Object,System.Threading.Tasks.Task})">ObservingCommand(INotifyPropertyChanged, Func&lt;Object, Task&gt;)</h4>
+  <div class="markdown level1 summary"><p>Inicializa una nueva instancia de la clase
+<a class="xref" href="TheXDS.MCART.ViewModel.ObservingCommand.html">ObservingCommand</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ObservingCommand(INotifyPropertyChanged observedSource, Func&lt;object, Task&gt; task)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ComponentModel.INotifyPropertyChanged</span></td>
+        <td><span class="parametername">observedSource</span></td>
+        <td><p>Origen de datos observado.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Func</span>&lt;<span class="xref">System.Object</span>, <span class="xref">System.Threading.Tasks.Task</span>&gt;</td>
+        <td><span class="parametername">task</span></td>
+        <td><p>Tarea a ejecutar.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_ViewModel_ObservingCommand__ctor_System_ComponentModel_INotifyPropertyChanged_System_Func_System_Threading_Tasks_Task__.md&amp;value=---%0Auid%3A%20TheXDS.MCART.ViewModel.ObservingCommand.%23ctor(System.ComponentModel.INotifyPropertyChanged%2CSystem.Func%7BSystem.Threading.Tasks.Task%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Lib/MCART-UI/ViewModel/ObservingCommand.cs/#L64">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_ViewModel_ObservingCommand__ctor_" data-uid="TheXDS.MCART.ViewModel.ObservingCommand.#ctor*"></a>
+  <h4 id="TheXDS_MCART_ViewModel_ObservingCommand__ctor_System_ComponentModel_INotifyPropertyChanged_System_Func_System_Threading_Tasks_Task__" data-uid="TheXDS.MCART.ViewModel.ObservingCommand.#ctor(System.ComponentModel.INotifyPropertyChanged,System.Func{System.Threading.Tasks.Task})">ObservingCommand(INotifyPropertyChanged, Func&lt;Task&gt;)</h4>
+  <div class="markdown level1 summary"><p>Inicializa una nueva instancia de la clase
+<a class="xref" href="TheXDS.MCART.ViewModel.ObservingCommand.html">ObservingCommand</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ObservingCommand(INotifyPropertyChanged observedSource, Func&lt;Task&gt; task)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ComponentModel.INotifyPropertyChanged</span></td>
+        <td><span class="parametername">observedSource</span></td>
+        <td><p>Origen de datos observado.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Func</span>&lt;<span class="xref">System.Threading.Tasks.Task</span>&gt;</td>
+        <td><span class="parametername">task</span></td>
+        <td><p>Tarea a ejecutar.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_ViewModel_ObservingCommand_ObservedProperties.md&amp;value=---%0Auid%3A%20TheXDS.MCART.ViewModel.ObservingCommand.ObservedProperties%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Lib/MCART-UI/ViewModel/ObservingCommand.cs/#L93">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_ViewModel_ObservingCommand_ObservedProperties_" data-uid="TheXDS.MCART.ViewModel.ObservingCommand.ObservedProperties*"></a>
+  <h4 id="TheXDS_MCART_ViewModel_ObservingCommand_ObservedProperties" data-uid="TheXDS.MCART.ViewModel.ObservingCommand.ObservedProperties">ObservedProperties</h4>
+  <div class="markdown level1 summary"><p>Enumera las propiedades que están siendo observadas por este <a class="xref" href="TheXDS.MCART.ViewModel.ObservingCommand.html">ObservingCommand</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;string&gt; ObservedProperties { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.String</span>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_ViewModel_ObservingCommand_ObservedSource.md&amp;value=---%0Auid%3A%20TheXDS.MCART.ViewModel.ObservingCommand.ObservedSource%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Lib/MCART-UI/ViewModel/ObservingCommand.cs/#L88">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_ViewModel_ObservingCommand_ObservedSource_" data-uid="TheXDS.MCART.ViewModel.ObservingCommand.ObservedSource*"></a>
+  <h4 id="TheXDS_MCART_ViewModel_ObservingCommand_ObservedSource" data-uid="TheXDS.MCART.ViewModel.ObservingCommand.ObservedSource">ObservedSource</h4>
+  <div class="markdown level1 summary"><p>Referencia al origen de datos observado por este <a class="xref" href="TheXDS.MCART.ViewModel.ObservingCommand.html">ObservingCommand</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public INotifyPropertyChanged ObservedSource { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ComponentModel.INotifyPropertyChanged</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_ViewModel_ObservingCommand_CanExecute_System_Object_.md&amp;value=---%0Auid%3A%20TheXDS.MCART.ViewModel.ObservingCommand.CanExecute(System.Object)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Lib/MCART-UI/ViewModel/ObservingCommand.cs/#L108">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_ViewModel_ObservingCommand_CanExecute_" data-uid="TheXDS.MCART.ViewModel.ObservingCommand.CanExecute*"></a>
+  <h4 id="TheXDS_MCART_ViewModel_ObservingCommand_CanExecute_System_Object_" data-uid="TheXDS.MCART.ViewModel.ObservingCommand.CanExecute(System.Object)">CanExecute(Object)</h4>
+  <div class="markdown level1 summary"><p>Define el método que determina si el comando puede ejecutarse
+en su estado actual.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool CanExecute(object parameter)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td><span class="parametername">parameter</span></td>
+        <td><p>Datos que usa el comando. Si el comando no exige pasar los
+datos, se puede establecer este objeto en
+<span class="xref">null</span>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><span class="xref">true</span> si se puede ejecutar este comando; de
+lo contrario, <span class="xref">false</span>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="TheXDS.MCART.ViewModel.CommandBase.html#TheXDS_MCART_ViewModel_CommandBase_CanExecute_System_Object_">CommandBase.CanExecute(Object)</a></div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_ViewModel_ObservingCommand_RegisterObservedProperty_System_Linq_Expressions_Expression_System_Func_System_Object___.md&amp;value=---%0Auid%3A%20TheXDS.MCART.ViewModel.ObservingCommand.RegisterObservedProperty(System.Linq.Expressions.Expression%7BSystem.Func%7BSystem.Object%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Lib/MCART-UI/ViewModel/ObservingCommand.cs/#L140">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_ViewModel_ObservingCommand_RegisterObservedProperty_" data-uid="TheXDS.MCART.ViewModel.ObservingCommand.RegisterObservedProperty*"></a>
+  <h4 id="TheXDS_MCART_ViewModel_ObservingCommand_RegisterObservedProperty_System_Linq_Expressions_Expression_System_Func_System_Object___" data-uid="TheXDS.MCART.ViewModel.ObservingCommand.RegisterObservedProperty(System.Linq.Expressions.Expression{System.Func{System.Object}})">RegisterObservedProperty(Expression&lt;Func&lt;Object&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Registra una nueva propiedad a observar en este comando.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ObservingCommand RegisterObservedProperty(Expression&lt;Func&lt;object&gt;&gt; property)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;<span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="parametername">property</span></td>
+        <td><p>Nombre de la propiedad a observar.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TheXDS.MCART.ViewModel.ObservingCommand.html">ObservingCommand</a></td>
+        <td><p>Esta misma instancia, lo que permite usar esta función con
+sintaxis fluent.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_ViewModel_ObservingCommand_RegisterObservedProperty_System_String___.md&amp;value=---%0Auid%3A%20TheXDS.MCART.ViewModel.ObservingCommand.RegisterObservedProperty(System.String%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Lib/MCART-UI/ViewModel/ObservingCommand.cs/#L123">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_ViewModel_ObservingCommand_RegisterObservedProperty_" data-uid="TheXDS.MCART.ViewModel.ObservingCommand.RegisterObservedProperty*"></a>
+  <h4 id="TheXDS_MCART_ViewModel_ObservingCommand_RegisterObservedProperty_System_String___" data-uid="TheXDS.MCART.ViewModel.ObservingCommand.RegisterObservedProperty(System.String[])">RegisterObservedProperty(String[])</h4>
+  <div class="markdown level1 summary"><p>Registra una nueva propiedad a observar en este comando.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ObservingCommand RegisterObservedProperty(params string[] properties)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span>[]</td>
+        <td><span class="parametername">properties</span></td>
+        <td><p>Nombre(s) de la(s) propiedad(es) a observar.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TheXDS.MCART.ViewModel.ObservingCommand.html">ObservingCommand</a></td>
+        <td><p>Esta misma instancia, lo que permite usar esta función con
+sintaxis fluent.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_ViewModel_ObservingCommand_SetCanExecute_System_Func_System_Boolean__.md&amp;value=---%0Auid%3A%20TheXDS.MCART.ViewModel.ObservingCommand.SetCanExecute(System.Func%7BSystem.Boolean%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Lib/MCART-UI/ViewModel/ObservingCommand.cs/#L159">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_ViewModel_ObservingCommand_SetCanExecute_" data-uid="TheXDS.MCART.ViewModel.ObservingCommand.SetCanExecute*"></a>
+  <h4 id="TheXDS_MCART_ViewModel_ObservingCommand_SetCanExecute_System_Func_System_Boolean__" data-uid="TheXDS.MCART.ViewModel.ObservingCommand.SetCanExecute(System.Func{System.Boolean})">SetCanExecute(Func&lt;Boolean&gt;)</h4>
+  <div class="markdown level1 summary"><p>Establece la función de comprobación a ejecutar cuando se desee
+saber si es posible ejecutar el comando.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ObservingCommand SetCanExecute(Func&lt;bool&gt; canExecute)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Func</span>&lt;<span class="xref">System.Boolean</span>&gt;</td>
+        <td><span class="parametername">canExecute</span></td>
+        <td><p>Función a ejecutar para determinar la posibilidad de ejecutar
+el comando.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TheXDS.MCART.ViewModel.ObservingCommand.html">ObservingCommand</a></td>
+        <td><p>Esta misma instancia, lo que permite usar esta función con
+sintaxis fluent.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_ViewModel_ObservingCommand_SetCanExecute_System_Func_System_ComponentModel_INotifyPropertyChanged_System_Object_System_Boolean__.md&amp;value=---%0Auid%3A%20TheXDS.MCART.ViewModel.ObservingCommand.SetCanExecute(System.Func%7BSystem.ComponentModel.INotifyPropertyChanged%2CSystem.Object%2CSystem.Boolean%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Lib/MCART-UI/ViewModel/ObservingCommand.cs/#L195">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_ViewModel_ObservingCommand_SetCanExecute_" data-uid="TheXDS.MCART.ViewModel.ObservingCommand.SetCanExecute*"></a>
+  <h4 id="TheXDS_MCART_ViewModel_ObservingCommand_SetCanExecute_System_Func_System_ComponentModel_INotifyPropertyChanged_System_Object_System_Boolean__" data-uid="TheXDS.MCART.ViewModel.ObservingCommand.SetCanExecute(System.Func{System.ComponentModel.INotifyPropertyChanged,System.Object,System.Boolean})">SetCanExecute(Func&lt;INotifyPropertyChanged, Object, Boolean&gt;)</h4>
+  <div class="markdown level1 summary"><p>Establece la función de comprobación a ejecutar cuando se desee
+saber si es posible ejecutar el comando.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ObservingCommand SetCanExecute(Func&lt;INotifyPropertyChanged, object, bool&gt; canExecute)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Func</span>&lt;<span class="xref">System.ComponentModel.INotifyPropertyChanged</span>, <span class="xref">System.Object</span>, <span class="xref">System.Boolean</span>&gt;</td>
+        <td><span class="parametername">canExecute</span></td>
+        <td><p>Función a ejecutar para determinar la posibilidad de ejecutar
+el comando.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TheXDS.MCART.ViewModel.ObservingCommand.html">ObservingCommand</a></td>
+        <td><p>Esta misma instancia, lo que permite usar esta función con
+sintaxis fluent.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_ViewModel_ObservingCommand_SetCanExecute_System_Func_System_Object_System_Boolean__.md&amp;value=---%0Auid%3A%20TheXDS.MCART.ViewModel.ObservingCommand.SetCanExecute(System.Func%7BSystem.Object%2CSystem.Boolean%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Lib/MCART-UI/ViewModel/ObservingCommand.cs/#L177">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_ViewModel_ObservingCommand_SetCanExecute_" data-uid="TheXDS.MCART.ViewModel.ObservingCommand.SetCanExecute*"></a>
+  <h4 id="TheXDS_MCART_ViewModel_ObservingCommand_SetCanExecute_System_Func_System_Object_System_Boolean__" data-uid="TheXDS.MCART.ViewModel.ObservingCommand.SetCanExecute(System.Func{System.Object,System.Boolean})">SetCanExecute(Func&lt;Object, Boolean&gt;)</h4>
+  <div class="markdown level1 summary"><p>Establece la función de comprobación a ejecutar cuando se desee
+saber si es posible ejecutar el comando.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ObservingCommand SetCanExecute(Func&lt;object, bool&gt; canExecute)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Func</span>&lt;<span class="xref">System.Object</span>, <span class="xref">System.Boolean</span>&gt;</td>
+        <td><span class="parametername">canExecute</span></td>
+        <td><p>Función a ejecutar para determinar la posibilidad de ejecutar
+el comando.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TheXDS.MCART.ViewModel.ObservingCommand.html">ObservingCommand</a></td>
+        <td><p>Esta misma instancia, lo que permite usar esta función con
+sintaxis fluent.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_ViewModel_ObservingCommand_UnsetCanExecute.md&amp;value=---%0Auid%3A%20TheXDS.MCART.ViewModel.ObservingCommand.UnsetCanExecute%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Lib/MCART-UI/ViewModel/ObservingCommand.cs/#L213">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_ViewModel_ObservingCommand_UnsetCanExecute_" data-uid="TheXDS.MCART.ViewModel.ObservingCommand.UnsetCanExecute*"></a>
+  <h4 id="TheXDS_MCART_ViewModel_ObservingCommand_UnsetCanExecute" data-uid="TheXDS.MCART.ViewModel.ObservingCommand.UnsetCanExecute">UnsetCanExecute()</h4>
+  <div class="markdown level1 summary"><p>Desconecta la función establecida para comprobar la posibilidad
+de ejecutar este comando.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void UnsetCanExecute()</code></pre>
+  </div>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <span class="xref">System.Windows.Input.ICommand</span>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObservingCommandExtensions.html#TheXDS_MCART_Types_Extensions_ObservingCommandExtensions_ListensToProperty__1_TheXDS_MCART_ViewModel_ObservingCommand_System_Linq_Expressions_Expression_System_Func___0_System_Object___">ObservingCommandExtensions.ListensToProperty&lt;T&gt;(ObservingCommand, Expression&lt;Func&lt;T, Object&gt;&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObservingCommandExtensions.html#TheXDS_MCART_Types_Extensions_ObservingCommandExtensions_ListensToProperty_TheXDS_MCART_ViewModel_ObservingCommand_System_Linq_Expressions_Expression_System_Func_System_Object___">ObservingCommandExtensions.ListensToProperty(ObservingCommand, Expression&lt;Func&lt;Object&gt;&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObservingCommandExtensions.html#TheXDS_MCART_Types_Extensions_ObservingCommandExtensions_ListensToCanExecute__1_TheXDS_MCART_ViewModel_ObservingCommand_System_Linq_Expressions_Expression_System_Func___0_System_Boolean___">ObservingCommandExtensions.ListensToCanExecute&lt;T&gt;(ObservingCommand, Expression&lt;Func&lt;T, Boolean&gt;&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObservingCommandExtensions.html#TheXDS_MCART_Types_Extensions_ObservingCommandExtensions_ListensToCanExecute_TheXDS_MCART_ViewModel_ObservingCommand_System_Linq_Expressions_Expression_System_Func_System_Boolean___">ObservingCommandExtensions.ListensToCanExecute(ObservingCommand, Expression&lt;Func&lt;Boolean&gt;&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_FieldsOf__1_System_Object_">Objects.FieldsOf&lt;T&gt;(Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_GetAttr__1_System_Object_">Objects.GetAttr&lt;T&gt;(Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_GetAttrs__1_System_Object_">Objects.GetAttrs&lt;T&gt;(Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_HasAttr__1_System_Object___0__">Objects.HasAttr&lt;T&gt;(Object, out T)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_HasAttrValue__2_System_Object___1__">Objects.HasAttrValue&lt;TAttribute, TValue&gt;(Object, out TValue)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_HasAttr__1_System_Object_">Objects.HasAttr&lt;T&gt;(Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_HasAttrs__1_System_Object_System_Collections_Generic_IEnumerable___0___">Objects.HasAttrs&lt;T&gt;(Object, out IEnumerable&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_Is_System_Object_System_Object_">Objects.Is(Object, Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_IsEither__1___0___0___">Objects.IsEither&lt;T&gt;(T, T[])</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_IsEither__1___0_System_Collections_Generic_IEnumerable___0__">Objects.IsEither&lt;T&gt;(T, IEnumerable&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_IsNeither__1___0___0___">Objects.IsNeither&lt;T&gt;(T, T[])</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_IsNeither__1___0_System_Collections_Generic_IEnumerable___0__">Objects.IsNeither&lt;T&gt;(T, IEnumerable&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_IsNot_System_Object_System_Object_">Objects.IsNot(Object, Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_Itself__1___0_">Objects.Itself&lt;T&gt;(T)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_PropertiesOf__1_System_Object_">Objects.PropertiesOf&lt;T&gt;(Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_WhichAre_System_Object_System_Collections_Generic_IEnumerable_System_Object__">Objects.WhichAre(Object, IEnumerable&lt;Object&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_WhichAre_System_Object_System_Object___">Objects.WhichAre(Object, Object[])</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.CollectionExtensions.html#TheXDS_MCART_Types_Extensions_CollectionExtensions_PushInto__2___0_System_Collections_Generic_ICollection___1__">CollectionExtensions.PushInto&lt;TItem, TCollection&gt;(TItem, ICollection&lt;TCollection&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.DictionaryExtensions.html#TheXDS_MCART_Types_Extensions_DictionaryExtensions_PushInto__2___1___0_System_Collections_Generic_IDictionary___0___1__">DictionaryExtensions.PushInto&lt;TKey, TValue&gt;(TValue, TKey, IDictionary&lt;TKey, TValue&gt;)</a>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_ViewModel_ObservingCommand.md&amp;value=---%0Auid%3A%20TheXDS.MCART.ViewModel.ObservingCommand%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Lib/MCART-UI/ViewModel/ObservingCommand.cs/#L45" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

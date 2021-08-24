@@ -1,0 +1,1237 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class Server&lt;TClient&gt;
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class Server&lt;TClient&gt;
+   ">
+    <meta name="generator" content="docfx 2.58.0.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="TheXDS.MCART.Networking.Legacy.Server.Server`1">
+  
+  
+  <h1 id="TheXDS_MCART_Networking_Legacy_Server_Server_1" data-uid="TheXDS.MCART.Networking.Legacy.Server.Server`1" class="text-break">Class Server&lt;TClient&gt;
+  </h1>
+  <div class="markdown level0 summary"><p>Controla conexiones entrantes y ejecuta protocolos sobre los clientes
+que se conecten al servidor.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><a class="xref" href="TheXDS.MCART.Types.Base.Disposable.html">Disposable</a></div>
+    <div class="level2"><span class="xref">Server&lt;TClient&gt;</span></div>
+      <div class="level3"><a class="xref" href="TheXDS.MCART.Networking.Legacy.Server.Server.html">Server</a></div>
+  </div>
+  <div classs="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="TheXDS.MCART.Types.Base.IDisposableEx.html">IDisposableEx</a></div>
+    <div><a class="xref" href="TheXDS.MCART.Networking.Legacy.Server.IServer.html">IServer</a></div>
+    <div><span class="xref">System.IDisposable</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Types.Base.Disposable.html#TheXDS_MCART_Types_Base_Disposable_IsDisposed">Disposable.IsDisposed</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Types.Base.Disposable.html#TheXDS_MCART_Types_Base_Disposable_Dispose_System_Boolean_">Disposable.Dispose(Boolean)</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Types.Base.Disposable.html#TheXDS_MCART_Types_Base_Disposable_OnFinalize">Disposable.OnFinalize()</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Types.Base.Disposable.html#TheXDS_MCART_Types_Base_Disposable_Dispose">Disposable.Dispose()</a>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="TheXDS.MCART.Networking.Legacy.Server.html">TheXDS.MCART.Networking.Legacy.Server</a></h6>
+  <h6><strong>Assembly</strong>: Networking.Legacy.dll</h6>
+  <h5 id="TheXDS_MCART_Networking_Legacy_Server_Server_1_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class Server&lt;TClient&gt; : Disposable, IDisposableEx, IServer, IDisposable where TClient : Client</code></pre>
+  </div>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TClient</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="constructors">Constructors
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_Networking_Legacy_Server_Server_1__ctor_TheXDS_MCART_Networking_Legacy_Server_IProtocol__0__.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Legacy.Server.Server%601.%23ctor(TheXDS.MCART.Networking.Legacy.Server.IProtocol%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Legacy/Networking.Legacy/Server/Server.cs/#L215">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Networking_Legacy_Server_Server_1__ctor_" data-uid="TheXDS.MCART.Networking.Legacy.Server.Server`1.#ctor*"></a>
+  <h4 id="TheXDS_MCART_Networking_Legacy_Server_Server_1__ctor_TheXDS_MCART_Networking_Legacy_Server_IProtocol__0__" data-uid="TheXDS.MCART.Networking.Legacy.Server.Server`1.#ctor(TheXDS.MCART.Networking.Legacy.Server.IProtocol{`0})">Server(IProtocol&lt;TClient&gt;)</h4>
+  <div class="markdown level1 summary"><p>Inicializa una nueva instancia de la clase <a class="xref" href="TheXDS.MCART.Networking.Legacy.Server.Server-1.html">Server&lt;TClient&gt;</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Server(IProtocol&lt;TClient&gt; protocol)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TheXDS.MCART.Networking.Legacy.Server.IProtocol-1.html">IProtocol</a>&lt;TClient&gt;</td>
+        <td><span class="parametername">protocol</span></td>
+        <td><p>Conjunto de protocolos a utilizar para este servidor.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ArgumentNullException</span></td>
+        <td><p>Se produce si <code data-dev-comment-type="paramref" class="paramref">protocol</code> es <span class="xref">null</span>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_Networking_Legacy_Server_Server_1__ctor_TheXDS_MCART_Networking_Legacy_Server_IProtocol__0__System_Int32_.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Legacy.Server.Server%601.%23ctor(TheXDS.MCART.Networking.Legacy.Server.IProtocol%7B%600%7D%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Legacy/Networking.Legacy/Server/Server.cs/#L229">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Networking_Legacy_Server_Server_1__ctor_" data-uid="TheXDS.MCART.Networking.Legacy.Server.Server`1.#ctor*"></a>
+  <h4 id="TheXDS_MCART_Networking_Legacy_Server_Server_1__ctor_TheXDS_MCART_Networking_Legacy_Server_IProtocol__0__System_Int32_" data-uid="TheXDS.MCART.Networking.Legacy.Server.Server`1.#ctor(TheXDS.MCART.Networking.Legacy.Server.IProtocol{`0},System.Int32)">Server(IProtocol&lt;TClient&gt;, Int32)</h4>
+  <div class="markdown level1 summary"><p>Inicializa una nueva instancia de la clase <a class="xref" href="TheXDS.MCART.Networking.Legacy.Server.Server-1.html">Server&lt;TClient&gt;</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Server(IProtocol&lt;TClient&gt; protocol, int port)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TheXDS.MCART.Networking.Legacy.Server.IProtocol-1.html">IProtocol</a>&lt;TClient&gt;</td>
+        <td><span class="parametername">protocol</span></td>
+        <td><p>Conjunto de protocolos a utilizar para este servidor.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">port</span></td>
+        <td><p>Puerto local a escuchar.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ArgumentNullException</span></td>
+        <td><p>Se produce si <code data-dev-comment-type="paramref" class="paramref">protocol</code> es <span class="xref">null</span>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_Networking_Legacy_Server_Server_1__ctor_TheXDS_MCART_Networking_Legacy_Server_IProtocol__0__System_Net_IPEndPoint_.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Legacy.Server.Server%601.%23ctor(TheXDS.MCART.Networking.Legacy.Server.IProtocol%7B%600%7D%2CSystem.Net.IPEndPoint)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Legacy/Networking.Legacy/Server/Server.cs/#L248">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Networking_Legacy_Server_Server_1__ctor_" data-uid="TheXDS.MCART.Networking.Legacy.Server.Server`1.#ctor*"></a>
+  <h4 id="TheXDS_MCART_Networking_Legacy_Server_Server_1__ctor_TheXDS_MCART_Networking_Legacy_Server_IProtocol__0__System_Net_IPEndPoint_" data-uid="TheXDS.MCART.Networking.Legacy.Server.Server`1.#ctor(TheXDS.MCART.Networking.Legacy.Server.IProtocol{`0},System.Net.IPEndPoint)">Server(IProtocol&lt;TClient&gt;, IPEndPoint)</h4>
+  <div class="markdown level1 summary"><p>Inicializa una nueva instancia de la clase <a class="xref" href="TheXDS.MCART.Networking.Legacy.Server.Server-1.html">Server&lt;TClient&gt;</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Server(IProtocol&lt;TClient&gt; protocol, IPEndPoint ep)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TheXDS.MCART.Networking.Legacy.Server.IProtocol-1.html">IProtocol</a>&lt;TClient&gt;</td>
+        <td><span class="parametername">protocol</span></td>
+        <td><p>Conjunto de protocolos a utilizar para este servidor.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Net.IPEndPoint</span></td>
+        <td><span class="parametername">ep</span></td>
+        <td><p><span class="xref">System.Net.IPEndPoint</span> local a escuchar. Si se establece en
+<span class="xref">null</span>, se escuchará al puerto predeterminado del
+protocolo (indicado por el atributo <a class="xref" href="TheXDS.MCART.Networking.Legacy.PortAttribute.html">PortAttribute</a>) o
+<a class="xref" href="TheXDS.MCART.Networking.Legacy.Common.html#TheXDS_MCART_Networking_Legacy_Common_DefaultPort">DefaultPort</a> de todas las direcciones IP del servidor.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ArgumentNullException</span></td>
+        <td><p>Se produce si <code data-dev-comment-type="paramref" class="paramref">protocol</code> es <span class="xref">null</span>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_Networking_Legacy_Server_Server_1_Clients.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Legacy.Server.Server%601.Clients%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Legacy/Networking.Legacy/Server/Server.cs/#L176">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Networking_Legacy_Server_Server_1_Clients_" data-uid="TheXDS.MCART.Networking.Legacy.Server.Server`1.Clients*"></a>
+  <h4 id="TheXDS_MCART_Networking_Legacy_Server_Server_1_Clients" data-uid="TheXDS.MCART.Networking.Legacy.Server.Server`1.Clients">Clients</h4>
+  <div class="markdown level1 summary"><p>Lista de objetos <code data-dev-comment-type="typeparamref" class="typeparamref">TClient</code> conectados a
+este servidor.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;TClient&gt; Clients { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;TClient&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_Networking_Legacy_Server_Server_1_IsAlive.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Legacy.Server.Server%601.IsAlive%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Legacy/Networking.Legacy/Server/Server.cs/#L183">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Networking_Legacy_Server_Server_1_IsAlive_" data-uid="TheXDS.MCART.Networking.Legacy.Server.Server`1.IsAlive*"></a>
+  <h4 id="TheXDS_MCART_Networking_Legacy_Server_Server_1_IsAlive" data-uid="TheXDS.MCART.Networking.Legacy.Server.Server`1.IsAlive">IsAlive</h4>
+  <div class="markdown level1 summary"><p>Obtiene o establece un valor que indica si este
+<a class="xref" href="TheXDS.MCART.Networking.Legacy.Server.Server.html">Server</a> está activo (vivo).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsAlive { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><span class="xref">true</span> si está vivo; sino, <span class="xref">false</span>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_Networking_Legacy_Server_Server_1_ListeningEndPoint.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Legacy.Server.Server%601.ListeningEndPoint%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Legacy/Networking.Legacy/Server/Server.cs/#L196">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Networking_Legacy_Server_Server_1_ListeningEndPoint_" data-uid="TheXDS.MCART.Networking.Legacy.Server.Server`1.ListeningEndPoint*"></a>
+  <h4 id="TheXDS_MCART_Networking_Legacy_Server_Server_1_ListeningEndPoint" data-uid="TheXDS.MCART.Networking.Legacy.Server.Server`1.ListeningEndPoint">ListeningEndPoint</h4>
+  <div class="markdown level1 summary"><p>Dirección IP a la cual este servidor escucha.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IPEndPoint ListeningEndPoint { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Net.IPEndPoint</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_Networking_Legacy_Server_Server_1_Protocol.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Legacy.Server.Server%601.Protocol%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Legacy/Networking.Legacy/Server/Server.cs/#L202">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Networking_Legacy_Server_Server_1_Protocol_" data-uid="TheXDS.MCART.Networking.Legacy.Server.Server`1.Protocol*"></a>
+  <h4 id="TheXDS_MCART_Networking_Legacy_Server_Server_1_Protocol" data-uid="TheXDS.MCART.Networking.Legacy.Server.Server`1.Protocol">Protocol</h4>
+  <div class="markdown level1 summary"><p>Instancia de protocolos a utilizar para dar servicio a los
+clientes que se conecten a este servidor.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IProtocol&lt;TClient&gt; Protocol { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TheXDS.MCART.Networking.Legacy.Server.IProtocol-1.html">IProtocol</a>&lt;TClient&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_Networking_Legacy_Server_Server_1_Broadcast_System_Byte___.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Legacy.Server.Server%601.Broadcast(System.Byte%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Legacy/Networking.Legacy/Server/Server.cs/#L339">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Networking_Legacy_Server_Server_1_Broadcast_" data-uid="TheXDS.MCART.Networking.Legacy.Server.Server`1.Broadcast*"></a>
+  <h4 id="TheXDS_MCART_Networking_Legacy_Server_Server_1_Broadcast_System_Byte___" data-uid="TheXDS.MCART.Networking.Legacy.Server.Server`1.Broadcast(System.Byte[])">Broadcast(Byte[])</h4>
+  <div class="markdown level1 summary"><p>Envía un mensaje a todos los clientes.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Broadcast(byte[] data)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Byte</span>[]</td>
+        <td><span class="parametername">data</span></td>
+        <td><p>Mensaje a enviar a los clientes.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_Networking_Legacy_Server_Server_1_Broadcast_System_Byte____0_.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Legacy.Server.Server%601.Broadcast(System.Byte%5B%5D%2C%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Legacy/Networking.Legacy/Server/Server.cs/#L349">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Networking_Legacy_Server_Server_1_Broadcast_" data-uid="TheXDS.MCART.Networking.Legacy.Server.Server`1.Broadcast*"></a>
+  <h4 id="TheXDS_MCART_Networking_Legacy_Server_Server_1_Broadcast_System_Byte____0_" data-uid="TheXDS.MCART.Networking.Legacy.Server.Server`1.Broadcast(System.Byte[],`0)">Broadcast(Byte[], TClient)</h4>
+  <div class="markdown level1 summary"><p>Envía un mensaje a todos los clientes, excepto el especificado.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Broadcast(byte[] data, TClient client)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Byte</span>[]</td>
+        <td><span class="parametername">data</span></td>
+        <td><p>Mensaje a enviar a los clientes.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">TClient</span></td>
+        <td><span class="parametername">client</span></td>
+        <td><p>Cliente que envía los datos.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_Networking_Legacy_Server_Server_1_BroadcastAsync_System_Byte___.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Legacy.Server.Server%601.BroadcastAsync(System.Byte%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Legacy/Networking.Legacy/Server/Server.cs/#L376">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Networking_Legacy_Server_Server_1_BroadcastAsync_" data-uid="TheXDS.MCART.Networking.Legacy.Server.Server`1.BroadcastAsync*"></a>
+  <h4 id="TheXDS_MCART_Networking_Legacy_Server_Server_1_BroadcastAsync_System_Byte___" data-uid="TheXDS.MCART.Networking.Legacy.Server.Server`1.BroadcastAsync(System.Byte[])">BroadcastAsync(Byte[])</h4>
+  <div class="markdown level1 summary"><p>Envía un mensaje a todos los clientes.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task BroadcastAsync(byte[] data)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Byte</span>[]</td>
+        <td><span class="parametername">data</span></td>
+        <td><p>Mensaje a enviar a los clientes.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
+        <td><p>Un <span class="xref">System.Threading.Tasks.Task</span> que representa esta tarea.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_Networking_Legacy_Server_Server_1_BroadcastAsync_System_Byte____0_.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Legacy.Server.Server%601.BroadcastAsync(System.Byte%5B%5D%2C%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Legacy/Networking.Legacy/Server/Server.cs/#L389">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Networking_Legacy_Server_Server_1_BroadcastAsync_" data-uid="TheXDS.MCART.Networking.Legacy.Server.Server`1.BroadcastAsync*"></a>
+  <h4 id="TheXDS_MCART_Networking_Legacy_Server_Server_1_BroadcastAsync_System_Byte____0_" data-uid="TheXDS.MCART.Networking.Legacy.Server.Server`1.BroadcastAsync(System.Byte[],`0)">BroadcastAsync(Byte[], TClient)</h4>
+  <div class="markdown level1 summary"><p>Envía un mensaje a todos los clientes, excepto el especificado.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task BroadcastAsync(byte[] data, TClient client)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Byte</span>[]</td>
+        <td><span class="parametername">data</span></td>
+        <td><p>Mensaje a enviar a los clientes.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">TClient</span></td>
+        <td><span class="parametername">client</span></td>
+        <td><p>Cliente que envía los datos.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
+        <td><p>Un <span class="xref">System.Threading.Tasks.Task</span> que representa esta tarea.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_Networking_Legacy_Server_Server_1_Multicast_System_Byte___System_Predicate__0__.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Legacy.Server.Server%601.Multicast(System.Byte%5B%5D%2CSystem.Predicate%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Legacy/Networking.Legacy/Server/Server.cs/#L362">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Networking_Legacy_Server_Server_1_Multicast_" data-uid="TheXDS.MCART.Networking.Legacy.Server.Server`1.Multicast*"></a>
+  <h4 id="TheXDS_MCART_Networking_Legacy_Server_Server_1_Multicast_System_Byte___System_Predicate__0__" data-uid="TheXDS.MCART.Networking.Legacy.Server.Server`1.Multicast(System.Byte[],System.Predicate{`0})">Multicast(Byte[], Predicate&lt;TClient&gt;)</h4>
+  <div class="markdown level1 summary"><p>Envía un mensaje a todos los clientes que satisfacen la
+condición especificada por <code data-dev-comment-type="paramref" class="paramref">condition</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Multicast(byte[] data, Predicate&lt;TClient&gt; condition)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Byte</span>[]</td>
+        <td><span class="parametername">data</span></td>
+        <td><p>Mensaje a enviar a los clientes.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Predicate</span>&lt;TClient&gt;</td>
+        <td><span class="parametername">condition</span></td>
+        <td><p>Condición que determina a los clientes que recibirán el mensaje.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_Networking_Legacy_Server_Server_1_MulticastAsync_System_Byte___System_Predicate__0__.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Legacy.Server.Server%601.MulticastAsync(System.Byte%5B%5D%2CSystem.Predicate%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Legacy/Networking.Legacy/Server/Server.cs/#L405">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Networking_Legacy_Server_Server_1_MulticastAsync_" data-uid="TheXDS.MCART.Networking.Legacy.Server.Server`1.MulticastAsync*"></a>
+  <h4 id="TheXDS_MCART_Networking_Legacy_Server_Server_1_MulticastAsync_System_Byte___System_Predicate__0__" data-uid="TheXDS.MCART.Networking.Legacy.Server.Server`1.MulticastAsync(System.Byte[],System.Predicate{`0})">MulticastAsync(Byte[], Predicate&lt;TClient&gt;)</h4>
+  <div class="markdown level1 summary"><p>Envía un mensaje a todos los clientes que satisfacen la
+condición especificada por <code data-dev-comment-type="paramref" class="paramref">condition</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task MulticastAsync(byte[] data, Predicate&lt;TClient&gt; condition)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Byte</span>[]</td>
+        <td><span class="parametername">data</span></td>
+        <td><p>Mensaje a enviar a los clientes.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Predicate</span>&lt;TClient&gt;</td>
+        <td><span class="parametername">condition</span></td>
+        <td><p>Condición que determina a los clientes que recibirán el mensaje.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
+        <td><p>Un <span class="xref">System.Threading.Tasks.Task</span> que representa esta tarea.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_Networking_Legacy_Server_Server_1_OnDispose.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Legacy.Server.Server%601.OnDispose%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Legacy/Networking.Legacy/Server/Server.cs/#L167">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Networking_Legacy_Server_Server_1_OnDispose_" data-uid="TheXDS.MCART.Networking.Legacy.Server.Server`1.OnDispose*"></a>
+  <h4 id="TheXDS_MCART_Networking_Legacy_Server_Server_1_OnDispose" data-uid="TheXDS.MCART.Networking.Legacy.Server.Server`1.OnDispose">OnDispose()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnDispose()</code></pre>
+  </div>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="TheXDS.MCART.Types.Base.Disposable.html#TheXDS_MCART_Types_Base_Disposable_OnDispose">Disposable.OnDispose()</a></div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_Networking_Legacy_Server_Server_1_Start.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Legacy.Server.Server%601.Start%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Legacy/Networking.Legacy/Server/Server.cs/#L301">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Networking_Legacy_Server_Server_1_Start_" data-uid="TheXDS.MCART.Networking.Legacy.Server.Server`1.Start*"></a>
+  <h4 id="TheXDS_MCART_Networking_Legacy_Server_Server_1_Start" data-uid="TheXDS.MCART.Networking.Legacy.Server.Server`1.Start">Start()</h4>
+  <div class="markdown level1 summary"><p>Crea un hilo de ejecución que da servicio a los clientes</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task Start()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_Networking_Legacy_Server_Server_1_Stop.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Legacy.Server.Server%601.Stop%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Legacy/Networking.Legacy/Server/Server.cs/#L312">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Networking_Legacy_Server_Server_1_Stop_" data-uid="TheXDS.MCART.Networking.Legacy.Server.Server`1.Stop*"></a>
+  <h4 id="TheXDS_MCART_Networking_Legacy_Server_Server_1_Stop" data-uid="TheXDS.MCART.Networking.Legacy.Server.Server`1.Stop">Stop()</h4>
+  <div class="markdown level1 summary"><p>Detiene al servidor.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Stop()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_Networking_Legacy_Server_Server_1_StopAsync.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Legacy.Server.Server%601.StopAsync%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Legacy/Networking.Legacy/Server/Server.cs/#L326">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Networking_Legacy_Server_Server_1_StopAsync_" data-uid="TheXDS.MCART.Networking.Legacy.Server.Server`1.StopAsync*"></a>
+  <h4 id="TheXDS_MCART_Networking_Legacy_Server_Server_1_StopAsync" data-uid="TheXDS.MCART.Networking.Legacy.Server.Server`1.StopAsync">StopAsync()</h4>
+  <div class="markdown level1 summary"><p>Detiene al servidor de forma asíncrona.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public async Task StopAsync()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
+        <td><p>Un <span class="xref">System.Threading.Tasks.Task</span> que puede utilizarse para monitorear el
+estado de esta tarea.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_Networking_Legacy_Server_Server_1_ToString.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Legacy.Server.Server%601.ToString%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Legacy/Networking.Legacy/Server/Server.cs/#L417">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Networking_Legacy_Server_Server_1_ToString_" data-uid="TheXDS.MCART.Networking.Legacy.Server.Server`1.ToString*"></a>
+  <h4 id="TheXDS_MCART_Networking_Legacy_Server_Server_1_ToString" data-uid="TheXDS.MCART.Networking.Legacy.Server.Server`1.ToString">ToString()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ToString()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">System.Object.ToString()</span></div>
+  <h3 id="events">Events
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_Networking_Legacy_Server_Server_1_ClientAccepted.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Legacy.Server.Server%601.ClientAccepted%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Legacy/Networking.Legacy/Server/Server.cs/#L261">View Source</a>
+  </span>
+  <h4 id="TheXDS_MCART_Networking_Legacy_Server_Server_1_ClientAccepted" data-uid="TheXDS.MCART.Networking.Legacy.Server.Server`1.ClientAccepted">ClientAccepted</h4>
+  <div class="markdown level1 summary"><p>Ocurre cuando el protocolo ha aceptado al nuevo cliente.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;ValueEventArgs&lt;Client&gt;&gt; ClientAccepted</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.EventHandler</span>&lt;<a class="xref" href="TheXDS.MCART.Events.ValueEventArgs-1.html">ValueEventArgs</a>&lt;<a class="xref" href="TheXDS.MCART.Networking.Legacy.Server.Client.html">Client</a>&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_Networking_Legacy_Server_Server_1_ClientConnected.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Legacy.Server.Server%601.ClientConnected%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Legacy/Networking.Legacy/Server/Server.cs/#L266">View Source</a>
+  </span>
+  <h4 id="TheXDS_MCART_Networking_Legacy_Server_Server_1_ClientConnected" data-uid="TheXDS.MCART.Networking.Legacy.Server.Server`1.ClientConnected">ClientConnected</h4>
+  <div class="markdown level1 summary"><p>Ocurre cuando un nuevo cliente se conecta al servidor.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;ValueEventArgs&lt;Client&gt;&gt; ClientConnected</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.EventHandler</span>&lt;<a class="xref" href="TheXDS.MCART.Events.ValueEventArgs-1.html">ValueEventArgs</a>&lt;<a class="xref" href="TheXDS.MCART.Networking.Legacy.Server.Client.html">Client</a>&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_Networking_Legacy_Server_Server_1_ClientDisconnected.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Legacy.Server.Server%601.ClientDisconnected%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Legacy/Networking.Legacy/Server/Server.cs/#L271">View Source</a>
+  </span>
+  <h4 id="TheXDS_MCART_Networking_Legacy_Server_Server_1_ClientDisconnected" data-uid="TheXDS.MCART.Networking.Legacy.Server.Server`1.ClientDisconnected">ClientDisconnected</h4>
+  <div class="markdown level1 summary"><p>Ocurre cuando un cliente se desconecta correctamente.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;ValueEventArgs&lt;Client&gt;&gt; ClientDisconnected</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.EventHandler</span>&lt;<a class="xref" href="TheXDS.MCART.Events.ValueEventArgs-1.html">ValueEventArgs</a>&lt;<a class="xref" href="TheXDS.MCART.Networking.Legacy.Server.Client.html">Client</a>&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_Networking_Legacy_Server_Server_1_ClientFarewell.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Legacy.Server.Server%601.ClientFarewell%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Legacy/Networking.Legacy/Server/Server.cs/#L276">View Source</a>
+  </span>
+  <h4 id="TheXDS_MCART_Networking_Legacy_Server_Server_1_ClientFarewell" data-uid="TheXDS.MCART.Networking.Legacy.Server.Server`1.ClientFarewell">ClientFarewell</h4>
+  <div class="markdown level1 summary"><p>Ocurre cuando el protocolo despide a un cliente.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;ValueEventArgs&lt;Client&gt;&gt; ClientFarewell</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.EventHandler</span>&lt;<a class="xref" href="TheXDS.MCART.Events.ValueEventArgs-1.html">ValueEventArgs</a>&lt;<a class="xref" href="TheXDS.MCART.Networking.Legacy.Server.Client.html">Client</a>&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_Networking_Legacy_Server_Server_1_ClientLost.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Legacy.Server.Server%601.ClientLost%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Legacy/Networking.Legacy/Server/Server.cs/#L281">View Source</a>
+  </span>
+  <h4 id="TheXDS_MCART_Networking_Legacy_Server_Server_1_ClientLost" data-uid="TheXDS.MCART.Networking.Legacy.Server.Server`1.ClientLost">ClientLost</h4>
+  <div class="markdown level1 summary"><p>Ocurre cuando un cliente se desconecta inesperadamente.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;ValueEventArgs&lt;Client&gt;&gt; ClientLost</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.EventHandler</span>&lt;<a class="xref" href="TheXDS.MCART.Events.ValueEventArgs-1.html">ValueEventArgs</a>&lt;<a class="xref" href="TheXDS.MCART.Networking.Legacy.Server.Client.html">Client</a>&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_Networking_Legacy_Server_Server_1_ClientRejected.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Legacy.Server.Server%601.ClientRejected%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Legacy/Networking.Legacy/Server/Server.cs/#L286">View Source</a>
+  </span>
+  <h4 id="TheXDS_MCART_Networking_Legacy_Server_Server_1_ClientRejected" data-uid="TheXDS.MCART.Networking.Legacy.Server.Server`1.ClientRejected">ClientRejected</h4>
+  <div class="markdown level1 summary"><p>Ocurre cuando el protocolo rechaza al nuevo cliente.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;ValueEventArgs&lt;Client&gt;&gt; ClientRejected</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.EventHandler</span>&lt;<a class="xref" href="TheXDS.MCART.Events.ValueEventArgs-1.html">ValueEventArgs</a>&lt;<a class="xref" href="TheXDS.MCART.Networking.Legacy.Server.Client.html">Client</a>&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_Networking_Legacy_Server_Server_1_ServerStarted.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Legacy.Server.Server%601.ServerStarted%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Legacy/Networking.Legacy/Server/Server.cs/#L291">View Source</a>
+  </span>
+  <h4 id="TheXDS_MCART_Networking_Legacy_Server_Server_1_ServerStarted" data-uid="TheXDS.MCART.Networking.Legacy.Server.Server`1.ServerStarted">ServerStarted</h4>
+  <div class="markdown level1 summary"><p>Ocurre cuando el servidor es iniciado.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;ValueEventArgs&lt;DateTime&gt;&gt; ServerStarted</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.EventHandler</span>&lt;<a class="xref" href="TheXDS.MCART.Events.ValueEventArgs-1.html">ValueEventArgs</a>&lt;<span class="xref">System.DateTime</span>&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_Networking_Legacy_Server_Server_1_ServerStopped.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Legacy.Server.Server%601.ServerStopped%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Legacy/Networking.Legacy/Server/Server.cs/#L296">View Source</a>
+  </span>
+  <h4 id="TheXDS_MCART_Networking_Legacy_Server_Server_1_ServerStopped" data-uid="TheXDS.MCART.Networking.Legacy.Server.Server`1.ServerStopped">ServerStopped</h4>
+  <div class="markdown level1 summary"><p>Ocurre cuando el servidor es detenido.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;ValueEventArgs&lt;DateTime&gt;&gt; ServerStopped</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.EventHandler</span>&lt;<a class="xref" href="TheXDS.MCART.Events.ValueEventArgs-1.html">ValueEventArgs</a>&lt;<span class="xref">System.DateTime</span>&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="eii">Explicit Interface Implementations
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_Networking_Legacy_Server_Server_1_TheXDS_MCART_Networking_Legacy_Server_IServer_Protocol.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Legacy.Server.Server%601.TheXDS%23MCART%23Networking%23Legacy%23Server%23IServer%23Protocol%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Legacy/Networking.Legacy/Server/Server.cs/#L204">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Networking_Legacy_Server_Server_1_TheXDS_MCART_Networking_Legacy_Server_IServer_Protocol_" data-uid="TheXDS.MCART.Networking.Legacy.Server.Server`1.TheXDS#MCART#Networking#Legacy#Server#IServer#Protocol*"></a>
+  <h4 id="TheXDS_MCART_Networking_Legacy_Server_Server_1_TheXDS_MCART_Networking_Legacy_Server_IServer_Protocol" data-uid="TheXDS.MCART.Networking.Legacy.Server.Server`1.TheXDS#MCART#Networking#Legacy#Server#IServer#Protocol">IServer.Protocol</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IProtocol IServer.Protocol { get; }</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TheXDS.MCART.Networking.Legacy.Server.IProtocol.html">IProtocol</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Base.IDisposableEx.html">IDisposableEx</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Networking.Legacy.Server.IServer.html">IServer</a>
+  </div>
+  <div>
+      <span class="xref">System.IDisposable</span>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_FieldsOf__1_System_Object_">Objects.FieldsOf&lt;T&gt;(Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_GetAttr__1_System_Object_">Objects.GetAttr&lt;T&gt;(Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_GetAttrs__1_System_Object_">Objects.GetAttrs&lt;T&gt;(Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_HasAttr__1_System_Object___0__">Objects.HasAttr&lt;T&gt;(Object, out T)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_HasAttrValue__2_System_Object___1__">Objects.HasAttrValue&lt;TAttribute, TValue&gt;(Object, out TValue)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_HasAttr__1_System_Object_">Objects.HasAttr&lt;T&gt;(Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_HasAttrs__1_System_Object_System_Collections_Generic_IEnumerable___0___">Objects.HasAttrs&lt;T&gt;(Object, out IEnumerable&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_Is_System_Object_System_Object_">Objects.Is(Object, Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_IsEither__1___0___0___">Objects.IsEither&lt;T&gt;(T, T[])</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_IsEither__1___0_System_Collections_Generic_IEnumerable___0__">Objects.IsEither&lt;T&gt;(T, IEnumerable&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_IsNeither__1___0___0___">Objects.IsNeither&lt;T&gt;(T, T[])</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_IsNeither__1___0_System_Collections_Generic_IEnumerable___0__">Objects.IsNeither&lt;T&gt;(T, IEnumerable&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_IsNot_System_Object_System_Object_">Objects.IsNot(Object, Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_Itself__1___0_">Objects.Itself&lt;T&gt;(T)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_PropertiesOf__1_System_Object_">Objects.PropertiesOf&lt;T&gt;(Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_WhichAre_System_Object_System_Collections_Generic_IEnumerable_System_Object__">Objects.WhichAre(Object, IEnumerable&lt;Object&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_WhichAre_System_Object_System_Object___">Objects.WhichAre(Object, Object[])</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.CollectionExtensions.html#TheXDS_MCART_Types_Extensions_CollectionExtensions_PushInto__2___0_System_Collections_Generic_ICollection___1__">CollectionExtensions.PushInto&lt;TItem, TCollection&gt;(TItem, ICollection&lt;TCollection&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.DictionaryExtensions.html#TheXDS_MCART_Types_Extensions_DictionaryExtensions_PushInto__2___1___0_System_Collections_Generic_IDictionary___0___1__">DictionaryExtensions.PushInto&lt;TKey, TValue&gt;(TValue, TKey, IDictionary&lt;TKey, TValue&gt;)</a>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_Networking_Legacy_Server_Server_1.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Networking.Legacy.Server.Server%601%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Legacy/Networking.Legacy/Server/Server.cs/#L48" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
