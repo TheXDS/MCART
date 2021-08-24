@@ -28,7 +28,7 @@
       <LastGenOutput>Common.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Strings\Errors.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Errors.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>

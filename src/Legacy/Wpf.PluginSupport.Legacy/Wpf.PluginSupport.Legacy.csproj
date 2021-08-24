@@ -6,6 +6,6 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="$(SolutionDir)Platform\WPF\WPF.csproj" />
-    <ProjectReference Include="$(SolutionDir)Extensions\PluginSupport.Legacy\PluginSupport.Legacy.csproj" />
+    <ProjectReference Include="$(SolutionDir)Legacy\PluginSupport.Legacy\PluginSupport.Legacy.csproj" />
   </ItemGroup>
 </Project>

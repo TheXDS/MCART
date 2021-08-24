@@ -4,11 +4,14 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-    xmlns:resources="clr-namespace:TheXDS.MCART.Resources;assembly=MCART"
     xmlns:vc="clr-namespace:TheXDS.MCART.ValueConverters"
+    xmlns:resources="clr-namespace:TheXDS.MCART.Wpf.Resources.Strings;assembly=MCART.WPF"
     xmlns:viewModel="clr-namespace:TheXDS.MCART.Dialogs.ViewModel;assembly=MCART.UI"
     mc:Ignorable="d"
     d:DesignWidth="300" d:DesignHeight="300">
+
+
+
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="Bool2Vis"/>
         <vc:TypeVisibilityConverter x:Key="Conv"/>
@@ -55,69 +58,69 @@
         </Grid.ColumnDefinitions>
         <StackPanel Grid.ColumnSpan="2">
             <TextBlock>
-                <Run Text="{x:Static resources:TheXDS.MCART.Resources.Strings.InternalStrings.TypeName}"/>:
+                <Run Text="{x:Static resources:Common.TypeName}"/>:
                 <Run Text="{Binding Type.Name, Mode=OneWay}"/>
             </TextBlock>
             <TextBlock>
-                <Run Text="{x:Static resources:TheXDS.MCART.Resources.Strings.InternalStrings.Namespace}"/>:
+                <Run Text="{x:Static resources:Common.Namespace}"/>:
                 <Run Text="{Binding Type.Namespace, Mode=OneWay}"/>
             </TextBlock>
             <TextBlock>
-                <Run Text="{x:Static resources:TheXDS.MCART.Resources.Strings.InternalStrings.DeclaringAssembly}"/>:
+                <Run Text="{x:Static resources:Common.DeclaringAssembly}"/>:
                 <Run Text="{Binding Type.Assembly.FullName, Mode=OneWay}"/>
                 (<Run Text="{Binding Type.Assembly.CodeBase, Mode=OneWay}"/>)
             </TextBlock>
             <TextBlock>
-                <Run Text="{x:Static resources:TheXDS.MCART.Resources.Strings.InternalStrings.DefaultValue}"/>:
+                <Run Text="{x:Static resources:Common.DefaultValue}"/>:
                 <Run Text="{Binding DefaultValue, Mode=OneWay}"/>
             </TextBlock>
             <TextBlock Visibility="{Binding Instantiable, Converter={StaticResource Bool2Vis}}">
-                <Run Text="{x:Static resources:TheXDS.MCART.Resources.Strings.InternalStrings.NewInstance}"/>:
+                <Run Text="{x:Static resources:Common.NewInstance}"/>:
                 <Run Text="{Binding NewValue, Mode=OneWay}"/>
             </TextBlock>
         </StackPanel >
         <GroupBox Grid.Row="1" >
             <GroupBox.Header>
-                <TextBlock Text="{x:Static resources:TheXDS.MCART.Resources.Strings.InternalStrings.Properties}"/>
+                <TextBlock Text="{x:Static resources:Common.Properties}"/>
             </GroupBox.Header>
             <ScrollViewer>
                 <StackPanel>
-                    <CheckBox IsChecked="{Binding Instantiable, Mode=OneWay}" Content="{x:Static resources:TheXDS.MCART.Resources.Strings.InternalStrings.Instantiable}"/>
-                    <CheckBox IsChecked="{Binding IsStatic, Mode=OneWay}" Content="{x:Static resources:TheXDS.MCART.Resources.Strings.InternalStrings.IsStatic}"/>
-                    <CheckBox IsChecked="{Binding Type.IsSerializable, Mode=OneWay}" Content="{x:Static resources:TheXDS.MCART.Resources.Strings.InternalStrings.Serializable}"/>
-                    <CheckBox IsChecked="{Binding Type.IsGenericType, Mode=OneWay}" Content="{x:Static resources:TheXDS.MCART.Resources.Strings.InternalStrings.GenericType}"/>
-                    <CheckBox IsChecked="{Binding Type.IsConstructedGenericType, Mode=OneWay}" Content="{x:Static resources:TheXDS.MCART.Resources.Strings.InternalStrings.IsGenericBuilt}"/>
-                    <CheckBox IsChecked="{Binding Type.IsAbstract, Mode=OneWay}" Content="{x:Static resources:TheXDS.MCART.Resources.Strings.InternalStrings.Abstract}"/>
-                    <CheckBox IsChecked="{Binding Type.IsSealed, Mode=OneWay}" Content="{x:Static resources:TheXDS.MCART.Resources.Strings.InternalStrings.IsSealed}"/>
-                    <CheckBox IsChecked="{Binding Type.IsPrimitive, Mode=OneWay}" Content="{x:Static resources:TheXDS.MCART.Resources.Strings.InternalStrings.IsPrimitive}"/>
-                    <CheckBox IsChecked="{Binding Type.IsValueType, Mode=OneWay}" Content="{x:Static resources:TheXDS.MCART.Resources.Strings.InternalStrings.IsValueType}"/>
-                    <CheckBox IsChecked="{Binding Type.IsInterface, Mode=OneWay}" Content="{x:Static resources:TheXDS.MCART.Resources.Strings.InternalStrings.IsInterface}"/>
-                    <CheckBox IsChecked="{Binding Type.IsClass, Mode=OneWay}" Content="{x:Static resources:TheXDS.MCART.Resources.Strings.InternalStrings.IsClass}"/>
-                    <CheckBox IsChecked="{Binding Type.IsEnum, Mode=OneWay}" Content="{x:Static resources:TheXDS.MCART.Resources.Strings.InternalStrings.IsEnum}"/>
-                    <CheckBox IsChecked="{Binding IsDynamic, Mode=OneWay}" Content="{x:Static resources:TheXDS.MCART.Resources.Strings.InternalStrings.DynamicType}"/>
+                    <CheckBox IsChecked="{Binding Instantiable, Mode=OneWay}" Content="{x:Static resources:Common.Instantiable}"/>
+                    <CheckBox IsChecked="{Binding IsStatic, Mode=OneWay}" Content="{x:Static resources:Common.IsStatic}"/>
+                    <CheckBox IsChecked="{Binding Type.IsSerializable, Mode=OneWay}" Content="{x:Static resources:Common.Serializable}"/>
+                    <CheckBox IsChecked="{Binding Type.IsGenericType, Mode=OneWay}" Content="{x:Static resources:Common.GenericType}"/>
+                    <CheckBox IsChecked="{Binding Type.IsConstructedGenericType, Mode=OneWay}" Content="{x:Static resources:Common.IsGenericBuilt}"/>
+                    <CheckBox IsChecked="{Binding Type.IsAbstract, Mode=OneWay}" Content="{x:Static resources:Common.Abstract}"/>
+                    <CheckBox IsChecked="{Binding Type.IsSealed, Mode=OneWay}" Content="{x:Static resources:Common.IsSealed}"/>
+                    <CheckBox IsChecked="{Binding Type.IsPrimitive, Mode=OneWay}" Content="{x:Static resources:Common.IsPrimitive}"/>
+                    <CheckBox IsChecked="{Binding Type.IsValueType, Mode=OneWay}" Content="{x:Static resources:Common.IsValueType}"/>
+                    <CheckBox IsChecked="{Binding Type.IsInterface, Mode=OneWay}" Content="{x:Static resources:Common.IsInterface}"/>
+                    <CheckBox IsChecked="{Binding Type.IsClass, Mode=OneWay}" Content="{x:Static resources:Common.IsClass}"/>
+                    <CheckBox IsChecked="{Binding Type.IsEnum, Mode=OneWay}" Content="{x:Static resources:Common.IsEnum}"/>
+                    <CheckBox IsChecked="{Binding IsDynamic, Mode=OneWay}" Content="{x:Static resources:Common.DynamicType}"/>
                 </StackPanel>
             </ScrollViewer>
         </GroupBox>
         <TabControl Grid.Row="1" Grid.Column="1">
-            <TabItem IsEnabled="{Binding Type.IsInterface, Converter={StaticResource Inv}}" Header="{x:Static resources:TheXDS.MCART.Resources.Strings.InternalStrings.BaseTypes}">
+            <TabItem IsEnabled="{Binding Type.IsInterface, Converter={StaticResource Inv}}" Header="{x:Static resources:Common.BaseTypes}">
                 <ListView ItemsSource="{Binding BaseTypes, Mode=OneWay}">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="{x:Static resources:TheXDS.MCART.Resources.Strings.InternalStrings.BaseTypes}" DisplayMemberBinding="{Binding Name, Mode=OneWay}"/>
+                            <GridViewColumn Header="{x:Static resources:Common.BaseTypes}" DisplayMemberBinding="{Binding Name, Mode=OneWay}"/>
                         </GridView>
                     </ListView.View>
                 </ListView>
             </TabItem>
-            <TabItem Header="{x:Static resources:TheXDS.MCART.Resources.Strings.InternalStrings.Interfaces}">
+            <TabItem Header="{x:Static resources:Common.Interfaces}">
                 <ListView ItemsSource="{Binding Inheritances, Mode=OneWay}">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="{x:Static resources:TheXDS.MCART.Resources.Strings.InternalStrings.Interfaces}" DisplayMemberBinding="{Binding Name, Mode=OneWay}"/>
+                            <GridViewColumn Header="{x:Static resources:Common.Interfaces}" DisplayMemberBinding="{Binding Name, Mode=OneWay}"/>
                         </GridView>
                     </ListView.View>
                 </ListView>
             </TabItem>
-            <TabItem Header="{x:Static resources:TheXDS.MCART.Resources.Strings.InternalStrings.PublicMembers}">
+            <TabItem Header="{x:Static resources:Common.PublicMembers}">
                 <TreeView ItemsSource="{Binding MemberTree}">
                     <TreeView.ItemTemplate>
                         <HierarchicalDataTemplate ItemsSource="{Binding}" ItemTemplate="{x:Null}">
@@ -129,11 +132,11 @@
                     </TreeView.ItemTemplate>
                 </TreeView>
             </TabItem>
-            <TabItem IsEnabled="{Binding Type.IsConstructedGenericType}" Header="{x:Static resources:TheXDS.MCART.Resources.Strings.InternalStrings.GenericArgs}">
+            <TabItem IsEnabled="{Binding Type.IsConstructedGenericType}" Header="{x:Static resources:Common.GenericArgs}">
                 <ListView ItemsSource="{Binding Type.GenericTypeArguments, Mode=OneWay}">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="{x:Static resources:TheXDS.MCART.Resources.Strings.InternalStrings.GenericType}" DisplayMemberBinding="{Binding Name, Mode=OneWay}"/>
+                            <GridViewColumn Header="{x:Static resources:Common.GenericType}" DisplayMemberBinding="{Binding Name, Mode=OneWay}"/>
                         </GridView>
                     </ListView.View>
                 </ListView>

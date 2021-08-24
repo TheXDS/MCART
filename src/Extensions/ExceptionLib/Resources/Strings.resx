@@ -147,23 +147,8 @@
   <data name="InvalidDB" xml:space="preserve">
     <value>Base de datos inválida.</value>
   </data>
-  <data name="InvalidFuncReturnValue" xml:space="preserve">
-    <value>El método {0} ha devuelto un valor inválido en este contexto.</value>
-  </data>
-  <data name="InvalidFuncXReturnValue" xml:space="preserve">
-    <value>El método {0} ha devuelto {1}, el cual no es un valor válido en este contexto.</value>
-  </data>
-  <data name="InvalidMethodSignature" xml:space="preserve">
-    <value>El método no tiene una firma válida.</value>
-  </data>
-  <data name="InvalidMethodXSignature" xml:space="preserve">
-    <value>EL método '{0}' no tiene una firma válida.</value>
-  </data>
   <data name="InvalidPassword" xml:space="preserve">
     <value>Contraseña inválida.</value>
-  </data>
-  <data name="InvalidReturnValue" xml:space="preserve">
-    <value>El método ha devuelto un valor inválido en este contexto.</value>
   </data>
   <data name="InvalidXDB" xml:space="preserve">
     <value>La base de datos '{0}' no es válida.</value>

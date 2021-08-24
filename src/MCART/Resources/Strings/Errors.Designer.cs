@@ -22,7 +22,7 @@ namespace TheXDS.MCART.Resources.Strings {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Errors {
+    public class Errors {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace TheXDS.MCART.Resources.Strings {
         ///   Devuelve la instancia de ResourceManager almacenada en caché utilizada por esta clase.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("TheXDS.MCART.Resources.Strings.Errors", typeof(Errors).Assembly);
@@ -51,7 +51,7 @@ namespace TheXDS.MCART.Resources.Strings {
         ///   búsquedas de recursos mediante esta clase de recurso fuertemente tipado.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace TheXDS.MCART.Resources.Strings {
         /// <summary>
         ///   Busca una cadena traducida similar a No se puede escribir el objeto de tipo {0}..
         /// </summary>
-        internal static string CantWriteObjOfT {
+        public static string CantWriteObjOfT {
             get {
                 return ResourceManager.GetString("CantWriteObjOfT", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace TheXDS.MCART.Resources.Strings {
         /// <summary>
         ///   Busca una cadena traducida similar a Operación circular detectada..
         /// </summary>
-        internal static string CircularOpDetected {
+        public static string CircularOpDetected {
             get {
                 return ResourceManager.GetString("CircularOpDetected", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace TheXDS.MCART.Resources.Strings {
         /// <summary>
         ///   Busca una cadena traducida similar a La clase especificada no es instanciable..
         /// </summary>
-        internal static string ClassNotInstantiable {
+        public static string ClassNotInstantiable {
             get {
                 return ResourceManager.GetString("ClassNotInstantiable", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace TheXDS.MCART.Resources.Strings {
         /// <summary>
         ///   Busca una cadena traducida similar a La clase &apos;{0}&apos; no pudo ser instanciada con los parámetros de constructor especificados..
         /// </summary>
-        internal static string ClassNotInstantiableWIthArgs {
+        public static string ClassNotInstantiableWIthArgs {
             get {
                 return ResourceManager.GetString("ClassNotInstantiableWIthArgs", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace TheXDS.MCART.Resources.Strings {
         /// <summary>
         ///   Busca una cadena traducida similar a La clase {0} no es instanciable..
         /// </summary>
-        internal static string ClassXNotinstantiable {
+        public static string ClassXNotinstantiable {
             get {
                 return ResourceManager.GetString("ClassXNotinstantiable", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace TheXDS.MCART.Resources.Strings {
         /// <summary>
         ///   Busca una cadena traducida similar a La colección no contiene elementos..
         /// </summary>
-        internal static string EmptyCollection {
+        public static string EmptyCollection {
             get {
                 return ResourceManager.GetString("EmptyCollection", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace TheXDS.MCART.Resources.Strings {
         /// <summary>
         ///   Busca una cadena traducida similar a Se esperaba un tipo de colección enumerable..
         /// </summary>
-        internal static string EnumerableTypeExpected {
+        public static string EnumerableTypeExpected {
             get {
                 return ResourceManager.GetString("EnumerableTypeExpected", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace TheXDS.MCART.Resources.Strings {
         /// <summary>
         ///   Busca una cadena traducida similar a El tipo {0} no es un tipo de enumeración válido..
         /// </summary>
-        internal static string EnumTypeExpected {
+        public static string EnumTypeExpected {
             get {
                 return ResourceManager.GetString("EnumTypeExpected", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace TheXDS.MCART.Resources.Strings {
         /// <summary>
         ///   Busca una cadena traducida similar a Se ha producido un error al intentar cargar el contenido de la licencia..
         /// </summary>
-        internal static string ErrorLoadingLicense {
+        public static string ErrorLoadingLicense {
             get {
                 return ResourceManager.GetString("ErrorLoadingLicense", resourceCulture);
             }
@@ -144,7 +144,7 @@ namespace TheXDS.MCART.Resources.Strings {
         /// <summary>
         ///   Busca una cadena traducida similar a Ha ocurrido un error al cargar el recurso {0}..
         /// </summary>
-        internal static string ErrorLoadingRes {
+        public static string ErrorLoadingRes {
             get {
                 return ResourceManager.GetString("ErrorLoadingRes", resourceCulture);
             }
@@ -153,7 +153,7 @@ namespace TheXDS.MCART.Resources.Strings {
         /// <summary>
         ///   Busca una cadena traducida similar a El formato {0} no está soportado..
         /// </summary>
-        internal static string FormatNotSupported {
+        public static string FormatNotSupported {
             get {
                 return ResourceManager.GetString("FormatNotSupported", resourceCulture);
             }
@@ -162,16 +162,61 @@ namespace TheXDS.MCART.Resources.Strings {
         /// <summary>
         ///   Busca una cadena traducida similar a El argumento {0} contiene un valor inválido en este contexto..
         /// </summary>
-        internal static string InvalidArgument {
+        public static string InvalidArgument {
             get {
                 return ResourceManager.GetString("InvalidArgument", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a El método {0} ha devuelto un valor inválido en este contexto..
+        /// </summary>
+        public static string InvalidFuncReturnValue {
+            get {
+                return ResourceManager.GetString("InvalidFuncReturnValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El método {0} ha devuelto {1}, el cual no es un valor válido en este contexto..
+        /// </summary>
+        public static string InvalidFuncXReturnValue {
+            get {
+                return ResourceManager.GetString("InvalidFuncXReturnValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El método no tiene una firma válida..
+        /// </summary>
+        public static string InvalidMethodSignature {
+            get {
+                return ResourceManager.GetString("InvalidMethodSignature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a EL método &apos;{0}&apos; no tiene una firma válida..
+        /// </summary>
+        public static string InvalidMethodXSignature {
+            get {
+                return ResourceManager.GetString("InvalidMethodXSignature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El método ha devuelto un valor inválido en este contexto..
+        /// </summary>
+        public static string InvalidReturnValue {
+            get {
+                return ResourceManager.GetString("InvalidReturnValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a El tipo no es válido en este contexto..
         /// </summary>
-        internal static string InvalidType {
+        public static string InvalidType {
             get {
                 return ResourceManager.GetString("InvalidType", resourceCulture);
             }
@@ -180,7 +225,7 @@ namespace TheXDS.MCART.Resources.Strings {
         /// <summary>
         ///   Busca una cadena traducida similar a El URI apunta a un recurso no válido..
         /// </summary>
-        internal static string InvalidUri {
+        public static string InvalidUri {
             get {
                 return ResourceManager.GetString("InvalidUri", resourceCulture);
             }
@@ -189,7 +234,7 @@ namespace TheXDS.MCART.Resources.Strings {
         /// <summary>
         ///   Busca una cadena traducida similar a El valor proporcionado no es válido en este contexto..
         /// </summary>
-        internal static string InvalidValue {
+        public static string InvalidValue {
             get {
                 return ResourceManager.GetString("InvalidValue", resourceCulture);
             }
@@ -198,7 +243,7 @@ namespace TheXDS.MCART.Resources.Strings {
         /// <summary>
         ///   Busca una cadena traducida similar a El tipo {0} no es válido en este contexto..
         /// </summary>
-        internal static string InvalidXType {
+        public static string InvalidXType {
             get {
                 return ResourceManager.GetString("InvalidXType", resourceCulture);
             }
@@ -207,7 +252,7 @@ namespace TheXDS.MCART.Resources.Strings {
         /// <summary>
         ///   Busca una cadena traducida similar a El URI que apunta al recurso &apos;{0}&apos; no es válido..
         /// </summary>
-        internal static string InvalidXUri {
+        public static string InvalidXUri {
             get {
                 return ResourceManager.GetString("InvalidXUri", resourceCulture);
             }
@@ -216,7 +261,7 @@ namespace TheXDS.MCART.Resources.Strings {
         /// <summary>
         ///   Busca una cadena traducida similar a El valor {0} no es válido en este contexto..
         /// </summary>
-        internal static string InvalidXValue {
+        public static string InvalidXValue {
             get {
                 return ResourceManager.GetString("InvalidXValue", resourceCulture);
             }
@@ -225,7 +270,7 @@ namespace TheXDS.MCART.Resources.Strings {
         /// <summary>
         ///   Busca una cadena traducida similar a  en {0}.
         /// </summary>
-        internal static string InX {
+        public static string InX {
             get {
                 return ResourceManager.GetString("InX", resourceCulture);
             }
@@ -234,7 +279,7 @@ namespace TheXDS.MCART.Resources.Strings {
         /// <summary>
         ///   Busca una cadena traducida similar a El argumento mínimo debe ser inferior o igual al máximo..
         /// </summary>
-        internal static string MinGtMax {
+        public static string MinGtMax {
             get {
                 return ResourceManager.GetString("MinGtMax", resourceCulture);
             }
@@ -243,7 +288,7 @@ namespace TheXDS.MCART.Resources.Strings {
         /// <summary>
         ///   Busca una cadena traducida similar a La declaración del tipo {0} requiere un atributo de Guid..
         /// </summary>
-        internal static string MissingGuidAttrFromType {
+        public static string MissingGuidAttrFromType {
             get {
                 return ResourceManager.GetString("MissingGuidAttrFromType", resourceCulture);
             }
@@ -252,7 +297,7 @@ namespace TheXDS.MCART.Resources.Strings {
         /// <summary>
         ///   Busca una cadena traducida similar a No hay información de pila disponible..
         /// </summary>
-        internal static string NoStackInfo {
+        public static string NoStackInfo {
             get {
                 return ResourceManager.GetString("NoStackInfo", resourceCulture);
             }
@@ -261,7 +306,7 @@ namespace TheXDS.MCART.Resources.Strings {
         /// <summary>
         ///   Busca una cadena traducida similar a El objeto está deshabilitado..
         /// </summary>
-        internal static string ObjectIsDisabled {
+        public static string ObjectIsDisabled {
             get {
                 return ResourceManager.GetString("ObjectIsDisabled", resourceCulture);
             }
@@ -270,7 +315,7 @@ namespace TheXDS.MCART.Resources.Strings {
         /// <summary>
         ///   Busca una cadena traducida similar a La propiedad &apos;{0}&apos; es de sólo lectura..
         /// </summary>
-        internal static string PropIsReadOnly {
+        public static string PropIsReadOnly {
             get {
                 return ResourceManager.GetString("PropIsReadOnly", resourceCulture);
             }
@@ -279,7 +324,7 @@ namespace TheXDS.MCART.Resources.Strings {
         /// <summary>
         ///   Busca una cadena traducida similar a La pila está vacía..
         /// </summary>
-        internal static string StackUnderflow {
+        public static string StackUnderflow {
             get {
                 return ResourceManager.GetString("StackUnderflow", resourceCulture);
             }
@@ -288,7 +333,7 @@ namespace TheXDS.MCART.Resources.Strings {
         /// <summary>
         ///   Busca una cadena traducida similar a Se ha detectado una manipulación inesperada de la aplicación, o la memoria del proceso ha sido corrompida. Detenga la ejecución del programa inmediatamente..
         /// </summary>
-        internal static string TamperDetected {
+        public static string TamperDetected {
             get {
                 return ResourceManager.GetString("TamperDetected", resourceCulture);
             }
@@ -297,7 +342,7 @@ namespace TheXDS.MCART.Resources.Strings {
         /// <summary>
         ///   Busca una cadena traducida similar a El valor {0} está fuera del rango de valores definidos para la enumeración {1}..
         /// </summary>
-        internal static string UndefinedEnum {
+        public static string UndefinedEnum {
             get {
                 return ResourceManager.GetString("UndefinedEnum", resourceCulture);
             }
@@ -306,7 +351,7 @@ namespace TheXDS.MCART.Resources.Strings {
         /// <summary>
         ///   Busca una cadena traducida similar a El valor debe estar entre {0} y {1}..
         /// </summary>
-        internal static string ValueMustBeBetweenXandY {
+        public static string ValueMustBeBetweenXandY {
             get {
                 return ResourceManager.GetString("ValueMustBeBetweenXandY", resourceCulture);
             }

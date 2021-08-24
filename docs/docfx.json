@@ -8,6 +8,7 @@
             "src/Lib/**.csproj",
             "src/Platform/**.csproj",
             "src/MCART/**.csproj",
+			"src/Legacy/**.csproj"
           ]
         }
       ],
@@ -15,7 +16,7 @@
       "disableGitFeatures": false,
       "disableDefaultFilter": false,
         "properties": {
-          "TargetFramework": "netcoreapp3.0"
+          "TargetFramework": "net5.0"
       }
     }
   ],

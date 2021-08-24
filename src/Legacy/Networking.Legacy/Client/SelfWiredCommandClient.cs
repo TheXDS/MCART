@@ -68,7 +68,7 @@ namespace TheXDS.MCART.Networking.Legacy.Client
     /// <code language="vb" source="..\..\Documentation\Examples\Networking\Client\SelfWiredCommandClient.vb"
     /// region="example1" />
     /// </example>
-    [Obsolete(Resources.InternalStrings.LegacyComponent)]
+    [Obsolete("Este es un componente legado.")]
     public abstract class SelfWiredCommandClient<TCommand, TResponse> : ActiveClient
         where TCommand : struct, Enum where TResponse : struct, Enum
     {

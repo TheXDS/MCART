@@ -23,6 +23,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using Ers = TheXDS.MCART.Wpf.Resources.Strings.Errors;
 
 namespace TheXDS.MCART.Resources
 {
@@ -43,7 +44,7 @@ namespace TheXDS.MCART.Resources
         /// </returns>
         public static Exception ResourceNotFound(string id, string argName)
         {
-            return new ArgumentException(string.Format(ErrorStrings.ResourceNotFound, id), argName);
+            return new ArgumentException(string.Format(Ers.ResourceNotFound, id), argName);
         }
     }
 }

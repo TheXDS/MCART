@@ -39,7 +39,7 @@ namespace TheXDS.MCART.ExceptionLib.Resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("TheXDS.MCART.ExceptionLib.Resources.Strings", typeof(Strings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("TheXDS.MCART.Resources.Strings", typeof(Strings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -151,56 +151,11 @@ namespace TheXDS.MCART.ExceptionLib.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a El método {0} ha devuelto un valor inválido en este contexto..
-        /// </summary>
-        internal static string InvalidFuncReturnValue {
-            get {
-                return ResourceManager.GetString("InvalidFuncReturnValue", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a El método {0} ha devuelto {1}, el cual no es un valor válido en este contexto..
-        /// </summary>
-        internal static string InvalidFuncXReturnValue {
-            get {
-                return ResourceManager.GetString("InvalidFuncXReturnValue", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a El método no tiene una firma válida..
-        /// </summary>
-        internal static string InvalidMethodSignature {
-            get {
-                return ResourceManager.GetString("InvalidMethodSignature", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a EL método &apos;{0}&apos; no tiene una firma válida..
-        /// </summary>
-        internal static string InvalidMethodXSignature {
-            get {
-                return ResourceManager.GetString("InvalidMethodXSignature", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Busca una cadena traducida similar a Contraseña inválida..
         /// </summary>
         internal static string InvalidPassword {
             get {
                 return ResourceManager.GetString("InvalidPassword", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a El método ha devuelto un valor inválido en este contexto..
-        /// </summary>
-        internal static string InvalidReturnValue {
-            get {
-                return ResourceManager.GetString("InvalidReturnValue", resourceCulture);
             }
         }
         

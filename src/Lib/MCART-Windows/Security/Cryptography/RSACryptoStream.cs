@@ -35,7 +35,7 @@ namespace TheXDS.MCART.Security.Cryptography
     /// Implementa un flujo que lee y escribe información encriptada en RSA
     /// sobre un <see cref="Stream"/> especificado.
     /// </summary>
-    public class RSACryptoStream : Stream, IDisposable
+    public partial class RSACryptoStream : Stream, IDisposable
     {
         private readonly Stream _stream;
         private readonly RSACryptoServiceProvider _rsa;
@@ -219,8 +219,7 @@ namespace TheXDS.MCART.Security.Cryptography
         /// </returns>
         public byte[] ReadToEnd()
         {
-            if (!CanRead) throw new NotSupportedException();
-
+            ReadToEnd_Contract();
             byte[] a;
             if (_stream.CanSeek)
             {
@@ -283,11 +282,7 @@ namespace TheXDS.MCART.Security.Cryptography
         /// </param>
         public override void Write(byte[] buffer, int offset, int count)
         {
-            if (offset + count > buffer.Length) throw new ArgumentException();
-            if (buffer is null) throw new ArgumentNullException(nameof(buffer));
-            if (offset < 0) throw new ArgumentOutOfRangeException(nameof(offset));
-            if (count < 0) throw new ArgumentOutOfRangeException(nameof(count));
-            if (!CanWrite) throw new NotSupportedException();
+            Write_Contract(buffer, offset, count);
             var b = buffer.Range(offset, count).ToArray();
             if (!b.Any()) return;
             var eb = _rsa.Encrypt(b, true);

@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:vc="clr-namespace:TheXDS.MCART.ValueConverters"
     xmlns:viewModel="clr-namespace:TheXDS.MCART.Dialogs.ViewModel"
-    xmlns:resources="clr-namespace:TheXDS.MCART.Resources;assembly=MCART"
+    xmlns:resources="clr-namespace:TheXDS.MCART.Wpf.Resources.Strings;assembly=MCART.WPF"
     xmlns:controls="clr-namespace:TheXDS.MCART.Controls"
     mc:Ignorable="d"
     d:DataContext="{d:DesignInstance viewModel:AboutPageViewModel}">
@@ -36,7 +36,7 @@
                     FontSize="24"
                     Text="{Binding Name, Mode=OneWay}"/>
                 <TextBlock>
-                    <Run Text="{x:Static resources:Strings.Ver}"/>
+                    <Run Text="{x:Static resources:Common.Version}"/>
                     <Run Text="{Binding InformationalVersion, Mode=OneWay}"/>
                 </TextBlock>
                 <TextBlock Text="{Binding Description, Mode=OneWay}"/>
@@ -44,14 +44,14 @@
                 <controls:StretchyWrapPanel>
                     <Button
                         Visibility="{Binding HasLicense, Converter={StaticResource B2VConv}}"
-                        Command="{Binding LicenseCommand, Mode=OneWay}" Content="{x:Static resources:Strings.SeeLicense}"/>
+                        Command="{Binding LicenseCommand, Mode=OneWay}" Content="{x:Static resources:Common.SeeLicense}"/>
                     <Button
                         Visibility="{Binding ShowAboutMcart, Converter={StaticResource B2VConv}}"
-                        Command="{Binding AboutMcartCommand, Mode=OneWay}" Content="{x:Static resources:Strings.AboutMCART}"/>
+                        Command="{Binding AboutMcartCommand, Mode=OneWay}" Content="{x:Static resources:Common.AboutMCART}"/>
                 </controls:StretchyWrapPanel>
                 <TextBlock Visibility="{Binding Has3rdPartyLicense, Converter={StaticResource B2VConv}}">                    
                     <Hyperlink Command="{Binding LicenseCommand, Mode=OneWay}">
-                        <Run Text="{x:Static resources:Strings.See3rdPartyLicenses}"/>
+                        <Run Text="{x:Static resources:Common.See3rdPartyLicenses}"/>
                     </Hyperlink>
                 </TextBlock>
             </StackPanel>

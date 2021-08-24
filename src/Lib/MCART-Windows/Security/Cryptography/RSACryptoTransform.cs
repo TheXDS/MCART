@@ -26,6 +26,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
+using TheXDS.MCART.Types.Base;
 using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Security.Cryptography
@@ -34,7 +35,7 @@ namespace TheXDS.MCART.Security.Cryptography
     /// Implementa una transformación criptográfica para encriptar datos
     /// por medio del algoritmo RSA.
     /// </summary>
-    public class RSACryptoTransform : ICryptoTransform
+    public class RSACryptoTransform : Disposable, ICryptoTransform
     {
         /// <summary>
         /// Instancia un nuevo <see cref="CryptoStream"/> utilizando la
@@ -202,7 +203,7 @@ namespace TheXDS.MCART.Security.Cryptography
         /// <summary>
         /// Libera los recursos utilizados por este objeto.
         /// </summary>
-        public void Dispose()
+        protected override void OnDispose()
         {
             _rsa.Dispose();
         }

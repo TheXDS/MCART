@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TheXDS.MCART.Resources {
+namespace TheXDS.MCART.Windows.Resources.Strings {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace TheXDS.MCART.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class ErrorStrings {
+    internal class Errors {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ErrorStrings() {
+        internal Errors() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace TheXDS.MCART.Resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("TheXDS.MCART.Resources.ErrorStrings", typeof(ErrorStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("TheXDS.MCART.Resources.Strings.Errors", typeof(Errors).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,11 +61,11 @@ namespace TheXDS.MCART.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a No se ha encontrado el recurso {0}..
+        ///   Busca una cadena traducida similar a Los valores de &apos;offset&apos; y &apos;count&apos; hacen referencia a un rango fuera del búffer..
         /// </summary>
-        internal static string ResourceNotFound {
+        internal static string OffsetCountOutsideBuffer {
             get {
-                return ResourceManager.GetString("ResourceNotFound", resourceCulture);
+                return ResourceManager.GetString("OffsetCountOutsideBuffer", resourceCulture);
             }
         }
     }
