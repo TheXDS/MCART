@@ -14,7 +14,7 @@ if (!(Test-Path $TEMP_REPO_DIR)) {
 }
 Set-Location $TEMP_REPO_DIR
 git rm -r *
-Copy-Item -Path $SOURCE_DIR/docs/_site/* -Destination . -Recurse -Force
+Copy-Item -Path $SOURCE_DIR/../docs/_site/* -Destination . -Recurse -Force
 git add . -A
 git commit -m "Actualización de documentación"
 git push origin gh-pages
