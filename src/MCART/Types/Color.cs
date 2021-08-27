@@ -376,7 +376,6 @@ namespace TheXDS.MCART.Types
         /// <see langword="true"/> ambas instancias de <see cref="Color"/> son distintas,
         /// <see langword="false"/> en caso contrario.
         /// </returns>
-
         public static bool operator !=(in Color left, in Color right) => !left.Equals(right);
 
         float _r, _g, _b, _a;

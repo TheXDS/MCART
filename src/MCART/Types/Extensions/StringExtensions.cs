@@ -44,6 +44,8 @@ namespace TheXDS.MCART.Types.Extensions
     /// </summary>
     public static class StringExtensions
     {
+        private static (string match, Func<char, bool> test)[]? matchRules;
+
         /// <summary>
         /// Describe las opciones de búsqueda para el método
         /// <see cref="TokenSearch(string, string, SearchOptions)" />
@@ -520,234 +522,6 @@ namespace TheXDS.MCART.Types.Extensions
             return CountChars(stringToCheck, chars.ToCharArray());
         }
 
-        /// <author>H.A. Sullivan</author>
-        /// <date>04/11/2016</date>
-        /// <summary>
-        /// Comprueba si una cadena coincide con un WildCard especificado.
-        /// </summary>
-        /// <license>
-        /// MIT License
-        /// Copyright(c) [2016]
-        /// [H.A. Sullivan]
-        /// Permission is hereby granted, free of charge, to any person obtaining a copy
-        /// of this software and associated documentation files (the "Software"), to deal
-        /// in the Software without restriction, including without limitation the rights
-        /// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-        /// copies of the Software, and to permit persons to whom the Software is
-        /// furnished to do so, subject to the following conditions:
-        /// The above copyright notice and this permission notice shall be included in all
-        /// copies or substantial portions of the Software.
-        /// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-        /// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-        /// FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
-        /// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-        /// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-        /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-        /// SOFTWARE.
-        /// </license>
-        /// <param name="text">
-        /// Cadena a comprobar.
-        /// </param>
-        /// <param name="wildcardString">
-        /// WildCard contra el cual comprobar.
-        /// </param>
-        /// <returns>
-        /// <see langword="true" /> si la cadena coincide con el Wildcard
-        /// especificado, <see langword="false" /> en caso contrario.
-        /// </returns>
-        /// <remarks>
-        /// Versión original del algoritmo por H.A. Sullivan, bajo licencia MIT.
-        /// <h1>Cambios en esta versión:</h1>
-        /// <list type="bullet">
-        /// <item>
-        ///     <description>Optimizaciones sugeridas por ReSharper.</description>
-        /// </item>
-        /// <item>
-        ///     <description>Traducción de documentación.</description>
-        /// </item>
-        /// </list>
-        /// </remarks>
-        public static bool EqualsWildcard(this string text, string wildcardString)
-        {
-            var isLike = true;
-            byte matchCase = 0;
-            char[] reversedFilter;
-            char[] reversedWord;
-            var currentPatternStartIndex = 0;
-            var lastCheckedHeadIndex = 0;
-            var lastCheckedTailIndex = 0;
-            var reversedWordIndex = 0;
-            var reversedPatterns = new ListEx<char[]>();
-
-            if (text == null || wildcardString == null) return false;
-
-            var word = text.ToCharArray();
-            var filter = wildcardString.ToCharArray();
-
-            //Set which case will be used (0 = no wildcards, 1 = only ?, 2 = only *, 3 = both ? and *
-            if (filter.Any(t => t == '?'))
-                matchCase += 1;
-
-            if (filter.Any(t => t == '*'))
-                matchCase += 2;
-
-            if ((matchCase == 0 || matchCase == 1) && word.Length != filter.Length) return false;
-
-            switch (matchCase)
-            {
-                case 0:
-                    isLike = text == wildcardString;
-                    break;
-
-                case 1:
-                    for (var i = 0; i < text.Length; i++)
-                        if (word[i] != filter[i] && filter[i] != '?')
-                            isLike = false;
-                    break;
-
-                case 2:
-                    //Search for matches until first *
-                    for (var i = 0; i < filter.Length; i++)
-                        if (filter[i] != '*')
-                        {
-                            if (filter[i] != word[i]) return false;
-                        }
-                        else
-                        {
-                            lastCheckedHeadIndex = i;
-                            break;
-                        }
-
-                    //Search Tail for matches until first *
-                    for (var i = 0; i < filter.Length; i++)
-                        if (filter[filter.Length - 1 - i] != '*')
-                        {
-                            if (filter[filter.Length - 1 - i] != word[word.Length - 1 - i]) return false;
-                        }
-                        else
-                        {
-                            lastCheckedTailIndex = i;
-                            break;
-                        }
-
-                    //Create a reverse word and filter for searching in reverse. The reversed word and filter do not include already checked chars
-                    reversedWord = new char[word.Length - lastCheckedHeadIndex - lastCheckedTailIndex];
-                    reversedFilter = new char[filter.Length - lastCheckedHeadIndex - lastCheckedTailIndex];
-
-                    for (var i = 0; i < reversedWord.Length; i++)
-                        reversedWord[i] = word[word.Length - (i + 1) - lastCheckedTailIndex];
-                    for (var i = 0; i < reversedFilter.Length; i++)
-                        reversedFilter[i] = filter[filter.Length - (i + 1) - lastCheckedTailIndex];
-
-                    //Cut up the filter into separate patterns, exclude * as they are not longer needed
-                    for (var i = 0; i < reversedFilter.Length; i++)
-                    {
-                        if (reversedFilter[i] != '*') continue;
-                        if (i - currentPatternStartIndex > 0)
-                        {
-                            var pattern = new char[i - currentPatternStartIndex];
-                            for (var j = 0; j < pattern.Length; j++)
-                                pattern[j] = reversedFilter[currentPatternStartIndex + j];
-                            reversedPatterns.Add(pattern);
-                        }
-
-                        currentPatternStartIndex = i + 1;
-                    }
-
-                    //Search for the patterns
-                    foreach (var t in reversedPatterns)
-                        for (var j = 0; j < t.Length; j++)
-                        {
-                            if (reversedWordIndex > reversedWord.Length - 1) return false;
-
-                            if (t[j] != reversedWord[reversedWordIndex + j])
-                            {
-                                reversedWordIndex += 1;
-                                j = -1;
-                            }
-                            else
-                            {
-                                if (j == t.Length - 1) reversedWordIndex += t.Length;
-                            }
-                        }
-
-                    break;
-
-                case 3:
-                    //Same as Case 2 except ? is considered a match
-                    //Search Head for matches util first *
-                    for (var i = 0; i < filter.Length; i++)
-                        if (filter[i] != '*')
-                        {
-                            if (filter[i] != word[i] && filter[i] != '?') return false;
-                        }
-                        else
-                        {
-                            lastCheckedHeadIndex = i;
-                            break;
-                        }
-
-                    //Search Tail for matches until first *
-                    for (var i = 0; i < filter.Length; i++)
-                        if (filter[filter.Length - 1 - i] != '*')
-                        {
-                            if (filter[filter.Length - 1 - i] != word[word.Length - 1 - i] &&
-                                filter[filter.Length - 1 - i] != '?') return false;
-                        }
-                        else
-                        {
-                            lastCheckedTailIndex = i;
-                            break;
-                        }
-
-                    // Reverse and trim word and filter
-                    reversedWord = new char[word.Length - lastCheckedHeadIndex - lastCheckedTailIndex];
-                    reversedFilter = new char[filter.Length - lastCheckedHeadIndex - lastCheckedTailIndex];
-
-                    for (var i = 0; i < reversedWord.Length; i++)
-                        reversedWord[i] = word[word.Length - (i + 1) - lastCheckedTailIndex];
-                    for (var i = 0; i < reversedFilter.Length; i++)
-                        reversedFilter[i] = filter[filter.Length - (i + 1) - lastCheckedTailIndex];
-
-                    for (var i = 0; i < reversedFilter.Length; i++)
-                    {
-                        if (reversedFilter[i] != '*') continue;
-                        if (i - currentPatternStartIndex > 0)
-                        {
-                            var pattern = new char[i - currentPatternStartIndex];
-                            for (var j = 0; j < pattern.Length; j++)
-                                pattern[j] = reversedFilter[currentPatternStartIndex + j];
-                            reversedPatterns.Add(pattern);
-                        }
-
-                        currentPatternStartIndex = i + 1;
-                    }
-
-                    //Search for the patterns
-                    foreach (var t in reversedPatterns)
-                        for (var j = 0; j < t.Length; j++)
-                        {
-                            if (reversedWordIndex > reversedWord.Length - 1) return false;
-
-                            if (t[j] != '?' && t[j] != reversedWord[reversedWordIndex + j])
-                            {
-                                reversedWordIndex += 1;
-                                j = -1;
-                            }
-                            else
-                            {
-                                if (j == t.Length - 1) reversedWordIndex += t.Length;
-                            }
-                        }
-
-                    break;
-                default:
-                    throw new NotImplementedException();
-            }
-
-            return isLike;
-        }
-
         /// <summary>
         /// Determina si una cadena contiene un valor binario.
         /// </summary>
@@ -760,7 +534,7 @@ namespace TheXDS.MCART.Types.Extensions
         public static bool IsBinary(this string str)
         {
             if (str.StartsWith("0b", true, CultureInfo.CurrentCulture)
-                || str.StartsWith("&b", true, CultureInfo.CurrentCulture)) str = str.Substring(2);
+                || str.StartsWith("&b", true, CultureInfo.CurrentCulture)) str = str[2..];
             return str.ToCharArray().All(j => "01".Contains(j));
         }
 
@@ -813,6 +587,13 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static bool IsFormattedAs(this string checkString, string format, bool checkCase)
         {
+            matchRules ??= new (string match, Func<char, bool> test)[] {
+                new("09#", p => char.IsDigit(p)),
+                new("Bb", p => "01".Contains(p)),
+                new("Ff", p => byte.TryParse($"{p}", NumberStyles.HexNumber, null, out _)),
+                new("AX", p => char.IsUpper(p)),
+                new("ax", p => char.IsLower(p))
+            };
             var chkS = checkCase ? checkString : checkString.ToUpperInvariant();
             var fS = checkCase ? format : format.ToUpperInvariant();
             if (chkS.Length != fS.Length) return false;
@@ -820,34 +601,9 @@ namespace TheXDS.MCART.Types.Extensions
             {
                 var strChar = chkS[j];
                 var fChar = fS[j];
-                switch (fChar)
-                {
-                    case '0':
-                    case '9':
-                        if (!char.IsDigit(strChar)) return false;
-                        break;
-                    case 'B':
-                    case 'b':
-                        if (!"01".Contains(strChar)) return false;
-                        break;
-                    case 'f':
-                    case 'F':
-                        if (!byte.TryParse($"{strChar}", NumberStyles.HexNumber, null, out _)) return false;
-                        break;
-                    case 'A':
-                    case 'X':
-                        if (!char.IsUpper(strChar)) return false;
-                        break;
-                    case 'a':
-                    case 'x':
-                        if (!char.IsLower(strChar)) return false;
-                        break;
-                    default: // Caracteres literales.
-                        if (strChar != fChar) return false;
-                        break;
-                }
+                var rule = matchRules.SingleOrDefault(p => p.match.Contains(fChar)).test ?? (p => fChar == p);
+                if (!rule(strChar)) return false;
             }
-
             return true;
         }
 
@@ -862,7 +618,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static bool IsHex(this string str)
         {
-            if (str.StartsWith("0x") || str.StartsWith("&h", true, CultureInfo.CurrentCulture)) str = str.Substring(2);
+            if (str.StartsWith("0x") || str.StartsWith("&h", true, CultureInfo.CurrentCulture)) str = str[2..];
             return str.ToCharArray().All(j => @"0123456789abcdefABCDEF".Contains(j));
         }
 
@@ -978,11 +734,6 @@ namespace TheXDS.MCART.Types.Extensions
         public static string? OrNull(this string? str, string notNullFormat)
         {
             return !str.IsEmpty() ? string.Format(notNullFormat, str) : null;
-        }
-
-        private static string? OrX(string? source, string? emptyRetVal)
-        {
-            return !source.IsEmpty() ? source : emptyRetVal;
         }
 
         /// <summary>
@@ -1126,8 +877,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// las cadenas especificadas, <see langword="false" /> en caso
         /// contrario.
         /// </returns>
-        public static bool StartsWithAny(this string str, IEnumerable<string> strings, bool ignoreCase,
-            CultureInfo culture)
+        public static bool StartsWithAny(this string str, IEnumerable<string> strings, bool ignoreCase, CultureInfo culture)
         {
             return strings.Any(p => str.StartsWith(p, ignoreCase, culture));
         }
@@ -1322,6 +1072,11 @@ namespace TheXDS.MCART.Types.Extensions
         private static string WildCardToRegular(string value)
         {
             return "^" + Regex.Escape(value).Replace("\\?", ".").Replace("\\*", ".*") + "$";
+        }
+
+        private static string? OrX(string? source, string? emptyRetVal)
+        {
+            return !source.IsEmpty() ? source : emptyRetVal;
         }
     }
 }

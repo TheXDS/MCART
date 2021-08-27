@@ -43,7 +43,6 @@ namespace Common.Types.Extensions
             Assert.True("0b1010".IsBinary());
             Assert.True("1010".IsBinary());
             Assert.True("&b1010".IsBinary());
-
             Assert.False("0b0b1010".IsBinary());
             Assert.False("&b&b1010".IsBinary());
             Assert.False("0b1012".IsBinary());
@@ -60,7 +59,6 @@ namespace Common.Types.Extensions
             Assert.True("0x123f".IsHex());
             Assert.True("123f".IsHex());
             Assert.True("&h123f".IsHex());
-
             Assert.False("0x0x123F".IsHex());
             Assert.False("&h&h123F".IsHex());
             Assert.False("0x123J".IsHex());
@@ -73,10 +71,8 @@ namespace Common.Types.Extensions
         {
             Assert.True("abc123".ContainsLetters());
             Assert.False("123456".ContainsLetters());
-
             Assert.False("abcdef".ContainsLetters(true));
             Assert.True("ABCdef".ContainsLetters(true));
-
             Assert.False("ABCDEF".ContainsLetters(false));
             Assert.True("ABCdef".ContainsLetters(true));
         }
@@ -104,18 +100,14 @@ namespace Common.Types.Extensions
             Assert.True("Test".ContainsAny('q', 't', 'a'));
             Assert.True("Test".ContainsAny(out var idx, 'q', 't', 'a'));
             Assert.Equal(1, idx);
-            
             Assert.True("Test".ContainsAny(out var idx2, "t", "a"));
             Assert.Equal(0, idx2);
-
             Assert.True("Test".ContainsAny("Ta", "Te"));
             Assert.True("Test".ContainsAny(out var idx3, "Ta", "Te"));
             Assert.Equal(1, idx3);
-
             Assert.False("Test".ContainsAny('a', 'd'));
             Assert.False("Test".ContainsAny(out var idx4, 'a', 'd'));
             Assert.Equal(-1, idx4);
-
             Assert.False("Test".ContainsAny("Ta", "Ti"));
             Assert.False("Test".ContainsAny(out var idx5, "Ta", "Ti"));
             Assert.Equal(-1, idx5);
@@ -128,7 +120,6 @@ namespace Common.Types.Extensions
             Assert.Throws<ArgumentNullException>(() => "Test".CouldItBe(""));
             Assert.Throws<ArgumentOutOfRangeException>(() => "Test".CouldItBe("Test", 0f));
             Assert.Throws<ArgumentOutOfRangeException>(() => "Test".CouldItBe("Test", 2f));
-
             Assert.Equal(1.0, "César Morgan".CouldItBe("César Andrés Morgan"));
             Assert.Equal(0.0, "Gerardo Belot".CouldItBe("César Andrés Morgan"));
             Assert.InRange("Jarol Darío Rivera".CouldItBe("Harold Rivera Aguilar", 0.6f), 0.55, 0.56);
@@ -192,20 +183,16 @@ namespace Common.Types.Extensions
         public void IsFormattedAsTest()
         {
             Assert.False("XYZ-ABCD".IsFormattedAs("A0"));
-
-            Assert.True("XYZ-1234".IsFormattedAs("XAX-0909"));
-            Assert.False("XYZ-ABCD".IsFormattedAs("XAX-0909"));
-
-            Assert.True("XYZ-1234".IsFormattedAs("XAX-0909", true));
-            Assert.True("XyZ-1234".IsFormattedAs("AaX-0909", true));
-            Assert.False("xyz-1234".IsFormattedAs("XAA-0909", true));
-            Assert.True("xyz-1234".IsFormattedAs("axa-0909", true));
-            Assert.False("XYZ-1234".IsFormattedAs("axa-0909", true));
-            Assert.False("xyz+1234".IsFormattedAs("axa-0909", true));
-
+            Assert.True("XYZ-1234".IsFormattedAs("XAX-09#9"));
+            Assert.False("XYZ-ABCD".IsFormattedAs("XAX-09#9"));
+            Assert.True("XYZ-1234".IsFormattedAs("XAX-09#9", true));
+            Assert.True("XyZ-1234".IsFormattedAs("AaX-09#9", true));
+            Assert.False("xyz-1234".IsFormattedAs("XAA-09#9", true));
+            Assert.True("xyz-1234".IsFormattedAs("axa-09#9", true));
+            Assert.False("XYZ-1234".IsFormattedAs("axa-09#9", true));
+            Assert.False("xyz+1234".IsFormattedAs("axa-09#9", true));
             Assert.True("10101010".IsFormattedAs("bBbBbBbB"));
             Assert.False("12121212".IsFormattedAs("bBbBbBbB"));
-
             Assert.True("0123456789AbCdEf".IsFormattedAs("fFfFfFfFfFfFfFfF"));
             Assert.False("AbCdEfGhIjKlMnOp".IsFormattedAs("fFfFfFfFfFfFfFfF"));
         }
@@ -233,13 +220,10 @@ namespace Common.Types.Extensions
             Assert.True("Test".StartsWithAny(new List<string>{"Ta","Te"}));
             Assert.False("Test".StartsWithAny("Ta", "Ti"));
             Assert.False("Test".StartsWithAny(new List<string> { "Ta", "Ti" }));
-
             Assert.True("TEST".StartsWithAny(new List<string> { "ta", "te" },true));
             Assert.False("TEST".StartsWithAny(new List<string> { "ta", "ti" }, true));
-
             Assert.True("TEST".StartsWithAny(new List<string> { "ta", "te" }, true, CultureInfo.CurrentCulture));
             Assert.False("TEST".StartsWithAny(new List<string> { "ta", "ti" }, true, CultureInfo.CurrentCulture));
-
             Assert.True("TEST".StartsWithAny(new List<string> { "ta", "te" }, StringComparison.OrdinalIgnoreCase));
             Assert.False("TEST".StartsWithAny(new List<string> { "ta", "ti" }, StringComparison.OrdinalIgnoreCase));
         }
