@@ -30,7 +30,8 @@ using System.Text;
 using TheXDS.MCART.Math;
 using TheXDS.MCART.Types.Extensions;
 using static TheXDS.MCART.Types.Extensions.StringExtensions;
-using St = TheXDS.MCART.Resources.Strings;
+using TheXDS.MCART.Resources.Strings;
+using St = TheXDS.MCART.Security.Legacy.Resources.Strings;
 
 namespace TheXDS.MCART.Security.Password
 {
@@ -53,7 +54,7 @@ namespace TheXDS.MCART.Security.Password
         /// <param name="password">Contraseña a evaluar.</param>
         public PwEvalResult Evaluate(SecureString password)
         {
-            if (password.Length == 0) return new PwEvalResult(0, St.Composition.Warn(St.Common.PwNeeded), true);
+            if (password.Length == 0) return new PwEvalResult(0, Composition.Warn(St.PwNeeded), true);
             double c = 0;
             var t = 0;
             var o = new StringBuilder();
@@ -66,7 +67,7 @@ namespace TheXDS.MCART.Security.Password
                 if (!j.IsExtraPoints) t += System.Math.Abs((sbyte)j.Ponderation);
             }
             return t == 0
-                ? new PwEvalResult(0, St.Composition.Warn(St.Common.PwNoActiveRules), true)
+                ? new PwEvalResult(0, Composition.Warn(St.PwNoActiveRules), true)
                 : new PwEvalResult((float)(c / t).Clamp(0, 1), o.ToString());
         }
 

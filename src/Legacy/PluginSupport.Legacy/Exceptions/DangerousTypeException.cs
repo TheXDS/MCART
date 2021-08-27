@@ -25,7 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Runtime.Serialization;
 using TheXDS.MCART.Attributes;
-using static TheXDS.MCART.ExceptionLib.Resources.Strings;
+using static TheXDS.MCART.PluginSupport.Legacy.Resources.Strings.Errors;
 
 namespace TheXDS.MCART.Exceptions
 {

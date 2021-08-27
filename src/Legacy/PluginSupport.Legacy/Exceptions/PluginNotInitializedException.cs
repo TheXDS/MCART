@@ -24,7 +24,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Runtime.Serialization;
-using TheXDS.MCART.Resources.Strings;
+using static TheXDS.MCART.PluginSupport.Legacy.Resources.Strings.Errors;
 
 namespace TheXDS.MCART.Exceptions
 {
@@ -53,7 +53,7 @@ namespace TheXDS.MCART.Exceptions
         /// Inicializa una nueva instancia de la clase 
         /// <see cref="PluginNotInitializedException" />.
         /// </summary>
-        public PluginNotInitializedException() : base(Strings.XNotInit(Strings.ThePlugin))
+        public PluginNotInitializedException() : base(PluginDidntInit)
         {
         }
 

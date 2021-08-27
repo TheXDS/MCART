@@ -176,12 +176,12 @@ namespace TheXDS.MCART.Exceptions
 
         private static string Msg()
         {
-            return Strings.XIsInvalid(Strings.TheAssembly);
+            return PluginSupport.Legacy.Resources.Strings.Errors.InvalidAssembly;
         }
 
         private static string Msg(Assembly assembly)
         {
-            return Strings.XIsInvalid(Strings.XYQuotes(Strings.TheAssembly, assembly.FullName!));
+            return string.Format(PluginSupport.Legacy.Resources.Strings.Errors.InvalidXAssembly, assembly.FullName ?? assembly.ToString());
         }
     }
 }

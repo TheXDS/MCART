@@ -4,19 +4,21 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:pluginSupport="clr-namespace:TheXDS.MCART.PluginSupport.Legacy;assembly=MCART.PluginSupport.Legacy"
-    xmlns:pages="clr-namespace:TheXDS.MCART.Pages"
+    xmlns:pluginSupport="clr-namespace:TheXDS.MCART.PluginSupport.Legacy;assembly=PluginSupport.Legacy"
+    xmlns:viewmodel="clr-namespace:TheXDS.MCART.Dialogs.ViewModel;assembly=PluginSupport.Legacy"
+    xmlns:resources="clr-namespace:TheXDS.MCART.Wpf.PluginSupport.Legacy.Resources"
     xmlns:converters="clr-namespace:TheXDS.MCART.ValueConverters;assembly=MCART.WPF"
-    xmlns:viewModel="clr-namespace:TheXDS.MCART.Dialogs.ViewModel;assembly=MCART.PluginSupport.Legacy"
-    xmlns:resources="clr-namespace:TheXDS.MCART.Resources;assembly=MCART"
-    mc:Ignorable="d" d:DataContext="{d:DesignInstance viewModel:PluginBrowserViewModel}"
-    Title="Explorador de plugins" Height="400" Width="600">
+    xmlns:pages="clr-namespace:TheXDS.MCART.Pages"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignInstance viewmodel:PluginBrowserViewModel}"
+    Height="400" Width="600">
     <Window.Resources>
         <Thickness x:Key="Mrg">5</Thickness>
         <converters:VisibilityInverter x:Key="VisInv"/>
         <converters:NullToVisibilityConverter x:Key="NConv"/>
         <BooleanToVisibilityConverter x:Key="BoolVis"/>
     </Window.Resources>
+    
     <Grid Margin="{StaticResource Mrg}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>

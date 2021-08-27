@@ -117,55 +117,46 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CorruptDataReceived" xml:space="preserve">
-    <value>Se han recibido datos corruptos.</value>
+  <data name="CantShowPluginInfo" xml:space="preserve">
+    <value>No fue posible cargar la información del plugin {0}.</value>
   </data>
-  <data name="CouldntConnect" xml:space="preserve">
-    <value>No fue posible establecer una conexión.</value>
+  <data name="ClassIsDangerous" xml:space="preserve">
+    <value>EL uso de la clase especificada es peligroso.</value>
   </data>
-  <data name="CouldntConnectTo" xml:space="preserve">
-    <value>No fue posible conectarse a '{0}'.</value>
+  <data name="ClassIsNotPlugin" xml:space="preserve">
+    <value>La clase especificada no es un plugin.</value>
   </data>
-  <data name="DataNotFound" xml:space="preserve">
-    <value>No se han encontrado los datos.</value>
+  <data name="ClassXIsDangerous" xml:space="preserve">
+    <value>El uso de la clase '{0}' es peligroso.</value>
   </data>
-  <data name="InsufficientData" xml:space="preserve">
-    <value>Datos insuficientes.</value>
+  <data name="ClassXIsNotPlugin" xml:space="preserve">
+    <value>La clase {0} no es un plugin.</value>
   </data>
-  <data name="InvalidDB" xml:space="preserve">
-    <value>Base de datos inválida.</value>
+  <data name="FeatureNotAvailable" xml:space="preserve">
+    <value>La característica no está disponible.</value>
   </data>
-  <data name="InvalidPassword" xml:space="preserve">
-    <value>Contraseña inválida.</value>
+  <data name="InvalidAssembly" xml:space="preserve">
+    <value>El ensamblado especificado no es válido.</value>
   </data>
-  <data name="InvalidXDB" xml:space="preserve">
-    <value>La base de datos '{0}' no es válida.</value>
+  <data name="InvalidXAssembly" xml:space="preserve">
+    <value>El archivo "{0}" no contiene un ensamblado válido.</value>
   </data>
-  <data name="MissingArg" xml:space="preserve">
-    <value>No se ha encontrado un argumento necesario.</value>
+  <data name="MethodIsDangerous" xml:space="preserve">
+    <value>La llamada al método especificado es peligrosa.</value>
   </data>
-  <data name="MissingXArg" xml:space="preserve">
-    <value>No se ha encontrado el argumento {0}.</value>
+  <data name="MethodXIsDangerous" xml:space="preserve">
+    <value>La llamada al método '{0}' es peligrosa.</value>
   </data>
-  <data name="NotMyDatabase" xml:space="preserve">
-    <value>La base de datos no pertenece a esta aplicación.</value>
+  <data name="PluginDidntInit" xml:space="preserve">
+    <value>El plugin no se inicializó.</value>
   </data>
-  <data name="OperationFailed" xml:space="preserve">
-    <value>La operación ha fallado.</value>
+  <data name="PluginException" xml:space="preserve">
+    <value>El Plugin ha encontrado un error.</value>
   </data>
-  <data name="OperationXFailed" xml:space="preserve">
-    <value>Una operación dentro del método '{0}' ha fallado.</value>
+  <data name="PluginXException" xml:space="preserve">
+    <value>El plugin {0} ha encontrado un error.</value>
   </data>
-  <data name="ServerNotFound" xml:space="preserve">
-    <value>No se ha encontrado el servidor.</value>
-  </data>
-  <data name="TooFewArguments" xml:space="preserve">
-    <value>Se han especificado muy pocos argumentos.</value>
-  </data>
-  <data name="TooManyArguments" xml:space="preserve">
-    <value>Se han especificado demasiados argumentos.</value>
-  </data>
-  <data name="UnknownType" xml:space="preserve">
-    <value>Tipo desconocido.</value>
+  <data name="UnusableObject" xml:space="preserve">
+    <value>El objeto no puede ser utilizado.</value>
   </data>
 </root>

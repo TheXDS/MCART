@@ -1,9 +1,15 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
 	  <OutputType>Library</OutputType>
 	  <TargetFramework>net5.0-Windows</TargetFramework>
 	  <UseWPF>true</UseWPF>
+    <AssemblyName>MCART.$(MSBuildProjectName)</AssemblyName>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Platform\WPF\WPF.csproj" />
+    <ProjectReference Include="..\Security.UI.Legacy\Security.UI.Legacy.csproj" />
+  </ItemGroup>
 
 </Project>

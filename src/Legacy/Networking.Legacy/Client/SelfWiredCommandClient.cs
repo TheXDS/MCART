@@ -285,7 +285,6 @@ namespace TheXDS.MCART.Networking.Legacy.Client
         /// </summary>
         protected override async sealed void PostConnection()
         {
-#pragma warning disable IDE0068
 #pragma warning disable 4014
             while (GetNs() is NetworkStream ns)
             {
@@ -328,7 +327,6 @@ namespace TheXDS.MCART.Networking.Legacy.Client
                     }
                 }
             }
-#pragma warning restore IDE0068
 #pragma warning restore 4014
         }
 

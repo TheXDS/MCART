@@ -25,7 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Runtime.Serialization;
 using TheXDS.MCART.PluginSupport.Legacy;
-using TheXDS.MCART.Resources.Strings;
+using St = TheXDS.MCART.PluginSupport.Legacy.Resources.Strings.Errors;
 
 namespace TheXDS.MCART.Exceptions
 {
@@ -159,12 +159,12 @@ namespace TheXDS.MCART.Exceptions
 
         private static string Msg()
         {
-            return Strings.XFoundError(Strings.ThePlugin);
+            return St.PluginException;
         }
 
         private static string Msg(IPlugin plugin)
         {
-            return Strings.XFoundError(Strings.XYQuotes(Strings.ThePlugin, plugin.Name));
+            return string.Format(St.PluginXException, plugin.Name);
         }
     }
 }

@@ -101,9 +101,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Security.Legacy", "Legacy\S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wpf.PluginSupport.Legacy", "Legacy\Wpf.PluginSupport.Legacy\Wpf.PluginSupport.Legacy.csproj", "{49849EB1-ED20-42DD-B26F-DDBE2D5DB250}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Security.UI.Legacy", "Legacy\Security.UI.Legacy\Security.UI.Legacy.csproj", "{AB0265E3-B42E-4977-8202-4253223B330D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Security.UI.Legacy", "Legacy\Security.UI.Legacy\Security.UI.Legacy.csproj", "{AB0265E3-B42E-4977-8202-4253223B330D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Security.WPF.Legacy", "Legacy\Security.WPF.Legacy\Security.WPF.Legacy.csproj", "{4BF78424-E919-4A7A-AC4D-F0D406A70D80}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Security.WPF.Legacy", "Legacy\Security.WPF.Legacy\Security.WPF.Legacy.csproj", "{4BF78424-E919-4A7A-AC4D-F0D406A70D80}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution

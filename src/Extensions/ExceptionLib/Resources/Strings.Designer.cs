@@ -61,33 +61,6 @@ namespace TheXDS.MCART.ExceptionLib.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a EL uso de la clase especificada es peligroso..
-        /// </summary>
-        internal static string ClassIsDangerous {
-            get {
-                return ResourceManager.GetString("ClassIsDangerous", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a El uso de la clase &apos;{0}&apos; es peligroso..
-        /// </summary>
-        internal static string ClassXIsDangerous {
-            get {
-                return ResourceManager.GetString("ClassXIsDangerous", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a La conexión se ha cerrado inesperadamente..
-        /// </summary>
-        internal static string ConnClosed {
-            get {
-                return ResourceManager.GetString("ConnClosed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Busca una cadena traducida similar a Se han recibido datos corruptos..
         /// </summary>
         internal static string CorruptDataReceived {
@@ -124,15 +97,6 @@ namespace TheXDS.MCART.ExceptionLib.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a La característica no está disponible..
-        /// </summary>
-        internal static string FeatureNotAvailable {
-            get {
-                return ResourceManager.GetString("FeatureNotAvailable", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Busca una cadena traducida similar a Datos insuficientes..
         /// </summary>
         internal static string InsufficientData {
@@ -165,24 +129,6 @@ namespace TheXDS.MCART.ExceptionLib.Resources {
         internal static string InvalidXDB {
             get {
                 return ResourceManager.GetString("InvalidXDB", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a La llamada al método especificado es peligrosa..
-        /// </summary>
-        internal static string MethodIsDangerous {
-            get {
-                return ResourceManager.GetString("MethodIsDangerous", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a La llamada al método &apos;{0}&apos; es peligrosa..
-        /// </summary>
-        internal static string MethodXIsDangerous {
-            get {
-                return ResourceManager.GetString("MethodXIsDangerous", resourceCulture);
             }
         }
         
@@ -259,38 +205,11 @@ namespace TheXDS.MCART.ExceptionLib.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a El Uid ya existe..
-        /// </summary>
-        internal static string UidAlreadyExists {
-            get {
-                return ResourceManager.GetString("UidAlreadyExists", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a El Uid &apos;{0}&apos; ya existe..
-        /// </summary>
-        internal static string UidXAlreadyExists {
-            get {
-                return ResourceManager.GetString("UidXAlreadyExists", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Busca una cadena traducida similar a Tipo desconocido..
         /// </summary>
         internal static string UnknownType {
             get {
                 return ResourceManager.GetString("UnknownType", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a El objeto no puede ser utilizado..
-        /// </summary>
-        internal static string UnusableObject {
-            get {
-                return ResourceManager.GetString("UnusableObject", resourceCulture);
             }
         }
     }

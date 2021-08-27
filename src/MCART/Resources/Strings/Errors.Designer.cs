@@ -106,6 +106,15 @@ namespace TheXDS.MCART.Resources.Strings {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Ya existen datos con el id &apos;{0}&apos;..
+        /// </summary>
+        public static string DuplicateData {
+            get {
+                return ResourceManager.GetString("DuplicateData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a La colección no contiene elementos..
         /// </summary>
         public static string EmptyCollection {

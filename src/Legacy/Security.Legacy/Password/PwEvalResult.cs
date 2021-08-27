@@ -22,7 +22,7 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using Ist = TheXDS.MCART.Resources.InternalStrings;
+using TheXDS.MCART.Security.Legacy.Resources;
 
 namespace TheXDS.MCART.Security.Password
 {
@@ -91,8 +91,8 @@ namespace TheXDS.MCART.Security.Password
         /// Obtiene un <see cref="PwEvalResult"/> que representa una
         /// contraseña vacía. Este campo es de solo lectura.
         /// </summary>
-        public static readonly PwEvalResult Empty = new(float.NaN, Ist.EmptyPassword);
-
+        public static readonly PwEvalResult Empty = new(float.NaN, Strings.EmptyPassword);
+        
         /// <summary>
         /// Obtiene un <see cref="PwEvalResult"/> fallido. Este campo es de
         /// sólo lectura.

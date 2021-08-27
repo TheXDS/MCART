@@ -24,7 +24,8 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System.Collections.Generic;
 using TheXDS.MCART.Types;
-using St = TheXDS.MCART.Resources.Strings;
+using static TheXDS.MCART.Security.Legacy.Resources.Strings;
+using static TheXDS.MCART.Resources.Strings.Constants;
 
 namespace TheXDS.MCART.Security.Password
 {
@@ -43,10 +44,10 @@ namespace TheXDS.MCART.Security.Password
 #if DynamicLoading
                 return Misc.PrivateInternals.List<IPasswordGenerator>(typeof(Generators));
 #else
-                yield return new KeyValuePair<string, IPasswordGenerator>(St.Common.PwGenSafe, Safe);
-                yield return new KeyValuePair<string, IPasswordGenerator>(St.Common.PwGenComplex, VeryComplex);
-                yield return new KeyValuePair<string, IPasswordGenerator>(St.Common.PwGenPin, Pin);
-                yield return new KeyValuePair<string, IPasswordGenerator>(St.Common.PwGenCrypto, ExtremelyComplex);
+                yield return new KeyValuePair<string, IPasswordGenerator>(PwGenSafe, Safe);
+                yield return new KeyValuePair<string, IPasswordGenerator>(PwGenComplex, VeryComplex);
+                yield return new KeyValuePair<string, IPasswordGenerator>(PwGenPin, Pin);
+                yield return new KeyValuePair<string, IPasswordGenerator>(PwGenCrypto, ExtremelyComplex);
 #endif
             }
         }
@@ -54,17 +55,17 @@ namespace TheXDS.MCART.Security.Password
         /// <summary>
         /// Genera una contraseña segura de 16 caracteres.
         /// </summary>
-        public static readonly IPasswordGenerator Safe = new PasswordGenerator(St.Constants.Chars, 16);
+        public static readonly IPasswordGenerator Safe = new PasswordGenerator(Chars, 16);
 
         /// <summary>
         /// Genera una contraseña muy compleja de 128 caracteres.
         /// </summary>
-        public static readonly IPasswordGenerator VeryComplex = new PasswordGenerator(St.Constants.MoreChars, 128);
+        public static readonly IPasswordGenerator VeryComplex = new PasswordGenerator(MoreChars, 128);
 
         /// <summary>
         /// Genera un número de pin de 4 dígitos.
         /// </summary>
-        public static readonly IPasswordGenerator Pin = new PasswordGenerator(St.Constants.Numbers, 4);
+        public static readonly IPasswordGenerator Pin = new PasswordGenerator(Numbers, 4);
 
         /// <summary>
         /// Genera una contraseña extremadamente segura, utilizando UTF-16.

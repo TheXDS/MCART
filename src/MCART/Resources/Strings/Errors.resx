@@ -132,6 +132,9 @@
   <data name="ClassXNotinstantiable" xml:space="preserve">
     <value>La clase {0} no es instanciable.</value>
   </data>
+  <data name="DuplicateData" xml:space="preserve">
+    <value>Ya existen datos con el id '{0}'.</value>
+  </data>
   <data name="EmptyCollection" xml:space="preserve">
     <value>La colección no contiene elementos.</value>
   </data>

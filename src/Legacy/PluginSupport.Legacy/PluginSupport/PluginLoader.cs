@@ -32,8 +32,9 @@ using System.Threading.Tasks;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Helpers;
+using TheXDS.MCART.PluginSupport.Legacy.Resources.Strings;
 using static TheXDS.MCART.Types.Extensions.TypeExtensions;
-using St = TheXDS.MCART.Resources.Strings.Strings;
+//using St = TheXDS.MCART.Resources.Strings.Strings;
 
 namespace TheXDS.MCART.PluginSupport.Legacy
 {
@@ -847,7 +848,9 @@ namespace TheXDS.MCART.PluginSupport.Legacy
                 }
                 catch
                 {
-                    Debug.Print(St.Warn(St.XIsInvalid(St.XYQuotes(St.TheAssembly, f.Name))));
+#if DEBUG
+                    Debug.Print(string.Format(Errors.InvalidXAssembly, f.FullName));
+#endif
                     continue;
                 }
 #if PreferExceptions
@@ -888,7 +891,9 @@ namespace TheXDS.MCART.PluginSupport.Legacy
                 }
                 catch
                 {
-                    Debug.Print(St.Warn(St.XIsInvalid(St.XYQuotes(St.TheAssembly, f.Name))));
+#if DEBUG
+                    Debug.Print(string.Format(Errors.InvalidXAssembly, f.FullName));
+#endif
                     continue;
                 }
 #if PreferExceptions

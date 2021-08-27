@@ -117,55 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CorruptDataReceived" xml:space="preserve">
-    <value>Se han recibido datos corruptos.</value>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancelar</value>
   </data>
-  <data name="CouldntConnect" xml:space="preserve">
-    <value>No fue posible establecer una conexión.</value>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Confirmar contraseña</value>
   </data>
-  <data name="CouldntConnectTo" xml:space="preserve">
-    <value>No fue posible conectarse a '{0}'.</value>
+  <data name="Ok" xml:space="preserve">
+    <value>Aceptar</value>
   </data>
-  <data name="DataNotFound" xml:space="preserve">
-    <value>No se han encontrado los datos.</value>
+  <data name="Password" xml:space="preserve">
+    <value>Contraseña</value>
   </data>
-  <data name="InsufficientData" xml:space="preserve">
-    <value>Datos insuficientes.</value>
+  <data name="PasswordHint" xml:space="preserve">
+    <value>Indicio de contraseña</value>
   </data>
-  <data name="InvalidDB" xml:space="preserve">
-    <value>Base de datos inválida.</value>
-  </data>
-  <data name="InvalidPassword" xml:space="preserve">
-    <value>Contraseña inválida.</value>
-  </data>
-  <data name="InvalidXDB" xml:space="preserve">
-    <value>La base de datos '{0}' no es válida.</value>
-  </data>
-  <data name="MissingArg" xml:space="preserve">
-    <value>No se ha encontrado un argumento necesario.</value>
-  </data>
-  <data name="MissingXArg" xml:space="preserve">
-    <value>No se ha encontrado el argumento {0}.</value>
-  </data>
-  <data name="NotMyDatabase" xml:space="preserve">
-    <value>La base de datos no pertenece a esta aplicación.</value>
-  </data>
-  <data name="OperationFailed" xml:space="preserve">
-    <value>La operación ha fallado.</value>
-  </data>
-  <data name="OperationXFailed" xml:space="preserve">
-    <value>Una operación dentro del método '{0}' ha fallado.</value>
-  </data>
-  <data name="ServerNotFound" xml:space="preserve">
-    <value>No se ha encontrado el servidor.</value>
-  </data>
-  <data name="TooFewArguments" xml:space="preserve">
-    <value>Se han especificado muy pocos argumentos.</value>
-  </data>
-  <data name="TooManyArguments" xml:space="preserve">
-    <value>Se han especificado demasiados argumentos.</value>
-  </data>
-  <data name="UnknownType" xml:space="preserve">
-    <value>Tipo desconocido.</value>
+  <data name="User" xml:space="preserve">
+    <value>Usuario</value>
   </data>
 </root>

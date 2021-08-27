@@ -25,7 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Runtime.Serialization;
 using TheXDS.MCART.PluginSupport.Legacy;
-using TheXDS.MCART.Resources.Strings;
+using static TheXDS.MCART.PluginSupport.Legacy.Resources.Strings.Errors;
 
 namespace TheXDS.MCART.Exceptions
 {
@@ -75,7 +75,7 @@ namespace TheXDS.MCART.Exceptions
         /// Inicializa una nueva instancia de la clase
         /// <see cref="PluginInitializationException" />.
         /// </summary>
-        public PluginInitializationException() : base(Strings.PluginDidntInit)
+        public PluginInitializationException() : base(PluginDidntInit)
         {
         }
 
@@ -84,7 +84,7 @@ namespace TheXDS.MCART.Exceptions
         /// <see cref="PluginInitializationException" />.
         /// </summary>
         /// <param name="plugin"><see cref="IPlugin" /> que no pudo inicializarse.</param>
-        public PluginInitializationException(IPlugin plugin) : base(Strings.PluginDidntInit, plugin)
+        public PluginInitializationException(IPlugin plugin) : base(PluginDidntInit, plugin)
         {
         }
 
@@ -115,7 +115,7 @@ namespace TheXDS.MCART.Exceptions
         /// <param name="inner">
         /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
-        public PluginInitializationException(Exception inner) : base(Strings.PluginDidntInit, inner)
+        public PluginInitializationException(Exception inner) : base(PluginDidntInit, inner)
         {
         }
 
@@ -126,7 +126,7 @@ namespace TheXDS.MCART.Exceptions
         /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         /// <param name="plugin"><see cref="IPlugin" /> que no pudo inicializarse.</param>
-        public PluginInitializationException(Exception inner, IPlugin plugin) : base(Strings.PluginDidntInit, inner, plugin)
+        public PluginInitializationException(Exception inner, IPlugin plugin) : base(PluginDidntInit, inner, plugin)
         {
         }
 

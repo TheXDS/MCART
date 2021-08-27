@@ -26,6 +26,7 @@ using System;
 using System.Net.Sockets;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Helpers;
+using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Extensions;
 using static TheXDS.MCART.Types.Extensions.TypeExtensions;
 using St = TheXDS.MCART.Resources.Strings;
@@ -82,7 +83,7 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         /// </exception>
         static ServerProtocol()
         {
-            if (!typeof(T).IsInstantiable(typeof(TcpClient))) throw new InvalidTypeException(St.XMustBeY(nameof(T),St.Instantiable));
+            if (!typeof(T).IsInstantiable(typeof(TcpClient))) throw Errors.ClassNotInstantiable(typeof(T));
         }
 
         /// <summary>
@@ -170,7 +171,7 @@ namespace TheXDS.MCART.Networking.Legacy.Server
             }
             catch (Exception e)
             {
-                throw new InvalidTypeException(St.CantCreateInstance(typeof(T).Name), e, typeof(T));
+                throw new InvalidTypeException(e, typeof(T));
             }
         }
 

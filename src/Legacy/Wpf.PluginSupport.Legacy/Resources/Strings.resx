@@ -117,55 +117,61 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CorruptDataReceived" xml:space="preserve">
-    <value>Se han recibido datos corruptos.</value>
+  <data name="Assembly" xml:space="preserve">
+    <value>Ensamblado</value>
   </data>
-  <data name="CouldntConnect" xml:space="preserve">
-    <value>No fue posible establecer una conexión.</value>
+  <data name="Beta" xml:space="preserve">
+    <value>Beta</value>
   </data>
-  <data name="CouldntConnectTo" xml:space="preserve">
-    <value>No fue posible conectarse a '{0}'.</value>
+  <data name="Compatibility" xml:space="preserve">
+    <value>Compatibilidad</value>
   </data>
-  <data name="DataNotFound" xml:space="preserve">
-    <value>No se han encontrado los datos.</value>
+  <data name="Copyright" xml:space="preserve">
+    <value>Copyright</value>
   </data>
-  <data name="InsufficientData" xml:space="preserve">
-    <value>Datos insuficientes.</value>
+  <data name="Description" xml:space="preserve">
+    <value>Descripción</value>
   </data>
-  <data name="InvalidDB" xml:space="preserve">
-    <value>Base de datos inválida.</value>
+  <data name="Interactions" xml:space="preserve">
+    <value>Interacciones</value>
   </data>
-  <data name="InvalidPassword" xml:space="preserve">
-    <value>Contraseña inválida.</value>
+  <data name="Interface" xml:space="preserve">
+    <value>Interfaz</value>
   </data>
-  <data name="InvalidXDB" xml:space="preserve">
-    <value>La base de datos '{0}' no es válida.</value>
+  <data name="Interfaces" xml:space="preserve">
+    <value>Interfaces</value>
   </data>
-  <data name="MissingArg" xml:space="preserve">
-    <value>No se ha encontrado un argumento necesario.</value>
+  <data name="Label" xml:space="preserve">
+    <value>Etiqueta</value>
   </data>
-  <data name="MissingXArg" xml:space="preserve">
-    <value>No se ha encontrado el argumento {0}.</value>
+  <data name="License" xml:space="preserve">
+    <value>Licencia</value>
   </data>
-  <data name="NotMyDatabase" xml:space="preserve">
-    <value>La base de datos no pertenece a esta aplicación.</value>
+  <data name="MinMcartVersion" xml:space="preserve">
+    <value>Versión mínima de MCART</value>
   </data>
-  <data name="OperationFailed" xml:space="preserve">
-    <value>La operación ha fallado.</value>
+  <data name="Name" xml:space="preserve">
+    <value>Nombre</value>
   </data>
-  <data name="OperationXFailed" xml:space="preserve">
-    <value>Una operación dentro del método '{0}' ha fallado.</value>
+  <data name="Namespace" xml:space="preserve">
+    <value>Espacio de nombres</value>
   </data>
-  <data name="ServerNotFound" xml:space="preserve">
-    <value>No se ha encontrado el servidor.</value>
+  <data name="PluginBrowser" xml:space="preserve">
+    <value>Explorador de plugins</value>
   </data>
-  <data name="TooFewArguments" xml:space="preserve">
-    <value>Se han especificado muy pocos argumentos.</value>
+  <data name="PluginSupportedByMcart" xml:space="preserve">
+    <value>Plugin soportado por MCART</value>
   </data>
-  <data name="TooManyArguments" xml:space="preserve">
-    <value>Se han especificado demasiados argumentos.</value>
+  <data name="SlctAPlugin" xml:space="preserve">
+    <value>Seleccione un Plugin para continuar</value>
   </data>
-  <data name="UnknownType" xml:space="preserve">
-    <value>Tipo desconocido.</value>
+  <data name="TgtMcartVersion" xml:space="preserve">
+    <value>Versión objetivo de MCART</value>
+  </data>
+  <data name="Unstable" xml:space="preserve">
+    <value>Inestable</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Versión</value>
   </data>
 </root>

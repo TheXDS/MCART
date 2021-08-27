@@ -1,5 +1,5 @@
 ﻿/*
-DangerousMethodException.cs
+UnusableObjectException.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -23,23 +23,22 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
-using System.Reflection;
 using System.Runtime.Serialization;
 using TheXDS.MCART.Attributes;
-using static TheXDS.MCART.ExceptionLib.Resources.Strings;
+using static TheXDS.MCART.PluginSupport.Legacy.Resources.Strings.Errors;
 
 namespace TheXDS.MCART.Exceptions
 {
     /// <summary>
-    /// Excepción que se produce cuando un método ha sido marcado con el atributo
-    /// <see cref="DangerousAttribute" />.
+    /// Excepción que se produce cuando se intenta utilizar un objeto marcado con el atributo
+    /// <see cref="UnusableAttribute" />.
     /// </summary>
     [Serializable]
-    public class DangerousMethodException : OffendingException<MethodInfo>
+    public class UnusableObjectException : OffendingException<object>
     {
         /// <summary>
         /// Inicializa una nueva instancia de la clase
-        /// <see cref="DangerousMethodException" />.
+        /// <see cref="UnusableObjectException" />.
         /// </summary>
         /// <param name="context">
         /// El <see cref="StreamingContext" /> que contiene información
@@ -50,13 +49,13 @@ namespace TheXDS.MCART.Exceptions
         /// serializada del objeto acerca de la excepción que está siendo
         /// lanzada.
         /// </param>
-        protected DangerousMethodException(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected UnusableObjectException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
 
         /// <summary>
         /// Inicializa una nueva instancia de la clase
-        /// <see cref="DangerousMethodException" />.
+        /// <see cref="UnusableObjectException" />.
         /// </summary>
         /// <param name="context">
         /// El <see cref="StreamingContext" /> que contiene información
@@ -67,86 +66,74 @@ namespace TheXDS.MCART.Exceptions
         /// serializada del objeto acerca de la excepción que está siendo
         /// lanzada.
         /// </param>
-        /// <param name="offendingMethod">
-        /// Método marcado con el atributo
-        /// <see cref="DangerousAttribute" />.
-        /// </param>
-        protected DangerousMethodException(SerializationInfo info, StreamingContext context, MethodInfo offendingMethod)
-            : base(info, context, offendingMethod)
+        /// <param name="unusableObject">Objeto inutilizable que es la causa de esta excepción.</param>
+        protected UnusableObjectException(SerializationInfo info, StreamingContext context, object unusableObject) :
+            base(info, context, unusableObject)
         {
         }
 
         /// <summary>
         /// Inicializa una nueva instancia de la clase
-        /// <see cref="DangerousMethodException" />.
+        /// <see cref="UnusableObjectException" />.
         /// </summary>
-        public DangerousMethodException() : base(Msg())
+        public UnusableObjectException() : base(UnusableObject)
         {
         }
 
         /// <summary>
         /// Inicializa una nueva instancia de la clase
-        /// <see cref="DangerousMethodException" />.
+        /// <see cref="UnusableObjectException" />.
         /// </summary>
-        /// <param name="offendingMethod">
-        /// Método marcado con el atributo
-        /// <see cref="DangerousAttribute" />.
-        /// </param>
-        public DangerousMethodException(MethodInfo offendingMethod) : base(Msg(offendingMethod), offendingMethod)
+        /// <param name="unusableObject">Objeto inutilizable que es la causa de esta excepción.</param>
+        public UnusableObjectException(object unusableObject) : base(UnusableObject, unusableObject)
         {
         }
 
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="DangerousMethodException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="UnusableObjectException" />.
         /// </summary>
         /// <param name="message">
         /// Un <see cref="string" /> que describe a la excepción.
         /// </param>
-        public DangerousMethodException(string message) : base(message)
+        public UnusableObjectException(string message) : base(message)
         {
         }
 
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="DangerousMethodException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="UnusableObjectException" />.
         /// </summary>
         /// <param name="message">
         /// Un <see cref="string" /> que describe a la excepción.
         /// </param>
-        /// <param name="offendingMethod">
-        /// Método marcado con el atributo
-        /// <see cref="DangerousAttribute" />.
-        /// </param>
-        public DangerousMethodException(string message, MethodInfo offendingMethod) : base(message, offendingMethod)
+        /// <param name="unusableObject">Objeto inutilizable que es la causa de esta excepción.</param>
+        public UnusableObjectException(string message, object unusableObject) : base(message, unusableObject)
         {
         }
 
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="DangerousMethodException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="UnusableObjectException" />.
         /// </summary>
         /// <param name="inner">
         /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
-        public DangerousMethodException(Exception inner) : base(Msg(), inner)
+        public UnusableObjectException(Exception inner) : base(UnusableObject, inner)
         {
         }
 
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="DangerousMethodException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="UnusableObjectException" />.
         /// </summary>
         /// <param name="inner">
         /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
-        /// <param name="offendingMethod">
-        /// Método marcado con el atributo
-        /// <see cref="DangerousAttribute" />.
-        /// </param>
-        public DangerousMethodException(Exception inner, MethodInfo offendingMethod) : base(Msg(offendingMethod), inner,
-            offendingMethod)
+        /// <param name="unusableObject">Objeto inutilizable que es la causa de esta excepción.</param>
+        public UnusableObjectException(Exception inner, object unusableObject) : base(UnusableObject, inner,
+            unusableObject)
         {
         }
 
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="DangerousMethodException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="UnusableObjectException" />.
         /// </summary>
         /// <param name="message">
         /// Un <see cref="string" /> que describe a la excepción.
@@ -154,12 +141,12 @@ namespace TheXDS.MCART.Exceptions
         /// <param name="inner">
         /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
-        public DangerousMethodException(string message, Exception inner) : base(message, inner)
+        public UnusableObjectException(string message, Exception inner) : base(message, inner)
         {
         }
 
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="DangerousMethodException" />.
+        /// Inicializa una nueva instancia de la clase <see cref="UnusableObjectException" />.
         /// </summary>
         /// <param name="message">
         /// Un <see cref="string" /> que describe a la excepción.
@@ -167,23 +154,10 @@ namespace TheXDS.MCART.Exceptions
         /// <param name="inner">
         /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
-        /// <param name="offendingMethod">
-        /// Método marcado con el atributo
-        /// <see cref="DangerousAttribute" />.
-        /// </param>
-        public DangerousMethodException(string message, Exception inner, MethodInfo offendingMethod) : base(message,
-            inner, offendingMethod)
+        /// <param name="unusableObject">Objeto inutilizable que es la causa de esta excepción.</param>
+        public UnusableObjectException(string message, Exception inner, object unusableObject) : base(message, inner,
+            unusableObject)
         {
-        }
-
-        private static string Msg()
-        {
-            return MethodIsDangerous;
-        }
-
-        private static string Msg(MemberInfo offendingMethod)
-        {
-            return string.Format(MethodXIsDangerous, offendingMethod.Name);
         }
     }
 }

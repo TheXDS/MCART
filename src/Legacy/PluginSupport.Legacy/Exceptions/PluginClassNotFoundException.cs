@@ -25,7 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Reflection;
 using System.Runtime.Serialization;
-using TheXDS.MCART.Resources.Strings;
+using static TheXDS.MCART.PluginSupport.Legacy.Resources.Strings.Errors;
 
 namespace TheXDS.MCART.Exceptions
 {
@@ -161,12 +161,12 @@ namespace TheXDS.MCART.Exceptions
 
         private static string Msg()
         {
-            return Strings.XDoesntContainY(Strings.ThePlugin, Strings.TheClass.ToLower());
+            return ClassIsNotPlugin;
         }
 
         private static string Msg(Type type)
         {
-            return Strings.XDoesntContainY(Strings.ThePlugin, Strings.XYQuotes(Strings.TheClass.ToLower(), type.Name));
+            return string.Format(ClassXIsNotPlugin, type.Name);
         }
     }
 }

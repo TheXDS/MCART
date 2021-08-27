@@ -61,6 +61,159 @@ namespace TheXDS.MCART.Security.Legacy.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Evite el uso de contraseñas comunes..
+        /// </summary>
+        internal static string AvoidCommonPasswords {
+            get {
+                return ResourceManager.GetString("AvoidCommonPasswords", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Evite utilizar el año actual en la contraseña..
+        /// </summary>
+        internal static string AvoidYears {
+            get {
+                return ResourceManager.GetString("AvoidYears", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Evaluador de reglas comunes..
+        /// </summary>
+        internal static string CommonEvaluator {
+            get {
+                return ResourceManager.GetString("CommonEvaluator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Se evalúa la contraseña contra reglas comunmente utilizadas, como ser longitud, uso de mayúsculas y minúsculas, letras y símbolos..
+        /// </summary>
+        internal static string CommonEvaluatorDesc {
+            get {
+                return ResourceManager.GetString("CommonEvaluatorDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Evaluador complejo de contraseñas.
+        /// </summary>
+        internal static string ComplexEvaluator {
+            get {
+                return ResourceManager.GetString("ComplexEvaluator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Contraseña compleja.
+        /// </summary>
+        internal static string ComplexPw {
+            get {
+                return ResourceManager.GetString("ComplexPw", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Confirmar contraseña.
+        /// </summary>
+        internal static string ConfirmPassword {
+            get {
+                return ResourceManager.GetString("ConfirmPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Contraseña criptográfica.
+        /// </summary>
+        internal static string CryptoPw {
+            get {
+                return ResourceManager.GetString("CryptoPw", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Introduzca una contraseña para continuar..
+        /// </summary>
+        internal static string EmptyPassword {
+            get {
+                return ResourceManager.GetString("EmptyPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Evaluador extendido de contraseñas.
+        /// </summary>
+        internal static string ExtendedEvaluator {
+            get {
+                return ResourceManager.GetString("ExtendedEvaluator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a {0} Incluye {1}..
+        /// </summary>
+        internal static string IncludesX {
+            get {
+                return ResourceManager.GetString("IncludesX", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a {0} Incluya {1}..
+        /// </summary>
+        internal static string IncludeX {
+            get {
+                return ResourceManager.GetString("IncludeX", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Regla nula.
+        /// </summary>
+        internal static string NullPwEvalRule {
+            get {
+                return ResourceManager.GetString("NullPwEvalRule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Esta regla no evaluará la contraseña, sino que devolverá un valor constante que ayuda a balancear el puntaje de otras reglas en el total..
+        /// </summary>
+        internal static string NullPwEvalRule2 {
+            get {
+                return ResourceManager.GetString("NullPwEvalRule2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Contraseña.
+        /// </summary>
+        internal static string Password {
+            get {
+                return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Indicio de contraseña.
+        /// </summary>
+        internal static string PasswordHint {
+            get {
+                return ResourceManager.GetString("PasswordHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Número PIN.
+        /// </summary>
+        internal static string PinNumber {
+            get {
+                return ResourceManager.GetString("PinNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Generador de contraseñas complejas.
         /// </summary>
         internal static string PwGenComplex {
@@ -97,6 +250,42 @@ namespace TheXDS.MCART.Security.Legacy.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Caracteres latinos.
+        /// </summary>
+        internal static string PwLatinEvalRule {
+            get {
+                return ResourceManager.GetString("PwLatinEvalRule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Minúsculas.
+        /// </summary>
+        internal static string PwLcaseEvalRule {
+            get {
+                return ResourceManager.GetString("PwLcaseEvalRule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Longitud de contraseña.
+        /// </summary>
+        internal static string PwLenghtEvalRule {
+            get {
+                return ResourceManager.GetString("PwLenghtEvalRule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Esta regla evalúa la longitud de la contraseña, para asegurarse que contenga de {0} a {1} caracteres..
+        /// </summary>
+        internal static string PwLenghtEvalRule2 {
+            get {
+                return ResourceManager.GetString("PwLenghtEvalRule2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Se necesita una contraseña..
         /// </summary>
         internal static string PwNeeded {
@@ -115,6 +304,42 @@ namespace TheXDS.MCART.Security.Legacy.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Números.
+        /// </summary>
+        internal static string PwNumbersEvalRule {
+            get {
+                return ResourceManager.GetString("PwNumbersEvalRule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Otros símbolos.
+        /// </summary>
+        internal static string PwOtherSymbsEvalRule {
+            get {
+                return ResourceManager.GetString("PwOtherSymbsEvalRule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Otros caracteres Unicode.
+        /// </summary>
+        internal static string PwOtherUTFEvalRule {
+            get {
+                return ResourceManager.GetString("PwOtherUTFEvalRule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Símbolos.
+        /// </summary>
+        internal static string PwSymbolsEvalRule {
+            get {
+                return ResourceManager.GetString("PwSymbolsEvalRule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a La contraseña es demasiado larga..
         /// </summary>
         internal static string PwTooLong {
@@ -129,6 +354,42 @@ namespace TheXDS.MCART.Security.Legacy.Resources {
         internal static string PwTooShort {
             get {
                 return ResourceManager.GetString("PwTooShort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Mayúsculas.
+        /// </summary>
+        internal static string PwUcaseEvalRule {
+            get {
+                return ResourceManager.GetString("PwUcaseEvalRule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Contraseña segura.
+        /// </summary>
+        internal static string SafePw {
+            get {
+                return ResourceManager.GetString("SafePw", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Usuario.
+        /// </summary>
+        internal static string User {
+            get {
+                return ResourceManager.GetString("User", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Esta regla evalúa que la contraseña contenga {0}.
+        /// </summary>
+        internal static string xBuilder {
+            get {
+                return ResourceManager.GetString("xBuilder", resourceCulture);
             }
         }
     }

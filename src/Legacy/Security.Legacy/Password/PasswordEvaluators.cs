@@ -25,7 +25,6 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System.Collections.Generic;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Types;
-using St2 = TheXDS.MCART.Resources.InternalStrings;
 
 namespace TheXDS.MCART.Security.Password
 {
@@ -44,10 +43,10 @@ namespace TheXDS.MCART.Security.Password
 #if DynamicLoading
                 return Misc.PrivateInternals.List<IPasswordEvaluator>(typeof(PasswordEvaluators));
 #else
-                yield return new KeyValuePair<string, IPasswordEvaluator>(St2.SafePw, CommonEvaluator);
-                yield return new KeyValuePair<string, IPasswordEvaluator>(St2.SafePw, SaferEvaluator);
+                yield return new KeyValuePair<string, IPasswordEvaluator>(nameof(CommonEvaluator), CommonEvaluator);
+                yield return new KeyValuePair<string, IPasswordEvaluator>(nameof(SaferEvaluator), SaferEvaluator);
 #if SaferPasswords
-                yield return new KeyValuePair<string, IPasswordEvaluator>(St2.SafePw, ComplexEvaluator);
+                yield return new KeyValuePair<string, IPasswordEvaluator>(nameof(ComplexEvaluator), ComplexEvaluator);
 #endif
 #endif
             }
@@ -56,19 +55,19 @@ namespace TheXDS.MCART.Security.Password
         /// <summary>
         /// Obtiene un evaluador de contraseñas con reglas comunes.
         /// </summary>
-        [Name(St2.CommonEvaluator), Description(St2.CommonEvaluatorDesc)]
+        [Name(nameof(CommonEvaluator))]
         public static readonly IPasswordEvaluator CommonEvaluator = new PasswordEvaluator(RuleSets.CommonComplexityRuleSet());
 
         /// <summary>
         /// Obtiene un evaluador de contraseñas con reglas seguras.
         /// </summary>
-        [Name(St2.ExtendedEvaluator)]
+        [Name(nameof(SaferEvaluator))]
         public static readonly IPasswordEvaluator SaferEvaluator = new PasswordEvaluator(RuleSets.ExtendedRuleSet());
 #if SaferPasswords
         /// <summary>
         /// Obtiene un evaluador de contraseñas con reglas adicionales de complejidad.
         /// </summary>
-        [Name(St2.ComplexEvaluator)]
+        [Name(nameof(ComplexEvaluator))]
         public static readonly IPasswordEvaluator ComplexEvaluator = new PasswordEvaluator(RuleSets.ComplexRuleSet());
 #endif
     }

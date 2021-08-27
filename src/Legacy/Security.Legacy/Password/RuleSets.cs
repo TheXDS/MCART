@@ -24,12 +24,13 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Collections.Generic;
-using TheXDS.MCART.Attributes;
 using System.Linq;
+using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Math;
-using St = TheXDS.MCART.Resources.Strings;
-using St2 = TheXDS.MCART.Resources.InternalStrings;
+using static TheXDS.MCART.Resources.Strings.Composition;
+using static TheXDS.MCART.Resources.Strings.Constants;
 using static TheXDS.MCART.Types.Extensions.SecureStringExtensions;
+using St = TheXDS.MCART.Security.Legacy.Resources.Strings;
 
 namespace TheXDS.MCART.Security.Password
 {
@@ -231,10 +232,10 @@ namespace TheXDS.MCART.Security.Password
                 var d = 0;
                 foreach (var j in charset) if (p.Contains((short)j)) d++;
                 if (d == 0) return new PwEvalResult(0, isExtra ?
-                    St.OkX(St.Include(ruleName.ToLower())) :
-                    St.Warn(St.Include(ruleName.ToLower())));
+                    string.Format(St.IncludeX, "✔", ruleName.ToLower()) :
+                    string.Format(St.IncludeX, "⚠", ruleName.ToLower()));
                 return new PwEvalResult(((CFactoryFactor + (float)d / p.Length).Clamp(0, 1)));
-            }, ruleName, ruleDescription ?? string.Format(St2.xBuilder, ruleName.ToLower()), ponderation, defaultEnable, isExtra);
+            }, ruleName, ruleDescription ?? ruleName, ponderation, defaultEnable, isExtra);
         }
 
         #endregion
@@ -303,7 +304,7 @@ namespace TheXDS.MCART.Security.Password
         /// </summary>
         /// <returns>Regla de evaluación que devuelve valores constantes.</returns>
         /// <param name="ponderation">Ponderation.</param>
-        public static PasswordEvaluationRule NullEvalRule(PonderationLevel ponderation) => new(p => new PwEvalResult(1), St2.NullPwEvalRule, St2.NullPwEvalRule2, ponderation);
+        public static PasswordEvaluationRule NullEvalRule(PonderationLevel ponderation) => new(p => new PwEvalResult(1), St.NullPwEvalRule, St.NullPwEvalRule2, ponderation);
         
         /// <summary>
         /// Crea una regla de longitud de contraseña.
@@ -342,23 +343,23 @@ namespace TheXDS.MCART.Security.Password
             const float scoringTo1 = 1.0f - baseScore;
             return new PasswordEvaluationRule(p =>
             {
-                if (p.Length < minLength) return new PwEvalResult(0, St.Composition.Warn(St.Common.PwTooShort), true);
-                if (p.Length > idealLength) return new PwEvalResult(1, p.Length > excessiveLength ? St.Composition.Warn(St.Common.PwTooLong) : null);
+                if (p.Length < minLength) return new PwEvalResult(0, Warn(St.PwTooShort), true);
+                if (p.Length > idealLength) return new PwEvalResult(1, p.Length > excessiveLength ? Warn(St.PwTooLong) : null);
                 return new PwEvalResult(baseScore + ((p.Length - minLength) / (idealLength - minLength) * scoringTo1));
-            }, St2.PwLenghtEvalRule, string.Format(St2.PwLenghtEvalRule2, minLength, idealLength), PonderationLevel.Normal);
+            }, St.PwLenghtEvalRule, string.Format(St.PwLenghtEvalRule2, minLength, idealLength), PonderationLevel.Normal);
         }
         
         /// <summary>
         /// Crea una nueva regla que comprueba si la contraseña contiene mayúsculas.
         /// </summary>
         /// <returns>Un <see cref="PasswordEvaluationRule"/> que comprueba si la contraseña contiene mayúsculas.</returns>
-        [Sugar] public static PasswordEvaluationRule PwUcaseEvalRule() => ContentionRuleFactory(St.Constants.AlphaLc.ToUpper(), St2.PwUcaseEvalRule);
+        [Sugar] public static PasswordEvaluationRule PwUcaseEvalRule() => ContentionRuleFactory(AlphaLc.ToUpper(), St.PwUcaseEvalRule);
         
         /// <summary>
         /// Crea una nueva regla que comprueba si la contraseña contiene minúsculas.
         /// </summary>
         /// <returns>Un <see cref="PasswordEvaluationRule"/> que comprueba si la contraseña contiene minúsculas.</returns>
-        [Sugar] public static PasswordEvaluationRule PwLcaseEvalRule() => ContentionRuleFactory(St.Constants.AlphaLc.ToLower(), St2.PwLcaseEvalRule);
+        [Sugar] public static PasswordEvaluationRule PwLcaseEvalRule() => ContentionRuleFactory(AlphaLc.ToLower(), St.PwLcaseEvalRule);
         
         /// <summary>
         /// Crea una nueva regla que comprueba si la contraseña contiene números.
@@ -371,28 +372,28 @@ namespace TheXDS.MCART.Security.Password
 #if NativeNumbers
             string.Join(null, System.Globalization.NumberFormatInfo.CurrentInfo.NativeDigits)
 #else
-            St.Numbers
+            Numbers
 #endif
-            , St2.PwNumbersEvalRule);
+            , St.PwNumbersEvalRule);
         }
         
         /// <summary>
         /// Crea una nueva regla que comprueba si la contraseña contiene símbolos.
         /// </summary>
         /// <returns>Un <see cref="PasswordEvaluationRule"/> que comprueba si la contraseña contiene símbolos.</returns>
-        [Sugar] public static PasswordEvaluationRule PwSymbolsEvalRule() => ContentionRuleFactory(St.Constants.Symbols, St2.PwSymbolsEvalRule);
+        [Sugar] public static PasswordEvaluationRule PwSymbolsEvalRule() => ContentionRuleFactory(Symbols, St.PwSymbolsEvalRule);
         
         /// <summary>
         /// Crea una nueva regla que comprueba si la contraseña contiene caracteres latinos.
         /// </summary>
         /// <returns>Un <see cref="PasswordEvaluationRule"/> que comprueba si la contraseña contiene caracteres latinos.</returns>
-        [Sugar] public static PasswordEvaluationRule PwLatinEvalRule() => ContentionRuleFactory(St.Constants.LatinChars, St2.PwLatinEvalRule, null, PonderationLevel.Low, true, true);
+        [Sugar] public static PasswordEvaluationRule PwLatinEvalRule() => ContentionRuleFactory(LatinChars, St.PwLatinEvalRule, null, PonderationLevel.Low, true, true);
         
         /// <summary>
         /// Crea una nueva regla que comprueba si la contraseña contiene otros símbolos.
         /// </summary>
         /// <returns>Un <see cref="PasswordEvaluationRule"/> que comprueba si la contraseña contiene otros símbolos.</returns>
-        [Sugar] public static PasswordEvaluationRule PwOtherSymbsEvalRule() => ContentionRuleFactory(St.Constants.MoreSymbs, St2.PwOtherSymbsEvalRule, null, PonderationLevel.High, true, true);
+        [Sugar] public static PasswordEvaluationRule PwOtherSymbsEvalRule() => ContentionRuleFactory(MoreSymbs, St.PwOtherSymbsEvalRule, null, PonderationLevel.High, true, true);
         
         /// <summary>
         /// Crea una nueva regla que comprueba si la contraseña contiene otros
@@ -404,11 +405,11 @@ namespace TheXDS.MCART.Security.Password
         {
             return new(p =>
             {
-                var charArr = St.Constants.MoreChars.ToCharArray();
+                var charArr = MoreChars.ToCharArray();
                 return p.ReadInt16().Any(j => !charArr.Contains((char)j)) 
-                    ? new PwEvalResult(1, St.OkX(St.Includes(St2.PwOtherUTFEvalRule.ToLower()))) 
+                    ? new PwEvalResult(1, string.Format(St.IncludesX, "✔", St.PwOtherUTFEvalRule.ToLower()))
                     : new PwEvalResult(0);
-            }, St2.PwOtherUTFEvalRule, null, PonderationLevel.Highest, true, true);
+            }, St.PwOtherUTFEvalRule, null, PonderationLevel.Highest, true, true);
         }
 
         /// <summary>
@@ -426,9 +427,9 @@ namespace TheXDS.MCART.Security.Password
                     "master","1111","111111","fuckyou","fuckme","trustn01","trustno1","batman","google","test","pass","6969","access",
                     "666666","0000","00000000","welcome"
                 }.Contains(p.Read()) 
-                    ? new PwEvalResult(0, St.Composition.Warn(St2.AvoidCommonPasswords), true) 
+                    ? new PwEvalResult(0, Warn(St.AvoidCommonPasswords), true) 
                     : new PwEvalResult(1);
-            }, St2.AvoidCommonPasswords, null, PonderationLevel.Normal);
+            }, St.AvoidCommonPasswords, null, PonderationLevel.Normal);
         }
 
         /// <summary>
@@ -441,9 +442,9 @@ namespace TheXDS.MCART.Security.Password
             {
                 var t = p.Read();
                 return t.EndsWith(DateTime.Today.Year.ToString()) 
-                    ? new PwEvalResult(0, St.Warn(St2.AvoidYears), true) 
+                    ? new PwEvalResult(0, Warn(St.AvoidYears), true) 
                     : new PwEvalResult(1);
-            }, St2.AvoidYears, null, PonderationLevel.Normal);
+            }, St.AvoidYears, null, PonderationLevel.Normal);
         }
     }
 }

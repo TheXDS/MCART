@@ -117,6 +117,57 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AvoidCommonPasswords" xml:space="preserve">
+    <value>Evite el uso de contraseñas comunes.</value>
+  </data>
+  <data name="AvoidYears" xml:space="preserve">
+    <value>Evite utilizar el año actual en la contraseña.</value>
+  </data>
+  <data name="CommonEvaluator" xml:space="preserve">
+    <value>Evaluador de reglas comunes.</value>
+  </data>
+  <data name="CommonEvaluatorDesc" xml:space="preserve">
+    <value>Se evalúa la contraseña contra reglas comunmente utilizadas, como ser longitud, uso de mayúsculas y minúsculas, letras y símbolos.</value>
+  </data>
+  <data name="ComplexEvaluator" xml:space="preserve">
+    <value>Evaluador complejo de contraseñas</value>
+  </data>
+  <data name="ComplexPw" xml:space="preserve">
+    <value>Contraseña compleja</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Confirmar contraseña</value>
+  </data>
+  <data name="CryptoPw" xml:space="preserve">
+    <value>Contraseña criptográfica</value>
+  </data>
+  <data name="EmptyPassword" xml:space="preserve">
+    <value>Introduzca una contraseña para continuar.</value>
+  </data>
+  <data name="ExtendedEvaluator" xml:space="preserve">
+    <value>Evaluador extendido de contraseñas</value>
+  </data>
+  <data name="IncludesX" xml:space="preserve">
+    <value>{0} Incluye {1}.</value>
+  </data>
+  <data name="IncludeX" xml:space="preserve">
+    <value>{0} Incluya {1}.</value>
+  </data>
+  <data name="NullPwEvalRule" xml:space="preserve">
+    <value>Regla nula</value>
+  </data>
+  <data name="NullPwEvalRule2" xml:space="preserve">
+    <value>Esta regla no evaluará la contraseña, sino que devolverá un valor constante que ayuda a balancear el puntaje de otras reglas en el total.</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Contraseña</value>
+  </data>
+  <data name="PasswordHint" xml:space="preserve">
+    <value>Indicio de contraseña</value>
+  </data>
+  <data name="PinNumber" xml:space="preserve">
+    <value>Número PIN</value>
+  </data>
   <data name="PwGenComplex" xml:space="preserve">
     <value>Generador de contraseñas complejas</value>
   </data>
@@ -129,16 +180,52 @@
   <data name="PwGenSafe" xml:space="preserve">
     <value>Generador de contraseñas seguras</value>
   </data>
+  <data name="PwLatinEvalRule" xml:space="preserve">
+    <value>Caracteres latinos</value>
+  </data>
+  <data name="PwLcaseEvalRule" xml:space="preserve">
+    <value>Minúsculas</value>
+  </data>
+  <data name="PwLenghtEvalRule" xml:space="preserve">
+    <value>Longitud de contraseña</value>
+  </data>
+  <data name="PwLenghtEvalRule2" xml:space="preserve">
+    <value>Esta regla evalúa la longitud de la contraseña, para asegurarse que contenga de {0} a {1} caracteres.</value>
+  </data>
   <data name="PwNeeded" xml:space="preserve">
     <value>Se necesita una contraseña.</value>
   </data>
   <data name="PwNoActiveRules" xml:space="preserve">
     <value>No hay reglas activas.</value>
   </data>
+  <data name="PwNumbersEvalRule" xml:space="preserve">
+    <value>Números</value>
+  </data>
+  <data name="PwOtherSymbsEvalRule" xml:space="preserve">
+    <value>Otros símbolos</value>
+  </data>
+  <data name="PwOtherUTFEvalRule" xml:space="preserve">
+    <value>Otros caracteres Unicode</value>
+  </data>
+  <data name="PwSymbolsEvalRule" xml:space="preserve">
+    <value>Símbolos</value>
+  </data>
   <data name="PwTooLong" xml:space="preserve">
     <value>La contraseña es demasiado larga.</value>
   </data>
   <data name="PwTooShort" xml:space="preserve">
     <value>La contraseña es demasiado corta.</value>
+  </data>
+  <data name="PwUcaseEvalRule" xml:space="preserve">
+    <value>Mayúsculas</value>
+  </data>
+  <data name="SafePw" xml:space="preserve">
+    <value>Contraseña segura</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Usuario</value>
+  </data>
+  <data name="xBuilder" xml:space="preserve">
+    <value>Esta regla evalúa que la contraseña contenga {0}</value>
   </data>
 </root>

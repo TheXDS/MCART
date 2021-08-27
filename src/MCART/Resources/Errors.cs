@@ -311,5 +311,41 @@ namespace TheXDS.MCART.Resources
         {
             return new TypeLoadException(string.Format(Ers.ClassNotInstantiableWIthArgs, t.NameOf()), inner);
         }
+
+        /// <summary>
+        /// Crea una nueva instancia de un
+        /// <see cref="InvalidOperationException"/> que indica que la operación
+        /// duplica datos previamente existentes cuando esto no es un escenario
+        /// deseable.
+        /// </summary>
+        /// <param name="id">
+        /// Identificador de los datos quese han intentado duplicar.
+        /// </param>
+        /// <returns>
+        /// Una nueva instancia de la clase
+        /// <see cref="InvalidOperationException"/>.
+        /// </returns>
+        public static Exception DuplicateData(object id)
+        {
+            return new InvalidOperationException(string.Format(Ers.DuplicateData, id));
+        }
+
+        /// <summary>
+        /// Crea una nueva instancia de un
+        /// <see cref="InvalidReturnValueException"/> que indica que la función
+        /// especificada ha devuelto un valor inválido en este contexto.
+        /// </summary>
+        /// <param name="call">
+        /// Función que ha devuelto el valor inválido.
+        /// </param>
+        /// <param name="returnValue">Valor inválido devuelto.</param>
+        /// <returns>
+        /// Una nueva instancia de la clase
+        /// <see cref="InvalidReturnValueException"/>.
+        /// </returns>
+        public static Exception InvalidReturnValue(Delegate call, object? returnValue)
+        {
+            return new InvalidReturnValueException(call, returnValue);
+        }
     }
 }

@@ -32,8 +32,9 @@ using TheXDS.MCART.Component;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Misc;
 using TheXDS.MCART.Resources;
-using St = TheXDS.MCART.Resources.Strings.Strings;
-using St2 = TheXDS.MCART.Resources.InternalStrings;
+using St = TheXDS.MCART.Resources.Strings.Composition;
+using St2 = TheXDS.MCART.PluginSupport.Legacy.Resources.Strings.Errors;
+using St3 = TheXDS.MCART.Resources.Strings.Errors;
 
 namespace TheXDS.MCART.PluginSupport.Legacy
 {
@@ -59,10 +60,12 @@ namespace TheXDS.MCART.PluginSupport.Legacy
                 Console.WriteLine(p.Copyright);
                 if (p.HasLicense) Console.WriteLine(p.License);
             }
-            catch
+            catch 
             {
-#if DEBUG
-                System.Diagnostics.Debug.Print(St.Warn(St2.ErrorShowingPluginInfo));
+#if PreferExceptions
+                throw;
+#elif DEBUG
+                System.Diagnostics.Debug.Print(St.Warn(string.Format(St2.CantShowPluginInfo, p.Name)));
 #else    
                 /* Ignorar, probablemente no hay consola. */
 #endif
@@ -104,9 +107,9 @@ namespace TheXDS.MCART.PluginSupport.Legacy
                     InteractionItems.Add(new InteractionItem(j, this));
                 else
 #if PreferExceptions
-                    throw new PluginException(this, new InvalidMethodSignatureException(j));
+                    throw Ers.InvalidMethodSignature(this, j);
 #else
-                    System.Diagnostics.Debug.Print(St.Warn(St.InvalidSignature(St.XYQuotes(St.TheMethod, $"{GetType().FullName}.{j.Name}"))));
+                    System.Diagnostics.Debug.Print(St.Warn(string.Format(St3.InvalidMethodXSignature, $"{GetType().FullName}.{j.Name}")));
 #endif
             }
             InteractionItems.CollectionChanged += (sender, e) => OnUiChanged();
@@ -245,7 +248,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         /// <summary>
         /// Obtiene un valor que determina si el <see cref="Plugin"/> es compatible con esta versión de MCART.
         /// </summary>
-        public bool? IsSupported => Resources.RtInfo.RtSupport(GetType());
+        public bool? IsSupported => RtInfo.RtSupport(GetType());
 
         /// <summary>
         /// Determina si este <see cref="Plugin" /> es una versión Beta.

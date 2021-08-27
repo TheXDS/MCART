@@ -2,8 +2,31 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <Description>MCART Legacy Plugin Support</Description>
+    <AssemblyName>MCART.$(MSBuildProjectName)</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="$(SolutionDir)Lib\MCART-UI\MCART.UI.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Resources\Strings\Common.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Common.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Strings\Errors.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Errors.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Strings\Common.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Common.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Strings\Errors.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Errors.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

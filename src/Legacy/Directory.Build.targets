@@ -2,7 +2,7 @@
 	<Import Project="..\Directory.Build.targets"/>
 	<PropertyGroup>
 		<OutputType>Library</OutputType>
-		<AssemblyName>MCART.$(MSBuildProjectName)</AssemblyName>
+		<!--<AssemblyName>MCART.$(MSBuildProjectName)</AssemblyName>-->
 		<RootNamespace>TheXDS.MCART.$(MSBuildProjectName)</RootNamespace>
 	</PropertyGroup>
 	<ItemGroup>

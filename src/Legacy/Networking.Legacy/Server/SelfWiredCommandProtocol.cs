@@ -30,6 +30,7 @@ using System.Reflection;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Helpers;
+using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Networking.Legacy.Server
@@ -47,7 +48,7 @@ namespace TheXDS.MCART.Networking.Legacy.Server
     /// Tipo de la enumeración de las respuestas que este protocolo
     /// devolverá a los clientes conectados.
     /// </typeparam>
-    [Obsolete(Resources.InternalStrings.LegacyComponent)]
+    [Obsolete("Este es un componente legado.")]
     public abstract class SelfWiredCommandProtocol<TClient, TCommand, TResponse> : ServerProtocol<TClient>
         where TClient : Client where TCommand : struct, Enum where TResponse : struct, Enum
     {
@@ -115,14 +116,14 @@ namespace TheXDS.MCART.Networking.Legacy.Server
                 {
                     foreach (var k in attrs)
                     {
-                        if (_commands.ContainsKey(k.Value)) throw new DataAlreadyExistsException();
+                        if (_commands.ContainsKey(k.Value)) throw Errors.DuplicateData(k.Value);
                         _commands.Add(k.Value, j);
                     }
                 }
                 else // Mapeo por convención
                 {
                     if (!Enum.TryParse(j.Method.Name, out TCommand k)) continue;
-                    if (_commands.ContainsKey(k)) throw new DataAlreadyExistsException();
+                    if (_commands.ContainsKey(k)) throw Errors.DuplicateData(k);
                     _commands.Add(k, j);
                 }
             }
