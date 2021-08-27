@@ -5,13 +5,20 @@
 		<RootNamespace>TheXDS.MCART</RootNamespace>
 		<Deterministic>true</Deterministic>
 		<DocumentationFile>$(OutDir)$(AssemblyName).xml</DocumentationFile>
-		<PackageId>TheXDS.$(AssemblyName)</PackageId>
 		<Title>$(AssemblyTitle)</Title>
 		<Nullable>enable</Nullable>
 		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)'=='Debug'">
-		<DebugType>full</DebugType>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition="$(AssemblyName.StartsWith('TheXDS.MCART'))=='False'">
+    <PackageId>TheXDS.MCART.$(AssemblyName)</PackageId>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(AssemblyName.StartsWith('MCART'))">
+    <PackageId>TheXDS.$(AssemblyName)</PackageId>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
+    <DebugType>full</DebugType>
 		<DefineDebug>true</DefineDebug>
 		<DefineTrace>true</DefineTrace>
 	</PropertyGroup>
