@@ -79,7 +79,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         {
             Assert.IsAssignableFrom<IEnumerable<NamedObject<Enum>>>(typeof(DayOfWeek).ToNamedEnum());
             Assert.Throws<ArgumentNullException>(() => _ = TypeExtensions.ToNamedEnum(null!));
-            Assert.Throws<InvalidTypeException>(() => _ = typeof(string).ToNamedEnum());
+            Assert.Throws<ArgumentException>(() => _ = typeof(string).ToNamedEnum());
         }
 
         [Fact]

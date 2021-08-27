@@ -25,6 +25,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{8D80435C-F7CE-46FE-82F0-58F0D5282344}"
 	ProjectSection(SolutionItems) = preProject
 		Lib\Directory.Build.props = Lib\Directory.Build.props
+		Legacy\Directory.Build.props = Legacy\Directory.Build.props
 		Lib\Directory.Build.targets = Lib\Directory.Build.targets
 	EndProjectSection
 EndProject
@@ -104,6 +105,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Security.UI.Legacy", "Legacy\Security.UI.Legacy\Security.UI.Legacy.csproj", "{AB0265E3-B42E-4977-8202-4253223B330D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Security.WPF.Legacy", "Legacy\Security.WPF.Legacy\Security.WPF.Legacy.csproj", "{4BF78424-E919-4A7A-AC4D-F0D406A70D80}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Security.Legacy.Tests", "Tests\Security.Legacy.Tests\Security.Legacy.Tests.csproj", "{F5BAA7A0-EA3B-4B3F-B9C1-4756CD39B61C}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -321,6 +324,16 @@ Global
 		{4BF78424-E919-4A7A-AC4D-F0D406A70D80}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4BF78424-E919-4A7A-AC4D-F0D406A70D80}.Release-Publish|Any CPU.ActiveCfg = Release|Any CPU
 		{4BF78424-E919-4A7A-AC4D-F0D406A70D80}.Release-Publish|Any CPU.Build.0 = Release|Any CPU
+		{F5BAA7A0-EA3B-4B3F-B9C1-4756CD39B61C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5BAA7A0-EA3B-4B3F-B9C1-4756CD39B61C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5BAA7A0-EA3B-4B3F-B9C1-4756CD39B61C}.Debug-Publish|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5BAA7A0-EA3B-4B3F-B9C1-4756CD39B61C}.Debug-Publish|Any CPU.Build.0 = Debug|Any CPU
+		{F5BAA7A0-EA3B-4B3F-B9C1-4756CD39B61C}.Debug-PublishLocal|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5BAA7A0-EA3B-4B3F-B9C1-4756CD39B61C}.Debug-PublishLocal|Any CPU.Build.0 = Debug|Any CPU
+		{F5BAA7A0-EA3B-4B3F-B9C1-4756CD39B61C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5BAA7A0-EA3B-4B3F-B9C1-4756CD39B61C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5BAA7A0-EA3B-4B3F-B9C1-4756CD39B61C}.Release-Publish|Any CPU.ActiveCfg = Release|Any CPU
+		{F5BAA7A0-EA3B-4B3F-B9C1-4756CD39B61C}.Release-Publish|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -351,6 +364,7 @@ Global
 		{49849EB1-ED20-42DD-B26F-DDBE2D5DB250} = {9F98174D-1653-413B-809C-AFE91D5DAC42}
 		{AB0265E3-B42E-4977-8202-4253223B330D} = {9F98174D-1653-413B-809C-AFE91D5DAC42}
 		{4BF78424-E919-4A7A-AC4D-F0D406A70D80} = {9F98174D-1653-413B-809C-AFE91D5DAC42}
+		{F5BAA7A0-EA3B-4B3F-B9C1-4756CD39B61C} = {19EC529F-C50D-4A09-8B2A-70E21B642109}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A16C9D23-2B39-4202-8A15-4A3536784E27}

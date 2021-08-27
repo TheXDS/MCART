@@ -1,12 +1,12 @@
-ï»¿/*
+/*
 AssemblyInfoTests.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
 Author(s):
-     CÃ©sar AndrÃ©s Morgan <xds_xps_ivx@hotmail.com>
+     César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright Â© 2011 - 2021 CÃ©sar AndrÃ©s Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -24,34 +24,27 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using TheXDS.MCART.Component;
+using TheXDS.MCART.Security.Password;
 using Xunit;
 
 namespace TheXDS.MCART.Tests.Component
 {
+    /* NOTA:
+     * =====
+     * Esta clase de pruebas se implementa en este proyecto debido a que se
+     * implementan componentes de terceros en esta librería, de modo que es
+     * posible validar la funcionalidad mediante la cual se accede a dicha
+     * información.
+     */
     public class AssemblyInfoTests
     {
         [Fact]
         public void Get_Information_Test()
         {
-            var a = new AssemblyInfo(typeof(AssemblyInfo).Assembly);
-            Assert.Equal("MCART", a.Name);
-            Assert.StartsWith("Copyright", a.Copyright!);
-            Assert.NotNull(a.Description);
-            Assert.Contains("CÃ©sar AndrÃ©s Morgan", a.Authors);
-            Assert.IsType<Version>(a.Version);
-            Assert.True(a.HasLicense);
-            Assert.NotNull(a.License);
-            Assert.NotNull(a.InformationalVersion);
-#if CLSCompliance
-            Assert.True(a.ClsCompliant);
-#endif
-        }
-
-        [Fact]
-        public void Self_Information_Test()
-        {
-            var a = new AssemblyInfo();
-            Assert.Same(typeof(AssemblyInfoTests).Assembly, a.Assembly);
+            var a = new AssemblyInfo(typeof(PasswordStorage).Assembly);
+            Assert.True(a.Has3rdPartyLicense);
+            Assert.Contains(typeof(PasswordStorage), a.ThirdPartyComponents);
+            Assert.Contains(a.ThirdPartyLicenses, p => p.Name.Contains("MIT", StringComparison.InvariantCultureIgnoreCase));
         }
     }
 }
