@@ -33,8 +33,6 @@ using TheXDS.MCART.Attributes;
 
 namespace TheXDS.MCART.Types.Extensions
 {
-
-
     /// <summary>
     /// Funciones misceláneas y extensiones para todos los elementos de
     /// tipo <see cref="NamedObject{T}"/>.

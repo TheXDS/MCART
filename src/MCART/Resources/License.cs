@@ -27,7 +27,6 @@ using System.IO;
 using TheXDS.MCART.Types.Base;
 using St = TheXDS.MCART.Resources.Strings;
 
-
 namespace TheXDS.MCART.Resources
 {
     /// <summary>

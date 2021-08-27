@@ -1,5 +1,5 @@
 ﻿/*
-Strings.cs
+Constants.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -24,7 +24,6 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 namespace TheXDS.MCART.Resources.Strings
 {
-
     /// <summary>
     /// Contiene una colección de constantes de cadena.
     /// </summary>

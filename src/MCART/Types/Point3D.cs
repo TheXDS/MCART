@@ -437,7 +437,7 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public double Magnitude()
         {
-            return System.Math.Sqrt(X * X + Y * Y + Z * Z);
+            return System.Math.Sqrt((X * X) + (Y * Y) + (Z * Z));
         }
 
         /// <summary>
@@ -452,7 +452,7 @@ namespace TheXDS.MCART.Types
         public double Magnitude(Point3D fromPoint)
         {
             double x = X - fromPoint.X, y = Y - fromPoint.Y, z = Z - fromPoint.Z;
-            return System.Math.Sqrt(x * x + y * y + z * z);
+            return System.Math.Sqrt((x * x) + (y * y) + (z * z));
         }
 
         /// <summary>
@@ -469,7 +469,7 @@ namespace TheXDS.MCART.Types
         public double Magnitude(double fromX, double fromY, double fromZ)
         {
             double x = X - fromX, y = Y - fromY, z = Z - fromZ;
-            return System.Math.Sqrt(x * x + y * y + z * z);
+            return System.Math.Sqrt((x * x) + (y * y) + (z * z));
         }
 
         /// <summary>

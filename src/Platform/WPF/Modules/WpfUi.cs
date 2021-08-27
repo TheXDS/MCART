@@ -478,7 +478,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static PathGeometry GetCircleArc(double radius, double angle, double thickness = 0)
         {
-            var cp = new Point(radius + thickness / 2, radius + thickness / 2);
+            var cp = new Point(radius + (thickness / 2), radius + (thickness / 2));
             var arc = new ArcSegment
             {
                 IsLargeArc = angle > 180.0,

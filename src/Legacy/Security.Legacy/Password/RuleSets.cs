@@ -234,7 +234,7 @@ namespace TheXDS.MCART.Security.Password
                 if (d == 0) return new PwEvalResult(0, isExtra ?
                     string.Format(St.IncludeX, "✔", ruleName.ToLower()) :
                     string.Format(St.IncludeX, "⚠", ruleName.ToLower()));
-                return new PwEvalResult(((CFactoryFactor + (float)d / p.Length).Clamp(0, 1)));
+                return new PwEvalResult((CFactoryFactor + ((float)d / p.Length)).Clamp(0, 1));
             }, ruleName, ruleDescription ?? ruleName, ponderation, defaultEnable, isExtra);
         }
 

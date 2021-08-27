@@ -42,7 +42,7 @@ namespace TheXDS.MCART.Types
         {
             var yLinear = (double) value / 255;
             var ySrgb = (float) (yLinear > 0.0031308
-                ? System.Math.Pow(yLinear, 1 / 2.4) * 1.055 - 0.055
+                ? (System.Math.Pow(yLinear, 1 / 2.4) * 1.055) - 0.055
                 : 12.92 * yLinear);
             return new Color(ySrgb, ySrgb, ySrgb);
         }

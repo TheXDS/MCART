@@ -1,5 +1,5 @@
 ﻿/*
-SpdxLicenceTests.cs
+DefaultPluginChecker.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -23,32 +23,24 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
-using TheXDS.MCART.Attributes;
-using TheXDS.MCART.Resources;
-using Xunit;
 
-namespace TheXDS.MCART.Tests.Attributes
+namespace TheXDS.MCART.PluginSupport.Legacy
 {
-    public class SpdxLicenceTests
+    /// <summary>
+    /// <see cref="PluginChecker" /> con reglas de compatibilidad estándard.
+    /// </summary>
+    public class DefaultPluginChecker : StrictPluginChecker
     {
-        [Fact]
-        public void SpdxLicenseBasicInstancing_Test()
-        {
-            var l = new SpdxLicenseAttribute(SpdxLicenseId.GPL_3_0_or_later);
-            Assert.Equal(SpdxLicenseId.GPL_3_0_or_later, l.Id);
-        }
-
-        [Fact]
-        public void SpdxInstancingWithStringArgs_Test()
-        {
-            var l = new SpdxLicenseAttribute("GPL_3_0_or_later");
-            Assert.Equal(SpdxLicenseId.GPL_3_0_or_later, l.Id);
-        }
-
-        [Fact]
-        public void SpdxInstancingFailsIfIdNotDefined_Test()
-        {
-            Assert.Throws<ArgumentOutOfRangeException>(() => new SpdxLicenseAttribute((SpdxLicenseId)int.MaxValue));
-        }
+        /// <summary>
+        /// Comprueba que el tipo cargado sea compatible con esta versión de
+        /// MCART.
+        /// </summary>
+        /// <param name="type">Tipo a comprobar.</param>
+        /// <returns>
+        /// <see langword="true" /> si el tipo es compatible con esta versión de
+        /// MCART o si el plugin no incluye información de compatibilidad,
+        /// <see langword="false" /> en caso de no ser compatible.
+        /// </returns>
+        public override bool? IsCompatible(Type type) => base.IsCompatible(type) ?? true;
     }
 }
