@@ -79,7 +79,7 @@ namespace TheXDS.MCART.Math
         /// </param>
         public static double Cubic(in double position)
         {
-            return System.Math.Pow(position, 3) / (3 * System.Math.Pow(position, 2) - (3 * position) + 1);
+            return System.Math.Pow(position, 3) / ((3 * System.Math.Pow(position, 2)) - (3 * position) + 1);
         }
 
         /// <summary>

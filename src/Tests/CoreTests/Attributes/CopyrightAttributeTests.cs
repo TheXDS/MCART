@@ -1,5 +1,5 @@
 ﻿/*
-SpdxLicenceTests.cs
+CopyrightAttributeTests.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,33 +22,25 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
 using TheXDS.MCART.Attributes;
-using TheXDS.MCART.Resources;
 using Xunit;
 
 namespace TheXDS.MCART.Tests.Attributes
 {
-    public class SpdxLicenceTests
+    public class CopyrightAttributeTests
     {
         [Fact]
-        public void SpdxLicenseBasicInstancing_Test()
+        public void CopyrightAttributeBasicInstancing_Test()
         {
-            var l = new SpdxLicenseAttribute(SpdxLicenseId.GPL_3_0_or_later);
-            Assert.Equal(SpdxLicenseId.GPL_3_0_or_later, l.Id);
-        }
+            var l = new CopyrightAttribute("Copyright (C) Test");
+            Assert.Equal("Copyright (C) Test", l.Value);
+            Assert.Equal("Copyright (C) Test", ((IValueAttribute<string?>)l).Value);
 
-        [Fact]
-        public void SpdxInstancingWithStringArgs_Test()
-        {
-            var l = new SpdxLicenseAttribute("GPL_3_0_or_later");
-            Assert.Equal(SpdxLicenseId.GPL_3_0_or_later, l.Id);
-        }
+            l = new CopyrightAttribute("Test");
+            Assert.Equal("Copyright © Test", l.Value);
 
-        [Fact]
-        public void SpdxInstancingFailsIfIdNotDefined_Test()
-        {
-            Assert.Throws<ArgumentOutOfRangeException>(() => new SpdxLicenseAttribute((SpdxLicenseId)int.MaxValue));
+            l = new CopyrightAttribute(1985, "Test");
+            Assert.Equal("Copyright © 1985 Test", l.Value);
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿/*
-SpdxLicenceTests.cs
+PointTests.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -23,32 +23,24 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
-using TheXDS.MCART.Attributes;
-using TheXDS.MCART.Resources;
+using TheXDS.MCART.Types;
 using Xunit;
 
-namespace TheXDS.MCART.Tests.Attributes
+namespace TheXDS.MCART.Tests.Types
 {
-    public class SpdxLicenceTests
+    public class PointTests
     {
-        [Fact]
-        public void SpdxLicenseBasicInstancing_Test()
+#if CLSCompliance
+        [CLSCompliant(false)]
+#endif
+        [Theory]
+        [InlineData("1,1", 1, 1)]
+        [InlineData("15,12", 15, 12)]
+        public void TryParseTest(string value, double x, double y)
         {
-            var l = new SpdxLicenseAttribute(SpdxLicenseId.GPL_3_0_or_later);
-            Assert.Equal(SpdxLicenseId.GPL_3_0_or_later, l.Id);
-        }
-
-        [Fact]
-        public void SpdxInstancingWithStringArgs_Test()
-        {
-            var l = new SpdxLicenseAttribute("GPL_3_0_or_later");
-            Assert.Equal(SpdxLicenseId.GPL_3_0_or_later, l.Id);
-        }
-
-        [Fact]
-        public void SpdxInstancingFailsIfIdNotDefined_Test()
-        {
-            Assert.Throws<ArgumentOutOfRangeException>(() => new SpdxLicenseAttribute((SpdxLicenseId)int.MaxValue));
+            Assert.True(Point.TryParse(value, out var p));
+            Assert.Equal(x, p.X);
+            Assert.Equal(y, p.Y);
         }
     }
 }

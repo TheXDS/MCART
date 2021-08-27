@@ -5,15 +5,14 @@ using TheXDS.MCART.Misc;
 
 namespace TheXDS.MCART.Types.Extensions
 {
-    public static partial class BinaryWriterExtensions
+    public static partial class BinaryReaderExtensions
     {
         [Conditional("EnforceContracts")]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DebuggerNonUserCode]
-        private static void DynamicWrite_Contract(this BinaryWriter bw, object value)
+        private static void ReadStruct_Contract(this BinaryReader reader)
         {
-            Internals.NullCheck(bw, nameof(bw));
-            Internals.NullCheck(value, nameof(value));
+            Internals.NullCheck(reader, nameof(reader));
         }
     }
 }

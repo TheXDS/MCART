@@ -359,7 +359,7 @@ namespace TheXDS.MCART.Controls
         #region Métodos privados
         private void BgDraw()
         {
-            var radius = 50 - Thickness / 2;
+            var radius = 50 - (Thickness / 2);
             double fullAngle = FullAngle.Clamp(0f, 359.999f);
             if (!IsIndeterminate)
                 _ellBg.Data = GetCircleArc(radius, Angle, Angle + fullAngle, Thickness);
@@ -376,7 +376,7 @@ namespace TheXDS.MCART.Controls
 
         private void Draw()
         {
-            var radius = 50 - Thickness / 2;
+            var radius = 50 - (Thickness / 2);
             if (!_pth.IsLoaded) return;
             var x = (RotateTransform)_pth.RenderTransform;
             if (!IsIndeterminate)

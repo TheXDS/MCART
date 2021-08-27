@@ -34,7 +34,6 @@ namespace TheXDS.MCART.Windows
     /// </summary>
     public static class Api
     {
-
         /// <summary>
         /// Obtiene un objeto que permite controlar la ventana de la consola.
         /// </summary>
@@ -74,6 +73,5 @@ namespace TheXDS.MCART.Windows
                 GC.Collect();
             }
         }
-
     }
 }

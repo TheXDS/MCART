@@ -26,10 +26,10 @@ using System;
 using System.IO;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
-using TheXDS.MCART.Helpers;
-using static TheXDS.MCART.Types.Extensions.TypeExtensions;
-using static TheXDS.MCART.Types.Extensions.StringExtensions;
 using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Helpers;
+using static TheXDS.MCART.Types.Extensions.StringExtensions;
+using static TheXDS.MCART.Types.Extensions.TypeExtensions;
 
 namespace TheXDS.MCART.Resources
 {
