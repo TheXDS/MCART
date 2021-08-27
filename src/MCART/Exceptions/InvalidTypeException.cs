@@ -24,7 +24,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Runtime.Serialization;
-using TheXDS.MCART.Resources;
+using TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.Exceptions
 {
@@ -34,8 +34,8 @@ namespace TheXDS.MCART.Exceptions
     [Serializable]
     public class InvalidTypeException : OffendingException<Type>
     {
-        private static string Msg() => Strings.XIsInvalid(Strings.TheType);
-        private static string Msg(Type type) => Strings.XIsInvalid(Strings.XYQuotes(Strings.TheType, type.FullName) );
+        private static string Msg() => Errors.InvalidType;
+        private static string Msg(Type type) => string.Format(Errors.InvalidXType, type.FullName);
 
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException" />.

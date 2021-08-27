@@ -27,6 +27,7 @@ using System.Diagnostics.CodeAnalysis;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Math;
 using TheXDS.MCART.Misc;
+using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Base;
 using static TheXDS.MCART.Types.Extensions.StringExtensions;
 using CI = System.Globalization.CultureInfo;
@@ -479,7 +480,7 @@ namespace TheXDS.MCART.Types
         /// Parámetro opcional.
         /// Proveedor de formato de la cultura a utilizar para dar formato a
         /// la representación como una cadena de este objeto. Si se omite,
-        /// se utilizará <see cref="P:System.Globalization.CultureInfo.CurrentCulture" />.
+        /// se utilizará <see cref="System.Globalization.CultureInfo.CurrentCulture" />.
         /// </param>
         /// <returns>
         /// Una representación en forma de <see cref="string" /> de este objeto.
@@ -493,7 +494,7 @@ namespace TheXDS.MCART.Types
                 'B' => $"[{X}, {Y}, {Z}]",
                 'V' => $"X: {X}, Y: {Y}, Z: {Z}",
                 'N' => $"X: {X}{Environment.NewLine}Y: {Y}{Environment.NewLine}Z: {Z}",
-                _ => throw new FormatException(St.FormatNotSupported(format)),
+                _ => throw Errors.FormatNotSupported(format),
             };
         }
 
@@ -509,8 +510,7 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public override bool Equals(object? obj)
         {
-            if (!(obj is Point3D p)) return false;
-            return this == p;
+            return obj is Point3D p && this == p;
         }
 
         /// <summary>

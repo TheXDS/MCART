@@ -26,7 +26,7 @@ using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.Windows.Controls;
-using TheXDS.MCART.Resources;
+using TheXDS.MCART.Resources.Strings;
 using TheXDS.MCART.Types;
 
 namespace TheXDS.MCART.ViewModel.ValidationRules
@@ -57,8 +57,8 @@ namespace TheXDS.MCART.ViewModel.ValidationRules
         /// </returns>
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            if (!(value is T v)) return new ValidationResult(false, Strings.InvalidValue);
-            return new ValidationResult(Range.IsWithin(v), Strings.ValueMustBeBetween(Range));
+            if (value is not T v) return new ValidationResult(false, Errors.InvalidValue);
+            return new ValidationResult(Range.IsWithin(v), string.Format(Errors.ValueMustBeBetweenXandY, Range.Minimum, Range.Maximum));
         }
     }
 }

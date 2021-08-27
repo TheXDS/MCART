@@ -40,7 +40,7 @@ using TheXDS.MCART.Resources;
 using TheXDS.MCART.ValueConverters;
 using static TheXDS.MCART.Types.Extensions.StringExtensions;
 using static TheXDS.MCART.WpfUi;
-using St = TheXDS.MCART.Resources.Strings;
+using St = TheXDS.MCART.Wpf.Resources.Strings.Common;
 
 namespace TheXDS.MCART.Controls
 {
@@ -50,7 +50,7 @@ namespace TheXDS.MCART.Controls
     /// datos, en efecto, cumpliendo las funciones de un controlador en el
     /// paradigma Model-View-Controller (MVC).
     /// </remarks>
-    [Obsolete(InternalStrings.LegacyComponent)]
+    [Obsolete("Este es un componente legado.")]
     public class NavigationBar : UserControl
     {
         #region ValueConverters privados para controles.
@@ -172,7 +172,7 @@ namespace TheXDS.MCART.Controls
         readonly Button _btnCncl = new()
         {
             Height = 20,
-            Content = St.Cancel,
+            Content = St.BtnCancel,
             HorizontalAlignment = HorizontalAlignment.Center,
             Margin = _thk1,
             Visibility = Visibility.Collapsed
@@ -208,57 +208,57 @@ namespace TheXDS.MCART.Controls
         /// <summary>
         /// Clave de propiedad de dependencia <see cref="HasItemsProperty"/>.
         /// </summary>
-        protected static DependencyPropertyKey HasItemsPropertyKey = DependencyProperty.RegisterReadOnly(nameof(HasItems), typeof(bool), _t, new PropertyMetadata(true));
+        protected static readonly DependencyPropertyKey HasItemsPropertyKey = DependencyProperty.RegisterReadOnly(nameof(HasItems), typeof(bool), _t, new PropertyMetadata(true));
         
         /// <summary>
         /// Identifica la propiedad de dependencia de sólo lectura <see cref="HasItems"/>.
         /// </summary>
-        public static DependencyProperty HasItemsProperty = HasItemsPropertyKey.DependencyProperty;
+        public static readonly DependencyProperty HasItemsProperty = HasItemsPropertyKey.DependencyProperty;
         
         /// <summary>
         /// Clave de propiedad de dependencia <see cref="IsEditingProperty"/>.
         /// </summary>
-        public static DependencyPropertyKey IsEditingPropertyKey = DependencyProperty.RegisterReadOnly(nameof(IsEditing), typeof(bool), _t, new PropertyMetadata(false));
+        public static readonly DependencyPropertyKey IsEditingPropertyKey = DependencyProperty.RegisterReadOnly(nameof(IsEditing), typeof(bool), _t, new PropertyMetadata(false));
         
         /// <summary>
         /// Identifica la propiedad de dependencia de sólo lectura <see cref="IsEditing"/>.
         /// </summary>
-        public static DependencyProperty IsEditingProperty = IsEditingPropertyKey.DependencyProperty;
+        public static readonly DependencyProperty IsEditingProperty = IsEditingPropertyKey.DependencyProperty;
         
         /// <summary>
         /// Identifica la propiedad de dependencia <see cref="ButtonWidth"/>.
         /// </summary>
-        public static DependencyProperty ButtonWidthProperty = DependencyProperty.Register(nameof(ButtonWidth), typeof(double), _t, new PropertyMetadata(Convert.ToDouble(80)));
+        public static readonly DependencyProperty ButtonWidthProperty = DependencyProperty.Register(nameof(ButtonWidth), typeof(double), _t, new PropertyMetadata(Convert.ToDouble(80)));
         
         /// <summary>
         /// Identifica la propiedad de dependencia <see cref="Mode"/>.
         /// </summary>
-        public static DependencyProperty ModeProperty = DependencyProperty.Register(nameof(Mode), typeof(NavigationBarEditMode), _t, new PropertyMetadata(NavigationBarEditMode.ReadOnly), (a) => typeof(NavigationBarEditMode).IsEnumDefined(a));
+        public static readonly DependencyProperty ModeProperty = DependencyProperty.Register(nameof(Mode), typeof(NavigationBarEditMode), _t, new PropertyMetadata(NavigationBarEditMode.ReadOnly), (a) => typeof(NavigationBarEditMode).IsEnumDefined(a));
         
         /// <summary>
         /// Identifica la propiedad de dependencia <see cref="HasSearch"/>.
         /// </summary>
-        public static DependencyProperty HasSearchProperty = DependencyProperty.Register(nameof(HasSearch), typeof(bool), _t, new PropertyMetadata(true));
+        public static readonly DependencyProperty HasSearchProperty = DependencyProperty.Register(nameof(HasSearch), typeof(bool), _t, new PropertyMetadata(true));
         
         /// <summary>
         /// Identifica la propiedad de dependencia <see cref="Search"/>.
         /// </summary>
-        public static DependencyProperty SearchProperty = DependencyProperty.Register(nameof(Search), typeof(string), _t, new PropertyMetadata(string.Empty));
+        public static readonly DependencyProperty SearchProperty = DependencyProperty.Register(nameof(Search), typeof(string), _t, new PropertyMetadata(string.Empty));
         
         /// <summary>
         /// Identifica la propiedad de dependencia <see cref="SearchWatermark"/>.
         /// </summary>
-        public static DependencyProperty SearchWatermarkProperty = DependencyProperty.Register(nameof(SearchWatermark), typeof(string), _t, new PropertyMetadata(St.Search));
+        public static readonly DependencyProperty SearchWatermarkProperty = DependencyProperty.Register(nameof(SearchWatermark), typeof(string), _t, new PropertyMetadata(St.Search));
         
         /// <summary>
         /// Identifica la propiedad de dependencia <see cref="Max"/>.
         /// </summary>
-        public static DependencyProperty MaxProperty = DependencyProperty.Register(nameof(Max), typeof(int), _t, new PropertyMetadata(0, UpdtLayout), a => (int)a >= 0);
+        public static readonly DependencyProperty MaxProperty = DependencyProperty.Register(nameof(Max), typeof(int), _t, new PropertyMetadata(0, UpdtLayout), a => (int)a >= 0);
         
         /// <summary>
         /// Identifica la propiedad de dependencia <see cref="Position"/>.
         /// </summary>
-        public static DependencyProperty PositionProperty = DependencyProperty.Register(nameof(Position), typeof(int), _t, new PropertyMetadata(1, UpdtLayout), a => (int)a >= 1);
+        public static readonly DependencyProperty PositionProperty = DependencyProperty.Register(nameof(Position), typeof(int), _t, new PropertyMetadata(1, UpdtLayout), a => (int)a >= 1);
        
         #endregion
 

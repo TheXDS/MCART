@@ -24,7 +24,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Globalization;
-using TheXDS.MCART.Resources;
+using TheXDS.MCART.Resources.Strings;
 using TheXDS.MCART.Types.Extensions;
 using Xunit;
 
@@ -35,17 +35,17 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         [Fact]
         public void VerboseTest()
         {
-            Assert.Equal(Strings.Seconds(15),TimeSpan.FromSeconds(15).Verbose());
-            Assert.Equal(Strings.Minutes(3),TimeSpan.FromSeconds(180).Verbose());
-            Assert.Equal(Strings.Hours(2),TimeSpan.FromSeconds(7200).Verbose());
-            Assert.Equal(Strings.Days(5),TimeSpan.FromDays(5).Verbose());
+            Assert.Equal(Composition.Seconds(15),TimeSpan.FromSeconds(15).Verbose());
+            Assert.Equal(Composition.Minutes(3),TimeSpan.FromSeconds(180).Verbose());
+            Assert.Equal(Composition.Hours(2),TimeSpan.FromSeconds(7200).Verbose());
+            Assert.Equal(Composition.Days(5),TimeSpan.FromDays(5).Verbose());
 
             Assert.Equal(
-                $"{Strings.Minutes(1)}, {Strings.Seconds(5)}",
+                $"{Composition.Minutes(1)}, {Composition.Seconds(5)}",
                 TimeSpan.FromSeconds(65).Verbose());
             
             Assert.Equal(
-                $"{Strings.Days(2)}, {Strings.Hours(5)}, {Strings.Minutes(45)}, {Strings.Seconds(23)}",
+                $"{Composition.Days(2)}, {Composition.Hours(5)}, {Composition.Minutes(45)}, {Composition.Seconds(23)}",
                 (TimeSpan.FromDays(2) + TimeSpan.FromHours(5) + TimeSpan.FromMinutes(45) + TimeSpan.FromSeconds(23)).Verbose());
         }
 

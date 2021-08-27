@@ -391,7 +391,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <param name="stringToCheck">Cadena a comprobar.</param>
         public static bool ContainsLetters(this string stringToCheck)
         {
-            return stringToCheck.ContainsAny((St.Alpha.ToUpperInvariant() + St.Alpha).ToCharArray());
+            return stringToCheck.ContainsAny((St.Constants.AlphaLc.ToUpperInvariant() + St.Constants.AlphaLc).ToCharArray());
         }
 
         /// <summary>
@@ -411,7 +411,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </param>
         public static bool ContainsLetters(this string stringToCheck, bool ucase)
         {
-            return stringToCheck.ContainsAny((ucase ? St.Alpha.ToUpperInvariant() : St.Alpha).ToCharArray());
+            return stringToCheck.ContainsAny((ucase ? St.Constants.AlphaLc.ToUpperInvariant() : St.Constants.AlphaLc).ToCharArray());
         }
 
         /// <summary>

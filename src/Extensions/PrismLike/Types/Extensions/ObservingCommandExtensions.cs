@@ -24,10 +24,10 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Linq.Expressions;
+using System.Reflection;
+using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.ViewModel;
 using static TheXDS.MCART.Helpers.ReflectionHelpers;
-using TheXDS.MCART.Exceptions;
-using System.Reflection;
 
 namespace TheXDS.MCART.Types.Extensions
 {
@@ -61,7 +61,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </exception>
         public static ObservingCommand ListensToProperty<T>(this ObservingCommand command, Expression<Func<T, object?>> propertySelector)
         {
-            var m = GetMember(propertySelector) as PropertyInfo ?? throw new InvalidArgumentException();
+            var m = GetMember(propertySelector) as PropertyInfo ?? throw new InvalidArgumentException(nameof(propertySelector));
             command.RegisterObservedProperty(m.Name);
             return command;
         }
@@ -86,7 +86,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </exception>
         public static ObservingCommand ListensToProperty(this ObservingCommand command, Expression<Func<object?>> propertySelector)
         {
-            var m = GetMember(propertySelector) as PropertyInfo ?? throw new InvalidArgumentException();
+            var m = GetMember(propertySelector) as PropertyInfo ?? throw new InvalidArgumentException(nameof(propertySelector));
             command.RegisterObservedProperty(m.Name);
             return command;
         }
@@ -153,8 +153,9 @@ namespace TheXDS.MCART.Types.Extensions
             switch (m)
             {
                 case PropertyInfo pi:
-                    command.SetCanExecute(_ => (bool)pi.GetValue(command.ObservedSource)!);
-                    command.RegisterObservedProperty(m.Name);
+                    command
+                        .SetCanExecute(_ => (bool)pi.GetValue(command.ObservedSource)!)
+                        .RegisterObservedProperty(m.Name);
                     break;
                 case MethodInfo mi:
                     if (mi.ToDelegate<Func<object?, bool>>() is { } oFunc)

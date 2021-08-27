@@ -22,8 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma warning disable CS1591
-
 using System;
 using TheXDS.MCART.Types;
 using Xunit;
@@ -44,8 +42,15 @@ namespace TheXDS.MCART.Tests.Types
         [InlineData("1|5")]
         [InlineData("1..5")]
         [InlineData("1...5")]
-        [InlineData("1 to 5")]
-        [InlineData("1 a 5")]
+        [InlineData("1; 5")]
+        [InlineData("1 : 5")]
+        [InlineData("1 | 5")]
+        [InlineData("1,5")]
+        [InlineData("1 .. 5")]
+        [InlineData("1 => 5")]
+        [InlineData("1 -> 5")]
+        [InlineData("1=>5")]
+        [InlineData("1->5")]
         public void TryParseTest(string testArg)
         {
             Assert.True(Range<int>.TryParse(testArg, out var range));

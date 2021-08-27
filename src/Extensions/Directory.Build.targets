@@ -1,9 +1,10 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\Directory.Build.targets"/>
-  <PropertyGroup>
-    <OutputType>Library</OutputType>
-  </PropertyGroup>
-  <ItemGroup>
-    <ProjectReference Include="$(SolutionDir)\MCART\MCART.csproj" />
-  </ItemGroup>
+	<Import Project="..\Directory.Build.targets"/>
+	<PropertyGroup>
+		<OutputType>Library</OutputType>
+		<AssemblyName>MCART.Ext.$(MSBuildProjectName)</AssemblyName>
+	</PropertyGroup>
+	<ItemGroup>
+		<ProjectReference Include="$(SolutionDir)\MCART\MCART.csproj" />
+	</ItemGroup>
 </Project>

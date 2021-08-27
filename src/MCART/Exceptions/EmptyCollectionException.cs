@@ -25,7 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections;
 using System.Runtime.Serialization;
-using TheXDS.MCART.Resources;
+using TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.Exceptions
 {
@@ -75,7 +75,7 @@ namespace TheXDS.MCART.Exceptions
         /// Inicializa una nueva instancia de la clase
         /// <see cref="EmptyCollectionException" />.
         /// </summary>
-        public EmptyCollectionException() : base(Strings.LstEmpty)
+        public EmptyCollectionException() : base(Errors.EmptyCollection)
         {
         }
 
@@ -84,7 +84,7 @@ namespace TheXDS.MCART.Exceptions
         /// <see cref="EmptyCollectionException" />.
         /// </summary>
         /// <param name="offendingCollection">Colección vacía que ha generado la excepción.</param>
-        public EmptyCollectionException(IEnumerable offendingCollection) : base(Strings.LstEmpty, offendingCollection)
+        public EmptyCollectionException(IEnumerable offendingCollection) : base(Errors.EmptyCollection, offendingCollection)
         {
         }
 
@@ -116,7 +116,7 @@ namespace TheXDS.MCART.Exceptions
         /// <param name="inner">
         /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
-        public EmptyCollectionException(Exception inner) : base(Strings.LstEmpty, inner)
+        public EmptyCollectionException(Exception inner) : base(Errors.EmptyCollection, inner)
         {
         }
 
@@ -127,7 +127,7 @@ namespace TheXDS.MCART.Exceptions
         /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         /// <param name="offendingCollection">Colección vacía que ha generado la excepción.</param>
-        public EmptyCollectionException(Exception inner, IEnumerable offendingCollection) : base(Strings.LstEmpty, inner,
+        public EmptyCollectionException(Exception inner, IEnumerable offendingCollection) : base(Errors.EmptyCollection, inner,
             offendingCollection)
         {
         }

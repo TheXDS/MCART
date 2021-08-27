@@ -24,7 +24,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Runtime.Serialization;
-using TheXDS.MCART.Resources;
+using TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.Exceptions
 {
@@ -51,7 +51,7 @@ namespace TheXDS.MCART.Exceptions
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="StackUnderflowException" />.
         /// </summary>
-        public StackUnderflowException() : base(Strings.StackUnderflow)
+        public StackUnderflowException() : base(Errors.StackUnderflow)
         {
         }
 
@@ -67,7 +67,7 @@ namespace TheXDS.MCART.Exceptions
         /// Inicializa una nueva instancia de la clase <see cref="StackUnderflowException" />.
         /// </summary>
         /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
-        public StackUnderflowException(Exception inner) : base(Strings.StackUnderflow, inner)
+        public StackUnderflowException(Exception inner) : base(Errors.StackUnderflow, inner)
         {
         }
 

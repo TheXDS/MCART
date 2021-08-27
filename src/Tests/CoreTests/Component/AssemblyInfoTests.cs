@@ -42,9 +42,6 @@ namespace TheXDS.MCART.Tests.Component
             Assert.True(a.HasLicense);
             Assert.NotNull(a.License);
             Assert.NotNull(a.InformationalVersion);
-            Assert.True(a.Has3rdPartyLicense);
-            Assert.Contains(typeof(Security.Password.PasswordStorage), a.ThirdPartyComponents);
-            Assert.Contains(a.ThirdPartyLicenses, p => p.Name.Contains("MIT", StringComparison.InvariantCultureIgnoreCase));
 #if CLSCompliance
             Assert.True(a.ClsCompliant);
 #endif

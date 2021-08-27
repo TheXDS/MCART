@@ -1,0 +1,10 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<Import Project="..\Directory.Build.targets"/>
+	<PropertyGroup>
+		<OutputType>Library</OutputType>
+		<RootNamespace>TheXDS.MCART.$(MSBuildProjectName)</RootNamespace>
+	</PropertyGroup>
+	<ItemGroup>
+		<ProjectReference Include="$(SolutionDir)\MCART\MCART.csproj" />
+	</ItemGroup>
+</Project>

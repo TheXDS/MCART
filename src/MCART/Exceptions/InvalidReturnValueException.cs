@@ -24,7 +24,8 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Runtime.Serialization;
-using TheXDS.MCART.Resources;
+using TheXDS.MCART.Resources.Strings;
+using static TheXDS.MCART.Resources.Strings.Errors;
 
 namespace TheXDS.MCART.Exceptions
 {
@@ -56,7 +57,7 @@ namespace TheXDS.MCART.Exceptions
         /// Inicializa una nueva instancia de la clase
         /// <see cref="InvalidReturnValueException" />.
         /// </summary>
-        public InvalidReturnValueException() : base(Strings.XReturnedInvalid(Strings.TheFunc))
+        public InvalidReturnValueException() : base(InvalidReturnValue)
         {
         }
 
@@ -68,11 +69,9 @@ namespace TheXDS.MCART.Exceptions
         /// <param name="call">
         /// <see cref="Delegate" /> cuyo resultado causó la excepción.
         /// </param>
-        public InvalidReturnValueException(Delegate call) : base(
-            Strings.XReturnedInvalid(Strings.XYQuotes(Strings.TheFunc, call.Method.Name)))
+        public InvalidReturnValueException(Delegate call) : this(call.Method.Name)
         {
             OffendingFunction = call;
-            OffendingFunctionName = OffendingFunction.Method.Name;
         }
 
         /// <summary>
@@ -83,8 +82,7 @@ namespace TheXDS.MCART.Exceptions
         /// <param name="methodName">
         /// Nombre del método cuyo resultado ha causado la excepción.
         /// </param>
-        public InvalidReturnValueException(string methodName) : base(
-            Strings.XReturnedInvalid(Strings.XYQuotes(Strings.TheFunc, methodName)))
+        public InvalidReturnValueException(string methodName) : base(string.Format(InvalidFuncReturnValue, methodName))
         {
             OffendingFunctionName = methodName;
         }
@@ -100,12 +98,9 @@ namespace TheXDS.MCART.Exceptions
         /// <param name="returnValue">
         /// Valor inválido devuelto por <paramref name="call" />.
         /// </param>
-        public InvalidReturnValueException(Delegate call, object returnValue) : base(
-            Strings.XReturnedInvalid(Strings.XYQuotes(Strings.TheFunc, call.Method.Name)))
+        public InvalidReturnValueException(Delegate call, object? returnValue) : this(call.Method.Name, returnValue)
         {
             OffendingFunction = call;
-            OffendingFunctionName = OffendingFunction.Method.Name;
-            OffendingReturnValue = returnValue;
         }
 
         /// <summary>
@@ -119,8 +114,7 @@ namespace TheXDS.MCART.Exceptions
         /// <param name="returnValue">
         /// Valor inválido devuelto por el método.
         /// </param>
-        public InvalidReturnValueException(string methodName, object returnValue) : base(
-            Strings.XReturnedInvalid(Strings.XYQuotes(Strings.TheFunc, methodName)))
+        public InvalidReturnValueException(string methodName, object? returnValue) : this(methodName, returnValue, null)
         {
             OffendingFunctionName = methodName;
             OffendingReturnValue = returnValue;
@@ -136,7 +130,7 @@ namespace TheXDS.MCART.Exceptions
         /// <param name="inner">
         /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
-        public InvalidReturnValueException(string message, Exception inner) : base(message, inner)
+        public InvalidReturnValueException(string message, Exception? inner) : base(message, inner)
         {
         }
 
@@ -154,12 +148,9 @@ namespace TheXDS.MCART.Exceptions
         /// <param name="inner">
         /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
-        public InvalidReturnValueException(Delegate call, object returnValue, Exception inner) : base(
-            Strings.XReturnedInvalid(Strings.XYQuotes(Strings.TheFunc, call.Method.Name)), inner)
+        public InvalidReturnValueException(Delegate call, object? returnValue, Exception? inner) : this(call.Method.Name, returnValue, inner)
         {
             OffendingFunction = call;
-            OffendingFunctionName = OffendingFunction.Method.Name;
-            OffendingReturnValue = returnValue;
         }
 
         /// <summary>
@@ -176,8 +167,7 @@ namespace TheXDS.MCART.Exceptions
         /// <param name="inner">
         /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
-        public InvalidReturnValueException(string methodName, object returnValue, Exception inner) : base(
-            Strings.XReturnedInvalid(Strings.XYQuotes(Strings.TheFunc, methodName)), inner)
+        public InvalidReturnValueException(string methodName, object? returnValue, Exception? inner) : base(string.Format(InvalidFuncXReturnValue, methodName, returnValue ?? Common.Null), inner)
         {
             OffendingFunctionName = methodName;
             OffendingReturnValue = returnValue;

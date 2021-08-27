@@ -25,7 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Reflection;
 using System.Runtime.Serialization;
-using TheXDS.MCART.Resources;
+using static TheXDS.MCART.Resources.Strings.Errors;
 
 namespace TheXDS.MCART.Exceptions
 {
@@ -169,13 +169,12 @@ namespace TheXDS.MCART.Exceptions
 
         private static string Msg()
         {
-            return Strings.InvalidSignature(Strings.TheMethod);
+            return InvalidMethodSignature;
         }
 
         private static string Msg(MemberInfo offendingMethod)
         {
-            return Strings.InvalidSignature(Strings.XYQuotes(Strings.TheMethod,
-                $"{offendingMethod.DeclaringType?.FullName}.{offendingMethod.Name}"));
+            return string.Format(InvalidMethodXSignature, $"{offendingMethod.DeclaringType?.FullName}.{offendingMethod.Name}");
         }
     }
 }

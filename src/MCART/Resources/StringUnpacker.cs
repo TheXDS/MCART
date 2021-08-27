@@ -25,11 +25,11 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.IO;
 using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types.Extensions;
 using St = TheXDS.MCART.Resources.Strings;
-using St2 = TheXDS.MCART.Resources.InternalStrings;
 
 namespace TheXDS.MCART.Resources
 {
@@ -40,18 +40,23 @@ namespace TheXDS.MCART.Resources
     public class StringUnpacker : AssemblyUnpacker<string>, IAsyncUnpacker<string>
     {
         private static Task<string> ReadAsync(TextReader r)
-        { 
+        {
             using (r) return r.ReadToEndAsync();
         }
 
         private static string Read(TextReader r)
-        { 
+        {
             using (r) return r.ReadToEnd();
         }
 
         private static StreamReader GetFailure(string id, Exception ex)
         {
-            return new(St.Warn(St2.UnkErrLoadingRes(id, ex.Message)).ToStream());
+            MemoryStream ms = new();
+            using StreamWriter sw = new(ms, Encoding.UTF8, -1, true);
+            sw.WriteLine(string.Format(St.Errors.ErrorLoadingRes, id));
+            St.Composition.ExDump(sw, ex, St.ExDumpOptions.All);
+            ms.Seek(0, SeekOrigin.Begin);
+            return new StreamReader(ms, Encoding.UTF8);
         }
 
         /// <summary>

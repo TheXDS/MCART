@@ -28,17 +28,16 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using TheXDS.MCART.Events;
-using TheXDS.MCART.Resources;
 using TheXDS.MCART.ValueConverters;
 using static TheXDS.MCART.Types.Extensions.StringExtensions;
-using St = TheXDS.MCART.Resources.Strings;
+using St = TheXDS.MCART.Wpf.Resources.Strings.Common;
 
 namespace TheXDS.MCART.Controls
 {
     /// <summary>
     /// Cuadro de texto simple con marca de agua optimizado para búsquedas.
     /// </summary>
-    [Obsolete(InternalStrings.LegacyComponent)]
+    [Obsolete("Este es un componente legado.")]
     public class SearchBox : UserControl
     {
         /// <summary>

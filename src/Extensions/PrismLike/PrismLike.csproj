@@ -2,7 +2,6 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <Description>Prism-Like syntax extensions for MCART ViewModels</Description>
-    <AssemblyName>MCART.Ext.PrismLike</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Lib\MCART-UI\MCART.UI.csproj" />

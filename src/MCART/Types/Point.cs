@@ -26,6 +26,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Misc;
+using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Base;
 using static System.Math;
 using static TheXDS.MCART.Types.Extensions.StringExtensions;
@@ -550,7 +551,7 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public double Magnitude()
         {
-            return Sqrt(X * X + Y * Y);
+            return Sqrt((X * X) + (Y * Y));
         }
 
         /// <summary>
@@ -565,7 +566,7 @@ namespace TheXDS.MCART.Types
         public double Magnitude(Point fromPoint)
         {
             double x = X - fromPoint.X, y = Y - fromPoint.Y;
-            return Sqrt(x * x + y * y);
+            return Sqrt((x * x) + (y * y));
         }
 
         /// <summary>
@@ -581,7 +582,7 @@ namespace TheXDS.MCART.Types
         public double Magnitude(double fromX, double fromY)
         {
             double x = X - fromX, y = Y - fromY;
-            return Sqrt(x * x + y * y);
+            return Sqrt((x * x) + (y * y));
         }
 
         /// <summary>
@@ -592,7 +593,7 @@ namespace TheXDS.MCART.Types
         /// Parámetro opcional.
         /// Proveedor de formato de la cultura a utilizar para dar formato a
         /// la representación como una cadena de este objeto. Si se omite,
-        /// se utilizará <see cref="P:System.Globalization.CultureInfo.CurrentCulture" />.
+        /// se utilizará <see cref="System.Globalization.CultureInfo.CurrentCulture" />.
         /// </param>
         /// <returns>
         /// Una representación en forma de <see cref="string" /> de este objeto.
@@ -606,7 +607,7 @@ namespace TheXDS.MCART.Types
                 'B' => $"[{X}, {Y}]",
                 'V' => $"X: {X}, Y: {Y}",
                 'N' => $"X: {X}\nY: {Y}",
-                _ => throw new FormatException(St.FormatNotSupported(format)),
+                _ => throw Errors.FormatNotSupported(format),
             };
         }
 
@@ -635,8 +636,7 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public override bool Equals(object? obj)
         {
-            if (!(obj is I2DVector p)) return false;
-            return this == p;
+            return obj is I2DVector p && this == p;
         }
 
         /// <summary>

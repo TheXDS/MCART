@@ -36,7 +36,6 @@ using TheXDS.MCART.Math;
 using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Extensions;
 using TheXDS.MCART.ValueConverters;
-using ISt = TheXDS.MCART.Resources.InternalStrings;
 using MC = TheXDS.MCART.Resources.Colors;
 
 namespace TheXDS.MCART.Controls
@@ -44,7 +43,7 @@ namespace TheXDS.MCART.Controls
     /// <summary>
     /// Control de gráficos de histograma ligero.
     /// </summary>
-    [Obsolete(ISt.LegacyComponent)]
+    [Obsolete("Este es un componente legado.")]
     public class LightGraph : UserControl
     {
         #region Propiedades de dependencia

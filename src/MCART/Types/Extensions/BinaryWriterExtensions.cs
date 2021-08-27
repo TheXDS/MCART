@@ -28,8 +28,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
-using TheXDS.MCART.Helpers;
-using St = TheXDS.MCART.Resources.Strings;
+using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Types.Extensions
 {
@@ -160,7 +159,7 @@ namespace TheXDS.MCART.Types.Extensions
             }
             else
             {
-                throw new InvalidOperationException(St.CantWriteObj(value.GetType()));
+                throw Errors.CantWriteObj(value.GetType());
             }
         }
 

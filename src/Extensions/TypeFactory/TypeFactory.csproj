@@ -2,7 +2,6 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <Description>TypeFactory Extension for MCART</Description>
-    <AssemblyName>MCART.Ext.TypeFactory</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
     <Compile Update="Resources\TypeFactoryStrings.Designer.cs">

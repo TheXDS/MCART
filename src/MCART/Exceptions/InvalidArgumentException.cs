@@ -24,12 +24,14 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Runtime.Serialization;
-using TheXDS.MCART.Resources;
+using TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.Exceptions
 {
     /// <summary>
-    /// Se produce cuando un argumento contiene un valor inválido.
+    /// Se produce cuando un argumento contiene un valor inválido y ninguna de
+    /// las clases derivadas de <see cref="ArgumentException"/> describe
+    /// adecuadamente el error.
     /// </summary>
     [Serializable]
     public class InvalidArgumentException : ArgumentException
@@ -55,7 +57,7 @@ namespace TheXDS.MCART.Exceptions
         /// Inicializa una nueva instancia de la clase
         /// <see cref="InvalidArgumentException" />.
         /// </summary>
-        public InvalidArgumentException() : base(Strings.InvalidParameterX(Strings.Specified))
+        public InvalidArgumentException() : base(Errors.InvalidValue)
         {
         }
 
@@ -64,7 +66,7 @@ namespace TheXDS.MCART.Exceptions
         /// <see cref="InvalidArgumentException" />.
         /// </summary>
         /// <param name="argumentName">Nombre del argumento inválido.</param>
-        public InvalidArgumentException(string argumentName) : base(Strings.InvalidParameterX(argumentName))
+        public InvalidArgumentException(string argumentName) : base(string.Format(Errors.InvalidArgument, argumentName))
         {
         }
 
@@ -86,7 +88,7 @@ namespace TheXDS.MCART.Exceptions
         /// <param name="inner">
         /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
-        public InvalidArgumentException(Exception inner) : base(Strings.InvalidParameterX(Strings.Specified), inner)
+        public InvalidArgumentException(Exception inner) : base(Errors.InvalidValue, inner)
         {
         }
 
@@ -97,7 +99,7 @@ namespace TheXDS.MCART.Exceptions
         /// <see cref="Exception" /> que es la causa de esta excepción.
         /// </param>
         /// <param name="argumentName">Nombre del argumento inválido.</param>
-        public InvalidArgumentException(Exception inner, string argumentName) : base(Strings.InvalidParameterX(argumentName), inner)
+        public InvalidArgumentException(Exception inner, string argumentName) : base(string.Format(Errors.InvalidArgument, argumentName), inner)
         {
         }
 

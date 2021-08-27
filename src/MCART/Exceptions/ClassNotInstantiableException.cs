@@ -24,7 +24,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Runtime.Serialization;
-using TheXDS.MCART.Resources;
+using TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.Exceptions
 {
@@ -36,8 +36,8 @@ namespace TheXDS.MCART.Exceptions
     {
         private static string DefaultMessage(Type? offendingType = null)
         {
-            if (offendingType is null) return Strings.XNotInstantiable(Strings.TheClass);
-            return InternalStrings.ErrorXClassNotInstantiableWithArgs(offendingType.Name);
+            if (offendingType is null) return Errors.ClassNotInstantiable;
+            return string.Format(Errors.ClassXNotinstantiable, offendingType.Name);
         }
 
         /// <summary>

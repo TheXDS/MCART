@@ -12,5 +12,19 @@
   </ItemGroup>  
   <ItemGroup>
     <ProjectReference Include="..\MCART-UI\MCART.UI.csproj" />
+  </ItemGroup>  
+  <ItemGroup>
+    <Compile Update="Resources\Strings\Errors.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Errors.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>  
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Strings\Errors.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Errors.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>TheXDS.MCART.Windows.Resources.Strings</CustomToolNamespace>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

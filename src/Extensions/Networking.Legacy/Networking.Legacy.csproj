@@ -1,8 +1,0 @@
-<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-    <Description>MCART Legacy Networking Support</Description>
-    <AssemblyName>MCART.Networking.Legacy</AssemblyName>
-    <RootNamespace>TheXDS.MCART.Networking.Legacy</RootNamespace>
-  </PropertyGroup>
-</Project>

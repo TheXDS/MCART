@@ -25,7 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System.Globalization;
 using System.Windows.Controls;
 using TheXDS.MCART.Helpers;
-using TheXDS.MCART.Resources;
+using TheXDS.MCART.Wpf.Resources.Strings;
 
 namespace TheXDS.MCART.ViewModel.ValidationRules
 {
@@ -48,7 +48,7 @@ namespace TheXDS.MCART.ViewModel.ValidationRules
         /// </returns>
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            return new ValidationResult(Objects.IsNumericType(value?.GetType()), Strings.RequiredNumber);
+            return new ValidationResult(Objects.IsNumericType(value?.GetType()), Errors.RequiredNumber);
         }
     }
 }
