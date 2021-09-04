@@ -1053,6 +1053,28 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
+        /// Comprueba si la propiedad o valor dentro de todos los objetos de la
+        /// colección son iguales.
+        /// </summary>
+        /// <typeparam name="T">Tipo de objetos de la colección.</typeparam>
+        /// <typeparam name="TProp">Tipo de valor a comparar.</typeparam>
+        /// <param name="c">
+        /// Colección que contiene los objetos a comprobar.
+        /// </param>
+        /// <param name="selector">
+        /// Función de selección del valor de cada objeto.
+        /// </param>
+        /// <returns>
+        /// <see langword="true"/> si todos los valores seleccionados a partir
+        /// de los objetos de la colección son iguales, <see langword="false"/>
+        /// en caso contrario.
+        /// </returns>
+        [Sugar] public static bool AreAllEqual<T, TProp>(this IEnumerable<T> c, Func<T, TProp> selector)
+        {
+            return c.Select(selector).AreAllEqual();
+        }
+
+        /// <summary>
         /// Encuentra el índice de un objeto dentro de una colección.
         /// </summary>
         /// <typeparam name="T">Tipo de objetos de la colección.</typeparam>

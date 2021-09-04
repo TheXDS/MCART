@@ -35,6 +35,7 @@ using System.ComponentModel;
 using System.Linq;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Math;
+using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Extensions;
 using static TheXDS.MCART.Misc.Internals;
@@ -671,7 +672,7 @@ namespace TheXDS.MCART.Helpers
         /// Una cadena con la cantidad de bytes utilizando la unidad de
         /// magnitud adecuada.
         /// </returns>
-        public static string ByteUnits(in long bytes, in ByteUnitType unit)
+        public static string ByteUnits(in this long bytes, in ByteUnitType unit)
         {
             var c = 0;
             var b = (double)bytes;
@@ -696,6 +697,33 @@ namespace TheXDS.MCART.Helpers
             }
 
             return c > 0 ? $"{b + (b / mag):F1} {u[c.Clamp(u.Length) - 1]}" : $"{bytes} {St.Bytes}";
+        }
+
+        /// <summary>
+        /// Convierte un valor <see cref="long"/> que representa una cuenta de
+        /// bytes en la unidad de magnitud más fácil de leer.
+        /// </summary>
+        /// <param name="bytes">Cantidad de bytes a representar.</param>
+        /// <param name="unit">Tipo de unidad a utilizar.</param>
+        /// <param name="magnitude">
+        /// Magnitud inicial de bytes. <c>0</c> indica que el valor de 
+        /// <paramref name="bytes"/> debe tratarse directamente como el valor
+        /// en bytes de la operación. El valor máximo permitido es <c>8</c>
+        /// para indicar Yottabytes.
+        /// </param>
+        /// <returns>
+        /// Una cadena con la cantidad de bytes utilizando la unidad de
+        /// magnitud adecuada.
+        /// </returns>
+        public static string ByteUnits(in this int bytes, in ByteUnitType unit, byte magnitude)
+        {
+            ByteUnits_Contract(bytes, unit, magnitude);
+            return ByteUnits((long)(bytes * System.Math.Pow(unit switch
+            {
+                ByteUnitType.Binary or ByteUnitType.BinaryLong => 1024,
+                ByteUnitType.Decimal or ByteUnitType.DecimalLong => 1000,
+                _ => throw Errors.UndefinedEnum(nameof(unit), unit)
+            }, magnitude)), unit);
         }
 
         /// <summary>
