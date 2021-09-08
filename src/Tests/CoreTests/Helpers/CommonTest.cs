@@ -432,7 +432,7 @@ namespace TheXDS.MCART.Tests
         [InlineData(1048576, ByteUnitType.DecimalLong, "1.0 Megabytes")]
         public void ByteUnitsTest_Long_ByteUnitType(long bytes, ByteUnitType unit, string result)
         {
-            Assert.Equal(result, ByteUnits(bytes, unit));
+            Assert.Equal(result, TheXDS.MCART.Helpers.Common.ByteUnits(bytes, unit));
         }
         
         [Theory]
