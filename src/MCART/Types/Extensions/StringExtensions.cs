@@ -215,26 +215,34 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static string[] TextWrap(this string str, int width)
         {
-            var l = new List<string>
-            {
-                string.Empty
-            };
+            var l = new List<string>();
 
             foreach (var j in str.Split(' '))
             {
-                if (string.IsNullOrEmpty(j)) continue;
-                if (l.Last().Length + j.Length > width)
+                if ((l.LastOrDefault() ?? string.Empty).Length + j.Length > width)
                 {
-                    l.Add(j);
+                    l.AddRange(j.Split(width));
                 }
                 else
                 {
+                    if (!l.Any()) l.Add(string.Empty);
                     l[^1] += l[^1].IsEmpty() ? j : $" {j}";
                 }
             }
             return l.ToArray();
         }
 
+        static IEnumerable<string> Split(this string str, int chunkSize)
+        {
+            string Selector(int i)
+            {
+                var ch = i * chunkSize;
+                return str.Substring(ch,
+                    ch + chunkSize > str.Length ? str.Length - ch : chunkSize);
+            }
+            return Enumerable.Range(0, (str.Length / chunkSize) + 1).Select(Selector);
+        }
+        
         /// <summary>
         /// Determina si la cadena contiene a cualquiera de los caracteres
         /// especificados.

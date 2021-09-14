@@ -35,7 +35,7 @@ using Xunit;
 using static TheXDS.MCART.Helpers.Common;
 using static TheXDS.MCART.Types.Extensions.SecureStringExtensions;
 
-namespace TheXDS.MCART.Tests
+namespace TheXDS.MCART.Tests.Helpers
 {
     public class CommonTest
     {

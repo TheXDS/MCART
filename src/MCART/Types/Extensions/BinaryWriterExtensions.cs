@@ -149,17 +149,59 @@ namespace TheXDS.MCART.Types.Extensions
             }
             else if (value.GetType().IsStruct())
             {
-                var sze = Marshal.SizeOf(value);
-                var arr = new byte[sze];
-                var ptr = Marshal.AllocHGlobal(sze);
-                Marshal.StructureToPtr(value, ptr, true);
-                Marshal.Copy(ptr, arr, 0, sze);
-                Marshal.FreeHGlobal(ptr);
-                bw.Write(arr);
+                ByFieldWriteStructInternal(bw, value);
             }
             else
             {
                 throw Errors.CantWriteObj(value.GetType());
+            }
+        }
+
+        /// <summary>
+        /// Escribe una estructura simple en el <see cref="Stream"/>
+        /// subyacente por medio de Marshaling.
+        /// </summary>
+        /// <typeparam name="T">Tipo de la estructura.</typeparam>
+        /// <param name="bw">
+        /// Instancia sobre la cual realizar la escritura.
+        /// </param>
+        /// <param name="value">
+        /// Objeto a escribir.
+        /// </param>
+        public static void MarshalWriteStruct<T>(this BinaryWriter bw, T value) where T : struct
+        {
+            WriteStruct_Contract(bw);
+            var sze = Marshal.SizeOf(value);
+            var arr = new byte[sze];
+            var ptr = Marshal.AllocHGlobal(sze);
+            Marshal.StructureToPtr(value, ptr, true);
+            Marshal.Copy(ptr, arr, 0, sze);
+            Marshal.FreeHGlobal(ptr);
+            bw.Write(arr);
+        }
+
+        /// <summary>
+        /// Escribe una estructura simple en el <see cref="Stream"/>
+        /// subyacente.
+        /// </summary>
+        /// <typeparam name="T">Tipo de la estructura.</typeparam>
+        /// <param name="bw">
+        /// Instancia sobre la cual realizar la escritura.
+        /// </param>
+        /// <param name="value">
+        /// Objeto a escribir.
+        /// </param>
+        public static void WriteStruct<T>(this BinaryWriter bw, T value) where T : struct
+        {
+            WriteStruct_Contract(bw, typeof(T));
+            ByFieldWriteStructInternal(bw, value);
+        }
+
+        private static void ByFieldWriteStructInternal(BinaryWriter writer, object obj)
+        {
+            foreach (var j in obj.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic))
+            {
+                if (!j.IsInitOnly) writer.DynamicWrite(j.GetValue(obj) ?? throw Errors.FieldIsNull(j));
             }
         }
 

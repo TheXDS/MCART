@@ -117,7 +117,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <param name="action">
         /// Acción a ejecutar sobre la lista.
         /// </param>
-        public static void Locked<T>(this IList list, Action<IList> action)
+        public static void Locked(this IList list, Action<IList> action)
         {
             if (list.IsSynchronized) action(list);
             else lock (list.SyncRoot) action(list);
@@ -165,8 +165,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </exception>
         public static void Shuffle<T>(this IList<T> c, in int deepness)
         {
-            var enumerable = c.ToList();
-            Shuffle(enumerable, 0, enumerable.Count - 1, deepness);
+            Shuffle(c, 0, c.Count - 1, deepness);
         }
 
         /// <summary>
@@ -215,7 +214,6 @@ namespace TheXDS.MCART.Types.Extensions
         public static void Shuffle<T>(this IList<T> toShuffle, int firstIdx, int lastIdx, in int deepness, Random random)
         {
             Shuffle_Contract(toShuffle, firstIdx, lastIdx, deepness, random);
-            if (firstIdx > lastIdx) Common.Swap(ref firstIdx, ref lastIdx);
             lastIdx++;
             for (var j = firstIdx; j < lastIdx; j += deepness)
             {
@@ -233,9 +231,7 @@ namespace TheXDS.MCART.Types.Extensions
         public static void Swap<T>(this IList<T> collection, in int indexA, in int indexB)
         {
             if (indexA == indexB) return;
-            var tmp = collection[indexB];
-            collection[indexB] = collection[indexA];
-            collection[indexA] = tmp;
+            (collection[indexB], collection[indexA]) = (collection[indexA], collection[indexB]);
         }
 
         /// <summary>
@@ -247,7 +243,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <param name="b">Segundo elemento.</param>
         public static void Swap<T>(this IList<T> collection, T a, T b)
         {            
-            if (!collection.ContainsAll(a, b)) throw new Exception();
+            if (!collection.ContainsAll(a, b)) throw new Exception(); //TODO: agregar excepción específica
             Swap(collection, collection.IndexOf(a), collection.IndexOf(b));
         }
     }

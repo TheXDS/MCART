@@ -31,7 +31,7 @@ namespace TheXDS.MCART.Types.Extensions
     /// Extensiones para todos los tipos que implementen 
     /// <see cref="IEnumerator"/>.
     /// </summary>
-    public static class EnumeratorExtensions
+    public static partial class EnumeratorExtensions
     {
         /// <summary>
         /// Desplaza el enumerador una cantidad específica de elementos.
@@ -50,12 +50,13 @@ namespace TheXDS.MCART.Types.Extensions
         /// </exception>
         public static int Skip(this IEnumerator enumerator, int steps)
         {
-            if (steps < 0) throw new ArgumentOutOfRangeException(nameof(steps));
+            Skip_Contract(enumerator, steps);
             int j;
             for (j = 0; j < steps; j++)
             {
                 if (!enumerator.MoveNext())
                 {
+                    j++;
                     break;
                 }
             }

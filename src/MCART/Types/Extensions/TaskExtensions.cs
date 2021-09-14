@@ -122,8 +122,15 @@ namespace TheXDS.MCART.Types.Extensions
         [Sugar]
         public static T Yield<T>(this Task<T> task, CancellationToken ct)
         {
-            task.Wait(ct);
-            return task.Result;
+            try
+            {
+                task.Wait(ct);
+                return task.IsCompletedSuccessfully ? task.Result : default!;
+            }
+            catch (OperationCanceledException)
+            {
+                return default!;
+            }
         }
 
         /// <summary>
@@ -141,8 +148,7 @@ namespace TheXDS.MCART.Types.Extensions
         [Sugar]
         public static T Yield<T>(this Task<T> task, TimeSpan timeout)
         {
-            task.Wait(timeout);
-            return task.Result;
+            return task.Wait(timeout) ? task.Result : default!;
         }
 
         /// <summary>
@@ -160,8 +166,7 @@ namespace TheXDS.MCART.Types.Extensions
         [Sugar]
         public static T Yield<T>(this Task<T> task, int msTimeout)
         {
-            task.Wait(msTimeout);
-            return task.Result;
+            return task.Wait(msTimeout) ? task.Result : default!;
         }
 
         /// <summary>
@@ -180,33 +185,15 @@ namespace TheXDS.MCART.Types.Extensions
         [Sugar]
         public static T Yield<T>(this Task<T> task, int msTimeout, CancellationToken ct)
         {
-            task.Wait(msTimeout, ct);
-            return task.Result;
-        }
-
-        /// <summary>
-        /// Ejecuta una tarea en un contexto que arrojará cualquier
-        /// excepción producida durante su ejecución.
-        /// </summary>
-        /// <param name="task">Tarea a ejecutar.</param>
-        /// <returns>Una tarea que permite observar la operación actual.</returns>
-        public static async Task Throwable(this Task task)
-        {
-            await task;
-            if (task.IsFaulted) throw task.Exception ?? new AggregateException();
-        }
-
-        /// <summary>
-        /// Ejecuta una tarea en un contexto que arrojará cualquier
-        /// excepción producida durante su ejecución.
-        /// </summary>
-        /// <param name="task">Tarea a ejecutar.</param>
-        /// <returns>Una tarea que permite observar la operación actual.</returns>
-        public static async Task<T> Throwable<T>(this Task<T> task)
-        {
-            var r = await task;
-            if (task.IsFaulted) throw task.Exception ?? new AggregateException();
-            return r;
+            try
+            {
+                task.Wait(msTimeout, ct);
+                return task.IsCompletedSuccessfully ? task.Result : default!;
+            }
+            catch (OperationCanceledException)
+            {
+                return default!;
+            }
         }
 
         /// <summary>

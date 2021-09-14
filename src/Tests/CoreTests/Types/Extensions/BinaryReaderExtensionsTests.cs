@@ -36,7 +36,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         [Fact]
         public void GetBinaryReadMethod_Test()
         {
-            var e = ReflectionHelpers.GetMethod<BinaryReader, Func<int>>(o => o.Read);
+            var e = ReflectionHelpers.GetMethod<BinaryReader, Func<int>>(o => o.ReadInt32);
             Assert.Equal(e, BinaryReaderExtensions.GetBinaryReadMethod(typeof(int)));
         }
 
@@ -49,9 +49,14 @@ namespace TheXDS.MCART.Tests.Types.Extensions
                 bw.Write(DayOfWeek.Tuesday);
             }
             ms.Seek(0,SeekOrigin.Begin);
-            using (var br = new BinaryReader(ms))
+            using (var br = new BinaryReader(ms,Encoding.Default, true))
             {
-                Assert.Equal(DayOfWeek.Tuesday,br.ReadEnum<DayOfWeek>());
+                Assert.Equal(DayOfWeek.Tuesday, br.ReadEnum<DayOfWeek>());
+            }
+            ms.Seek(0, SeekOrigin.Begin);
+            using (var br = new BinaryReader(ms, Encoding.Default))
+            {
+                Assert.Equal(DayOfWeek.Tuesday, br.ReadEnum(typeof(DayOfWeek)));
             }
         }
 
@@ -118,11 +123,64 @@ namespace TheXDS.MCART.Tests.Types.Extensions
                 bw.Write(DayOfWeek.Tuesday);
             }
             ms.Seek(0,SeekOrigin.Begin);
+            using var br = new BinaryReader(ms);
+            Assert.Equal(g, br.Read<TimeSpan>());
+            Assert.Equal(DayOfWeek.Tuesday, br.Read<DayOfWeek>());
+        }
+
+        [Fact]
+        public void MarshalReadStruct_Test()
+        {
+            using var ms = new MemoryStream();
+            using (var bw = new BinaryWriter(ms, Encoding.Default, true))
+            {
+                bw.MarshalWriteStruct(123456.789m);
+            }
+            ms.Seek(0, SeekOrigin.Begin);
+            using var br = new BinaryReader(ms);
+
+            var v = br.MarshalReadStruct<decimal>();
+            Assert.Equal(123456.789m, v);
+        }
+
+
+        [Fact]
+        public void FieldReadStruct_Test()
+        {
+            using var ms = new MemoryStream();
+            using (var bw = new BinaryWriter(ms, Encoding.Default, true))
+            {
+                bw.WriteStruct(new TestStruct
+                {
+                    Int32Value = 1000000,
+                    BoolValue = true,
+                    StringValue = "test"
+                });
+            }
+            ms.Seek(0, SeekOrigin.Begin);
+            using (var br = new BinaryReader(ms, Encoding.Default, true))
+            {
+                var v = br.Read<TestStruct>();
+                Assert.Equal(1000000, v.Int32Value);
+                Assert.True(v.BoolValue);
+                Assert.Equal("test", v.StringValue);
+            }
+            
+            ms.Seek(0, SeekOrigin.Begin);
             using (var br = new BinaryReader(ms))
             {
-                Assert.Equal(g,br.Read<TimeSpan>());
-                Assert.Equal(DayOfWeek.Tuesday, br.Read<DayOfWeek>());
+                var v = br.ReadStruct<TestStruct>();
+                Assert.Equal(1000000, v.Int32Value);
+                Assert.True(v.BoolValue);
+                Assert.Equal("test", v.StringValue);
             }
+        }
+        
+        private struct TestStruct
+        {
+            public int Int32Value;
+            public bool BoolValue;
+            public string StringValue;
         }
     }
 }

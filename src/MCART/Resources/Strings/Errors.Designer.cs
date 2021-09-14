@@ -61,6 +61,15 @@ namespace TheXDS.MCART.Resources.Strings {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a La escritura de un valor de tipo {0} no está soportada por este método. Utilice el método {1} definido en la clase {2}..
+        /// </summary>
+        public static string BinWriteXNotSupported {
+            get {
+                return ResourceManager.GetString("BinWriteXNotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a No se puede escribir el objeto de tipo {0}..
         /// </summary>
         public static string CantWriteObjOfT {
@@ -156,6 +165,15 @@ namespace TheXDS.MCART.Resources.Strings {
         public static string ErrorLoadingRes {
             get {
                 return ResourceManager.GetString("ErrorLoadingRes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El valor del campo {0} no debe ser null..
+        /// </summary>
+        public static string FieldValueShouldNotBeNull {
+            get {
+                return ResourceManager.GetString("FieldValueShouldNotBeNull", resourceCulture);
             }
         }
         

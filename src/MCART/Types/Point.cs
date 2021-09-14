@@ -23,8 +23,8 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
-using System.Diagnostics.CodeAnalysis;
 using TheXDS.MCART.Helpers;
+using TheXDS.MCART.Math;
 using TheXDS.MCART.Misc;
 using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Base;
@@ -43,7 +43,7 @@ namespace TheXDS.MCART.Types
     /// implementación de MCART definir métodos para convertir a la clase
     /// correspondiente para los diferentes tipos de UI disponibles.
     /// </remarks>
-    public partial struct Point : I2DVector, IFormattable, IEquatable<Point>
+    public struct Point : I2DVector, IFormattable, IEquatable<Point>
     {
         /// <summary>
         /// Obtiene un punto que no representa ninguna posición. Este campo es
@@ -103,6 +103,7 @@ namespace TheXDS.MCART.Types
                         ";",
                         ":",
                         "|",
+                        "-"
                     };
                     return PrivateInternals.TryParseValues<double, Point>(separators, value.Without("()[]{}".ToCharArray()), 2, l => new Point(l[0], l[1]), out point);
             }
@@ -360,7 +361,7 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public static bool operator ==(Point l, Point r)
         {
-            return l.X == r.X && l.Y == r.Y;
+            return (l.X == r.X || !new[]{ l.X, r.X }.AreValid()) && (l.Y == r.Y || !new[]{ l.Y, r.Y }.AreValid());
         }
 
         /// <summary>
@@ -434,7 +435,7 @@ namespace TheXDS.MCART.Types
         public double Angle()
         {
             var ang = Acos(X / Magnitude());
-            if (Y < 0) ang += Acos(-1);
+            if (Y < 0) ang = Tau - ang;
             return ang;
         }
 
@@ -463,7 +464,7 @@ namespace TheXDS.MCART.Types
         /// </returns>
         /// <param name="p1">Punto 1.</param>
         /// <param name="p2">Punto 2.</param>
-        public bool WithinBox(Point p1, Point p2)
+        public readonly bool WithinBox(in Point p1, in Point p2)
         {
             return X.IsBetween(p1.X, p2.X) && Y.IsBetween(p1.Y, p2.Y);
         }
@@ -478,7 +479,7 @@ namespace TheXDS.MCART.Types
         /// </returns>
         /// <param name="x">Rango de valores para el eje X.</param>
         /// <param name="y">Rango de valores para el eje Y.</param>
-        public bool WithinBox(Range<double> x, Range<double> y)
+        public readonly bool WithinBox(in Range<double> x, in Range<double> y)
         {
             return x.IsWithin(X) && y.IsWithin(Y);
         }
@@ -493,9 +494,9 @@ namespace TheXDS.MCART.Types
         /// </returns>
         /// <param name="size">Tamaño del rectángulo.</param>
         /// <param name="topLeft">Coordenadas de esquina superior izquierda</param>
-        public bool WithinBox(Size size, Point topLeft)
+        public readonly bool WithinBox(in Size size, in Point topLeft)
         {
-            return WithinBox(topLeft.X, topLeft.Y, size.Width - topLeft.X, size.Height - topLeft.Y);
+            return WithinBox(topLeft.X, topLeft.Y, topLeft.X + size.Width, topLeft.Y - size.Height);
         }
 
         /// <summary>
@@ -507,9 +508,9 @@ namespace TheXDS.MCART.Types
         /// formado, <see langword="false" /> en caso contrario.
         /// </returns>
         /// <param name="size">Tamaño del rectángulo.</param>
-        public bool WithinBox(Size size)
+        public readonly bool WithinBox(in Size size)
         {
-            return WithinBox(size, Origin);
+            return WithinBox(size, new Point(-(size.Width / 2), size.Height / 2));
         }
 
         /// <summary>
@@ -521,7 +522,7 @@ namespace TheXDS.MCART.Types
         /// <see langword="true" /> si el punto se encuentra dentro del círculo,
         /// <see langword="false" /> en caso contrario.
         /// </returns>
-        public bool WithinCircle(Point center, double radius)
+        public bool WithinCircle(in Point center, in double radius)
         {
             return Magnitude(center) <= radius;
         }
@@ -538,9 +539,30 @@ namespace TheXDS.MCART.Types
         /// <param name="y1">La primer coordenada y.</param>
         /// <param name="x2">La segunda coordenada x.</param>
         /// <param name="y2">La segunda coordenada y.</param>
-        public bool WithinBox(double x1, double y1, double x2, double y2)
+        public readonly bool WithinBox(in double x1, in double y1, in double x2, in double y2)
         {
-            return X.IsBetween(x1, x2) && Y.IsBetween(y1, y2);
+            double minx, maxx, miny, maxy;
+            if (x1 <= x2)
+            {
+                minx = x1;
+                maxx = x2;
+            }
+            else
+            {
+                minx = x2;
+                maxx = x1;
+            }
+            if (y1 <= y2)
+            {
+                miny = y1;
+                maxy = y2;
+            }
+            else
+            {
+                miny = y2;
+                maxy = y1;
+            }
+            return X.IsBetween(minx, maxx) && Y.IsBetween(miny, maxy);
         }
 
         /// <summary>
@@ -601,7 +623,7 @@ namespace TheXDS.MCART.Types
         public string ToString(string? format, IFormatProvider? formatProvider)
         {
             if (format.IsEmpty()) format = "C";
-            return format!.ToUpperInvariant()[0] switch
+            return format.ToUpperInvariant()[0] switch
             {
                 'C' => $"{X}, {Y}",
                 'B' => $"[{X}, {Y}]",
@@ -669,7 +691,7 @@ namespace TheXDS.MCART.Types
         /// <see langword="true" /> si todos los vectores de ambos objetos
         /// son iguales, <see langword="false" /> en caso contrario.
         /// </returns>
-        public bool Equals([AllowNull] I2DVector other)
+        public bool Equals(I2DVector? other)
         {
             return other is {} o && this == o;
         }

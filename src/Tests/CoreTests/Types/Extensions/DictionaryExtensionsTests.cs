@@ -31,7 +31,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
     public class DictionaryExtensionsTests
     {
         [Fact]
-        public void CheckCircularRefTest()
+        public void CheckCircularRef_Test()
         {
             var d = new Dictionary<char, IEnumerable<char>>
             {
@@ -41,10 +41,51 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             };
 
             Assert.False(d.CheckCircularRef('a'));
-
+            Assert.False(((IEnumerable<KeyValuePair<char, IEnumerable<char>>>)d).CheckCircularRef('a'));
             d.Add('d', new[] { 'e', 'a' });
-
             Assert.True(d.CheckCircularRef('a'));
+            Assert.True(((IEnumerable<KeyValuePair<char, IEnumerable<char>>>)d).CheckCircularRef('a'));
+        }
+
+        [Fact]
+        public void CheckCircularRef_Test2()
+        {
+            var d = new Dictionary<char, ICollection<char>>
+            {
+                { 'a', new[] { 'b', 'c' } },
+                { 'b', new[] { 'c', 'd' } },
+                { 'c', new[] { 'd', 'e' } },
+            };
+
+            Assert.False(d.CheckCircularRef('a'));
+            Assert.False(((IEnumerable<KeyValuePair<char, ICollection<char>>>)d).CheckCircularRef('a'));
+            d.Add('d', new[] { 'e', 'a' });
+            Assert.True(((IEnumerable<KeyValuePair<char, ICollection<char>>>)d).CheckCircularRef('a'));
+            Assert.True(d.CheckCircularRef('a'));
+        }
+        
+        [Fact]
+        public void Push_Test()
+        {
+            var d = new Dictionary<int, string>();
+            Assert.IsType<string>(d.Push(1, "test"));
+        }
+
+        [Fact]
+        public void Pop_Test()
+        {
+            var d = new Dictionary<int, string>
+            {
+                { 1, "test" },
+                { 2, "test2" }
+            };
+            
+            Assert.True(d.Pop(1, out var s));
+            Assert.Equal("test", s);
+            Assert.False(d.ContainsKey(1));
+            Assert.False(d.ContainsValue("test"));
+            Assert.False(d.Pop(3, out var s2));
+            Assert.Null(s2);
         }
     }
 }

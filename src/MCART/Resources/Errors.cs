@@ -23,11 +23,13 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Collections.Generic;
 using TheXDS.MCART.Exceptions;
 using Str = TheXDS.MCART.Resources.Strings.Common;
 using Ers = TheXDS.MCART.Resources.Strings.Errors;
 using TheXDS.MCART.Types.Extensions;
 using System.Reflection;
+using System.IO;
 
 namespace TheXDS.MCART.Resources
 {
@@ -177,6 +179,11 @@ namespace TheXDS.MCART.Resources
             return new(type.Name, missingMember.Name);
         }
 
+        internal static Exception FieldIsNull(FieldInfo j)
+        {
+            return new NullReferenceException(string.Format(Ers.FieldValueShouldNotBeNull, j.Name));
+        }
+
         /// <summary>
         /// Crea una nueva instancia de un <see cref="InvalidTypeException"/>
         /// que indica que el tipo especificado no es un tipo que hereda de
@@ -257,6 +264,16 @@ namespace TheXDS.MCART.Resources
         {
             return new(string.Format(Ers.MissingGuidAttrFromType, type), type);
         }
+
+        /// <summary>
+        /// Crea una nueva instancia de un <see cref="TamperException"/>
+        /// indicando que la aplicación ha entrado en un estado inesperado.
+        /// </summary>
+        /// <returns>
+        /// Una nueva instancia de la clase
+        /// <see cref="TamperException"/>.
+        /// </returns>
+        public static Exception Tamper() => new TamperException();
 
         /// <summary>
         /// Crea una nueva instancia de un <see cref="InvalidTypeException"/>
@@ -346,6 +363,31 @@ namespace TheXDS.MCART.Resources
         public static Exception InvalidReturnValue(Delegate call, object? returnValue)
         {
             return new InvalidReturnValueException(call, returnValue);
+        }
+
+        public static Exception BinaryWriteNotSupported(Type offendingType, MethodInfo alternative)
+        {
+            throw new NotSupportedException(string.Format(Ers.BinWriteXNotSupported, offendingType, alternative.Name, alternative.DeclaringType));
+        }
+
+        /// <summary>
+        /// Crean una nueva instancia de un
+        /// <see cref="InvalidOperationException"/> que indica que no es
+        /// posisble procesar la operación debido a que la colección no
+        /// contiene elementos.
+        /// </summary>
+        /// <param name="collection">
+        /// Colección vacía sobre la cual se ha intentado ejecutar la
+        /// operación.
+        /// </param>
+        /// <typeparam name="T">Tipo de la colección.</typeparam>
+        /// <returns>
+        /// Una nueva instancia de la clase
+        /// <see cref="InvalidOperationException"/>.
+        /// </returns>
+        public static Exception EmptyCollection<T>(IList<T> collection)
+        {
+            return  new InvalidOperationException("", new EmptyCollectionException(collection));
         }
     }
 }

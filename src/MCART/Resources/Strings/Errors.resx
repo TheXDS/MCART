@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BinWriteXNotSupported" xml:space="preserve">
+    <value>La escritura de un valor de tipo {0} no está soportada por este método. Utilice el método {1} definido en la clase {2}.</value>
+  </data>
   <data name="CantWriteObjOfT" xml:space="preserve">
     <value>No se puede escribir el objeto de tipo {0}.</value>
   </data>
@@ -149,6 +152,9 @@
   </data>
   <data name="ErrorLoadingRes" xml:space="preserve">
     <value>Ha ocurrido un error al cargar el recurso {0}.</value>
+  </data>
+  <data name="FieldValueShouldNotBeNull" xml:space="preserve">
+    <value>El valor del campo {0} no debe ser null.</value>
   </data>
   <data name="FormatNotSupported" xml:space="preserve">
     <value>El formato {0} no está soportado.</value>

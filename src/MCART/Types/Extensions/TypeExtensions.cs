@@ -207,7 +207,11 @@ namespace TheXDS.MCART.Types.Extensions
             var c = Expression.Constant(type.Default(), type);
             try
             {
-                @operator(c, c);
+                _ = Expression.Lambda(
+                    Expression.TryCatch(
+                        @operator(c, c),
+                        Expression.Catch(Expression.Parameter(typeof(DivideByZeroException)), c)
+                    )).Compile().DynamicInvoke();
                 return true;
             }
             catch (InvalidOperationException)
@@ -471,13 +475,17 @@ namespace TheXDS.MCART.Types.Extensions
             {
                 try
                 {
-                    instance = (T)ctor.Invoke(args);
+                    instance = (T) ctor.Invoke(args);
                     return true;
                 }
-                catch { }
+                catch
+                {
+                    instance = default;
+                    return false;
+                }
             }
             instance = default!;
-            return false;
+            return t.IsStruct();
         }
 
         /// <summary>
@@ -662,12 +670,11 @@ namespace TheXDS.MCART.Types.Extensions
         {
             GetCollectionType_Contract(collectionType);
             if (collectionType.IsArray) return collectionType.GetElementType()!;
-            return collectionType.GenericTypeArguments?.Count() switch
+            return collectionType.GenericTypeArguments.Count() switch
             {
                 0 => typeof(object),
                 1 => collectionType.GenericTypeArguments.Single(),
                 { } => collectionType.GenericTypeArguments.Last(),
-                _ => typeof(object)
             };
         }
 
@@ -770,7 +777,6 @@ namespace TheXDS.MCART.Types.Extensions
                 {
                     types = rex.Types.NotNull();
                 }
-                catch { throw; }
                 retval.AddRange(Derivates(type, types));
             }
             return retval;

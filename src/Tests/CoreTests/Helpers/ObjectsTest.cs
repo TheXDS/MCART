@@ -35,7 +35,7 @@ using TheXDS.MCART.Resources;
 using Xunit;
 using static TheXDS.MCART.Helpers.Objects;
 
-namespace TheXDS.MCART.Tests.Modules
+namespace TheXDS.MCART.Tests.Helpers
 {
     [AttrTest]
     public class ObjectsTest
@@ -354,6 +354,20 @@ namespace TheXDS.MCART.Tests.Modules
             Assert.False(TryCreateDelegate<EventHandler>(null!, out _));
             Assert.False(TryCreateDelegate<Action>(m, out _));
             Assert.False(TryCreateDelegate<Action<int>>(m, out _));
+        }
+
+        [Fact]
+        public void FromBytes_Test()
+        {
+            Assert.Equal(1000000, FromBytes<int>(new byte[] {64, 66, 15, 0}));
+            Assert.Equal(123456.789m, FromBytes<decimal>(new byte[]{ 0, 0, 3, 0, 0, 0, 0, 0, 21, 205, 91, 7, 0, 0, 0, 0 }));
+        }
+
+        [Fact]
+        public void GetBytes_Test()
+        {
+            Assert.Equal(new byte[] {64, 66, 15, 0}, GetBytes(1000000));
+            Assert.Equal(new byte[]{ 0, 0, 3, 0, 0, 0, 0, 0, 21, 205, 91, 7, 0, 0, 0, 0 }, GetBytes(123456.789m));
         }
     }
 }

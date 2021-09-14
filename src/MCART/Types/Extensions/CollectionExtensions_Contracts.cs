@@ -1,5 +1,5 @@
 ﻿/*
-BinaryWriterExtensions_Contracts.cs
+CollectionExtensions.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -23,45 +23,50 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using TheXDS.MCART.Misc;
-using TheXDS.MCART.Resources;
+using static TheXDS.MCART.Misc.Internals;
 
 namespace TheXDS.MCART.Types.Extensions
 {
-    public static partial class BinaryWriterExtensions
+    public static partial class CollectionExtensions
     {
         [Conditional("EnforceContracts")]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DebuggerNonUserCode]
-        private static void DynamicWrite_Contract(this BinaryWriter bw, object value)
+        private static void AddClone_Contract<T>(ICollection<T> collection, T item) where T : ICloneable
         {
-            Internals.NullCheck(bw, nameof(bw));
-            Internals.NullCheck(value, nameof(value));
+            NullCheck(collection, nameof(collection));
+            NullCheck(item, nameof(item));
         }
 
         [Conditional("EnforceContracts")]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DebuggerNonUserCode]
-        private static void WriteStruct_Contract(this BinaryWriter bw, Type t)
+        private static void AddClones_Contract<T>(this ICollection<T> collection, IEnumerable<T> source)
         {
-            Internals.NullCheck(bw, nameof(bw));
-            if (typeof(BinaryWriter).GetMethods().FirstOrDefault(p => CanWrite(p, t)) is { } m)
-            {
-                throw Errors.BinaryWriteNotSupported(t, m);
-            }
-            if (typeof(BinaryWriterExtensions).GetMethods().FirstOrDefault(p => CanExWrite(p, t)) is { } mx)
-            {
-                throw Errors.BinaryWriteNotSupported(t, mx);
-            }
+            NullCheck(collection, nameof(collection));
+            NullCheck(source, nameof(source));
         }
 
-        private static void WriteStruct_Contract(this BinaryWriter bw)
+        [Conditional("EnforceContracts")]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [DebuggerNonUserCode]
+        private static void AddRange_Contract<T>(this ICollection<T> collection, IEnumerable<T> items)
         {
-            Internals.NullCheck(bw, nameof(bw));
+            NullCheck(collection, nameof(collection));
+            NullCheck(items, nameof(items));
+        }
+
+        private static void ToObservable_Contract<T>(this ICollection<T> collection)
+        {
+            NullCheck(collection, nameof(collection));
+        }
+
+        private static void Push_Contract<TCollection>(this ICollection<TCollection> collection)
+        {
+            NullCheck(collection, nameof(collection));
         }
     }
 }

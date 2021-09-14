@@ -31,7 +31,7 @@ namespace TheXDS.MCART.Types.Extensions
     /// <summary>
     /// Extensiones para todos los elementos de tipo <see cref="ICollection{T}" />.
     /// </summary>
-    public static class CollectionExtensions
+    public static partial class CollectionExtensions
     {
         /// <summary>
         /// Quita todos los elementos del tipo especificado de la
@@ -61,7 +61,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <param name="beforeDelete">Acción a ejecutar antes de borrar a un elemento en particular.</param>
         public static void RemoveAll<T>(this ICollection<T> collection, in Predicate<T>? check, in Action<T>? beforeDelete)
         {
-            var lst = collection.ToList();
+            var lst = collection.ToArray();
             foreach (var j in lst)
             {
                 if (!(check?.Invoke(j) ?? true)) continue;
@@ -181,6 +181,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <returns>El objeto agregado a la colección.</returns>
         public static TItem Push<TItem, TCollection>(this ICollection<TCollection> collection, TItem value) where TItem : TCollection
         {
+            Push_Contract(collection);
             collection.Add(value);
             return value;
         }
@@ -217,6 +218,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static ObservableCollectionWrap<T> ToObservable<T>(this ICollection<T> collection)
         {
+            ToObservable_Contract(collection);
             return new(collection);
         }
 
@@ -232,6 +234,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </param>
         public static void AddRange<T>(this ICollection<T> collection, IEnumerable<T> items)
         {
+            AddRange_Contract(collection, items);
             foreach (var j in items) collection.Add(j);
         }
 
@@ -248,6 +251,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </param>
         public static void AddClones<T>(this ICollection<T> collection, IEnumerable<T> source) where T : ICloneable
         {
+            AddClones_Contract(collection, source);
             collection.AddRange(source.Select(p => p?.Clone()).NotNull().OfType<T>());
         }
 
@@ -263,7 +267,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </param>
         public static void AddClone<T>(this ICollection<T> collection, T item) where T : ICloneable
         {
-            if (item is null) throw new ArgumentNullException(nameof(item));
+            AddClone_Contract(collection, item);
             collection.Add((T)item.Clone());
         }
     }

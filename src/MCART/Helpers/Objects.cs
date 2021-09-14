@@ -2110,7 +2110,7 @@ namespace TheXDS.MCART.Helpers
         {
             FromBytes_Contract(rawBytes);
             var sze = rawBytes.Length;
-            IntPtr ptr = IntPtr.Zero;
+            var ptr = IntPtr.Zero;
             try
             {
                 ptr = Marshal.AllocHGlobal(sze);

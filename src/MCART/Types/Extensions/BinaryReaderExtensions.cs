@@ -29,6 +29,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
+using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Types.Extensions
 {
@@ -57,6 +58,7 @@ namespace TheXDS.MCART.Types.Extensions
         {
             return typeof(BinaryReader).GetMethods().FirstOrDefault(p =>
                p.Name.StartsWith("Read")
+               && p.Name.Length > 4
                && p.GetParameters().Length == 0
                && p.ReturnType == t);
         }
@@ -167,28 +169,67 @@ namespace TheXDS.MCART.Types.Extensions
         /// método o extensión, ya que proveerán de mejor rendimiento. Además,
         /// si el valor a leer es una estructura simple definida por el
         /// usuario, puede utilizar el método
-        /// <see cref="ReadStruct{T}(BinaryReader)"/> para leer una estructura
+        /// <see cref="MarshalReadStruct{T}(BinaryReader)"/> para leer una estructura
         /// utilizando Marshaling, lo cual podría tener un mejor rendimiento
         /// que utilizar este método.
         /// </remarks>
-        /// <seealso cref="ReadStruct{T}(BinaryReader)"/>
+        /// <seealso cref="MarshalReadStruct{T}(BinaryReader)"/>
         public static T Read<T>(this BinaryReader reader)
         {
-            if (typeof(T).IsEnum) return (T)Enum.ToObject(typeof(T), ReadEnum(reader, typeof(T)));
-            if (typeof(T).Implements<ISerializable>())
-            {
-                var d = new DataContractSerializer(typeof(T));
-                return (T)d.ReadObject(reader.ReadString().ToStream())!;
-            }
-
-            return (T)(GetBinaryReadMethod(typeof(T))?.Invoke(reader, Array.Empty<object>())
-                ?? LookupExMethod(typeof(T))?.Invoke(null, new object[] { reader })
-                ?? (typeof(T).IsStruct() ? InternalReadStruct<T>(reader) : default)
-                ?? throw new InvalidOperationException());
+            return (T)Read(reader, typeof(T));
         }
 
         /// <summary>
-        /// Lee una estructura simple desde el <paramref name="reader"/>.
+        /// Lee un valor del tipo especificado desde el
+        /// <paramref name="reader"/>.
+        /// </summary>
+        /// <param name="reader">
+        /// Instancia de <see cref="BinaryReader"/> desde la cual realizar
+        /// la lectura.
+        /// </param>
+        /// <param name="type">Tipo de valor a leer.</param>
+        /// <returns>
+        /// El valor leído desde <paramref name="reader"/>.
+        /// </returns>
+        /// <exception cref="InvalidOperationException">
+        /// Se produce si no existe un método de lectura que pueda ser
+        /// utilizado para leer el valor del tipo especificado.
+        /// </exception>
+        /// <remarks>
+        /// Si conoce con precisión el tipo del valor a leer y existe un método
+        /// implementado en la clase <see cref="BinaryReader"/> o existe una
+        /// extensión definida para leer dicho valor, prefiera utilizar dicho
+        /// método o extensión, ya que proveerán de mejor rendimiento. Además,
+        /// si el valor a leer es una estructura simple definida por el
+        /// usuario, puede utilizar el método
+        /// <see cref="MarshalReadStruct{T}(BinaryReader)"/> para leer una
+        /// estructura utilizando Marshaling, lo cual podría tener un mejor
+        /// rendimiento que utilizar este método.
+        /// 
+        /// Además, considere que este método realizará las lecturas de
+        /// estructuras leyendo los valores de los campos de la misma, tanto
+        /// campos privados como públicos (por ende, incluyendo propiedades).
+        /// </remarks>
+        /// <seealso cref="MarshalReadStruct{T}(BinaryReader)"/>
+        /// <seealso cref="ReadStruct{T}(BinaryReader)"/>
+        public static object Read(this BinaryReader reader, Type type)
+        {
+            if (type.IsEnum) return Enum.ToObject(type, ReadEnum(reader, type));
+            if (type.Implements<ISerializable>())
+            {
+                var d = new DataContractSerializer(type);
+                return d.ReadObject(reader.ReadString().ToStream())!;
+            }
+
+            return GetBinaryReadMethod(type)?.Invoke(reader, Array.Empty<object>())
+                ?? LookupExMethod(type)?.Invoke(null, new object[] { reader })
+                ?? (type.IsStruct() ? ByFieldReadStructInternal(reader, type) : default)
+                ?? throw new InvalidOperationException();
+        }
+
+        /// <summary>
+        /// Lee una estructura simple desde el <paramref name="reader"/> por
+        /// medio de Marshaling.
         /// </summary>
         /// <typeparam name="T">Tipo de valor a leer.</typeparam>
         /// <param name="reader">
@@ -204,12 +245,51 @@ namespace TheXDS.MCART.Types.Extensions
         /// Marshaling, sin incluir las funciones predeterminadas y/o
         /// implementadas en la clase <see cref="BinaryReader"/> o un método de
         /// extensión conocido de la misma.
+        /// 
+        /// Este método también requiere que las cadenas sean anotadas con el
+        /// atributo <see cref="MarshalAsAttribute"/>, estableciendo una
+        /// constante de tamaño máximo esperado de la cadena. Para leer
+        /// estructuras con cadenas de tamaño arbitrario, considere utilizar
+        /// <see cref="ReadStruct{T}(BinaryReader)"/>.
         /// </remarks>
         /// <seealso cref="Read{T}(BinaryReader)"/>
+        /// <seealso cref="ReadStruct{T}(BinaryReader)"/>
+        public static T MarshalReadStruct<T>(this BinaryReader reader) where T : struct
+        {
+            ReadStruct_Contract(reader);
+            return ByMarshalReadStructInternal<T>(reader);
+        }
+
+        /// <summary>
+        /// Lee una estructura simple desde el <paramref name="reader"/>.
+        /// </summary>
+        /// <typeparam name="T">Tipo de valor a leer.</typeparam>
+        /// <param name="reader">
+        /// Instancia de <see cref="BinaryReader"/> desde la cual realizar
+        /// la lectura.
+        /// </param>
+        /// <returns>
+        /// El valor leído desde <paramref name="reader"/>.
+        /// </returns>
+        /// <remarks>
+        /// Este método permite leer estructuras basado en sus campos, tanto
+        /// privados como públicos (por ende, incluyendo propiedades con campos
+        /// de almacenamiento), siempre y cuando los mismos sean escribibles,
+        /// es decir, no hayn sido declarados como <see langword="readonly"/>.
+        /// 
+        /// Si la estructura no contiene cadenas, o las mismas han sido
+        /// anotadas con el atributo <see cref="MarshalAsAttribute"/>
+        /// estableciendo la propiedad
+        /// <see cref="MarshalAsAttribute.SizeConst"/>, considere utilizar el
+        /// método <see cref="MarshalReadStruct{T}(BinaryReader)"/>, ya que
+        /// éste puede proveer de mejor rendimiento.
+        /// </remarks>
+        /// <seealso cref="Read{T}(BinaryReader)"/>
+        /// <seealso cref="MarshalReadStruct{T}(BinaryReader)"/>
         public static T ReadStruct<T>(this BinaryReader reader) where T : struct
         {
             ReadStruct_Contract(reader);
-            return InternalReadStruct<T>(reader);
+            return (T)ByFieldReadStructInternal(reader, typeof(T));
         }
 
         private static MethodInfo? LookupExMethod(Type t)
@@ -220,16 +300,31 @@ namespace TheXDS.MCART.Types.Extensions
                && p.GetParameters().Single().ParameterType == typeof(BinaryReader)
                && p.ReturnType == t);
         }
-        private static T InternalReadStruct<T>(BinaryReader reader)
+        
+        private static T ByMarshalReadStructInternal<T>(BinaryReader reader)
         {
-            var str = Activator.CreateInstance<T>();
-            var sze = Marshal.SizeOf(str);
-            var ptr = Marshal.AllocHGlobal(sze);
+            return (T)ByMarshalReadStructInternal(reader, typeof(T));
+        }
 
+        private static object ByMarshalReadStructInternal(BinaryReader reader, Type t)
+        {
+            var obj = Activator.CreateInstance(t) ?? throw Errors.Tamper();
+            var sze = Marshal.SizeOf(obj);
+            var ptr = Marshal.AllocHGlobal(sze);
             Marshal.Copy(reader.ReadBytes(sze), 0, ptr, sze);
-            str = (T)(Marshal.PtrToStructure(ptr, typeof(T)) ?? throw new InvalidDataException());
+            obj = Marshal.PtrToStructure(ptr, t) ?? throw new InvalidDataException();
             Marshal.FreeHGlobal(ptr);
-            return str;
+            return obj;
+        }
+
+        private static object ByFieldReadStructInternal(BinaryReader reader, Type t)
+        {
+            var obj = Activator.CreateInstance(t) ?? throw Errors.Tamper();
+            foreach (var j in t.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic))
+            {
+                if (!j.IsInitOnly) j.SetValue(obj, reader.Read(j.FieldType));
+            }
+            return obj;
         }
     }
 }
