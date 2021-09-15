@@ -4,9 +4,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-    xmlns:res="clr-namespace:TheXDS.MCART.Wpf.PluginSupport.Legacy.Resources;assembly=Wpf.PluginSupport.Legacy"
-    xmlns:legacy="clr-namespace:TheXDS.MCART.PluginSupport.Legacy;assembly=PluginSupport.Legacy"
-    d:DataContext="{d:DesignInstance legacy:Plugin}"
+    xmlns:legacy1="clr-namespace:TheXDS.MCART.PluginSupport.Legacy;assembly=MCART.PluginSupport.Legacy"
+    xmlns:resources="clr-namespace:TheXDS.MCART.Wpf.PluginSupport.Legacy.Resources"
+    d:DataContext="{d:DesignInstance legacy1:Plugin}"
     mc:Ignorable="d">
     <UserControl.Resources>
         <Thickness x:Key="Mrg">5</Thickness>
@@ -35,13 +35,13 @@
             </Grid.Resources>
             <TextBlock>
                 <Run>
-                    <x:Static Member="res:Strings.Name"/>
+                    <x:Static Member="resources:Strings.Name"/>
                 </Run>
             </TextBlock>
             <TextBox Grid.Column="1" Text="{Binding Name, Mode=OneWay}"/>
             <TextBlock Grid.Row="1">
                 <Run>
-                    <x:Static Member="res:Strings.Version"/>
+                    <x:Static Member="resources:Strings.Version"/>
                 </Run>
             </TextBlock>
             <DockPanel Grid.Row="1" Grid.Column="1" Margin="{DynamicResource Mrg}">
@@ -50,7 +50,7 @@
                     VerticalAlignment="Center"
                     DockPanel.Dock="Right"
                     IsEnabled="False">
-                    <x:Static Member="res:Strings.Unstable"/>
+                    <x:Static Member="resources:Strings.Unstable"/>
                 </CheckBox>
                 <CheckBox 
                     IsChecked="{Binding IsBeta, Mode=OneWay}"
@@ -58,19 +58,19 @@
                     VerticalAlignment="Center"
                     DockPanel.Dock="Right"
                     IsEnabled="False" >
-                    <x:Static Member="res:Strings.Beta"/>
+                    <x:Static Member="resources:Strings.Beta"/>
                 </CheckBox>
                 <TextBox Margin="0" Text="{Binding Version, Mode=OneWay}"/>
             </DockPanel>
             <TextBlock Grid.Row="2">
                 <Run>
-                    <x:Static Member="res:Strings.Description"/>
+                    <x:Static Member="resources:Strings.Description"/>
                 </Run>
             </TextBlock>
             <TextBox Text="{Binding Description, Mode=OneWay}" Grid.Row="3" Grid.ColumnSpan="2"/>
             <TextBlock Grid.Row="4">
                 <Run>
-                    <x:Static Member="res:Strings.Copyright"/>
+                    <x:Static Member="resources:Strings.Copyright"/>
                 </Run>
             </TextBlock>
             <TextBox Text="{Binding Copyright, Mode=OneWay}" Grid.Row="4" Grid.Column="1"/>
@@ -83,7 +83,7 @@
             </TabControl.Resources>
             <TabItem IsEnabled="{Binding HasLicense, Mode=OneWay}">
                 <TabItem.Header>
-                    <x:Static Member="res:Strings.License"/>
+                    <x:Static Member="resources:Strings.License"/>
                 </TabItem.Header>
                 <TextBox
                     Text="{Binding License, Mode=OneWay}"
@@ -93,7 +93,7 @@
             </TabItem>
             <TabItem >
                 <TabItem.Header>
-                    <x:Static Member="res:Strings.Interfaces"/>
+                    <x:Static Member="resources:Strings.Interfaces"/>
                 </TabItem.Header>
                 <ListView ItemsSource="{Binding Interfaces, Mode=OneWay}">
                     <ListView.Resources>
@@ -105,17 +105,17 @@
                         <GridView>
                             <GridViewColumn Width="180" DisplayMemberBinding="{Binding Name, Mode=OneWay}">
                                 <GridViewColumn.Header>
-                                    <x:Static Member="res:Strings.Interface"/>
+                                    <x:Static Member="resources:Strings.Interface"/>
                                 </GridViewColumn.Header>
                             </GridViewColumn>
                             <GridViewColumn Width="180" DisplayMemberBinding="{Binding Namespace, Mode=OneWay}">
                                 <GridViewColumn.Header>
-                                    <x:Static Member="res:Strings.Namespace"/>
+                                    <x:Static Member="resources:Strings.Namespace"/>
                                 </GridViewColumn.Header>
                             </GridViewColumn>
                             <GridViewColumn Width="180" DisplayMemberBinding="{Binding AssemblyQualifiedName, Mode=OneWay}">
                                 <GridViewColumn.Header>
-                                    <x:Static Member="res:Strings.Assembly"/>
+                                    <x:Static Member="resources:Strings.Assembly"/>
                                 </GridViewColumn.Header>
                             </GridViewColumn>
                         </GridView>
@@ -124,43 +124,43 @@
             </TabItem>
             <TabItem>
                 <TabItem.Header>
-                    <x:Static Member="res:Strings.Compatibility"/>
+                    <x:Static Member="resources:Strings.Compatibility"/>
                 </TabItem.Header>
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                     <UniformGrid Columns="2">
                         <TextBlock VerticalAlignment="Center">
                             <Run>
-                                <x:Static Member="res:Strings.MinMcartVersion"/>
+                                <x:Static Member="resources:Strings.MinMcartVersion"/>
                             </Run>
                         </TextBlock>
                         <TextBox Text="{Binding MinMcartVersion, Mode=OneWay}" Margin="{DynamicResource Mrg}" />
                         <TextBlock VerticalAlignment="Center">
                             <Run>
-                                <x:Static Member="res:Strings.TgtMcartVersion"/>
+                                <x:Static Member="resources:Strings.TgtMcartVersion"/>
                             </Run>
                         </TextBlock>
                         <TextBox Text="{Binding TargetMcartVersion, Mode=OneWay}" Margin="{DynamicResource Mrg}" />
                     </UniformGrid>
                     <CheckBox Margin="{DynamicResource Mrg}" IsEnabled="false" IsChecked="{Binding IsSupported, Mode=OneWay}">
-                        <x:Static Member="res:Strings.PluginSupportedByMcart"/>
+                        <x:Static Member="resources:Strings.PluginSupportedByMcart"/>
                     </CheckBox>
                 </StackPanel>
             </TabItem>
             <TabItem IsEnabled="{Binding HasInteractions, Mode=OneWay}">
                 <TabItem.Header>
-                    <x:Static Member="res:Strings.Interactions"/>
+                    <x:Static Member="resources:Strings.Interactions"/>
                 </TabItem.Header>
                 <ListView ItemsSource="{Binding PluginInteractions, Mode=OneWay}">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Width="120" DisplayMemberBinding="{Binding Text, Mode=OneWay}">
                                 <GridViewColumn.Header>
-                                    <x:Static Member="res:Strings.Label"/>
+                                    <x:Static Member="resources:Strings.Label"/>
                                 </GridViewColumn.Header>
                             </GridViewColumn>
                             <GridViewColumn Width="300" DisplayMemberBinding="{Binding Description, Mode=OneWay}">
                                 <GridViewColumn.Header>
-                                    <x:Static Member="res:Strings.Description"/>
+                                    <x:Static Member="resources:Strings.Description"/>
                                 </GridViewColumn.Header>
                             </GridViewColumn>
                         </GridView>

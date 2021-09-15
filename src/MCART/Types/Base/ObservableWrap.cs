@@ -40,7 +40,7 @@ namespace TheXDS.MCART.Types.Base
     /// <typeparam name="T">Tipo de elementos de la colección.</typeparam>
     /// <typeparam name="TCollection">Tipo de colección.</typeparam>
     [DebuggerStepThrough]
-    public abstract class ObservableWrap<T, TCollection> : ObservableWrapBase, INotifyCollectionChanged, ICollection<T> where TCollection : ICollection<T>
+    public abstract class ObservableWrap<T, TCollection> : ObservableWrapBase, ICollection<T> where TCollection : ICollection<T>
     {
         /// <summary>
         /// Inicializa una nueva instancia de la clase 

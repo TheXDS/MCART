@@ -59,6 +59,9 @@ namespace TheXDS.MCART.Tests.Types
         [InlineData("")]
         [InlineData("NaN,NaN")]
         [InlineData(null)]
+#if CLSCompliance
+        [CLSCompliant(false)]
+#endif
         public void TryParseNowhere_Test(string data)
         {
             Assert.True(Point.TryParse(data, out var p));
@@ -70,6 +73,9 @@ namespace TheXDS.MCART.Tests.Types
         [InlineData("0")]
         [InlineData("+")]
         [InlineData("0,0")]
+#if CLSCompliance
+        [CLSCompliant(false)]
+#endif
         public void TryParseOrigin_Test(string data)
         {
             Assert.True(Point.TryParse(data, out var p));
@@ -141,6 +147,9 @@ namespace TheXDS.MCART.Tests.Types
         [InlineData(1, 1, 2, 2, 3, 3)]
         [InlineData(-1, -1, 1, 1, 0, 0)]
         [InlineData(-3, 5, 2, -4, -1, 1)]
+#if CLSCompliance
+        [CLSCompliant(false)]
+#endif
         public void AddOperator_Test(int x1, int y1, int x2, int y2, int x3, int y3)
         {
             var p = new Point(x1, y1);
@@ -163,6 +172,9 @@ namespace TheXDS.MCART.Tests.Types
         [InlineData(1, 1, 2, 2, -1, -1)]
         [InlineData(-1, -1, 1, 1, -2, -2)]
         [InlineData(-3, 5, 2, -4, -5, 9)]
+#if CLSCompliance
+        [CLSCompliant(false)]
+#endif
         public void SubstractOperator_Test(int x1, int y1, int x2, int y2, int x3, int y3)
         {
             var p = new Point(x1, y1);
@@ -185,6 +197,9 @@ namespace TheXDS.MCART.Tests.Types
         [InlineData(1, 1, 2, 2, 2, 2)]
         [InlineData(-1, -1, 1, 1, -1, -1)]
         [InlineData(-3, 5, 2, -4, -6, -20)]
+#if CLSCompliance
+        [CLSCompliant(false)]
+#endif
         public void MultiplyOperator_Test(int x1, int y1, int x2, int y2, int x3, int y3)
         {
             var p = new Point(x1, y1);
@@ -207,6 +222,9 @@ namespace TheXDS.MCART.Tests.Types
         [InlineData(1, 1, 2, 2, 0.5, 0.5)]
         [InlineData(-1, -1, 1, 1, -1, -1)]
         [InlineData(-3, 5, 2, -4, -1.5, -1.25)]
+#if CLSCompliance
+        [CLSCompliant(false)]
+#endif
         public void DivideOperator_Test(int x1, int y1, int x2, int y2, double x3, double y3)
         {
             var p = new Point(x1, y1);
@@ -230,6 +248,9 @@ namespace TheXDS.MCART.Tests.Types
         [InlineData(-1, -1, 1, 1, 0, 0)]
         [InlineData(-3, 5, 2, -4, -1, 1)]
         [InlineData(13, 14, 5, 3, 3, 2)]
+#if CLSCompliance
+        [CLSCompliant(false)]
+#endif
         public void ModulusOperator_Test(int x1, int y1, int x2, int y2, double x3, double y3)
         {
             var p = new Point(x1, y1);
@@ -308,6 +329,9 @@ namespace TheXDS.MCART.Tests.Types
         [InlineData(0, 1, System.Math.PI / 2)]
         [InlineData(0, -1, System.Math.Tau - (System.Math.PI / 2))]
         [InlineData(1, -1, System.Math.Tau - (System.Math.PI / 4))]
+#if CLSCompliance
+        [CLSCompliant(false)]
+#endif
         public void Angle_Test(int x, int y, double angle)
         {
             Assert.True((new Point(x, y).Angle() - angle).IsBetween(-0.00000001, 0.00000001));
@@ -355,6 +379,9 @@ namespace TheXDS.MCART.Tests.Types
         [InlineData(-7, 7, true)]
         [InlineData(8, -8, false)]
         [InlineData(7, -7, true)]
+#if CLSCompliance
+        [CLSCompliant(false)]
+#endif
         public void WithinCircle_Test(int x, int y, bool result)
         {
             Assert.Equal(result, new Point(x, y).WithinCircle(Point.Origin, 10));

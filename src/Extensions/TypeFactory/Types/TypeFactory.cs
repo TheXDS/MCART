@@ -88,8 +88,8 @@ namespace TheXDS.MCART.Types
             }
             else
             {
-                _assembly = AssemblyBuilder.DefineDynamicAssembly(new AssemblyName(_namespace), AssemblyBuilderAccess.Run).PushInto(_namespace,_builtAssemblies);
-                _mBuilder = _assembly.DefineDynamicModule(_namespace).PushInto(_namespace, _builtModules);
+                lock(_builtAssemblies) _assembly = AssemblyBuilder.DefineDynamicAssembly(new AssemblyName(_namespace), AssemblyBuilderAccess.Run).PushInto(_namespace,_builtAssemblies);
+                lock(_builtModules) _mBuilder = _assembly.DefineDynamicModule(_namespace).PushInto(_namespace, _builtModules);
             }
         }
 
@@ -107,7 +107,7 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public TypeBuilder NewType(string name, Type baseType, IEnumerable<Type> interfaces)
         {
-            return _mBuilder.DefineType(GetName(name), (baseType.Attributes & ~TypeAttributes.VisibilityMask & ~TypeAttributes.Abstract) | TypeAttributes.Public, baseType, interfaces?.ToArray());
+            return _mBuilder.DefineType(GetName(name), (baseType.Attributes & ~TypeAttributes.VisibilityMask & ~TypeAttributes.Abstract) | TypeAttributes.Public, baseType, interfaces.ToArray());
         }
 
         /// <summary>

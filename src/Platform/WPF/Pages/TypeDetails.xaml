@@ -9,9 +9,6 @@
     xmlns:viewModel="clr-namespace:TheXDS.MCART.Dialogs.ViewModel;assembly=MCART.UI"
     mc:Ignorable="d"
     d:DesignWidth="300" d:DesignHeight="300">
-
-
-
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="Bool2Vis"/>
         <vc:TypeVisibilityConverter x:Key="Conv"/>

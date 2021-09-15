@@ -89,7 +89,7 @@ namespace TheXDS.MCART.Types.Extensions
             RemoveAll(collection, check, null);
 
         /// <summary>
-        /// Elimina todos los elementos de una colección.
+        /// Elimina todos los elementos de una colección, individualmente.
         /// </summary>
         /// <typeparam name="T">Tipo de elementos en la colección.</typeparam>
         /// <param name="collection">Colección a procesar.</param>

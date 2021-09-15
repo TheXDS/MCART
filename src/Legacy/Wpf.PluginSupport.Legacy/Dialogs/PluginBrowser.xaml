@@ -4,13 +4,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:pluginSupport="clr-namespace:TheXDS.MCART.PluginSupport.Legacy;assembly=PluginSupport.Legacy"
-    xmlns:viewmodel="clr-namespace:TheXDS.MCART.Dialogs.ViewModel;assembly=PluginSupport.Legacy"
     xmlns:resources="clr-namespace:TheXDS.MCART.Wpf.PluginSupport.Legacy.Resources"
     xmlns:converters="clr-namespace:TheXDS.MCART.ValueConverters;assembly=MCART.WPF"
     xmlns:pages="clr-namespace:TheXDS.MCART.Pages"
+    xmlns:viewModel="clr-namespace:TheXDS.MCART.Dialogs.ViewModel;assembly=MCART.PluginSupport.Legacy"
+    xmlns:legacy="clr-namespace:TheXDS.MCART.PluginSupport.Legacy;assembly=MCART.PluginSupport.Legacy"
     mc:Ignorable="d"
-    d:DataContext="{d:DesignInstance viewmodel:PluginBrowserViewModel}"
+    d:DataContext="{d:DesignInstance viewModel:PluginBrowserViewModel}"
     Height="400" Width="600">
     <Window.Resources>
         <Thickness x:Key="Mrg">5</Thickness>
@@ -38,7 +38,7 @@
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding Value, Mode=OneWay}">
                     <HierarchicalDataTemplate.ItemTemplate>
-                        <DataTemplate DataType="pluginSupport:IPlugin">
+                        <DataTemplate DataType="legacy:IPlugin">
                             <TextBlock Text="{Binding Name, Mode=OneWay}"/>
                         </DataTemplate>
                     </HierarchicalDataTemplate.ItemTemplate>

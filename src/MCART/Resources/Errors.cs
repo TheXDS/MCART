@@ -24,12 +24,11 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Types.Extensions;
 using Str = TheXDS.MCART.Resources.Strings.Common;
 using Ers = TheXDS.MCART.Resources.Strings.Errors;
-using TheXDS.MCART.Types.Extensions;
-using System.Reflection;
-using System.IO;
 
 namespace TheXDS.MCART.Resources
 {
@@ -365,9 +364,25 @@ namespace TheXDS.MCART.Resources
             return new InvalidReturnValueException(call, returnValue);
         }
 
+        /// <summary>
+        /// Crea una nueva instancia de un <see cref="NotSupportedException"/>
+        /// que indica que no es posible ejecutar una escritura binaria para un
+        /// objeto del tipo especificado.
+        /// </summary>
+        /// <param name="offendingType">
+        /// Tipo del objeto para el cual se ha intentado ejecutar una escritura
+        /// binaria.
+        /// </param>
+        /// <param name="alternative">
+        /// Método alternativo sugerido para ejecutar la escritura binaria.
+        /// </param>
+        /// <returns>
+        /// Una nueva instancia de la clase
+        /// <see cref="NotSupportedException"/>.
+        /// </returns>
         public static Exception BinaryWriteNotSupported(Type offendingType, MethodInfo alternative)
         {
-            throw new NotSupportedException(string.Format(Ers.BinWriteXNotSupported, offendingType, alternative.Name, alternative.DeclaringType));
+            return new NotSupportedException(string.Format(Ers.BinWriteXNotSupported, offendingType, alternative.Name, alternative.DeclaringType));
         }
 
         /// <summary>
@@ -387,7 +402,7 @@ namespace TheXDS.MCART.Resources
         /// </returns>
         public static Exception EmptyCollection<T>(IList<T> collection)
         {
-            return  new InvalidOperationException("", new EmptyCollectionException(collection));
+            return new InvalidOperationException("", new EmptyCollectionException(collection));
         }
     }
 }
