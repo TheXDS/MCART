@@ -42,6 +42,18 @@ namespace TheXDS.MCART.Types.Extensions
         /// <param name="fs">
         /// <see cref="Stream"/> a destruir.
         /// </param>
+        /// <exception cref="IOException">
+        /// Se produce si ocurre un error de I/O durante la operación.
+        /// </exception>
+        /// <exception cref="NotSupportedException">
+        /// Se produce si el <see cref="Stream"/> no soporta operaciones de
+        /// escritura y búsqueda, como en casos en que el mismo se ha
+        /// construido a partir de un túnel o del flujo de la consola.
+        /// </exception>
+        /// <exception cref="ObjectDisposedException">
+        /// Ocurre cuando se ha intentado ejecutar esta operación sobre un
+        /// <see cref="Stream"/> que ya ha sido desechado.
+        /// </exception>
         [Dangerous, DebuggerStepThrough, Sugar] public static void Destroy(this Stream fs) => fs.SetLength(0);
 
         /// <summary>
@@ -75,7 +87,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </param>
         /// <param name="count">Cantidad de caracteres a leer.</param>
         [DebuggerStepThrough, Sugar]
-        public static string ReadString(this Stream fs, int count) => ReadString(fs, count, Encoding.Unicode);
+        public static string ReadString(this Stream fs, int count) => ReadString(fs, count, Encoding.Default);
 
         /// <summary>
         /// Lee una cadena desde la secuencia y avanza la posición de
@@ -91,7 +103,7 @@ namespace TheXDS.MCART.Types.Extensions
         public static string ReadString(this Stream fs, int count, Encoding encoding)
         {
             var retVal = new ListEx<char>();
-            using var br = new BinaryReader(fs, encoding);
+            using var br = new BinaryReader(fs, encoding, true);
             while (retVal.Count < count) retVal.Add(br.ReadChar());
             return new string(retVal.ToArray());
         }
@@ -159,13 +171,11 @@ namespace TheXDS.MCART.Types.Extensions
         {
             if (pos < fs.Position)
             {
-                var x = pos;
-                pos = fs.Position;
-                fs.Position = x;
+                (pos, fs.Position) = (fs.Position, pos);
             }
             var bf = new byte[pos - fs.Position];
             await fs.ReadAsync(bf, 0, (int)(pos - fs.Position));
-            return Encoding.UTF8.GetString(bf);
+            return Encoding.Default.GetString(bf);
         }
 
         /// <summary>

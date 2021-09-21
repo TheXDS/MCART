@@ -22,6 +22,7 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
@@ -44,15 +45,33 @@ namespace TheXDS.MCART.Types.Extensions
         /// <param name="instance">
         /// Instancia del objeto que contiene la propiedad.
         /// </param>
-        public static void Default(this PropertyInfo property, object? instance)
+        public static void SetDefault(this PropertyInfo property, object? instance)
         {
-            if (instance is null || instance.GetType().GetProperties().Any(p => Objects.Is(p, property)))
+            object? GetDefault()
+            {
+                object? d = null;
+                try
+                {
+                    return (instance?.GetType().TryInstance(out d) ?? false) ? property.GetValue(d) : null;
+                }
+                finally
+                {
+                    if (d is IDisposable i) i.Dispose();
+                }
+            }
+            
+            if (instance is null || instance.GetType().GetProperties().Any(p => p.Is(property)))
             {
                 if (property.SetMethod is null)
                 {
                     throw Errors.PropIsReadOnly(property);
                 }
-                property.SetMethod.Invoke(instance, new[] { property.GetAttr<DefaultValueAttribute>()?.Value ?? property.PropertyType.Default() });
+                property.SetMethod.Invoke(instance, new[]
+                {
+                    property.GetAttr<DefaultValueAttribute>()?.Value ??
+                    GetDefault() ?? 
+                    property.PropertyType.Default()
+                });
             }
             else
             {
@@ -65,9 +84,9 @@ namespace TheXDS.MCART.Types.Extensions
         /// predeterminado.
         /// </summary>
         /// <param name="property">Propiedad a restablecer.</param>
-        public static void Default(this PropertyInfo property)
+        public static void SetDefault(this PropertyInfo property)
         {
-            Default(property, null);
+            SetDefault(property, null);
         }
 
         /// <summary>

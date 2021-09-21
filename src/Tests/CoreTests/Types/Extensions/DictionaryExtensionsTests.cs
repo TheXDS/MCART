@@ -23,8 +23,8 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System.Collections.Generic;
+using TheXDS.MCART.Types.Extensions;
 using Xunit;
-using static TheXDS.MCART.Types.Extensions.DictionaryExtensions;
 
 namespace TheXDS.MCART.Tests.Types.Extensions
 {

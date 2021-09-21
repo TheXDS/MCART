@@ -489,6 +489,30 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
+        /// Intenta instanciar el tipo con los argumentos de constructor
+        /// especificados.
+        /// </summary>
+        /// <param name="t">Tipo que de intentará instanciar.</param>
+        /// <param name="instance">
+        /// Parámetro de salida. Instancia que ha sido creada, o 
+        /// <see langword="null"/> si no se ha podido crear una instancia del
+        /// tipo especificado.
+        /// </param>
+        /// <param name="args">
+        /// Argumentos a pasar al constructor. Puede omitirse o establecerse en
+        /// <see langword="null"/> para constructores sin argumentos.
+        /// </param>
+        /// <returns>
+        /// <see langword="true"/> si fue posible instanciar el tipo y si el
+        /// mismo se ha instanciado de forma correcta, <see langword="false"/>
+        /// en caso contrario.
+        /// </returns>
+        [Sugar] public static bool TryInstance(this Type t, [MaybeNullWhen(false)] out object instance, params object[]? args)
+        {
+            return TryInstance<object>(t, out instance, args);
+        }
+
+        /// <summary>
         /// Inicializa una nueva instancia de un objeto de forma asíncrona 
         /// con un constructor que acepte los argumentos provistos.
         /// </summary>

@@ -68,6 +68,10 @@ namespace TheXDS.MCART.Types.Extensions
         /// Una colección de <see cref="NamedObject{T}"/> con las llaves y sus
         /// respectivos valores.
         /// </returns>
+        /// <remarks>
+        /// Este método omitirá todos aquellos valores cuyo nombre sea
+        /// <see langword="null"/>.
+        /// </remarks>
         public static IEnumerable<NamedObject<string[]>> ToNamedObjectCollection(this NameValueCollection nvc)
         {
             foreach (var j in nvc.AllKeys.NotNull())
@@ -106,6 +110,10 @@ namespace TheXDS.MCART.Types.Extensions
         /// Una colección de <see cref="Dictionary{TKey, TValue}"/> con las
         /// llaves y sus respectivos valores.
         /// </returns>
+        /// <remarks>
+        /// Este método omitirá todos aquellos valores cuyo nombre sea
+        /// <see langword="null"/>.
+        /// </remarks>
         public static Dictionary<string, string[]> ToDictionary(this NameValueCollection nvc)
         {
             var d = new Dictionary<string, string[]>();
