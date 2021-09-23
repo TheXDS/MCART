@@ -32,6 +32,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
@@ -54,13 +55,9 @@ namespace TheXDS.MCART
     /// </summary>
     public static class WpfUi
     {
-        [DllImport("gdi32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        internal static extern bool DeleteObject(IntPtr value);
+        [DllImport("gdi32.dll")] private static extern bool DeleteObject(IntPtr value);
 
-        /// <summary>
-        /// Estructura de control de colores originales.
-        /// </summary>
         private struct OrigControlColor
         {
             /// <summary>
@@ -85,7 +82,76 @@ namespace TheXDS.MCART
         }
 
         private static readonly List<OrigControlColor> _origctrls = new();
+
         private static readonly List<StreamUriParser> _uriParsers = Objects.FindAllObjects<StreamUriParser>().ToList();
+
+        private static HwndSourceHook CreateHookDelegate(Window window, int syscommand, HandledEventHandler handler)
+        {
+            return (IntPtr hwnd, int msg, IntPtr param, IntPtr lParam, ref bool handled) =>
+            {
+                if (msg != 0x0112 || ((int)param & 0xFFF0) != syscommand) return IntPtr.Zero;
+                var e = new HandledEventArgs();
+                handler?.Invoke(window, e);
+                handled = e.Handled;
+                return IntPtr.Zero;
+            };
+        }
+
+        /// <summary>
+        /// Ejecuta una operación de arrastre de la ventana.
+        /// </summary>
+        /// <param name="window">
+        /// Ventana a arrastrar.
+        /// </param>
+        /// <param name="e">
+        /// Argumentos de arrastre generado en el evento 
+        /// <see cref="UIElement.MouseDown"/> del control a utilizar como punto
+        /// de arrastre.
+        /// </param>
+        public static void PerformWindowDrag(Window? window, MouseButtonEventArgs e)
+        {
+            PerformWindowDrag(window, 0, e);
+        }
+
+        /// <summary>
+        /// Ejecuta una operación de arrastre de la ventana.
+        /// </summary>
+        /// <param name="window">
+        /// Ventana a arrastrar.
+        /// </param>
+        /// <param name="rightChromeWidth">
+        /// Ancho del área a la izquierda del cromo de la ventana para excluir
+        /// del cálculo de posición de arrastre. Se utiliza al restaurar una
+        /// ventana maximizada cuando la misma utiliza un cromo definido por el
+        /// usuario, en cuyo caso este valor es la suma del ancho de los
+        /// controles a la izquierda del cromo de la ventana.
+        /// </param>
+        /// <param name="e">
+        /// Argumentos de arrastre generado en el evento 
+        /// <see cref="UIElement.MouseDown"/> del control a utilizar como punto
+        /// de arrastre.
+        /// </param>
+        /// <remarks>
+        /// Este método puede utilizarse enlazado a un evento
+        /// <see cref="UIElement.MouseDown"/> de un control que pueda
+        /// utilizarse como punto de arrastre para una ventana de WPF.
+        /// </remarks>
+        public static void PerformWindowDrag(Window? window, int rightChromeWidth, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed && window is not null)
+            {
+                if (window.WindowState == WindowState.Maximized)
+                {
+                    var wp = window.PointToScreen(e.GetPosition(window));
+                    var mp = WinUi.GetCursorPosition();
+                    var wi = window.ActualWidth;
+                    window.WindowState = WindowState.Normal;
+                    window.Left = mp.X - (wp.X * (window.Width - rightChromeWidth) / (wi + rightChromeWidth));
+                    window.Top = mp.Y - wp.Y;
+                }
+                window.DragMove();
+            }
+        }
 
         /// <summary>
         /// Enlaza una propiedad de dependencia de un <see cref="DependencyObject" /> a un <see cref="FrameworkElement" />.
@@ -318,7 +384,7 @@ namespace TheXDS.MCART
         /// </param>
         public static void HookHelp(this Window window, HandledEventHandler handler)
         {
-            HookHelp(new WpfWindowWrap(window), handler);
+            HookHelp((IWpfWindow)new WpfWindowWrap(window), handler);
         }
 
         /// <summary>
@@ -863,16 +929,5 @@ namespace TheXDS.MCART
             if (!ttip.IsEmpty()) c.ToolTip = new ToolTip {Content = ttip};
         }
 
-        private static HwndSourceHook CreateHookDelegate(Window window, int syscommand, HandledEventHandler handler)
-        {
-            return (IntPtr hwnd, int msg, IntPtr param, IntPtr lParam, ref bool handled) =>
-            {
-                if (msg != 0x0112 || ((int)param & 0xFFF0) != syscommand) return IntPtr.Zero;
-                var e = new HandledEventArgs();
-                handler?.Invoke(window, e);
-                handled = e.Handled;
-                return IntPtr.Zero;
-            };
-        }
     }
 }

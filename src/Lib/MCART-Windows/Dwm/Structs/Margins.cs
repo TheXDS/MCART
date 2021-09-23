@@ -22,8 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma warning disable CA1815 // Override equals and operator equals on value types
-
 using System.Runtime.InteropServices;
 
 namespace TheXDS.MCART.Windows.Dwm.Structs

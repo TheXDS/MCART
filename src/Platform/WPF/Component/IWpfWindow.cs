@@ -46,9 +46,14 @@ namespace TheXDS.MCART.Wpf.Component
         /// Obtiene una referencia directa a la ventana.
         /// </summary>
         Window Itself => this as Window ?? throw new InvalidTypeException(GetType());
-        
+
+        /// <summary>
+        /// Obtiene el tamaño actual de la ventana.
+        /// </summary>
+        Types.Size ActualSise => new(Itself.ActualWidth, Itself.ActualHeight);
+
         IntPtr IWindow.Handle => new WindowInteropHelper(Itself).Handle;
-        
+
         Margins IWindow.Padding
         {
             get
@@ -70,6 +75,26 @@ namespace TheXDS.MCART.Wpf.Component
                     Top = value.Top,
                     Bottom = value.Bottom
                 };
+            }
+        }
+
+        Types.Size IWindow.Size
+        {
+            get => new(Itself.Width, Itself.Height);
+            set
+            {
+                Itself.Width = value.Width;
+                Itself.Height = value.Height;
+            }
+        }
+
+        Types.Point IWindow.Location
+        {
+            get => new(Itself.Left, Itself.Top);
+            set
+            {
+                Itself.Left = value.X;
+                Itself.Top = value.Y;
             }
         }
 

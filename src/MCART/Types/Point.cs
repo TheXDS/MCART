@@ -31,18 +31,12 @@ using TheXDS.MCART.Types.Base;
 using static System.Math;
 using static TheXDS.MCART.Types.Extensions.StringExtensions;
 using CI = System.Globalization.CultureInfo;
-using St = TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.Types
 {
     /// <summary>
     /// Tipo universal para un conjunto de coordenadas bidimensionales.
     /// </summary>
-    /// <remarks>
-    /// Esta estructura se declara como parcial, para permitir a cada
-    /// implementación de MCART definir métodos para convertir a la clase
-    /// correspondiente para los diferentes tipos de UI disponibles.
-    /// </remarks>
     public struct Point : I2DVector, IFormattable, IEquatable<Point>
     {
         /// <summary>

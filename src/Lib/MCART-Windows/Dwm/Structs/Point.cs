@@ -1,5 +1,5 @@
 ﻿/*
-WpfWindowWrap.cs
+Point.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,31 +22,24 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System.Windows;
+using System.Runtime.InteropServices;
 
-namespace TheXDS.MCART.Wpf.Component
+namespace TheXDS.MCART.Windows.Dwm.Structs
 {
-    internal class WpfWindowWrap : IWpfWindow
+    [StructLayout(LayoutKind.Sequential)]
+    internal struct Point
     {
-        private readonly Window _window;
+        public int X;
+        public int Y;
 
-        public WpfWindowWrap(Window window)
+        public static implicit operator Types.Point(Point point)
         {
-            _window = window;
+            return new(point.X, point.Y);
         }
 
-        public WindowState WindowState => _window.WindowState;
-
-        Window IWpfWindow.Itself => _window;
-
-        public static implicit operator Window(WpfWindowWrap wrap)
+        public static implicit operator System.Drawing.Point(Point point)
         {
-            return wrap._window;
-        }
-
-        public static implicit operator WpfWindowWrap(Window window)
-        {
-            return new WpfWindowWrap(window);
+            return new(point.X, point.Y);
         }
     }
 }

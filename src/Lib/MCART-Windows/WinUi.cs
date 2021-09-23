@@ -154,6 +154,18 @@ namespace TheXDS.MCART
             return (Brush)typeof(Brushes).GetProperties().Pick().GetValue(null)!;
         }
 
+        /// <summary>
+        /// Obtiene las coordenadas absolutas del cursor en la pantalla.
+        /// </summary>
+        /// <returns>
+        /// Un <see cref="Types.Point"/> con las coordenadas absolutas del
+        /// cursor en la pantalla.
+        /// </returns>
+        public static Types.Point GetCursorPosition()
+        {
+            return PInvoke.GetCursorPos(out var p) ? p : Types.Point.Nowhere;
+        }
+
         private static float GetScalingFactor(IntPtr handle)
         {
             var h = Graphics.FromHwnd(handle).GetHdc();

@@ -267,7 +267,7 @@ namespace TheXDS.MCART.Windows.Dwm
         /// Ventana sobre la cual realizar la operación.
         /// </param>
         /// <param name="newPosition">Nueva posición de la ventana.</param>
-        public static void Move(this IWindow window, Point newPosition)
+        public static void Move(this IWindow window, Types.Point newPosition)
         {
             PInvoke.SetWindowPos(window.Handle, IntPtr.Zero,
                 (int)newPosition.X, (int)newPosition.Y,

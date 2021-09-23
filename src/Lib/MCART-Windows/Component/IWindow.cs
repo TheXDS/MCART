@@ -25,6 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using TheXDS.MCART.Windows.Dwm.Structs;
 using TheXDS.MCART.Component;
+using TheXDS.MCART.Types;
 
 namespace TheXDS.MCART.Windows.Component
 {
@@ -45,6 +46,39 @@ namespace TheXDS.MCART.Windows.Component
         /// bordes de la ventana y su contenido.
         /// </summary>
         Margins Padding { get; set; }
+
+        /// <summary>
+        /// Obtiene o establece el tamaño de la ventana.
+        /// </summary>
+        Size Size
+        {
+            get
+            {
+                return GetRect().Size;
+            }
+            set
+            {
+                var info = GetRect();
+                PInvoke.MoveWindow(Handle, info.Left, info.Top, (int)value.Width, (int)value.Height, true);
+            }
+        }
+
+        /// <summary>
+        /// Obtiene o establece la posición de la ventana en coordenadas
+        /// absolutas de pantalla.
+        /// </summary>
+        Types.Point Location
+        {
+            get
+            {
+                return GetRect().Location;
+            }
+            set
+            {
+                var info = GetRect();
+                PInvoke.MoveWindow(Handle, (int)value.X, (int)value.Y, info.Width, info.Height, true);
+            }
+        }
 
         /// <summary>
         /// Oculta la ventana sin cerrarla.
@@ -92,5 +126,14 @@ namespace TheXDS.MCART.Windows.Component
         {
             if (Handle != IntPtr.Zero) PInvoke.ShowWindowAsync(Handle, flags);
         }
+
+        private Rect GetRect()
+        {
+            var info = new Rect();
+            PInvoke.GetWindowRect(Handle, ref info);
+            return info;
+        }
+
+
     }
 }
