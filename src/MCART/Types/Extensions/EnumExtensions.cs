@@ -26,6 +26,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Helpers;
@@ -33,6 +34,14 @@ using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Types.Extensions
 {
+    public static class ExpressionExtensions
+    {
+        public static object? Eval(this Expression e)
+        {
+            return Expression.Lambda(e).Compile().DynamicInvoke();
+        }
+    }
+
     /// <summary>
     /// Contiene extensiones útiles para la clase <see cref="Enum" />.
     /// </summary>

@@ -23,6 +23,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using TheXDS.MCART.Exceptions;
@@ -35,7 +36,7 @@ namespace TheXDS.MCART.Types.Extensions
     /// Brinda de extensiones sintácticas similares a Prism a los objetos
     /// de tipo <see cref="ObservingCommand"/>.
     /// </summary>
-    public static class ObservingCommandExtensions
+    public static partial class ObservingCommandExtensions
     {
         /// <summary>
         /// Indica que un <see cref="ObservingCommand"/> escuchará los
@@ -61,9 +62,8 @@ namespace TheXDS.MCART.Types.Extensions
         /// </exception>
         public static ObservingCommand ListensToProperty<T>(this ObservingCommand command, Expression<Func<T, object?>> propertySelector)
         {
-            var m = GetMember(propertySelector) as PropertyInfo ?? throw new InvalidArgumentException(nameof(propertySelector));
-            command.RegisterObservedProperty(m.Name);
-            return command;
+            ListensToProperty_Contract(command, propertySelector);
+            return command.RegisterObservedProperty(GetProperty(propertySelector).Name);
         }
 
         /// <summary>
@@ -84,11 +84,34 @@ namespace TheXDS.MCART.Types.Extensions
         /// Se produce si el elemento seleccionado por medio de
         /// <paramref name="propertySelector"/> no es una propiedad.
         /// </exception>
-        public static ObservingCommand ListensToProperty(this ObservingCommand command, Expression<Func<object?>> propertySelector)
+        public static ObservingCommand ListensToProperty<T>(this ObservingCommand command, Expression<Func<T>> propertySelector)
         {
-            var m = GetMember(propertySelector) as PropertyInfo ?? throw new InvalidArgumentException(nameof(propertySelector));
-            command.RegisterObservedProperty(m.Name);
-            return command;
+            ListensToProperty_Contract(command, propertySelector);
+            return command.RegisterObservedProperty(GetProperty(propertySelector).Name);
+        }
+
+        /// <summary>
+        /// Registra un conjunto de propiedades a ser escuchadas por este
+        /// <see cref="ObservingCommand"/>.
+        /// </summary>
+        /// <param name="command">
+        /// Comando para el cual se configurará la escucha.
+        /// </param>
+        /// <param name="properties">
+        /// Colección de selectores de propiedades a ser escuchadas.
+        /// </param>
+        /// <returns>
+        /// <paramref name="command"/>, permitiendo el uso de sintáxis
+        /// Fluent.
+        /// </returns>
+        /// <exception cref="InvalidArgumentException">
+        /// Se produce si cualquiera de los elementos seleccionados por medio
+        /// de <paramref name="properties"/> no es una propiedad.
+        /// </exception>
+        public static ObservingCommand ListensToProperties<T>(this ObservingCommand command, params Expression<Func<T>>[] properties)
+        {
+            ListensToProperties_Contract(command, properties);
+            return command.RegisterObservedProperty(properties.Select(GetProperty).Select(p => p.Name).ToArray());
         }
 
         /// <summary>
@@ -119,6 +142,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </exception>
         public static ObservingCommand ListensToCanExecute<T>(this ObservingCommand command, Expression<Func<T, bool>> selector)
         {
+            ListensToCanExecute_Contract(command, selector);
             return RegisterCanExecute(command, GetMember(selector));
         }
 
@@ -145,7 +169,44 @@ namespace TheXDS.MCART.Types.Extensions
         /// </exception>
         public static ObservingCommand ListensToCanExecute(this ObservingCommand command, Expression<Func<bool>> selector)
         {
+            ListensToCanExecute_Contract(command, selector);
             return RegisterCanExecute(command, GetMember(selector));
+        }
+
+        /// <summary>
+        /// Configura un <see cref="ObservingCommand"/> para poder ejecutarse
+        /// cuando las propiedades inidicadas no sean <see langword="null"/>.
+        /// </summary>
+        /// <param name="command">Comando a configurar.</param>
+        /// <param name="propertySelectors">
+        /// Selectores de propiedades a observar.
+        /// </param>
+        /// <returns>
+        /// <paramref name="command"/>, permitiendo el uso de sintáxis
+        /// Fluent.
+        /// </returns>
+        public static ObservingCommand CanExecuteIfNotNull(this ObservingCommand command, params Expression<Func<object?>>[] propertySelectors)
+        {
+            return ListensToProperties(command, propertySelectors)
+                .SetCanExecute(() => propertySelectors.Select(p => p.Compile().Invoke()).All(p => p is not null));
+        }
+
+        /// <summary>
+        /// Configura un <see cref="ObservingCommand"/> para poder ejecutarse
+        /// cuando las propiedades inidicadas no sean <see langword="null"/>.
+        /// </summary>
+        /// <param name="command">Comando a configurar.</param>
+        /// <param name="propertySelectors">
+        /// Selectores de propiedades a observar.
+        /// </param>
+        /// <returns>
+        /// <paramref name="command"/>, permitiendo el uso de sintáxis
+        /// Fluent.
+        /// </returns>
+        public static ObservingCommand CanExecuteIfNotDefault(this ObservingCommand command, params Expression<Func<ValueType>>[] propertySelectors)
+        {
+            return ListensToProperties(command, propertySelectors)
+                .SetCanExecute(() => propertySelectors.Select(p => p.Compile().Invoke()).All(p => p != p.GetType().Default()));
         }
 
         private static ObservingCommand RegisterCanExecute(this ObservingCommand command, MemberInfo m)
@@ -163,7 +224,7 @@ namespace TheXDS.MCART.Types.Extensions
                     else if (mi.ToDelegate<Func<bool>>() is { } func)
                         command.SetCanExecute(func);
                     else
-                        throw new InvalidArgumentException(@"selector");
+                        throw new InvalidArgumentException("selector");
                     break;
             }
             return command;

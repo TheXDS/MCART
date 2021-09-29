@@ -29,6 +29,7 @@ using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Types.Extensions;
 using Str = TheXDS.MCART.Resources.Strings.Common;
 using Ers = TheXDS.MCART.Resources.Strings.Errors;
+using System.Collections;
 
 namespace TheXDS.MCART.Resources
 {
@@ -400,9 +401,9 @@ namespace TheXDS.MCART.Resources
         /// Una nueva instancia de la clase
         /// <see cref="InvalidOperationException"/>.
         /// </returns>
-        public static Exception EmptyCollection<T>(IList<T> collection)
+        public static Exception EmptyCollection(IEnumerable collection)
         {
-            return new InvalidOperationException("", new EmptyCollectionException(collection));
+            return new InvalidOperationException(Ers.EmptyCollection, new EmptyCollectionException(collection));
         }
     }
 }
