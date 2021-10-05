@@ -26,7 +26,9 @@ using System;
 using System.Collections.Generic;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Math;
+using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Base;
+using static System.Math;
 using static TheXDS.MCART.Types.Extensions.StringExtensions;
 using CI = System.Globalization.CultureInfo;
 using DR = System.Drawing;
@@ -37,8 +39,13 @@ namespace TheXDS.MCART.Types
     /// Estructura universal que describe un color en sus componentes alfa,
     /// rojo, verde y azul.
     /// </summary>
-    public struct Color : IEquatable<Color>, IFormattable, IComparable<Color>, IColor, IScColor, ICasteable<DR.Color>
+    public partial struct Color : IEquatable<Color>, IFormattable, IComparable<Color>, IColor, IScColor, ICasteable<DR.Color>, ICloneable<Color>
     {
+        /// <summary>
+        /// Obtiene una referencia al color transparente.
+        /// </summary>
+        public static Color Transparent => new(0, 0, 0, 0);
+
         /// <summary>
         /// Mezcla un color de temperatura basado en el porcentaje.
         /// </summary>
@@ -50,9 +57,9 @@ namespace TheXDS.MCART.Types
         /// </param>
         public static Color BlendHeat(in float x)
         {
-            var r = (byte)((1020 * (float)(x + 0.5)) - 1020).Clamp(0, 255);
-            var g = (byte)((float)-System.Math.Abs((2040 * (x - 0.5)) + 1020) / 2).Clamp(0, 255);
-            var b = (byte)((-1020 * (float)(x + 0.5)) + 1020).Clamp(0, 255);
+            var r = (byte) (Sqrt(2) * Cos((x + 1)  * PI) * 255).Clamp(0, 255);
+            var g = (byte) (Sqrt(2) * Sin(x * PI) * 255).Clamp(0, 255);
+            var b = (byte) (Sqrt(2) * Cos(x * PI) * 255).Clamp(0, 255);
             return new Color(r, g, b);
         }
 
@@ -85,11 +92,14 @@ namespace TheXDS.MCART.Types
         /// <param name="colors">colección de colores a mezclar.
         /// </param>
         /// <returns>Una mezcla entre los colores especificados.</returns>
+        /// <exception cref="InvalidOperationException">
+        /// Se produce si <paramref name="colors"/> no contiene elementos.
+        /// </exception>
         public static Color Blend(in IEnumerable<Color> colors)
         {
+            Blend_Contract(colors);
             float r = 0f, g = 0f, b = 0f, a = 0f;
             var c = 0;
-
             foreach (var j in colors)
             {
                 r += j.ScR;
@@ -98,12 +108,7 @@ namespace TheXDS.MCART.Types
                 a += j.ScA;
                 c++;
             }
-
-#if PreferExceptions
-            return new Color((r / c).Clamp(0,1), (g / c).Clamp(0, 1), (b / c).Clamp(0, 1), (a / c).Clamp(0, 1));
-#else
             return new Color(r / c, g / c, b / c, a / c);
-#endif
         }
 
         /// <summary>
@@ -115,7 +120,7 @@ namespace TheXDS.MCART.Types
         /// </returns>
         /// <param name="color1">Primer <see cref="Color"/> a comparar.</param>
         /// <param name="color2">Segundo Color a comparar.</param>
-        public static bool AreClose(in Color color1, in Color color2) => AreClose(color1, color2, 0.95f);
+        public static bool AreClose(in Color color1, in Color color2) => AreClose(color1, color2, 0.9f);
 
         /// <summary>
         /// Determina si los colores son lo suficientemente similares.
@@ -131,8 +136,8 @@ namespace TheXDS.MCART.Types
         /// </param>
         public static bool AreClose(in Color color1, in Color color2, in float delta)
         {
-            if (!delta.IsBetween(0.0f, 1.0f)) throw new ArgumentOutOfRangeException(nameof(delta));
-            return Similarity(color1, color2) <= delta;
+            AreClose_Contract(delta);
+            return Similarity(color1, color2) >= delta;
         }
 
         /// <summary>
@@ -144,7 +149,7 @@ namespace TheXDS.MCART.Types
         /// </returns>
         /// <param name="c1">Primer <see cref="Color"/> a comparar.</param>
         /// <param name="c2">Segundo Color a comparar.</param>
-        public static float Similarity(in Color c1, in Color c2) => 1.0f - (c1.ScA - c2.ScA + (c1.ScR - c2.ScR) + (c1.ScG - c2.ScG) + (c1.ScB - c2.ScB));
+        public static float Similarity(in Color c1, in Color c2) => 1.0f - (Abs(c1.ScA - c2.ScA) + Abs(c1.ScR - c2.ScR) + Abs(c1.ScG - c2.ScG) + Abs(c1.ScB - c2.ScB)).Clamp(0f, 1f);
 
         /// <summary>
         /// Intenta crear un <see cref="Color"/> a partir de la cadena
@@ -162,28 +167,29 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public static bool TryParse(string from, out Color color)
         {
+            TryParse_Contract(from);
             if (from.IsFormattedAs("#FFFFFFFF"))
             {
-                color = new Abgr32ColorParser().From(int.Parse($"0x{from[1..]}"));
+                color = new Abgr32ColorParser().From(Convert.ToInt32($"0x{from[1..]}", 16));
                 return true;
             }
             if (from.IsFormattedAs("#FFFFFF"))
             {
-                color = new Bgr24ColorParser().From(int.Parse($"0x{from[1..]}"));
+                color = new Bgr24ColorParser().From(Convert.ToInt32($"0x{from[1..]}", 16));
                 return true;
             }
             if (from.IsFormattedAs("#FFFF"))
             {
-                color = new Abgr4444ColorParser().From(short.Parse($"0x{from[1..]}"));
+                color = new Abgr4444ColorParser().From(Convert.ToInt16($"0x{from[1..]}", 16));
                 return true;
             }
             if (from.IsFormattedAs("#FFF"))
             {
-                color = new Bgr12ColorParser().From(short.Parse($"0x{from[1..]}"));
+                color = new Bgr12ColorParser().From(Convert.ToInt16($"0x{from[1..]}", 16));
                 return true;
             }
-            var cName = typeof(Resources.Colors).GetProperty(from, typeof(Color));
-            if (!(cName is null))
+            var cName = typeof(Colors).GetProperty(from, typeof(Color));
+            if (cName is not null)
             {
                 color = (Color)cName.GetValue(null)!;
                 return true;
@@ -250,11 +256,11 @@ namespace TheXDS.MCART.Types
         public static Color operator +(in Color left, in Color right)
         {
             return new(
-#if PreferExceptions
-				(left.r + right.r).Clamp(0.0f, 1.0f),
-				(left.g + right.g).Clamp(0.0f, 1.0f),
-				(left.b + right.b).Clamp(0.0f, 1.0f),
-				(left.a + right.a).Clamp(0.0f, 1.0f)
+#if !PreferExceptions
+				(left._r + right._r).Clamp(0.0f, 1.0f),
+				(left._g + right._g).Clamp(0.0f, 1.0f),
+				(left._b + right._b).Clamp(0.0f, 1.0f),
+				(left._a + right._a).Clamp(0.0f, 1.0f)
 #else
                 left._r + right._r,
                 left._g + right._g,
@@ -281,11 +287,11 @@ namespace TheXDS.MCART.Types
         public static Color operator -(in Color left, in Color right)
         {
             return new(
-#if PreferExceptions
-				(left.r - right.r).Clamp(0.0f, 1.0f),
-				(left.g - right.g).Clamp(0.0f, 1.0f),
-				(left.b - right.b).Clamp(0.0f, 1.0f),
-				(left.a - right.a).Clamp(0.0f, 1.0f)
+#if !PreferExceptions
+				(left._r - right._r).Clamp(0.0f, 1.0f),
+				(left._g - right._g).Clamp(0.0f, 1.0f),
+				(left._b - right._b).Clamp(0.0f, 1.0f),
+				(left._a - right._a).Clamp(0.0f, 1.0f)
 #else
                 left._r - right._r,
                 left._g - right._g,
@@ -308,11 +314,11 @@ namespace TheXDS.MCART.Types
         public static Color operator *(in Color left, in float right)
         {
             return new(
-#if PreferExceptions
-				(left.r * right).Clamp(0.0f, 1.0f),
-				(left.g * right).Clamp(0.0f, 1.0f),
-				(left.b * right).Clamp(0.0f, 1.0f),
-				(left.a * right).Clamp(0.0f, 1.0f)
+#if !PreferExceptions
+				(left._r * right).Clamp(0.0f, 1.0f),
+				(left._g * right).Clamp(0.0f, 1.0f),
+				(left._b * right).Clamp(0.0f, 1.0f),
+				(left._a * right).Clamp(0.0f, 1.0f)
 #else
                 left._r * right,
                 left._g * right,
@@ -334,16 +340,42 @@ namespace TheXDS.MCART.Types
         public static Color operator /(in Color left, in Color right)
         {
             return new(
-#if PreferExceptions
-				((left.r + right.r) / 2).Clamp(0.0f, 1.0f),
-				((left.g + right.g) / 2).Clamp(0.0f, 1.0f),
-				((left.b + right.b) / 2).Clamp(0.0f, 1.0f),
-				((left.a + right.a) / 2).Clamp(0.0f, 1.0f)
+#if !PreferExceptions
+				((left._r + right._r) / 2).Clamp(0.0f, 1.0f),
+				((left._g + right._g) / 2).Clamp(0.0f, 1.0f),
+				((left._b + right._b) / 2).Clamp(0.0f, 1.0f),
+				((left._a + right._a) / 2).Clamp(0.0f, 1.0f)
 #else
                 (left._r + right._r) / 2,
                 (left._g + right._g) / 2,
                 (left._b + right._b) / 2,
                 (left._a + right._a) / 2
+#endif
+            );
+        }
+        
+        /// <summary>
+        /// Realiza una mezcla entre los colores especificados.
+        /// </summary>
+        /// <param name="left">El primer <see cref="Color"/> a mezclar.</param>
+        /// <param name="right">
+        /// El segundo <see cref="Color"/> a mezclar.
+        /// </param>
+        /// <returns>Una mezcla entre los colores <paramref name="left"/> y 
+        /// <paramref name="right"/>.</returns>
+        public static Color operator /(in Color left, in float right)
+        {
+            return new(
+#if !PreferExceptions
+                (left._r / right).Clamp(0.0f, 1.0f),
+                (left._g / right).Clamp(0.0f, 1.0f),
+                (left._b / right).Clamp(0.0f, 1.0f),
+                (left._a / right).Clamp(0.0f, 1.0f)
+#else
+                left._r / right,
+                left._g / right,
+                left._b / right,
+                left._a / right
 #endif
             );
         }
@@ -513,16 +545,48 @@ namespace TheXDS.MCART.Types
         public Color(in float r, in float g, in float b, in float a)
         {
 #if PreferExceptions
-			a = A.IsBetween(0.0f, 1.0f) ? A : throw new ArgumentOutOfRangeException(nameof(A));
-			r = R.IsBetween(0.0f, 1.0f) ? R : throw new ArgumentOutOfRangeException(nameof(R));
-			g = G.IsBetween(0.0f, 1.0f) ? G : throw new ArgumentOutOfRangeException(nameof(G));
-			b = B.IsBetween(0.0f, 1.0f) ? B : throw new ArgumentOutOfRangeException(nameof(B));
+			_a = A.IsBetween(0.0f, 1.0f) ? A : throw new ArgumentOutOfRangeException(nameof(A));
+			_r = R.IsBetween(0.0f, 1.0f) ? R : throw new ArgumentOutOfRangeException(nameof(R));
+			_g = G.IsBetween(0.0f, 1.0f) ? G : throw new ArgumentOutOfRangeException(nameof(G));
+			_b = B.IsBetween(0.0f, 1.0f) ? B : throw new ArgumentOutOfRangeException(nameof(B));
 #else
             _a = a.Clamp(0.0f, 1.0f);
             _r = r.Clamp(0.0f, 1.0f);
             _g = g.Clamp(0.0f, 1.0f);
             _b = b.Clamp(0.0f, 1.0f);
 #endif
+        }
+
+        /// <summary>
+        /// Determina si el <see cref="IScColor" /> especificado es igual al
+        /// <see cref="Color" /> actual.
+        /// </summary>
+        /// <param name="other">
+        /// El <see cref="Color" /> a comparar contra este <see cref="Color" />.
+        /// </param>
+        /// <returns>
+        /// <see langword="true" /> si el <see cref="Color" /> especificado es igual al
+        /// <see cref="Color" /> actual, <see langword="false" /> en caso contrario.
+        /// </returns>
+        public bool Equals(IScColor other)
+        {
+            return _a == other.ScA && _r == other.ScR && _g == other.ScG && _b == other.ScB;
+        }
+        
+        /// <summary>
+        /// Determina si el <see cref="IColor" /> especificado es igual al
+        /// <see cref="Color" /> actual.
+        /// </summary>
+        /// <param name="other">
+        /// El <see cref="Color" /> a comparar contra este <see cref="Color" />.
+        /// </param>
+        /// <returns>
+        /// <see langword="true" /> si el <see cref="Color" /> especificado es igual al
+        /// <see cref="Color" /> actual, <see langword="false" /> en caso contrario.
+        /// </returns>
+        public bool Equals(IColor other)
+        {
+            return A == other.A && R == other.R && G == other.G && B == other.B;
         }
 
         /// <summary>
@@ -550,12 +614,26 @@ namespace TheXDS.MCART.Types
         /// <see cref="Color"/>.
         /// </returns>
         /// <param name="format">Format.</param>
+        public string ToString(string? format)
+        {
+            return ToString(format, null);
+        }
+        
+        /// <summary>
+        /// Returns a <see cref="string"/> that represents the current 
+        /// <see cref="Color"/>.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="string"/> that represents the current 
+        /// <see cref="Color"/>.
+        /// </returns>
+        /// <param name="format">Format.</param>
         /// <param name="formatProvider">Format provider.</param>
         public string ToString(string? format, IFormatProvider? formatProvider)
         {
             if (format.IsEmpty()) format = "H";
             formatProvider ??= CI.CurrentCulture;
-            return (format!) switch
+            return format! switch
             {
                 "H" => $"#{new [] { A, R, G, B }.ToHex()}",
                 "h" => $"#{new [] { A, R, G, B }.ToHex().ToLower((CI)formatProvider)}",
@@ -563,7 +641,7 @@ namespace TheXDS.MCART.Types
                 "b" => $"a:{A} r:{R} g:{G} b:{B}",
                 "F" => $"A:{_a} R:{_r} G:{_g} B:{_b}",
                 "f" => $"a:{_a} r:{_r} g:{_g} b:{_b}",
-                _ => CustomFormat(format!, (CI)formatProvider)
+                _ => CustomFormat(format, (CI)formatProvider)
             };
         }
 
@@ -589,7 +667,14 @@ namespace TheXDS.MCART.Types
         /// <returns></returns>
         public override bool Equals(object? obj)
         {
-            return base.Equals(obj);
+            return obj switch
+            {
+                Color c => this == c,
+                DR.Color c => this == (Color)c,
+                IColor c => Equals(c),
+                IScColor c => Equals(c),
+                _ => base.Equals(obj)
+            };
         }
 
         /// <summary>
@@ -614,6 +699,12 @@ namespace TheXDS.MCART.Types
             return $"#{new[] { A, R, G, B }.ToHex()}";
         }
 
+        /// <inheritdoc/>
+        public Color Clone()
+        {
+            return new(_r, _g, _b, _a);
+        }
+
         /// <summary>
         /// Convierte implícitamente un <see cref="Color"/> en un
         /// <see cref="System.Drawing.Color"/>.
@@ -621,7 +712,7 @@ namespace TheXDS.MCART.Types
         /// <param name="color"></param>
         public static implicit operator DR.Color(in Color color)
         {
-            return System.Drawing.Color.FromArgb(color.A, color.R, color.G, color.B);
+            return DR.Color.FromArgb(color.A, color.R, color.G, color.B);
         }
 
         /// <summary>
@@ -636,14 +727,14 @@ namespace TheXDS.MCART.Types
 
         private string CustomFormat(string format, CI formatProvider)
         {
-            format = format.Replace("AA", A.ToHex());
-            format = format.Replace("aa", A.ToHex().ToLower(formatProvider));
-            format = format.Replace("RR", R.ToHex());
-            format = format.Replace("rr", R.ToHex().ToLower(formatProvider));
-            format = format.Replace("GG", G.ToHex());
-            format = format.Replace("gg", G.ToHex().ToLower(formatProvider));
-            format = format.Replace("BB", B.ToHex());
-            format = format.Replace("bb", B.ToHex().ToLower(formatProvider));
+            format = format.Replace("AA", A.ToString("x2").ToUpper(formatProvider));
+            format = format.Replace("aa", A.ToString("x2").ToLower(formatProvider));
+            format = format.Replace("RR", R.ToString("x2").ToUpper(formatProvider));
+            format = format.Replace("rr", R.ToString("x2").ToLower(formatProvider));
+            format = format.Replace("GG", G.ToString("x2").ToUpper(formatProvider));
+            format = format.Replace("gg", G.ToString("x2").ToLower(formatProvider));
+            format = format.Replace("BB", B.ToString("x2").ToUpper(formatProvider));
+            format = format.Replace("bb", B.ToString("x2").ToLower(formatProvider));
             return format;
         }
 

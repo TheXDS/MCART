@@ -23,10 +23,14 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types;
+using TheXDS.MCART.Types.Base;
 using TheXDS.MCART.Types.Extensions;
 using Xunit;
 using static TheXDS.MCART.Types.Extensions.NamedObjectExtensions;
@@ -35,6 +39,18 @@ namespace TheXDS.MCART.Tests.Types
 {
     public class NamedObjectTests
     {
+        [ExcludeFromCodeCoverage]
+        private class NameableClass : INameable
+        {
+            [Name("Name property")] public string Name => "Nameable class";
+        }
+
+        private class TestClass2
+        {
+            public override string ToString() => null!;
+        }
+        
+        [Name("Test enum")]
         private enum TestEnum
         {
             [Name("Elemento A")] A,
@@ -67,6 +83,66 @@ namespace TheXDS.MCART.Tests.Types
         {
             var x = AsNamedObject<TestEnum>();
             Assert.Equal("Elemento A", x.First());
+        }
+
+        [Fact]
+        public void Infer_Test()
+        {
+            var x = new NameableClass();
+            Assert.Equal("Nameable class", NamedObject<object?>.Infer(x));
+            Assert.Equal("Name property",NamedObject<object?>.Infer(ReflectionHelpers.GetProperty(() => x.Name)));
+            Assert.Equal("Test enum",NamedObject<object?>.Infer(typeof(TestEnum)));
+            Assert.Equal("Exception",NamedObject<object?>.Infer(typeof(Exception)));
+            Assert.Equal("Elemento A",NamedObject<object?>.Infer(TestEnum.A));
+            Assert.Equal("TestClass2",NamedObject<object?>.Infer(new TestClass2()));
+            Assert.Throws<ArgumentNullException>(() => NamedObject<object?>.Infer(null));
+        }
+
+        [Fact]
+        public void Implicit_Operators_Test()
+        {
+            var v = NamedObject<TestEnum>.FromEnum().ToArray()[1];
+            Assert.Equal(TestEnum.B, (TestEnum)v);
+            Assert.Equal("Elemento B", ((KeyValuePair<string, TestEnum>)v).Key);
+            Assert.Equal(TestEnum.B, ((KeyValuePair<string, TestEnum>)v).Value);
+            Assert.Equal("Elemento B", (NamedObject<TestEnum>)new KeyValuePair<string, TestEnum>("Elemento B", TestEnum.B));
+        }
+
+        [Fact]
+        public void Equals_Test()
+        {
+            var v = NamedObject<TestEnum>.FromEnum().ToArray()[1];
+            Assert.True(v.Equals(NamedObject<TestEnum>.FromEnum().ToArray()[1]));
+            Assert.False(v.Equals(NamedObject<TestEnum>.FromEnum().ToArray()[2]));
+            Assert.True(v.Equals(TestEnum.B));
+            Assert.False(v.Equals(TestEnum.C));
+            Assert.True(new NamedObject<int?>(null, "Test").Equals(null));
+            Assert.False(v.Equals(null));
+            Assert.False(v.Equals(new Exception()));
+        }
+
+        [Fact]
+        public void Equals_Operator_Test()
+        {
+            var v1 = NamedObject<TestEnum>.FromEnum().ToArray()[1];
+            var v2 = NamedObject<TestEnum>.FromEnum().ToArray()[1];
+            var v3 = NamedObject<TestEnum>.FromEnum().ToArray()[2];
+            
+            Assert.True(v1 == v2);
+            Assert.False(v1 == v3);
+            Assert.False(v1 != v2);
+            Assert.True(v1 != v3);
+        }
+        
+        [Fact]
+        public void GetHashCode_Test()
+        {
+            var v1 = NamedObject<TestEnum>.FromEnum().ToArray()[1];
+            var v2 = NamedObject<TestEnum>.FromEnum().ToArray()[1];
+            var v3 = NamedObject<TestEnum>.FromEnum().ToArray()[2];
+            
+            Assert.True(v1.GetHashCode() == v2.GetHashCode());
+            Assert.False(v1.GetHashCode() == v3.GetHashCode());
         }
     }
 }

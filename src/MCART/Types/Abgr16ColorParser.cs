@@ -22,6 +22,8 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using TheXDS.MCART.Math;
+
 namespace TheXDS.MCART.Types
 {
     /// <summary>
@@ -40,10 +42,10 @@ namespace TheXDS.MCART.Types
         public Color From(short value)
         {
             return new(
-                (byte) ((value & 0x1f) * 256 / 32),
-                (byte) (((value & 0x3e0) >> 5) * 256 / 32),
-                (byte) (((value & 0x7c00) >> 10) * 256 / 32),
-                (byte) ((value & 0x8000) >> 15) * 256);
+                (byte) ((value & 0x1f) * 255 / 31).Clamp(0, 255),
+                (byte) (((value & 0x3e0) >> 5) * 255 / 31 - 1).Clamp(0, 255),
+                (byte) (((value & 0x7c00) >> 10) * 255 / 31 - 1).Clamp(0, 255),
+                (byte) (((value & 0x8000) >> 15) * 255));
         }
 
         /// <summary>
@@ -57,10 +59,10 @@ namespace TheXDS.MCART.Types
         public short To(Color color)
         {
             return (short) (
-                (color.R * 32 / 256) |
-                ((color.G * 32 / 256) << 5) |
-                ((color.B * 32 / 256) << 10) |
-                ((color.A * 2 / 256) << 15));
+                (byte)System.Math.Round(color.R * 31f / 255) |
+                ((short)System.Math.Round(color.G * 31f / 255) << 5)  |
+                ((short)System.Math.Round(color.B * 31f / 255) << 10)  |
+                (color.A >= 128 ? 0x8000 : 0));
         }
     }
 }

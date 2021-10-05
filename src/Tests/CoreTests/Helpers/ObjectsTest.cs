@@ -24,6 +24,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -49,6 +50,7 @@ namespace TheXDS.MCART.Tests.Helpers
         {
         }
 
+        [ExcludeFromCodeCoverage]
         [Identifier("FindTypeTest")]
         private class TestClass : ITestInterface
         {
@@ -73,6 +75,7 @@ namespace TheXDS.MCART.Tests.Helpers
             }
         }
         
+        [ExcludeFromCodeCoverage]
         private class TestClass2
         {
             public int TestField = 2;
@@ -86,6 +89,7 @@ namespace TheXDS.MCART.Tests.Helpers
         }
         
 #pragma warning disable xUnit1013
+        [ExcludeFromCodeCoverage]
         public void TestEventHandler(object sender, EventArgs e) { }
 #pragma warning restore xUnit1013
 

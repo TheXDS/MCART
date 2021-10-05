@@ -184,14 +184,14 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         public void IsFormattedAs_Test()
         {
             Assert.False("XYZ-ABCD".IsFormattedAs("A0"));
-            Assert.True("XYZ-1234".IsFormattedAs("XAX-09#9"));
-            Assert.False("XYZ-ABCD".IsFormattedAs("XAX-09#9"));
-            Assert.True("XYZ-1234".IsFormattedAs("XAX-09#9", true));
-            Assert.True("XyZ-1234".IsFormattedAs("AaX-09#9", true));
-            Assert.False("xyz-1234".IsFormattedAs("XAA-09#9", true));
-            Assert.True("xyz-1234".IsFormattedAs("axa-09#9", true));
-            Assert.False("XYZ-1234".IsFormattedAs("axa-09#9", true));
-            Assert.False("xyz+1234".IsFormattedAs("axa-09#9", true));
+            Assert.True("XYZ-1234".IsFormattedAs("XAX-0909"));
+            Assert.False("XYZ-ABCD".IsFormattedAs("XAX-0909"));
+            Assert.True("XYZ-1234".IsFormattedAs("XAX-0909", true));
+            Assert.True("XyZ-1234".IsFormattedAs("AaX-0909", true));
+            Assert.False("xyz-1234".IsFormattedAs("XAA-0909", true));
+            Assert.True("xyz-1234".IsFormattedAs("axa-0909", true));
+            Assert.False("XYZ-1234".IsFormattedAs("axa-0909", true));
+            Assert.False("xyz+1234".IsFormattedAs("axa-0909", true));
             Assert.True("10101010".IsFormattedAs("bBbBbBbB"));
             Assert.False("12121212".IsFormattedAs("bBbBbBbB"));
             Assert.True("0123456789AbCdEf".IsFormattedAs("fFfFfFfFfFfFfFfF"));

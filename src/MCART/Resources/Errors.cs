@@ -23,13 +23,12 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
-using System.Collections.Generic;
+using System.Collections;
 using System.Reflection;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Types.Extensions;
 using Str = TheXDS.MCART.Resources.Strings.Common;
 using Ers = TheXDS.MCART.Resources.Strings.Errors;
-using System.Collections;
 
 namespace TheXDS.MCART.Resources
 {
@@ -86,6 +85,7 @@ namespace TheXDS.MCART.Resources
         /// </returns>
         public static ArgumentException InvalidValue(string argName)
         {
+            //TODO: insertar cadena traducida.
             return new(null, argName);
         }
 
@@ -396,7 +396,6 @@ namespace TheXDS.MCART.Resources
         /// Colección vacía sobre la cual se ha intentado ejecutar la
         /// operación.
         /// </param>
-        /// <typeparam name="T">Tipo de la colección.</typeparam>
         /// <returns>
         /// Una nueva instancia de la clase
         /// <see cref="InvalidOperationException"/>.

@@ -30,7 +30,7 @@ namespace TheXDS.MCART.Math
     /// <summary>
     /// Contiene métodos de manipulación matemática estándar.
     /// </summary>
-    public static partial class Common
+    public static partial classCommon
     {
         /// <summary>
         /// Establece puntos de sobreflujo intencional para evaluar una expresión.

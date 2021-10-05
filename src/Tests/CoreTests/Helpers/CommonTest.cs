@@ -367,61 +367,6 @@ namespace TheXDS.MCART.Tests.Helpers
             Assert.Equal("0A0B0C", new byte[] { 10, 11, 12 }.ToHex());
         }
 
-        [Fact]
-        public void ToPercentTest_Single()
-        {
-            Assert.Equal(
-                new[] { 0f, 0.25f, 0.5f, 0.75f, 1.0f },
-                new[] { 1f, 2f, 3f, 4f, 5f }.ToPercent());
-
-            Assert.Equal(
-                new[] { 0f, 0.25f, 0.5f, 0.75f, 1.0f },
-                new[] { 1f, 2f, 3f, 4f, 5f }.ToPercent(false));
-
-            Assert.Equal(
-                new[] { 0.25f, 0.5f, 0.75f, 1.0f },
-                new[] { 1f, 2f, 3f, 4f }.ToPercent(true));
-
-            Assert.Equal(
-                new[] { 0.1f, 0.2f, 0.3f, 0.4f },
-                new[] { 1f, 2f, 3f, 4f }.ToPercent(10f));
-
-            Assert.Equal(
-                new[] { -0.8f, float.NaN, -0.4f, -0.2f },
-                new[] { 1f, float.NaN, 3f, 4f }.ToPercent(5f, 10f));
-
-            Assert.Throws<ArgumentException>(() => new[] { 1f }.ToPercent(float.NaN, float.NaN).ToList());
-            Assert.Throws<ArgumentException>(() => new[] { 1f }.ToPercent(0f, float.NaN).ToList());
-            Assert.Throws<InvalidOperationException>(() => new[] {1f, 1f}.ToPercent(1f, 1f).ToList());
-        }
-
-        [Fact]
-        public void ToPercentTest_Double()
-        {
-            Assert.Equal(
-                new[] { 0, 0.25, 0.5, 0.75, 1.0 },
-                new[] { 1.0, 2.0, 3.0, 4.0, 5.0 }.ToPercent());
-
-            Assert.Equal(
-                new[] { 0, 0.25, 0.5, 0.75, 1.0 },
-                new[] { 1.0, 2.0, 3.0, 4.0, 5.0 }.ToPercent(false));
-
-            Assert.Equal(
-                new[] { 0.25, 0.5, 0.75, 1.0 },
-                new[] { 1.0, 2.0, 3.0, 4.0 }.ToPercent(true));
-
-            Assert.Equal(
-                new[] { 0.1, 0.2, 0.3, 0.4 },
-                new[] { 1.0, 2.0, 3.0, 4.0 }.ToPercent(10.0));
-
-            Assert.Equal(
-                new[] { -0.8, double.NaN, -0.4, -0.2 },
-                new[] { 1.0, double.NaN, 3.0, 4.0 }.ToPercent(5.0, 10.0));
-
-            Assert.Throws<ArgumentException>(() => new[] { 1.0 }.ToPercent(double.NaN, double.NaN).ToList());
-            Assert.Throws<ArgumentException>(() => new[] { 1.0 }.ToPercent(0.0, double.NaN).ToList());
-            Assert.Throws<InvalidOperationException>(() => new[] {1.0, 1.0}.ToPercent(1.0, 1.0).ToList());
-        }
 
         [Theory]
         [CLSCompliant(false)]

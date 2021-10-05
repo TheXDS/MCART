@@ -596,7 +596,7 @@ namespace TheXDS.MCART.Types.Extensions
         public static bool IsFormattedAs(this string checkString, string format, bool checkCase)
         {
             matchRules ??= new (string match, Func<char, bool> test)[] {
-                new("09#", p => char.IsDigit(p)),
+                new("09", p => char.IsDigit(p)),
                 new("Bb", p => "01".Contains(p)),
                 new("Ff", p => byte.TryParse($"{p}", NumberStyles.HexNumber, null, out _)),
                 new("AX", p => char.IsUpper(p)),

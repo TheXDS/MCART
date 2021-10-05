@@ -40,7 +40,7 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public Color From(byte value)
         {
-            var i = (byte) (((value >> 3) & 1) == 1 ? 255 : 128);
+            var i = (byte) (((value >> 3) & 1) == 1 ? 255 : 127);
             var r = (byte) (((value >> 2) & 1) * i);
             var g = (byte) (((value >> 1) & 1) * i);
             var b = (byte) ((value & 1) * i);
@@ -59,10 +59,10 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public byte To(Color color)
         {
-            var b = (byte) (color.B * 2 / 256);
-            var g = (byte) ((color.G * 2 / 256) << 1);
-            var r = (byte) ((color.R * 2 / 256) << 2);
-            var i = (byte) (((color.B | color.G | color.R) * 2 / 256) << 3);
+            var b = (byte) (color.B >= 127 ? 1 : 0);
+            var g = (byte) (color.G >= 127 ? 2 : 0);
+            var r = (byte) (color.R >= 127 ? 4 : 0);
+            var i = (byte) ((color.B | color.G | color.R) >= 191 ? 8 : 0);
             return (byte) (b | g | r | i);
         }
     }

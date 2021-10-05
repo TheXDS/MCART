@@ -1,5 +1,5 @@
-﻿/*
-CollectionExtensions_Contracts.cs
+/*
+Color_Contracts.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,53 +22,46 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
+using System.Linq;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Resources;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using static TheXDS.MCART.Misc.Internals;
+using CI = System.Globalization.CultureInfo;
+using DR = System.Drawing;
 
-namespace TheXDS.MCART.Types.Extensions
+namespace TheXDS.MCART.Types
 {
-    public static partial class CollectionExtensions
+    /// <summary>
+    /// Estructura universal que describe un color en sus componentes alfa,
+    /// rojo, verde y azul.
+    /// </summary>
+    public partial struct Color
     {
         [Conditional("EnforceContracts")]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DebuggerNonUserCode]
-        private static void AddClone_Contract<T>(ICollection<T> collection, T item) where T : ICloneable
+        private static void Blend_Contract(in IEnumerable<Color> colors)
         {
-            NullCheck(collection, nameof(collection));
-            NullCheck(item, nameof(item));
+            if (!colors.Any()) throw Errors.EmptyCollection(colors);
         }
 
         [Conditional("EnforceContracts")]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DebuggerNonUserCode]
-        private static void AddClones_Contract<T>(this ICollection<T> collection, IEnumerable<T> source)
+        private static void AreClose_Contract(in float delta)
         {
-            NullCheck(collection, nameof(collection));
-            NullCheck(source, nameof(source));
+            if (!delta.IsBetween(0f, 1f)) throw Errors.ValueOutOfRange(nameof(delta), 0f, 1f);
         }
 
         [Conditional("EnforceContracts")]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DebuggerNonUserCode]
-        private static void AddRange_Contract<T>(this ICollection<T> collection, IEnumerable<T> items)
+        private static void TryParse_Contract(string from)
         {
-            NullCheck(collection, nameof(collection));
-            NullCheck(items, nameof(items));
-        }
-
-        private static void ToObservable_Contract<T>(this ICollection<T> collection)
-        {
-            NullCheck(collection, nameof(collection));
-        }
-
-        private static void Push_Contract<TCollection>(this ICollection<TCollection> collection)
-        {
-            NullCheck(collection, nameof(collection));
+            NullCheck(from, nameof(from));
         }
     }
 }

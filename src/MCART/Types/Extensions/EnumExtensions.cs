@@ -34,8 +34,18 @@ using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Types.Extensions
 {
+    /// <summary>
+    /// Contiene extensiones útiles para la clase <see cref="Expression" />.
+    /// </summary>
     public static class ExpressionExtensions
     {
+        /// <summary>
+        /// Evalúa la expresión.
+        /// </summary>
+        /// <param name="e">Expresión a evaluar.</param>
+        /// <returns>
+        /// El resultado de evaluar la expresión.
+        /// </returns>
         public static object? Eval(this Expression e)
         {
             return Expression.Lambda(e).Compile().DynamicInvoke();

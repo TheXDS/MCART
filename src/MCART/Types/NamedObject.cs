@@ -31,7 +31,6 @@ using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types.Base;
 using TheXDS.MCART.Types.Extensions;
-using static TheXDS.MCART.Types.Extensions.MemberInfoExtensions;
 
 namespace TheXDS.MCART.Types
 {
@@ -106,7 +105,7 @@ namespace TheXDS.MCART.Types
                 MemberInfo m => Extensions.MemberInfoExtensions.NameOf(m),
                 Enum e => EnumExtensions.NameOf(e),
                 null => throw new ArgumentNullException(nameof(obj)),
-                _ => obj!.GetAttr<NameAttribute>()?.Value ?? obj!.ToString() ?? obj.GetType().NameOf()
+                _ => obj.GetAttr<NameAttribute>()?.Value ?? obj.ToString() ?? obj.GetType().NameOf()
             };
         }
 

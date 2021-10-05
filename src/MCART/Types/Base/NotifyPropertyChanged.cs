@@ -33,7 +33,7 @@ namespace TheXDS.MCART.Types.Base
     /// Clase base para los objetos que puedan notificar sobre el cambio
     /// del valor de una de sus propiedades.
     /// </summary>
-    public abstract class NotifyPropertyChanged : NotifyPropertyChangeBase, INotifyPropertyChanged
+    public abstract partial class NotifyPropertyChanged : NotifyPropertyChangeBase, INotifyPropertyChanged
     {
         /// <summary>
         /// Ocurre cuando el valor de una propiedad ha cambiado.
@@ -46,7 +46,7 @@ namespace TheXDS.MCART.Types.Base
         /// </summary>
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null!)
         {
-            if (propertyName is null) throw new ArgumentNullException(nameof(propertyName));
+            PropertyName_Contract(propertyName);
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
             NotifyRegistroir(propertyName);
             foreach (var j in _forwardings) j.Notify(propertyName);
@@ -69,7 +69,7 @@ namespace TheXDS.MCART.Types.Base
         /// </returns>
         protected override bool Change<T>(ref T field, T value, [CallerMemberName] string propertyName = null!)
         {
-            if (propertyName is null) throw new ArgumentNullException(nameof(propertyName));
+            PropertyName_Contract(propertyName);
             if (field?.Equals(value) ?? Objects.AreAllNull(field, value)) return false;
             field = value;
             OnPropertyChanged(propertyName);

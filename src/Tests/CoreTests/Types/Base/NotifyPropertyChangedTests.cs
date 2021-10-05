@@ -22,7 +22,9 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using TheXDS.MCART.Types.Base;
 using Xunit;
 
@@ -30,17 +32,39 @@ namespace TheXDS.MCART.Tests.Types.Base
 {
     public class NotifyPropertyChangedTests
     {
+        [ExcludeFromCodeCoverage]
         private class TestClass : NotifyPropertyChanged
         {
             private int _value;
-
+            private object? _obj;
+            
             public int Value
             {
                 get => _value;
-                set
-                {
-                    Change(ref _value, value);
-                }
+                set => Change(ref _value, value);
+            }
+            
+            public int BrokenProperty
+            {
+                get => _value;
+                set => Change(ref _value, value, null!);
+            }
+            public int BrokenProperty2
+            {
+                get => _value;
+                set => Change(ref _value, value, string.Empty);
+            }
+
+            public object? SelfFalseTestingProperty
+            {
+                get => _obj;
+                set => Assert.False(Change(ref _obj, value));
+            }
+            
+            public object? SelfTrueTestingProperty
+            {
+                get => _obj;
+                set => Assert.True(Change(ref _obj, value));
             }
         }
         
@@ -62,6 +86,38 @@ namespace TheXDS.MCART.Tests.Types.Base
             Assert.True(ReferenceEquals(x, evt.Sender));
             Assert.Equal(nameof(TestClass.Value), evt.Arguments.PropertyName);
             Assert.Equal(1, x.Value);
+        }
+        
+        [Fact]
+        public void Property_Change_Forward_Test()
+        {
+            var x = new TestClass();
+            var y = new TestClass();
+            x.ForwardChange(y);
+            
+            PropertyChangedEventHandler? handler = null;
+            var evt = Assert.Raises<PropertyChangedEventArgs>(
+                h =>
+                {
+                    handler = new PropertyChangedEventHandler(h);
+                    y.PropertyChanged += handler;
+                },
+                h => y.PropertyChanged -= handler,
+                () => x.Value = 1);
+            
+            Assert.NotNull(evt);
+            Assert.True(ReferenceEquals(y, evt.Sender));
+        }
+        
+        [Fact]
+        public void Change_Contract_Test()
+        {
+            var x = new TestClass();
+            Assert.Throws<ArgumentNullException>(() => x.BrokenProperty = 1);
+            Assert.Throws<ArgumentNullException>(() => x.BrokenProperty2 = 1);
+            x.SelfFalseTestingProperty = null;
+            x.SelfTrueTestingProperty = 33;
+            x.SelfFalseTestingProperty = 33;
         }
     }
 }

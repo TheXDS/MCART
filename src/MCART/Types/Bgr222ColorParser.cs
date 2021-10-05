@@ -40,9 +40,9 @@ namespace TheXDS.MCART.Types
         public Color From(byte value)
         {
             return new(
-                (byte) ((value & 0x3) * 256 / 4),
-                (byte) (((value & 0xc) >> 2) * 256 / 4),
-                (byte) (((value & 0x30) >> 4) * 256 / 4));
+                (byte) ((value & 0x3) * 255 / 3),
+                (byte) (((value & 0xc) >> 2) * 255 / 3),
+                (byte) (((value & 0x30) >> 4) * 255 / 3));
         }
 
         /// <summary>
@@ -56,9 +56,9 @@ namespace TheXDS.MCART.Types
         public byte To(Color color)
         {
             return (byte) (
-                (color.R * 4 / 256) |
-                ((color.G * 4 / 256) << 2) |
-                ((color.B * 4 / 256) << 4));
+                (color.R * 3 / 255) |
+                ((color.G * 3 / 255) << 2) |
+                ((color.B * 3 / 255) << 4));
         }
     }
 }

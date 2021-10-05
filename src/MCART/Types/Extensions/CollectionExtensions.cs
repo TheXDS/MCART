@@ -25,9 +25,34 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Types.Extensions
 {
+    /// <summary>
+    /// Extensiones para todos los elementos de tipo <see cref="Color" />.
+    /// </summary>
+    public static partial class ColorExtensions
+    {
+        public static Color Opaque(in this Color color)
+        {
+            return color + Colors.Black;
+        }
+        
+        public static Color Transparent(in this Color color)
+        {
+            return color - Colors.Black;
+        }
+        
+        public static Color WithAlpha(this Color color, in float value)
+        {
+            WithAlpha_Contract(value);
+            var c = color.Clone();
+            c.ScA = value;
+            return c;
+        }
+    }
+    
     /// <summary>
     /// Extensiones para todos los elementos de tipo <see cref="ICollection{T}" />.
     /// </summary>
