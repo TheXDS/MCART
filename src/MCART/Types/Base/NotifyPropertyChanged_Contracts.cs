@@ -22,18 +22,8 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using TheXDS.MCART.Helpers;
-using System.Collections.Generic;
-using System.ComponentModel.Design.Serialization;
-using System.Linq;
-using TheXDS.MCART.Helpers;
-using TheXDS.MCART.Resources;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using TheXDS.MCART.Types.Extensions;
 using static TheXDS.MCART.Misc.Internals;
 
 namespace TheXDS.MCART.Types.Base

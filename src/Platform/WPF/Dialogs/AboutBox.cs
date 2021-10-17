@@ -111,7 +111,7 @@ namespace TheXDS.MCART.Dialogs
         /// <see cref="ApplicationInfo"/> sobre el cual mostrar
         /// información.
         /// </param>
-        public static void ShowDialog(IExposeExtendedGuiInfo<UIElement> appInfo)
+        public static void ShowDialog(IExposeExtendedGuiInfo<UIElement?> appInfo)
         {
             new AboutBox(new AboutPage(appInfo)).ShowDialog();
         }

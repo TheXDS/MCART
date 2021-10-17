@@ -91,7 +91,7 @@ namespace TheXDS.MCART.Tests.Types
         }
 
         
-        [Theory]
+        [Theory, CLSCompliant(false)]
         [InlineData("Brown1")]
         [InlineData("#FF4040FF")]
         [InlineData("#4040FF")]
@@ -110,7 +110,7 @@ namespace TheXDS.MCART.Tests.Types
             Assert.Equal(default, c);
         }
         
-        [Theory]
+        [Theory, CLSCompliant(false)]
         [InlineData("Brown1")]
         [InlineData("#FF4040FF")]
         [InlineData("#4040FF")]
@@ -199,7 +199,7 @@ namespace TheXDS.MCART.Tests.Types
             Assert.InRange(c.A, 191, 193);
         }
 
-        [Theory]
+        [Theory, CLSCompliant(false)]
         [InlineData("#FF4B0082", null)]
         [InlineData("#FF4B0082", "")]
         [InlineData("#FF4B0082", "H")]
