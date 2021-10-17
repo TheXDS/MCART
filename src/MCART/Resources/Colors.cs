@@ -339,11 +339,30 @@ namespace TheXDS.MCART.Resources
         /// Obtiene el color coral.
         /// </summary>
         public static Color Coral => new(255, 127, 80);
-        
+
+        /// <summary>
+        /// Obtiene el color azul aciano.
+        /// </summary>
         public static Color CornFlowerBlue => new(100, 149, 237);
+
+        /// <summary>
+        /// Obtiene el color seda de maíz en su tonalidad alternativa 2.
+        /// </summary>
         public static Color CornSilk2 => new(238, 232, 205);
+
+        /// <summary>
+        /// Obtiene el color seda de maíz en su tonalidad alternativa 3.
+        /// </summary>
         public static Color CornSilk3 => new(205, 200, 177);
+
+        /// <summary>
+        /// Obtiene el color seda de maíz en su tonalidad alternativa 4.
+        /// </summary>
         public static Color CornSilk4 => new(139, 136, 120);
+
+        /// <summary>
+        /// Obtiene el color seda de maíz.
+        /// </summary>
         public static Color CornSilk => new(255, 248, 220);
         
         /// <summary>
@@ -615,10 +634,25 @@ namespace TheXDS.MCART.Resources
         /// Obtiene el color gris tenue.
         /// </summary>
         public static Color DimGray => new(105, 105, 105);
-        
+
+        /// <summary>
+        /// Obtiene el color azul gandul en su tonalidad alternativa 2.
+        /// </summary>
         public static Color DodgerBlue2 => new(28, 134, 238);
+
+        /// <summary>
+        /// Obtiene el color azul gandul en su tonalidad alternativa 3.
+        /// </summary>
         public static Color DodgerBlue3 => new(24, 116, 205);
+
+        /// <summary>
+        /// Obtiene el color azul gandul en su tonalidad alternativa 4.
+        /// </summary>
         public static Color DodgerBlue4 => new(16, 78, 139);
+
+        /// <summary>
+        /// Obtiene el color azul gandul.
+        /// </summary>
         public static Color DodgerBlue => new(30, 144, 255);
         
         /// <summary>
@@ -1330,10 +1364,25 @@ namespace TheXDS.MCART.Resources
         /// Obtiene el color menta.
         /// </summary>
         public static Color Mint => new(189, 252, 201);
-        
+
+        /// <summary>
+        /// Obtiene el color rosa brumosa en su tonalidad alternativa 2.
+        /// </summary>
         public static Color MistyRose2 => new(238, 213, 210);
+
+        /// <summary>
+        /// Obtiene el color rosa brumosa en su tonalidad alternativa 3.
+        /// </summary>
         public static Color MistyRose3 => new(205, 183, 181);
+
+        /// <summary>
+        /// Obtiene el color rosa brumosa en su tonalidad alternativa 4.
+        /// </summary>
         public static Color MistyRose4 => new(139, 125, 123);
+
+        /// <summary>
+        /// Obtiene el color rosa brumosa.
+        /// </summary>
         public static Color MistyRose => new(255, 228, 225);
         
         /// <summary>
@@ -1490,118 +1539,345 @@ namespace TheXDS.MCART.Resources
         /// Obtiene el color verde pálido.
         /// </summary>
         public static Color PaleGreen => new(152, 251, 152);
-        
+
+        /// <summary>
+        /// Obtiene el color turqueza pálido en su tonalidad alternativa 2.
+        /// </summary>
         public static Color PaleTurquoise2 => new(187, 255, 255);
+
+        /// <summary>
+        /// Obtiene el color turqueza pálido en su tonalidad alternativa 3.
+        /// </summary>
         public static Color PaleTurquoise3 => new(150, 205, 205);
+
+        /// <summary>
+        /// Obtiene el color turqueza pálido en su tonalidad alternativa 4.
+        /// </summary>
         public static Color PaleTurquoise4 => new(102, 139, 139);
+
+        /// <summary>
+        /// Obtiene el color turqueza pálido.
+        /// </summary>
         public static Color PaleTurquoise => new(174, 238, 238);
+
+        /// <summary>
+        /// Obtiene el color rojo violeta pálido en su tonalidad alternativa 1.
+        /// </summary>
         public static Color PaleVioletRed1 => new(255, 130, 171);
+
+        /// <summary>
+        /// Obtiene el color rojo violeta pálido en su tonalidad alternativa 2.
+        /// </summary>
         public static Color PaleVioletRed2 => new(238, 121, 159);
+
+        /// <summary>
+        /// Obtiene el color rojo violeta pálido en su tonalidad alternativa 3.
+        /// </summary>
         public static Color PaleVioletRed3 => new(205, 104, 137);
+
+        /// <summary>
+        /// Obtiene el color rojo violeta pálido en su tonalidad alternativa 4.
+        /// </summary>
         public static Color PaleVioletRed4 => new(139, 71, 93);
+
+        /// <summary>
+        /// Obtiene el color rojo violeta pálido.
+        /// </summary>
         public static Color PaleVioletRed => new(219, 112, 147);
+
+        /// <summary>
+        /// Obtiene el color papaya.
+        /// </summary>
         public static Color PapayaWhip => new(255, 239, 213);
+
+        /// <summary>
+        /// Obtiene el color melocotón en su tonalidad alternativa 2.
+        /// </summary>
         public static Color PeachPuff2 => new(238, 203, 173);
+
+        /// <summary>
+        /// Obtiene el color melocotón en su tonalidad alternativa 3.
+        /// </summary>
         public static Color PeachPuff3 => new(205, 175, 149);
+
+        /// <summary>
+        /// Obtiene el color melocotón en su tonalidad alternativa 4.
+        /// </summary>
         public static Color PeachPuff4 => new(139, 119, 101);
+
+        /// <summary>
+        /// Obtiene el color melocotón.
+        /// </summary>
         public static Color PeachPuff => new(255, 218, 185);
+
+        /// <summary>
+        /// Obtiene el color pavoreal.
+        /// </summary>
         public static Color Peacock => new(51, 161, 201);
+
+        /// <summary>
+        /// Obtiene el color perú.
+        /// </summary>
         public static Color Peru => new(205, 133, 63);
+
+        /// <summary>
+        /// Obtiene el color rosa en su tonalidad alternativa 1.
+        /// </summary>
         public static Color Pink1 => new(255, 181, 197);
+
+        /// <summary>
+        /// Obtiene el color rosa en su tonalidad alternativa 2.
+        /// </summary>
         public static Color Pink2 => new(238, 169, 184);
+
+        /// <summary>
+        /// Obtiene el color rosa en su tonalidad alternativa 3.
+        /// </summary>
         public static Color Pink3 => new(205, 145, 158);
+
+        /// <summary>
+        /// Obtiene el color rosa en su tonalidad alternativa 4.
+        /// </summary>
         public static Color Pink4 => new(139, 99, 108);
         
         /// <summary>
         /// Obtiene el color rosa.
         /// </summary>
         public static Color Pink => new(255, 192, 203);
-        
+
+        /// <summary>
+        /// Obtiene el color ciruela en su tonalidad alternativa 1.
+        /// </summary>
         public static Color Plum1 => new(255, 187, 255);
+
+        /// <summary>
+        /// Obtiene el color ciruela en su tonalidad alternativa 2.
+        /// </summary>
         public static Color Plum2 => new(238, 174, 238);
+
+        /// <summary>
+        /// Obtiene el color ciruela en su tonalidad alternativa 3.
+        /// </summary>
         public static Color Plum3 => new(205, 150, 205);
+
+        /// <summary>
+        /// Obtiene el color ciruela en su tonalidad alternativa 4.
+        /// </summary>
         public static Color Plum4 => new(139, 102, 139);
+
+        /// <summary>
+        /// Obtiene el color ciruela.
+        /// </summary>
         public static Color Plum => new(221, 160, 221);
         
         /// <summary>
         /// Obtiene el color excremento.
         /// </summary>
         public static Color Poop => new(0x69, 0x46, 0x24);
-        
+
+        /// <summary>
+        /// Obtiene el color azul polvo.
+        /// </summary>
         public static Color PowderBlue => new(176, 224, 230);
+
+        /// <summary>
+        /// Obtiene el color púrpura en su tonalidad alternativa 1.
+        /// </summary>
         public static Color Purple1 => new(155, 48, 255);
+
+        /// <summary>
+        /// Obtiene el color púrpura en su tonalidad alternativa 2.
+        /// </summary>
         public static Color Purple2 => new(145, 44, 238);
+
+        /// <summary>
+        /// Obtiene el color púrpura en su tonalidad alternativa 3.
+        /// </summary>
         public static Color Purple3 => new(125, 38, 205);
+
+        /// <summary>
+        /// Obtiene el color púrpura en su tonalidad alternativa 4.
+        /// </summary>
         public static Color Purple4 => new(85, 26, 139);
         
         /// <summary>
         /// Obtiene el color púrpura.
         /// </summary>
         public static Color Purple => new(128, 0, 128);
-        
+
+        /// <summary>
+        /// Obtiene el color amarillo de carreras.
+        /// </summary>
         public static Color RacingYellow => new(0xff, 0xcc, 0x00);
+
+        /// <summary>
+        /// Obtiene el color frambuesa.
+        /// </summary>
         public static Color Raspberry => new(135, 38, 87);
+
+        /// <summary>
+        /// Obtiene el color siena puro.
+        /// </summary>
         public static Color RawSienna => new(199, 97, 20);
+
+        /// <summary>
+        /// Obtiene el color rojo en su tonalidad alternativa 2.
+        /// </summary>
         public static Color Red2 => new(238, 0, 0);
+
+        /// <summary>
+        /// Obtiene el color rojo en su tonalidad alternativa 3.
+        /// </summary>
         public static Color Red3 => new(205, 0, 0);
         
         /// <summary>
         /// Obtiene el color rojo.
         /// </summary>
         public static Color Red => new(255, 0, 0);
-        
+
+        /// <summary>
+        /// Obtiene el color café rosado en su tonalidad alternativa 1.
+        /// </summary>
         public static Color RosyBrown1 => new(255, 193, 193);
+
+        /// <summary>
+        /// Obtiene el color café rosado en su tonalidad alternativa 2.
+        /// </summary>
         public static Color RosyBrown2 => new(238, 180, 180);
+
+        /// <summary>
+        /// Obtiene el color café rosado en su tonalidad alternativa 3.
+        /// </summary>
         public static Color RosyBrown3 => new(205, 155, 155);
+
+        /// <summary>
+        /// Obtiene el color café rosado en su tonalidad alternativa 4.
+        /// </summary>
         public static Color RosyBrown4 => new(139, 105, 105);
+
+        /// <summary>
+        /// Obtiene el color café rosado.
+        /// </summary>
         public static Color RosyBrown => new(188, 143, 143);
+        
+        /// <summary>
+        /// Obtiene el color azul royal en su tonalidad alternativa 1.
+        /// </summary>
         public static Color RoyalBlue1 => new(72, 118, 255);
+
+        /// <summary>
+        /// Obtiene el color azul royal en su tonalidad alternativa 2.
+        /// </summary>
         public static Color RoyalBlue2 => new(67, 110, 238);
+
+        /// <summary>
+        /// Obtiene el color azul royal en su tonalidad alternativa 3.
+        /// </summary>
         public static Color RoyalBlue3 => new(58, 95, 205);
+
+        /// <summary>
+        /// Obtiene el color azul royal en su tonalidad alternativa 4.
+        /// </summary>
         public static Color RoyalBlue4 => new(39, 64, 139);
         
         /// <summary>
         /// Obtiene el color azul royal.
         /// </summary>
         public static Color RoyalBlue => new(65, 105, 225);
-        
+
+        /// <summary>
+        /// Obtiene el color montura marrón.
+        /// </summary>
         public static Color SaddleBrown => new(139, 69, 19);
+
+        /// <summary>
+        /// Obtiene el color salmón en su tonalidad alternativa 2.
+        /// </summary>
         public static Color Salmon2 => new(238, 130, 98);
+
+        /// <summary>
+        /// Obtiene el color salmón en su tonalidad alternativa 3.
+        /// </summary>
         public static Color Salmon3 => new(205, 112, 84);
+
+        /// <summary>
+        /// Obtiene el color salmón en su tonalidad alternativa 4.
+        /// </summary>
         public static Color Salmon4 => new(139, 76, 57);
         
         /// <summary>
         /// Obtiene el color salmón.
         /// </summary>
         public static Color Salmon => new(255, 140, 105);
+
+        /// <summary>
+        /// Obtiene el color marrón arena.
+        /// </summary>
         public static Color SandyBrown => new(244, 164, 96);
+
+        /// <summary>
+        /// Obtiene el color verde savia.
+        /// </summary>
         public static Color SapGreen => new(48, 128, 20);
+
+        /// <summary>
+        /// Obtiene el color verde marino en su tonalidad alternativa 2.
+        /// </summary>
         public static Color SeaGreen2 => new(78, 238, 148);
+
+        /// <summary>
+        /// Obtiene el color verde marino en su tonalidad alternativa 3.
+        /// </summary>
         public static Color SeaGreen3 => new(67, 205, 128);
+
+        /// <summary>
+        /// Obtiene el color verde marino en su tonalidad alternativa 4.
+        /// </summary>
         public static Color SeaGreen4 => new(84, 255, 159);
         
         /// <summary>
         /// Obtiene el verde marino.
         /// </summary>
         public static Color SeaGreen => new(46, 139, 87);
-        
+
+        /// <summary>
+        /// Obtiene el color concha marina en su tonalidad alternativa 2.
+        /// </summary>
         public static Color SeaShell2 => new(238, 229, 222);
+
+        /// <summary>
+        /// Obtiene el color concha marina en su tonalidad alternativa 3.
+        /// </summary>
         public static Color SeaShell3 => new(205, 197, 191);
+
+        /// <summary>
+        /// Obtiene el color concha marina en su tonalidad alternativa 4.
+        /// </summary>
         public static Color SeaShell4 => new(139, 134, 130);
+
+        /// <summary>
+        /// Obtiene el color concha marina.
+        /// </summary>
         public static Color SeaShell => new(255, 245, 238);
         
         /// <summary>
         /// Obtiene el color sepia.
         /// </summary>
         public static Color Sepia => new(94, 38, 18);
-        
+
+        /// <summary>
+        /// Obtiene el color remolacha de la paleta de SGI.
+        /// </summary>
         public static Color SgiBeet => new(142, 56, 142);
         
         /// <summary>
         /// Obtiene el color gris brillante de la paleta de SGI.
         /// </summary>
         public static Color SgiBrightGray => new(197, 193, 170);
-        
+
+        /// <summary>
+        /// Obtiene el color chartreuse de la paleta de SGI.
+        /// </summary>
         public static Color SgiChartreuse => new(113, 198, 113);
         
         /// <summary>
@@ -1678,74 +1954,279 @@ namespace TheXDS.MCART.Resources
         /// Obtiene el color salmón de la paleta de SGI.
         /// </summary>
         public static Color SgiSalmon => new(198, 113, 113);
-        
+
+        /// <summary>
+        /// Obtiene el color azul pizarra de la paleta de SGI.
+        /// </summary>
         public static Color SgiSlateBlue => new(113, 113, 198);
+
+        /// <summary>
+        /// Obtiene el color verde azulado de la paleta de SGI.
+        /// </summary>
         public static Color Sgiteal => new(56, 142, 142);
+
+        /// <summary>
+        /// Obtiene el color siena en su tonalidad alternativa 1.
+        /// </summary>
         public static Color Sienna1 => new(255, 130, 71);
+
+        /// <summary>
+        /// Obtiene el color siena en su tonalidad alternativa 2.
+        /// </summary>
         public static Color Sienna2 => new(238, 121, 66);
+
+        /// <summary>
+        /// Obtiene el color siena en su tonalidad alternativa 3.
+        /// </summary>
         public static Color Sienna3 => new(205, 104, 57);
+
+        /// <summary>
+        /// Obtiene el color siena en su tonalidad alternativa 4.
+        /// </summary>
         public static Color Sienna4 => new(139, 71, 38);
+
+        /// <summary>
+        /// Obtiene el color siena.
+        /// </summary>
         public static Color Sienna => new(160, 82, 45);
         
         /// <summary>
         /// Obtiene el color plateado.
         /// </summary>
         public static Color Silver => new(192, 192, 192);
-        
+
+        /// <summary>
+        /// Obtiene el color azul cielo en su tonalidad alternativa 1.
+        /// </summary>
         public static Color SkyBlue1 => new(135, 206, 255);
+
+        /// <summary>
+        /// Obtiene el color azul cielo en su tonalidad alternativa 2.
+        /// </summary>
         public static Color SkyBlue2 => new(126, 192, 238);
+
+        /// <summary>
+        /// Obtiene el color azul cielo en su tonalidad alternativa 3.
+        /// </summary>
         public static Color SkyBlue3 => new(108, 166, 205);
+
+        /// <summary>
+        /// Obtiene el color azul cielo en su tonalidad alternativa 4.
+        /// </summary>
         public static Color SkyBlue4 => new(74, 112, 139);
         
         /// <summary>
         /// Obtiene el color azul cielo.
         /// </summary>
         public static Color SkyBlue => new(0x00, 0xaf, 0xff);
-        
+
+        /// <summary>
+        /// Obtiene el color azul pizarra en su tonalidad alternativa 1.
+        /// </summary>
         public static Color SlateBlue1 => new(131, 111, 255);
+
+        /// <summary>
+        /// Obtiene el color azul pizarra en su tonalidad alternativa 2.
+        /// </summary>
         public static Color SlateBlue2 => new(122, 103, 238);
+
+        /// <summary>
+        /// Obtiene el color azul pizarra en su tonalidad alternativa 3.
+        /// </summary>
         public static Color SlateBlue3 => new(105, 89, 205);
+
+        /// <summary>
+        /// Obtiene el color azul pizarra en su tonalidad alternativa 4.
+        /// </summary>
         public static Color SlateBlue4 => new(71, 60, 139);
+
+        /// <summary>
+        /// Obtiene el color azul pizarra.
+        /// </summary>
         public static Color SlateBlue => new(106, 90, 205);
+
+        /// <summary>
+        /// Obtiene el color gris pizarra en su tonalidad alternativa 1.
+        /// </summary>
         public static Color SlateGray1 => new(198, 226, 255);
+
+        /// <summary>
+        /// Obtiene el color gris pizarra en su tonalidad alternativa 2.
+        /// </summary>
         public static Color SlateGray2 => new(185, 211, 238);
+
+        /// <summary>
+        /// Obtiene el color gris pizarra en su tonalidad alternativa 3.
+        /// </summary>
         public static Color SlateGray3 => new(159, 182, 205);
+
+        /// <summary>
+        /// Obtiene el color gris pizarra en su tonalidad alternativa 4.
+        /// </summary>
         public static Color SlateGray4 => new(108, 123, 139);
+
+        /// <summary>
+        /// Obtiene el color gris pizarra.
+        /// </summary>
         public static Color SlateGray => new(112, 128, 144);
+
+        /// <summary>
+        /// Obtiene el color nieve en su tonalidad alternativa 2.
+        /// </summary>
         public static Color Snow2 => new(238, 233, 233);
+
+        /// <summary>
+        /// Obtiene el color nieve en su tonalidad alternativa 3.
+        /// </summary>
         public static Color Snow3 => new(205, 201, 201);
+
+        /// <summary>
+        /// Obtiene el color nieve en su tonalidad alternativa 4.
+        /// </summary>
         public static Color Snow4 => new(139, 137, 137);
+
+        /// <summary>
+        /// Obtiene el color nieve.
+        /// </summary>
         public static Color Snow => new(255, 250, 250);
+
+        /// <summary>
+        /// Obtiene el color verde primavera en su tonalidad alternativa 1.
+        /// </summary>
         public static Color SpringGreen1 => new(0, 238, 118);
+
+        /// <summary>
+        /// Obtiene el color verde primavera en su tonalidad alternativa 2.
+        /// </summary>
         public static Color SpringGreen2 => new(0, 205, 102);
+
+        /// <summary>
+        /// Obtiene el color verde primavera en su tonalidad alternativa 3.
+        /// </summary>
         public static Color SpringGreen3 => new(0, 139, 69);
+
+        /// <summary>
+        /// Obtiene el color verde primavera.
+        /// </summary>
         public static Color SpringGreen => new(0, 255, 127);
+
+        /// <summary>
+        /// Obtiene el color azul acero en su tonalidad alternativa 1.
+        /// </summary>
         public static Color SteelBlue1 => new(99, 184, 255);
+
+        /// <summary>
+        /// Obtiene el color azul acero en su tonalidad alternativa 2.
+        /// </summary>
         public static Color SteelBlue2 => new(92, 172, 238);
+
+        /// <summary>
+        /// Obtiene el color azul acero en su tonalidad alternativa 3.
+        /// </summary>
         public static Color SteelBlue3 => new(79, 148, 205);
+
+        /// <summary>
+        /// Obtiene el color azul acero en su tonalidad alternativa 4.
+        /// </summary>
         public static Color SteelBlue4 => new(54, 100, 139);
+
+        /// <summary>
+        /// Obtiene el color azul acero.
+        /// </summary>
         public static Color SteelBlue => new(70, 130, 180);
+
+        /// <summary>
+        /// Obtiene el color bronceado en su tonalidad alternativa 1.
+        /// </summary>
         public static Color Tan1 => new(255, 165, 79);
+
+        /// <summary>
+        /// Obtiene el color bronceado en su tonalidad alternativa 2.
+        /// </summary>
         public static Color Tan2 => new(238, 154, 73);
+
+        /// <summary>
+        /// Obtiene el color bronceado en su tonalidad alternativa 4.
+        /// </summary>
         public static Color Tan4 => new(139, 90, 43);
+
+        /// <summary>
+        /// Obtiene el color bronceado.
+        /// </summary>
         public static Color Tan => new(210, 180, 140);
+
+        /// <summary>
+        /// Obtiene el color verde azulado.
+        /// </summary>
         public static Color Teal => new(0, 128, 128);
+
+        /// <summary>
+        /// Obtiene el color cardo en su tonalidad alternativa 1.
+        /// </summary>
         public static Color Thistle1 => new(255, 225, 255);
+
+        /// <summary>
+        /// Obtiene el color cardo en su tonalidad alternativa 2.
+        /// </summary>
         public static Color Thistle2 => new(238, 210, 238);
+
+        /// <summary>
+        /// Obtiene el color cardo en su tonalidad alternativa 3.
+        /// </summary>
         public static Color Thistle3 => new(205, 181, 205);
+
+        /// <summary>
+        /// Obtiene el color cardo en su tonalidad alternativa 4.
+        /// </summary>
         public static Color Thistle4 => new(139, 123, 139);
+
+        /// <summary>
+        /// Obtiene el color cardo.
+        /// </summary>
         public static Color Thistle => new(216, 191, 216);
+
+        /// <summary>
+        /// Obtiene el color tomate en su tonalidad alternativa 2.
+        /// </summary>
         public static Color Tomato2 => new(238, 92, 66);
+
+        /// <summary>
+        /// Obtiene el color tomate en su tonalidad alternativa 3.
+        /// </summary>
         public static Color Tomato3 => new(205, 79, 57);
+
+        /// <summary>
+        /// Obtiene el color tomate en su tonalidad alternativa 4.
+        /// </summary>
         public static Color Tomato4 => new(139, 54, 38);
+
+        /// <summary>
+        /// Obtiene el color tomate.
+        /// </summary>
         public static Color Tomato => new(255, 99, 71);
+
+        /// <summary>
+        /// Obtiene el color azul turqueza en su tonalidad alternativa 1.
+        /// </summary>
         public static Color Turquoise1 => new(0, 245, 255);
+        
+        /// <summary>
+        /// Obtiene el color azul turqueza en su tonalidad alternativa 2.
+        /// </summary>
         public static Color Turquoise2 => new(0, 229, 238);
+        
+        /// <summary>
+        /// Obtiene el color azul turqueza en su tonalidad alternativa 3.
+        /// </summary>
         public static Color Turquoise3 => new(0, 197, 205);
+        
+        /// <summary>
+        /// Obtiene el color azul turqueza en su tonalidad alternativa 4.
+        /// </summary>
         public static Color Turquoise4 => new(0, 134, 139);
         
         /// <summary>
-        /// Obtiene el color azul torqueza.
+        /// Obtiene el color azul turqueza.
         /// </summary>
         public static Color TurquoiseBlue => new(0, 199, 140);
         
@@ -1758,22 +2239,60 @@ namespace TheXDS.MCART.Resources
         /// Obtiene el color violeta.
         /// </summary>
         public static Color Violet => new(238, 130, 238);
-        
+
+        /// <summary>
+        /// Obtiene el color rojo violeta en su tonalidad alternativa 1.
+        /// </summary>
         public static Color VioletRed1 => new(255, 62, 150);
+
+        /// <summary>
+        /// Obtiene el color rojo violeta en su tonalidad alternativa 2.
+        /// </summary>
         public static Color VioletRed2 => new(238, 58, 140);
+
+        /// <summary>
+        /// Obtiene el color rojo violeta en su tonalidad alternativa 3.
+        /// </summary>
         public static Color VioletRed3 => new(205, 50, 120);
+
+        /// <summary>
+        /// Obtiene el color rojo violeta en su tonalidad alternativa 4.
+        /// </summary>
         public static Color VioletRed4 => new(139, 34, 82);
+
+        /// <summary>
+        /// Obtiene el color rojo violeta.
+        /// </summary>
         public static Color VioletRed => new(208, 32, 144);
         
         /// <summary>
         /// Obtiene el color gris cálido.
         /// </summary>
         public static Color WarmGrey => new(128, 128, 105);
-        
+
+        /// <summary>
+        /// Obtiene el color trigo en su tonalidad alternativa 1.
+        /// </summary>
         public static Color Wheat1 => new(255, 231, 186);
+
+        /// <summary>
+        /// Obtiene el color trigo en su tonalidad alternativa 2.
+        /// </summary>
         public static Color Wheat2 => new(238, 216, 174);
+
+        /// <summary>
+        /// Obtiene el color trigo en su tonalidad alternativa 3.
+        /// </summary>
         public static Color Wheat3 => new(205, 186, 150);
+
+        /// <summary>
+        /// Obtiene el color trigo en su tonalidad alternativa 4.
+        /// </summary>
         public static Color Wheat4 => new(139, 126, 102);
+
+        /// <summary>
+        /// Obtiene el color trigo.
+        /// </summary>
         public static Color Wheat => new(245, 222, 179);
         
         /// <summary>
