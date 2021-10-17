@@ -34,16 +34,45 @@ namespace TheXDS.MCART.Types.Extensions
     /// </summary>
     public static partial class ColorExtensions
     {
+        /// <summary>
+        /// Obtiene una versión opaca del color especificado.
+        /// </summary>
+        /// <param name="color">
+        /// Color a partir del cual generar una versión opaca.
+        /// </param>
+        /// <returns>
+        /// Un color equivalente a <paramref name="color"/>, pero con total
+        /// opacidad del canal alfa.
+        /// </returns>
         public static Color Opaque(in this Color color)
         {
             return color + Colors.Black;
         }
-        
+
+        /// <summary>
+        /// Obtiene una versión transparente del color especificado.
+        /// </summary>
+        /// <param name="color">
+        /// Color a partir del cual generar una versión transparente.
+        /// </param>
+        /// <returns>
+        /// Un color equivalente a <paramref name="color"/>, pero con total
+        /// transparencia del canal alfa.
+        /// </returns>
         public static Color Transparent(in this Color color)
         {
             return color - Colors.Black;
         }
         
+        /// <summary>
+        /// Crea una copia del color especificado, ajustando el nivel de
+        /// transparencia del mismo.
+        /// </summary>
+        /// <param name="color">Color base.</param>
+        /// <param name="value">Nivel de transparencia a aplicar.</param>
+        /// <returns>
+        /// Una copia del color, con el nivel de transparencia especificado.
+        /// </returns>
         public static Color WithAlpha(this Color color, in float value)
         {
             WithAlpha_Contract(value);
