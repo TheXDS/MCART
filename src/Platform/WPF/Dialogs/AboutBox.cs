@@ -98,7 +98,7 @@ namespace TheXDS.MCART.Dialogs
         /// <see cref="ApplicationInfo"/> sobre el cual mostrar
         /// información.
         /// </param>
-        public static void Show(ApplicationInfo appInfo)
+        public static void Show(IExposeExtendedGuiInfo<UIElement> appInfo)
         {
             new AboutBox(new AboutPage(appInfo)).Show();
         }
@@ -111,7 +111,7 @@ namespace TheXDS.MCART.Dialogs
         /// <see cref="ApplicationInfo"/> sobre el cual mostrar
         /// información.
         /// </param>
-        public static void ShowDialog(ApplicationInfo appInfo)
+        public static void ShowDialog(IExposeExtendedGuiInfo<UIElement> appInfo)
         {
             new AboutBox(new AboutPage(appInfo)).ShowDialog();
         }

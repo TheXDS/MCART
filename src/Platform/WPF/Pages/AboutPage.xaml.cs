@@ -23,6 +23,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System.Reflection;
+using System.Windows;
 using TheXDS.MCART.Component;
 using TheXDS.MCART.Dialogs.ViewModel;
 
@@ -64,7 +65,7 @@ namespace TheXDS.MCART.Pages
         /// <see cref="IExposeInfo" /> a utilizar para exponer la
         /// información a mostrar.
         /// </param>
-        public AboutPage(ApplicationInfo element) : this()
+        public AboutPage(IExposeExtendedGuiInfo<UIElement?> element) : this()
         {
             Vm.Element = element;
         }

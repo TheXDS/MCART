@@ -35,7 +35,7 @@ namespace TheXDS.MCART.Component
     /// <summary>
     /// Expone la información de ensamblado de una aplicación de WPF.
     /// </summary>
-    public class ApplicationInfo : IExposeGuiInfo<UIElement?>, IExposeExtendedInfo, IExposeAssembly
+    public class ApplicationInfo : IExposeExtendedGuiInfo<UIElement?>
     {
         private readonly AssemblyInfo _infoExposer;
 
@@ -126,7 +126,7 @@ namespace TheXDS.MCART.Component
         /// <summary>
         /// Obtiene un ícono opcional a mostrar que describe al elemento.
         /// </summary>
-        public UIElement? Icon { get; }
+        public virtual UIElement? Icon { get; }
 
         /// <summary>
         /// Devuelve el autor del <see cref="IExposeInfo" />

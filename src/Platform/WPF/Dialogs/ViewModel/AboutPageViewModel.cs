@@ -32,7 +32,7 @@ using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Dialogs.ViewModel
 {
-    internal class AboutPageViewModel : AboutPageViewModelBase<ApplicationInfo>
+    internal class AboutPageViewModel : AboutPageViewModelBase<IExposeExtendedGuiInfo<UIElement?>>
     {
         public UIElement? Icon => IsMcart ? WpfIcons.MCART : Element?.Icon;
 

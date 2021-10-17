@@ -1038,6 +1038,31 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
+        /// Convierte esta cadena en su representación en formato base64,
+        /// especificando el <see cref="Encoding"/> a utilizar para realizar la
+        /// conversión.
+        /// </summary>
+        /// <param name="string">Cadena a convertir.</param>
+        /// <param name="encoding">Codificación de la cadena.</param>
+        /// <returns>
+        /// Una cadena en formato base64 con el contenido de la cadena original.
+        /// </returns>
+        public static string ToBase64(this string @string, Encoding encoding)
+        {
+            return Convert.ToBase64String(encoding.GetBytes(@string));
+        }
+
+        /// <summary>
+        /// Convierte esta cadena en su representación en formato base64
+        /// utilizando <see cref="Encoding.UTF8"/>.
+        /// </summary>
+        /// <param name="string">Cadena a convertir.</param>
+        /// <returns>
+        /// Una cadena en formato base64 con el contenido de la cadena original.
+        /// </returns>
+        public static string ToBase64(this string @string) => ToBase64(@string, Encoding.UTF8);
+
+        /// <summary>
         /// Devuelve una nueva cadena sin los caracteres especificados.
         /// </summary>
         /// <param name="string">

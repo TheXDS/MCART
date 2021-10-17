@@ -53,7 +53,7 @@ namespace TheXDS.MCART.Helpers
         /// Una enumeración de todas las instancias de objeto de tipo
         /// <typeparamref name="T"/> encontradas.
         /// </returns>
-        public static IEnumerable<T> FindAllObjects<T>() where T : class
+        public static IEnumerable<T> FindAllObjects<T>() where T : notnull
         {
             return FindAllObjects<T>((IEnumerable?)null);
         }
@@ -70,7 +70,7 @@ namespace TheXDS.MCART.Helpers
         /// Una enumeración de todas las instancias de objeto de tipo
         /// <typeparamref name="T"/> encontradas.
         /// </returns>
-        public static IEnumerable<T> FindAllObjects<T>(IEnumerable? ctorArgs) where T : class
+        public static IEnumerable<T> FindAllObjects<T>(IEnumerable? ctorArgs) where T : notnull
         {
             return GetTypes<T>(true).NotNull().Select(p => p.New<T>(false, ctorArgs));
         }
@@ -91,7 +91,7 @@ namespace TheXDS.MCART.Helpers
         /// Se produce si <paramref name="typeFilter"/> es
         /// <see langword="null"/>.
         /// </exception>
-        public static IEnumerable<T> FindAllObjects<T>(Func<Type, bool> typeFilter) where T : class
+        public static IEnumerable<T> FindAllObjects<T>(Func<Type, bool> typeFilter) where T : notnull
         {
             return FindAllObjects<T>(null, typeFilter);
         }
@@ -115,7 +115,7 @@ namespace TheXDS.MCART.Helpers
         /// Se produce si <paramref name="typeFilter"/> es
         /// <see langword="null"/>.
         /// </exception>
-        public static IEnumerable<T> FindAllObjects<T>(IEnumerable? ctorArgs, Func<Type, bool> typeFilter) where T : class
+        public static IEnumerable<T> FindAllObjects<T>(IEnumerable? ctorArgs, Func<Type, bool> typeFilter) where T : notnull
         {
             NullCheck(typeFilter, nameof(typeFilter));
             return GetTypes<T>(true).NotNull().Where(typeFilter).Select(p => p.New<T>(false, ctorArgs));
@@ -131,7 +131,7 @@ namespace TheXDS.MCART.Helpers
         /// <see langword="null"/> si no se encuentra ningún tipo
         /// coincidente.
         /// </returns>
-        public static T? FindSingleObject<T>() where T : class
+        public static T? FindSingleObject<T>() where T : notnull
         {
             return FindSingleObject<T>((IEnumerable?)null);
         }
@@ -149,9 +149,10 @@ namespace TheXDS.MCART.Helpers
         /// <see langword="null"/> si no se encuentra ningún tipo
         /// coincidente.
         /// </returns>
-        public static T? FindSingleObject<T>(IEnumerable? ctorArgs) where T : class
+        public static T? FindSingleObject<T>(IEnumerable? ctorArgs) where T : notnull
         {
-            return GetTypes<T>(true).NotNull().SingleOrDefault()?.New<T>(false, ctorArgs);
+            var t = GetTypes<T>(true).NotNull().SingleOrDefault();
+            return t is not null ? t.New<T>(false, ctorArgs) : default;
         }
 
         /// <summary>
@@ -171,7 +172,7 @@ namespace TheXDS.MCART.Helpers
         /// Se produce si <paramref name="typeFilter"/> es
         /// <see langword="null"/>.
         /// </exception>
-        public static T? FindSingleObject<T>(Func<Type,bool> typeFilter) where T : class
+        public static T? FindSingleObject<T>(Func<Type,bool> typeFilter) where T : notnull
         {
             return FindSingleObject<T>(null, typeFilter);
         }
@@ -196,10 +197,11 @@ namespace TheXDS.MCART.Helpers
         /// Se produce si <paramref name="typeFilter"/> es
         /// <see langword="null"/>.
         /// </exception>
-        public static T? FindSingleObject<T>(IEnumerable? ctorArgs, Func<Type, bool> typeFilter) where T : class
+        public static T? FindSingleObject<T>(IEnumerable? ctorArgs, Func<Type, bool> typeFilter) where T : notnull
         {
             NullCheck(typeFilter, nameof(typeFilter));
-            return GetTypes<T>(true).NotNull().SingleOrDefault(typeFilter)?.New<T>(false, ctorArgs);
+            var t = GetTypes<T>(true).NotNull().SingleOrDefault(typeFilter);
+            return t is not null ? t.New<T>(false, ctorArgs) : default;
         }
 
         /// <summary>
@@ -212,7 +214,7 @@ namespace TheXDS.MCART.Helpers
         /// <see langword="null"/> si no se encuentra ningún tipo
         /// coincidente.
         /// </returns>
-        public static T? FindFirstObject<T>() where T : class
+        public static T? FindFirstObject<T>() where T : notnull
         {
             return FindFirstObject<T>((IEnumerable?)null);
         }
@@ -230,9 +232,10 @@ namespace TheXDS.MCART.Helpers
         /// <see langword="null"/> si no se encuentra ningún tipo
         /// coincidente.
         /// </returns>
-        public static T? FindFirstObject<T>(IEnumerable? ctorArgs) where T : class
+        public static T? FindFirstObject<T>(IEnumerable? ctorArgs) where T : notnull
         {
-            return GetTypes<T>(true).NotNull().FirstOrDefault()?.New<T>(false, ctorArgs);
+            var t = GetTypes<T>(true).NotNull().FirstOrDefault();
+            return t is not null ? t.New<T>(false, ctorArgs) : default;
         }
 
         /// <summary>
@@ -252,7 +255,7 @@ namespace TheXDS.MCART.Helpers
         /// Se produce si <paramref name="typeFilter"/> es
         /// <see langword="null"/>.
         /// </exception>
-        public static T? FindFirstObject<T>(Func<Type, bool> typeFilter) where T : class
+        public static T? FindFirstObject<T>(Func<Type, bool> typeFilter) where T : notnull
         {
             return FindFirstObject<T>(null, typeFilter);
         }
@@ -277,10 +280,11 @@ namespace TheXDS.MCART.Helpers
         /// Se produce si <paramref name="typeFilter"/> es
         /// <see langword="null"/>.
         /// </exception>
-        public static T? FindFirstObject<T>(IEnumerable? ctorArgs, Func<Type, bool> typeFilter) where T : class
+        public static T? FindFirstObject<T>(IEnumerable? ctorArgs, Func<Type, bool> typeFilter) where T : notnull
         {
             NullCheck(typeFilter, nameof(typeFilter));
-            return GetTypes<T>(true).NotNull().FirstOrDefault(typeFilter)?.New<T>(false, ctorArgs);
+            var t = GetTypes<T>(true).NotNull().FirstOrDefault(typeFilter);
+            return t is not null ? t.New<T>(false, ctorArgs) : default;
         }
 
         /// <summary>

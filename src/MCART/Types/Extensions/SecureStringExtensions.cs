@@ -22,15 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma warning disable XS0001
-/* -= NOTA =-
- * Oops! Algunas API de Mono parecen no estar completas, esta directiva
- * deshabilita la advertencia al compilar desde MonoDevelop.
- * 
- * SecureString no provee de funcionalidad de encriptado en Mono, lo que
- * podría ser inseguro.
- */
-
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -153,6 +144,19 @@ namespace TheXDS.MCART.Types.Extensions
             {
                 Marshal.ZeroFreeGlobalAllocUnicode(valuePtr);
             }
+        }
+
+        /// <summary>
+        /// Convierte un <see cref="SecureString"/> en un valor de tipo
+        /// <see cref="string"/> en formato base64.
+        /// </summary>
+        /// <see cref="SecureString" /> a convertir.
+        /// <returns>
+        /// Un valor de tipo <see cref="string"/> en formato base64.
+        /// </returns>
+        public static string ToBase64(this SecureString value)
+        {
+            return Convert.ToBase64String(ReadBytes(value));
         }
     }
 }
