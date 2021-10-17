@@ -23,6 +23,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
@@ -88,7 +89,7 @@ namespace TheXDS.MCART.Types.Extensions
             NullCheck(command, nameof(command));
             NullCheck(selector, nameof(selector));
             var member = selector();
-            if (!t.GetMembers().Contains(member))
+            if (!GetAll<MemberInfo>(t).Contains(member))
             {
                 throw Errors.MissingMember(t, member);
             }
@@ -99,10 +100,15 @@ namespace TheXDS.MCART.Types.Extensions
             NullCheck(command, nameof(command));
             NullCheck(propertySelector, nameof(propertySelector));
             var prop = propertySelector();
-            if (!t.GetProperties().Contains(prop))
+            if (!GetAll<PropertyInfo>(t).Contains(prop))
             {
                 throw Errors.MissingMember(t, prop);
             }
+        }
+
+        private static IEnumerable<T> GetAll<T>(Type t) where T : MemberInfo
+        {
+            return t.GetMembers().Concat(t.GetInterfaces().SelectMany(p => p.GetMembers())).OfType<T>();
         }
     }
 }
