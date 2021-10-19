@@ -106,9 +106,10 @@ namespace TheXDS.MCART.Types.Extensions
             }
         }
 
-        private static IEnumerable<T> GetAll<T>(Type t) where T : MemberInfo
+        private static IEnumerable<T> GetAll<T>(Type? t) where T : MemberInfo
         {
-            return t.GetMembers().Concat(t.GetInterfaces().SelectMany(p => p.GetMembers())).OfType<T>();
+            if (t is null || t == typeof(object)) return Array.Empty<T>();
+            return t.GetMembers().Concat(GetAll<T>(t.BaseType)).Concat(t.GetInterfaces().SelectMany(p => p.GetMembers())).OfType<T>();
         }
     }
 }
