@@ -1794,7 +1794,7 @@ namespace TheXDS.MCART.Helpers
         {
             return
                 from j in properties.Where(p => p.CanRead)
-                where j.PropertyType == typeof(T)
+                where j.PropertyType.Implements(typeof(T))
                 select (T)j.GetMethod!.Invoke(instance, Array.Empty<object>())!;
         }
 
