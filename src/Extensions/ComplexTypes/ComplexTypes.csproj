@@ -4,7 +4,4 @@
     <Description>Complex Type Definitions for common MCART Types</Description>
     <AssemblyName>MCART.Ext.$(MSBuildProjectName)</AssemblyName>
   </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
-  </ItemGroup>
 </Project>
