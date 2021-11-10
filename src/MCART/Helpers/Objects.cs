@@ -1126,7 +1126,7 @@ namespace TheXDS.MCART.Helpers
         {
             var retVal = HasAttrs<TAttribute>(assembly, out var attrs);
             var a = attrs.FirstOrDefault();
-            value = !(a is null) ? a.Value : default!;
+            value = a is not null ? a.Value : default!;
             return retVal;
         }
 
@@ -1229,7 +1229,7 @@ namespace TheXDS.MCART.Helpers
         {
             var retVal = HasAttrs<TAttribute>(member, out var attrs);
             var a = attrs.FirstOrDefault();
-            value = !(a is null) ? a.Value : default!;
+            value = a is not null ? a.Value : default!;
             return retVal;
         }
         
@@ -1353,7 +1353,7 @@ namespace TheXDS.MCART.Helpers
                 default:
                     var retVal = HasAttrs<TAttribute>(obj, out var attrs);
                     var attr = attrs?.FirstOrDefault();
-                    value = !(attr is null) ? attr.Value : default!;
+                    value = attr is not null ? attr.Value : default!;
                     return retVal;
             }
         }
@@ -1471,7 +1471,7 @@ namespace TheXDS.MCART.Helpers
 #endif
             var n = type.GetEnumName(enumValue)!;
             attribute = type.GetMember(n)[0].GetCustomAttributes(typeof(T), false).FirstOrDefault() as T;
-            return !(attribute is null);
+            return attribute is not null;
         }
         /// <summary>
         /// Determina si un miembro posee un atributo definido.
@@ -1560,7 +1560,7 @@ namespace TheXDS.MCART.Helpers
         {
             attribute = (Attribute.GetCustomAttributes(type, typeof(T)).FirstOrDefault()
                          ?? Attribute.GetCustomAttributes(type.Assembly, typeof(T)).FirstOrDefault()) as T;
-            return !(attribute is null);
+            return attribute is not null;
         }
 
         /// <summary>
@@ -1737,7 +1737,7 @@ namespace TheXDS.MCART.Helpers
         /// </returns>
         public static bool IsSignatureCompatible(this MethodInfo methodInfo, Type @delegate)
         {
-            return !(Delegate.CreateDelegate(@delegate, methodInfo, false) is null);
+            return Delegate.CreateDelegate(@delegate, methodInfo, false) is not null;
         }
 
         /// <summary>
@@ -1843,7 +1843,7 @@ namespace TheXDS.MCART.Helpers
         /// </returns>
         public static IEnumerable<Type> ToTypes(this IEnumerable objects)
         {
-            foreach (var j in objects) if (!(j is null)) yield return j.GetType();
+            foreach (var j in objects) if (j is not null) yield return j.GetType();
         }
 
         /// <summary>
@@ -2004,7 +2004,7 @@ namespace TheXDS.MCART.Helpers
             try
             {
                 @delegate = Delegate.CreateDelegate(typeof(T), method, false) as T;
-                return !(@delegate is null);
+                return @delegate is not null;
             }
             catch
             {
@@ -2042,7 +2042,7 @@ namespace TheXDS.MCART.Helpers
             try
             {
                 @delegate = Delegate.CreateDelegate(typeof(T), instance, method.Name, false, false) as T;
-                return !(@delegate is null);
+                return @delegate is not null;
             }
             catch
             {

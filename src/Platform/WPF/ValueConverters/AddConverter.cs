@@ -51,7 +51,7 @@ namespace TheXDS.MCART.ValueConverters
         /// <returns>
         /// La suma de <paramref name="value" /> y el operando especificado.
         /// </returns>
-        public object? Convert(object value, Type targetType, object? parameter, CultureInfo? culture)
+        public object? Convert(object? value, Type targetType, object? parameter, CultureInfo? culture)
         {
             return Operate(value, targetType, parameter, culture, Expression.Add);
         }

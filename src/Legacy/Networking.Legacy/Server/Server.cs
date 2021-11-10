@@ -121,7 +121,7 @@ namespace TheXDS.MCART.Networking.Legacy.Server
                 catch { /* Silenciar excepción */ }
             }
 
-            if (!(client is null) && _clients.Contains(client)) _clients.Remove(client);
+            if (client is not null && _clients.Contains(client)) _clients.Remove(client);
         }
         private async Task BeAlive()
         {

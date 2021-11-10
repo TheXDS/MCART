@@ -179,7 +179,7 @@ namespace TheXDS.MCART.Types.Base
             RaiseCollectionChanged(new NcchEa(Reset));
             UnderlyingCollection = newCollection;
             
-            if (!(newCollection is null)) RaiseCollectionChanged(new NcchEa(Nccha.Add, (IList)UnderlyingCollection));
+            if (newCollection is not null) RaiseCollectionChanged(new NcchEa(Nccha.Add, (IList)UnderlyingCollection));
             Notify(nameof(Count));
         }
 

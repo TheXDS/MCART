@@ -280,7 +280,7 @@ namespace TheXDS.MCART.Types.Extensions
         public static bool IsInstantiable(this Type type, IEnumerable<Type>? constructorArgs)
         {
             if (constructorArgs is null) return !(type.IsAbstract || type.IsInterface) && type.GetConstructors().Any();
-            return !(type.IsAbstract || type.IsInterface) && !(type.GetConstructor(constructorArgs.ToArray()) is null);
+            return !(type.IsAbstract || type.IsInterface) && type.GetConstructor(constructorArgs.ToArray()) is not null;
         }
 
         /// <summary>

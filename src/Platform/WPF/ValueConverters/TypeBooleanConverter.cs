@@ -56,7 +56,7 @@ namespace TheXDS.MCART.ValueConverters
         /// </returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (!(parameter is Type t)) throw new ArgumentException();
+            if (parameter is not Type t) throw new ArgumentException();
             return t.IsAssignableFrom(value?.GetType());
         }
 

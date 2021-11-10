@@ -239,7 +239,7 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public override bool Equals(object? obj)
         {
-            if (!(obj is Size p)) return false;
+            if (obj is not Size p) return false;
             return this == p;
         }
 

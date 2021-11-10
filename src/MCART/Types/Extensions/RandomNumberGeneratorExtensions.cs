@@ -1,5 +1,5 @@
 ﻿/*
-PluginDetails.cs
+RandomNumberGeneratorExtensions.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,35 +22,32 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
+#if !NET6_0_OR_GREATER
 
-namespace TheXDS.MCART.Pages
+using TheXDS.MCART.Attributes;
+using System.Security.Cryptography;
+
+namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>
-    /// Página de detalles de plugins.
+    /// Extensiones para la clase <see cref="RandomNumberGenerator" />
     /// </summary>
-    public partial class PluginDetails
+    public static class RandomNumberGeneratorExtensions
     {
         /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="T:TheXDS.MCART.Pages.PluginDetails" />.
+        /// Obtiene un arreglo de bytes con contenido criptográficamente
+        /// aleatorio.
         /// </summary>
-        public PluginDetails()
+        /// <param name="count">Cantidad de bytes a obtener.</param>
+        /// <returns>
+        /// Un arreglo de bytes con contenido criptográficamente aleatorio.
+        /// </returns>
+        [Thunk] public static byte[] GetBytes(int count)
         {
-            InitializeComponent();
-        }
-
-        private void LstInterfaces_OnDblClick(object sender, MouseButtonEventArgs e)
-        {
-            var i = sender as ListViewItem ?? throw new InvalidOperationException();
-            if (i.Content is not Type t) return;
-            new Window
-            {
-                Content = new TypeDetails(t)
-            }.ShowDialog();
+            byte[] bytes = new byte[count];
+            using (var rng = RandomNumberGenerator.Create()) rng.GetBytes(bytes);
+            return bytes;
         }
     }
 }
+#endif

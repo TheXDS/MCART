@@ -9,9 +9,9 @@ namespace TheXDS.MCART.UI.Tests.ViewModel
     {
         private class TestNpcClass : NotifyPropertyChanged
         {
-            private string _TestString;
+            private string? _TestString;
 
-            public string TestString
+            public string? TestString
             {
                 get => _TestString;
                 set => Change(ref _TestString, value);

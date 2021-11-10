@@ -55,7 +55,7 @@ namespace TheXDS.MCART.Types.Converters
         /// <returns>
         ///   <see langword="true" /> si este convertidor puede realizar la conversión; en caso contrario, <see langword="false" />.
         /// </returns>
-        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
+        public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType)
         {
             return sourceType == typeof(string);
         }
@@ -72,7 +72,7 @@ namespace TheXDS.MCART.Types.Converters
         /// <returns>
         ///   <see langword="true" /> si este convertidor puede realizar la conversión; en caso contrario, <see langword="false" />.
         /// </returns>
-        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
+        public override bool CanConvertTo(ITypeDescriptorContext? context, Type? destinationType)
         {
             return destinationType == typeof(T);
         }
@@ -95,7 +95,7 @@ namespace TheXDS.MCART.Types.Converters
         /// <exception cref="System.NotSupportedException">
         ///   No se puede realizar la conversión.
         /// </exception>
-        public override object? ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
+        public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
         {
             return ConvertFrom(value?.ToString());
         }
@@ -134,7 +134,7 @@ namespace TheXDS.MCART.Types.Converters
         /// <exception cref="System.NotSupportedException">
         ///   No se puede realizar la conversión.
         /// </exception>
-        public override object? ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
+        public override object? ConvertTo(ITypeDescriptorContext? context, CultureInfo? culture, object? value, Type destinationType)
         {
             if (value is T v) return ConvertTo(v);
             return base.ConvertTo(context,culture,value,destinationType);

@@ -41,7 +41,7 @@ namespace TheXDS.MCART.Types.Extensions
         private static void ToDelegate_Contract(MethodInfo m, object? targetInstance)
         {
             NullCheck(m, nameof(m));
-            if ((targetInstance is null && !m.IsStatic) || (!(targetInstance is null) && m.IsStatic)) throw new MemberAccessException();
+            if ((targetInstance is null && !m.IsStatic) || (targetInstance is not null && m.IsStatic)) throw new MemberAccessException();
         }
 
         [Conditional("EnforceContracts")]

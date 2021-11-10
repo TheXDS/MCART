@@ -35,7 +35,7 @@ namespace TheXDS.MCART.Types
     /// </summary>
     public class TimerEx : Timer, IDisposableEx
     {
-        private void Tmr_Elapsed(object sender, ElapsedEventArgs e)
+        private void Tmr_Elapsed(object? sender, ElapsedEventArgs e)
         {
             if (AutoReset) StartTime = DateTime.Now;
         }
@@ -58,7 +58,7 @@ namespace TheXDS.MCART.Types
         {
             get
             {
-                if (!(StartTime is null)) return TimeSpan.FromMilliseconds(Interval) - (DateTime.Now - StartTime);
+                if (StartTime is not null) return TimeSpan.FromMilliseconds(Interval) - (DateTime.Now - StartTime);
                 return null;
             }
         }

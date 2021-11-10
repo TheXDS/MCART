@@ -47,7 +47,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
             get
             {
                 var baseType = Type?.BaseType;
-                while (!(baseType is null))
+                while (baseType is not null)
                 {
                     yield return baseType;
                     baseType = baseType.BaseType;
@@ -96,7 +96,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         /// Obtiene un valor que indica si el tipo es estático, es decir si
         /// es abstracto y sellado a la vez.
         /// </summary>
-        public bool IsStatic => !(Type is null) && Type.IsAbstract && Type.IsSealed;
+        public bool IsStatic => Type is not null && Type.IsAbstract && Type.IsSealed;
 
         /// <summary>
         /// Enumera de forma agrupara el árbol de miembros definidos dentro

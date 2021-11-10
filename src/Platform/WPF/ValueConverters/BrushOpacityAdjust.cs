@@ -53,7 +53,7 @@ namespace TheXDS.MCART.ValueConverters
         /// </returns>
         public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (!(value is Brush brush)) return null;
+            if (value is not Brush brush) return null;
             var opacity = (double)System.Convert.ChangeType(parameter, typeof(double));
             if (!opacity.IsBetween(0, 1)) throw new ArgumentOutOfRangeException(nameof(opacity));
             var b = brush.Clone();
@@ -77,7 +77,7 @@ namespace TheXDS.MCART.ValueConverters
         /// </returns>
         public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (!(value is Brush brush)) return null;
+            if (value is not Brush brush) return null;
             var b = brush.Clone();
             b.Opacity = 1;
             return b;

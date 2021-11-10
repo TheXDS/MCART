@@ -26,6 +26,7 @@ using System;
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media.Effects;
+using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.ValueConverters
 {
@@ -50,8 +51,13 @@ namespace TheXDS.MCART.ValueConverters
         /// <param name="culture">
         /// Referencia cultural que se va a usar en el convertidor.
         /// </param>
-        /// <returns></returns>
-        public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        /// <returns>
+        /// Un objeto <see cref="BlurEffect"/> que puede aplicarse a un
+        /// <see cref="System.Windows.UIElement"/>, o <see langword="null"/> si
+        /// <paramref name="parameter"/> no es un valor de tipo
+        /// <see cref="bool"/>.
+        /// </returns>
+        public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             double TryConvert()
             {
@@ -74,30 +80,53 @@ namespace TheXDS.MCART.ValueConverters
                 Radius = parameter switch
                 {
                     null => 5.0,
-                    string s => double.TryParse(s, out var r) ? r : throw new ArgumentException(nameof(parameter)),
+                    string s => double.TryParse(s, out var r) ? r : throw Errors.InvalidValue(nameof(parameter), parameter),
                     _ => TryConvert()
                 }
             } : null;
         }
 
         /// <summary>
+        /// Genera un efecto de desenfoque basado en una condición
+        /// booleana.
+        /// </summary>
+        /// <param name="value">
+        /// Valor generado por el origen del enlace.
+        /// </param>
+        /// <param name="targetType">
+        /// El tipo de la propiedad del destino del enlace.
+        /// </param>
+        /// <param name="parameter">
+        /// Parámetro de convertidor que se va a usar.
+        /// </param>
+        /// <param name="culture">
+        /// Referencia cultural que se va a usar en el convertidor.
+        /// </param>
+        /// <returns>
+        /// Un objeto <see cref="BlurEffect"/> que puede aplicarse a un
+        /// <see cref="System.Windows.UIElement"/>.
+        /// </returns>
+        public object Convert(bool value, Type targetType, object? parameter, CultureInfo culture)
+        {
+            return Convert((object)value, targetType, parameter, culture)!;
+        }
+
+        /// <summary>
         /// Implementa <see cref="IValueConverter.ConvertBack" />.
         /// </summary>
         /// <param name="value">Objeto a convertir.</param>
-        /// <param name="targetType">Tipo del destino.</param>
-        /// <param name="parameter">
-        /// Parámetros personalizados para este <see cref="IValueConverter" />.
-        /// </param>
-        /// <param name="culture">
-        /// <see cref="CultureInfo" /> a utilizar para la conversión.
-        /// </param>
         /// <returns>
         /// <see langword="true" /> si el valor es un <see cref="BlurEffect" />,
         /// <see langword="false" /> en caso contrario.
         /// </returns>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public bool ConvertBack(object value)
         {
             return value is BlurEffect;
+        }
+
+        object IValueConverter.ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return ConvertBack(value);
         }
     }
 }

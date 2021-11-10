@@ -173,7 +173,7 @@ namespace TheXDS.MCART.Controls
         {
             if (txtSearch.Text.IsEmpty())
             {
-                if (!(view is null))
+                if (view is not null)
                 {
                     if (view.CanCustomFilter) view.CustomFilter = string.Empty;
                     view.Refresh();
@@ -183,7 +183,7 @@ namespace TheXDS.MCART.Controls
             }
             else
             {
-                if (!(view is null) && flts.Count > 0)
+                if (view is not null && flts.Count > 0)
                 {
                     if (view.CanCustomFilter) view.CustomFilter = GenFilters(txtSearch.Text);
                     view.Refresh();
@@ -206,8 +206,8 @@ namespace TheXDS.MCART.Controls
         /// </param>
         public void AttachView(BindingListCollectionView cv, string[]? searchFields = null)
         {
-            if (!(view is null)) flts.Clear();
-            if (HasSearch && !(searchFields is null)) flts.AddRange(searchFields);
+            if (view is not null) flts.Clear();
+            if (HasSearch && searchFields is not null) flts.AddRange(searchFields);
             view = cv ?? throw new ArgumentNullException(nameof(cv));
             view.MoveCurrentToFirst();
             txtSearch.Text = string.Empty;

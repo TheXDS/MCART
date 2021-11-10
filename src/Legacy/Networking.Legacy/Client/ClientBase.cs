@@ -51,7 +51,7 @@ namespace TheXDS.MCART.Networking.Legacy.Client
         /// <see langword="true" /> si la conexión se encuentra activa,
         /// <see langword="false" /> en caso contrario.
         /// </value>
-        public bool IsAlive => !(Connection?.IsDisposed ?? true) && !(NwStream() is null);
+        public bool IsAlive => !(Connection?.IsDisposed ?? true) && NwStream() is not null;
 
         /// <summary>
         /// Conexión al servidor

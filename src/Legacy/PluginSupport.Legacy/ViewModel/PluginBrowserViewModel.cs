@@ -64,7 +64,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
             get => _selection;
             set
             {
-                if (!(value is IPlugin)) value = null;
+                if (value is not IPlugin) value = null;
                 if (Equals(value, _selection)) return;
                 _selection = value;
                 OnPropertyChanged();

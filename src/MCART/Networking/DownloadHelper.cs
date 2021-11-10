@@ -39,6 +39,9 @@ namespace TheXDS.MCART.Networking
     /// <summary>
     /// Contiene funciones de descarga de archivos por medio de protocolos web.
     /// </summary>
+#if NET6_0_OR_GREATER
+    [Obsolete("Esta clase utiliza métodos web deprecados en .Net 6.")]
+#endif
     public static class DownloadHelper
 	{
         private static T GetResponse<T>(Uri uri) where T : WebResponse

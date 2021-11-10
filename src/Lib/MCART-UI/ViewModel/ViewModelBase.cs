@@ -427,7 +427,7 @@ namespace TheXDS.MCART.ViewModel
             if (!base.Change(ref backingStore, value, propertyName)) return false;
             var prop = GetType().GetProperty(propertyName);
             var vr = _validationRules.FirstOrDefault(p => p.Property == prop);
-            if (!(vr is null))
+            if (vr is not null)
             {
                 AppendErrors(vr, value);
                 var act = (GetErrors(propertyName).ToGeneric().Any());

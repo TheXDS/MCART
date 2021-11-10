@@ -401,7 +401,7 @@ namespace TheXDS.MCART.Security.Password
             _pond = (PonderationLevel?)ponderation?.Value ?? PonderationLevel.Normal;
             Description = description?.Value ?? string.Empty;
             Enable = defaultEnable?.Value ?? true;
-            IsExtraPoints = !(isExtra is null);
+            IsExtraPoints = isExtra is not null;
         }
 
         /// <summary>

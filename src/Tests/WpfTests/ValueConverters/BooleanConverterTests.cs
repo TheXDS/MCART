@@ -28,7 +28,6 @@ using NUnit.Framework;
 
 namespace TheXDS.MCART.WpfTests.ValueConverters
 {
-
     public class BooleanConverterTests
     {
         [Test]
@@ -62,8 +61,8 @@ namespace TheXDS.MCART.WpfTests.ValueConverters
         {
             var c = new BooleanConverter<int>(5, -5);
 
-            Assert.True((bool)c.ConvertBack(5, typeof(int), null, CultureInfo.CurrentCulture));
-            Assert.False((bool)c.ConvertBack(-5, typeof(int), null, CultureInfo.CurrentCulture));
+            Assert.True((bool)c.ConvertBack(5, typeof(int), null, CultureInfo.CurrentCulture)!);
+            Assert.False((bool)c.ConvertBack(-5, typeof(int), null, CultureInfo.CurrentCulture)!);
             Assert.Null(c.ConvertBack(2, typeof(int), null, CultureInfo.CurrentCulture));
         }
     }

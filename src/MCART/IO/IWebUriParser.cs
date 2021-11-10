@@ -34,6 +34,9 @@ namespace TheXDS.MCART.IO
     /// interpretar un <see cref="Uri"/> y obtener una respuesta desde un
     /// servicio web.
     /// </summary>
+#if NET6_0_OR_GREATER
+    [Obsolete("Esta clase utiliza métodos web deprecados en .Net 6.")]
+#endif
     public interface IWebUriParser : IStreamUriParser
     {
         /// <summary>

@@ -35,6 +35,9 @@ namespace TheXDS.MCART.IO
     /// Obtiene un <see cref="Stream"/> a partir de la ruta de archivo
     /// especificada por un <see cref="Uri"/>.
     /// </summary>
+#if NET6_0_OR_GREATER
+    [Obsolete("Esta clase utiliza métodos web deprecados en .Net 6.")]
+#endif
     public class FileStreamUriParser : SimpleStreamUriParser, IWebUriParser
     {
         /// <summary>

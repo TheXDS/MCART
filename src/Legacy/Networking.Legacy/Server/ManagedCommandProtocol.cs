@@ -1210,14 +1210,14 @@ namespace TheXDS.MCART.Networking.Legacy.Server
                 else
                 {
                     NotMappedCommand?.Invoke(this, c);
-                    if (!(_notMappedResponse is null)) client.Send(MakeResponse(_notMappedResponse.Value));
-                    else if (!(_errResponse is null)) client.Send(MakeResponse(_errResponse.Value));
+                    if (_notMappedResponse is not null) client.Send(MakeResponse(_notMappedResponse.Value));
+                    else if (_errResponse is not null) client.Send(MakeResponse(_errResponse.Value));
                 }
             }
             catch (Exception ex)
             {
                 ServerError?.Invoke(this, ex);
-                if (!(_errResponse is null)) client.Send(MakeResponse(_errResponse.Value));
+                if (_errResponse is not null) client.Send(MakeResponse(_errResponse.Value));
             }
         }
 

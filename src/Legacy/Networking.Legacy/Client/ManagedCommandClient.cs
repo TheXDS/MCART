@@ -132,7 +132,7 @@ namespace TheXDS.MCART.Networking.Legacy.Client
         /// <summary>
         /// Obtiene un valor que indica si esta conexión está encriptada.
         /// </summary>
-        public bool Encrypted => !(_rsa is null);
+        public bool Encrypted => _rsa is not null;
 
         /// <summary>
         /// Obtiene la clave pública de esta conexión encriptada.
@@ -269,7 +269,7 @@ namespace TheXDS.MCART.Networking.Legacy.Client
         protected void Send(in TCommand command, IEnumerable<byte> rawData, ResponseCallback? callback)
         {
             var d = MkResp(command, out var guid).Concat(rawData).ToArray();
-            if (!(callback is null))
+            if (callback is not null)
                 EnqueueRequest(guid, callback);
 
             DoSend(d);
@@ -574,7 +574,7 @@ namespace TheXDS.MCART.Networking.Legacy.Client
         protected Task SendAsync(in TCommand command, ResponseCallback? callback)
         {
             var d = MkResp(command, out var guid);
-            if (!(callback is null)) EnqueueRequest(guid, callback);
+            if (callback is not null) EnqueueRequest(guid, callback);
             return DoSendAsync(d);
         }
 
@@ -633,7 +633,7 @@ namespace TheXDS.MCART.Networking.Legacy.Client
         protected Task SendAsync(in TCommand command, IEnumerable<byte> rawData, ResponseCallback? callback)
         {
             var d = MkResp(command, out var guid);
-            if (!(callback is null)) EnqueueRequest(guid, callback);
+            if (callback is not null) EnqueueRequest(guid, callback);
             return DoSendAsync(d.Concat(rawData).ToArray());
         }
 

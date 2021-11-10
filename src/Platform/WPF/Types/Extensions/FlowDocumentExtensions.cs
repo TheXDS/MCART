@@ -647,7 +647,7 @@ namespace TheXDS.MCART.Types.Extensions
             using (var b = lengths.GetEnumerator())
             {
                 while (a.MoveNext() && b.MoveNext())
-                    if (!(a.Current is null))
+                    if (a.Current is not null)
                         a.Current.Width = b.Current;
             }
 
@@ -1240,10 +1240,10 @@ namespace TheXDS.MCART.Types.Extensions
                 var row = data.AddRow();
                 foreach (var k in ((GridView) listView.View).Columns)
                 {
-                    if (!(k.DisplayMemberBinding is Binding b)) continue;
+                    if (k.DisplayMemberBinding is not Binding b) continue;
                     var o = b.Path.Path.Split('.').Aggregate(j,
                         (current, i) => current?.GetType().GetProperty(i)?.GetMethod?.Invoke(j, Array.Empty<object>()));
-                    if (!(o is null)) row.AddCell(o.ToString());
+                    if (o is not null) row.AddCell(o.ToString());
                 }
             }
 

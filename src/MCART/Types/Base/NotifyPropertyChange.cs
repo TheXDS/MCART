@@ -133,7 +133,7 @@ namespace TheXDS.MCART.Types.Base
         public void Unsubscribe(PropertyChangeObserver callback)
         {
             var rm = _observeSubscriptions.FirstOrDefault(p => p.TryGetTarget(out var t) && t == callback);
-            if (!(rm is null)) _observeSubscriptions.Remove(rm);
+            if (rm is not null) _observeSubscriptions.Remove(rm);
         }
 
         /// <summary>

@@ -109,7 +109,7 @@ namespace TheXDS.MCART.ValueConverters
         /// Referencia cultural que se va a usar en el convertidor.
         /// </param>
         /// <returns></returns>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             TIn currentValue;
             switch (parameter)
@@ -182,7 +182,7 @@ namespace TheXDS.MCART.ValueConverters
         /// Este método siempre genera un <see cref="InvalidOperationException" />.
         /// </returns>
         /// <exception cref="InvalidOperationException">Este método siempre genera esta excepción al ser llamado.</exception>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             throw new InvalidOperationException();
         }

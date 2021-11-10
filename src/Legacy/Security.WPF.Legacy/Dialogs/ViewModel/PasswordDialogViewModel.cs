@@ -56,11 +56,11 @@ namespace TheXDS.MCART.Dialogs.ViewModel
 
         private bool CanGenerate(object? arg)
         {
-            return IsGeneratorVisible && !(Generator is null);
+            return IsGeneratorVisible && Generator is not null;
         }
         private bool CanEvaluate()
         {
-            return IsQualityVisible && !(Evaluator is null);
+            return IsQualityVisible && Evaluator is not null;
         }
     }
 }

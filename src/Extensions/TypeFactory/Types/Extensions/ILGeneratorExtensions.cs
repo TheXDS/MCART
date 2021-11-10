@@ -339,7 +339,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </exception>
         public static ILGenerator NewObject(this ILGenerator ilGen, Type type, IEnumerable args)
         {
-            if (!(type.GetConstructor(args.ToTypes().ToArray()) is ConstructorInfo c))
+            if (type.GetConstructor(args.ToTypes().ToArray()) is not ConstructorInfo c)
                 throw new ClassNotInstantiableException(type);
             foreach (var j in args)
             {

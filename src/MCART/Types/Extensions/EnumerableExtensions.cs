@@ -336,7 +336,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static IEnumerable<T> NotNull<T>(this IEnumerable<T?>? collection) where T : class
         {
-            return collection is null ? Array.Empty<T>() : collection.Where(p => !(p is null)).Select(p => p!);
+            return collection is null ? Array.Empty<T>() : collection.Where(p => p is not null).Select(p => p!);
         }
 
         /// <summary>
@@ -353,7 +353,7 @@ namespace TheXDS.MCART.Types.Extensions
             if (collection is null) yield break;
             foreach (var j in collection)
             {
-                if (!(j is null)) yield return j;
+                if (j is not null) yield return j;
             }
         }
 
@@ -369,7 +369,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static IEnumerable<T> NotNull<T>(this IEnumerable<T?>? collection) where T : struct
         {
-            return collection is null ? Array.Empty<T>() : collection.Where(p => !(p is null)).Select(p => p!.Value);
+            return collection is null ? Array.Empty<T>() : collection.Where(p => p is not null).Select(p => p!.Value);
         }
 
         /// <summary>

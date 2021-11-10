@@ -103,7 +103,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         {
             foreach (var j in GetType().GetMethods().Where(k => k.HasAttr<InteractionItemAttribute>()))
             {
-                if (!(Delegate.CreateDelegate(typeof(EventHandler), this, j, false) is null))
+                if (Delegate.CreateDelegate(typeof(EventHandler), this, j, false) is not null)
                     InteractionItems.Add(new InteractionItem(j, this));
                 else
 #if PreferExceptions
@@ -396,7 +396,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         public bool MinRtVersion(out Version? minVersion)
         {
             minVersion = MinMcartVersion;
-            return !(minVersion is null);
+            return minVersion is not null;
         }
         
         /// <summary>
@@ -412,7 +412,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         public bool TargetRtVersion(out Version? tgtVersion)
         {
             tgtVersion = TargetMcartVersion;
-            return !(tgtVersion is null);
+            return tgtVersion is not null;
         }
         
         #endregion

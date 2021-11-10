@@ -750,8 +750,8 @@ namespace TheXDS.MCART.Controls
         /// </param>
         public void AttachView(BindingListCollectionView cv, string[]? searchFields = null)
         {
-            if (!(_view is null)) Filters.Clear();
-            if (HasSearch && !(searchFields is null)) Filters.AddRange(searchFields);
+            if (_view is not null) Filters.Clear();
+            if (HasSearch && searchFields is not null) Filters.AddRange(searchFields);
             _view = cv ?? throw new ArgumentNullException(nameof(cv));
             Max = _view.Count;
             _view.MoveCurrentToFirst();

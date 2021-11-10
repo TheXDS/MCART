@@ -123,7 +123,7 @@ namespace TheXDS.MCART.ValueConverters.Base
         /// inválidos y el tipo objetivo no es <see cref="double"/> ni
         /// <see cref="float"/>.
         /// </exception>
-        protected static object? Operate(object value, Type targetType, object? parameter, CultureInfo? culture, ExpressionBuilder func)
+        protected static object? Operate(object? value, Type targetType, object? parameter, CultureInfo? culture, ExpressionBuilder func)
         {
             try
             {

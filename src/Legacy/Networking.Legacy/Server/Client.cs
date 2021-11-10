@@ -104,7 +104,7 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         /// encuentra conectada a un servidor, <see langword="false" /> en caso
         /// contrario.
         /// </value>
-        public bool IsAlive => !(NwStream() is null);
+        public bool IsAlive => NwStream() is not null;
 
         /// <summary>
         /// Obtiene la conexión <see cref="System.Net.Sockets.TcpClient" /> asociada a esta instancia.

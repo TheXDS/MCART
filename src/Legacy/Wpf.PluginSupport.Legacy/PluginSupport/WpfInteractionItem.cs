@@ -120,7 +120,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
             var k = new MenuItem() { Header = Text };
             if (!Description.IsEmpty())
                 k.ToolTip = new ToolTip() { Content = Description };
-            if (!(Icon is null))
+            if (Icon is not null)
                 k.Icon = new Image() { Source = Icon };
             try { k.Click += RoutedAction; }
             catch (Exception ex) { System.Diagnostics.Debug.Print(ex.Message); }
@@ -152,7 +152,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
             ButtonBase k = new T();
             if (!Description.IsEmpty())
                 k.ToolTip = new ToolTip() { Content = Description };
-            if (!(Icon is null))
+            if (Icon is not null)
             {
                 var cnt = new StackPanel() { Orientation = Orientation.Horizontal };
                 cnt.Children.Add(new Image() { Source = Icon });
