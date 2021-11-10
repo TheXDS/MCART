@@ -11,7 +11,7 @@
     <PackageReference Include="System.Management" Version="5.0.0" />
   </ItemGroup>  
   <ItemGroup>
-    <ProjectReference Include="..\MCART-UI\MCART.UI.csproj" />
+    <ProjectReference Include="..\MCART-GUI\MCART.GUI.csproj" />
   </ItemGroup>  
   <ItemGroup>
     <Compile Update="Resources\Strings\Errors.Designer.cs">
