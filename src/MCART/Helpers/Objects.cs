@@ -1298,21 +1298,14 @@ namespace TheXDS.MCART.Helpers
         /// </returns>
         public static bool HasAttr<T>(this object obj, [MaybeNullWhen(false)] out T attribute) where T : Attribute
         {
-            switch (obj)
+            return obj switch
             {
-                case null:
-                    throw new ArgumentNullException(nameof(obj));
-                case Assembly a:
-                    return HasAttr(a, out attribute);
-                case MemberInfo m:
-                    return HasAttr(m, out attribute);
-                case Enum e:
-                    return HasAttr(e, out attribute);
-                default:
-                    var retVal = HasAttrs<T>(obj.GetType(), out var attrs);
-                    attribute = attrs.FirstOrDefault();
-                    return retVal;
-            }
+                null => throw new ArgumentNullException(nameof(obj)),
+                Assembly a => HasAttr(a, out attribute),
+                MemberInfo m => HasAttr(m, out attribute),
+                Enum e => HasAttr(e, out attribute),
+                _ => HasAttrs<T>(obj.GetType(), out var attrs) & (attribute = attrs?.FirstOrDefault()) is not null
+            };
         }
 
         /// <summary>
@@ -1339,7 +1332,7 @@ namespace TheXDS.MCART.Helpers
         /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
         /// en caso contrario.
         /// </returns>
-        public static bool HasAttrValue<TAttribute, TValue>(this object obj, out TValue value)
+        public static bool HasAttrValue<TAttribute, TValue>(this object obj, [MaybeNullWhen(false)]out TValue value)
             where TAttribute : Attribute, IValueAttribute<TValue>
         {
             switch (obj)
@@ -1352,8 +1345,7 @@ namespace TheXDS.MCART.Helpers
                     return HasAttrValue<TAttribute, TValue>(e, out value);
                 default:
                     var retVal = HasAttrs<TAttribute>(obj, out var attrs);
-                    var attr = attrs?.FirstOrDefault();
-                    value = attr is not null ? attr.Value : default!;
+                    value = attrs?.FirstOrDefault() is { Value: { } v } ? v : default!;
                     return retVal;
             }
         }
@@ -1969,9 +1961,10 @@ namespace TheXDS.MCART.Helpers
         public static IEnumerable<T> WithSignature<T>(this IEnumerable<MethodInfo> methods, object instance)
             where T : Delegate
         {
-                foreach (var j in methods)
-                    if (TryCreateDelegate<T>(j, instance, out var d))
-                        yield return d ?? throw new TamperException();
+            foreach (var j in methods)
+            {
+                if (TryCreateDelegate<T>(j, instance, out var d)) yield return d ?? throw new TamperException();
+            }
         }
 
         /// <summary>
