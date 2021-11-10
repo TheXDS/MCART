@@ -28,7 +28,6 @@ using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Types;
 using NUnit.Framework;
 using static TheXDS.MCART.Types.Extensions.EnumExtensions;
-using static TheXDS.MCART.Types.Extensions.NamedObjectExtensions;
 
 namespace TheXDS.MCART.Tests.Types.Extensions
 {
@@ -104,19 +103,6 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             [Name("Number Zero")]Zero,
             [MCART.Attributes.Description("Number One")]One,
             [System.ComponentModel.Description("Number Two")]Two
-        }
-    }
-    public class NamedObjectExtensionsTests
-    {
-        [Test]
-        public void AsNamedEnumTest()
-        {
-            var e = typeof(DayOfWeek).AsNamedEnum();
-
-            foreach (var j in e)
-            {
-                Assert.AreEqual(j.Value.ToString(), j.Name);
-            }
         }
     }
 }

@@ -90,7 +90,6 @@ namespace TheXDS.MCART.Tests.Types
             Assert.Throws<ArgumentOutOfRangeException>(() => Color.AreClose(Colors.Red, Colors.Blue, -0.1f));
         }
 
-
         [CLSCompliant(false)]
         [TestCase("Brown1")]
         [TestCase("#FF4040FF")]

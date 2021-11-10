@@ -143,7 +143,6 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             Assert.AreEqual(123456.789m, v);
         }
 
-
         [Test]
         public void FieldReadStruct_Test()
         {

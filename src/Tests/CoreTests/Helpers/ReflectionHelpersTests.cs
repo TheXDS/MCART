@@ -136,7 +136,6 @@ namespace TheXDS.MCART.Tests.Helpers
             Assert.IsInstanceOf<MethodInfo>(p);
             Assert.AreEqual("TestInt", p.Name);
 
-
             var o = GetMember<Test1, int>(t => t.TestInt());
             Assert.IsInstanceOf<MethodInfo>(o);
             Assert.AreEqual("TestInt", o.Name);

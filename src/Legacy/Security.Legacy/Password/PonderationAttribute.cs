@@ -1,5 +1,5 @@
 ﻿/*
-Attributes.cs
+PonderationAttribute.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -46,21 +46,4 @@ namespace TheXDS.MCART.Security.Password
                 throw Errors.UndefinedEnum(nameof(ponderation), ponderation);
         }
     }
-    /// <summary>
-    /// Indica si un elemento se activa o no de forma predeterminada.
-    /// </summary>
-    [AttributeUsage((AttributeTargets)71)]
-    public sealed class DefaultEnableAttribute : BoolAttribute
-    {
-        /// <summary>
-        /// Crea un nuevo atributo de <see cref="DefaultEnableAttribute"/>.
-        /// </summary>
-        /// <param name="attrValue">Valor predeterminado de activación.</param>
-        public DefaultEnableAttribute(bool attrValue) : base(attrValue) { }
-    }
-    /// <summary>
-    /// Indica que un elemento representará un puntaje extra en la evaluación.
-    /// </summary>
-    [AttributeUsage((AttributeTargets)71)]
-    public sealed class ExtraPointsAttribute : Attribute { }
 }

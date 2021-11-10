@@ -133,7 +133,5 @@ namespace TheXDS.MCART.Windows.Component
             PInvoke.GetWindowRect(Handle, ref info);
             return info;
         }
-
-
     }
 }

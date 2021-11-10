@@ -928,6 +928,5 @@ namespace TheXDS.MCART
             brush.Flash(Colors.Red);
             if (!ttip.IsEmpty()) c.ToolTip = new ToolTip {Content = ttip};
         }
-
     }
 }

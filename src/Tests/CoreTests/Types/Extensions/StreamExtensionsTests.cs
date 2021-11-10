@@ -129,7 +129,6 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             Assert.AreEqual(a, ms.ToArray());
         }
         
-                
         [Test]
         public void WriteSeveralBytes_Test()
         {

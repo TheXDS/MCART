@@ -45,7 +45,6 @@ namespace TheXDS.MCART.Types
 
         internal static string NoIfaceName(string name)
         {
-
             NullCheck(name, nameof(name));
             return name[0] != 'I' ? $"{name}Implementation" : name[1..];
         }

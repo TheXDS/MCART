@@ -30,6 +30,7 @@ using System.Windows;
 using System.Windows.Data;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Helpers;
+using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.ValueConverters
@@ -111,43 +112,9 @@ namespace TheXDS.MCART.ValueConverters
         /// <returns></returns>
         public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
-            TIn currentValue;
-            switch (parameter)
-            {
-                case TIn tin:
-                    currentValue = tin;
-                    break;
-                case string str:
-                    TypeConverter? typeConverter;
-
-                    if (parameter.GetType().HasAttr<TypeConverterAttribute>(out var tc))
-                    {
-                        var converters = Objects.PublicTypes<TypeConverter>().Where(TypeExtensions.IsInstantiable);
-                        typeConverter = converters.FirstOrDefault(p => p.AssemblyQualifiedName == tc.ConverterTypeName)?.New<TypeConverter>();
-                    }
-                    else { typeConverter = Common.FindConverter<string, TIn>(); }
-
-                    if (typeConverter is null) throw new InvalidCastException();
-
-                    try
-                    {
-                        currentValue = (TIn) typeConverter.ConvertTo(str, typeof(TIn));
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new ArgumentException(string.Empty, nameof(parameter), ex);
-                    }
-
-                    break;
-                case null:
-                    throw new ArgumentNullException(nameof(parameter));
-                default:
-                    throw new ArgumentException(string.Empty, nameof(parameter));
-            }
-
             return value switch
             {
-                TIn v => v.CompareTo(currentValue) switch
+                TIn v => v.CompareTo(GetCurrentValue(parameter)) switch
                 {
                     -1 => BelowValue,
                     0 => AtValue ?? BelowValue,
@@ -155,9 +122,45 @@ namespace TheXDS.MCART.ValueConverters
                     _ => throw new InvalidReturnValueException(nameof(IComparable<TIn>.CompareTo)),
                 },
                 null => throw new ArgumentNullException(nameof(value)),
-
-                _ => throw new ArgumentException(null, nameof(value)),
+                _ => throw Errors.InvalidValue(nameof(value), value)
             };
+        }
+
+        private static TIn GetCurrentValue(object? parameter)
+        {
+            return parameter switch
+            {
+                TIn tin => tin,
+                string str => ConvertFromString(str),
+                null => throw new ArgumentNullException(nameof(parameter)),
+                _ => throw Errors.InvalidValue(nameof(parameter), parameter),
+            };
+        }
+
+        private static TIn ConvertFromString(string str)
+        {
+            TypeConverter? typeConverter = GetConverter() ?? throw new InvalidCastException();
+            try
+            {
+                return (TIn)typeConverter.ConvertTo(str, typeof(TIn));
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException(string.Empty, "parameter", ex);
+            }
+        }
+
+        private static TypeConverter? GetConverter()
+        {
+            if (typeof(string).HasAttr<TypeConverterAttribute>(out var tc))
+            {
+                var converters = Objects.PublicTypes<TypeConverter>().Where(TypeExtensions.IsInstantiable);
+                return converters.FirstOrDefault(p => p.AssemblyQualifiedName == tc.ConverterTypeName)?.New<TypeConverter>();
+            }
+            else
+            {
+                return Common.FindConverter<string, TIn>();
+            }
         }
 
         /// <summary>

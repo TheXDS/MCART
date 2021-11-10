@@ -229,7 +229,6 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         {
             Assert.AreEqual("System.Collections.Generic.List<System.String>", typeof(List<string>).CSharpName());
             Assert.AreEqual("System.Collections.Generic.Dictionary<System.Int32, System.String>", typeof(Dictionary<int, string>).CSharpName());
-
         }
     }
 }

@@ -361,7 +361,6 @@ namespace TheXDS.MCART.Tests.Helpers
             Assert.AreEqual("0A0B0C", new byte[] { 10, 11, 12 }.ToHex());
         }
 
-
         [CLSCompliant(false)]
         [TestCase(1000, ByteUnitType.Binary, "1000 Bytes")]
         [TestCase(1000, ByteUnitType.Decimal, "1.0 KB")]
