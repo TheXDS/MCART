@@ -22,17 +22,15 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma warning disable CS1591
-
+using NUnit.Framework;
 using System.Windows.Documents;
-using Xunit;
 using static TheXDS.MCART.Types.Extensions.FlowDocumentExtensions;
 
 namespace TheXDS.MCART.WpfTests.Types.Extensions
 {
     public class FlowDocumentExtensionsTests
     {
-        [Fact]
+        [Test]
         public void DoneTest()
         {
             var t = new Table();
@@ -41,8 +39,8 @@ namespace TheXDS.MCART.WpfTests.Types.Extensions
             rg.Rows.Add(tr);
             t.RowGroups.Add(rg);
 
-            Assert.Equal(rg, tr.Done());
-            Assert.Equal(t, rg.Done());
+            Assert.AreEqual(rg, tr.Done());
+            Assert.AreEqual(t, rg.Done());
         }
     }
 }

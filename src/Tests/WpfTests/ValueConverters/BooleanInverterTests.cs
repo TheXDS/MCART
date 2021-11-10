@@ -22,28 +22,26 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma warning disable CS1591
-
 using System.Globalization;
 using TheXDS.MCART.ValueConverters;
-using Xunit;
+using NUnit.Framework;
 
 namespace TheXDS.MCART.WpfTests.ValueConverters
 {
     public class BooleanInverterTests
     {
-        [Fact]
+        [Test]
         public void InversionTest()
         {
             var c = new BooleanInverter();
             Assert.True((bool)c.Convert(false, typeof(bool), null, CultureInfo.CurrentCulture));
             Assert.False((bool)c.Convert(true, typeof(bool), null, CultureInfo.CurrentCulture));
 
-#if PreferExceptions
+    #if PreferExceptions
             Assert.Throws<InvalidCastException>(() => c.Convert("Test", typeof(bool), null, CultureInfo.CurrentCulture));
-#else
+    #else
             Assert.Null(c.Convert("Test", typeof(bool), null, CultureInfo.CurrentCulture));
-#endif
+    #endif
         }
     }
 }

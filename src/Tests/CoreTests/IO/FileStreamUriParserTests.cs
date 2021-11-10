@@ -28,13 +28,14 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.IO;
 using TheXDS.MCART.IO;
-using Xunit;
+using NUnit.Framework;
 
 namespace TheXDS.MCART.Tests.IO
 {
+    //[Obsolete("Estos objetos utilizan clases deprecadas en .Net 6.")]
     public class FileStreamUriParserTests
     {
-        [Fact]
+        [Test]
         public void Open_WithFullUri_Test()
         {
             var f = Path.GetTempFileName();
@@ -45,15 +46,15 @@ namespace TheXDS.MCART.Tests.IO
             var fu = fp.Open(new Uri(furi))!;
 
             Assert.NotNull(fu);
-            Assert.IsAssignableFrom<Stream>(fu);
+            Assert.IsInstanceOf<Stream>(fu);
             using var r = new StreamReader(fu);
-            Assert.Equal("test", r.ReadToEnd());
+            Assert.AreEqual("test", r.ReadToEnd());
             fu.Dispose();
             r.Dispose();
             File.Delete(f);
         }
 
-        [Fact]
+        [Test]
         public void Open_WithFilePath_Test()
         {
             var f = Path.GetTempFileName();
@@ -63,9 +64,9 @@ namespace TheXDS.MCART.Tests.IO
             var fu = fp.Open(new Uri(f))!;
 
             Assert.NotNull(fu);
-            Assert.IsType<FileStream>(fu);
+            Assert.IsInstanceOf<FileStream>(fu);
             using var r = new StreamReader(fu);
-            Assert.Equal("test", r.ReadToEnd());
+            Assert.AreEqual("test", r.ReadToEnd());
             fu.Dispose();
             r.Dispose();
             File.Delete(f);

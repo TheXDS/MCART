@@ -24,7 +24,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System.ComponentModel;
 using TheXDS.MCART.Types.Base;
-using Xunit;
+using NUnit.Framework;
 
 namespace TheXDS.MCART.Tests.Types.Base
 {
@@ -41,25 +41,28 @@ namespace TheXDS.MCART.Tests.Types.Base
             }
         }
 
-        [Fact]
+        [Test]
         public void OnPropertyChangingTest()
         {
             var x = new TestClass();
-            PropertyChangingEventHandler? handler = null;
+            var risen = false;
+            (object? Sender, PropertyChangingEventArgs Arguments)? evt = null;
 
-            var evt = Assert.Raises<PropertyChangingEventArgs>(
-                h =>
-                {
-                    handler = new PropertyChangingEventHandler(h);
-                    x.PropertyChanging += handler;
-                },
-                h => x.PropertyChanging -= handler,
-                () => x.Value = 1);
+            void OnPropertyChanging(object? sender, PropertyChangingEventArgs e)
+            {
+                risen = true;
+                evt = (sender, e);
+            }
 
+            x.PropertyChanging += OnPropertyChanging;
+            x.Value = 1;
+            x.PropertyChanging -= OnPropertyChanging;
+
+            Assert.True(risen);
             Assert.NotNull(evt);
-            Assert.True(ReferenceEquals(x, evt.Sender));
-            Assert.Equal(nameof(TestClass.Value), evt.Arguments.PropertyName);
-            Assert.Equal(1,x.Value);
+            Assert.True(ReferenceEquals(x, evt!.Value.Sender));
+            Assert.AreEqual(nameof(TestClass.Value), evt!.Value.Arguments.PropertyName);
+            Assert.AreEqual(1, x.Value);
         }
     }
 }

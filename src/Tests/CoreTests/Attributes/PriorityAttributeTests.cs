@@ -23,17 +23,17 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using TheXDS.MCART.Attributes;
-using Xunit;
+using NUnit.Framework;
 
 namespace TheXDS.MCART.Tests.Attributes
 {
     public class PriorityAttributeTests
     {
-        [Fact]
+        [Test]
         public void BasicInstancingTest()
         {
             var a = new PriorityAttribute(1);
-            Assert.Equal(1, a.Value);
+            Assert.AreEqual(1, a.Value);
         }
     }
 }

@@ -30,13 +30,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Types.Extensions;
-using Xunit;
+using NUnit.Framework;
 
 namespace TheXDS.MCART.Tests.Types.Extensions
 {
     public class ListExtensionsTests
     {
-        [Fact]
+        [Test]
         public void RemoveOf_Test()
         {
             var e = new Exception();
@@ -49,11 +49,11 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             Assert.Contains(d, c);
             Assert.Contains(o, c);
             Assert.Contains(5, c);
-            Assert.DoesNotContain(e, c);
-            Assert.DoesNotContain(e2, c);
+            Assert.False(c.Contains(e));
+            Assert.False(c.Contains(e2));
         }
 
-        [Fact]
+        [Test]
         public void Shuffle_Test()
         {
             var l = Enumerable.Range(0, 100).ToList();
@@ -61,79 +61,85 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             Assert.False(l.All(p => p == l.FindIndexOf(p)));
             l = Enumerable.Range(0, 100).ToList();
             l.Shuffle(30, 59);
-            Assert.All(l.Take(30), p => Assert.Equal(p, l.FindIndexOf(p)));
-            Assert.False(l.Skip(30).Take(30).All(p => p == l.FindIndexOf(p)));
-            Assert.All(l.Skip(60), p => Assert.Equal(p, l.FindIndexOf(p)));
+            foreach (var p in l.Take(30))
+            {
+                Assert.AreEqual(p, l.FindIndexOf(p));
+            }
+            Assert.False(l.Skip(30).Take(30).All(p => l.FindIndexOf(p) == p));
+            foreach (var p in l.Skip(60))
+            {
+                Assert.AreEqual(p, l.FindIndexOf(p));
+            }
         }
 
-        [Fact]
+        [Test]
         public void Shuffle_Contract_Test()
         {
             var l = Enumerable.Range(0, 100).ToList();
-            Assert.IsType<EmptyCollectionException>(Assert.Throws<InvalidOperationException>(() => Array.Empty<int>().ToList().Shuffle()).InnerException);
+            Assert.IsAssignableFrom<EmptyCollectionException>(Assert.Throws<InvalidOperationException>(() => Array.Empty<int>().ToList().Shuffle())!.InnerException);
             Assert.Throws<IndexOutOfRangeException>(() => l.Shuffle(-1, 100, 1));
             Assert.Throws<IndexOutOfRangeException>(() => l.Shuffle(0, 1000, 1));
-            Assert.Equal("deepness", Assert.Throws<ArgumentOutOfRangeException>(() => l.Shuffle(10, 50, 1000)).ParamName);
+            Assert.AreEqual("deepness", Assert.Throws<ArgumentOutOfRangeException>(() => l.Shuffle(10, 50, 1000))!.ParamName);
             Assert.Throws<ArgumentException>(() => l.Shuffle(10, 0, 1));
         }
 
-        [Fact]
+        [Test]
         public void ApplyRotate_Test()
         {
             var l = Enumerable.Range(0, 10).ToList();
             l.ApplyRotate(-2);
-            Assert.Equal(8, l[0]);
-            Assert.Equal(9, l[1]);
-            Assert.Equal(0, l[2]);
-            Assert.Equal(1, l[3]);
-            Assert.Equal(2, l[4]);
-            Assert.Equal(3, l[5]);
-            Assert.Equal(4, l[6]);
-            Assert.Equal(5, l[7]);
-            Assert.Equal(6, l[8]);
-            Assert.Equal(7, l[9]);
+            Assert.AreEqual(8, l[0]);
+            Assert.AreEqual(9, l[1]);
+            Assert.AreEqual(0, l[2]);
+            Assert.AreEqual(1, l[3]);
+            Assert.AreEqual(2, l[4]);
+            Assert.AreEqual(3, l[5]);
+            Assert.AreEqual(4, l[6]);
+            Assert.AreEqual(5, l[7]);
+            Assert.AreEqual(6, l[8]);
+            Assert.AreEqual(7, l[9]);
             l.ApplyRotate(5);
-            Assert.Equal(3, l[0]);
-            Assert.Equal(4, l[1]);
-            Assert.Equal(5, l[2]);
-            Assert.Equal(6, l[3]);
-            Assert.Equal(7, l[4]);
-            Assert.Equal(8, l[5]);
-            Assert.Equal(9, l[6]);
-            Assert.Equal(0, l[7]);
-            Assert.Equal(1, l[8]);
-            Assert.Equal(2, l[9]);
+            Assert.AreEqual(3, l[0]);
+            Assert.AreEqual(4, l[1]);
+            Assert.AreEqual(5, l[2]);
+            Assert.AreEqual(6, l[3]);
+            Assert.AreEqual(7, l[4]);
+            Assert.AreEqual(8, l[5]);
+            Assert.AreEqual(9, l[6]);
+            Assert.AreEqual(0, l[7]);
+            Assert.AreEqual(1, l[8]);
+            Assert.AreEqual(2, l[9]);
         }
         
-        [Fact]
+        [Test]
         public void ApplyShift_Test()
         {
             var l = Enumerable.Range(0, 10).ToList();
             l.ApplyShift(-2);
-            Assert.Equal(0, l[0]);
-            Assert.Equal(0, l[1]);
-            Assert.Equal(0, l[2]);
-            Assert.Equal(1, l[3]);
-            Assert.Equal(2, l[4]);
-            Assert.Equal(3, l[5]);
-            Assert.Equal(4, l[6]);
-            Assert.Equal(5, l[7]);
-            Assert.Equal(6, l[8]);
-            Assert.Equal(7, l[9]);
+            Assert.AreEqual(0, l[0]);
+            Assert.AreEqual(0, l[1]);
+            Assert.AreEqual(0, l[2]);
+            Assert.AreEqual(1, l[3]);
+            Assert.AreEqual(2, l[4]);
+            Assert.AreEqual(3, l[5]);
+            Assert.AreEqual(4, l[6]);
+            Assert.AreEqual(5, l[7]);
+            Assert.AreEqual(6, l[8]);
+            Assert.AreEqual(7, l[9]);
             l.ApplyShift(5);
-            Assert.Equal(3, l[0]);
-            Assert.Equal(4, l[1]);
-            Assert.Equal(5, l[2]);
-            Assert.Equal(6, l[3]);
-            Assert.Equal(7, l[4]);
-            Assert.Equal(0, l[5]);
-            Assert.Equal(0, l[6]);
-            Assert.Equal(0, l[7]);
-            Assert.Equal(0, l[8]);
-            Assert.Equal(0, l[9]);
+            Assert.AreEqual(3, l[0]);
+            Assert.AreEqual(4, l[1]);
+            Assert.AreEqual(5, l[2]);
+            Assert.AreEqual(6, l[3]);
+            Assert.AreEqual(7, l[4]);
+            Assert.AreEqual(0, l[5]);
+            Assert.AreEqual(0, l[6]);
+            Assert.AreEqual(0, l[7]);
+            Assert.AreEqual(0, l[8]);
+            Assert.AreEqual(0, l[9]);
         }
 
-        [Fact]
+        [Test]
         public async Task Locked_Test()
         {
             IList l = new[] { 1, 2, 3, 4 }.ToList();
@@ -142,25 +148,25 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             {
                 Thread.Sleep(500);
                 f1 = true;
-                return Assert.IsType<List<int>>(i);
+                Assert.IsAssignableFrom<List<int>>(i);
             }));
             // Este debe ser tiempo suficiente para que la tarea t1 inicie ejecución.
             await Task.Delay(250);
             var t2 = Task.Run(() => l.Locked(i =>
             {
-                Assert.Same(l, i);
+                Assert.AreSame(l, i);
                 Assert.True(f1);
             }));
             await Task.WhenAll(t1, t2);
         }
 
-        [Fact]
+        [Test]
         public void Swap_Test()
         {
             var l = new[] { "a", "b", "c", "d" }.ToList();
             l.Swap("b", "c");
-            Assert.Equal(new[] { "a", "c", "b", "d" }, l.ToArray());
-            Assert.ThrowsAny<Exception>(() => l.Swap("b", "e"));
+            Assert.AreEqual(new[] { "a", "c", "b", "d" }, l.ToArray());
+            Assert.Throws<Exception>(() => l.Swap("b", "e"));
         }
     }
 }

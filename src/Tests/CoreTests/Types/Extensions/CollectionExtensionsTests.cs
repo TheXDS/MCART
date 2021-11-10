@@ -29,13 +29,13 @@ using System.Linq;
 using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Base;
 using TheXDS.MCART.Types.Extensions;
-using Xunit;
+using NUnit.Framework;
 
 namespace TheXDS.MCART.Tests.Types.Extensions
 {
     public class CollectionExtensionsTests
     {
-        [Fact]
+        [Test]
         public void RemoveOf_Test()
         {
             var e = new Exception();
@@ -45,50 +45,50 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             ICollection<object> c = new[] { e, o, 5, d, e2 }.ToList();
             c.RemoveOf<object, Exception>();
 
-            Assert.Contains(d, c);
-            Assert.Contains(o, c);
-            Assert.Contains(5, c);
-            Assert.DoesNotContain(e, c);
-            Assert.DoesNotContain(e2, c);
+            Assert.True(c.Contains(d));
+            Assert.True(c.Contains(o));
+            Assert.True(c.Contains(5));
+            Assert.False(c.Contains(e));
+            Assert.False(c.Contains(e2));
         }
 
-        [Fact]
+        [Test]
         public void RemoveAll_With_Predicate_Test()
         {
             var l = Enumerable.Range(1, 10).ToList();
             List<int> r = new();
             l.RemoveAll(p => p % 2 == 1, p => r.Add(p));
-            Assert.Equal(new[]{ 2, 4, 6, 8, 10 }, l.ToArray());
-            Assert.Equal(new[]{ 1, 3, 5, 7, 9 }, r.ToArray());
+            Assert.AreEqual(new[]{ 2, 4, 6, 8, 10 }, l.ToArray());
+            Assert.AreEqual(new[]{ 1, 3, 5, 7, 9 }, r.ToArray());
         }
         
-        [Fact]
+        [Test]
         public void RemoveAll_Without_Predicate_Test()
         {
             var l = Enumerable.Range(1, 10).ToList();
             List<int> r = new();
             l.RemoveAll(p => r.Add(p));
-            Assert.Empty(l);
-            Assert.Equal(new[]{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, r.ToArray());
+            Assert.IsEmpty(l);
+            Assert.AreEqual(new[]{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, r.ToArray());
         }
         
-        [Fact]
+        [Test]
         public void RemoveAll_With_Predicate_No_Action_Test()
         {
             var l = Enumerable.Range(1, 10).ToList();
             TheXDS.MCART.Types.Extensions.CollectionExtensions.RemoveAll(l, p => p % 2 == 1);
-            Assert.Equal(new[]{ 2, 4, 6, 8, 10 }, l.ToArray());
+            Assert.AreEqual(new[]{ 2, 4, 6, 8, 10 }, l.ToArray());
         }
         
-        [Fact]
+        [Test]
         public void RemoveAll_Without_Params_Test()
         {
             var l = Enumerable.Range(1, 10).ToList();
             l.RemoveAll();
-            Assert.Empty(l);
+            Assert.IsEmpty(l);
         }
 
-        [Fact]
+        [Test]
         public void Push_Test()
         {
             List<Guid> l = new();
@@ -96,7 +96,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             Assert.Contains(g, l);
         }
         
-        [Fact]
+        [Test]
         public void PushInto_Test()
         {
             List<Guid> l = new();
@@ -104,7 +104,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             Assert.Contains(g, l);
         }
         
-        [Fact]
+        [Test]
         public void Push_With_Base_Type_Test()
         {
             List<object> l = new();
@@ -112,18 +112,18 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             Assert.Contains(g, l);
         }
 
-        [Fact]
+        [Test]
         public void ToObservable_Test()
         {
-            Assert.IsType<ObservableCollectionWrap<int>>(new Collection<int>().ToObservable());
+            Assert.IsAssignableFrom<ObservableCollectionWrap<int>>(new Collection<int>().ToObservable());
         }
 
-        [Fact]
+        [Test]
         public void AddRange_Test()
         {
             Collection<int> c = new();
             c.AddRange(new[] { 1, 2, 3, 4 });
-            Assert.Equal(new[] { 1, 2, 3, 4 }, c.ToArray());
+            Assert.AreEqual(new[] { 1, 2, 3, 4 }, c.ToArray());
         }
 
         private class ClonableTestClass : ICloneable<ClonableTestClass>
@@ -131,7 +131,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             public int Value { get; set; }
         }
 
-        [Fact]
+        [Test]
         public void AddClones_Test()
         {
             var j = new ClonableTestClass()
@@ -150,11 +150,11 @@ namespace TheXDS.MCART.Tests.Types.Extensions
 
             Assert.NotNull(n);
             Assert.NotNull(o);
-            Assert.NotSame(j,n);
-            Assert.NotSame(k,o);
+            Assert.AreNotSame(j,n);
+            Assert.AreNotSame(k,o);
         }
         
-        [Fact]
+        [Test]
         public void AddClone_Test()
         {
             var j = new ClonableTestClass()
@@ -166,7 +166,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             var n = m.Single(p => p.Value == j.Value);
 
             Assert.NotNull(n);
-            Assert.NotSame(j,n);
+            Assert.AreNotSame(j,n);
         }
     }
 }

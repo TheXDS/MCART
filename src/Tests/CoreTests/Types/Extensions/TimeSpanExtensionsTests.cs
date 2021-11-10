@@ -26,37 +26,37 @@ using System;
 using System.Globalization;
 using TheXDS.MCART.Resources.Strings;
 using TheXDS.MCART.Types.Extensions;
-using Xunit;
+using NUnit.Framework;
 
 namespace TheXDS.MCART.Tests.Types.Extensions
 {
     public class TimeSpanExtensionsTests
     {
-        [Fact]
+        [Test]
         public void VerboseTest()
         {
-            Assert.Equal(Composition.Seconds(15),TimeSpan.FromSeconds(15).Verbose());
-            Assert.Equal(Composition.Minutes(3),TimeSpan.FromSeconds(180).Verbose());
-            Assert.Equal(Composition.Hours(2),TimeSpan.FromSeconds(7200).Verbose());
-            Assert.Equal(Composition.Days(5),TimeSpan.FromDays(5).Verbose());
+            Assert.AreEqual(Composition.Seconds(15),TimeSpan.FromSeconds(15).Verbose());
+            Assert.AreEqual(Composition.Minutes(3),TimeSpan.FromSeconds(180).Verbose());
+            Assert.AreEqual(Composition.Hours(2),TimeSpan.FromSeconds(7200).Verbose());
+            Assert.AreEqual(Composition.Days(5),TimeSpan.FromDays(5).Verbose());
 
-            Assert.Equal(
+            Assert.AreEqual(
                 $"{Composition.Minutes(1)}, {Composition.Seconds(5)}",
                 TimeSpan.FromSeconds(65).Verbose());
             
-            Assert.Equal(
+            Assert.AreEqual(
                 $"{Composition.Days(2)}, {Composition.Hours(5)}, {Composition.Minutes(45)}, {Composition.Seconds(23)}",
                 (TimeSpan.FromDays(2) + TimeSpan.FromHours(5) + TimeSpan.FromMinutes(45) + TimeSpan.FromSeconds(23)).Verbose());
         }
 
-        [Fact]
+        [Test]
         public void AsTimeTest()
         {
             var t = TimeSpan.FromSeconds(60015);
             var c = CultureInfo.InvariantCulture;
             var r = t.AsTime(c);
-            Assert.Equal("16:40", r);
-            Assert.Equal(
+            Assert.AreEqual("16:40", r);
+            Assert.AreEqual(
                 string.Format($"{{0:{CultureInfo.CurrentCulture.DateTimeFormat.ShortTimePattern}}}",
                     DateTime.MinValue.Add(t)), t.AsTime());
         }

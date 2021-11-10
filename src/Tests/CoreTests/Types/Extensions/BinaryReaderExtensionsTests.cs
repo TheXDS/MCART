@@ -27,20 +27,20 @@ using System.IO;
 using System.Text;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types.Extensions;
-using Xunit;
+using NUnit.Framework;
 
 namespace TheXDS.MCART.Tests.Types.Extensions
 {
     public class BinaryReaderExtensionsTests
     {
-        [Fact]
+        [Test]
         public void GetBinaryReadMethod_Test()
         {
             var e = ReflectionHelpers.GetMethod<BinaryReader, Func<int>>(o => o.ReadInt32);
-            Assert.Equal(e, BinaryReaderExtensions.GetBinaryReadMethod(typeof(int)));
+            Assert.AreEqual(e, BinaryReaderExtensions.GetBinaryReadMethod(typeof(int)));
         }
 
-        [Fact]
+        [Test]
         public void ReadEnum_Test()
         {
             using var ms = new MemoryStream();
@@ -51,16 +51,16 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             ms.Seek(0,SeekOrigin.Begin);
             using (var br = new BinaryReader(ms,Encoding.Default, true))
             {
-                Assert.Equal(DayOfWeek.Tuesday, br.ReadEnum<DayOfWeek>());
+                Assert.AreEqual(DayOfWeek.Tuesday, br.ReadEnum<DayOfWeek>());
             }
             ms.Seek(0, SeekOrigin.Begin);
             using (var br = new BinaryReader(ms, Encoding.Default))
             {
-                Assert.Equal(DayOfWeek.Tuesday, br.ReadEnum(typeof(DayOfWeek)));
+                Assert.AreEqual(DayOfWeek.Tuesday, br.ReadEnum(typeof(DayOfWeek)));
             }
         }
 
-        [Fact]
+        [Test]
         public void ReadGuid_Test()
         {
             var g = Guid.NewGuid();
@@ -73,11 +73,11 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             ms.Seek(0,SeekOrigin.Begin);
             using (var br = new BinaryReader(ms))
             {
-                Assert.Equal(g,br.ReadGuid());
+                Assert.AreEqual(g,br.ReadGuid());
             }
         }
         
-        [Fact]
+        [Test]
         public void ReadDateTime_Test()
         {
             var g = DateTime.Now;
@@ -90,11 +90,11 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             ms.Seek(0,SeekOrigin.Begin);
             using (var br = new BinaryReader(ms))
             {
-                Assert.Equal(g,br.ReadDateTime());
+                Assert.AreEqual(g,br.ReadDateTime());
             }
         }
         
-        [Fact]
+        [Test]
         public void ReadTimeSpan_Test()
         {
             var g = TimeSpan.FromSeconds(130015);
@@ -107,11 +107,11 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             ms.Seek(0,SeekOrigin.Begin);
             using (var br = new BinaryReader(ms))
             {
-                Assert.Equal(g,br.ReadTimeSpan());
+                Assert.AreEqual(g,br.ReadTimeSpan());
             }
         }
         
-        [Fact]
+        [Test]
         public void Read_Generic_Test()
         {
             var g = TimeSpan.FromSeconds(130015);
@@ -124,11 +124,11 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             }
             ms.Seek(0,SeekOrigin.Begin);
             using var br = new BinaryReader(ms);
-            Assert.Equal(g, br.Read<TimeSpan>());
-            Assert.Equal(DayOfWeek.Tuesday, br.Read<DayOfWeek>());
+            Assert.AreEqual(g, br.Read<TimeSpan>());
+            Assert.AreEqual(DayOfWeek.Tuesday, br.Read<DayOfWeek>());
         }
 
-        [Fact]
+        [Test]
         public void MarshalReadStruct_Test()
         {
             using var ms = new MemoryStream();
@@ -140,11 +140,11 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             using var br = new BinaryReader(ms);
 
             var v = br.MarshalReadStruct<decimal>();
-            Assert.Equal(123456.789m, v);
+            Assert.AreEqual(123456.789m, v);
         }
 
 
-        [Fact]
+        [Test]
         public void FieldReadStruct_Test()
         {
             using var ms = new MemoryStream();
@@ -161,18 +161,18 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             using (var br = new BinaryReader(ms, Encoding.Default, true))
             {
                 var v = br.Read<TestStruct>();
-                Assert.Equal(1000000, v.Int32Value);
+                Assert.AreEqual(1000000, v.Int32Value);
                 Assert.True(v.BoolValue);
-                Assert.Equal("test", v.StringValue);
+                Assert.AreEqual("test", v.StringValue);
             }
             
             ms.Seek(0, SeekOrigin.Begin);
             using (var br = new BinaryReader(ms))
             {
                 var v = br.ReadStruct<TestStruct>();
-                Assert.Equal(1000000, v.Int32Value);
+                Assert.AreEqual(1000000, v.Int32Value);
                 Assert.True(v.BoolValue);
-                Assert.Equal("test", v.StringValue);
+                Assert.AreEqual("test", v.StringValue);
             }
         }
         

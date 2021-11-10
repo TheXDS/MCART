@@ -31,7 +31,8 @@ using System.Threading.Tasks;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Extensions;
-using Xunit;
+using NUnit.Framework;
+using System.Reflection;
 
 namespace TheXDS.MCART.Tests.Types.Extensions
 {
@@ -45,40 +46,40 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             }
         }        
         
-        [Fact]
+        [Test]
         public void AnyAssignableFrom_Test()
         {
             Assert.True(typeof(ResolveEventArgs).Assignables(typeof(int), typeof(EventArgs), typeof(Exception)).First() == typeof(EventArgs));
             Assert.False(typeof(ResolveEventArgs).Assignables(typeof(int), typeof(Version), typeof(Exception)).Any());
         }
 
-        [Fact]
+        [Test]
         public void AreAssignableFrom_Test()
         {
             Assert.True(typeof(ResolveEventArgs).AreAllAssignable(typeof(EventArgs), typeof(ResolveEventArgs)));
             Assert.False(typeof(ResolveEventArgs).AreAllAssignable(typeof(AppContext), typeof(ResolveEventArgs)));
         }
 
-        [Fact]
+        [Test]
         public void New_Test()
         {
             Assert.NotNull(typeof(Exception).New());
             Assert.NotNull(typeof(Exception).New<Exception>());
             Assert.NotNull(typeof(ResolveEventArgs).New("Test"));
-            Assert.Equal(typeof(string), Assert.Throws<ClassNotInstantiableException>(() => typeof(string).New(new Exception())).OffendingObject);
+            Assert.AreEqual(typeof(string), Assert.Throws<ClassNotInstantiableException>(() => typeof(string).New(new Exception()))!.OffendingObject);
             Assert.Null(typeof(ThrowingTest).New<ThrowingTest>(false, null));
-            Assert.ThrowsAny<Exception>(() => typeof(ThrowingTest).New<ThrowingTest>(true, null));
+            Assert.IsInstanceOf<InvalidOperationException>(Assert.Throws<TargetInvocationException>(() => typeof(ThrowingTest).New<ThrowingTest>(true, null))!.InnerException);
         }
 
-        [Fact]
+        [Test]
         public void NotNullable_Test()
         {
-            Assert.Equal(typeof(int), typeof(int).NotNullable());
-            Assert.Equal(typeof(int), typeof(int?).NotNullable());
+            Assert.AreEqual(typeof(int), typeof(int).NotNullable());
+            Assert.AreEqual(typeof(int), typeof(int?).NotNullable());
             Assert.Throws<ArgumentNullException>(() => ((Type)null!).NotNullable());
         }
 
-        [Fact]
+        [Test]
         public void IsInstantiable_Test()
         {
             Assert.True(typeof(Exception).IsInstantiable());
@@ -87,28 +88,28 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             Assert.False(typeof(Exception).IsInstantiable(typeof(int)));
         }
 
-        [Fact]
+        [Test]
         public void ToNamedEnum_Test()
         {
-            Assert.IsAssignableFrom<IEnumerable<NamedObject<Enum>>>(typeof(DayOfWeek).ToNamedEnum());
-            Assert.Throws<ArgumentNullException>(() => _ = TypeExtensions.ToNamedEnum(null!));
+            Assert.IsInstanceOf<IEnumerable<NamedObject<Enum>>>(typeof(DayOfWeek).ToNamedEnum());
+            Assert.Throws<ArgumentNullException>(() => _ = TheXDS.MCART.Types.Extensions.TypeExtensions.ToNamedEnum(null!));
             Assert.Throws<ArgumentException>(() => _ = typeof(string).ToNamedEnum());
         }
 
-        [Fact]
+        [Test]
         public void Default_Test()
         {
-            Assert.Equal(0, typeof(int).Default());
-            Assert.Equal(0L, typeof(long).Default());
-            Assert.Equal(0f, typeof(float).Default());
-            Assert.Equal(0.0, typeof(double).Default());
-            Assert.Equal(0m, typeof(decimal).Default());
-            Assert.Equal(Guid.Empty, typeof(Guid).Default());
+            Assert.AreEqual(0, typeof(int).Default());
+            Assert.AreEqual(0L, typeof(long).Default());
+            Assert.AreEqual(0f, typeof(float).Default());
+            Assert.AreEqual(0.0, typeof(double).Default());
+            Assert.AreEqual(0m, typeof(decimal).Default());
+            Assert.AreEqual(Guid.Empty, typeof(Guid).Default());
             Assert.Null(typeof(string).Default());
             Assert.Null(typeof(object).Default());
         }
 
-        [Fact]
+        [Test]
         public void IsStruct_Test()
         {
             Assert.True(typeof(Guid).IsStruct());
@@ -116,7 +117,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             Assert.False(typeof(string).IsStruct());
         }
 
-        [Fact]
+        [Test]
         public void IsCollectionType_Test()
         {
             Assert.False(typeof(int).IsCollectionType());
@@ -126,44 +127,44 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             Assert.True(typeof(List<bool>).IsCollectionType());
         }
 
-        [Fact]
+        [Test]
         public void Derivates_Test()
         {
             var t = typeof(Exception).Derivates(typeof(Exception).Assembly).ToArray();
             Assert.Contains(typeof(ArgumentNullException), t);
-            Assert.DoesNotContain(typeof(TamperException), t);
-            Assert.DoesNotContain(typeof(int), t);
-            Assert.DoesNotContain(typeof(Guid), t);
-            Assert.DoesNotContain(typeof(string), t);
-            Assert.DoesNotContain(typeof(Enum), t);
-            Assert.DoesNotContain(typeof(AppDomain), t);
-            Assert.DoesNotContain(typeof(object), t);
+            Assert.False(t.Contains(typeof(TamperException)));
+            Assert.False(t.Contains(typeof(int)));
+            Assert.False(t.Contains(typeof(Guid)));
+            Assert.False(t.Contains(typeof(string)));
+            Assert.False(t.Contains(typeof(Enum)));
+            Assert.False(t.Contains(typeof(AppDomain)));
+            Assert.False(t.Contains(typeof(object)));
         }
 
-        [Fact]
+        [Test]
         public void GetCollectionType_Test()
         {
-            Assert.Equal(typeof(int), typeof(int[]).GetCollectionType());
-            Assert.Equal(typeof(int), typeof(IEnumerable<int>).GetCollectionType());
-            Assert.Equal(typeof(object), typeof(IEnumerable).GetCollectionType());
-            Assert.Equal(typeof(string), typeof(Dictionary<int, string>).GetCollectionType());
+            Assert.AreEqual(typeof(int), typeof(int[]).GetCollectionType());
+            Assert.AreEqual(typeof(int), typeof(IEnumerable<int>).GetCollectionType());
+            Assert.AreEqual(typeof(object), typeof(IEnumerable).GetCollectionType());
+            Assert.AreEqual(typeof(string), typeof(Dictionary<int, string>).GetCollectionType());
         }
 
-        [Fact]
+        [Test]
         public void IsAnyAssignable_Test()
         {
             Assert.True(typeof(Exception).IsAnyAssignable(typeof(int), typeof(DayOfWeek), typeof(ArgumentNullException)));
             Assert.False(typeof(Exception).IsAnyAssignable(typeof(int), typeof(DayOfWeek), typeof(System.IO.Stream)));
         }
 
-        [Fact]
+        [Test]
         public void ResolveCollectionType_Test()
         {
-            Assert.Equal(typeof(int), typeof(List<int>).ResolveCollectionType());
-            Assert.Equal(typeof(int), typeof(int).ResolveCollectionType());
+            Assert.AreEqual(typeof(int), typeof(List<int>).ResolveCollectionType());
+            Assert.AreEqual(typeof(int), typeof(int).ResolveCollectionType());
         }
 
-        [Fact]
+        [Test]
         public void Implements_Test()
         {
             Assert.True(typeof(ArgumentException).Implements(typeof(Exception), Type.EmptyTypes));
@@ -196,7 +197,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             }));
         }
 
-        [Fact]
+        [Test]
         public void TryInstance_Test()
         {
             Assert.True(typeof(Exception).TryInstance(out Exception? ex, "message"));
@@ -206,12 +207,12 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             Assert.False(typeof(ICloneable).TryInstance<ICloneable>(out var x));
             Assert.Null(x);
             Assert.True(typeof(decimal).TryInstance<decimal>(out var d));
-            Assert.Equal(default, d);
+            Assert.AreEqual(default(decimal), d);
             Assert.False(typeof(ThrowingTest).TryInstance<ThrowingTest>(out var tt));
             Assert.Null(tt);
         }
 
-        [Fact]
+        [Test]
         public void ImplementsOperator_Test()
         {
             Assert.True(typeof(int).ImplementsOperator(Expression.Add));
@@ -223,11 +224,11 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             Assert.False(typeof(object).ImplementsOperator(Expression.Subtract));
         }
 
-        [Fact]
+        [Test]
         public void CSharpName_Test()
         {
-            Assert.Equal("System.Collections.Generic.List<System.String>", typeof(List<string>).CSharpName());
-            Assert.Equal("System.Collections.Generic.Dictionary<System.Int32, System.String>", typeof(Dictionary<int, string>).CSharpName());
+            Assert.AreEqual("System.Collections.Generic.List<System.String>", typeof(List<string>).CSharpName());
+            Assert.AreEqual("System.Collections.Generic.Dictionary<System.Int32, System.String>", typeof(Dictionary<int, string>).CSharpName());
 
         }
     }

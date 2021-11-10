@@ -28,14 +28,15 @@ using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
-using Xunit;
+using NUnit.Framework;
+using TheXDS.MCART.Helpers;
 using static TheXDS.MCART.Types.Extensions.TaskExtensions;
 
 namespace TheXDS.MCART.Tests.Types.Extensions
 {
     public class TaskExtensionsTest
     {
-        [Fact]
+        [Test]
         public async Task WithCancellation_Void_Test()
         {
             /* Los temporizadores en esta prueba se han seleccionado con
@@ -46,7 +47,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             var t = new Stopwatch();
             
             t.Start();
-            await Assert.ThrowsAsync<TaskCanceledException>(() => Task.Delay(100000).WithCancellation(new CancellationTokenSource(500).Token));
+            Assert.ThrowsAsync<TaskCanceledException>(() => Task.Delay(100000).WithCancellation(new CancellationTokenSource(500).Token));
             t.Stop();
             Assert.True(t.ElapsedMilliseconds < 100000);
 
@@ -56,7 +57,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             Assert.True(t.ElapsedMilliseconds < 5000);
         }
 
-        [Fact]
+        [Test]
         public async Task WithCancellation_RetVal_Test()
         {
             /* Los temporizadores en esta prueba se han seleccionado con
@@ -73,17 +74,17 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             var t = new Stopwatch();
 
             t.Start();
-            await Assert.ThrowsAsync<TaskCanceledException>(() => Get5Async(100000).WithCancellation(new CancellationTokenSource(500).Token));
+            Assert.ThrowsAsync<TaskCanceledException>(() => Get5Async(100000).WithCancellation(new CancellationTokenSource(500).Token));
             t.Stop();
             Assert.True(t.ElapsedMilliseconds < 100000);
 
             t.Start();
-            Assert.Equal(5, await Get5Async(500).WithCancellation(new CancellationTokenSource(100000).Token));
+            Assert.AreEqual(5, await Get5Async(500).WithCancellation(new CancellationTokenSource(100000).Token));
             t.Stop();
             Assert.True(t.ElapsedMilliseconds < 5000);
         }
 
-        [Fact]
+        [Test]
         public void Yield_Simple_Test()
         {
             async Task<int> GetValueAsync()
@@ -97,10 +98,10 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             t.Stop();
             
             Assert.True(t.ElapsedMilliseconds >= 1000);
-            Assert.Equal(1, v);
+            Assert.AreEqual(1, v);
         }
         
-        [Fact]
+        [Test]
         public async Task Yield_With_Timeout_Test()
         {
             async Task<int> GetValueAsync()
@@ -113,18 +114,18 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             var task = GetValueAsync();
             var v = task.Yield(1250);
             t.Stop();
-            Assert.InRange(t.ElapsedMilliseconds,500, 1500);
-            Assert.Equal(1, await task);
+            Assert.True(t.ElapsedMilliseconds.IsBetween(500, 1500));
+            Assert.AreEqual(1, await task);
             
             t.Restart();
             task = GetValueAsync();
             _ = task.Yield(TimeSpan.FromSeconds(1));
             t.Stop();
-            Assert.InRange(t.ElapsedMilliseconds,500, 1250);
-            Assert.Equal(1, await task);
+            Assert.True(t.ElapsedMilliseconds.IsBetween(500, 1250));
+            Assert.AreEqual(1, await task);
         }
         
-        [Fact]
+        [Test]
         public async Task Yield_With_CancellationToken_Test()
         {
             async Task<int> GetValueAsync()
@@ -136,17 +137,17 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             t.Start();
             var v = GetValueAsync().Yield(new CancellationTokenSource(2000).Token);
             t.Stop();
-            Assert.InRange(t.ElapsedMilliseconds,1250, 1750);
-            Assert.Equal(1, v);
+            Assert.True(t.ElapsedMilliseconds.IsBetween(1250, 1750));
+            Assert.AreEqual(1, v);
             t.Restart();
             var task = GetValueAsync();
             _ = task.Yield(new CancellationTokenSource(1000).Token);
             t.Stop();
             Assert.True(t.ElapsedMilliseconds <= 1250);
-            Assert.Equal(1, await task);
+            Assert.AreEqual(1, await task);
         }
                 
-        [Fact]
+        [Test]
         public async Task Yield_Full_Test()
         {
             async Task<int> GetValueAsync()
@@ -159,15 +160,15 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             var task = GetValueAsync();
             var v = task.Yield(1250, new CancellationTokenSource(3000).Token);
             t.Stop();
-            Assert.InRange(t.ElapsedMilliseconds,500, 1500);
-            Assert.Equal(1, await task);
+            Assert.True(t.ElapsedMilliseconds.IsBetween(500, 1500));
+            Assert.AreEqual(1, await task);
             
             t.Restart();
             task = GetValueAsync();
             _ = task.Yield(2000, new CancellationTokenSource(1000).Token);
             t.Stop();
             Assert.True(t.ElapsedMilliseconds <= 1250);
-            Assert.Equal(1, await task);
+            Assert.AreEqual(1, await task);
         }
     }
 }

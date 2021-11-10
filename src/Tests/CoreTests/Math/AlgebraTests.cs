@@ -28,7 +28,7 @@ using System.Linq;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Math;
 using TheXDS.MCART.Types;
-using Xunit;
+using NUnit.Framework;
 using static TheXDS.MCART.Math.Algebra;
 using static TheXDS.MCART.Math.Geometry;
 
@@ -38,7 +38,7 @@ namespace TheXDS.MCART.Tests.Math
     {
         private static IEnumerable<object[]> ObjArray(Type valType, IEnumerable<long> data)
         {
-            return data.Select(p => new [] { Convert.ChangeType(p, valType) });
+            return data.Select(p => new[] { Convert.ChangeType(p, valType) });
         }
 
         public static IEnumerable<object[]> GetKnownPrimes(Type valType, long max)
@@ -72,79 +72,71 @@ namespace TheXDS.MCART.Tests.Math
             return ObjArray(valType, EnumeratePows(max, dev));
         }
 
-        [Theory]
         [CLSCompliant(false)]
-        [MemberData(nameof(GetKnownPrimes), typeof(long), long.MaxValue)]
+        [TestCaseSource(typeof(AlgebraTests), nameof(GetKnownPrimes), new object[] { typeof(long), long.MaxValue })]
         public void AssertPrimes_long_Test(long number)
         {
             Assert.True(number.IsPrime());
             Assert.True(number.IsPrimeMp());
         }
 
-        [Theory]
         [CLSCompliant(false)]
-        [MemberData(nameof(GetKnownNotPrimes), typeof(long), long.MaxValue)]
+        [TestCaseSource(typeof(AlgebraTests), nameof(GetKnownNotPrimes), new object[] { typeof(long), long.MaxValue })]
         public void AssertNotPrimes_long_Test(long number)
         {
             Assert.False(number.IsPrime());
             Assert.False(number.IsPrimeMp());
         }
 
-        [Theory]
         [CLSCompliant(false)]
-        [MemberData(nameof(GetKnownPrimes), typeof(int), (long)int.MaxValue)]
+        [TestCaseSource(typeof(AlgebraTests), nameof(GetKnownPrimes), new object[] { typeof(int), (long)int.MaxValue })]
         public void AssertPrimes_int_Test(int number)
         {
             Assert.True(number.IsPrime());
             Assert.True(number.IsPrimeMp());
         }
 
-        [Theory]
         [CLSCompliant(false)]
-        [MemberData(nameof(GetKnownNotPrimes), typeof(int), (long)int.MaxValue)]
+        [TestCaseSource(typeof(AlgebraTests), nameof(GetKnownNotPrimes), new object[] { typeof(int), (long)int.MaxValue })]
         public void AssertNotPrimes_int_Test(int number)
         {
             Assert.False(number.IsPrime());
             Assert.False(number.IsPrimeMp());
         }
 
-        [Theory]
         [CLSCompliant(false)]
-        [MemberData(nameof(GetKnownPrimes), typeof(short), (long)short.MaxValue)]
+        [TestCaseSource(typeof(AlgebraTests), nameof(GetKnownPrimes), new object[] { typeof(short), (long)short.MaxValue })]
         public void AssertPrimes_short_Test(short number)
         {
             Assert.True(number.IsPrime());
             Assert.True(number.IsPrimeMp());
         }
 
-        [Theory]
         [CLSCompliant(false)]
-        [MemberData(nameof(GetKnownNotPrimes), typeof(short), (long)short.MaxValue)]
+        [TestCaseSource(typeof(AlgebraTests), nameof(GetKnownNotPrimes), new object[] { typeof(short), (long)short.MaxValue })]
         public void AssertNotPrimes_short_Test(short number)
         {
             Assert.False(number.IsPrime());
             Assert.False(number.IsPrimeMp());
         }
 
-        [Theory]
         [CLSCompliant(false)]
-        [MemberData(nameof(GetKnownPrimes), typeof(byte), (long)byte.MaxValue)]
+        [TestCaseSource(typeof(AlgebraTests), nameof(GetKnownPrimes), new object[] { typeof(byte), (long)byte.MaxValue })]
         public void AssertPrimes_byte_Test(byte number)
         {
             Assert.True(number.IsPrime());
             Assert.True(number.IsPrimeMp());
         }
 
-        [Theory]
         [CLSCompliant(false)]
-        [MemberData(nameof(GetKnownNotPrimes), typeof(byte), (long)byte.MaxValue)]
+        [TestCaseSource(typeof(AlgebraTests), nameof(GetKnownNotPrimes), new object[] { typeof(byte), (long)byte.MaxValue })]
         public void AssertNotPrimes_byte_Test(byte number)
         {
             Assert.False(number.IsPrime());
             Assert.False(number.IsPrimeMp());
         }
 
-        [Fact]
+        [Test]
         public void IsValidTest()
         {
             Assert.True(1.0.IsValid());
@@ -152,7 +144,7 @@ namespace TheXDS.MCART.Tests.Math
             Assert.False(double.NegativeInfinity.IsValid());
         }
 
-        [Fact]
+        [Test]
         public void AreValidTest()
         {
             Assert.True(AreValid(1f, 2f, 3f, 4f, 5f));
@@ -165,19 +157,19 @@ namespace TheXDS.MCART.Tests.Math
             Assert.False(new[] { 1.0, 2.0, double.NaN, 4.0, 5.0 }.AreValid());
         }
 
-        [Fact]
+        [Test]
         public void Nearest2PowTest()
         {
-            Assert.Equal(512, Nearest2Pow(456));
+            Assert.AreEqual(512, Nearest2Pow(456));
         }
 
-        [Fact]
+        [Test]
         public void NearestMultiplyUpTest()
         {
-            Assert.Equal(81.0, NearestMultiplyUp(50, 3));
+            Assert.AreEqual(81.0, NearestMultiplyUp(50, 3));
         }
 
-        [Fact]
+        [Test]
         public void ArePositivesTest()
         {
             Assert.True(ArePositive(1, 2, 3, 4, 5));
@@ -188,7 +180,7 @@ namespace TheXDS.MCART.Tests.Math
             Assert.False(new[] { 1, 2, 3, -1 }.ArePositive());
         }
 
-        [Fact]
+        [Test]
         public void AreNegativesTest()
         {
             Assert.True(AreNegative(-1, -2, -3, -4, -5));
@@ -199,7 +191,7 @@ namespace TheXDS.MCART.Tests.Math
             Assert.False(new[] { -1, -2, -3, 1 }.AreNegative());
         }
 
-        [Fact]
+        [Test]
         public void AreZeroTest()
         {
             Assert.True(AreZero(0, 0, 0));
@@ -208,7 +200,7 @@ namespace TheXDS.MCART.Tests.Math
             Assert.False(new[] { 0, 1, 0 }.AreZero());
         }
 
-        [Fact]
+        [Test]
         public void AreNotZeroTest()
         {
             Assert.True(AreNotZero(1, 2, 3));
@@ -217,7 +209,7 @@ namespace TheXDS.MCART.Tests.Math
             Assert.False(new[] { 1, 2, 0 }.AreNotZero());
         }
 
-        [Fact]
+        [Test]
         public void IsWholeTest()
         {
             Assert.True(14.0.IsWhole());
@@ -225,74 +217,65 @@ namespace TheXDS.MCART.Tests.Math
             Assert.False(14.9.IsWhole());
         }
 
-        [Theory]
         [CLSCompliant(false)]
-        [MemberData(nameof(Get2Pows), typeof(byte), 128L, 1)]
+        [TestCaseSource(typeof(AlgebraTests), nameof(Get2Pows), new object[] { typeof(byte), 128L, 1 })]
         public void IsTwoPow_byte_YieldsFalse_Test(byte value)
         {
             Assert.False(IsTwoPow(value));
         }
 
-        [Theory]
         [CLSCompliant(false)]
-        [MemberData(nameof(Get2Pows), typeof(byte), 128L, 0)]
+        [TestCaseSource(typeof(AlgebraTests), nameof(Get2Pows), new object[] { typeof(byte), 128L, 0 })]
         public void IsTwoPow_byte_YieldsTrue_Test(byte value)
         {
             Assert.True(IsTwoPow(value));
         }
 
-        [Theory]
         [CLSCompliant(false)]
-        [MemberData(nameof(Get2Pows), typeof(short), 32768L, 1)]
+        [TestCaseSource(typeof(AlgebraTests), nameof(Get2Pows), new object[] { typeof(short), 32768L, 1 })]
         public void IsTwoPow_short_YieldsFalse_Test(short value)
         {
             Assert.False(IsTwoPow(value));
         }
 
-        [Theory]
         [CLSCompliant(false)]
-        [MemberData(nameof(Get2Pows), typeof(short), 32768L, 0)]
+        [TestCaseSource(typeof(AlgebraTests), nameof(Get2Pows), new object[] { typeof(short), 32768L, 0 })]
         public void IsTwoPow_short_YieldsTrue_Test(short value)
         {
             Assert.True(IsTwoPow(value));
         }
 
-        [Theory]
         [CLSCompliant(false)]
-        [MemberData(nameof(Get2Pows), typeof(int), 131072L, 1)]
+        [TestCaseSource(typeof(AlgebraTests), nameof(Get2Pows), new object[] { typeof(int), 131072L, 1})]
         public void IsTwoPow_int_YieldsFalse_Test(int value)
         {
             Assert.False(IsTwoPow(value));
         }
 
-        [Theory]
         [CLSCompliant(false)]
-        [MemberData(nameof(Get2Pows), typeof(int), 131072L, 0)]
+        [TestCaseSource(typeof(AlgebraTests), nameof(Get2Pows), new object[] { typeof(int), 131072L, 0})]
         public void IsTwoPow_int_YieldsTrue_Test(int value)
         {
             Assert.True(IsTwoPow(value));
         }
 
-        [Theory]
         [CLSCompliant(false)]
-        [MemberData(nameof(Get2Pows), typeof(long), 131072L, 1)]
+        [TestCaseSource(typeof(AlgebraTests), nameof(Get2Pows), new object[] { typeof(long), 131072L, 1})]
         public void IsTwoPow_long_YieldsFalse_Test(long value)
         {
             Assert.False(IsTwoPow(value));
         }
 
-        [Theory]
         [CLSCompliant(false)]
-        [MemberData(nameof(Get2Pows), typeof(long), 131072L, 0)]
+        [TestCaseSource(typeof(AlgebraTests), nameof(Get2Pows), new object[] { typeof(long), 131072L, 0})]
         public void IsTwoPow_long_YieldsTrue_Test(long value)
         {
             Assert.True(IsTwoPow(value));
         }
 
-        [Theory]
         [CLSCompliant(false)]
-        [InlineData(0, 0.5, 0, 1, 0, 0.5)]
-        [InlineData(1, 0, 1, 1, 0.75, 0.25)]
+        [TestCase(0, 0.5, 0, 1, 0, 0.5)]
+        [TestCase(1, 0, 1, 1, 0.75, 0.25)]
         public void GetQuadBezierPoint_Test(double cx, double cy, double ex, double ey, double rx, double ry)
         {
             var p1 = Point.Origin;
@@ -301,11 +284,11 @@ namespace TheXDS.MCART.Tests.Math
 
             var pr = GetQuadBezierPoint(0.5, p1, p2, p3);
             
-            Assert.Equal(rx, pr.X);
-            Assert.Equal(ry, pr.Y);
+            Assert.AreEqual(rx, pr.X);
+            Assert.AreEqual(ry, pr.Y);
         }
 
-        [Fact]
+        [Test]
         public void GetQuadBezierPoint_Contract_Test()
         {
             Assert.Throws<ArgumentOutOfRangeException>(() =>
@@ -321,14 +304,14 @@ namespace TheXDS.MCART.Tests.Math
         
         [Theory]
         [CLSCompliant(false)]
-        [InlineData(0, 0, 100)]
-        [InlineData(0.125, -70.710678118654, 70.710678118654)]
-        [InlineData(0.25, -100, 0)]
-        [InlineData(0.375, -70.710678118654, -70.710678118654)]
-        [InlineData(0.5, 0, -100)]
-        [InlineData(0.625, 70.710678118654, -70.710678118654)]
-        [InlineData(0.75, 100, 0)]
-        [InlineData(0.875, 70.710678118654, 70.710678118654)]
+        [TestCase(0, 0, 100)]
+        [TestCase(0.125, -70.710678118654, 70.710678118654)]
+        [TestCase(0.25, -100, 0)]
+        [TestCase(0.375, -70.710678118654, -70.710678118654)]
+        [TestCase(0.5, 0, -100)]
+        [TestCase(0.625, 70.710678118654, -70.710678118654)]
+        [TestCase(0.75, 100, 0)]
+        [TestCase(0.875, 70.710678118654, 70.710678118654)]
         public void GetArcPoint_Test(double pos, double px, double py)
         {
             const double epsilon = 1E-12;
@@ -340,14 +323,14 @@ namespace TheXDS.MCART.Tests.Math
 
         [Theory]
         [CLSCompliant(false)]
-        [InlineData(0, 0, 100)]
-        [InlineData(0.125, -70.710678118654, 70.710678118654)]
-        [InlineData(0.25, -100, 0)]
-        [InlineData(0.375, -70.710678118654, -70.710678118654)]
-        [InlineData(0.5, 0, -100)]
-        [InlineData(0.625, 70.710678118654, -70.710678118654)]
-        [InlineData(0.75, 100, 0)]
-        [InlineData(0.875, 70.710678118654, 70.710678118654)]
+        [TestCase(0, 0, 100)]
+        [TestCase(0.125, -70.710678118654, 70.710678118654)]
+        [TestCase(0.25, -100, 0)]
+        [TestCase(0.375, -70.710678118654, -70.710678118654)]
+        [TestCase(0.5, 0, -100)]
+        [TestCase(0.625, 70.710678118654, -70.710678118654)]
+        [TestCase(0.75, 100, 0)]
+        [TestCase(0.875, 70.710678118654, 70.710678118654)]
         public void GetCirclePoint_Test(double pos, double px, double py)
         {
             const double epsilon = 1E-12;

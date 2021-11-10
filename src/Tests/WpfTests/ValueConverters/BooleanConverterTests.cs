@@ -22,43 +22,42 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma warning disable CS1591
-
 using System.Globalization;
 using TheXDS.MCART.ValueConverters;
-using Xunit;
+using NUnit.Framework;
 
 namespace TheXDS.MCART.WpfTests.ValueConverters
 {
+
     public class BooleanConverterTests
     {
-        [Fact]
+        [Test]
         public void InstanceTest()
         {
             var c = new BooleanConverter<int>(5, -5);
 
-            Assert.Equal(5, c.True);
-            Assert.Equal(-5, c.False);
+            Assert.AreEqual(5, c.True);
+            Assert.AreEqual(-5, c.False);
         }
 
-        [Fact]
+        [Test]
         public void ConversionTest()
         {
             var c = new BooleanConverter<int>(5, -5);
 
-            Assert.Equal(5, c.Convert(true, typeof(int), null, CultureInfo.CurrentCulture));
-            Assert.Equal(-5, c.Convert(false, typeof(int), null, CultureInfo.CurrentCulture));
+            Assert.AreEqual(5, c.Convert(true, typeof(int), null, CultureInfo.CurrentCulture));
+            Assert.AreEqual(-5, c.Convert(false, typeof(int), null, CultureInfo.CurrentCulture));
         }
 
-        [Fact]
+        [Test]
         public void FailureTest()
         {
             var c = new BooleanConverter<int>(5, -5);
-            Assert.Null(c.Convert(3, typeof(int), null, CultureInfo.CurrentCulture));            
-            Assert.Null(c.Convert("Test", typeof(int), null, CultureInfo.CurrentCulture));            
+            Assert.Null(c.Convert(3, typeof(int), null, CultureInfo.CurrentCulture));
+            Assert.Null(c.Convert("Test", typeof(int), null, CultureInfo.CurrentCulture));
         }
 
-        [Fact]
+        [Test]
         public void ConvertBackTest()
         {
             var c = new BooleanConverter<int>(5, -5);

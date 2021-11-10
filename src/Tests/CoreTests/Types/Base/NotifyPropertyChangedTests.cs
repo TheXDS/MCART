@@ -26,7 +26,7 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using TheXDS.MCART.Types.Base;
-using Xunit;
+using NUnit.Framework;
 
 namespace TheXDS.MCART.Tests.Types.Base
 {
@@ -68,48 +68,54 @@ namespace TheXDS.MCART.Tests.Types.Base
             }
         }
         
-        [Fact]
+        [Test]
         public void OnPropertyChangedTest()
         {
             var x = new TestClass();
-            PropertyChangedEventHandler? handler = null;
-            var evt = Assert.Raises<PropertyChangedEventArgs>(
-                h =>
-                {
-                    handler = new PropertyChangedEventHandler(h);
-                    x.PropertyChanged += handler;
-                },
-                h => x.PropertyChanged -= handler,
-                () => x.Value = 1);
-            
+            var risen = false;
+            (object? Sender, PropertyChangedEventArgs Arguments)? evt = null;
+
+            void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
+            {
+                risen = true;
+                evt = (sender, e);
+            }
+
+            x.PropertyChanged += OnPropertyChanged;
+            x.Value = 1;
+            x.PropertyChanged -= OnPropertyChanged;
+
+            Assert.True(risen);
             Assert.NotNull(evt);
-            Assert.True(ReferenceEquals(x, evt.Sender));
-            Assert.Equal(nameof(TestClass.Value), evt.Arguments.PropertyName);
-            Assert.Equal(1, x.Value);
+            Assert.True(ReferenceEquals(x, evt!.Value.Sender));
+            Assert.AreEqual(nameof(TestClass.Value), evt!.Value.Arguments.PropertyName);
+            Assert.AreEqual(1, x.Value);
         }
         
-        [Fact]
+        [Test]
         public void Property_Change_Forward_Test()
         {
             var x = new TestClass();
             var y = new TestClass();
+            var risen = false;
+            (object? Sender, PropertyChangedEventArgs Arguments)? evt = null;
+            void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
+            {
+                risen = true;
+                evt = (sender, e);
+            }
+
             x.ForwardChange(y);
-            
-            PropertyChangedEventHandler? handler = null;
-            var evt = Assert.Raises<PropertyChangedEventArgs>(
-                h =>
-                {
-                    handler = new PropertyChangedEventHandler(h);
-                    y.PropertyChanged += handler;
-                },
-                h => y.PropertyChanged -= handler,
-                () => x.Value = 1);
-            
+            y.PropertyChanged += OnPropertyChanged;
+            x.Value = 1;
+            y.PropertyChanged -= OnPropertyChanged;
+
+            Assert.True(risen);
             Assert.NotNull(evt);
-            Assert.True(ReferenceEquals(y, evt.Sender));
+            Assert.True(ReferenceEquals(y, evt!.Value.Sender));
         }
         
-        [Fact]
+        [Test]
         public void Change_Contract_Test()
         {
             var x = new TestClass();

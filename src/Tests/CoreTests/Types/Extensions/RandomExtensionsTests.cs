@@ -22,34 +22,35 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma warning disable CS1591
-
 using System.Collections.Generic;
 using TheXDS.MCART.Types;
-using Xunit;
+using NUnit.Framework;
 using static TheXDS.MCART.Types.Extensions.RandomExtensions;
+using TheXDS.MCART.Helpers;
 
 namespace TheXDS.MCART.Tests.Types.Extensions
 {
     public class RandomExtensionsTests
     {
-        [Fact]
+        [Test]
         public void RndText_Test()
         {
-            Assert.Equal(10, Assert.IsType<string>(Rnd.RndText(10)).Length);
+            var str = Rnd.RndText(10);
+            Assert.IsAssignableFrom<string>(str);
+            Assert.AreEqual(10, str.Length);
         }
 
-        [Fact]
+        [Test]
         public void Next_With_Range_Test()
         {
             var r = new Range<int>(1, 100);
             for (var j = 0; j < 1000; j++)
             {
-                Assert.InRange(Rnd.Next(r), 1, 100);
+                Assert.True(Rnd.Next(r).IsBetween(1, 100));
             }
         }
 
-        [Fact]
+        [Test]
         public void CoinFlip_Test()
         {
             List<bool> l = new();

@@ -26,78 +26,78 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using TheXDS.MCART.Types;
-using Xunit;
-using Xunit.Sdk;
+using NUnit.Framework;
 using static System.Collections.Specialized.NotifyCollectionChangedAction;
+using System.Linq;
 
 namespace TheXDS.MCART.Tests.Types
 {
     public class ObservableWrapTests
     {
-        [Fact]
+        [Test]
         public void InstanceTest()
         {
             var c = new List<string> { "1", "2", "3" };
             var o = new ObservableCollectionWrap<string>(c);
-            Assert.Equal(c, o.UnderlyingCollection);
-            Assert.Equal(3, o.Count);
+            Assert.AreEqual(c, o.UnderlyingCollection);
+            Assert.AreEqual(3, o.Count);
 
             o = new ObservableCollectionWrap<string>();
-            Assert.Empty(o);
+            Assert.IsEmpty(o);
         }
 
-        [Fact]
+        [Test]
         public void AddTest()
         {
             var c = new ObservableCollectionWrap<string>(new List<string> { "1", "2", "3" });
-            EventTest(c, () => c.Add("4"), Add, out Assert.RaisedEvent<NotifyCollectionChangedEventArgs> evt);
-            Assert.Equal("4", (string)evt.Arguments.NewItems![0]!);
-            Assert.Contains("4", c);
+            EventTest(c, () => c.Add("4"), Add, out var evt);
+            Assert.AreEqual("4", (string)evt.Arguments.NewItems![0]!);
+            Assert.Contains("4", c.ToArray());
         }
 
-        [Fact]
+        [Test]
         public void ClearTest()
         {
             var c = new ObservableCollectionWrap<string>(new List<string> { "1", "2", "3" });
             EventTest(c, c.Clear, Reset, out _);
-            Assert.Empty(c);
+            Assert.IsEmpty(c);
         }
 
-        [Fact]
+        [Test]
         public void RemoveTest()
         {
             var c = new ObservableCollectionWrap<string>(new List<string> { "1", "2", "3" });
-            EventTest(c, () => c.Remove("2"), Remove, out Assert.RaisedEvent<NotifyCollectionChangedEventArgs> evt);
-            Assert.Equal("2", (string)evt.Arguments.OldItems![0]!);
-            Assert.DoesNotContain("2", c);
+            EventTest(c, () => c.Remove("2"), Remove, out var evt);
+            Assert.AreEqual("2", (string)evt.Arguments.OldItems![0]!);
+            Assert.False(c.Contains("2"));
         }
 
-        [Fact]
+        [Test]
         public void RefreshTest()
         {
             var l = new List<string> { "1", "2", "3" };
             var c = new ObservableCollectionWrap<string>(l);
-            Assert.ThrowsAny<RaisesException>(() => EventTest(c, () => l.Add("4"), Add, out _));
-            Assert.Contains("4", c);
+            var ex = Assert.Throws<AssertionException>(() => EventTest(c, () => l.Add("4"), Add, out _));
+            Assert.Contains("4", c.ToArray());
             EventTest(c, c.Refresh, Add, out _);
         }
 
-        private static void EventTest<T>(ObservableCollectionWrap<T> c, Action action, NotifyCollectionChangedAction nAction, out Assert.RaisedEvent<NotifyCollectionChangedEventArgs> evt)
+        private static void EventTest<T>(ObservableCollectionWrap<T> c, Action action, NotifyCollectionChangedAction nAction, out (object? Sender, NotifyCollectionChangedEventArgs Arguments) evt)
         {
-            NotifyCollectionChangedEventHandler? handler = null;
+            (object? Sender, NotifyCollectionChangedEventArgs Arguments)? ev = null;
+            void C_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+            {
+                ev = (sender, e);
+            }
 
-            evt = Assert.Raises<NotifyCollectionChangedEventArgs>(
-                h =>
-                {
-                    handler = new NotifyCollectionChangedEventHandler(h);
-                    c.CollectionChanged += handler;
-                },
-                _ => c.CollectionChanged -= handler,
-                action);
+            c.CollectionChanged += C_CollectionChanged;
+            action();
+            c.CollectionChanged -= C_CollectionChanged;
+            evt = ev ?? default;
 
             Assert.NotNull(evt);
             Assert.True(ReferenceEquals(c, evt.Sender));
-            Assert.Equal(nAction, evt.Arguments.Action);
+            Assert.AreEqual(nAction, evt.Arguments.Action);
         }
     }
 }

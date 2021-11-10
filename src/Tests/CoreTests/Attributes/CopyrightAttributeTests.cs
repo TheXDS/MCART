@@ -23,24 +23,28 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using TheXDS.MCART.Attributes;
-using Xunit;
+using NUnit.Framework;
+using TheXDS.MCART.Types;
 
 namespace TheXDS.MCART.Tests.Attributes
 {
     public class CopyrightAttributeTests
     {
-        [Fact]
+        [Test]
         public void CopyrightAttributeBasicInstancing_Test()
         {
             var l = new CopyrightAttribute("Copyright (C) Test");
-            Assert.Equal("Copyright (C) Test", l.Value);
-            Assert.Equal("Copyright (C) Test", ((IValueAttribute<string?>)l).Value);
+            Assert.AreEqual("Copyright (C) Test", l.Value);
+            Assert.AreEqual("Copyright (C) Test", ((IValueAttribute<string?>)l).Value);
 
             l = new CopyrightAttribute("Test");
-            Assert.Equal("Copyright © Test", l.Value);
+            Assert.AreEqual("Copyright © Test", l.Value);
 
             l = new CopyrightAttribute(1985, "Test");
-            Assert.Equal("Copyright © 1985 Test", l.Value);
+            Assert.AreEqual("Copyright © 1985 Test", l.Value);
+
+            l = new CopyrightAttribute(new Range<ushort>(1985,2001), "Test");
+            Assert.AreEqual("Copyright © 1985-2001 Test", l.Value);
         }
     }
 }

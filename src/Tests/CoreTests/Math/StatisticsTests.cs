@@ -24,29 +24,29 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using TheXDS.MCART.Math;
-using Xunit;
+using NUnit.Framework;
 using static TheXDS.MCART.Math.Statistics;
 
 namespace TheXDS.MCART.Tests.Math
 {
     public class StatisticsTests
     {
-        [Fact]
+        [Test]
         public void TendencyTest()
         {
-            Assert.Equal(2.0, new double[] { 3, 5, 7 }.MeanTendency());
-            Assert.Equal(0.0, new double[] { 3 }.MeanTendency());
-            Assert.Equal(double.NaN, Array.Empty<double>().MeanTendency());
-            Assert.Equal(0.0, new double[] { 3, 5, 3, 5, 3, 5, 3 }.MeanTendency());
+            Assert.AreEqual(2.0, new double[] { 3, 5, 7 }.MeanTendency());
+            Assert.AreEqual(0.0, new double[] { 3 }.MeanTendency());
+            Assert.AreEqual(double.NaN, Array.Empty<double>().MeanTendency());
+            Assert.AreEqual(0.0, new double[] { 3, 5, 3, 5, 3, 5, 3 }.MeanTendency());
         }
 
-        [Fact]
+        [Test]
         public void CorrelationTest()
         {
-            Assert.Equal(1, Correlation(new double[] { 1, 2, 3 }, new double[] { 2, 4, 6 }));
-            Assert.Equal(-1, Correlation(new double[] { 1, 2, 3 }, new double[] { 6, 4, 2 }));
+            Assert.AreEqual(1, Correlation(new double[] { 1, 2, 3 }, new double[] { 2, 4, 6 }));
+            Assert.AreEqual(-1, Correlation(new double[] { 1, 2, 3 }, new double[] { 6, 4, 2 }));
             Assert.True(Correlation(new double[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, new double[] { 3, 6, 3, 6, 3, 6, 3, 6, 3, 6 }) < 0.25);
-            Assert.Equal(double.NaN, Correlation(new double[] { 1, 2, 3 }, new double[] { 1, 1, 1 }));
+            Assert.AreEqual(double.NaN, Correlation(new double[] { 1, 2, 3 }, new double[] { 1, 1, 1 }));
             Assert.Throws<IndexOutOfRangeException>(() => Correlation(new double[] { 1 }, new double[] { 1, 2, 3 }));
             Assert.Throws<InvalidOperationException>(() => Correlation(Array.Empty<double>(), Array.Empty<double>()));
         }

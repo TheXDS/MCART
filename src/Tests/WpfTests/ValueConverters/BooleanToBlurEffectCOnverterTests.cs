@@ -22,43 +22,43 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using NUnit.Framework;
 using System.Globalization;
 using System.Windows.Media.Effects;
 using TheXDS.MCART.ValueConverters;
-using Xunit;
 
 namespace TheXDS.MCART.WpfTests.ValueConverters
 {
     public class BooleanToBlurEffectConverterTests
     {
-        [Fact]
+        [Test]
         public void GetEffectTest()
         {
             var c = new BooleanToBlurEffectConverter();
-            Assert.Null(c.Convert(false,typeof(Effect), null, CultureInfo.CurrentCulture));
+            Assert.Null(c.Convert(false, typeof(Effect), null, CultureInfo.CurrentCulture));
             var e = c.Convert(true, typeof(Effect), null, CultureInfo.CurrentCulture);
-            Assert.IsType<BlurEffect>(e);
-            Assert.Equal(5.0, ((BlurEffect)e).Radius);
+            Assert.IsAssignableFrom<BlurEffect>(e);
+            Assert.AreEqual(5.0, ((BlurEffect)e).Radius);
         }
 
-        [Fact]
+        [Test]
         public void ArgumentsTest()
         {
             var c = new BooleanToBlurEffectConverter();
-            Assert.Equal(5.0, ((BlurEffect)c.Convert(true, typeof(Effect), null, CultureInfo.CurrentCulture)).Radius);
-            Assert.Equal(4.0, ((BlurEffect)c.Convert(true, typeof(Effect), "4", CultureInfo.CurrentCulture)).Radius);
-            Assert.Equal(3.0, ((BlurEffect)c.Convert(true, typeof(Effect), 3f, CultureInfo.CurrentCulture)).Radius);
-            Assert.Equal(2.0, ((BlurEffect)c.Convert(true, typeof(Effect), 2.0, CultureInfo.CurrentCulture)).Radius);
-            Assert.Equal(1.0, ((BlurEffect)c.Convert(true, typeof(Effect), 1m, CultureInfo.CurrentCulture)).Radius);
-            Assert.Equal(2.0, ((BlurEffect)c.Convert(true, typeof(Effect), (byte)2, CultureInfo.CurrentCulture)).Radius);
-            Assert.Equal(3.0, ((BlurEffect)c.Convert(true, typeof(Effect), (short)3, CultureInfo.CurrentCulture)).Radius);
-            Assert.Equal(4.0, ((BlurEffect)c.Convert(true, typeof(Effect), 4, CultureInfo.CurrentCulture)).Radius);
-            Assert.Equal(5.0, ((BlurEffect)c.Convert(true, typeof(Effect), 5L, CultureInfo.CurrentCulture)).Radius);
-#if PreferExceptions
+            Assert.AreEqual(5.0, ((BlurEffect)c.Convert(true, typeof(Effect), null, CultureInfo.CurrentCulture)).Radius);
+            Assert.AreEqual(4.0, ((BlurEffect)c.Convert(true, typeof(Effect), "4", CultureInfo.CurrentCulture)).Radius);
+            Assert.AreEqual(3.0, ((BlurEffect)c.Convert(true, typeof(Effect), 3f, CultureInfo.CurrentCulture)).Radius);
+            Assert.AreEqual(2.0, ((BlurEffect)c.Convert(true, typeof(Effect), 2.0, CultureInfo.CurrentCulture)).Radius);
+            Assert.AreEqual(1.0, ((BlurEffect)c.Convert(true, typeof(Effect), 1m, CultureInfo.CurrentCulture)).Radius);
+            Assert.AreEqual(2.0, ((BlurEffect)c.Convert(true, typeof(Effect), (byte)2, CultureInfo.CurrentCulture)).Radius);
+            Assert.AreEqual(3.0, ((BlurEffect)c.Convert(true, typeof(Effect), (short)3, CultureInfo.CurrentCulture)).Radius);
+            Assert.AreEqual(4.0, ((BlurEffect)c.Convert(true, typeof(Effect), 4, CultureInfo.CurrentCulture)).Radius);
+            Assert.AreEqual(5.0, ((BlurEffect)c.Convert(true, typeof(Effect), 5L, CultureInfo.CurrentCulture)).Radius);
+    #if PreferExceptions
             Assert.Throws<ArgumentException>(() => c.Convert(true, typeof(Effect), new object(), CultureInfo.CurrentCulture));
-#else
-            Assert.Equal(5.0, ((BlurEffect)c.Convert(true, typeof(Effect), new object(), CultureInfo.CurrentCulture)).Radius);
-#endif
+    #else
+            Assert.AreEqual(5.0, ((BlurEffect)c.Convert(true, typeof(Effect), new object(), CultureInfo.CurrentCulture)).Radius);
+    #endif
         }
     }
 }

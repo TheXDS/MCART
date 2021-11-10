@@ -22,13 +22,11 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma warning disable CS1591
-
 using System;
 using System.Linq;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Types;
-using Xunit;
+using NUnit.Framework;
 using static TheXDS.MCART.Types.Extensions.EnumExtensions;
 using static TheXDS.MCART.Types.Extensions.NamedObjectExtensions;
 
@@ -36,16 +34,16 @@ namespace TheXDS.MCART.Tests.Types.Extensions
 {
     public class EnumExtensionsTests
     {
-        [Fact]
+        [Test]
         public void ToBytesTest()
         {
-            Assert.Equal(new byte[] { 1, 0, 0, 0 }, DayOfWeek.Monday.ToBytes());
-            Assert.Equal(new byte[] { 0 }, TestByteEnum.Zero.ToBytes());
-            Assert.Equal(new byte[] { 1 }, TestByteEnum.One.ToBytes());
-            Assert.Equal(new byte[] { 2 }, TestByteEnum.Two.ToBytes());
+            Assert.AreEqual(new byte[] { 1, 0, 0, 0 }, DayOfWeek.Monday.ToBytes());
+            Assert.AreEqual(new byte[] { 0 }, TestByteEnum.Zero.ToBytes());
+            Assert.AreEqual(new byte[] { 1 }, TestByteEnum.One.ToBytes());
+            Assert.AreEqual(new byte[] { 2 }, TestByteEnum.Two.ToBytes());
         }
 
-        [Fact]
+        [Test]
         public void ByteConversionMethodTest()
         {
             var a = ByteConversionMethod<DayOfWeek>();
@@ -53,72 +51,71 @@ namespace TheXDS.MCART.Tests.Types.Extensions
 
             var b = BitConverter.GetBytes((int)DayOfWeek.Monday);
             var c = (byte[]) a.Invoke(null, new object[] { DayOfWeek.Monday })!;
-            Assert.Equal(b, c);
+            Assert.AreEqual(b, c);
 
             Assert.Throws<ArgumentException>(() => ByteConversionMethod(typeof(bool)));
 
             var d = ByteConversionMethod(typeof(DayOfWeek));
-            Assert.Same(a,d);
+            Assert.AreSame(a,d);
         }
 
-        [Fact]
+        [Test]
         public void ToBytesFunctionTest()
         {
             var a = BitConverter.GetBytes((int)DayOfWeek.Monday);
             var b = ToBytes<DayOfWeek>();
 
-            Assert.Equal(a, b(DayOfWeek.Monday));
+            Assert.AreEqual(a, b(DayOfWeek.Monday));
         }
 
-        [Fact]
+        [Test]
         public void NamedEnumsTest()
         {
-            void TestValue(NamedObject<TestByteEnum> p, string name, TestByteEnum value)
+            static void TestValue(NamedObject<TestByteEnum> p, string name, TestByteEnum value)
             {
-                Assert.Equal(name, p.Name);
-                Assert.Equal(value, p.Value);
+                Assert.AreEqual(name, p.Name);
+                Assert.AreEqual(value, p.Value);
             }
             
             var l = NamedEnums<TestByteEnum>().ToArray();
-            Assert.Collection(l, 
-                p => TestValue(p,"Number Zero",TestByteEnum.Zero),
-                p => TestValue(p,"Number One",TestByteEnum.One),
-                p => TestValue(p,"Number Two",TestByteEnum.Two));
+            TestValue(l[0], "Number Zero", TestByteEnum.Zero);
+            TestValue(l[1], "Number One", TestByteEnum.One);
+            TestValue(l[2], "Number Two", TestByteEnum.Two);
         }
 
-        [Fact]
+        [Test]
         public void ToUnderlyingTypeTest()
         {
-            Assert.Equal((byte)0, TestByteEnum.Zero.ToUnderlyingType());
-            Assert.IsType<byte>(TestByteEnum.Zero.ToUnderlyingType());
+            Assert.AreEqual((byte)0, TestByteEnum.Zero.ToUnderlyingType());
+            Assert.IsAssignableFrom<byte>(TestByteEnum.Zero.ToUnderlyingType());
             
-            Assert.Equal(1, DayOfWeek.Monday.ToUnderlyingType());
-            Assert.IsType<int>(DayOfWeek.Monday.ToUnderlyingType());
+            Assert.AreEqual(1, DayOfWeek.Monday.ToUnderlyingType());
+            Assert.IsAssignableFrom<int>(DayOfWeek.Monday.ToUnderlyingType());
 
-            Assert.Equal((byte)0, ((Enum)TestByteEnum.Zero).ToUnderlyingType());
-            Assert.IsType<byte>(((Enum)TestByteEnum.Zero).ToUnderlyingType());
+            Assert.AreEqual((byte)0, ((Enum)TestByteEnum.Zero).ToUnderlyingType());
+            Assert.IsAssignableFrom<byte>(((Enum)TestByteEnum.Zero).ToUnderlyingType());
             
-            Assert.Equal(1, ((Enum)DayOfWeek.Monday).ToUnderlyingType());
-            Assert.IsType<int>(((Enum)DayOfWeek.Monday).ToUnderlyingType());
+            Assert.AreEqual(1, ((Enum)DayOfWeek.Monday).ToUnderlyingType());
+            Assert.IsAssignableFrom<int>(((Enum)DayOfWeek.Monday).ToUnderlyingType());
         }
         
         private enum TestByteEnum : byte
         {
             [Name("Number Zero")]Zero,
-            [Description("Number One")]One,
+            [MCART.Attributes.Description("Number One")]One,
             [System.ComponentModel.Description("Number Two")]Two
         }
     }
     public class NamedObjectExtensionsTests
     {
-        [Fact]
+        [Test]
         public void AsNamedEnumTest()
         {
             var e = typeof(DayOfWeek).AsNamedEnum();
 
             foreach (var j in e)
             {
-                Assert.Equal(j.Value.ToString(), j.Name);
+                Assert.AreEqual(j.Value.ToString(), j.Name);
             }
         }
     }

@@ -23,20 +23,21 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using TheXDS.MCART.Types.Base;
-using Xunit;
+using NUnit.Framework;
 using TheXDS.MCART.IO;
+using System;
 
 namespace TheXDS.MCART.Tests.Types.Base
 {
     public class StreamUriParserTests
     {
-        [Fact]
+        [Test, Obsolete("Estos objetos utilizan métodos deprecados en .Net 6.")]
         public void InferTest()
         {
-            Assert.IsType<FileStreamUriParser>(StreamUriParser.Infer("file://test.txt"));
-            Assert.IsType<HttpStreamUriParser>(StreamUriParser.Infer("http://www.test.com/test.txt"));
-            Assert.IsType<HttpStreamUriParser>(StreamUriParser.Infer("https://www.test.com/test.txt"));
-            Assert.IsType<FtpStreamUriParser>(StreamUriParser.Infer("ftp://test.com/test.txt"));
+            Assert.IsAssignableFrom<FileStreamUriParser>(StreamUriParser.Infer("file://test.txt"));
+            Assert.IsAssignableFrom<HttpStreamUriParser>(StreamUriParser.Infer("http://www.test.com/test.txt"));
+            Assert.IsAssignableFrom<HttpStreamUriParser>(StreamUriParser.Infer("https://www.test.com/test.txt"));
+            Assert.IsAssignableFrom<FtpStreamUriParser>(StreamUriParser.Infer("ftp://test.com/test.txt"));
         }
     }
 }

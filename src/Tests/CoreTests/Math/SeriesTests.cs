@@ -25,14 +25,14 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 #pragma warning disable CS1591
 
 using System.Linq;
-using Xunit;
+using NUnit.Framework;
 using static TheXDS.MCART.Math.Series;
 
 namespace TheXDS.MCART.Tests.Math
 {
     public class SeriesTests
     {
-        [Fact]
+        [Test]
         public void FibonacciTest()
         {
             var a = Fibonacci().Take(16).ToArray();
@@ -43,10 +43,10 @@ namespace TheXDS.MCART.Tests.Math
                 21,  34,  55,  89,
                 144, 233, 377, 610
             };
-            Assert.Equal(b, a);
+            Assert.AreEqual(b, a);
         }
 
-        [Fact]
+        [Test]
         public void LucasTest()
         {
             var a = Lucas().Take(16).ToArray();
@@ -57,10 +57,10 @@ namespace TheXDS.MCART.Tests.Math
                 47,  76,  123, 199,
                 322, 521, 843, 1364
             };
-            Assert.Equal(b, a);
+            Assert.AreEqual(b, a);
         }
         
-        [Fact]
+        [Test]
         public void MakeSeriesAdditiveTest()
         {
             var a = MakeSeriesAdditive(0, 1).Take(16).ToArray();
@@ -71,16 +71,16 @@ namespace TheXDS.MCART.Tests.Math
                 21,  34,  55,  89,
                 144, 233, 377, 610
             };
-            Assert.Equal(b, a);
+            Assert.AreEqual(b, a);
         }
         
-        [Fact]
+        [Test]
         public void MakeSeriesAdditive_BreaksOnOverFlow_Test()
         {
             var a = MakeSeriesAdditive(1, long.MaxValue).Take(4).ToArray();
-            Assert.Equal(1,a[0]);
-            Assert.Equal(long.MaxValue,a[1]);
-            Assert.Equal(2,a.Length);
+            Assert.AreEqual(1,a[0]);
+            Assert.AreEqual(long.MaxValue,a[1]);
+            Assert.AreEqual(2,a.Length);
         }
     }
 }

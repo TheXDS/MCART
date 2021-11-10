@@ -24,26 +24,26 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using TheXDS.MCART.Attributes;
-using Xunit;
+using NUnit.Framework;
 
 namespace TheXDS.MCART.Tests.Attributes
 {
     public class LicenseTextAttributeTests
     {
-        [Fact]
+        [Test]
         public void BasicInstancingTest()
         {
             var a = new LicenseTextAttribute("Title", "Test").GetLicense(null!);
 
-            Assert.Equal("Title", a.Name);
-            Assert.Equal("Test", a.LicenseContent);
+            Assert.AreEqual("Title", a.Name);
+            Assert.AreEqual("Test", a.LicenseContent);
 
             a = new LicenseTextAttribute("Title\nTest").GetLicense(null!);
-            Assert.Equal("Title", a.Name);
-            Assert.Equal("Title\nTest", a.LicenseContent);
+            Assert.AreEqual("Title", a.Name);
+            Assert.AreEqual("Title\nTest", a.LicenseContent);
         }
 
-        [Fact]
+        [Test]
         public void ConstructorContract_Test()
         {
             Assert.Throws<ArgumentNullException>(() => new LicenseTextAttribute(null!));

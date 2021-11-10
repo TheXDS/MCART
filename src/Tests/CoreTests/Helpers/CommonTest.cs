@@ -31,7 +31,7 @@ using System.Linq;
 using System.Security;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types;
-using Xunit;
+using NUnit.Framework;
 using static TheXDS.MCART.Helpers.Common;
 using static TheXDS.MCART.Types.Extensions.SecureStringExtensions;
 
@@ -39,7 +39,7 @@ namespace TheXDS.MCART.Tests.Helpers
 {
     public class CommonTest
     {
-        [Fact]
+        [Test]
         public void ReadCharsTest()
         {
             var s = new SecureString();
@@ -48,36 +48,36 @@ namespace TheXDS.MCART.Tests.Helpers
             s.AppendChar('s');
             s.AppendChar('t');
             s.MakeReadOnly();
-            Assert.Equal("Test".ToCharArray(), s.ReadChars());
+            Assert.AreEqual("Test".ToCharArray(), s.ReadChars());
         }
 
-        [Fact]
+        [Test]
         public void SequenceTest()
         {
-            Assert.Equal(
+            Assert.AreEqual(
                 new[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 },
                 Sequence(10));
 
-            Assert.Equal(
+            Assert.AreEqual(
                 new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 },
                 Sequence(1, 10));
 
-            Assert.Equal(
+            Assert.AreEqual(
                 new[] { 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 },
                 Sequence(10, 1));
 
-            Assert.Equal(
+            Assert.AreEqual(
                 new[] { 1, 3, 5, 7, 9 },
                 Sequence(1, 10, 2));
 
-            Assert.Equal(
+            Assert.AreEqual(
                 new[] { 10, 8, 6, 4, 2 },
                 Sequence(10, 1, 2));
 
             Assert.Throws<ArgumentOutOfRangeException>(() => Sequence(1, 10, 0).ToList());
         }
 
-        [Fact]
+        [Test]
         public void FindConverterTest()
         {
             Assert.NotNull(FindConverter<int>());
@@ -88,78 +88,78 @@ namespace TheXDS.MCART.Tests.Helpers
             Assert.Null(FindConverter(typeof(Exception), typeof(Enum)));
         }
 
-        [Fact]
+        [Test]
         public void FlipEndianessTest_Char()
         {
-            Assert.Equal((char)0x0102, ((char)0x0201).FlipEndianess());
+            Assert.AreEqual((char)0x0102, ((char)0x0201).FlipEndianess());
         }
 
-        [Fact]
+        [Test]
         public void FlipEndianessTest_Int16()
         {
-            Assert.Equal((short)0x0102, ((short)0x0201).FlipEndianess());
+            Assert.AreEqual((short)0x0102, ((short)0x0201).FlipEndianess());
         }
 
-        [Fact]
+        [Test]
         public void FlipEndianessTest_Int32()
         {
-            Assert.Equal(0x01020304, 0x04030201.FlipEndianess());
+            Assert.AreEqual(0x01020304, 0x04030201.FlipEndianess());
         }
 
-        [Fact]
+        [Test]
         public void FlipEndianessTest_Int64()
         {
-            Assert.Equal(0x0102030405060708, 0x0807060504030201.FlipEndianess());
+            Assert.AreEqual(0x0102030405060708, 0x0807060504030201.FlipEndianess());
         }
 
-        [Fact]
+        [Test]
         public void FlipEndianessTest_Single()
         {
-            Assert.Equal(3.02529E-39f, 123456f.FlipEndianess());
+            Assert.AreEqual(3.02529E-39f, 123456f.FlipEndianess());
         }
 
-        [Fact]
+        [Test]
         public void FlipEndianessTest_Double()
         {
-            Assert.InRange(System.Math.PI.FlipEndianess(), 3.20737563067636E-192, 3.20737563067638E-192);
+            Assert.True(System.Math.PI.FlipEndianess().IsBetween(3.20737563067636E-192, 3.20737563067638E-192));            
         }
 
-        [Fact]
+        [Test]
         public void AreAllEmptyTest()
         {
             Assert.True(AllEmpty(null, " ", string.Empty));
             Assert.False(AllEmpty(null, "Test", string.Empty));
         }
 
-        [Fact]
+        [Test]
         public void CollectionListedTest()
         {
             var outp = new[]
             {
                 "This", "is", "a", "test"
             }.Listed();
-            Assert.Equal(
+            Assert.AreEqual(
                 $"This{Environment.NewLine}is{Environment.NewLine}a{Environment.NewLine}test",
                 outp);
         }
 
-        [Fact]
+        [Test]
         public void IsAnyEmptyTest()
         {
             Assert.True(AnyEmpty("Test", string.Empty, ""));
             Assert.False(AnyEmpty("T", "e", "s", "t"));
 
             Assert.True(AnyEmpty(out IEnumerable<int> i1, "Test", string.Empty, ""));
-            Assert.Equal(new[] { 1, 2 }, i1);
+            Assert.AreEqual(new[] { 1, 2 }, i1);
 
             Assert.True(AnyEmpty(out IEnumerable<int> i2, null, string.Empty, ""));
-            Assert.Equal(new[] { 0, 1, 2 }, i2);
+            Assert.AreEqual(new[] { 0, 1, 2 }, i2);
 
             Assert.False(AnyEmpty(out IEnumerable<int> i3, "T", "e", "s", "t"));
-            Assert.Equal(Array.Empty<int>(), i3);
+            Assert.AreEqual(Array.Empty<int>(), i3);
         }
 
-        [Fact]
+        [Test]
         public void IsBetweenTest()
         {
             Assert.True(0.5.IsBetween(0.0, 1.0));
@@ -178,7 +178,7 @@ namespace TheXDS.MCART.Tests.Helpers
             Assert.True(((double?) 0.5).IsBetween(new Range<double>(0.0, 1.0)));
         }
 
-        [Fact]
+        [Test]
         public void IsBetween_WithInclusionFlags_Test()
         {
             Assert.True(0.0.IsBetween(0.0, 1.0, true));
@@ -217,28 +217,26 @@ namespace TheXDS.MCART.Tests.Helpers
             Assert.True(one.IsBetween(0.0, 1.0, true, true));
         }
 
-        [Fact]
+        [Test]
         public void ReadBytesTest()
         {
             var s = new SecureString();
             s.AppendChar('@');
             s.MakeReadOnly();
             var r = s.ReadBytes();
-            Assert.Collection(r,
-                p => Assert.Equal(64, p),
-                p => Assert.Equal(0, p));
+            Assert.AreEqual(new byte[] { 64, 0 }, r);
         }
 
-        [Fact]
+        [Test]
         public void ReadInt16Test()
         {
             var s = new SecureString();
             s.AppendChar('@');
             s.MakeReadOnly();
-            Assert.Equal((short)64, s.ReadInt16()[0]);
+            Assert.AreEqual((short)64, s.ReadInt16()[0]);
         }
 
-        [Fact]
+        [Test]
         public void ReadTest()
         {
             var s = new SecureString();
@@ -247,169 +245,163 @@ namespace TheXDS.MCART.Tests.Helpers
             s.AppendChar('s');
             s.AppendChar('t');
             s.MakeReadOnly();
-            Assert.Equal("Test", s.Read());
+            Assert.AreEqual("Test", s.Read());
         }
 
-        [Fact]
+        [Test]
         public void SwapTest()
         {
             int a = 1, b = 2;
             Swap(ref a, ref b);
-            Assert.Equal(2, a);
-            Assert.Equal(1, b);
+            Assert.AreEqual(2, a);
+            Assert.AreEqual(1, b);
         }
 
-        [Fact]
+        [Test]
         public void ToBits_WithInt64_Test()
         {
             var c = new bool[sizeof(long) * 8];
-            Assert.Equal(c, 0L.ToBits());
+            Assert.AreEqual(c, 0L.ToBits());
 
             c[1] = true; c[3] = true;
-            Assert.Equal(c, 10L.ToBits());
+            Assert.AreEqual(c, 10L.ToBits());
         }
 
-        [Fact]
+        [Test]
         public void ToBits_WithInt32_Test()
         {
             var c = new bool[sizeof(int) * 8];
-            Assert.Equal(c, 0.ToBits());
+            Assert.AreEqual(c, 0.ToBits());
 
             c[1] = true; c[3] = true;
-            Assert.Equal(c, 10.ToBits());
+            Assert.AreEqual(c, 10.ToBits());
         }
 
-        [Fact]
+        [Test]
         public void ToBits_WithInt16_Test()
         {
             var c = new bool[sizeof(short) * 8];
-            Assert.Equal(c, ((short)0).ToBits());
+            Assert.AreEqual(c, ((short)0).ToBits());
 
             c[1] = true; c[3] = true;
-            Assert.Equal(c, ((short)10).ToBits());
+            Assert.AreEqual(c, ((short)10).ToBits());
         }
 
-        [Fact]
+        [Test]
         public void ToBits_WithInt8_Test()
         {
             var c = new bool[sizeof(byte) * 8];
-            Assert.Equal(c, ((byte)0).ToBits());
+            Assert.AreEqual(c, ((byte)0).ToBits());
 
             c[1] = true; c[3] = true;
-            Assert.Equal(c, ((byte)10).ToBits());
+            Assert.AreEqual(c, ((byte)10).ToBits());
         }
 
-        [Theory]
         [CLSCompliant(false)]
-        [InlineData(0, 0)]
-        [InlineData(2, 10)]
-        [InlineData(3, 11)]
-        [InlineData(2, 12)]
-        [InlineData(7, 127)]
-        [InlineData(1, 128)]
-        [InlineData(8, 255)]
+        [TestCase(0, 0)]
+        [TestCase(2, 10)]
+        [TestCase(3, 11)]
+        [TestCase(2, 12)]
+        [TestCase(7, 127)]
+        [TestCase(1, 128)]
+        [TestCase(8, 255)]
         public void BitCount_Int64_Test(byte bitCount, long value)
         {
-            Assert.Equal(bitCount, value.BitCount());
+            Assert.AreEqual(bitCount, value.BitCount());
         }
 
-        [Theory]
         [CLSCompliant(false)]
-        [InlineData(0, 0)]
-        [InlineData(2, 10)]
-        [InlineData(3, 11)]
-        [InlineData(2, 12)]
-        [InlineData(7, 127)]
-        [InlineData(1, 128)]
-        [InlineData(8, 255)]
+        [TestCase(0, 0)]
+        [TestCase(2, 10)]
+        [TestCase(3, 11)]
+        [TestCase(2, 12)]
+        [TestCase(7, 127)]
+        [TestCase(1, 128)]
+        [TestCase(8, 255)]
         public void BitCount_Int32_Test(byte bitCount, int value)
         {
-            Assert.Equal(bitCount, value.BitCount());
+            Assert.AreEqual(bitCount, value.BitCount());
         }
 
-        [Theory]
         [CLSCompliant(false)]
-        [InlineData(0, 0)]
-        [InlineData(2, 10)]
-        [InlineData(3, 11)]
-        [InlineData(2, 12)]
-        [InlineData(7, 127)]
-        [InlineData(1, 128)]
-        [InlineData(8, 255)]
+        [TestCase(0, 0)]
+        [TestCase(2, 10)]
+        [TestCase(3, 11)]
+        [TestCase(2, 12)]
+        [TestCase(7, 127)]
+        [TestCase(1, 128)]
+        [TestCase(8, 255)]
         public void BitCount_Int16_Test(byte bitCount, short value)
         {
-            Assert.Equal(bitCount, value.BitCount());
+            Assert.AreEqual(bitCount, value.BitCount());
         }
 
-        [Theory]
         [CLSCompliant(false)]
-        [InlineData(0, 0)]
-        [InlineData(2, 10)]
-        [InlineData(3, 11)]
-        [InlineData(2, 12)]
-        [InlineData(7, 127)]
-        [InlineData(1, 128)]
-        [InlineData(8, 255)]
+        [TestCase(0, 0)]
+        [TestCase(2, 10)]
+        [TestCase(3, 11)]
+        [TestCase(2, 12)]
+        [TestCase(7, 127)]
+        [TestCase(1, 128)]
+        [TestCase(8, 255)]
         public void BitCount_Int8_Test(byte bitCount, byte value)
         {
-            Assert.Equal(bitCount, value.BitCount());
+            Assert.AreEqual(bitCount, value.BitCount());
         }
 
-        [Fact]
+        [Test]
         public void ToHexTest1()
         {
-            Assert.Equal("F0", ((byte)240).ToHex());
+            Assert.AreEqual("F0", ((byte)240).ToHex());
         }
 
-        [Fact]
+        [Test]
         public void ToHexTest2()
         {
-            Assert.Equal("0A0B0C", new byte[] { 10, 11, 12 }.ToHex());
+            Assert.AreEqual("0A0B0C", new byte[] { 10, 11, 12 }.ToHex());
         }
 
 
-        [Theory]
         [CLSCompliant(false)]
-        [InlineData(1000, ByteUnitType.Binary, "1000 Bytes")]
-        [InlineData(1000, ByteUnitType.Decimal, "1.0 KB")]
-        [InlineData(100000, (ByteUnitType) 255, "100000 Bytes")]
-        [InlineData(1100000, ByteUnitType.BinaryLong, "1.1 Mebibytes")]
-        [InlineData(1048576, ByteUnitType.DecimalLong, "1.0 Megabytes")]
+        [TestCase(1000, ByteUnitType.Binary, "1000 Bytes")]
+        [TestCase(1000, ByteUnitType.Decimal, "1.0 KB")]
+        [TestCase(100000, (ByteUnitType) 255, "100000 Bytes")]
+        [TestCase(1100000, ByteUnitType.BinaryLong, "1.1 Mebibytes")]
+        [TestCase(1048576, ByteUnitType.DecimalLong, "1.0 Megabytes")]
         public void ByteUnitsTest_Long_ByteUnitType(long bytes, ByteUnitType unit, string result)
         {
-            Assert.Equal(result, TheXDS.MCART.Helpers.Common.ByteUnits(bytes, unit));
+            Assert.AreEqual(result, TheXDS.MCART.Helpers.Common.ByteUnits(bytes, unit));
         }
         
-        [Theory]
         [CLSCompliant(false)]
-        [InlineData(1000, "1000 Bytes")]
-        [InlineData(1024, "1.0 KiB")]
-        [InlineData(1536, "1.5 KiB")]
-        [InlineData(1768, "1.7 KiB")]
-        [InlineData(1048576, "1.0 MiB")]
-        [InlineData(1150976, "1.1 MiB")]
-        [InlineData(1073741824, "1.0 GiB")]
-        [InlineData(1099511627776L, "1.0 TiB")]
-        [InlineData(1125899906842624L, "1.0 PiB")]
-        [InlineData(1152921504606846976L, "1.0 EiB")]
+        [TestCase(1000, "1000 Bytes")]
+        [TestCase(1024, "1.0 KiB")]
+        [TestCase(1536, "1.5 KiB")]
+        [TestCase(1768, "1.7 KiB")]
+        [TestCase(1048576, "1.0 MiB")]
+        [TestCase(1150976, "1.1 MiB")]
+        [TestCase(1073741824, "1.0 GiB")]
+        [TestCase(1099511627776L, "1.0 TiB")]
+        [TestCase(1125899906842624L, "1.0 PiB")]
+        [TestCase(1152921504606846976L, "1.0 EiB")]
         public void ByteUnitsTest_Long(long bytes, string result)
         {
-            Assert.Equal(result, bytes.ByteUnits());
+            Assert.AreEqual(result, bytes.ByteUnits());
         }
 
-        [Fact]
+        [Test]
         public void AnyEmptyTest()
         {
             var array = new [] { "0", null, "2", "3", null, "5" };
             Assert.False(new[] { "0", "1", "2" }.AnyEmpty(out int i));
-            Assert.Equal(-1, i);
+            Assert.AreEqual(-1, i);
             Assert.True(array.AnyEmpty(out int index));
-            Assert.Equal(1, index);
+            Assert.AreEqual(1, index);
             Assert.True(array.AnyEmpty(out IEnumerable<int> indexes));
-            Assert.Equal(new[] { 1, 4 }, indexes.ToArray());
+            Assert.AreEqual(new[] { 1, 4 }, indexes.ToArray());
 
             Assert.True(AnyEmpty(out int idx, array));
-            Assert.Equal(1, idx);
+            Assert.AreEqual(1, idx);
         }
     }
 }

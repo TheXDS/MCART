@@ -25,25 +25,25 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Linq;
 using TheXDS.MCART.Types.Extensions;
-using Xunit;
+using NUnit.Framework;
 
 namespace TheXDS.MCART.Tests.Types.Extensions
 {
     public class EnumeratorExtensionsTests
     {
-        [Fact]
+        [Test]
         public void Skip_Test()
         {
             var a = Enumerable.Range(0, 10);
             using var e = a.GetEnumerator();
             e.MoveNext();
-            Assert.Equal(0, e.Current);
+            Assert.AreEqual(0, e.Current);
             e.MoveNext();
-            Assert.Equal(1, e.Current);
-            Assert.Equal(5, e.Skip(5));
-            Assert.Equal(6, e.Current);
-            Assert.Equal(4, e.Skip(10));
-            Assert.Equal(10, e.Current);
+            Assert.AreEqual(1, e.Current);
+            Assert.AreEqual(5, e.Skip(5));
+            Assert.AreEqual(6, e.Current);
+            Assert.AreEqual(4, e.Skip(10));
+            Assert.AreEqual(10, e.Current);
 
             Assert.Throws<ArgumentOutOfRangeException>(() => e.Skip(-1));
         }

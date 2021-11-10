@@ -24,18 +24,18 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Resources;
-using Xunit;
+using NUnit.Framework;
 
-namespace TheXDS.MCART.Tests.Attributes
+namespace TheXDS.MCART.Tests.Attributes 
 {
     public class McartComponentAttributeTests
     {
-        [Fact]
+        [Test]
         public void McartComponentAttributeBasicInstancing_Test()
         {
             var l = new McartComponentAttribute(RtInfo.ComponentKind.Core);
-            Assert.Equal(RtInfo.ComponentKind.Core, l.Kind);
-            Assert.Equal(RtInfo.ComponentKind.Core, ((IValueAttribute<RtInfo.ComponentKind>)l).Value);
+            Assert.AreEqual(RtInfo.ComponentKind.Core, l.Kind);
+            Assert.AreEqual(RtInfo.ComponentKind.Core, ((IValueAttribute<RtInfo.ComponentKind>)l).Value);
         }
     }
 }

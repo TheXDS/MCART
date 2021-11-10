@@ -26,7 +26,8 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using TheXDS.MCART.Types.Extensions;
-using Xunit;
+using NUnit.Framework;
+using System.Linq;
 
 namespace TheXDS.MCART.Tests.Types.Extensions
 {
@@ -58,7 +59,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             public static int? Prop2 { get; set; }
         }
         
-        [Fact]
+        [Test]
         public void SetDefault_Test()
         {
             var o = new Test { Prop1 = 9, Prop2 = 9, Prop3 = 9 };
@@ -66,12 +67,12 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             {
                 j.SetDefault(o);
             }
-            Assert.Equal(1, o.Prop1);
-            Assert.Equal(2, o.Prop2);
+            Assert.AreEqual(1, o.Prop1);
+            Assert.AreEqual(2, o.Prop2);
             Assert.Null(o.Prop3);
         }
 
-        [Fact]
+        [Test]
         public void SetDefault_Contract_Test()
         {
             var o = new Test2();
@@ -79,7 +80,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             Assert.Throws<MissingMemberException>(() => typeof(Exception).GetProperty("Message")!.SetDefault(o));
         }
         
-        [Fact]
+        [Test]
         public void SetDefault_Static_Property_Test()
         {
             Test3.Prop1 = 9;
@@ -89,15 +90,15 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             {
                 j.SetDefault();
             }
-            Assert.Equal(1, Test3.Prop1);
+            Assert.AreEqual(1, Test3.Prop1);
             Assert.Null(Test3.Prop2);
         }
         
-        [Fact]
+        [Test]
         public void IsReadWrite_Test()
         {
-            Assert.All(typeof(Test).GetProperties(), p => Assert.True(p.IsReadWrite()));
-            Assert.All(typeof(Test2).GetProperties(), p => Assert.False(p.IsReadWrite()));
+            Assert.True(typeof(Test).GetProperties().All(p => p.IsReadWrite()));
+            Assert.True(typeof(Test2).GetProperties().All(p => !p.IsReadWrite()));
         }
     }
 }

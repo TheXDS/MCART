@@ -25,27 +25,27 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Resources;
-using Xunit;
+using NUnit.Framework;
 
 namespace TheXDS.MCART.Tests.Attributes
 {
     public class SpdxLicenceTests
     {
-        [Fact]
+        [Test]
         public void SpdxLicenseBasicInstancing_Test()
         {
             var l = new SpdxLicenseAttribute(SpdxLicenseId.GPL_3_0_or_later);
-            Assert.Equal(SpdxLicenseId.GPL_3_0_or_later, l.Id);
+            Assert.AreEqual(SpdxLicenseId.GPL_3_0_or_later, l.Id);
         }
 
-        [Fact]
+        [Test]
         public void SpdxInstancingWithStringArgs_Test()
         {
             var l = new SpdxLicenseAttribute("GPL_3_0_or_later");
-            Assert.Equal(SpdxLicenseId.GPL_3_0_or_later, l.Id);
+            Assert.AreEqual(SpdxLicenseId.GPL_3_0_or_later, l.Id);
         }
 
-        [Fact]
+        [Test]
         public void SpdxInstancingFailsIfIdNotDefined_Test()
         {
             Assert.Throws<ArgumentOutOfRangeException>(() => new SpdxLicenseAttribute((SpdxLicenseId)int.MaxValue));

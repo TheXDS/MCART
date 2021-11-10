@@ -24,7 +24,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types.Base;
-using Xunit;
+using NUnit.Framework;
 using static System.Reflection.BindingFlags;
 
 namespace TheXDS.MCART.Tests.Types.Base
@@ -58,7 +58,7 @@ namespace TheXDS.MCART.Tests.Types.Base
             public bool ShouldFinalize => GetType().GetMethod(nameof(OnFinalize), Instance | NonPublic)!.IsOverride();
         }
 
-        [Fact]
+        [Test]
         public void OnDisposeExecutionTest()
         {
             var m1 = new DisposableOne();
@@ -70,7 +70,7 @@ namespace TheXDS.MCART.Tests.Types.Base
             Assert.True(m1.DidOnDisposeRun);
         }
 
-        [Fact]
+        [Test]
         public void DisposeVsFinalizeTest()
         {
             var m1 = new DisposableOne();

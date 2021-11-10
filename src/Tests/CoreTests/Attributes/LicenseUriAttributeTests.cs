@@ -24,22 +24,23 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using TheXDS.MCART.Attributes;
-using Xunit;
+using NUnit.Framework;
+using St = TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.Tests.Attributes
 {
     public class LicenseUriAttributeTests
     {
-        [Fact]
+        [Test]
         public void LicenseUriAttributeBasicInstancing_Test()
         {
             const string f = @"C:\Test.txt";
             var l = new LicenseUriAttribute(f);
-            Assert.Equal(f, l.Value);
-            Assert.Equal(f, ((IValueAttribute<string?>)l).Value);
+            Assert.AreEqual(f, l.Value);
+            Assert.AreEqual(f, ((IValueAttribute<string?>)l).Value);
         }
 
-        [Fact]
+        [Test]
         public void ReadLicenseFromFile_Test()
         {
             const string LicenseContents = "Test.";
@@ -47,13 +48,13 @@ namespace TheXDS.MCART.Tests.Attributes
             System.IO.File.WriteAllText(f, LicenseContents);
 
             var l = new LicenseUriAttribute(f);
-            Assert.Equal(LicenseContents, l.GetLicense().LicenseContent);
+            Assert.AreEqual(LicenseContents, l.GetLicense().LicenseContent);
 
             try { System.IO.File.Delete(f); }
             catch { }
         }
 
-        [Fact]
+        [Test]
         public void ReadLicenseFromNowhere_Test()
         {
             var f = System.IO.Path.GetFullPath(System.IO.Path.Combine(
@@ -62,8 +63,8 @@ namespace TheXDS.MCART.Tests.Attributes
                 Guid.NewGuid().ToString(),
                 $"{Guid.NewGuid()}.txt"));
 
-            _ = new LicenseUriAttribute(f).GetLicense().LicenseContent;
-            Assert.True(true);
+            var l = new LicenseUriAttribute(f).GetLicense().LicenseContent;
+            Assert.AreEqual(St.Composition.Warn(St.Errors.ErrorLoadingLicense), l);
         }
     }
 }

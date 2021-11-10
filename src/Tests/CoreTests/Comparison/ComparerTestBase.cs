@@ -23,7 +23,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System.Collections.Generic;
-using Xunit;
+using NUnit.Framework;
 
 namespace TheXDS.MCART.Tests.Comparison
 {
@@ -35,8 +35,8 @@ namespace TheXDS.MCART.Tests.Comparison
             var xh = eq.GetHashCode(x);
             var yh = eq.GetHashCode(y);
 
-            Assert.Equal(equal, eq.Equals(x, y));
-            Assert.Equal(equal, xh == yh);
+            Assert.AreEqual(equal, eq.Equals(x, y));
+            Assert.AreEqual(equal, xh == yh);
         }
     }
 }

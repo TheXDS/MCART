@@ -24,13 +24,13 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System.Collections.Generic;
 using TheXDS.MCART.Types.Extensions;
-using Xunit;
+using NUnit.Framework;
 
 namespace TheXDS.MCART.Tests.Types.Extensions
 {
     public class DictionaryExtensionsTests
     {
-        [Fact]
+        [Test]
         public void CheckCircularRef_Test()
         {
             var d = new Dictionary<char, IEnumerable<char>>
@@ -47,7 +47,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             Assert.True(((IEnumerable<KeyValuePair<char, IEnumerable<char>>>)d).CheckCircularRef('a'));
         }
 
-        [Fact]
+        [Test]
         public void CheckCircularRef_Test2()
         {
             var d = new Dictionary<char, ICollection<char>>
@@ -64,14 +64,14 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             Assert.True(d.CheckCircularRef('a'));
         }
         
-        [Fact]
+        [Test]
         public void Push_Test()
         {
             var d = new Dictionary<int, string>();
-            Assert.IsType<string>(d.Push(1, "test"));
+            Assert.IsAssignableFrom<string>(d.Push(1, "test"));
         }
 
-        [Fact]
+        [Test]
         public void Pop_Test()
         {
             var d = new Dictionary<int, string>
@@ -81,7 +81,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             };
             
             Assert.True(d.Pop(1, out var s));
-            Assert.Equal("test", s);
+            Assert.AreEqual("test", s);
             Assert.False(d.ContainsKey(1));
             Assert.False(d.ContainsValue("test"));
             Assert.False(d.Pop(3, out var s2));

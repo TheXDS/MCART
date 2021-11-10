@@ -24,7 +24,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using TheXDS.MCART.Helpers;
-using Xunit;
+using NUnit.Framework;
 using static TheXDS.MCART.Types.Extensions.MethodInfoExtensions;
 
 namespace TheXDS.MCART.Tests.Types.Extensions
@@ -34,22 +34,22 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         private static string TestStatic() => "TestStatic";
         private string TestInstance() => "TestInstance";
 
-        [Fact]
+        [Test]
         public void ToDelegateTest()
         {
             var ts = ReflectionHelpers.GetMethod<Func<string>>(() => TestStatic).ToDelegate<Func<string>>();
             var ti = ReflectionHelpers.GetMethod<Func<string>>(() => TestInstance).ToDelegate<Func<string>>(this);
             
             Assert.NotNull(ts);
-            Assert.IsType<Func<string>>(ts);
-            Assert.Equal("TestStatic", ts!.Invoke());
+            Assert.IsAssignableFrom<Func<string>>(ts);
+            Assert.AreEqual("TestStatic", ts!.Invoke());
             
             Assert.NotNull(ti);
-            Assert.IsType<Func<string>>(ti);
-            Assert.Equal("TestInstance", ti!.Invoke());
+            Assert.IsAssignableFrom<Func<string>>(ti);
+            Assert.AreEqual("TestInstance", ti!.Invoke());
         }
 
-        [Fact]
+        [Test]
         public void ToDelegate_Contract_Test()
         {
             Assert.Throws<MemberAccessException>(() =>
@@ -58,7 +58,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
                 ReflectionHelpers.GetMethod<Func<string>>(() => TestInstance).ToDelegate<Func<string>>());
         }
 
-        [Fact]
+        [Test]
         public void IsVoidTest()
         {
             Assert.True(ReflectionHelpers.GetMethod<Action>(() => IsVoidTest).IsVoid());

@@ -30,7 +30,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
-using Xunit;
+using NUnit.Framework;
+using TheXDS.MCART.Helpers;
 using static TheXDS.MCART.Types.Extensions.SecureStringExtensions;
 using static TheXDS.MCART.Types.Extensions.StringExtensions;
 
@@ -38,7 +39,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
 {
     public class StringExtensionsTests
     {
-        [Fact]
+        [Test]
         public void IsBinary_Test()
         {
             Assert.True("0b1010".IsBinary());
@@ -51,7 +52,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             Assert.False("&b1012".IsBinary());
         }
 
-        [Fact]
+        [Test]
         public void IsHex_Test()
         {
             Assert.True("0x123F".IsHex());
@@ -67,7 +68,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             Assert.False("&h123J".IsHex());
         }
 
-        [Fact]
+        [Test]
         public void ContainsLetters_Test()
         {
             Assert.True("abc123".ContainsLetters());
@@ -78,109 +79,109 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             Assert.True("ABCdef".ContainsLetters(true));
         }
 
-        [Fact]
+        [Test]
         public void ContainsNumbers_Test()
         {
             Assert.True("abc123".ContainsNumbers());
             Assert.False("abcdef".ContainsNumbers());
         }
-        [Fact]
+        [Test]
         public void ToStream_Test()
         {
             using (var r = new System.IO.StreamReader("Test".ToStream()))
-                Assert.Equal("Test", r.ReadToEnd());
+                Assert.AreEqual("Test", r.ReadToEnd());
 
             using (var r = new System.IO.StreamReader("Test".ToStream(Encoding.Unicode)))
-                Assert.Equal("T\0e\0s\0t\0", r.ReadToEnd());
+                Assert.AreEqual("T\0e\0s\0t\0", r.ReadToEnd());
         }
 
-        [Fact]
+        [Test]
         public void ContainsAny_Test()
         {
             Assert.True("Test".ContainsAny(new List<string>{ "Ta", "Te" }));
             Assert.True("Test".ContainsAny('q', 't', 'a'));
             Assert.True("Test".ContainsAny(out var idx, 'q', 't', 'a'));
-            Assert.Equal(1, idx);
+            Assert.AreEqual(1, idx);
             Assert.True("Test".ContainsAny(out var idx2, "t", "a"));
-            Assert.Equal(0, idx2);
+            Assert.AreEqual(0, idx2);
             Assert.True("Test".ContainsAny("Ta", "Te"));
             Assert.True("Test".ContainsAny(out var idx3, "Ta", "Te"));
-            Assert.Equal(1, idx3);
+            Assert.AreEqual(1, idx3);
             Assert.False("Test".ContainsAny('a', 'd'));
             Assert.False("Test".ContainsAny(out var idx4, 'a', 'd'));
-            Assert.Equal(-1, idx4);
+            Assert.AreEqual(-1, idx4);
             Assert.False("Test".ContainsAny("Ta", "Ti"));
             Assert.False("Test".ContainsAny(out var idx5, "Ta", "Ti"));
-            Assert.Equal(-1, idx5);
+            Assert.AreEqual(-1, idx5);
         }
 
-        [Fact]
+        [Test]
         public void CouldItBe_Test()
         {
             Assert.Throws<ArgumentNullException>(() => string.Empty.CouldItBe("Test"));
             Assert.Throws<ArgumentNullException>(() => "Test".CouldItBe(""));
             Assert.Throws<ArgumentOutOfRangeException>(() => "Test".CouldItBe("Test", 0f));
             Assert.Throws<ArgumentOutOfRangeException>(() => "Test".CouldItBe("Test", 2f));
-            Assert.Equal(1.0, "César Morgan".CouldItBe("César Andrés Morgan"));
-            Assert.Equal(0.0, "Gerardo Belot".CouldItBe("César Andrés Morgan"));
-            Assert.InRange("Jarol Darío Rivera".CouldItBe("Harold Rivera Aguilar", 0.6f), 0.55, 0.56);
-            Assert.Equal(0.5, "Edith Alvarez".CouldItBe("Edith Mena"));
+            Assert.AreEqual(1.0, "César Morgan".CouldItBe("César Andrés Morgan"));
+            Assert.AreEqual(0.0, "Gerardo Belot".CouldItBe("César Andrés Morgan"));
+            Assert.True("Jarol Darío Rivera".CouldItBe("Harold Rivera Aguilar", 0.6f).IsBetween(0.55f, 0.56f));
+            Assert.AreEqual(0.5, "Edith Alvarez".CouldItBe("Edith Mena"));
         }
 
-        [Fact]
+        [Test]
         public void Truncate_Test()
         {
-            Assert.Equal("Test", "Test".Truncate(10));
-            Assert.Equal("Test", "Test".Truncate(4));
-            Assert.Equal("Test...", "TestTestTestTest".Truncate(7));
-            Assert.Equal("T...", "TestTestTestTest".Truncate(4));
-            Assert.Equal("Tes", "TestTestTestTest".Truncate(3));
-            Assert.Equal("Te", "TestTestTestTest".Truncate(2));
-            Assert.Equal("T", "TestTestTestTest".Truncate(1));
-            Assert.Equal("length", Assert.Throws<ArgumentOutOfRangeException>(() => "Test".Truncate(0)).ParamName);
+            Assert.AreEqual("Test", "Test".Truncate(10));
+            Assert.AreEqual("Test", "Test".Truncate(4));
+            Assert.AreEqual("Test...", "TestTestTestTest".Truncate(7));
+            Assert.AreEqual("T...", "TestTestTestTest".Truncate(4));
+            Assert.AreEqual("Tes", "TestTestTestTest".Truncate(3));
+            Assert.AreEqual("Te", "TestTestTestTest".Truncate(2));
+            Assert.AreEqual("T", "TestTestTestTest".Truncate(1));
+            Assert.AreEqual("length", Assert.Throws<ArgumentOutOfRangeException>(() => "Test".Truncate(0))!.ParamName);
         }
 
-        [Fact]
+        [Test]
         public void CountChars_Test()
         {
-            Assert.Equal(5, "This is a test".CountChars('i', ' '));
-            Assert.Equal(5, "This is a test".CountChars("i "));
+            Assert.AreEqual(5, "This is a test".CountChars('i', ' '));
+            Assert.AreEqual(5, "This is a test".CountChars("i "));
         }
-        [Fact]
+        [Test]
         public void IsEmpty_Test()
         {
             Assert.True(string.Empty.IsEmpty());
             Assert.False("Test".IsEmpty());
             Assert.True((null as string).IsEmpty());
         }
-        [Fact]
+        [Test]
         public void Left_Test()
         {
             //Prueba de valores devueltos...
-            Assert.Equal("Te", "Test".Left(2));
+            Assert.AreEqual("Te", "Test".Left(2));
 
             //Pruebas de sanidad de argumentos...
             Assert.Throws<ArgumentOutOfRangeException>(() => "Test".Left(5));
             Assert.Throws<ArgumentOutOfRangeException>(() => "Test".Left(-1));
         }
 
-        [Fact]
+        [Test]
         public void Likeness_Test()
         {
-            Assert.InRange("Cesar Morgan".Likeness("César Morgan"), 0.9f, 1f);
+            Assert.True("Cesar Morgan".Likeness("César Morgan").IsBetween(0.9f, 1f));
         }
 
-        [Fact]
+        [Test]
         public void Right_Test()
         {
             //Prueba de valores devueltos...
-            Assert.Equal("st", "Test".Right(2));
+            Assert.AreEqual("st", "Test".Right(2));
 
             //Pruebas de sanidad de argumentos...
             Assert.Throws<ArgumentOutOfRangeException>(() => "Test".Right(5));
             Assert.Throws<ArgumentOutOfRangeException>(() => "Test".Right(-1));
         }
-        [Fact]
+        [Test]
         public void IsFormattedAs_Test()
         {
             Assert.False("XYZ-ABCD".IsFormattedAs("A0"));
@@ -198,23 +199,23 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             Assert.False("AbCdEfGhIjKlMnOp".IsFormattedAs("fFfFfFfFfFfFfFfF"));
         }
 
-        [Fact]
+        [Test]
         public void String_ToSecureString_Test()
         {
-            Assert.Equal("Test", "Test".ToSecureString().Read());
+            Assert.AreEqual("Test", "Test".ToSecureString().Read());
         }
 
-        [Fact]
+        [Test]
         public void SecureString_ReadBytes_Test()
         {
-            Assert.Equal(new byte[]
+            Assert.AreEqual(new byte[]
                 {
                     84, 0, 101, 0, 115, 0, 116, 0
                 },
                 "Test".ToSecureString().ReadBytes());
         }
 
-        [Fact]
+        [Test]
         public void StartsWithAny_Test()
         {
             Assert.True("Test".StartsWithAny("Ta","Te"));
@@ -229,69 +230,69 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             Assert.False("TEST".StartsWithAny(new List<string> { "ta", "ti" }, StringComparison.OrdinalIgnoreCase));
         }
 
-        [Fact]
+        [Test]
         public void Chop_Test()
         {
             var str = "TestTestStringTestTest";
-            Assert.Equal("TestStringTest", str.Chop("Test"));
+            Assert.AreEqual("TestStringTest", str.Chop("Test"));
         }
 
-        [Fact]
+        [Test]
         public void OrNull_Test()
         {
             Assert.Null(((string?)null).OrNull());
             Assert.Null(string.Empty.OrNull());
             Assert.Null(((string?)null).OrNull("{0} test"));
             Assert.Null(string.Empty.OrNull("{0} test"));
-            Assert.Equal("test", "test".OrNull());
-            Assert.Equal("test test", "test".OrNull("{0} test"));
+            Assert.AreEqual("test", "test".OrNull());
+            Assert.AreEqual("test test", "test".OrNull("{0} test"));
         }
         
-        [Fact]
+        [Test]
         public void OrEmpty_Test()
         {
-            Assert.Equal(string.Empty,string.Empty.OrEmpty());
-            Assert.Equal(string.Empty,((string?)null).OrEmpty());
-            Assert.NotEqual(string.Empty, "Test".OrEmpty());
-            Assert.Equal(string.Empty, ((string?)null).OrEmpty("{0} 1234"));
-            Assert.Equal(string.Empty, string.Empty.OrEmpty("{0} 1234"));
-            Assert.Equal("test 1234", "test".OrEmpty("{0} 1234"));
+            Assert.AreEqual(string.Empty,string.Empty.OrEmpty());
+            Assert.AreEqual(string.Empty,((string?)null).OrEmpty());
+            Assert.AreNotEqual(string.Empty, "Test".OrEmpty());
+            Assert.AreEqual(string.Empty, ((string?)null).OrEmpty("{0} 1234"));
+            Assert.AreEqual(string.Empty, string.Empty.OrEmpty("{0} 1234"));
+            Assert.AreEqual("test 1234", "test".OrEmpty("{0} 1234"));
         }
         
-        [Fact]
+        [Test]
         public void Spell_Test()
         {
-            Assert.Equal("T e s t", "Test".Spell());
+            Assert.AreEqual("T e s t", "Test".Spell());
         }
 
-        [Fact]
+        [Test]
         public void Separate_Test()
         {
-            Assert.Equal(String.Empty, String.Empty.Separate(' '));
-            Assert.Equal("T-e-s-t", "Test".Separate('-'));
+            Assert.AreEqual(String.Empty, String.Empty.Separate(' '));
+            Assert.AreEqual("T-e-s-t", "Test".Separate('-'));
         }
 
-        [Fact]
+        [Test]
         public void ChopAny_Test()
         {
-            Assert.Equal("456test123456", "123456test123456".ChopAny("123", "456"));
-            Assert.Equal("789456test123", "789456test123456".ChopAny("123", "456"));
-            Assert.Equal("test", "test".ChopAny("123", "456"));
+            Assert.AreEqual("456test123456", "123456test123456".ChopAny("123", "456"));
+            Assert.AreEqual("789456test123", "789456test123456".ChopAny("123", "456"));
+            Assert.AreEqual("test", "test".ChopAny("123", "456"));
         }
         
-        [Fact]
+        [Test]
         public void ChopEnd_Test()
         {
-            Assert.Equal("123456test123", "123456test123456".ChopEnd("456"));
+            Assert.AreEqual("123456test123", "123456test123456".ChopEnd("456"));
         }
         
-        [Fact]
+        [Test]
         public void ChopStart_Test()
         {
-            Assert.Equal("456test123456", "123456test123456".ChopStart("123"));
+            Assert.AreEqual("456test123456", "123456test123456".ChopStart("123"));
         }
 
-        [Fact]
+        [Test]
         public void TextWrap_Test()
         {
             void ValidLine(string line)
@@ -299,16 +300,14 @@ namespace TheXDS.MCART.Tests.Types.Extensions
                 Assert.True(line.Length <= 80);
                 Assert.False(line.StartsWith(' '));
                 Assert.False(line.EndsWith(' '));
-                Assert.All(line.Split(), p => Assert.Equal("test", p));
+                Assert.True(line.Split().All(p => p == "test"));
             }
-            
-            Assert.Collection(new string('x', 120).TextWrap(),
-                p => Assert.Equal(80, p.Length),
-                p => Assert.Equal(40, p.Length));
-
-            Assert.Collection(string.Join(' ', Enumerable.Range(1, 30).Select(_ => "test")).TextWrap(), ValidLine, ValidLine);
-            
-            Assert.Equal("test  test", "test  test".TextWrap()[0]);
+            var str = new string('x', 120).TextWrap();
+            Assert.AreEqual(80, str[0].Length);
+            Assert.AreEqual(40, str[1].Length);
+            var str2 = string.Join(' ', Enumerable.Range(1, 30).Select(_ => "test")).TextWrap();
+            foreach (var j in str2) ValidLine(j);
+            Assert.AreEqual("test  test", "test  test".TextWrap()[0]);
         }
     }
 }

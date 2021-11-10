@@ -1,7 +1,7 @@
 using System;
 using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Extensions;
-using Xunit;
+using NUnit.Framework;
 
 namespace TheXDS.MCART.Tests
 {
@@ -9,18 +9,18 @@ namespace TheXDS.MCART.Tests
     {
         private static readonly TypeFactory _factory = new("TheXDS.MCART.Tests.TypeExtensionsTests._Generated");
 
-        [Fact]
+        [Test]
         public void ResolveToDefinedType_Test()
         {
             var t = _factory.NewClass("GreeterClass");
-            var nameProp = t.AddAutoProperty<string>("Name");            
+            var nameProp = t.AddAutoProperty<string>("Name");
             t.AddComputedProperty<string>("Greeting", p => p
                 .LoadConstant("Hello, ")
                 .LoadProperty(nameProp)
                 .Call<Func<string?, string?, string>>(string.Concat)
                 .Return());
-            Assert.Equal(typeof(int), typeof(int).ResolveToDefinedType());
-            Assert.Equal(typeof(object), t.New().GetType().ResolveToDefinedType());
+            Assert.AreEqual(typeof(int), typeof(int).ResolveToDefinedType());
+            Assert.AreEqual(typeof(object), t.New().GetType().ResolveToDefinedType());
         }
     }
 }

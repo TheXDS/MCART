@@ -24,7 +24,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using TheXDS.MCART.Attributes;
-using Xunit;
+using NUnit.Framework;
 using St = TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.Tests.Attributes
@@ -32,15 +32,15 @@ namespace TheXDS.MCART.Tests.Attributes
     [Obsolete("El atributo se ha reemplazado por LicenseUriAttribute")]
     public class LicenseFileAttributeTests
     {
-        [Fact]
+        [Test]
         public void LicenseFileAttributeBasicInstancing_Test()
         {
             var l = new LicenseFileAttribute(@"C:\Test.txt");
-            Assert.Equal(@"C:\Test.txt", l.Value);
-            Assert.Equal(@"C:\Test.txt", ((IValueAttribute<string?>)l).Value);
+            Assert.AreEqual(@"C:\Test.txt", l.Value);
+            Assert.AreEqual(@"C:\Test.txt", ((IValueAttribute<string?>)l).Value);
         }
 
-        [Fact]
+        [Test]
         public void ReadLicenseFromLicenseFileAttribute_Test()
         {
             const string LicenseContents = "Test.";
@@ -48,13 +48,13 @@ namespace TheXDS.MCART.Tests.Attributes
             System.IO.File.WriteAllText(f, LicenseContents);
 
             var l = new LicenseFileAttribute(f);
-            Assert.Equal(LicenseContents, l.ReadLicense());
+            Assert.AreEqual(LicenseContents, l.ReadLicense());
 
             try { System.IO.File.Delete(f); }
             catch { }
         }
 
-        [Fact]
+        [Test]
         public void LicenseFileWithFileNotFoundDoesntFail_Test()
         {
             var f = System.IO.Path.GetFullPath(System.IO.Path.Combine(
@@ -63,7 +63,7 @@ namespace TheXDS.MCART.Tests.Attributes
                 Guid.NewGuid().ToString(),
                 $"{Guid.NewGuid()}.txt"));
             var l = new LicenseFileAttribute(f);
-            Assert.Equal(St.Composition.Warn(St.Common.UnspecifiedLicense), l.ReadLicense());
+            Assert.AreEqual(St.Composition.Warn(St.Common.UnspecifiedLicense), l.ReadLicense());
         }
     }
 }

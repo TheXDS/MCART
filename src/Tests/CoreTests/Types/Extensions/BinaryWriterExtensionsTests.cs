@@ -2,13 +2,13 @@
 using System.IO;
 using System.Text;
 using TheXDS.MCART.Types.Extensions;
-using Xunit;
+using NUnit.Framework;
 
 namespace TheXDS.MCART.Tests.Types.Extensions
 {
     public class BinaryWriterExtensionsTests
     {
-        [Fact]
+        [Test]
         public void DynamicWrite_Test()
         {
             var g = Guid.NewGuid();
@@ -27,17 +27,17 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             ms.Seek(0, SeekOrigin.Begin);
             using (var br = new BinaryReader(ms))
             {
-                Assert.Equal(1000000, br.ReadInt32());
-                Assert.Equal(g, br.ReadGuid());
+                Assert.AreEqual(1000000, br.ReadInt32());
+                Assert.AreEqual(g, br.ReadGuid());
 
                 var v = br.Read<TestStruct>();
-                Assert.Equal(1000000, v.Int32Value);
+                Assert.AreEqual(1000000, v.Int32Value);
                 Assert.True(v.BoolValue);
-                Assert.Equal("test", v.StringValue);
+                Assert.AreEqual("test", v.StringValue);
             }
         }
 
-        [Fact]
+        [Test]
         public void DynamicWrite_Contract_Test()
         {
             BinaryWriter? bw = null;
@@ -51,7 +51,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             }
         }
 
-        [Fact]
+        [Test]
         public void WriteStruct_Contract_Test()
         {
             using var ms = new MemoryStream();

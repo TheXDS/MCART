@@ -24,7 +24,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using TheXDS.MCART.Types;
-using Xunit;
+using NUnit.Framework;
 
 namespace TheXDS.MCART.Tests.Types
 {
@@ -33,73 +33,71 @@ namespace TheXDS.MCART.Tests.Types
 #if CLSCompliance
         [CLSCompliant(false)]
 #endif
-        [Theory]
-        [InlineData("1 - 5")]
-        [InlineData("1 5")]
-        [InlineData("1, 5")]
-        [InlineData("1;5")]
-        [InlineData("1:5")]
-        [InlineData("1|5")]
-        [InlineData("1..5")]
-        [InlineData("1...5")]
-        [InlineData("1; 5")]
-        [InlineData("1 : 5")]
-        [InlineData("1 | 5")]
-        [InlineData("1,5")]
-        [InlineData("1 .. 5")]
-        [InlineData("1 => 5")]
-        [InlineData("1 -> 5")]
-        [InlineData("1=>5")]
-        [InlineData("1->5")]
+        [TestCase("1 - 5")]
+        [TestCase("1 5")]
+        [TestCase("1, 5")]
+        [TestCase("1;5")]
+        [TestCase("1:5")]
+        [TestCase("1|5")]
+        [TestCase("1..5")]
+        [TestCase("1...5")]
+        [TestCase("1; 5")]
+        [TestCase("1 : 5")]
+        [TestCase("1 | 5")]
+        [TestCase("1,5")]
+        [TestCase("1 .. 5")]
+        [TestCase("1 => 5")]
+        [TestCase("1 -> 5")]
+        [TestCase("1=>5")]
+        [TestCase("1->5")]
         public void TryParseTest(string testArg)
         {
             Assert.True(Range<int>.TryParse(testArg, out var range));
-            Assert.Equal(1, range.Minimum);
-            Assert.Equal(5, range.Maximum);
+            Assert.AreEqual(1, range.Minimum);
+            Assert.AreEqual(5, range.Maximum);
         }
 
-        [Fact]
+        [Test]
         public void TryParseTest_FailingToParse()
         {
             Assert.False(Range<int>.TryParse("TEST", out _));
         }
 
-        [Fact]
+        [Test]
         public void JoinTest()
         {
             var a = new Range<int>(1, 5);
             var b = new Range<int>(3, 8);
             var r = a.Join(b);
 
-            Assert.Equal(1, r.Minimum);
-            Assert.Equal(8, r.Maximum);
+            Assert.AreEqual(1, r.Minimum);
+            Assert.AreEqual(8, r.Maximum);
         }
 
-        [Fact]
+        [Test]
         public void IntersectTest()
         {
             var a = new Range<int>(1, 5);
             var b = new Range<int>(3, 8);
             var r = a.Intersect(b);
 
-            Assert.Equal(3, r.Minimum);
-            Assert.Equal(5, r.Maximum);
+            Assert.AreEqual(3, r.Minimum);
+            Assert.AreEqual(5, r.Maximum);
         }
 
 #if CLSCompliance
         [CLSCompliant(false)]
 #endif
-        [Theory]
-        [InlineData(1, 3, 2, 5, true, false)]
-        [InlineData(1, 2, 3, 4, false, false)]
-        [InlineData(1, 2, 2, 3, false, false)]
-        [InlineData(1, 2, 2, 3, true, true)]
+        [TestCase(1, 3, 2, 5, true, false)]
+        [TestCase(1, 2, 3, 4, false, false)]
+        [TestCase(1, 2, 2, 3, false, false)]
+        [TestCase(1, 2, 2, 3, true, true)]
         public void IntersectsTest(int min1, int max1, int min2, int max2, bool expected, bool inclusively)
         {
             var a = new Range<int>(min1, max1, inclusively);
             var b = new Range<int>(min2, max2, inclusively);
             
-            Assert.Equal(expected, a.Intersects(b));
+            Assert.AreEqual(expected, a.Intersects(b));
         }
     }
 }

@@ -22,16 +22,16 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma warning disable CS1591
-
-using Xunit;
+using NUnit.Framework;
 using TheXDS.MCART.Networking;
+using System;
 
 namespace TheXDS.MCART.Tests.Networking
 {
+    [Obsolete("Estos objetos utilizan clases deprecadas en .Net 6.")]
     public class NetworkingTest
     {
-        //[Fact]
+        //[Test]
         public void DownloadTest()
         {
             /*
@@ -46,11 +46,9 @@ namespace TheXDS.MCART.Tests.Networking
              * recomienda probar para evitar caer en situaciones de abuso:
              * - https://www.thinkbroadband.com/download
              */
-            using (var ms = new System.IO.MemoryStream())
-            {
-                DownloadHelper.DownloadHttp("http://speedtest.ftp.otenet.gr/files/test100k.db", ms);
-                Assert.Equal(102400, ms.Length);
-            }
+            using var ms = new System.IO.MemoryStream();
+            DownloadHelper.DownloadHttp("http://speedtest.ftp.otenet.gr/files/test100k.db", ms);
+            Assert.AreEqual(102400, ms.Length);
         }
     }
 }

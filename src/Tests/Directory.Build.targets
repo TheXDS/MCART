@@ -1,19 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project  xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <IsPackable>false</IsPackable>
-    <NoInternals>true</NoInternals>
-    <RootNamespace>TheXDS.MCART.Tests</RootNamespace>
-  </PropertyGroup>
-  <Import Project="$(SolutionDir)Targets\GlobalDirectives.targets"/>
-  <Import Project="$(SolutionDir)Targets\Shared.targets"/>
-  <ItemGroup>
-    <PackageReference Update="Microsoft.NET.Test.Sdk" Version="16.11.0" />
-    <PackageReference Include="xunit" Version="2.4.1" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
-    <PackageReference Include="coverlet.collector" Version="3.1.0" >
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
+	<PropertyGroup>
+		<IsPackable>false</IsPackable>
+		<NoInternals>true</NoInternals>
+	</PropertyGroup>
+	<PropertyGroup Condition="$(MSBuildProjectName.StartsWith('TheXDS.MCART'))=='False'">
+		<RootNamespace>TheXDS.MCART.$(MSBuildProjectName)</RootNamespace>
+	</PropertyGroup>
+	<PropertyGroup Condition="$(MSBuildProjectName.StartsWith('MCART'))">
+		<RootNamespace>TheXDS.$(MSBuildProjectName)</RootNamespace>
+	</PropertyGroup>
+	<Import Project="$(SolutionDir)Targets\GlobalDirectives.targets"/>
+	<Import Project="$(SolutionDir)Targets\Shared.targets"/>
+	<ItemGroup>
+		<PackageReference Include="NUnit" Version="3.13.2" />
+		<PackageReference Include="NUnit3TestAdapter" Version="4.1.0" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
+		<PackageReference Include="coverlet.collector" Version="3.1.0" >
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
 </Project>

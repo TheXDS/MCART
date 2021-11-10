@@ -24,21 +24,22 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using TheXDS.MCART.Component;
-using Xunit;
+using NUnit.Framework;
+using System.Linq;
 
 namespace TheXDS.MCART.Tests.Component
 {
     public class AssemblyInfoTests
     {
-        [Fact]
+        [Test]
         public void Get_Information_Test()
         {
             var a = new AssemblyInfo(typeof(AssemblyInfo).Assembly);
-            Assert.Equal("MCART", a.Name);
-            Assert.StartsWith("Copyright", a.Copyright!);
+            Assert.AreEqual("MCART", a.Name);
+            Assert.IsTrue(a.Copyright!.StartsWith("Copyright"));
             Assert.NotNull(a.Description);
-            Assert.Contains("César Andrés Morgan", a.Authors);
-            Assert.IsType<Version>(a.Version);
+            Assert.IsTrue(a.Authors!.Contains("César Andrés Morgan"));
+            Assert.IsAssignableFrom<Version>(a.Version);
             Assert.True(a.HasLicense);
             Assert.NotNull(a.License);
             Assert.NotNull(a.InformationalVersion);
@@ -47,11 +48,11 @@ namespace TheXDS.MCART.Tests.Component
 #endif
         }
 
-        [Fact]
+        [Test]
         public void Self_Information_Test()
         {
             var a = new AssemblyInfo();
-            Assert.Same(typeof(AssemblyInfoTests).Assembly, a.Assembly);
+            Assert.AreSame(typeof(AssemblyInfoTests).Assembly, a.Assembly);
         }
     }
 }

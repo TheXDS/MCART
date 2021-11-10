@@ -23,6 +23,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using TheXDS.MCART.Types;
 using static System.AttributeTargets;
 
 namespace TheXDS.MCART.Attributes
@@ -49,13 +50,24 @@ namespace TheXDS.MCART.Attributes
         /// </summary>
         /// <param name="year">Año de registro del Copyright.</param>
         /// <param name="holder">Poseedor del Copyright.</param>
-#if CLSCompliance
+    #if CLSCompliance
         [CLSCompliant(false)]
-#endif
+    #endif
         public CopyrightAttribute(ushort year, string holder) : this($"{year:0000} {holder}")
         {
         }
-        
+
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="DescriptionAttribute" />.
+        /// </summary>
+        /// <param name="years">Años de registro del Copyright.</param>
+        /// <param name="holder">Poseedor del Copyright.</param>
+    #if CLSCompliance
+        [CLSCompliant(false)]
+    #endif
+        public CopyrightAttribute(Range<ushort> years, string holder) :this($"{years.Minimum:0000}-{years.Maximum:0000} {holder}") { }
+
         private static string GetCopyrightString(string input)
         {
             return input.ToLowerInvariant().StartsWith("copyright ", true, null) ? input

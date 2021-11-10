@@ -1,5 +1,5 @@
-/*
-DelegateExtensionsTests.cs
+﻿/*
+NameValueCollectionExtensionsTests.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -23,30 +23,35 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq.Expressions;
-using TheXDS.MCART.Attributes;
-using TheXDS.MCART.Helpers;
+using System.Text;
 using TheXDS.MCART.Types.Extensions;
 using NUnit.Framework;
 
 namespace TheXDS.MCART.Tests.Types.Extensions
 {
-    public class DelegateExtensionsTests
+    public class StringBuilderExtensionsTests
     {
-        [Name("Method 1"), ExcludeFromCodeCoverage]
-        private static void Method1() { }
-        
-        [ExcludeFromCodeCoverage]
-        private static void Method2() { }
+        [Test]
+        public void AppendLineIfNotNull_Test()
+        {
+            StringBuilder sb = new();
+            sb.AppendLineIfNotNull(null);
+            Assert.True(sb.ToString().IsEmpty());
+            sb.AppendLineIfNotNull("test");
+            Assert.AreEqual($"test{Environment.NewLine}", sb.ToString());
+            sb.AppendLineIfNotNull(null);
+            Assert.AreEqual($"test{Environment.NewLine}", sb.ToString());
+        }
 
         [Test]
-        public void NameOf_Test()
+        public void AppendAndWrap_Test()
         {
-            static Delegate Get(Expression<Func<Action>> sel) => Delegate.CreateDelegate(typeof(Action), ReflectionHelpers.GetMethod(sel));
-
-            Assert.AreEqual("Method 1", Get(() => Method1).NameOf());
-            Assert.AreEqual("Method2", Get(() => Method2).NameOf());
+            StringBuilder sb = new();
+            string s = new('x', 120);
+            sb.AppendAndWrap(s, 80);
+            var sa = sb.ToString().Split(Environment.NewLine);
+            Assert.AreEqual(80, sa[0].Length);
+            Assert.AreEqual(40, sa[1].Length);            
         }
     }
 }

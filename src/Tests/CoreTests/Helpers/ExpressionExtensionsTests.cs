@@ -24,17 +24,17 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System.Linq.Expressions;
 using TheXDS.MCART.Types.Extensions;
-using Xunit;
+using NUnit.Framework;
 
 namespace TheXDS.MCART.Tests.Helpers
 {
     public class ExpressionExtensionsTests
     {
-        [Fact]
+        [Test]
         public void Eval_Test()
         {
             var x = Expression.Multiply(Expression.Constant(5), Expression.Constant(2));
-            Assert.Equal(10, x.Eval());
+            Assert.AreEqual(10, x.Eval());
         }
     }
 }

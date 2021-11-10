@@ -25,9 +25,10 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using TheXDS.MCART.Component;
 using TheXDS.MCART.Security.Password;
-using Xunit;
+using NUnit.Framework;
+using System.Linq;
 
-namespace TheXDS.MCART.Tests.Component
+namespace TheXDS.MCART.Security.Legacy.Tests
 {
     /* NOTA:
      * =====
@@ -38,13 +39,13 @@ namespace TheXDS.MCART.Tests.Component
      */
     public class AssemblyInfoTests
     {
-        [Fact]
+        [Test]
         public void Get_Information_Test()
         {
             var a = new AssemblyInfo(typeof(PasswordStorage).Assembly);
             Assert.True(a.Has3rdPartyLicense);
-            Assert.Contains(typeof(PasswordStorage), a.ThirdPartyComponents);
-            Assert.Contains(a.ThirdPartyLicenses, p => p.Name.Contains("MIT", StringComparison.InvariantCultureIgnoreCase));
+            Assert.Contains(typeof(PasswordStorage), a.ThirdPartyComponents.ToArray());
+            Assert.True(a.ThirdPartyLicenses.Any(p => p.Name.Contains("MIT", StringComparison.InvariantCultureIgnoreCase)));
         }
     }
 }

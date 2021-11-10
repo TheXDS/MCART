@@ -22,54 +22,54 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using NUnit.Framework;
 using System;
 using System.Globalization;
 using TheXDS.MCART.ValueConverters;
-using Xunit;
 
 namespace TheXDS.MCART.WpfTests.ValueConverters
 {
     public class AddConverterTests
     {
-        [Fact]
+        [Test]
         public void IntegerAddTest()
         {
             var c = new AddConverter();
 
-            Assert.Equal(3, c.Convert(1, typeof(int), 2, CultureInfo.CurrentCulture));
-            Assert.Equal(1, c.ConvertBack(3, typeof(int), 2, CultureInfo.CurrentCulture));
+            Assert.AreEqual(3, c.Convert(1, typeof(int), 2, CultureInfo.CurrentCulture));
+            Assert.AreEqual(1, c.ConvertBack(3, typeof(int), 2, CultureInfo.CurrentCulture));
         }
 
-        [Fact]
+        [Test]
         public void MixedTypesTest()
         {
             var c = new AddConverter();
 
-            Assert.Equal(3, c.Convert(1f, typeof(int), "2", CultureInfo.CurrentCulture));
-            Assert.Equal(1, c.ConvertBack(3f, typeof(int), "2", CultureInfo.CurrentCulture));
+            Assert.AreEqual(3, c.Convert(1f, typeof(int), "2", CultureInfo.CurrentCulture));
+            Assert.AreEqual(1, c.ConvertBack(3f, typeof(int), "2", CultureInfo.CurrentCulture));
         }
 
-        [Fact]
+        [Test]
         public void BigIntegerAddTest()
         {
             var c = new AddConverter();
-            Assert.Equal(9999999999999999m, c.Convert(9999999999999990m, typeof(decimal), (byte)9, CultureInfo.CurrentCulture));
+            Assert.AreEqual(9999999999999999m, c.Convert(9999999999999990m, typeof(decimal), (byte)9, CultureInfo.CurrentCulture));
         }
 
-        [Fact]
+        [Test]
         public void CastDownTest()
         {
             var c = new AddConverter();
-            Assert.Equal((byte)200, c.Convert(100L, typeof(byte), 100m, CultureInfo.CurrentCulture));
+            Assert.AreEqual((byte)200, c.Convert(100L, typeof(byte), 100m, CultureInfo.CurrentCulture));
         }
 
-        [Fact]
+        [Test]
         public void SanityTests()
         {
             var c = new AddConverter();
-            Assert.Equal(double.NaN, c.Convert(decimal.MaxValue, typeof(double), "Test", CultureInfo.CurrentCulture));
-            Assert.Equal(float.NaN, c.Convert(double.MaxValue, typeof(float), "Test", CultureInfo.CurrentCulture));
-            Assert.Equal(5, c.Convert(5, typeof(int), null, CultureInfo.CurrentCulture));
+            Assert.AreEqual(double.NaN, c.Convert(decimal.MaxValue, typeof(double), "Test", CultureInfo.CurrentCulture));
+            Assert.AreEqual(float.NaN, c.Convert(double.MaxValue, typeof(float), "Test", CultureInfo.CurrentCulture));
+            Assert.AreEqual(5, c.Convert(5, typeof(int), null, CultureInfo.CurrentCulture));
             Assert.Throws<OverflowException>(() => c.Convert(200L, typeof(byte), 200m, CultureInfo.CurrentCulture));
             Assert.Throws<NotSupportedException>(() => c.Convert(200L, typeof(byte), "Test", CultureInfo.CurrentCulture));
             Assert.Throws<ArgumentNullException>(() => c.Convert(null, typeof(byte), "5", CultureInfo.CurrentCulture));

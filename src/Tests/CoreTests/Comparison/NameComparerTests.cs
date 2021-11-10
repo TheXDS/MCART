@@ -24,14 +24,14 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using TheXDS.MCART.Comparison;
 using TheXDS.MCART.Types.Base;
-using Xunit;
+using NUnit.Framework;
 
 namespace TheXDS.MCART.Tests.Comparison
 {
     public class NameComparerTests : ComparerTestBase<INameable, NameComparer>
     {
         [Theory]
-        [ClassData(typeof(NameComparerDataGenerator))]
+        [TestCaseSource(typeof(NameComparerDataGenerator))]
         public void NameComparerTest(INameable x, INameable y, bool equal)
         {
             RunTest(x, y, equal);

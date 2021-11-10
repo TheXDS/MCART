@@ -33,7 +33,7 @@ using TheXDS.MCART.Events;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Resources;
-using Xunit;
+using NUnit.Framework;
 using static TheXDS.MCART.Helpers.Objects;
 
 namespace TheXDS.MCART.Tests.Helpers
@@ -84,7 +84,7 @@ namespace TheXDS.MCART.Tests.Helpers
         private enum TestEnum : byte
         {
             Zero,
-            [Description("One")]One,
+            [TheXDS.MCART.Attributes.Description("One")]One,
             Two
         }
         
@@ -95,32 +95,32 @@ namespace TheXDS.MCART.Tests.Helpers
 
         [Theory]
         [CLSCompliant(false)]
-        [InlineData(typeof(byte), true)]
-        [InlineData(typeof(sbyte), true)]
-        [InlineData(typeof(short), true)]
-        [InlineData(typeof(ushort), true)]
-        [InlineData(typeof(int), true)]
-        [InlineData(typeof(uint), true)]
-        [InlineData(typeof(long), true)]
-        [InlineData(typeof(ulong), true)]
-        [InlineData(typeof(decimal), true)]
-        [InlineData(typeof(float), true)]
-        [InlineData(typeof(double), true)]
-        [InlineData(typeof(char), false)]
-        [InlineData(typeof(string), false)]
+        [TestCase(typeof(byte), true)]
+        [TestCase(typeof(sbyte), true)]
+        [TestCase(typeof(short), true)]
+        [TestCase(typeof(ushort), true)]
+        [TestCase(typeof(int), true)]
+        [TestCase(typeof(uint), true)]
+        [TestCase(typeof(long), true)]
+        [TestCase(typeof(ulong), true)]
+        [TestCase(typeof(decimal), true)]
+        [TestCase(typeof(float), true)]
+        [TestCase(typeof(double), true)]
+        [TestCase(typeof(char), false)]
+        [TestCase(typeof(string), false)]
         public void IsNumericTypeTest(Type type, bool result)
         {
-            Assert.Equal(result, IsNumericType(type));
+            Assert.AreEqual(result, IsNumericType(type));
         }
 
-        [Fact]
+        [Test]
         public void AreAllNullTest()
         {
             Assert.True(AreAllNull(null, null, null));
             Assert.False(AreAllNull(0, null));
         }
 
-        [Fact]
+        [Test]
         public void FieldsOfTest()
         {
             var tc = new TestClass();
@@ -129,103 +129,103 @@ namespace TheXDS.MCART.Tests.Helpers
             Assert.Throws<ArgumentNullException>(() => ((FieldInfo[]) null!).FieldsOf<int>());
             Assert.Throws<MissingFieldException>(() => typeof(TestClass2).GetFields().FieldsOf<int>(tc));
             
-            Assert.Equal(tc.TestField, tc.FieldsOf<float>().FirstOrDefault());
-            Assert.Equal(tc.TestField, tc.GetType().GetFields().FieldsOf<float>(tc).FirstOrDefault());
-            Assert.Equal(TestClass.StaticField, tc.GetType().FieldsOf<double>().FirstOrDefault());
-            Assert.Equal(TestClass.StaticField, tc.GetType().GetFields().FieldsOf<double>().FirstOrDefault());
-            Assert.Equal(TestClass.StaticField, typeof(TestClass).GetFields().FieldsOf<double>().FirstOrDefault());
+            Assert.AreEqual(tc.TestField, tc.FieldsOf<float>().FirstOrDefault());
+            Assert.AreEqual(tc.TestField, tc.GetType().GetFields().FieldsOf<float>(tc).FirstOrDefault());
+            Assert.AreEqual(TestClass.StaticField, tc.GetType().FieldsOf<double>().FirstOrDefault());
+            Assert.AreEqual(TestClass.StaticField, tc.GetType().GetFields().FieldsOf<double>().FirstOrDefault());
+            Assert.AreEqual(TestClass.StaticField, typeof(TestClass).GetFields().FieldsOf<double>().FirstOrDefault());
         }
 
-        [Fact]
+        [Test]
         public void FindTypeTest()
         {
-            Assert.Equal(typeof(TestClass), FindType<ITestInterface>("FindTypeTest"));
+            Assert.AreEqual(typeof(TestClass), FindType<ITestInterface>("FindTypeTest"));
             Assert.Null(FindType<ITestInterface>("FindTypeTest2"));
         }
 
-        [Fact]
+        [Test]
         public void HasAttrTest_Enum()
         {
-            Assert.False(TestEnum.Zero.HasAttr<DescriptionAttribute>());
-            Assert.True(TestEnum.One.HasAttr<DescriptionAttribute>());
+            Assert.False(TestEnum.Zero.HasAttr<TheXDS.MCART.Attributes.DescriptionAttribute>());
+            Assert.True(TestEnum.One.HasAttr<TheXDS.MCART.Attributes.DescriptionAttribute>());
             
-            Assert.False(TestEnum.Zero.HasAttr<DescriptionAttribute>(out var z));
-            Assert.True(TestEnum.One.HasAttr<DescriptionAttribute>(out var o));
+            Assert.False(TestEnum.Zero.HasAttr<TheXDS.MCART.Attributes.DescriptionAttribute>(out var z));
+            Assert.True(TestEnum.One.HasAttr<TheXDS.MCART.Attributes.DescriptionAttribute>(out var o));
 
             Assert.Null(z);
-            Assert.IsType<DescriptionAttribute>(o);
-            Assert.Equal("One",o!.Value);
-            
+            Assert.IsAssignableFrom<TheXDS.MCART.Attributes.DescriptionAttribute>(o);
+            Assert.AreEqual("One",o!.Value);
+
 #if !CLSCompliance && PreferExceptions
-            Assert.Throws<ArgumentOutOfRangeException>(() => ((TestEnum) 255).HasAttr<DescriptionAttribute>(out _));
+            Assert.Throws<ArgumentOutOfRangeException>(() => ((TestEnum) 255).HasAttr<TheXDS.MCART.Attributes.DescriptionAttribute>(out _));
 #else
-            Assert.False(((TestEnum) 255).HasAttr<DescriptionAttribute>(out _));
+            Assert.False(((TestEnum) 255).HasAttr<TheXDS.MCART.Attributes.DescriptionAttribute>(out _));
 #endif
         }
         
-        [Fact]
+        [Test]
         public void GetAttrTest()
         {
             Assert.NotNull(RtInfo.CoreRtAssembly.GetAttr<AssemblyTitleAttribute>());
-            Assert.NotNull(MethodBase.GetCurrentMethod()?.GetAttr<FactAttribute>());
+            Assert.NotNull(MethodBase.GetCurrentMethod()?.GetAttr<TestAttribute>());
             Assert.NotNull(GetAttr<AttrTestAttribute, ObjectsTest>());
             Assert.NotNull(typeof(ObjectsTest).GetAttr<AttrTestAttribute>());
         }
 
-        [Fact]
+        [Test]
         public void GetTypesTest()
         {
             Assert.True(GetTypes<IComparable>().Count() > 2);
             Assert.True(GetTypes<Stream>(true).Count() > 2);
             Assert.True(GetTypes<Stream>(true).Count() < GetTypes<Stream>(false).Count());
-            Assert.Contains(typeof(Enum), GetTypes<Enum>());
-            Assert.Contains(typeof(Enum), GetTypes<Enum>(false));
-            Assert.DoesNotContain(typeof(Enum), GetTypes<Enum>(true));
+            Assert.Contains(typeof(Enum), GetTypes<Enum>().ToArray());
+            Assert.Contains(typeof(Enum), GetTypes<Enum>(false).ToArray());
+            Assert.False(GetTypes<Enum>(true).Contains(typeof(Enum)));
         }
 
-        [Fact]
+        [Test]
         public void HasAttrTest_Assembly()
         {
             Assert.True(RtInfo.CoreRtAssembly.HasAttr<AssemblyCopyrightAttribute>());
         }
 
-        [Fact]
+        [Test]
         public void HasAttrTest_Object()
         {
-            Assert.False(((object)TestEnum.Zero).HasAttr<DescriptionAttribute>(out var z));
-            Assert.True(((object)TestEnum.One).HasAttr<DescriptionAttribute>(out var o));
+            Assert.False(((object)TestEnum.Zero).HasAttr<TheXDS.MCART.Attributes.DescriptionAttribute>(out var z));
+            Assert.True(((object)TestEnum.One).HasAttr<TheXDS.MCART.Attributes.DescriptionAttribute>(out var o));
             Assert.Null(z);
-            Assert.IsType<DescriptionAttribute>(o);
-            Assert.Equal("One",o!.Value);
+            Assert.IsAssignableFrom<TheXDS.MCART.Attributes.DescriptionAttribute>(o);
+            Assert.AreEqual("One",o!.Value);
             Assert.True(((object)RtInfo.CoreRtAssembly).HasAttr<AssemblyCopyrightAttribute>());
 
-            Assert.True(((object)MethodBase.GetCurrentMethod()!).HasAttr<FactAttribute>(out _));
+            Assert.True(((object)MethodBase.GetCurrentMethod()!).HasAttr<TestAttribute>(out _));
             
             Assert.True(new TestClass().HasAttr<IdentifierAttribute>(out var id));
-            Assert.IsType<IdentifierAttribute>(id);
-            Assert.Equal("FindTypeTest",id!.Value);
+            Assert.IsAssignableFrom<IdentifierAttribute>(id);
+            Assert.AreEqual("FindTypeTest",id!.Value);
 
-            Assert.Throws<ArgumentNullException>(() => ((object) null!).HasAttr<DescriptionAttribute>(out _));
+            Assert.Throws<ArgumentNullException>(() => ((object) null!).HasAttr<TheXDS.MCART.Attributes.DescriptionAttribute>(out _));
         }
 
-        [Fact]
+        [Test]
         public void HasAttrValueTest_Object()
         {
-            Assert.True(((object)TestEnum.One).HasAttrValue<DescriptionAttribute, string?>(out var o));
-            Assert.Equal("One", o);
+            Assert.True(((object)TestEnum.One).HasAttrValue<TheXDS.MCART.Attributes.DescriptionAttribute, string?>(out var o));
+            Assert.AreEqual("One", o);
 
             Assert.True(new TestClass().HasAttrValue<IdentifierAttribute, string?>(out var id));
-            Assert.Equal("FindTypeTest",id);
+            Assert.AreEqual("FindTypeTest",id);
         }
         
-        [Fact]
+        [Test]
         public void IsAnyNullTest()
         {
             Assert.True(IsAnyNull(0, 1, null));
             Assert.False(IsAnyNull(0, 1, 2, 3));
         }
 
-        [Fact]
+        [Test]
         public void IsEitherTest()
         {
             var t = typeof(int);
@@ -236,7 +236,7 @@ namespace TheXDS.MCART.Tests.Helpers
             Assert.False(t.IsEither(new HashSet<object> {typeof(bool), typeof(float)}));
         }
 
-        [Fact]
+        [Test]
         public void IsNeitherTest()
         {
             var t = typeof(int);
@@ -244,7 +244,7 @@ namespace TheXDS.MCART.Tests.Helpers
             Assert.False(t.IsNeither(typeof(bool), typeof(int)));
         }
 
-        [Fact]
+        [Test]
         public void IsNotTest()
         {
             EventArgs ev = new ExceptionEventArgs(null);
@@ -252,7 +252,7 @@ namespace TheXDS.MCART.Tests.Helpers
             Assert.True(e.IsNot(ev));
         }
 
-        [Fact]
+        [Test]
         public void IsSignatureCompatibleTest()
         {
             var m = ReflectionHelpers.GetMethod<Action<int>>(() => TestClass.TestMethod)!;            
@@ -260,7 +260,7 @@ namespace TheXDS.MCART.Tests.Helpers
             Assert.False(m.IsSignatureCompatible<Action<float>>());
         }
 
-        [Fact]
+        [Test]
         public void IsTest()
         {
             var ev = EventArgs.Empty;
@@ -268,58 +268,58 @@ namespace TheXDS.MCART.Tests.Helpers
             Assert.True(e.Is(ev));
         }
 
-        [Fact]
+        [Test]
         public void ItselfTest()
         {
             var ex = new ApplicationException();
-            Assert.Same(ex, ex.Itself());
-            Assert.NotSame(ex, new ApplicationException());
-            Assert.NotSame(ex, null);
+            Assert.AreSame(ex, ex.Itself());
+            Assert.AreNotSame(ex, new ApplicationException());
+            Assert.AreNotSame(ex, null);
         }
 
-        [Fact]
+        [Test]
         public void PropertiesOfTest()
         {
             var tc = new TestClass();
-            Assert.Equal(tc.TestProperty, tc.PropertiesOf<int>().FirstOrDefault());
-            Assert.Equal(tc.TestProperty, tc.GetType().GetProperties().PropertiesOf<int>(tc).FirstOrDefault());
-            Assert.Equal(TestClass.ByteProperty, tc.GetType().GetProperties().PropertiesOf<byte>().FirstOrDefault());
+            Assert.AreEqual(tc.TestProperty, tc.PropertiesOf<int>().FirstOrDefault());
+            Assert.AreEqual(tc.TestProperty, tc.GetType().GetProperties().PropertiesOf<int>(tc).FirstOrDefault());
+            Assert.AreEqual(TestClass.ByteProperty, tc.GetType().GetProperties().PropertiesOf<byte>().FirstOrDefault());
         }
 
-        [Fact]
+        [Test]
         public void ToTypesTest()
         {
             var x = ToTypes(1, "Test", 2.5f).ToArray();
             var y = x.GetEnumerator();
             y.Reset();
             y.MoveNext();
-            Assert.Same(typeof(int), y.Current);
+            Assert.AreSame(typeof(int), y.Current);
             y.MoveNext();
-            Assert.Same(typeof(string), y.Current);
+            Assert.AreSame(typeof(string), y.Current);
             y.MoveNext();
-            Assert.Same(typeof(float), y.Current);
+            Assert.AreSame(typeof(float), y.Current);
         }
 
-        [Fact]
+        [Test]
         public void WhichAreNullTest()
         {
             Assert.NotNull(Array.Empty<object>().WhichAreNull());
-            Assert.Equal(Array.Empty<int>(), WhichAreNull(new object(), new object()).ToArray());
-            Assert.Equal(new[] {1}, WhichAreNull(new object(), null, new object(), new object()).ToArray());
-            Assert.Equal(new[] {2, 3}, WhichAreNull(new object(), new object(), null, null).ToArray());
-            Assert.Throws<ArgumentNullException>(((IEnumerable<object?>)null!).WhichAreNull().ToArray);
+            Assert.AreEqual(Array.Empty<int>(), WhichAreNull(new object(), new object()).ToArray());
+            Assert.AreEqual(new[] {1}, WhichAreNull(new object(), null, new object(), new object()).ToArray());
+            Assert.AreEqual(new[] {2, 3}, WhichAreNull(new object(), new object(), null, null).ToArray());
+            Assert.Throws<ArgumentNullException>(()=>((IEnumerable<object?>)null!).WhichAreNull().ToArray());
         }
 
-        [Fact]
+        [Test]
         public void WhichAreTest()
         {
             var x = new object();
-            Assert.Equal(Array.Empty<int>(), x.WhichAre(new object(), 1, 0.0f).ToArray());
-            Assert.Equal(new[] {2}, x.WhichAre(new object(), 1, x).ToArray());
-            Assert.Equal(new[] {1, 3}, x.WhichAre(new object(), x, 0, x).ToArray());
+            Assert.AreEqual(Array.Empty<int>(), x.WhichAre(new object(), 1, 0.0f).ToArray());
+            Assert.AreEqual(new[] {2}, x.WhichAre(new object(), 1, x).ToArray());
+            Assert.AreEqual(new[] {1, 3}, x.WhichAre(new object(), x, 0, x).ToArray());
         }
 
-        [Fact]
+        [Test]
         public void WithSignatureTest()
         {
             Assert.Null(typeof(TestClass).GetMethods().WithSignature<Action<short>>().FirstOrDefault());
@@ -328,7 +328,7 @@ namespace TheXDS.MCART.Tests.Helpers
             m(1);
         }
 
-        [Fact]
+        [Test]
         public void WithSignatureTest_object()
         {
             var tc = new TestClass();
@@ -338,15 +338,15 @@ namespace TheXDS.MCART.Tests.Helpers
             m(1.0f);
         }
 
-        [Fact]
+        [Test]
         public void PublicTypesTest()
         {
             var t = PublicTypes().ToArray();
-            Assert.DoesNotContain(typeof(TestClass),t);
+            Assert.False(t.Contains(typeof(TestClass)));
             Assert.Contains(typeof(Exception), t);
         }
 
-        [Fact]
+        [Test]
         public void TryCreateDelegateTest()
         {
             var m = GetType().GetMethod(nameof(TestEventHandler))!;
@@ -360,18 +360,18 @@ namespace TheXDS.MCART.Tests.Helpers
             Assert.False(TryCreateDelegate<Action<int>>(m, out _));
         }
 
-        [Fact]
+        [Test]
         public void FromBytes_Test()
         {
-            Assert.Equal(1000000, FromBytes<int>(new byte[] {64, 66, 15, 0}));
-            Assert.Equal(123456.789m, FromBytes<decimal>(new byte[]{ 0, 0, 3, 0, 0, 0, 0, 0, 21, 205, 91, 7, 0, 0, 0, 0 }));
+            Assert.AreEqual(1000000, FromBytes<int>(new byte[] {64, 66, 15, 0}));
+            Assert.AreEqual(123456.789m, FromBytes<decimal>(new byte[]{ 0, 0, 3, 0, 0, 0, 0, 0, 21, 205, 91, 7, 0, 0, 0, 0 }));
         }
 
-        [Fact]
+        [Test]
         public void GetBytes_Test()
         {
-            Assert.Equal(new byte[] {64, 66, 15, 0}, GetBytes(1000000));
-            Assert.Equal(new byte[]{ 0, 0, 3, 0, 0, 0, 0, 0, 21, 205, 91, 7, 0, 0, 0, 0 }, GetBytes(123456.789m));
+            Assert.AreEqual(new byte[] {64, 66, 15, 0}, GetBytes(1000000));
+            Assert.AreEqual(new byte[]{ 0, 0, 3, 0, 0, 0, 0, 0, 21, 205, 91, 7, 0, 0, 0, 0 }, GetBytes(123456.789m));
         }
     }
 }
