@@ -558,7 +558,7 @@ namespace TheXDS.MCART.Component
         private DateTime DateFromWmi([CallerMemberName] string value = "")
         {
             var t = GetFromWmi<string>(value);
-            var y = int.Parse(t.Substring(0, 4));
+            var y = int.Parse(t[..4]);
             var M = int.Parse(t.Substring(4, 2));
             var d = int.Parse(t.Substring(6, 2));
             var h = int.Parse(t.Substring(8, 2));

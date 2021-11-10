@@ -646,7 +646,7 @@ namespace TheXDS.MCART.Types.Extensions
         {
             if (!length.IsBetween(0, @string.Length))
                 throw new ArgumentOutOfRangeException(nameof(length));
-            return @string.Substring(0, length);
+            return @string[..length];
         }
 
         /// <summary>
