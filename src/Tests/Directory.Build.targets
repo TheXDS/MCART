@@ -3,6 +3,7 @@
 	<PropertyGroup>
 		<IsPackable>false</IsPackable>
 		<NoInternals>true</NoInternals>
+		<Nullable>enable</Nullable>
 	</PropertyGroup>
 	<PropertyGroup Condition="$(MSBuildProjectName.StartsWith('TheXDS.MCART'))=='False'">
 		<RootNamespace>TheXDS.MCART.$(MSBuildProjectName)</RootNamespace>
