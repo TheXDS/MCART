@@ -11,7 +11,6 @@
     <EmbeddedResource Include="Resources\Icons\MCART.png" />
     <EmbeddedResource Include="Resources\Icons\MCARTBadge.png" />
     <EmbeddedResource Include="Resources\Icons\MCARTPlugin.png" />
-    <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
 
   </ItemGroup>  
   <ItemGroup>
