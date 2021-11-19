@@ -149,7 +149,7 @@ namespace TheXDS.MCART.Tests.Helpers
         [Test]
         public void GetMember_Contract_Test()
         {
-            Assert.Throws<ArgumentException>(() => GetMember<Test1>(t => t.TestInt() + 2));
+            Assert.Throws<InvalidOperationException>(() => GetMember<Test1>(t => t.TestInt() + 2));
         }
 
         [Test]

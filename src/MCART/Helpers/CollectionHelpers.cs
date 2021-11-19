@@ -1396,7 +1396,7 @@ namespace TheXDS.MCART.Helpers
                 try
                 {
                     return typeof(T).IsAssignableFrom(k)
-                        || (!instantiablesOnly || !(k.IsInterface || k.IsAbstract || !k.GetConstructors().Any()))
+                        && (!instantiablesOnly || !(k.IsInterface || k.IsAbstract || !k.GetConstructors().Any()))
                         ? k : null;
                 }
                 catch { return null; }

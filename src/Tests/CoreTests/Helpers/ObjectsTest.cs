@@ -124,15 +124,15 @@ namespace TheXDS.MCART.Tests.Helpers
         {
             var tc = new TestClass();
 
-            Assert.Throws<NullItemException>(() => new FieldInfo[] { null! }.FieldsOf<int>());
+            Assert.Throws<NullItemException>(() => ReflectionHelpers.FieldsOf<int>(new FieldInfo[] { null! }));
             Assert.Throws<ArgumentNullException>(() => ((FieldInfo[])null!).FieldsOf<int>());
             Assert.Throws<MissingFieldException>(() => ReflectionHelpers.FieldsOf<int>(typeof(TestClass2).GetFields(), tc));
 
             Assert.AreEqual(tc.TestField, tc.FieldsOf<float>().FirstOrDefault());
             Assert.AreEqual(tc.TestField, ReflectionHelpers.FieldsOf<float>(tc.GetType().GetFields(), tc).FirstOrDefault());
             Assert.AreEqual(TestClass.StaticField, tc.GetType().FieldsOf<double>().FirstOrDefault());
-            Assert.AreEqual(TestClass.StaticField, tc.GetType().GetFields().FieldsOf<double>().FirstOrDefault());
-            Assert.AreEqual(TestClass.StaticField, typeof(TestClass).GetFields().FieldsOf<double>().FirstOrDefault());
+            Assert.AreEqual(TestClass.StaticField, ReflectionHelpers.FieldsOf<double>(tc.GetType().GetFields()).FirstOrDefault());
+            Assert.AreEqual(TestClass.StaticField, ReflectionHelpers.FieldsOf<double>(typeof(TestClass).GetFields()).FirstOrDefault());
         }
 
         [Test]

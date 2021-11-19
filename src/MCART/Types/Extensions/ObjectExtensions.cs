@@ -229,9 +229,9 @@ namespace TheXDS.MCART.Types.Extensions
             return obj switch
             {
                 null => throw new ArgumentNullException(nameof(obj)),
-                Assembly a => HasAttr(a, out attribute),
-                MemberInfo m => HasAttr(m, out attribute),
-                Enum e => HasAttr(e, out attribute),
+                Assembly a => a.HasAttr(out attribute),
+                MemberInfo m => m.HasAttr(out attribute),
+                Enum e => e.HasAttr(out attribute),
                 _ => HasAttrs<T>(obj.GetType(), out var attrs) & (attribute = attrs?.FirstOrDefault()) is not null
             };
         }
@@ -266,11 +266,11 @@ namespace TheXDS.MCART.Types.Extensions
             switch (obj)
             {
                 case Assembly a:
-                    return HasAttrValue<TAttribute, TValue>(a, out value);
+                    return a.HasAttrValue<TAttribute, TValue>(out value);
                 case MemberInfo m:
-                    return HasAttrValue<TAttribute, TValue>(m, out value);
+                    return m.HasAttrValue<TAttribute, TValue>(out value);
                 case Enum e:
-                    return HasAttrValue<TAttribute, TValue>(e, out value);
+                    return e.HasAttrValue<TAttribute, TValue>(out value);
                 default:
                     var retVal = HasAttrs<TAttribute>(obj, out var attrs);
                     value = attrs?.FirstOrDefault() is { Value: { } v } ? v : default!;
@@ -320,11 +320,11 @@ namespace TheXDS.MCART.Types.Extensions
             switch (obj)
             {
                 case Assembly a:
-                    return HasAttrs(a, out attribute);
+                    return a.HasAttrs(out attribute);
                 case MemberInfo m:
-                    return HasAttrs(m, out attribute);
+                    return m.HasAttrs(out attribute);
                 case Enum e:
-                    return HasAttrs(e, out attribute);
+                    return e.HasAttrs(out attribute);
                 default:
                     attribute = Attribute.GetCustomAttributes(obj.GetType(), typeof(T)).OfType<T>();
                     return attribute.Any();
