@@ -31,9 +31,9 @@ namespace TheXDS.MCART.Tests.Comparison
     {
         protected void RunTest(TValue x, TValue y, bool equal)
         {
-            var eq = new TEq();
-            var xh = eq.GetHashCode(x);
-            var yh = eq.GetHashCode(y);
+            TEq? eq = new();
+            int xh = eq.GetHashCode(x);
+            int yh = eq.GetHashCode(y);
 
             Assert.AreEqual(equal, eq.Equals(x, y));
             Assert.AreEqual(equal, xh == yh);

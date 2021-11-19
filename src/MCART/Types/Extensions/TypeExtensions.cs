@@ -136,10 +136,10 @@ namespace TheXDS.MCART.Types.Extensions
         {
             if (!baseType.ContainsGenericParameters) return baseType.IsAssignableFrom(type);
 
-            if (!baseType.GenericTypeArguments.Any())            
-                return (type.IsConstructedGenericType && type.GetGenericTypeDefinition() == baseType) || type.GetInterfaces().Any(p=> p.Implements(baseType));            
+            if (!baseType.GenericTypeArguments.Any())
+                return (type.IsConstructedGenericType && type.GetGenericTypeDefinition() == baseType) || type.GetInterfaces().Any(p => p.Implements(baseType));
 
-            var gt = baseType.MakeGenericType(type);
+            Type? gt = baseType.MakeGenericType(type);
             return !gt.ContainsGenericParameters && gt.IsAssignableFrom(type);
         }
 
@@ -156,7 +156,7 @@ namespace TheXDS.MCART.Types.Extensions
         public static bool Implements(this Type type, Type baseType, params Type[] typeArgs)
         {
             if (!baseType.ContainsGenericParameters) return baseType.IsAssignableFrom(type);
-            var gt = baseType.MakeGenericType(typeArgs);
+            Type? gt = baseType.MakeGenericType(typeArgs);
             return !gt.ContainsGenericParameters && gt.IsAssignableFrom(type);
         }
 
@@ -204,7 +204,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static bool ImplementsOperator(this Type type, Func<Expression, Expression, BinaryExpression> @operator)
         {
-            var c = Expression.Constant(type.Default(), type);
+            ConstantExpression? c = Expression.Constant(type.Default(), type);
             try
             {
                 _ = Expression.Lambda(
@@ -316,7 +316,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <see langword="false" /> en caso contrario.
         /// </returns>
         [DebuggerStepThrough]
-        [Sugar] 
+        [Sugar]
         public static bool IsInstantiable(this Type type, params Type[] constructorArgs)
         {
             return IsInstantiable(type, constructorArgs.AsEnumerable());
@@ -434,7 +434,7 @@ namespace TheXDS.MCART.Types.Extensions
         [DebuggerStepThrough]
         public static T New<T>(this Type type, bool throwOnFail, IEnumerable? parameters)
         {
-            var p = parameters?.ToGeneric().ToArray() ?? Array.Empty<object?>();
+            object?[]? p = parameters?.ToGeneric().ToArray() ?? Array.Empty<object?>();
             try
             {
                 New_Contract(type, p);
@@ -475,7 +475,7 @@ namespace TheXDS.MCART.Types.Extensions
             {
                 try
                 {
-                    instance = (T) ctor.Invoke(args);
+                    instance = (T)ctor.Invoke(args);
                     return true;
                 }
                 catch
@@ -507,7 +507,8 @@ namespace TheXDS.MCART.Types.Extensions
         /// mismo se ha instanciado de forma correcta, <see langword="false"/>
         /// en caso contrario.
         /// </returns>
-        [Sugar] public static bool TryInstance(this Type t, [MaybeNullWhen(false)] out object instance, params object[]? args)
+        [Sugar]
+        public static bool TryInstance(this Type t, [MaybeNullWhen(false)] out object instance, params object[]? args)
         {
             return TryInstance<object>(t, out instance, args);
         }
@@ -560,11 +561,11 @@ namespace TheXDS.MCART.Types.Extensions
         [DebuggerStepThrough]
         public static async Task<object?> NewAsync(this Type type, bool throwOnFail, bool @async, IEnumerable parameters)
         {
-            var p = parameters?.ToGeneric().ToArray() ?? Array.Empty<object?>();
+            object?[]? p = parameters?.ToGeneric().ToArray() ?? Array.Empty<object?>();
             New_Contract(type, p);
             try
             {
-                var ctor = type.GetConstructor(p.ToTypes().ToArray());
+                ConstructorInfo? ctor = type.GetConstructor(p.ToTypes().ToArray());
                 return (@async ? await Task.Run(() => ctor?.Invoke(p)) : ctor?.Invoke(p)) ?? Errors.ClassNotInstantiable();
             }
             catch (Exception e)
@@ -625,7 +626,7 @@ namespace TheXDS.MCART.Types.Extensions
         [DebuggerStepThrough]
         public static async Task<T> NewAsync<T>(this Type type, bool throwOnFail, bool @async, IEnumerable parameters)
         {
-            var r = await NewAsync(type, throwOnFail, async, parameters);
+            object? r = await NewAsync(type, throwOnFail, async, parameters);
             if (r is T v) return v;
             return throwOnFail ? throw new InvalidCastException() : (T)default!;
         }
@@ -766,7 +767,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// Una secuencia con todos los tipos descendientes del tipo
         /// especificado.
         /// </returns>
-        public static IEnumerable<Type> Derivates(this Type type, params Assembly[] assemblies) 
+        public static IEnumerable<Type> Derivates(this Type type, params Assembly[] assemblies)
         {
             return Derivates(type, assemblies.AsEnumerable());
         }
@@ -789,15 +790,15 @@ namespace TheXDS.MCART.Types.Extensions
         public static IEnumerable<Type> Derivates(this Type type, IEnumerable<Assembly> assemblies)
         {
             Derivates_Contract(assemblies);
-            var retval = new List<Type>();
-            foreach (var j in assemblies)
+            List<Type>? retval = new();
+            foreach (Assembly? j in assemblies)
             {
                 IEnumerable<Type> types;
                 try
                 {
                     types = j.GetTypes();
                 }
-                catch(ReflectionTypeLoadException rex)
+                catch (ReflectionTypeLoadException rex)
                 {
                     types = rex.Types.NotNull();
                 }
@@ -824,7 +825,7 @@ namespace TheXDS.MCART.Types.Extensions
         public static IEnumerable<Type> Derivates(this Type type, IEnumerable<Type> types)
         {
             Derivates_Contract(type, types);
-            foreach (var k in types)
+            foreach (Type? k in types)
             {
                 if (type.IsAssignableFrom(k ?? throw new NullItemException())) yield return k;
             }
@@ -885,6 +886,117 @@ namespace TheXDS.MCART.Types.Extensions
         {
             ToNamedEnum_Contract(type);
             return type.GetEnumValues().Cast<Enum>().Select(j => new NamedObject<Enum>(j, j.NameOf()));
+        }
+
+        /// <summary>
+        /// Determina si un miembro o su ensamblado contenedor posee un atributo definido.
+        /// </summary>
+        /// <typeparam name="T">
+        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+        /// </typeparam>
+        /// <param name="type">
+        /// Miembro del cual se extraerá el atributo.
+        /// </param>
+        /// <param name="attribute">
+        /// Parámetro de salida. Si un atributo de tipo
+        /// <typeparamref name="T" /> ha sido encontrado, el mismo es devuelto.
+        /// Se devolverá <see langword="null" /> si el miembro no posee el atributo
+        /// especificado.
+        /// </param>
+        /// <returns>
+        /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
+        /// en caso contrario.
+        /// </returns>
+        public static bool HasAttrAlt<T>(this Type type, [MaybeNullWhen(false)] out T attribute) where T : Attribute
+        {
+            attribute = (Attribute.GetCustomAttributes(type, typeof(T)).FirstOrDefault()
+                         ?? Attribute.GetCustomAttributes(type.Assembly, typeof(T)).FirstOrDefault()) as T;
+            return attribute is not null;
+        }
+
+        /// <summary>
+        /// Determina si un miembro o su ensamblado contenedor posee un atributo definido.
+        /// </summary>
+        /// <typeparam name="T">
+        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+        /// </typeparam>
+        /// <param name="type">
+        /// Miembro del cual se extraerá el atributo.
+        /// </param>
+        /// <returns>
+        /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
+        /// en caso contrario.
+        /// </returns>
+        public static bool HasAttrAlt<T>(this Type type) where T : Attribute
+        {
+            return HasAttrAlt<T>(type, out _);
+        }
+
+        /// <summary>
+        /// Devuelve el atributo asociado a la declaración del tipo
+        /// especificado, o en su defecto, del ensamblado que lo contiene.
+        /// </summary>
+        /// <typeparam name="T">
+        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+        /// </typeparam>
+        /// <param name="type">Objeto del cual se extraerá el atributo.</param>
+        /// <returns>
+        /// Un atributo del tipo <typeparamref name="T" /> con los datos
+        /// asociados en la declaración del tipo; o <see langword="null" /> en caso de no
+        /// encontrarse el atributo especificado.
+        /// </returns>
+        public static T? GetAttrAlt<T>(this Type type) where T : Attribute
+        {
+            return (Attribute.GetCustomAttribute(type, typeof(T))
+                    ?? Attribute.GetCustomAttribute(type.Assembly, typeof(T))) as T;
+        }
+
+        /// <summary>
+        /// Determina si el tipo <paramref name="t" /> es de un tipo numérico
+        /// </summary>
+        /// <param name="t">Tipo a comprobar</param>
+        /// <returns>
+        /// <see langword="true" /> si <paramref name="t" /> es un tipo numérico; de
+        /// lo contrario, <see langword="false" />.
+        /// </returns>
+        public static bool IsNumericType(this Type? t)
+        {
+            return new[]
+            {
+                typeof(byte),
+                typeof(sbyte),
+                typeof(short),
+                typeof(ushort),
+                typeof(int),
+                typeof(uint),
+                typeof(long),
+                typeof(ulong),
+                typeof(decimal),
+                typeof(float),
+                typeof(double)
+            }.Contains(t);
+        }
+
+        /// <summary>
+        /// Enumera el valor de todas los campos estáticos que devuelvan
+        /// valores de tipo <typeparamref name="T" /> en el tipo especificado.
+        /// </summary>
+        /// <typeparam name="T">Tipo de campos a obtener.</typeparam>
+        /// <param name="type">
+        /// Tipo desde el cual obtener los campos.
+        /// </param>
+        /// <returns>
+        /// Una enumeración de todos los valores de tipo
+        /// <typeparamref name="T" /> del tipo.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="type"/> es
+        /// <see langword="null"/>.
+        /// </exception>
+        public static IEnumerable<T> FieldsOf<T>(this Type type)
+        {
+            FieldsOf_Contract(type);
+            return ReflectionHelpers.FieldsOf<T>(type.GetFields(BindingFlags.Static | BindingFlags.Public), null);
         }
     }
 }

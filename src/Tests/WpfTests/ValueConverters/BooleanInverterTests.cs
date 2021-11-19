@@ -33,15 +33,15 @@ namespace TheXDS.MCART.WpfTests.ValueConverters
         [Test]
         public void InversionTest()
         {
-            var c = new BooleanInverter();
+            BooleanInverter? c = new();
             Assert.True((bool)c.Convert(false, typeof(bool), null, CultureInfo.CurrentCulture)!);
             Assert.False((bool)c.Convert(true, typeof(bool), null, CultureInfo.CurrentCulture)!);
 
-    #if PreferExceptions
+#if PreferExceptions
             Assert.Throws<InvalidCastException>(() => c.Convert("Test", typeof(bool), null, CultureInfo.CurrentCulture));
-    #else
+#else
             Assert.Null(c.Convert("Test", typeof(bool), null, CultureInfo.CurrentCulture));
-    #endif
+#endif
         }
     }
 }

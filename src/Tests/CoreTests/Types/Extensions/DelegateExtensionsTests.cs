@@ -36,7 +36,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
     {
         [Name("Method 1"), ExcludeFromCodeCoverage]
         private static void Method1() { }
-        
+
         [ExcludeFromCodeCoverage]
         private static void Method2() { }
 

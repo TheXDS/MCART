@@ -33,9 +33,9 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         [Test]
         public void AsNamedEnumTest()
         {
-            var e = typeof(DayOfWeek).AsNamedEnum();
+            System.Collections.Generic.IEnumerable<MCART.Types.NamedObject<Enum>>? e = typeof(DayOfWeek).AsNamedEnum();
 
-            foreach (var j in e)
+            foreach (MCART.Types.NamedObject<Enum> j in e)
             {
                 Assert.AreEqual(j.Value.ToString(), j.Name);
             }

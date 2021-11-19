@@ -25,11 +25,12 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using TheXDS.MCART.Exceptions;
-using TheXDS.MCART.Types.Extensions;
 using static TheXDS.MCART.Misc.Internals;
 
 namespace TheXDS.MCART.Helpers
@@ -50,18 +51,18 @@ namespace TheXDS.MCART.Helpers
         [Conditional("EnforceContracts")]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DebuggerNonUserCode]
-        private static void IsOverriden_Contract(MethodBase method, object thisInstance)
+        private static void FieldsOf_Contract(IEnumerable<FieldInfo> fields, object? instance)
         {
-            if (method?.DeclaringType is null) throw new ArgumentNullException(nameof(method));
-            if (!(thisInstance?.GetType() ?? throw new ArgumentNullException(nameof(thisInstance))).Implements(method.DeclaringType)) throw new InvalidTypeException(thisInstance.GetType());
-        }
-
-        [Conditional("EnforceContracts")]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [DebuggerNonUserCode]
-        private static void IsOverride_Contract(MethodInfo method)
-        {
-            NullCheck(method, nameof(method));
+            NullCheck(fields, nameof(fields));
+            if (fields.IsAnyNull()) throw new NullItemException();
+            if (instance is { } obj)
+            {
+                FieldInfo[]? f = obj.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public);
+                foreach (FieldInfo? j in fields.Where(p => !p.IsStatic))
+                {
+                    if (!f.Contains(j)) throw new MissingFieldException(obj.GetType().Name, j.Name);
+                }
+            }
         }
     }
 }

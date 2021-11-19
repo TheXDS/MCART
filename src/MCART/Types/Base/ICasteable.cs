@@ -69,7 +69,7 @@ namespace TheXDS.MCART.Types.Base
         /// <see langword="true"/> si la conversión ha sido exitosa,
         /// <see langword="false"/> en caso contrario.
         /// </returns>
-        bool TryCast([MaybeNullWhen(false)]out T result)
+        bool TryCast([MaybeNullWhen(false)] out T result)
         {
             try
             {

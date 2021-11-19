@@ -46,7 +46,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         {
             get
             {
-                var baseType = Type?.BaseType;
+                Type? baseType = Type?.BaseType;
                 while (baseType is not null)
                 {
                     yield return baseType;
@@ -90,7 +90,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         /// Obtiene un valor que indica si el tipo ha sido definido dentro
         /// de un ensamblado dinámico.
         /// </summary>
-        public bool IsDynamic => Type?.Assembly.IsDynamic ??  false;
+        public bool IsDynamic => Type?.Assembly.IsDynamic ?? false;
 
         /// <summary>
         /// Obtiene un valor que indica si el tipo es estático, es decir si

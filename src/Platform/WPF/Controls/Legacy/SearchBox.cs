@@ -123,7 +123,7 @@ namespace TheXDS.MCART.Controls
         /// </summary>
         public SearchBox()
         {
-            var d = new TextBlock
+            TextBlock? d = new()
             {
                 Margin = new Thickness(5, 0, 5, 0),
                 VerticalAlignment = VerticalAlignment.Center,
@@ -143,9 +143,9 @@ namespace TheXDS.MCART.Controls
                 Converter = new StringVisibilityConverter(Visibility.Collapsed, Visibility.Visible)
             });
             SetBinding(SearchProperty, new Binding(nameof(txtSearch.Text)) { Source = txtSearch, Mode = BindingMode.TwoWay });
-            var roth = new DockPanel();
+            DockPanel? roth = new();
             DockPanel.SetDock(btnClseSearch, Dock.Right);
-            var box = new Grid();
+            Grid? box = new();
             box.SetBinding(BackgroundProperty, new Binding(nameof(Background)) { Source = this });
             box.Children.Add(d);
             box.Children.Add(txtSearch);
@@ -160,8 +160,8 @@ namespace TheXDS.MCART.Controls
 
         string GenFilters(string s)
         {
-            var x = new StringBuilder();
-            foreach (var j in flts)
+            StringBuilder? x = new();
+            foreach (string? j in flts)
             {
                 if (!x.ToString().IsEmpty()) x.Append(" OR ");
                 x.Append($"{j} LIKE '%{s}%'");

@@ -1,5 +1,5 @@
 ﻿/*
-Events.cs
+UiChangedEventArgs.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -25,65 +25,9 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 
 namespace TheXDS.MCART.PluginSupport.Legacy
 {
-    /// <summary>
-    /// Incluye información adicional del evento 
-    /// <see cref="IPlugin.PluginFinalizing" />.
-    /// </summary>
-    [Serializable]
-    public sealed class PluginFinalizingEventArgs : CancelEventArgs
-    {
-        /// <summary>
-        /// Determina el motivo de finalización del <see cref="IPlugin"/>.
-        /// </summary>
-        public enum FinalizingReason
-        {
-            /// <summary>
-            /// Cierre normal.
-            /// </summary>
-            Shutdown,
-
-            /// <summary>
-            /// Cierre debido a un error.
-            /// </summary>
-            Error,
-
-            /// <summary>
-            /// Cierre por liberación de recursos.
-            /// </summary>
-            Disposal,
-
-            /// <summary>
-            /// La aplicación se está cerrando.
-            /// </summary>
-            AppClosing
-        }
-
-        /// <summary>
-        /// Indica la razón por la cual se está finalizando el 
-        /// <see cref="IPlugin"/>.
-        /// </summary>
-        public FinalizingReason Reason { get; }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="PluginFinalizingEventArgs" />.
-        /// </summary>
-        internal PluginFinalizingEventArgs() : this(FinalizingReason.Shutdown) { }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="PluginFinalizingEventArgs" />.
-        /// </summary>
-        /// <param name="reason">
-        /// Establece la cual se está finalizando este plugin.
-        /// </param>
-        internal PluginFinalizingEventArgs(FinalizingReason reason) { Reason = reason; }
-    }
-
     /// <summary>
     /// Incluye información adicional del evento 
     /// <see cref="E:TheXDS.MCART.PluginSupport.IPlugin.UiChanged" />

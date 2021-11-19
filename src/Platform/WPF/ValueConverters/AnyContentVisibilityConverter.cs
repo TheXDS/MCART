@@ -61,7 +61,7 @@ namespace TheXDS.MCART.ValueConverters
                 case ContentControl contentControl:
                     return (contentControl.Content as FrameworkElement)?.Visibility ?? Visibility.Collapsed;
                 case Panel panel:
-                    foreach (var j in panel.Children)
+                    foreach (object? j in panel.Children)
                         if ((j as FrameworkElement)?.Visibility == Visibility.Visible)
                             return Visibility.Visible;
                     return Visibility.Collapsed;

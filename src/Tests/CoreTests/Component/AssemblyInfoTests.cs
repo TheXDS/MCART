@@ -34,7 +34,7 @@ namespace TheXDS.MCART.Tests.Component
         [Test]
         public void Get_Information_Test()
         {
-            var a = new AssemblyInfo(typeof(AssemblyInfo).Assembly);
+            AssemblyInfo? a = new(typeof(AssemblyInfo).Assembly);
             Assert.AreEqual("MCART", a.Name);
             Assert.IsTrue(a.Copyright!.StartsWith("Copyright"));
             Assert.NotNull(a.Description);
@@ -51,7 +51,7 @@ namespace TheXDS.MCART.Tests.Component
         [Test]
         public void Self_Information_Test()
         {
-            var a = new AssemblyInfo();
+            AssemblyInfo? a = new();
             Assert.AreSame(typeof(AssemblyInfoTests).Assembly, a.Assembly);
         }
     }

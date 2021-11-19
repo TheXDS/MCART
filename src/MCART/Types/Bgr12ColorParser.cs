@@ -40,9 +40,9 @@ namespace TheXDS.MCART.Types
         public Color From(short value)
         {
             return new(
-                (byte) ((value & 0xf) * 255 / 15),
-                (byte) (((value & 0xf0) >> 4) * 255 / 15),
-                (byte) (((value & 0xf00) >> 8) * 255 / 15),
+                (byte)((value & 0xf) * 255 / 15),
+                (byte)(((value & 0xf0) >> 4) * 255 / 15),
+                (byte)(((value & 0xf00) >> 8) * 255 / 15),
                 255);
         }
 
@@ -56,7 +56,7 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public short To(Color color)
         {
-            return (short) (
+            return (short)(
                 (color.R * 15 / 255) |
                 ((color.G * 15 / 255) << 4) |
                 ((color.B * 15 / 255) << 8));

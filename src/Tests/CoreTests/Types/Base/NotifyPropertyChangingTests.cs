@@ -44,8 +44,8 @@ namespace TheXDS.MCART.Tests.Types.Base
         [Test]
         public void OnPropertyChangingTest()
         {
-            var x = new TestClass();
-            var risen = false;
+            TestClass? x = new();
+            bool risen = false;
             (object? Sender, PropertyChangingEventArgs Arguments)? evt = null;
 
             void OnPropertyChanging(object? sender, PropertyChangingEventArgs e)

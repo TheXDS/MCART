@@ -69,7 +69,7 @@ namespace TheXDS.MCART.Types.Base
 
             if (_observeTree.ContainsKey(property))
             {
-                foreach (var j in affectedProperties)
+                foreach (string? j in affectedProperties)
                     _observeTree[property].Add(j);
             }
             else
@@ -87,7 +87,7 @@ namespace TheXDS.MCART.Types.Base
         /// </param>
         protected void RegisterPropertyChangeTrigger(string property, params string[] listenedProperties)
         {
-            foreach (var j in listenedProperties) RegisterPropertyChangeBroadcast(j, property);
+            foreach (string? j in listenedProperties) RegisterPropertyChangeBroadcast(j, property);
         }
 
         /// <summary>
@@ -132,7 +132,7 @@ namespace TheXDS.MCART.Types.Base
         /// </param>
         public void Notify(params string[] properties)
         {
-            foreach (var j in properties) Notify(j);
+            foreach (string? j in properties) Notify(j);
         }
 
         /// <summary>
@@ -152,7 +152,7 @@ namespace TheXDS.MCART.Types.Base
         {
             if (_observeTree.ContainsKey(property))
             {
-                foreach (var j in _observeTree[property])
+                foreach (string? j in _observeTree[property])
                 {
                     Notify(j);
                 }

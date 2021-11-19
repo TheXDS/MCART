@@ -49,7 +49,7 @@ namespace TheXDS.MCART.Types.Base
             PropertyName_Contract(propertyName);
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
             NotifyRegistroir(propertyName);
-            foreach (var j in _forwardings) j.Notify(propertyName);
+            foreach (INotifyPropertyChangeBase? j in _forwardings) j.Notify(propertyName);
         }
 
         /// <summary>

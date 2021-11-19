@@ -45,7 +45,7 @@ namespace TheXDS.MCART.Types
         private readonly bool _useGuid;
         private readonly ModuleBuilder _mBuilder;
         private readonly AssemblyBuilder _assembly;
-        
+
         /// <summary>
         /// Obtiene una referencia al ensamblado dinámico generado en el cual 
         /// se cargarán los tipos construidos por medio de este
@@ -88,8 +88,8 @@ namespace TheXDS.MCART.Types
             }
             else
             {
-                lock(_builtAssemblies) _assembly = AssemblyBuilder.DefineDynamicAssembly(new AssemblyName(_namespace), AssemblyBuilderAccess.Run).PushInto(_namespace,_builtAssemblies);
-                lock(_builtModules) _mBuilder = _assembly.DefineDynamicModule(_namespace).PushInto(_namespace, _builtModules);
+                lock (_builtAssemblies) _assembly = AssemblyBuilder.DefineDynamicAssembly(new AssemblyName(_namespace), AssemblyBuilderAccess.Run).PushInto(_namespace, _builtAssemblies);
+                lock (_builtModules) _mBuilder = _assembly.DefineDynamicModule(_namespace).PushInto(_namespace, _builtModules);
             }
         }
 
@@ -203,7 +203,7 @@ namespace TheXDS.MCART.Types
 
         private string GetName(string name)
         {
-            var nme = new StringBuilder();
+            StringBuilder? nme = new();
             nme.Append($"{_namespace}.{name.OrNull() ?? throw new ArgumentNullException(nameof(name))}");
             if (_useGuid) nme.Append($"_{Guid.NewGuid().ToString().Replace("-", string.Empty)}");
             return nme.ToString();

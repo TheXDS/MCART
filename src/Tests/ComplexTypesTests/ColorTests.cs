@@ -8,11 +8,11 @@ namespace TheXDS.MCART.Tests
         [Test]
         public void ComplexTypeToNormalTypeTest()
         {
-            var c1 = new Color {A = 255, B = 128, G = 192, R = 240};
-            var c2 = new Types.Color(240, 192, 128, 255);
-            
-            Assert.AreEqual(c2, (Types.Color) c1);
-            Assert.AreEqual(c1, (Color) c2);
+            Color? c1 = new() { A = 255, B = 128, G = 192, R = 240 };
+            Types.Color c2 = new(240, 192, 128, 255);
+
+            Assert.AreEqual(c2, (Types.Color)c1);
+            Assert.AreEqual(c1, (Color)c2);
         }
     }
 }

@@ -46,7 +46,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
             if (License is { LicenseUri: Uri uri }) Process.Start(uri.ToString());
             else if (License is { LicenseContent: var content })
             {
-                var w = new Window
+                Window? w = new()
                 {
                     SizeToContent = SizeToContent.Width,
                     MaxWidth = 640,
@@ -76,7 +76,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
 
         protected override void On3rdPartyLicenses()
         {
-            
+
         }
     }
 }

@@ -56,7 +56,7 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         [DebuggerStepThrough]
         private static void CheckProtocolType(IProtocol<TClient> protocol)
         {
-            var tClient = protocol.GetType().BaseType?.GenericTypeArguments.FirstOrDefault(p => typeof(Client).IsAssignableFrom(p)) ?? typeof(Client);
+            Type? tClient = protocol.GetType().BaseType?.GenericTypeArguments.FirstOrDefault(p => typeof(Client).IsAssignableFrom(p)) ?? typeof(Client);
             if (!typeof(TClient).IsAssignableFrom(tClient))
             {
                 throw new InvalidTypeException();
@@ -83,7 +83,7 @@ namespace TheXDS.MCART.Networking.Legacy.Server
                 _clients.Add(client);
                 while (client.IsAlive)
                 {
-                    var r = GetResponse(client.RecieveAsync(_cancellation.Token));
+                    byte[]? r = GetResponse(client.RecieveAsync(_cancellation.Token));
 
                     if (!_cancellation.IsCancellationRequested)
                     {
@@ -127,7 +127,7 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         {
             while (IsAlive)
             {
-                var c = await GetClient();
+                TcpClient? c = await GetClient();
                 if (c is null) continue;
                 _clientThreads.Add(Task.Run(() => AttendClient(Protocol.CreateClient(c) as TClient ?? throw new InvalidReturnValueException())));
             }
@@ -361,7 +361,7 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         /// </param>
         public void Multicast(byte[] data, Predicate<TClient> condition)
         {
-            foreach (var j in Clients)
+            foreach (TClient? j in Clients)
                 if (condition(j))
                     j.Send(data);
         }
@@ -404,8 +404,8 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         /// </param>
         public Task MulticastAsync(byte[] data, Predicate<TClient> condition)
         {
-            var w = new HashSet<Task>();
-            foreach (var j in Clients)
+            HashSet<Task>? w = new();
+            foreach (TClient? j in Clients)
                 if (condition(j))
                     w.Add(j.SendAsync(data));
             return Task.WhenAll(w);

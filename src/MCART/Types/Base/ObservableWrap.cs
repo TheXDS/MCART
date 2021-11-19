@@ -125,8 +125,8 @@ namespace TheXDS.MCART.Types.Base
         /// </returns>
         public bool Remove(T item)
         {
-            var idx = UnderlyingCollection?.FindIndexOf(item) ?? -1;
-            var result = UnderlyingCollection?.Remove(item) ?? false;
+            int idx = UnderlyingCollection?.FindIndexOf(item) ?? -1;
+            bool result = UnderlyingCollection?.Remove(item) ?? false;
             if (result)
             {
                 RaiseCollectionChanged(new NcchEa(Nccha.Remove, item, idx));
@@ -178,7 +178,7 @@ namespace TheXDS.MCART.Types.Base
             UnderlyingCollection = default!;
             RaiseCollectionChanged(new NcchEa(Reset));
             UnderlyingCollection = newCollection;
-            
+
             if (newCollection is not null) RaiseCollectionChanged(new NcchEa(Nccha.Add, (IList)UnderlyingCollection));
             Notify(nameof(Count));
         }
@@ -197,7 +197,7 @@ namespace TheXDS.MCART.Types.Base
             {
                 c.Clear();
                 if (newCollection is null) return;
-                foreach (var j in newCollection)
+                foreach (T? j in newCollection)
                 {
                     UnderlyingCollection.Add(j);
                 }
@@ -205,7 +205,7 @@ namespace TheXDS.MCART.Types.Base
                 Notify(nameof(Count));
             });
         }
-        
+
         /// <summary>
         /// Determina si la secuencia subyacente contiene al elemento
         /// especificado.

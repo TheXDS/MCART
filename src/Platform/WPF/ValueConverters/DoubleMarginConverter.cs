@@ -53,8 +53,8 @@ namespace TheXDS.MCART.ValueConverters
         /// </returns>
         public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var f = parameter as Func<double, double>;
-            return value is double v ? (object) new Thickness(f?.Invoke(v) ?? v) : null;
+            Func<double, double>? f = parameter as Func<double, double>;
+            return value is double v ? (object)new Thickness(f?.Invoke(v) ?? v) : null;
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace TheXDS.MCART.ValueConverters
         /// </returns>
         public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value is Thickness v ? (object) ((v.Top + v.Bottom + v.Left + v.Right) / 4.0) : null;
+            return value is Thickness v ? (object)((v.Top + v.Bottom + v.Left + v.Right) / 4.0) : null;
         }
     }
 }

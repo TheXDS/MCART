@@ -58,12 +58,12 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             public static int? Prop1 { get; set; } = 1;
             public static int? Prop2 { get; set; }
         }
-        
+
         [Test]
         public void SetDefault_Test()
         {
-            var o = new Test { Prop1 = 9, Prop2 = 9, Prop3 = 9 };
-            foreach (var j in o.GetType().GetProperties())
+            Test? o = new() { Prop1 = 9, Prop2 = 9, Prop3 = 9 };
+            foreach (System.Reflection.PropertyInfo? j in o.GetType().GetProperties())
             {
                 j.SetDefault(o);
             }
@@ -75,25 +75,25 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         [Test]
         public void SetDefault_Contract_Test()
         {
-            var o = new Test2();
+            Test2? o = new();
             Assert.Throws<InvalidOperationException>(() => o.GetType().GetProperties()[0].SetDefault(o));
             Assert.Throws<MissingMemberException>(() => typeof(Exception).GetProperty("Message")!.SetDefault(o));
         }
-        
+
         [Test]
         public void SetDefault_Static_Property_Test()
         {
             Test3.Prop1 = 9;
             Test3.Prop2 = 9;
 
-            foreach (var j in typeof(Test3).GetProperties())
+            foreach (System.Reflection.PropertyInfo? j in typeof(Test3).GetProperties())
             {
                 j.SetDefault();
             }
             Assert.AreEqual(1, Test3.Prop1);
             Assert.Null(Test3.Prop2);
         }
-        
+
         [Test]
         public void IsReadWrite_Test()
         {

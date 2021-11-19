@@ -42,9 +42,9 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static Frame InFrame(this Page page)
         {
-            var f = new Frame
-            { 
-                NavigationUIVisibility = NavigationUIVisibility.Hidden 
+            Frame? f = new()
+            {
+                NavigationUIVisibility = NavigationUIVisibility.Hidden
             };
             f.Navigate(page);
             return f;

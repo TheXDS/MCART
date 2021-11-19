@@ -31,8 +31,8 @@ using System.Reflection;
 using System.Threading.Tasks;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
-using TheXDS.MCART.Helpers;
 using TheXDS.MCART.PluginSupport.Legacy.Resources.Strings;
+using TheXDS.MCART.Types.Extensions;
 using static TheXDS.MCART.Types.Extensions.TypeExtensions;
 //using St = TheXDS.MCART.Resources.Strings.Strings;
 
@@ -330,7 +330,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         public IEnumerable<FileInfo> Dir<T>(string pluginsPath, SearchOption search) where T : class
         {
             if (!Directory.Exists(pluginsPath)) throw new DirectoryNotFoundException();
-            foreach (var f in new DirectoryInfo(pluginsPath).GetFiles($"*{_extension}", search))
+            foreach (FileInfo? f in new DirectoryInfo(pluginsPath).GetFiles($"*{_extension}", search))
             {
                 Assembly? a;
                 try
@@ -520,7 +520,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
 #else
             if (_checker.IsVaild(assembly))
 #endif
-                foreach (var j in assembly.GetTypes().Where(IsTypeCompatible))
+                foreach (Type? j in assembly.GetTypes().Where(IsTypeCompatible))
                     yield return j.New<IPlugin>();
         }
 
@@ -547,7 +547,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
 #if PreferExceptions
             else { throw new NotPluginException(assembly); }
 #endif
-            return global::System.Array.Empty<global::TheXDS.MCART.PluginSupport.Legacy.IPlugin>();
+            return global::System.Array.Empty<IPlugin>();
         }
 
         /// <summary>
@@ -839,7 +839,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
             where T : class
         {
             if (!Directory.Exists(pluginsPath)) throw new DirectoryNotFoundException();
-            foreach (var f in new DirectoryInfo(pluginsPath).GetFiles($"*{_extension}", search))
+            foreach (FileInfo? f in new DirectoryInfo(pluginsPath).GetFiles($"*{_extension}", search))
             {
                 Assembly? a = null;
                 try
@@ -856,7 +856,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
 #if PreferExceptions
                 if (checker.IsVaild(a))
 #endif
-                foreach (var j in LoadAll<T>(a, predicate)) yield return j;
+                foreach (T? j in LoadAll<T>(a, predicate)) yield return j;
             }
         }
 
@@ -881,8 +881,8 @@ namespace TheXDS.MCART.PluginSupport.Legacy
             where T : class
         {
             if (!Directory.Exists(pluginsPath)) throw new DirectoryNotFoundException();
-            var r = new List<T>();
-            foreach (var f in await Task.Run(() => new DirectoryInfo(pluginsPath).GetFiles($"*{_extension}", search)))
+            List<T>? r = new();
+            foreach (FileInfo? f in await Task.Run(() => new DirectoryInfo(pluginsPath).GetFiles($"*{_extension}", search)))
             {
                 Assembly? a = null;
                 try
@@ -1177,11 +1177,11 @@ namespace TheXDS.MCART.PluginSupport.Legacy
             SearchOption search) where T : class
         {
             if (!Directory.Exists(pluginsPath)) throw new DirectoryNotFoundException();
-            var outp = new Dictionary<string, IEnumerable<T>>();
-            foreach (var f in new DirectoryInfo(pluginsPath).GetFiles(searchPattern + _extension, search))
+            Dictionary<string, IEnumerable<T>>? outp = new();
+            foreach (FileInfo? f in new DirectoryInfo(pluginsPath).GetFiles(searchPattern + _extension, search))
                 try
                 {
-                    var a = Assembly.LoadFrom(f.FullName);
+                    Assembly? a = Assembly.LoadFrom(f.FullName);
                     if (_checker.IsVaild(a)) outp.Add(f.Name, LoadAll<T>(a));
                 }
                 catch (Exception ex)

@@ -44,7 +44,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </param>
         public override void Emit(ILGenerator il, decimal value)
         {
-            foreach (var j in decimal.GetBits(value))
+            foreach (int j in decimal.GetBits(value))
             {
                 il.Emit(Ldc_I4, j);
             }

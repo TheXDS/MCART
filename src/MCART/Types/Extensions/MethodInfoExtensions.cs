@@ -67,5 +67,57 @@ namespace TheXDS.MCART.Types.Extensions
             IsVoid_Contract(m);
             return m.ReturnType == typeof(void);
         }
+
+        /// <summary>
+        /// Determina si el método invalida a una definición base.
+        /// </summary>
+        /// <param name="method"></param>
+        /// <returns>
+        /// <see langword="true"/> si el método invalida a una definición
+        /// base, <see langword="false"/> en caso contrario.
+        /// </returns>
+        public static bool IsOverride(this MethodInfo method)
+        {
+            IsOverride_Contract(method);
+            return method.GetBaseDefinition().DeclaringType != method.DeclaringType;
+        }
+
+        /// <summary>
+        /// Comprueba que la firma de un método sea compatible con el delegado
+        /// especificado.
+        /// </summary>
+        /// <param name="methodInfo">
+        /// <see cref="MethodInfo" /> a comprobar.
+        /// </param>
+        /// <param name="delegate">
+        /// <see cref="Type" /> del <see cref="Delegate" /> a comprobar.
+        /// </param>
+        /// <returns>
+        /// <see langword="true" /> si el método es compatible con la firma del
+        /// delegado especificado, <see langword="false" /> en caso contrario.
+        /// </returns>
+        public static bool IsSignatureCompatible(this MethodInfo methodInfo, Type @delegate)
+        {
+            return Delegate.CreateDelegate(@delegate, methodInfo, false) is not null;
+        }
+
+        /// <summary>
+        /// Comprueba que la firma de un método sea compatible con el delegado
+        /// especificado.
+        /// </summary>
+        /// <param name="methodInfo">
+        /// <see cref="MethodInfo" /> a comprobar.
+        /// </param>
+        /// <typeparam name="T">
+        /// Tipo del <see cref="Delegate" /> a comprobar.
+        /// </typeparam>
+        /// <returns>
+        /// <see langword="true" /> si el método es compatible con la firma del
+        /// delegado especificado, <see langword="false" /> en caso contrario.
+        /// </returns>
+        public static bool IsSignatureCompatible<T>(this MethodInfo methodInfo) where T : Delegate
+        {
+            return IsSignatureCompatible(methodInfo, typeof(T));
+        }
     }
 }

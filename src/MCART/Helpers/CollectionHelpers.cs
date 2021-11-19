@@ -25,11 +25,18 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
+using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Math;
 using TheXDS.MCART.Types.Extensions;
+using static TheXDS.MCART.Misc.Internals;
+using static TheXDS.MCART.Types.Extensions.EnumerableExtensions;
+using static TheXDS.MCART.Types.Extensions.TypeExtensions;
 
 namespace TheXDS.MCART.Helpers
 {
@@ -449,13 +456,13 @@ namespace TheXDS.MCART.Helpers
         public static async Task<bool> AllEmpty(this IAsyncEnumerable<string?> stringCollection)
         {
             AllEmpty_Contract(stringCollection);
-            await foreach (var j in stringCollection.ConfigureAwait(false))
+            await foreach (string? j in stringCollection.ConfigureAwait(false))
             {
                 if (!j.IsEmpty()) return false;
             }
             return true;
         }
-    
+
         /// <summary>
         /// Determina si alguna cadena está vacía.
         /// </summary>
@@ -489,7 +496,7 @@ namespace TheXDS.MCART.Helpers
         public static async Task<bool> AnyEmpty(this IAsyncEnumerable<string?> stringCollection)
         {
             AnyEmpty_Contract(stringCollection);
-            await foreach (var j in stringCollection.ConfigureAwait(false))
+            await foreach (string? j in stringCollection.ConfigureAwait(false))
             {
                 if (j.IsEmpty()) return true;
             }
@@ -514,9 +521,9 @@ namespace TheXDS.MCART.Helpers
         public static bool AnyEmpty(this IEnumerable<string?> stringCollection, out IEnumerable<int> index)
         {
             AnyEmpty_Contract(stringCollection);
-            var idx = new List<int>();
-            var c = 0;
-            foreach (var j in stringCollection)
+            List<int>? idx = new();
+            int c = 0;
+            foreach (string? j in stringCollection)
             {
                 if (j.IsEmpty()) idx.Add(c);
                 c++;
@@ -543,8 +550,8 @@ namespace TheXDS.MCART.Helpers
         public static bool AnyEmpty(this IEnumerable<string?> stringCollection, out int firstIndex)
         {
             AnyEmpty_Contract(stringCollection);
-            var r = AnyEmpty(stringCollection, out IEnumerable<int> indexes);
-            var a = indexes.ToArray();
+            bool r = AnyEmpty(stringCollection, out IEnumerable<int> indexes);
+            int[]? a = indexes.ToArray();
             firstIndex = a.Any() ? a.First() : -1;
             return r;
         }
@@ -561,7 +568,7 @@ namespace TheXDS.MCART.Helpers
         public static IEnumerable<string> NotEmpty(this IEnumerable<string?> stringCollection)
         {
             NotEmpty_Contract(stringCollection);
-            foreach (var j in stringCollection)
+            foreach (string? j in stringCollection)
             {
                 if (!j.IsEmpty()) yield return j;
             }
@@ -586,7 +593,7 @@ namespace TheXDS.MCART.Helpers
         public static IEnumerable<float> ToPercent(this IEnumerable<float> collection)
         {
             ToPercent_Contract(collection);
-            var enumerable = collection.ToList();
+            List<float>? enumerable = collection.ToList();
             return ToPercent(enumerable, enumerable.Min(), enumerable.Max());
         }
 
@@ -614,7 +621,7 @@ namespace TheXDS.MCART.Helpers
         public static IEnumerable<float> ToPercent(this IEnumerable<float> collection, in bool baseZero)
         {
             ToPercent_Contract(collection);
-            var enumerable = collection.ToList();
+            List<float>? enumerable = collection.ToList();
             return ToPercent(enumerable, baseZero ? 0 : enumerable.Min(), enumerable.Max());
         }
 
@@ -663,7 +670,7 @@ namespace TheXDS.MCART.Helpers
         public static IEnumerable<float> ToPercent(this IEnumerable<float> collection, float min, float max)
         {
             ToPercent_Contract(collection, min, max);
-            foreach (var j in collection)
+            foreach (float j in collection)
                 if (j.IsValid())
                     yield return (j - min) / (max - min).Clamp(1, float.NaN);
                 else
@@ -715,13 +722,13 @@ namespace TheXDS.MCART.Helpers
         public static async IAsyncEnumerable<float> ToPercent(this IAsyncEnumerable<float> collection, float min, float max)
         {
             ToPercent_Contract(collection, min, max);
-            await foreach (var j in collection)
+            await foreach (float j in collection)
                 if (j.IsValid())
                     yield return (j - min) / (max - min).Clamp(1, float.NaN);
                 else
                     yield return float.NaN;
         }
-    
+
         /// <summary>
         /// Convierte los valores de una colección de elementos
         /// <see cref="int" /> a porcentajes.
@@ -741,7 +748,7 @@ namespace TheXDS.MCART.Helpers
         public static IEnumerable<double> ToPercentDouble(this IEnumerable<int> collection)
         {
             ToPercentDouble_Contract(collection);
-            var enumerable = collection.ToList();
+            List<int>? enumerable = collection.ToList();
             return ToPercentDouble(enumerable, 0, enumerable.Max());
         }
 
@@ -769,7 +776,7 @@ namespace TheXDS.MCART.Helpers
         public static IEnumerable<double> ToPercentDouble(this IEnumerable<int> collection, in bool baseZero)
         {
             ToPercentDouble_Contract(collection);
-            var enumerable = collection.ToList();
+            List<int>? enumerable = collection.ToList();
             return ToPercentDouble(enumerable, baseZero ? 0 : enumerable.Min(), enumerable.Max());
         }
 
@@ -818,7 +825,7 @@ namespace TheXDS.MCART.Helpers
         public static IEnumerable<double> ToPercentDouble(this IEnumerable<int> collection, int min, int max)
         {
             ToPercent_Contract(collection, min, max);
-            foreach (var j in collection) yield return (j - min) / (double) (max - min);
+            foreach (int j in collection) yield return (j - min) / (double)(max - min);
         }
 
         /// <summary>
@@ -866,7 +873,7 @@ namespace TheXDS.MCART.Helpers
         public static async IAsyncEnumerable<double> ToPercentDouble(this IAsyncEnumerable<int> collection, int min, int max)
         {
             ToPercent_Contract(collection, min, max);
-            await foreach (var j in collection) yield return (j - min) / (double)(max - min);
+            await foreach (int j in collection) yield return (j - min) / (double)(max - min);
         }
 
         /// <summary>
@@ -888,7 +895,7 @@ namespace TheXDS.MCART.Helpers
         public static IEnumerable<float> ToPercentSingle(this IEnumerable<int> collection)
         {
             ToPercentSingle_Contract(collection);
-            var enumerable = collection.ToList();
+            List<int>? enumerable = collection.ToList();
             return ToPercentSingle(enumerable, 0, enumerable.Max());
         }
 
@@ -916,7 +923,7 @@ namespace TheXDS.MCART.Helpers
         public static IEnumerable<float> ToPercentSingle(this IEnumerable<int> collection, in bool baseZero)
         {
             ToPercentSingle_Contract(collection);
-            var enumerable = collection.ToList();
+            List<int>? enumerable = collection.ToList();
             return ToPercentSingle(enumerable, baseZero ? 0 : enumerable.Min(), enumerable.Max());
         }
 
@@ -965,7 +972,7 @@ namespace TheXDS.MCART.Helpers
         public static IEnumerable<float> ToPercentSingle(this IEnumerable<int> collection, int min, int max)
         {
             ToPercent_Contract(collection, min, max);
-            foreach (var j in collection) yield return (j - min) / (float) (max - min);
+            foreach (int j in collection) yield return (j - min) / (float)(max - min);
         }
 
         /// <summary>
@@ -1013,9 +1020,9 @@ namespace TheXDS.MCART.Helpers
         public static async IAsyncEnumerable<float> ToPercentSingle(this IAsyncEnumerable<int> collection, int min, int max)
         {
             ToPercent_Contract(collection, min, max);
-            await foreach (var j in collection) yield return (j - min) / (float)(max - min);
+            await foreach (int j in collection) yield return (j - min) / (float)(max - min);
         }
-    
+
         /// <summary>
         /// Convierte los valores de una colección de elementos
         /// <see cref="double" /> a porcentajes.
@@ -1035,7 +1042,7 @@ namespace TheXDS.MCART.Helpers
         public static IEnumerable<double> ToPercent(this IEnumerable<double> collection)
         {
             ToPercent_Contract(collection);
-            var enumerable = collection.ToList();
+            List<double>? enumerable = collection.ToList();
             return ToPercent(enumerable, enumerable.Min(), enumerable.Max());
         }
 
@@ -1063,7 +1070,7 @@ namespace TheXDS.MCART.Helpers
         public static IEnumerable<double> ToPercent(this IEnumerable<double> collection, in bool baseZero)
         {
             ToPercent_Contract(collection);
-            var enumerable = collection.ToList();
+            List<double>? enumerable = collection.ToList();
             return ToPercent(enumerable, baseZero ? 0 : enumerable.Min(), enumerable.Max());
         }
 
@@ -1112,7 +1119,7 @@ namespace TheXDS.MCART.Helpers
         public static IEnumerable<double> ToPercent(this IEnumerable<double> collection, double min, double max)
         {
             ToPercent_Contract(collection, min, max);
-            foreach (var j in collection)
+            foreach (double j in collection)
                 if (j.IsValid())
                     yield return (j - min) / (max - min).Clamp(1, double.NaN);
                 else
@@ -1164,11 +1171,248 @@ namespace TheXDS.MCART.Helpers
         public static async IAsyncEnumerable<double> ToPercent(this IAsyncEnumerable<double> collection, double min, double max)
         {
             ToPercent_Contract(collection, min, max);
-            await foreach (var j in collection)
+            await foreach (double j in collection)
                 if (j.IsValid())
                     yield return (j - min) / (max - min).Clamp(1, double.NaN);
                 else
                     yield return double.NaN;
+        }
+
+        /// <summary>
+        /// Determina si todos los objetos son <see langword="null" />.
+        /// </summary>
+        /// <returns>
+        /// <see langword="true" />, si todos los objetos son <see langword="null" />; de lo contrario,
+        /// <see langword="false" />.
+        /// </returns>
+        /// <param name="collection">Objetos a comprobar.</param>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="collection"/> es
+        /// <see langword="null"/>.
+        /// </exception>
+        public static bool AreAllNull(this IEnumerable<object?> collection)
+        {
+            NullCheck(collection, nameof(collection));
+            return collection.All(p => p is null);
+        }
+
+        /// <summary>
+        /// Obtiene todos los métodos estáticos con firma compatible con el
+        /// delegado especificado.
+        /// </summary>
+        /// <typeparam name="T">
+        /// Delegado a utilizar como firma a comprobar.
+        /// </typeparam>
+        /// <param name="methods">
+        /// Colección de métodos en la cual realizar la búsqueda.
+        /// </param>
+        /// <returns>
+        /// Una enumeración de todos los métodos que tienen una firma
+        /// compatible con <typeparamref name="T" />.
+        /// </returns>
+        public static IEnumerable<T> WithSignature<T>(this IEnumerable<MethodInfo> methods) where T : notnull, Delegate
+        {
+            foreach (MethodInfo? j in methods)
+            {
+                if (Objects.TryCreateDelegate<T>(j, out T? d))
+                {
+                    yield return d ?? throw new TamperException();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Obtiene todos los métodos de instancia con firma compatible con el
+        /// delegado especificado.
+        /// </summary>
+        /// <typeparam name="T">
+        /// Delegado a utilizar como firma a comprobar.
+        /// </typeparam>
+        /// <param name="methods">
+        /// Colección de métodos en la cual realizar la búsqueda.
+        /// </param>
+        /// <param name="instance">
+        /// Instancia del objeto sobre el cual construir los delegados.
+        /// </param>
+        /// <returns>
+        /// Una enumeración de todos los métodos que tienen una firma
+        /// compatible con <typeparamref name="T" />.
+        /// </returns>
+        public static IEnumerable<T> WithSignature<T>(this IEnumerable<MethodInfo> methods, object instance) where T : notnull, Delegate
+        {
+            foreach (MethodInfo? j in methods)
+            {
+                if (Objects.TryCreateDelegate<T>(j, instance, out T? d))
+                {
+                    yield return d ?? throw new TamperException();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Obtiene una lista de los tipos de los objetos especificados.
+        /// </summary>
+        /// <param name="objects">
+        /// Objetos a partir de los cuales generar la colección de tipos.
+        /// </param>
+        /// <returns>
+        /// Una lista compuesta por los tipos de los objetos provistos.
+        /// </returns>
+        public static IEnumerable<Type> ToTypes(this IEnumerable objects)
+        {
+            foreach (object? j in objects) if (j is not null) yield return j.GetType();
+        }
+
+        /// <summary>
+        /// Enumera el valor de todas las propiedades que devuelvan valores de
+        /// tipo <typeparamref name="T" />.
+        /// </summary>
+        /// <typeparam name="T">Tipo de propiedades a obtener.</typeparam>
+        /// <param name="properties">
+        /// Colección de propiedades a analizar.
+        /// </param>
+        /// <param name="instance">
+        /// Instancia desde la cual obtener las propiedades.
+        /// </param>
+        /// <returns>
+        /// Una enumeración de todos los valores de tipo
+        /// <typeparamref name="T" /> de la instancia.
+        /// </returns>
+        public static IEnumerable<T> PropertiesOf<T>(this IEnumerable<PropertyInfo> properties, object? instance)
+        {
+            return
+                from j in properties.Where(p => p.CanRead)
+                where j.PropertyType.Implements(typeof(T))
+                select (T)j.GetMethod!.Invoke(instance, Array.Empty<object>())!;
+        }
+
+        /// <summary>
+        /// Enumera el valor de todas las propiedades estáticas que devuelvan
+        /// valores de tipo <typeparamref name="T" />.
+        /// </summary>
+        /// <typeparam name="T">Tipo de propiedades a obtener.</typeparam>
+        /// <param name="properties">
+        /// Colección de propiedades a analizar.
+        /// </param>
+        /// <returns>
+        /// Una enumeración de todos los valores de tipo
+        /// <typeparamref name="T" />.
+        /// </returns>
+        public static IEnumerable<T> PropertiesOf<T>(this IEnumerable<PropertyInfo> properties)
+        {
+            return PropertiesOf<T>(properties, null);
+        }
+
+        /// <summary>
+        /// Determina si cualquiera de los objetos es <see langword="null" />.
+        /// </summary>
+        /// <returns>
+        /// <see langword="true" />, si cualquiera de los objetos es <see langword="null" />; de lo
+        /// contrario, <see langword="false" />.
+        /// </returns>
+        /// <param name="x">Objetos a comprobar.</param>
+        public static bool IsAnyNull(this IEnumerable<object?>? x)
+        {
+            return x?.Any(p => p is null) ?? true;
+        }
+
+        /// <summary>
+        /// Determina si cualquiera de los objetos es <see langword="null" />.
+        /// </summary>
+        /// <returns>
+        /// Un enumerador con los índices de los objetos que son <see langword="null" />.
+        /// </returns>
+        /// <param name="collection">Colección de objetos a comprobar.</param>
+        public static IEnumerable<int> WhichAreNull(this IEnumerable<object?> collection)
+        {
+            WhichAreNull_Contract(collection);
+            int c = 0;
+            foreach (object? j in collection)
+            {
+                if (j is null) yield return c;
+                c++;
+            }
+        }
+
+        /// <summary>
+        /// Obtiene una lista de tipos asignables a partir de la interfaz o clase base
+        /// especificada dentro del <see cref="AppDomain" /> especificado.
+        /// </summary>
+        /// <typeparam name="T">Interfaz o clase base a buscar.</typeparam>
+        /// <param name="assemblies">
+        /// Colección de ensamblados en la cual realizar la búsqueda.
+        /// </param>
+        /// <returns>
+        /// Una lista de tipos de las clases que implementan a la interfaz
+        /// o que heredan a la clase base <typeparamref name="T" /> dentro
+        /// de <paramref name="assemblies" />.
+        /// </returns>
+        /// <remarks>
+        /// Esta función obtiene todos los tipos (privados y públicos)
+        /// definidos dentro de todos los ensamblados dentro de la
+        /// colección especificada. Para obtener únicamente aquellos tipos
+        /// exportados públicamente, utilice
+        /// <see cref="Objects.PublicTypes(Type)"/>,
+        /// <see cref="Objects.PublicTypes(Type, AppDomain)"/>,
+        /// <see cref="Objects.PublicTypes{T}()"/> o
+        /// <see cref="Objects.PublicTypes{T}(AppDomain)"/>.
+        /// </remarks>
+        [Sugar]
+        public static IEnumerable<Type> GetTypes<T>(this IEnumerable<Assembly> assemblies)
+        {
+            return typeof(T).Derivates(assemblies);
+        }
+
+        /// <summary>
+        /// Obtiene una lista de tipos asignables a partir de la interfaz o clase base
+        /// especificada dentro del <see cref="AppDomain" /> especificado.
+        /// </summary>
+        /// <typeparam name="T">Interfaz o clase base a buscar.</typeparam>
+        /// <param name="assemblies">
+        /// Colección de ensamblados en la cual realizar la búsqueda.
+        /// </param>
+        /// <param name="instantiablesOnly">
+        /// Si se establece en <see langword="true" />, únicamente se incluirán aquellos tipos instanciables.
+        /// <see langword="false" /> hará que se devuelvan todos los tipos coincidientes.
+        /// </param>
+        /// <returns>
+        /// Una lista de tipos de las clases que implementan a la interfaz o que heredan a la clase base
+        /// <typeparamref name="T" /> dentro del dominio predeterminado.
+        /// </returns>
+        /// <remarks>
+        /// Esta función obtiene todos los tipos (privados y públicos)
+        /// definidos dentro de todos los ensamblados dentro de la
+        /// colección especificada. Para obtener únicamente aquellos tipos
+        /// exportados públicamente, utilice
+        /// <see cref="Objects.PublicTypes(Type)"/>,
+        /// <see cref="Objects.PublicTypes(Type, AppDomain)"/>,
+        /// <see cref="Objects.PublicTypes{T}()"/> o
+        /// <see cref="Objects.PublicTypes{T}(AppDomain)"/>.
+        /// </remarks>
+        public static IEnumerable<Type> GetTypes<T>(this IEnumerable<Assembly> assemblies, bool instantiablesOnly)
+        {
+            Type? TryType(Type k)
+            {
+                try
+                {
+                    return typeof(T).IsAssignableFrom(k)
+                        && (!instantiablesOnly || !(k.IsInterface || k.IsAbstract || !k.GetConstructors().Any()))
+                        ? k : null;
+                }
+                catch { return null; }
+            }
+            IEnumerable<Type?> TryAssembly(Assembly j)
+            {
+                try
+                {
+                    return j.GetTypes().Select(TryType);
+                }
+                catch
+                {
+                    return Array.Empty<Type>();
+                }
+            }
+            return assemblies.SelectMany(TryAssembly).NotNull();
         }
     }
 }

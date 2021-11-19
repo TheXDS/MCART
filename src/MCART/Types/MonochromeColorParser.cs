@@ -39,7 +39,7 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public Color From(bool value)
         {
-            var m = value ? byte.MaxValue : byte.MinValue;
+            byte m = value ? byte.MaxValue : byte.MinValue;
             return new Color(m, m, m);
         }
 

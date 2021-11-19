@@ -42,7 +42,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <param name="c">Colección de la cual remover los elementos.</param>
         public static void RemoveOf<T>(this IList c)
         {
-            var i = 0;
+            int i = 0;
             while (i < c.Count)
             {
                 if (typeof(T).IsInstanceOfType(c[i]))
@@ -68,10 +68,10 @@ namespace TheXDS.MCART.Types.Extensions
         public static void ApplyRotate<T>(this IList<T> c, in int steps)
         {
             if (steps > 0)
-                for (var j = 0; j < steps; j++)
+                for (int j = 0; j < steps; j++)
                     c.Add(c.PopFirst());
             else if (steps < 0)
-                for (var j = 0; j > steps; j--)
+                for (int j = 0; j > steps; j--)
                     c.Insert(0, c.Pop());
         }
 
@@ -90,13 +90,13 @@ namespace TheXDS.MCART.Types.Extensions
         public static void ApplyShift<T>(this IList<T> c, in int steps)
         {
             if (steps > 0)
-                for (var j = 0; j < steps; j++)
+                for (int j = 0; j < steps; j++)
                 {
                     c.PopFirst();
                     c.Add(default!);
                 }
             else if (steps < 0)
-                for (var j = 0; j > steps; j--)
+                for (int j = 0; j > steps; j--)
                 {
                     c.Pop();
                     c.Insert(0, default!);
@@ -210,7 +210,7 @@ namespace TheXDS.MCART.Types.Extensions
         {
             Shuffle_Contract(toShuffle, firstIdx, lastIdx, deepness, random);
             lastIdx++;
-            for (var j = firstIdx; j < lastIdx; j += deepness)
+            for (int j = firstIdx; j < lastIdx; j += deepness)
             {
                 toShuffle.Swap(j, random.Next(firstIdx, lastIdx));
             }
@@ -237,7 +237,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <param name="a">Primer elemento.</param>
         /// <param name="b">Segundo elemento.</param>
         public static void Swap<T>(this IList<T> collection, T a, T b)
-        {            
+        {
             if (!collection.ContainsAll(a, b)) throw new Exception(); //TODO: agregar excepción específica
             Swap(collection, collection.IndexOf(a), collection.IndexOf(b));
         }

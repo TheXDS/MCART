@@ -42,7 +42,7 @@ namespace TheXDS.MCART.Networking.Legacy.Server.Protocols
         /// </summary>
         /// <param name="client">Cliente al cual enviar la frase del día.</param>
         protected sealed override void Send(Client client)
-        {            
+        {
             client.Send(Encoding.ASCII.GetBytes(Quote));
         }
 

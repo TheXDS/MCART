@@ -32,7 +32,7 @@ namespace TheXDS.MCART.ViewModel
     /// Tipo de entidad a utilizar como almacenamiento interno de este
     /// ViewModel.
     /// </typeparam>
-    public abstract class NewableViewModel<T> : ViewModel<T>, INewEntityViewModel<T> where T: new()
+    public abstract class NewableViewModel<T> : ViewModel<T>, INewEntityViewModel<T> where T : new()
     {
         /// <summary>
         /// Instancia un nuevo <typeparamref name="T"/> en este ViewModel.

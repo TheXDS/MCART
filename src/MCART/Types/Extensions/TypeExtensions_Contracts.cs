@@ -29,6 +29,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using TheXDS.MCART.Exceptions;
@@ -45,7 +46,7 @@ namespace TheXDS.MCART.Types.Extensions
     {
         [Conditional("EnforceContracts")]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [DebuggerNonUserCode]        
+        [DebuggerNonUserCode]
         private static void ToNamedEnum_Contract(Type type)
         {
             NullCheck(type, nameof(type));
@@ -113,6 +114,14 @@ namespace TheXDS.MCART.Types.Extensions
             {
                 throw Errors.ClassNotInstantiable(type);
             }
+        }
+
+        [Conditional("EnforceContracts")]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [DebuggerNonUserCode]
+        private static void FieldsOf_Contract(Type type)
+        {
+            NullCheck(type, nameof(type));
         }
     }
 }

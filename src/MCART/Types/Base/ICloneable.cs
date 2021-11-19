@@ -47,13 +47,13 @@ namespace TheXDS.MCART.Types.Base
         new T Clone()
         {
             if (this is not T source) throw new InvalidCastException();
-            var copy = new T();
-            
-            foreach (var j in typeof(T).GetFields().Where(p => p.IsPublic))
+            T? copy = new();
+
+            foreach (System.Reflection.FieldInfo? j in typeof(T).GetFields().Where(p => p.IsPublic))
             {
                 j.SetValue(copy, j.GetValue(source));
             }
-            foreach (var j in typeof(T).GetProperties().Where(p => p.CanRead && p.CanWrite))
+            foreach (System.Reflection.PropertyInfo? j in typeof(T).GetProperties().Where(p => p.CanRead && p.CanWrite))
             {
                 j.SetValue(copy, j.GetValue(source));
             }

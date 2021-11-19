@@ -52,7 +52,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static string RndText(this Random r, in int length)
         {
-            var x = string.Empty;
+            string? x = string.Empty;
             while (x.Length < length) x += Text[r.Next(0, Text.Length)];
             return x;
         }

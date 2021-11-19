@@ -233,7 +233,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         /// Ejecuta la acción de mostrar más información sobre MCART.
         /// </summary>
         protected abstract void OnAboutMcart();
-        
+
         /// <summary>
         /// Ejecuta la acción de mostrar más información sobre licencias de
         /// terceros incluidas en la aplicación.

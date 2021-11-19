@@ -12,8 +12,8 @@ namespace TheXDS.MCART.Tests
         [Test]
         public void ResolveToDefinedType_Test()
         {
-            var t = _factory.NewClass("GreeterClass");
-            var nameProp = t.AddAutoProperty<string>("Name");
+            System.Reflection.Emit.TypeBuilder? t = _factory.NewClass("GreeterClass");
+            PropertyBuildInfo? nameProp = t.AddAutoProperty<string>("Name");
             t.AddComputedProperty<string>("Greeting", p => p
                 .LoadConstant("Hello, ")
                 .LoadProperty(nameProp)

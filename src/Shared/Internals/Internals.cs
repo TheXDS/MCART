@@ -42,7 +42,7 @@ namespace TheXDS.MCART.Misc
         internal static MethodBase? GetCallOutsideMcart(bool @throw = true)
         {
             MethodBase? m;
-            var c = 1;
+            int c = 1;
             do
             {
                 m = ReflectionHelpers.GetCallingMethod(++c);

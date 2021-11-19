@@ -80,7 +80,7 @@ namespace TheXDS.MCART.Types
                     size = Zero;
                     break;
                 default:
-                    var separators = new[]
+                    string[]? separators = new[]
                     {
                         ", ",
                         "; ",
@@ -93,7 +93,7 @@ namespace TheXDS.MCART.Types
                         ":",
                         "|",
                     };
-                    return PrivateInternals.TryParseValues<double, Size>(separators, value.Without("()[]{}".ToCharArray()),2, l=> new Size(l[0],l[1]), out size);
+                    return PrivateInternals.TryParseValues<double, Size>(separators, value.Without("()[]{}".ToCharArray()), 2, l => new Size(l[0], l[1]), out size);
             }
             return true;
         }
@@ -110,7 +110,7 @@ namespace TheXDS.MCART.Types
         /// <returns><see cref="Size"/> que ha sido creado.</returns>
         public static Size Parse(string value)
         {
-            if (TryParse(value, out var retval)) return retval;
+            if (TryParse(value, out Size retval)) return retval;
             throw new FormatException();
         }
 
@@ -196,7 +196,7 @@ namespace TheXDS.MCART.Types
         {
             get
             {
-                var a = SquareArea;
+                double a = SquareArea;
                 return a.IsValid() ? a == 0 : (bool?)null;
             }
         }

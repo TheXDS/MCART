@@ -117,7 +117,7 @@ namespace TheXDS.MCART.Exceptions
         /// La información contextual acerca del orígen o el destino.
         /// </param>
         protected MissingResourceException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {            
+        {
         }
 
         /// <summary>

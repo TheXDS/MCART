@@ -34,8 +34,8 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         [Test]
         public void Skip_Test()
         {
-            var a = Enumerable.Range(0, 10);
-            using var e = a.GetEnumerator();
+            System.Collections.Generic.IEnumerable<int>? a = Enumerable.Range(0, 10);
+            using System.Collections.Generic.IEnumerator<int>? e = a.GetEnumerator();
             e.MoveNext();
             Assert.AreEqual(0, e.Current);
             e.MoveNext();

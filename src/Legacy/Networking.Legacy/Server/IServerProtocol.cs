@@ -35,9 +35,9 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         /// objeto.
         /// </summary>
         new Server MyServer
-        { 
+        {
             get => (Server)((IServerProtocol<Client>)this).MyServer;
-            set=> ((IServerProtocol<Client>)this).MyServer = value;
+            set => ((IServerProtocol<Client>)this).MyServer = value;
         }
     }
 

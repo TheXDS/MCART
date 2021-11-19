@@ -33,9 +33,9 @@ namespace TheXDS.MCART.WpfTests.Types.Extensions
         [Test]
         public void DoneTest()
         {
-            var t = new Table();
-            var rg = new TableRowGroup();
-            var tr = new TableRow();
+            Table? t = new();
+            TableRowGroup? rg = new();
+            TableRow? tr = new();
             rg.Rows.Add(tr);
             t.RowGroups.Add(rg);
 

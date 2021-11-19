@@ -77,14 +77,14 @@ namespace TheXDS.MCART.Misc
 #endif
             foreach (TypeConverter t in Common.FindConverters(typeof(string), typeof(TValue)))
             {
-                foreach (var j in separators)
+                foreach (string? j in separators)
                 {
-                    var l = value.Split(new[] { j }, StringSplitOptions.RemoveEmptyEntries);
+                    string[]? l = value.Split(new[] { j }, StringSplitOptions.RemoveEmptyEntries);
                     if (l.Length != items) continue;
                     try
                     {
-                        var c = 0;
-                        result = instancer(l.Select(k => (TValue) t.ConvertTo(l[c++].Trim(), typeof(TValue))!).ToArray());
+                        int c = 0;
+                        result = instancer(l.Select(k => (TValue)t.ConvertTo(l[c++].Trim(), typeof(TValue))!).ToArray());
                         return true;
                     }
                     catch

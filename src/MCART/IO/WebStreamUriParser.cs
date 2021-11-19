@@ -65,7 +65,7 @@ namespace TheXDS.MCART.IO
         /// </returns>
         public WebResponse GetResponse(Uri uri)
         {
-            var req = WebRequest.Create(uri);
+            WebRequest? req = WebRequest.Create(uri);
             req.Timeout = 10000;
             return req.GetResponse() as T ?? throw new InvalidUriException(uri);
         }
@@ -80,7 +80,7 @@ namespace TheXDS.MCART.IO
         /// </returns>
         public async Task<WebResponse> GetResponseAsync(Uri uri)
         {
-            var req = WebRequest.Create(uri);
+            WebRequest? req = WebRequest.Create(uri);
             req.Timeout = 10000;
             return await req.GetResponseAsync() as T ?? throw new InvalidUriException(uri);
         }
@@ -106,7 +106,7 @@ namespace TheXDS.MCART.IO
         {
             try
             {
-                var ms = new MemoryStream();
+                MemoryStream? ms = new();
                 await DownloadHelper.DownloadAsync(uri, ms);
                 return ms;
             }

@@ -53,7 +53,7 @@ namespace TheXDS.MCART.Windows
 
         /// <inheritdoc/>
         public Margins Padding
-        { 
+        {
             get => _margins;
             set
             {

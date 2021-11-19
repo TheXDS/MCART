@@ -45,7 +45,7 @@ namespace TheXDS.MCART.ValueConverters
             if (value is null) return null;
             if (value is not INotifyDataErrorInfo vm) throw new ArgumentException(null, nameof(value));
             if (parameter is not string pn) throw new ArgumentException(null, nameof(parameter));
-            var e = vm.GetErrors(pn).OfType<string>().ToList();
+            System.Collections.Generic.List<string>? e = vm.GetErrors(pn).OfType<string>().ToList();
             return e.Any() ? string.Join(Environment.NewLine, e) : null;
         }
 

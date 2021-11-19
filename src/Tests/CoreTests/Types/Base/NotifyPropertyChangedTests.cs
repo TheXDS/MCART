@@ -37,13 +37,13 @@ namespace TheXDS.MCART.Tests.Types.Base
         {
             private int _value;
             private object? _obj;
-            
+
             public int Value
             {
                 get => _value;
                 set => Change(ref _value, value);
             }
-            
+
             public int BrokenProperty
             {
                 get => _value;
@@ -60,19 +60,19 @@ namespace TheXDS.MCART.Tests.Types.Base
                 get => _obj;
                 set => Assert.False(Change(ref _obj, value));
             }
-            
+
             public object? SelfTrueTestingProperty
             {
                 get => _obj;
                 set => Assert.True(Change(ref _obj, value));
             }
         }
-        
+
         [Test]
         public void OnPropertyChangedTest()
         {
-            var x = new TestClass();
-            var risen = false;
+            TestClass? x = new();
+            bool risen = false;
             (object? Sender, PropertyChangedEventArgs Arguments)? evt = null;
 
             void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
@@ -91,13 +91,13 @@ namespace TheXDS.MCART.Tests.Types.Base
             Assert.AreEqual(nameof(TestClass.Value), evt!.Value.Arguments.PropertyName);
             Assert.AreEqual(1, x.Value);
         }
-        
+
         [Test]
         public void Property_Change_Forward_Test()
         {
-            var x = new TestClass();
-            var y = new TestClass();
-            var risen = false;
+            TestClass? x = new();
+            TestClass? y = new();
+            bool risen = false;
             (object? Sender, PropertyChangedEventArgs Arguments)? evt = null;
             void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
             {
@@ -114,11 +114,11 @@ namespace TheXDS.MCART.Tests.Types.Base
             Assert.NotNull(evt);
             Assert.True(ReferenceEquals(y, evt!.Value.Sender));
         }
-        
+
         [Test]
         public void Change_Contract_Test()
         {
-            var x = new TestClass();
+            TestClass? x = new();
             Assert.Throws<ArgumentNullException>(() => x.BrokenProperty = 1);
             Assert.Throws<ArgumentNullException>(() => x.BrokenProperty2 = 1);
             x.SelfFalseTestingProperty = null;

@@ -58,7 +58,7 @@ namespace TheXDS.MCART.Windows.Component
             }
             set
             {
-                var info = GetRect();
+                Rect info = GetRect();
                 PInvoke.MoveWindow(Handle, info.Left, info.Top, (int)value.Width, (int)value.Height, true);
             }
         }
@@ -75,7 +75,7 @@ namespace TheXDS.MCART.Windows.Component
             }
             set
             {
-                var info = GetRect();
+                Rect info = GetRect();
                 PInvoke.MoveWindow(Handle, (int)value.X, (int)value.Y, info.Width, info.Height, true);
             }
         }
@@ -117,7 +117,7 @@ namespace TheXDS.MCART.Windows.Component
         /// </summary>
         void ToggleMaximize()
         {
-            var s = (WindowStyles)PInvoke.GetWindowLong(Handle, WindowData.GWL_STYLE);
+            WindowStyles s = (WindowStyles)PInvoke.GetWindowLong(Handle, WindowData.GWL_STYLE);
             if (s.HasFlag(WindowStyles.WS_MAXIMIZE)) Restore();
             else Maximize();
         }
@@ -129,7 +129,7 @@ namespace TheXDS.MCART.Windows.Component
 
         private Rect GetRect()
         {
-            var info = new Rect();
+            Rect info = new();
             PInvoke.GetWindowRect(Handle, ref info);
             return info;
         }

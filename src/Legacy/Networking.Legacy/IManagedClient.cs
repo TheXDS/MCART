@@ -39,7 +39,7 @@ namespace TheXDS.MCART.Networking.Legacy
         /// Obtiene un valor que indica que esta conexión está encriptada.
         /// </summary>
         bool Encrypted { get; }
-        
+
         /// <summary>
         /// Obtiene un valor que indica si la conexión utiliza compresión.
         /// </summary>

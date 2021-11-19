@@ -42,7 +42,7 @@ namespace TheXDS.MCART.Comparison
         /// <see langword="true"/> si el nombre de ambos objetos es el
         /// mismo, <see langword="false"/> en caso contrario.
         /// </returns>
-        public bool Equals([AllowNull]INameable x, [AllowNull]INameable y)
+        public bool Equals([AllowNull] INameable x, [AllowNull] INameable y)
         {
             return x?.Name == y?.Name;
         }

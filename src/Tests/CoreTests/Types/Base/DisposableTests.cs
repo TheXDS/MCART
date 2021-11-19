@@ -22,9 +22,9 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using TheXDS.MCART.Helpers;
-using TheXDS.MCART.Types.Base;
 using NUnit.Framework;
+using TheXDS.MCART.Types.Base;
+using TheXDS.MCART.Types.Extensions;
 using static System.Reflection.BindingFlags;
 
 namespace TheXDS.MCART.Tests.Types.Base
@@ -61,7 +61,7 @@ namespace TheXDS.MCART.Tests.Types.Base
         [Test]
         public void OnDisposeExecutionTest()
         {
-            var m1 = new DisposableOne();
+            DisposableOne? m1 = new();
             using (m1)
             {
                 Assert.False(m1.DidOnDisposeRun);
@@ -73,7 +73,7 @@ namespace TheXDS.MCART.Tests.Types.Base
         [Test]
         public void DisposeVsFinalizeTest()
         {
-            var m1 = new DisposableOne();
+            DisposableOne? m1 = new();
             using (m1)
             {
                 Assert.False(m1.IsDisposed);
@@ -81,7 +81,7 @@ namespace TheXDS.MCART.Tests.Types.Base
             }
             Assert.True(m1.IsDisposed);
 
-            var m2 = new DisposableTwo();
+            DisposableTwo? m2 = new();
             using (m2)
             {
                 Assert.False(m2.IsDisposed);

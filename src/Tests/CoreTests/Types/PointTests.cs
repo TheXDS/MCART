@@ -48,7 +48,7 @@ namespace TheXDS.MCART.Tests.Types
         [TestCase("15 | 12", 15, 12)]
         public void TryParseNumbers_Test(string value, double x, double y)
         {
-            Assert.True(Point.TryParse(value, out var p));
+            Assert.True(Point.TryParse(value, out Point p));
             Assert.AreEqual(x, p.X);
             Assert.AreEqual(y, p.Y);
         }
@@ -63,10 +63,10 @@ namespace TheXDS.MCART.Tests.Types
 #endif
         public void TryParseNowhere_Test(string data)
         {
-            Assert.True(Point.TryParse(data, out var p));
+            Assert.True(Point.TryParse(data, out Point p));
             Assert.AreEqual(Point.Nowhere, p);
         }
-        
+
         [Theory]
         [TestCase("Origin")]
         [TestCase("0")]
@@ -77,7 +77,7 @@ namespace TheXDS.MCART.Tests.Types
 #endif
         public void TryParseOrigin_Test(string data)
         {
-            Assert.True(Point.TryParse(data, out var p));
+            Assert.True(Point.TryParse(data, out Point p));
             Assert.AreEqual(Point.Origin, p);
         }
 
@@ -91,8 +91,8 @@ namespace TheXDS.MCART.Tests.Types
         [Test]
         public void ToString_Test()
         {
-            var p = new Point(3, 5);
-            
+            Point p = new(3, 5);
+
             Assert.AreEqual("3, 5", p.ToString());
             Assert.AreEqual("3, 5", p.ToString("C"));
             Assert.AreEqual("[3, 5]", p.ToString("B"));
@@ -105,9 +105,9 @@ namespace TheXDS.MCART.Tests.Types
         [Test]
         public void Equals_Test()
         {
-            var p = new Point(3, 5);
-            var q = new Point(3, 5);
-            var r = new Point(5, 3);
+            Point p = new(3, 5);
+            Point q = new(3, 5);
+            Point r = new(5, 3);
 
             Assert.True(p.Equals(q));
             Assert.False(p.Equals(r));
@@ -130,12 +130,12 @@ namespace TheXDS.MCART.Tests.Types
         [Test]
         public void CastingToDrawingPoint_Test()
         {
-            var p = new Point(3, 5);
-            var q = (System.Drawing.Point)p;
+            Point p = new(3, 5);
+            System.Drawing.Point q = (System.Drawing.Point)p;
             Assert.IsAssignableFrom<System.Drawing.Point>(q);
             Assert.AreEqual(3, q.X);
             Assert.AreEqual(5, q.Y);
-            var r = (Point)q;
+            Point r = (Point)q;
             Assert.IsAssignableFrom<Point>(r);
             Assert.AreEqual(3.0, r.X);
             Assert.AreEqual(5.0, r.Y);
@@ -150,21 +150,21 @@ namespace TheXDS.MCART.Tests.Types
 #endif
         public void AddOperator_Test(int x1, int y1, int x2, int y2, int x3, int y3)
         {
-            var p = new Point(x1, y1);
-            var q = new Point(x2, y2);
-            var r = p + q;
-            
+            Point p = new(x1, y1);
+            Point q = new(x2, y2);
+            Point r = p + q;
+
             Assert.AreEqual(x3, r.X);
             Assert.AreEqual(y3, r.Y);
 
-            var s = p + (I2DVector) q;
+            Point s = p + (I2DVector)q;
             Assert.AreEqual(x3, s.X);
             Assert.AreEqual(y3, s.Y);
 
             Assert.AreEqual(x3, (p + x2).X);
             Assert.AreEqual(y3, (p + y2).Y);
         }
-        
+
         [TestCase(3, 5, 2, 4, 1, 1)]
         [TestCase(1, 1, 2, 2, -1, -1)]
         [TestCase(-1, -1, 1, 1, -2, -2)]
@@ -174,21 +174,21 @@ namespace TheXDS.MCART.Tests.Types
 #endif
         public void SubstractOperator_Test(int x1, int y1, int x2, int y2, int x3, int y3)
         {
-            var p = new Point(x1, y1);
-            var q = new Point(x2, y2);
-            var r = p - q;
-            
+            Point p = new(x1, y1);
+            Point q = new(x2, y2);
+            Point r = p - q;
+
             Assert.AreEqual(x3, r.X);
             Assert.AreEqual(y3, r.Y);
 
-            var s = p - (I2DVector) q;
+            Point s = p - (I2DVector)q;
             Assert.AreEqual(x3, s.X);
             Assert.AreEqual(y3, s.Y);
 
             Assert.AreEqual(x3, (p - x2).X);
             Assert.AreEqual(y3, (p - y2).Y);
         }
-        
+
         [TestCase(3, 5, 2, 4, 6, 20)]
         [TestCase(1, 1, 2, 2, 2, 2)]
         [TestCase(-1, -1, 1, 1, -1, -1)]
@@ -198,14 +198,14 @@ namespace TheXDS.MCART.Tests.Types
 #endif
         public void MultiplyOperator_Test(int x1, int y1, int x2, int y2, int x3, int y3)
         {
-            var p = new Point(x1, y1);
-            var q = new Point(x2, y2);
-            var r = p * q;
-            
+            Point p = new(x1, y1);
+            Point q = new(x2, y2);
+            Point r = p * q;
+
             Assert.AreEqual(x3, r.X);
             Assert.AreEqual(y3, r.Y);
 
-            var s = p * (I2DVector) q;
+            Point s = p * (I2DVector)q;
             Assert.AreEqual(x3, s.X);
             Assert.AreEqual(y3, s.Y);
 
@@ -222,21 +222,21 @@ namespace TheXDS.MCART.Tests.Types
 #endif
         public void DivideOperator_Test(int x1, int y1, int x2, int y2, double x3, double y3)
         {
-            var p = new Point(x1, y1);
-            var q = new Point(x2, y2);
-            var r = p / q;
-            
+            Point p = new(x1, y1);
+            Point q = new(x2, y2);
+            Point r = p / q;
+
             Assert.AreEqual(x3, r.X);
             Assert.AreEqual(y3, r.Y);
 
-            var s = p / (I2DVector) q;
+            Point s = p / (I2DVector)q;
             Assert.AreEqual(x3, s.X);
             Assert.AreEqual(y3, s.Y);
 
             Assert.AreEqual(x3, (p / x2).X);
             Assert.AreEqual(y3, (p / y2).Y);
         }
-        
+
         [TestCase(3, 5, 2, 4, 1, 1)]
         [TestCase(1, 1, 2, 2, 1, 1)]
         [TestCase(-1, -1, 1, 1, 0, 0)]
@@ -247,14 +247,14 @@ namespace TheXDS.MCART.Tests.Types
 #endif
         public void ModulusOperator_Test(int x1, int y1, int x2, int y2, double x3, double y3)
         {
-            var p = new Point(x1, y1);
-            var q = new Point(x2, y2);
-            var r = p % q;
-            
+            Point p = new(x1, y1);
+            Point q = new(x2, y2);
+            Point r = p % q;
+
             Assert.AreEqual(x3, r.X);
             Assert.AreEqual(y3, r.Y);
 
-            var s = p % (I2DVector) q;
+            Point s = p % (I2DVector)q;
             Assert.AreEqual(x3, s.X);
             Assert.AreEqual(y3, s.Y);
 
@@ -265,25 +265,25 @@ namespace TheXDS.MCART.Tests.Types
         [Test]
         public void Add1Operator_Test()
         {
-            var p = new Point(3, 5);
+            Point p = new(3, 5);
             p++;
             Assert.AreEqual(4, p.X);
             Assert.AreEqual(6, p.Y);
         }
-        
+
         [Test]
         public void Substract1Operator_Test()
         {
-            var p = new Point(3, 5);
+            Point p = new(3, 5);
             p--;
             Assert.AreEqual(2, p.X);
             Assert.AreEqual(4, p.Y);
         }
-        
+
         [Test]
         public void PlusOperator_Test()
         {
-            var p = +new Point(3, 5);
+            Point p = +new Point(3, 5);
             Assert.AreEqual(3, p.X);
             Assert.AreEqual(5, p.Y);
 
@@ -291,11 +291,11 @@ namespace TheXDS.MCART.Tests.Types
             Assert.AreEqual(-1, p.X);
             Assert.AreEqual(-2, p.Y);
         }
-                
+
         [Test]
         public void MinusOperator_Test()
         {
-            var p = -new Point(3, 5);
+            Point p = -new Point(3, 5);
             Assert.AreEqual(-3, p.X);
             Assert.AreEqual(-5, p.Y);
 
@@ -303,13 +303,13 @@ namespace TheXDS.MCART.Tests.Types
             Assert.AreEqual(1, p.X);
             Assert.AreEqual(2, p.Y);
         }
-        
+
         [Test]
         public void NotEquals_Test()
         {
-            var p = new Point(3, 5);
-            var q = new Point(3, 5);
-            var r = new Point(5, 3);
+            Point p = new(3, 5);
+            Point q = new(3, 5);
+            Point r = new(5, 3);
 
             Assert.True(p != r);
             Assert.False(p != q);
@@ -333,8 +333,8 @@ namespace TheXDS.MCART.Tests.Types
         [Test]
         public void WithinBox_Test()
         {
-            var p = new Point(-5, -5);
-            var q = new Point(5, 5);
+            Point p = new(-5, -5);
+            Point q = new(5, 5);
             Assert.True(Point.Origin.WithinBox(p, q));
             Assert.False(new Point(10, 10).WithinBox(p, q));
             Assert.True(new Point(5, -5).WithinBox(p, q));
@@ -354,7 +354,7 @@ namespace TheXDS.MCART.Tests.Types
         [Test]
         public void Magnitude_Test()
         {
-            var p = new Point(3, 5);
+            Point p = new(3, 5);
             Assert.AreEqual(p.Magnitude(), p.Magnitude(Point.Origin));
             Assert.AreEqual(p.Magnitude(), p.Magnitude(0, 0));
         }

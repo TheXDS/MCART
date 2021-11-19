@@ -180,7 +180,7 @@ namespace TheXDS.MCART.Types
         /// <returns><see cref="Range{T}"/> que ha sido creado.</returns>
         public static Range<T> Parse(string value)
         {
-            if (TryParse(value, out var retval)) return retval;
+            if (TryParse(value, out Range<T> retval)) return retval;
             throw new FormatException();
         }
 
@@ -199,7 +199,7 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public static bool TryParse(string value, out Range<T> range)
         {
-            var separators = new[]
+            string[]? separators = new[]
             {
                 ", ",
                 "...",
@@ -295,7 +295,7 @@ namespace TheXDS.MCART.Types
         /// <returns>El código Hash de esta instancia.</returns>
         public override int GetHashCode()
         {
-            return HashCode.Combine(Minimum,Maximum);
+            return HashCode.Combine(Minimum, Maximum);
         }
 
         /// <summary>

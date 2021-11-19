@@ -102,8 +102,8 @@ namespace TheXDS.MCART.Types.Extensions
         [DebuggerStepThrough]
         public static string ReadString(this Stream fs, int count, Encoding encoding)
         {
-            var retVal = new ListEx<char>();
-            using var br = new BinaryReader(fs, encoding, true);
+            ListEx<char>? retVal = new();
+            using BinaryReader? br = new(fs, encoding, true);
             while (retVal.Count < count) retVal.Add(br.ReadChar());
             return new string(retVal.ToArray());
         }
@@ -173,7 +173,7 @@ namespace TheXDS.MCART.Types.Extensions
             {
                 (pos, fs.Position) = (fs.Position, pos);
             }
-            var bf = new byte[pos - fs.Position];
+            byte[]? bf = new byte[pos - fs.Position];
             await fs.ReadAsync(bf, 0, (int)(pos - fs.Position));
             return Encoding.Default.GetString(bf);
         }
@@ -205,7 +205,7 @@ namespace TheXDS.MCART.Types.Extensions
         [DebuggerStepThrough]
         public static void WriteSeveralBytes(this Stream fs, params byte[][] bytes)
         {
-            foreach (var x in bytes) fs.Write(x, 0, x.Length);
+            foreach (byte[]? x in bytes) fs.Write(x, 0, x.Length);
         }
     }
 }

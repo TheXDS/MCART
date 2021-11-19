@@ -76,7 +76,7 @@ namespace TheXDS.MCART.Attributes
         /// </param>
         public EmbeddedLicenseAttribute(string value, string path, Type compressorType) : base(value)
         {
-            if (!compressorType.Implements<ICompressorGetter>()) throw new InvalidTypeException(compressorType);   
+            if (!compressorType.Implements<ICompressorGetter>()) throw new InvalidTypeException(compressorType);
             Path = path;
             CompressorType = compressorType;
         }
@@ -92,7 +92,7 @@ namespace TheXDS.MCART.Attributes
         /// </returns>
         public override License GetLicense(object context)
         {
-            var origin = context switch
+            Assembly? origin = context switch
             {
                 Assembly a => a,
                 Type t => t.Assembly,
@@ -102,7 +102,7 @@ namespace TheXDS.MCART.Attributes
             };
 
             if (Value is null) return License.Unspecified;
-            var content = new StringUnpacker(origin, Path).Unpack(Value, CompressorType.New<ICompressorGetter>());
+            string? content = new StringUnpacker(origin, Path).Unpack(Value, CompressorType.New<ICompressorGetter>());
             return new TextLicense(content.Split('\n')[0].Trim(' ', '\n', '\r'), content);
         }
     }

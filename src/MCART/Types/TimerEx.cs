@@ -98,7 +98,7 @@ namespace TheXDS.MCART.Types
         /// al establecer <see cref="Enabled"/> en <see langword="false"/>.
         /// </summary>
         public new void Stop()
-        { 
+        {
             StartTime = null;
             base.Stop();
         }
@@ -107,7 +107,7 @@ namespace TheXDS.MCART.Types
         /// Reinicia este <see cref="TimerEx"/>.
         /// </summary>
         public void Reset()
-        { 
+        {
             Stop();
             Start();
         }
@@ -115,15 +115,15 @@ namespace TheXDS.MCART.Types
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="TimerEx" />.
         /// </summary>
-        public TimerEx() 
-        { 
+        public TimerEx()
+        {
             Elapsed += Tmr_Elapsed;
             Disposed += TimerEx_Disposed;
         }
 
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="TimerEx" /> y 
-        /// establece la propiedad <see cref="System.Timers.Timer.Interval" />
+        /// establece la propiedad <see cref="Timer.Interval" />
         /// en el número de milisegundos especificado.
         /// </summary>
         /// <param name="interval">

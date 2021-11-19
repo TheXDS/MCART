@@ -65,7 +65,7 @@ namespace TheXDS.MCART.Security.Password
         private static byte[] Pbkdf2(SecureString password, byte[] salt, int iterations, int outputBytes)
         {
             using (password)
-            using (var pbkdf2 = new Rfc2898DeriveBytes(password.ReadBytes(), salt, iterations))
+            using (Rfc2898DeriveBytes? pbkdf2 = new(password.ReadBytes(), salt, iterations))
                 return pbkdf2.GetBytes(outputBytes);
         }
 
@@ -73,10 +73,10 @@ namespace TheXDS.MCART.Security.Password
         {
 #if SaferPasswords
             // Este método realiza una comprobación lenta intencionalmente.
-            var diff = (uint)a.Count ^ (uint)b.Count;
-            for (var i = 0; i < a.Count && i < b.Count; i++)
+            uint diff = (uint)a.Count ^ (uint)b.Count;
+            for (int i = 0; i < a.Count && i < b.Count; i++)
                 diff |= (uint)(a[i] ^ b[i]);
-            
+
             return diff == 0;
 #else
             return System.Linq.Enumerable.SequenceEqual(a, b);
@@ -90,14 +90,14 @@ namespace TheXDS.MCART.Security.Password
         /// <returns></returns>
         public static byte[] CreateHash(SecureString password)
         {
-            var salt = new byte[_saltBytes];
-            using (var csprng = new RNGCryptoServiceProvider())
+            byte[]? salt = new byte[_saltBytes];
+            using (RNGCryptoServiceProvider? csprng = new())
                 csprng.GetBytes(salt);
 
-            var hash = Pbkdf2(password, salt, _pbkdf2Iterations, _hashBytes);
+            byte[]? hash = Pbkdf2(password, salt, _pbkdf2Iterations, _hashBytes);
 
-            using var ms = new MemoryStream();
-            using var bw = new BinaryWriter(ms);
+            using MemoryStream? ms = new();
+            using BinaryWriter? bw = new(ms);
             bw.Write(_pbkdf2Iterations);
             bw.Write((short)salt.Length);
             bw.Write(salt);
@@ -125,13 +125,13 @@ namespace TheXDS.MCART.Security.Password
         {
             try
             {
-                using var ms = new MemoryStream(goodHash);
-                using var br = new BinaryReader(ms);
-                var iterations = br.ReadInt32();
-                var salt = br.ReadBytes(br.ReadInt16());
-                var hash = br.ReadBytes(br.ReadInt16());
+                using MemoryStream? ms = new(goodHash);
+                using BinaryReader? br = new(ms);
+                int iterations = br.ReadInt32();
+                byte[]? salt = br.ReadBytes(br.ReadInt16());
+                byte[]? hash = br.ReadBytes(br.ReadInt16());
 
-                var testHash = Pbkdf2(password, salt, iterations, hash.Length);
+                byte[]? testHash = Pbkdf2(password, salt, iterations, hash.Length);
                 return CheckEquals(hash, testHash);
 #if !PreferExceptions
             }

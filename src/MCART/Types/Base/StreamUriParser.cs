@@ -148,7 +148,7 @@ namespace TheXDS.MCART.Types.Base
         /// <see cref="StreamUriParser"/> capaz de manejar el 
         /// <see cref="Uri"/>.
         /// </returns>
-        public static T? Infer<T>(string uri) where T:class, IStreamUriParser
+        public static T? Infer<T>(string uri) where T : class, IStreamUriParser
         {
             return Infer<T>(new Uri(uri));
         }
@@ -238,9 +238,9 @@ namespace TheXDS.MCART.Types.Base
         /// </returns>
         public virtual Stream? OpenFullTransfer(Uri uri)
         {
-            var j = Open(uri);
+            Stream? j = Open(uri);
             if (j is null) return null;
-            var ms = new MemoryStream();
+            MemoryStream? ms = new();
             using (j)
             {
                 j.CopyTo(ms);
@@ -262,9 +262,9 @@ namespace TheXDS.MCART.Types.Base
         /// </returns>
         public virtual async Task<Stream?> OpenFullTransferAsync(Uri uri)
         {
-            var j = Open(uri);
+            Stream? j = Open(uri);
             if (j is null) return null;
-            var ms = new MemoryStream();
+            MemoryStream? ms = new();
             await using (j)
             {
                 await j.CopyToAsync(ms);

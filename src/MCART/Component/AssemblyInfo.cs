@@ -27,11 +27,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
-using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Misc;
 using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Extensions;
 using static TheXDS.MCART.Misc.Internals;
+using MIE = TheXDS.MCART.Types.Extensions.MemberInfoExtensions;
 
 namespace TheXDS.MCART.Component
 {
@@ -83,7 +83,7 @@ namespace TheXDS.MCART.Component
         /// <summary>
         /// Devuelve el autor del <see cref="IExposeInfo" />
         /// </summary>
-        public IEnumerable<string>? Authors => Assembly.GetAttrs<AuthorAttribute>().Select(p=>p.Value!).OrNull() ?? (Assembly.GetAttr<AssemblyCompanyAttribute>()?.Company.OrNull() is { } company ? new[] { company } : null);
+        public IEnumerable<string>? Authors => Assembly.GetAttrs<AuthorAttribute>().Select(p => p.Value!).OrNull() ?? (Assembly.GetAttr<AssemblyCompanyAttribute>()?.Company.OrNull() is { } company ? new[] { company } : null);
 
         /// <summary>
         /// Devuelve la marca comercial del <see cref="Assembly" />
@@ -149,9 +149,9 @@ namespace TheXDS.MCART.Component
         {
             get
             {
-                foreach (var j in ThirdPartyComponents)
+                foreach (Type? j in ThirdPartyComponents)
                 {
-                    if (j.HasAttr<LicenseAttributeBase>(out var lic)) yield return lic!.GetLicense(j);
+                    if (j.HasAttr<LicenseAttributeBase>(out LicenseAttributeBase? lic)) yield return lic!.GetLicense(j);
                 }
             }
         }
@@ -160,7 +160,7 @@ namespace TheXDS.MCART.Component
         /// Obtiene una colección con todos los comnponentes marcados como de
         /// terceros en el ensamblado.
         /// </summary>
-        public IEnumerable<Type> ThirdPartyComponents => Assembly.SafeGetTypes().Where(Objects.HasAttr<ThirdPartyAttribute>);
+        public IEnumerable<Type> ThirdPartyComponents => Assembly.SafeGetTypes().Where(MIE.HasAttr<ThirdPartyAttribute>);
 
         /// <summary>
         /// Obtiene un valor que indica si este <see cref="IExposeInfo"/>

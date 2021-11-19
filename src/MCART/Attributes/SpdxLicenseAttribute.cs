@@ -24,8 +24,8 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Collections.Generic;
-using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Resources;
+using TheXDS.MCART.Types.Extensions;
 using static System.AttributeTargets;
 using static TheXDS.MCART.Types.Extensions.DictionaryExtensions;
 
@@ -64,7 +64,7 @@ namespace TheXDS.MCART.Attributes
         /// </param>
         public SpdxLicenseAttribute(string spdxShortIdentifier) : base(spdxShortIdentifier)
         {
-            if (System.Enum.TryParse<SpdxLicenseId>(spdxShortIdentifier, false, out var id)) Id = id;
+            if (System.Enum.TryParse<SpdxLicenseId>(spdxShortIdentifier, false, out SpdxLicenseId id)) Id = id;
         }
 
         /// <summary>
@@ -72,21 +72,21 @@ namespace TheXDS.MCART.Attributes
         /// </summary>
         public override License GetLicense(object _)
         {
-            var n = Id?.GetAttr<NameAttribute>()?.Value;
+            string? n = Id?.GetAttr<NameAttribute>()?.Value;
 
             if (n is null)
             {
-                var id = Id.ToString() ?? Value!;
+                string? id = Id.ToString() ?? Value!;
                 for (byte i = 0; i <= 9; i++)
                 {
                     id = id.Replace(i.ToString(), $"-{i}-");
                 }
-                n = id.Replace("-_-", ".").Replace("--", "").Replace('_','-').Replace("--", "-").Trim('-');
+                n = id.Replace("-_-", ".").Replace("--", "").Replace('_', '-').Replace("--", "-").Trim('-');
             }
 
             if (_licenses.ContainsKey(n)) return _licenses[n];
-            var d = Id?.GetAttr<DescriptionAttribute>()?.Value ?? $"{n} License";
-            var u = Id?.GetAttr<LicenseUriAttribute>()?.Uri ?? new Uri($"https://spdx.org/licenses/{n}.html");
+            string? d = Id?.GetAttr<DescriptionAttribute>()?.Value ?? $"{n} License";
+            Uri? u = Id?.GetAttr<LicenseUriAttribute>()?.Uri ?? new Uri($"https://spdx.org/licenses/{n}.html");
 
             return new SpdxLicense(n, d, u).PushInto(n, _licenses);
         }

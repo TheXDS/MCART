@@ -63,7 +63,7 @@ namespace TheXDS.MCART.Exceptions
         /// Inicializa una nueva instancia de la clase
         /// <see cref="TamperException" />.
         /// </summary>
-        public TamperException():base(Errors.TamperDetected)
+        public TamperException() : base(Errors.TamperDetected)
         {
         }
 
@@ -116,7 +116,7 @@ namespace TheXDS.MCART.Exceptions
         /// serializada del objeto acerca de la excepción que está siendo
         /// lanzada.
         /// </param>
-        protected TamperException(SerializationInfo info,StreamingContext context) : base(info, context)
+        protected TamperException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
     }

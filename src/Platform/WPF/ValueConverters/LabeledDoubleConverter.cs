@@ -83,7 +83,7 @@ namespace TheXDS.MCART.ValueConverters
             return value switch
             {
                 double v => v,
-                string s => double.TryParse(s, out var r) ? r : 0.0,
+                string s => double.TryParse(s, out double r) ? r : 0.0,
                 _ => throw new InvalidCastException(),
             };
         }

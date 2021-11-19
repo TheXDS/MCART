@@ -41,9 +41,9 @@ namespace TheXDS.MCART.Component
 
         private static UIElement InferIcon(Assembly asm)
         {
-            var uri = new UriBuilder(asm.Location ?? string.Empty);
-            var path = Uri.UnescapeDataString(uri.Path);
-            using var sysicon = System.Drawing.Icon.ExtractAssociatedIcon(path) ?? throw new Exception();
+            UriBuilder? uri = new(asm.Location ?? string.Empty);
+            string? path = Uri.UnescapeDataString(uri.Path);
+            using System.Drawing.Icon? sysicon = System.Drawing.Icon.ExtractAssociatedIcon(path) ?? throw new Exception();
             return new Image
             {
                 Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHIcon(
@@ -73,7 +73,7 @@ namespace TheXDS.MCART.Component
         /// <see langword="true"/> para intentar determinar el ícono de la
         /// aplicación, <see langword="false"/> para no mostrar un ícono.
         /// </param>
-        public ApplicationInfo(Application application, bool inferIcon) : this(application,inferIcon ? InferIcon(application.GetType().Assembly) : null) { }
+        public ApplicationInfo(Application application, bool inferIcon) : this(application, inferIcon ? InferIcon(application.GetType().Assembly) : null) { }
 
         /// <summary>
         /// Inicializa una nueva instancia de la clase

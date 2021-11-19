@@ -43,7 +43,7 @@ namespace TheXDS.MCART.Misc
 
         internal static Uri MkTemplateUri()
         {
-            var t = ReflectionHelpers.GetCallingMethod()?.DeclaringType ?? throw new InvalidOperationException();
+            Type? t = ReflectionHelpers.GetCallingMethod()?.DeclaringType ?? throw new InvalidOperationException();
             return MkTemplateUri(t.Name, t.Assembly);
         }
 

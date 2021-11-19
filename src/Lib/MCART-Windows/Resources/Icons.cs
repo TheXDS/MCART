@@ -44,7 +44,7 @@ namespace TheXDS.MCART.Resources
         /// <returns>
         /// El ícono solicitado.
         /// </returns>
-        protected override sealed Bitmap GetIcon([CallerMemberName] string? id = null)
+        protected sealed override Bitmap GetIcon([CallerMemberName] string? id = null)
         {
             return _imgs.Unpack($"{id}.png", new NullGetter());
         }

@@ -42,7 +42,7 @@ namespace TheXDS.MCART.Tests.Helpers
         [Test]
         public void ReadCharsTest()
         {
-            var s = new SecureString();
+            SecureString? s = new();
             s.AppendChar('T');
             s.AppendChar('e');
             s.AppendChar('s');
@@ -121,7 +121,7 @@ namespace TheXDS.MCART.Tests.Helpers
         [Test]
         public void FlipEndianessTest_Double()
         {
-            Assert.True(System.Math.PI.FlipEndianess().IsBetween(3.20737563067636E-192, 3.20737563067638E-192));            
+            Assert.True(System.Math.PI.FlipEndianess().IsBetween(3.20737563067636E-192, 3.20737563067638E-192));
         }
 
         [Test]
@@ -134,7 +134,7 @@ namespace TheXDS.MCART.Tests.Helpers
         [Test]
         public void CollectionListedTest()
         {
-            var outp = new[]
+            string? outp = new[]
             {
                 "This", "is", "a", "test"
             }.Listed();
@@ -171,11 +171,11 @@ namespace TheXDS.MCART.Tests.Helpers
             Assert.False("d".IsBetween("a", "c"));
             Assert.True('b'.IsBetween(new Range<char>('a', 'c')));
             Assert.False('d'.IsBetween(new Range<char>('a', 'c')));
-            Assert.True(((double?) 0.5).IsBetween(0.0, 1.0));
-            Assert.True(((double?) 0.0).IsBetween(0.0, 1.0,true));
-            Assert.False(((double?) 0.0).IsBetween(0.0, 1.0,false));
-            Assert.False(((double?) null).IsBetween(0.0, 1.0));
-            Assert.True(((double?) 0.5).IsBetween(new Range<double>(0.0, 1.0)));
+            Assert.True(((double?)0.5).IsBetween(0.0, 1.0));
+            Assert.True(((double?)0.0).IsBetween(0.0, 1.0, true));
+            Assert.False(((double?)0.0).IsBetween(0.0, 1.0, false));
+            Assert.False(((double?)null).IsBetween(0.0, 1.0));
+            Assert.True(((double?)0.5).IsBetween(new Range<double>(0.0, 1.0)));
         }
 
         [Test]
@@ -220,17 +220,17 @@ namespace TheXDS.MCART.Tests.Helpers
         [Test]
         public void ReadBytesTest()
         {
-            var s = new SecureString();
+            SecureString? s = new();
             s.AppendChar('@');
             s.MakeReadOnly();
-            var r = s.ReadBytes();
+            byte[]? r = s.ReadBytes();
             Assert.AreEqual(new byte[] { 64, 0 }, r);
         }
 
         [Test]
         public void ReadInt16Test()
         {
-            var s = new SecureString();
+            SecureString? s = new();
             s.AppendChar('@');
             s.MakeReadOnly();
             Assert.AreEqual((short)64, s.ReadInt16()[0]);
@@ -239,7 +239,7 @@ namespace TheXDS.MCART.Tests.Helpers
         [Test]
         public void ReadTest()
         {
-            var s = new SecureString();
+            SecureString? s = new();
             s.AppendChar('T');
             s.AppendChar('e');
             s.AppendChar('s');
@@ -260,7 +260,7 @@ namespace TheXDS.MCART.Tests.Helpers
         [Test]
         public void ToBits_WithInt64_Test()
         {
-            var c = new bool[sizeof(long) * 8];
+            bool[]? c = new bool[sizeof(long) * 8];
             Assert.AreEqual(c, 0L.ToBits());
 
             c[1] = true; c[3] = true;
@@ -270,7 +270,7 @@ namespace TheXDS.MCART.Tests.Helpers
         [Test]
         public void ToBits_WithInt32_Test()
         {
-            var c = new bool[sizeof(int) * 8];
+            bool[]? c = new bool[sizeof(int) * 8];
             Assert.AreEqual(c, 0.ToBits());
 
             c[1] = true; c[3] = true;
@@ -280,7 +280,7 @@ namespace TheXDS.MCART.Tests.Helpers
         [Test]
         public void ToBits_WithInt16_Test()
         {
-            var c = new bool[sizeof(short) * 8];
+            bool[]? c = new bool[sizeof(short) * 8];
             Assert.AreEqual(c, ((short)0).ToBits());
 
             c[1] = true; c[3] = true;
@@ -290,7 +290,7 @@ namespace TheXDS.MCART.Tests.Helpers
         [Test]
         public void ToBits_WithInt8_Test()
         {
-            var c = new bool[sizeof(byte) * 8];
+            bool[]? c = new bool[sizeof(byte) * 8];
             Assert.AreEqual(c, ((byte)0).ToBits());
 
             c[1] = true; c[3] = true;
@@ -364,14 +364,14 @@ namespace TheXDS.MCART.Tests.Helpers
         [CLSCompliant(false)]
         [TestCase(1000, ByteUnitType.Binary, "1000 Bytes")]
         [TestCase(1000, ByteUnitType.Decimal, "1.0 KB")]
-        [TestCase(100000, (ByteUnitType) 255, "100000 Bytes")]
+        [TestCase(100000, (ByteUnitType)255, "100000 Bytes")]
         [TestCase(1100000, ByteUnitType.BinaryLong, "1.1 Mebibytes")]
         [TestCase(1048576, ByteUnitType.DecimalLong, "1.0 Megabytes")]
         public void ByteUnitsTest_Long_ByteUnitType(long bytes, ByteUnitType unit, string result)
         {
             Assert.AreEqual(result, TheXDS.MCART.Helpers.Common.ByteUnits(bytes, unit));
         }
-        
+
         [CLSCompliant(false)]
         [TestCase(1000, "1000 Bytes")]
         [TestCase(1024, "1.0 KiB")]
@@ -391,7 +391,7 @@ namespace TheXDS.MCART.Tests.Helpers
         [Test]
         public void AnyEmptyTest()
         {
-            var array = new [] { "0", null, "2", "3", null, "5" };
+            string?[]? array = new[] { "0", null, "2", "3", null, "5" };
             Assert.False(new[] { "0", "1", "2" }.AnyEmpty(out int i));
             Assert.AreEqual(-1, i);
             Assert.True(array.AnyEmpty(out int index));

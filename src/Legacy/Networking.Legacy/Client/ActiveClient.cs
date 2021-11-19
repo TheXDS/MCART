@@ -48,14 +48,14 @@ namespace TheXDS.MCART.Networking.Legacy.Client
         /// </param>
         public void TalkToServer(IEnumerable<byte>? data)
         {
-            var d = data?.ToArray();
+            byte[]? d = data?.ToArray();
             if (!(d?.Length > 0))
 #if PreferExceptions
                 throw new ArgumentNullException();
 #else
                 return;
 #endif
-            var ns = Connection?.GetStream() ?? throw new InvalidOperationException();
+            NetworkStream? ns = Connection?.GetStream() ?? throw new InvalidOperationException();
             ns.Write(d, 0, d.Length);
         }
 
@@ -70,14 +70,14 @@ namespace TheXDS.MCART.Networking.Legacy.Client
         /// </returns>
         public Task TalkToServerAsync(IEnumerable<byte>? data)
         {
-            var d = data?.ToArray();
+            byte[]? d = data?.ToArray();
             if (!(d?.Length > 0))
 #if PreferExceptions
                 throw new ArgumentNullException();
 #else
                 return Task.CompletedTask;
 #endif
-            var ns = Connection?.GetStream() ?? throw new InvalidOperationException();
+            NetworkStream? ns = Connection?.GetStream() ?? throw new InvalidOperationException();
             return ns.WriteAsync(d, 0, d.Length);
         }
 

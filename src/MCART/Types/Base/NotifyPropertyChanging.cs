@@ -48,7 +48,7 @@ namespace TheXDS.MCART.Types.Base
             if (propertyName is null) throw new ArgumentNullException(nameof(propertyName));
             PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(propertyName));
             NotifyRegistroir(propertyName);
-            foreach (var j in _forwardings) j.Notify(propertyName);
+            foreach (INotifyPropertyChangeBase? j in _forwardings) j.Notify(propertyName);
         }
 
         /// <summary>

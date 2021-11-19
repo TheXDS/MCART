@@ -46,7 +46,7 @@ namespace TheXDS.MCART.Tests.Networking
              * recomienda probar para evitar caer en situaciones de abuso:
              * - https://www.thinkbroadband.com/download
              */
-            using var ms = new System.IO.MemoryStream();
+            using System.IO.MemoryStream? ms = new();
             DownloadHelper.DownloadHttp("http://speedtest.ftp.otenet.gr/files/test100k.db", ms);
             Assert.AreEqual(102400, ms.Length);
         }

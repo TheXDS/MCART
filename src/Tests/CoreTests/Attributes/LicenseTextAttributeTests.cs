@@ -33,7 +33,7 @@ namespace TheXDS.MCART.Tests.Attributes
         [Test]
         public void BasicInstancingTest()
         {
-            var a = new LicenseTextAttribute("Title", "Test").GetLicense(null!);
+            Resources.License? a = new LicenseTextAttribute("Title", "Test").GetLicense(null!);
 
             Assert.AreEqual("Title", a.Name);
             Assert.AreEqual("Test", a.LicenseContent);

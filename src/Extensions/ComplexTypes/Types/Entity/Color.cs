@@ -98,7 +98,7 @@ namespace TheXDS.MCART.Types.Entity
         {
             if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == this.GetType() && Equals((Color) obj);
+            return obj.GetType() == this.GetType() && Equals((Color)obj);
         }
 
         /// <inheritdoc/>

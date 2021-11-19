@@ -115,12 +115,12 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         /// Crea un hilo de ejecución que da servicio a los clientes
         /// </summary>
         Task Start();
-        
+
         /// <summary>
         /// Detiene al servidor.
         /// </summary>
         void Stop();
-        
+
         /// <summary>
         /// Detiene al servidor de forma asíncrona.
         /// </summary>

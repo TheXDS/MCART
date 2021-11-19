@@ -56,7 +56,7 @@ namespace TheXDS.MCART.Types.Entity
         /// <see langword="true"/> si los tamaños representados en ambos
         /// objetos son iguales, <see langword="false"/> en caso contrario.
         /// </returns>
-        public bool Equals(Size? other) => other is {} o && this == o;
+        public bool Equals(Size? other) => other is { } o && this == o;
 
         /// <summary>
         /// Devuelve el código hash generado para esta instancia.

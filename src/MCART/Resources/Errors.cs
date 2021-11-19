@@ -33,10 +33,26 @@ using Ers = TheXDS.MCART.Resources.Strings.Errors;
 namespace TheXDS.MCART.Resources
 {
     /// <summary>
-    /// Contiene recursos que generan nuevas instancias de excepción a ser lanzadas.
+    /// Contiene recursos que generan nuevas instancias de excepción a ser
+    /// lanzadas.
     /// </summary>
     public static class Errors
     {
+        /// <summary>
+        /// Crea una nueva instancia de un
+        /// <see cref="InvalidOperationException"/> con un mensaje
+        /// predeterminado que indica que la expresión especificada no es un
+        /// selector de miembro válido.
+        /// </summary>
+        /// <returns>
+        /// Una nueva instancia de la clase
+        /// <see cref="InvalidOperationException"/>.
+        /// </returns>
+        public static InvalidOperationException InvalidSelectorExpression()
+        {
+            return new(Ers.InvalidSelectorExpression);
+        }
+
         /// <summary>
         /// Crea una nueva instancia de un <see cref="FormatException"/> con un
         /// mensaje formateado predefinido.
@@ -67,7 +83,7 @@ namespace TheXDS.MCART.Resources
         /// </returns>
         public static ArgumentException InvalidValue(string? argName, object? value)
         {
-            var msg = string.Format(Ers.InvalidXValue, value?.ToString() ?? Str.Null);
+            string? msg = string.Format(Ers.InvalidXValue, value?.ToString() ?? Str.Null);
             return argName is { } s
                 ? new(msg, s)
                 : new(msg);

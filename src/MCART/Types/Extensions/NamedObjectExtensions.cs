@@ -65,7 +65,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static IEnumerable<NamedObject<Enum>> AsNamedEnum(this Type t)
         {
-            var q = AsNamedEnum_Contract(t);
+            Type? q = AsNamedEnum_Contract(t);
             return q.GetEnumValues().OfType<Enum>().Select(p => new NamedObject<Enum>(p, p.NameOf()));
         }
     }

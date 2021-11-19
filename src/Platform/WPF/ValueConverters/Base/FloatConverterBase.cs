@@ -56,7 +56,7 @@ namespace TheXDS.MCART.ValueConverters.Base
                 uint ui => (float)ui,
                 ulong ul=> (float)ul,
 #endif
-                string str => float.TryParse(str, out var vv) ? vv : 0f,
+                string str => float.TryParse(str, out float vv) ? vv : 0f,
                 _ => (float?)Common.FindConverter<float>()?.ConvertTo(value, typeof(float)) ?? 0f
             };
         }

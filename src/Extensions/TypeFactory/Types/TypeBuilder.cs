@@ -55,7 +55,7 @@ namespace TheXDS.MCART.Types
         /// </param>
         public TypeBuilder(TypeBuilder builder)
         {
-            if (Builder is {BaseType: { } t } && !t.Implements<T>())
+            if (Builder is { BaseType: { } t } && !t.Implements<T>())
             {
                 throw TypeFactoryErrors.TypeBuilderTypeMismatch<T>(builder);
             }

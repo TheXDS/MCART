@@ -53,7 +53,7 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public byte To(Color color)
         {
-            return (byte) ((color.R + color.G + color.B) / 3);
+            return (byte)((color.R + color.G + color.B) / 3);
         }
     }
 }

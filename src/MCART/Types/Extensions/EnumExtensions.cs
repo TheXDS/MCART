@@ -25,6 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
@@ -38,7 +39,7 @@ namespace TheXDS.MCART.Types.Extensions
     /// </summary>
     public static class EnumExtensions
     {
-        private static byte[] BypassByte(byte b) => new[] {b};
+        private static byte[] BypassByte(byte b) => new[] { b };
 
         /// <summary>
         /// Obtiene un <see cref="MethodInfo" /> para un método que permita
@@ -76,11 +77,11 @@ namespace TheXDS.MCART.Types.Extensions
         [DebuggerStepThrough]
         private static MethodInfo ByteConversionMethodInternal(in Type enumType)
         {
-            var tRsp = enumType.GetEnumUnderlyingType();
+            Type? tRsp = enumType.GetEnumUnderlyingType();
             return tRsp != typeof(byte)
                 ? typeof(BitConverter).GetMethods().FirstOrDefault(p =>
                 {
-                    var pars = p.GetParameters();
+                    ParameterInfo[]? pars = p.GetParameters();
                     return p.Name == nameof(BitConverter.GetBytes)
                            && pars.Length == 1
                            && pars[0].ParameterType == tRsp;
@@ -104,8 +105,8 @@ namespace TheXDS.MCART.Types.Extensions
         [DebuggerStepThrough]
         public static byte[] ToBytes(this Enum value)
         {
-            return (byte[]) ByteConversionMethodInternal(value.GetType())
-                .Invoke(null, new object[] {value})!;
+            return (byte[])ByteConversionMethodInternal(value.GetType())
+                .Invoke(null, new object[] { value })!;
         }
 
         /// <summary>
@@ -120,7 +121,7 @@ namespace TheXDS.MCART.Types.Extensions
         [DebuggerStepThrough]
         public static Func<T, byte[]> ToBytes<T>() where T : struct, Enum
         {
-            return (Func<T, byte[]>) Delegate.CreateDelegate(typeof(Func<T, byte[]>),
+            return (Func<T, byte[]>)Delegate.CreateDelegate(typeof(Func<T, byte[]>),
                 ByteConversionMethodInternal(typeof(T)), true)!;
         }
 
@@ -169,7 +170,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static object ToUnderlyingType<T>(this T value) where T : struct, Enum
         {
-            return Convert.ChangeType(value, Enum.GetUnderlyingType(typeof(T)));            
+            return Convert.ChangeType(value, Enum.GetUnderlyingType(typeof(T)));
         }
 
         /// <summary>
@@ -182,6 +183,174 @@ namespace TheXDS.MCART.Types.Extensions
         public static object ToUnderlyingType(this Enum value)
         {
             return Convert.ChangeType(value, Enum.GetUnderlyingType(value.GetType()));
+        }
+
+        /// <summary>
+        /// Determina si un valor de enumeración posee un atributo definido.
+        /// </summary>
+        /// <typeparam name="T">
+        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+        /// </typeparam>
+        /// <param name="enumValue">
+        /// Valor de enumeración del cual se extraerá el atributo.
+        /// </param>
+        /// <returns>
+        /// <see langword="true" /> si el valor de enumeración posee el atributo,
+        /// <see langword="false" /> en caso contrario.
+        /// </returns>
+#if !CLSCompliance && PreferExceptions
+/// <exception cref="ArgumentOutOfRangeException">
+/// Se produce si el tipo de enumeración no contiene un valor definido
+/// para <paramref name="enumValue"/>.
+/// </exception>
+        [CLSCompliant(false)]
+#endif
+        public static bool HasAttr<T>(this Enum enumValue) where T : Attribute => HasAttr<T>(enumValue, out _);
+
+        /// <summary>
+        /// Determina si un valor de enumeración posee un atributo definido.
+        /// </summary>
+        /// <typeparam name="T">
+        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+        /// </typeparam>
+        /// <param name="enumValue">
+        /// Valor de enumeración del cual se extraerá el atributo.
+        /// </param>
+        /// <param name="attribute">
+        /// Parámetro de salida. Si un atributo de tipo
+        /// <typeparamref name="T" /> ha sido encontrado, el mismo es devuelto.
+        /// Se devolverá <see langword="null" /> si el miembro no posee el atributo
+        /// especificado.
+        /// </param>
+        /// <returns>
+        /// <see langword="true" /> si el valor de enumeración posee el atributo,
+        /// <see langword="false" /> en caso contrario.
+        /// </returns>
+#if !CLSCompliance && PreferExceptions
+/// <exception cref="ArgumentOutOfRangeException">
+/// Se produce si el tipo de enumeración no contiene un valor definido
+/// para <paramref name="enumValue"/>.
+/// </exception>
+        [CLSCompliant(false)]
+#endif
+        public static bool HasAttr<T>(this Enum enumValue, [MaybeNullWhen(false)] out T attribute) where T : Attribute
+        {
+            Type? type = enumValue.GetType();
+            attribute = null;
+            if (!type.IsEnumDefined(enumValue))
+#if !CLSCompliance && PreferExceptions
+                throw new ArgumentOutOfRangeException(nameof(enumValue));
+#else
+                return false;
+#endif
+            string? n = type.GetEnumName(enumValue)!;
+            attribute = type.GetMember(n)[0].GetCustomAttributes(typeof(T), false).FirstOrDefault() as T;
+            return attribute is not null;
+        }
+
+        /// <summary>
+        /// Determina si un miembro posee un atributo definido.
+        /// </summary>
+        /// <typeparam name="TValue">
+        /// Tipo de valor a devolver.
+        /// </typeparam>
+        /// <typeparam name="TAttribute">
+        /// Tipo de atributo a buscar. Debe heredar de
+        /// <see cref="Attribute"/> y de <see cref="IValueAttribute{T}"/>.
+        /// </typeparam>
+        /// <param name="enumValue">
+        /// Miembro del cual se extraerá el atributo.
+        /// </param>
+        /// <param name="value">
+        /// Parámetro de salida. Si un atributo de tipo
+        /// <typeparamref name="TAttribute" /> ha sido encontrado, el valor
+        /// del mismo es devuelto.
+        /// Se devolverá <see langword="default" /> si el miembro no posee el atributo
+        /// especificado.
+        /// </param>
+        /// <returns>
+        /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
+        /// en caso contrario.
+        /// </returns>
+        public static bool HasAttrValue<TAttribute, TValue>(this Enum enumValue, out TValue value)
+            where TAttribute : Attribute, IValueAttribute<TValue>
+        {
+            bool retVal = HasAttr<TAttribute>(enumValue, out TAttribute? attr);
+            value = retVal ? attr!.Value : default!;
+            return retVal;
+        }
+
+        /// <summary>
+        /// Determina si un miembro posee un atributo definido.
+        /// </summary>
+        /// <typeparam name="T">
+        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+        /// </typeparam>
+        /// <param name="enumValue">
+        /// Miembro del cual se extraerá el atributo.
+        /// </param>
+        /// <param name="attribute">
+        /// Parámetro de salida. Si un atributo de tipo
+        /// <typeparamref name="T" /> ha sido encontrado, el mismo es devuelto.
+        /// Se devolverá <see langword="null" /> si el miembro no posee el atributo
+        /// especificado.
+        /// </param>
+        /// <returns>
+        /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
+        /// en caso contrario.
+        /// </returns>
+        public static bool HasAttrs<T>(this Enum enumValue, out IEnumerable<T> attribute) where T : Attribute
+        {
+            string? n;
+            Type? type = enumValue.GetType();
+            if (!type.IsEnumDefined(enumValue) || (n = type.GetEnumName(enumValue)) is null)
+            {
+                attribute = Array.Empty<T>();
+                return false;
+            }
+
+            attribute = type.GetMember(n)[0].GetCustomAttributes(typeof(T), false).OfType<T>();
+            return attribute.Any();
+        }
+
+        /// <summary>
+        /// Devuelve el atributo asociado a la declaración del valor de
+        /// enumeración.
+        /// </summary>
+        /// <typeparam name="T">
+        /// Tipo de atributo a devolver. Debe heredar
+        /// <see cref="Attribute" />.
+        /// </typeparam>
+        /// <returns>
+        /// Un atributo del tipo <typeparamref name="T" /> con los datos
+        /// asociados en la declaración del valor de enumeración.
+        /// </returns>
+        public static T? GetAttr<T>(this Enum enumValue) where T : Attribute
+        {
+            HasAttr<T>(enumValue, out T? retval);
+            return retval;
+        }
+
+        /// <summary>
+        /// Devuelve el atributo asociado al ensamblado especificado.
+        /// </summary>
+        /// <typeparam name="T">
+        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+        /// </typeparam>
+        /// <param name="enumValue">
+        /// <see cref="Enum" /> del cual se extraerá el
+        /// atributo.
+        /// </param>
+        /// <returns>
+        /// Un atributo del tipo <typeparamref name="T" /> con los datos
+        /// asociados en la declaración del ensamblado; o <see langword="null" /> en caso
+        /// de no encontrarse el atributo especificado.
+        /// </returns>
+        [Sugar]
+        public static IEnumerable<T>? GetAttrs<T>(this Enum enumValue) where T : Attribute
+        {
+            HasAttrs(enumValue, out IEnumerable<T>? attr);
+            return attr;
         }
     }
 }

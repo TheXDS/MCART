@@ -71,7 +71,7 @@ namespace TheXDS.MCART.Types.Base
             if (propertyName is null) throw new ArgumentNullException(nameof(propertyName));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
             NotifyRegistroir(propertyName);
-            foreach (var j in _forwardings) j.Notify(propertyName);
+            foreach (INotifyPropertyChangeBase? j in _forwardings) j.Notify(propertyName);
         }
 
         /// <summary>
@@ -90,25 +90,25 @@ namespace TheXDS.MCART.Types.Base
         /// cambiado, <see langword="false"/> en caso contrario.
         /// </returns>
         [NpcChangeInvocator]
-        protected override sealed bool Change<T>(ref T field, T value, [CallerMemberName] string propertyName = null!)
+        protected sealed override bool Change<T>(ref T field, T value, [CallerMemberName] string propertyName = null!)
         {
             if (field?.Equals(value) ?? Objects.AreAllNull(field, value)) return false;
 
-            var m = ReflectionHelpers.GetCallingMethod() ?? throw new TamperException();
-            var p = GetType().GetProperties().SingleOrDefault(q => q.SetMethod == m)
+            MethodBase? m = ReflectionHelpers.GetCallingMethod() ?? throw new TamperException();
+            PropertyInfo? p = GetType().GetProperties().SingleOrDefault(q => q.SetMethod == m)
                 ?? throw new InvalidOperationException();
             if (p.Name != propertyName) throw new TamperException();
 
             OnPropertyChanging(propertyName);
             field = value;
 
-            var rm = new HashSet<WeakReference<PropertyChangeObserver>>();
-            foreach (var j in _observeSubscriptions)
+            HashSet<WeakReference<PropertyChangeObserver>>? rm = new();
+            foreach (WeakReference<PropertyChangeObserver>? j in _observeSubscriptions)
             {
-                if (j.TryGetTarget(out var t)) t.Invoke(this, p);
+                if (j.TryGetTarget(out PropertyChangeObserver? t)) t.Invoke(this, p);
                 else rm.Add(j);
             }
-            foreach (var j in rm)
+            foreach (WeakReference<PropertyChangeObserver>? j in rm)
             {
                 _observeSubscriptions.Remove(j);
             }
@@ -132,7 +132,7 @@ namespace TheXDS.MCART.Types.Base
         /// <param name="callback">Delegado a quitar.</param>
         public void Unsubscribe(PropertyChangeObserver callback)
         {
-            var rm = _observeSubscriptions.FirstOrDefault(p => p.TryGetTarget(out var t) && t == callback);
+            WeakReference<PropertyChangeObserver>? rm = _observeSubscriptions.FirstOrDefault(p => p.TryGetTarget(out PropertyChangeObserver? t) && t == callback);
             if (rm is not null) _observeSubscriptions.Remove(rm);
         }
 

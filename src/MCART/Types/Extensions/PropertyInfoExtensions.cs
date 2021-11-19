@@ -59,7 +59,7 @@ namespace TheXDS.MCART.Types.Extensions
                     if (d is IDisposable i) i.Dispose();
                 }
             }
-            
+
             if (instance is null || instance.GetType().GetProperties().Any(p => p.Is(property)))
             {
                 if (property.SetMethod is null)
@@ -69,7 +69,7 @@ namespace TheXDS.MCART.Types.Extensions
                 property.SetMethod.Invoke(instance, new[]
                 {
                     property.GetAttr<DefaultValueAttribute>()?.Value ??
-                    GetDefault() ?? 
+                    GetDefault() ??
                     property.PropertyType.Default()
                 });
             }

@@ -51,7 +51,7 @@ namespace TheXDS.MCART.Types.Base
         protected void RaiseCollectionChanged(NcchEa eventArgs)
         {
             CollectionChanged?.Invoke(this, eventArgs);
-            foreach (var j in _notifyRegistroir)
+            foreach (KeyValuePair<NotifyPropertyChangeBase, HashSet<string>> j in _notifyRegistroir)
             {
                 j.Key.Notify(j.Value);
             }
@@ -79,8 +79,8 @@ namespace TheXDS.MCART.Types.Base
         /// </returns>
         public virtual int IndexOf(object item)
         {
-            var c = 0;
-            foreach (var j in this)
+            int c = 0;
+            foreach (object? j in this)
             {
                 if (j?.Equals(item) ?? item is null) return c;
                 c++;
@@ -141,7 +141,7 @@ namespace TheXDS.MCART.Types.Base
                 _notifyRegistroir.Add(target, new HashSet<string>(properties));
             else
             {
-                foreach (var j in properties)
+                foreach (string? j in properties)
                 {
                     _notifyRegistroir[target].Add(j);
                 }

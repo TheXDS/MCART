@@ -45,7 +45,7 @@ namespace TheXDS.MCART.Tests.Types
         [CLSCompliant(false)]
         public void BlendHeat_Test(float value, int r, int g, int b)
         {
-            var c = Color.BlendHeat(value);
+            Color c = Color.BlendHeat(value);
             Assert.True(((int)c.R).IsBetween(r - 1, r + 1));
             Assert.True(((int)c.G).IsBetween(g - 1, g + 1));
             Assert.True(((int)c.B).IsBetween(b - 1, b + 1));
@@ -60,7 +60,7 @@ namespace TheXDS.MCART.Tests.Types
         [CLSCompliant(false)]
         public void BlendHealth_Test(float value, int r, int g)
         {
-            var c = Color.BlendHealth(value);
+            Color c = Color.BlendHealth(value);
             Assert.True(((int)c.R).IsBetween(r - 1, r + 1));
             Assert.True(((int)c.G).IsBetween(g - 1, g + 1));
         }
@@ -105,7 +105,7 @@ namespace TheXDS.MCART.Tests.Types
         [Test]
         public void TryParse_Fails_Parse_Test()
         {
-            Assert.False(Color.TryParse("test", out var c));
+            Assert.False(Color.TryParse("test", out Color c));
             Assert.AreEqual(default(Color), c);
         }
 
@@ -175,7 +175,7 @@ namespace TheXDS.MCART.Tests.Types
         [Test]
         public void Properties_Test()
         {
-            var c = Colors.Black;
+            Color c = Colors.Black;
 
             c.R = 127;
             Assert.True(c.ScR.IsBetween(0.49f, 0.51f));
@@ -225,8 +225,8 @@ namespace TheXDS.MCART.Tests.Types
         [Test]
         public void Clone_Test()
         {
-            var c = Colors.Pick();
-            var c2 = c.Clone();
+            Color c = Colors.Pick();
+            Color c2 = c.Clone();
             Assert.True(c == c2);
             c2.R = (byte)(c2.R + 50).Wrap(0, 255);
             Assert.False(c == c2);
@@ -235,9 +235,9 @@ namespace TheXDS.MCART.Tests.Types
         [Test]
         public void System_Drawing_Color_Cast_Test()
         {
-            var c = Colors.Pick();
-            var d = (System.Drawing.Color)c;
-            var e = ((ICasteable<System.Drawing.Color>)c).Cast();
+            Color c = Colors.Pick();
+            System.Drawing.Color d = (System.Drawing.Color)c;
+            System.Drawing.Color e = ((ICasteable<System.Drawing.Color>)c).Cast();
 
             Assert.AreEqual(c.R, d.R);
             Assert.AreEqual(c.G, d.G);
@@ -277,9 +277,9 @@ namespace TheXDS.MCART.Tests.Types
         [Test]
         public void GetHashCode_Test()
         {
-            var c = Colors.Pick();
-            var d = c.Clone();
-            var e = Colors.Pick();
+            Color c = Colors.Pick();
+            Color d = c.Clone();
+            Color e = Colors.Pick();
 
             Assert.AreEqual(c.GetHashCode(), d.GetHashCode());
             Assert.AreNotEqual(c.GetHashCode(), e.GetHashCode());

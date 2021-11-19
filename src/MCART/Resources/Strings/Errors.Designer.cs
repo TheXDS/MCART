@@ -241,6 +241,15 @@ namespace TheXDS.MCART.Resources.Strings {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a La expresión utilizada en este contexto debe seleccionar a un miembro..
+        /// </summary>
+        public static string InvalidSelectorExpression {
+            get {
+                return ResourceManager.GetString("InvalidSelectorExpression", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a El tipo no es válido en este contexto..
         /// </summary>
         public static string InvalidType {

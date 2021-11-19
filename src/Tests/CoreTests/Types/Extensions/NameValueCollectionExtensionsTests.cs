@@ -33,7 +33,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
     {
         private static NameValueCollection GetCollection(bool withNull = false)
         {
-            var c = new NameValueCollection
+            NameValueCollection? c = new()
             {
                 {"name1", "value1"},
                 {"name2", "value2"},
@@ -49,39 +49,39 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             }
             return c;
         }
-        
+
         [Test]
         public void ToGroup_Test()
         {
-            var g = GetCollection(withNull: true).ToGroup().ToArray();
+            IGrouping<string?, string>[]? g = GetCollection(withNull: true).ToGroup().ToArray();
             Assert.AreEqual(4, g.Length);
             Assert.AreEqual("name1", g[0].Key);
-            Assert.AreEqual(new[] { "value1", "value4" },g[0].ToArray());
+            Assert.AreEqual(new[] { "value1", "value4" }, g[0].ToArray());
             Assert.AreEqual("name2", g[1].Key);
-            Assert.AreEqual(new[] { "value2", "value5" },g[1].ToArray());
+            Assert.AreEqual(new[] { "value2", "value5" }, g[1].ToArray());
             Assert.AreEqual("name3", g[2].Key);
-            Assert.AreEqual(new[] { "value3", "value6" },g[2].ToArray());
+            Assert.AreEqual(new[] { "value3", "value6" }, g[2].ToArray());
             Assert.Null(g[3].Key);
-            Assert.AreEqual(new[] { "value7", "value8" },g[3].ToArray());
+            Assert.AreEqual(new[] { "value7", "value8" }, g[3].ToArray());
         }
-        
+
         [Test]
         public void ToNamedObjectCollection_Test()
         {
-            var g = GetCollection().ToNamedObjectCollection().ToArray();
+            MCART.Types.NamedObject<string[]>[]? g = GetCollection().ToNamedObjectCollection().ToArray();
             Assert.AreEqual(3, g.Length);
             Assert.AreEqual("name1", g[0].Name);
-            Assert.AreEqual(new[] { "value1", "value4" },g[0].Value);
+            Assert.AreEqual(new[] { "value1", "value4" }, g[0].Value);
             Assert.AreEqual("name2", g[1].Name);
-            Assert.AreEqual(new[] { "value2", "value5" },g[1].Value);
+            Assert.AreEqual(new[] { "value2", "value5" }, g[1].Value);
             Assert.AreEqual("name3", g[2].Name);
-            Assert.AreEqual(new[] { "value3", "value6" },g[2].Value);
+            Assert.AreEqual(new[] { "value3", "value6" }, g[2].Value);
         }
-        
+
         [Test]
         public void ToKeyValuePair_Test()
         {
-            var g = GetCollection(withNull: true).ToKeyValuePair().ToArray();
+            System.Collections.Generic.KeyValuePair<string?, string>[]? g = GetCollection(withNull: true).ToKeyValuePair().ToArray();
             Assert.AreEqual(4, g.Length);
             Assert.AreEqual("name1", g[0].Key);
             Assert.AreEqual("value1,value4", g[0].Value);
@@ -96,11 +96,11 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         [Test]
         public void ToDictionary_Test()
         {
-            var g = GetCollection().ToDictionary();
+            System.Collections.Generic.Dictionary<string, string[]>? g = GetCollection().ToDictionary();
             Assert.AreEqual(3, g.Keys.Count);
-            Assert.AreEqual(new[] { "value1", "value4" },g["name1"]);
-            Assert.AreEqual(new[] { "value2", "value5" },g["name2"]);
-            Assert.AreEqual(new[] { "value3", "value6" },g["name3"]);
+            Assert.AreEqual(new[] { "value1", "value4" }, g["name1"]);
+            Assert.AreEqual(new[] { "value2", "value5" }, g["name2"]);
+            Assert.AreEqual(new[] { "value3", "value6" }, g["name3"]);
         }
     }
 }

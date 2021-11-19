@@ -35,15 +35,15 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         [Test]
         public void VerboseTest()
         {
-            Assert.AreEqual(Composition.Seconds(15),TimeSpan.FromSeconds(15).Verbose());
-            Assert.AreEqual(Composition.Minutes(3),TimeSpan.FromSeconds(180).Verbose());
-            Assert.AreEqual(Composition.Hours(2),TimeSpan.FromSeconds(7200).Verbose());
-            Assert.AreEqual(Composition.Days(5),TimeSpan.FromDays(5).Verbose());
+            Assert.AreEqual(Composition.Seconds(15), TimeSpan.FromSeconds(15).Verbose());
+            Assert.AreEqual(Composition.Minutes(3), TimeSpan.FromSeconds(180).Verbose());
+            Assert.AreEqual(Composition.Hours(2), TimeSpan.FromSeconds(7200).Verbose());
+            Assert.AreEqual(Composition.Days(5), TimeSpan.FromDays(5).Verbose());
 
             Assert.AreEqual(
                 $"{Composition.Minutes(1)}, {Composition.Seconds(5)}",
                 TimeSpan.FromSeconds(65).Verbose());
-            
+
             Assert.AreEqual(
                 $"{Composition.Days(2)}, {Composition.Hours(5)}, {Composition.Minutes(45)}, {Composition.Seconds(23)}",
                 (TimeSpan.FromDays(2) + TimeSpan.FromHours(5) + TimeSpan.FromMinutes(45) + TimeSpan.FromSeconds(23)).Verbose());
@@ -52,9 +52,9 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         [Test]
         public void AsTimeTest()
         {
-            var t = TimeSpan.FromSeconds(60015);
-            var c = CultureInfo.InvariantCulture;
-            var r = t.AsTime(c);
+            TimeSpan t = TimeSpan.FromSeconds(60015);
+            CultureInfo? c = CultureInfo.InvariantCulture;
+            string? r = t.AsTime(c);
             Assert.AreEqual("16:40", r);
             Assert.AreEqual(
                 string.Format($"{{0:{CultureInfo.CurrentCulture.DateTimeFormat.ShortTimePattern}}}",

@@ -32,7 +32,7 @@ namespace TheXDS.MCART.Tests.Attributes
         [Test]
         public void BasicInstancingTest()
         {
-            var a = new PriorityAttribute(1);
+            PriorityAttribute? a = new(1);
             Assert.AreEqual(1, a.Value);
         }
     }

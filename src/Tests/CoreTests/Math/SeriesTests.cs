@@ -35,8 +35,8 @@ namespace TheXDS.MCART.Tests.Math
         [Test]
         public void FibonacciTest()
         {
-            var a = Fibonacci().Take(16).ToArray();
-            var b = new long[]
+            long[]? a = Fibonacci().Take(16).ToArray();
+            long[]? b = new long[]
             {
                 0,   1,   1,   2,
                 3,   5,   8,   13,
@@ -49,8 +49,8 @@ namespace TheXDS.MCART.Tests.Math
         [Test]
         public void LucasTest()
         {
-            var a = Lucas().Take(16).ToArray();
-            var b = new long[]
+            long[]? a = Lucas().Take(16).ToArray();
+            long[]? b = new long[]
             {
                 2,   1,   3,   4,
                 7,   11,  18,  29,
@@ -59,12 +59,12 @@ namespace TheXDS.MCART.Tests.Math
             };
             Assert.AreEqual(b, a);
         }
-        
+
         [Test]
         public void MakeSeriesAdditiveTest()
         {
-            var a = MakeSeriesAdditive(0, 1).Take(16).ToArray();
-            var b = new long[]
+            long[]? a = MakeSeriesAdditive(0, 1).Take(16).ToArray();
+            long[]? b = new long[]
             {
                 0,   1,   1,   2,
                 3,   5,   8,   13,
@@ -73,14 +73,14 @@ namespace TheXDS.MCART.Tests.Math
             };
             Assert.AreEqual(b, a);
         }
-        
+
         [Test]
         public void MakeSeriesAdditive_BreaksOnOverFlow_Test()
         {
-            var a = MakeSeriesAdditive(1, long.MaxValue).Take(4).ToArray();
-            Assert.AreEqual(1,a[0]);
-            Assert.AreEqual(long.MaxValue,a[1]);
-            Assert.AreEqual(2,a.Length);
+            long[]? a = MakeSeriesAdditive(1, long.MaxValue).Take(4).ToArray();
+            Assert.AreEqual(1, a[0]);
+            Assert.AreEqual(long.MaxValue, a[1]);
+            Assert.AreEqual(2, a.Length);
         }
     }
 }

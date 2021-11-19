@@ -34,14 +34,14 @@ namespace TheXDS.MCART.Tests.Attributes
         [Test]
         public void SpdxLicenseBasicInstancing_Test()
         {
-            var l = new SpdxLicenseAttribute(SpdxLicenseId.GPL_3_0_or_later);
+            SpdxLicenseAttribute? l = new(SpdxLicenseId.GPL_3_0_or_later);
             Assert.AreEqual(SpdxLicenseId.GPL_3_0_or_later, l.Id);
         }
 
         [Test]
         public void SpdxInstancingWithStringArgs_Test()
         {
-            var l = new SpdxLicenseAttribute("GPL_3_0_or_later");
+            SpdxLicenseAttribute? l = new("GPL_3_0_or_later");
             Assert.AreEqual(SpdxLicenseId.GPL_3_0_or_later, l.Id);
         }
 

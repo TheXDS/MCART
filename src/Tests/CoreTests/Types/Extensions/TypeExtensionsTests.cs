@@ -44,8 +44,8 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             {
                 throw new InvalidOperationException();
             }
-        }        
-        
+        }
+
         [Test]
         public void AnyAssignableFrom_Test()
         {
@@ -130,7 +130,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         [Test]
         public void Derivates_Test()
         {
-            var t = typeof(Exception).Derivates(typeof(Exception).Assembly).ToArray();
+            Type[]? t = typeof(Exception).Derivates(typeof(Exception).Assembly).ToArray();
             Assert.Contains(typeof(ArgumentNullException), t);
             Assert.False(t.Contains(typeof(TamperException)));
             Assert.False(t.Contains(typeof(int)));
@@ -168,7 +168,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         public void Implements_Test()
         {
             Assert.True(typeof(ArgumentException).Implements(typeof(Exception), Type.EmptyTypes));
-            Assert.True(typeof(int[]).Implements(typeof(IEnumerable<>),typeof(int)));
+            Assert.True(typeof(int[]).Implements(typeof(IEnumerable<>), typeof(int)));
             Assert.True(typeof(int[]).Implements(typeof(IEnumerable<>)));
             Assert.True(typeof(string).Implements(typeof(IEnumerable<char>)));
             Assert.True(typeof(int[]).Implements(typeof(IEnumerable<int>)));
@@ -177,7 +177,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             Assert.True(typeof(Array).Implements(typeof(IEnumerable)));
             Assert.True(typeof(List<int>).Implements(typeof(IEnumerable<int>)));
             Assert.True(typeof(IEnumerable<float>).Implements(typeof(IEnumerable<>)));
-            Assert.False(typeof(float[]).Implements(typeof(IEnumerable<>),typeof(int)));
+            Assert.False(typeof(float[]).Implements(typeof(IEnumerable<>), typeof(int)));
             Assert.False(typeof(Exception).Implements(typeof(IEnumerable<>)));
             Assert.False(typeof(ValueTask<string>).Implements(typeof(IEnumerable<>)));
             Assert.True(typeof(List<string>).Implements(new[] {
@@ -204,11 +204,11 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             Assert.NotNull(ex);
             Assert.False(typeof(Exception).TryInstance(out Exception? ex2, 1, 2, 3, 4));
             Assert.Null(ex2);
-            Assert.False(typeof(ICloneable).TryInstance<ICloneable>(out var x));
+            Assert.False(typeof(ICloneable).TryInstance<ICloneable>(out ICloneable? x));
             Assert.Null(x);
-            Assert.True(typeof(decimal).TryInstance<decimal>(out var d));
+            Assert.True(typeof(decimal).TryInstance<decimal>(out decimal d));
             Assert.AreEqual(default(decimal), d);
-            Assert.False(typeof(ThrowingTest).TryInstance<ThrowingTest>(out var tt));
+            Assert.False(typeof(ThrowingTest).TryInstance<ThrowingTest>(out ThrowingTest? tt));
             Assert.Null(tt);
         }
 

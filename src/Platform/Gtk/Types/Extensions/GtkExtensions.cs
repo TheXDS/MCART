@@ -50,7 +50,7 @@ namespace TheXDS.MCART.Types.Extensions
                     command.Execute(parameter);
                 }
             };
-            
+
             command.CanExecuteChanged += (sender, args) => button.Sensitive = command.CanExecute(parameter);
         }
 
@@ -62,7 +62,7 @@ namespace TheXDS.MCART.Types.Extensions
         [CLSCompliant(false)]
         public static void Bind(this Button button, ICommand command)
         {
-            Bind(button,command, null);
+            Bind(button, command, null);
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace TheXDS.MCART.Types.Extensions
         {
             button.Clicked += (sender, args) =>
             {
-                if (command.Invoke() is {} c && c.CanExecute(parameter))
+                if (command.Invoke() is { } c && c.CanExecute(parameter))
                 {
                     c.Execute(parameter);
                 }
@@ -89,9 +89,9 @@ namespace TheXDS.MCART.Types.Extensions
         /// <param name="button">Botón a configurar.</param>
         /// <param name="command">Comando a conectar.</param>
         [CLSCompliant(false)]
-        public static void Bind( this Button button, Func<ICommand?> command)
+        public static void Bind(this Button button, Func<ICommand?> command)
         {
-            Bind(button,command, null);
+            Bind(button, command, null);
         }
     }
 }

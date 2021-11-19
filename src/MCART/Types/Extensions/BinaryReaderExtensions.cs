@@ -97,7 +97,7 @@ namespace TheXDS.MCART.Types.Extensions
         [DebuggerStepThrough]
         public static Enum ReadEnum(this BinaryReader br, Type enumType)
         {
-            var t = enumType.GetEnumUnderlyingType();
+            Type? t = enumType.GetEnumUnderlyingType();
             return (Enum)Enum.ToObject(enumType, GetBinaryReadMethod(t)!.Invoke(br, Array.Empty<object>())!);
         }
 
@@ -217,7 +217,7 @@ namespace TheXDS.MCART.Types.Extensions
             if (type.IsEnum) return Enum.ToObject(type, ReadEnum(reader, type));
             if (type.Implements<ISerializable>())
             {
-                var d = new DataContractSerializer(type);
+                DataContractSerializer? d = new(type);
                 return d.ReadObject(reader.ReadString().ToStream())!;
             }
 
@@ -300,7 +300,7 @@ namespace TheXDS.MCART.Types.Extensions
                && p.GetParameters().Single().ParameterType == typeof(BinaryReader)
                && p.ReturnType == t);
         }
-        
+
         private static T ByMarshalReadStructInternal<T>(BinaryReader reader)
         {
             return (T)ByMarshalReadStructInternal(reader, typeof(T));
@@ -308,9 +308,9 @@ namespace TheXDS.MCART.Types.Extensions
 
         private static object ByMarshalReadStructInternal(BinaryReader reader, Type t)
         {
-            var obj = Activator.CreateInstance(t) ?? throw Errors.Tamper();
-            var sze = Marshal.SizeOf(obj);
-            var ptr = Marshal.AllocHGlobal(sze);
+            object? obj = Activator.CreateInstance(t) ?? throw Errors.Tamper();
+            int sze = Marshal.SizeOf(obj);
+            IntPtr ptr = Marshal.AllocHGlobal(sze);
             Marshal.Copy(reader.ReadBytes(sze), 0, ptr, sze);
             obj = Marshal.PtrToStructure(ptr, t) ?? throw new InvalidDataException();
             Marshal.FreeHGlobal(ptr);
@@ -319,8 +319,8 @@ namespace TheXDS.MCART.Types.Extensions
 
         private static object ByFieldReadStructInternal(BinaryReader reader, Type t)
         {
-            var obj = Activator.CreateInstance(t) ?? throw Errors.Tamper();
-            foreach (var j in t.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic))
+            object? obj = Activator.CreateInstance(t) ?? throw Errors.Tamper();
+            foreach (FieldInfo? j in t.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic))
             {
                 if (!j.IsInitOnly) j.SetValue(obj, reader.Read(j.FieldType));
             }

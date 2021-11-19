@@ -77,7 +77,7 @@ namespace TheXDS.MCART.Networking.Legacy.Client.Protocols
         /// </returns>
         public bool Check()
         {
-            var str = new Random().RndText(4096);
+            string? str = new Random().RndText(4096);
             return Send(str) == str;
         }
 
@@ -121,7 +121,7 @@ namespace TheXDS.MCART.Networking.Legacy.Client.Protocols
         /// </returns>
         public async Task<bool> CheckAsync()
         {
-            var str = new Random().RndText(4096);
+            string? str = new Random().RndText(4096);
             return await SendAsync(str) == str;
         }
     }

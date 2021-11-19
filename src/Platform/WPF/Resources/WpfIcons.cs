@@ -36,7 +36,7 @@ namespace TheXDS.MCART.Resources
     public sealed class WpfIcons : McartIconLibrary<UIElement>
     {
         private static readonly XamlUnpacker _xaml = new(typeof(WpfIcons).Assembly, typeof(Icons).FullName!);
-        
+
         /// <summary>
         /// Implementa el método de obtención del ícono basado en el nombre
         /// del ícono solicitado.
@@ -47,9 +47,9 @@ namespace TheXDS.MCART.Resources
         /// <returns>
         /// El ícono solicitado.
         /// </returns>
-        protected override sealed UIElement GetIcon([CallerMemberName] string? id = null!)
+        protected sealed override UIElement GetIcon([CallerMemberName] string? id = null!)
         {
-            return _xaml.Unpack($"{id}_Xml", new DeflateGetter()) as UIElement ?? new TextBlock { Text="?", FontSize = 256, Foreground = Brushes.DarkRed };
+            return _xaml.Unpack($"{id}_Xml", new DeflateGetter()) as UIElement ?? new TextBlock { Text = "?", FontSize = 256, Foreground = Brushes.DarkRed };
         }
     }
 }

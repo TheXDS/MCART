@@ -33,7 +33,7 @@ namespace TheXDS.MCART.Tests.Helpers
         [Test]
         public void Eval_Test()
         {
-            var x = Expression.Multiply(Expression.Constant(5), Expression.Constant(2));
+            BinaryExpression? x = Expression.Multiply(Expression.Constant(5), Expression.Constant(2));
             Assert.AreEqual(10, x.Eval());
         }
     }

@@ -22,69 +22,8 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System.ComponentModel;
-
 namespace TheXDS.MCART.Events
 {
-    /// <summary>
-    /// Incluye información para cualquier evento que incluya tipos de valor y
-    /// puedan ser cancelados.
-    /// </summary>
-    /// <typeparam name="T">
-    /// Tipo del valor almacenado por esta instancia.
-    /// </typeparam>
-    public class ValueChangingEventArgs<T> : CancelEventArgs
-    {
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="ValueChangingEventArgs{T}" /> con el valor provisto.
-        /// </summary>
-        /// <param name="oldValue">
-        /// Valor original asociado al evento generado.
-        /// </param>
-        /// <param name="newValue">
-        /// Nuevo valor asociado al evento generado.
-        /// </param>
-        public ValueChangingEventArgs(T oldValue, T newValue)
-        {
-            OldValue = oldValue;
-            NewValue = newValue;
-        }
-
-        /// <summary>
-        /// Devuelve el valor original asociado a este evento.
-        /// </summary>
-        /// <returns>
-        /// Un valor de tipo <typeparamref name="T" /> con el valor asociado al
-        /// evento.
-        /// </returns>
-        public T OldValue { get; }
-
-        /// <summary>
-        /// Devuelve el nuevo valor asociado a este evento.
-        /// </summary>
-        /// <returns>
-        /// Un valor de tipo <typeparamref name="T" /> con el valor asociado al
-        /// evento.
-        /// </returns>
-        public T NewValue { get; }
-
-        /// <summary>
-        /// Convierte explícitamente este
-        /// <see cref="ValueChangingEventArgs{T}" /> en un
-        /// <see cref="ValueEventArgs{T}" />.
-        /// </summary>
-        /// <param name="fromValue">Objeto a convertir.</param>
-        /// <returns>
-        /// Un <see cref="ValueEventArgs{T}" /> con la información pertinente
-        /// del <see cref="ValueChangingEventArgs{T}" /> especificado.
-        /// </returns>
-        public static explicit operator ValueEventArgs<T>(ValueChangingEventArgs<T> fromValue)
-        {
-            return new(fromValue.NewValue);
-        }
-    }
-
     /// <summary>
     /// Incluye información para cualquier evento que incluya tipos de valor y
     /// puedan ser cancelados.

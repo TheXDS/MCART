@@ -24,8 +24,8 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Runtime.InteropServices;
-using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Resources;
+using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Types.Base
 {
@@ -42,8 +42,8 @@ namespace TheXDS.MCART.Types.Base
         {
             get
             {
-                var t = GetType();
-                var g = t.GetAttr<GuidAttribute>() ?? throw Errors.MissingGuidAttr(t);
+                Type? t = GetType();
+                GuidAttribute? g = t.GetAttr<GuidAttribute>() ?? throw Errors.MissingGuidAttr(t);
                 return new Guid(g.Value);
             }
         }

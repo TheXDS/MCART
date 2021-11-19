@@ -54,7 +54,7 @@ namespace TheXDS.MCART.Types.Extensions
         [Dangerous]
         public static string Read(this SecureString value)
         {
-            var valuePtr = IntPtr.Zero;
+            IntPtr valuePtr = IntPtr.Zero;
             try
             {
                 valuePtr = Marshal.SecureStringToGlobalAllocUnicode(value);
@@ -79,12 +79,12 @@ namespace TheXDS.MCART.Types.Extensions
         public static short[] ReadInt16(this SecureString value)
         {
             const int sz = sizeof(short);
-            var outp = new List<short>();
-            var valuePtr = IntPtr.Zero;
+            List<short>? outp = new();
+            IntPtr valuePtr = IntPtr.Zero;
             try
             {
                 valuePtr = Marshal.SecureStringToGlobalAllocUnicode(value);
-                for (var i = 0; i < value.Length * sz; i += sz) outp.Add(Marshal.ReadInt16(valuePtr, i));
+                for (int i = 0; i < value.Length * sz; i += sz) outp.Add(Marshal.ReadInt16(valuePtr, i));
                 return outp.ToArray();
             }
             finally
@@ -106,12 +106,12 @@ namespace TheXDS.MCART.Types.Extensions
         public static char[] ReadChars(this SecureString value)
         {
             const int sz = sizeof(char);
-            var outp = new List<char>();
-            var valuePtr = IntPtr.Zero;
+            List<char>? outp = new();
+            IntPtr valuePtr = IntPtr.Zero;
             try
             {
                 valuePtr = Marshal.SecureStringToGlobalAllocUnicode(value);
-                for (var i = 0; i < value.Length * sz; i += sz) outp.Add((char) Marshal.ReadInt16(valuePtr, i));
+                for (int i = 0; i < value.Length * sz; i += sz) outp.Add((char)Marshal.ReadInt16(valuePtr, i));
                 return outp.ToArray();
             }
             finally
@@ -132,12 +132,12 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static byte[] ReadBytes(this SecureString value)
         {
-            var outp = new List<byte>();
-            var valuePtr = IntPtr.Zero;
+            List<byte>? outp = new();
+            IntPtr valuePtr = IntPtr.Zero;
             try
             {
                 valuePtr = Marshal.SecureStringToGlobalAllocUnicode(value);
-                for (var i = 0; i < value.Length * 2; i++) outp.Add(Marshal.ReadByte(valuePtr, i));
+                for (int i = 0; i < value.Length * 2; i++) outp.Add(Marshal.ReadByte(valuePtr, i));
                 return outp.ToArray();
             }
             finally

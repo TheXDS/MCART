@@ -48,7 +48,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static string Verbose(this in TimeSpan timeSpan)
         {
-            var msjs = new HashSet<string>();
+            HashSet<string>? msjs = new();
             if (timeSpan.Days > 0)
                 msjs.Add(Composition.Days(timeSpan.Days));
             if (timeSpan.Hours > 0)
@@ -78,7 +78,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <returns>Una cadena que representa una hora.</returns>
         public static string AsTime(this in TimeSpan timeSpan, in CultureInfo culture)
         {
-            var f = $"{{0:{culture.DateTimeFormat.ShortTimePattern}}}";
+            string? f = $"{{0:{culture.DateTimeFormat.ShortTimePattern}}}";
             return string.Format(f, DateTime.MinValue.Add(timeSpan));
         }
     }

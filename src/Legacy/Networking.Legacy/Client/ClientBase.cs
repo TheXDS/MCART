@@ -294,13 +294,13 @@ namespace TheXDS.MCART.Networking.Legacy.Client
         /// <returns></returns>
         protected byte[] GetData(NetworkStream ns)
         {
-            var outp = new System.Collections.Generic.List<byte>();
+            System.Collections.Generic.List<byte>? outp = new();
             try
             {
                 do
                 {
-                    var buff = new byte[Connection.ReceiveBufferSize];
-                    var sze = ns.Read(buff, 0, buff.Length);
+                    byte[]? buff = new byte[Connection.ReceiveBufferSize];
+                    int sze = ns.Read(buff, 0, buff.Length);
                     if (sze < Connection.ReceiveBufferSize) Array.Resize(ref buff, sze);
                     outp.AddRange(buff);
                 } while (ns.DataAvailable);
@@ -320,13 +320,13 @@ namespace TheXDS.MCART.Networking.Legacy.Client
         /// <returns></returns>
         protected async Task<byte[]> GetDataAsync(NetworkStream ns)
         {
-            var outp = new System.Collections.Generic.List<byte>();
+            System.Collections.Generic.List<byte>? outp = new();
             try
             {
                 do
                 {
-                    var buff = new byte[Connection.ReceiveBufferSize];
-                    var sze = await ns.ReadAsync(buff, 0, buff.Length);
+                    byte[]? buff = new byte[Connection.ReceiveBufferSize];
+                    int sze = await ns.ReadAsync(buff, 0, buff.Length);
                     if (sze < Connection.ReceiveBufferSize) Array.Resize(ref buff, sze);
                     outp.AddRange(buff);
                 } while (ns.DataAvailable);

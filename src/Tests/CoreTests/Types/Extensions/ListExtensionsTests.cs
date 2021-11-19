@@ -39,11 +39,11 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         [Test]
         public void RemoveOf_Test()
         {
-            var e = new Exception();
-            var d = DateTime.Now;
-            var o = new object();
-            var e2 = new InvalidOperationException();
-            var c = new object[] { e, o, 5, d, e2 }.ToList();
+            Exception? e = new();
+            DateTime d = DateTime.Now;
+            object? o = new();
+            InvalidOperationException? e2 = new();
+            List<object>? c = new object[] { e, o, 5, d, e2 }.ToList();
             c.RemoveOf<Exception>();
 
             Assert.Contains(d, c);
@@ -56,17 +56,17 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         [Test]
         public void Shuffle_Test()
         {
-            var l = Enumerable.Range(0, 100).ToList();
+            List<int>? l = Enumerable.Range(0, 100).ToList();
             l.Shuffle();
             Assert.False(l.All(p => p == l.FindIndexOf(p)));
             l = Enumerable.Range(0, 100).ToList();
             l.Shuffle(30, 59);
-            foreach (var p in l.Take(30))
+            foreach (int p in l.Take(30))
             {
                 Assert.AreEqual(p, l.FindIndexOf(p));
             }
             Assert.False(l.Skip(30).Take(30).All(p => l.FindIndexOf(p) == p));
-            foreach (var p in l.Skip(60))
+            foreach (int p in l.Skip(60))
             {
                 Assert.AreEqual(p, l.FindIndexOf(p));
             }
@@ -75,7 +75,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         [Test]
         public void Shuffle_Contract_Test()
         {
-            var l = Enumerable.Range(0, 100).ToList();
+            List<int>? l = Enumerable.Range(0, 100).ToList();
             Assert.IsAssignableFrom<EmptyCollectionException>(Assert.Throws<InvalidOperationException>(() => Array.Empty<int>().ToList().Shuffle())!.InnerException);
             Assert.Throws<IndexOutOfRangeException>(() => l.Shuffle(-1, 100, 1));
             Assert.Throws<IndexOutOfRangeException>(() => l.Shuffle(0, 1000, 1));
@@ -86,7 +86,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         [Test]
         public void ApplyRotate_Test()
         {
-            var l = Enumerable.Range(0, 10).ToList();
+            List<int>? l = Enumerable.Range(0, 10).ToList();
             l.ApplyRotate(-2);
             Assert.AreEqual(8, l[0]);
             Assert.AreEqual(9, l[1]);
@@ -110,11 +110,11 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             Assert.AreEqual(1, l[8]);
             Assert.AreEqual(2, l[9]);
         }
-        
+
         [Test]
         public void ApplyShift_Test()
         {
-            var l = Enumerable.Range(0, 10).ToList();
+            List<int>? l = Enumerable.Range(0, 10).ToList();
             l.ApplyShift(-2);
             Assert.AreEqual(0, l[0]);
             Assert.AreEqual(0, l[1]);
@@ -143,8 +143,8 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         public async Task Locked_Test()
         {
             IList l = new[] { 1, 2, 3, 4 }.ToList();
-            var f1 = false;
-            var t1 = Task.Run(() => l.Locked(i =>
+            bool f1 = false;
+            Task? t1 = Task.Run(() => l.Locked(i =>
             {
                 Thread.Sleep(500);
                 f1 = true;
@@ -152,7 +152,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             }));
             // Este debe ser tiempo suficiente para que la tarea t1 inicie ejecución.
             await Task.Delay(250);
-            var t2 = Task.Run(() => l.Locked(i =>
+            Task? t2 = Task.Run(() => l.Locked(i =>
             {
                 Assert.AreSame(l, i);
                 Assert.True(f1);
@@ -163,7 +163,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         [Test]
         public void Swap_Test()
         {
-            var l = new[] { "a", "b", "c", "d" }.ToList();
+            List<string>? l = new[] { "a", "b", "c", "d" }.ToList();
             l.Swap("b", "c");
             Assert.AreEqual(new[] { "a", "c", "b", "d" }, l.ToArray());
             Assert.Throws<Exception>(() => l.Swap("b", "e"));

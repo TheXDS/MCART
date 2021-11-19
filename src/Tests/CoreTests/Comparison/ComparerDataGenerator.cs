@@ -33,7 +33,7 @@ namespace TheXDS.MCART.Tests.Comparison
 
         private IEnumerable<object[]> Transform()
         {
-            foreach (var (a, b, equal) in GetSequences())
+            foreach ((T a, T b, bool equal) in GetSequences())
             {
                 yield return new object[] { a, b, equal };
             }

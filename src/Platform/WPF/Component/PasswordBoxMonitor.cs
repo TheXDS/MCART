@@ -86,7 +86,7 @@ namespace TheXDS.MCART.Wpf.Component
         }
 
         private static readonly DependencyPropertyKey IsMonitoringDependencyPropertyKey = DependencyProperty.RegisterAttachedReadOnly("IsMonitoring", typeof(bool), typeof(PasswordBoxMonitor), new PropertyMetadata(false));
-        
+
         /// <summary>
         /// Permite monitorear un <see cref="PasswordBox"/>.
         /// </summary>
@@ -259,7 +259,7 @@ namespace TheXDS.MCART.Wpf.Component
         {
             if (d is PasswordBox pb)
             {
-                var (nv, ov) = ((MonitorLevel)e.NewValue, (MonitorLevel)e.OldValue);
+                (MonitorLevel nv, MonitorLevel ov) = ((MonitorLevel)e.NewValue, (MonitorLevel)e.OldValue);
                 if (nv == MonitorLevel.None && ov != MonitorLevel.None)
                 {
                     d.SetValue(IsMonitoringDependencyPropertyKey, false);
@@ -277,7 +277,7 @@ namespace TheXDS.MCART.Wpf.Component
         {
             if (sender is PasswordBox pb)
             {
-                var v = GetMonitoring(pb);
+                MonitorLevel v = GetMonitoring(pb);
                 if (v.HasFlag(MonitorLevel.None)) SetPasswordLength(pb, pb.Password.Length);
                 if (v.HasFlag(MonitorLevel.Password)) SetPassword(pb, pb.Password);
                 if (v.HasFlag(MonitorLevel.SecurePassword)) SetSecurePassword(pb, pb.SecurePassword);

@@ -64,7 +64,7 @@ namespace TheXDS.MCART.ValueConverters
         {
             True = trueValue;
             Null = False = falseValue!;
-            
+
         }
 
         /// <summary>
@@ -135,7 +135,7 @@ namespace TheXDS.MCART.ValueConverters
         {
             if (value is null) return null;
             if (value.Equals(Null) && !ReferenceEquals(Null, False)) return null;
-            return ((T) value).Equals(True);
+            return ((T)value).Equals(True);
         }
     }
 }

@@ -67,7 +67,7 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         /// cliente conectado al servidor.
         /// </summary>
         public bool Disconnecting { get; private set; }
-    
+
         /// <summary>
         /// Obtiene un valor que indica si hay datos disponibles para leer.
         /// </summary>
@@ -107,7 +107,7 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         public bool IsAlive => NwStream() is not null;
 
         /// <summary>
-        /// Obtiene la conexión <see cref="System.Net.Sockets.TcpClient" /> asociada a esta instancia.
+        /// Obtiene la conexión <see cref="TcpClient" /> asociada a esta instancia.
         /// </summary>
         /// <value>My connection.</value>
         private TcpClient Connection { get; }
@@ -116,7 +116,7 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         /// Inicializa una nueva instancia de la clase <see cref="Client" />.
         /// </summary>
         /// <param name="connection">
-        /// <see cref="System.Net.Sockets.TcpClient" /> a utilizar para las
+        /// <see cref="TcpClient" /> a utilizar para las
         /// comunicaciones con el cliente.
         /// </param>
         public Client(TcpClient connection)
@@ -143,14 +143,14 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         /// <returns>Un arreglo de <see cref="byte" /> con la información recibida desde el servidor.</returns>
         public byte[] Recieve()
         {
-            var ns = NwStream();
+            NetworkStream? ns = NwStream();
             if (ns is null)
 #if PreferExceptions
 				throw new ArgumentNullException();
 #else
                 return Array.Empty<byte>();
 #endif
-            using var ms = new MemoryStream();
+            using MemoryStream? ms = new();
             ns.CopyTo(ms);
             return ms.ToArray();
         }
@@ -162,11 +162,11 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         /// <returns></returns>
         protected byte[] GetData(NetworkStream ns)
         {
-            var outp = new List<byte>();
+            List<byte>? outp = new();
             do
             {
-                var buff = new byte[Connection.ReceiveBufferSize];
-                var sze = ns.Read(buff, 0, buff.Length);
+                byte[]? buff = new byte[Connection.ReceiveBufferSize];
+                int sze = ns.Read(buff, 0, buff.Length);
                 if (sze < Connection.ReceiveBufferSize) Array.Resize(ref buff, sze);
                 outp.AddRange(buff);
             } while (ns.DataAvailable);
@@ -182,11 +182,11 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         {
             try
             {
-                var outp = new List<byte>();
+                List<byte>? outp = new();
                 do
                 {
-                    var buff = new byte[Connection.ReceiveBufferSize];
-                    var sze = await ns.ReadAsync(buff, 0, buff.Length);
+                    byte[]? buff = new byte[Connection.ReceiveBufferSize];
+                    int sze = await ns.ReadAsync(buff, 0, buff.Length);
                     if (sze < Connection.ReceiveBufferSize) Array.Resize(ref buff, sze);
                     outp.AddRange(buff);
                 } while (ns.DataAvailable);
@@ -204,7 +204,7 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         /// <returns>Un arreglo de <see cref="byte" /> con la información recibida desde el servidor.</returns>
         public async Task<byte[]> RecieveAsync()
         {
-            var ns = NwStream();
+            NetworkStream? ns = NwStream();
             if (ns is null)
 #if PreferExceptions
             	throw new ArgumentNullException();
@@ -221,7 +221,7 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         /// <returns>Un arreglo de <see cref="byte" /> con la información recibida desde el servidor.</returns>
         public Task<byte[]> RecieveAsync(CancellationToken cancellationToken)
         {
-            var ns = NwStream();
+            NetworkStream? ns = NwStream();
             if (ns is null) return Task.FromResult(Array.Empty<byte>());
             try
             {
@@ -269,7 +269,7 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         /// <param name="data">Mensaje a enviar.</param>
         public void Send(Stream data)
         {
-            using var reader = new MemoryStream();
+            using MemoryStream? reader = new();
             data.CopyTo(reader);
             Send(reader.ToArray());
         }
@@ -297,7 +297,7 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         /// </returns>
         public async Task SendAsync(Stream data)
         {
-            using var reader = new MemoryStream();
+            using MemoryStream? reader = new();
             await data.CopyToAsync(reader);
             await SendAsync(reader.ToArray());
         }
@@ -342,33 +342,6 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         public Task SendAsync(byte[] data, CancellationToken cancellationToken)
         {
             return NwStream()?.WriteAsync(data, 0, data.Length, cancellationToken) ?? Task.CompletedTask;
-        }
-    }
-
-    /// <summary>
-    /// Representa un cliente que requiere datos de estado asociados que se ha
-    /// conectado al servidor.
-    /// </summary>
-    /// <typeparam name="T">
-    /// Tipo de datos asociados de cliente requeridos.
-    /// </typeparam>
-    public class Client<T> : Client
-    {
-        /// <summary>
-        /// Contiene un objeto de estado personalizado asociado a esta
-        /// instancia de la clase <see cref="Client{T}" />.
-        /// </summary>
-        public T ClientData { get; set; } = default!;
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="Client{T}" />.
-        /// </summary>
-        /// <param name="connection">
-        /// <see cref="TcpClient" /> a utilizar para las comunicaciones con el
-        /// cliente.
-        /// </param>
-        public Client(TcpClient connection) : base(connection)
-        {
         }
     }
 }

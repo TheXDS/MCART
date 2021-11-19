@@ -60,7 +60,7 @@ namespace TheXDS.MCART.Resources
         /// </returns>
         public override object Unpack(string id)
         {
-            using var sr = UnpackStream(id) ?? throw WpfErrors.ResourceNotFound(id,nameof(id));
+            using System.IO.Stream? sr = UnpackStream(id) ?? throw WpfErrors.ResourceNotFound(id, nameof(id));
             return XamlReader.Load(XmlReader.Create(sr));
         }
 
@@ -79,7 +79,7 @@ namespace TheXDS.MCART.Resources
         /// </returns>
         public override object Unpack(string id, string compressorId)
         {
-            using var sr = UnpackStream(id, compressorId);
+            using System.IO.Stream? sr = UnpackStream(id, compressorId);
             return XamlReader.Load(XmlReader.Create(sr));
         }
 
@@ -99,7 +99,7 @@ namespace TheXDS.MCART.Resources
         /// </returns>
         public override object Unpack(string id, ICompressorGetter compressor)
         {
-            using var sr = UnpackStream(id, compressor);
+            using System.IO.Stream? sr = UnpackStream(id, compressor);
             return XamlReader.Load(XmlReader.Create(sr));
         }
     }

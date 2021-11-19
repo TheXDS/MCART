@@ -34,9 +34,9 @@ namespace TheXDS.MCART.WpfTests.ValueConverters
         [Test]
         public void GetEffectTest()
         {
-            var c = new BooleanToBlurEffectConverter();
+            BooleanToBlurEffectConverter? c = new();
             Assert.Null(c.Convert(false, typeof(Effect), null, CultureInfo.CurrentCulture));
-            var e = c.Convert(true, typeof(Effect), null, CultureInfo.CurrentCulture);
+            object? e = c.Convert(true, typeof(Effect), null, CultureInfo.CurrentCulture);
             Assert.IsAssignableFrom<BlurEffect>(e);
             Assert.AreEqual(5.0, ((BlurEffect)e).Radius);
         }
@@ -44,7 +44,7 @@ namespace TheXDS.MCART.WpfTests.ValueConverters
         [Test]
         public void ArgumentsTest()
         {
-            var c = new BooleanToBlurEffectConverter();
+            BooleanToBlurEffectConverter? c = new();
             Assert.AreEqual(5.0, ((BlurEffect)c.Convert(true, typeof(Effect), null, CultureInfo.CurrentCulture)!).Radius);
             Assert.AreEqual(4.0, ((BlurEffect)c.Convert(true, typeof(Effect), "4", CultureInfo.CurrentCulture)!).Radius);
             Assert.AreEqual(3.0, ((BlurEffect)c.Convert(true, typeof(Effect), 3f, CultureInfo.CurrentCulture)!).Radius);
@@ -54,11 +54,11 @@ namespace TheXDS.MCART.WpfTests.ValueConverters
             Assert.AreEqual(3.0, ((BlurEffect)c.Convert(true, typeof(Effect), (short)3, CultureInfo.CurrentCulture)!).Radius);
             Assert.AreEqual(4.0, ((BlurEffect)c.Convert(true, typeof(Effect), 4, CultureInfo.CurrentCulture)!).Radius);
             Assert.AreEqual(5.0, ((BlurEffect)c.Convert(true, typeof(Effect), 5L, CultureInfo.CurrentCulture)!).Radius);
-    #if PreferExceptions
+#if PreferExceptions
             Assert.Throws<ArgumentException>(() => c.Convert(true, typeof(Effect), new object(), CultureInfo.CurrentCulture));
-    #else
+#else
             Assert.AreEqual(5.0, ((BlurEffect)c.Convert(true, typeof(Effect), new object(), CultureInfo.CurrentCulture)).Radius);
-    #endif
+#endif
         }
     }
 }

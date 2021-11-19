@@ -92,13 +92,13 @@ namespace TheXDS.MCART.Resources
         /// Un mapa de bits extraído del recurso con el id especificado.
         /// </returns>
         public override Bitmap Unpack(string id, ICompressorGetter compressor)
-        {            
-            return GetBitmap(UnpackStream(id, compressor));            
+        {
+            return GetBitmap(UnpackStream(id, compressor));
         }
 
         private Bitmap GetBitmap(Stream? getter)
         {
-            var ms = new MemoryStream();
+            MemoryStream? ms = new();
             (getter ?? throw new MissingResourceException()).CopyTo(ms);
             return new Bitmap(ms);
         }

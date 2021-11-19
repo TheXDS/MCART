@@ -30,68 +30,68 @@ namespace TheXDS.MCART.Security.Password
     /// Determina el nivel de ponderación a aplicar a un objeto <see cref="PasswordEvaluationRule"/>
     /// </summary>
     public enum PonderationLevel : short
-	{
-		/// <summary>
-		/// Puntuación adversa más baja.
-		/// </summary>
-		AdverseLowest = -1,
-		/// <summary>
-		/// Puntuación adversa muy baja.
-		/// </summary>
-		AdverseLower = -2,
-		/// <summary>
-		/// Puntuación adversa baja
-		/// </summary>
-		AdverseLow = -3,
-		/// <summary>
-		/// Puntuación adversa normal.
-		/// </summary>
-		AdverseNormal = -4,
-		/// <summary>
-		/// Puntuación adversa alta.
-		/// </summary>
-		AdverseHigh = -5,
-		/// <summary>
-		/// Puntuación adversa muy alta.
-		/// </summary>
-		AdverseHigher = -6,
-		/// <summary>
-		/// Puntuación adversa más alta.
-		/// </summary>
-		AdverseHighest = -7,
-		/// <summary>
-		/// puntuación sin valor.
-		/// </summary>
-		None = 0,
-		/// <summary>
-		/// Puntuación más baja.
-		/// </summary>
-		Lowest = 1,
-		/// <summary>
-		/// Puntuación muy baja.
-		/// </summary>
-		Lower = 2,
-		/// <summary>
-		/// Puntuación baja
-		/// </summary>
-		Low = 3,
-		/// <summary>
-		/// Puntuación normal.
-		/// </summary>
-		Normal = 4,
-		/// <summary>
-		/// Puntuación alta.
-		/// </summary>
-		High = 5,
-		/// <summary>
-		/// Puntuación muy alta.
-		/// </summary>
-		Higher = 6,
-		/// <summary>
-		/// Puntuación más alta.
-		/// </summary>
-		Highest = 7
-	}
+    {
+        /// <summary>
+        /// Puntuación adversa más baja.
+        /// </summary>
+        AdverseLowest = -1,
+        /// <summary>
+        /// Puntuación adversa muy baja.
+        /// </summary>
+        AdverseLower = -2,
+        /// <summary>
+        /// Puntuación adversa baja
+        /// </summary>
+        AdverseLow = -3,
+        /// <summary>
+        /// Puntuación adversa normal.
+        /// </summary>
+        AdverseNormal = -4,
+        /// <summary>
+        /// Puntuación adversa alta.
+        /// </summary>
+        AdverseHigh = -5,
+        /// <summary>
+        /// Puntuación adversa muy alta.
+        /// </summary>
+        AdverseHigher = -6,
+        /// <summary>
+        /// Puntuación adversa más alta.
+        /// </summary>
+        AdverseHighest = -7,
+        /// <summary>
+        /// puntuación sin valor.
+        /// </summary>
+        None = 0,
+        /// <summary>
+        /// Puntuación más baja.
+        /// </summary>
+        Lowest = 1,
+        /// <summary>
+        /// Puntuación muy baja.
+        /// </summary>
+        Lower = 2,
+        /// <summary>
+        /// Puntuación baja
+        /// </summary>
+        Low = 3,
+        /// <summary>
+        /// Puntuación normal.
+        /// </summary>
+        Normal = 4,
+        /// <summary>
+        /// Puntuación alta.
+        /// </summary>
+        High = 5,
+        /// <summary>
+        /// Puntuación muy alta.
+        /// </summary>
+        Higher = 6,
+        /// <summary>
+        /// Puntuación más alta.
+        /// </summary>
+        Highest = 7
+    }
 
     /// <summary>
     /// Delegado que permite verificar una contraseña.

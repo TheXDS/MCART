@@ -80,7 +80,7 @@ namespace TheXDS.MCART.ValueConverters
                 Radius = parameter switch
                 {
                     null => 5.0,
-                    string s => double.TryParse(s, out var r) ? r : throw Errors.InvalidValue(nameof(parameter), parameter),
+                    string s => double.TryParse(s, out double r) ? r : throw Errors.InvalidValue(nameof(parameter), parameter),
                     _ => TryConvert()
                 }
             } : null;

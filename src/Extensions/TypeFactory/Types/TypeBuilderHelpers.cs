@@ -83,7 +83,7 @@ namespace TheXDS.MCART.Types
         {
             return access switch
             {
-                MemberAccess.Private => TypeAttributes.NestedPrivate,                                
+                MemberAccess.Private => TypeAttributes.NestedPrivate,
                 MemberAccess.Internal => TypeAttributes.NestedAssembly,
                 MemberAccess.Public => TypeAttributes.Public,
                 _ => throw new NotImplementedException(),
@@ -101,8 +101,8 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public static MemberAccess InferAccess(Type type)
         {
-            NullCheck(type, nameof(type));            
-            return type.IsPublic ? MemberAccess.Public : MemberAccess.Internal;            
+            NullCheck(type, nameof(type));
+            return type.IsPublic ? MemberAccess.Public : MemberAccess.Internal;
         }
 
         /// <summary>
@@ -117,11 +117,11 @@ namespace TheXDS.MCART.Types
         public static TypeAttributes InferAttributes(Type type)
         {
             NullCheck(type, nameof(type));
-            var retVal = type.IsClass ? TypeAttributes.Class : default;
+            TypeAttributes retVal = type.IsClass ? TypeAttributes.Class : default;
 
             retVal |= (InferAccess(type), type.IsNested) switch
             {
-                (MemberAccess.Private, _ )=> TypeAttributes.NestedPrivate,
+                (MemberAccess.Private, _) => TypeAttributes.NestedPrivate,
                 (MemberAccess.Internal, true) => TypeAttributes.NestedAssembly,
                 (MemberAccess.Internal, false) => TypeAttributes.NotPublic,
                 (MemberAccess.Protected, _) => TypeAttributes.NestedFamily,

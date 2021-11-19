@@ -76,6 +76,6 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         /// <see langword="false"/> en caso de no ser compatible, o <see langword="null"/> si no fue
         /// posible comprobar la compatibilidad.
         /// </returns>
-        bool? IsCompatible(Type type);        
-    }    
+        bool? IsCompatible(Type type);
+    }
 }

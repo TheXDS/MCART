@@ -29,9 +29,9 @@ using System.Linq;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Component;
-using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Misc;
 using TheXDS.MCART.Resources;
+using TheXDS.MCART.Types.Extensions;
 using St = TheXDS.MCART.Resources.Strings.Composition;
 using St2 = TheXDS.MCART.PluginSupport.Legacy.Resources.Strings.Errors;
 using St3 = TheXDS.MCART.Resources.Strings.Errors;
@@ -60,7 +60,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
                 Console.WriteLine(p.Copyright);
                 if (p.HasLicense) Console.WriteLine(p.License);
             }
-            catch 
+            catch
             {
 #if PreferExceptions
                 throw;
@@ -101,7 +101,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         [System.Diagnostics.DebuggerStepThrough]
         protected Plugin()
         {
-            foreach (var j in GetType().GetMethods().Where(k => k.HasAttr<InteractionItemAttribute>()))
+            foreach (MethodInfo? j in GetType().GetMethods().Where(k => k.HasAttr<InteractionItemAttribute>()))
             {
                 if (Delegate.CreateDelegate(typeof(EventHandler), this, j, false) is not null)
                     InteractionItems.Add(new InteractionItem(j, this));
@@ -142,7 +142,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         /// Obtiene la versión informacional de este <see cref="Plugin"/>.
         /// </summary>
         public string? InformationalVersion => GetType().GetAttrAlt<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? Version?.ToString();
-        
+
         /// <summary>
         /// Obtiene la descripción de este <see cref="Plugin" />.
         /// </summary>
@@ -198,7 +198,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         /// </note>
         /// </value>
         public virtual License? License => this.GetAttr<LicenseAttributeBase>()?.GetLicense(this);
-        
+
         /// <summary>
         /// Obtiene un valor que determina si este <see cref="IExposeInfo" />
         /// contiene información de licencia.
@@ -274,7 +274,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         public bool ClsCompliant => GetType().HasAttrAlt<CLSCompliantAttribute>();
 
         #endregion
-        
+
         #region Propiedades
 
         /// <summary>
@@ -285,7 +285,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         {
             get
             {
-                foreach (var j in GetType().GetInterfaces())
+                foreach (Type? j in GetType().GetInterfaces())
                     if (j.IsNeither(typeof(IPlugin), typeof(IDisposable)))
                         yield return j;
             }
@@ -325,12 +325,12 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         {
             get
             {
-                foreach (var j in GetType().GetNestedTypes().Cast<MemberInfo>().Concat(GetType().GetRuntimeMethods()))
+                foreach (MemberInfo? j in GetType().GetNestedTypes().Cast<MemberInfo>().Concat(GetType().GetRuntimeMethods()))
                 {
                     if (!j.HasAttr<ThirdPartyAttribute>()) continue;
-                    if (j.HasAttr<LicenseAttributeBase>(out var lic)) yield return lic!.GetLicense(j);
+                    if (j.HasAttr<LicenseAttributeBase>(out LicenseAttributeBase? lic)) yield return lic!.GetLicense(j);
                 }
-            }            
+            }
         }
 
         /// <summary>
@@ -378,11 +378,11 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         /// Parámetro opcional. Razón por la que el plugin va a finalizar.
         /// </param>
         protected void OnPluginFinalizing(PluginFinalizingEventArgs.FinalizingReason reason = PluginFinalizingEventArgs.FinalizingReason.Shutdown) => OnPluginFinalizing(new PluginFinalizingEventArgs(reason));
-        
+
         #endregion
 
         #region Métodos públicos
-        
+
         /// <summary>
         /// Determina la versión mínima de MCART necesaria para este 
         /// <see cref="Plugin"/>.
@@ -398,7 +398,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
             minVersion = MinMcartVersion;
             return minVersion is not null;
         }
-        
+
         /// <summary>
         /// Determina la versión objetivo de MCART necesaria para este 
         /// <see cref="Plugin"/>.
@@ -414,7 +414,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
             tgtVersion = TargetMcartVersion;
             return tgtVersion is not null;
         }
-        
+
         #endregion
     }
 }

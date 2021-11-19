@@ -65,7 +65,7 @@ namespace TheXDS.MCART.Controls
         /// <summary>
         /// Identifica a la propiedad de dependencia <see cref="BusyOpacity"/>.
         /// </summary>
-        public static readonly DependencyProperty BusyOpacityProperty = DependencyProperty.Register(nameof(BusyOpacity), typeof(double), typeof(BusyContainer), new PropertyMetadata(0.5, OnChangedBusyOpacity,CoerceBusyOpacity), ChkBusyOpacity);
+        public static readonly DependencyProperty BusyOpacityProperty = DependencyProperty.Register(nameof(BusyOpacity), typeof(double), typeof(BusyContainer), new PropertyMetadata(0.5, OnChangedBusyOpacity, CoerceBusyOpacity), ChkBusyOpacity);
 
         /// <summary>
         /// Identifica a la propiedad de dependencia <see cref="IsBusy"/>.
@@ -82,12 +82,12 @@ namespace TheXDS.MCART.Controls
         }
         private static object? CoerceBusyEffect(DependencyObject d, object baseValue)
         {
-            var o = (BusyContainer)d;
-            return o.IsBusy ? d.GetValue(BusyEffectProperty): null;
+            BusyContainer? o = (BusyContainer)d;
+            return o.IsBusy ? d.GetValue(BusyEffectProperty) : null;
         }
         private static object? CoerceBusyBackground(DependencyObject d, object baseValue)
         {
-            var o = (BusyContainer)d;
+            BusyContainer? o = (BusyContainer)d;
             return o.IsBusy ? d.GetValue(BusyBackgroundProperty) : null;
         }
         private static void OnChangedBusyOpacity(DependencyObject d, DependencyPropertyChangedEventArgs e)

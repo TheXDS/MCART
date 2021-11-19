@@ -83,13 +83,13 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         {
             ToResponse = EnumExtensions.ToBytes<TResponse>();
 
-            var tCmd = typeof(TCommand).GetEnumUnderlyingType();
+            Type? tCmd = typeof(TCommand).GetEnumUnderlyingType();
             _readCmd = typeof(BinaryReader).GetMethods().FirstOrDefault(p =>
                           p.Name.StartsWith("Read")
                           && p.GetParameters().Length == 0
                           && p.ReturnType == tCmd)
                       ?? throw new PlatformNotSupportedException();
-            var vals = Enum.GetValues(typeof(TResponse)).OfType<TResponse>().ToArray();
+            TResponse[]? vals = Enum.GetValues(typeof(TResponse)).OfType<TResponse>().ToArray();
             _errResponse = vals.FirstOrDefault(p => p.HasAttr<ErrorResponseAttribute>());
             _unkResponse = vals.FirstOrDefault(p => p.HasAttr<UnknownResponseAttribute>());
             _notMappedResponse = vals.FirstOrDefault(p => p.HasAttr<NotMappedResponseAttribute>());
@@ -104,17 +104,17 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         /// </remarks>
         protected SelfWiredCommandProtocol()
         {
-            var tCmdAttr = Objects.GetTypes<IValueAttribute<TCommand>>(true).FirstOrDefault() ??
+            Type? tCmdAttr = Objects.GetTypes<IValueAttribute<TCommand>>(true).FirstOrDefault() ??
                            throw new MissingTypeException(typeof(IValueAttribute<TCommand>));
-            foreach (var j in
+            foreach (SelfWiredCommandProtocol<TClient, TCommand, TResponse>.CommandCallback? j in
                 GetType().GetMethods().WithSignature<CommandCallback>()
                     .Concat(this.PropertiesOf<CommandCallback>())
                     .Concat(this.FieldsOf<CommandCallback>()))
             {
-                var attrs = j.Method.GetCustomAttributes(tCmdAttr, false).OfType<IValueAttribute<TCommand>>().ToList();
+                List<IValueAttribute<TCommand>>? attrs = j.Method.GetCustomAttributes(tCmdAttr, false).OfType<IValueAttribute<TCommand>>().ToList();
                 if (attrs.Any()) // Mapeo por configuración
                 {
-                    foreach (var k in attrs)
+                    foreach (IValueAttribute<TCommand>? k in attrs)
                     {
                         if (_commands.ContainsKey(k.Value)) throw Errors.DuplicateData(k.Value);
                         _commands.Add(k.Value, j);
@@ -178,7 +178,7 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         /// </returns>
         public static byte[]? MakeResponse(TResponse response, string data)
         {
-            return MakeResponse(response, new[] {data});
+            return MakeResponse(response, new[] { data });
         }
 
         /// <summary>
@@ -197,9 +197,9 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         /// </returns>
         public static byte[]? MakeResponse(TResponse response, IEnumerable<string> data)
         {
-            using var ms = new MemoryStream();
-            using var bw = new BinaryWriter(ms);
-            foreach (var j in data) bw.Write(j);
+            using MemoryStream? ms = new();
+            using BinaryWriter? bw = new(ms);
+            foreach (string? j in data) bw.Write(j);
             return MakeResponse(response, ms);
         }
 
@@ -240,12 +240,12 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         {
             if (!data.CanRead) throw new InvalidOperationException();
             if (data.CanSeek)
-                using (var sr = new BinaryReader(data))
+                using (BinaryReader? sr = new(data))
                 {
-                    return MakeResponse(response, sr.ReadBytes((int) data.Length));
+                    return MakeResponse(response, sr.ReadBytes((int)data.Length));
                 }
 
-            using var ms = new MemoryStream();
+            using MemoryStream? ms = new();
             data.CopyTo(ms);
             return MakeResponse(response, ms.ToArray());
         }
@@ -259,7 +259,7 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         /// </returns>
         public static TCommand ReadCommand(BinaryReader br)
         {
-            return (TCommand) Enum.ToObject(typeof(TCommand), _readCmd.Invoke(br, Array.Empty<object>())!);
+            return (TCommand)Enum.ToObject(typeof(TCommand), _readCmd.Invoke(br, Array.Empty<object>())!);
         }
 
         /// <summary>
@@ -274,8 +274,8 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         /// </exception>
         public override void ClientAttendant(TClient client, byte[] data)
         {
-            using var br = new BinaryReader(new MemoryStream(data));
-            var c = ReadCommand(br);
+            using BinaryReader? br = new(new MemoryStream(data));
+            TCommand c = ReadCommand(br);
 
             if (!Enum.IsDefined(typeof(TCommand), c))
                 client.Send(ToResponse(_unkResponse ?? _errResponse ?? throw new InvalidOperationException()));

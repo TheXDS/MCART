@@ -52,7 +52,7 @@ namespace TheXDS.MCART.Tests.Types
         [TestCase("1->5")]
         public void TryParseTest(string testArg)
         {
-            Assert.True(Range<int>.TryParse(testArg, out var range));
+            Assert.True(Range<int>.TryParse(testArg, out Range<int> range));
             Assert.AreEqual(1, range.Minimum);
             Assert.AreEqual(5, range.Maximum);
         }
@@ -66,9 +66,9 @@ namespace TheXDS.MCART.Tests.Types
         [Test]
         public void JoinTest()
         {
-            var a = new Range<int>(1, 5);
-            var b = new Range<int>(3, 8);
-            var r = a.Join(b);
+            Range<int> a = new(1, 5);
+            Range<int> b = new(3, 8);
+            Range<int> r = a.Join(b);
 
             Assert.AreEqual(1, r.Minimum);
             Assert.AreEqual(8, r.Maximum);
@@ -77,9 +77,9 @@ namespace TheXDS.MCART.Tests.Types
         [Test]
         public void IntersectTest()
         {
-            var a = new Range<int>(1, 5);
-            var b = new Range<int>(3, 8);
-            var r = a.Intersect(b);
+            Range<int> a = new(1, 5);
+            Range<int> b = new(3, 8);
+            Range<int> r = a.Intersect(b);
 
             Assert.AreEqual(3, r.Minimum);
             Assert.AreEqual(5, r.Maximum);
@@ -94,9 +94,9 @@ namespace TheXDS.MCART.Tests.Types
         [TestCase(1, 2, 2, 3, true, true)]
         public void IntersectsTest(int min1, int max1, int min2, int max2, bool expected, bool inclusively)
         {
-            var a = new Range<int>(min1, max1, inclusively);
-            var b = new Range<int>(min2, max2, inclusively);
-            
+            Range<int> a = new(min1, max1, inclusively);
+            Range<int> b = new(min2, max2, inclusively);
+
             Assert.AreEqual(expected, a.Intersects(b));
         }
     }

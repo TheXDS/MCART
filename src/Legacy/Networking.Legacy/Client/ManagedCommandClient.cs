@@ -38,8 +38,6 @@ using TheXDS.MCART.Types.Extensions;
 using System.IO.Compression;
 using TheXDS.MCART.Helpers;
 
-//using TheXDS.MCART.Security.Cryptography;
-
 namespace TheXDS.MCART.Networking.Legacy.Client
 {
     /// <summary>
@@ -89,7 +87,7 @@ namespace TheXDS.MCART.Networking.Legacy.Client
         /// </summary>
         static ManagedCommandClient()
         {
-            var vals = Enum.GetValues(typeof(TResult)).OfType<TResult>().ToArray();
+            TResult[]? vals = Enum.GetValues(typeof(TResult)).OfType<TResult>().ToArray();
             _errResponse = vals.FirstOrDefault(p => p.HasAttr<ErrorResponseAttribute>());
             _unkResponse = (TResult?)vals.FirstOrDefault(p => p.HasAttr<UnknownResponseAttribute>()) ?? _errResponse;
             _notMappedResponse = (TResult?)vals.FirstOrDefault(p => p.HasAttr<NotMappedResponseAttribute>()) ?? _unkResponse;
@@ -171,12 +169,12 @@ namespace TheXDS.MCART.Networking.Legacy.Client
         protected ManagedCommandClient()
         {
             if (!ScanTypeOnCtor) return;
-            foreach (var j in ScanType(this))
+            foreach (ManagedCommandClient<TCommand, TResult>.ResponseCallback? j in ScanType(this))
             {
-                var attrs = j.Method.GetCustomAttributes(false).OfType<IValueAttribute<TResult>>().ToList();
+                List<IValueAttribute<TResult>>? attrs = j.Method.GetCustomAttributes(false).OfType<IValueAttribute<TResult>>().ToList();
                 if (attrs.Any()) // Mapeo por configuración
                 {
-                    foreach (var k in attrs)
+                    foreach (IValueAttribute<TResult>? k in attrs)
                     {
                         if (_responses.ContainsKey(k.Value)) throw new DataAlreadyExistsException();
                         WireUp(k.Value, j);
@@ -188,7 +186,7 @@ namespace TheXDS.MCART.Networking.Legacy.Client
                     WireUp(k, j);
                 }
             }
-            foreach (var l in WireUp())
+            foreach (KeyValuePair<TResult, ManagedCommandClient<TCommand, TResult>.ResponseCallback> l in WireUp())
             {
                 WireUp(l.Key, l.Value);
             }
@@ -268,7 +266,7 @@ namespace TheXDS.MCART.Networking.Legacy.Client
         /// </param>
         protected void Send(in TCommand command, IEnumerable<byte> rawData, ResponseCallback? callback)
         {
-            var d = MkResp(command, out var guid).Concat(rawData).ToArray();
+            byte[]? d = MkResp(command, out Guid guid).Concat(rawData).ToArray();
             if (callback is not null)
                 EnqueueRequest(guid, callback);
 
@@ -293,8 +291,8 @@ namespace TheXDS.MCART.Networking.Legacy.Client
         /// </returns>
         protected T Send<T>(in TCommand command, IEnumerable<byte> rawData, Func<TResult, BinaryReader, T> callback)
         {
-            var d = MkResp(command, out var guid);
-            var waiting = _cmdWaiters.Push(new ManualResetEventSlim());
+            byte[]? d = MkResp(command, out Guid guid);
+            ManualResetEventSlim? waiting = _cmdWaiters.Push(new ManualResetEventSlim());
             T retVal = default!;
             EnqueueRequest(guid, (r, br) =>
             {
@@ -394,11 +392,11 @@ namespace TheXDS.MCART.Networking.Legacy.Client
             if (!dataStream.CanRead) throw new InvalidOperationException();
             if (dataStream.CanSeek)
             {
-                using var sr = new BinaryReader(dataStream);
+                using BinaryReader? sr = new(dataStream);
                 Send(command, sr.ReadBytes((int)dataStream.Length), callback);
                 return;
             }
-            using var ms = new MemoryStream();
+            using MemoryStream? ms = new();
             dataStream.CopyTo(ms);
             Send(command, ms, callback);
         }
@@ -424,10 +422,10 @@ namespace TheXDS.MCART.Networking.Legacy.Client
             if (!dataStream.CanRead) throw new InvalidOperationException();
             if (dataStream.CanSeek)
             {
-                using var sr = new BinaryReader(dataStream);
+                using BinaryReader? sr = new(dataStream);
                 return Send(command, sr.ReadBytes((int)dataStream.Length), callback);
             }
-            using var ms = new MemoryStream();
+            using MemoryStream? ms = new();
             dataStream.CopyTo(ms);
             return Send(command, ms, callback);
         }
@@ -462,9 +460,9 @@ namespace TheXDS.MCART.Networking.Legacy.Client
         /// </param>
         protected void Send(in TCommand command, IEnumerable<string> data, ResponseCallback? callback)
         {
-            using var ms = new MemoryStream();
-            using var bw = new BinaryWriter(ms);
-            foreach (var j in data) bw.Write(j);
+            using MemoryStream? ms = new();
+            using BinaryWriter? bw = new(ms);
+            foreach (string? j in data) bw.Write(j);
             Send(command, ms, callback);
         }
 
@@ -486,9 +484,9 @@ namespace TheXDS.MCART.Networking.Legacy.Client
         /// </returns>
         protected T Send<T>(in TCommand command, IEnumerable<string> data, Func<TResult, BinaryReader, T> callback)
         {
-            using var ms = new MemoryStream();
-            using var bw = new BinaryWriter(ms);
-            foreach (var j in data) bw.Write(j);
+            using MemoryStream? ms = new();
+            using BinaryWriter? bw = new(ms);
+            foreach (string? j in data) bw.Write(j);
             return Send(command, ms, callback);
         }
 
@@ -573,7 +571,7 @@ namespace TheXDS.MCART.Networking.Legacy.Client
         /// </returns>
         protected Task SendAsync(in TCommand command, ResponseCallback? callback)
         {
-            var d = MkResp(command, out var guid);
+            byte[]? d = MkResp(command, out Guid guid);
             if (callback is not null) EnqueueRequest(guid, callback);
             return DoSendAsync(d);
         }
@@ -632,7 +630,7 @@ namespace TheXDS.MCART.Networking.Legacy.Client
         /// </returns>
         protected Task SendAsync(in TCommand command, IEnumerable<byte> rawData, ResponseCallback? callback)
         {
-            var d = MkResp(command, out var guid);
+            byte[]? d = MkResp(command, out Guid guid);
             if (callback is not null) EnqueueRequest(guid, callback);
             return DoSendAsync(d.Concat(rawData).ToArray());
         }
@@ -757,10 +755,10 @@ namespace TheXDS.MCART.Networking.Legacy.Client
             if (!dataStream.CanRead) throw new InvalidOperationException();
             if (dataStream.CanSeek)
             {
-                using var sr = new BinaryReader(dataStream);
+                using BinaryReader? sr = new(dataStream);
                 return SendAsync(command, sr.ReadBytes((int)dataStream.Length), callback);
             }
-            using var ms = new MemoryStream();
+            using MemoryStream? ms = new();
             dataStream.CopyTo(ms);
             return SendAsync(command, ms, callback);
         }
@@ -786,10 +784,10 @@ namespace TheXDS.MCART.Networking.Legacy.Client
             if (!dataStream.CanRead) throw new InvalidOperationException();
             if (dataStream.CanSeek)
             {
-                using var sr = new BinaryReader(dataStream);
+                using BinaryReader? sr = new(dataStream);
                 return SendAsync(command, sr.ReadBytes((int)dataStream.Length), callback);
             }
-            using var ms = new MemoryStream();
+            using MemoryStream? ms = new();
             dataStream.CopyTo(ms);
             return SendAsync(command, ms, callback);
         }
@@ -830,9 +828,9 @@ namespace TheXDS.MCART.Networking.Legacy.Client
         /// </returns>
         protected Task SendAsync(in TCommand command, IEnumerable<string> data, ResponseCallback? callback)
         {
-            using var ms = new MemoryStream();
-            using var bw = new BinaryWriter(ms);
-            foreach (var j in data) bw.Write(j);
+            using MemoryStream? ms = new();
+            using BinaryWriter? bw = new(ms);
+            foreach (string? j in data) bw.Write(j);
             return SendAsync(command, ms, callback);
         }
 
@@ -854,9 +852,9 @@ namespace TheXDS.MCART.Networking.Legacy.Client
         /// </returns>
         protected Task<T> SendAsync<T>(in TCommand command, IEnumerable<string> data, Func<TResult, BinaryReader, T> callback)
         {
-            using var ms = new MemoryStream();
-            using var bw = new BinaryWriter(ms);
-            foreach (var j in data) bw.Write(j);
+            using MemoryStream? ms = new();
+            using BinaryWriter? bw = new(ms);
+            foreach (string? j in data) bw.Write(j);
             return SendAsync(command, ms, callback);
         }
 
@@ -934,7 +932,7 @@ namespace TheXDS.MCART.Networking.Legacy.Client
         /// </summary>
         protected void AbortCommands()
         {
-            foreach (var j in _cmdWaiters) j.Set();
+            foreach (ManualResetEventSlim? j in _cmdWaiters) j.Set();
         }
 
         /// <summary>
@@ -1015,12 +1013,12 @@ namespace TheXDS.MCART.Networking.Legacy.Client
                         break;
                     }
 
-                    using var ms = new MemoryStream(data);
-                    using var br = new BinaryReader(ms);
+                    using MemoryStream? ms = new(data);
+                    using BinaryReader? br = new(ms);
                     if (IncludesGuid && ms.Length > 17 && br.ReadBoolean())
                     {
-                        var guid = br.ReadGuid();
-                        if (_requests.TryGetValue(guid, out var callback))
+                        Guid guid = br.ReadGuid();
+                        if (_requests.TryGetValue(guid, out ManagedCommandClient<TCommand, TResult>.ResponseCallback? callback))
                         {
                             callback.Invoke(ReadResponse(br), br);
                             _requests.Remove(guid);
@@ -1028,8 +1026,8 @@ namespace TheXDS.MCART.Networking.Legacy.Client
                         }
                     }
 
-                    var c = ReadResponse(br);
-                    if (_responses.TryGetValue(c, out var response))
+                    TResult c = ReadResponse(br);
+                    if (_responses.TryGetValue(c, out ManagedCommandClient<TCommand, TResult>.ResponseCallback? response))
                     {
                         response.Invoke(c, br);
                     }
@@ -1072,11 +1070,11 @@ namespace TheXDS.MCART.Networking.Legacy.Client
 
         private void DoSend(IEnumerable<byte> data)
         {
-            var d = data.ToArray();
+            byte[]? d = data.ToArray();
             if (Compressed)
             {
-                using var ms = new MemoryStream();
-                using var ds = new DeflateStream(ms,CompressionLevel.Optimal);
+                using MemoryStream? ms = new();
+                using DeflateStream? ds = new(ms, CompressionLevel.Optimal);
                 ds.Write(d, 0, d.Length);
                 d = ms.ToArray();
             }
@@ -1091,12 +1089,12 @@ namespace TheXDS.MCART.Networking.Legacy.Client
         }
         private async Task DoSendAsync(IEnumerable<byte> data)
         {
-            var d = data.ToArray();
+            byte[]? d = data.ToArray();
             if (Compressed)
             {
-                using var ms = new MemoryStream();
-                using var ds = new DeflateStream(ms, CompressionLevel.Optimal);
-                await ds.WriteAsync(d, 0, d.Length);
+                using MemoryStream? ms = new();
+                using DeflateStream? ds = new(ms, CompressionLevel.Optimal);
+                await ds.WriteAsync(d);
                 d = ms.ToArray();
             }
             if (Encrypted)
