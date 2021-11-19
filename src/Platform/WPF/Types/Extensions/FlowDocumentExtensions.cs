@@ -93,7 +93,7 @@ namespace TheXDS.MCART.Types.Extensions
             row.Cells.Add(c);
             return c;
         }
-		
+
         /// <summary>
         /// Agrega una celda vacía de tabla a la fila actual.
         /// </summary>
@@ -108,7 +108,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static TableCell AddCell(this TableRow row, int columnSpan)
         {
-            var c = new TableCell {ColumnSpan = columnSpan};
+            var c = new TableCell { ColumnSpan = columnSpan };
             row.Cells.Add(c);
             return c;
         }
@@ -130,7 +130,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static TableCell AddCell(this TableRow row, int rowSpan, int columnSpan)
         {
-            var c = new TableCell {RowSpan = rowSpan, ColumnSpan = columnSpan};
+            var c = new TableCell { RowSpan = rowSpan, ColumnSpan = columnSpan };
             row.Cells.Add(c);
             return c;
         }
@@ -408,7 +408,7 @@ namespace TheXDS.MCART.Types.Extensions
         {
             var t = new Table();
             foreach (var j in columnWidths)
-                t.Columns.Add(new TableColumn {Width = j});
+                t.Columns.Add(new TableColumn { Width = j });
             document.Blocks.Add(t);
             return t;
         }
@@ -430,7 +430,7 @@ namespace TheXDS.MCART.Types.Extensions
             var t = new Table();
             t.AddGroup().AddRow(columns.Select(p =>
             {
-                t.Columns.Add(new TableColumn {Width = p.Value});
+                t.Columns.Add(new TableColumn { Width = p.Value });
                 return p.Key;
             })).Bold();
             document.Blocks.Add(t);
@@ -496,7 +496,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// con sintaxis Fluent.
         /// </returns>
         public static TableRow Borders(this TableRow element, Brush brush, Thickness thickness)
-        {            
+        {
             foreach (var j in element.Cells)
                 j.Border(brush, thickness);
             return element;
@@ -619,9 +619,9 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        /// Establece los anchos de columna para un <see cref="System.Windows.Documents.Table" />.
+        /// Establece los anchos de columna para un <see cref="Table" />.
         /// </summary>
-        /// <param name="table"><see cref="System.Windows.Documents.Table" /> a procesar.</param>
+        /// <param name="table"><see cref="Table" /> a procesar.</param>
         /// <param name="lengths">Anchos de columna a aplicar.</param>
         /// <returns>
         /// <paramref name="table" />, lo que permite utilizar esta función
@@ -633,9 +633,9 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        /// Establece los anchos de columna para un <see cref="System.Windows.Documents.Table" />.
+        /// Establece los anchos de columna para un <see cref="Table" />.
         /// </summary>
-        /// <param name="table"><see cref="System.Windows.Documents.Table" /> a procesar.</param>
+        /// <param name="table"><see cref="Table" /> a procesar.</param>
         /// <param name="lengths">Anchos de columna a aplicar.</param>
         /// <returns>
         /// <paramref name="table" />, lo que permite utilizar esta función
@@ -1082,7 +1082,7 @@ namespace TheXDS.MCART.Types.Extensions
             var tbl = new Table();
             var rg = new TableRowGroup();
 
-            var headersRow = new TableRow {FontWeight = FontWeights.Bold};
+            var headersRow = new TableRow { FontWeight = FontWeights.Bold };
             foreach (var j in headers)
             {
                 tbl.Columns.Add(new TableColumn());
@@ -1114,7 +1114,7 @@ namespace TheXDS.MCART.Types.Extensions
         public static FlowDocument Paragraph(this FlowDocument fd, string content, TextAlignment alignment)
         {
             foreach (var text in content.Replace("\n\r", "\n").Split('\n'))
-                fd.Blocks.Add(new Paragraph {Inlines = {new Run {Text = text}}, TextAlignment = alignment});
+                fd.Blocks.Add(new Paragraph { Inlines = { new Run { Text = text } }, TextAlignment = alignment });
             return fd;
         }
 
@@ -1185,7 +1185,7 @@ namespace TheXDS.MCART.Types.Extensions
 
         public static FlowDocument Text(this FlowDocument fd, string text, TextAlignment alignment)
         {
-            fd.Blocks.Add(new Paragraph {Inlines = {new Run {Text = text}}, TextAlignment = alignment});
+            fd.Blocks.Add(new Paragraph { Inlines = { new Run { Text = text } }, TextAlignment = alignment });
             return fd;
         }
 
@@ -1222,12 +1222,12 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        /// Genera un objeto <see cref="System.Windows.Documents.Table" /> a partir de la vista actual de un
+        /// Genera un objeto <see cref="Table" /> a partir de la vista actual de un
         /// <see cref="ListView" />.
         /// </summary>
         /// <param name="listView"><see cref="ListView" /> a procesar.</param>
         /// <returns>
-        /// Un <see cref="System.Windows.Documents.Table" /> con el contenido de la vista activa del <see cref="ListView" />.
+        /// Un <see cref="Table" /> con el contenido de la vista activa del <see cref="ListView" />.
         /// </returns>
         public static Table ToDocumentTable(this ListView listView)
         {
@@ -1238,7 +1238,7 @@ namespace TheXDS.MCART.Types.Extensions
             foreach (var j in listView.Items)
             {
                 var row = data.AddRow();
-                foreach (var k in ((GridView) listView.View).Columns)
+                foreach (var k in ((GridView)listView.View).Columns)
                 {
                     if (k.DisplayMemberBinding is not Binding b) continue;
                     var o = b.Path.Path.Split('.').Aggregate(j,

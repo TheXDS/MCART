@@ -67,7 +67,7 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         /// cliente conectado al servidor.
         /// </summary>
         public bool Disconnecting { get; private set; }
-    
+
         /// <summary>
         /// Obtiene un valor que indica si hay datos disponibles para leer.
         /// </summary>
@@ -107,7 +107,7 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         public bool IsAlive => NwStream() is not null;
 
         /// <summary>
-        /// Obtiene la conexión <see cref="System.Net.Sockets.TcpClient" /> asociada a esta instancia.
+        /// Obtiene la conexión <see cref="TcpClient" /> asociada a esta instancia.
         /// </summary>
         /// <value>My connection.</value>
         private TcpClient Connection { get; }
@@ -116,7 +116,7 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         /// Inicializa una nueva instancia de la clase <see cref="Client" />.
         /// </summary>
         /// <param name="connection">
-        /// <see cref="System.Net.Sockets.TcpClient" /> a utilizar para las
+        /// <see cref="TcpClient" /> a utilizar para las
         /// comunicaciones con el cliente.
         /// </param>
         public Client(TcpClient connection)

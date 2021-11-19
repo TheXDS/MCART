@@ -177,6 +177,9 @@
   <data name="InvalidReturnValue" xml:space="preserve">
     <value>El método ha devuelto un valor inválido en este contexto.</value>
   </data>
+  <data name="InvalidSelectorExpression" xml:space="preserve">
+    <value>La expresión utilizada en este contexto debe seleccionar a un miembro.</value>
+  </data>
   <data name="InvalidType" xml:space="preserve">
     <value>El tipo no es válido en este contexto.</value>
   </data>

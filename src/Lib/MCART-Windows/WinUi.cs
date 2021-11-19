@@ -77,7 +77,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static float GetScalingFactor(this IWindow window)
         {
-            return GetScalingFactor(window.Handle);            
+            return GetScalingFactor(window.Handle);
         }
 
         /// <summary>

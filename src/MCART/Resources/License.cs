@@ -47,7 +47,7 @@ namespace TheXDS.MCART.Resources
         /// Obtiene una referencia a un objeto sin licencia.
         /// </summary>
         public static License NoLicense => _noLicense ??= new License(St.Common.NoLicense, null);
-        
+
         /// <summary>
         /// Obtiene una referencia a un objeto con licencia no definida.
         /// </summary>

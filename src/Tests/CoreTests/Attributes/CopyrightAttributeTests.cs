@@ -43,7 +43,7 @@ namespace TheXDS.MCART.Tests.Attributes
             l = new CopyrightAttribute(1985, "Test");
             Assert.AreEqual("Copyright © 1985 Test", l.Value);
 
-            l = new CopyrightAttribute(new Range<ushort>(1985,2001), "Test");
+            l = new CopyrightAttribute(new Range<ushort>(1985, 2001), "Test");
             Assert.AreEqual("Copyright © 1985-2001 Test", l.Value);
         }
     }

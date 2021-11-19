@@ -25,20 +25,15 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using TheXDS.MCART.Math;
-using TheXDS.MCART.Types.Extensions;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Math;
+using TheXDS.MCART.Types.Extensions;
 using static TheXDS.MCART.Misc.Internals;
 using static TheXDS.MCART.Types.Extensions.EnumerableExtensions;
 using static TheXDS.MCART.Types.Extensions.TypeExtensions;
@@ -467,7 +462,7 @@ namespace TheXDS.MCART.Helpers
             }
             return true;
         }
-    
+
         /// <summary>
         /// Determina si alguna cadena está vacía.
         /// </summary>
@@ -733,7 +728,7 @@ namespace TheXDS.MCART.Helpers
                 else
                     yield return float.NaN;
         }
-    
+
         /// <summary>
         /// Convierte los valores de una colección de elementos
         /// <see cref="int" /> a porcentajes.
@@ -830,7 +825,7 @@ namespace TheXDS.MCART.Helpers
         public static IEnumerable<double> ToPercentDouble(this IEnumerable<int> collection, int min, int max)
         {
             ToPercent_Contract(collection, min, max);
-            foreach (var j in collection) yield return (j - min) / (double) (max - min);
+            foreach (var j in collection) yield return (j - min) / (double)(max - min);
         }
 
         /// <summary>
@@ -977,7 +972,7 @@ namespace TheXDS.MCART.Helpers
         public static IEnumerable<float> ToPercentSingle(this IEnumerable<int> collection, int min, int max)
         {
             ToPercent_Contract(collection, min, max);
-            foreach (var j in collection) yield return (j - min) / (float) (max - min);
+            foreach (var j in collection) yield return (j - min) / (float)(max - min);
         }
 
         /// <summary>
@@ -1027,7 +1022,7 @@ namespace TheXDS.MCART.Helpers
             ToPercent_Contract(collection, min, max);
             await foreach (var j in collection) yield return (j - min) / (float)(max - min);
         }
-    
+
         /// <summary>
         /// Convierte los valores de una colección de elementos
         /// <see cref="double" /> a porcentajes.
@@ -1201,5 +1196,223 @@ namespace TheXDS.MCART.Helpers
             return collection.All(p => p is null);
         }
 
+        /// <summary>
+        /// Obtiene todos los métodos estáticos con firma compatible con el
+        /// delegado especificado.
+        /// </summary>
+        /// <typeparam name="T">
+        /// Delegado a utilizar como firma a comprobar.
+        /// </typeparam>
+        /// <param name="methods">
+        /// Colección de métodos en la cual realizar la búsqueda.
+        /// </param>
+        /// <returns>
+        /// Una enumeración de todos los métodos que tienen una firma
+        /// compatible con <typeparamref name="T" />.
+        /// </returns>
+        public static IEnumerable<T> WithSignature<T>(this IEnumerable<MethodInfo> methods) where T : notnull, Delegate
+        {
+            foreach (var j in methods)
+            {
+                if (Objects.TryCreateDelegate<T>(j, out var d))
+                {
+                    yield return d ?? throw new TamperException();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Obtiene todos los métodos de instancia con firma compatible con el
+        /// delegado especificado.
+        /// </summary>
+        /// <typeparam name="T">
+        /// Delegado a utilizar como firma a comprobar.
+        /// </typeparam>
+        /// <param name="methods">
+        /// Colección de métodos en la cual realizar la búsqueda.
+        /// </param>
+        /// <param name="instance">
+        /// Instancia del objeto sobre el cual construir los delegados.
+        /// </param>
+        /// <returns>
+        /// Una enumeración de todos los métodos que tienen una firma
+        /// compatible con <typeparamref name="T" />.
+        /// </returns>
+        public static IEnumerable<T> WithSignature<T>(this IEnumerable<MethodInfo> methods, object instance) where T : notnull, Delegate
+        {
+            foreach (var j in methods)
+            {
+                if (Objects.TryCreateDelegate<T>(j, instance, out var d))
+                {
+                    yield return d ?? throw new TamperException();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Obtiene una lista de los tipos de los objetos especificados.
+        /// </summary>
+        /// <param name="objects">
+        /// Objetos a partir de los cuales generar la colección de tipos.
+        /// </param>
+        /// <returns>
+        /// Una lista compuesta por los tipos de los objetos provistos.
+        /// </returns>
+        public static IEnumerable<Type> ToTypes(this IEnumerable objects)
+        {
+            foreach (var j in objects) if (j is not null) yield return j.GetType();
+        }
+
+        /// <summary>
+        /// Enumera el valor de todas las propiedades que devuelvan valores de
+        /// tipo <typeparamref name="T" />.
+        /// </summary>
+        /// <typeparam name="T">Tipo de propiedades a obtener.</typeparam>
+        /// <param name="properties">
+        /// Colección de propiedades a analizar.
+        /// </param>
+        /// <param name="instance">
+        /// Instancia desde la cual obtener las propiedades.
+        /// </param>
+        /// <returns>
+        /// Una enumeración de todos los valores de tipo
+        /// <typeparamref name="T" /> de la instancia.
+        /// </returns>
+        public static IEnumerable<T> PropertiesOf<T>(this IEnumerable<PropertyInfo> properties, object? instance)
+        {
+            return
+                from j in properties.Where(p => p.CanRead)
+                where j.PropertyType.Implements(typeof(T))
+                select (T)j.GetMethod!.Invoke(instance, Array.Empty<object>())!;
+        }
+
+        /// <summary>
+        /// Enumera el valor de todas las propiedades estáticas que devuelvan
+        /// valores de tipo <typeparamref name="T" />.
+        /// </summary>
+        /// <typeparam name="T">Tipo de propiedades a obtener.</typeparam>
+        /// <param name="properties">
+        /// Colección de propiedades a analizar.
+        /// </param>
+        /// <returns>
+        /// Una enumeración de todos los valores de tipo
+        /// <typeparamref name="T" />.
+        /// </returns>
+        public static IEnumerable<T> PropertiesOf<T>(this IEnumerable<PropertyInfo> properties)
+        {
+            return PropertiesOf<T>(properties, null);
+        }
+
+        /// <summary>
+        /// Determina si cualquiera de los objetos es <see langword="null" />.
+        /// </summary>
+        /// <returns>
+        /// <see langword="true" />, si cualquiera de los objetos es <see langword="null" />; de lo
+        /// contrario, <see langword="false" />.
+        /// </returns>
+        /// <param name="x">Objetos a comprobar.</param>
+        public static bool IsAnyNull(this IEnumerable<object?>? x)
+        {
+            return x?.Any(p => p is null) ?? true;
+        }
+
+        /// <summary>
+        /// Determina si cualquiera de los objetos es <see langword="null" />.
+        /// </summary>
+        /// <returns>
+        /// Un enumerador con los índices de los objetos que son <see langword="null" />.
+        /// </returns>
+        /// <param name="collection">Colección de objetos a comprobar.</param>
+        public static IEnumerable<int> WhichAreNull(this IEnumerable<object?> collection)
+        {
+            WhichAreNull_Contract(collection);
+            var c = 0;
+            foreach (var j in collection)
+            {
+                if (j is null) yield return c;
+                c++;
+            }
+        }
+
+        /// <summary>
+        /// Obtiene una lista de tipos asignables a partir de la interfaz o clase base
+        /// especificada dentro del <see cref="AppDomain" /> especificado.
+        /// </summary>
+        /// <typeparam name="T">Interfaz o clase base a buscar.</typeparam>
+        /// <param name="assemblies">
+        /// Colección de ensamblados en la cual realizar la búsqueda.
+        /// </param>
+        /// <returns>
+        /// Una lista de tipos de las clases que implementan a la interfaz
+        /// o que heredan a la clase base <typeparamref name="T" /> dentro
+        /// de <paramref name="assemblies" />.
+        /// </returns>
+        /// <remarks>
+        /// Esta función obtiene todos los tipos (privados y públicos)
+        /// definidos dentro de todos los ensamblados dentro de la
+        /// colección especificada. Para obtener únicamente aquellos tipos
+        /// exportados públicamente, utilice
+        /// <see cref="Objects.PublicTypes(Type)"/>,
+        /// <see cref="Objects.PublicTypes(Type, AppDomain)"/>,
+        /// <see cref="Objects.PublicTypes{T}()"/> o
+        /// <see cref="Objects.PublicTypes{T}(AppDomain)"/>.
+        /// </remarks>
+        [Sugar]
+        public static IEnumerable<Type> GetTypes<T>(this IEnumerable<Assembly> assemblies)
+        {
+            return typeof(T).Derivates(assemblies);
+        }
+
+        /// <summary>
+        /// Obtiene una lista de tipos asignables a partir de la interfaz o clase base
+        /// especificada dentro del <see cref="AppDomain" /> especificado.
+        /// </summary>
+        /// <typeparam name="T">Interfaz o clase base a buscar.</typeparam>
+        /// <param name="assemblies">
+        /// Colección de ensamblados en la cual realizar la búsqueda.
+        /// </param>
+        /// <param name="instantiablesOnly">
+        /// Si se establece en <see langword="true" />, únicamente se incluirán aquellos tipos instanciables.
+        /// <see langword="false" /> hará que se devuelvan todos los tipos coincidientes.
+        /// </param>
+        /// <returns>
+        /// Una lista de tipos de las clases que implementan a la interfaz o que heredan a la clase base
+        /// <typeparamref name="T" /> dentro del dominio predeterminado.
+        /// </returns>
+        /// <remarks>
+        /// Esta función obtiene todos los tipos (privados y públicos)
+        /// definidos dentro de todos los ensamblados dentro de la
+        /// colección especificada. Para obtener únicamente aquellos tipos
+        /// exportados públicamente, utilice
+        /// <see cref="Objects.PublicTypes(Type)"/>,
+        /// <see cref="Objects.PublicTypes(Type, AppDomain)"/>,
+        /// <see cref="Objects.PublicTypes{T}()"/> o
+        /// <see cref="Objects.PublicTypes{T}(AppDomain)"/>.
+        /// </remarks>
+        public static IEnumerable<Type> GetTypes<T>(this IEnumerable<Assembly> assemblies, bool instantiablesOnly)
+        {
+            Type? TryType(Type k)
+            {
+                try
+                {
+                    return typeof(T).IsAssignableFrom(k)
+                        || (!instantiablesOnly || !(k.IsInterface || k.IsAbstract || !k.GetConstructors().Any()))
+                        ? k : null;
+                }
+                catch { return null; }
+            }
+            IEnumerable<Type?> TryAssembly(Assembly j)
+            {
+                try
+                {
+                    return j.GetTypes().Select(TryType);
+                }
+                catch
+                {
+                    return Array.Empty<Type>();
+                }
+            }
+            return assemblies.SelectMany(TryAssembly).NotNull();
+        }
     }
 }

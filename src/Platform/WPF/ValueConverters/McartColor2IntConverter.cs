@@ -31,12 +31,12 @@ namespace TheXDS.MCART.ValueConverters
 {
     /// <summary>
     /// Convierte valores desde y hacia objetos de tipo
-    /// <see cref="MT.Color"/> y <see cref="int"/>.
+    /// <see cref="Color"/> y <see cref="int"/>.
     /// </summary>
-    public sealed class McartColor2IntConverter : IValueConverter<MT.Color, int>
+    public sealed class McartColor2IntConverter : IValueConverter<Color, int>
     {
         /// <summary>
-        /// Convierte un <see cref="MT.Color"/> en un <see cref="int"/>.
+        /// Convierte un <see cref="Color"/> en un <see cref="int"/>.
         /// </summary>
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="parameter">
@@ -46,16 +46,16 @@ namespace TheXDS.MCART.ValueConverters
         /// <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <returns>
-        /// Un <see cref="int"/> equivalente al <see cref="MT.Color"/> original.
+        /// Un <see cref="int"/> equivalente al <see cref="Color"/> original.
         /// </returns>
-        public int Convert(MT.Color value, object? parameter, CultureInfo? culture)
+        public int Convert(Color value, object? parameter, CultureInfo? culture)
         {
             return new Abgr32ColorParser().To(value);
         }
 
         /// <summary>
         /// Convierte un <see cref="int"/> en un 
-        /// <see cref="MT.Color"/>.
+        /// <see cref="Color"/>.
         /// </summary>
         /// <param name="value">Objeto a convertir.</param>
         /// <param name="parameter">
@@ -65,11 +65,11 @@ namespace TheXDS.MCART.ValueConverters
         /// <see cref="CultureInfo" /> a utilizar para la conversión.
         /// </param>
         /// <returns>
-        /// Un <see cref="MT.Color"/> creado a partir del
+        /// Un <see cref="Color"/> creado a partir del
         /// valor del objeto, o <see langword="null"/> si no es posible
         /// realizar la conversión.
         /// </returns>
-        public MT.Color ConvertBack(int value, object? parameter, CultureInfo culture)
+        public Color ConvertBack(int value, object? parameter, CultureInfo culture)
         {
             return new Abgr32ColorParser().From(value);
         }

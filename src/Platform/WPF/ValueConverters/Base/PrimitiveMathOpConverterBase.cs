@@ -49,7 +49,7 @@ namespace TheXDS.MCART.ValueConverters.Base
 
         private static (object opA, object opB) CastUp(object valA, object valB, IFormatProvider? provider)
         {
-            var vals = new[] { valA, valB };            
+            var vals = new[] { valA, valB };
             foreach (var j in new Type[]
             {
                 typeof(decimal),
@@ -87,7 +87,7 @@ namespace TheXDS.MCART.ValueConverters.Base
             {
                 return vals.IsAnyOf(t) ? ((object opA, object opB)?)(Convert.ChangeType(vals[0], t), Convert.ChangeType(vals[1], t)) : null;
             }
-            catch 
+            catch
             {
                 return null;
             }
@@ -127,8 +127,8 @@ namespace TheXDS.MCART.ValueConverters.Base
         {
             try
             {
-                var (firstOperand, secondOperand) = targetType.IsPrimitive || targetType == typeof(decimal) 
-                    ? CastUp(value ?? throw new ArgumentNullException(nameof(value)), parameter ?? targetType.Default()!, culture) 
+                var (firstOperand, secondOperand) = targetType.IsPrimitive || targetType == typeof(decimal)
+                    ? CastUp(value ?? throw new ArgumentNullException(nameof(value)), parameter ?? targetType.Default()!, culture)
                     : (value, parameter);
 
                 return Convert.ChangeType(Expression.Lambda(func(Expression.Constant(firstOperand), Expression.Constant(secondOperand))).Compile().DynamicInvoke(), targetType);
@@ -137,7 +137,7 @@ namespace TheXDS.MCART.ValueConverters.Base
             {
                 if (targetType == typeof(double)) return double.NaN;
                 if (targetType == typeof(float)) return float.NaN;
-                throw;                    
+                throw;
             }
         }
     }

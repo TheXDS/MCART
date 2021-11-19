@@ -70,7 +70,7 @@ namespace TheXDS.MCART.ValueConverters
         /// </returns>
         public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value is bool b ? (object) (b ? -1 : 0) : null;
+            return value is bool b ? (object)(b ? -1 : 0) : null;
         }
     }
 }

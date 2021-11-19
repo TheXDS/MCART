@@ -426,7 +426,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
         /// de sintáxis Fluent.
         /// </returns>
-        public static ILGenerator CallBaseCtor<TClass>(this ILGenerator ilGen) =>CallBaseCtor<TClass>(ilGen, Type.EmptyTypes);
+        public static ILGenerator CallBaseCtor<TClass>(this ILGenerator ilGen) => CallBaseCtor<TClass>(ilGen, Type.EmptyTypes);
 
         /// <summary>
         /// Inserta una llamada al método estático especificado en la secuencia
@@ -512,7 +512,7 @@ namespace TheXDS.MCART.Types.Extensions
         {
             ilGen.BranchFalseNewLabel(out var endIf);
             trueBranch();
-            return ilGen.PutLabel(endIf);            
+            return ilGen.PutLabel(endIf);
         }
 
         /// <summary>
@@ -587,7 +587,7 @@ namespace TheXDS.MCART.Types.Extensions
             var next = ilGen.DefineLabel();
             ilGen
                 .InitLocal(accumulator, initialValue)
-                .InsertNewLabel(out var @for);            
+                .InsertNewLabel(out var @for);
             condition();
             ilGen.BranchFalseNewLabel(out var endFor);
             forBlock(accumulator, endFor, next);
@@ -815,7 +815,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static ILGenerator Using(this ILGenerator ilGen, LocalBuilder disposable, UsingBlock usingBlock)
         {
-            return ilGen.TryFinally(@break => usingBlock(disposable, @break), () => ilGen.Dispose(disposable));            
+            return ilGen.TryFinally(@break => usingBlock(disposable, @break), () => ilGen.Dispose(disposable));
         }
 
         /// <summary>
@@ -1475,7 +1475,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static ILGenerator StoreField(this ILGenerator ilGen, FieldInfo field)
         {
-            ilGen.Emit(Stfld, field);            
+            ilGen.Emit(Stfld, field);
             return ilGen;
         }
 
@@ -1496,7 +1496,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static ILGenerator StoreProperty(this ILGenerator ilGen, PropertyInfo prop)
         {
-            if (!prop.SetMethod?.IsStatic ?? throw new InvalidOperationException()) ilGen.This();            
+            if (!prop.SetMethod?.IsStatic ?? throw new InvalidOperationException()) ilGen.This();
             return ilGen.Call(prop.SetMethod!);
         }
 
@@ -1516,7 +1516,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// de sintáxis Fluent.
         /// </returns>
         public static ILGenerator LoadFieldAddress(this ILGenerator ilGen, FieldInfo field)
-        {            
+        {
             return LoadField(ilGen, field, Ldflda);
         }
 
@@ -1596,7 +1596,7 @@ namespace TheXDS.MCART.Types.Extensions
             ilGen.BeginFinallyBlock();
             finallyBlock();
             ilGen.EndExceptionBlock();
-            return ilGen;        
+            return ilGen;
         }
 
         /// <summary>
@@ -1627,7 +1627,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static ILGenerator TryCatch(this ILGenerator ilGen, TryBlock tryBlock, IEnumerable<KeyValuePair<Type, TryBlock>> catchBlocks)
         {
-            InsertCatchBlocks(ilGen,tryBlock, catchBlocks);
+            InsertCatchBlocks(ilGen, tryBlock, catchBlocks);
             ilGen.EndExceptionBlock();
             return ilGen;
         }

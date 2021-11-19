@@ -99,28 +99,28 @@ namespace TheXDS.MCART.Controls
         /// <see cref="XPeriod"/>.
         /// </summary>
         public static DependencyProperty xPeriodProperty = DependencyProperty.Register(nameof(XPeriod), typeof(short), T, new PropertyMetadata((short)1, (d, e) => ((LightGraph)d).PlotAxis()), a => (short)a >= 1);
-        
+
         /// <summary>
         /// Identifica la propiedad de dependencia 
         /// <see cref="SpotLabels"/>.
         /// </summary>
         public static DependencyProperty SpotLabelsProperty = DependencyProperty.Register(
-            nameof(SpotLabels), 
-            typeof(SpotLabelsDrawMode), 
+            nameof(SpotLabels),
+            typeof(SpotLabelsDrawMode),
             T, new PropertyMetadata(
-                SpotLabelsDrawMode.DarkBg & SpotLabelsDrawMode.YValues, 
+                SpotLabelsDrawMode.DarkBg & SpotLabelsDrawMode.YValues,
                 (d, e) => ((LightGraph)d).RefreshBothSpots()));
 
         /// <summary>
         /// Identifica la propiedad de dependencia <see cref="SpotPeriod"/>.
         /// </summary>
         public static DependencyProperty SpotPeriodProperty = DependencyProperty.Register(nameof(SpotPeriod), typeof(short), T, new PropertyMetadata(Convert.ToInt16(1), (d, e) => ((LightGraph)d).RefreshBothSpots()), a => (short)a > 0);
-        
+
         /// <summary>
         /// Identifica la propiedad de dependencia <see cref="YLabel"/>.
         /// </summary>
         public static DependencyProperty YLabelProperty = DependencyProperty.Register(nameof(YLabel), typeof(string), T, new PropertyMetadata(string.Empty));
-        
+
         /// <summary>
         /// Identifica la propiedad de dependencia <see cref="YMin"/>.
         /// </summary>

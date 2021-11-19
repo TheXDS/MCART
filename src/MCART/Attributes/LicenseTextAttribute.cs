@@ -36,7 +36,7 @@ namespace TheXDS.MCART.Attributes
     public sealed class LicenseTextAttribute : LicenseAttributeBase
     {
         private readonly string _title;
-        
+
         /// <summary>
         /// Inicializa una nueva instancia de la clase
         /// <see cref="LicenseTextAttribute" />.
@@ -54,7 +54,7 @@ namespace TheXDS.MCART.Attributes
         /// <see cref="LicenseTextAttribute" />.
         /// </summary>
         /// <param name="licenseText">Texto de la licencia.</param>
-        public LicenseTextAttribute(string licenseText): this(NullChecked(licenseText, nameof(licenseText)).Split('\n', 2)[0].Trim(), licenseText)
+        public LicenseTextAttribute(string licenseText) : this(NullChecked(licenseText, nameof(licenseText)).Split('\n', 2)[0].Trim(), licenseText)
         {
         }
 

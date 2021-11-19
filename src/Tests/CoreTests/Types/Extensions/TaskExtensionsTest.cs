@@ -45,7 +45,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
              * como un servidor de CI.
              */
             var t = new Stopwatch();
-            
+
             t.Start();
             Assert.ThrowsAsync<TaskCanceledException>(() => Task.Delay(100000).WithCancellation(new CancellationTokenSource(500).Token));
             t.Stop();
@@ -96,11 +96,11 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             t.Start();
             var v = GetValueAsync().Yield();
             t.Stop();
-            
+
             Assert.True(t.ElapsedMilliseconds >= 1000);
             Assert.AreEqual(1, v);
         }
-        
+
         [Test]
         public async Task Yield_With_Timeout_Test()
         {
@@ -116,7 +116,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             t.Stop();
             Assert.True(t.ElapsedMilliseconds.IsBetween(500, 1500));
             Assert.AreEqual(1, await task);
-            
+
             t.Restart();
             task = GetValueAsync();
             _ = task.Yield(TimeSpan.FromSeconds(1));
@@ -124,7 +124,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             Assert.True(t.ElapsedMilliseconds.IsBetween(500, 1250));
             Assert.AreEqual(1, await task);
         }
-        
+
         [Test]
         public async Task Yield_With_CancellationToken_Test()
         {
@@ -146,7 +146,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             Assert.True(t.ElapsedMilliseconds <= 1250);
             Assert.AreEqual(1, await task);
         }
-                
+
         [Test]
         public async Task Yield_Full_Test()
         {
@@ -162,7 +162,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             t.Stop();
             Assert.True(t.ElapsedMilliseconds.IsBetween(500, 1500));
             Assert.AreEqual(1, await task);
-            
+
             t.Restart();
             task = GetValueAsync();
             _ = task.Yield(2000, new CancellationTokenSource(1000).Token);

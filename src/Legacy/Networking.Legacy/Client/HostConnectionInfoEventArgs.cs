@@ -89,8 +89,8 @@ namespace TheXDS.MCART.Networking.Legacy.Client
         /// <param name="client">
         /// Cliente TCP utilizado para establecer la conexión.
         /// </param>
-        public HostConnectionInfoEventArgs(TcpClient client) : this((IPEndPoint) client.Client.RemoteEndPoint!,
-            (IPEndPoint) client.Client.LocalEndPoint!)
+        public HostConnectionInfoEventArgs(TcpClient client) : this((IPEndPoint)client.Client.RemoteEndPoint!,
+            (IPEndPoint)client.Client.LocalEndPoint!)
         {
         }
 
@@ -103,7 +103,7 @@ namespace TheXDS.MCART.Networking.Legacy.Client
         /// Cliente TCP utilizado para establecer la conexión.
         /// </param>
         public HostConnectionInfoEventArgs(string host, TcpClient client) : this(host,
-            (IPEndPoint) client.Client.RemoteEndPoint!, (IPEndPoint) client.Client.LocalEndPoint!)
+            (IPEndPoint)client.Client.RemoteEndPoint!, (IPEndPoint)client.Client.LocalEndPoint!)
         {
         }
     }

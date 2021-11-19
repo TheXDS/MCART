@@ -38,16 +38,16 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         public void Destroy_Test()
         {
             using MemoryStream ms = new();
-            ms.Write(Enumerable.Range(1, 100).Select(p => (byte) p).ToArray());
+            ms.Write(Enumerable.Range(1, 100).Select(p => (byte)p).ToArray());
             ms.Destroy();
             Assert.AreEqual(0, ms.Length);
         }
-        
+
         [Test]
         public void Skip_Test()
         {
             using MemoryStream ms = new();
-            ms.Write(Enumerable.Range(1, 100).Select(p => (byte) p).ToArray());
+            ms.Write(Enumerable.Range(1, 100).Select(p => (byte)p).ToArray());
             ms.Seek(0, SeekOrigin.Begin);
             ms.Skip(50);
             Assert.AreEqual(50, ms.Position);
@@ -57,7 +57,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         public void Skip_Contract_Test()
         {
             using MemoryStream ms = new();
-            ms.Write(Enumerable.Range(1, 100).Select(p => (byte) p).ToArray());
+            ms.Write(Enumerable.Range(1, 100).Select(p => (byte)p).ToArray());
             Assert.Throws<ArgumentOutOfRangeException>(() => ms.Skip(10));
             ms.Seek(0, SeekOrigin.Begin);
             ms.Skip(50);
@@ -80,13 +80,13 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         public void RemainingBytes_Test()
         {
             using MemoryStream ms = new();
-            ms.Write(Enumerable.Range(1, 100).Select(p => (byte) p).ToArray());
+            ms.Write(Enumerable.Range(1, 100).Select(p => (byte)p).ToArray());
             ms.Seek(0, SeekOrigin.Begin);
             Assert.AreEqual(100, ms.RemainingBytes());
             ms.Skip(50);
             Assert.AreEqual(50, ms.RemainingBytes());
         }
-        
+
         [Test]
         public async Task ReadStringAsync_Test()
         {
@@ -99,7 +99,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             Assert.AreEqual("TEST", await ms.ReadStringAsync(4, Encoding.Default));
             Assert.AreEqual("test", await ms.ReadStringAsync(4, Encoding.Default));
         }
-        
+
         [Test]
         public async Task ReadStringToEndAsync_Test()
         {
@@ -108,7 +108,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             ms.Seek(0, SeekOrigin.Begin);
             Assert.AreEqual("TESTtest", await ms.ReadStringToEndAsync());
         }
-        
+
         [Test]
         public async Task ReadStringToAsync_Test()
         {
@@ -118,7 +118,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             Assert.AreEqual(0, ms.RemainingBytes());
             Assert.AreEqual("TESTtest", await ms.ReadStringToAsync(0));
         }
-        
+
         [Test]
         public void WriteBytes_Test()
         {
@@ -128,7 +128,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             ms.Seek(0, SeekOrigin.Begin);
             Assert.AreEqual(a, ms.ToArray());
         }
-        
+
         [Test]
         public void WriteSeveralBytes_Test()
         {

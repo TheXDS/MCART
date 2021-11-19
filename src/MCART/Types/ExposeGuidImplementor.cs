@@ -24,9 +24,9 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Runtime.InteropServices;
-using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Base;
+using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Types
 {

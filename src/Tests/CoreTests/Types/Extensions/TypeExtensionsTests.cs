@@ -44,8 +44,8 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             {
                 throw new InvalidOperationException();
             }
-        }        
-        
+        }
+
         [Test]
         public void AnyAssignableFrom_Test()
         {
@@ -168,7 +168,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         public void Implements_Test()
         {
             Assert.True(typeof(ArgumentException).Implements(typeof(Exception), Type.EmptyTypes));
-            Assert.True(typeof(int[]).Implements(typeof(IEnumerable<>),typeof(int)));
+            Assert.True(typeof(int[]).Implements(typeof(IEnumerable<>), typeof(int)));
             Assert.True(typeof(int[]).Implements(typeof(IEnumerable<>)));
             Assert.True(typeof(string).Implements(typeof(IEnumerable<char>)));
             Assert.True(typeof(int[]).Implements(typeof(IEnumerable<int>)));
@@ -177,7 +177,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             Assert.True(typeof(Array).Implements(typeof(IEnumerable)));
             Assert.True(typeof(List<int>).Implements(typeof(IEnumerable<int>)));
             Assert.True(typeof(IEnumerable<float>).Implements(typeof(IEnumerable<>)));
-            Assert.False(typeof(float[]).Implements(typeof(IEnumerable<>),typeof(int)));
+            Assert.False(typeof(float[]).Implements(typeof(IEnumerable<>), typeof(int)));
             Assert.False(typeof(Exception).Implements(typeof(IEnumerable<>)));
             Assert.False(typeof(ValueTask<string>).Implements(typeof(IEnumerable<>)));
             Assert.True(typeof(List<string>).Implements(new[] {

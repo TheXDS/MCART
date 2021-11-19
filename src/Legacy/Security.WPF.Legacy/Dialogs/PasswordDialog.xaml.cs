@@ -126,7 +126,7 @@ namespace TheXDS.MCART.Dialogs
             Vm.Password = ((PasswordBox)sender).SecurePassword;
         }
 
-#region GetUserData
+        #region GetUserData
 
         /// <summary>
         /// Obtiene la información de registro de un usuario.
@@ -555,9 +555,9 @@ namespace TheXDS.MCART.Dialogs
                 validator, maxTries, out userData);
         }
 
-#endregion
+        #endregion
 
-#region ConfirmPassword
+        #region ConfirmPassword
 
         /// <summary>
         /// Obtiene la información de registro de un usuario.
@@ -723,9 +723,9 @@ namespace TheXDS.MCART.Dialogs
                 maxTries, out userData);
         }
 
-#endregion
+        #endregion
 
-#region Login
+        #region Login
 
         /// <summary>
         /// Obtiene una credencial de inicio de sesión.
@@ -837,9 +837,9 @@ namespace TheXDS.MCART.Dialogs
                 out _);
         }
 
-#endregion
+        #endregion
 
-#region CheckPassword
+        #region CheckPassword
 
         /// <summary>
         /// Permite verificar una contraseña.
@@ -888,7 +888,7 @@ namespace TheXDS.MCART.Dialogs
             return InternalGetUserData(PasswordDialogMode.User, null, null, null, null, validator, maxTries, out _);
         }
 
-#endregion
+        #endregion
 
         private void BtnReGen_OnClick(object sender, RoutedEventArgs e)
         {

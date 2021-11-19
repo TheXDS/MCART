@@ -54,8 +54,8 @@ namespace TheXDS.MCART.ValueConverters
             try
             {
                 return targetType?.GetMethod(
-                        "Parse", new[] {typeof(string)})?
-                    .Invoke(null, new[] {value});
+                        "Parse", new[] { typeof(string) })?
+                    .Invoke(null, new[] { value });
             }
             catch
             {

@@ -22,6 +22,10 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#pragma warning disable IDE0061
+#pragma warning disable IDE0062
+#pragma warning disable CA1822
+
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
@@ -29,6 +33,7 @@ using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Helpers;
 using NUnit.Framework;
 using static TheXDS.MCART.Helpers.ReflectionHelpers;
+using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Tests.Helpers
 {
@@ -93,7 +98,7 @@ namespace TheXDS.MCART.Tests.Helpers
             Assert.False(m3.IsOverriden(t1));
 
             Assert.Throws<ArgumentNullException>(() => m1.IsOverriden(null!));
-            Assert.Throws<ArgumentNullException>(() => ReflectionHelpers.IsOverriden(null!, null!));
+            Assert.Throws<ArgumentNullException>(() => MethodBaseExtensions.IsOverriden(null!, null!));
             Assert.Throws<InvalidTypeException>(() => m2.IsOverriden(t1));
         }
 
@@ -105,7 +110,7 @@ namespace TheXDS.MCART.Tests.Helpers
 
             Assert.True(m2.IsOverride());
             Assert.False(m1.IsOverride());
-            Assert.Throws<ArgumentNullException>(() => ReflectionHelpers.IsOverride(null!));
+            Assert.Throws<ArgumentNullException>(() => TheXDS.MCART.Types.Extensions.MethodInfoExtensions.IsOverride(null!));
         }
 
         [Test]

@@ -1,7 +1,11 @@
 ﻿/*
-MemberInfoExtensions.cs
+TypeExtensions.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
+
+Este archivo contiene numerosas extensiones para el tipo System.Type del CLR,
+supliéndolo de nueva funcionalidad previamente no existente, o de invocación
+compleja.
 
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
@@ -28,30 +32,64 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
-using TheXDS.MCART.Helpers;
 
 namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>
-    /// Extensiones varias para objetos <see cref="MemberInfo" />.
+    /// Extensiones varias para objetos <see cref="Assembly" />.
     /// </summary>
-    public static partial class MemberInfoExtensions
+    public static partial class AssemblyExtensions
     {
         /// <summary>
-        /// Obtiene un nombre personalizado para un miembro.
+        /// Devuelve el atributo asociado al ensamblado especificado.
         /// </summary>
-        /// <param name="member">
-        /// <see cref="MemberInfo" /> del cual obtener el nombre.
+        /// <typeparam name="T">
+        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+        /// </typeparam>
+        /// <param name="assembly">
+        /// <see cref="Assembly" /> del cual se extraerá el
+        /// atributo.
         /// </param>
         /// <returns>
-        /// Un nombre amigable para <paramref name="member" />, o el nombre
-        /// definido para <paramref name="member" /> si no se ha definido
-        /// un nombre amigable por medio del atributo
-        /// <see cref="NameAttribute"/>.
+        /// Un atributo del tipo <typeparamref name="T" /> con los datos
+        /// asociados en la declaración del ensamblado; o <see langword="null" /> en caso
+        /// de no encontrarse el atributo especificado.
         /// </returns>
-        public static string NameOf(this MemberInfo member)
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="assembly"/> es
+        /// <see langword="null"/>.
+        /// </exception>
+        [Sugar]
+        public static T? GetAttr<T>(this Assembly assembly) where T : Attribute
         {
-            return member.GetAttr<NameAttribute>()?.Value ?? member.Name;
+            HasAttr<T>(assembly, out var attr);
+            return attr;
+        }
+
+        /// <summary>
+        /// Devuelve el atributo asociado al ensamblado especificado.
+        /// </summary>
+        /// <typeparam name="T">
+        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+        /// </typeparam>
+        /// <param name="assembly">
+        /// <see cref="Assembly" /> del cual se extraerá el
+        /// atributo.
+        /// </param>
+        /// <returns>
+        /// Un atributo del tipo <typeparamref name="T" /> con los datos
+        /// asociados en la declaración del ensamblado; o <see langword="null" /> en caso
+        /// de no encontrarse el atributo especificado.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="assembly"/> es
+        /// <see langword="null"/>.
+        /// </exception>
+        [Sugar]
+        public static IEnumerable<T> GetAttrs<T>(this Assembly assembly) where T : Attribute
+        {
+            HasAttrs(assembly, out IEnumerable<T> attr);
+            return attr;
         }
 
         /// <summary>
@@ -60,51 +98,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <typeparam name="T">
         /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
         /// </typeparam>
-        /// <param name="member">
-        /// Miembro del cual se extraerá el atributo.
-        /// </param>
-        /// <returns>
-        /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
-        /// en caso contrario.
-        /// </returns>
-        public static bool HasAttr<T>(this MemberInfo member) where T : Attribute
-        {
-            return HasAttr<T>(member, out _);
-        }
-
-        /// <summary>
-        /// Determina si un miembro posee un atributo definido.
-        /// </summary>
-        /// <typeparam name="T">
-        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
-        /// </typeparam>
-        /// <param name="member">
-        /// Miembro del cual se extraerá el atributo.
-        /// </param>
-        /// <param name="attribute">
-        /// Parámetro de salida. Si un atributo de tipo
-        /// <typeparamref name="T" /> ha sido encontrado, el mismo es devuelto.
-        /// Se devolverá <see langword="null" /> si el miembro no posee el atributo
-        /// especificado.
-        /// </param>
-        /// <returns>
-        /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
-        /// en caso contrario.
-        /// </returns>
-        public static bool HasAttrs<T>(this MemberInfo member, out IEnumerable<T> attribute) where T : Attribute
-        {
-            HasAttrs_Contract(member);
-            attribute = Attribute.GetCustomAttributes(member, typeof(T)).OfType<T>();
-            return attribute.Any();
-        }
-
-        /// <summary>
-        /// Determina si un miembro posee un atributo definido.
-        /// </summary>
-        /// <typeparam name="T">
-        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
-        /// </typeparam>
-        /// <param name="member">
+        /// <param name="assembly">
         /// Miembro del cual se extraerá el atributo.
         /// </param>
         /// <param name="attribute">
@@ -117,9 +111,9 @@ namespace TheXDS.MCART.Types.Extensions
         /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
         /// en caso contrario.
         /// </returns>
-        public static bool HasAttr<T>(this MemberInfo member, [MaybeNullWhen(false)] out T attribute) where T : notnull, Attribute
+        public static bool HasAttr<T>(this Assembly assembly, [MaybeNullWhen(false)] out T attribute) where T : Attribute
         {
-            var retVal = HasAttrs<T>(member, out var attrs);
+            var retVal = HasAttrs<T>(assembly, out var attrs);
             attribute = attrs.FirstOrDefault();
             return retVal;
         }
@@ -134,7 +128,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// Tipo de atributo a buscar. Debe heredar de
         /// <see cref="Attribute"/> y de <see cref="IValueAttribute{T}"/>.
         /// </typeparam>
-        /// <param name="member">
+        /// <param name="assembly">
         /// Miembro del cual se extraerá el atributo.
         /// </param>
         /// <param name="value">
@@ -148,65 +142,57 @@ namespace TheXDS.MCART.Types.Extensions
         /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
         /// en caso contrario.
         /// </returns>
-        public static bool HasAttrValue<TAttribute, TValue>(this MemberInfo member, out TValue value)
+        public static bool HasAttrValue<TAttribute, TValue>(this Assembly assembly, out TValue value)
             where TAttribute : Attribute, IValueAttribute<TValue>
         {
-            var retVal = HasAttrs<TAttribute>(member, out var attrs);
+            var retVal = HasAttrs<TAttribute>(assembly, out var attrs);
             var a = attrs.FirstOrDefault();
             value = a is not null ? a.Value : default!;
             return retVal;
         }
 
         /// <summary>
-        /// Devuelve el atributo asociado a la declaración del objeto
-        /// especificado.
+        /// Determina si un miembro posee un atributo definido.
         /// </summary>
         /// <typeparam name="T">
         /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
         /// </typeparam>
-        /// <param name="member">
+        /// <param name="assembly">
         /// Miembro del cual se extraerá el atributo.
         /// </param>
         /// <returns>
-        /// Un atributo del tipo <typeparamref name="T" /> con los datos
-        /// asociados en la declaración del miembro; o <see langword="null" /> en caso de
-        /// no encontrarse el atributo especificado.
+        /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
+        /// en caso contrario.
         /// </returns>
-        /// <exception cref="ArgumentNullException">
-        /// Se produce si <paramref name="member"/> es
-        /// <see langword="null"/>.
-        /// </exception>
-        [Sugar]
-        public static T? GetAttr<T>(this MemberInfo member) where T : Attribute
+        public static bool HasAttr<T>(this Assembly assembly) where T : Attribute
         {
-            HasAttr<T>(member, out var attr);
-            return attr;
+            return HasAttr<T>(assembly, out _);
         }
 
         /// <summary>
-        /// Devuelve el atributo asociado al ensamblado especificado.
+        /// Determina si un miembro posee un atributo definido.
         /// </summary>
         /// <typeparam name="T">
         /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
         /// </typeparam>
-        /// <param name="member">
-        /// <see cref="MemberInfo" /> del cual se extraerá el
-        /// atributo.
+        /// <param name="assembly">
+        /// Miembro del cual se extraerá el atributo.
+        /// </param>
+        /// <param name="attribute">
+        /// Parámetro de salida. Si un atributo de tipo
+        /// <typeparamref name="T" /> ha sido encontrado, el mismo es devuelto.
+        /// Se devolverá <see langword="null" /> si el miembro no posee el atributo
+        /// especificado.
         /// </param>
         /// <returns>
-        /// Un atributo del tipo <typeparamref name="T" /> con los datos
-        /// asociados en la declaración del ensamblado; o <see langword="null" /> en caso
-        /// de no encontrarse el atributo especificado.
+        /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
+        /// en caso contrario.
         /// </returns>
-        /// <exception cref="ArgumentNullException">
-        /// Se produce si <paramref name="member"/> es
-        /// <see langword="null"/>.
-        /// </exception>
-        [Sugar]
-        public static IEnumerable<T> GetAttrs<T>(this MemberInfo member) where T : Attribute
+        public static bool HasAttrs<T>(this Assembly assembly, out IEnumerable<T> attribute) where T : Attribute
         {
-            HasAttrs(member, out IEnumerable<T> attr);
-            return attr;
+            HasAttrs_Contract(assembly);
+            attribute = Attribute.GetCustomAttributes(assembly, typeof(T)).OfType<T>();
+            return attribute.Any();
         }
     }
 }

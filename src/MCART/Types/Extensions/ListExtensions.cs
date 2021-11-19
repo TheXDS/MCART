@@ -237,7 +237,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <param name="a">Primer elemento.</param>
         /// <param name="b">Segundo elemento.</param>
         public static void Swap<T>(this IList<T> collection, T a, T b)
-        {            
+        {
             if (!collection.ContainsAll(a, b)) throw new Exception(); //TODO: agregar excepción específica
             Swap(collection, collection.IndexOf(a), collection.IndexOf(b));
         }

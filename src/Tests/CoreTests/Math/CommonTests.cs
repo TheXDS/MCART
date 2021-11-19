@@ -44,10 +44,10 @@ namespace TheXDS.MCART.Tests.Math
         [Test]
         public void ClampTest_double()
         {
-            Assert.AreEqual(2.0, M.Clamp(1.0+1.0,0.0,3.0));
-            Assert.AreEqual(2.0, M.Clamp(1.0+3.0,0.0,2.0));
-            Assert.AreEqual(2.0, M.Clamp(1.0-1.0,2.0,3.0));
-            Assert.AreEqual(double.NaN, M.Clamp(double.NaN, 0.0,1.0));
+            Assert.AreEqual(2.0, M.Clamp(1.0 + 1.0, 0.0, 3.0));
+            Assert.AreEqual(2.0, M.Clamp(1.0 + 3.0, 0.0, 2.0));
+            Assert.AreEqual(2.0, M.Clamp(1.0 - 1.0, 2.0, 3.0));
+            Assert.AreEqual(double.NaN, M.Clamp(double.NaN, 0.0, 1.0));
             Assert.AreEqual(5.0, M.Clamp(double.PositiveInfinity, -5.0, 5.0));
             Assert.AreEqual(-5.0, M.Clamp(double.NegativeInfinity, -5.0, 5.0));
         }

@@ -54,11 +54,11 @@ namespace TheXDS.MCART.WpfTests.ValueConverters
             Assert.AreEqual(3.0, ((BlurEffect)c.Convert(true, typeof(Effect), (short)3, CultureInfo.CurrentCulture)!).Radius);
             Assert.AreEqual(4.0, ((BlurEffect)c.Convert(true, typeof(Effect), 4, CultureInfo.CurrentCulture)!).Radius);
             Assert.AreEqual(5.0, ((BlurEffect)c.Convert(true, typeof(Effect), 5L, CultureInfo.CurrentCulture)!).Radius);
-    #if PreferExceptions
+#if PreferExceptions
             Assert.Throws<ArgumentException>(() => c.Convert(true, typeof(Effect), new object(), CultureInfo.CurrentCulture));
-    #else
+#else
             Assert.AreEqual(5.0, ((BlurEffect)c.Convert(true, typeof(Effect), new object(), CultureInfo.CurrentCulture)).Radius);
-    #endif
+#endif
         }
     }
 }

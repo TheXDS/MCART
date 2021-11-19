@@ -35,6 +35,7 @@ using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Networking.Legacy.Server;
+using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Networking.Legacy.Client
@@ -99,7 +100,7 @@ namespace TheXDS.MCART.Networking.Legacy.Client
         private static Func<TCommand, byte[]> ToCommand { get; } = EnumExtensions.ToBytes<TCommand>();
 
         static SelfWiredCommandClient()
-        {            
+        {
             var tRsp = typeof(TResponse).GetEnumUnderlyingType();
             _readRsp = typeof(BinaryReader).GetMethods().FirstOrDefault(p =>
                           p.Name.StartsWith("Read")
@@ -192,7 +193,7 @@ namespace TheXDS.MCART.Networking.Legacy.Client
         /// </returns>
         public static byte[] MakeCommand(in TCommand command, string data)
         {
-            return MakeCommand(command, new[] {data});
+            return MakeCommand(command, new[] { data });
         }
 
         /// <summary>
@@ -358,7 +359,7 @@ namespace TheXDS.MCART.Networking.Legacy.Client
         public TResponse ReadResponse(BinaryReader br)
         {
             if (br.BaseStream.CanSeek && br.BaseStream.Length == 0) return default;
-            return (TResponse) Enum.ToObject(typeof(TResponse), _readRsp.Invoke(br, Array.Empty<object>())!);
+            return (TResponse)Enum.ToObject(typeof(TResponse), _readRsp.Invoke(br, Array.Empty<object>())!);
         }
 
         /// <summary>
@@ -446,11 +447,12 @@ namespace TheXDS.MCART.Networking.Legacy.Client
         [DebuggerStepThrough]
         public async Task TalkToServerAsync(byte[] data, ResponseCallBack callback)
         {
-            if (!(data?.Length > 0)) throw new ArgumentNullException();
+            if (data is null) throw new ArgumentNullException(nameof(data));
             if (callback is null) throw new ArgumentNullException(nameof(callback));
+            if (data.Length <= 0) throw Errors.EmptyCollection(data);
 
             var ns = Connection?.GetStream() ?? throw new InvalidOperationException();
-            await ns.WriteAsync(data, 0, data.Length);
+            await ns.WriteAsync(data);
             _interrupts.Enqueue(callback);
         }
 
@@ -471,7 +473,7 @@ namespace TheXDS.MCART.Networking.Legacy.Client
             if (callback is null) throw new ArgumentNullException(nameof(callback));
             var msg = MakeCommand(command).ToArray();
             var ns = Connection?.GetStream() ?? throw new InvalidOperationException();
-            await ns.WriteAsync(msg, 0, msg.Length);
+            await ns.WriteAsync(msg);
             _interrupts.Enqueue(callback);
         }
 

@@ -355,7 +355,7 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public static bool operator ==(Point l, Point r)
         {
-            return (l.X == r.X || !new[]{ l.X, r.X }.AreValid()) && (l.Y == r.Y || !new[]{ l.Y, r.Y }.AreValid());
+            return (l.X == r.X || !new[] { l.X, r.X }.AreValid()) && (l.Y == r.Y || !new[] { l.Y, r.Y }.AreValid());
         }
 
         /// <summary>
@@ -609,7 +609,7 @@ namespace TheXDS.MCART.Types
         /// Parámetro opcional.
         /// Proveedor de formato de la cultura a utilizar para dar formato a
         /// la representación como una cadena de este objeto. Si se omite,
-        /// se utilizará <see cref="System.Globalization.CultureInfo.CurrentCulture" />.
+        /// se utilizará <see cref="CI.CurrentCulture" />.
         /// </param>
         /// <returns>
         /// Una representación en forma de <see cref="string" /> de este objeto.
@@ -687,7 +687,7 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public bool Equals(I2DVector? other)
         {
-            return other is {} o && this == o;
+            return other is { } o && this == o;
         }
 
         /// <summary>

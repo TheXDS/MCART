@@ -73,7 +73,7 @@ namespace TheXDS.MCART.Component
         /// <see langword="true"/> para intentar determinar el ícono de la
         /// aplicación, <see langword="false"/> para no mostrar un ícono.
         /// </param>
-        public ApplicationInfo(Application application, bool inferIcon) : this(application,inferIcon ? InferIcon(application.GetType().Assembly) : null) { }
+        public ApplicationInfo(Application application, bool inferIcon) : this(application, inferIcon ? InferIcon(application.GetType().Assembly) : null) { }
 
         /// <summary>
         /// Inicializa una nueva instancia de la clase

@@ -1,5 +1,5 @@
 ﻿/*
-RandomNumberGeneratorExtensions.cs
+MemberInfoExtensions_Contracts.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,33 +22,21 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#if !NET6_0_OR_GREATER
-
-using TheXDS.MCART.Attributes;
-using System.Security.Cryptography;
+using System.Diagnostics;
+using System.Reflection;
+using System.Runtime.CompilerServices;
+using static TheXDS.MCART.Misc.Internals;
 
 namespace TheXDS.MCART.Types.Extensions
 {
-    /// <summary>
-    /// Extensiones para la clase <see cref="RandomNumberGenerator" />
-    /// </summary>
-    public static class RandomNumberGeneratorExtensions
+    public static partial class MemberInfoExtensions
     {
-        /// <summary>
-        /// Obtiene un arreglo de bytes con contenido criptográficamente
-        /// aleatorio.
-        /// </summary>
-        /// <param name="count">Cantidad de bytes a obtener.</param>
-        /// <returns>
-        /// Un arreglo de bytes con contenido criptográficamente aleatorio.
-        /// </returns>
-        [Thunk]
-        public static byte[] GetBytes(int count)
+        [Conditional("EnforceContracts")]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [DebuggerNonUserCode]
+        private static void HasAttrs_Contract(MemberInfo member)
         {
-            byte[] bytes = new byte[count];
-            using (var rng = RandomNumberGenerator.Create()) rng.GetBytes(bytes);
-            return bytes;
+            NullCheck(member, nameof(member));
         }
     }
 }
-#endif

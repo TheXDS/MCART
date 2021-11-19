@@ -78,7 +78,7 @@ namespace TheXDS.MCART.Types.Extensions
             /// </summary>
             WildCard = 4
         }
-        
+
         /// <summary>
         /// Elimina una ocurrencia de una cadena a los extremos de otra.
         /// </summary>
@@ -183,10 +183,10 @@ namespace TheXDS.MCART.Types.Extensions
         {
             if (length < 1) throw new ArgumentOutOfRangeException(nameof(length));
             return
-                length <= 3 
+                length <= 3
                 ? str.Length > length ? str[0..length] : str
-                : str.Length > length 
-                    ? $"{str[0..(length-3)]}..." 
+                : str.Length > length
+                    ? $"{str[0..(length - 3)]}..."
                     : str;
         }
 
@@ -242,7 +242,7 @@ namespace TheXDS.MCART.Types.Extensions
             }
             return Enumerable.Range(0, (str.Length / chunkSize) + 1).Select(Selector);
         }
-        
+
         /// <summary>
         /// Determina si la cadena contiene a cualquiera de los caracteres
         /// especificados.
@@ -555,7 +555,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         /// <param name="stringToCheck">Cadena a comprobar.</param>
         [Sugar]
-        public static bool IsEmpty([NotNullWhen(false)]this string? stringToCheck)
+        public static bool IsEmpty([NotNullWhen(false)] this string? stringToCheck)
         {
             return string.IsNullOrWhiteSpace(stringToCheck);
         }
@@ -679,7 +679,7 @@ namespace TheXDS.MCART.Types.Extensions
                 if (ofString.Substring(steps++, tolerance).Contains(c))
                     likes++;
 
-            return likes / (float) steps;
+            return likes / (float)steps;
         }
 
         /// <summary>
@@ -722,7 +722,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <returns>
         /// La cadena, o <see langword="null" /> si la cadena está vacía.
         /// </returns>
-        public static string? OrNull([NotNullIfNotNull("str")]this string? str)
+        public static string? OrNull([NotNullIfNotNull("str")] this string? str)
         {
             return OrX(str, null);
         }
@@ -782,7 +782,7 @@ namespace TheXDS.MCART.Types.Extensions
                 if (!e.MoveNext()) yield break;
                 while (true)
                 {
-                    yield return (char) (e.Current ?? throw new TamperException());
+                    yield return (char)(e.Current ?? throw new TamperException());
                     if (!e.MoveNext()) break;
                     yield return separationChar;
                 }
@@ -1077,7 +1077,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static string Without(this string @string, params char[] chars)
         {
-            return @string.Without(chars.Select(p=>p.ToString()).ToArray());
+            return @string.Without(chars.Select(p => p.ToString()).ToArray());
         }
 
         /// <summary>

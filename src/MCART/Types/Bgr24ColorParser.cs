@@ -40,9 +40,9 @@ namespace TheXDS.MCART.Types
         public Color From(int value)
         {
             return new(
-                (byte) (value & 0xff),
-                (byte) ((value & 0xff00) >> 8),
-                (byte) ((value & 0xff0000) >> 16));
+                (byte)(value & 0xff),
+                (byte)((value & 0xff00) >> 8),
+                (byte)((value & 0xff0000) >> 16));
         }
 
         /// <summary>

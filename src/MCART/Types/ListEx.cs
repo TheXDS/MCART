@@ -131,7 +131,7 @@ namespace TheXDS.MCART.Types
         /// Activa o desactiva la generación de eventos.
         /// </summary>
         public bool TriggerEvents { get; set; } = true;
-        
+
         /// <summary>
         /// Obtiene o establece el elemento ubicado en el íncide
         /// especificado.
@@ -153,7 +153,7 @@ namespace TheXDS.MCART.Types
                         ModifiedItem?.Invoke(this, (ItemModifiedEventArgs<T>)a);
                     }
                 }
-                else base[index] = value; 
+                else base[index] = value;
             }
         }
 
@@ -177,7 +177,7 @@ namespace TheXDS.MCART.Types
                     AddedItem?.Invoke(this, a);
                 }
             }
-            else base.Add(item); 
+            else base.Add(item);
         }
 
         /// <summary>
@@ -198,7 +198,7 @@ namespace TheXDS.MCART.Types
                     ListUpdated?.Invoke(this, a);
                 }
             }
-            else base.AddRange(collection); 
+            else base.AddRange(collection);
         }
 
         /// <summary>
@@ -267,7 +267,7 @@ namespace TheXDS.MCART.Types
                     RemovedItem?.Invoke(this, a);
                 }
             }
-            else base.Remove(item); 
+            else base.Remove(item);
         }
 
         /// <summary>
@@ -427,7 +427,7 @@ namespace TheXDS.MCART.Types
         {
             if (TriggerEvents)
             {
-                var a = new System.ComponentModel.CancelEventArgs();
+                var a = new CancelEventArgs();
                 ListClearing?.Invoke(this, a);
                 if (!a.Cancel)
                 {

@@ -66,7 +66,7 @@ namespace TheXDS.MCART.Tests.Types
             Assert.True(Point.TryParse(data, out var p));
             Assert.AreEqual(Point.Nowhere, p);
         }
-        
+
         [Theory]
         [TestCase("Origin")]
         [TestCase("0")]
@@ -92,7 +92,7 @@ namespace TheXDS.MCART.Tests.Types
         public void ToString_Test()
         {
             var p = new Point(3, 5);
-            
+
             Assert.AreEqual("3, 5", p.ToString());
             Assert.AreEqual("3, 5", p.ToString("C"));
             Assert.AreEqual("[3, 5]", p.ToString("B"));
@@ -153,18 +153,18 @@ namespace TheXDS.MCART.Tests.Types
             var p = new Point(x1, y1);
             var q = new Point(x2, y2);
             var r = p + q;
-            
+
             Assert.AreEqual(x3, r.X);
             Assert.AreEqual(y3, r.Y);
 
-            var s = p + (I2DVector) q;
+            var s = p + (I2DVector)q;
             Assert.AreEqual(x3, s.X);
             Assert.AreEqual(y3, s.Y);
 
             Assert.AreEqual(x3, (p + x2).X);
             Assert.AreEqual(y3, (p + y2).Y);
         }
-        
+
         [TestCase(3, 5, 2, 4, 1, 1)]
         [TestCase(1, 1, 2, 2, -1, -1)]
         [TestCase(-1, -1, 1, 1, -2, -2)]
@@ -177,18 +177,18 @@ namespace TheXDS.MCART.Tests.Types
             var p = new Point(x1, y1);
             var q = new Point(x2, y2);
             var r = p - q;
-            
+
             Assert.AreEqual(x3, r.X);
             Assert.AreEqual(y3, r.Y);
 
-            var s = p - (I2DVector) q;
+            var s = p - (I2DVector)q;
             Assert.AreEqual(x3, s.X);
             Assert.AreEqual(y3, s.Y);
 
             Assert.AreEqual(x3, (p - x2).X);
             Assert.AreEqual(y3, (p - y2).Y);
         }
-        
+
         [TestCase(3, 5, 2, 4, 6, 20)]
         [TestCase(1, 1, 2, 2, 2, 2)]
         [TestCase(-1, -1, 1, 1, -1, -1)]
@@ -201,11 +201,11 @@ namespace TheXDS.MCART.Tests.Types
             var p = new Point(x1, y1);
             var q = new Point(x2, y2);
             var r = p * q;
-            
+
             Assert.AreEqual(x3, r.X);
             Assert.AreEqual(y3, r.Y);
 
-            var s = p * (I2DVector) q;
+            var s = p * (I2DVector)q;
             Assert.AreEqual(x3, s.X);
             Assert.AreEqual(y3, s.Y);
 
@@ -225,18 +225,18 @@ namespace TheXDS.MCART.Tests.Types
             var p = new Point(x1, y1);
             var q = new Point(x2, y2);
             var r = p / q;
-            
+
             Assert.AreEqual(x3, r.X);
             Assert.AreEqual(y3, r.Y);
 
-            var s = p / (I2DVector) q;
+            var s = p / (I2DVector)q;
             Assert.AreEqual(x3, s.X);
             Assert.AreEqual(y3, s.Y);
 
             Assert.AreEqual(x3, (p / x2).X);
             Assert.AreEqual(y3, (p / y2).Y);
         }
-        
+
         [TestCase(3, 5, 2, 4, 1, 1)]
         [TestCase(1, 1, 2, 2, 1, 1)]
         [TestCase(-1, -1, 1, 1, 0, 0)]
@@ -250,11 +250,11 @@ namespace TheXDS.MCART.Tests.Types
             var p = new Point(x1, y1);
             var q = new Point(x2, y2);
             var r = p % q;
-            
+
             Assert.AreEqual(x3, r.X);
             Assert.AreEqual(y3, r.Y);
 
-            var s = p % (I2DVector) q;
+            var s = p % (I2DVector)q;
             Assert.AreEqual(x3, s.X);
             Assert.AreEqual(y3, s.Y);
 
@@ -270,7 +270,7 @@ namespace TheXDS.MCART.Tests.Types
             Assert.AreEqual(4, p.X);
             Assert.AreEqual(6, p.Y);
         }
-        
+
         [Test]
         public void Substract1Operator_Test()
         {
@@ -279,7 +279,7 @@ namespace TheXDS.MCART.Tests.Types
             Assert.AreEqual(2, p.X);
             Assert.AreEqual(4, p.Y);
         }
-        
+
         [Test]
         public void PlusOperator_Test()
         {
@@ -291,7 +291,7 @@ namespace TheXDS.MCART.Tests.Types
             Assert.AreEqual(-1, p.X);
             Assert.AreEqual(-2, p.Y);
         }
-                
+
         [Test]
         public void MinusOperator_Test()
         {
@@ -303,7 +303,7 @@ namespace TheXDS.MCART.Tests.Types
             Assert.AreEqual(1, p.X);
             Assert.AreEqual(2, p.Y);
         }
-        
+
         [Test]
         public void NotEquals_Test()
         {

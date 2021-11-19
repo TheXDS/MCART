@@ -51,7 +51,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             sb.AppendAndWrap(s, 80);
             var sa = sb.ToString().Split(Environment.NewLine);
             Assert.AreEqual(80, sa[0].Length);
-            Assert.AreEqual(40, sa[1].Length);            
+            Assert.AreEqual(40, sa[1].Length);
         }
     }
 }

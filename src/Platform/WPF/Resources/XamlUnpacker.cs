@@ -60,7 +60,7 @@ namespace TheXDS.MCART.Resources
         /// </returns>
         public override object Unpack(string id)
         {
-            using var sr = UnpackStream(id) ?? throw WpfErrors.ResourceNotFound(id,nameof(id));
+            using var sr = UnpackStream(id) ?? throw WpfErrors.ResourceNotFound(id, nameof(id));
             return XamlReader.Load(XmlReader.Create(sr));
         }
 

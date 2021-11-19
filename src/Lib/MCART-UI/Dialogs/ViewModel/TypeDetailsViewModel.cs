@@ -90,7 +90,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         /// Obtiene un valor que indica si el tipo ha sido definido dentro
         /// de un ensamblado dinámico.
         /// </summary>
-        public bool IsDynamic => Type?.Assembly.IsDynamic ??  false;
+        public bool IsDynamic => Type?.Assembly.IsDynamic ?? false;
 
         /// <summary>
         /// Obtiene un valor que indica si el tipo es estático, es decir si

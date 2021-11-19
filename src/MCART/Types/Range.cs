@@ -295,7 +295,7 @@ namespace TheXDS.MCART.Types
         /// <returns>El código Hash de esta instancia.</returns>
         public override int GetHashCode()
         {
-            return HashCode.Combine(Minimum,Maximum);
+            return HashCode.Combine(Minimum, Maximum);
         }
 
         /// <summary>

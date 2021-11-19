@@ -43,7 +43,7 @@ namespace TheXDS.MCART.Networking
     [Obsolete("Esta clase utiliza métodos web deprecados en .Net 6.")]
 #endif
     public static class DownloadHelper
-	{
+    {
         private static T GetResponse<T>(Uri uri) where T : WebResponse
         {
             var wr = WebRequest.Create(uri);
@@ -112,7 +112,7 @@ namespace TheXDS.MCART.Networking
             using var response = StreamUriParser.Infer<IWebUriParser>(uri)?.GetResponse(uri) ?? throw new UriFormatException();
             Copy(response, stream);
         }
-        
+
         /// <summary>
         /// Descarga un archivo desde un servicio web y lo almacena en el
         /// <see cref="Stream" /> especificado.
@@ -290,9 +290,9 @@ namespace TheXDS.MCART.Networking
         /// El código de estado que el servidor ha devuelto.
         /// </returns>
         public static HttpStatusCode DownloadHttp(string url, Stream stream)
-		{
-			return DownloadHttp(new Uri(url), stream);
-		}
+        {
+            return DownloadHttp(new Uri(url), stream);
+        }
 
         /// <summary>
         /// Descarga un archivo por medio de ftp y lo almacena en el
@@ -345,7 +345,7 @@ namespace TheXDS.MCART.Networking
         /// El código de estado que el servidor ha devuelto.
         /// </returns>
         public static HttpStatusCode DownloadHttp(Uri uri, Stream stream)
-		{
+        {
             if (!stream.CanWrite) throw new NotSupportedException();
             using var r = GetResponse<HttpWebResponse>(uri);
             if (r.StatusCode == HttpStatusCode.OK) Copy(r, stream);
@@ -420,9 +420,9 @@ namespace TheXDS.MCART.Networking
         /// El código de estado que el servidor ha devuelto.
         /// </returns>
         public static Task<HttpStatusCode> DownloadHttpAsync(string url, Stream stream)
-		{
-			return DownloadHttpAsync(new Uri(url), stream, null, 0);
-		}
+        {
+            return DownloadHttpAsync(new Uri(url), stream, null, 0);
+        }
 
         /// <summary>
         /// Descarga un archivo por medio de http y lo almacena en el
@@ -441,9 +441,9 @@ namespace TheXDS.MCART.Networking
         /// El código de estado que el servidor ha devuelto.
         /// </returns>
         public static Task<HttpStatusCode> DownloadHttpAsync(Uri uri, Stream stream)
-		{
-			return DownloadHttpAsync(uri, stream, null, 0);
-		}
+        {
+            return DownloadHttpAsync(uri, stream, null, 0);
+        }
 
         /// <summary>
         /// Descarga un archivo por medio de http y lo almacena en el
@@ -470,9 +470,9 @@ namespace TheXDS.MCART.Networking
         /// El código de estado que el servidor ha devuelto.
         /// </returns>
         public static Task<HttpStatusCode> DownloadHttpAsync(string url, Stream stream, ReportCallBack? reportCallback)
-		{
-			return DownloadHttpAsync(new Uri(url), stream, reportCallback);
-		}
+        {
+            return DownloadHttpAsync(new Uri(url), stream, reportCallback);
+        }
 
         /// <summary>
         /// Descarga un archivo por medio de http y lo almacena en el
@@ -499,9 +499,9 @@ namespace TheXDS.MCART.Networking
         /// El código de estado que el servidor ha devuelto.
         /// </returns>
         public static Task<HttpStatusCode> DownloadHttpAsync(Uri uri, Stream stream, ReportCallBack? reportCallback)
-		{
-			return DownloadHttpAsync(uri, stream, reportCallback, 100);
-		}
+        {
+            return DownloadHttpAsync(uri, stream, reportCallback, 100);
+        }
 
         /// <summary>
         /// Descarga un archivo por medio de http y lo almacena en el
@@ -531,9 +531,9 @@ namespace TheXDS.MCART.Networking
         /// El código de estado que el servidor ha devuelto.
         /// </returns>
         public static Task<HttpStatusCode> DownloadHttpAsync(string url, Stream stream, ReportCallBack? reportCallback, int polling)
-		{
-			return DownloadHttpAsync(new Uri(url), stream, reportCallback, polling);
-		}
+        {
+            return DownloadHttpAsync(new Uri(url), stream, reportCallback, polling);
+        }
 
         /// <summary>
         /// Descarga un archivo por medio de http y lo almacena en el
@@ -863,7 +863,7 @@ namespace TheXDS.MCART.Networking
         {
             return DownloadFileAsync(new Uri(url), stream, reportCallback, polling);
         }
-        
+
         /// <summary>
         /// Descarga un archivo por medio del protocolo file del sistema
         /// operativo y lo almacena en el <see cref="Stream" /> especificado.
@@ -919,5 +919,5 @@ namespace TheXDS.MCART.Networking
         /// Velocidad de descarga actual, en bytes por segundo.
         /// </param>
         public delegate void ReportCallBack(long? current, long? total, long? speed);
-	}
+    }
 }

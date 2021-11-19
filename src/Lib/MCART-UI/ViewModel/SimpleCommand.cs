@@ -54,7 +54,7 @@ namespace TheXDS.MCART.ViewModel
         /// Valor que indica si el comando puede ser ejecutado
         /// inmediatamente después de instanciar esta clase.
         /// </param>
-        public SimpleCommand(Action action, bool canExecute) : this(_=> action())
+        public SimpleCommand(Action action, bool canExecute) : this(_ => action())
         {
             _canExecute = canExecute;
         }
@@ -96,7 +96,7 @@ namespace TheXDS.MCART.ViewModel
         /// <see cref="SimpleCommand" />.
         /// </summary>
         /// <param name="task">Tarea a ejecutar.</param>
-        public SimpleCommand (Func<object?, Task> task) : this((Action<object?>)(async o => await task(o)))
+        public SimpleCommand(Func<object?, Task> task) : this((Action<object?>)(async o => await task(o)))
         {
         }
 

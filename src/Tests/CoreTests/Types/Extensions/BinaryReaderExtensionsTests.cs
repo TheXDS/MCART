@@ -48,8 +48,8 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             {
                 bw.Write(DayOfWeek.Tuesday);
             }
-            ms.Seek(0,SeekOrigin.Begin);
-            using (var br = new BinaryReader(ms,Encoding.Default, true))
+            ms.Seek(0, SeekOrigin.Begin);
+            using (var br = new BinaryReader(ms, Encoding.Default, true))
             {
                 Assert.AreEqual(DayOfWeek.Tuesday, br.ReadEnum<DayOfWeek>());
             }
@@ -64,65 +64,65 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         public void ReadGuid_Test()
         {
             var g = Guid.NewGuid();
-            
+
             using var ms = new MemoryStream();
             using (var bw = new BinaryWriter(ms, Encoding.Default, true))
             {
                 bw.Write(g);
             }
-            ms.Seek(0,SeekOrigin.Begin);
+            ms.Seek(0, SeekOrigin.Begin);
             using (var br = new BinaryReader(ms))
             {
-                Assert.AreEqual(g,br.ReadGuid());
+                Assert.AreEqual(g, br.ReadGuid());
             }
         }
-        
+
         [Test]
         public void ReadDateTime_Test()
         {
             var g = DateTime.Now;
-            
+
             using var ms = new MemoryStream();
             using (var bw = new BinaryWriter(ms, Encoding.Default, true))
             {
                 bw.Write(g);
             }
-            ms.Seek(0,SeekOrigin.Begin);
+            ms.Seek(0, SeekOrigin.Begin);
             using (var br = new BinaryReader(ms))
             {
-                Assert.AreEqual(g,br.ReadDateTime());
+                Assert.AreEqual(g, br.ReadDateTime());
             }
         }
-        
+
         [Test]
         public void ReadTimeSpan_Test()
         {
             var g = TimeSpan.FromSeconds(130015);
-            
+
             using var ms = new MemoryStream();
             using (var bw = new BinaryWriter(ms, Encoding.Default, true))
             {
                 bw.Write(g);
             }
-            ms.Seek(0,SeekOrigin.Begin);
+            ms.Seek(0, SeekOrigin.Begin);
             using (var br = new BinaryReader(ms))
             {
-                Assert.AreEqual(g,br.ReadTimeSpan());
+                Assert.AreEqual(g, br.ReadTimeSpan());
             }
         }
-        
+
         [Test]
         public void Read_Generic_Test()
         {
             var g = TimeSpan.FromSeconds(130015);
-            
+
             using var ms = new MemoryStream();
             using (var bw = new BinaryWriter(ms, Encoding.Default, true))
             {
                 bw.Write(g);
                 bw.Write(DayOfWeek.Tuesday);
             }
-            ms.Seek(0,SeekOrigin.Begin);
+            ms.Seek(0, SeekOrigin.Begin);
             using var br = new BinaryReader(ms);
             Assert.AreEqual(g, br.Read<TimeSpan>());
             Assert.AreEqual(DayOfWeek.Tuesday, br.Read<DayOfWeek>());
@@ -164,7 +164,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
                 Assert.True(v.BoolValue);
                 Assert.AreEqual("test", v.StringValue);
             }
-            
+
             ms.Seek(0, SeekOrigin.Begin);
             using (var br = new BinaryReader(ms))
             {
@@ -174,7 +174,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
                 Assert.AreEqual("test", v.StringValue);
             }
         }
-        
+
         private struct TestStruct
         {
             public int Int32Value;

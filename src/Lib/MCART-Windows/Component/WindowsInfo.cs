@@ -474,7 +474,7 @@ namespace TheXDS.MCART.Component
         [CLSCompliant(false)]
 #endif
         public ulong TotalVisibleMemorySize => GetFromWmi<ulong>();
-        
+
         /// <summary>
         /// Obtiene el valor "UBR" desde la instrumentación de Windows.
         /// </summary>
@@ -545,7 +545,7 @@ namespace TheXDS.MCART.Component
             return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "license.rtf");
         }
 
-        private T GetFromWmi<T>([CallerMemberName]string property = "")
+        private T GetFromWmi<T>([CallerMemberName] string property = "")
         {
             return _managementObject[property] is T v ? v : default!;
         }

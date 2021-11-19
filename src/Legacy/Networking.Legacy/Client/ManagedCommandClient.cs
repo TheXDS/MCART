@@ -38,8 +38,6 @@ using TheXDS.MCART.Types.Extensions;
 using System.IO.Compression;
 using TheXDS.MCART.Helpers;
 
-//using TheXDS.MCART.Security.Cryptography;
-
 namespace TheXDS.MCART.Networking.Legacy.Client
 {
     /// <summary>
@@ -1076,7 +1074,7 @@ namespace TheXDS.MCART.Networking.Legacy.Client
             if (Compressed)
             {
                 using var ms = new MemoryStream();
-                using var ds = new DeflateStream(ms,CompressionLevel.Optimal);
+                using var ds = new DeflateStream(ms, CompressionLevel.Optimal);
                 ds.Write(d, 0, d.Length);
                 d = ms.ToArray();
             }
@@ -1096,7 +1094,7 @@ namespace TheXDS.MCART.Networking.Legacy.Client
             {
                 using var ms = new MemoryStream();
                 using var ds = new DeflateStream(ms, CompressionLevel.Optimal);
-                await ds.WriteAsync(d, 0, d.Length);
+                await ds.WriteAsync(d);
                 d = ms.ToArray();
             }
             if (Encrypted)

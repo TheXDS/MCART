@@ -246,28 +246,28 @@ namespace TheXDS.MCART.Tests.Math
         }
 
         [CLSCompliant(false)]
-        [TestCaseSource(typeof(AlgebraTests), nameof(Get2Pows), new object[] { typeof(int), 131072L, 1})]
+        [TestCaseSource(typeof(AlgebraTests), nameof(Get2Pows), new object[] { typeof(int), 131072L, 1 })]
         public void IsTwoPow_int_YieldsFalse_Test(int value)
         {
             Assert.False(IsTwoPow(value));
         }
 
         [CLSCompliant(false)]
-        [TestCaseSource(typeof(AlgebraTests), nameof(Get2Pows), new object[] { typeof(int), 131072L, 0})]
+        [TestCaseSource(typeof(AlgebraTests), nameof(Get2Pows), new object[] { typeof(int), 131072L, 0 })]
         public void IsTwoPow_int_YieldsTrue_Test(int value)
         {
             Assert.True(IsTwoPow(value));
         }
 
         [CLSCompliant(false)]
-        [TestCaseSource(typeof(AlgebraTests), nameof(Get2Pows), new object[] { typeof(long), 131072L, 1})]
+        [TestCaseSource(typeof(AlgebraTests), nameof(Get2Pows), new object[] { typeof(long), 131072L, 1 })]
         public void IsTwoPow_long_YieldsFalse_Test(long value)
         {
             Assert.False(IsTwoPow(value));
         }
 
         [CLSCompliant(false)]
-        [TestCaseSource(typeof(AlgebraTests), nameof(Get2Pows), new object[] { typeof(long), 131072L, 0})]
+        [TestCaseSource(typeof(AlgebraTests), nameof(Get2Pows), new object[] { typeof(long), 131072L, 0 })]
         public void IsTwoPow_long_YieldsTrue_Test(long value)
         {
             Assert.True(IsTwoPow(value));
@@ -283,7 +283,7 @@ namespace TheXDS.MCART.Tests.Math
             var p3 = new Point(ex, ey);
 
             var pr = GetQuadBezierPoint(0.5, p1, p2, p3);
-            
+
             Assert.AreEqual(rx, pr.X);
             Assert.AreEqual(ry, pr.Y);
         }
@@ -301,7 +301,7 @@ namespace TheXDS.MCART.Tests.Math
             Assert.Throws<ArgumentException>(() =>
                 GetQuadBezierPoint(0.5, Point.Origin, Point.Origin, Point.Nowhere));
         }
-        
+
         [Theory]
         [CLSCompliant(false)]
         [TestCase(0, 0, 100)]
@@ -315,7 +315,7 @@ namespace TheXDS.MCART.Tests.Math
         public void GetArcPoint_Test(double pos, double px, double py)
         {
             const double epsilon = 1E-12;
-            
+
             var pr = GetArcPoint(100, 0, 360, pos);
             Assert.True(pr.X.IsBetween(px - epsilon, px + epsilon));
             Assert.True(pr.Y.IsBetween(py - epsilon, py + epsilon));
@@ -334,7 +334,7 @@ namespace TheXDS.MCART.Tests.Math
         public void GetCirclePoint_Test(double pos, double px, double py)
         {
             const double epsilon = 1E-12;
-            
+
             var pr = GetCirclePoint(100, pos);
             Assert.True(pr.X.IsBetween(px - epsilon, px + epsilon));
             Assert.True(pr.Y.IsBetween(py - epsilon, py + epsilon));

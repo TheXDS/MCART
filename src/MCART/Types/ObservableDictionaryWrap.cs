@@ -71,7 +71,7 @@ namespace TheXDS.MCART.Types
         {
             get => UnderlyingCollection[key];
             set
-            {                
+            {
                 var oldValue = UnderlyingCollection[key];
                 UnderlyingCollection[key] = value;
                 RaiseCollectionChanged(new NcchEa(NotifyCollectionChangedAction.Replace, oldValue, value));

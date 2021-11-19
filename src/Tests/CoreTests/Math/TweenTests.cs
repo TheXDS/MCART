@@ -33,7 +33,7 @@ namespace TheXDS.MCART.Tests.Math
     {
         [TestCase(0.0, 0.0)]
         [TestCase(0.25, 0.25)]
-        [TestCase(0.5, 0.5)]        
+        [TestCase(0.5, 0.5)]
         [TestCase(0.75, 0.75)]
         [TestCase(1.0, 1.0)]
         public void LinearTest(in double input, in double output)
@@ -43,7 +43,7 @@ namespace TheXDS.MCART.Tests.Math
 
         [TestCase(0.0, 0.0)]
         [TestCase(0.25, 0.1)]
-        [TestCase(0.5, 0.5)]        
+        [TestCase(0.5, 0.5)]
         [TestCase(0.75, 0.9)]
         [TestCase(1.0, 1.0)]
         public void QuadraticTest(in double input, in double output)
@@ -53,7 +53,7 @@ namespace TheXDS.MCART.Tests.Math
 
         [TestCase(0.0, 0.0)]
         [TestCase(0.25, 0.035714285714)]
-        [TestCase(0.5, 0.5)]        
+        [TestCase(0.5, 0.5)]
         [TestCase(0.75, 0.964285714286)]
         [TestCase(1.0, 1.0)]
         public void CubicTest(in double input, in double output)
@@ -63,14 +63,14 @@ namespace TheXDS.MCART.Tests.Math
 
         [TestCase(0.0, 0.0)]
         [TestCase(0.25, 0.68359375)]
-        [TestCase(0.5, 0.9375)]        
+        [TestCase(0.5, 0.9375)]
         [TestCase(0.75, 0.99609375)]
         [TestCase(1.0, 1.0)]
         public void QuarticTest(in double input, in double output)
         {
-            Assert.AreEqual(output, System.Math.Round(Quartic(input),12));
+            Assert.AreEqual(output, System.Math.Round(Quartic(input), 12));
         }
-        
+
         [TestCase(0.0, 0.0)]
         [TestCase(0.1, 1.987688340595)]
         [TestCase(0.2, 0.048943483705)]
@@ -100,7 +100,7 @@ namespace TheXDS.MCART.Tests.Math
         [TestCase(1.0, 1.0)]
         public void BouncyTest(in double input, in double output)
         {
-            Assert.AreEqual(output, System.Math.Round(Bouncy(input),12));
+            Assert.AreEqual(output, System.Math.Round(Bouncy(input), 12));
         }
     }
 }

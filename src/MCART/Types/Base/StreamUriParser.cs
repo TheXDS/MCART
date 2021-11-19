@@ -148,7 +148,7 @@ namespace TheXDS.MCART.Types.Base
         /// <see cref="StreamUriParser"/> capaz de manejar el 
         /// <see cref="Uri"/>.
         /// </returns>
-        public static T? Infer<T>(string uri) where T:class, IStreamUriParser
+        public static T? Infer<T>(string uri) where T : class, IStreamUriParser
         {
             return Infer<T>(new Uri(uri));
         }

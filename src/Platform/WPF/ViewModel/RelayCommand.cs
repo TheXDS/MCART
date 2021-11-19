@@ -74,7 +74,7 @@ namespace TheXDS.MCART.ViewModel
         {
             return _canExecute?.Invoke(parameter) ?? true;
         }
-        
+
         /// <summary>
         /// Se produce cuando hay cambios que influyen en si el comando
         /// debería ejecutarse o no.

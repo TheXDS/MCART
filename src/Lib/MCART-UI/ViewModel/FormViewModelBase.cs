@@ -101,7 +101,7 @@ namespace TheXDS.MCART.ViewModel
 
             IValidationEntry<T> IValidationEntry<T>.AddRule(Func<T, bool> rule, string error)
             {
-                _rules.Add(new ValidationRule(rule,error));
+                _rules.Add(new ValidationRule(rule, error));
                 return this;
             }
 
@@ -145,7 +145,8 @@ namespace TheXDS.MCART.ViewModel
         /// </returns>
         public bool CheckErrors()
         {
-            return _validationRules.Locked(p => {
+            return _validationRules.Locked(p =>
+            {
                 foreach (var j in p)
                 {
                     AppendErrors(j, j.Property.GetValue(this));

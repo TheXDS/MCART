@@ -36,7 +36,7 @@ using System.Windows.Input;
 using System.Windows.Shapes;
 using TheXDS.MCART.Events;
 using TheXDS.MCART.Helpers;
-using TheXDS.MCART.Resources;
+using TheXDS.MCART.Types.Extensions;
 using TheXDS.MCART.ValueConverters;
 using static TheXDS.MCART.Types.Extensions.StringExtensions;
 using static TheXDS.MCART.WpfUi;
@@ -209,57 +209,57 @@ namespace TheXDS.MCART.Controls
         /// Clave de propiedad de dependencia <see cref="HasItemsProperty"/>.
         /// </summary>
         protected static readonly DependencyPropertyKey HasItemsPropertyKey = DependencyProperty.RegisterReadOnly(nameof(HasItems), typeof(bool), _t, new PropertyMetadata(true));
-        
+
         /// <summary>
         /// Identifica la propiedad de dependencia de sólo lectura <see cref="HasItems"/>.
         /// </summary>
         public static readonly DependencyProperty HasItemsProperty = HasItemsPropertyKey.DependencyProperty;
-        
+
         /// <summary>
         /// Clave de propiedad de dependencia <see cref="IsEditingProperty"/>.
         /// </summary>
         public static readonly DependencyPropertyKey IsEditingPropertyKey = DependencyProperty.RegisterReadOnly(nameof(IsEditing), typeof(bool), _t, new PropertyMetadata(false));
-        
+
         /// <summary>
         /// Identifica la propiedad de dependencia de sólo lectura <see cref="IsEditing"/>.
         /// </summary>
         public static readonly DependencyProperty IsEditingProperty = IsEditingPropertyKey.DependencyProperty;
-        
+
         /// <summary>
         /// Identifica la propiedad de dependencia <see cref="ButtonWidth"/>.
         /// </summary>
         public static readonly DependencyProperty ButtonWidthProperty = DependencyProperty.Register(nameof(ButtonWidth), typeof(double), _t, new PropertyMetadata(Convert.ToDouble(80)));
-        
+
         /// <summary>
         /// Identifica la propiedad de dependencia <see cref="Mode"/>.
         /// </summary>
         public static readonly DependencyProperty ModeProperty = DependencyProperty.Register(nameof(Mode), typeof(NavigationBarEditMode), _t, new PropertyMetadata(NavigationBarEditMode.ReadOnly), (a) => typeof(NavigationBarEditMode).IsEnumDefined(a));
-        
+
         /// <summary>
         /// Identifica la propiedad de dependencia <see cref="HasSearch"/>.
         /// </summary>
         public static readonly DependencyProperty HasSearchProperty = DependencyProperty.Register(nameof(HasSearch), typeof(bool), _t, new PropertyMetadata(true));
-        
+
         /// <summary>
         /// Identifica la propiedad de dependencia <see cref="Search"/>.
         /// </summary>
         public static readonly DependencyProperty SearchProperty = DependencyProperty.Register(nameof(Search), typeof(string), _t, new PropertyMetadata(string.Empty));
-        
+
         /// <summary>
         /// Identifica la propiedad de dependencia <see cref="SearchWatermark"/>.
         /// </summary>
         public static readonly DependencyProperty SearchWatermarkProperty = DependencyProperty.Register(nameof(SearchWatermark), typeof(string), _t, new PropertyMetadata(St.Search));
-        
+
         /// <summary>
         /// Identifica la propiedad de dependencia <see cref="Max"/>.
         /// </summary>
         public static readonly DependencyProperty MaxProperty = DependencyProperty.Register(nameof(Max), typeof(int), _t, new PropertyMetadata(0, UpdtLayout), a => (int)a >= 0);
-        
+
         /// <summary>
         /// Identifica la propiedad de dependencia <see cref="Position"/>.
         /// </summary>
         public static readonly DependencyProperty PositionProperty = DependencyProperty.Register(nameof(Position), typeof(int), _t, new PropertyMetadata(1, UpdtLayout), a => (int)a >= 1);
-       
+
         #endregion
 
         #region Propiedades

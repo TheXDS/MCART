@@ -39,7 +39,7 @@ namespace TheXDS.MCART.Types
     {
         private readonly List<T> _head = new();
         private readonly List<T> _tail = new();
-        
+
         /// <summary>
         /// Obtiene el número de elementos incluidos en este
         /// <see cref="OpenList{T}"/>.
@@ -220,7 +220,7 @@ namespace TheXDS.MCART.Types
         /// </exception>
         public void CopyTo(T[] array, int arrayIndex)
         {
-            _head.Concat(_tail).ToArray().CopyTo(array,arrayIndex);
+            _head.Concat(_tail).ToArray().CopyTo(array, arrayIndex);
         }
 
         /// <summary>

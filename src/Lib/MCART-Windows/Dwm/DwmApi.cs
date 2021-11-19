@@ -107,7 +107,7 @@ namespace TheXDS.MCART.Windows.Dwm
         {
             if (IsCompositionEnabled())
             {
-                if (Marshal.GetExceptionForHR(PInvoke.DwmExtendFrameIntoClientArea(window.Handle, ref padding)) is  { } ex) throw ex;
+                if (Marshal.GetExceptionForHR(PInvoke.DwmExtendFrameIntoClientArea(window.Handle, ref padding)) is { } ex) throw ex;
             }
         }
 
@@ -154,7 +154,7 @@ namespace TheXDS.MCART.Windows.Dwm
         {
             ShowGwlStyle(window, WindowStyles.WS_MAXIMIZEBOX);
         }
-        
+
         /// <summary>
         /// Deshabilita y oculta el botón de minimizar de la ventana.
         /// </summary>

@@ -110,7 +110,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             Assert.AreEqual(1, l[8]);
             Assert.AreEqual(2, l[9]);
         }
-        
+
         [Test]
         public void ApplyShift_Test()
         {

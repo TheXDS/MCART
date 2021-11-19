@@ -50,9 +50,9 @@ namespace TheXDS.MCART.Attributes
         /// </summary>
         /// <param name="year">Año de registro del Copyright.</param>
         /// <param name="holder">Poseedor del Copyright.</param>
-    #if CLSCompliance
+#if CLSCompliance
         [CLSCompliant(false)]
-    #endif
+#endif
         public CopyrightAttribute(ushort year, string holder) : this($"{year:0000} {holder}")
         {
         }
@@ -63,10 +63,10 @@ namespace TheXDS.MCART.Attributes
         /// </summary>
         /// <param name="years">Años de registro del Copyright.</param>
         /// <param name="holder">Poseedor del Copyright.</param>
-    #if CLSCompliance
+#if CLSCompliance
         [CLSCompliant(false)]
-    #endif
-        public CopyrightAttribute(Range<ushort> years, string holder) :this($"{years.Minimum:0000}-{years.Maximum:0000} {holder}") { }
+#endif
+        public CopyrightAttribute(Range<ushort> years, string holder) : this($"{years.Minimum:0000}-{years.Maximum:0000} {holder}") { }
 
         private static string GetCopyrightString(string input)
         {

@@ -63,7 +63,7 @@ namespace TheXDS.MCART.Types.Extensions
         {
             return color - Colors.Black;
         }
-        
+
         /// <summary>
         /// Crea una copia del color especificado, ajustando el nivel de
         /// transparencia del mismo.
@@ -81,7 +81,7 @@ namespace TheXDS.MCART.Types.Extensions
             return c;
         }
     }
-    
+
     /// <summary>
     /// Extensiones para todos los elementos de tipo <see cref="ICollection{T}" />.
     /// </summary>
@@ -123,7 +123,7 @@ namespace TheXDS.MCART.Types.Extensions
                 collection.Remove(j);
             }
         }
-       
+
         /// <summary>
         /// Elimina todos los elementos de una colección.
         /// </summary>
@@ -132,7 +132,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <param name="beforeDelete">Acción a ejecutar antes de borrar a un elemento en particular.</param>
         public static void RemoveAll<T>(this ICollection<T> collection, in Action<T> beforeDelete) =>
             RemoveAll(collection, null, beforeDelete);
-        
+
         /// <summary>
         /// Elimina todos los elementos de una colección que cumplen con una condición.
         /// </summary>

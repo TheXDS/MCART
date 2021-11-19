@@ -48,7 +48,7 @@ namespace TheXDS.MCART.Types.Base
         {
             if (this is not T source) throw new InvalidCastException();
             var copy = new T();
-            
+
             foreach (var j in typeof(T).GetFields().Where(p => p.IsPublic))
             {
                 j.SetValue(copy, j.GetValue(source));

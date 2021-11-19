@@ -38,7 +38,7 @@ namespace TheXDS.MCART.Resources.Strings
         /// Obtiene una cadena con todos los caracteres alfabéticos en mayúscula.
         /// </summary>
         public const string AlphaUc = "abcdefghijklmnopqrstuvwxyz";
-        
+
         /// <summary>
         /// Obtiene una cadena con todos los dígitos numéricos.
         /// </summary>
@@ -54,7 +54,7 @@ namespace TheXDS.MCART.Resources.Strings
         /// de puntuación comunes.
         /// </summary>
         public const string Chars = AlphaLc + AlphaUc + Numbers + Symbols;
-        
+
         /// <summary>
         /// Obtiene un cadena con distintos caracteres utilizados en distintos
         /// alfabetos latinos.
@@ -65,7 +65,7 @@ namespace TheXDS.MCART.Resources.Strings
         /// Obtiene una cadena con distintos caracteres misceláneos.
         /// </summary>
         public const string MoreChars = @"ẁèỳùìòàǜǹẀÈỲÙÌÒÀǛǸẽẼỹỸũŨĩĨõÕãÃṽṼñÑ`~1!¡¹2@²űŰőŐ˝3#ĒǕŌĀ¯4$¤£5%€şḑģḩķļçņȩŗţ¸6ŵêŷûîôâŝĝĥĵẑĉŴÊŶÛÎÔÂŜĜĤĴẐĈ¼^7&ươƯƠ̛8*¾ęųįǫąĘŲĮǪĄ˛9(‘ĕŭĭŏăĔŬĬŎĂ˘0)’ẘẙůŮåÅ-_¥ẉẹṛṭỵụịọạṣḍḥḳḷṿḅṇṃ̣=+×÷qQwWeErR®tTþÞyYuUiIoOpP[{«“]}»”\|¬¦aAsSß§dDðÐfFgGhHjJkKœŒlLøØ;:¶°ẃéŕýúíóṕáśǵḱĺźćǘńḿ'ẅëẗÿüïöäḧẍẄËŸÜÏÖÄḦẌ""zZæÆxXcC©¢vVbBnNmMµ,<çÇ.>ˇěřťǔǐǒǎšďǧȟǰǩǩľžčǚň/?¿ʠⱳẻƭỷủỈỏƥảʂɗƒɠɦƙȥƈʋɓɲɱ̉";
-        
+
         /// <summary>
         /// Obtiene una cadena con símbolos misceláneos.
         /// </summary>

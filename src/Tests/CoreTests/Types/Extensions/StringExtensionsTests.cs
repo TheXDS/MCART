@@ -98,7 +98,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         [Test]
         public void ContainsAny_Test()
         {
-            Assert.True("Test".ContainsAny(new List<string>{ "Ta", "Te" }));
+            Assert.True("Test".ContainsAny(new List<string> { "Ta", "Te" }));
             Assert.True("Test".ContainsAny('q', 't', 'a'));
             Assert.True("Test".ContainsAny(out var idx, 'q', 't', 'a'));
             Assert.AreEqual(1, idx);
@@ -218,11 +218,11 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         [Test]
         public void StartsWithAny_Test()
         {
-            Assert.True("Test".StartsWithAny("Ta","Te"));
-            Assert.True("Test".StartsWithAny(new List<string>{"Ta","Te"}));
+            Assert.True("Test".StartsWithAny("Ta", "Te"));
+            Assert.True("Test".StartsWithAny(new List<string> { "Ta", "Te" }));
             Assert.False("Test".StartsWithAny("Ta", "Ti"));
             Assert.False("Test".StartsWithAny(new List<string> { "Ta", "Ti" }));
-            Assert.True("TEST".StartsWithAny(new List<string> { "ta", "te" },true));
+            Assert.True("TEST".StartsWithAny(new List<string> { "ta", "te" }, true));
             Assert.False("TEST".StartsWithAny(new List<string> { "ta", "ti" }, true));
             Assert.True("TEST".StartsWithAny(new List<string> { "ta", "te" }, true, CultureInfo.CurrentCulture));
             Assert.False("TEST".StartsWithAny(new List<string> { "ta", "ti" }, true, CultureInfo.CurrentCulture));
@@ -247,18 +247,18 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             Assert.AreEqual("test", "test".OrNull());
             Assert.AreEqual("test test", "test".OrNull("{0} test"));
         }
-        
+
         [Test]
         public void OrEmpty_Test()
         {
-            Assert.AreEqual(string.Empty,string.Empty.OrEmpty());
-            Assert.AreEqual(string.Empty,((string?)null).OrEmpty());
+            Assert.AreEqual(string.Empty, string.Empty.OrEmpty());
+            Assert.AreEqual(string.Empty, ((string?)null).OrEmpty());
             Assert.AreNotEqual(string.Empty, "Test".OrEmpty());
             Assert.AreEqual(string.Empty, ((string?)null).OrEmpty("{0} 1234"));
             Assert.AreEqual(string.Empty, string.Empty.OrEmpty("{0} 1234"));
             Assert.AreEqual("test 1234", "test".OrEmpty("{0} 1234"));
         }
-        
+
         [Test]
         public void Spell_Test()
         {
@@ -279,13 +279,13 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             Assert.AreEqual("789456test123", "789456test123456".ChopAny("123", "456"));
             Assert.AreEqual("test", "test".ChopAny("123", "456"));
         }
-        
+
         [Test]
         public void ChopEnd_Test()
         {
             Assert.AreEqual("123456test123", "123456test123456".ChopEnd("456"));
         }
-        
+
         [Test]
         public void ChopStart_Test()
         {

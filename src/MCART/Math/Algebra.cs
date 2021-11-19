@@ -84,7 +84,7 @@ namespace TheXDS.MCART.Math
             if (number == 1) return false;
             if (number < KnownPrimes[^1] && KnownPrimes.Contains((int)number)) return true;
 
-            var part = Partitioner.Create(KnownPrimes);            
+            var part = Partitioner.Create(KnownPrimes);
             var prime = true;
 
             void TestIfPrime(int j, ParallelLoopState loop)
@@ -117,7 +117,7 @@ namespace TheXDS.MCART.Math
         /// <param name="number">Número a comprobar.</param>
         public static bool IsPrime(this in int number)
         {
-            return ((long) number).IsPrime();
+            return ((long)number).IsPrime();
         }
 
         /// <summary>
@@ -129,7 +129,7 @@ namespace TheXDS.MCART.Math
         /// <param name="number">Número a comprobar.</param>
         public static bool IsPrime(this in short number)
         {
-            return ((long) number).IsPrime();
+            return ((long)number).IsPrime();
         }
 
         /// <summary>
@@ -141,7 +141,7 @@ namespace TheXDS.MCART.Math
         /// <param name="number">Número a comprobar.</param>
         public static bool IsPrime(this in byte number)
         {
-            return ((long) number).IsPrime();
+            return ((long)number).IsPrime();
         }
 
         /// <summary>
@@ -294,7 +294,7 @@ namespace TheXDS.MCART.Math
         {
             return AreZero(values.AsEnumerable());
         }
-        
+
         /// <summary>
         /// Devuelve <see langword="true" /> si todos los números son negativos.
         /// </summary>
@@ -307,7 +307,7 @@ namespace TheXDS.MCART.Math
         {
             return values.All(j => j.CompareTo(default) < 0);
         }
-        
+
         /// <summary>
         /// Devuelve <see langword="true" /> si todos los números son iguales a cero.
         /// </summary>
@@ -336,7 +336,7 @@ namespace TheXDS.MCART.Math
         {
             return values.All(j => j.CompareTo(default) > 0);
         }
-        
+
         /// <summary>
         /// Determina si un <see cref="double" /> es un número entero.
         /// </summary>

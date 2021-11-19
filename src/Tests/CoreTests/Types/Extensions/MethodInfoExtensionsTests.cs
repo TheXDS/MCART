@@ -39,11 +39,11 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         {
             var ts = ReflectionHelpers.GetMethod<Func<string>>(() => TestStatic).ToDelegate<Func<string>>();
             var ti = ReflectionHelpers.GetMethod<Func<string>>(() => TestInstance).ToDelegate<Func<string>>(this);
-            
+
             Assert.NotNull(ts);
             Assert.IsAssignableFrom<Func<string>>(ts);
             Assert.AreEqual("TestStatic", ts!.Invoke());
-            
+
             Assert.NotNull(ti);
             Assert.IsAssignableFrom<Func<string>>(ti);
             Assert.AreEqual("TestInstance", ti!.Invoke());

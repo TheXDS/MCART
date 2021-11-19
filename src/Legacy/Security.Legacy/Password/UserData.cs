@@ -88,7 +88,7 @@ namespace TheXDS.MCART.Security.Password
         /// </param>
         public UserData(string username, SecureString password, string? hint, float? quality)
         {
-            if (quality.HasValue && !quality.Value.IsBetween(0f,100f))
+            if (quality.HasValue && !quality.Value.IsBetween(0f, 100f))
                 throw new ArgumentOutOfRangeException(nameof(quality));
             if (!password.IsReadOnly()) password.MakeReadOnly();
             Username = username;

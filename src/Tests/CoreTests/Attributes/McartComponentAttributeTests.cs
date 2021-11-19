@@ -26,7 +26,7 @@ using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Resources;
 using NUnit.Framework;
 
-namespace TheXDS.MCART.Tests.Attributes 
+namespace TheXDS.MCART.Tests.Attributes
 {
     public class McartComponentAttributeTests
     {

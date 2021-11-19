@@ -76,7 +76,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
 
         protected override void On3rdPartyLicenses()
         {
-            
+
         }
     }
 }

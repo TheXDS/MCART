@@ -168,7 +168,7 @@ namespace TheXDS.MCART.Controls
             get => _stretchProportionally;
             set => SetValue(StretchProportionallyProperty, value);
         }
-        
+
         #endregion
 
         private Orientation _orientation = Orientation.Horizontal;
@@ -277,7 +277,7 @@ namespace TheXDS.MCART.Controls
 
             var children = InternalChildren;
 
-            foreach(UIElement? child in children)
+            foreach (UIElement? child in children)
             {
                 if (child is null) continue;
 
@@ -346,7 +346,7 @@ namespace TheXDS.MCART.Controls
             for (var i = start; i < end; i++)
                 total += horizontal ? children[i].DesiredSize.Width : children[i].DesiredSize.Height;
 
-            var uMultipler = total >0 ? limitU / total: 0;
+            var uMultipler = total > 0 ? limitU / total : 0;
             for (var i = start; i < end; i++)
             {
                 var child = children[i];

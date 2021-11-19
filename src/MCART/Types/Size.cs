@@ -93,7 +93,7 @@ namespace TheXDS.MCART.Types
                         ":",
                         "|",
                     };
-                    return PrivateInternals.TryParseValues<double, Size>(separators, value.Without("()[]{}".ToCharArray()),2, l=> new Size(l[0],l[1]), out size);
+                    return PrivateInternals.TryParseValues<double, Size>(separators, value.Without("()[]{}".ToCharArray()), 2, l => new Size(l[0], l[1]), out size);
             }
             return true;
         }

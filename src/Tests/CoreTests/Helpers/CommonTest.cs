@@ -121,7 +121,7 @@ namespace TheXDS.MCART.Tests.Helpers
         [Test]
         public void FlipEndianessTest_Double()
         {
-            Assert.True(System.Math.PI.FlipEndianess().IsBetween(3.20737563067636E-192, 3.20737563067638E-192));            
+            Assert.True(System.Math.PI.FlipEndianess().IsBetween(3.20737563067636E-192, 3.20737563067638E-192));
         }
 
         [Test]
@@ -171,11 +171,11 @@ namespace TheXDS.MCART.Tests.Helpers
             Assert.False("d".IsBetween("a", "c"));
             Assert.True('b'.IsBetween(new Range<char>('a', 'c')));
             Assert.False('d'.IsBetween(new Range<char>('a', 'c')));
-            Assert.True(((double?) 0.5).IsBetween(0.0, 1.0));
-            Assert.True(((double?) 0.0).IsBetween(0.0, 1.0,true));
-            Assert.False(((double?) 0.0).IsBetween(0.0, 1.0,false));
-            Assert.False(((double?) null).IsBetween(0.0, 1.0));
-            Assert.True(((double?) 0.5).IsBetween(new Range<double>(0.0, 1.0)));
+            Assert.True(((double?)0.5).IsBetween(0.0, 1.0));
+            Assert.True(((double?)0.0).IsBetween(0.0, 1.0, true));
+            Assert.False(((double?)0.0).IsBetween(0.0, 1.0, false));
+            Assert.False(((double?)null).IsBetween(0.0, 1.0));
+            Assert.True(((double?)0.5).IsBetween(new Range<double>(0.0, 1.0)));
         }
 
         [Test]
@@ -364,14 +364,14 @@ namespace TheXDS.MCART.Tests.Helpers
         [CLSCompliant(false)]
         [TestCase(1000, ByteUnitType.Binary, "1000 Bytes")]
         [TestCase(1000, ByteUnitType.Decimal, "1.0 KB")]
-        [TestCase(100000, (ByteUnitType) 255, "100000 Bytes")]
+        [TestCase(100000, (ByteUnitType)255, "100000 Bytes")]
         [TestCase(1100000, ByteUnitType.BinaryLong, "1.1 Mebibytes")]
         [TestCase(1048576, ByteUnitType.DecimalLong, "1.0 Megabytes")]
         public void ByteUnitsTest_Long_ByteUnitType(long bytes, ByteUnitType unit, string result)
         {
             Assert.AreEqual(result, TheXDS.MCART.Helpers.Common.ByteUnits(bytes, unit));
         }
-        
+
         [CLSCompliant(false)]
         [TestCase(1000, "1000 Bytes")]
         [TestCase(1024, "1.0 KiB")]
@@ -391,7 +391,7 @@ namespace TheXDS.MCART.Tests.Helpers
         [Test]
         public void AnyEmptyTest()
         {
-            var array = new [] { "0", null, "2", "3", null, "5" };
+            var array = new[] { "0", null, "2", "3", null, "5" };
             Assert.False(new[] { "0", "1", "2" }.AnyEmpty(out int i));
             Assert.AreEqual(-1, i);
             Assert.True(array.AnyEmpty(out int index));

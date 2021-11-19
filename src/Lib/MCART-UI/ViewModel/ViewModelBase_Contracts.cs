@@ -35,7 +35,7 @@ using static TheXDS.MCART.Misc.Internals;
 namespace TheXDS.MCART.ViewModel
 {
     public abstract partial class ViewModelBase : NotifyPropertyChanged, IViewModel
-    { 
+    {
         [Conditional("EnforceContracts")]
         private static void Observe_Contract<T>(Expression<Func<T, object?>> propertySelector)
         {

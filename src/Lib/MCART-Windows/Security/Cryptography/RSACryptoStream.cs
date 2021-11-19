@@ -223,7 +223,7 @@ namespace TheXDS.MCART.Security.Cryptography
             byte[] a;
             if (_stream.CanSeek)
             {
-                var sze = (int) _stream.RemainingBytes();
+                var sze = (int)_stream.RemainingBytes();
                 a = new byte[sze];
                 _stream.Read(a, 0, sze);
             }
@@ -231,7 +231,7 @@ namespace TheXDS.MCART.Security.Cryptography
             {
                 var l = new List<byte>();
                 int r;
-                while(true)
+                while (true)
                 {
                     r = _stream.ReadByte();
                     if (r == -1) break;

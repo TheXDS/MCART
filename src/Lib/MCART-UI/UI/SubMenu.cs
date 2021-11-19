@@ -68,7 +68,7 @@ namespace TheXDS.MCART.UI
         /// <param name="subMenu">
         /// Sub-menú que forma parte de este elemento.
         /// </param>
-        public SubMenu(string name,string? description, IEnumerable<InteractionBase> subMenu) : base(name, description)
+        public SubMenu(string name, string? description, IEnumerable<InteractionBase> subMenu) : base(name, description)
         {
             Children = subMenu;
         }

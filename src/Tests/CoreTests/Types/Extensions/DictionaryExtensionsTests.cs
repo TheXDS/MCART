@@ -63,7 +63,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             Assert.True(((IEnumerable<KeyValuePair<char, ICollection<char>>>)d).CheckCircularRef('a'));
             Assert.True(d.CheckCircularRef('a'));
         }
-        
+
         [Test]
         public void Push_Test()
         {
@@ -79,7 +79,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
                 { 1, "test" },
                 { 2, "test2" }
             };
-            
+
             Assert.True(d.Pop(1, out var s));
             Assert.AreEqual("test", s);
             Assert.False(d.ContainsKey(1));

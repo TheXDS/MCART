@@ -178,7 +178,7 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         /// </returns>
         public static byte[]? MakeResponse(TResponse response, string data)
         {
-            return MakeResponse(response, new[] {data});
+            return MakeResponse(response, new[] { data });
         }
 
         /// <summary>
@@ -242,7 +242,7 @@ namespace TheXDS.MCART.Networking.Legacy.Server
             if (data.CanSeek)
                 using (var sr = new BinaryReader(data))
                 {
-                    return MakeResponse(response, sr.ReadBytes((int) data.Length));
+                    return MakeResponse(response, sr.ReadBytes((int)data.Length));
                 }
 
             using var ms = new MemoryStream();
@@ -259,7 +259,7 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         /// </returns>
         public static TCommand ReadCommand(BinaryReader br)
         {
-            return (TCommand) Enum.ToObject(typeof(TCommand), _readCmd.Invoke(br, Array.Empty<object>())!);
+            return (TCommand)Enum.ToObject(typeof(TCommand), _readCmd.Invoke(br, Array.Empty<object>())!);
         }
 
         /// <summary>

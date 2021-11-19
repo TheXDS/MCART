@@ -412,16 +412,16 @@ namespace TheXDS.MCART.Types.Extensions
         public static PropertyBuildInfo AddNpcProperty(this ITypeBuilder<INotifyPropertyChanged> tb, string name, Type type, MemberAccess access, bool @virtual, FieldInfo? evtHandler)
         {
             evtHandler ??= tb.SpecificBaseType.GetFields().FirstOrDefault(p => p.FieldType.Implements<PropertyChangedEventHandler>()) ?? throw new MissingFieldException();
-            return BuildNpcProp(tb.Builder, name, type, access,@virtual, (retLabel, setter) => setter
-                .LoadField(evtHandler)
-                .Duplicate()
-                .BranchTrueNewLabel(out var notify)
-                .Pop()
-                .Branch(retLabel)
-                .PutLabel(notify)
-                .This()
-                .LoadConstant(name)
-                .NewObj<PropertyChangedEventArgs>()
+            return BuildNpcProp(tb.Builder, name, type, access, @virtual, (retLabel, setter) => setter
+                 .LoadField(evtHandler)
+                 .Duplicate()
+                 .BranchTrueNewLabel(out var notify)
+                 .Pop()
+                 .Branch(retLabel)
+                 .PutLabel(notify)
+                 .This()
+                 .LoadConstant(name)
+                 .NewObj<PropertyChangedEventArgs>()
             , ReflectionHelpers.GetMethod<PropertyChangedEventHandler, Action<object, PropertyChangedEventArgs>>(p => p.Invoke));
         }
 
@@ -766,7 +766,7 @@ namespace TheXDS.MCART.Types.Extensions
         {
             return AddProperty(tb, name, typeof(T), writtable, MemberAccess.Public, false);
         }
-        
+
         /// <summary>
         /// Agrega una propiedad al tipo sin implementaciones de
         /// <see langword="get"/> ni <see langword="set"/> establecidas.
@@ -1043,7 +1043,7 @@ namespace TheXDS.MCART.Types.Extensions
             if (!t.Implements<T>()) throw Errors.IfaceNotImpl<T>();
         }
 
-        private static PropertyBuildInfo BuildNpcProp(TypeBuilder tb, string name, Type t, MemberAccess access, bool @virtual, Action<Label,ILGenerator> evtHandler, MethodInfo method)
+        private static PropertyBuildInfo BuildNpcProp(TypeBuilder tb, string name, Type t, MemberAccess access, bool @virtual, Action<Label, ILGenerator> evtHandler, MethodInfo method)
         {
             CheckImplements<INotifyPropertyChanged>(tb.BaseType!);
 
@@ -1091,7 +1091,7 @@ namespace TheXDS.MCART.Types.Extensions
 
         private static MethodInfo GetNpcChangeMethod(ITypeBuilder<NotifyPropertyChangeBase> tb, Type t)
         {
-            return tb.ActualBaseType.GetMethods(BindingFlags.NonPublic | BindingFlags.Instance).FirstOrDefault(Objects.HasAttr<NpcChangeInvocatorAttribute>)?.MakeGenericMethod(new[] { t }) ?? throw new MissingMethodException();
+            return tb.ActualBaseType.GetMethods(BindingFlags.NonPublic | BindingFlags.Instance).FirstOrDefault(MemberInfoExtensions.HasAttr<NpcChangeInvocatorAttribute>)?.MakeGenericMethod(new[] { t }) ?? throw new MissingMethodException();
         }
 
         private static MethodBuilder MkGet(TypeBuilder tb, string name, Type t, MemberAccess a, bool v)
@@ -1099,13 +1099,13 @@ namespace TheXDS.MCART.Types.Extensions
             var n = $"get_{name}";
             return tb.DefineMethod(n, MkPFlags(tb, n, a, v), t, null);
         }
-        
+
         private static MethodBuilder MkSet(TypeBuilder tb, string name, Type t, MemberAccess a, bool v)
         {
             var n = $"set_{name}";
             return tb.DefineMethod(n, MkPFlags(tb, n, a, v), null, new[] { t });
         }
-        
+
         private static MethodAttributes MkPFlags(TypeBuilder tb, string n, MemberAccess a, bool v)
         {
             var f = Access(a) | SpecialName | HideBySig | ReuseSlot;

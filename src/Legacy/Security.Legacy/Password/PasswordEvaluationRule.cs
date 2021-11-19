@@ -28,6 +28,7 @@ using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Base;
+using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Security.Password
 {

@@ -369,9 +369,9 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         [TestCase(5)]
         [TestCase(7)]
         [TestCase(9)]
-    #if CLSCompliance
+#if CLSCompliance
         [CLSCompliant(false)]
-    #endif
+#endif
         public void Count_Test(int arrSize)
         {
             IEnumerable<int> Enumerate()

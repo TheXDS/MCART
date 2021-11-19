@@ -58,10 +58,10 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             var l = Enumerable.Range(1, 10).ToList();
             List<int> r = new();
             l.RemoveAll(p => p % 2 == 1, p => r.Add(p));
-            Assert.AreEqual(new[]{ 2, 4, 6, 8, 10 }, l.ToArray());
-            Assert.AreEqual(new[]{ 1, 3, 5, 7, 9 }, r.ToArray());
+            Assert.AreEqual(new[] { 2, 4, 6, 8, 10 }, l.ToArray());
+            Assert.AreEqual(new[] { 1, 3, 5, 7, 9 }, r.ToArray());
         }
-        
+
         [Test]
         public void RemoveAll_Without_Predicate_Test()
         {
@@ -69,17 +69,17 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             List<int> r = new();
             l.RemoveAll(p => r.Add(p));
             Assert.IsEmpty(l);
-            Assert.AreEqual(new[]{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, r.ToArray());
+            Assert.AreEqual(new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, r.ToArray());
         }
-        
+
         [Test]
         public void RemoveAll_With_Predicate_No_Action_Test()
         {
             var l = Enumerable.Range(1, 10).ToList();
             TheXDS.MCART.Types.Extensions.CollectionExtensions.RemoveAll(l, p => p % 2 == 1);
-            Assert.AreEqual(new[]{ 2, 4, 6, 8, 10 }, l.ToArray());
+            Assert.AreEqual(new[] { 2, 4, 6, 8, 10 }, l.ToArray());
         }
-        
+
         [Test]
         public void RemoveAll_Without_Params_Test()
         {
@@ -95,7 +95,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             var g = l.Push();
             Assert.Contains(g, l);
         }
-        
+
         [Test]
         public void PushInto_Test()
         {
@@ -103,7 +103,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             var g = Guid.NewGuid().PushInto(l);
             Assert.Contains(g, l);
         }
-        
+
         [Test]
         public void Push_With_Base_Type_Test()
         {
@@ -150,10 +150,10 @@ namespace TheXDS.MCART.Tests.Types.Extensions
 
             Assert.NotNull(n);
             Assert.NotNull(o);
-            Assert.AreNotSame(j,n);
-            Assert.AreNotSame(k,o);
+            Assert.AreNotSame(j, n);
+            Assert.AreNotSame(k, o);
         }
-        
+
         [Test]
         public void AddClone_Test()
         {
@@ -166,7 +166,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             var n = m.Single(p => p.Value == j.Value);
 
             Assert.NotNull(n);
-            Assert.AreNotSame(j,n);
+            Assert.AreNotSame(j, n);
         }
     }
 }

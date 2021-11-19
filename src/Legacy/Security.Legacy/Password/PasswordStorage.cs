@@ -76,7 +76,7 @@ namespace TheXDS.MCART.Security.Password
             var diff = (uint)a.Count ^ (uint)b.Count;
             for (var i = 0; i < a.Count && i < b.Count; i++)
                 diff |= (uint)(a[i] ^ b[i]);
-            
+
             return diff == 0;
 #else
             return System.Linq.Enumerable.SequenceEqual(a, b);

@@ -76,7 +76,7 @@ namespace TheXDS.MCART.Attributes
         /// </param>
         public EmbeddedLicenseAttribute(string value, string path, Type compressorType) : base(value)
         {
-            if (!compressorType.Implements<ICompressorGetter>()) throw new InvalidTypeException(compressorType);   
+            if (!compressorType.Implements<ICompressorGetter>()) throw new InvalidTypeException(compressorType);
             Path = path;
             CompressorType = compressorType;
         }

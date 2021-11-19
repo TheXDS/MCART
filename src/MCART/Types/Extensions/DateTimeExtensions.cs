@@ -234,7 +234,7 @@ namespace TheXDS.MCART.Types.Extensions
         public static string MonthName(in int month, in CultureInfo culture)
         {
             if (!month.IsBetween(1, 12)) throw new ArgumentOutOfRangeException(nameof(month));
-            return new DateTime(2001, month, 1).ToString("MMMM",culture);
+            return new DateTime(2001, month, 1).ToString("MMMM", culture);
         }
     }
 }

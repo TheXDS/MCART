@@ -37,7 +37,7 @@ using NUnit.Framework;
 namespace TheXDS.MCART.Tests.Helpers
 {
     public class CollectionHelpersTests
-    { 
+    {
         [Test]
         public void Or_Test_bool()
         {
@@ -187,7 +187,7 @@ namespace TheXDS.MCART.Tests.Helpers
         }
 
         [CLSCompliant(false)]
-        [TestCase(new[] { (char)131,(char) 140 }, (char)15)]
+        [TestCase(new[] { (char)131, (char)140 }, (char)15)]
         [TestCase(new[] { '\x10F0', '\x100F' }, '\x00FF')]
         public void Xor_Test_char(char[] array, char orValue)
         {
@@ -286,9 +286,9 @@ namespace TheXDS.MCART.Tests.Helpers
 
             Assert.Throws<ArgumentException>(() => new[] { 1.0 }.ToPercent(double.NaN, double.NaN).ToList());
             Assert.Throws<ArgumentException>(() => new[] { 1.0 }.ToPercent(0.0, double.NaN).ToList());
-            Assert.Throws<InvalidOperationException>(() => new[] {1.0, 1.0}.ToPercent(1.0, 1.0).ToList());
+            Assert.Throws<InvalidOperationException>(() => new[] { 1.0, 1.0 }.ToPercent(1.0, 1.0).ToList());
         }
-        
+
         [Test]
         public async Task ToPercentAsync_Test_Double()
         {
@@ -297,29 +297,29 @@ namespace TheXDS.MCART.Tests.Helpers
             Assert.AreEqual(new[] { 0.2, 0.4, 0.6, 0.8, 1.0 }, await Read(GetValuesAsync<double>().ToPercent(0, 5)));
             Assert.AreEqual(new[] { 0.2, 0.4, 0.6, 0.8, 1.0, double.NaN }, await Read(GetValuesAsync<double>(double.NaN).ToPercent(0, 5)));
         }
-        
+
         private static async IAsyncEnumerable<T> GetValuesAsync<T>(T? tail = null) where T : struct
         {
-            yield return (T)Convert.ChangeType(1,typeof(T));
+            yield return (T)Convert.ChangeType(1, typeof(T));
             await Task.CompletedTask;
-            yield return (T)Convert.ChangeType(2,typeof(T));
+            yield return (T)Convert.ChangeType(2, typeof(T));
             await Task.CompletedTask;
-            yield return (T)Convert.ChangeType(3,typeof(T));
+            yield return (T)Convert.ChangeType(3, typeof(T));
             await Task.CompletedTask;
-            yield return (T)Convert.ChangeType(4,typeof(T));
+            yield return (T)Convert.ChangeType(4, typeof(T));
             await Task.CompletedTask;
-            yield return (T)Convert.ChangeType(5,typeof(T));
+            yield return (T)Convert.ChangeType(5, typeof(T));
             await Task.CompletedTask;
             if (tail is { } t) yield return t;
         }
-        
+
         private static async Task<T[]> Read<T>(IAsyncEnumerable<T> d)
         {
             var l = new List<T>();
             await foreach (var j in d) l.Add(j);
             return l.ToArray();
         }
-            
+
         [Test]
         public async Task ToPercentAsync_Test_Single()
         {
@@ -363,7 +363,7 @@ namespace TheXDS.MCART.Tests.Helpers
 
             Assert.Throws<ArgumentException>(() => new[] { 1f }.ToPercent(float.NaN, float.NaN).ToList());
             Assert.Throws<ArgumentException>(() => new[] { 1f }.ToPercent(0f, float.NaN).ToList());
-            Assert.Throws<InvalidOperationException>(() => new[] {1f, 1f}.ToPercent(1f, 1f).ToList());
+            Assert.Throws<InvalidOperationException>(() => new[] { 1f, 1f }.ToPercent(1f, 1f).ToList());
             Assert.Throws<EmptyCollectionException>(() => Array.Empty<float>().ToPercent().ToList());
         }
 

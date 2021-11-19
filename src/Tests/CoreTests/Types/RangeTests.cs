@@ -96,7 +96,7 @@ namespace TheXDS.MCART.Tests.Types
         {
             var a = new Range<int>(min1, max1, inclusively);
             var b = new Range<int>(min2, max2, inclusively);
-            
+
             Assert.AreEqual(expected, a.Intersects(b));
         }
     }

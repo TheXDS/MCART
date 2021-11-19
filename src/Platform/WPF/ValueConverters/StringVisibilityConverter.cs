@@ -123,7 +123,7 @@ namespace TheXDS.MCART.ValueConverters
         /// </returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return ((string) value)?.IsEmpty() ?? false ? Empty : NotEmpty;
+            return ((string)value)?.IsEmpty() ?? false ? Empty : NotEmpty;
         }
 
         /// <summary>

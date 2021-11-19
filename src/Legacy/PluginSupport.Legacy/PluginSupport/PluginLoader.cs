@@ -31,8 +31,8 @@ using System.Reflection;
 using System.Threading.Tasks;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
-using TheXDS.MCART.Helpers;
 using TheXDS.MCART.PluginSupport.Legacy.Resources.Strings;
+using TheXDS.MCART.Types.Extensions;
 using static TheXDS.MCART.Types.Extensions.TypeExtensions;
 //using St = TheXDS.MCART.Resources.Strings.Strings;
 
@@ -547,7 +547,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
 #if PreferExceptions
             else { throw new NotPluginException(assembly); }
 #endif
-            return global::System.Array.Empty<global::TheXDS.MCART.PluginSupport.Legacy.IPlugin>();
+            return global::System.Array.Empty<IPlugin>();
         }
 
         /// <summary>

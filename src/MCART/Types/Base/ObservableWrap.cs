@@ -178,7 +178,7 @@ namespace TheXDS.MCART.Types.Base
             UnderlyingCollection = default!;
             RaiseCollectionChanged(new NcchEa(Reset));
             UnderlyingCollection = newCollection;
-            
+
             if (newCollection is not null) RaiseCollectionChanged(new NcchEa(Nccha.Add, (IList)UnderlyingCollection));
             Notify(nameof(Count));
         }
@@ -205,7 +205,7 @@ namespace TheXDS.MCART.Types.Base
                 Notify(nameof(Count));
             });
         }
-        
+
         /// <summary>
         /// Determina si la secuencia subyacente contiene al elemento
         /// especificado.

@@ -106,7 +106,8 @@ namespace TheXDS.MCART.Resources
         /// si este es una cadena vacía.
         /// </exception>
         /// 
-        [Sugar] protected Stream UnpackStream(string id, string compressorId)
+        [Sugar]
+        protected Stream UnpackStream(string id, string compressorId)
         {
             return UnpackStream(id, Objects.FindType<ICompressorGetter>(compressorId)?.New<ICompressorGetter>() ?? new NullGetter());
         }

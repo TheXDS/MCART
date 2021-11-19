@@ -22,13 +22,13 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using TheXDS.MCART.Attributes;
 using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media.Imaging;
-using TheXDS.MCART.Helpers;
+using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Types.Extensions;
 using static TheXDS.MCART.Types.Extensions.StringExtensions;
 
 namespace TheXDS.MCART.PluginSupport.Legacy

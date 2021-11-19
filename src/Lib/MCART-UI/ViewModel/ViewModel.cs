@@ -48,7 +48,7 @@ namespace TheXDS.MCART.ViewModel
         /// Instancia de la entidad controlada por este ViewModel.
         /// </summary>
         public virtual T Entity
-        { 
+        {
             get => _entity;
             set => Change(ref _entity, value);
         }

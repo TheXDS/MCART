@@ -55,7 +55,8 @@ namespace TheXDS.MCART.Types.Extensions
         /// <see langword="true"/> si existe un elemento del tipo especificado
         /// en la colección, <see langword="false"/> en caso contrario.
         /// </returns>
-        [Sugar] public static bool IsAnyOf<T>(this IEnumerable collection)
+        [Sugar]
+        public static bool IsAnyOf<T>(this IEnumerable collection)
         {
             return collection.OfType<T>().Any();
         }
@@ -232,7 +233,7 @@ namespace TheXDS.MCART.Types.Extensions
         {
             foreach (var j in collection) yield return j;
         }
-        
+
         /// <summary>
         /// Obtiene al primer elemento del tipo solicitado dentro de una
         /// colección.
@@ -316,7 +317,7 @@ namespace TheXDS.MCART.Types.Extensions
         {
             bool Compare(T value)
             {
-                return value?.GetType().Default() == null
+                return value is not null && value.GetType().IsClass
                     ? value.IsNeither(exclusions.AsEnumerable())
                     : !exclusions.Contains(value);
             }
@@ -400,7 +401,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// caso de tipos de referencia, omitiendo aquellos que sean 
         /// <see langword="null"/>.
         /// </returns>
-        public static IEnumerable<T> NonDefaults<T>(this IEnumerable<T?> collection) where T : notnull 
+        public static IEnumerable<T> NonDefaults<T>(this IEnumerable<T?> collection) where T : notnull
         {
             return collection.Where(p => !Equals(p, default(T)!))!;
         }
@@ -619,7 +620,7 @@ namespace TheXDS.MCART.Types.Extensions
         }
 
         /// <summary>
-        /// Crea un <see cref="System.Collections.Generic.List{T}"/> a partir de un <see cref="IEnumerable{T}"/> de forma asíncrona.
+        /// Crea un <see cref="List{T}"/> a partir de un <see cref="IEnumerable{T}"/> de forma asíncrona.
         /// </summary>
         /// <typeparam name="T">Tipo de la colección.</typeparam>
         /// <param name="enumerable"></param>
@@ -659,39 +660,39 @@ namespace TheXDS.MCART.Types.Extensions
             switch (steps)
             {
                 case > 0:
-                {
-                    using var e = collection.GetEnumerator();
-                    e.Reset();
-                    var j = 0;
-                    
-                    while (j++ < steps) e.MoveNext();
-                    while (e.MoveNext()) yield return e.Current;
-                    e.Reset();
-                    while (--j > 0)
                     {
-                        e.MoveNext();
-                        yield return e.Current;
+                        using var e = collection.GetEnumerator();
+                        e.Reset();
+                        var j = 0;
+
+                        while (j++ < steps) e.MoveNext();
+                        while (e.MoveNext()) yield return e.Current;
+                        e.Reset();
+                        while (--j > 0)
+                        {
+                            e.MoveNext();
+                            yield return e.Current;
+                        }
+
+                        break;
                     }
-
-                    break;
-                }
                 case < 0:
-                {
-                    var c = new List<T>();
-                    using var e = collection.GetEnumerator();
-                    e.Reset();
+                    {
+                        var c = new List<T>();
+                        using var e = collection.GetEnumerator();
+                        e.Reset();
 
-                    // HACK: La implementación para IList<T> es funcional, y no requiere de trucos inusuales para rotar.
-                    while (e.MoveNext()) c.Add(e.Current);
-                    c.ApplyRotate(steps);
-                    foreach (var i in c) yield return i;
-                    break;
-                }
+                        // HACK: La implementación para IList<T> es funcional, y no requiere de trucos inusuales para rotar.
+                        while (e.MoveNext()) c.Add(e.Current);
+                        c.ApplyRotate(steps);
+                        foreach (var i in c) yield return i;
+                        break;
+                    }
                 default:
-                {
-                    foreach (var i in collection) yield return i;
-                    break;
-                }
+                    {
+                        foreach (var i in collection) yield return i;
+                        break;
+                    }
             }
         }
 
@@ -711,35 +712,35 @@ namespace TheXDS.MCART.Types.Extensions
             switch (steps)
             {
                 case > 0:
-                {
-                    using var e = collection.GetEnumerator();
-                    e.Reset();
-                    var j = 0;
-                    while (j++ < steps) e.MoveNext();
-                    while (e.MoveNext()) yield return e.Current;
-                    while (--j > 0) yield return default!;
-                    break;
-                }
+                    {
+                        using var e = collection.GetEnumerator();
+                        e.Reset();
+                        var j = 0;
+                        while (j++ < steps) e.MoveNext();
+                        while (e.MoveNext()) yield return e.Current;
+                        while (--j > 0) yield return default!;
+                        break;
+                    }
                 case < 0:
-                {
-                    using var e = collection.GetEnumerator();
-                    e.Reset();
-                    var j = 0;
-                    
-                    var c = new List<T>();
+                    {
+                        using var e = collection.GetEnumerator();
+                        e.Reset();
+                        var j = 0;
 
-                    // HACK: Enumeración manual
-                    while (e.MoveNext()) c.Add(e.Current);
-                    while (j-- > steps) yield return default!;
-                    j += c.Count;
-                    while (j-- >= 0) yield return c.PopFirst();
-                    break;
-                }
+                        var c = new List<T>();
+
+                        // HACK: Enumeración manual
+                        while (e.MoveNext()) c.Add(e.Current);
+                        while (j-- > steps) yield return default!;
+                        j += c.Count;
+                        while (j-- >= 0) yield return c.PopFirst();
+                        break;
+                    }
                 default:
-                {
-                    foreach (var i in collection) yield return i;
-                    break;
-                }
+                    {
+                        foreach (var i in collection) yield return i;
+                        break;
+                    }
             }
         }
 
@@ -1041,9 +1042,9 @@ namespace TheXDS.MCART.Types.Extensions
         /// iguales, <see langword="false"/> en caso contrario.
         /// </returns>
         public static bool AreAllEqual<T>(this IEnumerable<T> c)
-        { 
+        {
             using var j = c.GetEnumerator();
-            if (!j.MoveNext())  throw new EmptyCollectionException(c);
+            if (!j.MoveNext()) throw new EmptyCollectionException(c);
             var eq = j.Current;
             while (j.MoveNext())
             {
@@ -1069,7 +1070,8 @@ namespace TheXDS.MCART.Types.Extensions
         /// de los objetos de la colección son iguales, <see langword="false"/>
         /// en caso contrario.
         /// </returns>
-        [Sugar] public static bool AreAllEqual<T, TProp>(this IEnumerable<T> c, Func<T, TProp> selector)
+        [Sugar]
+        public static bool AreAllEqual<T, TProp>(this IEnumerable<T> c, Func<T, TProp> selector)
         {
             return c.Select(selector).AreAllEqual();
         }

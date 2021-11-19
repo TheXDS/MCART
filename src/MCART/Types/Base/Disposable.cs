@@ -22,11 +22,9 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma warning disable CA1063 // IDisposable se implementa explícitamente de esta forma para simplificar la declaración de clases desechables.
-
 using System;
 using System.Runtime.CompilerServices;
-using TheXDS.MCART.Helpers;
+using TheXDS.MCART.Types.Extensions;
 using static System.Reflection.BindingFlags;
 
 namespace TheXDS.MCART.Types.Base
@@ -57,13 +55,13 @@ namespace TheXDS.MCART.Types.Base
         protected void Dispose(bool disposing)
         {
             if (IsDisposed) return;
-            
+
             if (disposing)
             {
                 OnDispose();
             }
             OnFinalize();
-            IsDisposed = true;            
+            IsDisposed = true;
         }
 
         /// <summary>
@@ -84,7 +82,7 @@ namespace TheXDS.MCART.Types.Base
         public void Dispose()
         {
             Dispose(true);
-            if (ShouldFinalize()) GC.SuppressFinalize(this);            
+            if (ShouldFinalize()) GC.SuppressFinalize(this);
         }
 
         /// <summary>
@@ -92,7 +90,7 @@ namespace TheXDS.MCART.Types.Base
         /// </summary>
         ~Disposable()
         {
-            if (ShouldFinalize()) Dispose(false);            
+            if (ShouldFinalize()) Dispose(false);
         }
     }
 }

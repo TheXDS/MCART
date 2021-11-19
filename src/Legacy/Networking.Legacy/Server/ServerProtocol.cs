@@ -38,7 +38,7 @@ namespace TheXDS.MCART.Networking.Legacy.Server
     /// una clase que provea de protocolos a un servidor.
     /// </summary>
     public abstract class ServerProtocol : ServerProtocol<Client>
-    {        
+    {
     }
 
     /// <summary>
@@ -145,7 +145,7 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         /// <param name="client">Cliente que será atendido.</param>
         /// <param name="data">Datos recibidos desde el cliente.</param>
         public void ClientAttendant(Client client, byte[] data) => ClientAttendant((T)client, data);
-        
+
         /// <summary>
         /// Protocolo de atención al cliente
         /// </summary>

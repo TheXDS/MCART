@@ -38,7 +38,7 @@ namespace TheXDS.MCART.Math
         /// Representa la proporción de 1 grado DEG sobre PI
         /// </summary>
         public const double DegRad = 0.0174532925199433D;
-        
+
         /// <summary>
         /// Obtiene las coordenadas X,Y de una posición específica dentro de un
         /// bezier cuadrático
@@ -61,7 +61,7 @@ namespace TheXDS.MCART.Math
         /// </returns>
         public static Point GetQuadBezierPoint(in double position, in Point startPoint, in Point controlPoint, in Point endPoint)
         {
-            GetQuadBezierPoint_Contract(position, startPoint, controlPoint, endPoint);            
+            GetQuadBezierPoint_Contract(position, startPoint, controlPoint, endPoint);
             var a = 1 - position;
             var b = a * a;
             var c = 2 * a * position;

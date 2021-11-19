@@ -70,7 +70,7 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         /// protocolo, <see langword="false" /> en caso contrario.
         /// </returns>
         /// <param name="client">Cliente que será atendido.</param>
-        bool ClientWelcome(T client);        
+        bool ClientWelcome(T client);
     }
 
     /// <summary>

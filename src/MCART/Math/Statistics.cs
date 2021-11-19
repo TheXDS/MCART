@@ -141,7 +141,7 @@ namespace TheXDS.MCART.Math
         {
             var d = data.ToList();
             if (!d.Any()) return double.NaN;
-            
+
             d.Sort();
 
             var p = d.Count / 2;

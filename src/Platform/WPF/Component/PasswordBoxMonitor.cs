@@ -86,7 +86,7 @@ namespace TheXDS.MCART.Wpf.Component
         }
 
         private static readonly DependencyPropertyKey IsMonitoringDependencyPropertyKey = DependencyProperty.RegisterAttachedReadOnly("IsMonitoring", typeof(bool), typeof(PasswordBoxMonitor), new PropertyMetadata(false));
-        
+
         /// <summary>
         /// Permite monitorear un <see cref="PasswordBox"/>.
         /// </summary>

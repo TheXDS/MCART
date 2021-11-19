@@ -24,8 +24,8 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Collections.Generic;
-using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Resources;
+using TheXDS.MCART.Types.Extensions;
 using static System.AttributeTargets;
 using static TheXDS.MCART.Types.Extensions.DictionaryExtensions;
 
@@ -81,7 +81,7 @@ namespace TheXDS.MCART.Attributes
                 {
                     id = id.Replace(i.ToString(), $"-{i}-");
                 }
-                n = id.Replace("-_-", ".").Replace("--", "").Replace('_','-').Replace("--", "-").Trim('-');
+                n = id.Replace("-_-", ".").Replace("--", "").Replace('_', '-').Replace("--", "-").Trim('-');
             }
 
             if (_licenses.ContainsKey(n)) return _licenses[n];

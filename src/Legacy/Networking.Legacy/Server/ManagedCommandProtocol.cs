@@ -264,7 +264,7 @@ namespace TheXDS.MCART.Networking.Legacy.Server
             /// </param>
             public void Send(TClient client, TResult response, IEnumerable<byte> rawData)
             {
-                client.Send(MkResp(response,false).Concat(rawData));
+                client.Send(MkResp(response, false).Concat(rawData));
             }
 
             /// <summary>
@@ -386,7 +386,7 @@ namespace TheXDS.MCART.Networking.Legacy.Server
             /// </param>
             public void Broadcast(TResult response, MemoryStream data)
             {
-                Broadcast(response,data.ToArray());
+                Broadcast(response, data.ToArray());
             }
 
             /// <summary>
@@ -662,7 +662,7 @@ namespace TheXDS.MCART.Networking.Legacy.Server
             /// <returns>
             /// Un <see cref="Task"/> que permite monitorear la operación.
             /// </returns>
-            public Task SendAsync(TClient client,TResult response)
+            public Task SendAsync(TClient client, TResult response)
             {
                 return client.SendAsync(MkResp(response, false));
             }
@@ -1092,7 +1092,7 @@ namespace TheXDS.MCART.Networking.Legacy.Server
                     WireUp(k, j);
                 }
             }
-            foreach(var l in WireUp())
+            foreach (var l in WireUp())
             {
                 WireUp(l.Key, l.Value);
             }
@@ -1169,14 +1169,14 @@ namespace TheXDS.MCART.Networking.Legacy.Server
         /// </param>
         public void Relay(TCommand command, TResult requestResult, TResult relayResult)
         {
-            WireUp(command, request => 
+            WireUp(command, request =>
             {
                 request.Respond(requestResult);
                 var data = request.GetPayload();
                 request.Broadcast(relayResult, data);
             });
         }
-        
+
         /// <summary>
         /// Crea una respuesta a partir del valor
         /// <typeparamref name="TResult"/> especificado.

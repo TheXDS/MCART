@@ -24,13 +24,8 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Reflection;
 using System.Runtime.CompilerServices;
-using TheXDS.MCART.Exceptions;
 using static TheXDS.MCART.Misc.Internals;
 
 namespace TheXDS.MCART.Helpers
@@ -40,13 +35,6 @@ namespace TheXDS.MCART.Helpers
     /// </summary>
     public static partial class Objects
     {
-        [Conditional("EnforceContracts")]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [DebuggerNonUserCode]
-        private static void WhichAreNull_Contract(IEnumerable<object?> collection)
-        {
-            NullCheck(collection, nameof(collection));
-        }
 
         [Conditional("EnforceContracts")]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

@@ -40,6 +40,7 @@ using System.Windows.Media.Imaging;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types.Base;
+using TheXDS.MCART.Types.Extensions;
 using TheXDS.MCART.Windows.Dwm;
 using TheXDS.MCART.Wpf.Component;
 using static TheXDS.MCART.Types.Extensions.StringExtensions;
@@ -161,7 +162,7 @@ namespace TheXDS.MCART
         /// <param name="source">Orígen del enlace.</param>
         public static void Bind(this FrameworkElement obj, DependencyProperty dp, DependencyObject source)
         {
-            Bind(obj, dp, (object) source, dp, BindingMode.TwoWay);
+            Bind(obj, dp, (object)source, dp, BindingMode.TwoWay);
         }
 
         /// <summary>
@@ -174,7 +175,7 @@ namespace TheXDS.MCART
         public static void Bind(this FrameworkElement obj, DependencyProperty dp, DependencyObject source,
             BindingMode mode)
         {
-            Bind(obj, dp, (object) source, dp, mode);
+            Bind(obj, dp, (object)source, dp, mode);
         }
 
         /// <summary>
@@ -186,7 +187,7 @@ namespace TheXDS.MCART
         /// <param name="source">Orígen del enlace.</param>
         public static void Bind(this FrameworkElement obj, DependencyProperty dp, INotifyPropertyChanged source)
         {
-            Bind(obj, dp, (object) source, dp, BindingMode.TwoWay);
+            Bind(obj, dp, (object)source, dp, BindingMode.TwoWay);
         }
 
         /// <summary>
@@ -200,7 +201,7 @@ namespace TheXDS.MCART
         public static void Bind(this FrameworkElement obj, DependencyProperty dp, INotifyPropertyChanged source,
             BindingMode mode)
         {
-            Bind(obj, dp, (object) source, dp, mode);
+            Bind(obj, dp, (object)source, dp, mode);
         }
 
         /// <summary>
@@ -213,7 +214,7 @@ namespace TheXDS.MCART
         public static void Bind(this FrameworkElement obj, DependencyProperty targetDp, DependencyObject source,
             DependencyProperty sourceDp)
         {
-            Bind(obj, targetDp, (object) source, sourceDp, BindingMode.TwoWay);
+            Bind(obj, targetDp, (object)source, sourceDp, BindingMode.TwoWay);
         }
 
         /// <summary>
@@ -227,7 +228,7 @@ namespace TheXDS.MCART
         public static void Bind(this FrameworkElement obj, DependencyProperty targetDp, DependencyObject source,
             DependencyProperty sourceDp, BindingMode mode)
         {
-            Bind(obj, targetDp, (object) source, sourceDp, mode);
+            Bind(obj, targetDp, (object)source, sourceDp, mode);
         }
 
         /// <summary>
@@ -241,7 +242,7 @@ namespace TheXDS.MCART
         public static void Bind(this FrameworkElement obj, DependencyProperty targetDp, INotifyPropertyChanged source,
             DependencyProperty sourceDp)
         {
-            Bind(obj, targetDp, (object) source, sourceDp, BindingMode.TwoWay);
+            Bind(obj, targetDp, (object)source, sourceDp, BindingMode.TwoWay);
         }
 
         /// <summary>
@@ -256,7 +257,7 @@ namespace TheXDS.MCART
         public static void Bind(this FrameworkElement obj, DependencyProperty targetDp, INotifyPropertyChanged source,
             DependencyProperty sourceDp, BindingMode mode)
         {
-            Bind(obj, targetDp, (object) source, sourceDp, mode);
+            Bind(obj, targetDp, (object)source, sourceDp, mode);
         }
 
         /// <summary>
@@ -415,7 +416,7 @@ namespace TheXDS.MCART
         /// <see cref="SolidColorBrush" />.
         /// </summary>
         /// <param name="brush"><see cref="SolidColorBrush" /> a animar.</param>
-        /// <param name="flashColor"><see cref="System.Windows.Media.Color" /> del destello.</param>
+        /// <param name="flashColor"><see cref="Color" /> del destello.</param>
         public static void Flash(this SolidColorBrush brush, Color flashColor)
         {
             var flash = new ColorAnimation
@@ -472,7 +473,7 @@ namespace TheXDS.MCART
                 if (s is null) break;
                 //using (s)
                 //{
-                    return GetBitmap(s);
+                return GetBitmap(s);
                 //}
             }
             return null;
@@ -505,11 +506,11 @@ namespace TheXDS.MCART
         /// </returns>
         public static async Task<BitmapImage?> GetBitmapAsync(Uri uri)
         {
-            foreach(var j in _uriParsers)
+            foreach (var j in _uriParsers)
             {
                 if (!j.Handles(uri)) continue;
                 var s = await j.OpenFullTransferAsync(uri);
-                if (s is null) return Render(Resources.WpfIcons.FileMissing, new Size(256,256), 96).ToImage();
+                if (s is null) return Render(Resources.WpfIcons.FileMissing, new Size(256, 256), 96).ToImage();
                 return GetBitmap(s);
             }
             return null;
@@ -659,7 +660,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static RenderTargetBitmap Render(this FrameworkElement f)
         {
-            return Render(f, new Size((int) f.ActualWidth, (int) f.ActualHeight), WinUi.GetDpi().X);
+            return Render(f, new Size((int)f.ActualWidth, (int)f.ActualHeight), WinUi.GetDpi().X);
         }
 
         /// <summary>
@@ -677,7 +678,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static RenderTargetBitmap Render(this FrameworkElement f, int dpi)
         {
-            return Render(f, new Size((int) f.ActualWidth, (int) f.ActualHeight), dpi);
+            return Render(f, new Size((int)f.ActualWidth, (int)f.ActualHeight), dpi);
         }
 
         /// <summary>
@@ -699,8 +700,8 @@ namespace TheXDS.MCART
         public static RenderTargetBitmap Render(this Visual visual, Size size, int dpi)
         {
             var bmp = new RenderTargetBitmap(
-                (int) size.Width,
-                (int) size.Height,
+                (int)size.Width,
+                (int)size.Height,
                 dpi, dpi,
                 PixelFormats.Pbgra32);
             bmp.Render(visual);
@@ -914,7 +915,7 @@ namespace TheXDS.MCART
                 _rf = c,
                 _fore = c.Foreground,
                 _bacg = c.Background,
-                _ttip = (ToolTip) c.ToolTip
+                _ttip = (ToolTip)c.ToolTip
             });
             SolidColorBrush brush;
             if (c.Foreground is SolidColorBrush fore)
@@ -926,7 +927,7 @@ namespace TheXDS.MCART
             else brush = new SolidColorBrush(Colors.Pink);
             c.Background = brush;
             brush.Flash(Colors.Red);
-            if (!ttip.IsEmpty()) c.ToolTip = new ToolTip {Content = ttip};
+            if (!ttip.IsEmpty()) c.ToolTip = new ToolTip { Content = ttip };
         }
     }
 }

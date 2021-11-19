@@ -58,7 +58,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             public static int? Prop1 { get; set; } = 1;
             public static int? Prop2 { get; set; }
         }
-        
+
         [Test]
         public void SetDefault_Test()
         {
@@ -79,7 +79,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             Assert.Throws<InvalidOperationException>(() => o.GetType().GetProperties()[0].SetDefault(o));
             Assert.Throws<MissingMemberException>(() => typeof(Exception).GetProperty("Message")!.SetDefault(o));
         }
-        
+
         [Test]
         public void SetDefault_Static_Property_Test()
         {
@@ -93,7 +93,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             Assert.AreEqual(1, Test3.Prop1);
             Assert.Null(Test3.Prop2);
         }
-        
+
         [Test]
         public void IsReadWrite_Test()
         {

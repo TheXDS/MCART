@@ -41,7 +41,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         public void DynamicWrite_Contract_Test()
         {
             BinaryWriter? bw = null;
-            
+
             Assert.Throws<ArgumentNullException>(() => bw!.DynamicWrite(1));
             using var ms = new MemoryStream();
             using (bw = new BinaryWriter(ms))
@@ -59,7 +59,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             Assert.Throws<NotSupportedException>(() => bw.WriteStruct(1));
             Assert.Throws<NotSupportedException>(() => bw.WriteStruct(Guid.NewGuid()));
         }
-        
+
         private struct TestStruct
         {
             public int Int32Value;

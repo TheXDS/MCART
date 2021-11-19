@@ -33,6 +33,7 @@ using System.Reflection;
 using System.Text;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Extensions;
 using static TheXDS.MCART.Misc.Internals;
 
@@ -154,28 +155,6 @@ namespace TheXDS.MCART.Helpers
         }
 
         /// <summary>
-        /// Enumera el valor de todas los campos que devuelvan valores de
-        /// tipo <typeparamref name="T" /> del objeto especificado.
-        /// </summary>
-        /// <typeparam name="T">Tipo de campos a obtener.</typeparam>
-        /// <param name="instance">
-        /// Instancia desde la cual obtener los campos.
-        /// </param>
-        /// <returns>
-        /// Una enumeración de todos los valores de tipo
-        /// <typeparamref name="T" /> del objeto.
-        /// </returns>
-        /// <exception cref="ArgumentNullException">
-        /// Se produce si <paramref name="instance"/> es
-        /// <see langword="null"/>.
-        /// </exception>
-        public static IEnumerable<T> FieldsOf<T>(object instance)
-        {
-            NullCheck(instance, nameof(instance));
-            return FieldsOf<T>(instance.GetType().GetFields(), instance);
-        }
-
-        /// <summary>
         /// Enumera el valor de todas los campos estáticos que devuelvan
         /// valores de tipo <typeparamref name="T" />.
         /// </summary>
@@ -194,28 +173,6 @@ namespace TheXDS.MCART.Helpers
         public static IEnumerable<T> FieldsOf<T>(IEnumerable<FieldInfo> fields)
         {
             return FieldsOf<T>(fields, null);
-        }
-
-        /// <summary>
-        /// Enumera el valor de todas los campos estáticos que devuelvan
-        /// valores de tipo <typeparamref name="T" /> en el tipo especificado.
-        /// </summary>
-        /// <typeparam name="T">Tipo de campos a obtener.</typeparam>
-        /// <param name="type">
-        /// Tipo desde el cual obtener los campos.
-        /// </param>
-        /// <returns>
-        /// Una enumeración de todos los valores de tipo
-        /// <typeparamref name="T" /> del tipo.
-        /// </returns>
-        /// <exception cref="ArgumentNullException">
-        /// Se produce si <paramref name="type"/> es
-        /// <see langword="null"/>.
-        /// </exception>
-        public static IEnumerable<T> FieldsOf<T>(Type type)
-        {
-            NullCheck(type, nameof(type));
-            return FieldsOf<T>(type.GetFields(BindingFlags.Static | BindingFlags.Public), null);
         }
 
         /// <summary>
@@ -312,7 +269,7 @@ namespace TheXDS.MCART.Helpers
         {
             return GetMemberInternal(memberSelector) as TMember ?? throw new InvalidArgumentException(nameof(memberSelector));
         }
-       
+
         /// <summary>
         /// Obtiene una referencia al miembro seleccionado por medio de una
         /// expresión.
@@ -427,7 +384,7 @@ namespace TheXDS.MCART.Helpers
         {
             return GetMember<PropertyInfo, T, TValue>(propertySelector);
         }
-        
+
         /// <summary>
         /// Obtiene una referencia a la propiedad seleccionada por medio de una
         /// expresión.
@@ -446,7 +403,7 @@ namespace TheXDS.MCART.Helpers
         {
             return GetMember<PropertyInfo, TValue>(propertySelector);
         }
-        
+
         /// <summary>
         /// Obtiene una referencia a la propiedad seleccionada por medio de una
         /// expresión.
@@ -487,7 +444,7 @@ namespace TheXDS.MCART.Helpers
         {
             return GetMember<FieldInfo, T, TValue>(fieldSelector);
         }
-        
+
         /// <summary>
         /// Obtiene una referencia al campo seleccionado por medio de una
         /// expresión.
@@ -506,7 +463,7 @@ namespace TheXDS.MCART.Helpers
         {
             return GetMember<FieldInfo, TValue>(fieldSelector);
         }
-        
+
         /// <summary>
         /// Obtiene una referencia al campo seleccionado por medio de una
         /// expresión.
@@ -546,7 +503,7 @@ namespace TheXDS.MCART.Helpers
                 return Objects.GetTypes<object>().NotNull().FirstOrDefault(p => p.FullName == name);
             }
         }
-        
+
         private static MemberInfo GetMemberInternal(LambdaExpression memberSelector)
         {
             return memberSelector.Body switch
@@ -557,7 +514,7 @@ namespace TheXDS.MCART.Helpers
                 MethodCallExpression { Method: { } m } => m,
                 UnaryExpression { Operand: MemberExpression m } => m.Member,
                 MemberExpression m => m.Member,
-                _ => throw new ArgumentException()
+                _ => throw Errors.InvalidSelectorExpression()
             };
         }
     }

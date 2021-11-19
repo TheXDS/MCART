@@ -73,7 +73,7 @@ namespace TheXDS.MCART.Security.Password
 
         /// <summary>
         /// Inicializa una nueva instancia de la clase
-        /// <see cref="TheXDS.MCART.Security.Password.PasswordEvaluator" />.
+        /// <see cref="PasswordEvaluator" />.
         /// </summary>
         /// <param name="evalRules">Reglas de evaluación a incluir.</param>
         public PasswordEvaluator(params PasswordEvaluationRule[] evalRules)
@@ -84,10 +84,10 @@ namespace TheXDS.MCART.Security.Password
 
         /// <summary>
         /// Inicializa una nueva instancia de la clase
-        /// <see cref="TheXDS.MCART.Security.Password.PasswordEvaluator" />.
+        /// <see cref="PasswordEvaluator" />.
         /// </summary>
         /// <param name="evalRules">Reglas de evaluación a incluir.</param>
-        public PasswordEvaluator(IEnumerable<PasswordEvaluationRule> evalRules):this(evalRules.ToArray())
+        public PasswordEvaluator(IEnumerable<PasswordEvaluationRule> evalRules) : this(evalRules.ToArray())
         {
         }
     }

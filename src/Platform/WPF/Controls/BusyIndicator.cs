@@ -77,7 +77,7 @@ namespace TheXDS.MCART.Controls
         /// </summary>
         public static readonly DependencyProperty Stroke2Property = DependencyProperty.Register(nameof(Stroke2),
             typeof(Brush), typeof(BusyIndicator), new PropertyMetadata(SystemColors.ControlDarkBrush));
-        
+
         /// <summary>
         /// Identifica a la propiedad de dependencia <see cref="Thickness" />.
         /// </summary>
@@ -118,7 +118,7 @@ namespace TheXDS.MCART.Controls
         private static object CoerceThickness(DependencyObject d, object baseValue)
         {
             if (d is not BusyIndicator b) return baseValue;
-            return ((double)baseValue).Clamp(0, b.Radius*2);
+            return ((double)baseValue).Clamp(0, b.Radius * 2);
         }
 
         private Path path = null!;
@@ -128,7 +128,7 @@ namespace TheXDS.MCART.Controls
         /// </summary>
         public double Radius
         {
-            get => (double) GetValue(RadiusProperty);
+            get => (double)GetValue(RadiusProperty);
             set => SetValue(RadiusProperty, value);
         }
 
@@ -147,7 +147,7 @@ namespace TheXDS.MCART.Controls
         /// </summary>
         public Brush? Stroke
         {
-            get => (Brush?) GetValue(StrokeProperty);
+            get => (Brush?)GetValue(StrokeProperty);
             set => SetValue(StrokeProperty, value);
         }
 

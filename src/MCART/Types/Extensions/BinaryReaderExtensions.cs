@@ -300,7 +300,7 @@ namespace TheXDS.MCART.Types.Extensions
                && p.GetParameters().Single().ParameterType == typeof(BinaryReader)
                && p.ReturnType == t);
         }
-        
+
         private static T ByMarshalReadStructInternal<T>(BinaryReader reader)
         {
             return (T)ByMarshalReadStructInternal(reader, typeof(T));

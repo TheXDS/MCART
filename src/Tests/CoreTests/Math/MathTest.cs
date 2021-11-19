@@ -55,7 +55,7 @@ namespace TheXDS.MCART.Tests.Math
             Assert.AreEqual(1.0, double.NegativeInfinity.Clamp(1, 10));
 #endif
         }
-        
+
         [Test]
         public void WrapTest()
         {

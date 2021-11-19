@@ -84,7 +84,7 @@ namespace TheXDS.MCART.Misc
                     try
                     {
                         var c = 0;
-                        result = instancer(l.Select(k => (TValue) t.ConvertTo(l[c++].Trim(), typeof(TValue))!).ToArray());
+                        result = instancer(l.Select(k => (TValue)t.ConvertTo(l[c++].Trim(), typeof(TValue))!).ToArray());
                         return true;
                     }
                     catch

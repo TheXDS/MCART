@@ -31,7 +31,7 @@ namespace TheXDS.MCART.Types
     /// </summary>
     public class Abgr32ColorParser : IColorParser<int>
     {
-            /// <summary>
+        /// <summary>
         /// Convierte una estructura compatible en un <see cref="Color" />.
         /// </summary>
         /// <param name="value">Valor a convertir.</param>
@@ -47,7 +47,7 @@ namespace TheXDS.MCART.Types
                 (byte)((value & 0xff000000) >> 24));
         }
 
-            /// <summary>
+        /// <summary>
         /// Convierte un <see cref="Color" /> en un valor, utilizando el
         /// <see cref="IColorParser{T}" /> especificado.
         /// </summary>

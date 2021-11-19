@@ -160,5 +160,13 @@ namespace TheXDS.MCART.Helpers
             NullCheck(collection, nameof(collection));
             if (!collection.Any()) throw new EmptyCollectionException(collection);
         }
+
+        [Conditional("EnforceContracts")]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [DebuggerNonUserCode]
+        private static void WhichAreNull_Contract(IEnumerable<object?> collection)
+        {
+            NullCheck(collection, nameof(collection));
+        }
     }
 }

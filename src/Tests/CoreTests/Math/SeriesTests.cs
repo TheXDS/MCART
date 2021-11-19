@@ -59,7 +59,7 @@ namespace TheXDS.MCART.Tests.Math
             };
             Assert.AreEqual(b, a);
         }
-        
+
         [Test]
         public void MakeSeriesAdditiveTest()
         {
@@ -73,14 +73,14 @@ namespace TheXDS.MCART.Tests.Math
             };
             Assert.AreEqual(b, a);
         }
-        
+
         [Test]
         public void MakeSeriesAdditive_BreaksOnOverFlow_Test()
         {
             var a = MakeSeriesAdditive(1, long.MaxValue).Take(4).ToArray();
-            Assert.AreEqual(1,a[0]);
-            Assert.AreEqual(long.MaxValue,a[1]);
-            Assert.AreEqual(2,a.Length);
+            Assert.AreEqual(1, a[0]);
+            Assert.AreEqual(long.MaxValue, a[1]);
+            Assert.AreEqual(2, a.Length);
         }
     }
 }

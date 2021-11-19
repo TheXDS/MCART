@@ -22,6 +22,9 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#pragma warning disable CA1822
+
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -33,7 +36,7 @@ using TheXDS.MCART.Events;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Resources;
-using NUnit.Framework;
+using TheXDS.MCART.Types.Extensions;
 using static TheXDS.MCART.Helpers.Objects;
 
 namespace TheXDS.MCART.Tests.Helpers
@@ -61,20 +64,18 @@ namespace TheXDS.MCART.Tests.Helpers
             public static byte ByteProperty { get; } = 2;
 
             public int TestProperty { get; } = 1;
-            
+
             public static void TestMethod(int x)
             {
                 _ = x.ToString();
             }
 
-#pragma warning disable CA1822
             public void TestMethod2(float x)
-#pragma warning restore CA1822
             {
                 _ = x.ToString();
             }
         }
-        
+
         [ExcludeFromCodeCoverage]
         private class TestClass2
         {
@@ -84,14 +85,12 @@ namespace TheXDS.MCART.Tests.Helpers
         private enum TestEnum : byte
         {
             Zero,
-            [TheXDS.MCART.Attributes.Description("One")]One,
+            [MCART.Attributes.Description("One")] One,
             Two
         }
-        
-#pragma warning disable xUnit1013
+
         [ExcludeFromCodeCoverage]
         public void TestEventHandler(object sender, EventArgs e) { }
-#pragma warning restore xUnit1013
 
         [Theory]
         [CLSCompliant(false)]
@@ -110,7 +109,7 @@ namespace TheXDS.MCART.Tests.Helpers
         [TestCase(typeof(string), false)]
         public void IsNumericTypeTest(Type type, bool result)
         {
-            Assert.AreEqual(result, IsNumericType(type));
+            Assert.AreEqual(result, type.IsNumericType());
         }
 
         [Test]
@@ -125,12 +124,12 @@ namespace TheXDS.MCART.Tests.Helpers
         {
             var tc = new TestClass();
 
-            Assert.Throws<NullItemException>(()=> new FieldInfo[]{ null! }.FieldsOf<int>());
-            Assert.Throws<ArgumentNullException>(() => ((FieldInfo[]) null!).FieldsOf<int>());
-            Assert.Throws<MissingFieldException>(() => typeof(TestClass2).GetFields().FieldsOf<int>(tc));
-            
+            Assert.Throws<NullItemException>(() => new FieldInfo[] { null! }.FieldsOf<int>());
+            Assert.Throws<ArgumentNullException>(() => ((FieldInfo[])null!).FieldsOf<int>());
+            Assert.Throws<MissingFieldException>(() => ReflectionHelpers.FieldsOf<int>(typeof(TestClass2).GetFields(), tc));
+
             Assert.AreEqual(tc.TestField, tc.FieldsOf<float>().FirstOrDefault());
-            Assert.AreEqual(tc.TestField, tc.GetType().GetFields().FieldsOf<float>(tc).FirstOrDefault());
+            Assert.AreEqual(tc.TestField, ReflectionHelpers.FieldsOf<float>(tc.GetType().GetFields(), tc).FirstOrDefault());
             Assert.AreEqual(TestClass.StaticField, tc.GetType().FieldsOf<double>().FirstOrDefault());
             Assert.AreEqual(TestClass.StaticField, tc.GetType().GetFields().FieldsOf<double>().FirstOrDefault());
             Assert.AreEqual(TestClass.StaticField, typeof(TestClass).GetFields().FieldsOf<double>().FirstOrDefault());
@@ -146,23 +145,23 @@ namespace TheXDS.MCART.Tests.Helpers
         [Test]
         public void HasAttrTest_Enum()
         {
-            Assert.False(TestEnum.Zero.HasAttr<TheXDS.MCART.Attributes.DescriptionAttribute>());
-            Assert.True(TestEnum.One.HasAttr<TheXDS.MCART.Attributes.DescriptionAttribute>());
-            
-            Assert.False(TestEnum.Zero.HasAttr<TheXDS.MCART.Attributes.DescriptionAttribute>(out var z));
-            Assert.True(TestEnum.One.HasAttr<TheXDS.MCART.Attributes.DescriptionAttribute>(out var o));
+            Assert.False(TestEnum.Zero.HasAttr<MCART.Attributes.DescriptionAttribute>());
+            Assert.True(TestEnum.One.HasAttr<MCART.Attributes.DescriptionAttribute>());
+
+            Assert.False(TestEnum.Zero.HasAttr<MCART.Attributes.DescriptionAttribute>(out var z));
+            Assert.True(TestEnum.One.HasAttr<MCART.Attributes.DescriptionAttribute>(out var o));
 
             Assert.Null(z);
-            Assert.IsAssignableFrom<TheXDS.MCART.Attributes.DescriptionAttribute>(o);
-            Assert.AreEqual("One",o!.Value);
+            Assert.IsAssignableFrom<MCART.Attributes.DescriptionAttribute>(o);
+            Assert.AreEqual("One", o!.Value);
 
 #if !CLSCompliance && PreferExceptions
             Assert.Throws<ArgumentOutOfRangeException>(() => ((TestEnum) 255).HasAttr<TheXDS.MCART.Attributes.DescriptionAttribute>(out _));
 #else
-            Assert.False(((TestEnum) 255).HasAttr<TheXDS.MCART.Attributes.DescriptionAttribute>(out _));
+            Assert.False(((TestEnum)255).HasAttr<MCART.Attributes.DescriptionAttribute>(out _));
 #endif
         }
-        
+
         [Test]
         public void GetAttrTest()
         {
@@ -192,32 +191,32 @@ namespace TheXDS.MCART.Tests.Helpers
         [Test]
         public void HasAttrTest_Object()
         {
-            Assert.False(((object)TestEnum.Zero).HasAttr<TheXDS.MCART.Attributes.DescriptionAttribute>(out var z));
-            Assert.True(((object)TestEnum.One).HasAttr<TheXDS.MCART.Attributes.DescriptionAttribute>(out var o));
+            Assert.False(((object)TestEnum.Zero).HasAttr<MCART.Attributes.DescriptionAttribute>(out var z));
+            Assert.True(((object)TestEnum.One).HasAttr<MCART.Attributes.DescriptionAttribute>(out var o));
             Assert.Null(z);
-            Assert.IsAssignableFrom<TheXDS.MCART.Attributes.DescriptionAttribute>(o);
-            Assert.AreEqual("One",o!.Value);
+            Assert.IsAssignableFrom<MCART.Attributes.DescriptionAttribute>(o);
+            Assert.AreEqual("One", o!.Value);
             Assert.True(((object)RtInfo.CoreRtAssembly).HasAttr<AssemblyCopyrightAttribute>());
 
             Assert.True(((object)MethodBase.GetCurrentMethod()!).HasAttr<TestAttribute>(out _));
-            
+
             Assert.True(new TestClass().HasAttr<IdentifierAttribute>(out var id));
             Assert.IsAssignableFrom<IdentifierAttribute>(id);
-            Assert.AreEqual("FindTypeTest",id!.Value);
+            Assert.AreEqual("FindTypeTest", id!.Value);
 
-            Assert.Throws<ArgumentNullException>(() => ((object) null!).HasAttr<TheXDS.MCART.Attributes.DescriptionAttribute>(out _));
+            Assert.Throws<ArgumentNullException>(() => ((object)null!).HasAttr<MCART.Attributes.DescriptionAttribute>(out _));
         }
 
         [Test]
         public void HasAttrValueTest_Object()
         {
-            Assert.True(((object)TestEnum.One).HasAttrValue<TheXDS.MCART.Attributes.DescriptionAttribute, string?>(out var o));
+            Assert.True(((object)TestEnum.One).HasAttrValue<MCART.Attributes.DescriptionAttribute, string?>(out var o));
             Assert.AreEqual("One", o);
 
             Assert.True(new TestClass().HasAttrValue<IdentifierAttribute, string?>(out var id));
-            Assert.AreEqual("FindTypeTest",id);
+            Assert.AreEqual("FindTypeTest", id);
         }
-        
+
         [Test]
         public void IsAnyNullTest()
         {
@@ -232,8 +231,8 @@ namespace TheXDS.MCART.Tests.Helpers
             Assert.True(t.IsEither(typeof(bool), typeof(int)));
             Assert.False(t.IsEither(typeof(bool), typeof(float)));
 
-            Assert.True(t.IsEither(new HashSet<object> {typeof(bool), typeof(int)}));
-            Assert.False(t.IsEither(new HashSet<object> {typeof(bool), typeof(float)}));
+            Assert.True(t.IsEither(new HashSet<object> { typeof(bool), typeof(int) }));
+            Assert.False(t.IsEither(new HashSet<object> { typeof(bool), typeof(float) }));
         }
 
         [Test]
@@ -255,7 +254,7 @@ namespace TheXDS.MCART.Tests.Helpers
         [Test]
         public void IsSignatureCompatibleTest()
         {
-            var m = ReflectionHelpers.GetMethod<Action<int>>(() => TestClass.TestMethod)!;            
+            var m = ReflectionHelpers.GetMethod<Action<int>>(() => TestClass.TestMethod)!;
             Assert.True(m.IsSignatureCompatible<Action<int>>());
             Assert.False(m.IsSignatureCompatible<Action<float>>());
         }
@@ -305,9 +304,9 @@ namespace TheXDS.MCART.Tests.Helpers
         {
             Assert.NotNull(Array.Empty<object>().WhichAreNull());
             Assert.AreEqual(Array.Empty<int>(), WhichAreNull(new object(), new object()).ToArray());
-            Assert.AreEqual(new[] {1}, WhichAreNull(new object(), null, new object(), new object()).ToArray());
-            Assert.AreEqual(new[] {2, 3}, WhichAreNull(new object(), new object(), null, null).ToArray());
-            Assert.Throws<ArgumentNullException>(()=>((IEnumerable<object?>)null!).WhichAreNull().ToArray());
+            Assert.AreEqual(new[] { 1 }, WhichAreNull(new object(), null, new object(), new object()).ToArray());
+            Assert.AreEqual(new[] { 2, 3 }, WhichAreNull(new object(), new object(), null, null).ToArray());
+            Assert.Throws<ArgumentNullException>(() => ((IEnumerable<object?>)null!).WhichAreNull().ToArray());
         }
 
         [Test]
@@ -315,8 +314,8 @@ namespace TheXDS.MCART.Tests.Helpers
         {
             var x = new object();
             Assert.AreEqual(Array.Empty<int>(), x.WhichAre(new object(), 1, 0.0f).ToArray());
-            Assert.AreEqual(new[] {2}, x.WhichAre(new object(), 1, x).ToArray());
-            Assert.AreEqual(new[] {1, 3}, x.WhichAre(new object(), x, 0, x).ToArray());
+            Assert.AreEqual(new[] { 2 }, x.WhichAre(new object(), 1, x).ToArray());
+            Assert.AreEqual(new[] { 1, 3 }, x.WhichAre(new object(), x, 0, x).ToArray());
         }
 
         [Test]
@@ -363,15 +362,15 @@ namespace TheXDS.MCART.Tests.Helpers
         [Test]
         public void FromBytes_Test()
         {
-            Assert.AreEqual(1000000, FromBytes<int>(new byte[] {64, 66, 15, 0}));
-            Assert.AreEqual(123456.789m, FromBytes<decimal>(new byte[]{ 0, 0, 3, 0, 0, 0, 0, 0, 21, 205, 91, 7, 0, 0, 0, 0 }));
+            Assert.AreEqual(1000000, FromBytes<int>(new byte[] { 64, 66, 15, 0 }));
+            Assert.AreEqual(123456.789m, FromBytes<decimal>(new byte[] { 0, 0, 3, 0, 0, 0, 0, 0, 21, 205, 91, 7, 0, 0, 0, 0 }));
         }
 
         [Test]
         public void GetBytes_Test()
         {
-            Assert.AreEqual(new byte[] {64, 66, 15, 0}, GetBytes(1000000));
-            Assert.AreEqual(new byte[]{ 0, 0, 3, 0, 0, 0, 0, 0, 21, 205, 91, 7, 0, 0, 0, 0 }, GetBytes(123456.789m));
+            Assert.AreEqual(new byte[] { 64, 66, 15, 0 }, GetBytes(1000000));
+            Assert.AreEqual(new byte[] { 0, 0, 3, 0, 0, 0, 0, 0, 21, 205, 91, 7, 0, 0, 0, 0 }, GetBytes(123456.789m));
         }
     }
 }

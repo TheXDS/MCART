@@ -308,7 +308,7 @@ namespace TheXDS.MCART.Types
         {
             return new(-p.X, -p.Y, -p.Z);
         }
-        
+
         /// <summary>
         /// Compara la igualdad de los vectores de los puntos.
         /// </summary>
@@ -336,7 +336,7 @@ namespace TheXDS.MCART.Types
         {
             return l.X != r.X && l.Y != r.Y && l.Z != r.Z;
         }
-        
+
         /// <summary>
         /// Coordenada X.
         /// </summary>
@@ -480,7 +480,7 @@ namespace TheXDS.MCART.Types
         /// Parámetro opcional.
         /// Proveedor de formato de la cultura a utilizar para dar formato a
         /// la representación como una cadena de este objeto. Si se omite,
-        /// se utilizará <see cref="System.Globalization.CultureInfo.CurrentCulture" />.
+        /// se utilizará <see cref="CI.CurrentCulture" />.
         /// </param>
         /// <returns>
         /// Una representación en forma de <see cref="string" /> de este objeto.

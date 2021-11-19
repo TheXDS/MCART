@@ -111,7 +111,7 @@ namespace TheXDS.MCART.Types.Extensions
             try
             {
                 valuePtr = Marshal.SecureStringToGlobalAllocUnicode(value);
-                for (var i = 0; i < value.Length * sz; i += sz) outp.Add((char) Marshal.ReadInt16(valuePtr, i));
+                for (var i = 0; i < value.Length * sz; i += sz) outp.Add((char)Marshal.ReadInt16(valuePtr, i));
                 return outp.ToArray();
             }
             finally

@@ -27,6 +27,7 @@ using System.Reflection;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Component;
 using TheXDS.MCART.Helpers;
+using TheXDS.MCART.Types.Extensions;
 
 [assembly: McartComponent(TheXDS.MCART.Resources.RtInfo.ComponentKind.Core)]
 
@@ -73,7 +74,7 @@ namespace TheXDS.MCART.Resources
             /// </summary>
             Tool
         }
-        
+
         /// <summary>
         /// Comprueba si el objeto es compatible con esta versión de MCART
         /// comparando los números de versión establecidos en

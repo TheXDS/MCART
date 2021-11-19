@@ -142,7 +142,7 @@ namespace TheXDS.MCART.Types.Extensions
             if (typeof(BinaryWriter).GetMethods().FirstOrDefault(p => CanWrite(p, t)) is { } m)
             {
                 m.Invoke(bw, new[] { value });
-            } 
+            }
             else if (typeof(BinaryWriterExtensions).GetMethods().FirstOrDefault(p => CanExWrite(p, t)) is { } e)
             {
                 e.Invoke(null, new[] { bw, value });
@@ -208,18 +208,18 @@ namespace TheXDS.MCART.Types.Extensions
         private static bool CanWrite(MethodInfo p, Type t)
         {
             var l = p.GetParameters();
-            return p.IsVoid() 
-                && p.Name == "Write" 
-                && l.Length == 1 
+            return p.IsVoid()
+                && p.Name == "Write"
+                && l.Length == 1
                 && l.Single().ParameterType == t;
         }
 
         private static bool CanExWrite(MethodInfo p, Type t)
         {
             var l = p.GetParameters();
-            return p.IsVoid() 
-                && p.Name == "Write" 
-                && l.Length == 2 
+            return p.IsVoid()
+                && p.Name == "Write"
+                && l.Length == 2
                 && l.First().ParameterType == typeof(BinaryWriter)
                 && l.Last().ParameterType == t;
         }
