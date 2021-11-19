@@ -1,9 +1,7 @@
 ﻿/*
-Objects_Contracts.cs
+MethodBaseExtensions_Contracts.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
-
-Este archivo contiene funciones de manipulación de objetos, 
 
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
@@ -25,35 +23,21 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using TheXDS.MCART.Exceptions;
-using static TheXDS.MCART.Misc.Internals;
 
-namespace TheXDS.MCART.Helpers
+namespace TheXDS.MCART.Types.Extensions
 {
-    /// <summary>
-    /// Funciones de manipulación de objetos.
-    /// </summary>
-    public static partial class Objects
+    public static partial class MethodBaseExtensions
     {
         [Conditional("EnforceContracts")]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DebuggerNonUserCode]
-        private static void WhichAreNull_Contract(IEnumerable<object?> collection)
+        private static void IsOverriden_Contract(MethodBase method, object thisInstance)
         {
-            NullCheck(collection, nameof(collection));
-        }
-
-        [Conditional("EnforceContracts")]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [DebuggerNonUserCode]
-        private static void FromBytes_Contract(byte[] rawBytes)
-        {
-            NullCheck(rawBytes, nameof(rawBytes));
+            if (method?.DeclaringType is null) throw new ArgumentNullException(nameof(method));
+            if (!(thisInstance?.GetType() ?? throw new ArgumentNullException(nameof(thisInstance))).Implements(method.DeclaringType)) throw new InvalidTypeException(thisInstance.GetType());
         }
     }
 }

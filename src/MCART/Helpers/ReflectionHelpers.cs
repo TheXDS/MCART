@@ -34,6 +34,7 @@ using System.Text;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Types.Extensions;
+using static TheXDS.MCART.Misc.Internals;
 
 namespace TheXDS.MCART.Helpers
 {
@@ -109,76 +110,112 @@ namespace TheXDS.MCART.Helpers
         {
             return GetEntryPoint()?.DeclaringType?.Assembly;
         }
-
         /// <summary>
-        /// Determina si el método invalida a una definición base.
+        /// Enumera el valor de todas los campos que devuelvan valores de tipo
+        /// <typeparamref name="T" />.
         /// </summary>
-        /// <param name="method"></param>
-        /// <returns>
-        /// <see langword="true"/> si el método invalida a una definición
-        /// base, <see langword="false"/> en caso contrario.
-        /// </returns>
-        public static bool IsOverride(this MethodInfo method)
-        {
-            IsOverride_Contract(method);
-            return method.GetBaseDefinition().DeclaringType != method.DeclaringType;
-        }
-
-        /// <summary>
-        /// Determina si el método especificado ha sido invalidado en la
-        /// instancia provista.
-        /// </summary>
-        /// <param name="method">
-        /// Método a comprobar.
+        /// <typeparam name="T">Tipo de campos a obtener.</typeparam>
+        /// <param name="fields">
+        /// Colección de campos a analizar.
         /// </param>
         /// <param name="instance">
-        /// Instancia en la cual se debe realizar la comprobación.
-        /// Generalmente, este argumento debe ser <see langword="this"/>.
+        /// Instancia desde la cual obtener los campos.
         /// </param>
         /// <returns>
-        /// <see langword="true"/> si el método ha sido invalidado en la
-        /// instancia especificada, <see langword="false"/> en caso 
-        /// contrario.
+        /// Una enumeración de todos los valores de tipo
+        /// <typeparamref name="T" /> de la instancia.
         /// </returns>
         /// <exception cref="ArgumentNullException">
-        /// Se produce si <paramref name="method"/> o
-        /// <paramref name="instance"/> son <see langword="null"/>.
+        /// Se produce si <paramref name="fields"/> es
+        /// <see langword="null"/>.
         /// </exception>
-        /// <exception cref="InvalidTypeException">
-        /// Se produce si la definición de <paramref name="method"/> no existe
-        /// en el tipo de <paramref name="instance"/>.
+        /// <exception cref="NullItemException">
+        /// Se produce si cualquier elemento de <paramref name="fields"/> es
+        /// <see langword="null"/>.
         /// </exception>
-        public static bool IsOverriden(this MethodBase method, object instance)
+        /// <exception cref="MissingFieldException">
+        /// Cuando <paramref name="instance"/> no es <see langword="null"/>, se
+        /// produce si cualquier elemento de <paramref name="fields"/> no forma
+        /// parte del tipo de <paramref name="instance"/>.
+        /// </exception>
+        /// <exception cref="MemberAccessException">
+        /// Cuando <paramref name="instance"/> es <see langword="null"/>, se
+        /// produce si cualquier elemento de <paramref name="fields"/> no es un
+        /// campo estático.
+        /// </exception>
+        public static IEnumerable<T> FieldsOf<T>(IEnumerable<FieldInfo> fields, object? instance)
         {
-            IsOverriden_Contract(method, instance);
-            var m = instance.GetType().GetMethod(method.Name, GetBindingFlags(method), null, method.GetParameters().Select(p => p.ParameterType).ToArray(), null) 
-                ?? throw new TamperException(new MissingMethodException(instance.GetType().Name, method.Name));
-
-            return method.DeclaringType != m.DeclaringType;
+            FieldsOf_Contract(fields, instance);
+            return
+                from j in fields.Where(p => p.IsPublic)
+                where j.FieldType == typeof(T)
+                where j.IsStatic == instance is null
+                select (T)j.GetValue(instance)!;
         }
 
         /// <summary>
-        /// Obtiene un nombre completo para un método, incluyendo el tipo y
-        /// el espacio de nombres donde el mismo ha sido definido.
+        /// Enumera el valor de todas los campos que devuelvan valores de
+        /// tipo <typeparamref name="T" /> del objeto especificado.
         /// </summary>
-        /// <param name="method">
-        /// Método del cual obtener el nombre completo.
+        /// <typeparam name="T">Tipo de campos a obtener.</typeparam>
+        /// <param name="instance">
+        /// Instancia desde la cual obtener los campos.
         /// </param>
         /// <returns>
-        /// El nombre completo del método, incluyendo el tipo y el espacio
-        /// de nombres donde el mismo ha sido definido.
+        /// Una enumeración de todos los valores de tipo
+        /// <typeparamref name="T" /> del objeto.
         /// </returns>
-        public static string FullName(this MethodBase method)
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="instance"/> es
+        /// <see langword="null"/>.
+        /// </exception>
+        public static IEnumerable<T> FieldsOf<T>(object instance)
         {
-            var s = new StringBuilder();
-            s.Append(method.DeclaringType?.CSharpName().OrNull("{0}."));
-            s.Append(method.Name);
-            if (method.IsGenericMethod)
-            {
-                s.Append(string.Join(", ", method.GetGenericArguments().Select(Types.Extensions.TypeExtensions.CSharpName)).OrNull("<{0}>"));
-            }
-            s.Append($"({string.Join(", ", method.GetParameters().Select(q => q.ParameterType.CSharpName()))})");
-            return s.ToString();
+            NullCheck(instance, nameof(instance));
+            return FieldsOf<T>(instance.GetType().GetFields(), instance);
+        }
+
+        /// <summary>
+        /// Enumera el valor de todas los campos estáticos que devuelvan
+        /// valores de tipo <typeparamref name="T" />.
+        /// </summary>
+        /// <typeparam name="T">Tipo de campos a obtener.</typeparam>
+        /// <param name="fields">
+        /// Colección de campos a analizar.
+        /// </param>
+        /// <returns>
+        /// Una enumeración de todos los valores de tipo
+        /// <typeparamref name="T" />.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="fields"/> es
+        /// <see langword="null"/>.
+        /// </exception>
+        public static IEnumerable<T> FieldsOf<T>(IEnumerable<FieldInfo> fields)
+        {
+            return FieldsOf<T>(fields, null);
+        }
+
+        /// <summary>
+        /// Enumera el valor de todas los campos estáticos que devuelvan
+        /// valores de tipo <typeparamref name="T" /> en el tipo especificado.
+        /// </summary>
+        /// <typeparam name="T">Tipo de campos a obtener.</typeparam>
+        /// <param name="type">
+        /// Tipo desde el cual obtener los campos.
+        /// </param>
+        /// <returns>
+        /// Una enumeración de todos los valores de tipo
+        /// <typeparamref name="T" /> del tipo.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="type"/> es
+        /// <see langword="null"/>.
+        /// </exception>
+        public static IEnumerable<T> FieldsOf<T>(Type type)
+        {
+            NullCheck(type, nameof(type));
+            return FieldsOf<T>(type.GetFields(BindingFlags.Static | BindingFlags.Public), null);
         }
 
         /// <summary>
@@ -487,41 +524,6 @@ namespace TheXDS.MCART.Helpers
         public static FieldInfo GetField<T>(Expression<Func<T, object?>> fieldSelector)
         {
             return GetMember<FieldInfo, T, object?>(fieldSelector);
-        }
-
-        /// <summary>
-        /// Infiere las <see cref="BindingFlags"/> utilizadas en la
-        /// definición del método.
-        /// </summary>
-        /// <param name="method">
-        /// Método para el cual inferir las <see cref="BindingFlags"/>.
-        /// </param>
-        /// <returns>
-        /// Las <see cref="BindingFlags"/> inferidas basadas en las
-        /// propiedades del método.
-        /// </returns>
-        public static BindingFlags GetBindingFlags(this MethodBase method)
-        {
-            var retVal = BindingFlags.Default;
-
-            void Test(MethodAttributes inFlag, BindingFlags orFlag, BindingFlags notFlags = BindingFlags.Default)
-            {
-                if (method.Attributes.HasFlag(inFlag))
-                {
-                    retVal |= orFlag;
-                }
-                else
-                {
-                    retVal |= notFlags;
-                }
-            }
-
-            Test(MethodAttributes.Public, BindingFlags.Public);
-            Test(MethodAttributes.Private, BindingFlags.NonPublic);
-            Test(MethodAttributes.Family, BindingFlags.NonPublic);
-            Test(MethodAttributes.Static, BindingFlags.Static, BindingFlags.Instance);
-
-            return retVal;
         }
 
         private class TypeExpressionTree

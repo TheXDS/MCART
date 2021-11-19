@@ -30,9 +30,6 @@ using static TheXDS.MCART.Misc.Internals;
 
 namespace TheXDS.MCART.Types.Extensions
 {
-    /// <summary>
-    /// Contiene extensiones para la clase <see cref="MethodInfo"/>.
-    /// </summary>
     public static partial class MethodInfoExtensions
     {
         [Conditional("EnforceContracts")]
@@ -50,6 +47,14 @@ namespace TheXDS.MCART.Types.Extensions
         private static void IsVoid_Contract(MethodInfo m)
         {
             NullCheck(m, nameof(m));
+        }
+
+        [Conditional("EnforceContracts")]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [DebuggerNonUserCode]
+        private static void IsOverride_Contract(MethodInfo method)
+        {
+            NullCheck(method, nameof(method));
         }
     }
 }

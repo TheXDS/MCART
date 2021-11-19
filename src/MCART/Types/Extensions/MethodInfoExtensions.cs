@@ -67,5 +67,19 @@ namespace TheXDS.MCART.Types.Extensions
             IsVoid_Contract(m);
             return m.ReturnType == typeof(void);
         }
+
+        /// <summary>
+        /// Determina si el método invalida a una definición base.
+        /// </summary>
+        /// <param name="method"></param>
+        /// <returns>
+        /// <see langword="true"/> si el método invalida a una definición
+        /// base, <see langword="false"/> en caso contrario.
+        /// </returns>
+        public static bool IsOverride(this MethodInfo method)
+        {
+            IsOverride_Contract(method);
+            return method.GetBaseDefinition().DeclaringType != method.DeclaringType;
+        }
     }
 }

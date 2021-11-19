@@ -30,6 +30,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using TheXDS.MCART.Math;
 using TheXDS.MCART.Types.Extensions;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Exceptions;
+using static TheXDS.MCART.Misc.Internals;
+using static TheXDS.MCART.Types.Extensions.EnumerableExtensions;
+using static TheXDS.MCART.Types.Extensions.TypeExtensions;
 
 namespace TheXDS.MCART.Helpers
 {
@@ -1170,5 +1182,24 @@ namespace TheXDS.MCART.Helpers
                 else
                     yield return double.NaN;
         }
+
+        /// <summary>
+        /// Determina si todos los objetos son <see langword="null" />.
+        /// </summary>
+        /// <returns>
+        /// <see langword="true" />, si todos los objetos son <see langword="null" />; de lo contrario,
+        /// <see langword="false" />.
+        /// </returns>
+        /// <param name="collection">Objetos a comprobar.</param>
+        /// <exception cref="ArgumentNullException">
+        /// Se produce si <paramref name="collection"/> es
+        /// <see langword="null"/>.
+        /// </exception>
+        public static bool AreAllNull(this IEnumerable<object?> collection)
+        {
+            NullCheck(collection, nameof(collection));
+            return collection.All(p => p is null);
+        }
+
     }
 }
