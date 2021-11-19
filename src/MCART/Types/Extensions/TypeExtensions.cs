@@ -139,7 +139,7 @@ namespace TheXDS.MCART.Types.Extensions
             if (!baseType.GenericTypeArguments.Any())
                 return (type.IsConstructedGenericType && type.GetGenericTypeDefinition() == baseType) || type.GetInterfaces().Any(p => p.Implements(baseType));
 
-            var gt = baseType.MakeGenericType(type);
+            Type? gt = baseType.MakeGenericType(type);
             return !gt.ContainsGenericParameters && gt.IsAssignableFrom(type);
         }
 
@@ -156,7 +156,7 @@ namespace TheXDS.MCART.Types.Extensions
         public static bool Implements(this Type type, Type baseType, params Type[] typeArgs)
         {
             if (!baseType.ContainsGenericParameters) return baseType.IsAssignableFrom(type);
-            var gt = baseType.MakeGenericType(typeArgs);
+            Type? gt = baseType.MakeGenericType(typeArgs);
             return !gt.ContainsGenericParameters && gt.IsAssignableFrom(type);
         }
 
@@ -204,7 +204,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static bool ImplementsOperator(this Type type, Func<Expression, Expression, BinaryExpression> @operator)
         {
-            var c = Expression.Constant(type.Default(), type);
+            ConstantExpression? c = Expression.Constant(type.Default(), type);
             try
             {
                 _ = Expression.Lambda(
@@ -434,7 +434,7 @@ namespace TheXDS.MCART.Types.Extensions
         [DebuggerStepThrough]
         public static T New<T>(this Type type, bool throwOnFail, IEnumerable? parameters)
         {
-            var p = parameters?.ToGeneric().ToArray() ?? Array.Empty<object?>();
+            object?[]? p = parameters?.ToGeneric().ToArray() ?? Array.Empty<object?>();
             try
             {
                 New_Contract(type, p);
@@ -561,11 +561,11 @@ namespace TheXDS.MCART.Types.Extensions
         [DebuggerStepThrough]
         public static async Task<object?> NewAsync(this Type type, bool throwOnFail, bool @async, IEnumerable parameters)
         {
-            var p = parameters?.ToGeneric().ToArray() ?? Array.Empty<object?>();
+            object?[]? p = parameters?.ToGeneric().ToArray() ?? Array.Empty<object?>();
             New_Contract(type, p);
             try
             {
-                var ctor = type.GetConstructor(p.ToTypes().ToArray());
+                ConstructorInfo? ctor = type.GetConstructor(p.ToTypes().ToArray());
                 return (@async ? await Task.Run(() => ctor?.Invoke(p)) : ctor?.Invoke(p)) ?? Errors.ClassNotInstantiable();
             }
             catch (Exception e)
@@ -626,7 +626,7 @@ namespace TheXDS.MCART.Types.Extensions
         [DebuggerStepThrough]
         public static async Task<T> NewAsync<T>(this Type type, bool throwOnFail, bool @async, IEnumerable parameters)
         {
-            var r = await NewAsync(type, throwOnFail, async, parameters);
+            object? r = await NewAsync(type, throwOnFail, async, parameters);
             if (r is T v) return v;
             return throwOnFail ? throw new InvalidCastException() : (T)default!;
         }
@@ -790,8 +790,8 @@ namespace TheXDS.MCART.Types.Extensions
         public static IEnumerable<Type> Derivates(this Type type, IEnumerable<Assembly> assemblies)
         {
             Derivates_Contract(assemblies);
-            var retval = new List<Type>();
-            foreach (var j in assemblies)
+            List<Type>? retval = new();
+            foreach (Assembly? j in assemblies)
             {
                 IEnumerable<Type> types;
                 try
@@ -825,7 +825,7 @@ namespace TheXDS.MCART.Types.Extensions
         public static IEnumerable<Type> Derivates(this Type type, IEnumerable<Type> types)
         {
             Derivates_Contract(type, types);
-            foreach (var k in types)
+            foreach (Type? k in types)
             {
                 if (type.IsAssignableFrom(k ?? throw new NullItemException())) yield return k;
             }

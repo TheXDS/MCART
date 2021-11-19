@@ -53,13 +53,13 @@ namespace TheXDS.MCART.Tests.Types
         [TestCase(typeof(VgaAttributeByteColorParser), (byte)0x01, 0xff, 0x0, 0x0, 0x7f)]
         public void Convert_From_And_To_Color_Test(Type converter, object sourceValue, byte a, byte r, byte g, byte b)
         {
-            var c = converter.New();
-            var f = converter.GetMethod("From")!;
-            var t = converter.GetMethod("To")!;
+            object? c = converter.New();
+            System.Reflection.MethodInfo? f = converter.GetMethod("From")!;
+            System.Reflection.MethodInfo? t = converter.GetMethod("To")!;
 
-            var expected = new Color(r, g, b, a);
-            var actual = (Color)f.Invoke(c, new[] { sourceValue })!;
-            var convertBack = t.Invoke(c, new object[] { actual })!;
+            Color expected = new(r, g, b, a);
+            Color actual = (Color)f.Invoke(c, new[] { sourceValue })!;
+            object? convertBack = t.Invoke(c, new object[] { actual })!;
 
             Assert.True(expected == actual);
             Assert.AreEqual(sourceValue, convertBack);

@@ -64,7 +64,7 @@ namespace TheXDS.MCART.Networking.Legacy.Client
         /// </returns>
         public byte[] TalkToServer(byte[] data)
         {
-            var ns = NwStream() ?? throw new ConnectionClosedException();
+            System.Net.Sockets.NetworkStream? ns = NwStream() ?? throw new ConnectionClosedException();
             if (data?.Length > 0)
             {
                 ns.Write(data, 0, data.Length);
@@ -93,7 +93,7 @@ namespace TheXDS.MCART.Networking.Legacy.Client
         /// </returns>
         public async Task<byte[]> TalkToServerAsync(byte[] data)
         {
-            var ns = NwStream() ?? throw new ConnectionClosedException();
+            System.Net.Sockets.NetworkStream? ns = NwStream() ?? throw new ConnectionClosedException();
             if (data?.Length > 0)
             {
                 await ns.WriteAsync(data, 0, data.Length);

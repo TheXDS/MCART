@@ -99,8 +99,8 @@ namespace TheXDS.MCART.Controls
 
             d.CoerceValue(ThicknessProperty);
             d.CoerceValue(RadiusProperty);
-            var r = (double)d.GetValue(RadiusProperty);
-            var t = (double)d.GetValue(ThicknessProperty);
+            double r = (double)d.GetValue(RadiusProperty);
+            double t = (double)d.GetValue(ThicknessProperty);
             p.Data = GetCircleArc(r, 270, t);
         }
 

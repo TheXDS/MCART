@@ -122,7 +122,7 @@ namespace TheXDS.MCART.ViewModel
         /// </returns>
         public ObservingCommand RegisterObservedProperty(params string[] properties)
         {
-            foreach (var j in properties.NotEmpty())
+            foreach (string? j in properties.NotEmpty())
             {
                 _properties.Add(j);
             }
@@ -139,7 +139,7 @@ namespace TheXDS.MCART.ViewModel
         /// </returns>
         public ObservingCommand RegisterObservedProperty(Expression<Func<object?>> property)
         {
-            var prop = (ReflectionHelpers.GetMember(property) as PropertyInfo) ?? throw new ArgumentException(null, nameof(property));
+            PropertyInfo? prop = (ReflectionHelpers.GetMember(property) as PropertyInfo) ?? throw new ArgumentException(null, nameof(property));
             RegisterObservedProperty(prop.Name);
             return this;
         }

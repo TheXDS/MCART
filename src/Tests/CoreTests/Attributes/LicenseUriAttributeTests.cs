@@ -35,7 +35,7 @@ namespace TheXDS.MCART.Tests.Attributes
         public void LicenseUriAttributeBasicInstancing_Test()
         {
             const string f = @"C:\Test.txt";
-            var l = new LicenseUriAttribute(f);
+            LicenseUriAttribute? l = new(f);
             Assert.AreEqual(f, l.Value);
             Assert.AreEqual(f, ((IValueAttribute<string?>)l).Value);
         }
@@ -44,10 +44,10 @@ namespace TheXDS.MCART.Tests.Attributes
         public void ReadLicenseFromFile_Test()
         {
             const string LicenseContents = "Test.";
-            var f = System.IO.Path.GetTempFileName();
+            string? f = System.IO.Path.GetTempFileName();
             System.IO.File.WriteAllText(f, LicenseContents);
 
-            var l = new LicenseUriAttribute(f);
+            LicenseUriAttribute? l = new(f);
             Assert.AreEqual(LicenseContents, l.GetLicense().LicenseContent);
 
             try { System.IO.File.Delete(f); }
@@ -57,13 +57,13 @@ namespace TheXDS.MCART.Tests.Attributes
         [Test]
         public void ReadLicenseFromNowhere_Test()
         {
-            var f = System.IO.Path.GetFullPath(System.IO.Path.Combine(
+            string? f = System.IO.Path.GetFullPath(System.IO.Path.Combine(
                 Guid.NewGuid().ToString(),
                 Guid.NewGuid().ToString(),
                 Guid.NewGuid().ToString(),
                 $"{Guid.NewGuid()}.txt"));
 
-            var l = new LicenseUriAttribute(f).GetLicense().LicenseContent;
+            string? l = new LicenseUriAttribute(f).GetLicense().LicenseContent;
             Assert.AreEqual(St.Composition.Warn(St.Errors.ErrorLoadingLicense), l);
         }
     }

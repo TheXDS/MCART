@@ -82,12 +82,12 @@ namespace TheXDS.MCART.Controls
         }
         private static object? CoerceBusyEffect(DependencyObject d, object baseValue)
         {
-            var o = (BusyContainer)d;
+            BusyContainer? o = (BusyContainer)d;
             return o.IsBusy ? d.GetValue(BusyEffectProperty) : null;
         }
         private static object? CoerceBusyBackground(DependencyObject d, object baseValue)
         {
-            var o = (BusyContainer)d;
+            BusyContainer? o = (BusyContainer)d;
             return o.IsBusy ? d.GetValue(BusyBackgroundProperty) : null;
         }
         private static void OnChangedBusyOpacity(DependencyObject d, DependencyPropertyChangedEventArgs e)

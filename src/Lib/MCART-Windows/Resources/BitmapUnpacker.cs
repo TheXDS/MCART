@@ -98,7 +98,7 @@ namespace TheXDS.MCART.Resources
 
         private Bitmap GetBitmap(Stream? getter)
         {
-            var ms = new MemoryStream();
+            MemoryStream? ms = new();
             (getter ?? throw new MissingResourceException()).CopyTo(ms);
             return new Bitmap(ms);
         }

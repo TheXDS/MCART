@@ -101,14 +101,14 @@ namespace TheXDS.MCART.Networking.Legacy.Client
 
         static SelfWiredCommandClient()
         {
-            var tRsp = typeof(TResponse).GetEnumUnderlyingType();
+            Type? tRsp = typeof(TResponse).GetEnumUnderlyingType();
             _readRsp = typeof(BinaryReader).GetMethods().FirstOrDefault(p =>
                           p.Name.StartsWith("Read")
                           && p.GetParameters().Length == 0
                           && p.ReturnType == tRsp)
                       ?? throw new PlatformNotSupportedException();
 
-            var vals = Enum.GetValues(typeof(TResponse)).OfType<TResponse?>().ToArray();
+            TResponse?[]? vals = Enum.GetValues(typeof(TResponse)).OfType<TResponse?>().ToArray();
             _errResponse = vals.NotNull().FirstOrDefault(p => p.HasAttr<ErrorResponseAttribute>());
             _unkResponse = vals.NotNull().FirstOrDefault(p => p.HasAttr<UnknownResponseAttribute>());
         }
@@ -119,17 +119,17 @@ namespace TheXDS.MCART.Networking.Legacy.Client
         /// </summary>
         protected SelfWiredCommandClient()
         {
-            var tCmdAttr = Objects.GetTypes<IValueAttribute<TResponse>>(true).FirstOrDefault() ??
+            Type? tCmdAttr = Objects.GetTypes<IValueAttribute<TResponse>>(true).FirstOrDefault() ??
                            throw new MissingTypeException(typeof(IValueAttribute<TResponse>));
-            foreach (var j in
+            foreach (SelfWiredCommandClient<TCommand, TResponse>.ResponseCallBack? j in
                 GetType().GetMethods().WithSignature<ResponseCallBack>()
                     .Concat(this.PropertiesOf<ResponseCallBack>())
                     .Concat(this.FieldsOf<ResponseCallBack>()))
             {
-                var attrs = j.Method.GetCustomAttributes(tCmdAttr, false).OfType<IValueAttribute<TResponse>>().ToList();
+                List<IValueAttribute<TResponse>>? attrs = j.Method.GetCustomAttributes(tCmdAttr, false).OfType<IValueAttribute<TResponse>>().ToList();
                 if (attrs.Any()) // Mapeo por configuración
                 {
-                    foreach (var k in attrs)
+                    foreach (IValueAttribute<TResponse>? k in attrs)
                     {
                         if (_responses.ContainsKey(k.Value)) throw new DataAlreadyExistsException();
                         _responses.Add(k.Value, j);
@@ -212,9 +212,9 @@ namespace TheXDS.MCART.Networking.Legacy.Client
         /// </returns>
         public static byte[] MakeCommand(in TCommand command, IEnumerable<string> data)
         {
-            using var ms = new MemoryStream();
-            using var bw = new BinaryWriter(ms);
-            foreach (var j in data) bw.Write(j);
+            using MemoryStream? ms = new();
+            using BinaryWriter? bw = new(ms);
+            foreach (string? j in data) bw.Write(j);
             return MakeCommand(command, ms);
         }
 
@@ -256,11 +256,11 @@ namespace TheXDS.MCART.Networking.Legacy.Client
             if (!data.CanRead) throw new InvalidOperationException();
             if (data.CanSeek)
             {
-                using var sr = new BinaryReader(data);
+                using BinaryReader? sr = new(data);
                 return MakeCommand(command, sr.ReadBytes((int)data.Length));
             }
 
-            using var ms = new MemoryStream();
+            using MemoryStream? ms = new();
             data.CopyTo(ms);
             return MakeCommand(command, ms.ToArray());
         }
@@ -284,15 +284,15 @@ namespace TheXDS.MCART.Networking.Legacy.Client
         /// <summary>
         /// Inicia la escucha activa del servidor.
         /// </summary>
-        protected override async sealed void PostConnection()
+        protected sealed override async void PostConnection()
         {
 #pragma warning disable 4014
             while (GetNs() is NetworkStream ns)
             {
-                var outp = await GetDataAsync(ns);
-                var ms = new MemoryStream(outp);
-                var br = new BinaryReader(ms);
-                if (_interrupts.TryDequeue(out var callback))
+                byte[]? outp = await GetDataAsync(ns);
+                MemoryStream? ms = new(outp);
+                BinaryReader? br = new(ms);
+                if (_interrupts.TryDequeue(out SelfWiredCommandClient<TCommand, TResponse>.ResponseCallBack? callback))
                 {
                     Task.Run(() =>
                     {
@@ -303,7 +303,7 @@ namespace TheXDS.MCART.Networking.Legacy.Client
                 }
                 else
                 {
-                    var cmd = ReadResponse(br);
+                    TResponse cmd = ReadResponse(br);
                     if (_errResponse.Equals(cmd)) ServerError?.Invoke(this, EventArgs.Empty);
                     if (_unkResponse.Equals(cmd)) UnknownCommandIssued?.Invoke(this, EventArgs.Empty);
                     if (_responses.ContainsKey(cmd))
@@ -383,7 +383,7 @@ namespace TheXDS.MCART.Networking.Legacy.Client
         {
             if (!(data?.Length > 0)) throw new EmptyCollectionException();
             if (callback is null) throw new ArgumentNullException(nameof(callback));
-            var ns = Connection?.GetStream() ?? throw new InvalidOperationException();
+            NetworkStream? ns = Connection?.GetStream() ?? throw new InvalidOperationException();
             _interrupts.Enqueue(callback);
             ns.Write(data, 0, data.Length);
         }
@@ -408,9 +408,9 @@ namespace TheXDS.MCART.Networking.Legacy.Client
         public void TalkToServer(in TCommand command, ResponseCallBack callback)
         {
             if (callback is null) throw new ArgumentNullException(nameof(callback));
-            var ns = Connection?.GetStream() ?? throw new InvalidOperationException();
+            NetworkStream? ns = Connection?.GetStream() ?? throw new InvalidOperationException();
             _interrupts.Enqueue(callback);
-            var msg = MakeCommand(command);
+            byte[]? msg = MakeCommand(command);
             ns.Write(msg, 0, msg.Length);
         }
 
@@ -425,8 +425,8 @@ namespace TheXDS.MCART.Networking.Legacy.Client
         [DebuggerStepThrough]
         public void TalkToServer(in TCommand command)
         {
-            var ns = Connection?.GetStream() ?? throw new InvalidOperationException();
-            var msg = MakeCommand(command);
+            NetworkStream? ns = Connection?.GetStream() ?? throw new InvalidOperationException();
+            byte[]? msg = MakeCommand(command);
             ns.Write(msg, 0, msg.Length);
         }
 
@@ -451,7 +451,7 @@ namespace TheXDS.MCART.Networking.Legacy.Client
             if (callback is null) throw new ArgumentNullException(nameof(callback));
             if (data.Length <= 0) throw Errors.EmptyCollection(data);
 
-            var ns = Connection?.GetStream() ?? throw new InvalidOperationException();
+            NetworkStream? ns = Connection?.GetStream() ?? throw new InvalidOperationException();
             await ns.WriteAsync(data);
             _interrupts.Enqueue(callback);
         }
@@ -471,8 +471,8 @@ namespace TheXDS.MCART.Networking.Legacy.Client
         public async Task TalkToServerAsync(TCommand command, ResponseCallBack callback)
         {
             if (callback is null) throw new ArgumentNullException(nameof(callback));
-            var msg = MakeCommand(command).ToArray();
-            var ns = Connection?.GetStream() ?? throw new InvalidOperationException();
+            byte[]? msg = MakeCommand(command).ToArray();
+            NetworkStream? ns = Connection?.GetStream() ?? throw new InvalidOperationException();
             await ns.WriteAsync(msg);
             _interrupts.Enqueue(callback);
         }
@@ -486,8 +486,8 @@ namespace TheXDS.MCART.Networking.Legacy.Client
         /// </returns>
         public Task TalkToServerAsync(in TCommand command)
         {
-            var msg = MakeCommand(command).ToArray();
-            var ns = Connection?.GetStream() ?? throw new InvalidOperationException();
+            byte[]? msg = MakeCommand(command).ToArray();
+            NetworkStream? ns = Connection?.GetStream() ?? throw new InvalidOperationException();
             return ns.WriteAsync(msg, 0, msg.Length);
         }
 

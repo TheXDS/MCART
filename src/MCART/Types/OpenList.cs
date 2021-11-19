@@ -114,7 +114,7 @@ namespace TheXDS.MCART.Types
         public void SplitTail(int index)
         {
             if (index > _head.Count - 1) JoinTail();
-            var newTail = _head.Skip(index);
+            IEnumerable<T>? newTail = _head.Skip(index);
             _head.RemoveRange(index, _head.Count - index);
             _tail.InsertRange(0, newTail);
         }

@@ -61,7 +61,7 @@ namespace TheXDS.MCART.Tests.Types
         [Test]
         public void AsNamedEnumTest()
         {
-            var x = typeof(TestEnum).AsNamedEnum();
+            IEnumerable<NamedObject<Enum>>? x = typeof(TestEnum).AsNamedEnum();
             Assert.AreEqual("Elemento A", x.First().Name);
 
             Assert.Throws<ArgumentNullException>(() => ((Type)null!).AsNamedEnum());
@@ -72,7 +72,7 @@ namespace TheXDS.MCART.Tests.Types
         [Test]
         public void FromEnumTest()
         {
-            var x = NamedObject<TestEnum>.FromEnum();
+            IEnumerable<NamedObject<TestEnum>>? x = NamedObject<TestEnum>.FromEnum();
             Assert.AreEqual("Elemento A", x.First().Name);
 
             Assert.Throws<InvalidTypeException>(() => NamedObject<string>.FromEnum());
@@ -81,14 +81,14 @@ namespace TheXDS.MCART.Tests.Types
         [Test]
         public void AsNamedObjectTest()
         {
-            var x = AsNamedObject<TestEnum>();
+            IEnumerable<NamedObject<TestEnum>>? x = AsNamedObject<TestEnum>();
             Assert.AreEqual("Elemento A", x.First().Name);
         }
 
         [Test]
         public void Infer_Test()
         {
-            var x = new NameableClass();
+            NameableClass? x = new();
             Assert.AreEqual("Nameable class", NamedObject<object?>.Infer(x));
             Assert.AreEqual("Name property", NamedObject<object?>.Infer(ReflectionHelpers.GetProperty(() => x.Name)));
             Assert.AreEqual("Test enum", NamedObject<object?>.Infer(typeof(TestEnum)));
@@ -101,7 +101,7 @@ namespace TheXDS.MCART.Tests.Types
         [Test]
         public void Implicit_Operators_Test()
         {
-            var v = NamedObject<TestEnum>.FromEnum().ToArray()[1];
+            NamedObject<TestEnum> v = NamedObject<TestEnum>.FromEnum().ToArray()[1];
             Assert.AreEqual(TestEnum.B, (TestEnum)v);
             Assert.AreEqual("Elemento B", ((KeyValuePair<string, TestEnum>)v).Key);
             Assert.AreEqual(TestEnum.B, ((KeyValuePair<string, TestEnum>)v).Value);
@@ -111,7 +111,7 @@ namespace TheXDS.MCART.Tests.Types
         [Test]
         public void Equals_Test()
         {
-            var v = NamedObject<TestEnum>.FromEnum().ToArray()[1];
+            NamedObject<TestEnum> v = NamedObject<TestEnum>.FromEnum().ToArray()[1];
             Assert.True(v.Equals(NamedObject<TestEnum>.FromEnum().ToArray()[1]));
             Assert.False(v.Equals(NamedObject<TestEnum>.FromEnum().ToArray()[2]));
             Assert.True(v.Equals(TestEnum.B));
@@ -124,9 +124,9 @@ namespace TheXDS.MCART.Tests.Types
         [Test]
         public void Equals_Operator_Test()
         {
-            var v1 = NamedObject<TestEnum>.FromEnum().ToArray()[1];
-            var v2 = NamedObject<TestEnum>.FromEnum().ToArray()[1];
-            var v3 = NamedObject<TestEnum>.FromEnum().ToArray()[2];
+            NamedObject<TestEnum> v1 = NamedObject<TestEnum>.FromEnum().ToArray()[1];
+            NamedObject<TestEnum> v2 = NamedObject<TestEnum>.FromEnum().ToArray()[1];
+            NamedObject<TestEnum> v3 = NamedObject<TestEnum>.FromEnum().ToArray()[2];
 
             Assert.True(v1 == v2);
             Assert.False(v1 == v3);
@@ -137,9 +137,9 @@ namespace TheXDS.MCART.Tests.Types
         [Test]
         public void GetHashCode_Test()
         {
-            var v1 = NamedObject<TestEnum>.FromEnum().ToArray()[1];
-            var v2 = NamedObject<TestEnum>.FromEnum().ToArray()[1];
-            var v3 = NamedObject<TestEnum>.FromEnum().ToArray()[2];
+            NamedObject<TestEnum> v1 = NamedObject<TestEnum>.FromEnum().ToArray()[1];
+            NamedObject<TestEnum> v2 = NamedObject<TestEnum>.FromEnum().ToArray()[1];
+            NamedObject<TestEnum> v3 = NamedObject<TestEnum>.FromEnum().ToArray()[2];
 
             Assert.True(v1.GetHashCode() == v2.GetHashCode());
             Assert.False(v1.GetHashCode() == v3.GetHashCode());

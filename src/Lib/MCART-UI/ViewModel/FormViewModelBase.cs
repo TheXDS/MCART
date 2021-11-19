@@ -147,7 +147,7 @@ namespace TheXDS.MCART.ViewModel
         {
             return _validationRules.Locked(p =>
             {
-                foreach (var j in p)
+                foreach (IValidationEntry? j in p)
                 {
                     AppendErrors(j, j.Property.GetValue(this));
                 }
@@ -203,13 +203,13 @@ namespace TheXDS.MCART.ViewModel
         protected override bool Change<T>(ref T backingStore, T value, [CallerMemberName] string propertyName = "")
         {
             if (!base.Change(ref backingStore, value, propertyName)) return false;
-            var prop = GetType().GetProperty(propertyName);
-            var vr = _validationRules.FirstOrDefault(p => p.Property == prop);
+            PropertyInfo? prop = GetType().GetProperty(propertyName);
+            IValidationEntry? vr = _validationRules.FirstOrDefault(p => p.Property == prop);
             if (vr is not null)
             {
                 AppendErrors(vr, value);
-                var act = (GetErrors(propertyName).ToGeneric().Any());
-                foreach (var j in _validationAffectedCommands ?? Array.Empty<SimpleCommand>()) j.SetCanExecute(act);
+                bool act = (GetErrors(propertyName).ToGeneric().Any());
+                foreach (SimpleCommand? j in _validationAffectedCommands ?? Array.Empty<SimpleCommand>()) j.SetCanExecute(act);
             }
             return true;
         }
@@ -227,7 +227,7 @@ namespace TheXDS.MCART.ViewModel
         /// </returns>
         protected IValidationEntry<T> RegisterValidation<T>(Expression<Func<T>> propertySelector)
         {
-            var r = new ValidationEntry<T>(ReflectionHelpers.GetProperty(propertySelector));
+            ValidationEntry<T>? r = new(ReflectionHelpers.GetProperty(propertySelector));
             _validationRules.Add(r);
             return r;
         }
@@ -250,7 +250,7 @@ namespace TheXDS.MCART.ViewModel
         private void AppendErrors(IValidationEntry entry, object? value)
         {
             _errors.Remove(entry.Property.Name);
-            foreach (var j in entry?.Check(value) ?? Array.Empty<string>())
+            foreach (string? j in entry?.Check(value) ?? Array.Empty<string>())
             {
                 if (_errors.ContainsKey(entry!.Property.Name))
                 {

@@ -49,8 +49,8 @@ namespace TheXDS.MCART.ValueConverters.Base
 
         private static (object opA, object opB) CastUp(object valA, object valB, IFormatProvider? provider)
         {
-            var vals = new[] { valA, valB };
-            foreach (var j in new Type[]
+            object[]? vals = new[] { valA, valB };
+            foreach (Type? j in new Type[]
             {
                 typeof(decimal),
                 typeof(ulong),
@@ -68,12 +68,12 @@ namespace TheXDS.MCART.ValueConverters.Base
                 if (TryCast(vals, j) is { } result) return result;
             }
 
-            if (int.TryParse(valA.ToString(), NumberStyles.Any, provider, out var intA) && int.TryParse(valB.ToString(), out var intB))
+            if (int.TryParse(valA.ToString(), NumberStyles.Any, provider, out int intA) && int.TryParse(valB.ToString(), out int intB))
             {
                 return (intA, intB);
             }
 
-            if (double.TryParse(valA.ToString(), NumberStyles.Any, provider, out var doubleA) && double.TryParse(valB.ToString(), out var doubleB))
+            if (double.TryParse(valA.ToString(), NumberStyles.Any, provider, out double doubleA) && double.TryParse(valB.ToString(), out double doubleB))
             {
                 return (doubleA, doubleB);
             }
@@ -127,7 +127,7 @@ namespace TheXDS.MCART.ValueConverters.Base
         {
             try
             {
-                var (firstOperand, secondOperand) = targetType.IsPrimitive || targetType == typeof(decimal)
+                (object firstOperand, object secondOperand) = targetType.IsPrimitive || targetType == typeof(decimal)
                     ? CastUp(value ?? throw new ArgumentNullException(nameof(value)), parameter ?? targetType.Default()!, culture)
                     : (value, parameter);
 

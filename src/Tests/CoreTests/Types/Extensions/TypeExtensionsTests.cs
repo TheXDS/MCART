@@ -130,7 +130,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         [Test]
         public void Derivates_Test()
         {
-            var t = typeof(Exception).Derivates(typeof(Exception).Assembly).ToArray();
+            Type[]? t = typeof(Exception).Derivates(typeof(Exception).Assembly).ToArray();
             Assert.Contains(typeof(ArgumentNullException), t);
             Assert.False(t.Contains(typeof(TamperException)));
             Assert.False(t.Contains(typeof(int)));
@@ -204,11 +204,11 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             Assert.NotNull(ex);
             Assert.False(typeof(Exception).TryInstance(out Exception? ex2, 1, 2, 3, 4));
             Assert.Null(ex2);
-            Assert.False(typeof(ICloneable).TryInstance<ICloneable>(out var x));
+            Assert.False(typeof(ICloneable).TryInstance<ICloneable>(out ICloneable? x));
             Assert.Null(x);
-            Assert.True(typeof(decimal).TryInstance<decimal>(out var d));
+            Assert.True(typeof(decimal).TryInstance<decimal>(out decimal d));
             Assert.AreEqual(default(decimal), d);
-            Assert.False(typeof(ThrowingTest).TryInstance<ThrowingTest>(out var tt));
+            Assert.False(typeof(ThrowingTest).TryInstance<ThrowingTest>(out ThrowingTest? tt));
             Assert.Null(tt);
         }
 

@@ -91,7 +91,7 @@ namespace TheXDS.MCART
             return (IntPtr hwnd, int msg, IntPtr param, IntPtr lParam, ref bool handled) =>
             {
                 if (msg != 0x0112 || ((int)param & 0xFFF0) != syscommand) return IntPtr.Zero;
-                var e = new HandledEventArgs();
+                HandledEventArgs? e = new();
                 handler?.Invoke(window, e);
                 handled = e.Handled;
                 return IntPtr.Zero;
@@ -143,9 +143,9 @@ namespace TheXDS.MCART
             {
                 if (window.WindowState == WindowState.Maximized)
                 {
-                    var wp = window.PointToScreen(e.GetPosition(window));
-                    var mp = WinUi.GetCursorPosition();
-                    var wi = window.ActualWidth;
+                    Point wp = window.PointToScreen(e.GetPosition(window));
+                    Types.Point mp = WinUi.GetCursorPosition();
+                    double wi = window.ActualWidth;
                     window.WindowState = WindowState.Normal;
                     window.Left = mp.X - (wp.X * (window.Width - rightChromeWidth) / (wi + rightChromeWidth));
                     window.Top = mp.Y - wp.Y;
@@ -294,9 +294,9 @@ namespace TheXDS.MCART
         /// <param name="c">Control a limpiar.</param>
         public static void ClearWarn(this Control c)
         {
-            for (var k = 0; k < _origctrls.Count; k++)
+            for (int k = 0; k < _origctrls.Count; k++)
             {
-                var j = _origctrls[k];
+                OrigControlColor j = _origctrls[k];
                 if (!j._rf.Is(c)) continue;
                 c.Foreground = j._fore;
                 c.Background = j._bacg;
@@ -315,7 +315,7 @@ namespace TheXDS.MCART
         /// </param>
         public static void CollapseControls(params UIElement[] ctrls)
         {
-            foreach (var j in ctrls) j.Visibility = Visibility.Collapsed;
+            foreach (UIElement? j in ctrls) j.Visibility = Visibility.Collapsed;
         }
 
         /// <summary>
@@ -339,7 +339,7 @@ namespace TheXDS.MCART
         /// </param>
         public static void DisableControls(params UIElement[] ctrls)
         {
-            foreach (var j in ctrls) j.IsEnabled = false;
+            foreach (UIElement? j in ctrls) j.IsEnabled = false;
         }
 
         /// <summary>
@@ -396,7 +396,7 @@ namespace TheXDS.MCART
         /// </param>
         public static void EnableControls(params UIElement[] ctrls)
         {
-            foreach (var j in ctrls) j.IsEnabled = true;
+            foreach (UIElement? j in ctrls) j.IsEnabled = true;
         }
 
         /// <summary>
@@ -419,7 +419,7 @@ namespace TheXDS.MCART
         /// <param name="flashColor"><see cref="Color" /> del destello.</param>
         public static void Flash(this SolidColorBrush brush, Color flashColor)
         {
-            var flash = new ColorAnimation
+            ColorAnimation? flash = new()
             {
                 From = flashColor,
                 To = brush.Color,
@@ -442,7 +442,7 @@ namespace TheXDS.MCART
             if (stream is null || (stream.CanSeek && stream.Length == 0)) return null;
             try
             {
-                var retVal = new BitmapImage();
+                BitmapImage? retVal = new();
                 retVal.BeginInit();
                 stream.Seek(0, SeekOrigin.Begin);
                 retVal.StreamSource = stream;
@@ -466,10 +466,10 @@ namespace TheXDS.MCART
         /// </returns>
         public static BitmapImage? GetBitmap(Uri uri)
         {
-            foreach (var j in _uriParsers)
+            foreach (StreamUriParser? j in _uriParsers)
             {
                 if (!j.Handles(uri)) continue;
-                var s = j.OpenFullTransfer(uri);
+                Stream? s = j.OpenFullTransfer(uri);
                 if (s is null) break;
                 //using (s)
                 //{
@@ -490,7 +490,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static BitmapImage? GetBitmap(string path)
         {
-            using var fs = new FileStream(path, FileMode.Open);
+            using FileStream? fs = new(path, FileMode.Open);
             return GetBitmap(fs);
         }
 
@@ -506,10 +506,10 @@ namespace TheXDS.MCART
         /// </returns>
         public static async Task<BitmapImage?> GetBitmapAsync(Uri uri)
         {
-            foreach (var j in _uriParsers)
+            foreach (StreamUriParser? j in _uriParsers)
             {
                 if (!j.Handles(uri)) continue;
-                var s = await j.OpenFullTransferAsync(uri);
+                Stream? s = await j.OpenFullTransferAsync(uri);
                 if (s is null) return Render(Resources.WpfIcons.FileMissing, new Size(256, 256), 96).ToImage();
                 return GetBitmap(s);
             }
@@ -545,8 +545,8 @@ namespace TheXDS.MCART
         /// </returns>
         public static PathGeometry GetCircleArc(double radius, double angle, double thickness = 0)
         {
-            var cp = new Point(radius + (thickness / 2), radius + (thickness / 2));
-            var arc = new ArcSegment
+            Point cp = new(radius + (thickness / 2), radius + (thickness / 2));
+            ArcSegment? arc = new()
             {
                 IsLargeArc = angle > 180.0,
                 Point = new Point(
@@ -555,13 +555,13 @@ namespace TheXDS.MCART
                 Size = new Size(radius, radius),
                 SweepDirection = SweepDirection.Clockwise
             };
-            var pth = new PathFigure
+            PathFigure? pth = new()
             {
                 StartPoint = new Point(cp.X, cp.Y - radius),
                 IsClosed = false
             };
             pth.Segments.Add(arc);
-            var outp = new PathGeometry();
+            PathGeometry? outp = new();
             outp.Figures.Add(pth);
             return outp;
         }
@@ -583,8 +583,8 @@ namespace TheXDS.MCART
         /// </returns>
         public static PathGeometry GetCircleArc(double radius, double startAngle, double endAngle, double thickness)
         {
-            var cp = new Point(radius + (thickness / 2), radius + (thickness / 2));
-            var arc = new ArcSegment
+            Point cp = new(radius + (thickness / 2), radius + (thickness / 2));
+            ArcSegment? arc = new()
             {
                 IsLargeArc = endAngle - startAngle > 180.0,
                 Point = new Point(
@@ -593,7 +593,7 @@ namespace TheXDS.MCART
                 Size = new Size(radius, radius),
                 SweepDirection = SweepDirection.Clockwise
             };
-            var pth = new PathFigure
+            PathFigure? pth = new()
             {
                 StartPoint = new Point(
                     cp.X + (System.Math.Sin(C.DegRad * startAngle) * radius),
@@ -601,7 +601,7 @@ namespace TheXDS.MCART
                 IsClosed = false
             };
             pth.Segments.Add(arc);
-            var outp = new PathGeometry();
+            PathGeometry? outp = new();
             outp.Figures.Add(pth);
             return outp;
         }
@@ -615,7 +615,7 @@ namespace TheXDS.MCART
         /// </param>
         public static void HideControls(params UIElement[] ctrls)
         {
-            foreach (var j in ctrls) j.Visibility = Visibility.Hidden;
+            foreach (UIElement? j in ctrls) j.Visibility = Visibility.Hidden;
         }
 
         /// <summary>
@@ -642,7 +642,7 @@ namespace TheXDS.MCART
         public static bool IsWarned(this Control c)
         {
             if (c is null) throw new ArgumentNullException(nameof(c));
-            foreach (var j in _origctrls)
+            foreach (OrigControlColor j in _origctrls)
                 if (j._rf.Is(c))
                     return true;
             return false;
@@ -699,7 +699,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static RenderTargetBitmap Render(this Visual visual, Size size, int dpi)
         {
-            var bmp = new RenderTargetBitmap(
+            RenderTargetBitmap? bmp = new(
                 (int)size.Width,
                 (int)size.Height,
                 dpi, dpi,
@@ -760,7 +760,7 @@ namespace TheXDS.MCART
         /// </param>
         public static void ShowControls(params UIElement[] ctrls)
         {
-            foreach (var j in ctrls) j.Visibility = Visibility.Visible;
+            foreach (UIElement? j in ctrls) j.Visibility = Visibility.Visible;
         }
 
         /// <summary>
@@ -785,7 +785,7 @@ namespace TheXDS.MCART
         /// </param>
         public static void ToggleControls(params UIElement[] ctrls)
         {
-            foreach (var j in ctrls) j.IsEnabled = !j.IsEnabled;
+            foreach (UIElement? j in ctrls) j.IsEnabled = !j.IsEnabled;
         }
 
         /// <summary>
@@ -812,9 +812,9 @@ namespace TheXDS.MCART
         /// </returns>
         public static BitmapImage ToImage(this BitmapSource bs)
         {
-            var ec = new PngBitmapEncoder();
-            using var ms = new MemoryStream();
-            var bi = new BitmapImage();
+            PngBitmapEncoder? ec = new();
+            using MemoryStream? ms = new();
+            BitmapImage? bi = new();
             ec.Frames.Add(BitmapFrame.Create(bs));
             ec.Save(ms);
             ms.Position = 0;
@@ -836,8 +836,8 @@ namespace TheXDS.MCART
         /// </returns>
         public static BitmapImage ToImage(this System.Drawing.Image image)
         {
-            using var ms = new MemoryStream();
-            var bi = new BitmapImage();
+            using MemoryStream? ms = new();
+            BitmapImage? bi = new();
             image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
             ms.Position = 0;
             bi.BeginInit();
@@ -859,10 +859,10 @@ namespace TheXDS.MCART
         /// </returns>
         public static BitmapSource ToSource(this System.Drawing.Image image)
         {
-            using var ms = new MemoryStream();
-            var bitmap = new System.Drawing.Bitmap(image);
-            var bmpPt = bitmap.GetHbitmap();
-            var bitmapSource = Imaging.CreateBitmapSourceFromHBitmap(
+            using MemoryStream? ms = new();
+            System.Drawing.Bitmap? bitmap = new(image);
+            IntPtr bmpPt = bitmap.GetHbitmap();
+            BitmapSource? bitmapSource = Imaging.CreateBitmapSourceFromHBitmap(
                 bmpPt,
                 IntPtr.Zero,
                 Int32Rect.Empty,
@@ -885,8 +885,8 @@ namespace TheXDS.MCART
         /// </returns>
         public static Visual ToVisual(this System.Drawing.Image image)
         {
-            var v = new DrawingVisual();
-            using var dc = v.RenderOpen();
+            DrawingVisual? v = new();
+            using DrawingContext? dc = v.RenderOpen();
             dc.DrawImage(image.ToSource(), new Rect { Width = image.Width, Height = image.Height });
             return v;
         }

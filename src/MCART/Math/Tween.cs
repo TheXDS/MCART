@@ -64,7 +64,7 @@ namespace TheXDS.MCART.Math
         /// </param>
         public static double Quadratic(in double position)
         {
-            var x2 = System.Math.Pow(position, 2);
+            double x2 = System.Math.Pow(position, 2);
             return x2 / ((2 * x2) - (2 * position) + 1);
         }
 

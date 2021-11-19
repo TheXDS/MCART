@@ -45,7 +45,7 @@ namespace TheXDS.MCART.Pages
 
         private void LstInterfaces_OnDblClick(object sender, MouseButtonEventArgs e)
         {
-            var i = sender as ListViewItem ?? throw new InvalidOperationException();
+            ListViewItem? i = sender as ListViewItem ?? throw new InvalidOperationException();
             if (i.Content is not Type t) return;
             new Window
             {

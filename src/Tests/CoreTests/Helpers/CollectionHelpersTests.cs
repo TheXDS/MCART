@@ -41,7 +41,7 @@ namespace TheXDS.MCART.Tests.Helpers
         [Test]
         public void Or_Test_bool()
         {
-            var data = new bool[10];
+            bool[]? data = new bool[10];
             Assert.False(data.Or());
             data[5] = true;
             Assert.True(data.Or());
@@ -97,7 +97,7 @@ namespace TheXDS.MCART.Tests.Helpers
         [Test]
         public void And_Test_bool()
         {
-            var data = new bool[10];
+            bool[]? data = new bool[10];
             Assert.False(data.And());
             data[5] = true;
             Assert.False(data.And());
@@ -160,7 +160,7 @@ namespace TheXDS.MCART.Tests.Helpers
         [Test]
         public void Xor_Test_bool()
         {
-            var data = new bool[10];
+            bool[]? data = new bool[10];
             Assert.False(data.Xor());
             data[5] = true;
             Assert.True(data.Xor());
@@ -254,7 +254,7 @@ namespace TheXDS.MCART.Tests.Helpers
         [Test]
         public void ToPercent_Test_Double()
         {
-            var c = new[] { 1, 2, 3, 4, 5 };
+            int[]? c = new[] { 1, 2, 3, 4, 5 };
 
             Assert.AreEqual(new[] { 0.2, 0.4, 0.6, 0.8, 1.0 }, c.ToPercentDouble());
             Assert.AreEqual(new[] { 0.2, 0.4, 0.6, 0.8, 1.0 }, c.ToPercentDouble(true));
@@ -315,8 +315,8 @@ namespace TheXDS.MCART.Tests.Helpers
 
         private static async Task<T[]> Read<T>(IAsyncEnumerable<T> d)
         {
-            var l = new List<T>();
-            await foreach (var j in d) l.Add(j);
+            List<T>? l = new();
+            await foreach (T? j in d) l.Add(j);
             return l.ToArray();
         }
 
@@ -332,7 +332,7 @@ namespace TheXDS.MCART.Tests.Helpers
         [Test]
         public void ToPercent_Test_Single()
         {
-            var c = new[] { 1, 2, 3, 4, 5 };
+            int[]? c = new[] { 1, 2, 3, 4, 5 };
 
             Assert.AreEqual(new[] { 0.2f, 0.4f, 0.6f, 0.8f, 1.0f }, c.ToPercentSingle());
             Assert.AreEqual(new[] { 0.2f, 0.4f, 0.6f, 0.8f, 1.0f }, c.ToPercentSingle(true));
@@ -370,8 +370,8 @@ namespace TheXDS.MCART.Tests.Helpers
         [Test]
         public void NotEmpty_string_Test()
         {
-            var i = new[] { "1", "2", null, "", "3" };
-            var o = new[] { "1", "2", "3" };
+            string?[]? i = new[] { "1", "2", null, "", "3" };
+            string[]? o = new[] { "1", "2", "3" };
 
             Assert.AreEqual(o, i.NotEmpty());
         }

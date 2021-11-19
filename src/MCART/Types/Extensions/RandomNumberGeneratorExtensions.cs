@@ -46,7 +46,7 @@ namespace TheXDS.MCART.Types.Extensions
         public static byte[] GetBytes(int count)
         {
             byte[] bytes = new byte[count];
-            using (var rng = RandomNumberGenerator.Create()) rng.GetBytes(bytes);
+            using (RandomNumberGenerator? rng = RandomNumberGenerator.Create()) rng.GetBytes(bytes);
             return bytes;
         }
     }

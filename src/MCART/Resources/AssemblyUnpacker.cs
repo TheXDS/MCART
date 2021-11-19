@@ -78,10 +78,10 @@ namespace TheXDS.MCART.Resources
         protected Stream? UnpackStream(string id)
         {
             UnpackStream_Contract(id);
-            var p = id.Split('.');
+            string[]? p = id.Split('.');
             if (p.Length > 1)
             {
-                var c = p[^1];
+                string? c = p[^1];
                 return UnpackStream(id.ChopEnd(c), c);
             }
             return _assembly.GetManifestResourceStream($"{_path}.{id}");
@@ -136,7 +136,7 @@ namespace TheXDS.MCART.Resources
         /// </exception>
         protected Stream UnpackStream(string id, ICompressorGetter? compressor)
         {
-            var c = compressor ?? new NullGetter();
+            ICompressorGetter? c = compressor ?? new NullGetter();
             if (id.IsEmpty()) throw new ArgumentNullException(nameof(id));
             return c.GetCompressor(_assembly?.GetManifestResourceStream($"{_path}.{id}{c.Extension}") ?? throw new MissingResourceException(id));
         }

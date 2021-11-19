@@ -280,7 +280,7 @@ namespace TheXDS.MCART.Resources
         /// </returns>
         public override bool TryUnpack(string id, out string data)
         {
-            var r = TryGetStream(id, out var reader);
+            bool r = TryGetStream(id, out StreamReader? reader);
             data = Read(reader);
             return r;
         }
@@ -303,7 +303,7 @@ namespace TheXDS.MCART.Resources
         /// </returns>
         public override bool TryUnpack(string id, string compressorId, out string data)
         {
-            var r = TryGetStream(id, compressorId, out var reader);
+            bool r = TryGetStream(id, compressorId, out StreamReader? reader);
             data = Read(reader);
             return r;
         }
@@ -327,7 +327,7 @@ namespace TheXDS.MCART.Resources
         /// </returns>
         public override bool TryUnpack(string id, ICompressorGetter compressor, out string data)
         {
-            var r = TryGetStream(id, compressor, out var reader);
+            bool r = TryGetStream(id, compressor, out StreamReader? reader);
             data = Read(reader);
             return r;
         }

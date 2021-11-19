@@ -22,9 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-
 namespace TheXDS.MCART.Comparison
 {
     /// <summary>
@@ -32,39 +29,5 @@ namespace TheXDS.MCART.Comparison
     /// </summary>
     public class TypeComparer : TypeComparer<object>
     {
-    }
-
-    /// <summary>
-    /// Compara el tipo de dos objetos que comparten un tipo base común.
-    /// </summary>
-    public class TypeComparer<T> : IEqualityComparer<T> where T : notnull
-    {
-        /// <summary>
-        /// Determina si los objetos especificados son iguales.
-        /// </summary>
-        /// <param name="x">Primer objeto a comparar.</param>
-        /// <param name="y">Segundo objeto a comparar.</param>
-        /// <returns>
-        /// <see langword="true"/> si el tipo de ambos objetos es el mismo,
-        /// <see langword="false"/> en caso contrario.
-        /// </returns>
-        public bool Equals([AllowNull] T x, [AllowNull] T y)
-        {
-            return x?.GetType() == y?.GetType();
-        }
-
-        /// <summary>
-        /// Obtiene el código Hash para el tipo del objeto especificado.
-        /// </summary>
-        /// <param name="obj">
-        /// Objeto para el cual obtener un código Hash.
-        /// </param>
-        /// <returns>
-        /// El código hash para el tipo del objeto especificado.
-        /// </returns>
-        public int GetHashCode([DisallowNull] T obj)
-        {
-            return obj!.GetType().GetHashCode();
-        }
     }
 }

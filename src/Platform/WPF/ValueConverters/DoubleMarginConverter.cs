@@ -53,7 +53,7 @@ namespace TheXDS.MCART.ValueConverters
         /// </returns>
         public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var f = parameter as Func<double, double>;
+            Func<double, double>? f = parameter as Func<double, double>;
             return value is double v ? (object)new Thickness(f?.Invoke(v) ?? v) : null;
         }
 

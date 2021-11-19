@@ -34,7 +34,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         [Test]
         public void EpochTest()
         {
-            var e = DateTimeExtensions.Epoch(1970);
+            DateTime e = DateTimeExtensions.Epoch(1970);
 
             Assert.AreEqual(1, e.Day);
             Assert.AreEqual(1, e.Month);
@@ -52,28 +52,28 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         [Test]
         public void ToUnixTimestamp_Test()
         {
-            var t = new DateTime(2038, 1, 19, 3, 14, 7);
+            DateTime t = new(2038, 1, 19, 3, 14, 7);
             Assert.AreEqual(int.MaxValue, t.ToUnixTimestamp());
         }
 
         [Test]
         public void ToUnixTimestampMs_Test()
         {
-            var t = new DateTime(2012, 5, 19, 19, 35, 0);
+            DateTime t = new(2012, 5, 19, 19, 35, 0);
             Assert.AreEqual(1337456100000, t.ToUnixTimestampMs());
         }
 
         [Test]
         public void FromUnixTimestamp_Test()
         {
-            var t = new DateTime(2038, 1, 19, 3, 14, 7);
+            DateTime t = new(2038, 1, 19, 3, 14, 7);
             Assert.AreEqual(t, DateTimeExtensions.FromUnixTimestamp(int.MaxValue));
         }
 
         [Test]
         public void FromUnixTimestampMs_Test()
         {
-            var t = new DateTime(2012, 5, 19, 19, 35, 0);
+            DateTime t = new(2012, 5, 19, 19, 35, 0);
             Assert.AreEqual(t, 1337456100000.FromUnixTimestampMs());
         }
 
@@ -84,7 +84,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
             Assert.Throws<ArgumentOutOfRangeException>(() => DateTimeExtensions.MonthName(0, CultureInfo.CurrentCulture));
             Assert.Throws<ArgumentOutOfRangeException>(() => DateTimeExtensions.MonthName(13, CultureInfo.CurrentCulture));
 
-            var t = DateTime.Today;
+            DateTime t = DateTime.Today;
             Assert.AreEqual(t.ToString("MMMM"), DateTimeExtensions.MonthName(t.Month));
         }
     }

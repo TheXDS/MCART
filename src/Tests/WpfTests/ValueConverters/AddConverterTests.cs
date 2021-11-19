@@ -34,7 +34,7 @@ namespace TheXDS.MCART.WpfTests.ValueConverters
         [Test]
         public void IntegerAddTest()
         {
-            var c = new AddConverter();
+            AddConverter? c = new();
 
             Assert.AreEqual(3, c.Convert(1, typeof(int), 2, CultureInfo.CurrentCulture));
             Assert.AreEqual(1, c.ConvertBack(3, typeof(int), 2, CultureInfo.CurrentCulture));
@@ -43,7 +43,7 @@ namespace TheXDS.MCART.WpfTests.ValueConverters
         [Test]
         public void MixedTypesTest()
         {
-            var c = new AddConverter();
+            AddConverter? c = new();
 
             Assert.AreEqual(3, c.Convert(1f, typeof(int), "2", CultureInfo.CurrentCulture));
             Assert.AreEqual(1, c.ConvertBack(3f, typeof(int), "2", CultureInfo.CurrentCulture));
@@ -52,21 +52,21 @@ namespace TheXDS.MCART.WpfTests.ValueConverters
         [Test]
         public void BigIntegerAddTest()
         {
-            var c = new AddConverter();
+            AddConverter? c = new();
             Assert.AreEqual(9999999999999999m, c.Convert(9999999999999990m, typeof(decimal), (byte)9, CultureInfo.CurrentCulture));
         }
 
         [Test]
         public void CastDownTest()
         {
-            var c = new AddConverter();
+            AddConverter? c = new();
             Assert.AreEqual((byte)200, c.Convert(100L, typeof(byte), 100m, CultureInfo.CurrentCulture));
         }
 
         [Test]
         public void SanityTests()
         {
-            var c = new AddConverter();
+            AddConverter? c = new();
             Assert.AreEqual(double.NaN, c.Convert(decimal.MaxValue, typeof(double), "Test", CultureInfo.CurrentCulture));
             Assert.AreEqual(float.NaN, c.Convert(double.MaxValue, typeof(float), "Test", CultureInfo.CurrentCulture));
             Assert.AreEqual(5, c.Convert(5, typeof(int), null, CultureInfo.CurrentCulture));

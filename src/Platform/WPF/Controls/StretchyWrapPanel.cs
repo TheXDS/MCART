@@ -209,7 +209,6 @@ namespace TheXDS.MCART.Controls
                 }
             }
 
-
             for (int i = 0, count = InternalChildren.Count; i < count; i++)
             {
                 if (InternalChildren[i] is not UIElement child) continue;

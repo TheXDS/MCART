@@ -101,7 +101,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         [System.Diagnostics.DebuggerStepThrough]
         protected Plugin()
         {
-            foreach (var j in GetType().GetMethods().Where(k => k.HasAttr<InteractionItemAttribute>()))
+            foreach (MethodInfo? j in GetType().GetMethods().Where(k => k.HasAttr<InteractionItemAttribute>()))
             {
                 if (Delegate.CreateDelegate(typeof(EventHandler), this, j, false) is not null)
                     InteractionItems.Add(new InteractionItem(j, this));
@@ -285,7 +285,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         {
             get
             {
-                foreach (var j in GetType().GetInterfaces())
+                foreach (Type? j in GetType().GetInterfaces())
                     if (j.IsNeither(typeof(IPlugin), typeof(IDisposable)))
                         yield return j;
             }
@@ -325,10 +325,10 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         {
             get
             {
-                foreach (var j in GetType().GetNestedTypes().Cast<MemberInfo>().Concat(GetType().GetRuntimeMethods()))
+                foreach (MemberInfo? j in GetType().GetNestedTypes().Cast<MemberInfo>().Concat(GetType().GetRuntimeMethods()))
                 {
                     if (!j.HasAttr<ThirdPartyAttribute>()) continue;
-                    if (j.HasAttr<LicenseAttributeBase>(out var lic)) yield return lic!.GetLicense(j);
+                    if (j.HasAttr<LicenseAttributeBase>(out LicenseAttributeBase? lic)) yield return lic!.GetLicense(j);
                 }
             }
         }

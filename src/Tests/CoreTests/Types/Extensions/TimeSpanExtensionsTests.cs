@@ -52,9 +52,9 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         [Test]
         public void AsTimeTest()
         {
-            var t = TimeSpan.FromSeconds(60015);
-            var c = CultureInfo.InvariantCulture;
-            var r = t.AsTime(c);
+            TimeSpan t = TimeSpan.FromSeconds(60015);
+            CultureInfo? c = CultureInfo.InvariantCulture;
+            string? r = t.AsTime(c);
             Assert.AreEqual("16:40", r);
             Assert.AreEqual(
                 string.Format($"{{0:{CultureInfo.CurrentCulture.DateTimeFormat.ShortTimePattern}}}",

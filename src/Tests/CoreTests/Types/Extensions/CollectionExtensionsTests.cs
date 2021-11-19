@@ -38,10 +38,10 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         [Test]
         public void RemoveOf_Test()
         {
-            var e = new Exception();
-            var d = DateTime.Now;
-            var o = new object();
-            var e2 = new InvalidOperationException();
+            Exception? e = new();
+            DateTime d = DateTime.Now;
+            object? o = new();
+            InvalidOperationException? e2 = new();
             ICollection<object> c = new[] { e, o, 5, d, e2 }.ToList();
             c.RemoveOf<object, Exception>();
 
@@ -55,7 +55,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         [Test]
         public void RemoveAll_With_Predicate_Test()
         {
-            var l = Enumerable.Range(1, 10).ToList();
+            List<int>? l = Enumerable.Range(1, 10).ToList();
             List<int> r = new();
             l.RemoveAll(p => p % 2 == 1, p => r.Add(p));
             Assert.AreEqual(new[] { 2, 4, 6, 8, 10 }, l.ToArray());
@@ -65,7 +65,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         [Test]
         public void RemoveAll_Without_Predicate_Test()
         {
-            var l = Enumerable.Range(1, 10).ToList();
+            List<int>? l = Enumerable.Range(1, 10).ToList();
             List<int> r = new();
             l.RemoveAll(p => r.Add(p));
             Assert.IsEmpty(l);
@@ -75,7 +75,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         [Test]
         public void RemoveAll_With_Predicate_No_Action_Test()
         {
-            var l = Enumerable.Range(1, 10).ToList();
+            List<int>? l = Enumerable.Range(1, 10).ToList();
             TheXDS.MCART.Types.Extensions.CollectionExtensions.RemoveAll(l, p => p % 2 == 1);
             Assert.AreEqual(new[] { 2, 4, 6, 8, 10 }, l.ToArray());
         }
@@ -83,7 +83,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         [Test]
         public void RemoveAll_Without_Params_Test()
         {
-            var l = Enumerable.Range(1, 10).ToList();
+            List<int>? l = Enumerable.Range(1, 10).ToList();
             l.RemoveAll();
             Assert.IsEmpty(l);
         }
@@ -92,7 +92,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         public void Push_Test()
         {
             List<Guid> l = new();
-            var g = l.Push();
+            Guid g = l.Push();
             Assert.Contains(g, l);
         }
 
@@ -100,7 +100,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         public void PushInto_Test()
         {
             List<Guid> l = new();
-            var g = Guid.NewGuid().PushInto(l);
+            Guid g = Guid.NewGuid().PushInto(l);
             Assert.Contains(g, l);
         }
 
@@ -108,7 +108,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         public void Push_With_Base_Type_Test()
         {
             List<object> l = new();
-            var g = l.Push<Guid, object>();
+            Guid g = l.Push<Guid, object>();
             Assert.Contains(g, l);
         }
 
@@ -134,19 +134,19 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         [Test]
         public void AddClones_Test()
         {
-            var j = new ClonableTestClass()
+            ClonableTestClass? j = new()
             {
                 Value = 1
             };
-            var k = new ClonableTestClass()
+            ClonableTestClass? k = new()
             {
                 Value = 2
             };
             Collection<ClonableTestClass> l = new() { j, k };
             Collection<ClonableTestClass> m = new();
             m.AddClones(l);
-            var n = m.Single(p => p.Value == j.Value);
-            var o = m.Single(p => p.Value == k.Value);
+            ClonableTestClass? n = m.Single(p => p.Value == j.Value);
+            ClonableTestClass? o = m.Single(p => p.Value == k.Value);
 
             Assert.NotNull(n);
             Assert.NotNull(o);
@@ -157,13 +157,13 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         [Test]
         public void AddClone_Test()
         {
-            var j = new ClonableTestClass()
+            ClonableTestClass? j = new()
             {
                 Value = 1
             };
             Collection<ClonableTestClass> m = new();
             m.AddClone(j);
-            var n = m.Single(p => p.Value == j.Value);
+            ClonableTestClass? n = m.Single(p => p.Value == j.Value);
 
             Assert.NotNull(n);
             Assert.AreNotSame(j, n);

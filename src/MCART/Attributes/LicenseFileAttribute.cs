@@ -58,8 +58,8 @@ namespace TheXDS.MCART.Attributes
         {
             try
             {
-                using var fs = new FileStream(Value!, FileMode.Open);
-                using var sr = new StreamReader(fs);
+                using FileStream? fs = new(Value!, FileMode.Open);
+                using StreamReader? sr = new(fs);
                 return sr.ReadToEnd();
             }
             catch

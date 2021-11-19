@@ -35,7 +35,6 @@ namespace TheXDS.MCART.Helpers
     /// </summary>
     public static partial class Objects
     {
-
         [Conditional("EnforceContracts")]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DebuggerNonUserCode]

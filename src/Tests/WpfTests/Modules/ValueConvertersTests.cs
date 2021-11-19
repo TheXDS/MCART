@@ -35,7 +35,7 @@ namespace TheXDS.MCART.WpfTests.Modules
         [Test]
         public void ThresholdConverterTest()
         {
-            var c = new ThresholdConverter<double, Visibility>(Visibility.Collapsed, Visibility.Visible, Visibility.Hidden);
+            ThresholdConverter<double, Visibility>? c = new(Visibility.Collapsed, Visibility.Visible, Visibility.Hidden);
 
             Assert.Throws<ArgumentNullException>(() => c.Convert(null, typeof(Visibility), 100.0, CultureInfo.CurrentCulture));
             Assert.Throws<ArgumentException>(() => c.Convert("X", typeof(Visibility), 100.0, CultureInfo.CurrentCulture));

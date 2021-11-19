@@ -78,7 +78,7 @@ namespace TheXDS.MCART.Networking.Legacy.Client
             Host = host;
             Port = port;
 
-            if (IPAddress.TryParse(host, out var ip)) Address = new IPEndPoint(ip, port);
+            if (IPAddress.TryParse(host, out IPAddress? ip)) Address = new IPEndPoint(ip, port);
         }
 
         /// <summary>

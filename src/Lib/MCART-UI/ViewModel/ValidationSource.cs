@@ -96,7 +96,7 @@ namespace TheXDS.MCART.ViewModel
         /// </summary>
         /// <param name="propertyName"></param>
         /// <returns></returns>
-        public IEnumerable<string> this[string propertyName] => _errors.TryGetValue(propertyName, out var l) ? l.ToArray() : Array.Empty<string>();
+        public IEnumerable<string> this[string propertyName] => _errors.TryGetValue(propertyName, out List<string>? l) ? l.ToArray() : Array.Empty<string>();
 
         private protected ValidationSource(IValidatingViewModel npcSource)
         {
@@ -112,7 +112,7 @@ namespace TheXDS.MCART.ViewModel
         /// </returns>
         public bool CheckErrors()
         {
-            foreach (var j in _validationRules)
+            foreach (IValidationEntry? j in _validationRules)
             {
                 AppendErrors(j, j.Property.GetValue(this));
             }
@@ -149,7 +149,7 @@ namespace TheXDS.MCART.ViewModel
 
         private void NpcSource_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            var prop = _npcSource.GetType().GetProperty(e.PropertyName ?? throw new ArgumentException(null, nameof(e)))
+            PropertyInfo? prop = _npcSource.GetType().GetProperty(e.PropertyName ?? throw new ArgumentException(null, nameof(e)))
                 ?? throw new MissingMemberException(_npcSource.GetType().Name, e.PropertyName);
             if (_validationRules.FirstOrDefault(p => p.Property == prop) is { } vr)
             {
@@ -160,9 +160,9 @@ namespace TheXDS.MCART.ViewModel
         private void AppendErrors(IValidationEntry entry, object? value)
         {
             _errors.Remove(entry.Property.Name);
-            foreach (var j in entry.Check(value) ?? Array.Empty<string>())
+            foreach (string? j in entry.Check(value) ?? Array.Empty<string>())
             {
-                if (_errors.TryGetValue(entry.Property.Name, out var l))
+                if (_errors.TryGetValue(entry.Property.Name, out List<string>? l))
                 {
                     l.Add(j);
                 }
@@ -207,7 +207,7 @@ namespace TheXDS.MCART.ViewModel
         /// </returns>
         public IValidationEntry<T> RegisterValidation<T>(Expression<Func<TViewModel, T>> propertySelector)
         {
-            var r = new ValidationEntry<T>(ReflectionHelpers.GetProperty(propertySelector));
+            ValidationEntry<T>? r = new(ReflectionHelpers.GetProperty(propertySelector));
             _validationRules.Add(r);
             return r;
         }

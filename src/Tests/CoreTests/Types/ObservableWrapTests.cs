@@ -37,8 +37,8 @@ namespace TheXDS.MCART.Tests.Types
         [Test]
         public void InstanceTest()
         {
-            var c = new List<string> { "1", "2", "3" };
-            var o = new ObservableCollectionWrap<string>(c);
+            List<string>? c = new() { "1", "2", "3" };
+            ObservableCollectionWrap<string>? o = new(c);
             Assert.AreEqual(c, o.UnderlyingCollection);
             Assert.AreEqual(3, o.Count);
 
@@ -49,8 +49,8 @@ namespace TheXDS.MCART.Tests.Types
         [Test]
         public void AddTest()
         {
-            var c = new ObservableCollectionWrap<string>(new List<string> { "1", "2", "3" });
-            EventTest(c, () => c.Add("4"), Add, out var evt);
+            ObservableCollectionWrap<string>? c = new(new List<string> { "1", "2", "3" });
+            EventTest(c, () => c.Add("4"), Add, out (object? Sender, NotifyCollectionChangedEventArgs Arguments) evt);
             Assert.AreEqual("4", (string)evt.Arguments.NewItems![0]!);
             Assert.Contains("4", c.ToArray());
         }
@@ -58,7 +58,7 @@ namespace TheXDS.MCART.Tests.Types
         [Test]
         public void ClearTest()
         {
-            var c = new ObservableCollectionWrap<string>(new List<string> { "1", "2", "3" });
+            ObservableCollectionWrap<string>? c = new(new List<string> { "1", "2", "3" });
             EventTest(c, c.Clear, Reset, out _);
             Assert.IsEmpty(c);
         }
@@ -66,8 +66,8 @@ namespace TheXDS.MCART.Tests.Types
         [Test]
         public void RemoveTest()
         {
-            var c = new ObservableCollectionWrap<string>(new List<string> { "1", "2", "3" });
-            EventTest(c, () => c.Remove("2"), Remove, out var evt);
+            ObservableCollectionWrap<string>? c = new(new List<string> { "1", "2", "3" });
+            EventTest(c, () => c.Remove("2"), Remove, out (object? Sender, NotifyCollectionChangedEventArgs Arguments) evt);
             Assert.AreEqual("2", (string)evt.Arguments.OldItems![0]!);
             Assert.False(c.Contains("2"));
         }
@@ -75,9 +75,9 @@ namespace TheXDS.MCART.Tests.Types
         [Test]
         public void RefreshTest()
         {
-            var l = new List<string> { "1", "2", "3" };
-            var c = new ObservableCollectionWrap<string>(l);
-            var ex = Assert.Throws<AssertionException>(() => EventTest(c, () => l.Add("4"), Add, out _));
+            List<string>? l = new() { "1", "2", "3" };
+            ObservableCollectionWrap<string>? c = new(l);
+            AssertionException? ex = Assert.Throws<AssertionException>(() => EventTest(c, () => l.Add("4"), Add, out _));
             Assert.Contains("4", c.ToArray());
             EventTest(c, c.Refresh, Add, out _);
         }

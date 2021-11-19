@@ -172,8 +172,8 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static bool CheckCircularRef<T>(this IEnumerable<KeyValuePair<T, IEnumerable<T>>> dictionary, T element) where T : notnull
         {
-            var d = new Dictionary<T, IEnumerable<T>>();
-            foreach (var j in dictionary) d.Add(j.Key, j.Value);
+            Dictionary<T, IEnumerable<T>>? d = new();
+            foreach (KeyValuePair<T, IEnumerable<T>> j in dictionary) d.Add(j.Key, j.Value);
             return BranchScanFails(element, element, d, new HashSet<T>());
         }
 
@@ -197,15 +197,15 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static bool CheckCircularRef<T>(this IEnumerable<KeyValuePair<T, ICollection<T>>> dictionary, T element) where T : notnull
         {
-            var d = new Dictionary<T, IEnumerable<T>>();
-            foreach (var j in dictionary) d.Add(j.Key, j.Value);
+            Dictionary<T, IEnumerable<T>>? d = new();
+            foreach (KeyValuePair<T, ICollection<T>> j in dictionary) d.Add(j.Key, j.Value);
             return BranchScanFails(element, element, d, new HashSet<T>());
         }
 
         private static bool BranchScanFails<T>(T a, T b, IDictionary<T, IEnumerable<T>> tree, ICollection<T> keysChecked) where T : notnull
         {
             if (!tree.ContainsKey(b)) return false;
-            foreach (var j in tree[b])
+            foreach (T? j in tree[b])
             {
                 if (keysChecked.Contains(j)) return false;
                 keysChecked.Add(j);
@@ -218,7 +218,7 @@ namespace TheXDS.MCART.Types.Extensions
         private static bool BranchScanFails<T>(T a, T b, IDictionary<T, ICollection<T>> tree, ICollection<T> keysChecked) where T : notnull
         {
             if (!tree.ContainsKey(b)) return false;
-            foreach (var j in tree[b])
+            foreach (T? j in tree[b])
             {
                 if (keysChecked.Contains(j)) return false;
                 keysChecked.Add(j);

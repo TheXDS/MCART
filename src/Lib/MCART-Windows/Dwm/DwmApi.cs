@@ -292,16 +292,16 @@ namespace TheXDS.MCART.Windows.Dwm
 
         private static void SetWindowEffect(IWindow window, AccentPolicy accent)
         {
-            var accentStructSize = Marshal.SizeOf(accent);
-            var accentPtr = Marshal.AllocHGlobal(accentStructSize);
+            int accentStructSize = Marshal.SizeOf(accent);
+            IntPtr accentPtr = Marshal.AllocHGlobal(accentStructSize);
             Marshal.StructureToPtr(accent, accentPtr, false);
-            var data = new WindowCompositionAttributeData
+            WindowCompositionAttributeData data = new()
             {
                 Attribute = WindowCompositionAttribute.WCA_ACCENT_POLICY,
                 SizeOfData = accentStructSize,
                 Data = accentPtr
             };
-            var v = PInvoke.SetWindowCompositionAttribute(window.Handle, ref data);
+            int v = PInvoke.SetWindowCompositionAttribute(window.Handle, ref data);
             Marshal.FreeHGlobal(accentPtr);
             if (Marshal.GetExceptionForHR(v) is { } ex) throw ex;
         }
@@ -323,7 +323,7 @@ namespace TheXDS.MCART.Windows.Dwm
                 (int)data,
                 (uint)transform((WindowStyles)PInvoke.GetWindowLong(window.Handle, data))) == 0)
             {
-                var v = Marshal.GetHRForLastWin32Error();
+                int v = Marshal.GetHRForLastWin32Error();
                 throw Marshal.GetExceptionForHR(v) ?? new Exception { HResult = v };
             }
         }

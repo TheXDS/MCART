@@ -126,7 +126,7 @@ namespace TheXDS.MCART.Controls
         /// </summary>
         public static DependencyProperty YMinProperty = DependencyProperty.Register(nameof(YMin), typeof(double), T, new PropertyMetadata(double.NaN, (dd, e) =>
         {
-            var d = (LightGraph)dd;
+            LightGraph? d = (LightGraph)dd;
             d.YMn.Text = string.Empty;
             if (d.Graph.Count > 0)
             {
@@ -141,7 +141,7 @@ namespace TheXDS.MCART.Controls
         /// </summary>
         public static DependencyProperty YMaxProperty = DependencyProperty.Register(nameof(YMax), typeof(double), T, new PropertyMetadata(double.NaN, (dd, e) =>
         {
-            var d = (LightGraph)dd;
+            LightGraph? d = (LightGraph)dd;
             d.YMx.Text = string.Empty;
             if (d.Graph.Count > 0)
             {
@@ -161,7 +161,7 @@ namespace TheXDS.MCART.Controls
         /// </summary>
         public static DependencyProperty Y2MinProperty = DependencyProperty.Register(nameof(Y2Min), typeof(double), T, new PropertyMetadata(double.NaN, (dd, e) =>
         {
-            var d = (LightGraph)dd;
+            LightGraph? d = (LightGraph)dd;
             d.Y2Mn.Text = string.Empty;
             if (d.Graph2.Count > 0)
             {
@@ -176,7 +176,7 @@ namespace TheXDS.MCART.Controls
         /// </summary>
         public static DependencyProperty Y2MaxProperty = DependencyProperty.Register(nameof(Y2Max), typeof(double), T, new PropertyMetadata(double.NaN, (dd, e) =>
         {
-            var d = (LightGraph)dd;
+            LightGraph? d = (LightGraph)dd;
             d.Y2Mx.Text = string.Empty;
             if (d.Graph2.Count > 0)
             {
@@ -450,14 +450,14 @@ namespace TheXDS.MCART.Controls
         private void PlotAxis()
         {
             if (!AmIValid()) return;
-            var l = GrdGraphBG.ActualWidth / ((XLabels.Count - 1) + GraphPadding);
+            double l = GrdGraphBG.ActualWidth / ((XLabels.Count - 1) + GraphPadding);
             if (l == 0) return;
             GrdGraphBG.Children.Clear();
             if (XLabels.Count > 0)
             {
                 for (double j = 0; j <= GrdGraphBG.ActualWidth; j += l)
                 {
-                    var k = new Line()
+                    Line? k = new()
                     {
                         X1 = j,
                         X2 = j,
@@ -474,7 +474,7 @@ namespace TheXDS.MCART.Controls
         private void PlotLabels()
         {
             if (!AmIValid()) return;
-            var l = GrdGraphBG.ActualWidth / ((XLabels.Count - 1) + GraphPadding);
+            double l = GrdGraphBG.ActualWidth / ((XLabels.Count - 1) + GraphPadding);
             if (l == 0) return;
             GrdXLbls.Children.Clear();
             if (XLabels.Count > 0)
@@ -483,7 +483,7 @@ namespace TheXDS.MCART.Controls
                 {
                     if (System.Math.Round(j / l) < XLabels.Count)
                     {
-                        var k = new TextBlock()
+                        TextBlock? k = new()
                         {
                             Text = XLabels[(int)(j / l)],
                             Margin = new Thickness(j, 0, 0, 0)
@@ -503,14 +503,14 @@ namespace TheXDS.MCART.Controls
             mx.Text = max.ToString();
             if (double.IsNaN(min)) min = lst.Min();
             mn.Text = min.ToString();
-            var l = GrdGraph.ActualWidth / ((lst.Count - 1) + GraphPadding); //Unidades de gráfica
+            double l = GrdGraph.ActualWidth / ((lst.Count - 1) + GraphPadding); //Unidades de gráfica
             double k = 0; //step en unidades de gráfica
-            var a = 0; //step simple
-            foreach (var j in lst.ToPercent(min, max))
+            int a = 0; //step simple
+            foreach (double j in lst.ToPercent(min, max))
             {
                 if (j.IsValid())
                 {
-                    var p = new System.Windows.Point(k, GrdGraph.ActualHeight - (j * GrdGraph.ActualHeight));
+                    System.Windows.Point p = new(k, GrdGraph.ActualHeight - (j * GrdGraph.ActualHeight));
                     grp.Points.Add(p);
                     if ((GraphDrawMode & EnumGraphDrawMode.Bars) != 0) grp.Points.Add(new System.Windows.Point(p.X + l, p.Y));
                 }
@@ -524,8 +524,8 @@ namespace TheXDS.MCART.Controls
                 else
                     grp.Points.Add(new System.Windows.Point(k - l, GrdGraph.ActualHeight + (GraphThickness * 2)));
                 grp.Points.Add(new System.Windows.Point(0, GrdGraph.ActualHeight + (GraphThickness * 2)));
-                var _with2 = ((SolidColorBrush)grp.Stroke).Color;
-                var x = System.Windows.Media.Color.FromArgb((byte)(_with2.A / 2), _with2.R, _with2.G, _with2.B);
+                System.Windows.Media.Color _with2 = ((SolidColorBrush)grp.Stroke).Color;
+                System.Windows.Media.Color x = System.Windows.Media.Color.FromArgb((byte)(_with2.A / 2), _with2.R, _with2.G, _with2.B);
                 grp.Fill = new SolidColorBrush(x);
             }
         }
@@ -534,24 +534,24 @@ namespace TheXDS.MCART.Controls
         {
             if (!AmIValid()) return;
             g.Children.Clear();
-            var mde = SpotLabels;
+            SpotLabelsDrawMode mde = SpotLabels;
             if (grp.Count > 1 && Convert.ToBoolean(mde))
             {
-                var j = 0;
+                int j = 0;
                 byte drop = 0;
-                var tot = grp.Sum();
-                foreach (var p in Ps.Points)
+                double tot = grp.Sum();
+                foreach (System.Windows.Point p in Ps.Points)
                 {
                     if (Algebra.AreValid(p.X, p.Y) && drop == 0)
                     {
-                        var lb = new TextBlock()
+                        TextBlock? lb = new()
                         {
                             Foreground = ((mde & SpotLabelsDrawMode.GraphColor) != 0 ? Ps.Stroke : Foreground),
                             Background = (mde & SpotLabelsDrawMode.DarkBg) != 0 ? Brushes.Black : null,
                             HorizontalAlignment = HorizontalAlignment.Left,
                             VerticalAlignment = VerticalAlignment.Top
                         };
-                        var _with3 = new StringBuilder();
+                        StringBuilder? _with3 = new();
                         if ((mde & SpotLabelsDrawMode.YValues) != 0) _with3.Append(grp[j]);
                         if ((mde & SpotLabelsDrawMode.Percent) != 0) _with3.Append($"{(grp[j] / tot):0.0%}");
                         lb.Text = _with3.ToString();
@@ -671,14 +671,14 @@ namespace TheXDS.MCART.Controls
         public LightGraph()
         {
             // Inicializar controles...
-            var pnlroot = new DockPanel();
-            var lba = new TextBlock { LayoutTransform = new RotateTransform(-90) };
-            var rct1 = new Rectangle();
-            var dp1 = new DockPanel();
-            var gr1 = new Grid { LayoutTransform = new RotateTransform(-90) };
-            var gr2 = new Grid { LayoutTransform = new RotateTransform(-90) };
-            var gr3 = new Grid();
-            var gr4 = new Grid();
+            DockPanel? pnlroot = new();
+            TextBlock? lba = new() { LayoutTransform = new RotateTransform(-90) };
+            Rectangle? rct1 = new();
+            DockPanel? dp1 = new();
+            Grid? gr1 = new() { LayoutTransform = new RotateTransform(-90) };
+            Grid? gr2 = new() { LayoutTransform = new RotateTransform(-90) };
+            Grid? gr3 = new();
+            Grid? gr4 = new();
             DockPanel.SetDock(LblTitle, Dock.Top);
             DockPanel.SetDock(dp1, Dock.Bottom);
             DockPanel.SetDock(gr1, Dock.Left);
@@ -727,22 +727,22 @@ namespace TheXDS.MCART.Controls
             gr4.Children.Add(GrdXLbls);
             gr4.Children.Add(XLbl);
             dp1.Children.Add(gr4);
-            var _with4 = gr1.Children;
+            UIElementCollection? _with4 = gr1.Children;
             _with4.Add(YLbl);
             _with4.Add(YMx);
             _with4.Add(YMn);
-            var _with5 = gr2.Children;
+            UIElementCollection? _with5 = gr2.Children;
             _with5.Add(Y2Lbl);
             _with5.Add(Y2Mx);
             _with5.Add(Y2Mn);
             GrdGraph.Children.Add(Grp1);
             GrdGraph.Children.Add(Grp2);
-            var _with6 = gr3.Children;
+            UIElementCollection? _with6 = gr3.Children;
             _with6.Add(GrdGraphBG);
             _with6.Add(GrdGraph);
             _with6.Add(GrdGraphFG);
             _with6.Add(GrdGraphFG2);
-            var _with7 = pnlroot.Children;
+            UIElementCollection? _with7 = pnlroot.Children;
             _with7.Add(LblTitle);
             _with7.Add(dp1);
             _with7.Add(gr1);

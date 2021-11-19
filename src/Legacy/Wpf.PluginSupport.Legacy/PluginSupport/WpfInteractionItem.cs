@@ -117,7 +117,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         /// <see cref="InteractionItem"/>.</returns>
         public MenuItem AsMenuItem()
         {
-            var k = new MenuItem() { Header = Text };
+            MenuItem? k = new() { Header = Text };
             if (!Description.IsEmpty())
                 k.ToolTip = new ToolTip() { Content = Description };
             if (Icon is not null)
@@ -154,7 +154,7 @@ namespace TheXDS.MCART.PluginSupport.Legacy
                 k.ToolTip = new ToolTip() { Content = Description };
             if (Icon is not null)
             {
-                var cnt = new StackPanel() { Orientation = Orientation.Horizontal };
+                StackPanel? cnt = new() { Orientation = Orientation.Horizontal };
                 cnt.Children.Add(new Image() { Source = Icon });
                 cnt.Children.Add(new TextBlock() { Text = Text });
                 k.Content = cnt;

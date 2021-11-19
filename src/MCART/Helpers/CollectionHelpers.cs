@@ -456,7 +456,7 @@ namespace TheXDS.MCART.Helpers
         public static async Task<bool> AllEmpty(this IAsyncEnumerable<string?> stringCollection)
         {
             AllEmpty_Contract(stringCollection);
-            await foreach (var j in stringCollection.ConfigureAwait(false))
+            await foreach (string? j in stringCollection.ConfigureAwait(false))
             {
                 if (!j.IsEmpty()) return false;
             }
@@ -496,7 +496,7 @@ namespace TheXDS.MCART.Helpers
         public static async Task<bool> AnyEmpty(this IAsyncEnumerable<string?> stringCollection)
         {
             AnyEmpty_Contract(stringCollection);
-            await foreach (var j in stringCollection.ConfigureAwait(false))
+            await foreach (string? j in stringCollection.ConfigureAwait(false))
             {
                 if (j.IsEmpty()) return true;
             }
@@ -521,9 +521,9 @@ namespace TheXDS.MCART.Helpers
         public static bool AnyEmpty(this IEnumerable<string?> stringCollection, out IEnumerable<int> index)
         {
             AnyEmpty_Contract(stringCollection);
-            var idx = new List<int>();
-            var c = 0;
-            foreach (var j in stringCollection)
+            List<int>? idx = new();
+            int c = 0;
+            foreach (string? j in stringCollection)
             {
                 if (j.IsEmpty()) idx.Add(c);
                 c++;
@@ -550,8 +550,8 @@ namespace TheXDS.MCART.Helpers
         public static bool AnyEmpty(this IEnumerable<string?> stringCollection, out int firstIndex)
         {
             AnyEmpty_Contract(stringCollection);
-            var r = AnyEmpty(stringCollection, out IEnumerable<int> indexes);
-            var a = indexes.ToArray();
+            bool r = AnyEmpty(stringCollection, out IEnumerable<int> indexes);
+            int[]? a = indexes.ToArray();
             firstIndex = a.Any() ? a.First() : -1;
             return r;
         }
@@ -568,7 +568,7 @@ namespace TheXDS.MCART.Helpers
         public static IEnumerable<string> NotEmpty(this IEnumerable<string?> stringCollection)
         {
             NotEmpty_Contract(stringCollection);
-            foreach (var j in stringCollection)
+            foreach (string? j in stringCollection)
             {
                 if (!j.IsEmpty()) yield return j;
             }
@@ -593,7 +593,7 @@ namespace TheXDS.MCART.Helpers
         public static IEnumerable<float> ToPercent(this IEnumerable<float> collection)
         {
             ToPercent_Contract(collection);
-            var enumerable = collection.ToList();
+            List<float>? enumerable = collection.ToList();
             return ToPercent(enumerable, enumerable.Min(), enumerable.Max());
         }
 
@@ -621,7 +621,7 @@ namespace TheXDS.MCART.Helpers
         public static IEnumerable<float> ToPercent(this IEnumerable<float> collection, in bool baseZero)
         {
             ToPercent_Contract(collection);
-            var enumerable = collection.ToList();
+            List<float>? enumerable = collection.ToList();
             return ToPercent(enumerable, baseZero ? 0 : enumerable.Min(), enumerable.Max());
         }
 
@@ -670,7 +670,7 @@ namespace TheXDS.MCART.Helpers
         public static IEnumerable<float> ToPercent(this IEnumerable<float> collection, float min, float max)
         {
             ToPercent_Contract(collection, min, max);
-            foreach (var j in collection)
+            foreach (float j in collection)
                 if (j.IsValid())
                     yield return (j - min) / (max - min).Clamp(1, float.NaN);
                 else
@@ -722,7 +722,7 @@ namespace TheXDS.MCART.Helpers
         public static async IAsyncEnumerable<float> ToPercent(this IAsyncEnumerable<float> collection, float min, float max)
         {
             ToPercent_Contract(collection, min, max);
-            await foreach (var j in collection)
+            await foreach (float j in collection)
                 if (j.IsValid())
                     yield return (j - min) / (max - min).Clamp(1, float.NaN);
                 else
@@ -748,7 +748,7 @@ namespace TheXDS.MCART.Helpers
         public static IEnumerable<double> ToPercentDouble(this IEnumerable<int> collection)
         {
             ToPercentDouble_Contract(collection);
-            var enumerable = collection.ToList();
+            List<int>? enumerable = collection.ToList();
             return ToPercentDouble(enumerable, 0, enumerable.Max());
         }
 
@@ -776,7 +776,7 @@ namespace TheXDS.MCART.Helpers
         public static IEnumerable<double> ToPercentDouble(this IEnumerable<int> collection, in bool baseZero)
         {
             ToPercentDouble_Contract(collection);
-            var enumerable = collection.ToList();
+            List<int>? enumerable = collection.ToList();
             return ToPercentDouble(enumerable, baseZero ? 0 : enumerable.Min(), enumerable.Max());
         }
 
@@ -825,7 +825,7 @@ namespace TheXDS.MCART.Helpers
         public static IEnumerable<double> ToPercentDouble(this IEnumerable<int> collection, int min, int max)
         {
             ToPercent_Contract(collection, min, max);
-            foreach (var j in collection) yield return (j - min) / (double)(max - min);
+            foreach (int j in collection) yield return (j - min) / (double)(max - min);
         }
 
         /// <summary>
@@ -873,7 +873,7 @@ namespace TheXDS.MCART.Helpers
         public static async IAsyncEnumerable<double> ToPercentDouble(this IAsyncEnumerable<int> collection, int min, int max)
         {
             ToPercent_Contract(collection, min, max);
-            await foreach (var j in collection) yield return (j - min) / (double)(max - min);
+            await foreach (int j in collection) yield return (j - min) / (double)(max - min);
         }
 
         /// <summary>
@@ -895,7 +895,7 @@ namespace TheXDS.MCART.Helpers
         public static IEnumerable<float> ToPercentSingle(this IEnumerable<int> collection)
         {
             ToPercentSingle_Contract(collection);
-            var enumerable = collection.ToList();
+            List<int>? enumerable = collection.ToList();
             return ToPercentSingle(enumerable, 0, enumerable.Max());
         }
 
@@ -923,7 +923,7 @@ namespace TheXDS.MCART.Helpers
         public static IEnumerable<float> ToPercentSingle(this IEnumerable<int> collection, in bool baseZero)
         {
             ToPercentSingle_Contract(collection);
-            var enumerable = collection.ToList();
+            List<int>? enumerable = collection.ToList();
             return ToPercentSingle(enumerable, baseZero ? 0 : enumerable.Min(), enumerable.Max());
         }
 
@@ -972,7 +972,7 @@ namespace TheXDS.MCART.Helpers
         public static IEnumerable<float> ToPercentSingle(this IEnumerable<int> collection, int min, int max)
         {
             ToPercent_Contract(collection, min, max);
-            foreach (var j in collection) yield return (j - min) / (float)(max - min);
+            foreach (int j in collection) yield return (j - min) / (float)(max - min);
         }
 
         /// <summary>
@@ -1020,7 +1020,7 @@ namespace TheXDS.MCART.Helpers
         public static async IAsyncEnumerable<float> ToPercentSingle(this IAsyncEnumerable<int> collection, int min, int max)
         {
             ToPercent_Contract(collection, min, max);
-            await foreach (var j in collection) yield return (j - min) / (float)(max - min);
+            await foreach (int j in collection) yield return (j - min) / (float)(max - min);
         }
 
         /// <summary>
@@ -1042,7 +1042,7 @@ namespace TheXDS.MCART.Helpers
         public static IEnumerable<double> ToPercent(this IEnumerable<double> collection)
         {
             ToPercent_Contract(collection);
-            var enumerable = collection.ToList();
+            List<double>? enumerable = collection.ToList();
             return ToPercent(enumerable, enumerable.Min(), enumerable.Max());
         }
 
@@ -1070,7 +1070,7 @@ namespace TheXDS.MCART.Helpers
         public static IEnumerable<double> ToPercent(this IEnumerable<double> collection, in bool baseZero)
         {
             ToPercent_Contract(collection);
-            var enumerable = collection.ToList();
+            List<double>? enumerable = collection.ToList();
             return ToPercent(enumerable, baseZero ? 0 : enumerable.Min(), enumerable.Max());
         }
 
@@ -1119,7 +1119,7 @@ namespace TheXDS.MCART.Helpers
         public static IEnumerable<double> ToPercent(this IEnumerable<double> collection, double min, double max)
         {
             ToPercent_Contract(collection, min, max);
-            foreach (var j in collection)
+            foreach (double j in collection)
                 if (j.IsValid())
                     yield return (j - min) / (max - min).Clamp(1, double.NaN);
                 else
@@ -1171,7 +1171,7 @@ namespace TheXDS.MCART.Helpers
         public static async IAsyncEnumerable<double> ToPercent(this IAsyncEnumerable<double> collection, double min, double max)
         {
             ToPercent_Contract(collection, min, max);
-            await foreach (var j in collection)
+            await foreach (double j in collection)
                 if (j.IsValid())
                     yield return (j - min) / (max - min).Clamp(1, double.NaN);
                 else
@@ -1212,9 +1212,9 @@ namespace TheXDS.MCART.Helpers
         /// </returns>
         public static IEnumerable<T> WithSignature<T>(this IEnumerable<MethodInfo> methods) where T : notnull, Delegate
         {
-            foreach (var j in methods)
+            foreach (MethodInfo? j in methods)
             {
-                if (Objects.TryCreateDelegate<T>(j, out var d))
+                if (Objects.TryCreateDelegate<T>(j, out T? d))
                 {
                     yield return d ?? throw new TamperException();
                 }
@@ -1240,9 +1240,9 @@ namespace TheXDS.MCART.Helpers
         /// </returns>
         public static IEnumerable<T> WithSignature<T>(this IEnumerable<MethodInfo> methods, object instance) where T : notnull, Delegate
         {
-            foreach (var j in methods)
+            foreach (MethodInfo? j in methods)
             {
-                if (Objects.TryCreateDelegate<T>(j, instance, out var d))
+                if (Objects.TryCreateDelegate<T>(j, instance, out T? d))
                 {
                     yield return d ?? throw new TamperException();
                 }
@@ -1260,7 +1260,7 @@ namespace TheXDS.MCART.Helpers
         /// </returns>
         public static IEnumerable<Type> ToTypes(this IEnumerable objects)
         {
-            foreach (var j in objects) if (j is not null) yield return j.GetType();
+            foreach (object? j in objects) if (j is not null) yield return j.GetType();
         }
 
         /// <summary>
@@ -1326,8 +1326,8 @@ namespace TheXDS.MCART.Helpers
         public static IEnumerable<int> WhichAreNull(this IEnumerable<object?> collection)
         {
             WhichAreNull_Contract(collection);
-            var c = 0;
-            foreach (var j in collection)
+            int c = 0;
+            foreach (object? j in collection)
             {
                 if (j is null) yield return c;
                 c++;

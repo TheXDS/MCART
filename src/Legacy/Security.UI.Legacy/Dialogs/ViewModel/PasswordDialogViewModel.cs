@@ -275,7 +275,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
             if (TriesCount++ > MaxTries) return false;
             if (Validator is null) return null;
             IsBusy = true;
-            var t = await Validator(new Credential(User, Password));
+            bool t = await Validator(new Credential(User, Password));
             IsBusy = false;
             return t;
         }

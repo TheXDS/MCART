@@ -51,7 +51,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static IEnumerable<IGrouping<string?, string>> ToGroup(this NameValueCollection nvc)
         {
-            foreach (var j in nvc.AllKeys)
+            foreach (string? j in nvc.AllKeys)
             {
                 if (nvc.GetValues(j) is { } v) yield return new Grouping<string?, string>(j, v);
             }
@@ -74,7 +74,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </remarks>
         public static IEnumerable<NamedObject<string[]>> ToNamedObjectCollection(this NameValueCollection nvc)
         {
-            foreach (var j in nvc.AllKeys.NotNull())
+            foreach (string? j in nvc.AllKeys.NotNull())
             {
                 if (nvc.GetValues(j) is { } v) yield return new NamedObject<string[]>(v, j);
             }
@@ -93,7 +93,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static IEnumerable<KeyValuePair<string?, string>> ToKeyValuePair(this NameValueCollection nvc)
         {
-            foreach (var j in nvc.AllKeys)
+            foreach (string? j in nvc.AllKeys)
             {
                 if (nvc.Get(j) is { } v) yield return new KeyValuePair<string?, string>(j, v);
             }
@@ -116,8 +116,8 @@ namespace TheXDS.MCART.Types.Extensions
         /// </remarks>
         public static Dictionary<string, string[]> ToDictionary(this NameValueCollection nvc)
         {
-            var d = new Dictionary<string, string[]>();
-            foreach (var j in nvc.AllKeys.NotNull())
+            Dictionary<string, string[]>? d = new();
+            foreach (string? j in nvc.AllKeys.NotNull())
             {
                 if (nvc.GetValues(j) is { } v) d.Add(j, v);
             }

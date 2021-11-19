@@ -58,10 +58,10 @@ namespace TheXDS.MCART.Security.Password
         /// </returns>
         public SecureString Generate(int length)
         {
-            var s = new SecureString();
-            var b = new byte[length * 2];
-            using (var r = new RNGCryptoServiceProvider()) r.GetBytes(b);
-            for (var j = 0; j < length; j += 2)
+            SecureString? s = new();
+            byte[]? b = new byte[length * 2];
+            using (RNGCryptoServiceProvider? r = new()) r.GetBytes(b);
+            for (int j = 0; j < length; j += 2)
                 s.AppendChar(BitConverter.ToChar(b, j));
             s.MakeReadOnly();
             return s;

@@ -77,11 +77,11 @@ namespace TheXDS.MCART.Types.Extensions
         [DebuggerStepThrough]
         private static MethodInfo ByteConversionMethodInternal(in Type enumType)
         {
-            var tRsp = enumType.GetEnumUnderlyingType();
+            Type? tRsp = enumType.GetEnumUnderlyingType();
             return tRsp != typeof(byte)
                 ? typeof(BitConverter).GetMethods().FirstOrDefault(p =>
                 {
-                    var pars = p.GetParameters();
+                    ParameterInfo[]? pars = p.GetParameters();
                     return p.Name == nameof(BitConverter.GetBytes)
                            && pars.Length == 1
                            && pars[0].ParameterType == tRsp;
@@ -235,7 +235,7 @@ namespace TheXDS.MCART.Types.Extensions
 #endif
         public static bool HasAttr<T>(this Enum enumValue, [MaybeNullWhen(false)] out T attribute) where T : Attribute
         {
-            var type = enumValue.GetType();
+            Type? type = enumValue.GetType();
             attribute = null;
             if (!type.IsEnumDefined(enumValue))
 #if !CLSCompliance && PreferExceptions
@@ -243,7 +243,7 @@ namespace TheXDS.MCART.Types.Extensions
 #else
                 return false;
 #endif
-            var n = type.GetEnumName(enumValue)!;
+            string? n = type.GetEnumName(enumValue)!;
             attribute = type.GetMember(n)[0].GetCustomAttributes(typeof(T), false).FirstOrDefault() as T;
             return attribute is not null;
         }
@@ -275,7 +275,7 @@ namespace TheXDS.MCART.Types.Extensions
         public static bool HasAttrValue<TAttribute, TValue>(this Enum enumValue, out TValue value)
             where TAttribute : Attribute, IValueAttribute<TValue>
         {
-            var retVal = HasAttr<TAttribute>(enumValue, out var attr);
+            bool retVal = HasAttr<TAttribute>(enumValue, out TAttribute? attr);
             value = retVal ? attr!.Value : default!;
             return retVal;
         }
@@ -302,7 +302,7 @@ namespace TheXDS.MCART.Types.Extensions
         public static bool HasAttrs<T>(this Enum enumValue, out IEnumerable<T> attribute) where T : Attribute
         {
             string? n;
-            var type = enumValue.GetType();
+            Type? type = enumValue.GetType();
             if (!type.IsEnumDefined(enumValue) || (n = type.GetEnumName(enumValue)) is null)
             {
                 attribute = Array.Empty<T>();
@@ -327,7 +327,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static T? GetAttr<T>(this Enum enumValue) where T : Attribute
         {
-            HasAttr<T>(enumValue, out var retval);
+            HasAttr<T>(enumValue, out T? retval);
             return retval;
         }
 

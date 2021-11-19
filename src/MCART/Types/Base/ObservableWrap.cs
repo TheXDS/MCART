@@ -125,8 +125,8 @@ namespace TheXDS.MCART.Types.Base
         /// </returns>
         public bool Remove(T item)
         {
-            var idx = UnderlyingCollection?.FindIndexOf(item) ?? -1;
-            var result = UnderlyingCollection?.Remove(item) ?? false;
+            int idx = UnderlyingCollection?.FindIndexOf(item) ?? -1;
+            bool result = UnderlyingCollection?.Remove(item) ?? false;
             if (result)
             {
                 RaiseCollectionChanged(new NcchEa(Nccha.Remove, item, idx));
@@ -197,7 +197,7 @@ namespace TheXDS.MCART.Types.Base
             {
                 c.Clear();
                 if (newCollection is null) return;
-                foreach (var j in newCollection)
+                foreach (T? j in newCollection)
                 {
                     UnderlyingCollection.Add(j);
                 }

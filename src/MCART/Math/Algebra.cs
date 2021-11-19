@@ -56,12 +56,12 @@ namespace TheXDS.MCART.Math
             if (number == 1) return false;
             if (number < KnownPrimes[^1] && KnownPrimes.Contains((int)number)) return true;
 
-            foreach (var prime in KnownPrimes)
+            foreach (int prime in KnownPrimes)
             {
                 if (number % prime == 0) return false;
             }
 
-            var l = number / 2;
+            long l = number / 2;
             for (long k = KnownPrimes[^1] + 2; k <= l; k += 2)
             {
                 if (number % k == 0) return false;
@@ -84,8 +84,8 @@ namespace TheXDS.MCART.Math
             if (number == 1) return false;
             if (number < KnownPrimes[^1] && KnownPrimes.Contains((int)number)) return true;
 
-            var part = Partitioner.Create(KnownPrimes);
-            var prime = true;
+            OrderablePartitioner<int>? part = Partitioner.Create(KnownPrimes);
+            bool prime = true;
 
             void TestIfPrime(int j, ParallelLoopState loop)
             {
@@ -103,7 +103,7 @@ namespace TheXDS.MCART.Math
 
             Parallel.ForEach(part, TestIfPrime);
             if (!prime) return prime;
-            var l = (int)System.Math.Sqrt(number);
+            int l = (int)System.Math.Sqrt(number);
             Parallel.For(KnownPrimes[^1] / 2, l, TestIfPrime2);
             return prime;
         }
@@ -481,11 +481,11 @@ namespace TheXDS.MCART.Math
 
         private static int[] ReadKnownPrimes()
         {
-            var l = new List<int>();
-            var a = new Unpacker(typeof(Algebra).Assembly, @"TheXDS.MCART.Resources.Data");
-            using var s = a.Unpack("primes", new DeflateGetter());
-            using var b = new BinaryReader(s);
-            var c = b.ReadInt32();
+            List<int>? l = new();
+            Unpacker? a = new(typeof(Algebra).Assembly, @"TheXDS.MCART.Resources.Data");
+            using Stream? s = a.Unpack("primes", new DeflateGetter());
+            using BinaryReader? b = new(s);
+            int c = b.ReadInt32();
             while (l.Count < c)
             {
                 l.Add(b.ReadInt32());

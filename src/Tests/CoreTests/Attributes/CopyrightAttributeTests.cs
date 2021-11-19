@@ -33,7 +33,7 @@ namespace TheXDS.MCART.Tests.Attributes
         [Test]
         public void CopyrightAttributeBasicInstancing_Test()
         {
-            var l = new CopyrightAttribute("Copyright (C) Test");
+            CopyrightAttribute? l = new("Copyright (C) Test");
             Assert.AreEqual("Copyright (C) Test", l.Value);
             Assert.AreEqual("Copyright (C) Test", ((IValueAttribute<string?>)l).Value);
 

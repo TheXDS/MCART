@@ -110,8 +110,8 @@ namespace TheXDS.MCART.Types.Extensions
         /// </param>
         public static void Write(this BinaryWriter bw, ISerializable value)
         {
-            var d = new DataContractSerializer(value.GetType());
-            using var ms = new MemoryStream();
+            DataContractSerializer? d = new(value.GetType());
+            using MemoryStream? ms = new();
             d.WriteObject(ms, value);
             bw.Write(BitConverter.ToString(ms.ToArray()));
         }
@@ -137,7 +137,7 @@ namespace TheXDS.MCART.Types.Extensions
         public static void DynamicWrite(this BinaryWriter bw, object value)
         {
             DynamicWrite_Contract(bw, value);
-            var t = value.GetType();
+            Type? t = value.GetType();
 
             if (typeof(BinaryWriter).GetMethods().FirstOrDefault(p => CanWrite(p, t)) is { } m)
             {
@@ -171,9 +171,9 @@ namespace TheXDS.MCART.Types.Extensions
         public static void MarshalWriteStruct<T>(this BinaryWriter bw, T value) where T : struct
         {
             WriteStruct_Contract(bw);
-            var sze = Marshal.SizeOf(value);
-            var arr = new byte[sze];
-            var ptr = Marshal.AllocHGlobal(sze);
+            int sze = Marshal.SizeOf(value);
+            byte[]? arr = new byte[sze];
+            IntPtr ptr = Marshal.AllocHGlobal(sze);
             Marshal.StructureToPtr(value, ptr, true);
             Marshal.Copy(ptr, arr, 0, sze);
             Marshal.FreeHGlobal(ptr);
@@ -199,7 +199,7 @@ namespace TheXDS.MCART.Types.Extensions
 
         private static void ByFieldWriteStructInternal(BinaryWriter writer, object obj)
         {
-            foreach (var j in obj.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic))
+            foreach (FieldInfo? j in obj.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic))
             {
                 if (!j.IsInitOnly) writer.DynamicWrite(j.GetValue(obj) ?? throw Errors.FieldIsNull(j));
             }
@@ -207,7 +207,7 @@ namespace TheXDS.MCART.Types.Extensions
 
         private static bool CanWrite(MethodInfo p, Type t)
         {
-            var l = p.GetParameters();
+            ParameterInfo[]? l = p.GetParameters();
             return p.IsVoid()
                 && p.Name == "Write"
                 && l.Length == 1
@@ -216,7 +216,7 @@ namespace TheXDS.MCART.Types.Extensions
 
         private static bool CanExWrite(MethodInfo p, Type t)
         {
-            var l = p.GetParameters();
+            ParameterInfo[]? l = p.GetParameters();
             return p.IsVoid()
                 && p.Name == "Write"
                 && l.Length == 2

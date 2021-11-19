@@ -63,7 +63,7 @@ namespace TheXDS.MCART.ViewModel
         /// </param>
         public virtual void Update(T entity)
         {
-            foreach (var j in WrittableProperties)
+            foreach (PropertyInfo? j in WrittableProperties)
             {
                 j.SetValue(Entity, j.GetValue(entity));
             }

@@ -67,7 +67,7 @@ namespace TheXDS.MCART.Types
             set
             {
                 _dataContext = value;
-                foreach (var j in _bindings)
+                foreach (GtkBinding? j in _bindings)
                 {
                     j.UpdateValue(value);
                 }

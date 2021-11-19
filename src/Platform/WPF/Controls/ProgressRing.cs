@@ -49,7 +49,7 @@ namespace TheXDS.MCART.Controls
 
         private static void Updt2(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var p = (ProgressRing)d;
+            ProgressRing? p = (ProgressRing)d;
             p.SetValue(IsIndeterminateProperty, !p.Value.IsBetween(p.Minimum, p.Maximum));
             p.BgDraw();
             p.Draw();
@@ -57,14 +57,14 @@ namespace TheXDS.MCART.Controls
 
         private static void Updt3(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var p = (ProgressRing)d;
+            ProgressRing? p = (ProgressRing)d;
             p.BgDraw();
             p.Draw();
         }
 
         private static void TxtFmt(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var p = (ProgressRing)d;
+            ProgressRing? p = (ProgressRing)d;
             p._txtPercent.Text = string.Format(p.TextFormat, p.Value);
         }
         #endregion
@@ -102,8 +102,8 @@ namespace TheXDS.MCART.Controls
             nameof(Maximum), typeof(double), typeof(ProgressRing),
             new PropertyMetadata(100.0, (DependencyObject d, DependencyPropertyChangedEventArgs e) =>
             {
-                var p = (ProgressRing)d;
-                var v = (double)e.NewValue;
+                ProgressRing? p = (ProgressRing)d;
+                double v = (double)e.NewValue;
                 if (double.IsNaN(v)) throw new ArgumentException();
                 if (v < p.Minimum) throw new ArgumentOutOfRangeException(nameof(v));
                 if (!double.IsNaN(p.Redline) && p.Redline > v)
@@ -117,8 +117,8 @@ namespace TheXDS.MCART.Controls
             nameof(Minimum), typeof(double), typeof(ProgressRing),
             new PropertyMetadata(0.0, (DependencyObject d, DependencyPropertyChangedEventArgs e) =>
             {
-                var p = (ProgressRing)d;
-                var v = (double)e.NewValue;
+                ProgressRing? p = (ProgressRing)d;
+                double v = (double)e.NewValue;
                 if (double.IsNaN(v)) throw new ArgumentException();
                 if (v > p.Maximum) throw new ArgumentOutOfRangeException(nameof(v));
                 Updt2(p, e);
@@ -130,8 +130,8 @@ namespace TheXDS.MCART.Controls
             nameof(Redline), typeof(double), typeof(ProgressRing),
             new PropertyMetadata(double.NaN, (DependencyObject d, DependencyPropertyChangedEventArgs e) =>
             {
-                var p = (ProgressRing)d;
-                var v = (double)e.NewValue;
+                ProgressRing? p = (ProgressRing)d;
+                double v = (double)e.NewValue;
                 if (!(double.IsNaN(v) || v.IsBetween(p.Minimum, p.Maximum)))
                     throw new ArgumentOutOfRangeException();
                 Updt3(p, e);
@@ -345,7 +345,7 @@ namespace TheXDS.MCART.Controls
                 KeyTime = KeyTime.FromTimeSpan(new TimeSpan(0, 0, 1)),
                 Value = 360.0
             });
-            var a = new Grid { Width = 100 };
+            Grid? a = new() { Width = 100 };
             a.SetBinding(HeightProperty, new Binding(nameof(Width)) { Source = a, Mode = BindingMode.TwoWay });
             a.Children.Add(_ellBg);
             a.Children.Add(_pth);
@@ -359,7 +359,7 @@ namespace TheXDS.MCART.Controls
         #region Métodos privados
         private void BgDraw()
         {
-            var radius = 50 - (Thickness / 2);
+            double radius = 50 - (Thickness / 2);
             double fullAngle = FullAngle.Clamp(0f, 359.999f);
             if (!IsIndeterminate)
                 _ellBg.Data = GetCircleArc(radius, Angle, Angle + fullAngle, Thickness);
@@ -376,9 +376,9 @@ namespace TheXDS.MCART.Controls
 
         private void Draw()
         {
-            var radius = 50 - (Thickness / 2);
+            double radius = 50 - (Thickness / 2);
             if (!_pth.IsLoaded) return;
-            var x = (RotateTransform)_pth.RenderTransform;
+            RotateTransform? x = (RotateTransform)_pth.RenderTransform;
             if (!IsIndeterminate)
             {
                 _amIAnimated = false;

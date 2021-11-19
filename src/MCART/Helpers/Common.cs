@@ -56,8 +56,8 @@ namespace TheXDS.MCART.Helpers
     {
         private static IEnumerable<bool> ToBits(this in ulong value, in byte maxBits)
         {
-            var a = new bool[maxBits];
-            for (var j = 0; j < maxBits; j++)
+            bool[]? a = new bool[maxBits];
+            for (int j = 0; j < maxBits; j++)
             {
                 a[j] = (value & (ulong)System.Math.Pow(2, j)) != 0;
             }
@@ -529,7 +529,7 @@ namespace TheXDS.MCART.Helpers
         public static bool IsBetween<T>(this T? value, in T min, in T max, in bool minInclusive, in bool maxInclusive) where T : struct, IComparable<T>
         {
             if (!value.HasValue) return false;
-            var v = value.Value;
+            T v = value.Value;
             return (minInclusive ? v.CompareTo(min) >= 0 : v.CompareTo(min) > 0)
                    && (maxInclusive ? v.CompareTo(max) <= 0 : v.CompareTo(max) < 0);
         }
@@ -611,7 +611,7 @@ namespace TheXDS.MCART.Helpers
         {
             Sequence_Contract(stepping);
             if (floor > top) stepping *= -1;
-            for (var b = floor; stepping > 0 ? b <= top : b >= top; b += stepping)
+            for (int b = floor; stepping > 0 ? b <= top : b >= top; b += stepping)
                 yield return b;
         }
 
@@ -626,7 +626,7 @@ namespace TheXDS.MCART.Helpers
         /// </typeparam>
         public static void Swap<T>(ref T a, ref T b)
         {
-            var c = a;
+            T? c = a;
             a = b;
             b = c;
         }
@@ -674,8 +674,8 @@ namespace TheXDS.MCART.Helpers
         /// </returns>
         public static string ByteUnits(in this long bytes, in ByteUnitType unit)
         {
-            var c = 0;
-            var b = (double)bytes;
+            int c = 0;
+            double b = (double)bytes;
 
             (double mag, string[] u) = unit switch
             {

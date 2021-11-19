@@ -57,7 +57,7 @@ namespace TheXDS.MCART.Types
         {
             get
             {
-                var g = _t.GetAttr<GuidAttribute>() ?? throw Errors.MissingGuidAttr(_t);
+                GuidAttribute? g = _t.GetAttr<GuidAttribute>() ?? throw Errors.MissingGuidAttr(_t);
                 return new Guid(g.Value);
             }
         }

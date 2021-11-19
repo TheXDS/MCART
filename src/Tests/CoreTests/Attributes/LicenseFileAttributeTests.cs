@@ -35,7 +35,7 @@ namespace TheXDS.MCART.Tests.Attributes
         [Test]
         public void LicenseFileAttributeBasicInstancing_Test()
         {
-            var l = new LicenseFileAttribute(@"C:\Test.txt");
+            LicenseFileAttribute? l = new(@"C:\Test.txt");
             Assert.AreEqual(@"C:\Test.txt", l.Value);
             Assert.AreEqual(@"C:\Test.txt", ((IValueAttribute<string?>)l).Value);
         }
@@ -44,10 +44,10 @@ namespace TheXDS.MCART.Tests.Attributes
         public void ReadLicenseFromLicenseFileAttribute_Test()
         {
             const string LicenseContents = "Test.";
-            var f = System.IO.Path.GetTempFileName();
+            string? f = System.IO.Path.GetTempFileName();
             System.IO.File.WriteAllText(f, LicenseContents);
 
-            var l = new LicenseFileAttribute(f);
+            LicenseFileAttribute? l = new(f);
             Assert.AreEqual(LicenseContents, l.ReadLicense());
 
             try { System.IO.File.Delete(f); }
@@ -57,12 +57,12 @@ namespace TheXDS.MCART.Tests.Attributes
         [Test]
         public void LicenseFileWithFileNotFoundDoesntFail_Test()
         {
-            var f = System.IO.Path.GetFullPath(System.IO.Path.Combine(
+            string? f = System.IO.Path.GetFullPath(System.IO.Path.Combine(
                 Guid.NewGuid().ToString(),
                 Guid.NewGuid().ToString(),
                 Guid.NewGuid().ToString(),
                 $"{Guid.NewGuid()}.txt"));
-            var l = new LicenseFileAttribute(f);
+            LicenseFileAttribute? l = new(f);
             Assert.AreEqual(St.Composition.Warn(St.Common.UnspecifiedLicense), l.ReadLicense());
         }
     }

@@ -85,7 +85,7 @@ namespace TheXDS.MCART.Types
                     point = Origin;
                     break;
                 default:
-                    var separators = new[]
+                    string[]? separators = new[]
                     {
                         ", ",
                         "; ",
@@ -116,7 +116,7 @@ namespace TheXDS.MCART.Types
         /// <returns><see cref="Point"/> que ha sido creado.</returns>
         public static Point Parse(string value)
         {
-            if (TryParse(value, out var retval)) return retval;
+            if (TryParse(value, out Point retval)) return retval;
             throw new FormatException();
         }
 
@@ -428,7 +428,7 @@ namespace TheXDS.MCART.Types
         /// <returns>El ángulo calculado.</returns>
         public double Angle()
         {
-            var ang = Acos(X / Magnitude());
+            double ang = Acos(X / Magnitude());
             if (Y < 0) ang = Tau - ang;
             return ang;
         }

@@ -88,10 +88,10 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         [Test]
         public void ToStream_Test()
         {
-            using (var r = new System.IO.StreamReader("Test".ToStream()))
+            using (System.IO.StreamReader? r = new("Test".ToStream()))
                 Assert.AreEqual("Test", r.ReadToEnd());
 
-            using (var r = new System.IO.StreamReader("Test".ToStream(Encoding.Unicode)))
+            using (System.IO.StreamReader? r = new("Test".ToStream(Encoding.Unicode)))
                 Assert.AreEqual("T\0e\0s\0t\0", r.ReadToEnd());
         }
 
@@ -100,18 +100,18 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         {
             Assert.True("Test".ContainsAny(new List<string> { "Ta", "Te" }));
             Assert.True("Test".ContainsAny('q', 't', 'a'));
-            Assert.True("Test".ContainsAny(out var idx, 'q', 't', 'a'));
+            Assert.True("Test".ContainsAny(out int idx, 'q', 't', 'a'));
             Assert.AreEqual(1, idx);
-            Assert.True("Test".ContainsAny(out var idx2, "t", "a"));
+            Assert.True("Test".ContainsAny(out int idx2, "t", "a"));
             Assert.AreEqual(0, idx2);
             Assert.True("Test".ContainsAny("Ta", "Te"));
-            Assert.True("Test".ContainsAny(out var idx3, "Ta", "Te"));
+            Assert.True("Test".ContainsAny(out int idx3, "Ta", "Te"));
             Assert.AreEqual(1, idx3);
             Assert.False("Test".ContainsAny('a', 'd'));
-            Assert.False("Test".ContainsAny(out var idx4, 'a', 'd'));
+            Assert.False("Test".ContainsAny(out int idx4, 'a', 'd'));
             Assert.AreEqual(-1, idx4);
             Assert.False("Test".ContainsAny("Ta", "Ti"));
-            Assert.False("Test".ContainsAny(out var idx5, "Ta", "Ti"));
+            Assert.False("Test".ContainsAny(out int idx5, "Ta", "Ti"));
             Assert.AreEqual(-1, idx5);
         }
 
@@ -233,7 +233,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         [Test]
         public void Chop_Test()
         {
-            var str = "TestTestStringTestTest";
+            string? str = "TestTestStringTestTest";
             Assert.AreEqual("TestStringTest", str.Chop("Test"));
         }
 
@@ -302,11 +302,11 @@ namespace TheXDS.MCART.Tests.Types.Extensions
                 Assert.False(line.EndsWith(' '));
                 Assert.True(line.Split().All(p => p == "test"));
             }
-            var str = new string('x', 120).TextWrap();
+            string[]? str = new string('x', 120).TextWrap();
             Assert.AreEqual(80, str[0].Length);
             Assert.AreEqual(40, str[1].Length);
-            var str2 = string.Join(' ', Enumerable.Range(1, 30).Select(_ => "test")).TextWrap();
-            foreach (var j in str2) ValidLine(j);
+            string[]? str2 = string.Join(' ', Enumerable.Range(1, 30).Select(_ => "test")).TextWrap();
+            foreach (string? j in str2) ValidLine(j);
             Assert.AreEqual("test  test", "test  test".TextWrap()[0]);
         }
     }

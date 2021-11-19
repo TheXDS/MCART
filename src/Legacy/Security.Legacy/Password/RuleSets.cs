@@ -228,9 +228,9 @@ namespace TheXDS.MCART.Security.Password
 
             return new PasswordEvaluationRule(ps =>
             {
-                var p = ps.ReadInt16();
-                var d = 0;
-                foreach (var j in charset) if (p.Contains((short)j)) d++;
+                short[]? p = ps.ReadInt16();
+                int d = 0;
+                foreach (char j in charset) if (p.Contains((short)j)) d++;
                 if (d == 0) return new PwEvalResult(0, isExtra ?
                     string.Format(St.IncludeX, "✔", ruleName.ToLower()) :
                     string.Format(St.IncludeX, "⚠", ruleName.ToLower()));
@@ -405,7 +405,7 @@ namespace TheXDS.MCART.Security.Password
         {
             return new(p =>
             {
-                var charArr = MoreChars.ToCharArray();
+                char[]? charArr = MoreChars.ToCharArray();
                 return p.ReadInt16().Any(j => !charArr.Contains((char)j))
                     ? new PwEvalResult(1, string.Format(St.IncludesX, "✔", St.PwOtherUTFEvalRule.ToLower()))
                     : new PwEvalResult(0);
@@ -440,7 +440,7 @@ namespace TheXDS.MCART.Security.Password
         {
             return new(p =>
             {
-                var t = p.Read();
+                string? t = p.Read();
                 return t.EndsWith(DateTime.Today.Year.ToString())
                     ? new PwEvalResult(0, Warn(St.AvoidYears), true)
                     : new PwEvalResult(1);

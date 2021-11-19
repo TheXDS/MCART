@@ -42,7 +42,7 @@ namespace TheXDS.MCART.Security.Legacy.Tests
         [Test]
         public void Get_Information_Test()
         {
-            var a = new AssemblyInfo(typeof(PasswordStorage).Assembly);
+            AssemblyInfo? a = new(typeof(PasswordStorage).Assembly);
             Assert.True(a.Has3rdPartyLicense);
             Assert.Contains(typeof(PasswordStorage), a.ThirdPartyComponents.ToArray());
             Assert.True(a.ThirdPartyLicenses.Any(p => p.Name.Contains("MIT", StringComparison.InvariantCultureIgnoreCase)));

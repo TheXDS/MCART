@@ -44,7 +44,7 @@ namespace TheXDS.MCART.Networking.Legacy.Server.Protocols
         {
             unchecked
             {
-                var l = (int)DateTime.Now.ToTimestamp(DateTimeExtensions.CenturyEpoch);
+                int l = (int)DateTime.Now.ToTimestamp(DateTimeExtensions.CenturyEpoch);
                 if (BitConverter.IsLittleEndian) l = l.FlipEndianess();
                 client.Send(BitConverter.GetBytes(l));
             }

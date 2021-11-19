@@ -206,7 +206,7 @@ namespace TheXDS.MCART.Security.Cryptography
         /// </returns>
         public override int Read(byte[] buffer, int offset, int count)
         {
-            var a = ReadToEnd().Take(count).ToArray();
+            byte[]? a = ReadToEnd().Take(count).ToArray();
             a.CopyTo(buffer, offset);
             return a.Length;
         }
@@ -223,13 +223,13 @@ namespace TheXDS.MCART.Security.Cryptography
             byte[] a;
             if (_stream.CanSeek)
             {
-                var sze = (int)_stream.RemainingBytes();
+                int sze = (int)_stream.RemainingBytes();
                 a = new byte[sze];
                 _stream.Read(a, 0, sze);
             }
             else
             {
-                var l = new List<byte>();
+                List<byte>? l = new();
                 int r;
                 while (true)
                 {
@@ -283,9 +283,9 @@ namespace TheXDS.MCART.Security.Cryptography
         public override void Write(byte[] buffer, int offset, int count)
         {
             Write_Contract(buffer, offset, count);
-            var b = buffer.Range(offset, count).ToArray();
+            byte[]? b = buffer.Range(offset, count).ToArray();
             if (!b.Any()) return;
-            var eb = _rsa.Encrypt(b, true);
+            byte[]? eb = _rsa.Encrypt(b, true);
             _stream.Write(eb, 0, eb.Length);
         }
     }

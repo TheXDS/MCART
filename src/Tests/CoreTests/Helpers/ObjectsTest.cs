@@ -122,7 +122,7 @@ namespace TheXDS.MCART.Tests.Helpers
         [Test]
         public void FieldsOfTest()
         {
-            var tc = new TestClass();
+            TestClass? tc = new();
 
             Assert.Throws<NullItemException>(() => ReflectionHelpers.FieldsOf<int>(new FieldInfo[] { null! }));
             Assert.Throws<ArgumentNullException>(() => ((FieldInfo[])null!).FieldsOf<int>());
@@ -148,8 +148,8 @@ namespace TheXDS.MCART.Tests.Helpers
             Assert.False(TestEnum.Zero.HasAttr<MCART.Attributes.DescriptionAttribute>());
             Assert.True(TestEnum.One.HasAttr<MCART.Attributes.DescriptionAttribute>());
 
-            Assert.False(TestEnum.Zero.HasAttr<MCART.Attributes.DescriptionAttribute>(out var z));
-            Assert.True(TestEnum.One.HasAttr<MCART.Attributes.DescriptionAttribute>(out var o));
+            Assert.False(TestEnum.Zero.HasAttr<MCART.Attributes.DescriptionAttribute>(out MCART.Attributes.DescriptionAttribute? z));
+            Assert.True(TestEnum.One.HasAttr<MCART.Attributes.DescriptionAttribute>(out MCART.Attributes.DescriptionAttribute? o));
 
             Assert.Null(z);
             Assert.IsAssignableFrom<MCART.Attributes.DescriptionAttribute>(o);
@@ -191,8 +191,8 @@ namespace TheXDS.MCART.Tests.Helpers
         [Test]
         public void HasAttrTest_Object()
         {
-            Assert.False(((object)TestEnum.Zero).HasAttr<MCART.Attributes.DescriptionAttribute>(out var z));
-            Assert.True(((object)TestEnum.One).HasAttr<MCART.Attributes.DescriptionAttribute>(out var o));
+            Assert.False(((object)TestEnum.Zero).HasAttr<MCART.Attributes.DescriptionAttribute>(out MCART.Attributes.DescriptionAttribute? z));
+            Assert.True(((object)TestEnum.One).HasAttr<MCART.Attributes.DescriptionAttribute>(out MCART.Attributes.DescriptionAttribute? o));
             Assert.Null(z);
             Assert.IsAssignableFrom<MCART.Attributes.DescriptionAttribute>(o);
             Assert.AreEqual("One", o!.Value);
@@ -200,7 +200,7 @@ namespace TheXDS.MCART.Tests.Helpers
 
             Assert.True(((object)MethodBase.GetCurrentMethod()!).HasAttr<TestAttribute>(out _));
 
-            Assert.True(new TestClass().HasAttr<IdentifierAttribute>(out var id));
+            Assert.True(new TestClass().HasAttr<IdentifierAttribute>(out IdentifierAttribute? id));
             Assert.IsAssignableFrom<IdentifierAttribute>(id);
             Assert.AreEqual("FindTypeTest", id!.Value);
 
@@ -210,10 +210,10 @@ namespace TheXDS.MCART.Tests.Helpers
         [Test]
         public void HasAttrValueTest_Object()
         {
-            Assert.True(((object)TestEnum.One).HasAttrValue<MCART.Attributes.DescriptionAttribute, string?>(out var o));
+            Assert.True(((object)TestEnum.One).HasAttrValue<MCART.Attributes.DescriptionAttribute, string?>(out string? o));
             Assert.AreEqual("One", o);
 
-            Assert.True(new TestClass().HasAttrValue<IdentifierAttribute, string?>(out var id));
+            Assert.True(new TestClass().HasAttrValue<IdentifierAttribute, string?>(out string? id));
             Assert.AreEqual("FindTypeTest", id);
         }
 
@@ -227,7 +227,7 @@ namespace TheXDS.MCART.Tests.Helpers
         [Test]
         public void IsEitherTest()
         {
-            var t = typeof(int);
+            Type? t = typeof(int);
             Assert.True(t.IsEither(typeof(bool), typeof(int)));
             Assert.False(t.IsEither(typeof(bool), typeof(float)));
 
@@ -238,7 +238,7 @@ namespace TheXDS.MCART.Tests.Helpers
         [Test]
         public void IsNeitherTest()
         {
-            var t = typeof(int);
+            Type? t = typeof(int);
             Assert.True(t.IsNeither(typeof(bool), typeof(float)));
             Assert.False(t.IsNeither(typeof(bool), typeof(int)));
         }
@@ -254,7 +254,7 @@ namespace TheXDS.MCART.Tests.Helpers
         [Test]
         public void IsSignatureCompatibleTest()
         {
-            var m = ReflectionHelpers.GetMethod<Action<int>>(() => TestClass.TestMethod)!;
+            MethodInfo? m = ReflectionHelpers.GetMethod<Action<int>>(() => TestClass.TestMethod)!;
             Assert.True(m.IsSignatureCompatible<Action<int>>());
             Assert.False(m.IsSignatureCompatible<Action<float>>());
         }
@@ -262,15 +262,15 @@ namespace TheXDS.MCART.Tests.Helpers
         [Test]
         public void IsTest()
         {
-            var ev = EventArgs.Empty;
-            var e = ev;
+            EventArgs? ev = EventArgs.Empty;
+            EventArgs? e = ev;
             Assert.True(e.Is(ev));
         }
 
         [Test]
         public void ItselfTest()
         {
-            var ex = new ApplicationException();
+            ApplicationException? ex = new();
             Assert.AreSame(ex, ex.Itself());
             Assert.AreNotSame(ex, new ApplicationException());
             Assert.AreNotSame(ex, null);
@@ -279,7 +279,7 @@ namespace TheXDS.MCART.Tests.Helpers
         [Test]
         public void PropertiesOfTest()
         {
-            var tc = new TestClass();
+            TestClass? tc = new();
             Assert.AreEqual(tc.TestProperty, tc.PropertiesOf<int>().FirstOrDefault());
             Assert.AreEqual(tc.TestProperty, tc.GetType().GetProperties().PropertiesOf<int>(tc).FirstOrDefault());
             Assert.AreEqual(TestClass.ByteProperty, tc.GetType().GetProperties().PropertiesOf<byte>().FirstOrDefault());
@@ -288,8 +288,8 @@ namespace TheXDS.MCART.Tests.Helpers
         [Test]
         public void ToTypesTest()
         {
-            var x = ToTypes(1, "Test", 2.5f).ToArray();
-            var y = x.GetEnumerator();
+            Type[]? x = ToTypes(1, "Test", 2.5f).ToArray();
+            System.Collections.IEnumerator? y = x.GetEnumerator();
             y.Reset();
             y.MoveNext();
             Assert.AreSame(typeof(int), y.Current);
@@ -312,7 +312,7 @@ namespace TheXDS.MCART.Tests.Helpers
         [Test]
         public void WhichAreTest()
         {
-            var x = new object();
+            object? x = new();
             Assert.AreEqual(Array.Empty<int>(), x.WhichAre(new object(), 1, 0.0f).ToArray());
             Assert.AreEqual(new[] { 2 }, x.WhichAre(new object(), 1, x).ToArray());
             Assert.AreEqual(new[] { 1, 3 }, x.WhichAre(new object(), x, 0, x).ToArray());
@@ -322,7 +322,7 @@ namespace TheXDS.MCART.Tests.Helpers
         public void WithSignatureTest()
         {
             Assert.Null(typeof(TestClass).GetMethods().WithSignature<Action<short>>().FirstOrDefault());
-            var m = typeof(TestClass).GetMethods().WithSignature<Action<int>>().FirstOrDefault()!;
+            Action<int>? m = typeof(TestClass).GetMethods().WithSignature<Action<int>>().FirstOrDefault()!;
             Assert.NotNull(m);
             m(1);
         }
@@ -330,9 +330,9 @@ namespace TheXDS.MCART.Tests.Helpers
         [Test]
         public void WithSignatureTest_object()
         {
-            var tc = new TestClass();
+            TestClass? tc = new();
             Assert.Null(typeof(TestClass).GetMethods().WithSignature<Action<double>>(tc).FirstOrDefault());
-            var m = typeof(TestClass).GetMethods().WithSignature<Action<float>>(tc).FirstOrDefault()!;
+            Action<float>? m = typeof(TestClass).GetMethods().WithSignature<Action<float>>(tc).FirstOrDefault()!;
             Assert.NotNull(m);
             m(1.0f);
         }
@@ -340,7 +340,7 @@ namespace TheXDS.MCART.Tests.Helpers
         [Test]
         public void PublicTypesTest()
         {
-            var t = PublicTypes().ToArray();
+            Type[]? t = PublicTypes().ToArray();
             Assert.False(t.Contains(typeof(TestClass)));
             Assert.Contains(typeof(Exception), t);
         }
@@ -348,7 +348,7 @@ namespace TheXDS.MCART.Tests.Helpers
         [Test]
         public void TryCreateDelegateTest()
         {
-            var m = GetType().GetMethod(nameof(TestEventHandler))!;
+            MethodInfo? m = GetType().GetMethod(nameof(TestEventHandler))!;
 
             Assert.True(TryCreateDelegate<EventHandler>(m, this, out _));
             Assert.False(TryCreateDelegate<EventHandler>(m, null!, out _));

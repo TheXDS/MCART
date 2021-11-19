@@ -82,7 +82,7 @@ namespace TheXDS.MCART.Helpers
         public static MethodBase? GetCallingMethod(int nCaller)
         {
             GetCallingMethod_Contract(nCaller);
-            var frames = new StackTrace().GetFrames();
+            StackFrame[]? frames = new StackTrace().GetFrames();
             return frames.Length > nCaller ? frames[nCaller].GetMethod() : null;
         }
 
@@ -333,7 +333,7 @@ namespace TheXDS.MCART.Helpers
         /// </returns>
         public static MethodInfo GetMethod<T, TMethod>(Expression<Func<T, TMethod>> methodSelector) where TMethod : Delegate
         {
-            var m = GetMember<MethodInfo, T, TMethod>(methodSelector);
+            MethodInfo? m = GetMember<MethodInfo, T, TMethod>(methodSelector);
 
             /* HACK
              * Las expresiones de Linq podrían no detectar correctamente el

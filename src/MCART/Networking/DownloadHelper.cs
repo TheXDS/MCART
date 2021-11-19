@@ -46,13 +46,13 @@ namespace TheXDS.MCART.Networking
     {
         private static T GetResponse<T>(Uri uri) where T : WebResponse
         {
-            var wr = WebRequest.Create(uri);
+            WebRequest? wr = WebRequest.Create(uri);
             wr.Timeout = 10000;
             return wr.GetResponse() as T ?? throw new InvalidUriException(uri);
         }
         private static async Task<T> GetResponseAsync<T>(Uri uri) where T : WebResponse
         {
-            var wr = WebRequest.Create(uri);
+            WebRequest? wr = WebRequest.Create(uri);
             wr.Timeout = 10000;
             return (await wr.GetResponseAsync()) as T ?? throw new InvalidUriException(uri);
         }
@@ -62,19 +62,19 @@ namespace TheXDS.MCART.Networking
         }
         private static async Task CopyAsync(WebResponse r, Stream stream, ReportCallBack? reportCallback, int polling)
         {
-            using var rStream = r.GetResponseStream();
-            using var ct = new CancellationTokenSource();
-            using var downloadTask = rStream?.CopyToAsync(stream);
+            using Stream? rStream = r.GetResponseStream();
+            using CancellationTokenSource? ct = new();
+            using Task? downloadTask = rStream?.CopyToAsync(stream);
             void ReportDownload()
             {
                 if (reportCallback is null) return;
-                var t = r.ContentLength > 0 ? r.ContentLength : (long?)null;
-                var spd = 0L;
+                long? t = r.ContentLength > 0 ? r.ContentLength : (long?)null;
+                long spd = 0L;
                 while (!ct?.IsCancellationRequested ?? false)
                 {
                     if (stream.CanSeek)
                     {
-                        var l = stream.Length;
+                        long l = stream.Length;
                         reportCallback.Invoke(l, t, (l - spd) * 1000 / polling);
                         spd = l;
                     }
@@ -89,7 +89,7 @@ namespace TheXDS.MCART.Networking
                 }
                 else reportCallback.Invoke(null, t, null);
             }
-            using var reportTask = new Task(ReportDownload, ct.Token);
+            using Task? reportTask = new(ReportDownload, ct.Token);
             reportTask.Start();
             if (downloadTask != null) await downloadTask;
             ct.Cancel();
@@ -109,7 +109,7 @@ namespace TheXDS.MCART.Networking
         public static void Download(Uri uri, Stream stream)
         {
             if (!stream.CanWrite) throw new NotSupportedException();
-            using var response = StreamUriParser.Infer<IWebUriParser>(uri)?.GetResponse(uri) ?? throw new UriFormatException();
+            using WebResponse? response = StreamUriParser.Infer<IWebUriParser>(uri)?.GetResponse(uri) ?? throw new UriFormatException();
             Copy(response, stream);
         }
 
@@ -153,8 +153,8 @@ namespace TheXDS.MCART.Networking
         public static async Task DownloadAsync(Uri uri, Stream stream, ReportCallBack? reportCallback, int polling)
         {
             if (!stream.CanWrite) throw new NotSupportedException();
-            var r = StreamUriParser.Infer<IWebUriParser>(uri)?.GetResponseAsync(uri) ?? throw new UriFormatException();
-            using var response = await r;
+            Task<WebResponse>? r = StreamUriParser.Infer<IWebUriParser>(uri)?.GetResponseAsync(uri) ?? throw new UriFormatException();
+            using WebResponse? response = await r;
             await CopyAsync(response, stream, reportCallback, polling);
         }
 
@@ -347,7 +347,7 @@ namespace TheXDS.MCART.Networking
         public static HttpStatusCode DownloadHttp(Uri uri, Stream stream)
         {
             if (!stream.CanWrite) throw new NotSupportedException();
-            using var r = GetResponse<HttpWebResponse>(uri);
+            using HttpWebResponse? r = GetResponse<HttpWebResponse>(uri);
             if (r.StatusCode == HttpStatusCode.OK) Copy(r, stream);
             return r.StatusCode;
         }
@@ -368,7 +368,7 @@ namespace TheXDS.MCART.Networking
         public static FtpStatusCode DownloadFtp(Uri uri, Stream stream)
         {
             if (!stream.CanWrite) throw new NotSupportedException();
-            using var r = GetResponse<FtpWebResponse>(uri);
+            using FtpWebResponse? r = GetResponse<FtpWebResponse>(uri);
             if (r.StatusCode == FtpStatusCode.CommandOK) Copy(r, stream);
             return r.StatusCode;
         }
@@ -393,7 +393,7 @@ namespace TheXDS.MCART.Networking
             if (!stream.CanWrite) throw new NotSupportedException();
             try
             {
-                using var r = GetResponse<FileWebResponse>(uri);
+                using FileWebResponse? r = GetResponse<FileWebResponse>(uri);
                 Copy(r, stream);
                 return true;
             }
@@ -565,7 +565,7 @@ namespace TheXDS.MCART.Networking
         public static async Task<HttpStatusCode> DownloadHttpAsync(Uri uri, Stream stream, ReportCallBack? reportCallback, int polling)
         {
             if (!stream.CanWrite) throw new NotSupportedException();
-            using var r = await GetResponseAsync<HttpWebResponse>(uri);
+            using HttpWebResponse? r = await GetResponseAsync<HttpWebResponse>(uri);
             if (r.StatusCode == HttpStatusCode.OK)
             {
                 await CopyAsync(r, stream, reportCallback, polling);
@@ -732,7 +732,7 @@ namespace TheXDS.MCART.Networking
         public static async Task<FtpStatusCode> DownloadFtpAsync(Uri uri, Stream stream, ReportCallBack? reportCallback, int polling)
         {
             if (!stream.CanWrite) throw new NotSupportedException();
-            using var r = await GetResponseAsync<FtpWebResponse>(uri);
+            using FtpWebResponse? r = await GetResponseAsync<FtpWebResponse>(uri);
             if (r.StatusCode == FtpStatusCode.CommandOK)
             {
                 await CopyAsync(r, stream, reportCallback, polling);
@@ -895,7 +895,7 @@ namespace TheXDS.MCART.Networking
             if (!stream.CanWrite) throw new NotSupportedException();
             try
             {
-                using var r = await GetResponseAsync<FileWebResponse>(uri);
+                using FileWebResponse? r = await GetResponseAsync<FileWebResponse>(uri);
                 await CopyAsync(r, stream, reportCallback, polling);
                 return true;
             }

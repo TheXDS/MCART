@@ -133,7 +133,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </exception>
         public static ILGenerator LoadConstant<T>(this ILGenerator ilGen, T value)
         {
-            var t = typeof(T);
+            Type? t = typeof(T);
             if (_constantLoaders.FirstOrDefault(p => p.ConstantType == t) is IConstantLoader cl)
             {
                 cl.Emit(ilGen, value);
@@ -341,7 +341,7 @@ namespace TheXDS.MCART.Types.Extensions
         {
             if (type.GetConstructor(args.ToTypes().ToArray()) is not ConstructorInfo c)
                 throw new ClassNotInstantiableException(type);
-            foreach (var j in args)
+            foreach (object? j in args)
             {
                 if (j is null)
                     ilGen.LoadNull();
@@ -510,7 +510,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static ILGenerator If(this ILGenerator ilGen, Action trueBranch)
         {
-            ilGen.BranchFalseNewLabel(out var endIf);
+            ilGen.BranchFalseNewLabel(out Label endIf);
             trueBranch();
             return ilGen.PutLabel(endIf);
         }
@@ -538,8 +538,8 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static ILGenerator If(this ILGenerator ilGen, Action trueBranch, Action falseBranch)
         {
-            var endIf = ilGen.DefineLabel();
-            var @else = ilGen.DefineLabel();
+            Label endIf = ilGen.DefineLabel();
+            Label @else = ilGen.DefineLabel();
             ilGen.Emit(Brfalse, @else);
             trueBranch();
             ilGen.Emit(Br, endIf);
@@ -584,12 +584,12 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static ILGenerator For(this ILGenerator ilGen, LocalBuilder accumulator, object? initialValue, Action condition, Action incrementor, ForBlock forBlock)
         {
-            var next = ilGen.DefineLabel();
+            Label next = ilGen.DefineLabel();
             ilGen
                 .InitLocal(accumulator, initialValue)
-                .InsertNewLabel(out var @for);
+                .InsertNewLabel(out Label @for);
             condition();
-            ilGen.BranchFalseNewLabel(out var endFor);
+            ilGen.BranchFalseNewLabel(out Label endFor);
             forBlock(accumulator, endFor, next);
             ilGen.PutLabel(next);
             incrementor();
@@ -634,12 +634,12 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static ILGenerator For<T>(this ILGenerator ilGen, T initialValue, Action<LocalBuilder> condition, Action<LocalBuilder> incrementor, ForBlock forBlock)
         {
-            var next = ilGen.DefineLabel();
+            Label next = ilGen.DefineLabel();
             ilGen
-                .InitNewLocal(initialValue, out var acc)
-                .InsertNewLabel(out var @for);
+                .InitNewLocal(initialValue, out LocalBuilder? acc)
+                .InsertNewLabel(out Label @for);
             condition(acc);
-            ilGen.BranchFalseNewLabel(out var endFor);
+            ilGen.BranchFalseNewLabel(out Label endFor);
             forBlock(acc, endFor, next);
             ilGen.PutLabel(next);
             incrementor(acc);
@@ -676,13 +676,13 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static ILGenerator For(this ILGenerator ilGen, int startValue, int endValue, ForBlock forBlock)
         {
-            var next = ilGen.DefineLabel();
+            Label next = ilGen.DefineLabel();
             ilGen
-                .InitNewLocal(startValue, out var acc)
-                .InsertNewLabel(out var @for)
+                .InitNewLocal(startValue, out LocalBuilder? acc)
+                .InsertNewLabel(out Label @for)
                 .LoadLocal(acc)
                 .LoadConstant(endValue)
-                .BranchGreaterThanNewLabel(out var endFor);
+                .BranchGreaterThanNewLabel(out Label endFor);
             forBlock(acc, endFor, next);
             return ilGen
                 .PutLabel(next)
@@ -719,11 +719,11 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static ILGenerator For(this ILGenerator ilGen, Range<int> range, ForBlock forBlock)
         {
-            var next = ilGen.DefineLabel();
-            var endFor = ilGen.DefineLabel();
+            Label next = ilGen.DefineLabel();
+            Label endFor = ilGen.DefineLabel();
             ilGen
-                .InitNewLocal(range.MinInclusive ? range.Minimum : range.Minimum + 1, out var acc)
-                .InsertNewLabel(out var @for)
+                .InitNewLocal(range.MinInclusive ? range.Minimum : range.Minimum + 1, out LocalBuilder? acc)
+                .InsertNewLabel(out Label @for)
                 .LoadLocal(acc)
                 .LoadConstant(range.Maximum);
 
@@ -771,15 +771,15 @@ namespace TheXDS.MCART.Types.Extensions
         /// </remarks>
         public static ILGenerator ForEach<T>(this ILGenerator ilGen, ForEachBlock foreachBlock)
         {
-            var itm = ilGen.DeclareLocal(typeof(T));
+            LocalBuilder? itm = ilGen.DeclareLocal(typeof(T));
             return ilGen
                 .Call<IEnumerable<T>, Func<IEnumerator<T>>>(p => p.GetEnumerator)
-                .StoreNewLocal<IEnumerator<T>>(out var enumerator)
+                .StoreNewLocal<IEnumerator<T>>(out LocalBuilder? enumerator)
                 .Using(enumerator, (_, @break) =>
                 {
                     ilGen
-                        .BranchNewLabel(out var moveNext)
-                        .InsertNewLabel(out var loopStart)
+                        .BranchNewLabel(out Label moveNext)
+                        .InsertNewLabel(out Label loopStart)
                         .LoadLocalAddress(enumerator)
                         .Call(ReflectionHelpers.GetProperty<IEnumerator<T>>(p => p.Current).GetMethod!)
                         .StoreLocal(itm);
@@ -840,7 +840,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static ILGenerator Using<T>(this ILGenerator ilGen, UsingBlock usingBlock) where T : IDisposable, new()
         {
-            ilGen.NewObject<T>().StoreNewLocal<T>(out var disposable);
+            ilGen.NewObject<T>().StoreNewLocal<T>(out LocalBuilder? disposable);
             return ilGen.TryFinally(@break => usingBlock(disposable, @break), () => ilGen.Dispose(disposable));
         }
 
@@ -1536,7 +1536,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static ILGenerator LoadProperty(this ILGenerator ilGen, PropertyInfo property)
         {
-            var m = property.GetGetMethod()!;
+            MethodInfo? m = property.GetGetMethod()!;
             if (m.IsStatic)
             {
                 return ilGen.Call(m);
@@ -2042,15 +2042,15 @@ namespace TheXDS.MCART.Types.Extensions
 
         private static Label InsertTryBlock(ILGenerator ilGen, TryBlock block)
         {
-            var endTry = ilGen.BeginExceptionBlock();
+            Label endTry = ilGen.BeginExceptionBlock();
             block(endTry);
             return endTry;
         }
 
         private static void InsertCatchBlocks(ILGenerator ilGen, TryBlock tryBlock, IEnumerable<KeyValuePair<Type, TryBlock>> catchBlocks)
         {
-            var endTry = InsertTryBlock(ilGen, tryBlock);
-            foreach (var j in catchBlocks)
+            Label endTry = InsertTryBlock(ilGen, tryBlock);
+            foreach (KeyValuePair<Type, TryBlock> j in catchBlocks)
             {
                 if (!j.Key.Implements<Exception>()) throw new InvalidTypeException(j.Key);
                 ilGen.BeginCatchBlock(j.Key);

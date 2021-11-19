@@ -51,10 +51,10 @@ namespace TheXDS.MCART.Security.Password
         /// </returns>
         public static SecureString GenerateRandomPassword(string validChars, int length)
         {
-            var x = validChars.Shuffled().ToArray();
-            var rnd = new Random();
-            var retval = new SecureString();
-            for (var j = 0; j < length; j++) retval.AppendChar(x[rnd.Next(0, x.Length)]);
+            char[]? x = validChars.Shuffled().ToArray();
+            Random? rnd = new();
+            SecureString? retval = new();
+            for (int j = 0; j < length; j++) retval.AppendChar(x[rnd.Next(0, x.Length)]);
             retval.MakeReadOnly();
             return retval;
         }

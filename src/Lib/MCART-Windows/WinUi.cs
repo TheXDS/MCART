@@ -129,7 +129,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static Point GetDpi(IntPtr hwnd)
         {
-            var h = Graphics.FromHwnd(hwnd).GetHdc();
+            IntPtr h = Graphics.FromHwnd(hwnd).GetHdc();
             return new Point(PInvoke.GetDeviceCaps(h, 88), PInvoke.GetDeviceCaps(h, 90));
         }
 
@@ -163,12 +163,12 @@ namespace TheXDS.MCART
         /// </returns>
         public static Types.Point GetCursorPosition()
         {
-            return PInvoke.GetCursorPos(out var p) ? p : Types.Point.Nowhere;
+            return PInvoke.GetCursorPos(out Windows.Dwm.Structs.Point p) ? p : Types.Point.Nowhere;
         }
 
         private static float GetScalingFactor(IntPtr handle)
         {
-            var h = Graphics.FromHwnd(handle).GetHdc();
+            IntPtr h = Graphics.FromHwnd(handle).GetHdc();
             return (float)PInvoke.GetDeviceCaps(h, 10) / PInvoke.GetDeviceCaps(h, 117);
         }
     }

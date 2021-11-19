@@ -230,7 +230,7 @@ namespace TheXDS.MCART.Security.Cryptography
         /// </returns>
         public int TransformBlock(byte[] inputBuffer, int inputOffset, int inputCount, byte[] outputBuffer, int outputOffset)
         {
-            var b = _rsa.Encrypt(inputBuffer.Range(inputOffset, inputCount).ToArray(), true);
+            byte[]? b = _rsa.Encrypt(inputBuffer.Range(inputOffset, inputCount).ToArray(), true);
             b.CopyTo(outputBuffer, outputOffset);
             return b.Length;
         }

@@ -33,7 +33,7 @@ namespace TheXDS.MCART.WpfTests.ValueConverters
         [Test]
         public void InstanceTest()
         {
-            var c = new BooleanConverter<int>(5, -5);
+            BooleanConverter<int>? c = new(5, -5);
 
             Assert.AreEqual(5, c.True);
             Assert.AreEqual(-5, c.False);
@@ -42,7 +42,7 @@ namespace TheXDS.MCART.WpfTests.ValueConverters
         [Test]
         public void ConversionTest()
         {
-            var c = new BooleanConverter<int>(5, -5);
+            BooleanConverter<int>? c = new(5, -5);
 
             Assert.AreEqual(5, c.Convert(true, typeof(int), null, CultureInfo.CurrentCulture));
             Assert.AreEqual(-5, c.Convert(false, typeof(int), null, CultureInfo.CurrentCulture));
@@ -51,7 +51,7 @@ namespace TheXDS.MCART.WpfTests.ValueConverters
         [Test]
         public void FailureTest()
         {
-            var c = new BooleanConverter<int>(5, -5);
+            BooleanConverter<int>? c = new(5, -5);
             Assert.Null(c.Convert(3, typeof(int), null, CultureInfo.CurrentCulture));
             Assert.Null(c.Convert("Test", typeof(int), null, CultureInfo.CurrentCulture));
         }
@@ -59,7 +59,7 @@ namespace TheXDS.MCART.WpfTests.ValueConverters
         [Test]
         public void ConvertBackTest()
         {
-            var c = new BooleanConverter<int>(5, -5);
+            BooleanConverter<int>? c = new(5, -5);
 
             Assert.True((bool)c.ConvertBack(5, typeof(int), null, CultureInfo.CurrentCulture)!);
             Assert.False((bool)c.ConvertBack(-5, typeof(int), null, CultureInfo.CurrentCulture)!);

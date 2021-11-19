@@ -117,7 +117,7 @@ namespace TheXDS.MCART.Types
         public static TypeAttributes InferAttributes(Type type)
         {
             NullCheck(type, nameof(type));
-            var retVal = type.IsClass ? TypeAttributes.Class : default;
+            TypeAttributes retVal = type.IsClass ? TypeAttributes.Class : default;
 
             retVal |= (InferAccess(type), type.IsNested) switch
             {

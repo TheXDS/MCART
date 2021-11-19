@@ -104,7 +104,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static string ChopAny(this string str, params string[] toChop)
         {
-            foreach (var j in toChop)
+            foreach (string? j in toChop)
             {
                 if (str.StartsWith(j)) return str.Remove(0, j.Length);
                 if (str.EndsWith(j)) return str.Remove(str.Length - j.Length, j.Length);
@@ -135,7 +135,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static string ChopEndAny(this string str, params string[] toChop)
         {
-            foreach (var j in toChop)
+            foreach (string? j in toChop)
             {
                 if (str.EndsWith(j)) return str.Remove(str.Length - j.Length, j.Length);
             }
@@ -165,7 +165,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static string ChopStartAny(this string str, params string[] toChop)
         {
-            foreach (var j in toChop)
+            foreach (string? j in toChop)
             {
                 if (str.StartsWith(j)) return str.Remove(0, j.Length);
             }
@@ -215,9 +215,9 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static string[] TextWrap(this string str, int width)
         {
-            var l = new List<string>();
+            List<string>? l = new();
 
-            foreach (var j in str.Split(' '))
+            foreach (string? j in str.Split(' '))
             {
                 if ((l.LastOrDefault() ?? string.Empty).Length + j.Length > width)
                 {
@@ -236,7 +236,7 @@ namespace TheXDS.MCART.Types.Extensions
         {
             string Selector(int i)
             {
-                var ch = i * chunkSize;
+                int ch = i * chunkSize;
                 return str.Substring(ch,
                     ch + chunkSize > str.Length ? str.Length - ch : chunkSize);
             }
@@ -299,7 +299,7 @@ namespace TheXDS.MCART.Types.Extensions
         public static bool ContainsAny(this string stringToCheck, IEnumerable<char> chars, out int argNum)
         {
             argNum = 0;
-            foreach (var j in chars)
+            foreach (char j in chars)
             {
                 if (stringToCheck.Contains(j)) return true;
                 argNum++;
@@ -381,7 +381,7 @@ namespace TheXDS.MCART.Types.Extensions
         public static bool ContainsAny(this string stringToCheck, IEnumerable<string> strings, out int argNum)
         {
             argNum = 0;
-            foreach (var j in strings)
+            foreach (string? j in strings)
             {
                 if (stringToCheck.Contains(j)) return true;
                 argNum++;
@@ -489,9 +489,9 @@ namespace TheXDS.MCART.Types.Extensions
             if (checkName.IsEmpty()) throw new ArgumentNullException(nameof(checkName));
             if (actualName.IsEmpty()) throw new ArgumentNullException(nameof(actualName));
             if (!tolerance.IsBetween(float.Epsilon, 1)) throw new ArgumentOutOfRangeException(nameof(tolerance));
-            var n = 0f;
-            var m = 0;
-            foreach (var j in checkName.Split(' '))
+            float n = 0f;
+            int m = 0;
+            foreach (string? j in checkName.Split(' '))
             {
                 m++;
                 n += actualName.Split(' ').Select(k => j.Likeness(k)).Where(l => l > tolerance).Sum();
@@ -602,14 +602,14 @@ namespace TheXDS.MCART.Types.Extensions
                 new("AX", p => char.IsUpper(p)),
                 new("ax", p => char.IsLower(p))
             };
-            var chkS = checkCase ? checkString : checkString.ToUpperInvariant();
-            var fS = checkCase ? format : format.ToUpperInvariant();
+            string? chkS = checkCase ? checkString : checkString.ToUpperInvariant();
+            string? fS = checkCase ? format : format.ToUpperInvariant();
             if (chkS.Length != fS.Length) return false;
-            for (var j = 0; j < chkS.Length; j++)
+            for (int j = 0; j < chkS.Length; j++)
             {
-                var strChar = chkS[j];
-                var fChar = fS[j];
-                var rule = matchRules.SingleOrDefault(p => p.match.Contains(fChar)).test ?? (p => fChar == p);
+                char strChar = chkS[j];
+                char fChar = fS[j];
+                Func<char, bool>? rule = matchRules.SingleOrDefault(p => p.match.Contains(fChar)).test ?? (p => fChar == p);
                 if (!rule(strChar)) return false;
             }
             return true;
@@ -675,7 +675,7 @@ namespace TheXDS.MCART.Types.Extensions
         {
             int steps = 0, likes = 0;
             ofString = new string(' ', tolerance - 1) + ofString.ToUpper() + new string(' ', tolerance - 1);
-            foreach (var c in toString.ToUpper())
+            foreach (char c in toString.ToUpper())
                 if (ofString.Substring(steps++, tolerance).Contains(c))
                     likes++;
 
@@ -777,7 +777,7 @@ namespace TheXDS.MCART.Types.Extensions
         {
             IEnumerable<char> InsertSpace()
             {
-                var e = str.ToCharArray().GetEnumerator();
+                System.Collections.IEnumerator? e = str.ToCharArray().GetEnumerator();
                 e.Reset();
                 if (!e.MoveNext()) yield break;
                 while (true)
@@ -975,9 +975,9 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static bool TokenSearch(this string str, string searchTerms, char separator, SearchOptions options)
         {
-            var s = options.HasFlag(SearchOptions.CaseSensitive) ? str : str.ToUpper();
-            var t = options.HasFlag(SearchOptions.CaseSensitive) ? searchTerms : searchTerms.ToUpper();
-            var terms = t.Split(separator);
+            string? s = options.HasFlag(SearchOptions.CaseSensitive) ? str : str.ToUpper();
+            string? t = options.HasFlag(SearchOptions.CaseSensitive) ? searchTerms : searchTerms.ToUpper();
+            string[]? terms = t.Split(separator);
 
             if (options.HasFlag(SearchOptions.WildCard))
                 return options.HasFlag(SearchOptions.IncludeAll)
@@ -999,8 +999,8 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static SecureString ToSecureString(this string @string)
         {
-            var retVal = new SecureString();
-            foreach (var j in @string) retVal.AppendChar(j);
+            SecureString? retVal = new();
+            foreach (char j in @string) retVal.AppendChar(j);
             return retVal;
         }
 
@@ -1095,7 +1095,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static string Without(this string @string, params string[] strings)
         {
-            foreach (var j in strings)
+            foreach (string? j in strings)
             {
                 @string = @string.Replace(j, string.Empty);
             }

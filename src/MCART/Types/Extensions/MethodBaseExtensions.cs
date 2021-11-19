@@ -48,7 +48,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static string FullName(this MethodBase method)
         {
-            var s = new StringBuilder();
+            StringBuilder? s = new();
             s.Append(method.DeclaringType?.CSharpName().OrNull("{0}."));
             s.Append(method.Name);
             if (method.IsGenericMethod)
@@ -86,7 +86,7 @@ namespace TheXDS.MCART.Types.Extensions
         public static bool IsOverriden(this MethodBase method, object instance)
         {
             IsOverriden_Contract(method, instance);
-            var m = instance.GetType().GetMethod(method.Name, GetBindingFlags(method), null, method.GetParameters().Select(p => p.ParameterType).ToArray(), null)
+            MethodInfo? m = instance.GetType().GetMethod(method.Name, GetBindingFlags(method), null, method.GetParameters().Select(p => p.ParameterType).ToArray(), null)
                 ?? throw new TamperException(new MissingMethodException(instance.GetType().Name, method.Name));
 
             return method.DeclaringType != m.DeclaringType;
@@ -105,7 +105,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static BindingFlags GetBindingFlags(this MethodBase method)
         {
-            var retVal = BindingFlags.Default;
+            BindingFlags retVal = BindingFlags.Default;
 
             void Test(MethodAttributes inFlag, BindingFlags orFlag, BindingFlags notFlags = BindingFlags.Default)
             {

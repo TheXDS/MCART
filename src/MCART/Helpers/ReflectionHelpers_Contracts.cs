@@ -57,8 +57,8 @@ namespace TheXDS.MCART.Helpers
             if (fields.IsAnyNull()) throw new NullItemException();
             if (instance is { } obj)
             {
-                var f = obj.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public);
-                foreach (var j in fields.Where(p => !p.IsStatic))
+                FieldInfo[]? f = obj.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public);
+                foreach (FieldInfo? j in fields.Where(p => !p.IsStatic))
                 {
                     if (!f.Contains(j)) throw new MissingFieldException(obj.GetType().Name, j.Name);
                 }

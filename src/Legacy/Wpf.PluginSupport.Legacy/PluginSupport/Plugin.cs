@@ -59,10 +59,10 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         public static MenuItem GetUiMenu(IPlugin plugin)
         {
             if (!plugin.HasInteractions) throw new FeatureNotAvailableException();
-            var mnu = new MenuItem() { Header = plugin.Name };
+            MenuItem? mnu = new() { Header = plugin.Name };
             if (!plugin.Description.IsEmpty())
                 mnu.ToolTip = new ToolTip() { Content = plugin.Description };
-            foreach (var j in plugin.PluginInteractions.OfType<WpfInteractionItem>())
+            foreach (WpfInteractionItem? j in plugin.PluginInteractions.OfType<WpfInteractionItem>())
                 mnu.Items.Add(j.AsMenuItem());
             return mnu;
         }
@@ -88,8 +88,8 @@ namespace TheXDS.MCART.PluginSupport.Legacy
         public static TPanel GetUiPanel<T, TPanel>(IPlugin plugin)
             where T : ButtonBase, new() where TPanel : Panel, new()
         {
-            var pnl = new TPanel();
-            foreach (var j in plugin.PluginInteractions.OfType<WpfInteractionItem>())
+            TPanel? pnl = new();
+            foreach (WpfInteractionItem? j in plugin.PluginInteractions.OfType<WpfInteractionItem>())
                 pnl.Children.Add(j.AsButton<T>());
             return pnl;
         }

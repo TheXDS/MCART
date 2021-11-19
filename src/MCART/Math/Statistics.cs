@@ -48,7 +48,7 @@ namespace TheXDS.MCART.Math
         /// </returns>
         public static double Variate(this in double value, in double delta)
         {
-            var d = value * delta;
+            double d = value * delta;
             return value + (RandomExtensions.Rnd.NextDouble() * d * 2) - d;
         }
 
@@ -76,10 +76,10 @@ namespace TheXDS.MCART.Math
         /// <returns>La tendencia media de un set de datos.</returns>
         public static double MeanTendency(this IEnumerable<double> data)
         {
-            var c = new List<double>();
+            List<double>? c = new();
             double last;
 
-            using var e = data.GetEnumerator();
+            using IEnumerator<double>? e = data.GetEnumerator();
             if (e.MoveNext()) last = e.Current;
             else return double.NaN;
 
@@ -101,9 +101,9 @@ namespace TheXDS.MCART.Math
         /// <returns>La tendencia geométrica de un set de datos.</returns>
         public static double GeometricMean(this IEnumerable<double> data)
         {
-            var c = 0.0;
-            var t = 0;
-            foreach (var j in data)
+            double c = 0.0;
+            int t = 0;
+            foreach (double j in data)
             {
                 c *= j;
                 t++;
@@ -120,9 +120,9 @@ namespace TheXDS.MCART.Math
         /// <returns>La tendencia harmónica de un set de datos.</returns>
         public static double HarmonicMean(this IEnumerable<double> data)
         {
-            var c = 0.0;
-            var t = 0;
-            foreach (var j in data)
+            double c = 0.0;
+            int t = 0;
+            foreach (double j in data)
             {
                 c += 1 / j;
                 t++;
@@ -139,12 +139,12 @@ namespace TheXDS.MCART.Math
         /// <returns>La media de un set de datos.</returns>
         public static double Median(this IEnumerable<double> data)
         {
-            var d = data.ToList();
+            List<double>? d = data.ToList();
             if (!d.Any()) return double.NaN;
 
             d.Sort();
 
-            var p = d.Count / 2;
+            int p = d.Count / 2;
 
             return d.Count % 2 == 1 ? d[p] : (d[p - 1] + d[p]) / 2;
 
@@ -159,14 +159,14 @@ namespace TheXDS.MCART.Math
         /// <returns>La moda de un set de datos.</returns>
         public static IEnumerable<double> Mode(this IEnumerable<double> data)
         {
-            var d = new Dictionary<double, int>();
-            using var e = data.GetEnumerator();
+            Dictionary<double, int>? d = new();
+            using IEnumerator<double>? e = data.GetEnumerator();
             while (e.MoveNext())
             {
                 if (!d.ContainsKey(e.Current)) d.Add(e.Current, 1);
                 else d[e.Current]++;
             }
-            var m = d.Max(p => p.Value);
+            int m = d.Max(p => p.Value);
             return d.Where(p => p.Value == m).Select(p => p.Key);
         }
 
@@ -181,7 +181,7 @@ namespace TheXDS.MCART.Math
         /// </returns>
         public static double MeanAbsoluteDeviation(this IEnumerable<double> data)
         {
-            var d = data.ToList();
+            List<double>? d = data.ToList();
             return AbsoluteDeviation(d, d.Average());
         }
 
@@ -194,7 +194,7 @@ namespace TheXDS.MCART.Math
         /// <returns>La desviación media absoluta de un set de datos.</returns>
         public static double MedianAbsoluteDeviation(this IEnumerable<double> data)
         {
-            var d = data.ToList();
+            List<double>? d = data.ToList();
             return AbsoluteDeviation(d, d.Median());
         }
 
@@ -212,9 +212,9 @@ namespace TheXDS.MCART.Math
         /// </returns>
         public static double AbsoluteDeviation(this IEnumerable<double> data, double point)
         {
-            var d = 0.0;
-            var c = 0;
-            using var e = data.GetEnumerator();
+            double d = 0.0;
+            int c = 0;
+            using IEnumerator<double>? e = data.GetEnumerator();
             while (e.MoveNext())
             {
                 c++;
@@ -238,12 +238,12 @@ namespace TheXDS.MCART.Math
         /// </exception>
         public static double Correlation(IEnumerable<double> dataA, IEnumerable<double> dataB)
         {
-            var da = dataA.ToList();
-            var db = dataB.ToList();
-            var avga = da.Average();
-            var avgb = db.Average();
-            using var ea = da.GetEnumerator();
-            using var eb = db.GetEnumerator();
+            List<double>? da = dataA.ToList();
+            List<double>? db = dataB.ToList();
+            double avga = da.Average();
+            double avgb = db.Average();
+            using List<double>.Enumerator ea = da.GetEnumerator();
+            using List<double>.Enumerator eb = db.GetEnumerator();
             double sigmaXY = 0.0, sigmaX = 0.0, sigmaY = 0.0;
             while (ea.MoveNext() && eb.MoveNext())
             {
@@ -270,14 +270,14 @@ namespace TheXDS.MCART.Math
         /// </exception>
         public static double Covariance(IEnumerable<double> dataA, IEnumerable<double> dataB)
         {
-            var da = dataA.ToList();
-            var db = dataB.ToList();
-            var avga = da.Average();
-            var avgb = db.Average();
-            using var ea = da.GetEnumerator();
-            using var eb = db.GetEnumerator();
+            List<double>? da = dataA.ToList();
+            List<double>? db = dataB.ToList();
+            double avga = da.Average();
+            double avgb = db.Average();
+            using List<double>.Enumerator ea = da.GetEnumerator();
+            using List<double>.Enumerator eb = db.GetEnumerator();
 
-            var sigmaXY = 0.0;
+            double sigmaXY = 0.0;
             while (ea.MoveNext() && eb.MoveNext())
             {
                 sigmaXY += (ea.Current - avga) * (eb.Current - avgb);
@@ -297,8 +297,8 @@ namespace TheXDS.MCART.Math
         /// <returns>La desviación cuadrada de un set de datos.</returns>
         public static double DeviationSquared(this IEnumerable<double> data)
         {
-            var d = data.ToList();
-            var avg = d.Average();
+            List<double>? d = data.ToList();
+            double avg = d.Average();
             return d.Sum(p => System.Math.Pow(p - avg, 2));
         }
 
@@ -337,13 +337,13 @@ namespace TheXDS.MCART.Math
         /// </returns>
         public static double Forecast(in double valueA, IEnumerable<double> dataA, IEnumerable<double> dataB)
         {
-            var da = dataA.ToList();
-            var db = dataB.ToList();
-            var avga = da.Average();
-            var avgb = db.Average();
+            List<double>? da = dataA.ToList();
+            List<double>? db = dataB.ToList();
+            double avga = da.Average();
+            double avgb = db.Average();
 
-            using var ea = da.GetEnumerator();
-            using var eb = db.GetEnumerator();
+            using List<double>.Enumerator ea = da.GetEnumerator();
+            using List<double>.Enumerator eb = db.GetEnumerator();
 
             double sigmaXY = 0.0, sigmaX = 0.0;
             while (ea.MoveNext() && eb.MoveNext())
@@ -354,8 +354,8 @@ namespace TheXDS.MCART.Math
 
             if (ea.MoveNext() || eb.MoveNext()) throw new IndexOutOfRangeException();
 
-            var b = sigmaXY / sigmaX;
-            var a = avgb - b * avga;
+            double b = sigmaXY / sigmaX;
+            double a = avgb - b * avga;
 
             return a + b * valueA;
         }
@@ -369,8 +369,8 @@ namespace TheXDS.MCART.Math
         /// <returns>La desviación estándar de un set de datos.</returns>
         public static double StandardDeviation(this IEnumerable<double> data)
         {
-            var d = data.ToList();
-            var avg = d.Average();
+            List<double>? d = data.ToList();
+            double avg = d.Average();
             return System.Math.Sqrt(d.Sum(p => System.Math.Pow(p - avg, 2)) / d.Count);
         }
     }

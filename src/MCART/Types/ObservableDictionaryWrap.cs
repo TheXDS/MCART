@@ -72,7 +72,7 @@ namespace TheXDS.MCART.Types
             get => UnderlyingCollection[key];
             set
             {
-                var oldValue = UnderlyingCollection[key];
+                TValue? oldValue = UnderlyingCollection[key];
                 UnderlyingCollection[key] = value;
                 RaiseCollectionChanged(new NcchEa(NotifyCollectionChangedAction.Replace, oldValue, value));
             }
@@ -131,7 +131,7 @@ namespace TheXDS.MCART.Types
         public bool Remove(TKey key)
         {
             if (!UnderlyingCollection.ContainsKey(key)) return false;
-            var oldItem = UnderlyingCollection[key];
+            TValue? oldItem = UnderlyingCollection[key];
             UnderlyingCollection.Remove(key);
             RaiseCollectionChanged(new NcchEa(NotifyCollectionChangedAction.Remove, new KeyValuePair<TKey, TValue>(key, oldItem)));
             return true;

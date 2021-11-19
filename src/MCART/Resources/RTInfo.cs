@@ -91,8 +91,8 @@ namespace TheXDS.MCART.Resources
         /// </returns>
         public static bool? RtSupport<T>(T obj) where T : notnull
         {
-            if (!obj.HasAttr<TargetMCARTVersionAttribute>(out var tt)) return null;
-            if (!obj.HasAttr<MinMcartVersionAttribute>(out var mt))
+            if (!obj.HasAttr<TargetMCARTVersionAttribute>(out TargetMCARTVersionAttribute? tt)) return null;
+            if (!obj.HasAttr<MinMcartVersionAttribute>(out MinMcartVersionAttribute? mt))
 #if StrictMCARTVersioning
                 return null;
 #else
@@ -137,8 +137,8 @@ namespace TheXDS.MCART.Resources
              * la función HasAttr<T>(object, T) en lugar de HasAttr(Type, T),
              * lo cual no es la implementación intencionada.
              */
-            if (!type.HasAttr<TargetMCARTVersionAttribute>(out var tt)) return null;
-            if (!type.HasAttr<MinMcartVersionAttribute>(out var mt))
+            if (!type.HasAttr<TargetMCARTVersionAttribute>(out TargetMCARTVersionAttribute? tt)) return null;
+            if (!type.HasAttr<MinMcartVersionAttribute>(out MinMcartVersionAttribute? mt))
 #if StrictMCARTVersioning
                 return null;
 #else
@@ -149,7 +149,7 @@ namespace TheXDS.MCART.Resources
 
         private static ComponentKind GetKind(Assembly mcartAssembly)
         {
-            if (!mcartAssembly.HasAttrValue<McartComponentAttribute, ComponentKind>(out var kind))
+            if (!mcartAssembly.HasAttrValue<McartComponentAttribute, ComponentKind>(out ComponentKind kind))
                 throw new InvalidOperationException();
             return kind;
         }

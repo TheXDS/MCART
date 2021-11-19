@@ -56,11 +56,11 @@ namespace TheXDS.MCART.Security.Password
         {
             if (password.Length == 0) return new PwEvalResult(0, Composition.Warn(St.PwNeeded), true);
             double c = 0;
-            var t = 0;
-            var o = new StringBuilder();
-            foreach (var j in Rules.Where(a => a.Enable))
+            int t = 0;
+            StringBuilder? o = new();
+            foreach (PasswordEvaluationRule? j in Rules.Where(a => a.Enable))
             {
-                var k = j.Eval(password);
+                PwEvalResult k = j.Eval(password);
                 if (!k.Details.IsEmpty()) o.AppendLine(k.Details);
                 if (k.Critical) return new PwEvalResult(0, o.ToString(), true);
                 c += k.Result;

@@ -151,7 +151,7 @@ namespace TheXDS.MCART.Helpers
         /// </returns>
         public static T? FindSingleObject<T>(IEnumerable? ctorArgs) where T : notnull
         {
-            var t = GetTypes<T>(true).NotNull().SingleOrDefault();
+            Type? t = GetTypes<T>(true).NotNull().SingleOrDefault();
             return t is not null ? t.New<T>(false, ctorArgs) : default;
         }
 
@@ -200,7 +200,7 @@ namespace TheXDS.MCART.Helpers
         public static T? FindSingleObject<T>(IEnumerable? ctorArgs, Func<Type, bool> typeFilter) where T : notnull
         {
             NullCheck(typeFilter, nameof(typeFilter));
-            var t = GetTypes<T>(true).NotNull().SingleOrDefault(typeFilter);
+            Type? t = GetTypes<T>(true).NotNull().SingleOrDefault(typeFilter);
             return t is not null ? t.New<T>(false, ctorArgs) : default;
         }
 
@@ -234,7 +234,7 @@ namespace TheXDS.MCART.Helpers
         /// </returns>
         public static T? FindFirstObject<T>(IEnumerable? ctorArgs) where T : notnull
         {
-            var t = GetTypes<T>(true).NotNull().FirstOrDefault();
+            Type? t = GetTypes<T>(true).NotNull().FirstOrDefault();
             return t is not null ? t.New<T>(false, ctorArgs) : default;
         }
 
@@ -283,7 +283,7 @@ namespace TheXDS.MCART.Helpers
         public static T? FindFirstObject<T>(IEnumerable? ctorArgs, Func<Type, bool> typeFilter) where T : notnull
         {
             NullCheck(typeFilter, nameof(typeFilter));
-            var t = GetTypes<T>(true).NotNull().FirstOrDefault(typeFilter);
+            Type? t = GetTypes<T>(true).NotNull().FirstOrDefault(typeFilter);
             return t is not null ? t.New<T>(false, ctorArgs) : default;
         }
 
@@ -551,7 +551,7 @@ namespace TheXDS.MCART.Helpers
         [Sugar]
         public static T? GetAttr<T, TIt>() where T : Attribute
         {
-            typeof(TIt).HasAttr<T>(out var attr);
+            typeof(TIt).HasAttr<T>(out T? attr);
             return attr;
         }
 
@@ -815,11 +815,11 @@ namespace TheXDS.MCART.Helpers
         /// <seealso cref="FromBytes{T}(byte[])"/>
         public static byte[] GetBytes<T>(T value) where T : struct
         {
-            var sze = Marshal.SizeOf(value);
+            int sze = Marshal.SizeOf(value);
             IntPtr ptr = IntPtr.Zero;
             try
             {
-                var arr = new byte[sze];
+                byte[]? arr = new byte[sze];
                 ptr = Marshal.AllocHGlobal(sze);
                 Marshal.StructureToPtr(value, ptr, true);
                 Marshal.Copy(ptr, arr, 0, sze);
@@ -856,8 +856,8 @@ namespace TheXDS.MCART.Helpers
         public static T FromBytes<T>(byte[] rawBytes) where T : struct
         {
             FromBytes_Contract(rawBytes);
-            var sze = rawBytes.Length;
-            var ptr = IntPtr.Zero;
+            int sze = rawBytes.Length;
+            IntPtr ptr = IntPtr.Zero;
             try
             {
                 ptr = Marshal.AllocHGlobal(sze);

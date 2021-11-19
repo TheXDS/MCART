@@ -45,7 +45,7 @@ namespace TheXDS.MCART.Types.Extensions
         {
             NullCheck(command, nameof(command));
             if (!properties.Any()) throw Errors.EmptyCollection(properties);
-            var t = command.ObservedSource.GetType().GetProperties();
+            PropertyInfo[]? t = command.ObservedSource.GetType().GetProperties();
             if (properties.Select(GetProperty).FirstOrDefault(p => !t.Contains(p)) is { } missingProp)
             {
                 throw Errors.MissingMember(command.ObservedSource.GetType(), missingProp);
@@ -88,7 +88,7 @@ namespace TheXDS.MCART.Types.Extensions
         {
             NullCheck(command, nameof(command));
             NullCheck(selector, nameof(selector));
-            var member = selector();
+            MemberInfo? member = selector();
             if (!GetAll<MemberInfo>(t).Contains(member))
             {
                 throw Errors.MissingMember(t, member);
@@ -99,7 +99,7 @@ namespace TheXDS.MCART.Types.Extensions
         {
             NullCheck(command, nameof(command));
             NullCheck(propertySelector, nameof(propertySelector));
-            var prop = propertySelector();
+            PropertyInfo? prop = propertySelector();
             if (!GetAll<PropertyInfo>(t).Contains(prop))
             {
                 throw Errors.MissingMember(t, prop);

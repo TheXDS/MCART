@@ -45,9 +45,9 @@ namespace TheXDS.MCART.ViewModel
 
         private void OnInvokeObservedProps(object? sender, PropertyChangedEventArgs e)
         {
-            if (_observeRegistry.TryGetValue(e.PropertyName ?? throw Errors.NullValue("e.PropertyName"), out var c))
+            if (_observeRegistry.TryGetValue(e.PropertyName ?? throw Errors.NullValue("e.PropertyName"), out ICollection<Action>? c))
             {
-                foreach (var j in c)
+                foreach (Action? j in c)
                 {
                     j.Invoke();
                 }
@@ -210,7 +210,7 @@ namespace TheXDS.MCART.ViewModel
         {
             BusyOp_Contract(func);
             IsBusy = true;
-            var result = func.Invoke();
+            T? result = func.Invoke();
             IsBusy = false;
             return result;
         }
@@ -231,7 +231,7 @@ namespace TheXDS.MCART.ViewModel
         {
             BusyOp_Contract(task);
             IsBusy = true;
-            var result = await task;
+            T? result = await task;
             IsBusy = false;
             return result;
         }

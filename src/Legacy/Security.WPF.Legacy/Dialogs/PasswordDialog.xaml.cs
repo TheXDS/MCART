@@ -62,7 +62,7 @@ namespace TheXDS.MCART.Dialogs
                 if (maxTries.Value <= 0) throw new ArgumentOutOfRangeException(nameof(maxTries));
             }
 
-            var d = new PasswordDialog();
+            PasswordDialog? d = new();
 
             mode |= knownHint is null ? 0 : PasswordDialogMode.Hint;
             mode |= evaluator is null ? 0 : PasswordDialogMode.PwQuality;
@@ -76,7 +76,7 @@ namespace TheXDS.MCART.Dialogs
             d.Vm.MaxTries = maxTries;
             d.Vm.Mode = mode;
 
-            var r = d.ShowDialog() ?? false;
+            bool r = d.ShowDialog() ?? false;
 
             userData = r
                 ? new UserData(d.Vm.User ?? string.Empty, d.Vm.Password, d.Vm.Hint, d.Vm.PasswordQuality)
@@ -761,7 +761,7 @@ namespace TheXDS.MCART.Dialogs
         /// </returns>
         public static bool Login(string? knownUser, out ICredential loginData)
         {
-            var r = InternalGetUserData(PasswordDialogMode.User, knownUser, null, null, null, null, null, out var l);
+            bool r = InternalGetUserData(PasswordDialogMode.User, knownUser, null, null, null, null, null, out UserData l);
             loginData = r ? Credential.From(l) : Credential.Null;
             return r;
         }
@@ -853,7 +853,7 @@ namespace TheXDS.MCART.Dialogs
         /// </returns>
         public static bool CheckPassword(out SecureString? password)
         {
-            var r = InternalGetUserData(PasswordDialogMode.PasswordOnly, null, null, null, null, null, null, out var l);
+            bool r = InternalGetUserData(PasswordDialogMode.PasswordOnly, null, null, null, null, null, null, out UserData l);
             password = r ? l.Password : null;
             return r;
         }

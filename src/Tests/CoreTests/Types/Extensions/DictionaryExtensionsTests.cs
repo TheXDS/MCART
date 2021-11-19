@@ -33,7 +33,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         [Test]
         public void CheckCircularRef_Test()
         {
-            var d = new Dictionary<char, IEnumerable<char>>
+            Dictionary<char, IEnumerable<char>>? d = new()
             {
                 { 'a', new[] { 'b', 'c' } },
                 { 'b', new[] { 'c', 'd' } },
@@ -50,7 +50,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         [Test]
         public void CheckCircularRef_Test2()
         {
-            var d = new Dictionary<char, ICollection<char>>
+            Dictionary<char, ICollection<char>>? d = new()
             {
                 { 'a', new[] { 'b', 'c' } },
                 { 'b', new[] { 'c', 'd' } },
@@ -67,24 +67,24 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         [Test]
         public void Push_Test()
         {
-            var d = new Dictionary<int, string>();
+            Dictionary<int, string>? d = new();
             Assert.IsAssignableFrom<string>(d.Push(1, "test"));
         }
 
         [Test]
         public void Pop_Test()
         {
-            var d = new Dictionary<int, string>
+            Dictionary<int, string>? d = new()
             {
                 { 1, "test" },
                 { 2, "test2" }
             };
 
-            Assert.True(d.Pop(1, out var s));
+            Assert.True(d.Pop(1, out string? s));
             Assert.AreEqual("test", s);
             Assert.False(d.ContainsKey(1));
             Assert.False(d.ContainsValue("test"));
-            Assert.False(d.Pop(3, out var s2));
+            Assert.False(d.Pop(3, out string? s2));
             Assert.Null(s2);
         }
     }

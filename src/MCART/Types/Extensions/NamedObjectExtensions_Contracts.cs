@@ -33,7 +33,7 @@ namespace TheXDS.MCART.Types.Extensions
         private static Type AsNamedEnum_Contract(Type t)
         {
             Internals.NullCheck(t, nameof(t));
-            var q = t.IsEnum ? t : Nullable.GetUnderlyingType(t)!;
+            Type? q = t.IsEnum ? t : Nullable.GetUnderlyingType(t)!;
             if (q is null || !q.IsEnum) throw new InvalidTypeException(t);
             return q;
         }

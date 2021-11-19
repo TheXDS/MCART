@@ -40,8 +40,8 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public Color From(byte value)
         {
-            var yLinear = (double)value / 255;
-            var ySrgb = (float)(yLinear > 0.0031308
+            double yLinear = (double)value / 255;
+            float ySrgb = (float)(yLinear > 0.0031308
                 ? (System.Math.Pow(yLinear, 1 / 2.4) * 1.055) - 0.055
                 : 12.92 * yLinear);
             return new Color(ySrgb, ySrgb, ySrgb);
@@ -57,9 +57,9 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public byte To(Color color)
         {
-            var lr = color.ScR > 0.04045f ? System.Math.Pow((color.ScR + 0.055) / 1.055, 2.4) : color.ScR / 12.92;
-            var lg = color.ScG > 0.04045f ? System.Math.Pow((color.ScG + 0.055) / 1.055, 2.4) : color.ScG / 12.92;
-            var lb = color.ScB > 0.04045f ? System.Math.Pow((color.ScB + 0.055) / 1.055, 2.4) : color.ScB / 12.92;
+            double lr = color.ScR > 0.04045f ? System.Math.Pow((color.ScR + 0.055) / 1.055, 2.4) : color.ScR / 12.92;
+            double lg = color.ScG > 0.04045f ? System.Math.Pow((color.ScG + 0.055) / 1.055, 2.4) : color.ScG / 12.92;
+            double lb = color.ScB > 0.04045f ? System.Math.Pow((color.ScB + 0.055) / 1.055, 2.4) : color.ScB / 12.92;
             return (byte)((lr * 0.2126) + (lg * 0.7152) + (lb * 0.0722));
         }
     }

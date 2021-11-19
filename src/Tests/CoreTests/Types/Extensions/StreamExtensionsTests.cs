@@ -122,7 +122,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         [Test]
         public void WriteBytes_Test()
         {
-            var a = Encoding.Default.GetBytes("test");
+            byte[]? a = Encoding.Default.GetBytes("test");
             using MemoryStream ms = new();
             ms.WriteBytes(a);
             ms.Seek(0, SeekOrigin.Begin);
@@ -132,8 +132,8 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         [Test]
         public void WriteSeveralBytes_Test()
         {
-            var a = Encoding.Default.GetBytes("TEST");
-            var b = Encoding.Default.GetBytes("test");
+            byte[]? a = Encoding.Default.GetBytes("TEST");
+            byte[]? b = Encoding.Default.GetBytes("test");
             using MemoryStream ms = new();
             ms.WriteSeveralBytes(a, b);
             ms.Seek(0, SeekOrigin.Begin);

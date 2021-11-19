@@ -107,7 +107,7 @@ namespace TheXDS.MCART.Types
         /// <param name="color">Valor a convertir.</param>
         public static implicit operator MC(TransparentColor color)
         {
-            var bc = color.BaseColor;
+            Color? bc = color.BaseColor;
 
             return new MC()
             {

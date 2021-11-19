@@ -21,8 +21,8 @@ namespace TheXDS.MCART.UI.Tests.ViewModel
         [Test]
         public void PropertyChange_Fires_Notification_Test()
         {
-            var i = new TestNpcClass();
-            var obs = new ObservingCommand(i, () => { })
+            TestNpcClass? i = new();
+            ObservingCommand? obs = new ObservingCommand(i, () => { })
                 .SetCanExecute((a, b) => !i.TestString.IsEmpty())
                 .RegisterObservedProperty(nameof(TestNpcClass.TestString));
 

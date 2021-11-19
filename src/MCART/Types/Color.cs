@@ -57,9 +57,9 @@ namespace TheXDS.MCART.Types
         /// </param>
         public static Color BlendHeat(in float x)
         {
-            var r = (byte)(Sqrt(2) * Cos((x + 1) * PI) * 255).Clamp(0, 255);
-            var g = (byte)(Sqrt(2) * Sin(x * PI) * 255).Clamp(0, 255);
-            var b = (byte)(Sqrt(2) * Cos(x * PI) * 255).Clamp(0, 255);
+            byte r = (byte)(Sqrt(2) * Cos((x + 1) * PI) * 255).Clamp(0, 255);
+            byte g = (byte)(Sqrt(2) * Sin(x * PI) * 255).Clamp(0, 255);
+            byte b = (byte)(Sqrt(2) * Cos(x * PI) * 255).Clamp(0, 255);
             return new Color(r, g, b);
         }
 
@@ -70,8 +70,8 @@ namespace TheXDS.MCART.Types
         /// <param name="x">The x coordinate.</param>
         public static Color BlendHealth(in float x)
         {
-            var g = (byte)(510 * x).Clamp(0, 255);
-            var r = (byte)(510 - (510 * x)).Clamp(0, 255);
+            byte g = (byte)(510 * x).Clamp(0, 255);
+            byte r = (byte)(510 - (510 * x)).Clamp(0, 255);
             return new Color(r, g, 0);
         }
 
@@ -99,8 +99,8 @@ namespace TheXDS.MCART.Types
         {
             Blend_Contract(colors);
             float r = 0f, g = 0f, b = 0f, a = 0f;
-            var c = 0;
-            foreach (var j in colors)
+            int c = 0;
+            foreach (Color j in colors)
             {
                 r += j.ScR;
                 g += j.ScG;
@@ -188,7 +188,7 @@ namespace TheXDS.MCART.Types
                 color = new Bgr12ColorParser().From(Convert.ToInt16($"0x{from[1..]}", 16));
                 return true;
             }
-            var cName = typeof(Colors).GetProperty(from, typeof(Color));
+            System.Reflection.PropertyInfo? cName = typeof(Colors).GetProperty(from, typeof(Color));
             if (cName is not null)
             {
                 color = (Color)cName.GetValue(null)!;
@@ -212,7 +212,7 @@ namespace TheXDS.MCART.Types
         /// </exception>
         public static Color Parse(string from)
         {
-            if (TryParse(from, out var color)) return color;
+            if (TryParse(from, out Color color)) return color;
             throw new FormatException();
         }
 
@@ -655,8 +655,8 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public int CompareTo(Color other)
         {
-            var first = new Abgr32ColorParser().To(this);
-            var second = new Abgr32ColorParser().To(other);
+            int first = new Abgr32ColorParser().To(this);
+            int second = new Abgr32ColorParser().To(other);
             return first.CompareTo(second);
         }
 

@@ -149,9 +149,9 @@ namespace TheXDS.MCART.Component
         {
             get
             {
-                foreach (var j in ThirdPartyComponents)
+                foreach (Type? j in ThirdPartyComponents)
                 {
-                    if (j.HasAttr<LicenseAttributeBase>(out var lic)) yield return lic!.GetLicense(j);
+                    if (j.HasAttr<LicenseAttributeBase>(out LicenseAttributeBase? lic)) yield return lic!.GetLicense(j);
                 }
             }
         }

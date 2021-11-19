@@ -152,9 +152,9 @@ namespace TheXDS.MCART.ValueConverters
 
         private static TypeConverter? GetConverter()
         {
-            if (typeof(string).HasAttr<TypeConverterAttribute>(out var tc))
+            if (typeof(string).HasAttr<TypeConverterAttribute>(out TypeConverterAttribute? tc))
             {
-                var converters = Objects.PublicTypes<TypeConverter>().Where(TypeExtensions.IsInstantiable);
+                System.Collections.Generic.IEnumerable<Type>? converters = Objects.PublicTypes<TypeConverter>().Where(TypeExtensions.IsInstantiable);
                 return converters.FirstOrDefault(p => p.AssemblyQualifiedName == tc.ConverterTypeName)?.New<TypeConverter>();
             }
             else

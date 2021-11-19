@@ -132,7 +132,7 @@ namespace TheXDS.MCART.Types.Extensions
         [Sugar]
         public static T? GetAttr<T>(this object obj) where T : Attribute
         {
-            HasAttr<T>(obj, out var attr);
+            HasAttr<T>(obj, out T? attr);
             return attr;
         }
 
@@ -164,8 +164,8 @@ namespace TheXDS.MCART.Types.Extensions
         /// <param name="collection">Colección de objetos a comprobar.</param>
         public static IEnumerable<int> WhichAre(this object obj, IEnumerable<object> collection)
         {
-            var c = 0;
-            foreach (var j in collection)
+            int c = 0;
+            foreach (object? j in collection)
             {
                 if (j.Is(obj)) yield return c;
                 c++;
@@ -232,7 +232,7 @@ namespace TheXDS.MCART.Types.Extensions
                 Assembly a => a.HasAttr(out attribute),
                 MemberInfo m => m.HasAttr(out attribute),
                 Enum e => e.HasAttr(out attribute),
-                _ => HasAttrs<T>(obj.GetType(), out var attrs) & (attribute = attrs?.FirstOrDefault()) is not null
+                _ => HasAttrs<T>(obj.GetType(), out IEnumerable<T>? attrs) & (attribute = attrs?.FirstOrDefault()) is not null
             };
         }
 
@@ -272,7 +272,7 @@ namespace TheXDS.MCART.Types.Extensions
                 case Enum e:
                     return e.HasAttrValue<TAttribute, TValue>(out value);
                 default:
-                    var retVal = HasAttrs<TAttribute>(obj, out var attrs);
+                    bool retVal = HasAttrs<TAttribute>(obj, out IEnumerable<TAttribute>? attrs);
                     value = attrs?.FirstOrDefault() is { Value: { } v } ? v : default!;
                     return retVal;
             }

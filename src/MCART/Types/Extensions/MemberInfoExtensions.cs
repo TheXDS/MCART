@@ -119,7 +119,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static bool HasAttr<T>(this MemberInfo member, [MaybeNullWhen(false)] out T attribute) where T : notnull, Attribute
         {
-            var retVal = HasAttrs<T>(member, out var attrs);
+            bool retVal = HasAttrs<T>(member, out IEnumerable<T>? attrs);
             attribute = attrs.FirstOrDefault();
             return retVal;
         }
@@ -151,8 +151,8 @@ namespace TheXDS.MCART.Types.Extensions
         public static bool HasAttrValue<TAttribute, TValue>(this MemberInfo member, out TValue value)
             where TAttribute : Attribute, IValueAttribute<TValue>
         {
-            var retVal = HasAttrs<TAttribute>(member, out var attrs);
-            var a = attrs.FirstOrDefault();
+            bool retVal = HasAttrs<TAttribute>(member, out IEnumerable<TAttribute>? attrs);
+            TAttribute? a = attrs.FirstOrDefault();
             value = a is not null ? a.Value : default!;
             return retVal;
         }
@@ -179,7 +179,7 @@ namespace TheXDS.MCART.Types.Extensions
         [Sugar]
         public static T? GetAttr<T>(this MemberInfo member) where T : Attribute
         {
-            HasAttr<T>(member, out var attr);
+            HasAttr<T>(member, out T? attr);
             return attr;
         }
 

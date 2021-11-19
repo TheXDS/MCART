@@ -104,7 +104,7 @@ namespace TheXDS.MCART.Types
                     point = Origin2D;
                     break;
                 default:
-                    var separators = new[]
+                    string[]? separators = new[]
                     {
                         ", ",
                         "; ",
@@ -134,7 +134,7 @@ namespace TheXDS.MCART.Types
         /// <returns><see cref="Point3D"/> que ha sido creado.</returns>
         public static Point3D Parse(string value)
         {
-            if (TryParse(value, out var retval)) return retval;
+            if (TryParse(value, out Point3D retval)) return retval;
             throw new FormatException();
         }
 

@@ -46,7 +46,7 @@ namespace TheXDS.MCART.Dialogs.ViewModel
         {
             get
             {
-                var baseType = Type?.BaseType;
+                Type? baseType = Type?.BaseType;
                 while (baseType is not null)
                 {
                     yield return baseType;

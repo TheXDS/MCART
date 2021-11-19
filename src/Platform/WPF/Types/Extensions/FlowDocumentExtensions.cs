@@ -50,11 +50,11 @@ namespace TheXDS.MCART.Types.Extensions
         /// </param>
         public static void Print(this FlowDocument fd, string title)
         {
-            var dialog = new PrintDialog();
+            PrintDialog? dialog = new();
             if (!dialog.ShowDialog() ?? true) return;
-            var sz = new System.Windows.Size(dialog.PrintableAreaWidth, dialog.PrintableAreaHeight);
+            System.Windows.Size sz = new(dialog.PrintableAreaWidth, dialog.PrintableAreaHeight);
 
-            var paginator = (fd as IDocumentPaginatorSource).DocumentPaginator;
+            DocumentPaginator? paginator = (fd as IDocumentPaginatorSource).DocumentPaginator;
             paginator.PageSize = sz;
             dialog.PrintDocument(paginator, title);
         }
@@ -71,9 +71,9 @@ namespace TheXDS.MCART.Types.Extensions
         /// </param>
         public static void PrintDirect(this FlowDocument fd, string title)
         {
-            var dialog = new PrintDialog();
-            var sz = new System.Windows.Size(dialog.PrintableAreaWidth, dialog.PrintableAreaHeight);
-            var paginator = (fd as IDocumentPaginatorSource).DocumentPaginator;
+            PrintDialog? dialog = new();
+            System.Windows.Size sz = new(dialog.PrintableAreaWidth, dialog.PrintableAreaHeight);
+            DocumentPaginator? paginator = (fd as IDocumentPaginatorSource).DocumentPaginator;
             paginator.PageSize = sz;
             dialog.PrintDocument(paginator, title);
         }
@@ -89,7 +89,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static TableCell AddCell(this TableRow row)
         {
-            var c = new TableCell();
+            TableCell? c = new();
             row.Cells.Add(c);
             return c;
         }
@@ -108,7 +108,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static TableCell AddCell(this TableRow row, int columnSpan)
         {
-            var c = new TableCell { ColumnSpan = columnSpan };
+            TableCell? c = new() { ColumnSpan = columnSpan };
             row.Cells.Add(c);
             return c;
         }
@@ -130,7 +130,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static TableCell AddCell(this TableRow row, int rowSpan, int columnSpan)
         {
-            var c = new TableCell { RowSpan = rowSpan, ColumnSpan = columnSpan };
+            TableCell? c = new() { RowSpan = rowSpan, ColumnSpan = columnSpan };
             row.Cells.Add(c);
             return c;
         }
@@ -214,7 +214,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static TableRowGroup AddGroup(this Table table)
         {
-            var rowGroup = new TableRowGroup();
+            TableRowGroup? rowGroup = new();
             table.RowGroups.Add(rowGroup);
             return rowGroup;
         }
@@ -250,7 +250,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static TableRow AddRow(this TableRowGroup group)
         {
-            var row = new TableRow();
+            TableRow? row = new();
             group.Rows.Add(row);
             return row;
         }
@@ -268,10 +268,10 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static TableRowGroup AddRow(this TableRowGroup rg, IEnumerable<string> values)
         {
-            var lst = values.ToList();
+            List<string>? lst = values.ToList();
 
-            var row = new TableRow();
-            foreach (var j in lst) row.Cells.Add(j);
+            TableRow? row = new();
+            foreach (string? j in lst) row.Cells.Add(j);
             rg.Rows.Add(row);
             return rg;
         }
@@ -289,13 +289,13 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static TableRow AddRow(this Table tbl, IEnumerable<string> values)
         {
-            var lst = values.ToList();
+            List<string>? lst = values.ToList();
 
             if (lst.Count > tbl.Columns.Count) throw new ArgumentOutOfRangeException();
 
-            var rg = new TableRowGroup();
-            var row = new TableRow();
-            foreach (var j in lst) row.Cells.Add(new TableCell(new Paragraph(new Run(j))));
+            TableRowGroup? rg = new();
+            TableRow? row = new();
+            foreach (string? j in lst) row.Cells.Add(new TableCell(new Paragraph(new Run(j))));
             rg.Rows.Add(row);
 
             tbl.RowGroups.Add(rg);
@@ -332,8 +332,8 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static TableRowGroup AddRow(this TableRowGroup rg, IEnumerable<TableCell> cells)
         {
-            var tr = new TableRow();
-            foreach (var j in cells) tr.Cells.Add(j);
+            TableRow? tr = new();
+            foreach (TableCell? j in cells) tr.Cells.Add(j);
 
             rg.Rows.Add(tr);
             return rg;
@@ -368,10 +368,10 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static TableRowGroup AddRow(this TableRowGroup rg, IEnumerable<Block> values)
         {
-            var lst = values.ToList();
+            List<Block>? lst = values.ToList();
 
-            var row = new TableRow();
-            foreach (var j in lst) row.Cells.Add(new TableCell(j));
+            TableRow? row = new();
+            foreach (Block? j in lst) row.Cells.Add(new TableCell(j));
             rg.Rows.Add(row);
             return rg;
         }
@@ -406,8 +406,8 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static Table AddTable(this FlowDocument document, params GridLength[] columnWidths)
         {
-            var t = new Table();
-            foreach (var j in columnWidths)
+            Table? t = new();
+            foreach (GridLength j in columnWidths)
                 t.Columns.Add(new TableColumn { Width = j });
             document.Blocks.Add(t);
             return t;
@@ -427,7 +427,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static Table AddTable(this FlowDocument document, IEnumerable<KeyValuePair<string, GridLength>> columns)
         {
-            var t = new Table();
+            Table? t = new();
             t.AddGroup().AddRow(columns.Select(p =>
             {
                 t.Columns.Add(new TableColumn { Width = p.Value });
@@ -497,7 +497,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static TableRow Borders(this TableRow element, Brush brush, Thickness thickness)
         {
-            foreach (var j in element.Cells)
+            foreach (TableCell? j in element.Cells)
                 j.Border(brush, thickness);
             return element;
         }
@@ -514,7 +514,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static TableRowGroup Borders(this TableRowGroup element, Brush brush, Thickness thickness)
         {
-            foreach (var j in element.Rows.SelectMany(p => p.Cells))
+            foreach (TableCell? j in element.Rows.SelectMany(p => p.Cells))
                 j.Border(brush, thickness);
             return element;
         }
@@ -546,7 +546,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static TableRow CenterAll(this TableRow row)
         {
-            foreach (var j in row.Cells.SelectMany(p => p.Blocks)) j.Center();
+            foreach (Block? j in row.Cells.SelectMany(p => p.Blocks)) j.Center();
             return row;
         }
 
@@ -562,7 +562,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static TableRowGroup CenterAll(this TableRowGroup rowGroup)
         {
-            foreach (var j in rowGroup.Rows.SelectMany(o => o.Cells.SelectMany(p => p.Blocks))) j.Center();
+            foreach (Block? j in rowGroup.Rows.SelectMany(o => o.Cells.SelectMany(p => p.Blocks))) j.Center();
             return rowGroup;
         }
 
@@ -643,8 +643,8 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static Table ColumnWidths(this Table table, IEnumerable<GridLength> lengths)
         {
-            using (var a = table.Columns.ToList().GetEnumerator())
-            using (var b = lengths.GetEnumerator())
+            using (List<TableColumn>.Enumerator a = table.Columns.ToList().GetEnumerator())
+            using (IEnumerator<GridLength>? b = lengths.GetEnumerator())
             {
                 while (a.MoveNext() && b.MoveNext())
                     if (a.Current is not null)
@@ -967,7 +967,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static TableCell Add(this TableCellCollection cells, Inline content)
         {
-            var c = new TableCell(new Paragraph(content));
+            TableCell? c = new(new Paragraph(content));
             cells.Add(c);
             return c;
         }
@@ -1017,23 +1017,23 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static Table MakeTable<T>(this FlowDocument fd, IEnumerable<IColumnBuilder<T>> columns, IEnumerable<T> data, ICellStyle? headersStyle)
         {
-            var tbl = new Table();
-            var rg = new TableRowGroup();
+            Table? tbl = new();
+            TableRowGroup? rg = new();
 
-            var headersRow = new TableRow { FontWeight = FontWeights.Bold };
-            var c = columns.ToList();
-            foreach (var j in c)
+            TableRow? headersRow = new() { FontWeight = FontWeights.Bold };
+            List<IColumnBuilder<T>>? c = columns.ToList();
+            foreach (IColumnBuilder<T>? j in c)
             {
                 tbl.Columns.Add(new TableColumn());
                 headersRow.Cells.Add(j.Header).ApplyStyle(headersStyle);
             }
             rg.Rows.Add(headersRow);
 
-            var odd = true;
-            foreach (var j in data)
+            bool odd = true;
+            foreach (T? j in data)
             {
-                var row = new TableRow();
-                foreach (var k in c)
+                TableRow? row = new();
+                foreach (IColumnBuilder<T>? k in c)
                 {
                     row.Cells.Add(k.Content(j)).ApplyStyle(k.Style(j));
                 }
@@ -1079,11 +1079,11 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static TableRowGroup MakeTable(this FlowDocument fd, IEnumerable<string> headers, ICellStyle? headersStyle)
         {
-            var tbl = new Table();
-            var rg = new TableRowGroup();
+            Table? tbl = new();
+            TableRowGroup? rg = new();
 
-            var headersRow = new TableRow { FontWeight = FontWeights.Bold };
-            foreach (var j in headers)
+            TableRow? headersRow = new() { FontWeight = FontWeights.Bold };
+            foreach (string? j in headers)
             {
                 tbl.Columns.Add(new TableColumn());
                 headersRow.Cells.Add(j).ApplyStyle(headersStyle);
@@ -1101,7 +1101,7 @@ namespace TheXDS.MCART.Types.Extensions
 
         public static Paragraph Paragraph(this FlowDocument fd)
         {
-            var p = new Paragraph();
+            Paragraph p = new();
             fd.Blocks.Add(p);
             return p;
         }
@@ -1113,7 +1113,7 @@ namespace TheXDS.MCART.Types.Extensions
 
         public static FlowDocument Paragraph(this FlowDocument fd, string content, TextAlignment alignment)
         {
-            foreach (var text in content.Replace("\n\r", "\n").Split('\n'))
+            foreach (string text in content.Replace("\n\r", "\n").Split('\n'))
                 fd.Blocks.Add(new Paragraph { Inlines = { new Run { Text = text } }, TextAlignment = alignment });
             return fd;
         }
@@ -1166,14 +1166,14 @@ namespace TheXDS.MCART.Types.Extensions
 
         public static Paragraph Text(this BlockCollection blocks, string text)
         {
-            var p = new Paragraph(new Run(text));
+            Paragraph p = new(new Run(text));
             blocks.Add(p);
             return p;
         }
 
         public static Paragraph Text(this TableCell cell, string text)
         {
-            var p = new Paragraph(new Run(text));
+            Paragraph p = new(new Run(text));
             cell.Blocks.Add(p);
             return p;
         }
@@ -1231,17 +1231,17 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static Table ToDocumentTable(this ListView listView)
         {
-            var cols = (listView.View as GridView)?.Columns ?? throw new ArgumentException();
-            var table = new Table().ColumnWidths(cols.Select(p => p.Width));
-            var data = table.AddGroup().AddRow(cols.Select(p => p.Header.ToString())).CenterAll().Bold().Done()
+            GridViewColumnCollection cols = (listView.View as GridView)?.Columns ?? throw new ArgumentException();
+            Table table = new Table().ColumnWidths(cols.Select(p => p.Width));
+            TableRowGroup data = table.AddGroup().AddRow(cols.Select(p => p.Header.ToString())).CenterAll().Bold().Done()
                 .AddGroup();
-            foreach (var j in listView.Items)
+            foreach (object j in listView.Items)
             {
-                var row = data.AddRow();
-                foreach (var k in ((GridView)listView.View).Columns)
+                TableRow row = data.AddRow();
+                foreach (GridViewColumn k in ((GridView)listView.View).Columns)
                 {
                     if (k.DisplayMemberBinding is not Binding b) continue;
-                    var o = b.Path.Path.Split('.').Aggregate(j,
+                    object o = b.Path.Path.Split('.').Aggregate(j,
                         (current, i) => current?.GetType().GetProperty(i)?.GetMethod?.Invoke(j, Array.Empty<object>()));
                     if (o is not null) row.AddCell(o.ToString());
                 }

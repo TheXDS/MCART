@@ -51,15 +51,15 @@ namespace TheXDS.MCART.TypeFactoryTests
         [Test]
         public void Build_Simple_Type_Test()
         {
-            var t = _factory.NewClass("GreeterClass");
-            var nameProp = t.AddAutoProperty<string>("Name");
+            System.Reflection.Emit.TypeBuilder? t = _factory.NewClass("GreeterClass");
+            PropertyBuildInfo? nameProp = t.AddAutoProperty<string>("Name");
             t.AddComputedProperty<string>("Greeting", p => p
                 .LoadConstant("Hello, ")
                 .LoadProperty(nameProp)
                 .Call<Func<string?, string?, string>>(string.Concat)
                 .Return());
 
-            var greeterInstance = t.New();
+            object? greeterInstance = t.New();
             ((dynamic)greeterInstance).Name = "Jhon";
 
             Assert.AreEqual("TheXDS.MCART.Tests.TypeFactoryTests._Generated", t.Namespace);
@@ -70,7 +70,7 @@ namespace TheXDS.MCART.TypeFactoryTests
         [Test]
         public void Build_Npc_Type_Test()
         {
-            var t = _factory.NewType<NotifyPropertyChanged>("NpcTestClass");
+            TypeBuilder<NotifyPropertyChanged>? t = _factory.NewType<NotifyPropertyChanged>("NpcTestClass");
             t.AddNpcProperty<string>("Name");
             dynamic npcInstance = t.New();
 
@@ -87,7 +87,7 @@ namespace TheXDS.MCART.TypeFactoryTests
         [Test]
         public void Build_Npc_Type_With_Public_Base_Class_Test()
         {
-            var t = _factory.NewType<NpcBaseClass>("NpcBaseTestClass");
+            TypeBuilder<NpcBaseClass>? t = _factory.NewType<NpcBaseClass>("NpcBaseTestClass");
             t.AddNpcProperty<string>("Name");
             t.AddNpcProperty<int>("Age");
             dynamic npcInstance = t.New();

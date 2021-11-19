@@ -203,7 +203,7 @@ namespace TheXDS.MCART.Types
 
         private string GetName(string name)
         {
-            var nme = new StringBuilder();
+            StringBuilder? nme = new();
             nme.Append($"{_namespace}.{name.OrNull() ?? throw new ArgumentNullException(nameof(name))}");
             if (_useGuid) nme.Append($"_{Guid.NewGuid().ToString().Replace("-", string.Empty)}");
             return nme.ToString();

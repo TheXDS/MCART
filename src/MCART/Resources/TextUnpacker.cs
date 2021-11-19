@@ -59,7 +59,7 @@ namespace TheXDS.MCART.Resources
         /// </returns>
         public override string Unpack(string id)
         {
-            using var sr = new StreamReader(UnpackStream(id) ?? throw new MissingResourceException(id));
+            using StreamReader? sr = new(UnpackStream(id) ?? throw new MissingResourceException(id));
             return sr.ReadToEnd();
         }
 
@@ -76,7 +76,7 @@ namespace TheXDS.MCART.Resources
         /// </returns>
         public override string Unpack(string id, string compressorId)
         {
-            using var sr = new StreamReader(UnpackStream(id, compressorId));
+            using StreamReader? sr = new(UnpackStream(id, compressorId));
             return sr.ReadToEnd();
         }
 
@@ -94,7 +94,7 @@ namespace TheXDS.MCART.Resources
         /// </returns>
         public override string Unpack(string id, ICompressorGetter compressor)
         {
-            using var sr = new StreamReader(UnpackStream(id, compressor));
+            using StreamReader? sr = new(UnpackStream(id, compressor));
             return sr.ReadToEnd();
         }
     }

@@ -76,7 +76,7 @@ namespace TheXDS.MCART.Types.Extensions
         public static Color WithAlpha(this Color color, in float value)
         {
             WithAlpha_Contract(value);
-            var c = color.Clone();
+            Color c = color.Clone();
             c.ScA = value;
             return c;
         }
@@ -99,8 +99,8 @@ namespace TheXDS.MCART.Types.Extensions
         public static void RemoveOf<TItem, TRemove>(this ICollection<TItem> collection)
             where TRemove : TItem
         {
-            var lst = collection.ToArray();
-            foreach (var j in lst)
+            TItem[]? lst = collection.ToArray();
+            foreach (TItem? j in lst)
             {
                 if (j is TRemove) collection.Remove(j);
             }
@@ -115,8 +115,8 @@ namespace TheXDS.MCART.Types.Extensions
         /// <param name="beforeDelete">Acción a ejecutar antes de borrar a un elemento en particular.</param>
         public static void RemoveAll<T>(this ICollection<T> collection, in Predicate<T>? check, in Action<T>? beforeDelete)
         {
-            var lst = collection.ToArray();
-            foreach (var j in lst)
+            T[]? lst = collection.ToArray();
+            foreach (T? j in lst)
             {
                 if (!(check?.Invoke(j) ?? true)) continue;
                 beforeDelete?.Invoke(j);
@@ -159,7 +159,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </typeparam>
         public static T Pop<T>(this ICollection<T> a)
         {
-            var x = a.Last();
+            T? x = a.Last();
             a.Remove(x);
             return x;
         }
@@ -174,7 +174,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </typeparam>
         public static T PopFirst<T>(this ICollection<T> a)
         {
-            var x = a.First();
+            T? x = a.First();
             a.Remove(x);
             return x;
         }
@@ -289,7 +289,7 @@ namespace TheXDS.MCART.Types.Extensions
         public static void AddRange<T>(this ICollection<T> collection, IEnumerable<T> items)
         {
             AddRange_Contract(collection, items);
-            foreach (var j in items) collection.Add(j);
+            foreach (T? j in items) collection.Add(j);
         }
 
         /// <summary>

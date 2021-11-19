@@ -33,7 +33,7 @@ namespace TheXDS.MCART.Tests.Attributes
         [Test]
         public void McartComponentAttributeBasicInstancing_Test()
         {
-            var l = new McartComponentAttribute(RtInfo.ComponentKind.Core);
+            McartComponentAttribute? l = new(RtInfo.ComponentKind.Core);
             Assert.AreEqual(RtInfo.ComponentKind.Core, l.Kind);
             Assert.AreEqual(RtInfo.ComponentKind.Core, ((IValueAttribute<RtInfo.ComponentKind>)l).Value);
         }

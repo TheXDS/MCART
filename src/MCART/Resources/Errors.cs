@@ -83,7 +83,7 @@ namespace TheXDS.MCART.Resources
         /// </returns>
         public static ArgumentException InvalidValue(string? argName, object? value)
         {
-            var msg = string.Format(Ers.InvalidXValue, value?.ToString() ?? Str.Null);
+            string? msg = string.Format(Ers.InvalidXValue, value?.ToString() ?? Str.Null);
             return argName is { } s
                 ? new(msg, s)
                 : new(msg);

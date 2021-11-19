@@ -75,7 +75,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static bool IsAnyOf(this IEnumerable collection, Type type)
         {
-            foreach (var j in collection)
+            foreach (object? j in collection)
             {
                 if (type.IsInstanceOfType(j)) return true;
             }
@@ -152,7 +152,7 @@ namespace TheXDS.MCART.Types.Extensions
         public static async IAsyncEnumerable<T> YieldAsync<T>(this IEnumerable<T> input, Func<T, Task> processor)
         {
             NullCheck(input, nameof(input));
-            foreach (var j in input)
+            foreach (T? j in input)
             {
                 await processor(j);
                 yield return j;
@@ -180,7 +180,7 @@ namespace TheXDS.MCART.Types.Extensions
         public static async IAsyncEnumerable<TOut> SelectAsync<TIn, TOut>(this IEnumerable<TIn> input, Func<TIn, Task<TOut>> selector)
         {
             NullCheck(input, nameof(input));
-            foreach (var j in input)
+            foreach (TIn? j in input)
             {
                 yield return await selector(j);
             }
@@ -198,8 +198,8 @@ namespace TheXDS.MCART.Types.Extensions
         public static int NullCount(this IEnumerable collection)
         {
             NullCheck(collection, nameof(collection));
-            var count = 0;
-            foreach (var j in collection)
+            int count = 0;
+            foreach (object? j in collection)
             {
                 if (j is null) count++;
             }
@@ -231,7 +231,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static IEnumerable<object?> ToGeneric(this IEnumerable collection)
         {
-            foreach (var j in collection) yield return j;
+            foreach (object? j in collection) yield return j;
         }
 
         /// <summary>
@@ -352,7 +352,7 @@ namespace TheXDS.MCART.Types.Extensions
         public static IEnumerable NotNull(this IEnumerable? collection)
         {
             if (collection is null) yield break;
-            foreach (var j in collection)
+            foreach (object? j in collection)
             {
                 if (j is not null) yield return j;
             }
@@ -385,7 +385,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static IEnumerable<T>? OrNull<T>(this IEnumerable<T> collection)
         {
-            var c = collection.ToArray();
+            T[]? c = collection.ToArray();
             return c.Any() ? c : null;
         }
 
@@ -429,10 +429,10 @@ namespace TheXDS.MCART.Types.Extensions
         /// </exception>
         public static IEnumerable<T> Range<T>(this IEnumerable<T> from, int index, int count)
         {
-            using var e = from.GetEnumerator();
+            using IEnumerator<T>? e = from.GetEnumerator();
             e.Reset();
             e.MoveNext();
-            var c = 0;
+            int c = 0;
             while (c++ < index)
             {
                 if (!e.MoveNext()) throw new IndexOutOfRangeException();
@@ -458,7 +458,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </typeparam>
         public static IEnumerable<T> Copy<T>(this IEnumerable<T> collection)
         {
-            var tmp = new List<T>();
+            List<T>? tmp = new();
             tmp.AddRange(collection);
             return tmp;
         }
@@ -495,7 +495,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static IEnumerable<T> Shuffled<T>(this IEnumerable<T> collection, in int deepness)
         {
-            var enumerable = collection.ToList();
+            List<T>? enumerable = collection.ToList();
             return Shuffled(enumerable, 0, enumerable.Count - 1, deepness, RandomExtensions.Rnd);
         }
 
@@ -540,7 +540,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static IEnumerable<T> Shuffled<T>(this IEnumerable<T> collection, in int firstIdx, in int lastIdx, in int deepness, in Random random)
         {
-            var tmp = new List<T>(collection);
+            List<T>? tmp = new(collection);
             tmp.Shuffle(firstIdx, lastIdx, deepness, random);
             return tmp;
         }
@@ -575,7 +575,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static T Pick<T>(this IEnumerable<T> collection, in Random random)
         {
-            var c = collection.ToList();
+            List<T>? c = collection.ToList();
 #if PreferExceptions
             if (!c.Any()) throw new EmptyCollectionException(c);
             return c.ElementAt(RandomExtensions.Rnd.Next(0, c.Count));
@@ -596,7 +596,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static async Task<T> PickAsync<T>(this IEnumerable<T> collection)
         {
-            var c = await collection.ToListAsync();
+            List<T>? c = await collection.ToListAsync();
 #if PreferExceptions
             if (!c.Any()) throw new EmptyCollectionException(c);
             return c.ElementAt(RandomExtensions.Rnd.Next(0, c.Count));
@@ -661,9 +661,9 @@ namespace TheXDS.MCART.Types.Extensions
             {
                 case > 0:
                     {
-                        using var e = collection.GetEnumerator();
+                        using IEnumerator<T>? e = collection.GetEnumerator();
                         e.Reset();
-                        var j = 0;
+                        int j = 0;
 
                         while (j++ < steps) e.MoveNext();
                         while (e.MoveNext()) yield return e.Current;
@@ -678,19 +678,19 @@ namespace TheXDS.MCART.Types.Extensions
                     }
                 case < 0:
                     {
-                        var c = new List<T>();
-                        using var e = collection.GetEnumerator();
+                        List<T>? c = new();
+                        using IEnumerator<T>? e = collection.GetEnumerator();
                         e.Reset();
 
                         // HACK: La implementación para IList<T> es funcional, y no requiere de trucos inusuales para rotar.
                         while (e.MoveNext()) c.Add(e.Current);
                         c.ApplyRotate(steps);
-                        foreach (var i in c) yield return i;
+                        foreach (T? i in c) yield return i;
                         break;
                     }
                 default:
                     {
-                        foreach (var i in collection) yield return i;
+                        foreach (T? i in collection) yield return i;
                         break;
                     }
             }
@@ -713,9 +713,9 @@ namespace TheXDS.MCART.Types.Extensions
             {
                 case > 0:
                     {
-                        using var e = collection.GetEnumerator();
+                        using IEnumerator<T>? e = collection.GetEnumerator();
                         e.Reset();
-                        var j = 0;
+                        int j = 0;
                         while (j++ < steps) e.MoveNext();
                         while (e.MoveNext()) yield return e.Current;
                         while (--j > 0) yield return default!;
@@ -723,11 +723,11 @@ namespace TheXDS.MCART.Types.Extensions
                     }
                 case < 0:
                     {
-                        using var e = collection.GetEnumerator();
+                        using IEnumerator<T>? e = collection.GetEnumerator();
                         e.Reset();
-                        var j = 0;
+                        int j = 0;
 
-                        var c = new List<T>();
+                        List<T>? c = new();
 
                         // HACK: Enumeración manual
                         while (e.MoveNext()) c.Add(e.Current);
@@ -738,7 +738,7 @@ namespace TheXDS.MCART.Types.Extensions
                     }
                 default:
                     {
-                        foreach (var i in collection) yield return i;
+                        foreach (T? i in collection) yield return i;
                         break;
                     }
             }
@@ -759,8 +759,8 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static bool ItemsEqual(this IEnumerable collection, IEnumerable items)
         {
-            var ea = collection.GetEnumerator();
-            var eb = items.GetEnumerator();
+            IEnumerator? ea = collection.GetEnumerator();
+            IEnumerator? eb = items.GetEnumerator();
             while (ea.MoveNext())
             {
                 if (!eb.MoveNext() || (!ea.Current?.Equals(eb.Current) ?? false)) return false;
@@ -900,8 +900,8 @@ namespace TheXDS.MCART.Types.Extensions
             where TAttrValue : struct
             where TAttr : Attribute, IValueAttribute<TAttrValue>
         {
-            var t = typeof(TAttrValue);
-            var d = t.GetField(@"MaxValue", BindingFlags.Public | BindingFlags.Static) is { } f ? (TAttrValue)f.GetValue(null)! : default;
+            Type? t = typeof(TAttrValue);
+            TAttrValue d = t.GetField(@"MaxValue", BindingFlags.Public | BindingFlags.Static) is { } f ? (TAttrValue)f.GetValue(null)! : default;
             return c.OrderBy(p => p?.GetAttr<TAttr>()?.Value ?? d);
         }
 
@@ -978,9 +978,9 @@ namespace TheXDS.MCART.Types.Extensions
         /// </exception>
         public static async ValueTask<int> CountAsync<T>(this IAsyncEnumerable<T> e, CancellationToken ct)
         {
-            var n = e.GetAsyncEnumerator(ct);
+            IAsyncEnumerator<T>? n = e.GetAsyncEnumerator(ct);
             if (ct.IsCancellationRequested) throw new TaskCanceledException();
-            var c = 0;
+            int c = 0;
             while (await n.MoveNextAsync())
             {
                 c++;
@@ -1043,9 +1043,9 @@ namespace TheXDS.MCART.Types.Extensions
         /// </returns>
         public static bool AreAllEqual<T>(this IEnumerable<T> c)
         {
-            using var j = c.GetEnumerator();
+            using IEnumerator<T>? j = c.GetEnumerator();
             if (!j.MoveNext()) throw new EmptyCollectionException(c);
-            var eq = j.Current;
+            T? eq = j.Current;
             while (j.MoveNext())
             {
                 if (!eq?.Equals(j.Current) ?? j.Current is { }) return false;
@@ -1102,8 +1102,8 @@ namespace TheXDS.MCART.Types.Extensions
 
         private static int IndexOfEnumerable(IEnumerable e, object? i)
         {
-            var n = e.GetEnumerator();
-            var c = 0;
+            IEnumerator? n = e.GetEnumerator();
+            int c = 0;
             while (n.MoveNext())
             {
                 if (n.Current?.Equals(i) ?? i is null) return c;
@@ -1115,8 +1115,8 @@ namespace TheXDS.MCART.Types.Extensions
 
         private static int CountEnumerable(IEnumerable e)
         {
-            var n = e.GetEnumerator();
-            var c = 0;
+            IEnumerator? n = e.GetEnumerator();
+            int c = 0;
             while (n.MoveNext()) c++;
             (n as IDisposable)?.Dispose();
             return c;

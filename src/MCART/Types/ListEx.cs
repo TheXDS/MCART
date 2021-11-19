@@ -145,7 +145,7 @@ namespace TheXDS.MCART.Types
             {
                 if (TriggerEvents)
                 {
-                    var a = new ModifyingItemEventArgs<T>(index, base[index], value);
+                    ModifyingItemEventArgs<T>? a = new(index, base[index], value);
                     ModifyingItem?.Invoke(this, a);
                     if (!a.Cancel)
                     {
@@ -169,7 +169,7 @@ namespace TheXDS.MCART.Types
         {
             if (TriggerEvents)
             {
-                var a = new AddingItemEventArgs<T>(item);
+                AddingItemEventArgs<T>? a = new(item);
                 AddingItem?.Invoke(this, a);
                 if (!a.Cancel)
                 {
@@ -189,8 +189,8 @@ namespace TheXDS.MCART.Types
         {
             if (TriggerEvents)
             {
-                var affectedItems = collection.ToList();
-                var a = new ListUpdatingEventArgs<T>(ListUpdateType.ItemsAdded, affectedItems);
+                List<T>? affectedItems = collection.ToList();
+                ListUpdatingEventArgs<T>? a = new(ListUpdateType.ItemsAdded, affectedItems);
                 ListUpdating?.Invoke(this, a);
                 if (!a.Cancel)
                 {
@@ -210,7 +210,7 @@ namespace TheXDS.MCART.Types
         {
             if (TriggerEvents)
             {
-                var a = new InsertingItemEventArgs<T>(index, item);
+                InsertingItemEventArgs<T>? a = new(index, item);
                 InsertingItem?.Invoke(this, a);
                 if (!a.Cancel)
                 {
@@ -231,8 +231,8 @@ namespace TheXDS.MCART.Types
         {
             if (TriggerEvents)
             {
-                var affectedItems = collection.ToList();
-                var a = new ListUpdatingEventArgs<T>(ListUpdateType.ItemsInserted, affectedItems);
+                List<T>? affectedItems = collection.ToList();
+                ListUpdatingEventArgs<T>? a = new(ListUpdateType.ItemsInserted, affectedItems);
                 ListUpdating?.Invoke(this, a);
                 if (!a.Cancel)
                 {
@@ -259,7 +259,7 @@ namespace TheXDS.MCART.Types
             if (!this.Any()) throw new IndexOutOfRangeException(null, new EmptyCollectionException(this));
             if (TriggerEvents)
             {
-                var a = new RemovingItemEventArgs<T>(IndexOf(item), this.Last());
+                RemovingItemEventArgs<T>? a = new(IndexOf(item), this.Last());
                 RemovingItem?.Invoke(this, a);
                 if (!a.Cancel)
                 {
@@ -284,7 +284,7 @@ namespace TheXDS.MCART.Types
             if (!this.Any()) throw new IndexOutOfRangeException(null, new EmptyCollectionException(this));
             if (TriggerEvents)
             {
-                var a = new RemovingItemEventArgs<T>(index, this[index]);
+                RemovingItemEventArgs<T>? a = new(index, this[index]);
                 RemovingItem?.Invoke(this, a);
                 if (!a.Cancel)
                 {
@@ -321,11 +321,11 @@ namespace TheXDS.MCART.Types
 #endif
             if (!TriggerEvents) return base.RemoveAll(match);
 
-            var tmp = this.Where(c => match(c));
-            var a = new ListUpdatingEventArgs<T>(ListUpdateType.ItemsRemoved, tmp);
+            IEnumerable<T>? tmp = this.Where(c => match(c));
+            ListUpdatingEventArgs<T>? a = new(ListUpdateType.ItemsRemoved, tmp);
             ListUpdating?.Invoke(this, a);
             if (a.Cancel) return 0;
-            var retVal = base.RemoveAll(match);
+            int retVal = base.RemoveAll(match);
             ListUpdated?.Invoke(this, a);
             return retVal;
         }
@@ -338,7 +338,7 @@ namespace TheXDS.MCART.Types
         {
             if (TriggerEvents)
             {
-                var a = new ListUpdatingEventArgs<T>(ListUpdateType.ItemsMoved, Reversed());
+                ListUpdatingEventArgs<T>? a = new(ListUpdateType.ItemsMoved, Reversed());
                 ListUpdating?.Invoke(this, a);
                 if (!a.Cancel)
                 {
@@ -363,7 +363,7 @@ namespace TheXDS.MCART.Types
         {
             if (TriggerEvents)
             {
-                var a = new ListUpdatingEventArgs<T>(ListUpdateType.ItemsMoved, Reversed(index, count));
+                ListUpdatingEventArgs<T>? a = new(ListUpdateType.ItemsMoved, Reversed(index, count));
                 ListUpdating?.Invoke(this, a);
                 if (!a.Cancel)
                 {
@@ -384,7 +384,7 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public IEnumerable<T> Reversed()
         {
-            var tmp = (ListEx<T>)this.Copy();
+            ListEx<T>? tmp = (ListEx<T>)this.Copy();
             tmp.Reverse();
             return tmp;
         }
@@ -405,7 +405,7 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public IEnumerable<T> Reversed(int index, int count)
         {
-            var tmp = (ListEx<T>)this.Copy();
+            ListEx<T>? tmp = (ListEx<T>)this.Copy();
             tmp.Reverse(index, count);
             return tmp;
         }
@@ -427,7 +427,7 @@ namespace TheXDS.MCART.Types
         {
             if (TriggerEvents)
             {
-                var a = new CancelEventArgs();
+                CancelEventArgs? a = new();
                 ListClearing?.Invoke(this, a);
                 if (!a.Cancel)
                 {
@@ -446,7 +446,7 @@ namespace TheXDS.MCART.Types
         {
             if (TriggerEvents)
             {
-                var a = new ListUpdatingEventArgs<T>(ListUpdateType.ItemsMoved, this);
+                ListUpdatingEventArgs<T>? a = new(ListUpdateType.ItemsMoved, this);
                 ListUpdating?.Invoke(this, a);
                 if (!a.Cancel)
                 {
@@ -469,7 +469,7 @@ namespace TheXDS.MCART.Types
         {
             if (TriggerEvents)
             {
-                var a = new ListUpdatingEventArgs<T>(ListUpdateType.ItemsMoved, this);
+                ListUpdatingEventArgs<T>? a = new(ListUpdateType.ItemsMoved, this);
                 ListUpdating?.Invoke(this, a);
                 if (!a.Cancel)
                 {
@@ -493,7 +493,7 @@ namespace TheXDS.MCART.Types
         {
             if (TriggerEvents)
             {
-                var a = new ListUpdatingEventArgs<T>(ListUpdateType.ItemsMoved, this);
+                ListUpdatingEventArgs<T>? a = new(ListUpdateType.ItemsMoved, this);
                 ListUpdating?.Invoke(this, a);
                 if (!a.Cancel)
                 {
@@ -523,7 +523,7 @@ namespace TheXDS.MCART.Types
         {
             if (TriggerEvents)
             {
-                var a = new ListUpdatingEventArgs<T>(ListUpdateType.ItemsMoved, this.Range(index, count));
+                ListUpdatingEventArgs<T>? a = new(ListUpdateType.ItemsMoved, this.Range(index, count));
                 ListUpdating?.Invoke(this, a);
                 if (!a.Cancel)
                 {

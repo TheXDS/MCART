@@ -61,7 +61,7 @@ namespace TheXDS.MCART.Tests.Math
         {
             static IEnumerable<long> EnumeratePows(long m, int d)
             {
-                var c = 2L;
+                long c = 2L;
                 while (c < m)
                 {
                     yield return c + d;
@@ -278,11 +278,11 @@ namespace TheXDS.MCART.Tests.Math
         [TestCase(1, 0, 1, 1, 0.75, 0.25)]
         public void GetQuadBezierPoint_Test(double cx, double cy, double ex, double ey, double rx, double ry)
         {
-            var p1 = Point.Origin;
-            var p2 = new Point(cx, cy);
-            var p3 = new Point(ex, ey);
+            Point p1 = Point.Origin;
+            Point p2 = new(cx, cy);
+            Point p3 = new(ex, ey);
 
-            var pr = GetQuadBezierPoint(0.5, p1, p2, p3);
+            Point pr = GetQuadBezierPoint(0.5, p1, p2, p3);
 
             Assert.AreEqual(rx, pr.X);
             Assert.AreEqual(ry, pr.Y);
@@ -316,7 +316,7 @@ namespace TheXDS.MCART.Tests.Math
         {
             const double epsilon = 1E-12;
 
-            var pr = GetArcPoint(100, 0, 360, pos);
+            Point pr = GetArcPoint(100, 0, 360, pos);
             Assert.True(pr.X.IsBetween(px - epsilon, px + epsilon));
             Assert.True(pr.Y.IsBetween(py - epsilon, py + epsilon));
         }
@@ -335,7 +335,7 @@ namespace TheXDS.MCART.Tests.Math
         {
             const double epsilon = 1E-12;
 
-            var pr = GetCirclePoint(100, pos);
+            Point pr = GetCirclePoint(100, pos);
             Assert.True(pr.X.IsBetween(px - epsilon, px + epsilon));
             Assert.True(pr.Y.IsBetween(py - epsilon, py + epsilon));
         }

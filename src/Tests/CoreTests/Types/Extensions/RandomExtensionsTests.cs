@@ -35,7 +35,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         [Test]
         public void RndText_Test()
         {
-            var str = Rnd.RndText(10);
+            string? str = Rnd.RndText(10);
             Assert.IsAssignableFrom<string>(str);
             Assert.AreEqual(10, str.Length);
         }
@@ -43,8 +43,8 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         [Test]
         public void Next_With_Range_Test()
         {
-            var r = new Range<int>(1, 100);
-            for (var j = 0; j < 1000; j++)
+            Range<int> r = new(1, 100);
+            for (int j = 0; j < 1000; j++)
             {
                 Assert.True(Rnd.Next(r).IsBetween(1, 100));
             }
@@ -54,7 +54,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions
         public void CoinFlip_Test()
         {
             List<bool> l = new();
-            for (var j = 0; j < 1000; j++)
+            for (int j = 0; j < 1000; j++)
             {
                 l.Add(Rnd.CoinFlip());
             }
