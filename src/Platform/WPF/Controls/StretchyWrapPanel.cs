@@ -24,8 +24,10 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Controls
 {
@@ -184,70 +186,57 @@ namespace TheXDS.MCART.Controls
         /// <returns>Tamaño real usado.</returns>
         protected override Size ArrangeOverride(Size finalSize)
         {
-            var firstInLine = 0;
-            var itemWidth = ItemWidth;
-            var itemHeight = ItemHeight;
+            int firstInLine = 0;
+            double itemWidth = ItemWidth;
+            double itemHeight = ItemHeight;
             double accumulatedV = 0;
-            var itemU = Orientation == Orientation.Horizontal ? itemWidth : itemHeight;
-            var curLineSize = new UvSize(Orientation);
-            var uvFinalSize = new UvSize(Orientation, finalSize.Width, finalSize.Height);
-            var itemWidthSet = !double.IsNaN(itemWidth);
-            var itemHeightSet = !double.IsNaN(itemHeight);
-            var useItemU = Orientation == Orientation.Horizontal ? itemWidthSet : itemHeightSet;
+            double itemU = Orientation == Orientation.Horizontal ? itemWidth : itemHeight;
+            UvSize curLineSize = new(Orientation);
+            UvSize uvFinalSize = new(Orientation, finalSize.Width, finalSize.Height);
+            bool itemWidthSet = !double.IsNaN(itemWidth);
+            bool itemHeightSet = !double.IsNaN(itemHeight);
+            bool useItemU = Orientation == Orientation.Horizontal ? itemWidthSet : itemHeightSet;
 
-            var children = InternalChildren;
-
-            for (int i = 0, count = children.Count; i < count; i++)
+            void DoArrange(double v, int c)
             {
-                var child = children[i];
-                if (child == null) continue;
+                if (!useItemU && StretchProportionally)
+                {
+                    ArrangeLineProportionally(accumulatedV, v, firstInLine, c, uvFinalSize.Width);
+                }
+                else
+                {
+                    ArrangeLine(accumulatedV, v, firstInLine, c, useItemU ? itemU : uvFinalSize.Width / System.Math.Max(1, c - firstInLine));
+                }
+            }
 
-                var sz = new UvSize(Orientation, itemWidthSet ? itemWidth : child.DesiredSize.Width,
-                    itemHeightSet ? itemHeight : child.DesiredSize.Height);
+
+            for (int i = 0, count = InternalChildren.Count; i < count; i++)
+            {
+                if (InternalChildren[i] is not UIElement child) continue;
+                UvSize sz = new(Orientation, itemWidthSet ? itemWidth : child.DesiredSize.Width, itemHeightSet ? itemHeight : child.DesiredSize.Height);
                 if (curLineSize._u + sz._u > uvFinalSize._u)
                 {
-                    // Need to switch to another line
-                    if (!useItemU && StretchProportionally)
-                        ArrangeLineProportionally(accumulatedV, curLineSize._v, firstInLine, i, uvFinalSize.Width);
-                    else
-                        ArrangeLine(accumulatedV, curLineSize._v, firstInLine, i, true,
-                            useItemU ? itemU : uvFinalSize.Width / System.Math.Max(1, i - firstInLine));
-
+                    DoArrange(curLineSize._v, i);
                     accumulatedV += curLineSize._v;
                     curLineSize = sz;
-
                     if (sz._u > uvFinalSize._u)
                     {
-                        // The element is wider then the constraint - give it a separate line     
-                        // Switch to next line which only contain one element
-                        if (!useItemU && StretchProportionally)
-                            ArrangeLineProportionally(accumulatedV, sz._v, i, ++i, uvFinalSize.Width);
-                        else
-                            ArrangeLine(accumulatedV, sz._v, i, ++i, true, useItemU ? itemU : uvFinalSize.Width);
-
+                        DoArrange(sz._v, i);
                         accumulatedV += sz._v;
                         curLineSize = new UvSize(Orientation);
                     }
-
                     firstInLine = i;
                 }
                 else
                 {
-                    // Continue to accumulate a line
                     curLineSize._u += sz._u;
                     curLineSize._v = System.Math.Max(sz._v, curLineSize._v);
                 }
             }
-
-            // Arrange the last line, if any
-            if (firstInLine < children.Count)
-                if (!useItemU && StretchProportionally)
-                    ArrangeLineProportionally(accumulatedV, curLineSize._v, firstInLine, children.Count,
-                        uvFinalSize.Width);
-                else
-                    ArrangeLine(accumulatedV, curLineSize._v, firstInLine, children.Count, true,
-                        useItemU ? itemU : uvFinalSize.Width / System.Math.Max(1, children.Count - firstInLine));
-
+            if (firstInLine < InternalChildren.Count)
+            {
+                DoArrange(curLineSize._v, InternalChildren.Count);
+            }
             return finalSize;
         }
 
@@ -263,97 +252,66 @@ namespace TheXDS.MCART.Controls
         /// </returns>
         protected override Size MeasureOverride(Size constraint)
         {
-            var curLineSize = new UvSize(Orientation);
-            var panelSize = new UvSize(Orientation);
-            var uvConstraint = new UvSize(Orientation, constraint.Width, constraint.Height);
-            var itemWidth = ItemWidth;
-            var itemHeight = ItemHeight;
-            var itemWidthSet = !double.IsNaN(itemWidth);
-            var itemHeightSet = !double.IsNaN(itemHeight);
-
-            var childConstraint = new Size(
-                itemWidthSet ? itemWidth : constraint.Width,
-                itemHeightSet ? itemHeight : constraint.Height);
-
-            var children = InternalChildren;
-
+            UvSize curLineSize = new(Orientation);
+            UvSize panelSize = new(Orientation);
+            UvSize uvConstraint = new(Orientation, constraint.Width, constraint.Height);
+            double itemWidth = ItemWidth;
+            double itemHeight = ItemHeight;
+            bool itemWidthSet = !double.IsNaN(itemWidth);
+            bool itemHeightSet = !double.IsNaN(itemHeight);
+            Size childConstraint = new( itemWidthSet ? itemWidth : constraint.Width, itemHeightSet ? itemHeight : constraint.Height);
+            UIElementCollection? children = InternalChildren;
             foreach (UIElement? child in children)
             {
                 if (child is null) continue;
-
-                // Flow passes its own constraint to children
                 child.Measure(childConstraint);
-
-                // This is the size of the child in UV space
-                var sz = new UvSize(Orientation,
-                    itemWidthSet ? itemWidth : child.DesiredSize.Width,
-                    itemHeightSet ? itemHeight : child.DesiredSize.Height);
-
+                UvSize sz = new(Orientation, itemWidthSet ? itemWidth : child.DesiredSize.Width, itemHeightSet ? itemHeight : child.DesiredSize.Height);
                 if (curLineSize._u + sz._u > uvConstraint._u)
                 {
-                    // Need to switch to another line
                     panelSize._u = System.Math.Max(curLineSize._u, panelSize._u);
                     panelSize._v += curLineSize._v;
                     curLineSize = sz;
-
                     if (!(sz._u > uvConstraint._u)) continue;
-                    // The element is wider then the constraint - give it a separate line             
                     panelSize._u = System.Math.Max(sz._u, panelSize._u);
                     panelSize._v += sz._v;
                     curLineSize = new UvSize(Orientation);
                 }
                 else
                 {
-                    // Continue to accumulate a line
                     curLineSize._u += sz._u;
                     curLineSize._v = System.Math.Max(sz._v, curLineSize._v);
                 }
             }
-
-            // The last line size, if any should be added
             panelSize._u = System.Math.Max(curLineSize._u, panelSize._u);
             panelSize._v += curLineSize._v;
-
-            // Go from UV space to W/H space
             return new Size(panelSize.Width, panelSize.Height);
         }
 
-        private void ArrangeLine(double v, double lineV, int start, int end, bool useItemU, double itemU)
+        private void ArrangeLine(double v, double lineV, int start, int end, double itemU)
         {
-            var u = 0d;
-            var horizontal = Orientation == Orientation.Horizontal;
-            var children = InternalChildren;
-
-            for (var i = start; i < end; i++)
+            double u = 0d;
+            bool horizontal = Orientation == Orientation.Horizontal;
+            for (int i = start; i < end; i++)
             {
-                var child = children[i];
-                if (child == null) continue;
-                var childSize = new UvSize(Orientation, child.DesiredSize.Width, child.DesiredSize.Height);
-                var layoutSlotU = useItemU ? itemU : childSize._u;
-                child.Arrange(new Rect(horizontal ? u : v, horizontal ? v : u,
-                    horizontal ? layoutSlotU : lineV, horizontal ? lineV : layoutSlotU));
-                u += layoutSlotU;
+                if (InternalChildren[i] is not UIElement child) continue;
+                child.Arrange(new Rect(horizontal ? u : v, horizontal ? v : u, horizontal ? itemU : lineV, horizontal ? lineV : itemU));
+                u += itemU;
             }
         }
 
         private void ArrangeLineProportionally(double v, double lineV, int start, int end, double limitU)
         {
-            var u = 0d;
-            var horizontal = Orientation == Orientation.Horizontal;
-            var children = InternalChildren;
-            var total = 0d;
+            bool horizontal = Orientation == Orientation.Horizontal;
+            UIElement[] children = InternalChildren.OfType<UIElement>().ToArray()[start..(end - 1)];
+            double total = horizontal ? children.Sum(p =>p.DesiredSize.Width) : children.Sum(p => p.DesiredSize.Height);
+            double uMultipler = total > 0 ? limitU / total : 0;
+            double u = 0d;
 
-            for (var i = start; i < end; i++)
-                total += horizontal ? children[i].DesiredSize.Width : children[i].DesiredSize.Height;
-
-            var uMultipler = total > 0 ? limitU / total : 0;
-            for (var i = start; i < end; i++)
+            foreach (UIElement j in children)
             {
-                var child = children[i];
-                if (child == null) continue;
-                var childSize = new UvSize(Orientation, child.DesiredSize.Width, child.DesiredSize.Height);
-                var layoutSlotU = childSize._u * uMultipler;
-                child.Arrange(new Rect(horizontal ? u : v, horizontal ? v : u,
+                UvSize childSize = new(Orientation, j.DesiredSize.Width, j.DesiredSize.Height);
+                double layoutSlotU = childSize._u * uMultipler;
+                j.Arrange(new Rect(horizontal ? u : v, horizontal ? v : u,
                     horizontal ? layoutSlotU : lineV, horizontal ? lineV : layoutSlotU));
                 u += layoutSlotU;
             }

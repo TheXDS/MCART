@@ -26,14 +26,13 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 #pragma warning disable IDE0062
 #pragma warning disable CA1822
 
+using NUnit.Framework;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using TheXDS.MCART.Exceptions;
-using TheXDS.MCART.Helpers;
-using NUnit.Framework;
-using static TheXDS.MCART.Helpers.ReflectionHelpers;
 using TheXDS.MCART.Types.Extensions;
+using static TheXDS.MCART.Helpers.ReflectionHelpers;
 
 namespace TheXDS.MCART.Tests.Helpers
 {
