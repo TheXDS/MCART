@@ -28,7 +28,6 @@ using System.Collections.ObjectModel;
 
 namespace TheXDS.MCART.PluginSupport.Legacy
 {
-
     /// <summary>
     /// Incluye información adicional del evento 
     /// <see cref="E:TheXDS.MCART.PluginSupport.IPlugin.UiChanged" />
