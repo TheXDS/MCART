@@ -118,114 +118,114 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BinWriteXNotSupported" xml:space="preserve">
-    <value>La escritura de un valor de tipo {0} no está soportada por este método. Utilice el método {1} definido en la clase {2}.</value>
+    <value>Writing values of type {0} is not supported using this method. Use the metod {1} defined in the {2} class instead.</value>
   </data>
   <data name="CantWriteObjOfT" xml:space="preserve">
-    <value>No se puede escribir el objeto de tipo {0}.</value>
+    <value>Cant write an object of type {0}.</value>
   </data>
   <data name="CircularOpDetected" xml:space="preserve">
-    <value>Operación circular detectada.</value>
+    <value>Circular operation detected.</value>
   </data>
   <data name="ClassNotInstantiable" xml:space="preserve">
-    <value>La clase especificada no es instanciable.</value>
+    <value>The specified class is not instantiable.</value>
   </data>
   <data name="ClassNotInstantiableWIthArgs" xml:space="preserve">
-    <value>La clase '{0}' no pudo ser instanciada con los parámetros de constructor especificados.</value>
+    <value>The {0} class cound not be instantiated using the specified parameters.</value>
   </data>
   <data name="ClassXNotinstantiable" xml:space="preserve">
-    <value>La clase {0} no es instanciable.</value>
+    <value>The {0} class is not instantiable.</value>
   </data>
   <data name="DuplicateData" xml:space="preserve">
-    <value>Ya existen datos con el id '{0}'.</value>
+    <value>Data with the id '{0}' already exists.</value>
   </data>
   <data name="EmptyCollection" xml:space="preserve">
-    <value>La colección no contiene elementos.</value>
+    <value>The collection does not contain any elements.</value>
   </data>
   <data name="EnumerableTypeExpected" xml:space="preserve">
-    <value>Se esperaba un tipo de colección enumerable.</value>
+    <value>Enumerable type expected.</value>
   </data>
   <data name="EnumTypeExpected" xml:space="preserve">
-    <value>El tipo {0} no es un tipo de enumeración válido.</value>
+    <value>The {0} type is not a valid Enumerable type.</value>
   </data>
   <data name="ErrorLoadingLicense" xml:space="preserve">
-    <value>Se ha producido un error al intentar cargar el contenido de la licencia.</value>
+    <value>An error has been produced while trying to read the license contents.</value>
   </data>
   <data name="ErrorLoadingRes" xml:space="preserve">
-    <value>Ha ocurrido un error al cargar el recurso {0}.</value>
+    <value>There's been an error trying to load the {0} resource.</value>
   </data>
   <data name="FieldValueShouldNotBeNull" xml:space="preserve">
-    <value>El valor del campo {0} no debe ser null.</value>
+    <value>The value of the {0} field must not be null.</value>
   </data>
   <data name="FormatNotSupported" xml:space="preserve">
-    <value>El formato {0} no está soportado.</value>
+    <value>The format '{0}' is not supported.</value>
   </data>
   <data name="InvalidArgument" xml:space="preserve">
-    <value>El argumento {0} contiene un valor inválido en este contexto.</value>
+    <value>The argument '{0}' has an invalid value in this context.</value>
   </data>
   <data name="InvalidFuncReturnValue" xml:space="preserve">
-    <value>El método {0} ha devuelto un valor inválido en este contexto.</value>
+    <value>The method '{0}' has returned an invalid value in this context.</value>
   </data>
   <data name="InvalidFuncXReturnValue" xml:space="preserve">
-    <value>El método {0} ha devuelto {1}, el cual no es un valor válido en este contexto.</value>
+    <value>The method '{0}' has returned '{1}', which is an invalid value in this context.</value>
   </data>
   <data name="InvalidMethodSignature" xml:space="preserve">
-    <value>El método no tiene una firma válida.</value>
+    <value>The method has an invalid signature.</value>
   </data>
   <data name="InvalidMethodXSignature" xml:space="preserve">
-    <value>El método '{0}' no tiene una firma válida.</value>
+    <value>The method '{0}' has ian invalid signature.</value>
   </data>
   <data name="InvalidReturnValue" xml:space="preserve">
-    <value>El método ha devuelto un valor inválido en este contexto.</value>
+    <value>The method has returned an invalid value in this context.</value>
   </data>
   <data name="InvalidSelectorExpression" xml:space="preserve">
-    <value>La expresión utilizada en este contexto debe seleccionar a un miembro.</value>
+    <value>The expression used in this context must be selecting a member.</value>
   </data>
   <data name="InvalidType" xml:space="preserve">
-    <value>El tipo no es válido en este contexto.</value>
+    <value>The type is not valid in this context.</value>
   </data>
   <data name="InvalidUri" xml:space="preserve">
-    <value>El URI apunta a un recurso no válido.</value>
+    <value>The URI points to an invalid resource.</value>
   </data>
   <data name="InvalidValue" xml:space="preserve">
-    <value>El valor proporcionado no es válido en este contexto.</value>
+    <value>The value is not valid in this context.</value>
   </data>
   <data name="InvalidXType" xml:space="preserve">
-    <value>El tipo {0} no es válido en este contexto.</value>
+    <value>The type '{0}' is not valid in this context.</value>
   </data>
   <data name="InvalidXUri" xml:space="preserve">
-    <value>El URI que apunta al recurso '{0}' no es válido.</value>
+    <value>The URI pointing to the resource '{0}' is not valid.</value>
   </data>
   <data name="InvalidXValue" xml:space="preserve">
-    <value>El valor {0} no es válido en este contexto.</value>
+    <value>The value '{0}' is not valid in this context.</value>
   </data>
   <data name="InX" xml:space="preserve">
-    <value> en {0}</value>
+    <value> in {0}</value>
   </data>
   <data name="MinGtMax" xml:space="preserve">
-    <value>El argumento mínimo debe ser inferior o igual al máximo.</value>
+    <value>The minimum argument must be less than or equal to the maximum argument.</value>
   </data>
   <data name="MissingGuidAttrFromType" xml:space="preserve">
-    <value>La declaración del tipo {0} requiere un atributo de Guid para utilizarse en este contexto.</value>
+    <value>The type declaratin for '{0}' requires a Guid attribute to be used in this context.</value>
   </data>
   <data name="NoStackInfo" xml:space="preserve">
-    <value>No hay información de pila disponible.</value>
+    <value>No stack information available.</value>
   </data>
   <data name="ObjectIsDisabled" xml:space="preserve">
-    <value>El objeto está deshabilitado.</value>
+    <value>The object is disabled.</value>
   </data>
   <data name="PropIsReadOnly" xml:space="preserve">
-    <value>La propiedad '{0}' es de sólo lectura.</value>
+    <value>The property '{0}' is read-only.</value>
   </data>
   <data name="StackUnderflow" xml:space="preserve">
-    <value>La pila está vacía.</value>
+    <value>The stack is empty.</value>
   </data>
   <data name="TamperDetected" xml:space="preserve">
-    <value>Se ha detectado una manipulación inesperada de la aplicación, o la memoria del proceso ha sido corrompida. Detenga la ejecución del programa inmediatamente.</value>
+    <value>An unexpected manipulation of the application has been detected, or the process memory has been corrupted. Please stop program execution inmediately.</value>
   </data>
   <data name="UndefinedEnum" xml:space="preserve">
-    <value>El valor {0} está fuera del rango de valores definidos para la enumeración {1}.</value>
+    <value>the value '{0}' is outside of the defined values for the enum '{1}'.</value>
   </data>
   <data name="ValueMustBeBetweenXandY" xml:space="preserve">
-    <value>El valor debe estar entre {0} y {1}.</value>
+    <value>The value must be between {0} and {1}.</value>
   </data>
 </root>

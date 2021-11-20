@@ -19,7 +19,7 @@ namespace TheXDS.MCART.Resources.Strings {
     // a través de una herramienta como ResGen o Visual Studio.
     // Para agregar o quitar un miembro, edite el archivo .ResX y, a continuación, vuelva a ejecutar ResGen
     // con la opción /str o recompile su proyecto de VS.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Errors {
@@ -223,7 +223,7 @@ namespace TheXDS.MCART.Resources.Strings {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a EL método &apos;{0}&apos; no tiene una firma válida..
+        ///   Busca una cadena traducida similar a El método &apos;{0}&apos; no tiene una firma válida..
         /// </summary>
         public static string InvalidMethodXSignature {
             get {
@@ -322,7 +322,7 @@ namespace TheXDS.MCART.Resources.Strings {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a La declaración del tipo {0} requiere un atributo de Guid..
+        ///   Busca una cadena traducida similar a La declaración del tipo {0} requiere un atributo de Guid para utilizarse en este contexto..
         /// </summary>
         public static string MissingGuidAttrFromType {
             get {

@@ -32,6 +32,82 @@ namespace TheXDS.MCART.Math
     public static partial class Common
     {
         /// <summary>
+        /// Comprueba que un valor sea un número real operable válido; en
+        /// caso de serlo lo devuelve, caso contrario devolverá un valor
+        /// <see cref="float"/> alternativo.
+        /// </summary>
+        /// <param name="value">Valor a comprobar.</param>
+        /// <param name="alternateFunc">
+        /// Función que obtiene el valor a devolver si <paramref name="value"/>
+        /// no es válido.
+        /// </param>
+        /// <returns>
+        /// <paramref name="value"/> si el mismo es un número real operable
+        /// válido, o el resultado de <paramref name="alternateFunc"/> en caso
+        /// contrario.
+        /// </returns>
+        public static float OrIfInvalid(this in float value, Func<float> alternateFunc)
+        {
+            return value.IsValid() ? value : alternateFunc();
+        }
+
+        /// <summary>
+        /// Comprueba que un valor sea un número real operable válido; en
+        /// caso de serlo lo devuelve, caso contrario devolverá un valor
+        /// <see cref="double"/> alternativo.
+        /// </summary>
+        /// <param name="value">Valor a comprobar.</param>
+        /// <param name="alternateFunc">
+        /// Función que obtiene el valor a devolver si <paramref name="value"/>
+        /// no es válido.
+        /// </param>
+        /// <returns>
+        /// <paramref name="value"/> si el mismo es un número real operable
+        /// válido, o el resultado de <paramref name="alternateFunc"/> en caso
+        /// contrario.
+        /// </returns>
+        public static double OrIfInvalid(this in double value, Func<double> alternateFunc)
+        {
+            return value.IsValid() ? value : alternateFunc();
+        }
+
+        /// <summary>
+        /// Comprueba que un valor sea un número real operable válido; en
+        /// caso de serlo lo devuelve, caso contrario devolverá un valor
+        /// <see cref="float"/> alternativo.
+        /// </summary>
+        /// <param name="value">Valor a comprobar.</param>
+        /// <param name="alternateValue">
+        /// Valor a devolver si <paramref name="value"/> no es válido.
+        /// </param>
+        /// <returns>
+        /// <paramref name="value"/> si el mismo es un número real operable
+        /// válido, <paramref name="alternateValue"/> en caso contrario.
+        /// </returns>
+        public static float OrIfInvalid(this in float value, in float alternateValue)
+        {
+            return value.IsValid() ? value : alternateValue;
+        }
+
+        /// <summary>
+        /// Comprueba que un valor sea un número real operable válido; en
+        /// caso de serlo lo devuelve, caso contrario devolverá un valor
+        /// <see cref="double"/> alternativo.
+        /// </summary>
+        /// <param name="value">Valor a comprobar.</param>
+        /// <param name="alternateValue">
+        /// Valor a devolver si <paramref name="value"/> no es válido.
+        /// </param>
+        /// <returns>
+        /// <paramref name="value"/> si el mismo es un número real operable
+        /// válido, <paramref name="alternateValue"/> en caso contrario.
+        /// </returns>
+        public static double OrIfInvalid(this in double value, in double alternateValue)
+        {
+            return value.IsValid() ? value : alternateValue;
+        }
+
+        /// <summary>
         /// Establece límites de sobreflujo para evaluar una expresión.
         /// </summary>
         /// <typeparam name="T"> Tipo de expresión a limitar. </typeparam>

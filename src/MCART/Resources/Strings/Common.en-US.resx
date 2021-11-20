@@ -117,115 +117,133 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BinWriteXNotSupported" xml:space="preserve">
-    <value>La escritura de un valor de tipo {0} no está soportada por este método. Utilice el método {1} definido en la clase {2}.</value>
+  <data name="AboutMCART" xml:space="preserve">
+    <value>About MCART...</value>
   </data>
-  <data name="CantWriteObjOfT" xml:space="preserve">
-    <value>No se puede escribir el objeto de tipo {0}.</value>
+  <data name="Bytes" xml:space="preserve">
+    <value>Bytes</value>
   </data>
-  <data name="CircularOpDetected" xml:space="preserve">
-    <value>Operación circular detectada.</value>
+  <data name="EB" xml:space="preserve">
+    <value>EB</value>
   </data>
-  <data name="ClassNotInstantiable" xml:space="preserve">
-    <value>La clase especificada no es instanciable.</value>
+  <data name="EBl" xml:space="preserve">
+    <value>Exabytes</value>
   </data>
-  <data name="ClassNotInstantiableWIthArgs" xml:space="preserve">
-    <value>La clase '{0}' no pudo ser instanciada con los parámetros de constructor especificados.</value>
+  <data name="EiB" xml:space="preserve">
+    <value>EiB</value>
   </data>
-  <data name="ClassXNotinstantiable" xml:space="preserve">
-    <value>La clase {0} no es instanciable.</value>
+  <data name="EiBl" xml:space="preserve">
+    <value>Ebibytes</value>
   </data>
-  <data name="DuplicateData" xml:space="preserve">
-    <value>Ya existen datos con el id '{0}'.</value>
+  <data name="GB" xml:space="preserve">
+    <value>GB</value>
   </data>
-  <data name="EmptyCollection" xml:space="preserve">
-    <value>La colección no contiene elementos.</value>
+  <data name="GBl" xml:space="preserve">
+    <value>Gigabytes</value>
   </data>
-  <data name="EnumerableTypeExpected" xml:space="preserve">
-    <value>Se esperaba un tipo de colección enumerable.</value>
+  <data name="GiB" xml:space="preserve">
+    <value>GiB</value>
   </data>
-  <data name="EnumTypeExpected" xml:space="preserve">
-    <value>El tipo {0} no es un tipo de enumeración válido.</value>
+  <data name="GiBl" xml:space="preserve">
+    <value>Gibibytes</value>
   </data>
-  <data name="ErrorLoadingLicense" xml:space="preserve">
-    <value>Se ha producido un error al intentar cargar el contenido de la licencia.</value>
+  <data name="KB" xml:space="preserve">
+    <value>KB</value>
   </data>
-  <data name="ErrorLoadingRes" xml:space="preserve">
-    <value>Ha ocurrido un error al cargar el recurso {0}.</value>
+  <data name="KBl" xml:space="preserve">
+    <value>Kilobytes</value>
   </data>
-  <data name="FieldValueShouldNotBeNull" xml:space="preserve">
-    <value>El valor del campo {0} no debe ser null.</value>
+  <data name="KiB" xml:space="preserve">
+    <value>KiB</value>
   </data>
-  <data name="FormatNotSupported" xml:space="preserve">
-    <value>El formato {0} no está soportado.</value>
+  <data name="KiBl" xml:space="preserve">
+    <value>Kibibytes</value>
   </data>
-  <data name="InvalidArgument" xml:space="preserve">
-    <value>El argumento {0} contiene un valor inválido en este contexto.</value>
+  <data name="LicenseNotFound" xml:space="preserve">
+    <value>The license has not been found.</value>
   </data>
-  <data name="InvalidFuncReturnValue" xml:space="preserve">
-    <value>El método {0} ha devuelto un valor inválido en este contexto.</value>
+  <data name="MB" xml:space="preserve">
+    <value>MB</value>
   </data>
-  <data name="InvalidFuncXReturnValue" xml:space="preserve">
-    <value>El método {0} ha devuelto {1}, el cual no es un valor válido en este contexto.</value>
+  <data name="MBl" xml:space="preserve">
+    <value>Megabytes</value>
   </data>
-  <data name="InvalidMethodSignature" xml:space="preserve">
-    <value>El método no tiene una firma válida.</value>
+  <data name="MiB" xml:space="preserve">
+    <value>MiB</value>
   </data>
-  <data name="InvalidMethodXSignature" xml:space="preserve">
-    <value>El método '{0}' no tiene una firma válida.</value>
+  <data name="MiBl" xml:space="preserve">
+    <value>Mebibytes</value>
   </data>
-  <data name="InvalidReturnValue" xml:space="preserve">
-    <value>El método ha devuelto un valor inválido en este contexto.</value>
+  <data name="NoContent" xml:space="preserve">
+    <value>No content.</value>
   </data>
-  <data name="InvalidSelectorExpression" xml:space="preserve">
-    <value>La expresión utilizada en este contexto debe seleccionar a un miembro.</value>
+  <data name="NoLicense" xml:space="preserve">
+    <value>No license.</value>
   </data>
-  <data name="InvalidType" xml:space="preserve">
-    <value>El tipo no es válido en este contexto.</value>
+  <data name="Null" xml:space="preserve">
+    <value>&lt;null&gt;</value>
   </data>
-  <data name="InvalidUri" xml:space="preserve">
-    <value>El URI apunta a un recurso no válido.</value>
+  <data name="PB" xml:space="preserve">
+    <value>PB</value>
   </data>
-  <data name="InvalidValue" xml:space="preserve">
-    <value>El valor proporcionado no es válido en este contexto.</value>
+  <data name="PBl" xml:space="preserve">
+    <value>Petabytes</value>
   </data>
-  <data name="InvalidXType" xml:space="preserve">
-    <value>El tipo {0} no es válido en este contexto.</value>
+  <data name="PiB" xml:space="preserve">
+    <value>PiB</value>
   </data>
-  <data name="InvalidXUri" xml:space="preserve">
-    <value>El URI que apunta al recurso '{0}' no es válido.</value>
+  <data name="PiBl" xml:space="preserve">
+    <value>Pebibytes</value>
   </data>
-  <data name="InvalidXValue" xml:space="preserve">
-    <value>El valor {0} no es válido en este contexto.</value>
+  <data name="TB" xml:space="preserve">
+    <value>TB</value>
   </data>
-  <data name="InX" xml:space="preserve">
-    <value> en {0}</value>
+  <data name="TBl" xml:space="preserve">
+    <value>Terabytes</value>
   </data>
-  <data name="MinGtMax" xml:space="preserve">
-    <value>El argumento mínimo debe ser inferior o igual al máximo.</value>
+  <data name="TiB" xml:space="preserve">
+    <value>TiB</value>
   </data>
-  <data name="MissingGuidAttrFromType" xml:space="preserve">
-    <value>La declaración del tipo {0} requiere un atributo de Guid para utilizarse en este contexto.</value>
+  <data name="TiBl" xml:space="preserve">
+    <value>Tebibytes</value>
   </data>
-  <data name="NoStackInfo" xml:space="preserve">
-    <value>No hay información de pila disponible.</value>
+  <data name="UnspecifiedLicense" xml:space="preserve">
+    <value>A license has not been specified, or it hasn't been included.</value>
   </data>
-  <data name="ObjectIsDisabled" xml:space="preserve">
-    <value>El objeto está deshabilitado.</value>
+  <data name="XDays" xml:space="preserve">
+    <value>{0} days</value>
   </data>
-  <data name="PropIsReadOnly" xml:space="preserve">
-    <value>La propiedad '{0}' es de sólo lectura.</value>
+  <data name="XHours" xml:space="preserve">
+    <value>{0} hours</value>
   </data>
-  <data name="StackUnderflow" xml:space="preserve">
-    <value>La pila está vacía.</value>
+  <data name="XMinutes" xml:space="preserve">
+    <value>{0} minutes</value>
   </data>
-  <data name="TamperDetected" xml:space="preserve">
-    <value>Se ha detectado una manipulación inesperada de la aplicación, o la memoria del proceso ha sido corrompida. Detenga la ejecución del programa inmediatamente.</value>
+  <data name="XSeconds" xml:space="preserve">
+    <value>{0} seconds</value>
   </data>
-  <data name="UndefinedEnum" xml:space="preserve">
-    <value>El valor {0} está fuera del rango de valores definidos para la enumeración {1}.</value>
+  <data name="YB" xml:space="preserve">
+    <value>YB</value>
   </data>
-  <data name="ValueMustBeBetweenXandY" xml:space="preserve">
-    <value>El valor debe estar entre {0} y {1}.</value>
+  <data name="YBl" xml:space="preserve">
+    <value>Yottabytes</value>
+  </data>
+  <data name="YiB" xml:space="preserve">
+    <value>YiB</value>
+  </data>
+  <data name="YiBl" xml:space="preserve">
+    <value>Yobibytes</value>
+  </data>
+  <data name="ZB" xml:space="preserve">
+    <value>ZB</value>
+  </data>
+  <data name="ZBl" xml:space="preserve">
+    <value>Zettabytes</value>
+  </data>
+  <data name="ZiB" xml:space="preserve">
+    <value>ZiB</value>
+  </data>
+  <data name="ZiBl" xml:space="preserve">
+    <value>Zebibytes</value>
   </data>
 </root>
