@@ -9,6 +9,7 @@ MCART
 <td>
 
 [![CodeFactor](https://www.codefactor.io/repository/github/thexds/mcart/badge)](https://www.codefactor.io/repository/github/thexds/mcart)
+[![codecov](https://codecov.io/gh/TheXDS/MCART/branch/master/graph/badge.svg?token=B3WZ7C4VTS)](https://codecov.io/gh/TheXDS/MCART)
 [![Build MCART](https://github.com/TheXDS/MCART/actions/workflows/build.yml/badge.svg)](https://github.com/TheXDS/MCART/actions/workflows/build.yml)
 [![Publish MCART](https://github.com/TheXDS/MCART/actions/workflows/publish.yml/badge.svg)](https://github.com/TheXDS/MCART/actions/workflows/publish.yml)
 [![Issues](https://img.shields.io/github/issues/TheXDS/MCART)](https://github.com/TheXDS/MCART/issues)
