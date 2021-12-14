@@ -1,7 +1,7 @@
 <table>
 <tr>
 <td>
-<h1>
+<h1 align="center">
 <img src="https://raw.githubusercontent.com/TheXDS/MCART/master/Art/MCART.png" width="96px">
 MCART
 </h1>
@@ -11,8 +11,6 @@ MCART
 [![CodeFactor](https://www.codefactor.io/repository/github/thexds/mcart/badge)](https://www.codefactor.io/repository/github/thexds/mcart)
 [![Build MCART](https://github.com/TheXDS/MCART/actions/workflows/build.yml/badge.svg)](https://github.com/TheXDS/MCART/actions/workflows/build.yml)
 [![Publish MCART](https://github.com/TheXDS/MCART/actions/workflows/publish.yml/badge.svg)](https://github.com/TheXDS/MCART/actions/workflows/publish.yml)
-[![Versión estable](https://buildstats.info/nuget/TheXDS.MCART)](https://www.nuget.org/packages/TheXDS.MCART/)
-[![Versión de desarrollo](https://buildstats.info/nuget/TheXDS.MCART?includePreReleases=true)](https://www.nuget.org/packages/TheXDS.MCART/)
 [![Issues](https://img.shields.io/github/issues/TheXDS/MCART)](https://github.com/TheXDS/MCART/issues)
 [![GPL-v3.0](https://img.shields.io/github/license/TheXDS/MCART)](https://www.gnu.org/licenses/gpl-3.0.en.html)
 
@@ -43,6 +41,12 @@ web desarrollados en ASP .Net.
 
 ## Releases
 MCART se encuentra disponible en NuGet y en mi repositorio privado de GitHub.
+
+Release | Link
+--- | ---
+Última versión estable: | 
+[![Versión estable](https://buildstats.info/nuget/TheXDS.MCART)](https://www.nuget.org/packages/TheXDS.MCART/)
+Última versión de desarrollo: | [![Versión de desarrollo](https://buildstats.info/nuget/TheXDS.MCART?includePreReleases=true)](https://www.nuget.org/packages/TheXDS.MCART/)
 
 **Package Manager**  
 ```sh
