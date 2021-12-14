@@ -22,8 +22,14 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
+    - name: Install Codecov
+      run: choco install codecov -y
     - name: Build and test MCART
-      run: dotnet test $env:Solution_Name --configuration=$env:Configuration
+      run: dotnet test $env:Solution_Name --configuration=$env:Configuration --collect:"XPlat Code Coverage" --results-directory .\Build\tests -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
+    - name: Upload code coverage report
+      run: foreach ($j in (ls .\Build\tests\ -Directory)) { codecov -f "$($j.FullName)\coverage.opencover.xml" }
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
     - name: Create NuGet Packages
       run: dotnet pack $env:Solution_Name --configuration=$env:Configuration --version-suffix=$env:GITHUB_SHA --include-source -p:RepositoryBranch=${{ github.ref }} -p:ContinuousIntegrationBuild=true
     - uses: actions/upload-artifact@v2
