@@ -45,8 +45,7 @@ MCART se encuentra disponible en NuGet y en mi repositorio privado de GitHub.
 
 Release | Link
 --- | ---
-Última versión estable: | 
-[![Versión estable](https://buildstats.info/nuget/TheXDS.MCART)](https://www.nuget.org/packages/TheXDS.MCART/)
+Última versión estable: | [![Versión estable](https://buildstats.info/nuget/TheXDS.MCART)](https://www.nuget.org/packages/TheXDS.MCART/)
 Última versión de desarrollo: | [![Versión de desarrollo](https://buildstats.info/nuget/TheXDS.MCART?includePreReleases=true)](https://www.nuget.org/packages/TheXDS.MCART/)
 
 **Package Manager**  
