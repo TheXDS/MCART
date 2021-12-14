@@ -50,7 +50,7 @@ Release | Link
 
 **Package Manager**  
 ```sh
-PM> Install-Package TheXDS.MCART
+Install-Package TheXDS.MCART
 ```
 
 **.NET CLI**  
