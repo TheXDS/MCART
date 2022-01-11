@@ -15,16 +15,21 @@
     <ProjectReference Include="..\MCART-GUI\MCART.GUI.csproj" />
   </ItemGroup>  
   <ItemGroup>
-    <Compile Update="Resources\Strings\Errors.Designer.cs">
+    <Compile Update="Resources\Strings\WinErrors.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Errors.resx</DependentUpon>
+      <DependentUpon>WinErrors.resx</DependentUpon>
     </Compile>
   </ItemGroup>  
   <ItemGroup>
-    <EmbeddedResource Update="Resources\Strings\Errors.resx">
+    <EmbeddedResource Update="Resources\Strings\WinErrors.en-us.resx">
+      <CustomToolNamespace>TheXDS.MCART.Windows.Resources.Strings</CustomToolNamespace>
+      <LastGenOutput>Errors.en-US.Designer.cs</LastGenOutput>
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Errors.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Strings\WinErrors.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>WinErrors.Designer.cs</LastGenOutput>
       <CustomToolNamespace>TheXDS.MCART.Windows.Resources.Strings</CustomToolNamespace>
     </EmbeddedResource>
   </ItemGroup>

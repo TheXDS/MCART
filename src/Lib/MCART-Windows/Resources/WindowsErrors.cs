@@ -1,5 +1,5 @@
 ﻿/*
-Errors.cs
+WindowsErrors.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -23,11 +23,11 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
-using Ers = TheXDS.MCART.Windows.Resources.Strings.Errors;
+using Ers = TheXDS.MCART.Windows.Resources.Strings.WinErrors;
 
 namespace TheXDS.MCART.Resources
 {
-    internal static class Errors
+    internal static class WindowsErrors
     {
         public static ArgumentException OffsetCountOutsideBuffer()
         {

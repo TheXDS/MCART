@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace TheXDS.MCART.Resources.UI
+namespace TheXDS.MCART.Resources
 {
     /// <summary>
     /// Contiene una serie de funciones que generan excepciones para errores
     /// ocurridos dentro de las funciones de UI de MCART.
     /// </summary>
-    public static class Errors
+    public static class UiErrors
     {
         /// <summary>
         /// Genera una excepción cuando un valor es <see langword="null"/>.
@@ -20,7 +20,7 @@ namespace TheXDS.MCART.Resources.UI
         /// </returns>
         public static Exception NullValue(string v)
         {
-            return new ArgumentException(string.Format(ErrorStrings.NullValueException, v));
+            return new ArgumentException(string.Format(Strings.UiErrors.NullValueException, v));
         }
     }
 }

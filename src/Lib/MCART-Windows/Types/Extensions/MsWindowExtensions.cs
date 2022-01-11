@@ -1,5 +1,5 @@
 ﻿/*
-Dwm.cs
+MsWindowExtensions.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -26,14 +26,15 @@ using System;
 using System.Runtime.InteropServices;
 using TheXDS.MCART.Component;
 using TheXDS.MCART.PInvoke.Structs;
-using TheXDS.MCART.Types;
+using static TheXDS.MCART.PInvoke.DwmApi;
+using static TheXDS.MCART.PInvoke.User32;
 
-namespace TheXDS.MCART.Dwm
+namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>
     /// Contiene funciones de gestión de ventanas por medio de Desktop Window Manager (DWM).
     /// </summary>
-    public static class DwmApi
+    public static class MsWindowExtensions
     {
         /// <summary>
         /// Comprueba si la composición de ventanas está disponible en el
@@ -106,7 +107,7 @@ namespace TheXDS.MCART.Dwm
         public static void SetFramePadding(this IMsWindow window, Margins padding)
         {
             if (IsCompositionEnabled())
-                if (Marshal.GetExceptionForHR(PInvoke.DwmExtendFrameIntoClientArea(window.Handle, ref padding)) is { } ex) throw ex;
+                if (Marshal.GetExceptionForHR(DwmExtendFrameIntoClientArea(window.Handle, ref padding)) is { } ex) throw ex;
         }
 
         /// <summary>
@@ -252,7 +253,7 @@ namespace TheXDS.MCART.Dwm
         /// <param name="newSize">Tamaño nuevo de la ventana.</param>
         public static void Resize(this IMsWindow window, Size newSize)
         {
-            PInvoke.SetWindowPos(window.Handle, IntPtr.Zero,
+            SetWindowPos(window.Handle, IntPtr.Zero,
                 0, 0,
                 (int)newSize.Width, (int)newSize.Height,
                 (uint)(WindowChanges.IgnoreMove | WindowChanges.IgnoreZOrder));
@@ -267,7 +268,7 @@ namespace TheXDS.MCART.Dwm
         /// <param name="newPosition">Nueva posición de la ventana.</param>
         public static void Move(this IMsWindow window, Types.Point newPosition)
         {
-            PInvoke.SetWindowPos(window.Handle, IntPtr.Zero,
+            SetWindowPos(window.Handle, IntPtr.Zero,
                 (int)newPosition.X, (int)newPosition.Y,
                 0, 0,
                 (uint)(WindowChanges.IgnoreResize | WindowChanges.IgnoreZOrder));
@@ -281,14 +282,14 @@ namespace TheXDS.MCART.Dwm
         /// </param>
         public static void NotifyWindowFrameChange(this IMsWindow window)
         {
-            PInvoke.SetWindowPos(window.Handle, IntPtr.Zero, 0, 0, 0, 0,
+            SetWindowPos(window.Handle, IntPtr.Zero, 0, 0, 0, 0,
                 (uint)(WindowChanges.IgnoreMove |
                 WindowChanges.IgnoreResize |
                 WindowChanges.IgnoreZOrder |
                 WindowChanges.FrameChanged));
         }
 
-        private static void SetWindowEffect(IMsWindow window, AccentPolicy accent)
+        private static void SetWindowEffect(this IMsWindow window, AccentPolicy accent)
         {
             int accentStructSize = Marshal.SizeOf(accent);
             IntPtr accentPtr = Marshal.AllocHGlobal(accentStructSize);
@@ -299,7 +300,7 @@ namespace TheXDS.MCART.Dwm
                 SizeOfData = accentStructSize,
                 Data = accentPtr
             };
-            int v = PInvoke.SetWindowCompositionAttribute(window.Handle, ref data);
+            int v = SetWindowCompositionAttribute(window.Handle, ref data);
             Marshal.FreeHGlobal(accentPtr);
             if (Marshal.GetExceptionForHR(v) is { } ex) throw ex;
         }
@@ -316,10 +317,10 @@ namespace TheXDS.MCART.Dwm
 
         private static void SetWindowData(this IMsWindow window, WindowData data, Func<WindowStyles, WindowStyles> transform)
         {
-            if (PInvoke.SetWindowLong(
+            if (SetWindowLong(
                 window.Handle,
                 (int)data,
-                (uint)transform((WindowStyles)PInvoke.GetWindowLong(window.Handle, data))) == 0)
+                (uint)transform((WindowStyles)GetWindowLong(window.Handle, data))) == 0)
             {
                 int v = Marshal.GetHRForLastWin32Error();
                 throw Marshal.GetExceptionForHR(v) ?? new Exception { HResult = v };

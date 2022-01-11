@@ -77,7 +77,7 @@ namespace TheXDS.MCART.Wpf.Component
             }
         }
 
-        Types.Size IMsWindow.Size
+        Types.Size IWindow.Size
         {
             get => new(Itself.Width, Itself.Height);
             set
@@ -87,7 +87,7 @@ namespace TheXDS.MCART.Wpf.Component
             }
         }
 
-        Types.Point IMsWindow.Location
+        Types.Point IWindow.Location
         {
             get => new(Itself.Left, Itself.Top);
             set
@@ -99,15 +99,15 @@ namespace TheXDS.MCART.Wpf.Component
 
         void ICloseable.Close() => Itself.Close();
 
-        void IMsWindow.Hide() => Itself.Hide();
+        void IWindow.Hide() => Itself.Hide();
 
-        void IMsWindow.Minimize() => Itself.WindowState = WindowState.Minimized;
+        void IWindow.Minimize() => Itself.WindowState = WindowState.Minimized;
 
-        void IMsWindow.Maximize() => Itself.WindowState = WindowState.Maximized;
+        void IWindow.Maximize() => Itself.WindowState = WindowState.Maximized;
 
-        void IMsWindow.Restore() => Itself.WindowState = WindowState.Normal;
+        void IWindow.Restore() => Itself.WindowState = WindowState.Normal;
 
-        void IMsWindow.ToggleMaximize()
+        void IWindow.ToggleMaximize()
         {
             if (Itself.WindowState == WindowState.Normal) Maximize();
             else Restore();

@@ -30,7 +30,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading.Tasks;
 using TheXDS.MCART.Helpers;
-using TheXDS.MCART.Resources.UI;
+using TheXDS.MCART.Resources;
 using static TheXDS.MCART.Misc.Internals;
 
 namespace TheXDS.MCART.ViewModel
@@ -214,7 +214,7 @@ namespace TheXDS.MCART.ViewModel
 
         private void RaiseCanExecuteChanged(object? sender, PropertyChangedEventArgs e)
         {
-            if (_properties.Contains(e.PropertyName ?? throw Errors.NullValue("e.PropertyName"))) RaiseCanExecuteChanged();
+            if (_properties.Contains(e.PropertyName ?? throw UiErrors.NullValue("e.PropertyName"))) RaiseCanExecuteChanged();
         }
     }
 }

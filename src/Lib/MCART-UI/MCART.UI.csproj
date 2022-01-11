@@ -5,17 +5,22 @@
     <AssemblyName>MCART.UI</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Update="Resources\ErrorStrings.Designer.cs">
+    <Compile Update="Resources\Strings\UiErrors.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>ErrorStrings.resx</DependentUpon>
+      <DependentUpon>UiErrors.resx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Update="Resources\ErrorStrings.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>ErrorStrings.Designer.cs</LastGenOutput>
+    <EmbeddedResource Update="Resources\Strings\UiErrors.en-us.resx">
       <CustomToolNamespace>TheXDS.MCART.Resources.UI</CustomToolNamespace>
+      <LastGenOutput>UiErrors.en-us.Designer.cs</LastGenOutput>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Strings\UiErrors.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>UiErrors.Designer.cs</LastGenOutput>
+      <CustomToolNamespace></CustomToolNamespace>
     </EmbeddedResource>
   </ItemGroup>
 </Project>

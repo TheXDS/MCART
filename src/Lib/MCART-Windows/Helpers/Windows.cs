@@ -1,5 +1,5 @@
 ﻿/*
-Api.cs
+Windows.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -25,22 +25,22 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Runtime.InteropServices;
 using System.Security.Principal;
+using TheXDS.MCART.Component;
 
-namespace TheXDS.MCART
+namespace TheXDS.MCART.Helpers
 {
     /// <summary>
     /// Contiene una serie de métodos auxiliares de la API de Microsoft
     /// Windows.
     /// </summary>
-    public static class Api
+    public static class Windows
     {
+        private static WindowsInfo? _winInfo;
+
         /// <summary>
-        /// Obtiene un objeto que permite controlar la ventana de la consola.
+        /// Obtiene un objeto que expone información variada acerca de Windows.
         /// </summary>
-        /// <returns>
-        /// Un objeto que permite controlar la ventana de la consola.
-        /// </returns>
-        public static ConsoleWindow GetConsoleWindow() => new();
+        public static WindowsInfo Info => _winInfo ??= new WindowsInfo();
 
         /// <summary>
         /// Comprueba si el contexto de ejecución actual de la aplicación
