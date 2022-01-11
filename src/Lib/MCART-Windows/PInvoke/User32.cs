@@ -26,7 +26,6 @@ using System;
 using System.Runtime.InteropServices;
 using TheXDS.MCART.PInvoke.Structs;
 
-
 namespace TheXDS.MCART.PInvoke
 {
     internal class User32
@@ -45,8 +44,6 @@ namespace TheXDS.MCART.PInvoke
         [DllImport("user32.dll", SetLastError = true)] internal static extern bool GetWindowRect(IntPtr hWnd, ref Rect lpRect);
         [DllImport("user32.dll", SetLastError = true)] internal static extern bool MoveWindow(IntPtr hWnd, int X, int Y, int nWidth, int nHeight, bool bRepaint);
         [DllImport("user32.dll")] internal static extern bool GetMonitorInfo(IntPtr hmonitor, ref MonitorInfo info);
-
-
         [DllImport("user32.dll")] internal static extern bool EnumDisplayMonitors(HandleRef hdc, Rect rcClip, MonitorEnumProc lpfnEnum, IntPtr dwData);
         [DllImport("user32.dll")] internal static extern IntPtr MonitorFromWindow(HandleRef handle, int flags);
         [DllImport("user32.dll")] internal static extern int GetSystemMetrics(int nIndex);

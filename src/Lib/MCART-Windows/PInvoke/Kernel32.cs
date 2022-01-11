@@ -25,7 +25,6 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Runtime.InteropServices;
 
-
 namespace TheXDS.MCART.PInvoke
 {
     internal class Kernel32

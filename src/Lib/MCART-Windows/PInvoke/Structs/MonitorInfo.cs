@@ -29,7 +29,7 @@ namespace TheXDS.MCART.PInvoke.Structs
     [StructLayout(LayoutKind.Sequential, Pack = 4)]
     internal struct MonitorInfo
     {
-        public int cbSize;// = Marshal.SizeOf(typeof(MonitorInfo));
+        public int cbSize; // = Marshal.SizeOf(typeof(MonitorInfo));
 
         public Rect Monitor;
 
