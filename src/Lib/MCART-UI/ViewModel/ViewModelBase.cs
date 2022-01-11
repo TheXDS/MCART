@@ -29,7 +29,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading.Tasks;
 using TheXDS.MCART.Exceptions;
-using TheXDS.MCART.Resources.UI;
+using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Base;
 using TheXDS.MCART.Helpers;
 
@@ -45,7 +45,7 @@ namespace TheXDS.MCART.ViewModel
 
         private void OnInvokeObservedProps(object? sender, PropertyChangedEventArgs e)
         {
-            if (_observeRegistry.TryGetValue(e.PropertyName ?? throw Errors.NullValue("e.PropertyName"), out ICollection<Action>? c))
+            if (_observeRegistry.TryGetValue(e.PropertyName ?? throw UiErrors.NullValue("e.PropertyName"), out ICollection<Action>? c))
             {
                 foreach (Action? j in c)
                 {

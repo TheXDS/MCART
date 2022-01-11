@@ -33,7 +33,7 @@ using System.Management;
 using System.Runtime.CompilerServices;
 using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Base;
-using TheXDS.MCART.Windows;
+using static TheXDS.MCART.PInvoke.Kernel32;
 
 namespace TheXDS.MCART.Component
 {
@@ -196,7 +196,7 @@ namespace TheXDS.MCART.Component
             get
             {
                 uint firmwaretype = 0;
-                if (PInvoke.GetFirmwareType(ref firmwaretype))
+                if (GetFirmwareType(ref firmwaretype))
                     return (FirmwareType)firmwaretype;
                 else
                     return FirmwareType.FirmwareTypeUnknown;
@@ -511,7 +511,7 @@ namespace TheXDS.MCART.Component
         /// <summary>
         /// Obtiene un valor que determina si Windows incluye un CLUF
         /// </summary>
-        public bool HasLicense => System.IO.File.Exists(GetWinLicencePath());
+        public bool HasLicense => File.Exists(GetWinLicencePath());
 
         /// <summary>
         /// Obtiene un valor que indica si Windows cumple con el CLS.
@@ -558,14 +558,14 @@ namespace TheXDS.MCART.Component
         private DateTime DateFromWmi([CallerMemberName] string value = "")
         {
             string? t = GetFromWmi<string>(value);
-            int y = int.Parse(t[..4]);
-            int M = int.Parse(t.Substring(4, 2));
-            int d = int.Parse(t.Substring(6, 2));
-            int h = int.Parse(t.Substring(8, 2));
-            int m = int.Parse(t.Substring(10, 2));
-            int s = int.Parse(t.Substring(12, 2));
-            int S = int.Parse(t.Substring(15, 3));
-            return new DateTime(y, M, d, h, m, s, S);
+            return new DateTime(
+                int.Parse(t[..4]),
+                int.Parse(t[4..6]),
+                int.Parse(t[6..8]),
+                int.Parse(t[8..10]),
+                int.Parse(t[10..12]),
+                int.Parse(t[12..14]),
+                int.Parse(t[14..17]));
         }
     }
 }

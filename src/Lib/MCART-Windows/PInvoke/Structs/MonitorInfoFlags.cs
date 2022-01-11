@@ -1,5 +1,5 @@
 ﻿/*
-WindowCompositionAttribute.cs
+MonitorInfoFlags.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,12 +22,24 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Windows.Dwm.Structs
+using System;
+
+namespace TheXDS.MCART.PInvoke.Structs
 {
-    internal enum WindowCompositionAttribute
+    /// <summary>
+    /// Flags that may be defined on the <see cref="MonitorInfo.Flags"/> field.
+    /// </summary>
+    [Flags]
+    public enum MonitorInfoFlags
     {
-        // ...
-        WCA_ACCENT_POLICY = 19
-        // ...
+        /// <summary>
+        /// No flags.
+        /// </summary>
+        None = 0x0,
+
+        /// <summary>
+        /// This is the primary display monitor.
+        /// </summary>
+        PrimaryDisplay = 0x1,
     }
 }

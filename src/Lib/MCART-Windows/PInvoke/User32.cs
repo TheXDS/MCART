@@ -1,5 +1,5 @@
 ﻿/*
-PInvoke.cs
+User32.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -24,37 +24,13 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Runtime.InteropServices;
-using TheXDS.MCART.Windows.Dwm.Structs;
+using TheXDS.MCART.PInvoke.Structs;
 
-namespace TheXDS.MCART.Windows
+namespace TheXDS.MCART.PInvoke
 {
-    internal static class PInvoke
+    internal class User32
     {
-        #region dwmapi.dll
-
-        [DllImport("dwmapi.dll")] internal static extern int DwmExtendFrameIntoClientArea(IntPtr hWnd, ref Margins pMargins);
-        [DllImport("dwmapi.dll", PreserveSig = false)] internal static extern bool DwmIsCompositionEnabled();
-        [DllImport("dwmapi.dll")] internal static extern int DwmGetWindowAttribute(IntPtr hwnd, DwmWindowAttribute dwAttribute, out bool pvAttribute, int cbAttribute);
-        [DllImport("dwmapi.dll")] internal static extern int DwmSetWindowAttribute(IntPtr hwnd, DwmWindowAttribute dwAttribute, ref int pvAttribute, int cbAttribute);
-
-        #endregion
-
-        #region gdi32.dll
-
-        [DllImport("gdi32.dll")] internal static extern int GetDeviceCaps(IntPtr hdc, int nIndex);
-
-        #endregion
-
-        #region kernel32.dll
-
-        [DllImport("kernel32.dll")] internal static extern bool AllocConsole();
-        [DllImport("kernel32.dll")] internal static extern bool FreeConsole();
-        [DllImport("kernel32.dll")] internal static extern IntPtr GetConsoleWindow();
-        [DllImport("kernel32.dll")] internal static extern bool GetFirmwareType(ref uint FirmwareType);
-
-        #endregion
-
-        #region user32.dll
+        public delegate bool MonitorEnumProc(IntPtr monitor, IntPtr hdc, IntPtr lprcMonitor, IntPtr lParam);
 
         [return: MarshalAs(UnmanagedType.Bool)]
         [DllImport("user32.dll", SetLastError = true)] internal static extern bool GetWindowInfo(IntPtr hWnd, ref WindowInfo nCmdShow);
@@ -67,7 +43,11 @@ namespace TheXDS.MCART.Windows
         [DllImport("user32.dll")] internal static extern bool GetCursorPos(out Point lpPoint);
         [DllImport("user32.dll", SetLastError = true)] internal static extern bool GetWindowRect(IntPtr hWnd, ref Rect lpRect);
         [DllImport("user32.dll", SetLastError = true)] internal static extern bool MoveWindow(IntPtr hWnd, int X, int Y, int nWidth, int nHeight, bool bRepaint);
-
-        #endregion
+        [DllImport("user32.dll")] internal static extern bool GetMonitorInfo(IntPtr hmonitor, ref MonitorInfo info);
+        [DllImport("user32.dll")] internal static extern bool EnumDisplayMonitors(HandleRef hdc, Rect rcClip, MonitorEnumProc lpfnEnum, IntPtr dwData);
+        [DllImport("user32.dll")] internal static extern IntPtr MonitorFromWindow(HandleRef handle, int flags);
+        [DllImport("user32.dll")] internal static extern int GetSystemMetrics(int nIndex);
+        [DllImport("user32.dll")] internal static extern bool SystemParametersInfo(int nAction, int nParam, ref Rect rc, int nUpdate);
+        [DllImport("user32.dll")] internal static extern IntPtr MonitorFromPoint(Point pt, int flags);
     }
 }

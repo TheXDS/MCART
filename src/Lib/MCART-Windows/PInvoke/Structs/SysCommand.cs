@@ -1,5 +1,5 @@
 ﻿/*
-WindowCompositionAttributeData.cs
+PInvoke.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,16 +22,10 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
-using System.Runtime.InteropServices;
-
-namespace TheXDS.MCART.Windows.Dwm.Structs
+namespace TheXDS.MCART.PInvoke.Structs
 {
-    [StructLayout(LayoutKind.Sequential)]
-    internal struct WindowCompositionAttributeData
+    internal enum SysCommand
     {
-        public WindowCompositionAttribute Attribute;
-        public IntPtr Data;
-        public int SizeOfData;
+        SC_CONTEXTHELP = 0xF180
     }
 }

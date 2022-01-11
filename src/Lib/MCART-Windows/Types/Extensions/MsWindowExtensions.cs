@@ -1,5 +1,5 @@
 ﻿/*
-Dwm.cs
+MsWindowExtensions.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -24,16 +24,17 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Runtime.InteropServices;
-using TheXDS.MCART.Types;
-using TheXDS.MCART.Windows.Component;
-using TheXDS.MCART.Windows.Dwm.Structs;
+using TheXDS.MCART.Component;
+using TheXDS.MCART.PInvoke.Structs;
+using static TheXDS.MCART.PInvoke.DwmApi;
+using static TheXDS.MCART.PInvoke.User32;
 
-namespace TheXDS.MCART.Windows.Dwm
+namespace TheXDS.MCART.Types.Extensions
 {
     /// <summary>
     /// Contiene funciones de gestión de ventanas por medio de Desktop Window Manager (DWM).
     /// </summary>
-    public static class DwmApi
+    public static class MsWindowExtensions
     {
         /// <summary>
         /// Comprueba si la composición de ventanas está disponible en el
@@ -45,14 +46,14 @@ namespace TheXDS.MCART.Windows.Dwm
         /// </returns>
         public static bool IsCompositionEnabled()
         {
-            return PInvoke.DwmIsCompositionEnabled();
+            return DwmIsCompositionEnabled();
         }
 
         /// <summary>
         /// Deshabilita todos los efectos de la ventana.
         /// </summary>
         /// <param name="window">Instancia de ventana a difuminar.</param>
-        public static void DisableEffects(this IWindow window)
+        public static void DisableEffects(this IMsWindow window)
         {
             SetWindowEffect(window, new AccentPolicy { AccentState = AccentState.ACCENT_DISABLED });
         }
@@ -61,7 +62,7 @@ namespace TheXDS.MCART.Windows.Dwm
         /// Habilita los efectos de difuminado en la ventana.
         /// </summary>
         /// <param name="window">Instancia de ventana a difuminar.</param>
-        public static void EnableBlur(this IWindow window)
+        public static void EnableBlur(this IMsWindow window)
         {
             SetWindowEffect(window, new AccentPolicy { AccentState = AccentState.ACCENT_ENABLE_BLURBEHIND });
         }
@@ -72,7 +73,7 @@ namespace TheXDS.MCART.Windows.Dwm
         /// <param name="window">
         /// Instancia de ventana en la cual activar los efectos.
         /// </param>
-        public static void EnableAcrylic(this IWindow window)
+        public static void EnableAcrylic(this IMsWindow window)
         {
             SetWindowEffect(window, new AccentPolicy { AccentState = AccentState.ACCENT_ENABLE_ACRYLICBLURBEHIND });
         }
@@ -87,10 +88,10 @@ namespace TheXDS.MCART.Windows.Dwm
         /// <param name="padding">
         /// Grosor de los márgenes internos de la ventana.
         /// </param>
-        public static void SetClientPadding(this IWindow window, Margins padding)
+        public static void SetClientPadding(this IMsWindow window, Margins padding)
         {
             window.Padding = padding;
-            SetFramePadding(window, padding);
+            window.SetFramePadding(padding);
         }
 
         /// <summary>
@@ -103,12 +104,10 @@ namespace TheXDS.MCART.Windows.Dwm
         /// <param name="padding">
         /// Grosor de los márgenes internos de la ventana.
         /// </param>
-        public static void SetFramePadding(this IWindow window, Margins padding)
+        public static void SetFramePadding(this IMsWindow window, Margins padding)
         {
             if (IsCompositionEnabled())
-            {
-                if (Marshal.GetExceptionForHR(PInvoke.DwmExtendFrameIntoClientArea(window.Handle, ref padding)) is { } ex) throw ex;
-            }
+                if (Marshal.GetExceptionForHR(DwmExtendFrameIntoClientArea(window.Handle, ref padding)) is { } ex) throw ex;
         }
 
         /// <summary>
@@ -117,9 +116,9 @@ namespace TheXDS.MCART.Windows.Dwm
         /// <param name="window">
         /// Ventana sobre la cual realizar la operación.
         /// </param>
-        public static void HideClose(this IWindow window)
+        public static void HideClose(this IMsWindow window)
         {
-            HideGwlStyle(window, WindowStyles.WS_SYSMENU);
+            window.HideGwlStyle(WindowStyles.WS_SYSMENU);
         }
 
         /// <summary>
@@ -128,9 +127,9 @@ namespace TheXDS.MCART.Windows.Dwm
         /// <param name="window">
         /// Ventana sobre la cual realizar la operación.
         /// </param>
-        public static void ShowClose(this IWindow window)
+        public static void ShowClose(this IMsWindow window)
         {
-            ShowGwlStyle(window, WindowStyles.WS_SYSMENU);
+            window.ShowGwlStyle(WindowStyles.WS_SYSMENU);
         }
 
         /// <summary>
@@ -139,9 +138,9 @@ namespace TheXDS.MCART.Windows.Dwm
         /// <param name="window">
         /// Ventana sobre la cual realizar la operación.
         /// </param>
-        public static void HideMaximize(this IWindow window)
+        public static void HideMaximize(this IMsWindow window)
         {
-            HideGwlStyle(window, WindowStyles.WS_MAXIMIZEBOX);
+            window.HideGwlStyle(WindowStyles.WS_MAXIMIZEBOX);
         }
 
         /// <summary>
@@ -150,9 +149,9 @@ namespace TheXDS.MCART.Windows.Dwm
         /// <param name="window">
         /// Ventana sobre la cual realizar la operación.
         /// </param>
-        public static void ShowMaximize(this IWindow window)
+        public static void ShowMaximize(this IMsWindow window)
         {
-            ShowGwlStyle(window, WindowStyles.WS_MAXIMIZEBOX);
+            window.ShowGwlStyle(WindowStyles.WS_MAXIMIZEBOX);
         }
 
         /// <summary>
@@ -161,9 +160,9 @@ namespace TheXDS.MCART.Windows.Dwm
         /// <param name="window">
         /// Ventana sobre la cual realizar la operación.
         /// </param>
-        public static void HideMinimize(this IWindow window)
+        public static void HideMinimize(this IMsWindow window)
         {
-            HideGwlStyle(window, WindowStyles.WS_MINIMIZEBOX);
+            window.HideGwlStyle(WindowStyles.WS_MINIMIZEBOX);
         }
 
         /// <summary>
@@ -172,9 +171,9 @@ namespace TheXDS.MCART.Windows.Dwm
         /// <param name="window">
         /// Ventana sobre la cual realizar la operación.
         /// </param>
-        public static void ShowMinimize(this IWindow window)
+        public static void ShowMinimize(this IMsWindow window)
         {
-            ShowGwlStyle(window, WindowStyles.WS_MINIMIZEBOX);
+            window.ShowGwlStyle(WindowStyles.WS_MINIMIZEBOX);
         }
 
         /// <summary>
@@ -183,9 +182,9 @@ namespace TheXDS.MCART.Windows.Dwm
         /// <param name="window">
         /// Ventana sobre la cual realizar la operación.
         /// </param>
-        public static void HideHelp(this IWindow window)
+        public static void HideHelp(this IMsWindow window)
         {
-            SetWindowData(window, WindowData.GWL_EXSTYLE, p => p & ~WindowStyles.WS_EX_CONTEXTHELP);
+            window.SetWindowData(WindowData.GWL_EXSTYLE, p => p & ~WindowStyles.WS_EX_CONTEXTHELP);
         }
 
         /// <summary>
@@ -194,11 +193,11 @@ namespace TheXDS.MCART.Windows.Dwm
         /// <param name="window">
         /// Ventana sobre la cual realizar la operación.
         /// </param>
-        public static void ShowHelp(this IWindow window)
+        public static void ShowHelp(this IMsWindow window)
         {
-            HideMinimize(window);
-            HideMaximize(window);
-            SetWindowData(window, WindowData.GWL_EXSTYLE, p => p | WindowStyles.WS_EX_CONTEXTHELP);
+            window.HideMinimize();
+            window.HideMaximize();
+            window.SetWindowData(WindowData.GWL_EXSTYLE, p => p | WindowStyles.WS_EX_CONTEXTHELP);
         }
 
         /// <summary>
@@ -207,9 +206,9 @@ namespace TheXDS.MCART.Windows.Dwm
         /// <param name="window">
         /// Ventana sobre la cual realizar la operación.
         /// </param>
-        public static void HideCaption(this IWindow window)
+        public static void HideCaption(this IMsWindow window)
         {
-            HideGwlStyle(window, WindowStyles.WS_CAPTION);
+            window.HideGwlStyle(WindowStyles.WS_CAPTION);
         }
 
         /// <summary>
@@ -218,9 +217,9 @@ namespace TheXDS.MCART.Windows.Dwm
         /// <param name="window">
         /// Ventana sobre la cual realizar la operación.
         /// </param>
-        public static void HideBorder(this IWindow window)
+        public static void HideBorder(this IMsWindow window)
         {
-            HideGwlStyle(window, WindowStyles.WS_BORDER);
+            window.HideGwlStyle(WindowStyles.WS_BORDER);
         }
 
         /// <summary>
@@ -229,9 +228,9 @@ namespace TheXDS.MCART.Windows.Dwm
         /// <param name="window">
         /// Ventana sobre la cual realizar la operación.
         /// </param>
-        public static void ShowCaption(this IWindow window)
+        public static void ShowCaption(this IMsWindow window)
         {
-            ShowGwlStyle(window, WindowStyles.WS_CAPTION);
+            window.ShowGwlStyle(WindowStyles.WS_CAPTION);
         }
 
         /// <summary>
@@ -240,9 +239,9 @@ namespace TheXDS.MCART.Windows.Dwm
         /// <param name="window">
         /// Ventana sobre la cual realizar la operación.
         /// </param>
-        public static void ShowBorder(this IWindow window)
+        public static void ShowBorder(this IMsWindow window)
         {
-            ShowGwlStyle(window, WindowStyles.WS_BORDER);
+            window.ShowGwlStyle(WindowStyles.WS_BORDER);
         }
 
         /// <summary>
@@ -252,9 +251,9 @@ namespace TheXDS.MCART.Windows.Dwm
         /// Ventana sobre la cual realizar la operación.
         /// </param>
         /// <param name="newSize">Tamaño nuevo de la ventana.</param>
-        public static void Resize(this IWindow window, Size newSize)
+        public static void Resize(this IMsWindow window, Size newSize)
         {
-            PInvoke.SetWindowPos(window.Handle, IntPtr.Zero,
+            SetWindowPos(window.Handle, IntPtr.Zero,
                 0, 0,
                 (int)newSize.Width, (int)newSize.Height,
                 (uint)(WindowChanges.IgnoreMove | WindowChanges.IgnoreZOrder));
@@ -267,9 +266,9 @@ namespace TheXDS.MCART.Windows.Dwm
         /// Ventana sobre la cual realizar la operación.
         /// </param>
         /// <param name="newPosition">Nueva posición de la ventana.</param>
-        public static void Move(this IWindow window, Types.Point newPosition)
+        public static void Move(this IMsWindow window, Types.Point newPosition)
         {
-            PInvoke.SetWindowPos(window.Handle, IntPtr.Zero,
+            SetWindowPos(window.Handle, IntPtr.Zero,
                 (int)newPosition.X, (int)newPosition.Y,
                 0, 0,
                 (uint)(WindowChanges.IgnoreResize | WindowChanges.IgnoreZOrder));
@@ -281,16 +280,16 @@ namespace TheXDS.MCART.Windows.Dwm
         /// <param name="window">
         /// Ventana sobre la cual se ha realizado el cambio en el marco.
         /// </param>
-        public static void NotifyWindowFrameChange(this IWindow window)
+        public static void NotifyWindowFrameChange(this IMsWindow window)
         {
-            PInvoke.SetWindowPos(window.Handle, IntPtr.Zero, 0, 0, 0, 0,
+            SetWindowPos(window.Handle, IntPtr.Zero, 0, 0, 0, 0,
                 (uint)(WindowChanges.IgnoreMove |
                 WindowChanges.IgnoreResize |
                 WindowChanges.IgnoreZOrder |
                 WindowChanges.FrameChanged));
         }
 
-        private static void SetWindowEffect(IWindow window, AccentPolicy accent)
+        private static void SetWindowEffect(this IMsWindow window, AccentPolicy accent)
         {
             int accentStructSize = Marshal.SizeOf(accent);
             IntPtr accentPtr = Marshal.AllocHGlobal(accentStructSize);
@@ -301,27 +300,27 @@ namespace TheXDS.MCART.Windows.Dwm
                 SizeOfData = accentStructSize,
                 Data = accentPtr
             };
-            int v = PInvoke.SetWindowCompositionAttribute(window.Handle, ref data);
+            int v = SetWindowCompositionAttribute(window.Handle, ref data);
             Marshal.FreeHGlobal(accentPtr);
             if (Marshal.GetExceptionForHR(v) is { } ex) throw ex;
         }
 
-        private static void ShowGwlStyle(this IWindow window, WindowStyles bit)
+        private static void ShowGwlStyle(this IMsWindow window, WindowStyles bit)
         {
-            SetWindowData(window, WindowData.GWL_STYLE, p => p | bit);
+            window.SetWindowData(WindowData.GWL_STYLE, p => p | bit);
         }
 
-        private static void HideGwlStyle(this IWindow window, WindowStyles bit)
+        private static void HideGwlStyle(this IMsWindow window, WindowStyles bit)
         {
-            SetWindowData(window, WindowData.GWL_STYLE, p => p & ~bit);
+            window.SetWindowData(WindowData.GWL_STYLE, p => p & ~bit);
         }
 
-        private static void SetWindowData(this IWindow window, WindowData data, Func<WindowStyles, WindowStyles> transform)
+        private static void SetWindowData(this IMsWindow window, WindowData data, Func<WindowStyles, WindowStyles> transform)
         {
-            if (PInvoke.SetWindowLong(
+            if (SetWindowLong(
                 window.Handle,
                 (int)data,
-                (uint)transform((WindowStyles)PInvoke.GetWindowLong(window.Handle, data))) == 0)
+                (uint)transform((WindowStyles)GetWindowLong(window.Handle, data))) == 0)
             {
                 int v = Marshal.GetHRForLastWin32Error();
                 throw Marshal.GetExceptionForHR(v) ?? new Exception { HResult = v };

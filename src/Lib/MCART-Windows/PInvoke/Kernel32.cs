@@ -1,5 +1,5 @@
 ﻿/*
-PInvoke.cs
+Kernel32.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,10 +22,16 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Windows.Dwm.Structs
+using System;
+using System.Runtime.InteropServices;
+
+namespace TheXDS.MCART.PInvoke
 {
-    internal enum SysCommand
+    internal class Kernel32
     {
-        SC_CONTEXTHELP = 0xF180
+        [DllImport("kernel32.dll")] internal static extern bool AllocConsole();
+        [DllImport("kernel32.dll")] internal static extern bool FreeConsole();
+        [DllImport("kernel32.dll")] internal static extern IntPtr GetConsoleWindow();
+        [DllImport("kernel32.dll")] internal static extern bool GetFirmwareType(ref uint FirmwareType);
     }
 }

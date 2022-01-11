@@ -24,13 +24,15 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Drawing;
-using System.Runtime.InteropServices;
 using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Component;
+using TheXDS.MCART.PInvoke.Structs;
 using TheXDS.MCART.Types.Extensions;
-using TheXDS.MCART.Windows;
-using TheXDS.MCART.Windows.Component;
+using static TheXDS.MCART.PInvoke.Gdi32;
+using static TheXDS.MCART.PInvoke.Kernel32;
+using static TheXDS.MCART.PInvoke.User32;
 
-namespace TheXDS.MCART
+namespace TheXDS.MCART.Helpers
 {
     /// <summary>
     /// Módulo de funciones universales de UI para sistemas operativos
@@ -46,7 +48,7 @@ namespace TheXDS.MCART
         /// Esta función es exclusiva para sistemas operativos Microsoft
         /// Windows®.
         /// </remarks>
-        public static bool TryAllocateConsole() => PInvoke.AllocConsole();
+        public static bool TryAllocateConsole() => AllocConsole();
 
         /// <summary>
         /// Libera la consola de la aplicación.
@@ -56,7 +58,15 @@ namespace TheXDS.MCART
         /// Esta función es exclusiva para sistemas operativos Microsoft
         /// Windows®.
         /// </remarks>
-        public static bool TryFreeConsole() => PInvoke.FreeConsole();
+        public static bool TryFreeConsole() => FreeConsole();
+
+        /// <summary>
+        /// Obtiene un objeto que permite controlar la ventana de la consola.
+        /// </summary>
+        /// <returns>
+        /// Un objeto que permite controlar la ventana de la consola.
+        /// </returns>
+        public static ConsoleWindow GetConsoleWindow() => new();
 
         /// <summary>
         /// Obtiene el factor de escala de la interfaz gráfica.
@@ -75,7 +85,7 @@ namespace TheXDS.MCART
         /// Un valor <see cref="float"/> que representa el factor de escala
         /// utilizado para dibujar la ventana especificada.
         /// </returns>
-        public static float GetScalingFactor(this IWindow window)
+        public static float GetScalingFactor(this IMsWindow window)
         {
             return GetScalingFactor(window.Handle);
         }
@@ -106,7 +116,7 @@ namespace TheXDS.MCART
         /// Un valor entero que indica la resolución horizontal de la
         /// ventana  en Puntos Por Pulgada (DPI).
         /// </returns>
-        public static int GetXDpi(IntPtr hwnd) => PInvoke.GetDeviceCaps(Graphics.FromHwnd(hwnd).GetHdc(), 88);
+        public static int GetXDpi(IntPtr hwnd) => GetDeviceCaps(Graphics.FromHwnd(hwnd).GetHdc(), 88);
 
         /// <summary>
         /// Obtiene la resolución vertical de la ventana en DPI.
@@ -116,7 +126,7 @@ namespace TheXDS.MCART
         /// Un valor entero que indica la resolución vertical de la ventana
         /// en Puntos Por Pulgada (DPI).
         /// </returns>
-        public static int GetYDpi(IntPtr hwnd) => PInvoke.GetDeviceCaps(Graphics.FromHwnd(hwnd).GetHdc(), 90);
+        public static int GetYDpi(IntPtr hwnd) => GetDeviceCaps(Graphics.FromHwnd(hwnd).GetHdc(), 90);
 
         /// <summary>
         /// Obtiene las resolución horizontal y vertical de la ventana en 
@@ -127,10 +137,10 @@ namespace TheXDS.MCART
         /// Un <see cref="Point"/> que indica la resolución de la ventana
         /// en Puntos Por Pulgada (DPI).
         /// </returns>
-        public static Point GetDpi(IntPtr hwnd)
+        public static Types.Size GetDpi(IntPtr hwnd)
         {
             IntPtr h = Graphics.FromHwnd(hwnd).GetHdc();
-            return new Point(PInvoke.GetDeviceCaps(h, 88), PInvoke.GetDeviceCaps(h, 90));
+            return new Types.Size(GetDeviceCaps(h, 88), GetDeviceCaps(h, 90));
         }
 
         /// <summary>
@@ -141,7 +151,7 @@ namespace TheXDS.MCART
         /// Un <see cref="Point"/> que indica la resolución de la pantalla
         /// en Puntos Por Pulgada (DPI).
         /// </returns>
-        [Sugar] public static Point GetDpi() => GetDpi(IntPtr.Zero);
+        [Sugar] public static Types.Size GetDpi() => GetDpi(IntPtr.Zero);
 
         /// <summary>
         /// Devuelve un <see cref="Brush"/> aleatorio.
@@ -163,13 +173,25 @@ namespace TheXDS.MCART
         /// </returns>
         public static Types.Point GetCursorPosition()
         {
-            return PInvoke.GetCursorPos(out Windows.Dwm.Structs.Point p) ? p : Types.Point.Nowhere;
+            return GetCursorPos(out PInvoke.Structs.Point p) ? p : Types.Point.Nowhere;
+        }
+
+        /// <summary>
+        /// Obtiene el color de acento de las ventanas establecido actualmente.
+        /// </summary>
+        /// <returns></returns>
+        public static Types.Color GetAeroAccentColor()
+        {
+            PInvoke.DwmApi.DwmGetColorizationColor(out var color, out var transparent);
+            var c = new Types.Abgr32ColorParser().From((int)color);
+            if (!transparent) c.A = 255;
+            return c;
         }
 
         private static float GetScalingFactor(IntPtr handle)
         {
             IntPtr h = Graphics.FromHwnd(handle).GetHdc();
-            return (float)PInvoke.GetDeviceCaps(h, 10) / PInvoke.GetDeviceCaps(h, 117);
+            return (float)GetDeviceCaps(h, 10) / GetDeviceCaps(h, 117);
         }
     }
 }

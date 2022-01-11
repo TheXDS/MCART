@@ -41,7 +41,6 @@ using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types.Base;
 using TheXDS.MCART.Types.Extensions;
-using TheXDS.MCART.Windows.Dwm;
 using TheXDS.MCART.Wpf.Component;
 using static TheXDS.MCART.Types.Extensions.StringExtensions;
 using static TheXDS.MCART.Types.Extensions.TypeExtensions;
@@ -660,7 +659,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static RenderTargetBitmap Render(this FrameworkElement f)
         {
-            return Render(f, new Size((int)f.ActualWidth, (int)f.ActualHeight), WinUi.GetDpi().X);
+            return Render(f, new Size((int)f.ActualWidth, (int)f.ActualHeight), (int)WinUi.GetDpi().Width);
         }
 
         /// <summary>
@@ -748,7 +747,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static RenderTargetBitmap Render(this UIElement u)
         {
-            return Render(u, new Size((int)u.RenderSize.Width, (int)u.RenderSize.Height), WinUi.GetDpi().X);
+            return Render(u, new Size((int)u.RenderSize.Width, (int)u.RenderSize.Height), (int)WinUi.GetDpi().Width);
         }
 
         /// <summary>

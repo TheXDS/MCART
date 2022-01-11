@@ -1,5 +1,5 @@
 ﻿/*
-PInvoke.cs
+AccentPolicy.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,24 +22,16 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Windows.Dwm.Structs
+using System.Runtime.InteropServices;
+
+namespace TheXDS.MCART.PInvoke.Structs
 {
-    internal enum DwmWindowAttribute
+    [StructLayout(LayoutKind.Sequential)]
+    internal struct AccentPolicy
     {
-        NCRenderingEnabled = 1,
-        NCRenderingPolicy,
-        TransitionsForceDisabled,
-        AllowNCPaint,
-        CaptionButtonBounds,
-        NonClientRtlLayout,
-        ForceIconicRepresentation,
-        Flip3DPolicy,
-        ExtendedFrameBounds,
-        HasIconicBitmap,
-        DisallowPeek,
-        ExcludedFromPeek,
-        Cloak,
-        Cloaked,
-        FreezeRepresentation
+        public AccentState AccentState;
+        public int AccentFlags;
+        public int GradientColor;
+        public int AnimationId;
     }
 }

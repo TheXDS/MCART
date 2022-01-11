@@ -1,10 +1,11 @@
 ﻿/*
-PInvoke.cs
+WindowInfo.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
+     PInvoke.net Community <http://www.pinvoke.net>
 
 Copyright © 2011 - 2021 César Andrés Morgan
 
@@ -22,14 +23,27 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Windows.Dwm.Structs
+using System.Runtime.InteropServices;
+
+namespace TheXDS.MCART.PInvoke.Structs
 {
-    internal enum AccentState
+    [StructLayout(LayoutKind.Sequential)]
+    internal struct WindowInfo
     {
-        ACCENT_DISABLED = 0,
-        ACCENT_ENABLE_GRADIENT = 1,
-        ACCENT_ENABLE_TRANSPARENTGRADIENT = 2,
-        ACCENT_ENABLE_BLURBEHIND = 3,
-        ACCENT_ENABLE_ACRYLICBLURBEHIND = 4
+        public uint CbSize;
+        public Rect RcWindow;
+        public Rect RcClient;
+        public WindowStyles DwStyle;
+        public WindowStyles DwExtendedStyle;
+        public uint DwWindowStatus;
+        public uint CxWindowBorders;
+        public uint CyWindowBorders;
+        public ushort AtomWindowType;
+        public ushort WCreatorVersion;
+
+        public WindowInfo(bool setCbSize = true) : this()
+        {
+            if (setCbSize) CbSize = (uint)Marshal.SizeOf(typeof(WindowInfo));
+        }
     }
 }

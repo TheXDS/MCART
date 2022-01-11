@@ -1,5 +1,5 @@
 ﻿/*
-ShowWindowFlags.cs
+Gdi32.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,20 +22,13 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Windows.Dwm.Structs
+using System;
+using System.Runtime.InteropServices;
+
+namespace TheXDS.MCART.PInvoke
 {
-    internal enum ShowWindowFlags : int
+    internal class Gdi32
     {
-        Hide = 0,
-        ShowNormal = 1,
-        ShowMinimized = 2,
-        ShowMaximized = 3,
-        ShowNoActivate = 4,
-        Show = 5,
-        Minimize = 6,
-        ShowMinNoActive = 7,
-        ShowNA = 8,
-        Restore = 9,
-        ShowDefault = 10
+        [DllImport("gdi32.dll")] internal static extern int GetDeviceCaps(IntPtr hdc, int nIndex);
     }
 }

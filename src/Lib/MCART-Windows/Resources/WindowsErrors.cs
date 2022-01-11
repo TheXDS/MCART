@@ -1,5 +1,5 @@
 ﻿/*
-WindowData.cs
+WindowsErrors.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,16 +22,16 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Windows.Dwm.Structs
+using System;
+using Ers = TheXDS.MCART.Windows.Resources.Strings.WinErrors;
+
+namespace TheXDS.MCART.Resources
 {
-    internal enum WindowData
+    internal static class WindowsErrors
     {
-        GWL_WNDPROC = -4,
-        GWL_HINSTANCE = -6,
-        GWL_HWNDPARENT = -8,
-        GWL_ID = -12,
-        GWL_STYLE = -16,
-        GWL_EXSTYLE = -20,
-        GWL_USERDATA = -21
+        public static ArgumentException OffsetCountOutsideBuffer()
+        {
+            return new ArgumentException(Ers.OffsetCountOutsideBuffer);
+        }
     }
 }
