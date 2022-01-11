@@ -27,7 +27,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using TheXDS.MCART.Windows.Resources;
+using TheXDS.MCART.Resources;
 using static TheXDS.MCART.Misc.Internals;
 
 namespace TheXDS.MCART.Security.Cryptography

@@ -1,5 +1,5 @@
 ﻿/*
-AccentPolicy.cs
+Kernel32.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,18 +22,17 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma warning disable CA1815 // Override equals and operator equals on value types
-
+using System;
 using System.Runtime.InteropServices;
 
-namespace TheXDS.MCART.Windows.Dwm.Structs
+
+namespace TheXDS.MCART.PInvoke
 {
-    [StructLayout(LayoutKind.Sequential)]
-    internal struct AccentPolicy
+    internal class Kernel32
     {
-        public AccentState AccentState;
-        public int AccentFlags;
-        public int GradientColor;
-        public int AnimationId;
+        [DllImport("kernel32.dll")] internal static extern bool AllocConsole();
+        [DllImport("kernel32.dll")] internal static extern bool FreeConsole();
+        [DllImport("kernel32.dll")] internal static extern IntPtr GetConsoleWindow();
+        [DllImport("kernel32.dll")] internal static extern bool GetFirmwareType(ref uint FirmwareType);
     }
 }

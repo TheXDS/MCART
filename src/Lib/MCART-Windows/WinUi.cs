@@ -26,9 +26,10 @@ using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Component;
+using TheXDS.MCART.PInvoke.Structs;
 using TheXDS.MCART.Types.Extensions;
 using TheXDS.MCART.Windows;
-using TheXDS.MCART.Windows.Component;
 
 namespace TheXDS.MCART
 {
@@ -75,7 +76,7 @@ namespace TheXDS.MCART
         /// Un valor <see cref="float"/> que representa el factor de escala
         /// utilizado para dibujar la ventana especificada.
         /// </returns>
-        public static float GetScalingFactor(this IWindow window)
+        public static float GetScalingFactor(this IMsWindow window)
         {
             return GetScalingFactor(window.Handle);
         }
@@ -163,7 +164,7 @@ namespace TheXDS.MCART
         /// </returns>
         public static Types.Point GetCursorPosition()
         {
-            return PInvoke.GetCursorPos(out Windows.Dwm.Structs.Point p) ? p : Types.Point.Nowhere;
+            return PInvoke.GetCursorPos(out PInvoke.Structs.Point p) ? p : Types.Point.Nowhere;
         }
 
         private static float GetScalingFactor(IntPtr handle)

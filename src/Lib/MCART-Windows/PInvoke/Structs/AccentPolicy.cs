@@ -1,5 +1,5 @@
 ﻿/*
-PInvoke.cs
+AccentPolicy.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,31 +22,16 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
 using System.Runtime.InteropServices;
-using TheXDS.MCART.PInvoke.Structs;
 
-namespace TheXDS.MCART
+namespace TheXDS.MCART.PInvoke.Structs
 {
-    internal static class PInvoke2
+    [StructLayout(LayoutKind.Sequential)]
+    internal struct AccentPolicy
     {
-        #region user32.dll
-
-        [DllImport("user32.dll")] internal static extern bool EnumDisplayMonitors(HandleRef hdc, Rect rcClip, MonitorEnumProc lpfnEnum, IntPtr dwData);
-        [DllImport("user32.dll")] internal static extern IntPtr MonitorFromWindow(HandleRef handle, int flags);
-        [DllImport("user32.dll")] internal static extern int GetSystemMetrics(int nIndex);
-        [DllImport("user32.dll")] internal static extern bool SystemParametersInfo(int nAction, int nParam, ref Rect rc, int nUpdate);
-        [DllImport("user32.dll")] internal static extern IntPtr MonitorFromPoint(Point pt, int flags);
-
-
-
-
-
-
-
-        public delegate bool MonitorEnumProc(IntPtr monitor, IntPtr hdc, IntPtr lprcMonitor, IntPtr lParam);
-
-
-        #endregion
+        public AccentState AccentState;
+        public int AccentFlags;
+        public int GradientColor;
+        public int AnimationId;
     }
 }

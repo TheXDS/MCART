@@ -1,5 +1,5 @@
 ﻿/*
-WindowCompositionAttribute.cs
+WindowData.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,12 +22,16 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Windows.Dwm.Structs
+namespace TheXDS.MCART.PInvoke.Structs
 {
-    internal enum WindowCompositionAttribute
+    internal enum WindowData
     {
-        // ...
-        WCA_ACCENT_POLICY = 19
-        // ...
+        GWL_WNDPROC = -4,
+        GWL_HINSTANCE = -6,
+        GWL_HWNDPARENT = -8,
+        GWL_ID = -12,
+        GWL_STYLE = -16,
+        GWL_EXSTYLE = -20,
+        GWL_USERDATA = -21
     }
 }

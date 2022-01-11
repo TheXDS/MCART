@@ -1,5 +1,5 @@
 ﻿/*
-Margins.cs
+WindowCompositionAttributeData.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,34 +22,16 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System;
 using System.Runtime.InteropServices;
 
-namespace TheXDS.MCART.Windows.Dwm.Structs
+namespace TheXDS.MCART.PInvoke.Structs
 {
-    /// <summary>
-    /// Define una serie de márgenes aplicables a ventanas de Microsoft Windows.
-    /// </summary>
     [StructLayout(LayoutKind.Sequential)]
-    public struct Margins
+    internal struct WindowCompositionAttributeData
     {
-        /// <summary>
-        /// Describe el margen izquierdo.
-        /// </summary>
-        public int Left;
-
-        /// <summary>
-        /// Describe el margen derecho.
-        /// </summary>
-        public int Right;
-
-        /// <summary>
-        /// Describe el margen superior.
-        /// </summary>
-        public int Top;
-
-        /// <summary>
-        /// Describe el margen inferior.
-        /// </summary>
-        public int Bottom;
+        public WindowCompositionAttribute Attribute;
+        public IntPtr Data;
+        public int SizeOfData;
     }
 }

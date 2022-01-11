@@ -24,7 +24,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 
-namespace TheXDS.MCART.Windows.Dwm.Structs
+namespace TheXDS.MCART.PInvoke.Structs
 {
     [Flags]
     internal enum WindowChanges : uint

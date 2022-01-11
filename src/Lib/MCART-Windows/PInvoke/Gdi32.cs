@@ -1,5 +1,5 @@
 ﻿/*
-Point.cs
+Gdi32.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,24 +22,14 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System;
 using System.Runtime.InteropServices;
 
-namespace TheXDS.MCART.Windows.Dwm.Structs
+
+namespace TheXDS.MCART.PInvoke
 {
-    [StructLayout(LayoutKind.Sequential)]
-    internal struct Point
+    internal class Gdi32
     {
-        public int X;
-        public int Y;
-
-        public static implicit operator Types.Point(Point point)
-        {
-            return new(point.X, point.Y);
-        }
-
-        public static implicit operator System.Drawing.Point(Point point)
-        {
-            return new(point.X, point.Y);
-        }
+        [DllImport("gdi32.dll")] internal static extern int GetDeviceCaps(IntPtr hdc, int nIndex);
     }
 }

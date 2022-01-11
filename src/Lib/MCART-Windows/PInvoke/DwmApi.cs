@@ -1,5 +1,5 @@
 ﻿/*
-PInvoke.cs
+DwmApi.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -26,27 +26,14 @@ using System;
 using System.Runtime.InteropServices;
 using TheXDS.MCART.PInvoke.Structs;
 
-namespace TheXDS.MCART
+namespace TheXDS.MCART.PInvoke
 {
-    internal static class PInvoke2
+    internal class DwmApi
     {
-        #region user32.dll
-
-        [DllImport("user32.dll")] internal static extern bool EnumDisplayMonitors(HandleRef hdc, Rect rcClip, MonitorEnumProc lpfnEnum, IntPtr dwData);
-        [DllImport("user32.dll")] internal static extern IntPtr MonitorFromWindow(HandleRef handle, int flags);
-        [DllImport("user32.dll")] internal static extern int GetSystemMetrics(int nIndex);
-        [DllImport("user32.dll")] internal static extern bool SystemParametersInfo(int nAction, int nParam, ref Rect rc, int nUpdate);
-        [DllImport("user32.dll")] internal static extern IntPtr MonitorFromPoint(Point pt, int flags);
-
-
-
-
-
-
-
-        public delegate bool MonitorEnumProc(IntPtr monitor, IntPtr hdc, IntPtr lprcMonitor, IntPtr lParam);
-
-
-        #endregion
+        [DllImport("dwmapi.dll")] internal static extern int DwmExtendFrameIntoClientArea(IntPtr hWnd, ref Margins pMargins);
+        [DllImport("dwmapi.dll", PreserveSig = false)] internal static extern bool DwmIsCompositionEnabled();
+        [DllImport("dwmapi.dll")] internal static extern int DwmGetWindowAttribute(IntPtr hwnd, DwmWindowAttribute dwAttribute, out bool pvAttribute, int cbAttribute);
+        [DllImport("dwmapi.dll")] internal static extern int DwmSetWindowAttribute(IntPtr hwnd, DwmWindowAttribute dwAttribute, ref int pvAttribute, int cbAttribute);
+        [DllImport("dwmapi.dll")] internal static extern int DwmGetColorizationColor(out uint pcrColorization, [MarshalAs(UnmanagedType.Bool)] out bool pfOpaqueBlend);
     }
 }

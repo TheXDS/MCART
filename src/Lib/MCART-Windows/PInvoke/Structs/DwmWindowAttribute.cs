@@ -1,5 +1,5 @@
 ﻿/*
-Errors.cs
+PInvoke.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,16 +22,24 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
-using Ers = TheXDS.MCART.Windows.Resources.Strings.Errors;
-
-namespace TheXDS.MCART.Resources
+namespace TheXDS.MCART.PInvoke.Structs
 {
-    internal static class Errors
+    internal enum DwmWindowAttribute
     {
-        public static ArgumentException OffsetCountOutsideBuffer()
-        {
-            return new ArgumentException(Ers.OffsetCountOutsideBuffer);
-        }
+        NCRenderingEnabled = 1,
+        NCRenderingPolicy,
+        TransitionsForceDisabled,
+        AllowNCPaint,
+        CaptionButtonBounds,
+        NonClientRtlLayout,
+        ForceIconicRepresentation,
+        Flip3DPolicy,
+        ExtendedFrameBounds,
+        HasIconicBitmap,
+        DisallowPeek,
+        ExcludedFromPeek,
+        Cloak,
+        Cloaked,
+        FreezeRepresentation
     }
 }

@@ -25,7 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System.Runtime.InteropServices;
 
-namespace TheXDS.MCART.Windows.Dwm.Structs
+namespace TheXDS.MCART.PInvoke.Structs
 {
     [StructLayout(LayoutKind.Sequential)]
     internal struct Rect

@@ -1,5 +1,5 @@
 ﻿/*
-WindowCompositionAttributeData.cs
+MonitorInfoFlags.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -23,15 +23,23 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
-using System.Runtime.InteropServices;
 
-namespace TheXDS.MCART.Windows.Dwm.Structs
+namespace TheXDS.MCART.PInvoke.Structs
 {
-    [StructLayout(LayoutKind.Sequential)]
-    internal struct WindowCompositionAttributeData
+    /// <summary>
+    /// Flags that may be defined on the <see cref="MonitorInfo.Flags"/> field.
+    /// </summary>
+    [Flags]
+    public enum MonitorInfoFlags
     {
-        public WindowCompositionAttribute Attribute;
-        public IntPtr Data;
-        public int SizeOfData;
+        /// <summary>
+        /// No flags.
+        /// </summary>
+        None = 0x0,
+
+        /// <summary>
+        /// This is the primary display monitor.
+        /// </summary>
+        PrimaryDisplay = 0x1,
     }
 }

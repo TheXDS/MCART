@@ -1,5 +1,5 @@
 ﻿/*
-IWindow.cs
+IMsWindow.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -23,17 +23,17 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
-using TheXDS.MCART.Windows.Dwm.Structs;
-using TheXDS.MCART.Component;
 using TheXDS.MCART.Types;
+using TheXDS.MCART.PInvoke.Structs;
+using static TheXDS.MCART.PInvoke.User32;
 
-namespace TheXDS.MCART.Windows.Component
+namespace TheXDS.MCART.Component
 {
     /// <summary>
     /// Define una serie de miembros a implementar por un tipo que represente
     /// una ventana de Microsoft Windows.
     /// </summary>
-    public interface IWindow : ICloseable
+    public interface IMsWindow : IWindow
     {
         /// <summary>
         /// Obtiene el Handle por medio del cual la ventana puede ser
@@ -50,7 +50,7 @@ namespace TheXDS.MCART.Windows.Component
         /// <summary>
         /// Obtiene o establece el tamaño de la ventana.
         /// </summary>
-        Size Size
+        Size IWindow.Size
         {
             get
             {
@@ -59,7 +59,7 @@ namespace TheXDS.MCART.Windows.Component
             set
             {
                 Rect info = GetRect();
-                PInvoke.MoveWindow(Handle, info.Left, info.Top, (int)value.Width, (int)value.Height, true);
+                MoveWindow(Handle, info.Left, info.Top, (int)value.Width, (int)value.Height, true);
             }
         }
 
@@ -67,7 +67,7 @@ namespace TheXDS.MCART.Windows.Component
         /// Obtiene o establece la posición de la ventana en coordenadas
         /// absolutas de pantalla.
         /// </summary>
-        Types.Point Location
+        Types.Point IWindow.Location
         {
             get
             {
@@ -76,14 +76,14 @@ namespace TheXDS.MCART.Windows.Component
             set
             {
                 Rect info = GetRect();
-                PInvoke.MoveWindow(Handle, (int)value.X, (int)value.Y, info.Width, info.Height, true);
+                MoveWindow(Handle, (int)value.X, (int)value.Y, info.Width, info.Height, true);
             }
         }
 
         /// <summary>
         /// Oculta la ventana sin cerrarla.
         /// </summary>
-        void Hide()
+        void IWindow.Hide()
         {
             CallShowWindow(ShowWindowFlags.Hide);
         }
@@ -91,7 +91,7 @@ namespace TheXDS.MCART.Windows.Component
         /// <summary>
         /// Maximiza la ventana.
         /// </summary>
-        void Maximize()
+        void IWindow.Maximize()
         {
             CallShowWindow(ShowWindowFlags.ShowMaximized);
         }
@@ -99,7 +99,7 @@ namespace TheXDS.MCART.Windows.Component
         /// <summary>
         /// Minimiza la ventana.
         /// </summary>
-        void Minimize()
+        void IWindow.Minimize()
         {
             CallShowWindow(ShowWindowFlags.Minimize);
         }
@@ -107,7 +107,7 @@ namespace TheXDS.MCART.Windows.Component
         /// <summary>
         /// Restaura el tamaño de la ventana.
         /// </summary>
-        void Restore()
+        void IWindow.Restore()
         {
             CallShowWindow(ShowWindowFlags.Restore);
         }
@@ -115,22 +115,22 @@ namespace TheXDS.MCART.Windows.Component
         /// <summary>
         /// Cambia el estado de la ventana entre Maximizar y Restaurar.
         /// </summary>
-        void ToggleMaximize()
+        void IWindow.ToggleMaximize()
         {
-            WindowStyles s = (WindowStyles)PInvoke.GetWindowLong(Handle, WindowData.GWL_STYLE);
+            WindowStyles s = (WindowStyles)GetWindowLong(Handle, WindowData.GWL_STYLE);
             if (s.HasFlag(WindowStyles.WS_MAXIMIZE)) Restore();
             else Maximize();
         }
 
         private void CallShowWindow(ShowWindowFlags flags)
         {
-            if (Handle != IntPtr.Zero) PInvoke.ShowWindowAsync(Handle, flags);
+            if (Handle != IntPtr.Zero) ShowWindowAsync(Handle, flags);
         }
 
         private Rect GetRect()
         {
             Rect info = new();
-            PInvoke.GetWindowRect(Handle, ref info);
+            GetWindowRect(Handle, ref info);
             return info;
         }
     }

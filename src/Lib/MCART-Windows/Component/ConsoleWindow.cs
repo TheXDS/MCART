@@ -23,17 +23,17 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
-using TheXDS.MCART.Windows.Component;
-using TheXDS.MCART.Windows.Dwm.Structs;
-using TheXDS.MCART.Windows.Dwm;
+using TheXDS.MCART.PInvoke.Structs;
+using TheXDS.MCART.Dwm;
+using static TheXDS.MCART.PInvoke.Kernel32;
 
-namespace TheXDS.MCART.Windows
+namespace TheXDS.MCART.Component
 {
     /// <summary>
     /// Clase auxiliar envolvente que permite realizar llamadas de gestión de
     /// la ventana de consola de la aplicación.
     /// </summary>
-    public class ConsoleWindow : IWindow
+    public class ConsoleWindow : IMsWindow
     {
         private Margins _margins;
 
@@ -41,15 +41,15 @@ namespace TheXDS.MCART.Windows
         /// Obtiene un valor que indica si la aplicación tiene acceso a la
         /// consola.
         /// </summary>
-        public static bool HasConsole => PInvoke.GetConsoleWindow() != IntPtr.Zero;
+        public static bool HasConsole => GetConsoleWindow() != IntPtr.Zero;
 
         internal ConsoleWindow()
         {
-            if (Handle == IntPtr.Zero) PInvoke.AllocConsole();
+            if (Handle == IntPtr.Zero) AllocConsole();
         }
 
         /// <inheritdoc/>
-        public IntPtr Handle => PInvoke.GetConsoleWindow();
+        public IntPtr Handle => GetConsoleWindow();
 
         /// <inheritdoc/>
         public Margins Padding
@@ -67,7 +67,7 @@ namespace TheXDS.MCART.Windows
         /// </summary>
         public void Close()
         {
-            if (Handle != IntPtr.Zero) PInvoke.FreeConsole();
+            if (Handle != IntPtr.Zero) FreeConsole();
         }
     }
 }

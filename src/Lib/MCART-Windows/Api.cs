@@ -26,7 +26,7 @@ using System;
 using System.Runtime.InteropServices;
 using System.Security.Principal;
 
-namespace TheXDS.MCART.Windows
+namespace TheXDS.MCART
 {
     /// <summary>
     /// Contiene una serie de métodos auxiliares de la API de Microsoft
