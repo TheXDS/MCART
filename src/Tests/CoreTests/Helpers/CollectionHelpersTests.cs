@@ -381,7 +381,7 @@ namespace TheXDS.MCART.Tests.Helpers
         [Test]
         public void GetTypes_Test()
         {
-            Assert.True(AppDomain.CurrentDomain.GetAssemblies().GetTypes<Exception>().ToArray().Length > 200);
+            Assert.True(AppDomain.CurrentDomain.GetAssemblies().GetTypes<Exception>().ToArray().Length > 10);
         }
 
         [Test]
