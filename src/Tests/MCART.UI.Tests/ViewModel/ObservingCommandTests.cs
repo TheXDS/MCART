@@ -1,4 +1,5 @@
-﻿using TheXDS.MCART.Types.Base;
+﻿using System.Diagnostics.CodeAnalysis;
+using TheXDS.MCART.Types.Base;
 using TheXDS.MCART.Types.Extensions;
 using TheXDS.MCART.ViewModel;
 using NUnit.Framework;
@@ -22,7 +23,7 @@ namespace TheXDS.MCART.UI.Tests.ViewModel
         public void PropertyChange_Fires_Notification_Test()
         {
             TestNpcClass? i = new();
-            ObservingCommand? obs = new ObservingCommand(i, () => { })
+            ObservingCommand? obs = new ObservingCommand(i, NoAction)
                 .SetCanExecute((a, b) => !i.TestString.IsEmpty())
                 .RegisterObservedProperty(nameof(TestNpcClass.TestString));
 
@@ -30,5 +31,8 @@ namespace TheXDS.MCART.UI.Tests.ViewModel
             i.TestString = "Test";
             Assert.True(obs.CanExecute(null));
         }
+        
+        [ExcludeFromCodeCoverage]
+        private static void NoAction() { }
     }
 }

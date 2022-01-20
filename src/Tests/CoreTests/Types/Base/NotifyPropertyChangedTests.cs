@@ -23,107 +23,198 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using TheXDS.MCART.Types.Base;
 using NUnit.Framework;
+using TheXDS.MCART.Exceptions;
 
 namespace TheXDS.MCART.Tests.Types.Base
 {
-    public class NotifyPropertyChangedTests
+    public class NotifyPropertyChangedTests : NotifyPropertyChanged
     {
+        private int _value;
+        private object? _obj;
+
         [ExcludeFromCodeCoverage]
-        private class TestClass : NotifyPropertyChanged
+        public int Value
         {
-            private int _value;
-            private object? _obj;
+            get => _value;
+            set => Change(ref _value, value);
+        }
+        
+        [ExcludeFromCodeCoverage]
+        public object? Obj
+        {
+            get => _obj;
+            set => Change(ref _obj, value);
+        }
+        
+        [ExcludeFromCodeCoverage]
+        public int BrokenProperty
+        {
+            //get => _value;
+            set => Change(ref _value, value, null!);
+        }
+        [ExcludeFromCodeCoverage]
+        public int BrokenProperty2
+        {
+            //get => _value;
+            set => Change(ref _value, value, string.Empty);
+        }
 
-            public int Value
-            {
-                get => _value;
-                set => Change(ref _value, value);
-            }
+        [ExcludeFromCodeCoverage]
+        public object? SelfFalseTestingProperty
+        {
+            //get => _obj;
+            set => Assert.False(Change(ref _obj, value));
+        }
 
-            public int BrokenProperty
-            {
-                get => _value;
-                set => Change(ref _value, value, null!);
-            }
-            public int BrokenProperty2
-            {
-                get => _value;
-                set => Change(ref _value, value, string.Empty);
-            }
+        [ExcludeFromCodeCoverage]
+        public object? SelfTrueTestingProperty
+        {
+            //get => _obj;
+            set => Assert.True(Change(ref _obj, value));
+        }
+        
+        [ExcludeFromCodeCoverage]
+        public int Prop1 { get; set; }
+        [ExcludeFromCodeCoverage]
+        public int Prop2 { get; set; }
+        [ExcludeFromCodeCoverage]
+        public int Prop3 { get; set; }
 
-            public object? SelfFalseTestingProperty
+        [Test]
+        public void RegisterPropertyChangeBroadcast_Contract_Test()
+        {
+            Assert.AreEqual("property", Assert.Throws<ArgumentNullException>(() =>
             {
-                get => _obj;
-                set => Assert.False(Change(ref _obj, value));
-            }
+                RegisterPropertyChangeBroadcast(null!, "Prop1");
+            })?.ParamName);
+            Assert.AreEqual("property", Assert.Throws<ArgumentException>(() =>
+            {
+                RegisterPropertyChangeBroadcast(string.Empty, "Prop1");
+            })?.ParamName);
+            Assert.AreEqual("property", Assert.Throws<ArgumentException>(() =>
+            {
+                RegisterPropertyChangeBroadcast(" ", "Prop1");
+            })?.ParamName);
+            Assert.AreEqual("affectedProperties", Assert.Throws<ArgumentNullException>(() =>
+            {
+                RegisterPropertyChangeBroadcast("Prop1", null!);
+            })?.ParamName);
 
-            public object? SelfTrueTestingProperty
+            string[] arr = Array.Empty<string>();
+            Assert.AreSame(arr, ((EmptyCollectionException?)Assert.Throws<InvalidOperationException>(() =>
             {
-                get => _obj;
-                set => Assert.True(Change(ref _obj, value));
-            }
+                RegisterPropertyChangeBroadcast("Prop1", arr);
+            })?.InnerException)?.OffendingObject);
+
+            Assert.AreEqual("affectedProperties", Assert.Throws<ArgumentException>(() =>
+            {
+                RegisterPropertyChangeBroadcast("Prop1", string.Empty);
+            })?.ParamName);
+            Assert.AreEqual("affectedProperties", Assert.Throws<ArgumentException>(() =>
+            {
+                RegisterPropertyChangeBroadcast("Prop1", (string)null!);
+            })?.ParamName);
+            Assert.AreEqual("affectedProperties", Assert.Throws<ArgumentException>(() =>
+            {
+                RegisterPropertyChangeBroadcast("Prop1", " ");
+            })?.ParamName);
+            
+            RegisterPropertyChangeBroadcast(nameof(Prop1), nameof(Prop2));
+            RegisterPropertyChangeBroadcast(nameof(Prop1), "Prop4");
+            RegisterPropertyChangeBroadcast(nameof(Prop2), nameof(Prop3));
+            Assert.Throws<InvalidOperationException>(() =>
+                RegisterPropertyChangeBroadcast(nameof(Prop3), nameof(Prop1)));
         }
 
         [Test]
+        public void ObserveTree_Test()
+        {
+            Assert.False(ObserveTree.ContainsKey(nameof(Prop1)));
+            Assert.IsAssignableFrom<ReadOnlyDictionary<string, ICollection<string>>>(ObserveTree);
+            RegisterPropertyChangeBroadcast(nameof(Prop1), nameof(Prop2));
+            RegisterPropertyChangeBroadcast(nameof(Prop1), nameof(Prop3));
+            Assert.True(ObserveTree.ContainsKey(nameof(Prop1)));
+            Assert.AreEqual(new[]{nameof(Prop2), nameof(Prop3)}, ObserveTree[nameof(Prop1)].ToArray());
+        }
+        
+        [Test]
         public void OnPropertyChangedTest()
         {
-            TestClass? x = new();
             bool risen = false;
             (object? Sender, PropertyChangedEventArgs Arguments)? evt = null;
 
-            void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
+            void TestPropertyChanged(object? sender, PropertyChangedEventArgs e)
             {
                 risen = true;
                 evt = (sender, e);
             }
 
-            x.PropertyChanged += OnPropertyChanged;
-            x.Value = 1;
-            x.PropertyChanged -= OnPropertyChanged;
+            PropertyChanged += TestPropertyChanged;
+            Value = 1;
+            PropertyChanged -= TestPropertyChanged;
 
             Assert.True(risen);
             Assert.NotNull(evt);
-            Assert.True(ReferenceEquals(x, evt!.Value.Sender));
-            Assert.AreEqual(nameof(TestClass.Value), evt!.Value.Arguments.PropertyName);
-            Assert.AreEqual(1, x.Value);
+            Assert.True(ReferenceEquals(this, evt!.Value.Sender));
+            Assert.AreEqual(nameof(Value), evt!.Value.Arguments.PropertyName);
+            Assert.AreEqual(1, Value);
         }
 
         [Test]
         public void Property_Change_Forward_Test()
         {
-            TestClass? x = new();
-            TestClass? y = new();
+            NotifyPropertyChangedTests source = new();
+            NotifyPropertyChangedTests other = new();
             bool risen = false;
             (object? Sender, PropertyChangedEventArgs Arguments)? evt = null;
-            void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
+            void TestPropertyChanged(object? sender, PropertyChangedEventArgs e)
             {
                 risen = true;
                 evt = (sender, e);
             }
-
-            x.ForwardChange(y);
-            y.PropertyChanged += OnPropertyChanged;
-            x.Value = 1;
-            y.PropertyChanged -= OnPropertyChanged;
-
+            source.ForwardChange(other);
+            other.PropertyChanged += TestPropertyChanged;
+            source.Value = 1;
+            other.PropertyChanged -= TestPropertyChanged;
             Assert.True(risen);
             Assert.NotNull(evt);
-            Assert.True(ReferenceEquals(y, evt!.Value.Sender));
+            Assert.True(ReferenceEquals(other, evt!.Value.Sender));
+            source.RemoveForwardChange(other);
+        }
+
+        [Test]
+        public void NotifyRegistroir_Test()
+        {
+            bool risen = false;
+            void TestPropertyChanged(object? sender, PropertyChangedEventArgs e)
+            {
+                if (e.PropertyName == nameof(Obj)) risen = true;
+            }
+            RegisterPropertyChangeBroadcast(
+                nameof(Value),
+                nameof(Obj));
+            PropertyChanged += TestPropertyChanged;
+            Value = 2;
+            UnregisterPropertyChangeBroadcast(nameof(Value));
+            Assert.IsTrue(risen);
+            PropertyChanged -= TestPropertyChanged;
         }
 
         [Test]
         public void Change_Contract_Test()
         {
-            TestClass? x = new();
-            Assert.Throws<ArgumentNullException>(() => x.BrokenProperty = 1);
-            Assert.Throws<ArgumentNullException>(() => x.BrokenProperty2 = 1);
-            x.SelfFalseTestingProperty = null;
-            x.SelfTrueTestingProperty = 33;
-            x.SelfFalseTestingProperty = 33;
+            Assert.Throws<ArgumentNullException>(() => BrokenProperty = 1);
+            Assert.Throws<ArgumentNullException>(() => BrokenProperty2 = 1);
+            SelfFalseTestingProperty = null;
+            SelfTrueTestingProperty = 33;
+            SelfFalseTestingProperty = 33;
         }
     }
 }

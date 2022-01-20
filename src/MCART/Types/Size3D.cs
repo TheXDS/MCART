@@ -1,5 +1,5 @@
-﻿/*
-Size.cs
+/*
+Size3D.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -34,25 +34,25 @@ namespace TheXDS.MCART.Types
     /// Estructura universal que describe el tamaño de un objeto en ancho y
     /// alto en un espacio de dos dimensiones.
     /// </summary>
-    public struct Size : IEquatable<Size>, ISize
+    public struct Size3D : IEquatable<Size3D>, I3DSize
     {
         /// <summary>
         /// Obtiene un valor que no representa ningún tamaño. Este campo es
         /// de solo lectura.
         /// </summary>
-        public static readonly Size Nothing = new(double.NaN, double.NaN);
+        public static readonly Size3D Nothing = new(double.NaN, double.NaN, double.NaN);
 
         /// <summary>
         /// Obtiene un valor que representa un tamaño nulo. Este campo es
         /// de solo lectura.
         /// </summary>
-        public static readonly Size Zero = new(0, 0);
+        public static readonly Size3D Zero = new(0, 0, 0);
 
         /// <summary>
         /// Obtiene un valor que representa un tamaño infinito. Este campo
         /// es de solo lectura.
         /// </summary>
-        public static readonly Size Infinity = new(double.PositiveInfinity, double.PositiveInfinity);
+        public static readonly Size3D Infinity = new(double.PositiveInfinity, double.PositiveInfinity, double.PositiveInfinity);
 
         /// <summary>
         /// Intenta crear un <see cref="Size"/> a partir de una cadena.
@@ -67,7 +67,7 @@ namespace TheXDS.MCART.Types
         /// <see langword="true"/> si la conversión ha tenido éxito,
         /// <see langword="false"/> en caso contrario.
         /// </returns>
-        public static bool TryParse(string value, out Size size)
+        public static bool TryParse(string value, out Size3D size)
         {
             switch (value)
             {
@@ -93,7 +93,7 @@ namespace TheXDS.MCART.Types
                         ":",
                         "|",
                     };
-                    return PrivateInternals.TryParseValues<double, Size>(separators, value.Without("()[]{}".ToCharArray()), 2, l => new Size(l[0], l[1]), out size);
+                    return PrivateInternals.TryParseValues<double, Size3D>(separators, value.Without("()[]{}".ToCharArray()), 3, l => new(l[0], l[1], l[2]), out size);
             }
             return true;
         }
@@ -108,9 +108,9 @@ namespace TheXDS.MCART.Types
         /// Se produce si la conversión ha fallado.
         /// </exception>
         /// <returns><see cref="Size"/> que ha sido creado.</returns>
-        public static Size Parse(string value)
+        public static Size3D Parse(string value)
         {
-            if (TryParse(value, out Size retval)) return retval;
+            if (TryParse(value, out Size3D retval)) return retval;
             throw new FormatException();
         }
 
@@ -127,9 +127,9 @@ namespace TheXDS.MCART.Types
         /// <see langword="true"/> si los tamaños representados en ambos
         /// objetos son iguales, <see langword="false"/> en caso contrario.
         /// </returns>
-        public static bool operator ==(Size size1, Size size2)
+        public static bool operator ==(Size3D size1, Size3D size2)
         {
-            return size1.Height == size2.Height && size1.Width == size2.Width;
+            return size1.Height == size2.Height && size1.Width == size2.Width && size1.Depth == size2.Depth;
         }
 
         /// <summary>
@@ -147,7 +147,7 @@ namespace TheXDS.MCART.Types
         /// objetos son distintos, <see langword="false"/> en caso
         /// contrario.
         /// </returns>
-        public static bool operator !=(Size size1, Size size2)
+        public static bool operator !=(Size3D size1, Size3D size2)
         {
             return !(size1 == size2);
         }
@@ -161,6 +161,11 @@ namespace TheXDS.MCART.Types
         /// Obtiene el componente de ancho del tamaño.
         /// </summary>
         public double Width { get; set; }
+        
+        /// <summary>
+        /// Obtiene el componente de profundidad del tamaño.
+        /// </summary>
+        public double Depth { get; set; }
 
         /// <summary>
         /// Inicializa una nueva instancia de la estructura
@@ -168,35 +173,37 @@ namespace TheXDS.MCART.Types
         /// </summary>
         /// <param name="width">Valor de ancho.</param>
         /// <param name="height">Valor de alto.</param>
-        public Size(double width, double height)
+        /// <param name="depth">Valor de profundidad.</param>
+        public Size3D(double width, double height, double depth)
         {
             Width = width;
             Height = height;
+            Depth = depth;
         }
 
         /// <summary>
         /// Calcula el área cuadrada representada por este tamaño.
         /// </summary>
-        public double SquareArea => Height * Width;
+        public double CubeVolume => Height * Width * Depth;
 
         /// <summary>
         /// Calcula el perímetro cuadrado representado por este tamaño.
         /// </summary>
-        public double SquarePerimeter => (Height * 2) + (Width * 2);
+        public double CubePerimeter => (Height * 2) + (Width * 2) + (Depth * 2);
 
         /// <summary>
         /// Determina si esta instancia representa un tamaño nulo.
         /// </summary>
         /// <returns>
         /// <see langword="true"/> si el tamaño es nulo,
-        /// <see langword="false"/> si el tamaño contiene área, y
+        /// <see langword="false"/> si el tamaño no contiene volumen, y
         /// <see langword="null"/> si alguna magnitud está indefinida.
         /// </returns>
         public bool? IsZero
         {
             get
             {
-                double a = SquareArea;
+                double a = CubeVolume;
                 return a.IsValid() ? a == 0 : (bool?)null;
             }
         }
@@ -209,9 +216,9 @@ namespace TheXDS.MCART.Types
         /// Un valor <see cref="I2DVector"/> cuyos componentes son las
         /// magnitudes de tamaño de esta instancia.
         /// </returns>
-        public I2DVector To2DVector()
+        public I3DVector To3DVector()
         {
-            return new _2DVector { X = Width, Y = Height };
+            return new _3DVector { X = Width, Y = Height, Z = Depth};
         }
 
         /// <summary>
@@ -225,7 +232,7 @@ namespace TheXDS.MCART.Types
         /// <see langword="true"/> si los tamaños representados en ambos
         /// objetos son iguales, <see langword="false"/> en caso contrario.
         /// </returns>
-        public bool Equals(Size other) => this == other;
+        public bool Equals(Size3D other) => this == other;
 
         /// <summary>
         /// Indica si esta instancia y un objeto especificado son iguales.
@@ -239,7 +246,7 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public override bool Equals(object? obj)
         {
-            if (obj is not Size p) return false;
+            if (obj is not Size3D p) return false;
             return this == p;
         }
 
@@ -251,56 +258,7 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public override int GetHashCode()
         {
-            return HashCode.Combine(Height, Width);
-        }
-
-        /// <summary>
-        /// Convierte implícitamente un objeto
-        /// <see cref="System.Drawing.Size"/> en un <see cref="Size"/>.
-        /// </summary>
-        /// <param name="size">
-        /// Objeto a convertir.
-        /// </param>
-        public static implicit operator System.Drawing.Size(Size size)
-        {
-            return new((int)size.Width, (int)size.Height);
-        }
-
-        /// <summary>
-        /// Convierte implícitamente un objeto
-        /// <see cref="System.Drawing.SizeF"/> en un <see cref="Size"/>.
-        /// </summary>
-        /// <param name="size">
-        /// Objeto a convertir.
-        /// </param>
-        public static implicit operator System.Drawing.SizeF(Size size)
-        {
-            return new((float)size.Width, (float)size.Height);
-        }
-
-        /// <summary>
-        /// Convierte implícitamente un objeto
-        /// <see cref="Size"/> en un <see cref="System.Drawing.Size"/>.
-        /// </summary>
-        /// <param name="size">
-        /// Objeto a convertir.
-        /// </param>
-        public static implicit operator Size(System.Drawing.Size size)
-        {
-            return new(size.Width, size.Height);
-        }
-
-        /// <summary>
-        /// Convierte implícitamente un objeto
-        /// <see cref="Size"/> en un <see cref="System.Drawing.SizeF"/>.
-        /// </summary>
-        /// <param name="size">
-        /// Objeto a convertir.
-        /// </param>
-        public static implicit operator Size(System.Drawing.SizeF size)
-        {
-            return new(size.Width, size.Height);
+            return HashCode.Combine(Height, Width, Depth);
         }
     }
-
 }

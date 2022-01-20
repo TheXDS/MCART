@@ -72,7 +72,7 @@ namespace TheXDS.MCART.Helpers
         /// </returns>
         public static IEnumerable<T> FindAllObjects<T>(IEnumerable? ctorArgs) where T : notnull
         {
-            return GetTypes<T>(true).NotNull().Select(p => p.New<T>(false, ctorArgs));
+            return GetTypes<T>(true).NotNull().Select(p => p.New<T>(false, ctorArgs)).Where(p => p is not null)!;
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace TheXDS.MCART.Helpers
         /// Argumentos a pasar al constructor de instancia de la clase.
         /// </param>
         /// <param name="typeFilter">
-        /// Función de filtro a aplicar a los tipos coincidientes.
+        /// Función de filtro a aplicar a los tipos coincidentes.
         /// </param>
         /// <returns>
         /// Una enumeración de todas las instancias de objeto de tipo
@@ -118,7 +118,7 @@ namespace TheXDS.MCART.Helpers
         public static IEnumerable<T> FindAllObjects<T>(IEnumerable? ctorArgs, Func<Type, bool> typeFilter) where T : notnull
         {
             NullCheck(typeFilter, nameof(typeFilter));
-            return GetTypes<T>(true).NotNull().Where(typeFilter).Select(p => p.New<T>(false, ctorArgs));
+            return GetTypes<T>(true).NotNull().Where(typeFilter).Select(p => p.New<T>(false, ctorArgs)).Where(p => p is not null)!;
         }
 
         /// <summary>
@@ -234,7 +234,7 @@ namespace TheXDS.MCART.Helpers
         /// </returns>
         public static T? FindFirstObject<T>(IEnumerable? ctorArgs) where T : notnull
         {
-            Type? t = GetTypes<T>(true).NotNull().FirstOrDefault();
+            Type? t = GetTypes<T>().FirstOrDefault(p => p.IsInstantiable(ctorArgs?.ToTypes().ToArray() ?? Type.EmptyTypes));
             return t is not null ? t.New<T>(false, ctorArgs) : default;
         }
 

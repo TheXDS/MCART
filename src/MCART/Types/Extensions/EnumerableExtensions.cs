@@ -44,6 +44,18 @@ namespace TheXDS.MCART.Types.Extensions
     public static partial class EnumerableExtensions
     {
         /// <summary>
+        /// Itera de manera ordenada sobre la colección.
+        /// </summary>
+        /// <param name="collection"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        [Sugar]
+        public static IOrderedEnumerable<T> Ordered<T>(this IEnumerable<T> collection) where T : IComparable<T>
+        {
+            return collection.OrderBy(p => p);
+        }
+
+        /// <summary>
         /// Comprueba si la colección contiene al menos un elemento del tipo
         /// especificado.
         /// </summary>

@@ -38,7 +38,7 @@ namespace TheXDS.MCART.Types
     /// Define un rango de valores.
     /// </summary>
     /// <typeparam name="T">Tipo base del rango de valores.</typeparam>
-    public struct Range<T> : IRange<T>, IEquatable<IRange<T>> where T : IComparable<T>
+    public struct Range<T> : IRange<T>, IEquatable<IRange<T>>, ICloneable<Range<T>> where T : IComparable<T>
     {
         private T _minimum;
         private T _maximum;
@@ -199,7 +199,7 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public static bool TryParse(string value, out Range<T> range)
         {
-            string[]? separators = new[]
+            string[] separators = 
             {
                 ", ",
                 "...",
@@ -218,6 +218,7 @@ namespace TheXDS.MCART.Types
                 " -> ",
                 "=>",
                 "->",
+                "-"
             };
 
             return PrivateInternals.TryParseValues<T, Range<T>>(separators, value, 2, l => new Range<T>(l[0], l[1]), out range);
@@ -295,7 +296,7 @@ namespace TheXDS.MCART.Types
         /// <returns>El código Hash de esta instancia.</returns>
         public override int GetHashCode()
         {
-            return HashCode.Combine(Minimum, Maximum);
+            return HashCode.Combine(Minimum, Maximum, MinInclusive, MaxInclusive);
         }
 
         /// <summary>
@@ -319,6 +320,12 @@ namespace TheXDS.MCART.Types
                 MaxInclusive == other.MaxInclusive;
         }
 
+        /// <inheritdoc/>
+        public Range<T> Clone()
+        {
+            return new(_minimum, _maximum, MinInclusive, MaxInclusive);
+        }
+        
         /// <summary>
         /// Compara la igualdad entre dos instancias de
         /// <see cref="Range{T}"/>.

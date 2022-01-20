@@ -1,5 +1,5 @@
-﻿/*
-ISize.cs
+/*
+_3DVector.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,22 +22,19 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Types.Base
-{
-    /// <summary>
-    /// Define una serie de miembros a implementar por un tipo que represente
-    /// un tamaño en dos dimensiones.
-    /// </summary>
-    public interface ISize
-    {
-        /// <summary>
-        /// Obtiene el componente de altura del tamaño.
-        /// </summary>
-        double Height { get; set; }
+using System;
+using TheXDS.MCART.Types.Base;
 
-        /// <summary>
-        /// Obtiene el componente de ancho del tamaño.
-        /// </summary>
-        double Width { get; set; }
+namespace TheXDS.MCART.Types
+{
+    internal struct _3DVector : I3DVector
+    {
+        public double X { get; set; }
+        public double Y { get; set; }
+        public double Z { get; set; }
+        public bool Equals(I3DVector? other) => X.Equals(other?.X) && Y.Equals(other.Y) && Z.Equals(other.Z);
+        public bool Equals(I2DVector? other) => X.Equals(other?.X) && Y.Equals(other.Y);
+        public override bool Equals(object? obj) => obj is _3DVector other && Equals(other);
+        public override int GetHashCode() => HashCode.Combine(X, Y, Z);
     }
 }

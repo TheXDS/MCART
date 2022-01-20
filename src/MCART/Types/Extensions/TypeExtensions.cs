@@ -432,7 +432,7 @@ namespace TheXDS.MCART.Types.Extensions
         /// <paramref name="throwOnFail"/> es <see langword="true"/>.
         /// </exception>
         [DebuggerStepThrough]
-        public static T New<T>(this Type type, bool throwOnFail, IEnumerable? parameters)
+        public static T? New<T>(this Type type, bool throwOnFail, IEnumerable? parameters)
         {
             object?[]? p = parameters?.ToGeneric().ToArray() ?? Array.Empty<object?>();
             try
@@ -443,7 +443,7 @@ namespace TheXDS.MCART.Types.Extensions
             catch
             {
                 if (throwOnFail) throw;
-                return default!;
+                return default;
             }
         }
 

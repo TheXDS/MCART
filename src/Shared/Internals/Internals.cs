@@ -23,6 +23,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using TheXDS.MCART.Attributes;
@@ -32,6 +33,7 @@ using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Misc
 {
+    [ExcludeFromCodeCoverage]
     internal static class Internals
     {
         internal static bool HasLicense(object obj)

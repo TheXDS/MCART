@@ -25,6 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using TheXDS.MCART.Helpers;
@@ -33,6 +34,7 @@ using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Misc
 {
+    [ExcludeFromCodeCoverage]
     internal static class PrivateInternals
     {
         public static IEnumerable<Type> SafeGetTypes(this Assembly asm)
@@ -72,8 +74,8 @@ namespace TheXDS.MCART.Misc
                 throw new ArgumentNullException(nameof(value));
             if (instancer is null)
                 throw new ArgumentNullException(nameof(instancer));
-            if (items > 2)
-                throw new ArgumentOutOfRangeException(nameof(items));
+            //if (items > 2)
+            //    throw new ArgumentOutOfRangeException(nameof(items));
 #endif
             foreach (TypeConverter t in Common.FindConverters(typeof(string), typeof(TValue)))
             {

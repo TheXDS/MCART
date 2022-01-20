@@ -28,8 +28,6 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using TheXDS.MCART.Attributes;
-using TheXDS.MCART.Resources;
-using static TheXDS.MCART.Types.Extensions.DictionaryExtensions;
 
 namespace TheXDS.MCART.Types.Base
 {
@@ -38,7 +36,7 @@ namespace TheXDS.MCART.Types.Base
     /// de las interfaces de notificación de propiedades disponibles en
     /// .Net Framework / .Net Core.
     /// </summary>
-    public abstract class NotifyPropertyChangeBase : INotifyPropertyChangeBase
+    public abstract partial class NotifyPropertyChangeBase : INotifyPropertyChangeBase
     {
         private readonly IDictionary<string, ICollection<string>> _observeTree
             = new Dictionary<string, ICollection<string>>();
@@ -64,16 +62,18 @@ namespace TheXDS.MCART.Types.Base
         /// </param>
         protected void RegisterPropertyChangeBroadcast(string property, params string[] affectedProperties)
         {
-            if (_observeTree.CheckCircularRef(property))
-                throw Errors.CircularOpDetected();
-
+            RegisterPropertyChangeBroadcast_Contract(property, affectedProperties);
             if (_observeTree.ContainsKey(property))
             {
                 foreach (string? j in affectedProperties)
+                {
                     _observeTree[property].Add(j);
+                }
             }
             else
+            {
                 _observeTree.Add(property, new HashSet<string>(affectedProperties));
+            }
         }
 
         /// <summary>
@@ -150,12 +150,10 @@ namespace TheXDS.MCART.Types.Base
         /// <param name="property">Propiedad a notificar.</param>
         protected void NotifyRegistroir(string property)
         {
-            if (_observeTree.ContainsKey(property))
+            if (!_observeTree.ContainsKey(property)) return;
+            foreach (string? j in _observeTree[property])
             {
-                foreach (string? j in _observeTree[property])
-                {
-                    Notify(j);
-                }
+                Notify(j);
             }
         }
 
@@ -186,7 +184,7 @@ namespace TheXDS.MCART.Types.Base
             Notify(GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(p => p.CanRead));
         }
 
-        private protected HashSet<INotifyPropertyChangeBase> _forwardings = new();
+        private protected readonly HashSet<INotifyPropertyChangeBase> _forwardings = new();
 
         /// <summary>
         /// Agrega un objeto al cual reenviar los eventos de cambio de

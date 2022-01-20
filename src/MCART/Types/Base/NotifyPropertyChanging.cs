@@ -46,7 +46,7 @@ namespace TheXDS.MCART.Types.Base
         protected virtual void OnPropertyChanging([CallerMemberName] string? propertyName = null)
         {
             if (propertyName is null) throw new ArgumentNullException(nameof(propertyName));
-            PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(propertyName));
+            PropertyChanging?.Invoke(this, new(propertyName));
             NotifyRegistroir(propertyName);
             foreach (INotifyPropertyChangeBase? j in _forwardings) j.Notify(propertyName);
         }
