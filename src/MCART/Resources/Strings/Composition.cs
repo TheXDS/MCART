@@ -104,7 +104,7 @@ namespace TheXDS.MCART.Resources.Strings
         /// Objeto en el cual escribir la información de la excepción.
         /// </param>
         /// <param name="ex">
-        /// Excepcíón de la cual obtener la información.
+        /// Excepción de la cual obtener la información.
         /// </param>
         /// <param name="options">
         /// Opciones de presentación de la información.
@@ -114,18 +114,15 @@ namespace TheXDS.MCART.Resources.Strings
             const int textWidth = 80;
             bool WriteWith(Action<string> action, ExDumpOptions flag, string text)
             {
-                if (options.HasFlag(flag))
-                {
-                    action(options.HasFlag(ExDumpOptions.TextWidthFormatted) ? string.Join('\n', text.TextWrap(textWidth).Select(p => p.TrimEnd(' '))) : text);
-                    return true;
-                }
-                return false;
+                if (!options.HasFlag(flag)) return false;
+                action(options.HasFlag(ExDumpOptions.TextWidthFormatted) ? string.Join('\n', text.TextWrap(textWidth).Select(p => p.TrimEnd(' '))) : text);
+                return true;
             }
             bool Write(ExDumpOptions flag, string text) => WriteWith(writer.Write, flag, text);
             bool WriteLn(ExDumpOptions flag, string text) => WriteWith(writer.WriteLine, flag, text);
             void Separator(char separator = '-')
             {
-                if (!WriteLn(ExDumpOptions.TextWidthFormatted, new string(separator, textWidth))) writer.WriteLine();
+                if (!WriteLn(ExDumpOptions.TextWidthFormatted, new(separator, textWidth))) writer.WriteLine();
             }
 
             Write(ExDumpOptions.Name, ex.GetType().NameOf());
@@ -155,17 +152,11 @@ namespace TheXDS.MCART.Resources.Strings
                 }
             }
 
-            if (options.HasFlag(ExDumpOptions.LoadedAssemblies))
+            if (!options.HasFlag(ExDumpOptions.LoadedAssemblies)) return;
+            Separator('=');
+            foreach (Assembly k in AppDomain.CurrentDomain.GetAssemblies())
             {
-                Separator('=');
-                foreach (Assembly k in AppDomain.CurrentDomain.GetAssemblies())
-                {
-                    try
-                    {
-                        writer.WriteLine();
-                    }
-                    catch { }
-                }
+                writer.WriteLine($"{k.FullName} {k.GetAttr<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? k.GetName().Version?.ToString() ?? "0.0.0"}");
             }
         }
 

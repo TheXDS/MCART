@@ -35,8 +35,10 @@ namespace TheXDS.MCART.Types.Base
     /// <typeparam name="T">
     /// Tipo de objeto resultante de la clonación. Normalmente, pero no
     /// necesariamente, es el mismo tipo que implementa esta interfaz.
+    /// Si el tipo no es el mismo que implementa la interfaz, el tipo debe
+    /// implementar el tipo especificado.
     /// </typeparam>
-    public interface ICloneable<T> : ICloneable where T : notnull, new()
+    public interface ICloneable<out T> : ICloneable where T : notnull, new()
     {
         /// <summary>
         /// Crea una copia de esta instancia.

@@ -25,6 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using NUnit.Framework;
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Math;
 using TheXDS.MCART.Resources;
@@ -258,10 +259,10 @@ namespace TheXDS.MCART.Tests.Types
         {
             Assert.True(Colors.Red.Equals(Colors.Red));
             Assert.True(Colors.Red.Equals((object?)Colors.Red));
-            Assert.True(Colors.Red.Equals((object?)new ColorTest1 { R = 255 }));
-            Assert.True(Colors.Red.Equals((object?)new ColorTest2 { ScR = 1f }));
+            Assert.True(Colors.Red.Equals((object)new ColorTest1 { R = 255 }));
+            Assert.True(Colors.Red.Equals((object)new ColorTest2 { ScR = 1f }));
 
-            Assert.True(Colors.Red.Equals((object?)System.Drawing.Color.Red));
+            Assert.True(Colors.Red.Equals((object)System.Drawing.Color.Red));
             Assert.True(Colors.Red.Equals((IColor)Colors.Red));
             Assert.True(Colors.Red.Equals((IScColor)Colors.Red));
 
@@ -275,6 +276,49 @@ namespace TheXDS.MCART.Tests.Types
         }
 
         [Test]
+        public void WithAlpha_Test()
+        {
+            Color a = new(1f, 0.9f, 0.8f, 1f);
+            Color b = new(1f, 0.9f, 0.8f, 0.5f);
+            Color c = a.WithAlpha(0.5f);
+            Assert.AreNotSame(a, c);
+            Assert.AreEqual(b, c);
+        }
+
+        [Test]
+        public void WithAlpha_Contract_Test()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => Colors.Red.WithAlpha(1.1f));
+            Assert.Throws<ArgumentOutOfRangeException>(() => Colors.Red.WithAlpha(-0.1f));
+        }
+
+        [Test]
+        public void From_To_Test()
+        {
+            short sourceValue = 0x7abc;
+            (byte a, byte r, byte g, byte b) = (0x77, 0xcc, 0xbb, 0xaa);
+
+            var c = Color.From<short, Abgr4444ColorParser>(sourceValue);
+            Assert.AreEqual(a, c.A);
+            Assert.AreEqual(r, c.R);
+            Assert.AreEqual(g, c.G);
+            Assert.AreEqual(b, c.B);
+
+            var backValue = Color.To<short, Abgr4444ColorParser>(c);
+            Assert.AreEqual(sourceValue, backValue);
+        }
+        
+        [Test]
+        public void Transparent_Test()
+        {
+            Color a = new(1f, 0.9f, 0.8f, 1f);
+            Color b = new(1f, 0.9f, 0.8f, 0f);
+            Color c = a.Transparent();
+            Assert.AreNotSame(a, c);
+            Assert.AreEqual(b, c);
+        }
+        
+        [Test]
         public void GetHashCode_Test()
         {
             Color c = Colors.Pick();
@@ -283,6 +327,18 @@ namespace TheXDS.MCART.Tests.Types
 
             Assert.AreEqual(c.GetHashCode(), d.GetHashCode());
             Assert.AreNotEqual(c.GetHashCode(), e.GetHashCode());
+        }
+
+        [Test]
+        public void Colors_Test()
+        {
+            foreach (PropertyInfo j in typeof(Colors).GetProperties(BindingFlags.Public | BindingFlags.Static))
+            {
+                Assert.IsTrue(j.CanRead);
+                Assert.IsFalse(j.CanWrite);
+                Assert.AreEqual(typeof(Color), j.PropertyType);
+                Assert.IsAssignableFrom<Color>(j.GetValue(null));
+            }
         }
 
         [ExcludeFromCodeCoverage]

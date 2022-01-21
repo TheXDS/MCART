@@ -30,6 +30,7 @@ using System.Linq;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Events;
 using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Types.Base;
 using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Types
@@ -48,7 +49,7 @@ namespace TheXDS.MCART.Types
     /// <see cref="ObservableCollection{T}" /> con numerosos eventos
     /// adicionales y otras extensiones.
     /// </remarks>
-    public class ListEx<T> : List<T>, ICloneable
+    public class ListEx<T> : List<T>, ICloneable<ListEx<T>>
     {
         /// <summary>
         /// Se produce cuando se agregará un elemento a la lista.
@@ -128,12 +129,19 @@ namespace TheXDS.MCART.Types
         public ListEx(IEnumerable<T> collection) : base(collection) { }
 
         /// <summary>
+        /// Inicializa una nueva instancia de la clase
+        /// <see cref="ListEx{T}"/>.
+        /// </summary>
+        /// <param name="initialSize">Tamaño inicial de la lista.</param>
+        public ListEx(int initialSize) : base(initialSize) { }
+
+        /// <summary>
         /// Activa o desactiva la generación de eventos.
         /// </summary>
         public bool TriggerEvents { get; set; } = true;
 
         /// <summary>
-        /// Obtiene o establece el elemento ubicado en el íncide
+        /// Obtiene o establece el elemento ubicado en el índice
         /// especificado.
         /// </summary>
         /// <param name="index">Índice del elemento.</param>
@@ -147,11 +155,9 @@ namespace TheXDS.MCART.Types
                 {
                     ModifyingItemEventArgs<T>? a = new(index, base[index], value);
                     ModifyingItem?.Invoke(this, a);
-                    if (!a.Cancel)
-                    {
-                        base[index] = value;
-                        ModifiedItem?.Invoke(this, (ItemModifiedEventArgs<T>)a);
-                    }
+                    if (a.Cancel) return;
+                    base[index] = value;
+                    ModifiedItem?.Invoke(this, a);
                 }
                 else base[index] = value;
             }
@@ -171,11 +177,9 @@ namespace TheXDS.MCART.Types
             {
                 AddingItemEventArgs<T>? a = new(item);
                 AddingItem?.Invoke(this, a);
-                if (!a.Cancel)
-                {
-                    base.Add(item);
-                    AddedItem?.Invoke(this, a);
-                }
+                if (a.Cancel) return;
+                base.Add(item);
+                AddedItem?.Invoke(this, a);
             }
             else base.Add(item);
         }
@@ -192,11 +196,9 @@ namespace TheXDS.MCART.Types
                 List<T>? affectedItems = collection.ToList();
                 ListUpdatingEventArgs<T>? a = new(ListUpdateType.ItemsAdded, affectedItems);
                 ListUpdating?.Invoke(this, a);
-                if (!a.Cancel)
-                {
-                    base.AddRange(affectedItems);
-                    ListUpdated?.Invoke(this, a);
-                }
+                if (a.Cancel) return;
+                base.AddRange(affectedItems);
+                ListUpdated?.Invoke(this, a);
             }
             else base.AddRange(collection);
         }
@@ -212,11 +214,9 @@ namespace TheXDS.MCART.Types
             {
                 InsertingItemEventArgs<T>? a = new(index, item);
                 InsertingItem?.Invoke(this, a);
-                if (!a.Cancel)
-                {
-                    base.Insert(index, item);
-                    InsertedItem?.Invoke(this, a);
-                }
+                if (a.Cancel) return;
+                base.Insert(index, item);
+                InsertedItem?.Invoke(this, a);
             }
             else base.Insert(index, item);
         }
@@ -234,11 +234,9 @@ namespace TheXDS.MCART.Types
                 List<T>? affectedItems = collection.ToList();
                 ListUpdatingEventArgs<T>? a = new(ListUpdateType.ItemsInserted, affectedItems);
                 ListUpdating?.Invoke(this, a);
-                if (!a.Cancel)
-                {
-                    base.InsertRange(index, affectedItems);
-                    ListUpdated?.Invoke(this, a);
-                }
+                if (a.Cancel) return;
+                base.InsertRange(index, affectedItems);
+                ListUpdated?.Invoke(this, a);
             }
             else base.InsertRange(index, collection);
         }
@@ -261,11 +259,9 @@ namespace TheXDS.MCART.Types
             {
                 RemovingItemEventArgs<T>? a = new(IndexOf(item), this.Last());
                 RemovingItem?.Invoke(this, a);
-                if (!a.Cancel)
-                {
-                    base.Remove(item);
-                    RemovedItem?.Invoke(this, a);
-                }
+                if (a.Cancel) return;
+                base.Remove(item);
+                RemovedItem?.Invoke(this, a);
             }
             else base.Remove(item);
         }
@@ -286,11 +282,9 @@ namespace TheXDS.MCART.Types
             {
                 RemovingItemEventArgs<T>? a = new(index, this[index]);
                 RemovingItem?.Invoke(this, a);
-                if (!a.Cancel)
-                {
-                    base.RemoveAt(index);
-                    RemovedItem?.Invoke(this, a);
-                }
+                if (a.Cancel) return;
+                base.RemoveAt(index);
+                RemovedItem?.Invoke(this, a);
             }
             else base.RemoveAt(index);
         }
@@ -340,11 +334,9 @@ namespace TheXDS.MCART.Types
             {
                 ListUpdatingEventArgs<T>? a = new(ListUpdateType.ItemsMoved, Reversed());
                 ListUpdating?.Invoke(this, a);
-                if (!a.Cancel)
-                {
-                    base.Reverse();
-                    ListUpdated?.Invoke(this, a);
-                }
+                if (a.Cancel) return;
+                base.Reverse();
+                ListUpdated?.Invoke(this, a);
             }
             else base.Reverse();
         }
@@ -365,11 +357,9 @@ namespace TheXDS.MCART.Types
             {
                 ListUpdatingEventArgs<T>? a = new(ListUpdateType.ItemsMoved, Reversed(index, count));
                 ListUpdating?.Invoke(this, a);
-                if (!a.Cancel)
-                {
-                    base.Reverse(index, count);
-                    ListUpdated?.Invoke(this, a);
-                }
+                if (a.Cancel) return;
+                base.Reverse(index, count);
+                ListUpdated?.Invoke(this, a);
             }
             else base.Reverse(index, count);
         }
@@ -429,11 +419,9 @@ namespace TheXDS.MCART.Types
             {
                 CancelEventArgs? a = new();
                 ListClearing?.Invoke(this, a);
-                if (!a.Cancel)
-                {
-                    base.Clear();
-                    ListCleared?.Invoke(this, EventArgs.Empty);
-                }
+                if (a.Cancel) return;
+                base.Clear();
+                ListCleared?.Invoke(this, EventArgs.Empty);
             }
             else base.Clear();
         }
@@ -448,11 +436,9 @@ namespace TheXDS.MCART.Types
             {
                 ListUpdatingEventArgs<T>? a = new(ListUpdateType.ItemsMoved, this);
                 ListUpdating?.Invoke(this, a);
-                if (!a.Cancel)
-                {
-                    base.Sort();
-                    ListUpdated?.Invoke(this, a);
-                }
+                if (a.Cancel) return;
+                base.Sort();
+                ListUpdated?.Invoke(this, a);
             }
             else base.Sort();
         }
@@ -471,11 +457,9 @@ namespace TheXDS.MCART.Types
             {
                 ListUpdatingEventArgs<T>? a = new(ListUpdateType.ItemsMoved, this);
                 ListUpdating?.Invoke(this, a);
-                if (!a.Cancel)
-                {
-                    base.Sort(comparsion);
-                    ListUpdated?.Invoke(this, a);
-                }
+                if (a.Cancel) return;
+                base.Sort(comparsion);
+                ListUpdated?.Invoke(this, a);
             }
             else base.Sort(comparsion);
         }
@@ -495,11 +479,9 @@ namespace TheXDS.MCART.Types
             {
                 ListUpdatingEventArgs<T>? a = new(ListUpdateType.ItemsMoved, this);
                 ListUpdating?.Invoke(this, a);
-                if (!a.Cancel)
-                {
-                    base.Sort(comparer);
-                    ListUpdated?.Invoke(this, a);
-                }
+                if (a.Cancel) return;
+                base.Sort(comparer);
+                ListUpdated?.Invoke(this, a);
             }
             else base.Sort(comparer);
         }
@@ -525,20 +507,18 @@ namespace TheXDS.MCART.Types
             {
                 ListUpdatingEventArgs<T>? a = new(ListUpdateType.ItemsMoved, this.Range(index, count));
                 ListUpdating?.Invoke(this, a);
-                if (!a.Cancel)
-                {
-                    base.Sort(index, count, comparer);
-                    ListUpdated?.Invoke(this, a);
-                }
+                if (a.Cancel) return;
+                base.Sort(index, count, comparer);
+                ListUpdated?.Invoke(this, a);
             }
             else base.Sort(index, count, comparer);
         }
 
         /// <summary>
-        /// Implementa la interfaz <see cref="ICloneable"/>.
+        /// Implementa la interfaz <see cref="ICloneable{T}"/>.
         /// </summary>
         /// <returns>Una copia de esta instancia.</returns>
-        public object Clone() => this.Copy();
+        public ListEx<T> Clone() => new(this.Copy());
 
         /// <summary>
         /// Devuelve el tipo de elementos de <see cref="ListEx{T}"/>.

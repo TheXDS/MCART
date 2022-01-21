@@ -27,8 +27,7 @@ using System.Windows;
 using System.Windows.Interop;
 using TheXDS.MCART.Component;
 using TheXDS.MCART.Exceptions;
-using TheXDS.MCART.Windows.Component;
-using TheXDS.MCART.Windows.Dwm.Structs;
+using TheXDS.MCART.PInvoke.Structs;
 
 namespace TheXDS.MCART.Wpf.Component
 {
@@ -40,7 +39,7 @@ namespace TheXDS.MCART.Wpf.Component
     /// Esta interfaz solo debe ser implementada por objetos que deriven de la
     /// clase <see cref="Window"/> o de una de sus clases derivadas.
     /// </remarks>
-    public interface IWpfWindow : IWindow
+    public interface IWpfWindow : IMsWindow
     {
         /// <summary>
         /// Obtiene una referencia directa a la ventana.
@@ -52,9 +51,9 @@ namespace TheXDS.MCART.Wpf.Component
         /// </summary>
         Types.Size ActualSise => new(Itself.ActualWidth, Itself.ActualHeight);
 
-        IntPtr IWindow.Handle => new WindowInteropHelper(Itself).Handle;
+        IntPtr IMsWindow.Handle => new WindowInteropHelper(Itself).Handle;
 
-        Margins IWindow.Padding
+        Margins IMsWindow.Padding
         {
             get
             {

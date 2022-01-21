@@ -1210,11 +1210,11 @@ namespace TheXDS.MCART.Helpers
         /// Una enumeración de todos los métodos que tienen una firma
         /// compatible con <typeparamref name="T" />.
         /// </returns>
-        public static IEnumerable<T> WithSignature<T>(this IEnumerable<MethodInfo> methods) where T : notnull, Delegate
+        public static IEnumerable<T> WithSignature<T>(this IEnumerable<MethodInfo> methods) where T : Delegate
         {
             foreach (MethodInfo? j in methods)
             {
-                if (Objects.TryCreateDelegate<T>(j, out T? d))
+                if (Objects.TryCreateDelegate(j, out T? d))
                 {
                     yield return d ?? throw new TamperException();
                 }
@@ -1238,11 +1238,11 @@ namespace TheXDS.MCART.Helpers
         /// Una enumeración de todos los métodos que tienen una firma
         /// compatible con <typeparamref name="T" />.
         /// </returns>
-        public static IEnumerable<T> WithSignature<T>(this IEnumerable<MethodInfo> methods, object instance) where T : notnull, Delegate
+        public static IEnumerable<T> WithSignature<T>(this IEnumerable<MethodInfo> methods, object instance) where T : Delegate
         {
             foreach (MethodInfo? j in methods)
             {
-                if (Objects.TryCreateDelegate<T>(j, instance, out T? d))
+                if (Objects.TryCreateDelegate(j, instance, out T? d))
                 {
                     yield return d ?? throw new TamperException();
                 }

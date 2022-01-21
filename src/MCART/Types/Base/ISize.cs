@@ -25,8 +25,8 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 namespace TheXDS.MCART.Types.Base
 {
     /// <summary>
-    /// Define una serie de miembros a implementar por un tipo que
-    /// represente tamaño en dos dimensiones.
+    /// Define una serie de miembros a implementar por un tipo que represente
+    /// un tamaño en dos dimensiones.
     /// </summary>
     public interface ISize
     {

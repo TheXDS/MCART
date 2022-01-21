@@ -51,6 +51,24 @@ namespace TheXDS.MCART.Tests.Helpers
             Assert.AreEqual("Test".ToCharArray(), s.ReadChars());
         }
 
+        [Theory]
+        [CLSCompliant(false)]
+        [TestCase(0,1024,ByteUnitType.Binary,"1.0 KiB")]
+        [TestCase(0,1000,ByteUnitType.Decimal,"1.0 KB")]
+        [TestCase(1,1024,ByteUnitType.Binary,"1.0 MiB")]
+        [TestCase(1,1000,ByteUnitType.Decimal,"1.0 MB")]
+        public void ByteUnits_Test(byte mag, int val, ByteUnitType unit, string output)
+        {
+            Assert.AreEqual(output, Common.ByteUnits(val, unit, mag));
+        }
+
+        [Test]
+        public void ByteUnits_Contract_Test()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => Common.ByteUnits(1024, (ByteUnitType)byte.MaxValue, 0));
+            Assert.Throws<ArgumentOutOfRangeException>(() => Common.ByteUnits(1024, ByteUnitType.Binary, 9));
+        }
+
         [Test]
         public void SequenceTest()
         {

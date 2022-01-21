@@ -26,6 +26,7 @@ using System.Globalization;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System;
+using System.Linq;
 using System.Windows;
 
 namespace TheXDS.MCART.ValueConverters
@@ -56,18 +57,17 @@ namespace TheXDS.MCART.ValueConverters
         /// </returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            switch (value)
+            return value switch
             {
-                case ContentControl contentControl:
-                    return (contentControl.Content as FrameworkElement)?.Visibility ?? Visibility.Collapsed;
-                case Panel panel:
-                    foreach (object? j in panel.Children)
-                        if ((j as FrameworkElement)?.Visibility == Visibility.Visible)
-                            return Visibility.Visible;
-                    return Visibility.Collapsed;
-                default:
-                    return Visibility.Visible;
-            }
+                Decorator decorator => decorator.Child?.Visibility ?? Visibility.Collapsed,
+                ContentControl contentControl => (contentControl.Content as FrameworkElement)?.Visibility ??
+                                                 Visibility.Collapsed,
+                Panel panel => panel.Children.Cast<object?>()
+                    .Any(j => (j as FrameworkElement)?.Visibility == Visibility.Visible)
+                    ? Visibility.Visible
+                    : Visibility.Collapsed,
+                _ => Visibility.Visible
+            };
         }
 
         /// <summary>Convierte un valor.</summary>

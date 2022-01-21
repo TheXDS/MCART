@@ -233,23 +233,20 @@ namespace TheXDS.MCART.Math
         public static bool IsTwoPow(in long value) => value.BitCount() == 1;
 
         /// <summary>
-        /// Devuelve el primer múltiplo de <paramref name="multiplier" /> que es mayor que <paramref name="value" />
+        /// Devuelve la primer potencia de <paramref name="powerBase" /> que es mayor que <paramref name="value" />
         /// </summary>
         /// <param name="value">Número objetivo</param>
-        /// <param name="multiplier">
-        /// Base multiplicativa. Esta función devolverá un múltiplo de este valor que sea mayor a
-        /// <paramref name="value" />
-        /// </param>
+        /// <param name="powerBase">Base de potencia.</param>
         /// <returns>
-        /// Un <see cref="double" /> que es el primer múltiplo de <paramref name="multiplier" /> que es mayor que
+        /// Un <see cref="double" /> que es la primer potencia de <paramref name="powerBase" /> que es mayor que
         /// <paramref name="value" />
         /// </returns>
-        public static double NearestMultiplyUp(in double value, in double multiplier)
+        public static double NearestPowerUp(in double value, in double powerBase)
         {
             double a = 1;
-            if (!ArePositive(value, multiplier)) return a;
+            if (!ArePositive(value, powerBase)) return a;
             while (!(a > value))
-                a *= multiplier;
+                a *= powerBase;
             return a;
         }
 

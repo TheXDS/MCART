@@ -25,6 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 #pragma warning disable CS1591
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using TheXDS.MCART.Math;
 using NUnit.Framework;
 using M = TheXDS.MCART.Math.Common;
@@ -34,33 +35,53 @@ namespace TheXDS.MCART.Tests.Math
     public class CommonTests
     {
         [Test]
+        public void OrIfInvalid_double_Test()
+        {
+            [ExcludeFromCodeCoverage]double Get() => 1.0;
+            Assert.AreEqual(5.0, 5.0.OrIfInvalid(1.0));
+            Assert.AreEqual(1.0, (5.0 / 0.0).OrIfInvalid(1.0));
+            Assert.AreEqual(5.0, 5.0.OrIfInvalid(Get));
+            Assert.AreEqual(1.0, (5.0 / 0.0).OrIfInvalid(() => 1.0));
+        }
+        
+        [Test]
+        public void OrIfInvalid_float_Test()
+        {
+            [ExcludeFromCodeCoverage]float Get() => 1.0f;
+            Assert.AreEqual(5.0f, 5.0f.OrIfInvalid(1.0f));
+            Assert.AreEqual(1.0f, (5.0f / 0.0f).OrIfInvalid(1.0f));
+            Assert.AreEqual(5.0f, 5.0f.OrIfInvalid(Get));
+            Assert.AreEqual(1.0f, (5.0f / 0.0f).OrIfInvalid(() => 1.0f));
+        }
+
+        [Test]
         public void ClampTest()
         {
-            Assert.AreEqual(2, M.Clamp(1 + 1, 0, 3));
-            Assert.AreEqual(2, M.Clamp(1 + 3, 0, 2));
-            Assert.AreEqual(2, M.Clamp(1 + 0, 2, 4));
+            Assert.AreEqual(2, (1 + 1).Clamp(0, 3));
+            Assert.AreEqual(2, (1 + 3).Clamp(0, 2));
+            Assert.AreEqual(2, (1 + 0).Clamp(2, 4));
         }
 
         [Test]
         public void ClampTest_double()
         {
-            Assert.AreEqual(2.0, M.Clamp(1.0 + 1.0, 0.0, 3.0));
-            Assert.AreEqual(2.0, M.Clamp(1.0 + 3.0, 0.0, 2.0));
-            Assert.AreEqual(2.0, M.Clamp(1.0 - 1.0, 2.0, 3.0));
-            Assert.AreEqual(double.NaN, M.Clamp(double.NaN, 0.0, 1.0));
-            Assert.AreEqual(5.0, M.Clamp(double.PositiveInfinity, -5.0, 5.0));
-            Assert.AreEqual(-5.0, M.Clamp(double.NegativeInfinity, -5.0, 5.0));
+            Assert.AreEqual(2.0, (1.0 + 1.0).Clamp(0.0, 3.0));
+            Assert.AreEqual(2.0, (1.0 + 3.0).Clamp(0.0, 2.0));
+            Assert.AreEqual(2.0, (1.0 - 1.0).Clamp(2.0, 3.0));
+            Assert.AreEqual(double.NaN, double.NaN.Clamp(0.0, 1.0));
+            Assert.AreEqual(5.0, double.PositiveInfinity.Clamp(-5.0, 5.0));
+            Assert.AreEqual(-5.0, double.NegativeInfinity.Clamp(-5.0, 5.0));
         }
 
         [Test]
         public void ClampTest_float()
         {
-            Assert.AreEqual(2.0f, M.Clamp(1.0f + 1.0f, 0.0f, 3.0f));
-            Assert.AreEqual(2.0f, M.Clamp(1.0f + 3.0f, 0.0f, 2.0f));
-            Assert.AreEqual(2.0f, M.Clamp(1.0f - 1.0f, 2.0f, 3.0f));
-            Assert.AreEqual(float.NaN, M.Clamp(float.NaN, 0.0f, 1.0f));
-            Assert.AreEqual(5.0f, M.Clamp(float.PositiveInfinity, -5.0f, 5.0f));
-            Assert.AreEqual(-5.0f, M.Clamp(float.NegativeInfinity, -5.0f, 5.0f));
+            Assert.AreEqual(2.0f, (1.0f + 1.0f).Clamp(0.0f, 3.0f));
+            Assert.AreEqual(2.0f, (1.0f + 3.0f).Clamp(0.0f, 2.0f));
+            Assert.AreEqual(2.0f, (1.0f - 1.0f).Clamp(2.0f, 3.0f));
+            Assert.AreEqual(float.NaN, float.NaN.Clamp(0.0f, 1.0f));
+            Assert.AreEqual(5.0f, float.PositiveInfinity.Clamp(-5.0f, 5.0f));
+            Assert.AreEqual(-5.0f, float.NegativeInfinity.Clamp(-5.0f, 5.0f));
         }
 
         [Theory]
@@ -77,8 +98,8 @@ namespace TheXDS.MCART.Tests.Math
         [TestCase(17, 2)]
         public void WrapTest(int expression, int wrapped)
         {
-            Assert.AreEqual((short)wrapped, M.Wrap((short)expression, (short)1, (short)15));
-            Assert.AreEqual(wrapped, M.Wrap(expression, 1, 15));
+            Assert.AreEqual((short)wrapped, ((short)expression).Wrap((short)1, (short)15));
+            Assert.AreEqual(wrapped, expression.Wrap(1, 15));
             Assert.AreEqual(wrapped, M.Wrap(expression, 1L, 15L));
             Assert.AreEqual(wrapped, M.Wrap(expression, 1f, 15f));
             Assert.AreEqual(wrapped, M.Wrap(expression, 1.0, 15.0));
@@ -87,8 +108,8 @@ namespace TheXDS.MCART.Tests.Math
             // Para tipos sin signo, no se deben realizar los tests con valores negativos.
             if (expression >= 0)
             {
-                Assert.AreEqual((byte)wrapped, M.Wrap((byte)expression, (byte)1, (byte)15));
-                Assert.AreEqual((char)wrapped, M.Wrap((char)expression, (char)1, (char)15));
+                Assert.AreEqual((byte)wrapped, ((byte)expression).Wrap((byte)1, (byte)15));
+                Assert.AreEqual((char)wrapped, ((char)expression).Wrap((char)1, (char)15));
             }
         }
 

@@ -48,8 +48,7 @@ namespace TheXDS.MCART.Math
         /// </returns>
         public static double Variate(this in double value, in double delta)
         {
-            double d = value * delta;
-            return value + (RandomExtensions.Rnd.NextDouble() * d * 2) - d;
+            return value + (RandomExtensions.Rnd.NextDouble() * delta * 2) - delta;
         }
 
         /// <summary>
@@ -64,7 +63,7 @@ namespace TheXDS.MCART.Math
         /// </returns>
         public static IEnumerable<Range<double>> Normalize(this IEnumerable<double> data, double errorMargin)
         {
-            return from j in data let v = j * errorMargin select new Range<double>(j - v, j + v);
+            return from j in data select new Range<double>(j - errorMargin, j + errorMargin);
         }
 
         /// <summary>

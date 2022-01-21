@@ -166,7 +166,10 @@ namespace TheXDS.MCART.Tests.Math
         [Test]
         public void NearestMultiplyUpTest()
         {
-            Assert.AreEqual(81.0, NearestMultiplyUp(50, 3));
+            Assert.AreEqual(81.0, NearestPowerUp(50, 3));
+            Assert.AreEqual(1.0, NearestPowerUp(-50, 3));
+            Assert.AreEqual(1.0, NearestPowerUp(50, -3));
+            Assert.AreEqual(1.0, NearestPowerUp(-50, -3));
         }
 
         [Test]

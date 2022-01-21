@@ -23,8 +23,10 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Linq;
 using TheXDS.MCART.Math;
 using NUnit.Framework;
+using TheXDS.MCART.Helpers;
 using static TheXDS.MCART.Math.Statistics;
 
 namespace TheXDS.MCART.Tests.Math
@@ -49,6 +51,43 @@ namespace TheXDS.MCART.Tests.Math
             Assert.AreEqual(double.NaN, Correlation(new double[] { 1, 2, 3 }, new double[] { 1, 1, 1 }));
             Assert.Throws<IndexOutOfRangeException>(() => Correlation(new double[] { 1 }, new double[] { 1, 2, 3 }));
             Assert.Throws<InvalidOperationException>(() => Correlation(Array.Empty<double>(), Array.Empty<double>()));
+        }
+
+        [Test]
+        public void Forecast_Test()
+        {
+            double[] a = TheXDS.MCART.Helpers.Common.Sequence(0,100).Select(p => (double)p).ToArray();
+            double[] b = TheXDS.MCART.Helpers.Common.Sequence(0,200,2).Select(p => (double)p).ToArray();
+            Assert.AreEqual(400, Forecast(200, a, b));
+        }
+
+        [Test]
+        public void Forecast_Contract_Test()
+        {
+            double[] a = TheXDS.MCART.Helpers.Common.Sequence(0,10).Select(p => (double)p).ToArray();
+            double[] b = TheXDS.MCART.Helpers.Common.Sequence(0,3).Select(p => (double)p).ToArray();
+            Assert.Throws<IndexOutOfRangeException>(() => Forecast(1, a, b));
+        }
+
+        [Test]
+        public void Variate_Test()
+        {
+            double x = 100.0.Variate(5.0);
+            Assert.True(x.IsBetween(95.0, 105.0));
+            Assert.AreNotEqual(100.0, x);
+        }
+
+        [Test]
+        public void Normalize_Test()
+        {
+            double[] a = {10, 15, 20};
+            var b = a.Normalize(2).ToArray();
+            Assert.AreEqual(8,b[0].Minimum);
+            Assert.AreEqual(12,b[0].Maximum);
+            Assert.AreEqual(13,b[1].Minimum);
+            Assert.AreEqual(17,b[1].Maximum);
+            Assert.AreEqual(18,b[2].Minimum);
+            Assert.AreEqual(22,b[2].Maximum);
         }
     }
 }

@@ -22,7 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System.Diagnostics.CodeAnalysis;
 using TheXDS.MCART.Types.Base;
 
 namespace TheXDS.MCART.Types
@@ -32,9 +31,6 @@ namespace TheXDS.MCART.Types
     {
         public double X { get; set; }
         public double Y { get; set; }
-        public bool Equals([AllowNull] I2DVector other)
-        {
-            return X == other?.X && Y == other.Y;
-        }
+        public bool Equals(I2DVector? other) => X.Equals(other?.X) && Y.Equals(other.Y);
     }
 }

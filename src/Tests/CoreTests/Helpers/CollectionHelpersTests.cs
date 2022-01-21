@@ -27,7 +27,9 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Helpers;
@@ -375,5 +377,56 @@ namespace TheXDS.MCART.Tests.Helpers
 
             Assert.AreEqual(o, i.NotEmpty());
         }
+
+        [Test]
+        public void GetTypes_Test()
+        {
+            Assert.True(AppDomain.CurrentDomain.GetAssemblies().GetTypes<Exception>().ToArray().Length > 10);
+        }
+
+        [Test]
+        public void WithSignature_Test()
+        {
+            MethodInfo a = typeof(TestMethods).GetMethod("A")!;
+            MethodInfo b = typeof(TestMethods).GetMethod("B")!;
+            MethodInfo c = typeof(TestMethods).GetMethod("C")!;
+            MethodInfo[] l = typeof(TestMethods).GetMethods().WithSignature<Func<byte>>(new TestMethods()).Select(p => p.Method).ToArray();
+            Assert.AreEqual(2, l.Length);
+            Assert.True(l.Contains(a));
+            Assert.False(l.Contains(b));
+            Assert.True(l.Contains(c));
+        }
+        
+        [Test]
+        public void WithSignature_static_Test()
+        {
+            MethodInfo a = typeof(StaticTestMethods).GetMethod("A")!;
+            MethodInfo b = typeof(StaticTestMethods).GetMethod("B")!;
+            MethodInfo c = typeof(StaticTestMethods).GetMethod("C")!;
+            MethodInfo[] l = typeof(StaticTestMethods).GetMethods().WithSignature<Func<byte>>().Select(p => p.Method).ToArray();
+            Assert.AreEqual(2, l.Length);
+            Assert.True(l.Contains(a));
+            Assert.False(l.Contains(b));
+            Assert.True(l.Contains(c));
+        }
+        
+        [ExcludeFromCodeCoverage]
+        private class TestMethods
+        {
+#pragma warning disable CA1822
+            [ExcludeFromCodeCoverage]public byte A() => 0;
+            [ExcludeFromCodeCoverage]public double B() => 0.0;
+            [ExcludeFromCodeCoverage]public byte C() => 1;
+#pragma warning restore CA1822
+        }
+        
+        [ExcludeFromCodeCoverage]
+        private static class StaticTestMethods
+        {
+            [ExcludeFromCodeCoverage]public static byte A() => 0;
+            [ExcludeFromCodeCoverage]public static double B() => 0.0;
+            [ExcludeFromCodeCoverage]public static byte C() => 1;
+        }
+
     }
 }

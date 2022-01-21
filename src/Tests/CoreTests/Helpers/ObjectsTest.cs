@@ -77,9 +77,24 @@ namespace TheXDS.MCART.Tests.Helpers
         }
 
         [ExcludeFromCodeCoverage]
+        private class TestClass3 : ITestInterface
+        {
+        }
+        
+        [ExcludeFromCodeCoverage]
         private class TestClass2
         {
             public int TestField = 2;
+        }
+        
+        
+        [ExcludeFromCodeCoverage]
+        private class TestClass4 : ITestInterface
+        {
+            public TestClass4(int value)
+            {
+                _ = value;
+            }
         }
 
         private enum TestEnum : byte
@@ -139,9 +154,72 @@ namespace TheXDS.MCART.Tests.Helpers
         public void FindTypeTest()
         {
             Assert.AreEqual(typeof(TestClass), FindType<ITestInterface>("FindTypeTest"));
+            Assert.AreEqual(typeof(TestClass), FindType("FindTypeTest"));
             Assert.Null(FindType<ITestInterface>("FindTypeTest2"));
+            Assert.Null(FindType("FindTypeTest2"));
+        }
+        
+        [Test]
+        public void FindAllObjects_Simple_Test()
+        {
+            var c = FindAllObjects<ITestInterface>().ToArray();
+            Assert.IsNotEmpty(c);
+            Assert.AreEqual(2, c.Length);
+        }
+        
+        [Test]
+        public void FindAllObjects_With_Type_Filter_Test()
+        {
+            var c = FindAllObjects<ITestInterface>(p => p.Name.EndsWith("3")).ToArray();
+            Assert.IsNotEmpty(c);
+            Assert.AreEqual(1, c.Length);
         }
 
+        [Test]
+        public void FindAllObjects_With_Ctor_Args_Test()
+        {
+            var c = FindAllObjects<ITestInterface>(new object[]{ 0 }).ToArray();
+            Assert.IsNotEmpty(c);
+            Assert.AreEqual(1, c.Length);
+        }
+        
+        [Test]
+        public void FindAllObjects_With_Ctor_Args_And_Filter_Test()
+        {
+            var c = FindAllObjects<ITestInterface>(new object[]{ 0 }, p => p.Name.EndsWith("4")).ToArray();
+            Assert.IsNotEmpty(c);
+            Assert.AreEqual(1, c.Length);
+        }
+        
+                
+        [Test]
+        public void FindFirstObject_Simple_Test()
+        {
+            var c = FindFirstObject<ITestInterface>();
+            Assert.IsNotNull(c);
+        }
+        
+        [Test]
+        public void FindFirstObject_With_Type_Filter_Test()
+        {
+            var c = FindFirstObject<ITestInterface>(p => p.Name.EndsWith("3"));
+            Assert.IsNotNull(c);
+        }
+
+        [Test]
+        public void FindFirstObject_With_Ctor_Args_Test()
+        {
+            var c = FindFirstObject<ITestInterface>(new object[]{ 0 });
+            Assert.IsNotNull(c);
+        }
+        
+        [Test]
+        public void FindFirstObject_With_Ctor_Args_And_Filter_Test()
+        {
+            var c = FindFirstObject<ITestInterface>(new object[]{ 0 }, p => p.Name.EndsWith("4"));
+            Assert.IsNotNull(c);
+        }
+        
         [Test]
         public void HasAttrTest_Enum()
         {

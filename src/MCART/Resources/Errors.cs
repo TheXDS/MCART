@@ -101,8 +101,7 @@ namespace TheXDS.MCART.Resources
         /// </returns>
         public static ArgumentException InvalidValue(string argName)
         {
-            //TODO: insertar cadena traducida.
-            return new(null, argName);
+            return new(Ers.InvalidValue, argName);
         }
 
         /// <summary>
@@ -233,8 +232,7 @@ namespace TheXDS.MCART.Resources
 
         /// <summary>
         /// Crea una nueva instancia de un
-        /// <see cref="ClassNotInstantiableException"/> indicando el tipo de la
-        /// clase que no pudo ser instanciada.
+        /// <see cref="ClassNotInstantiableException"/>.
         /// </summary>
         /// <returns>
         /// Una nueva instancia de la clase
@@ -342,7 +340,7 @@ namespace TheXDS.MCART.Resources
         /// <seealso cref="ClassNotInstantiable(Type?)"/>
         public static TypeLoadException CouldntInstanceClass(Type t, Exception? inner = null)
         {
-            return new TypeLoadException(string.Format(Ers.ClassNotInstantiableWIthArgs, t.NameOf()), inner);
+            return new (string.Format(Ers.ClassNotInstantiableWIthArgs, t.NameOf()), inner);
         }
 
         /// <summary>
@@ -358,9 +356,9 @@ namespace TheXDS.MCART.Resources
         /// Una nueva instancia de la clase
         /// <see cref="InvalidOperationException"/>.
         /// </returns>
-        public static Exception DuplicateData(object id)
+        public static InvalidOperationException DuplicateData(object id)
         {
-            return new InvalidOperationException(string.Format(Ers.DuplicateData, id));
+            return new(string.Format(Ers.DuplicateData, id));
         }
 
         /// <summary>

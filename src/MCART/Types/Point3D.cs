@@ -23,13 +23,13 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
-using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Math;
 using TheXDS.MCART.Misc;
 using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Base;
-using static TheXDS.MCART.Types.Extensions.StringExtensions;
+using TheXDS.MCART.Types.Extensions;
 using CI = System.Globalization.CultureInfo;
 using St = TheXDS.MCART.Resources.Strings;
 
@@ -56,19 +56,19 @@ namespace TheXDS.MCART.Types
         public static readonly Point3D Nowhere = new(double.NaN, double.NaN, double.NaN);
 
         /// <summary>
-        /// Obtiene un punto en el orígen. Este campo es de solo lectura.
+        /// Obtiene un punto en el origen. Este campo es de solo lectura.
         /// </summary>
         /// <value>
-        /// Un <see cref="Point3D" /> con sus coordenadas en el orígen.
+        /// Un <see cref="Point3D" /> con sus coordenadas en el origen.
         /// </value>
         public static readonly Point3D Origin = new(0, 0, 0);
 
         /// <summary>
-        /// Obtiene un punto en el orígen bidimensional. Este campo es de
+        /// Obtiene un punto en el origen bidimensional. Este campo es de
         /// solo lectura.
         /// </summary>
         /// <value>
-        /// Un <see cref="Point3D" /> con sus coordenadas en el orígen 
+        /// Un <see cref="Point3D" /> con sus coordenadas en el origen 
         /// bidimensional.
         /// </value>
         public static readonly Point3D Origin2D = new(0, 0, double.NaN);
@@ -104,7 +104,7 @@ namespace TheXDS.MCART.Types
                     point = Origin2D;
                     break;
                 default:
-                    string[]? separators = new[]
+                    string[] separators = 
                     {
                         ", ",
                         "; ",
@@ -117,7 +117,12 @@ namespace TheXDS.MCART.Types
                         ":",
                         "|",
                     };
-                    return PrivateInternals.TryParseValues<double, Point3D>(separators, value.Without("()[]{}".ToCharArray()), 3, l => new Point3D(l[0], l[1], l[2]), out point);
+                    return PrivateInternals.TryParseValues<double, Point3D>(
+                        separators, 
+                        value.Without("()[]{}".ToCharArray()),
+                        3,
+                        l => new Point3D(l[0], l[1], l[2]), 
+                        out point);
             }
             return true;
         }
@@ -134,7 +139,7 @@ namespace TheXDS.MCART.Types
         /// <returns><see cref="Point3D"/> que ha sido creado.</returns>
         public static Point3D Parse(string value)
         {
-            if (TryParse(value, out Point3D retval)) return retval;
+            if (TryParse(value, out Point3D retVal)) return retVal;
             throw new FormatException();
         }
 
@@ -145,6 +150,17 @@ namespace TheXDS.MCART.Types
         /// <param name="r">Punto 2.</param>
         /// <returns>La suma de los vectores de los puntos.</returns>
         public static Point3D operator +(Point3D l, Point3D r)
+        {
+            return new(l.X + r.X, l.Y + r.Y, l.Z + r.Z);
+        }
+
+        /// <summary>
+        /// Realiza una operación de suma sobre los puntos.
+        /// </summary>
+        /// <param name="l">Punto 1.</param>
+        /// <param name="r">Punto 2.</param>
+        /// <returns>La suma de los vectores de los puntos.</returns>
+        public static Point3D operator +(Point3D l, I3DVector r)
         {
             return new(l.X + r.X, l.Y + r.Y, l.Z + r.Z);
         }
@@ -239,23 +255,23 @@ namespace TheXDS.MCART.Types
         }
 
         /// <summary>
-        /// Realiza una operación de resíduo sobre los puntos.
+        /// Realiza una operación de residuo sobre los puntos.
         /// </summary>
         /// <param name="l">Punto 1.</param>
         /// <param name="r">Punto 2.</param>
-        /// <returns>El resíduo de los vectores de los puntos.</returns>
+        /// <returns>El residuo de los vectores de los puntos.</returns>
         public static Point3D operator %(Point3D l, I3DVector r)
         {
             return new(l.X % r.X, l.Y % r.Y, l.Z % r.Z);
         }
 
         /// <summary>
-        /// Realiza una operación de resíduo sobre el punto.
+        /// Realiza una operación de residuo sobre el punto.
         /// </summary>
         /// <param name="l">Punto 1.</param>
-        /// <param name="r">Operando de resíduo.</param>
+        /// <param name="r">Operando de residuo.</param>
         /// <returns>
-        /// Un nuevo <see cref="Point3D" /> cuyos vectores son el resíduo de los
+        /// Un nuevo <see cref="Point3D" /> cuyos vectores son el residuo de los
         /// vectores originales % <paramref name="r" />.
         /// </returns>
         public static Point3D operator %(Point3D l, double r)
@@ -320,7 +336,7 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public static bool operator ==(Point3D l, I3DVector r)
         {
-            return l.X == r.X && l.Y == r.Y && l.Z == r.Z;
+            return l.X.Equals(r.X) && l.Y.Equals(r.Y) && l.Z.Equals(r.Z);
         }
 
         /// <summary>
@@ -334,9 +350,33 @@ namespace TheXDS.MCART.Types
         /// </returns>
         public static bool operator !=(Point3D l, I3DVector r)
         {
-            return l.X != r.X && l.Y != r.Y && l.Z != r.Z;
+            return !(l == r);
         }
 
+        /// <summary>
+        /// Convierte implícitamente un <see cref="Point3D"/> en un
+        /// <see cref="Point"/>.
+        /// </summary>
+        /// <param name="p">Objeto a convertir.</param>
+        /// <returns>
+        /// Un nuevo <see cref="Point"/> con los mismos valores de
+        /// <see cref="X"/> y <see cref="Y"/> que el <see cref="Point3D"/>
+        /// original.
+        /// </returns>
+        public static implicit operator Point(Point3D p) => new(p.X, p.Y);
+        
+        /// <summary>
+        /// Convierte implícitamente un <see cref="Point"/> en un
+        /// <see cref="Point3D"/>.
+        /// </summary>
+        /// <param name="p">Objeto a convertir.</param>
+        /// <returns>
+        /// Un nuevo <see cref="Point3D"/> con los mismos valores de
+        /// <see cref="X"/> y <see cref="Y"/> que el <see cref="Point"/>
+        /// original, y valor en <see cref="Z"/> de <see cref="double.NaN"/>.
+        /// </returns>
+        public static implicit operator Point3D(Point p) => new(p.X, p.Y, double.NaN);
+        
         /// <summary>
         /// Coordenada X.
         /// </summary>
@@ -364,6 +404,16 @@ namespace TheXDS.MCART.Types
             X = x;
             Y = y;
             Z = z;
+        }
+        
+        /// <summary>
+        /// Inicializa una nueva instancia de la estructura
+        /// <see cref="Point3D" /> para un par de coordenadas bidimensionales.
+        /// </summary>
+        /// <param name="x">Coordenada X.</param>
+        /// <param name="y">Coordenada Y.</param>
+        public Point3D(double x, double y) : this(x, y, double.NaN)
+        {
         }
 
         /// <summary>
@@ -410,11 +460,62 @@ namespace TheXDS.MCART.Types
         /// <param name="x2">La segunda coordenada x.</param>
         /// <param name="y2">La segunda coordenada y.</param>
         /// <param name="z2">La segunda coordenada z.</param>
-        public bool WithinCube(double x1, double y1, double z1, double x2, double y2, double z2)
+        public readonly bool WithinCube(in double x1, in double y1, in double z1, in double x2, in double y2, in double z2)
         {
-            return X.IsBetween(x1, x2) && Y.IsBetween(y1, y2) && Z.IsBetween(z1, z2);
+            double[] x = new[] { x1, x2 }.Ordered().ToArray();
+            double[] y = new[] { y1, y2 }.Ordered().ToArray();
+            double[] z = new[] { z1, z2 }.Ordered().ToArray();
+            return X.IsBetween(x[0], x[1]) && Y.IsBetween(y[0], y[1]) && Z.IsBetween(z[0], z[1]);
         }
 
+        /// <summary>
+        /// Determina si el punto se encuentra dentro del rectángulo formado por
+        /// los rangos especificados.
+        /// </summary>
+        /// <returns>
+        /// <see langword="true" /> si el punto se encuentra dentro del rectángulo
+        /// formado, <see langword="false" /> en caso contrario.
+        /// </returns>
+        /// <param name="x">Rango de valores para el eje X.</param>
+        /// <param name="y">Rango de valores para el eje Y.</param>
+        /// <param name="z">Rango de valores para el eje Z.</param>
+        public bool WithinCube(Range<double> x, Range<double> y, Range<double> z)
+        {
+            return x.IsWithin(X) && y.IsWithin(Y) && z.IsWithin(Z);
+        }
+        
+        /// <summary>
+        /// Determina si el punto se encuentra dentro del rectángulo formado por
+        /// las coordenadas especificadas.
+        /// </summary>
+        /// <returns>
+        /// <see langword="true" /> si el punto se encuentra dentro del rectángulo
+        /// formado, <see langword="false" /> en caso contrario.
+        /// </returns>
+        /// <param name="size">Tamaño del rectángulo.</param>
+        /// <param name="topLeftFront">Coordenadas de esquina superior izquierda frontal</param>
+        public readonly bool WithinCube(in Size3D size, in Point3D topLeftFront)
+        {
+            double[] x = new[] { topLeftFront.X, topLeftFront.X + size.Width }.Ordered().ToArray();
+            double[] y = new[] { topLeftFront.Y, topLeftFront.Y - size.Height }.Ordered().ToArray();
+            double[] z = new[] { topLeftFront.Z, topLeftFront.Z - size.Depth }.Ordered().ToArray();
+            return WithinCube(x[0], y[0], z[0], x[1], y[1], z[1]);
+        }
+
+        /// <summary>
+        /// Determina si el punto se encuentra dentro del rectángulo formado por
+        /// las coordenadas especificadas.
+        /// </summary>
+        /// <returns>
+        /// <see langword="true" /> si el punto se encuentra dentro del rectángulo
+        /// formado, <see langword="false" /> en caso contrario.
+        /// </returns>
+        /// <param name="size">Tamaño del rectángulo.</param>
+        public readonly bool WithinCube(in Size3D size)
+        {
+            return WithinCube(size, new Point3D(-(size.Width / 2), size.Height / 2, size.Depth / 2));
+        }
+        
         /// <summary>
         /// Determina si el punto se encuentra dentro de la esfera especificada.
         /// </summary>
@@ -433,7 +534,7 @@ namespace TheXDS.MCART.Types
         /// Calcula la magnitud de las coordenadas.
         /// </summary>
         /// <returns>
-        /// La magnitud resultante entre el punto y el orígen.
+        /// La magnitud resultante entre el punto y el origen.
         /// </returns>
         public double Magnitude()
         {
@@ -463,9 +564,9 @@ namespace TheXDS.MCART.Types
         /// La magnitud resultante entre el punto y las coordenadas
         /// especificadas.
         /// </returns>
-        /// <param name="fromX">Coordenada X de orígen.</param>
-        /// <param name="fromY">Coordenada Y de orígen.</param>
-        /// <param name="fromZ">Coordenada Z de orígen.</param>
+        /// <param name="fromX">Coordenada X de origen.</param>
+        /// <param name="fromY">Coordenada Y de origen.</param>
+        /// <param name="fromZ">Coordenada Z de origen.</param>
         public double Magnitude(double fromX, double fromY, double fromZ)
         {
             double x = X - fromX, y = Y - fromY, z = Z - fromZ;
@@ -488,7 +589,7 @@ namespace TheXDS.MCART.Types
         public string ToString(string? format, IFormatProvider? formatProvider)
         {
             if (format.IsEmpty()) format = "C";
-            return format!.ToUpperInvariant()[0] switch
+            return format.ToUpperInvariant()[0] switch
             {
                 'C' => $"{X}, {Y}, {Z}",
                 'B' => $"[{X}, {Y}, {Z}]",
@@ -555,6 +656,18 @@ namespace TheXDS.MCART.Types
         /// <see langword="true" /> si esta instancia y <paramref name="other" /> son iguales;
         /// de lo contrario, <see langword="false" />.
         /// </returns>
-        public bool Equals([AllowNull] I2DVector other) => X == other?.X && Y == other.Y && !Z.IsValid();
+        public bool Equals(I2DVector? other) =>  other is not null && X.Equals(other.X) && Y.Equals(other.Y) && !Z.IsValid();
+        
+        /// <summary>
+        /// Indica si esta instancia y un objeto especificado son iguales.
+        /// </summary>
+        /// <param name="other">
+        /// Objeto que se va a compara con la instancia actual.
+        /// </param>
+        /// <returns>
+        /// <see langword="true" /> si esta instancia y <paramref name="other" /> son iguales;
+        /// de lo contrario, <see langword="false" />.
+        /// </returns>
+        public bool Equals(I3DVector? other) => other is not null && X.Equals(other.X) && Y.Equals(other.Y) && Z.Equals(other.Z);
     }
 }
