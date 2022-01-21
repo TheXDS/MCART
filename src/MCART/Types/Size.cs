@@ -302,5 +302,4 @@ namespace TheXDS.MCART.Types
             return new(size.Width, size.Height);
         }
     }
-
 }

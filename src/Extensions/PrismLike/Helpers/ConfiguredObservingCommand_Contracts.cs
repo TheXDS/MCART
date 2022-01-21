@@ -53,8 +53,6 @@ namespace TheXDS.MCART.Helpers
             if (!properties.Any()) throw Errors.EmptyCollection(properties);
         }
 
-
-
         [Conditional("EnforceContracts")]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DebuggerNonUserCode]
