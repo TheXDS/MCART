@@ -389,7 +389,7 @@ namespace TheXDS.MCART.Types.Extensions
         [DebuggerStepThrough]
         public static T New<T>(this Type type, params object?[] parameters)
         {
-            return New<T>(type, true, parameters);
+            return New<T>(type, true, parameters)!;
         }
 
         /// <summary>

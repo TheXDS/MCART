@@ -51,6 +51,8 @@ namespace TheXDS.MCART.Tests.Helpers
             Assert.AreEqual("Test".ToCharArray(), s.ReadChars());
         }
 
+        [Theory]
+        [CLSCompliant(false)]
         [TestCase(0,1024,ByteUnitType.Binary,"1.0 KiB")]
         [TestCase(0,1000,ByteUnitType.Decimal,"1.0 KB")]
         [TestCase(1,1024,ByteUnitType.Binary,"1.0 MiB")]

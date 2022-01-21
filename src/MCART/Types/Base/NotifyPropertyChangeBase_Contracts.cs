@@ -23,18 +23,12 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
-using static TheXDS.MCART.Misc.Internals;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
-using System.Reflection;
 using System.Runtime.CompilerServices;
-using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Extensions;
-using static TheXDS.MCART.Types.Extensions.DictionaryExtensions;
 
 namespace TheXDS.MCART.Types.Base
 {

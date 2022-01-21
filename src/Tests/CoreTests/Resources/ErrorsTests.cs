@@ -50,6 +50,9 @@ namespace TheXDS.MCART.CoreTests.Resources
         }
         
         [Theory]
+#if CLSCompliance
+        [CLSCompliant(false)]
+#endif
         [TestCase(typeof(int))]
         [TestCase(typeof(float))]
         [TestCase(typeof(Delegate))]

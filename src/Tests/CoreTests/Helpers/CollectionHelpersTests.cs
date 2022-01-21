@@ -413,9 +413,11 @@ namespace TheXDS.MCART.Tests.Helpers
         [ExcludeFromCodeCoverage]
         private class TestMethods
         {
+#pragma warning disable CA1822
             [ExcludeFromCodeCoverage]public byte A() => 0;
             [ExcludeFromCodeCoverage]public double B() => 0.0;
             [ExcludeFromCodeCoverage]public byte C() => 1;
+#pragma warning restore CA1822
         }
         
         [ExcludeFromCodeCoverage]
