@@ -97,6 +97,5 @@ namespace TheXDS.MCART.CoreTests.Resources
         {
             Assert.IsAssignableFrom<InvalidOperationException>(E.CircularOpDetected());
         }
-
     }
 }
