@@ -24,20 +24,11 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using TheXDS.MCART.Resources;
-using TheXDS.MCART.ViewModel;
-using static TheXDS.MCART.Helpers.ReflectionHelpers;
-using static TheXDS.MCART.Misc.Internals;
-using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using TheXDS.MCART.Resources;
 
@@ -45,7 +36,7 @@ namespace TheXDS.MCART.Helpers
 {
     public partial class ConfiguredObservingCommand<T> where T : INotifyPropertyChanged
     {
-        //[Conditional("EnforceContracts")]
+        [Conditional("EnforceContracts")]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DebuggerNonUserCode]
         private void IsBuilt_Contract()
