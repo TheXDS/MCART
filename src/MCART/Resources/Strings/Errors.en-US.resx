@@ -213,8 +213,14 @@
   <data name="ObjectIsDisabled" xml:space="preserve">
     <value>The object is disabled.</value>
   </data>
+  <data name="PropChangeSame" xml:space="preserve">
+    <value>The Change method must be called from within the same property that is changing. It is recommended to omit the propertyName parameter to let the compiler determine its value automatically.</value>
+  </data>
   <data name="PropIsReadOnly" xml:space="preserve">
     <value>The property '{0}' is read-only.</value>
+  </data>
+  <data name="PropSetMustCall" xml:space="preserve">
+    <value>The Change method must only be called from the set block of a property in an object that inherits from NotifyPropertyChangeBase or one of its derived classes.</value>
   </data>
   <data name="StackUnderflow" xml:space="preserve">
     <value>The stack is empty.</value>
