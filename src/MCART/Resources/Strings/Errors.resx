@@ -213,8 +213,14 @@
   <data name="ObjectIsDisabled" xml:space="preserve">
     <value>El objeto está deshabilitado.</value>
   </data>
+  <data name="PropChangeSame" xml:space="preserve">
+    <value>El método Change debe llamarse desde la misma propiedad que se está cambiando. Es recomendable que omita el parámetro propertyName para que el compilador determine automáticamente este valor.</value>
+  </data>
   <data name="PropIsReadOnly" xml:space="preserve">
     <value>La propiedad '{0}' es de sólo lectura.</value>
+  </data>
+  <data name="PropSetMustCall" xml:space="preserve">
+    <value>El método Change debe ser llamado únicamente por el bloque set de una propiedad en un objeto que hereda de NotifyPropertyChangeBase o una de sus clases derivadas.</value>
   </data>
   <data name="StackUnderflow" xml:space="preserve">
     <value>La pila está vacía.</value>

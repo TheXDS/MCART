@@ -22,27 +22,26 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Events
+namespace TheXDS.MCART.Events;
+
+/// <summary>
+/// Incluye información de evento para cualquier clase con eventos de
+/// recepción de datos.
+/// </summary>
+public class IncommingDataEventArgs : ValueEventArgs<byte[]>
 {
     /// <summary>
-    /// Incluye información de evento para cualquier clase con eventos de
-    /// recepción de datos.
+    /// Inicializa una nueva instancia de este objeto con los datos
+    /// recibidos.
     /// </summary>
-    public class IncommingDataEventArgs : ValueEventArgs<byte[]>
+    /// <param name="data">
+    /// Colección de <see cref="byte" /> con los datos recibidos.
+    /// </param>
+    /// <exception cref="System.ArgumentNullException">
+    /// Se produce si <paramref name="data"/> es <see langword="null"/>.
+    /// </exception>
+    public IncommingDataEventArgs(byte[] data) : base(data)
     {
-        /// <summary>
-        /// Inicializa una nueva instancia de este objeto con los datos
-        /// recibidos.
-        /// </summary>
-        /// <param name="data">
-        /// Colección de <see cref="byte" /> con los datos recibidos.
-        /// </param>
-        /// <exception cref="System.ArgumentNullException">
-        /// Se produce si <paramref name="data"/> es <see langword="null"/>.
-        /// </exception>
-        public IncommingDataEventArgs(byte[] data) : base(data)
-        {
-            Misc.Internals.NullCheck(data, nameof(data));
-        }
+        Misc.Internals.NullCheck(data, nameof(data));
     }
 }

@@ -22,56 +22,60 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Attributes;
 using System;
 using TheXDS.MCART.Types;
 using static System.AttributeTargets;
 
-namespace TheXDS.MCART.Attributes
+/// <summary>
+/// Establece la información de Copyright del elemento.
+/// </summary>
+[AttributeUsage(Method | Class | Module | Assembly)]
+[Serializable]
+public sealed class CopyrightAttribute : TextAttribute
 {
     /// <summary>
-    /// Establece la información de Copyright del elemento.
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="DescriptionAttribute" />.
     /// </summary>
-    [AttributeUsage(Method | Class | Module | Assembly)]
-    [Serializable]
-    public sealed class CopyrightAttribute : TextAttribute
+    /// <param name="copyright">Valor del atributo.</param>
+    public CopyrightAttribute(string copyright) 
+        : base(GetCopyrightString(copyright))
     {
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="DescriptionAttribute" />.
-        /// </summary>
-        /// <param name="copyright">Valor del atributo.</param>
-        public CopyrightAttribute(string copyright) : base(GetCopyrightString(copyright))
-        {
-        }
+    }
 
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="DescriptionAttribute" />.
-        /// </summary>
-        /// <param name="year">Año de registro del Copyright.</param>
-        /// <param name="holder">Poseedor del Copyright.</param>
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="DescriptionAttribute" />.
+    /// </summary>
+    /// <param name="year">Año de registro del Copyright.</param>
+    /// <param name="holder">Poseedor del Copyright.</param>
 #if CLSCompliance
-        [CLSCompliant(false)]
+    [CLSCompliant(false)]
 #endif
-        public CopyrightAttribute(ushort year, string holder) : this($"{year:0000} {holder}")
-        {
-        }
+    public CopyrightAttribute(ushort year, string holder) 
+        : this($"{year:0000} {holder}")
+    {
+    }
 
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="DescriptionAttribute" />.
-        /// </summary>
-        /// <param name="years">Años de registro del Copyright.</param>
-        /// <param name="holder">Poseedor del Copyright.</param>
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="DescriptionAttribute" />.
+    /// </summary>
+    /// <param name="years">Años de registro del Copyright.</param>
+    /// <param name="holder">Poseedor del Copyright.</param>
 #if CLSCompliance
-        [CLSCompliant(false)]
+    [CLSCompliant(false)]
 #endif
-        public CopyrightAttribute(Range<ushort> years, string holder) : this($"{years.Minimum:0000}-{years.Maximum:0000} {holder}") { }
+    public CopyrightAttribute(Range<ushort> years, string holder) 
+        : this($"{years.Minimum:0000}-{years.Maximum:0000} {holder}") 
+    {
+    }
 
-        private static string GetCopyrightString(string input)
-        {
-            return input.ToLowerInvariant().StartsWith("copyright ", true, null) ? input
-                : $"Copyright © {input}";
-        }
+    private static string GetCopyrightString(string input)
+    {
+        return input.ToLowerInvariant().StartsWith("copyright ", true, null)
+            ? input
+            : $"Copyright © {input}";
     }
 }

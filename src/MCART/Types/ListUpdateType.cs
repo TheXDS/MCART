@@ -22,36 +22,35 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Types
+namespace TheXDS.MCART.Types;
+
+/// <summary>
+/// Tipo de actualización de la lista
+/// </summary>
+public enum ListUpdateType
 {
     /// <summary>
-    /// Tipo de actualización de la lista
+    /// La lista ha sido vaciada.
     /// </summary>
-    public enum ListUpdateType
-    {
-        /// <summary>
-        /// La lista ha sido vaciada.
-        /// </summary>
-        ListCleared,
-        /// <summary>
-        /// Se añadieron los elementos.
-        /// </summary>
-        ItemsAdded,
-        /// <summary>
-        /// Se insertaron los elementos.
-        /// </summary>
-        ItemsInserted,
-        /// <summary>
-        /// Se modificaron los elementos.
-        /// </summary>
-        ItemsModified,
-        /// <summary>
-        /// Se removieron los elementos.
-        /// </summary>
-        ItemsRemoved,
-        /// <summary>
-        /// Se movieron los elementos.
-        /// </summary>
-        ItemsMoved
-    }
+    ListCleared,
+    /// <summary>
+    /// Se añadieron los elementos.
+    /// </summary>
+    ItemsAdded,
+    /// <summary>
+    /// Se insertaron los elementos.
+    /// </summary>
+    ItemsInserted,
+    /// <summary>
+    /// Se modificaron los elementos.
+    /// </summary>
+    ItemsModified,
+    /// <summary>
+    /// Se removieron los elementos.
+    /// </summary>
+    ItemsRemoved,
+    /// <summary>
+    /// Se movieron los elementos.
+    /// </summary>
+    ItemsMoved
 }

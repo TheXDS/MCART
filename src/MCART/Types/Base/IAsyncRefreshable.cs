@@ -22,19 +22,17 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types.Base;
 using System.Threading.Tasks;
 
-namespace TheXDS.MCART.Types.Base
+/// <summary>
+/// Describe una serie de miembros a implementar por una clase o
+/// estructura que permite refrescarse de forma asíncrona.
+/// </summary>
+public interface IAsyncRefreshable : IRefreshable
 {
     /// <summary>
-    /// Describe una serie de miembros a implementar por una clase o
-    /// estructura que permite refrescarse de forma asíncrona.
+    /// Refresca el estado de este objeto de forma asíncrona.
     /// </summary>
-    public interface IAsyncRefreshable : IRefreshable
-    {
-        /// <summary>
-        /// Refresca el estado de este objeto de forma asíncrona.
-        /// </summary>
-        Task RefreshAsync();
-    }
+    Task RefreshAsync();
 }

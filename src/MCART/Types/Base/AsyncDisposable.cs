@@ -22,37 +22,35 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types.Base;
 using System;
 using System.Threading.Tasks;
 
-namespace TheXDS.MCART.Types.Base
+/// <summary>
+/// Clase base que simplifica la implementación de las interfaces
+/// <see cref="IAsyncDisposable"/> y <see cref="IDisposable"/>.
+/// </summary>
+/// <remarks>
+/// Si la clase a implementar no contendrá acciones asíncronas de limpieza,
+/// utilice la clase <see cref="Disposable"/> como clase base.
+/// </remarks>
+public abstract class AsyncDisposable : Disposable, IAsyncDisposable
 {
-    /// <summary>
-    /// Clase base que simplifica la implementación de las interfaces
-    /// <see cref="IAsyncDisposable"/> y <see cref="IDisposable"/>.
-    /// </summary>
-    /// <remarks>
-    /// Si la clase a implementar no contendrá acciones asíncronas de limpieza,
-    /// utilice la clase <see cref="Disposable"/> como clase base.
-    /// </remarks>
-    public abstract class AsyncDisposable : Disposable, IAsyncDisposable
+    /// <inheritdoc/>
+    public async ValueTask DisposeAsync()
     {
-        /// <inheritdoc/>
-        public async ValueTask DisposeAsync()
-        {
-            await OnDisposeAsync();
-            Dispose(false);
-            GC.SuppressFinalize(this);
-        }
-
-        /// <summary>
-        /// Realiza las operaciones de limpieza asíncrona de objetos
-        /// administrados desechables asíncronamente de esta instancia.
-        /// </summary>
-        /// <returns>
-        /// Un <see cref="ValueTask"/> que permite esperar a la operación
-        /// asíncrona.
-        /// </returns>
-        protected abstract ValueTask OnDisposeAsync();
+        await OnDisposeAsync();
+        Dispose(false);
+        GC.SuppressFinalize(this);
     }
+
+    /// <summary>
+    /// Realiza las operaciones de limpieza asíncrona de objetos
+    /// administrados desechables asíncronamente de esta instancia.
+    /// </summary>
+    /// <returns>
+    /// Un <see cref="ValueTask"/> que permite esperar a la operación
+    /// asíncrona.
+    /// </returns>
+    protected abstract ValueTask OnDisposeAsync();
 }

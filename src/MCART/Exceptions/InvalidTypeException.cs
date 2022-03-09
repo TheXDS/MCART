@@ -22,101 +22,99 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Exceptions;
 using System;
 using System.Runtime.Serialization;
 using TheXDS.MCART.Resources.Strings;
 
-namespace TheXDS.MCART.Exceptions
+/// <summary>
+/// Excepción que se produce al hacer referencia a un tipo inválido.
+/// </summary>
+[Serializable]
+public class InvalidTypeException : OffendingException<Type>
 {
     /// <summary>
-    /// Excepción que se produce al hacer referencia a un tipo inválido.
+    /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException" />.
     /// </summary>
-    [Serializable]
-    public class InvalidTypeException : OffendingException<Type>
+    public InvalidTypeException() : base(Msg())
     {
-        private static string Msg() => Errors.InvalidType;
-        private static string Msg(Type type) => string.Format(Errors.InvalidXType, type.FullName);
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException" />.
-        /// </summary>
-        public InvalidTypeException() : base(Msg())
-        {
-        }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException" />.
-        /// </summary>
-        /// <param name="offendingType">Tipo que ha causado la excepción.</param>
-        public InvalidTypeException(Type offendingType) : base(Msg(offendingType), offendingType)
-        {
-        }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException" />.
-        /// </summary>
-        /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
-        public InvalidTypeException(string message) : base(message)
-        {
-        }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException" />.
-        /// </summary>
-        /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
-        /// <param name="offendingType">Tipo que ha causado la excepción.</param>
-        public InvalidTypeException(string message, Type offendingType) : base(message, offendingType)
-        {
-        }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException" />.
-        /// </summary>
-        /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
-        public InvalidTypeException(Exception inner) : base(Msg(), inner)
-        {
-        }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException" />.
-        /// </summary>
-        /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
-        /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
-        public InvalidTypeException(string message, Exception inner) : base(message, inner)
-        {
-        }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException" />.
-        /// </summary>
-        /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
-        /// <param name="offendingType">Tipo que ha causado la excepción.</param>
-        public InvalidTypeException(Exception inner, Type offendingType) : base(Msg(offendingType), inner)
-        {
-        }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException" />.
-        /// </summary>
-        /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
-        /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
-        /// <param name="offendingType">Tipo que ha causado la excepción.</param>
-        public InvalidTypeException(string message, Exception inner, Type offendingType) : base(message, inner, offendingType)
-        {
-        }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="InvalidTypeException" />.
-        /// </summary>
-        /// <param name="info">
-        /// El objeto que contiene la información de serialización.
-        /// </param>
-        /// <param name="context">
-        /// La información contextual acerca del orígen o el destino.
-        /// </param>
-        protected InvalidTypeException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-        }
     }
+
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException" />.
+    /// </summary>
+    /// <param name="offendingType">Tipo que ha causado la excepción.</param>
+    public InvalidTypeException(Type offendingType) : base(Msg(offendingType), offendingType)
+    {
+    }
+
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException" />.
+    /// </summary>
+    /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
+    public InvalidTypeException(string message) : base(message)
+    {
+    }
+
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException" />.
+    /// </summary>
+    /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
+    /// <param name="offendingType">Tipo que ha causado la excepción.</param>
+    public InvalidTypeException(string message, Type offendingType) : base(message, offendingType)
+    {
+    }
+
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException" />.
+    /// </summary>
+    /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
+    public InvalidTypeException(Exception inner) : base(Msg(), inner)
+    {
+    }
+
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException" />.
+    /// </summary>
+    /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
+    /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
+    public InvalidTypeException(string message, Exception inner) : base(message, inner)
+    {
+    }
+
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException" />.
+    /// </summary>
+    /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
+    /// <param name="offendingType">Tipo que ha causado la excepción.</param>
+    public InvalidTypeException(Exception inner, Type offendingType) : base(Msg(offendingType), inner)
+    {
+    }
+
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException" />.
+    /// </summary>
+    /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
+    /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
+    /// <param name="offendingType">Tipo que ha causado la excepción.</param>
+    public InvalidTypeException(string message, Exception inner, Type offendingType) : base(message, inner, offendingType)
+    {
+    }
+
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="InvalidTypeException" />.
+    /// </summary>
+    /// <param name="info">
+    /// El objeto que contiene la información de serialización.
+    /// </param>
+    /// <param name="context">
+    /// La información contextual acerca del orígen o el destino.
+    /// </param>
+    protected InvalidTypeException(SerializationInfo info, StreamingContext context) : base(info, context)
+    {
+    }
+    
+    private static string Msg() => Errors.InvalidType;
+    private static string Msg(Type type) => string.Format(Errors.InvalidXType, type.FullName);
 }

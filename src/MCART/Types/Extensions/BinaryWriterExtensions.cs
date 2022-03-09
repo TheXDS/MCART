@@ -22,6 +22,7 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types.Extensions;
 using System;
 using System.IO;
 using System.Linq;
@@ -30,198 +31,195 @@ using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using TheXDS.MCART.Resources;
 
-namespace TheXDS.MCART.Types.Extensions
+/// <summary>
+/// Contiene extensiones útiles para la clase
+/// <see cref="BinaryWriter"/>.
+/// </summary>
+public static partial class BinaryWriterExtensions
 {
     /// <summary>
-    /// Contiene extensiones útiles para la clase
-    /// <see cref="BinaryWriter"/>.
+    /// Escribe un <see cref="Guid"/> en el <see cref="BinaryWriter"/>
+    /// especificado.
     /// </summary>
-    public static partial class BinaryWriterExtensions
+    /// <param name="bw">
+    /// Instancia sobre la cual realizar la escritura.
+    /// </param>
+    /// <param name="value">
+    /// Valor a escribir.
+    /// </param>
+    public static void Write(this BinaryWriter bw, Guid value)
     {
-        /// <summary>
-        /// Escribe un <see cref="Guid"/> en el <see cref="BinaryWriter"/>
-        /// especificado.
-        /// </summary>
-        /// <param name="bw">
-        /// Instancia sobre la cual realizar la escritura.
-        /// </param>
-        /// <param name="value">
-        /// Valor a escribir.
-        /// </param>
-        public static void Write(this BinaryWriter bw, Guid value)
+        bw.Write(value.ToByteArray());
+    }
+
+    /// <summary>
+    /// Escribe un <see cref="DateTime"/> en el
+    /// <see cref="BinaryWriter"/> especificado.
+    /// </summary>
+    /// <param name="bw">
+    /// Instancia sobre la cual realizar la escritura.
+    /// </param>
+    /// <param name="value">
+    /// Valor a escribir.
+    /// </param>
+    public static void Write(this BinaryWriter bw, DateTime value)
+    {
+        bw.Write(value.ToBinary());
+    }
+
+    /// <summary>
+    /// Escribe un <see cref="TimeSpan"/> en el
+    /// <see cref="BinaryWriter"/> especificado.
+    /// </summary>
+    /// <param name="bw">
+    /// Instancia sobre la cual realizar la escritura.
+    /// </param>
+    /// <param name="value">
+    /// Valor a escribir.
+    /// </param>
+    public static void Write(this BinaryWriter bw, TimeSpan value)
+    {
+        bw.Write(value.Ticks);
+    }
+
+    /// <summary>
+    /// Escribe un valor <see cref="Enum"/> en el
+    /// <see cref="BinaryWriter"/> especificado.
+    /// </summary>
+    /// <param name="bw">
+    /// Instancia sobre la cual realizar la escritura.
+    /// </param>
+    /// <param name="value">
+    /// Valor a escribir.
+    /// </param>
+    public static void Write(this BinaryWriter bw, Enum value)
+    {
+        bw.Write(value.ToBytes());
+    }
+
+    /// <summary>
+    /// Escribe un objeto serialziable en el
+    /// <see cref="BinaryWriter"/> especificado.
+    /// </summary>
+    /// <param name="bw">
+    /// Instancia sobre la cual realizar la escritura.
+    /// </param>
+    /// <param name="value">
+    /// Objeto serializable a escribir.
+    /// </param>
+    public static void Write(this BinaryWriter bw, ISerializable value)
+    {
+        DataContractSerializer? d = new(value.GetType());
+        using MemoryStream? ms = new();
+        d.WriteObject(ms, value);
+        bw.Write(BitConverter.ToString(ms.ToArray()));
+    }
+
+    /// <summary>
+    /// Realiza una escritura del objeto especificado, determinando
+    /// dinámicamente el método apropiado de escritura a utilizar.
+    /// </summary>
+    /// <param name="bw">
+    /// Instancia sobre la cual realizar la escritura.
+    /// </param>
+    /// <param name="value">
+    /// Objeto a escribir.
+    /// </param>
+    /// <exception cref="InvalidOperationException">
+    /// Se produce si no ha sido posible encontrar un método que pueda
+    /// escribir el valor especificado. 
+    /// </exception>
+    /// <exception cref="ArgumentNullException">
+    /// Se produce si <paramref name="bw"/> o <paramref name="value"/> son
+    /// <see langword="null"/>.
+    /// </exception>
+    public static void DynamicWrite(this BinaryWriter bw, object value)
+    {
+        DynamicWrite_Contract(bw, value);
+        Type? t = value.GetType();
+
+        if (typeof(BinaryWriter).GetMethods().FirstOrDefault(p => CanWrite(p, t)) is { } m)
         {
-            bw.Write(value.ToByteArray());
+            m.Invoke(bw, new[] { value });
         }
-
-        /// <summary>
-        /// Escribe un <see cref="DateTime"/> en el
-        /// <see cref="BinaryWriter"/> especificado.
-        /// </summary>
-        /// <param name="bw">
-        /// Instancia sobre la cual realizar la escritura.
-        /// </param>
-        /// <param name="value">
-        /// Valor a escribir.
-        /// </param>
-        public static void Write(this BinaryWriter bw, DateTime value)
+        else if (typeof(BinaryWriterExtensions).GetMethods().FirstOrDefault(p => CanExWrite(p, t)) is { } e)
         {
-            bw.Write(value.ToBinary());
+            e.Invoke(null, new[] { bw, value });
         }
-
-        /// <summary>
-        /// Escribe un <see cref="TimeSpan"/> en el
-        /// <see cref="BinaryWriter"/> especificado.
-        /// </summary>
-        /// <param name="bw">
-        /// Instancia sobre la cual realizar la escritura.
-        /// </param>
-        /// <param name="value">
-        /// Valor a escribir.
-        /// </param>
-        public static void Write(this BinaryWriter bw, TimeSpan value)
+        else if (value.GetType().IsStruct())
         {
-            bw.Write(value.Ticks);
-        }
-
-        /// <summary>
-        /// Escribe un valor <see cref="Enum"/> en el
-        /// <see cref="BinaryWriter"/> especificado.
-        /// </summary>
-        /// <param name="bw">
-        /// Instancia sobre la cual realizar la escritura.
-        /// </param>
-        /// <param name="value">
-        /// Valor a escribir.
-        /// </param>
-        public static void Write(this BinaryWriter bw, Enum value)
-        {
-            bw.Write(value.ToBytes());
-        }
-
-        /// <summary>
-        /// Escribe un objeto serialziable en el
-        /// <see cref="BinaryWriter"/> especificado.
-        /// </summary>
-        /// <param name="bw">
-        /// Instancia sobre la cual realizar la escritura.
-        /// </param>
-        /// <param name="value">
-        /// Objeto serializable a escribir.
-        /// </param>
-        public static void Write(this BinaryWriter bw, ISerializable value)
-        {
-            DataContractSerializer? d = new(value.GetType());
-            using MemoryStream? ms = new();
-            d.WriteObject(ms, value);
-            bw.Write(BitConverter.ToString(ms.ToArray()));
-        }
-
-        /// <summary>
-        /// Realiza una escritura del objeto especificado, determinando
-        /// dinámicamente el método apropiado de escritura a utilizar.
-        /// </summary>
-        /// <param name="bw">
-        /// Instancia sobre la cual realizar la escritura.
-        /// </param>
-        /// <param name="value">
-        /// Objeto a escribir.
-        /// </param>
-        /// <exception cref="InvalidOperationException">
-        /// Se produce si no ha sido posible encontrar un método que pueda
-        /// escribir el valor especificado. 
-        /// </exception>
-        /// <exception cref="ArgumentNullException">
-        /// Se produce si <paramref name="bw"/> o <paramref name="value"/> son
-        /// <see langword="null"/>.
-        /// </exception>
-        public static void DynamicWrite(this BinaryWriter bw, object value)
-        {
-            DynamicWrite_Contract(bw, value);
-            Type? t = value.GetType();
-
-            if (typeof(BinaryWriter).GetMethods().FirstOrDefault(p => CanWrite(p, t)) is { } m)
-            {
-                m.Invoke(bw, new[] { value });
-            }
-            else if (typeof(BinaryWriterExtensions).GetMethods().FirstOrDefault(p => CanExWrite(p, t)) is { } e)
-            {
-                e.Invoke(null, new[] { bw, value });
-            }
-            else if (value.GetType().IsStruct())
-            {
-                ByFieldWriteStructInternal(bw, value);
-            }
-            else
-            {
-                throw Errors.CantWriteObj(value.GetType());
-            }
-        }
-
-        /// <summary>
-        /// Escribe una estructura simple en el <see cref="Stream"/>
-        /// subyacente por medio de Marshaling.
-        /// </summary>
-        /// <typeparam name="T">Tipo de la estructura.</typeparam>
-        /// <param name="bw">
-        /// Instancia sobre la cual realizar la escritura.
-        /// </param>
-        /// <param name="value">
-        /// Objeto a escribir.
-        /// </param>
-        public static void MarshalWriteStruct<T>(this BinaryWriter bw, T value) where T : struct
-        {
-            WriteStruct_Contract(bw);
-            int sze = Marshal.SizeOf(value);
-            byte[]? arr = new byte[sze];
-            IntPtr ptr = Marshal.AllocHGlobal(sze);
-            Marshal.StructureToPtr(value, ptr, true);
-            Marshal.Copy(ptr, arr, 0, sze);
-            Marshal.FreeHGlobal(ptr);
-            bw.Write(arr);
-        }
-
-        /// <summary>
-        /// Escribe una estructura simple en el <see cref="Stream"/>
-        /// subyacente.
-        /// </summary>
-        /// <typeparam name="T">Tipo de la estructura.</typeparam>
-        /// <param name="bw">
-        /// Instancia sobre la cual realizar la escritura.
-        /// </param>
-        /// <param name="value">
-        /// Objeto a escribir.
-        /// </param>
-        public static void WriteStruct<T>(this BinaryWriter bw, T value) where T : struct
-        {
-            WriteStruct_Contract(bw, typeof(T));
             ByFieldWriteStructInternal(bw, value);
         }
-
-        private static void ByFieldWriteStructInternal(BinaryWriter writer, object obj)
+        else
         {
-            foreach (FieldInfo? j in obj.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic))
-            {
-                if (!j.IsInitOnly) writer.DynamicWrite(j.GetValue(obj) ?? throw Errors.FieldIsNull(j));
-            }
+            throw Errors.CantWriteObj(value.GetType());
         }
+    }
 
-        private static bool CanWrite(MethodInfo p, Type t)
-        {
-            ParameterInfo[]? l = p.GetParameters();
-            return p.IsVoid()
-                && p.Name == "Write"
-                && l.Length == 1
-                && l.Single().ParameterType == t;
-        }
+    /// <summary>
+    /// Escribe una estructura simple en el <see cref="Stream"/>
+    /// subyacente por medio de Marshaling.
+    /// </summary>
+    /// <typeparam name="T">Tipo de la estructura.</typeparam>
+    /// <param name="bw">
+    /// Instancia sobre la cual realizar la escritura.
+    /// </param>
+    /// <param name="value">
+    /// Objeto a escribir.
+    /// </param>
+    public static void MarshalWriteStruct<T>(this BinaryWriter bw, T value) where T : struct
+    {
+        WriteStruct_Contract(bw);
+        int sze = Marshal.SizeOf(value);
+        byte[]? arr = new byte[sze];
+        IntPtr ptr = Marshal.AllocHGlobal(sze);
+        Marshal.StructureToPtr(value, ptr, true);
+        Marshal.Copy(ptr, arr, 0, sze);
+        Marshal.FreeHGlobal(ptr);
+        bw.Write(arr);
+    }
 
-        private static bool CanExWrite(MethodInfo p, Type t)
+    /// <summary>
+    /// Escribe una estructura simple en el <see cref="Stream"/>
+    /// subyacente.
+    /// </summary>
+    /// <typeparam name="T">Tipo de la estructura.</typeparam>
+    /// <param name="bw">
+    /// Instancia sobre la cual realizar la escritura.
+    /// </param>
+    /// <param name="value">
+    /// Objeto a escribir.
+    /// </param>
+    public static void WriteStruct<T>(this BinaryWriter bw, T value) where T : struct
+    {
+        WriteStruct_Contract(bw, typeof(T));
+        ByFieldWriteStructInternal(bw, value);
+    }
+
+    private static void ByFieldWriteStructInternal(BinaryWriter writer, object obj)
+    {
+        foreach (FieldInfo? j in obj.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic))
         {
-            ParameterInfo[]? l = p.GetParameters();
-            return p.IsVoid()
-                && p.Name == "Write"
-                && l.Length == 2
-                && l.First().ParameterType == typeof(BinaryWriter)
-                && l.Last().ParameterType == t;
+            if (!j.IsInitOnly) writer.DynamicWrite(j.GetValue(obj) ?? throw Errors.FieldIsNull(j));
         }
+    }
+
+    private static bool CanWrite(MethodInfo p, Type t)
+    {
+        ParameterInfo[]? l = p.GetParameters();
+        return p.IsVoid()
+            && p.Name == "Write"
+            && l.Length == 1
+            && l.Single().ParameterType == t;
+    }
+
+    private static bool CanExWrite(MethodInfo p, Type t)
+    {
+        ParameterInfo[]? l = p.GetParameters();
+        return p.IsVoid()
+            && p.Name == "Write"
+            && l.Length == 2
+            && l.First().ParameterType == typeof(BinaryWriter)
+            && l.Last().ParameterType == t;
     }
 }

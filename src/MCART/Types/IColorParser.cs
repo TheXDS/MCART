@@ -22,34 +22,33 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Types
+namespace TheXDS.MCART.Types;
+
+/// <summary>
+/// Define una serie de métodos a implementar por una clase que permita
+/// convertir un valor en un <see cref="Color" />.
+/// </summary>
+/// <typeparam name="T">Tipo de valor a convertir.</typeparam>
+public interface IColorParser<T> where T : struct
 {
     /// <summary>
-    /// Define una serie de métodos a implementar por una clase que permita
-    /// convertir un valor en un <see cref="Color" />.
+    /// Convierte un <typeparamref name="T" /> en un
+    /// <see cref="Color" />.
     /// </summary>
-    /// <typeparam name="T">Tipo de valor a convertir.</typeparam>
-    public interface IColorParser<T> where T : struct
-    {
-        /// <summary>
-        /// Convierte un <typeparamref name="T" /> en un
-        /// <see cref="Color" />.
-        /// </summary>
-        /// <param name="value">Valor a convertir.</param>
-        /// <returns>
-        /// Un <see cref="Color" /> creado a partir del valor.
-        /// </returns>
-        Color From(T value);
+    /// <param name="value">Valor a convertir.</param>
+    /// <returns>
+    /// Un <see cref="Color" /> creado a partir del valor.
+    /// </returns>
+    Color From(T value);
 
-        /// <summary>
-        /// Convierte un <see cref="Color" /> en un valor de tipo
-        /// <typeparamref name="T" />.
-        /// </summary>
-        /// <param name="color"><see cref="Color" /> a convertir.</param>
-        /// <returns>
-        /// Un valor de tipo <typeparamref name="T" /> creado a partir del
-        /// <see cref="Color" /> especificado.
-        /// </returns>
-        T To(Color color);
-    }
+    /// <summary>
+    /// Convierte un <see cref="Color" /> en un valor de tipo
+    /// <typeparamref name="T" />.
+    /// </summary>
+    /// <param name="color"><see cref="Color" /> a convertir.</param>
+    /// <returns>
+    /// Un valor de tipo <typeparamref name="T" /> creado a partir del
+    /// <see cref="Color" /> especificado.
+    /// </returns>
+    T To(Color color);
 }

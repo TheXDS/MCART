@@ -22,24 +22,23 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Attributes;
 using System;
 
-namespace TheXDS.MCART.Attributes
+/// <summary>
+/// Establece un valor mínimo al cual se deben limitar los campos y propiedades.
+/// </summary>
+[AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
+public sealed class MinimumAttribute : ObjectAttribute
 {
     /// <summary>
-    /// Establece un valor mínimo al cual se deben limitar los campos y propiedades.
+    /// Inicializa una nueva instancia del atributo
+    /// <see cref="MinimumAttribute" /> estableciendo el valor mínimo a
+    /// representar.
     /// </summary>
-    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
-    public sealed class MinimumAttribute : ObjectAttribute
+    /// <param name="attributeValue">Valor del atributo.</param>
+    public MinimumAttribute(object? attributeValue) 
+        : base(attributeValue)
     {
-        /// <summary>
-        /// Inicializa una nueva instancia del atributo
-        /// <see cref="MinimumAttribute" /> estableciendo el valor mínimo a
-        /// representar.
-        /// </summary>
-        /// <param name="attributeValue">Valor del atributo.</param>
-        public MinimumAttribute(object? attributeValue) : base(attributeValue)
-        {
-        }
     }
 }

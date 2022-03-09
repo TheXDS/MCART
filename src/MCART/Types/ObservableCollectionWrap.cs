@@ -22,37 +22,35 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types;
 using System.Collections.Generic;
 using TheXDS.MCART.Types.Base;
 
-namespace TheXDS.MCART.Types
+/// <summary>
+/// Envuelve una colección para proveerla de eventos de notificación de
+/// cambio de propiedad y contenido.
+/// </summary>
+/// <typeparam name="T">
+/// Tipo de elementos contenidos dentro de la colección.
+/// </typeparam>
+public class ObservableCollectionWrap<T> : ObservableWrap<T, ICollection<T>>
 {
     /// <summary>
-    /// Envuelve una colección para proveerla de eventos de notificación de
-    /// cambio de propiedad y contenido.
+    /// Inicializa una nueva instancia de la clase 
+    /// <see cref="ObservableCollectionWrap{T}"/>.
     /// </summary>
-    /// <typeparam name="T">
-    /// Tipo de elementos contenidos dentro de la colección.
-    /// </typeparam>
-    public class ObservableCollectionWrap<T> : ObservableWrap<T, ICollection<T>>
+    public ObservableCollectionWrap()
     {
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="ObservableCollectionWrap{T}"/>.
-        /// </summary>
-        /// <param name="collection">
-        /// Colección a establecer com ola colección subyacente.
-        /// </param>
-        public ObservableCollectionWrap(ICollection<T> collection) : base(collection)
-        {
-        }
+    }
 
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="ObservableCollectionWrap{T}"/>.
-        /// </summary>
-        public ObservableCollectionWrap()
-        {
-        }
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="ObservableCollectionWrap{T}"/>.
+    /// </summary>
+    /// <param name="collection">
+    /// Colección a establecer com ola colección subyacente.
+    /// </param>
+    public ObservableCollectionWrap(ICollection<T> collection) : base(collection)
+    {
     }
 }

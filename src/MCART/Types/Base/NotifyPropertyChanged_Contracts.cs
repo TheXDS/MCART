@@ -22,20 +22,18 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types.Base;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using static TheXDS.MCART.Misc.Internals;
 
-namespace TheXDS.MCART.Types.Base
+public abstract partial class NotifyPropertyChanged
 {
-    public abstract partial class NotifyPropertyChanged
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void PropertyName_Contract(string propertyName)
     {
-        [Conditional("EnforceContracts")]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [DebuggerNonUserCode]
-        private static void PropertyName_Contract(string propertyName)
-        {
-            NullCheck(propertyName, nameof(propertyName));
-        }
+        EmptyCheck(propertyName, nameof(propertyName));
     }
 }

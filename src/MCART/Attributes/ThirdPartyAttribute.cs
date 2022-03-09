@@ -22,21 +22,19 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Attributes;
 using System;
 using static System.AttributeTargets;
 
-namespace TheXDS.MCART.Attributes
+/// <summary>
+/// Indica que un elemento proviene de orígenes de terceros.
+/// </summary>
+/// <remarks>
+/// Es recomendable que al aplicar este atributo, también se aplique un
+/// atributo que indique la licencia del mismo.
+/// </remarks>
+[AttributeUsage(Method | Class | Module | Assembly)]
+[Serializable]
+public sealed class ThirdPartyAttribute : Attribute
 {
-    /// <summary>
-    /// Indica que un elemento proviene de orígenes de terceros.
-    /// </summary>
-    /// <remarks>
-    /// Es recomendable que al aplicar este atributo, también se aplique un
-    /// atributo que indique la licencia del mismo.
-    /// </remarks>
-    [AttributeUsage(Method | Class | Module | Assembly)]
-    [Serializable]
-    public sealed class ThirdPartyAttribute : Attribute
-    {
-    }
 }

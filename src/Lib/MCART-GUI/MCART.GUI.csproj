@@ -2,7 +2,6 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <Description>MCART GUI Core</Description>
-    <AssemblyName>MCART.GUI</AssemblyName>
   </PropertyGroup>  
   <ItemGroup>
     <None Remove="Resources\Icons\MCART.png" />

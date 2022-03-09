@@ -22,22 +22,21 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Types.Base
+namespace TheXDS.MCART.Types.Base;
+
+/// <summary>
+/// Define una serie de miembros a implementar por un tipo que represente
+/// un tamaño en dos dimensiones.
+/// </summary>
+public interface ISize
 {
     /// <summary>
-    /// Define una serie de miembros a implementar por un tipo que represente
-    /// un tamaño en dos dimensiones.
+    /// Obtiene el componente de altura del tamaño.
     /// </summary>
-    public interface ISize
-    {
-        /// <summary>
-        /// Obtiene el componente de altura del tamaño.
-        /// </summary>
-        double Height { get; set; }
+    double Height { get; set; }
 
-        /// <summary>
-        /// Obtiene el componente de ancho del tamaño.
-        /// </summary>
-        double Width { get; set; }
-    }
+    /// <summary>
+    /// Obtiene el componente de ancho del tamaño.
+    /// </summary>
+    double Width { get; set; }
 }

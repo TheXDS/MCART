@@ -25,61 +25,59 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types.Base;
 using System;
 using TheXDS.MCART.Helpers;
 
-namespace TheXDS.MCART.Types.Base
+/// <summary>
+/// Interfaz que define un rango de valores.
+/// </summary>
+/// <typeparam name="T">Tipo base del rango de valores.</typeparam>
+public interface IRange<T> where T : IComparable<T>
 {
     /// <summary>
-    /// Interfaz que define un rango de valores.
+    /// Valor máximo del rango.
     /// </summary>
-    /// <typeparam name="T">Tipo base del rango de valores.</typeparam>
-    public interface IRange<T> where T : IComparable<T>
-    {
-        /// <summary>
-        /// Valor máximo del rango.
-        /// </summary>
-        T Maximum { get; set; }
+    T Maximum { get; set; }
 
-        /// <summary>
-        /// Obtiene o establece un valor que determina si el valor máximo
-        /// es parte del rango.
-        /// </summary>
-        /// 
-        bool MaxInclusive { get; set; }
+    /// <summary>
+    /// Obtiene o establece un valor que determina si el valor máximo
+    /// es parte del rango.
+    /// </summary>
+    /// 
+    bool MaxInclusive { get; set; }
 
-        /// <summary>
-        /// Valor mínimo del rango.
-        /// </summary>
-        T Minimum { get; set; }
+    /// <summary>
+    /// Valor mínimo del rango.
+    /// </summary>
+    T Minimum { get; set; }
 
-        /// <summary>
-        /// Obtiene o establece un valor que determina si el valor mínimo
-        /// es parte del rango.
-        /// </summary>
-        bool MinInclusive { get; set; }
+    /// <summary>
+    /// Obtiene o establece un valor que determina si el valor mínimo
+    /// es parte del rango.
+    /// </summary>
+    bool MinInclusive { get; set; }
 
-        /// <summary>
-        /// Determina si un <see cref="IRange{T}"/> intersecta a este.
-        /// </summary>
-        /// <param name="other">Rango a comprobar.</param>
-        /// <returns>
-        /// <see langword="true"/> si <paramref name="other"/> intersecta a
-        /// este <see cref="IRange{T}"/>, <see langword="false"/> en caso
-        /// contrario.
-        /// </returns>
-        bool Intersects(IRange<T> other) => IsWithin(other.Maximum) || IsWithin(other.Minimum);
+    /// <summary>
+    /// Determina si un <see cref="IRange{T}"/> intersecta a este.
+    /// </summary>
+    /// <param name="other">Rango a comprobar.</param>
+    /// <returns>
+    /// <see langword="true"/> si <paramref name="other"/> intersecta a
+    /// este <see cref="IRange{T}"/>, <see langword="false"/> en caso
+    /// contrario.
+    /// </returns>
+    bool Intersects(IRange<T> other) => IsWithin(other.Maximum) || IsWithin(other.Minimum);
 
-        /// <summary>
-        /// Comprueba si un valor <typeparamref name="T"/> se encuentra
-        /// dentro de este <see cref="IRange{T}"/>.
-        /// </summary>
-        /// <param name="value">Valor a comporbar.</param>
-        /// <returns>
-        /// <see langword="true"/> si el valor se encuentra dentro de este
-        /// <see cref="IRange{T}"/>, <see langword="false"/> en caso
-        /// contrario.
-        /// </returns>
-        bool IsWithin(T value) => value.IsBetween(Minimum, Maximum, MinInclusive, MaxInclusive);
-    }
+    /// <summary>
+    /// Comprueba si un valor <typeparamref name="T"/> se encuentra
+    /// dentro de este <see cref="IRange{T}"/>.
+    /// </summary>
+    /// <param name="value">Valor a comporbar.</param>
+    /// <returns>
+    /// <see langword="true"/> si el valor se encuentra dentro de este
+    /// <see cref="IRange{T}"/>, <see langword="false"/> en caso
+    /// contrario.
+    /// </returns>
+    bool IsWithin(T value) => value.IsBetween(Minimum, Maximum, MinInclusive, MaxInclusive);
 }

@@ -22,6 +22,7 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Attributes;
 using System;
 using System.Reflection;
 using TheXDS.MCART.Exceptions;
@@ -29,81 +30,84 @@ using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Extensions;
 using static System.AttributeTargets;
 
-namespace TheXDS.MCART.Attributes
+/// <summary>
+/// Establece un archivo incrustado de licencia a asociar con el elemento.
+/// </summary>
+[AttributeUsage(Class | AttributeTargets.Module | AttributeTargets.Assembly)]
+[Serializable]
+public sealed class EmbeddedLicenseAttribute : LicenseAttributeBase
 {
     /// <summary>
-    /// Establece un archivo incrustado de licencia a asociar con el elemento.
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="EmbeddedLicenseAttribute" />.
     /// </summary>
-    [AttributeUsage(Class | AttributeTargets.Module | AttributeTargets.Assembly)]
-    [Serializable]
-    public sealed class EmbeddedLicenseAttribute : LicenseAttributeBase
+    /// <param name="value">
+    /// Archivo incrustado de la licencia.
+    /// </param>
+    /// <param name="path">
+    /// Ruta del archivo embebido de licencia dentro del ensamblado.
+    /// </param>
+    public EmbeddedLicenseAttribute(string value, string path) 
+        : this(value, path, typeof(NullGetter))
     {
-        /// <summary>
-        /// Ruta del archivo embebido de licencia dentro del ensamblado.
-        /// </summary>
-        public string Path { get; }
-        /// <summary>
-        /// Compressor utilizado para extraer el recurso incrustado.
-        /// </summary>
-        public Type CompressorType { get; }
+    }
 
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="EmbeddedLicenseAttribute" />.
-        /// </summary>
-        /// <param name="value">
-        /// Archivo incrustado de la licencia.
-        /// </param>
-        /// <param name="path">
-        /// Ruta del archivo embebido de licencia dentro del ensamblado.
-        /// </param>
-        public EmbeddedLicenseAttribute(string value, string path) : this(value, path, typeof(NullGetter))
-        {
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="EmbeddedLicenseAttribute" />.
+    /// </summary>
+    /// <param name="value">
+    /// Archivo incrustado de la licencia.
+    /// </param>
+    /// <param name="path">
+    /// Ruta del archivo embebido de licencia dentro del ensamblado.
+    /// </param>
+    /// <param name="compressorType">
+    /// Compressor utilizado para extraer el recurso incrustado.
+    /// </param>
+    public EmbeddedLicenseAttribute(string value, string path, Type compressorType) 
+        : base(value)
+    {
+        if (!compressorType.Implements<ICompressorGetter>())
+        { 
+            throw new InvalidTypeException(compressorType);
         }
+        Path = path;
+        CompressorType = compressorType;
+    }
 
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="EmbeddedLicenseAttribute" />.
-        /// </summary>
-        /// <param name="value">
-        /// Archivo incrustado de la licencia.
-        /// </param>
-        /// <param name="path">
-        /// Ruta del archivo embebido de licencia dentro del ensamblado.
-        /// </param>
-        /// <param name="compressorType">
-        /// Compressor utilizado para extraer el recurso incrustado.
-        /// </param>
-        public EmbeddedLicenseAttribute(string value, string path, Type compressorType) : base(value)
+    /// <summary>
+    /// Ruta del archivo embebido de licencia dentro del ensamblado.
+    /// </summary>
+    public string Path { get; }
+
+    /// <summary>
+    /// Compressor utilizado para extraer el recurso incrustado.
+    /// </summary>
+    public Type CompressorType { get; }
+
+    /// <summary>
+    /// Lee el contenido de la licencia embebida dentro del ensamblado.
+    /// </summary>
+    /// <param name="context">
+    /// Objeto a partir del cual se ha obtenido este atributo.
+    /// </param>
+    /// <returns>
+    /// El contenido de la licencia.
+    /// </returns>
+    public override License GetLicense(object context)
+    {
+        Assembly? origin = context switch
         {
-            if (!compressorType.Implements<ICompressorGetter>()) throw new InvalidTypeException(compressorType);
-            Path = path;
-            CompressorType = compressorType;
-        }
+            Assembly a   => a,
+            Type t       => t.Assembly,
+            MemberInfo m => m.DeclaringType?.Assembly!,
+            null         => throw new ArgumentNullException(nameof(context)),
+            _            => context.GetType().Assembly,
+        };
 
-        /// <summary>
-        /// Lee el contenido de la licencia embebida dentro del ensamblado.
-        /// </summary>
-        /// <param name="context">
-        /// Objeto a partir del cual se ha obtenido este atributo.
-        /// </param>
-        /// <returns>
-        /// El contenido de la licencia.
-        /// </returns>
-        public override License GetLicense(object context)
-        {
-            Assembly? origin = context switch
-            {
-                Assembly a => a,
-                Type t => t.Assembly,
-                MemberInfo m => m.DeclaringType?.Assembly!,
-                null => throw new ArgumentNullException(nameof(context)),
-                _ => context.GetType().Assembly
-            };
-
-            if (Value is null) return License.Unspecified;
-            string? content = new StringUnpacker(origin, Path).Unpack(Value, CompressorType.New<ICompressorGetter>());
-            return new TextLicense(content.Split('\n')[0].Trim(' ', '\n', '\r'), content);
-        }
+        if (Value is null) return License.Unspecified;
+        string? content = new StringUnpacker(origin, Path).Unpack(Value, CompressorType.New<ICompressorGetter>());
+        return new TextLicense(content.Split('\n')[0].Trim(' ', '\n', '\r'), content);
     }
 }

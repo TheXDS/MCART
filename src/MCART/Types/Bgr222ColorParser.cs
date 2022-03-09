@@ -22,43 +22,42 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Types
+namespace TheXDS.MCART.Types;
+
+/// <summary>
+/// Implementa un <see cref="IColorParser{T}" /> que tiene como formato
+/// de color un valor de 6 bits, 2 bits por canal, sin alfa.
+/// </summary>
+public class Bgr222ColorParser : IColorParser<byte>
 {
     /// <summary>
-    /// Implementa un <see cref="IColorParser{T}" /> que tiene como formato
-    /// de color un valor de 6 bits, 2 bits por canal, sin alfa.
+    /// Convierte una estructura compatible en un <see cref="Color" />.
     /// </summary>
-    public class Bgr222ColorParser : IColorParser<byte>
+    /// <param name="value">Valor a convertir.</param>
+    /// <returns>
+    /// Un <see cref="Color" /> creado a partir del valor especificado.
+    /// </returns>
+    public Color From(byte value)
     {
-        /// <summary>
-        /// Convierte una estructura compatible en un <see cref="Color" />.
-        /// </summary>
-        /// <param name="value">Valor a convertir.</param>
-        /// <returns>
-        /// Un <see cref="Color" /> creado a partir del valor especificado.
-        /// </returns>
-        public Color From(byte value)
-        {
-            return new(
-                (byte)((value & 0x3) * 255 / 3),
-                (byte)(((value & 0xc) >> 2) * 255 / 3),
-                (byte)(((value & 0x30) >> 4) * 255 / 3));
-        }
+        return new(
+            (byte)((value & 0x3) * 255 / 3),
+            (byte)(((value & 0xc) >> 2) * 255 / 3),
+            (byte)(((value & 0x30) >> 4) * 255 / 3));
+    }
 
-        /// <summary>
-        /// Convierte un <see cref="Color" /> en un valor, utilizando el
-        /// <see cref="IColorParser{T}" /> especificado.
-        /// </summary>
-        /// <param name="color"><see cref="Color" /> a convertir.</param>
-        /// <returns>
-        /// Un valor creado a partir de este <see cref="Color" />.
-        /// </returns>
-        public byte To(Color color)
-        {
-            return (byte)(
-                (color.R * 3 / 255) |
-                ((color.G * 3 / 255) << 2) |
-                ((color.B * 3 / 255) << 4));
-        }
+    /// <summary>
+    /// Convierte un <see cref="Color" /> en un valor, utilizando el
+    /// <see cref="IColorParser{T}" /> especificado.
+    /// </summary>
+    /// <param name="color"><see cref="Color" /> a convertir.</param>
+    /// <returns>
+    /// Un valor creado a partir de este <see cref="Color" />.
+    /// </returns>
+    public byte To(Color color)
+    {
+        return (byte)(
+            (color.R * 3 / 255) |
+            ((color.G * 3 / 255) << 2) |
+            ((color.B * 3 / 255) << 4));
     }
 }

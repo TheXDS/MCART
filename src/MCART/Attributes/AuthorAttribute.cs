@@ -22,25 +22,24 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Attributes;
 using System;
 using static System.AttributeTargets;
 
-namespace TheXDS.MCART.Attributes
+/// <summary>
+/// Establece el autor del elemento.
+/// </summary>
+[AttributeUsage(Property | Method | Constructor | Class | Module | Assembly, AllowMultiple = true)]
+[Serializable]
+public sealed class AuthorAttribute : TextAttribute
 {
     /// <summary>
-    /// Establece el autor del elemento.
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="DescriptionAttribute" />.
     /// </summary>
-    [AttributeUsage(Property | Method | Constructor | Class | Module | Assembly, AllowMultiple = true)]
-    [Serializable]
-    public sealed class AuthorAttribute : TextAttribute
+    /// <param name="attrValue">Valor del atributo.</param>
+    public AuthorAttribute(string attrValue)
+        : base(attrValue)
     {
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="DescriptionAttribute" />.
-        /// </summary>
-        /// <param name="attrValue">Valor del atributo.</param>
-        public AuthorAttribute(string attrValue) : base(attrValue)
-        {
-        }
     }
 }

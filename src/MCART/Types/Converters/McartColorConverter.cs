@@ -25,18 +25,17 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Types.Converters
+namespace TheXDS.MCART.Types.Converters;
+
+/// <summary>
+/// Obtiene un <see cref="Color"/> a partir de un
+/// <see cref="string"/>.
+/// </summary>
+public class McartColorConverter : BasicParseConverter<Color>
 {
-    /// <summary>
-    /// Obtiene un <see cref="Color"/> a partir de un
-    /// <see cref="string"/>.
-    /// </summary>
-    public class McartColorConverter : BasicParseConverter<Color>
+    /// <inheritdoc/>
+    protected override Color ConvertFrom(string? value)
     {
-        /// <inheritdoc/>
-        protected override Color ConvertFrom(string? value)
-        {
-            return Color.Parse(value ?? "#00000000");
-        }
+        return Color.Parse(value ?? "#00000000");
     }
 }

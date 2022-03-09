@@ -22,45 +22,43 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types.Extensions;
 using System;
 using System.Collections;
 
-namespace TheXDS.MCART.Types.Extensions
+/// <summary>
+/// Extensiones para todos los tipos que implementen 
+/// <see cref="IEnumerator"/>.
+/// </summary>
+public static partial class EnumeratorExtensions
 {
     /// <summary>
-    /// Extensiones para todos los tipos que implementen 
-    /// <see cref="IEnumerator"/>.
+    /// Desplaza el enumerador una cantidad específica de elementos.
     /// </summary>
-    public static partial class EnumeratorExtensions
+    /// <param name="enumerator">
+    /// Enumerador a recorrer.
+    /// </param>
+    /// <param name="steps">
+    /// Número de elementos a saltar.
+    /// </param>
+    /// <returns>
+    /// La cantidad de elementos saltados exitosamente.
+    /// </returns>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Se produce si <paramref name="steps"/> es inferior a cero.
+    /// </exception>
+    public static int Skip(this IEnumerator enumerator, int steps)
     {
-        /// <summary>
-        /// Desplaza el enumerador una cantidad específica de elementos.
-        /// </summary>
-        /// <param name="enumerator">
-        /// Enumerador a recorrer.
-        /// </param>
-        /// <param name="steps">
-        /// Número de elementos a saltar.
-        /// </param>
-        /// <returns>
-        /// La cantidad de elementos saltados exitosamente.
-        /// </returns>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// Se produce si <paramref name="steps"/> es inferior a cero.
-        /// </exception>
-        public static int Skip(this IEnumerator enumerator, int steps)
+        Skip_Contract(enumerator, steps);
+        int j;
+        for (j = 0; j < steps; j++)
         {
-            Skip_Contract(enumerator, steps);
-            int j;
-            for (j = 0; j < steps; j++)
+            if (!enumerator.MoveNext())
             {
-                if (!enumerator.MoveNext())
-                {
-                    j++;
-                    break;
-                }
+                j++;
+                break;
             }
-            return j;
         }
+        return j;
     }
 }

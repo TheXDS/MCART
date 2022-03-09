@@ -22,44 +22,42 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types;
 using System;
 using System.Runtime.InteropServices;
 using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Base;
 using TheXDS.MCART.Types.Extensions;
 
-namespace TheXDS.MCART.Types
+/// <summary>
+/// Implementa directamente <see cref="IExposeGuid"/>.
+/// </summary>
+public class ExposeGuidImplementor : IExposeGuid
 {
+    private readonly Type _t;
+
     /// <summary>
-    /// Implementa directamente <see cref="IExposeGuid"/>.
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="ExposeGuidImplementor"/>.
     /// </summary>
-    public class ExposeGuidImplementor : IExposeGuid
+    /// <param name="o">
+    /// Objeto del cual exponer el Guid; generalmente 
+    /// <see langword="this"/>.
+    /// </param>
+    public ExposeGuidImplementor(object o)
     {
-        private readonly Type _t;
+        _t = o as Type ?? o?.GetType() ?? throw new ArgumentNullException(nameof(o));
+    }
 
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="ExposeGuidImplementor"/>.
-        /// </summary>
-        /// <param name="o">
-        /// Objeto del cual exponer el Guid; generalmente 
-        /// <see langword="this"/>.
-        /// </param>
-        public ExposeGuidImplementor(object o)
+    /// <summary>
+    /// Obtiene el <see cref="Guid"/> asociado a este objeto.
+    /// </summary>
+    public virtual Guid Guid
+    {
+        get
         {
-            _t = o as Type ?? o?.GetType() ?? throw new ArgumentNullException(nameof(o));
-        }
-
-        /// <summary>
-        /// Obtiene el <see cref="Guid"/> asociado a este objeto.
-        /// </summary>
-        public virtual Guid Guid
-        {
-            get
-            {
-                GuidAttribute? g = _t.GetAttr<GuidAttribute>() ?? throw Errors.MissingGuidAttr(_t);
-                return new Guid(g.Value);
-            }
+            GuidAttribute? g = _t.GetAttr<GuidAttribute>() ?? throw Errors.MissingGuidAttr(_t);
+            return new Guid(g.Value);
         }
     }
 }

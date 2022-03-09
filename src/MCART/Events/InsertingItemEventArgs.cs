@@ -22,33 +22,31 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Events;
 using System.ComponentModel;
 using TheXDS.MCART.Types;
 
-namespace TheXDS.MCART.Events
+/// <summary>
+/// Contiene información para el evento
+/// <see cref="ListEx{T}.InsertingItem"/>.
+/// </summary>
+/// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
+public class InsertingItemEventArgs<T> : CancelEventArgs
 {
-    /// <summary>
-    /// Contiene información para el evento
-    /// <see cref="ListEx{T}.InsertingItem"/>.
-    /// </summary>
-    /// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
-    public class InsertingItemEventArgs<T> : CancelEventArgs
+    internal InsertingItemEventArgs(int index, T insertedItem)
     {
-        /// <summary>
-        /// Obtiene el objeto que se insertará en el
-        /// <see cref="ListEx{T}"/>.
-        /// </summary>
-        public T InsertedItem { get; }
-
-        /// <summary>
-        /// Obtiene el índice en el cual el objeto será insertado.
-        /// </summary>
-        public int Index { get; }
-
-        internal InsertingItemEventArgs(int index, T insertedItem)
-        {
-            Index = index;
-            InsertedItem = insertedItem;
-        }
+        Index = index;
+        InsertedItem = insertedItem;
     }
+
+    /// <summary>
+    /// Obtiene el objeto que se insertará en el
+    /// <see cref="ListEx{T}"/>.
+    /// </summary>
+    public T InsertedItem { get; }
+
+    /// <summary>
+    /// Obtiene el índice en el cual el objeto será insertado.
+    /// </summary>
+    public int Index { get; }
 }

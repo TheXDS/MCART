@@ -24,23 +24,21 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Helpers;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using static TheXDS.MCART.Misc.Internals;
 
-namespace TheXDS.MCART.Helpers
+/// <summary>
+/// Funciones de manipulación de objetos.
+/// </summary>
+public static partial class Objects
 {
-    /// <summary>
-    /// Funciones de manipulación de objetos.
-    /// </summary>
-    public static partial class Objects
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void FromBytes_Contract(byte[] rawBytes)
     {
-        [Conditional("EnforceContracts")]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [DebuggerNonUserCode]
-        private static void FromBytes_Contract(byte[] rawBytes)
-        {
-            NullCheck(rawBytes, nameof(rawBytes));
-        }
+        NullCheck(rawBytes, nameof(rawBytes));
     }
 }

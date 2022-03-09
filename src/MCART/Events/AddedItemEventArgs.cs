@@ -22,35 +22,33 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Events;
 using System;
 using TheXDS.MCART.Types;
 
-namespace TheXDS.MCART.Events
+/// <summary>
+/// Contiene información para el evento <see cref="ListEx{T}.AddedItem"/>.
+/// </summary>
+/// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
+public class AddedItemEventArgs<T> : EventArgs
 {
-    /// <summary>
-    /// Contiene información para el evento <see cref="ListEx{T}.AddedItem"/>.
-    /// </summary>
-    /// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
-    public class AddedItemEventArgs<T> : EventArgs
+    internal AddedItemEventArgs(T newItem)
     {
-        /// <summary>
-        /// Convierte implícitamente un <see cref="AddingItemEventArgs{T}"/> en
-        /// un <see cref="AddedItemEventArgs{T}"/>.
-        /// </summary>
-        /// <param name="from">
-        /// <see cref="AddingItemEventArgs{T}"/> a convertir.
-        /// </param>
-        public static implicit operator AddedItemEventArgs<T>(AddingItemEventArgs<T> from) => new(from.NewItem);
-
-        /// <summary>
-        /// Elemento que fue agregado al <see cref="ListEx{T}"/> que generó el
-        /// evento.
-        /// </summary>
-        public T NewItem { get; }
-
-        internal AddedItemEventArgs(T newItem)
-        {
-            NewItem = newItem;
-        }
+        NewItem = newItem;
     }
+
+    /// <summary>
+    /// Convierte implícitamente un <see cref="AddingItemEventArgs{T}"/> en
+    /// un <see cref="AddedItemEventArgs{T}"/>.
+    /// </summary>
+    /// <param name="from">
+    /// <see cref="AddingItemEventArgs{T}"/> a convertir.
+    /// </param>
+    public static implicit operator AddedItemEventArgs<T>(AddingItemEventArgs<T> from) => new(from.NewItem);
+
+    /// <summary>
+    /// Elemento que fue agregado al <see cref="ListEx{T}"/> que generó el
+    /// evento.
+    /// </summary>
+    public T NewItem { get; }
 }

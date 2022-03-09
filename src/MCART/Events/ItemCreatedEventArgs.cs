@@ -22,25 +22,24 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Events
+namespace TheXDS.MCART.Events;
+
+/// <summary>
+/// Contiene información de evento para cualquier clase con eventos donde
+/// se guardó información.
+/// </summary>
+public class ItemCreatedEventArgs<T> : ValueEventArgs<T> where T : notnull
 {
     /// <summary>
-    /// Contiene información de evento para cualquier clase con eventos donde
-    /// se guardó información.
+    /// Inicializa una nueva instancia de esta clase con la información de
+    /// evento provista.
     /// </summary>
-    public class ItemCreatedEventArgs<T> : ValueEventArgs<T> where T : notnull
+    /// <param name="item">Objeto que ha sido guardado.</param>
+    /// <exception cref="System.ArgumentNullException">
+    /// Se produce si <paramref name="item"/> es <see langword="null"/>.
+    /// </exception>
+    public ItemCreatedEventArgs(T item) : base(item)
     {
-        /// <summary>
-        /// Inicializa una nueva instancia de esta clase con la información de
-        /// evento provista.
-        /// </summary>
-        /// <param name="item">Objeto que ha sido guardado.</param>
-        /// <exception cref="System.ArgumentNullException">
-        /// Se produce si <paramref name="item"/> es <see langword="null"/>.
-        /// </exception>
-        public ItemCreatedEventArgs(T item) : base(item)
-        {
-            Misc.Internals.NullCheck(item, nameof(item));
-        }
+        Misc.Internals.NullCheck(item, nameof(item));
     }
 }

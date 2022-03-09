@@ -22,114 +22,113 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types;
 using System;
 using System.Timers;
 using TheXDS.MCART.Types.Base;
 
-namespace TheXDS.MCART.Types
+/// <summary>
+/// Extensión de la clase <see cref="TimerEx" />. provee de toda
+/// la funcionalidad previamente disponible, e incluye algunas extensiones
+/// útiles.
+/// </summary>
+public class TimerEx : Timer, IDisposableEx
 {
     /// <summary>
-    /// Extensión de la clase <see cref="TimerEx" />. provee de toda
-    /// la funcionalidad previamente disponible, e incluye algunas extensiones
-    /// útiles.
+    /// Inicializa una nueva instancia de la clase <see cref="TimerEx" />.
     /// </summary>
-    public class TimerEx : Timer, IDisposableEx
+    public TimerEx()
     {
-        private void Tmr_Elapsed(object? sender, ElapsedEventArgs e)
+        Elapsed += Tmr_Elapsed;
+        Disposed += TimerEx_Disposed;
+    }
+
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase <see cref="TimerEx" /> y 
+    /// establece la propiedad <see cref="Timer.Interval" />
+    /// en el número de milisegundos especificado.
+    /// </summary>
+    /// <param name="interval">
+    /// Tiempo, en milisegundos, entre eventos. Este valor debe ser mayor
+    /// que cero y menor que <see cref="F:System.Int32.MaxValue" />.
+    /// </param>
+    public TimerEx(double interval) : base(interval) { }
+
+    /// <summary>
+    /// Obtiene o establece un valor que indica si este <see cref="TimerEx"/>
+    /// debe generar el evento <see cref="Timer.Elapsed"/>.
+    /// </summary>
+    public new bool Enabled
+    {
+        get => base.Enabled;
+        set
         {
-            if (AutoReset) StartTime = DateTime.Now;
+            StartTime = value ? DateTime.Now : null;
+            base.Enabled = value;
         }
-        private void TimerEx_Disposed(object? sender, EventArgs e)
+    }
+
+    /// <summary>
+    /// Obtiene un valor que indica si este objeto ha sido desechado.
+    /// </summary>
+    public bool IsDisposed { get; private set; }
+
+    /// <summary>
+    /// Indica el momento de inicio de este <see cref="TimerEx"/>.
+    /// </summary>
+    public DateTime? StartTime { get; private set; }
+
+    /// <summary>
+    /// Indica la cantidad de tiempo disponible antes de cumplir con el 
+    /// intervalo establecido en 
+    /// <see cref="Timer.Interval"/>.
+    /// </summary>
+    public TimeSpan? TimeLeft
+    {
+        get
         {
-            IsDisposed = true;
+            if (StartTime is not null) return TimeSpan.FromMilliseconds(Interval) - (DateTime.Now - StartTime);
+            return null;
         }
+    }
 
-        /// <summary>
-        /// Indica el momento de inicio de este <see cref="TimerEx"/>.
-        /// </summary>
-        public DateTime? StartTime { get; private set; }
+    /// <summary>
+    /// Empieza a generar el evento 
+    /// <see cref="Timer.Elapsed"/> al establecer 
+    /// <see cref="Enabled"/> en <see langword="true"/>.
+    /// </summary>
+    public new void Start()
+    {
+        StartTime = DateTime.Now;
+        base.Start();
+    }
 
-        /// <summary>
-        /// Indica la cantidad de tiempo disponible antes de cumplir con el 
-        /// intervalo establecido en 
-        /// <see cref="Timer.Interval"/>.
-        /// </summary>
-        public TimeSpan? TimeLeft
-        {
-            get
-            {
-                if (StartTime is not null) return TimeSpan.FromMilliseconds(Interval) - (DateTime.Now - StartTime);
-                return null;
-            }
-        }
+    /// <summary>
+    /// Deja de generar el evento <see cref="Timer.Elapsed"/>
+    /// al establecer <see cref="Enabled"/> en <see langword="false"/>.
+    /// </summary>
+    public new void Stop()
+    {
+        StartTime = null;
+        base.Stop();
+    }
 
-        /// <summary>
-        /// Obtiene o establece un valor que indica si este <see cref="TimerEx"/>
-        /// debe generar el evento <see cref="Timer.Elapsed"/>.
-        /// </summary>
-        public new bool Enabled
-        {
-            get => base.Enabled;
-            set
-            {
-                StartTime = value ? (DateTime?)DateTime.Now : null;
-                base.Enabled = value;
-            }
-        }
+    /// <summary>
+    /// Reinicia este <see cref="TimerEx"/>.
+    /// </summary>
+    public void Reset()
+    {
+        Stop();
+        Start();
+    }
 
-        /// <summary>
-        /// Obtiene un valor que indica si este objeto ha sido desechado.
-        /// </summary>
-        public bool IsDisposed { get; private set; }
+    private void Tmr_Elapsed(object? sender, ElapsedEventArgs e)
+    {
+        if (AutoReset) StartTime = DateTime.Now;
+    }
 
-        /// <summary>
-        /// Empieza a generar el evento 
-        /// <see cref="Timer.Elapsed"/> al establecer 
-        /// <see cref="Enabled"/> en <see langword="true"/>.
-        /// </summary>
-        public new void Start()
-        {
-            StartTime = DateTime.Now;
-            base.Start();
-        }
-
-        /// <summary>
-        /// Deja de generar el evento <see cref="Timer.Elapsed"/>
-        /// al establecer <see cref="Enabled"/> en <see langword="false"/>.
-        /// </summary>
-        public new void Stop()
-        {
-            StartTime = null;
-            base.Stop();
-        }
-
-        /// <summary>
-        /// Reinicia este <see cref="TimerEx"/>.
-        /// </summary>
-        public void Reset()
-        {
-            Stop();
-            Start();
-        }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="TimerEx" />.
-        /// </summary>
-        public TimerEx()
-        {
-            Elapsed += Tmr_Elapsed;
-            Disposed += TimerEx_Disposed;
-        }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="TimerEx" /> y 
-        /// establece la propiedad <see cref="Timer.Interval" />
-        /// en el número de milisegundos especificado.
-        /// </summary>
-        /// <param name="interval">
-        /// Tiempo, en milisegundos, entre eventos. Este valor debe ser mayor
-        /// que cero y menor que <see cref="F:System.Int32.MaxValue" />.
-        /// </param>
-        public TimerEx(double interval) : base(interval) { }
+    private void TimerEx_Disposed(object? sender, EventArgs e)
+    {
+        IsDisposed = true;
     }
 }

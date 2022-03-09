@@ -22,19 +22,17 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Component;
 using System.Reflection;
 
-namespace TheXDS.MCART.Component
+/// <summary>
+/// Define una serie de miembros a implementar por una clase que
+/// exponga a un ensamblado como una propiedad.
+/// </summary>
+public interface IExposeAssembly
 {
     /// <summary>
-    /// Define una serie de miembros a implementar por una clase que
-    /// exponga a un ensamblado como una propiedad.
+    /// Obtiene el ensamblado relacionado a este objeto.
     /// </summary>
-    public interface IExposeAssembly
-    {
-        /// <summary>
-        /// Obtiene el ensamblado relacionado a este objeto.
-        /// </summary>
-        Assembly Assembly { get; }
-    }
+    Assembly Assembly { get; }
 }

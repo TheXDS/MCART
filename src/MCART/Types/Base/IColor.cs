@@ -22,32 +22,31 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Types.Base
+namespace TheXDS.MCART.Types.Base;
+
+/// <summary>
+/// Define una serie de métodos a implementar por un tipo que exponga
+/// información de color utilizando espacios de color de 8 bits por canal.
+/// </summary>
+public interface IColor
 {
     /// <summary>
-    /// Define una serie de métodos a implementar por un tipo que exponga
-    /// información de color utilizando espacios de color de 8 bits por canal.
+    /// Componente Alfa del color.
     /// </summary>
-    public interface IColor
-    {
-        /// <summary>
-        /// Componente Alfa del color.
-        /// </summary>
-        byte A { get; set; }
+    byte A { get; set; }
 
-        /// <summary>
-        ///  Componente Azul del color.
-        /// </summary>
-        byte B { get; set; }
+    /// <summary>
+    ///  Componente Azul del color.
+    /// </summary>
+    byte B { get; set; }
 
-        /// <summary>
-        ///  Componente Verde del color.
-        /// </summary>
-        byte G { get; set; }
+    /// <summary>
+    ///  Componente Verde del color.
+    /// </summary>
+    byte G { get; set; }
 
-        /// <summary>
-        ///  Componente Rojo del color.
-        /// </summary>
-        byte R { get; set; }
-    }
+    /// <summary>
+    ///  Componente Rojo del color.
+    /// </summary>
+    byte R { get; set; }
 }

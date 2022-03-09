@@ -22,88 +22,86 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Component;
 using System;
 using System.Collections.Generic;
 using TheXDS.MCART.Resources;
 using static TheXDS.MCART.Misc.Internals;
 
-namespace TheXDS.MCART.Component
+/// <summary>
+/// Expone de manera aislada la información de un objeto
+/// <see cref="IExposeInfo"/>.
+/// </summary>
+public class ExposedInfo : IExposeInfo
 {
+    private readonly IExposeInfo _source;
+
     /// <summary>
-    /// Expone de manera aislada la información de un objeto
-    /// <see cref="IExposeInfo"/>.
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="ExposedInfo"/>
     /// </summary>
-    public class ExposedInfo : IExposeInfo
+    /// <param name="source">
+    /// Objeto del cual se expondrá la información.
+    /// </param>
+    /// <exception cref="ArgumentNullException">
+    /// Se produce si <paramref name="source"/> es <see langword="null"/>.
+    /// </exception>
+    public ExposedInfo(IExposeInfo source)
     {
-        private readonly IExposeInfo _source;
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="ExposedInfo"/>
-        /// </summary>
-        /// <param name="source">
-        /// Objeto del cual se expondrá la información.
-        /// </param>
-        /// <exception cref="ArgumentNullException">
-        /// Se produce si <paramref name="source"/> es <see langword="null"/>.
-        /// </exception>
-        public ExposedInfo(IExposeInfo source)
-        {
-            NullCheck(source, nameof(source));
-            _source = source;
-        }
-
-        /// <summary>
-        /// Obtiene el autor del <see cref="IExposeInfo"/>.
-        /// </summary>
-        public IEnumerable<string>? Authors => _source.Authors;
-
-        /// <summary>
-        /// Obtiene el Copyright del <see cref="IExposeInfo"/>
-        /// </summary>
-        public string? Copyright => _source.Copyright;
-
-        /// <summary>
-        /// Obtiene la licencia del <see cref="IExposeInfo"/>
-        /// </summary>
-        public License? License => _source.License;
-
-        /// <summary>
-        /// Obtiene la versión del <see cref="IExposeInfo"/>
-        /// </summary>
-        public Version? Version => _source.Version;
-
-        /// <summary>
-        /// Obtiene una colección con el contenido de licencias de terceros
-        /// para el objeto.
-        /// </summary>
-        public IEnumerable<License>? ThirdPartyLicenses => _source.ThirdPartyLicenses;
-
-        /// <summary>
-        /// Obtiene el nombre del elemento.
-        /// </summary>
-        public string Name => _source.Name;
-
-        /// <summary>
-        /// Obtiene la descripción del elemento.
-        /// </summary>
-        public string? Description => _source.Description;
-
-        /// <summary>
-        /// Obtiene la versión informacional del <see cref="IExposeInfo"/>.
-        /// </summary>
-        public string? InformationalVersion => _source.InformationalVersion;
-
-        /// <summary>
-        /// Obtiene un valor que indica si este <see cref="IExposeInfo"/>
-        /// contiene información de licencia.
-        /// </summary>
-        public bool HasLicense => _source.HasLicense;
-
-        /// <summary>
-        /// Obtiene un valor que indica si este <see cref="IExposeInfo"/>
-        /// contiene información de licencias de terceros.
-        /// </summary>
-        public bool Has3rdPartyLicense => _source.Has3rdPartyLicense;
+        NullCheck(source, nameof(source));
+        _source = source;
     }
+
+    /// <summary>
+    /// Obtiene el autor del <see cref="IExposeInfo"/>.
+    /// </summary>
+    public IEnumerable<string>? Authors => _source.Authors;
+
+    /// <summary>
+    /// Obtiene el Copyright del <see cref="IExposeInfo"/>
+    /// </summary>
+    public string? Copyright => _source.Copyright;
+
+    /// <summary>
+    /// Obtiene la descripción del elemento.
+    /// </summary>
+    public string? Description => _source.Description;
+
+    /// <summary>
+    /// Obtiene un valor que indica si este <see cref="IExposeInfo"/>
+    /// contiene información de licencias de terceros.
+    /// </summary>
+    public bool Has3rdPartyLicense => _source.Has3rdPartyLicense;
+
+    /// <summary>
+    /// Obtiene un valor que indica si este <see cref="IExposeInfo"/>
+    /// contiene información de licencia.
+    /// </summary>
+    public bool HasLicense => _source.HasLicense;
+
+    /// <summary>
+    /// Obtiene la versión informacional del <see cref="IExposeInfo"/>.
+    /// </summary>
+    public string? InformationalVersion => _source.InformationalVersion;
+
+    /// <summary>
+    /// Obtiene la licencia del <see cref="IExposeInfo"/>
+    /// </summary>
+    public License? License => _source.License;
+
+    /// <summary>
+    /// Obtiene el nombre del elemento.
+    /// </summary>
+    public string Name => _source.Name;
+
+    /// <summary>
+    /// Obtiene una colección con el contenido de licencias de terceros
+    /// para el objeto.
+    /// </summary>
+    public IEnumerable<License>? ThirdPartyLicenses => _source.ThirdPartyLicenses;
+
+    /// <summary>
+    /// Obtiene la versión del <see cref="IExposeInfo"/>
+    /// </summary>
+    public Version? Version => _source.Version;
 }

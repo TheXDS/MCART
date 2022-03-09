@@ -22,38 +22,35 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types.Converters;
 using System;
 using System.ComponentModel;
 using System.Globalization;
 using TheXDS.MCART.Attributes;
-using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types.Extensions;
 
-namespace TheXDS.MCART.Types.Converters
+/// <summary>
+/// Convierte un valor de enumeración a su presentación amigable como una cadena.
+/// </summary>
+public class EnumDescriptionConverter : EnumConverter
 {
     /// <summary>
-    /// Convierte un valor de enumeración a su presentación amigable como una cadena.
+    /// Inicializa una nueva instancia de la clase 
+    /// <see cref="EnumDescriptionConverter"/>.
     /// </summary>
-    public class EnumDescriptionConverter : EnumConverter
+    /// <param name="type">Tipo de enumeración a describir</param>
+    public EnumDescriptionConverter(Type type) : base(type)
     {
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="EnumDescriptionConverter"/>.
-        /// </summary>
-        /// <param name="type">Tipo de enumeración a describir</param>
-        public EnumDescriptionConverter(Type type) : base(type)
-        {
-        }
+    }
 
-        /// <inheritdoc/>
-        public override object? ConvertTo(ITypeDescriptorContext? context, CultureInfo? culture, object? value, Type destinationType)
-        {
-            return destinationType == typeof(string) && value is Enum e
-                ? e.GetAttr<LocalizedDescriptionAttribute>()?.Description
-                    ?? e.GetAttr<System.ComponentModel.DescriptionAttribute>()?.Description
-                    ?? e.GetAttr<Attributes.DescriptionAttribute>()?.Value
-                    ?? e.NameOf()
-                : base.ConvertTo(context, culture, value, destinationType);
-        }
+    /// <inheritdoc/>
+    public override object? ConvertTo(ITypeDescriptorContext? context, CultureInfo? culture, object? value, Type destinationType)
+    {
+        return destinationType == typeof(string) && value is Enum e
+            ? e.GetAttr<LocalizedDescriptionAttribute>()?.Description
+                ?? e.GetAttr<System.ComponentModel.DescriptionAttribute>()?.Description
+                ?? e.GetAttr<Attributes.DescriptionAttribute>()?.Value
+                ?? e.NameOf()
+            : base.ConvertTo(context, culture, value, destinationType);
     }
 }

@@ -1,0 +1,8 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<Description>MCART WPF Library</Description>
+		<OutputType>Library</OutputType>
+		<TargetFramework>net5.0-Windows</TargetFramework>
+		<UseWPF>true</UseWPF>
+	</PropertyGroup>
+</Project>

@@ -22,114 +22,112 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Exceptions;
 using System;
 using System.Runtime.Serialization;
 using TheXDS.MCART.Resources.Strings;
 
-namespace TheXDS.MCART.Exceptions
+/// <summary>
+/// Se produce cuando un argumento contiene un valor inválido y ninguna de
+/// las clases derivadas de <see cref="ArgumentException"/> describe
+/// adecuadamente el error.
+/// </summary>
+[Serializable]
+public class InvalidArgumentException : ArgumentException
 {
     /// <summary>
-    /// Se produce cuando un argumento contiene un valor inválido y ninguna de
-    /// las clases derivadas de <see cref="ArgumentException"/> describe
-    /// adecuadamente el error.
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="InvalidArgumentException" />.
     /// </summary>
-    [Serializable]
-    public class InvalidArgumentException : ArgumentException
+    /// <param name="context">
+    /// El <see cref="StreamingContext" /> que contiene información
+    /// contextual acerca del origen o el destino.
+    /// </param>
+    /// <param name="info">
+    /// El <see cref="SerializationInfo" /> que contiene la información
+    /// serializada del objeto acerca de la excepción que está siendo
+    /// lanzada.
+    /// </param>
+    protected InvalidArgumentException(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="InvalidArgumentException" />.
-        /// </summary>
-        /// <param name="context">
-        /// El <see cref="StreamingContext" /> que contiene información
-        /// contextual acerca del origen o el destino.
-        /// </param>
-        /// <param name="info">
-        /// El <see cref="SerializationInfo" /> que contiene la información
-        /// serializada del objeto acerca de la excepción que está siendo
-        /// lanzada.
-        /// </param>
-        protected InvalidArgumentException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-        }
+    }
 
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="InvalidArgumentException" />.
-        /// </summary>
-        public InvalidArgumentException() : base(Errors.InvalidValue)
-        {
-        }
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="InvalidArgumentException" />.
+    /// </summary>
+    public InvalidArgumentException() : base(Errors.InvalidValue)
+    {
+    }
 
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="InvalidArgumentException" />.
-        /// </summary>
-        /// <param name="argumentName">Nombre del argumento inválido.</param>
-        public InvalidArgumentException(string argumentName) : base(string.Format(Errors.InvalidArgument, argumentName))
-        {
-        }
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="InvalidArgumentException" />.
+    /// </summary>
+    /// <param name="argumentName">Nombre del argumento inválido.</param>
+    public InvalidArgumentException(string argumentName) : base(string.Format(Errors.InvalidArgument, argumentName))
+    {
+    }
 
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="InvalidArgumentException" />.
-        /// </summary>
-        /// <param name="message">
-        /// Un <see cref="string" /> que describe a la excepción.
-        /// </param>
-        /// <param name="argumentName">Nombre del argumento inválido.</param>
-        public InvalidArgumentException(string message, string argumentName) : base(message, argumentName)
-        {
-        }
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="InvalidArgumentException" />.
+    /// </summary>
+    /// <param name="message">
+    /// Un <see cref="string" /> que describe a la excepción.
+    /// </param>
+    /// <param name="argumentName">Nombre del argumento inválido.</param>
+    public InvalidArgumentException(string message, string argumentName) : base(message, argumentName)
+    {
+    }
 
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="InvalidArgumentException" />.
-        /// </summary>
-        /// <param name="inner">
-        /// <see cref="Exception" /> que es la causa de esta excepción.
-        /// </param>
-        public InvalidArgumentException(Exception inner) : base(Errors.InvalidValue, inner)
-        {
-        }
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase <see cref="InvalidArgumentException" />.
+    /// </summary>
+    /// <param name="inner">
+    /// <see cref="Exception" /> que es la causa de esta excepción.
+    /// </param>
+    public InvalidArgumentException(Exception inner) : base(Errors.InvalidValue, inner)
+    {
+    }
 
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="InvalidArgumentException" />.
-        /// </summary>
-        /// <param name="inner">
-        /// <see cref="Exception" /> que es la causa de esta excepción.
-        /// </param>
-        /// <param name="argumentName">Nombre del argumento inválido.</param>
-        public InvalidArgumentException(Exception inner, string argumentName) : base(string.Format(Errors.InvalidArgument, argumentName), inner)
-        {
-        }
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase <see cref="InvalidArgumentException" />.
+    /// </summary>
+    /// <param name="inner">
+    /// <see cref="Exception" /> que es la causa de esta excepción.
+    /// </param>
+    /// <param name="argumentName">Nombre del argumento inválido.</param>
+    public InvalidArgumentException(Exception inner, string argumentName) : base(string.Format(Errors.InvalidArgument, argumentName), inner)
+    {
+    }
 
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="InvalidArgumentException" />.
-        /// </summary>
-        /// <param name="message">
-        /// Un <see cref="string" /> que describe a la excepción.
-        /// </param>
-        /// <param name="inner">
-        /// <see cref="Exception" /> que es la causa de esta excepción.
-        /// </param>
-        public InvalidArgumentException(string message, Exception inner) : base(message, inner)
-        {
-        }
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="InvalidArgumentException" />.
+    /// </summary>
+    /// <param name="message">
+    /// Un <see cref="string" /> que describe a la excepción.
+    /// </param>
+    /// <param name="inner">
+    /// <see cref="Exception" /> que es la causa de esta excepción.
+    /// </param>
+    public InvalidArgumentException(string message, Exception inner) : base(message, inner)
+    {
+    }
 
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="InvalidArgumentException" />.
-        /// </summary>
-        /// <param name="message">
-        /// Un <see cref="string" /> que describe a la excepción.
-        /// </param>
-        /// <param name="inner">
-        /// <see cref="Exception" /> que es la causa de esta excepción.
-        /// </param>
-        /// <param name="argumentName">Nombre del argumento faltante.</param>
-        public InvalidArgumentException(string message, Exception inner, string argumentName) : base(message,
-            argumentName, inner)
-        {
-        }
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase <see cref="InvalidArgumentException" />.
+    /// </summary>
+    /// <param name="message">
+    /// Un <see cref="string" /> que describe a la excepción.
+    /// </param>
+    /// <param name="inner">
+    /// <see cref="Exception" /> que es la causa de esta excepción.
+    /// </param>
+    /// <param name="argumentName">Nombre del argumento faltante.</param>
+    public InvalidArgumentException(string message, Exception inner, string argumentName) : base(message,
+        argumentName, inner)
+    {
     }
 }

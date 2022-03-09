@@ -22,20 +22,18 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types.Extensions;
 using System;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Misc;
 
-namespace TheXDS.MCART.Types.Extensions
+public static partial class NamedObjectExtensions
 {
-    public static partial class NamedObjectExtensions
+    private static Type AsNamedEnum_Contract(Type t)
     {
-        private static Type AsNamedEnum_Contract(Type t)
-        {
-            Internals.NullCheck(t, nameof(t));
-            Type? q = t.IsEnum ? t : Nullable.GetUnderlyingType(t)!;
-            if (q is null || !q.IsEnum) throw new InvalidTypeException(t);
-            return q;
-        }
+        Internals.NullCheck(t, nameof(t));
+        Type? q = t.IsEnum ? t : Nullable.GetUnderlyingType(t)!;
+        if (q is null || !q.IsEnum) throw new InvalidTypeException(t);
+        return q;
     }
 }

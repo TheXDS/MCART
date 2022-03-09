@@ -22,28 +22,26 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Attributes;
 using System;
 
-namespace TheXDS.MCART.Attributes
+/// <summary>
+/// Clase base para los atributos basados en números enteros.
+/// </summary>
+public abstract class IntAttribute : Attribute, IValueAttribute<int>
 {
     /// <summary>
-    /// Clase base para los atributos basados en números enteros.
+    /// Crea una nueva instancia de la clase
+    /// <see cref="IntAttribute" />.
     /// </summary>
-    public abstract class IntAttribute : Attribute, IValueAttribute<int>
+    /// <param name="attributeValue">Valor de este atributo.</param>
+    protected IntAttribute(int attributeValue)
     {
-        /// <summary>
-        /// Crea una nueva instancia de la clase
-        /// <see cref="IntAttribute" />.
-        /// </summary>
-        /// <param name="attributeValue">Valor de este atributo.</param>
-        protected IntAttribute(int attributeValue)
-        {
-            Value = attributeValue;
-        }
-
-        /// <summary>
-        /// Obtiene el valor asociado a este atributo.
-        /// </summary>
-        public int Value { get; }
+        Value = attributeValue;
     }
+
+    /// <summary>
+    /// Obtiene el valor asociado a este atributo.
+    /// </summary>
+    public int Value { get; }
 }

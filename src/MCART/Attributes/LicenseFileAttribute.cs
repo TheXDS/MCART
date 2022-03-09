@@ -22,50 +22,49 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Attributes;
 using System;
 using System.IO;
 using static System.AttributeTargets;
-using St = TheXDS.MCART.Resources.Strings;
+using St = Resources.Strings;
 
-namespace TheXDS.MCART.Attributes
+/// <summary>
+/// Establece un archivo de licencia externo a asociar con el elemento.
+/// </summary>
+[AttributeUsage(Class | Module | Assembly)]
+[Obsolete("Utilice LicenseUriAttribute en su lugar.")]
+public sealed class LicenseFileAttribute : TextAttribute
 {
     /// <summary>
-    /// Establece un archivo de licencia externo a asociar con el elemento.
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="LicenseFileAttribute" />.
     /// </summary>
-    [AttributeUsage(Class | Module | Assembly), Obsolete("Utilice LicenseUriAttribute en su lugar.")]
-    public sealed class LicenseFileAttribute : TextAttribute
+    /// <param name="licenseFile">
+    /// Ruta del archivo de licencia adjunto.
+    /// </param>
+    public LicenseFileAttribute(string licenseFile) : base(licenseFile)
     {
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="LicenseFileAttribute" />.
-        /// </summary>
-        /// <param name="licenseFile">
-        /// Ruta del archivo de licencia adjunto.
-        /// </param>
-        public LicenseFileAttribute(string licenseFile) : base(licenseFile)
-        {
-            // HACK: forma simple y efectiva de validad una ruta de archivo.
-            _ = new FileInfo(licenseFile);
-        }
+        // HACK: forma simple y efectiva de validad una ruta de archivo.
+        _ = new FileInfo(licenseFile);
+    }
 
-        /// <summary>
-        /// Lee el archivo de licencia especificado por este atributo.
-        /// </summary>
-        /// <returns>
-        /// El contenido del archivo de licencia especificado.
-        /// </returns>
-        public string ReadLicense()
+    /// <summary>
+    /// Lee el archivo de licencia especificado por este atributo.
+    /// </summary>
+    /// <returns>
+    /// El contenido del archivo de licencia especificado.
+    /// </returns>
+    public string ReadLicense()
+    {
+        try
         {
-            try
-            {
-                using FileStream? fs = new(Value!, FileMode.Open);
-                using StreamReader? sr = new(fs);
-                return sr.ReadToEnd();
-            }
-            catch
-            {
-                return St.Composition.Warn(St.Common.UnspecifiedLicense);
-            }
+            using FileStream? fs = new(Value!, FileMode.Open);
+            using StreamReader? sr = new(fs);
+            return sr.ReadToEnd();
+        }
+        catch
+        {
+            return St.Composition.Warn(St.Common.UnspecifiedLicense);
         }
     }
 }

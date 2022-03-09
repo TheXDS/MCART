@@ -26,60 +26,58 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using TheXDS.MCART.Resources.Strings;
 
-namespace TheXDS.MCART.Types.Extensions
+/// <summary>
+/// Contiene extensiones útiles de la estructura <see cref="TimeSpan"/>.
+/// </summary>
+public static class TimeSpanExtensions
 {
     /// <summary>
-    /// Contiene extensiones útiles de la estructura <see cref="TimeSpan"/>.
+    /// Humaniza un <see cref="TimeSpan"/> a un valor amigable.
     /// </summary>
-    public static class TimeSpanExtensions
+    /// <param name="timeSpan">Valor a humanizar.</param>
+    /// <returns>
+    /// Una cadena amigable que indica los componentes de días, horas,
+    /// minutos y segundos de <paramref name="timeSpan"/>.
+    /// </returns>
+    public static string Verbose(this in TimeSpan timeSpan)
     {
-        /// <summary>
-        /// Humaniza un <see cref="TimeSpan"/> a un valor amigable.
-        /// </summary>
-        /// <param name="timeSpan">Valor a humanizar.</param>
-        /// <returns>
-        /// Una cadena amigable que indica los componentes de días, horas,
-        /// minutos y segundos de <paramref name="timeSpan"/>.
-        /// </returns>
-        public static string Verbose(this in TimeSpan timeSpan)
-        {
-            HashSet<string>? msjs = new();
-            if (timeSpan.Days > 0)
-                msjs.Add(Composition.Days(timeSpan.Days));
-            if (timeSpan.Hours > 0)
-                msjs.Add(Composition.Hours(timeSpan.Hours));
-            if (timeSpan.Minutes > 0)
-                msjs.Add(Composition.Minutes(timeSpan.Minutes));
-            if (timeSpan.Seconds > 0)
-                msjs.Add(Composition.Seconds(timeSpan.Seconds));
-            return string.Join(", ", msjs);
-        }
+        HashSet<string>? msjs = new();
+        if (timeSpan.Days > 0)
+            msjs.Add(Composition.Days(timeSpan.Days));
+        if (timeSpan.Hours > 0)
+            msjs.Add(Composition.Hours(timeSpan.Hours));
+        if (timeSpan.Minutes > 0)
+            msjs.Add(Composition.Minutes(timeSpan.Minutes));
+        if (timeSpan.Seconds > 0)
+            msjs.Add(Composition.Seconds(timeSpan.Seconds));
+        return string.Join(", ", msjs);
+    }
 
-        /// <summary>
-        /// Convierte un <see cref="TimeSpan"/> en una representación de hora.
-        /// </summary>
-        /// <param name="timeSpan">Valor a convertir.</param>
-        /// <returns>Una cadena que representa una hora.</returns>
-        public static string AsTime(this in TimeSpan timeSpan)
-        {
-            return AsTime(timeSpan, CultureInfo.CurrentCulture);
-        }
+    /// <summary>
+    /// Convierte un <see cref="TimeSpan"/> en una representación de hora.
+    /// </summary>
+    /// <param name="timeSpan">Valor a convertir.</param>
+    /// <returns>Una cadena que representa una hora.</returns>
+    public static string AsTime(this in TimeSpan timeSpan)
+    {
+        return AsTime(timeSpan, CultureInfo.CurrentCulture);
+    }
 
-        /// <summary>
-        /// Convierte un <see cref="TimeSpan"/> en una representación de hora.
-        /// </summary>
-        /// <param name="timeSpan">Valor a convertir.</param>
-        /// <param name="culture">Cultura a utilizar para el formato de hora.</param>
-        /// <returns>Una cadena que representa una hora.</returns>
-        public static string AsTime(this in TimeSpan timeSpan, in CultureInfo culture)
-        {
-            string? f = $"{{0:{culture.DateTimeFormat.ShortTimePattern}}}";
-            return string.Format(f, DateTime.MinValue.Add(timeSpan));
-        }
+    /// <summary>
+    /// Convierte un <see cref="TimeSpan"/> en una representación de hora.
+    /// </summary>
+    /// <param name="timeSpan">Valor a convertir.</param>
+    /// <param name="culture">Cultura a utilizar para el formato de hora.</param>
+    /// <returns>Una cadena que representa una hora.</returns>
+    public static string AsTime(this in TimeSpan timeSpan, in CultureInfo culture)
+    {
+        string? f = $"{{0:{culture.DateTimeFormat.ShortTimePattern}}}";
+        return string.Format(f, DateTime.MinValue.Add(timeSpan));
     }
 }

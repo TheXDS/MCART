@@ -26,6 +26,7 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -33,166 +34,163 @@ using System.Linq;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
 
-namespace TheXDS.MCART.Types.Extensions
+/// <summary>
+/// Extensiones varias para objetos <see cref="Assembly" />.
+/// </summary>
+public static partial class AssemblyExtensions
 {
     /// <summary>
-    /// Extensiones varias para objetos <see cref="Assembly" />.
+    /// Devuelve el atributo asociado al ensamblado especificado.
     /// </summary>
-    public static partial class AssemblyExtensions
+    /// <typeparam name="T">
+    /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+    /// </typeparam>
+    /// <param name="assembly">
+    /// <see cref="Assembly" /> del cual se extraerá el
+    /// atributo.
+    /// </param>
+    /// <returns>
+    /// Un atributo del tipo <typeparamref name="T" /> con los datos
+    /// asociados en la declaración del ensamblado; o <see langword="null" /> en caso
+    /// de no encontrarse el atributo especificado.
+    /// </returns>
+    /// <exception cref="ArgumentNullException">
+    /// Se produce si <paramref name="assembly"/> es
+    /// <see langword="null"/>.
+    /// </exception>
+    [Sugar]
+    public static T? GetAttr<T>(this Assembly assembly) where T : Attribute
     {
-        /// <summary>
-        /// Devuelve el atributo asociado al ensamblado especificado.
-        /// </summary>
-        /// <typeparam name="T">
-        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
-        /// </typeparam>
-        /// <param name="assembly">
-        /// <see cref="Assembly" /> del cual se extraerá el
-        /// atributo.
-        /// </param>
-        /// <returns>
-        /// Un atributo del tipo <typeparamref name="T" /> con los datos
-        /// asociados en la declaración del ensamblado; o <see langword="null" /> en caso
-        /// de no encontrarse el atributo especificado.
-        /// </returns>
-        /// <exception cref="ArgumentNullException">
-        /// Se produce si <paramref name="assembly"/> es
-        /// <see langword="null"/>.
-        /// </exception>
-        [Sugar]
-        public static T? GetAttr<T>(this Assembly assembly) where T : Attribute
-        {
-            HasAttr<T>(assembly, out T? attr);
-            return attr;
-        }
+        HasAttr<T>(assembly, out T? attr);
+        return attr;
+    }
 
-        /// <summary>
-        /// Devuelve el atributo asociado al ensamblado especificado.
-        /// </summary>
-        /// <typeparam name="T">
-        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
-        /// </typeparam>
-        /// <param name="assembly">
-        /// <see cref="Assembly" /> del cual se extraerá el
-        /// atributo.
-        /// </param>
-        /// <returns>
-        /// Un atributo del tipo <typeparamref name="T" /> con los datos
-        /// asociados en la declaración del ensamblado; o <see langword="null" /> en caso
-        /// de no encontrarse el atributo especificado.
-        /// </returns>
-        /// <exception cref="ArgumentNullException">
-        /// Se produce si <paramref name="assembly"/> es
-        /// <see langword="null"/>.
-        /// </exception>
-        [Sugar]
-        public static IEnumerable<T> GetAttrs<T>(this Assembly assembly) where T : Attribute
-        {
-            HasAttrs(assembly, out IEnumerable<T> attr);
-            return attr;
-        }
+    /// <summary>
+    /// Devuelve el atributo asociado al ensamblado especificado.
+    /// </summary>
+    /// <typeparam name="T">
+    /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+    /// </typeparam>
+    /// <param name="assembly">
+    /// <see cref="Assembly" /> del cual se extraerá el
+    /// atributo.
+    /// </param>
+    /// <returns>
+    /// Un atributo del tipo <typeparamref name="T" /> con los datos
+    /// asociados en la declaración del ensamblado; o <see langword="null" /> en caso
+    /// de no encontrarse el atributo especificado.
+    /// </returns>
+    /// <exception cref="ArgumentNullException">
+    /// Se produce si <paramref name="assembly"/> es
+    /// <see langword="null"/>.
+    /// </exception>
+    [Sugar]
+    public static IEnumerable<T> GetAttrs<T>(this Assembly assembly) where T : Attribute
+    {
+        HasAttrs(assembly, out IEnumerable<T> attr);
+        return attr;
+    }
 
-        /// <summary>
-        /// Determina si un miembro posee un atributo definido.
-        /// </summary>
-        /// <typeparam name="T">
-        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
-        /// </typeparam>
-        /// <param name="assembly">
-        /// Miembro del cual se extraerá el atributo.
-        /// </param>
-        /// <param name="attribute">
-        /// Parámetro de salida. Si un atributo de tipo
-        /// <typeparamref name="T" /> ha sido encontrado, el mismo es devuelto.
-        /// Se devolverá <see langword="null" /> si el miembro no posee el atributo
-        /// especificado.
-        /// </param>
-        /// <returns>
-        /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
-        /// en caso contrario.
-        /// </returns>
-        public static bool HasAttr<T>(this Assembly assembly, [MaybeNullWhen(false)] out T attribute) where T : Attribute
-        {
-            bool retVal = HasAttrs<T>(assembly, out IEnumerable<T>? attrs);
-            attribute = attrs.FirstOrDefault();
-            return retVal;
-        }
+    /// <summary>
+    /// Determina si un miembro posee un atributo definido.
+    /// </summary>
+    /// <typeparam name="T">
+    /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+    /// </typeparam>
+    /// <param name="assembly">
+    /// Miembro del cual se extraerá el atributo.
+    /// </param>
+    /// <param name="attribute">
+    /// Parámetro de salida. Si un atributo de tipo
+    /// <typeparamref name="T" /> ha sido encontrado, el mismo es devuelto.
+    /// Se devolverá <see langword="null" /> si el miembro no posee el atributo
+    /// especificado.
+    /// </param>
+    /// <returns>
+    /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
+    /// en caso contrario.
+    /// </returns>
+    public static bool HasAttr<T>(this Assembly assembly, [NotNullWhen(true)] out T? attribute) where T : notnull, Attribute
+    {
+        bool retVal = HasAttrs(assembly, out IEnumerable<T>? attrs);
+        attribute = attrs.FirstOrDefault();
+        return retVal;
+    }
 
-        /// <summary>
-        /// Determina si un miembro posee un atributo definido.
-        /// </summary>
-        /// <typeparam name="TValue">
-        /// Tipo de valor a devolver.
-        /// </typeparam>
-        /// <typeparam name="TAttribute">
-        /// Tipo de atributo a buscar. Debe heredar de
-        /// <see cref="Attribute"/> y de <see cref="IValueAttribute{T}"/>.
-        /// </typeparam>
-        /// <param name="assembly">
-        /// Miembro del cual se extraerá el atributo.
-        /// </param>
-        /// <param name="value">
-        /// Parámetro de salida. Si un atributo de tipo
-        /// <typeparamref name="TAttribute" /> ha sido encontrado, el valor
-        /// del mismo es devuelto.
-        /// Se devolverá <see langword="default" /> si el miembro no posee el atributo
-        /// especificado.
-        /// </param>
-        /// <returns>
-        /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
-        /// en caso contrario.
-        /// </returns>
-        public static bool HasAttrValue<TAttribute, TValue>(this Assembly assembly, out TValue value)
-            where TAttribute : Attribute, IValueAttribute<TValue>
-        {
-            bool retVal = HasAttrs<TAttribute>(assembly, out IEnumerable<TAttribute>? attrs);
-            TAttribute? a = attrs.FirstOrDefault();
-            value = a is not null ? a.Value : default!;
-            return retVal;
-        }
+    /// <summary>
+    /// Determina si un miembro posee un atributo definido.
+    /// </summary>
+    /// <typeparam name="TValue">
+    /// Tipo de valor a devolver.
+    /// </typeparam>
+    /// <typeparam name="TAttribute">
+    /// Tipo de atributo a buscar. Debe heredar de
+    /// <see cref="Attribute"/> y de <see cref="IValueAttribute{T}"/>.
+    /// </typeparam>
+    /// <param name="assembly">
+    /// Miembro del cual se extraerá el atributo.
+    /// </param>
+    /// <param name="value">
+    /// Parámetro de salida. Si un atributo de tipo
+    /// <typeparamref name="TAttribute" /> ha sido encontrado, el valor
+    /// del mismo es devuelto.
+    /// Se devolverá <see langword="default" /> si el miembro no posee el atributo
+    /// especificado.
+    /// </param>
+    /// <returns>
+    /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
+    /// en caso contrario.
+    /// </returns>
+    public static bool HasAttrValue<TAttribute, TValue>(this Assembly assembly, out TValue value)
+        where TAttribute : Attribute, IValueAttribute<TValue>
+    {
+        bool retVal = HasAttrs<TAttribute>(assembly, out IEnumerable<TAttribute>? attrs);
+        TAttribute? a = attrs.FirstOrDefault();
+        value = a is not null ? a.Value : default!;
+        return retVal;
+    }
 
-        /// <summary>
-        /// Determina si un miembro posee un atributo definido.
-        /// </summary>
-        /// <typeparam name="T">
-        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
-        /// </typeparam>
-        /// <param name="assembly">
-        /// Miembro del cual se extraerá el atributo.
-        /// </param>
-        /// <returns>
-        /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
-        /// en caso contrario.
-        /// </returns>
-        public static bool HasAttr<T>(this Assembly assembly) where T : Attribute
-        {
-            return HasAttr<T>(assembly, out _);
-        }
+    /// <summary>
+    /// Determina si un miembro posee un atributo definido.
+    /// </summary>
+    /// <typeparam name="T">
+    /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+    /// </typeparam>
+    /// <param name="assembly">
+    /// Miembro del cual se extraerá el atributo.
+    /// </param>
+    /// <returns>
+    /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
+    /// en caso contrario.
+    /// </returns>
+    public static bool HasAttr<T>(this Assembly assembly) where T : Attribute
+    {
+        return HasAttr<T>(assembly, out _);
+    }
 
-        /// <summary>
-        /// Determina si un miembro posee un atributo definido.
-        /// </summary>
-        /// <typeparam name="T">
-        /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
-        /// </typeparam>
-        /// <param name="assembly">
-        /// Miembro del cual se extraerá el atributo.
-        /// </param>
-        /// <param name="attribute">
-        /// Parámetro de salida. Si un atributo de tipo
-        /// <typeparamref name="T" /> ha sido encontrado, el mismo es devuelto.
-        /// Se devolverá <see langword="null" /> si el miembro no posee el atributo
-        /// especificado.
-        /// </param>
-        /// <returns>
-        /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
-        /// en caso contrario.
-        /// </returns>
-        public static bool HasAttrs<T>(this Assembly assembly, out IEnumerable<T> attribute) where T : Attribute
-        {
-            HasAttrs_Contract(assembly);
-            attribute = Attribute.GetCustomAttributes(assembly, typeof(T)).OfType<T>();
-            return attribute.Any();
-        }
+    /// <summary>
+    /// Determina si un miembro posee un atributo definido.
+    /// </summary>
+    /// <typeparam name="T">
+    /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+    /// </typeparam>
+    /// <param name="assembly">
+    /// Miembro del cual se extraerá el atributo.
+    /// </param>
+    /// <param name="attribute">
+    /// Parámetro de salida. Si un atributo de tipo
+    /// <typeparamref name="T" /> ha sido encontrado, el mismo es devuelto.
+    /// Se devolverá <see langword="null" /> si el miembro no posee el atributo
+    /// especificado.
+    /// </param>
+    /// <returns>
+    /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
+    /// en caso contrario.
+    /// </returns>
+    public static bool HasAttrs<T>(this Assembly assembly, out IEnumerable<T> attribute) where T : Attribute
+    {
+        HasAttrs_Contract(assembly);
+        attribute = Attribute.GetCustomAttributes(assembly, typeof(T)).OfType<T>();
+        return attribute.Any();
     }
 }

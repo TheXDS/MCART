@@ -22,34 +22,32 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Events;
 using System.ComponentModel;
 using TheXDS.MCART.Types;
 
-namespace TheXDS.MCART.Events
+/// <summary>
+/// Contiene información para el evento 
+/// <see cref="ListEx{T}.RemovingItem"/>.
+/// </summary>
+/// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
+public class RemovingItemEventArgs<T> : CancelEventArgs
 {
-    /// <summary>
-    /// Contiene información para el evento 
-    /// <see cref="ListEx{T}.RemovingItem"/>.
-    /// </summary>
-    /// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
-    public class RemovingItemEventArgs<T> : CancelEventArgs
+    internal RemovingItemEventArgs(int index, T removedItem)
     {
-        /// <summary>
-        /// Objeto que será removido del <see cref="ListEx{T}"/> que generó
-        /// el evento.
-        /// </summary>
-        public T RemovedItem { get; }
-
-        /// <summary>
-        /// Índice del elemento que será removido del
-        /// <see cref="ListEx{T}"/> que generó el evento.
-        /// </summary>
-        public int Index { get; }
-
-        internal RemovingItemEventArgs(int index, T removedItem)
-        {
-            RemovedItem = removedItem;
-            Index = index;
-        }
+        RemovedItem = removedItem;
+        Index = index;
     }
+
+    /// <summary>
+    /// Objeto que será removido del <see cref="ListEx{T}"/> que generó
+    /// el evento.
+    /// </summary>
+    public T RemovedItem { get; }
+
+    /// <summary>
+    /// Índice del elemento que será removido del
+    /// <see cref="ListEx{T}"/> que generó el evento.
+    /// </summary>
+    public int Index { get; }
 }

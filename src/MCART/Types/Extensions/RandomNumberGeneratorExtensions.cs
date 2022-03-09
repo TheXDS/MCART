@@ -23,7 +23,6 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 #if !NET6_0_OR_GREATER
-
 using TheXDS.MCART.Attributes;
 using System.Security.Cryptography;
 

@@ -22,37 +22,37 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Attributes;
 using System;
 using static System.AttributeTargets;
 
-namespace TheXDS.MCART.Attributes
+/// <summary>
+/// Especifica la versión mínima de MCART requerida por el elemento.
+/// </summary>
+[AttributeUsage(Method | Class | Module | Assembly)]
+public sealed class MinMcartVersionAttribute : VersionAttributeBase
 {
     /// <summary>
-    /// Especifica la versión mínima de MCART requerida por el elemento.
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="MinMcartVersionAttribute" />.
     /// </summary>
-    [AttributeUsage(Method | Class | Module | Assembly)]
-    public sealed class MinMcartVersionAttribute : VersionAttributeBase
+    /// <param name="major">Número de versión mayor.</param>
+    /// <param name="minor">Número de versión menor.</param>
+    public MinMcartVersionAttribute(int major, int minor)
+        : base(major, minor, 0, 0)
     {
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="MinMcartVersionAttribute" />.
-        /// </summary>
-        /// <param name="major">Número de versión mayor.</param>
-        /// <param name="minor">Número de versión menor.</param>
-        public MinMcartVersionAttribute(int major, int minor) : base(major, minor, 0, 0)
-        {
-        }
+    }
 
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="MinMcartVersionAttribute" />.
-        /// </summary>
-        /// <param name="major">Número de versión mayor.</param>
-        /// <param name="minor">Número de versión menor.</param>
-        /// <param name="build">Número de compilación.</param>
-        /// <param name="rev">Número de revisión.</param>
-        public MinMcartVersionAttribute(int major, int minor, int build, int rev) : base(major, minor, build, rev)
-        {
-        }
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="MinMcartVersionAttribute" />.
+    /// </summary>
+    /// <param name="major">Número de versión mayor.</param>
+    /// <param name="minor">Número de versión menor.</param>
+    /// <param name="build">Número de compilación.</param>
+    /// <param name="rev">Número de revisión.</param>
+    public MinMcartVersionAttribute(int major, int minor, int build, int rev) 
+        : base(major, minor, build, rev)
+    {
     }
 }

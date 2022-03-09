@@ -22,12 +22,11 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Comparison
+namespace TheXDS.MCART.Comparison;
+
+/// <summary>
+/// Compara el tipo de dos objetos.
+/// </summary>
+public class TypeComparer : TypeComparer<object>
 {
-    /// <summary>
-    /// Compara el tipo de dos objetos.
-    /// </summary>
-    public class TypeComparer : TypeComparer<object>
-    {
-    }
 }

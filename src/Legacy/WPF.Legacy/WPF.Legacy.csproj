@@ -1,0 +1,60 @@
+﻿<Project Sdk="Microsoft.NET.Sdk" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<Description>MCART WPF Legacy Library</Description>
+		<TargetFramework>net5.0-windows</TargetFramework>
+		<AssemblyName>MCART.Wpf.Legacy</AssemblyName>
+		<UseWPF>true</UseWPF>
+	</PropertyGroup>
+	<ItemGroup>
+		<ProjectReference Include="$(SolutionDir)Legacy\PluginSupport.Legacy\PluginSupport.Legacy.csproj" />
+		<ProjectReference Include="..\Security.UI.Legacy\Security.UI.Legacy.csproj" />
+		<Compile Update="Resources\Strings.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Strings.resx</DependentUpon>
+		</Compile>
+		<EmbeddedResource Update="Resources\Strings.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>Strings.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<None Include="Art\**" />
+		<Page Remove="Art\**" />
+		<Compile Remove="Art\**" />
+		<EmbeddedResource Remove="Art\**" />
+		<None Remove="Resources\Icons\**" />
+		<EmbeddedResource Include="Resources\Icons\**" />
+		<ProjectReference Include="$(SolutionDir)Lib\MCART-GUI\MCART.GUI.csproj" />
+		<ProjectReference Include="$(SolutionDir)Lib\MCART-UI\MCART.UI.csproj" />
+		<Compile Update="Resources\Strings\Errors.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Errors.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Resources\Strings\Common.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Common.resx</DependentUpon>
+		</Compile>
+		<EmbeddedResource Update="Resources\Strings\Errors.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>Errors.Designer.cs</LastGenOutput>
+			<CustomToolNamespace>TheXDS.MCART.Wpf.Resources.Strings</CustomToolNamespace>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Resources\Strings\Common.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>Common.Designer.cs</LastGenOutput>
+			<CustomToolNamespace>TheXDS.MCART.Wpf.Resources.Strings</CustomToolNamespace>
+		</EmbeddedResource>
+		<EmbeddedFiles Include="Dialogs/*" />
+		<EmbeddedFiles Include="Pages/*" />
+	</ItemGroup>
+	<ItemGroup>
+	  <EmbeddedFiles Remove="Dialogs\PasswordDialog.xaml" />
+	  <EmbeddedFiles Remove="Dialogs\PasswordDialog.xaml.cs" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Page Update="Dialogs\PasswordDialog.xaml">
+	    <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+	  </Page>
+	</ItemGroup>
+</Project>

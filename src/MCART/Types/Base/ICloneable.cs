@@ -22,46 +22,33 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types.Base;
 using System;
-using System.Linq;
 
-namespace TheXDS.MCART.Types.Base
+/// <summary>
+/// Expansión de la interfaz <see cref="ICloneable"/> que provee de un
+/// método fuertemente tipeado además de una implementación predeterminada
+/// del mismo.
+/// </summary>
+/// <typeparam name="T">
+/// Tipo de objeto resultante de la clonación. Normalmente, pero no
+/// necesariamente, es el mismo tipo que implementa esta interfaz.
+/// Si el tipo no es el mismo que implementa la interfaz, el tipo debe
+/// implementar el tipo especificado.
+/// </typeparam>
+public interface ICloneable<out T> : ICloneable where T : notnull, new()
 {
     /// <summary>
-    /// Expansión de la interfaz <see cref="ICloneable"/> que provee de un
-    /// método fuertemente tipeado además de una implementación predeterminada
-    /// del mismo.
+    /// Crea una copia de esta instancia.
     /// </summary>
-    /// <typeparam name="T">
-    /// Tipo de objeto resultante de la clonación. Normalmente, pero no
-    /// necesariamente, es el mismo tipo que implementa esta interfaz.
-    /// Si el tipo no es el mismo que implementa la interfaz, el tipo debe
-    /// implementar el tipo especificado.
-    /// </typeparam>
-    public interface ICloneable<out T> : ICloneable where T : notnull, new()
+    /// <returns>
+    /// Una copia de esta instancia de tipo <typeparamref name="T"/>.
+    /// </returns>
+    new T Clone()
     {
-        /// <summary>
-        /// Crea una copia de esta instancia.
-        /// </summary>
-        /// <returns>
-        /// Una copia de esta instancia de tipo <typeparamref name="T"/>.
-        /// </returns>
-        new T Clone()
-        {
-            if (this is not T source) throw new InvalidCastException();
-            T? copy = new();
-
-            foreach (System.Reflection.FieldInfo? j in typeof(T).GetFields().Where(p => p.IsPublic))
-            {
-                j.SetValue(copy, j.GetValue(source));
-            }
-            foreach (System.Reflection.PropertyInfo? j in typeof(T).GetProperties().Where(p => p.CanRead && p.CanWrite))
-            {
-                j.SetValue(copy, j.GetValue(source));
-            }
-            return copy;
-        }
-
-        object ICloneable.Clone() => Clone();
+        if (this is not T source) throw new InvalidCastException();
+        return Helpers.Objects.ShallowClone(source);
     }
+
+    object ICloneable.Clone() => Clone();
 }

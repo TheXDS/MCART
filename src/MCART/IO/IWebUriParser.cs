@@ -22,41 +22,39 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.IO;
 using System;
 using System.Net;
 using System.Threading.Tasks;
 using TheXDS.MCART.Types.Base;
 
-namespace TheXDS.MCART.IO
+/// <summary>
+/// Define una serie de miembros a implementar por un tipo que permita
+/// interpretar un <see cref="Uri"/> y obtener una respuesta desde un
+/// servicio web.
+/// </summary>
+#if NET6_0_OR_GREATER
+[Obsolete("Esta clase utiliza métodos web deprecados en .Net 6.")]
+#endif
+public interface IWebUriParser : IStreamUriParser
 {
     /// <summary>
-    /// Define una serie de miembros a implementar por un tipo que permita
-    /// interpretar un <see cref="Uri"/> y obtener una respuesta desde un
-    /// servicio web.
+    /// Obtiene una respuesta Web a partir del <see cref="Uri"/>
+    /// especificado.
     /// </summary>
-#if NET6_0_OR_GREATER
-    [Obsolete("Esta clase utiliza métodos web deprecados en .Net 6.")]
-#endif
-    public interface IWebUriParser : IStreamUriParser
-    {
-        /// <summary>
-        /// Obtiene una respuesta Web a partir del <see cref="Uri"/>
-        /// especificado.
-        /// </summary>
-        /// <param name="uri">Dirección web a resolver.</param>
-        /// <returns>
-        /// La respuesta enviada por un servidor web.
-        /// </returns>
-        WebResponse GetResponse(Uri uri);
+    /// <param name="uri">Dirección web a resolver.</param>
+    /// <returns>
+    /// La respuesta enviada por un servidor web.
+    /// </returns>
+    WebResponse GetResponse(Uri uri);
 
-        /// <summary>
-        /// Obtiene una respuesta Web a partir del <see cref="Uri"/>
-        /// especificado de forma asíncrona.
-        /// </summary>
-        /// <param name="uri">Dirección web a resolver.</param>
-        /// <returns>
-        /// La respuesta enviada por un servidor web.
-        /// </returns>
-        Task<WebResponse> GetResponseAsync(Uri uri);
-    }
+    /// <summary>
+    /// Obtiene una respuesta Web a partir del <see cref="Uri"/>
+    /// especificado de forma asíncrona.
+    /// </summary>
+    /// <param name="uri">Dirección web a resolver.</param>
+    /// <returns>
+    /// La respuesta enviada por un servidor web.
+    /// </returns>
+    Task<WebResponse> GetResponseAsync(Uri uri);
 }

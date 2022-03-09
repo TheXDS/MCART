@@ -4,6 +4,6 @@
 		<UseWpf>true</UseWpf>
 	</PropertyGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\..\Platform\WPF\WPF.csproj" />
+	  <ProjectReference Include="..\..\Legacy\WPF.Legacy\WPF.Legacy.csproj" />
 	</ItemGroup>
 </Project>

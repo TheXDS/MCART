@@ -22,33 +22,35 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Attributes;
 using TheXDS.MCART.Resources;
 
-namespace TheXDS.MCART.Attributes
+/// <summary>
+/// Define una serie de miembros a implementar por un tipo que obtenga
+/// licencias a partir del valor de un atributo.
+/// </summary>
+public abstract class LicenseAttributeBase : TextAttribute
 {
     /// <summary>
-    /// Define una serie de miembros a implementar por un tipo que obtenga
-    /// licencias a partir del valor de un atributo.
+    /// Inicializa una nueva instancia de la clase 
+    /// <see cref="LicenseAttributeBase"/>.
     /// </summary>
-    public abstract class LicenseAttributeBase : TextAttribute
+    /// <param name="text">
+    /// Texto a asociar con el valor de este atributo.
+    /// </param>
+    protected LicenseAttributeBase(string text) 
+        : base(text)
     {
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="LicenseAttributeBase"/>
-        /// </summary>
-        /// <param name="text"></param>
-        protected LicenseAttributeBase(string text) : base(text)
-        {
-        }
-
-        /// <summary>
-        /// Obtiene una licencia asociada a este atributo.
-        /// </summary>
-        /// <param name="context">
-        /// Objeto del cual se ha extraído este atributo.
-        /// </param>
-        /// <returns>
-        /// Una licencia asociada a este atributo.
-        /// </returns>
-        public abstract License GetLicense(object context);
     }
+
+    /// <summary>
+    /// Obtiene una licencia asociada a este atributo.
+    /// </summary>
+    /// <param name="context">
+    /// Objeto del cual se ha extraído este atributo.
+    /// </param>
+    /// <returns>
+    /// Una licencia asociada a este atributo.
+    /// </returns>
+    public abstract License GetLicense(object context);
 }

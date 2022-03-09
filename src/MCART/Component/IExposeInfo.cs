@@ -22,61 +22,59 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Component;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Base;
 
-namespace TheXDS.MCART.Component
+/// <summary>
+/// Define una serie de miembros a implementar para un tipo que exponga
+/// diversa información de identificación.
+/// </summary>
+public interface IExposeInfo : INameable, IDescriptible
 {
     /// <summary>
-    /// Define una serie de miembros a implementar para un tipo que exponga
-    /// diversa información de identificación.
+    /// Obtiene el autor del <see cref="IExposeInfo"/>.
     /// </summary>
-    public interface IExposeInfo : INameable, IDescriptible
-    {
-        /// <summary>
-        /// Obtiene el autor del <see cref="IExposeInfo"/>.
-        /// </summary>
-        IEnumerable<string>? Authors { get; }
+    IEnumerable<string>? Authors { get; }
 
-        /// <summary>
-        /// Obtiene el Copyright del <see cref="IExposeInfo"/>
-        /// </summary>
-        string? Copyright { get; }
+    /// <summary>
+    /// Obtiene el Copyright del <see cref="IExposeInfo"/>
+    /// </summary>
+    string? Copyright { get; }
 
-        /// <summary>
-        /// Obtiene la licencia del <see cref="IExposeInfo"/>
-        /// </summary>
-        License? License { get; }
+    /// <summary>
+    /// Obtiene un valor que indica si este <see cref="IExposeInfo"/>
+    /// contiene información de licencias de terceros.
+    /// </summary>
+    bool Has3rdPartyLicense => ThirdPartyLicenses?.Any() ?? false;
 
-        /// <summary>
-        /// Obtiene la versión del <see cref="IExposeInfo"/>
-        /// </summary>
-        Version? Version { get; }
+    /// <summary>
+    /// Obtiene un valor que indica si este <see cref="IExposeInfo"/>
+    /// contiene información de licencia.
+    /// </summary>
+    bool HasLicense => License is { };
 
-        /// <summary>
-        /// Obtiene una colección con el contenido de licencias de terceros
-        /// para el objeto.
-        /// </summary>
-        IEnumerable<License>? ThirdPartyLicenses { get; }
+    /// <summary>
+    /// Obtiene la versión informacional del <see cref="IExposeInfo"/>.
+    /// </summary>
+    string? InformationalVersion => Version?.ToString();
 
-        /// <summary>
-        /// Obtiene la versión informacional del <see cref="IExposeInfo"/>.
-        /// </summary>
-        string? InformationalVersion => Version?.ToString();
+    /// <summary>
+    /// Obtiene la licencia del <see cref="IExposeInfo"/>
+    /// </summary>
+    License? License { get; }
 
-        /// <summary>
-        /// Obtiene un valor que indica si este <see cref="IExposeInfo"/>
-        /// contiene información de licencia.
-        /// </summary>
-        bool HasLicense => License is { };
+    /// <summary>
+    /// Obtiene una colección con el contenido de licencias de terceros
+    /// para el objeto.
+    /// </summary>
+    IEnumerable<License>? ThirdPartyLicenses { get; }
 
-        /// <summary>
-        /// Obtiene un valor que indica si este <see cref="IExposeInfo"/>
-        /// contiene información de licencias de terceros.
-        /// </summary>
-        bool Has3rdPartyLicense => ThirdPartyLicenses?.Any() ?? false;
-    }
+    /// <summary>
+    /// Obtiene la versión del <see cref="IExposeInfo"/>
+    /// </summary>
+    Version? Version { get; }
 }

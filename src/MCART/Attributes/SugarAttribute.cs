@@ -22,22 +22,20 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Attributes;
 using System;
 using static System.AttributeTargets;
 
-namespace TheXDS.MCART.Attributes
+/// <summary>
+/// Indica que un elemento facilita la llamada a otros elementos o
+/// miembros.
+/// </summary>
+/// <remarks>
+/// Este atributo no debería aplicarse a sobrecargas de un método que
+/// no sea en sí mismo un método de "Code Sugar".
+/// </remarks>
+[AttributeUsage(Property | Method | Class | Module)]
+[Serializable]
+public sealed class SugarAttribute : Attribute
 {
-    /// <summary>
-    /// Indica que un elemento facilita la llamada a otros elementos o
-    /// miembros.
-    /// </summary>
-    /// <remarks>
-    /// Este atributo no debería aplicarse a sobrecargas de un método que
-    /// no sea en sí mismo un método de "Code Sugar".
-    /// </remarks>
-    [AttributeUsage(Property | Method | Class | Module)]
-    [Serializable]
-    public sealed class SugarAttribute : Attribute
-    {
-    }
 }

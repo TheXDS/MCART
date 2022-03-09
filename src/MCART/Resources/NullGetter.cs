@@ -22,38 +22,36 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Resources;
 using System.IO;
 
-namespace TheXDS.MCART.Resources
+/// <summary>
+/// <see cref="ICompressorGetter"/> que expone directamente un 
+/// <see cref="Stream"/> cuando el mismo no ha sido escrito utilizando
+/// un compresor.
+/// </summary>
+public sealed class NullGetter : ICompressorGetter
 {
     /// <summary>
-    /// <see cref="ICompressorGetter"/> que expone directamente un 
-    /// <see cref="Stream"/> cuando el mismo no ha sido escrito utilizando
-    /// un compresor.
+    /// Obtiene un <see cref="Stream"/>  que expone a 
+    /// <paramref name="inputStream"/> directamente.
     /// </summary>
-    public sealed class NullGetter : ICompressorGetter
+    /// <param name="inputStream">
+    /// <see cref="Stream"/> que contiene la información a extraer.
+    /// </param>
+    /// <returns>
+    /// El mismo <see cref="Stream"/> que
+    /// <paramref name="inputStream"/>.
+    /// </returns>
+    public Stream GetCompressor(Stream inputStream)
     {
-        /// <summary>
-        /// Obtiene un <see cref="Stream"/>  que expone a 
-        /// <paramref name="inputStream"/> directamente.
-        /// </summary>
-        /// <param name="inputStream">
-        /// <see cref="Stream"/> que contiene la información a extraer.
-        /// </param>
-        /// <returns>
-        /// El mismo <see cref="Stream"/> que
-        /// <paramref name="inputStream"/>.
-        /// </returns>
-        public Stream GetCompressor(Stream inputStream)
-        {
-            return inputStream;
-        }
-
-        /// <summary>
-        /// Obtiene la extensión utilizada de forma predeterminada para un
-        /// recurso comprimido utilizando este
-        /// <see cref="ICompressorGetter"/>.
-        /// </summary>
-        public string? Extension => null;
+        return inputStream;
     }
+
+    /// <summary>
+    /// Obtiene la extensión utilizada de forma predeterminada para un
+    /// recurso comprimido utilizando este
+    /// <see cref="ICompressorGetter"/>.
+    /// </summary>
+    public string? Extension => null;
 }

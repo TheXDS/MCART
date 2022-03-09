@@ -22,39 +22,37 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types.Extensions;
 using System;
 using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using static TheXDS.MCART.Misc.Internals;
 
-namespace TheXDS.MCART.Types.Extensions
+public static partial class MethodInfoExtensions
 {
-    public static partial class MethodInfoExtensions
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void ToDelegate_Contract(MethodInfo m, object? targetInstance)
     {
-        [Conditional("EnforceContracts")]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [DebuggerNonUserCode]
-        private static void ToDelegate_Contract(MethodInfo m, object? targetInstance)
-        {
-            NullCheck(m, nameof(m));
-            if ((targetInstance is null && !m.IsStatic) || (targetInstance is not null && m.IsStatic)) throw new MemberAccessException();
-        }
+        NullCheck(m, nameof(m));
+        if ((targetInstance is null && !m.IsStatic) || (targetInstance is not null && m.IsStatic)) throw new MemberAccessException();
+    }
 
-        [Conditional("EnforceContracts")]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [DebuggerNonUserCode]
-        private static void IsVoid_Contract(MethodInfo m)
-        {
-            NullCheck(m, nameof(m));
-        }
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void IsVoid_Contract(MethodInfo m)
+    {
+        NullCheck(m, nameof(m));
+    }
 
-        [Conditional("EnforceContracts")]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [DebuggerNonUserCode]
-        private static void IsOverride_Contract(MethodInfo method)
-        {
-            NullCheck(method, nameof(method));
-        }
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void IsOverride_Contract(MethodInfo method)
+    {
+        NullCheck(method, nameof(method));
     }
 }

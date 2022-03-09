@@ -22,41 +22,34 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Attributes;
 using System;
 using System.Resources;
 using static System.AttributeTargets;
+using static Misc.Internals;
 
-namespace TheXDS.MCART.Attributes
+/// <summary>
+/// Establece un nombre personalizado localizado para describir este elemento.
+/// </summary>
+[AttributeUsage(All)]
+[Serializable]
+public sealed class LocalizedDescriptionAttribute : System.ComponentModel.DescriptionAttribute
 {
+    private readonly string _stringId;
+    private readonly ResourceManager _res;
+
     /// <summary>
-    /// Establece un nombre personalizado localizado para describir este elemento.
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="LocalizedDescriptionAttribute" />.
     /// </summary>
-    [AttributeUsage(All)]
-    [Serializable]
-    public sealed class LocalizedDescriptionAttribute : System.ComponentModel.DescriptionAttribute
+    /// <param name="stringId">Id de la cadena a localizar.</param>
+    /// <param name="resourceType">Tipo que contiene la información de localización a utilizar.</param>
+    public LocalizedDescriptionAttribute(string stringId, Type resourceType)
     {
-        private readonly string _stringId;
-        private readonly ResourceManager _res;
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="LocalizedDescriptionAttribute" />.
-        /// </summary>
-        /// <param name="stringId">Id de la cadena a localizar.</param>
-        /// <param name="resourceType">Tipo que contiene la información de localización a utilizar.</param>
-        public LocalizedDescriptionAttribute(string stringId, Type resourceType)
-        {
-            _stringId = stringId;
-            _res = new ResourceManager(resourceType);
-        }
-
-        /// <inheritdoc/>
-        public override string Description
-        {
-            get
-            {
-                return _res.GetString(_stringId) ?? $"[[{_stringId}]]";
-            }
-        }
+        _stringId = EmptyChecked(stringId, nameof(stringId));
+        _res = new ResourceManager(NullChecked(resourceType, nameof(resourceType)));
     }
+
+    /// <inheritdoc/>
+    public override string Description => _res.GetString(_stringId) ?? $"[[{_stringId}]]";
 }

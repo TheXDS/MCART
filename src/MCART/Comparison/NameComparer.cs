@@ -22,43 +22,41 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Comparison;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using TheXDS.MCART.Types.Base;
 
-namespace TheXDS.MCART.Comparison
+/// <summary>
+/// Compara el nombre de dos objetos.
+/// </summary>
+public class NameComparer : IEqualityComparer<INameable>
 {
     /// <summary>
-    /// Compara el nombre de dos objetos.
+    /// Determina si los objetos especificados son iguales.
     /// </summary>
-    public class NameComparer : IEqualityComparer<INameable>
+    /// <param name="x">Primer objeto a comparar.</param>
+    /// <param name="y">Segundo objeto a comparar.</param>
+    /// <returns>
+    /// <see langword="true"/> si el nombre de ambos objetos es el
+    /// mismo, <see langword="false"/> en caso contrario.
+    /// </returns>
+    public bool Equals([AllowNull] INameable x, [AllowNull] INameable y)
     {
-        /// <summary>
-        /// Determina si los objetos especificados son iguales.
-        /// </summary>
-        /// <param name="x">Primer objeto a comparar.</param>
-        /// <param name="y">Segundo objeto a comparar.</param>
-        /// <returns>
-        /// <see langword="true"/> si el nombre de ambos objetos es el
-        /// mismo, <see langword="false"/> en caso contrario.
-        /// </returns>
-        public bool Equals([AllowNull] INameable x, [AllowNull] INameable y)
-        {
-            return x?.Name == y?.Name;
-        }
+        return x?.Name == y?.Name;
+    }
 
-        /// <summary>
-        /// Obtiene el código Hash para el nombre del objeto especificado.
-        /// </summary>
-        /// <param name="obj">
-        /// Objeto para el cual obtener un código Hash.
-        /// </param>
-        /// <returns>
-        /// El código hash para el nombre del objeto especificado.
-        /// </returns>
-        public int GetHashCode([DisallowNull] INameable obj)
-        {
-            return obj.Name.GetHashCode();
-        }
+    /// <summary>
+    /// Obtiene el código Hash para el nombre del objeto especificado.
+    /// </summary>
+    /// <param name="obj">
+    /// Objeto para el cual obtener un código Hash.
+    /// </param>
+    /// <returns>
+    /// El código hash para el nombre del objeto especificado.
+    /// </returns>
+    public int GetHashCode([DisallowNull] INameable obj)
+    {
+        return obj.Name.GetHashCode();
     }
 }

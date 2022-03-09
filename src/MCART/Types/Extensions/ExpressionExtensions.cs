@@ -22,25 +22,23 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types.Extensions;
 using System.Linq.Expressions;
 
-namespace TheXDS.MCART.Types.Extensions
+/// <summary>
+/// Contiene extensiones útiles para la clase <see cref="Expression" />.
+/// </summary>
+public static class ExpressionExtensions
 {
     /// <summary>
-    /// Contiene extensiones útiles para la clase <see cref="Expression" />.
+    /// Evalúa la expresión.
     /// </summary>
-    public static class ExpressionExtensions
+    /// <param name="e">Expresión a evaluar.</param>
+    /// <returns>
+    /// El resultado de evaluar la expresión.
+    /// </returns>
+    public static object? Eval(this Expression e)
     {
-        /// <summary>
-        /// Evalúa la expresión.
-        /// </summary>
-        /// <param name="e">Expresión a evaluar.</param>
-        /// <returns>
-        /// El resultado de evaluar la expresión.
-        /// </returns>
-        public static object? Eval(this Expression e)
-        {
-            return Expression.Lambda(e).Compile().DynamicInvoke();
-        }
+        return Expression.Lambda(e).Compile().DynamicInvoke();
     }
 }

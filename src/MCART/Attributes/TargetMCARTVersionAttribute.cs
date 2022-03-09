@@ -22,38 +22,38 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Attributes;
 using System;
 using static System.AttributeTargets;
 
-namespace TheXDS.MCART.Attributes
+/// <summary>
+/// Especifica la versión de MCART recomendada para el elemento.
+/// </summary>
+[AttributeUsage(Method | Class | Module | Assembly)]
+[Serializable]
+public sealed class TargetMCARTVersionAttribute : VersionAttributeBase
 {
     /// <summary>
-    /// Especifica la versión de MCART recomendada para el elemento.
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="TargetMCARTVersionAttribute" />.
     /// </summary>
-    [AttributeUsage(Method | Class | Module | Assembly)]
-    [Serializable]
-    public sealed class TargetMCARTVersionAttribute : VersionAttributeBase
+    /// <param name="major">Número de versión mayor.</param>
+    /// <param name="minor">Número de versión menor.</param>
+    public TargetMCARTVersionAttribute(int major, int minor)
+        : base(major, minor, int.MaxValue, int.MaxValue)
     {
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="TargetMCARTVersionAttribute" />.
-        /// </summary>
-        /// <param name="major">Número de versión mayor.</param>
-        /// <param name="minor">Número de versión menor.</param>
-        public TargetMCARTVersionAttribute(int major, int minor) : base(major, minor, int.MaxValue, int.MaxValue)
-        {
-        }
+    }
 
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="TargetMCARTVersionAttribute" />.
-        /// </summary>
-        /// <param name="major">Número de versión mayor.</param>
-        /// <param name="minor">Número de versión menor.</param>
-        /// <param name="build">Número de compilación.</param>
-        /// <param name="rev">Número de revisión.</param>
-        public TargetMCARTVersionAttribute(int major, int minor, int build, int rev) : base(major, minor, build, rev)
-        {
-        }
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="TargetMCARTVersionAttribute" />.
+    /// </summary>
+    /// <param name="major">Número de versión mayor.</param>
+    /// <param name="minor">Número de versión menor.</param>
+    /// <param name="build">Número de compilación.</param>
+    /// <param name="rev">Número de revisión.</param>
+    public TargetMCARTVersionAttribute(int major, int minor, int build, int rev) 
+        : base(major, minor, build, rev)
+    {
     }
 }

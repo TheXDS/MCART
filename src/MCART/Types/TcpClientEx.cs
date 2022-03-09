@@ -22,39 +22,37 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types;
 using System.Net.Sockets;
 using TheXDS.MCART.Types.Base;
 
-namespace TheXDS.MCART.Types
+/// <summary>
+/// Extensión de la clase <see cref="TcpClient" />
+/// que implementa observación del estado de deshecho del objeto.
+/// </summary>
+public class TcpClientEx : TcpClient, IDisposableEx
 {
     /// <summary>
-    /// Extensión de la clase <see cref="TcpClient" />
-    /// que implementa observación del estado de deshecho del objeto.
+    /// Obtiene un valor que indica si la instancia actual ha sido
+    /// desechada.
     /// </summary>
-    public class TcpClientEx : TcpClient, IDisposableEx
-    {
-        /// <summary>
-        /// Obtiene un valor que indica si la instancia actual ha sido
-        /// desechada.
-        /// </summary>
-        public bool IsDisposed { get; private set; }
+    public bool IsDisposed { get; private set; }
 
-        /// <summary>
-        /// Libera los recursos no administrados que usa
-        /// <see cref="TcpClient" /> y libera los
-        /// recursos administrados de forma opcional.
-        /// </summary>
-        /// <param name="disposing">
-        /// Se establece en <see langword="true" /> para liberar tanto los
-        /// recursos administrados como los no administrados; se establece
-        /// en <see langword="false" /> para liberar únicamente los
-        /// recursos no administrados.
-        /// </param>
-        protected override void Dispose(bool disposing)
-        {
-            if (IsDisposed) return;
-            IsDisposed = true;
-            base.Dispose(disposing);
-        }
+    /// <summary>
+    /// Libera los recursos no administrados que usa
+    /// <see cref="TcpClient" /> y libera los
+    /// recursos administrados de forma opcional.
+    /// </summary>
+    /// <param name="disposing">
+    /// Se establece en <see langword="true" /> para liberar tanto los
+    /// recursos administrados como los no administrados; se establece
+    /// en <see langword="false" /> para liberar únicamente los
+    /// recursos no administrados.
+    /// </param>
+    protected override void Dispose(bool disposing)
+    {
+        if (IsDisposed) return;
+        IsDisposed = true;
+        base.Dispose(disposing);
     }
 }

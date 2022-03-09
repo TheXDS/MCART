@@ -22,28 +22,26 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Attributes;
 using System;
 
-namespace TheXDS.MCART.Attributes
+/// <summary>
+/// Clase base para los atributos basados en números flotantes.
+/// </summary>
+public abstract class FloatAttribute : Attribute, IValueAttribute<float>
 {
     /// <summary>
-    /// Clase base para los atributos basados en números flotantes.
+    /// Crea una nueva isntancia de la clase
+    /// <see cref="FloatAttribute" />.
     /// </summary>
-    public abstract class FloatAttribute : Attribute, IValueAttribute<float>
+    /// <param name="attributeValue">Valor de este atributo.</param>
+    protected FloatAttribute(float attributeValue)
     {
-        /// <summary>
-        /// Crea una nueva isntancia de la clase
-        /// <see cref="FloatAttribute" />.
-        /// </summary>
-        /// <param name="attributeValue">Valor de este atributo.</param>
-        protected FloatAttribute(float attributeValue)
-        {
-            Value = attributeValue;
-        }
-
-        /// <summary>
-        /// Obtiene el valor asociado a este atributo.
-        /// </summary>
-        public float Value { get; }
+        Value = attributeValue;
     }
+
+    /// <summary>
+    /// Obtiene el valor asociado a este atributo.
+    /// </summary>
+    public float Value { get; }
 }

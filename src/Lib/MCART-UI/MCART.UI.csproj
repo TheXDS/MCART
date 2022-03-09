@@ -2,7 +2,6 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <Description>MCART interactive components</Description>
-    <AssemblyName>MCART.UI</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
     <Compile Update="Resources\Strings\UiErrors.Designer.cs">

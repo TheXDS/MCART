@@ -22,65 +22,18 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types.Base;
 using System;
-using System.Diagnostics.CodeAnalysis;
 
-namespace TheXDS.MCART.Types.Base
+/// <summary>
+/// Define una serie de miembros a implementar por un objeto que
+/// permita realizar conversiones desde su tipo hacia otro.
+/// </summary>
+public interface ICasteable : ICasteable<object>
 {
     /// <summary>
-    /// Define una serie de miembros a implementar por un objeto que
-    /// permita realizar conversiones desde su tipo hacia otro.
+    /// Obtiene una referencia al tipo de destino de conversión para
+    /// este objeto.
     /// </summary>
-    public interface ICasteable : ICasteable<object>
-    {
-        /// <summary>
-        /// Obtiene una referencia al tipo de destino de conversión para
-        /// este objeto.
-        /// </summary>
-        Type TargetType { get; }
-    }
-
-    /// <summary>
-    /// Define una serie de miembros a implementar por un objeto que
-    /// permita realizar conversiones desde su tipo hacia otro.
-    /// </summary>
-    /// <typeparam name="T">
-    /// Tipo de destino para la conversión.
-    /// </typeparam>
-    public interface ICasteable<T>
-    {
-        /// <summary>
-        /// Convierte la instancia actual a un objeto de tipo
-        /// <typeparamref name="T"/>.
-        /// </summary>
-        /// <returns>
-        /// Un objeto de tipo <typeparamref name="T"/>.
-        /// </returns>
-        T Cast();
-
-        /// <summary>
-        /// Intenta realizar una operación de conversión de la instancia
-        /// actual a un objeto de tipo <typeparamref name="T"/>.
-        /// </summary>
-        /// <param name="result">
-        /// Resultado de la conversión.
-        /// </param>
-        /// <returns>
-        /// <see langword="true"/> si la conversión ha sido exitosa,
-        /// <see langword="false"/> en caso contrario.
-        /// </returns>
-        bool TryCast([MaybeNullWhen(false)] out T result)
-        {
-            try
-            {
-                result = Cast();
-                return true;
-            }
-            catch
-            {
-                result = default;
-                return false;
-            }
-        }
-    }
+    Type TargetType { get; }
 }

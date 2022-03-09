@@ -22,21 +22,19 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types.Extensions;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Resources;
 
-namespace TheXDS.MCART.Types.Extensions
+public static partial class ColorExtensions
 {
-    public static partial class ColorExtensions
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void WithAlpha_Contract(in float value)
     {
-        [Conditional("EnforceContracts")]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [DebuggerNonUserCode]
-        private static void WithAlpha_Contract(in float value)
-        {
-            if (!value.IsBetween(0f, 1f)) throw Errors.ValueOutOfRange(nameof(value), 0f, 1f);
-        }
+        if (!value.IsBetween(0f, 1f)) throw Errors.ValueOutOfRange(nameof(value), 0f, 1f);
     }
 }

@@ -22,16 +22,15 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Attributes;
 using System;
 using TheXDS.MCART.Types.Base;
-using static System.AttributeTargets;
 
-namespace TheXDS.MCART.Attributes
+/// <summary>
+/// Marca un método como la invocación de cambio de valor de propiedad en
+/// una clase que herede de <see cref="NotifyPropertyChangeBase"/>.
+/// </summary>
+[AttributeUsage(AttributeTargets.Method)]
+public sealed class NpcChangeInvocatorAttribute : Attribute
 {
-    /// <summary>
-    /// Marca un método como la invocación de cambio de valor de propiedad en
-    /// una clase que herede de <see cref="NotifyPropertyChangeBase"/>.
-    /// </summary>
-    [AttributeUsage(Method)]
-    public sealed class NpcChangeInvocatorAttribute : Attribute { }
 }

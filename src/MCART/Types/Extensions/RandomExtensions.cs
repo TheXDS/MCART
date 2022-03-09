@@ -22,74 +22,72 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types.Extensions;
 using System;
 
-namespace TheXDS.MCART.Types.Extensions
+/// <summary>
+/// Extensiones para la clase <see cref="Random" />
+/// </summary>
+public static class RandomExtensions
 {
+    private const string Text = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
     /// <summary>
-    /// Extensiones para la clase <see cref="Random" />
+    /// Necesario para evitar que las funciones que requieren de números
+    /// aleatorios generen objetos <see cref="Random" /> con el mismo
+    /// número de semilla basada en tiempo.
     /// </summary>
-    public static class RandomExtensions
+    public static Random Rnd { get; } = new();
+
+    /// <summary>
+    /// Obtiene una cadena de texto aleatorio.
+    /// </summary>
+    /// <param name="r">
+    /// Instancia del objeto <see cref="Random" /> a utilizar.
+    /// </param>
+    /// <param name="length">Longitud de la cadena a generar.</param>
+    /// <returns>
+    /// Una cadena de texto aleatorio con la longitud especificada.
+    /// </returns>
+    public static string RndText(this Random r, in int length)
     {
-        private const string Text = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        string? x = string.Empty;
+        while (x.Length < length) x += Text[r.Next(0, Text.Length)];
+        return x;
+    }
 
-        /// <summary>
-        /// Necesario para evitar que las funciones que requieren de números
-        /// aleatorios generen objetos <see cref="Random" /> con el mismo
-        /// número de semilla basada en tiempo.
-        /// </summary>
-        public static Random Rnd { get; } = new();
+    /// <summary>
+    /// Devuelve un número entero aleatorio que se encuentra dentro del 
+    /// rango especificado.
+    /// </summary>
+    /// <param name="r">
+    /// Instancia del objeto <see cref="Random" /> a utilizar.
+    /// </param>
+    /// <param name="range">
+    /// <see cref="Range{T}" /> de números a seleccionar.
+    /// </param>
+    /// <returns>
+    /// Un número entero aleatorio que se encuentra dentro del rango
+    /// especificado.
+    /// </returns>
+    public static int Next(this Random r, in Range<int> range)
+    {
+        return r.Next(range.Minimum, range.Maximum);
+    }
 
-        /// <summary>
-        /// Obtiene una cadena de texto aleatorio.
-        /// </summary>
-        /// <param name="r">
-        /// Instancia del objeto <see cref="Random" /> a utilizar.
-        /// </param>
-        /// <param name="length">Longitud de la cadena a generar.</param>
-        /// <returns>
-        /// Una cadena de texto aleatorio con la longitud especificada.
-        /// </returns>
-        public static string RndText(this Random r, in int length)
-        {
-            string? x = string.Empty;
-            while (x.Length < length) x += Text[r.Next(0, Text.Length)];
-            return x;
-        }
-
-        /// <summary>
-        /// Devuelve un número entero aleatorio que se encuentra dentro del 
-        /// rango especificado.
-        /// </summary>
-        /// <param name="r">
-        /// Instancia del objeto <see cref="Random" /> a utilizar.
-        /// </param>
-        /// <param name="range">
-        /// <see cref="Range{T}" /> de números a seleccionar.
-        /// </param>
-        /// <returns>
-        /// Un número entero aleatorio que se encuentra dentro del rango
-        /// especificado.
-        /// </returns>
-        public static int Next(this Random r, in Range<int> range)
-        {
-            return r.Next(range.Minimum, range.Maximum);
-        }
-
-        /// <summary>
-        /// Obtiene aleatoriamente un valor <see langword="true"/> o
-        /// <see langword="false"/>.
-        /// </summary>
-        /// <returns>
-        /// <see langword="true"/> o <see langword="false"/>, de manera
-        /// aleatoria.
-        /// </returns>
-        /// <param name="r">
-        /// Instancia del objeto <see cref="Random" /> a utilizar.
-        /// </param>
-        public static bool CoinFlip(this Random r)
-        {
-            return (r.Next() & 1) == 0;
-        }
+    /// <summary>
+    /// Obtiene aleatoriamente un valor <see langword="true"/> o
+    /// <see langword="false"/>.
+    /// </summary>
+    /// <returns>
+    /// <see langword="true"/> o <see langword="false"/>, de manera
+    /// aleatoria.
+    /// </returns>
+    /// <param name="r">
+    /// Instancia del objeto <see cref="Random" /> a utilizar.
+    /// </param>
+    public static bool CoinFlip(this Random r)
+    {
+        return (r.Next() & 1) == 0;
     }
 }

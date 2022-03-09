@@ -22,27 +22,25 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types.Base;
 using System;
 
-namespace TheXDS.MCART.Types.Base
+/// <summary>
+/// Interfaz que define propiedades comunes para estructuras de datos
+/// que describen coordenadas, vectores, magnitudes y tamaños en un
+/// espacio de dos dimensiones.
+/// </summary>
+public interface I2DVector : IEquatable<I2DVector>
 {
     /// <summary>
-    /// Interfaz que define propiedades comunes para estructuras de datos
-    /// que describen coordenadas, vectores, magnitudes y tamaños en un
-    /// espacio de dos dimensiones.
+    /// Obtiene el componente horizontal (eje X) representado por este
+    /// <see cref="I2DVector"/>.
     /// </summary>
-    public interface I2DVector : IEquatable<I2DVector>
-    {
-        /// <summary>
-        /// Obtiene el componente horizontal (eje X) representado por este
-        /// <see cref="I2DVector"/>.
-        /// </summary>
-        double X { get; }
+    double X { get; }
 
-        /// <summary>
-        /// Obtiene el componente vertical (eje Y) representado por este
-        /// <see cref="I2DVector"/>.
-        /// </summary>
-        double Y { get; }
-    }
+    /// <summary>
+    /// Obtiene el componente vertical (eje Y) representado por este
+    /// <see cref="I2DVector"/>.
+    /// </summary>
+    double Y { get; }
 }

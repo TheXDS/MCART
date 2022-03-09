@@ -22,29 +22,28 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Resources
+namespace TheXDS.MCART.Resources;
+
+/// <summary>
+/// Licencia cuyo contenido se ha especificado directamente.
+/// </summary>
+public sealed class TextLicense : License
 {
+    private readonly string? _content;
+
     /// <summary>
-    /// Licencia cuyo contenido se ha especificado directamente.
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="TextLicense"/>.
     /// </summary>
-    public sealed class TextLicense : License
+    /// <param name="name">Nombre descriptivo de la licencia.</param>
+    /// <param name="content">Contenido de la licencia.</param>
+    public TextLicense(string name, string? content) : base(name, null)
     {
-        private readonly string? _content;
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="TextLicense"/>.
-        /// </summary>
-        /// <param name="name">Nombre descriptivo de la licencia.</param>
-        /// <param name="content">Contenido de la licencia.</param>
-        public TextLicense(string name, string? content) : base(name, null)
-        {
-            _content = content;
-        }
-
-        /// <summary>
-        /// Obtiene el contenido de la licencia.
-        /// </summary>
-        public override string LicenseContent => _content ?? base.LicenseContent;
+        _content = content;
     }
+
+    /// <summary>
+    /// Obtiene el contenido de la licencia.
+    /// </summary>
+    public override string LicenseContent => _content ?? base.LicenseContent;
 }
