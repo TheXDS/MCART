@@ -22,48 +22,46 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Tests.Attributes;
+using NUnit.Framework;
 using System;
 using TheXDS.MCART.Attributes;
-using NUnit.Framework;
-using St = TheXDS.MCART.Resources.Strings;
+using St = MCART.Resources.Strings;
 
-namespace TheXDS.MCART.Tests.Attributes
+[Obsolete("El atributo se ha reemplazado por LicenseUriAttribute")]
+public class LicenseFileAttributeTests
 {
-    [Obsolete("El atributo se ha reemplazado por LicenseUriAttribute")]
-    public class LicenseFileAttributeTests
+    [Test]
+    public void LicenseFileAttributeBasicInstancing_Test()
     {
-        [Test]
-        public void LicenseFileAttributeBasicInstancing_Test()
-        {
-            LicenseFileAttribute? l = new(@"C:\Test.txt");
-            Assert.AreEqual(@"C:\Test.txt", l.Value);
-            Assert.AreEqual(@"C:\Test.txt", ((IValueAttribute<string?>)l).Value);
-        }
+        LicenseFileAttribute? l = new(@"C:\Test.txt");
+        Assert.AreEqual(@"C:\Test.txt", l.Value);
+        Assert.AreEqual(@"C:\Test.txt", ((IValueAttribute<string?>)l).Value);
+    }
 
-        [Test]
-        public void ReadLicenseFromLicenseFileAttribute_Test()
-        {
-            const string LicenseContents = "Test.";
-            string? f = System.IO.Path.GetTempFileName();
-            System.IO.File.WriteAllText(f, LicenseContents);
+    [Test]
+    public void ReadLicenseFromLicenseFileAttribute_Test()
+    {
+        const string LicenseContents = "Test.";
+        string? f = System.IO.Path.GetTempFileName();
+        System.IO.File.WriteAllText(f, LicenseContents);
 
-            LicenseFileAttribute? l = new(f);
-            Assert.AreEqual(LicenseContents, l.ReadLicense());
+        LicenseFileAttribute? l = new(f);
+        Assert.AreEqual(LicenseContents, l.ReadLicense());
 
-            try { System.IO.File.Delete(f); }
-            catch { }
-        }
+        try { System.IO.File.Delete(f); }
+        catch { }
+    }
 
-        [Test]
-        public void LicenseFileWithFileNotFoundDoesntFail_Test()
-        {
-            string? f = System.IO.Path.GetFullPath(System.IO.Path.Combine(
-                Guid.NewGuid().ToString(),
-                Guid.NewGuid().ToString(),
-                Guid.NewGuid().ToString(),
-                $"{Guid.NewGuid()}.txt"));
-            LicenseFileAttribute? l = new(f);
-            Assert.AreEqual(St.Composition.Warn(St.Common.UnspecifiedLicense), l.ReadLicense());
-        }
+    [Test]
+    public void LicenseFileWithFileNotFoundDoesntFail_Test()
+    {
+        string? f = System.IO.Path.GetFullPath(System.IO.Path.Combine(
+            Guid.NewGuid().ToString(),
+            Guid.NewGuid().ToString(),
+            Guid.NewGuid().ToString(),
+            $"{Guid.NewGuid()}.txt"));
+        LicenseFileAttribute? l = new(f);
+        Assert.AreEqual(St.Composition.Warn(St.Common.UnspecifiedLicense), l.ReadLicense());
     }
 }

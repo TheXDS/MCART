@@ -22,23 +22,21 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
+namespace TheXDS.MCART.Tests.Types.Extensions;
 using NUnit.Framework;
+using System;
 using static TheXDS.MCART.Types.Extensions.NamedObjectExtensions;
 
-namespace TheXDS.MCART.Tests.Types.Extensions
+public class NamedObjectExtensionsTests
 {
-    public class NamedObjectExtensionsTests
+    [Test]
+    public void AsNamedEnumTest()
     {
-        [Test]
-        public void AsNamedEnumTest()
-        {
-            System.Collections.Generic.IEnumerable<MCART.Types.NamedObject<Enum>>? e = typeof(DayOfWeek).AsNamedEnum();
+        System.Collections.Generic.IEnumerable<MCART.Types.NamedObject<Enum>>? e = typeof(DayOfWeek).AsNamedEnum();
 
-            foreach (MCART.Types.NamedObject<Enum> j in e)
-            {
-                Assert.AreEqual(j.Value.ToString(), j.Name);
-            }
+        foreach (MCART.Types.NamedObject<Enum> j in e)
+        {
+            Assert.AreEqual(j.Value.ToString(), j.Name);
         }
     }
 }

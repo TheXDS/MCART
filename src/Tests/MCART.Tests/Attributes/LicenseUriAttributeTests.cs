@@ -22,49 +22,47 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Tests.Attributes;
+using NUnit.Framework;
 using System;
 using TheXDS.MCART.Attributes;
-using NUnit.Framework;
-using St = TheXDS.MCART.Resources.Strings;
+using St = MCART.Resources.Strings;
 
-namespace TheXDS.MCART.Tests.Attributes
+public class LicenseUriAttributeTests
 {
-    public class LicenseUriAttributeTests
+    [Test]
+    public void LicenseUriAttributeBasicInstancing_Test()
     {
-        [Test]
-        public void LicenseUriAttributeBasicInstancing_Test()
-        {
-            const string f = @"C:\Test.txt";
-            LicenseUriAttribute? l = new(f);
-            Assert.AreEqual(f, l.Value);
-            Assert.AreEqual(f, ((IValueAttribute<string?>)l).Value);
-        }
+        const string f = @"C:\Test.txt";
+        LicenseUriAttribute? l = new(f);
+        Assert.AreEqual(f, l.Value);
+        Assert.AreEqual(f, ((IValueAttribute<string?>)l).Value);
+    }
 
-        [Test]
-        public void ReadLicenseFromFile_Test()
-        {
-            const string LicenseContents = "Test.";
-            string? f = System.IO.Path.GetTempFileName();
-            System.IO.File.WriteAllText(f, LicenseContents);
+    [Test]
+    public void ReadLicenseFromFile_Test()
+    {
+        const string LicenseContents = "Test.";
+        string? f = System.IO.Path.GetTempFileName();
+        System.IO.File.WriteAllText(f, LicenseContents);
 
-            LicenseUriAttribute? l = new(f);
-            Assert.AreEqual(LicenseContents, l.GetLicense().LicenseContent);
+        LicenseUriAttribute? l = new(f);
+        Assert.AreEqual(LicenseContents, l.GetLicense().LicenseContent);
 
-            try { System.IO.File.Delete(f); }
-            catch { }
-        }
+        try { System.IO.File.Delete(f); }
+        catch { }
+    }
 
-        [Test]
-        public void ReadLicenseFromNowhere_Test()
-        {
-            string? f = System.IO.Path.GetFullPath(System.IO.Path.Combine(
-                Guid.NewGuid().ToString(),
-                Guid.NewGuid().ToString(),
-                Guid.NewGuid().ToString(),
-                $"{Guid.NewGuid()}.txt"));
+    [Test]
+    public void ReadLicenseFromNowhere_Test()
+    {
+        string? f = System.IO.Path.GetFullPath(System.IO.Path.Combine(
+            Guid.NewGuid().ToString(),
+            Guid.NewGuid().ToString(),
+            Guid.NewGuid().ToString(),
+            $"{Guid.NewGuid()}.txt"));
 
-            string? l = new LicenseUriAttribute(f).GetLicense().LicenseContent;
-            Assert.AreEqual(St.Composition.Warn(St.Errors.ErrorLoadingLicense), l);
-        }
+        string? l = new LicenseUriAttribute(f).GetLicense().LicenseContent;
+        Assert.AreEqual(St.Composition.Warn(St.Errors.ErrorLoadingLicense), l);
     }
 }

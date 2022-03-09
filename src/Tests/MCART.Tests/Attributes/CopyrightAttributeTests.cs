@@ -22,29 +22,27 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using TheXDS.MCART.Attributes;
+namespace TheXDS.MCART.Tests.Attributes;
 using NUnit.Framework;
+using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Types;
 
-namespace TheXDS.MCART.Tests.Attributes
+public class CopyrightAttributeTests
 {
-    public class CopyrightAttributeTests
+    [Test]
+    public void CopyrightAttributeBasicInstancing_Test()
     {
-        [Test]
-        public void CopyrightAttributeBasicInstancing_Test()
-        {
-            CopyrightAttribute? l = new("Copyright (C) Test");
-            Assert.AreEqual("Copyright (C) Test", l.Value);
-            Assert.AreEqual("Copyright (C) Test", ((IValueAttribute<string?>)l).Value);
+        CopyrightAttribute? l = new("Copyright (C) Test");
+        Assert.AreEqual("Copyright (C) Test", l.Value);
+        Assert.AreEqual("Copyright (C) Test", ((IValueAttribute<string?>)l).Value);
 
-            l = new CopyrightAttribute("Test");
-            Assert.AreEqual("Copyright © Test", l.Value);
+        l = new CopyrightAttribute("Test");
+        Assert.AreEqual("Copyright © Test", l.Value);
 
-            l = new CopyrightAttribute(1985, "Test");
-            Assert.AreEqual("Copyright © 1985 Test", l.Value);
+        l = new CopyrightAttribute(1985, "Test");
+        Assert.AreEqual("Copyright © 1985 Test", l.Value);
 
-            l = new CopyrightAttribute(new Range<ushort>(1985, 2001), "Test");
-            Assert.AreEqual("Copyright © 1985-2001 Test", l.Value);
-        }
+        l = new CopyrightAttribute(new Range<ushort>(1985, 2001), "Test");
+        Assert.AreEqual("Copyright © 1985-2001 Test", l.Value);
     }
 }

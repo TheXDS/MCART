@@ -22,33 +22,31 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Tests.Networking;
 using NUnit.Framework;
-using TheXDS.MCART.Networking;
 using System;
+using TheXDS.MCART.Networking;
 
-namespace TheXDS.MCART.Tests.Networking
+[Obsolete("Estos objetos utilizan clases deprecadas en .Net 6.")]
+public class NetworkingTest
 {
-    [Obsolete("Estos objetos utilizan clases deprecadas en .Net 6.")]
-    public class NetworkingTest
+    //[Test]
+    public void DownloadTest()
     {
-        //[Test]
-        public void DownloadTest()
-        {
-            /*
-             * Este Test tiene un problema...
-             * El método DownloadHttp se prueba realizando una descarga desde
-             * cualquier servidor, y dependiendo del servicio de host, es
-             * probable que consideren en uso continuo de los mismos para
-             * realizar las pruebas como abusivo. A este fin, se espera que en
-             * el futuro se implemente un servidor contenido dentro del mismo
-             * equipo para realizar pruebas de descarga.
-             * Mientras tanto, estos son los servicios desde los cuales no se
-             * recomienda probar para evitar caer en situaciones de abuso:
-             * - https://www.thinkbroadband.com/download
-             */
-            using System.IO.MemoryStream? ms = new();
-            DownloadHelper.DownloadHttp("http://speedtest.ftp.otenet.gr/files/test100k.db", ms);
-            Assert.AreEqual(102400, ms.Length);
-        }
+        /*
+         * Este Test tiene un problema...
+         * El método DownloadHttp se prueba realizando una descarga desde
+         * cualquier servidor, y dependiendo del servicio de host, es
+         * probable que consideren en uso continuo de los mismos para
+         * realizar las pruebas como abusivo. A este fin, se espera que en
+         * el futuro se implemente un servidor contenido dentro del mismo
+         * equipo para realizar pruebas de descarga.
+         * Mientras tanto, estos son los servicios desde los cuales no se
+         * recomienda probar para evitar caer en situaciones de abuso:
+         * - https://www.thinkbroadband.com/download
+         */
+        using System.IO.MemoryStream? ms = new();
+        DownloadHelper.DownloadHttp("http://speedtest.ftp.otenet.gr/files/test100k.db", ms);
+        Assert.AreEqual(102400, ms.Length);
     }
 }

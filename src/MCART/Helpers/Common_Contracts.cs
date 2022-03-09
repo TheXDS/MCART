@@ -42,8 +42,8 @@ public static partial class Common
     [Conditional("EnforceContracts")]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     [DebuggerNonUserCode]
-    private static void Sequence_Contract(in int stepping)
+    private static void Sequence_Contract(in int top, in int stepping)
     {
-        if (stepping == 0) throw Errors.InvalidValue(nameof(stepping), 0);
+        if (stepping == 0) throw Errors.ValueOutOfRange(nameof(stepping), 1, top);
     }
 }

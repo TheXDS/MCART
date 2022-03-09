@@ -22,33 +22,31 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Tests.Attributes;
+using NUnit.Framework;
 using System;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Resources;
-using NUnit.Framework;
 
-namespace TheXDS.MCART.Tests.Attributes
+public class SpdxLicenceTests
 {
-    public class SpdxLicenceTests
+    [Test]
+    public void SpdxLicenseBasicInstancing_Test()
     {
-        [Test]
-        public void SpdxLicenseBasicInstancing_Test()
-        {
-            SpdxLicenseAttribute? l = new(SpdxLicenseId.GPL_3_0_or_later);
-            Assert.AreEqual(SpdxLicenseId.GPL_3_0_or_later, l.Id);
-        }
+        SpdxLicenseAttribute? l = new(SpdxLicenseId.GPL_3_0_or_later);
+        Assert.AreEqual(SpdxLicenseId.GPL_3_0_or_later, l.Id);
+    }
 
-        [Test]
-        public void SpdxInstancingWithStringArgs_Test()
-        {
-            SpdxLicenseAttribute? l = new("GPL_3_0_or_later");
-            Assert.AreEqual(SpdxLicenseId.GPL_3_0_or_later, l.Id);
-        }
+    [Test]
+    public void SpdxInstancingWithStringArgs_Test()
+    {
+        SpdxLicenseAttribute? l = new("GPL_3_0_or_later");
+        Assert.AreEqual(SpdxLicenseId.GPL_3_0_or_later, l.Id);
+    }
 
-        [Test]
-        public void SpdxInstancingFailsIfIdNotDefined_Test()
-        {
-            Assert.Throws<ArgumentOutOfRangeException>(() => new SpdxLicenseAttribute((SpdxLicenseId)int.MaxValue));
-        }
+    [Test]
+    public void SpdxInstancingFailsIfIdNotDefined_Test()
+    {
+        Assert.Throws<ArgumentOutOfRangeException>(() => new SpdxLicenseAttribute((SpdxLicenseId)int.MaxValue));
     }
 }

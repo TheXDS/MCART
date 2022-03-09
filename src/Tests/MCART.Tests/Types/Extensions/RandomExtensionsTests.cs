@@ -22,44 +22,42 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Tests.Types.Extensions;
 using NUnit.Framework;
 using System.Collections.Generic;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types;
 using static TheXDS.MCART.Types.Extensions.RandomExtensions;
 
-namespace TheXDS.MCART.Tests.Types.Extensions
+public class RandomExtensionsTests
 {
-    public class RandomExtensionsTests
+    [Test]
+    public void RndText_Test()
     {
-        [Test]
-        public void RndText_Test()
-        {
-            string? str = Rnd.RndText(10);
-            Assert.IsAssignableFrom<string>(str);
-            Assert.AreEqual(10, str.Length);
-        }
+        string? str = Rnd.RndText(10);
+        Assert.IsAssignableFrom<string>(str);
+        Assert.AreEqual(10, str.Length);
+    }
 
-        [Test]
-        public void Next_With_Range_Test()
+    [Test]
+    public void Next_With_Range_Test()
+    {
+        Range<int> r = new(1, 100);
+        for (int j = 0; j < 1000; j++)
         {
-            Range<int> r = new(1, 100);
-            for (int j = 0; j < 1000; j++)
-            {
-                Assert.True(Rnd.Next(r).IsBetween(1, 100));
-            }
+            Assert.True(Rnd.Next(r).IsBetween(1, 100));
         }
+    }
 
-        [Test]
-        public void CoinFlip_Test()
+    [Test]
+    public void CoinFlip_Test()
+    {
+        List<bool> l = new();
+        for (int j = 0; j < 1000; j++)
         {
-            List<bool> l = new();
-            for (int j = 0; j < 1000; j++)
-            {
-                l.Add(Rnd.CoinFlip());
-            }
-            Assert.Contains(true, l);
-            Assert.Contains(false, l);
+            l.Add(Rnd.CoinFlip());
         }
+        Assert.Contains(true, l);
+        Assert.Contains(false, l);
     }
 }

@@ -22,19 +22,17 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Tests.Comparison;
 using System;
 using System.Collections.Generic;
 
-namespace TheXDS.MCART.Tests.Comparison
+public class TypeComparerDataGenerator : ComparerDataGenerator<object>
 {
-    public class TypeComparerDataGenerator : ComparerDataGenerator<object>
+    protected override IEnumerable<(object a, object b, bool equal)> GetSequences()
     {
-        protected override IEnumerable<(object a, object b, bool equal)> GetSequences()
-        {
-            yield return (new Exception("test 1"), new Exception("test 2"), true);
-            yield return (1.0, 2.0, true);
-            yield return (new Exception("test 1"), new Uri("about:blank"), false);
-            yield return (1.0, 2f, false);
-        }
+        yield return (new Exception("test 1"), new Exception("test 2"), true);
+        yield return (1.0, 2.0, true);
+        yield return (new Exception("test 1"), new Uri("about:blank"), false);
+        yield return (1.0, 2f, false);
     }
 }

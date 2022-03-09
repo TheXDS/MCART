@@ -22,18 +22,16 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using TheXDS.MCART.Attributes;
+namespace TheXDS.MCART.Tests.Attributes;
 using NUnit.Framework;
+using TheXDS.MCART.Attributes;
 
-namespace TheXDS.MCART.Tests.Attributes
+public class PriorityAttributeTests
 {
-    public class PriorityAttributeTests
+    [Test]
+    public void BasicInstancingTest()
     {
-        [Test]
-        public void BasicInstancingTest()
-        {
-            PriorityAttribute? a = new(1);
-            Assert.AreEqual(1, a.Value);
-        }
+        PriorityAttribute? a = new(1);
+        Assert.AreEqual(1, a.Value);
     }
 }

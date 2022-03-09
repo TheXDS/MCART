@@ -22,19 +22,17 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Tests.Comparison;
+using NUnit.Framework;
 using TheXDS.MCART.Comparison;
 using TheXDS.MCART.Types.Base;
-using NUnit.Framework;
 
-namespace TheXDS.MCART.Tests.Comparison
+public class NameComparerTests : ComparerTestBase<INameable, NameComparer>
 {
-    public class NameComparerTests : ComparerTestBase<INameable, NameComparer>
+    [Theory]
+    [TestCaseSource(typeof(NameComparerDataGenerator))]
+    public void NameComparerTest(INameable x, INameable y, bool equal)
     {
-        [Theory]
-        [TestCaseSource(typeof(NameComparerDataGenerator))]
-        public void NameComparerTest(INameable x, INameable y, bool equal)
-        {
-            RunTest(x, y, equal);
-        }
+        RunTest(x, y, equal);
     }
 }

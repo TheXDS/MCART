@@ -22,21 +22,18 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System.Collections.Generic;
+namespace TheXDS.MCART.Tests.Comparison;
 using NUnit.Framework;
+using System.Collections.Generic;
 
-namespace TheXDS.MCART.Tests.Comparison
+public abstract class ComparerTestBase<TValue, TEq> where TValue : notnull where TEq : IEqualityComparer<TValue>, new()
 {
-    public abstract class ComparerTestBase<TValue, TEq> where TValue : notnull where TEq : IEqualityComparer<TValue>, new()
+    protected void RunTest(TValue x, TValue y, bool equal)
     {
-        protected void RunTest(TValue x, TValue y, bool equal)
-        {
-            TEq? eq = new();
-            int xh = eq.GetHashCode(x);
-            int yh = eq.GetHashCode(y);
-
-            Assert.AreEqual(equal, eq.Equals(x, y));
-            Assert.AreEqual(equal, xh == yh);
-        }
+        TEq? eq = new();
+        int xh = eq.GetHashCode(x);
+        int yh = eq.GetHashCode(y);
+        Assert.AreEqual(equal, eq.Equals(x, y));
+        Assert.AreEqual(equal, xh == yh);
     }
 }

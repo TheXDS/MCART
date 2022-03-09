@@ -22,36 +22,34 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Tests.Types.Extensions;
+using NUnit.Framework;
 using System;
 using System.Text;
 using TheXDS.MCART.Types.Extensions;
-using NUnit.Framework;
 
-namespace TheXDS.MCART.Tests.Types.Extensions
+public class StringBuilderExtensionsTests
 {
-    public class StringBuilderExtensionsTests
+    [Test]
+    public void AppendLineIfNotNull_Test()
     {
-        [Test]
-        public void AppendLineIfNotNull_Test()
-        {
-            StringBuilder sb = new();
-            sb.AppendLineIfNotNull(null);
-            Assert.True(sb.ToString().IsEmpty());
-            sb.AppendLineIfNotNull("test");
-            Assert.AreEqual($"test{Environment.NewLine}", sb.ToString());
-            sb.AppendLineIfNotNull(null);
-            Assert.AreEqual($"test{Environment.NewLine}", sb.ToString());
-        }
+        StringBuilder sb = new();
+        sb.AppendLineIfNotNull(null);
+        Assert.True(sb.ToString().IsEmpty());
+        sb.AppendLineIfNotNull("test");
+        Assert.AreEqual($"test{Environment.NewLine}", sb.ToString());
+        sb.AppendLineIfNotNull(null);
+        Assert.AreEqual($"test{Environment.NewLine}", sb.ToString());
+    }
 
-        [Test]
-        public void AppendAndWrap_Test()
-        {
-            StringBuilder sb = new();
-            string s = new('x', 120);
-            sb.AppendAndWrap(s, 80);
-            string[]? sa = sb.ToString().Split(Environment.NewLine);
-            Assert.AreEqual(80, sa[0].Length);
-            Assert.AreEqual(40, sa[1].Length);
-        }
+    [Test]
+    public void AppendAndWrap_Test()
+    {
+        StringBuilder sb = new();
+        string s = new('x', 120);
+        sb.AppendAndWrap(s, 80);
+        string[]? sa = sb.ToString().Split(Environment.NewLine);
+        Assert.AreEqual(80, sa[0].Length);
+        Assert.AreEqual(40, sa[1].Length);
     }
 }

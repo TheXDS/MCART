@@ -22,19 +22,17 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Tests.Helpers;
+using NUnit.Framework;
 using System.Linq.Expressions;
 using TheXDS.MCART.Types.Extensions;
-using NUnit.Framework;
 
-namespace TheXDS.MCART.Tests.Helpers
+public class ExpressionExtensionsTests
 {
-    public class ExpressionExtensionsTests
+    [Test]
+    public void Eval_Test()
     {
-        [Test]
-        public void Eval_Test()
-        {
-            BinaryExpression? x = Expression.Multiply(Expression.Constant(5), Expression.Constant(2));
-            Assert.AreEqual(10, x.Eval());
-        }
+        BinaryExpression? x = Expression.Multiply(Expression.Constant(5), Expression.Constant(2));
+        Assert.AreEqual(10, x.Eval());
     }
 }

@@ -22,31 +22,30 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Tests.Types.Extensions;
+using NUnit.Framework;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types.Extensions;
-using NUnit.Framework;
 
-namespace TheXDS.MCART.Tests.Types.Extensions
+public class DelegateExtensionsTests
 {
-    public class DelegateExtensionsTests
+    [Name("Method 1")]
+    [ExcludeFromCodeCoverage]
+    private static void Method1() { }
+
+    [ExcludeFromCodeCoverage]
+    private static void Method2() { }
+
+    [Test]
+    public void NameOf_Test()
     {
-        [Name("Method 1"), ExcludeFromCodeCoverage]
-        private static void Method1() { }
+        static Delegate Get(Expression<Func<Action>> sel) => Delegate.CreateDelegate(typeof(Action), ReflectionHelpers.GetMethod(sel));
 
-        [ExcludeFromCodeCoverage]
-        private static void Method2() { }
-
-        [Test]
-        public void NameOf_Test()
-        {
-            static Delegate Get(Expression<Func<Action>> sel) => Delegate.CreateDelegate(typeof(Action), ReflectionHelpers.GetMethod(sel));
-
-            Assert.AreEqual("Method 1", Get(() => Method1).NameOf());
-            Assert.AreEqual("Method2", Get(() => Method2).NameOf());
-        }
+        Assert.AreEqual("Method 1", Get(() => Method1).NameOf());
+        Assert.AreEqual("Method2", Get(() => Method2).NameOf());
     }
 }

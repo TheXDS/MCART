@@ -22,153 +22,149 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma warning disable CS1591
-
+namespace TheXDS.MCART.Tests.Types.Extensions;
+using NUnit.Framework;
 using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
-using NUnit.Framework;
 using TheXDS.MCART.Helpers;
 using static TheXDS.MCART.Types.Extensions.TaskExtensions;
 
-namespace TheXDS.MCART.Tests.Types.Extensions
+public class TaskExtensionsTest
 {
-    public class TaskExtensionsTest
+    [Test]
+    public async Task WithCancellation_Void_Test()
     {
-        [Test]
-        public async Task WithCancellation_Void_Test()
+        /* Los temporizadores en esta prueba se han seleccionado con
+         * muchísimo delta, debido a la posibilidad de fallos al ejecutarse
+         * en entornos que puedan presentar muchísima latencia el ejecutar,
+         * como un servidor de CI.
+         */
+        Stopwatch? t = new();
+
+        t.Start();
+        Assert.ThrowsAsync<TaskCanceledException>(() => Task.Delay(100000).WithCancellation(new CancellationTokenSource(500).Token));
+        t.Stop();
+        Assert.True(t.ElapsedMilliseconds < 100000);
+
+        t.Start();
+        await Task.Delay(500).WithCancellation(new CancellationTokenSource(100000).Token);
+        t.Stop();
+        Assert.True(t.ElapsedMilliseconds < 5000);
+    }
+
+    [Test]
+    public async Task WithCancellation_RetVal_Test()
+    {
+        /* Los temporizadores en esta prueba se han seleccionado con
+         * muchísimo delta, debido a la posibilidad de fallos al ejecutarse
+         * en entornos que puedan presentar muchísima latencia el ejecutar,
+         * como un servidor de CI.
+         */
+        static async Task<int> Get5Async(int delay)
         {
-            /* Los temporizadores en esta prueba se han seleccionado con
-             * muchísimo delta, debido a la posibilidad de fallos al ejecutarse
-             * en entornos que puedan presentar muchísima latencia el ejecutar,
-             * como un servidor de CI.
-             */
-            Stopwatch? t = new();
-
-            t.Start();
-            Assert.ThrowsAsync<TaskCanceledException>(() => Task.Delay(100000).WithCancellation(new CancellationTokenSource(500).Token));
-            t.Stop();
-            Assert.True(t.ElapsedMilliseconds < 100000);
-
-            t.Start();
-            await Task.Delay(500).WithCancellation(new CancellationTokenSource(100000).Token);
-            t.Stop();
-            Assert.True(t.ElapsedMilliseconds < 5000);
+            await Task.Delay(delay);
+            return 5;
         }
 
-        [Test]
-        public async Task WithCancellation_RetVal_Test()
+        Stopwatch? t = new();
+
+        t.Start();
+        Assert.ThrowsAsync<TaskCanceledException>(() => Get5Async(100000).WithCancellation(new CancellationTokenSource(500).Token));
+        t.Stop();
+        Assert.True(t.ElapsedMilliseconds < 100000);
+
+        t.Start();
+        Assert.AreEqual(5, await Get5Async(500).WithCancellation(new CancellationTokenSource(100000).Token));
+        t.Stop();
+        Assert.True(t.ElapsedMilliseconds < 5000);
+    }
+
+    [Test]
+    public void Yield_Simple_Test()
+    {
+        static async Task<int> GetValueAsync()
         {
-            /* Los temporizadores en esta prueba se han seleccionado con
-             * muchísimo delta, debido a la posibilidad de fallos al ejecutarse
-             * en entornos que puedan presentar muchísima latencia el ejecutar,
-             * como un servidor de CI.
-             */
-            static async Task<int> Get5Async(int delay)
-            {
-                await Task.Delay(delay);
-                return 5;
-            }
-
-            Stopwatch? t = new();
-
-            t.Start();
-            Assert.ThrowsAsync<TaskCanceledException>(() => Get5Async(100000).WithCancellation(new CancellationTokenSource(500).Token));
-            t.Stop();
-            Assert.True(t.ElapsedMilliseconds < 100000);
-
-            t.Start();
-            Assert.AreEqual(5, await Get5Async(500).WithCancellation(new CancellationTokenSource(100000).Token));
-            t.Stop();
-            Assert.True(t.ElapsedMilliseconds < 5000);
+            await Task.Delay(1000);
+            return 1;
         }
+        Stopwatch? t = new();
+        t.Start();
+        int v = GetValueAsync().Yield();
+        t.Stop();
 
-        [Test]
-        public void Yield_Simple_Test()
+        Assert.True(t.ElapsedMilliseconds >= 1000);
+        Assert.AreEqual(1, v);
+    }
+
+    [Test]
+    public async Task Yield_With_Timeout_Test()
+    {
+        static async Task<int> GetValueAsync()
         {
-            async Task<int> GetValueAsync()
-            {
-                await Task.Delay(1000);
-                return 1;
-            }
-            Stopwatch? t = new();
-            t.Start();
-            int v = GetValueAsync().Yield();
-            t.Stop();
-
-            Assert.True(t.ElapsedMilliseconds >= 1000);
-            Assert.AreEqual(1, v);
+            await Task.Delay(2000);
+            return 1;
         }
+        Stopwatch? t = new();
+        t.Start();
+        Task<int>? task = GetValueAsync();
+        _ = task.Yield(1250);
+        t.Stop();
+        Assert.True(t.ElapsedMilliseconds.IsBetween(500, 1500));
+        Assert.AreEqual(1, await task);
 
-        [Test]
-        public async Task Yield_With_Timeout_Test()
+        t.Restart();
+        task = GetValueAsync();
+        _ = task.Yield(TimeSpan.FromSeconds(1));
+        t.Stop();
+        Assert.True(t.ElapsedMilliseconds.IsBetween(500, 1250));
+        Assert.AreEqual(1, await task);
+    }
+
+    [Test]
+    public async Task Yield_With_CancellationToken_Test()
+    {
+        static async Task<int> GetValueAsync()
         {
-            async Task<int> GetValueAsync()
-            {
-                await Task.Delay(2000);
-                return 1;
-            }
-            Stopwatch? t = new();
-            t.Start();
-            Task<int>? task = GetValueAsync();
-            int v = task.Yield(1250);
-            t.Stop();
-            Assert.True(t.ElapsedMilliseconds.IsBetween(500, 1500));
-            Assert.AreEqual(1, await task);
-
-            t.Restart();
-            task = GetValueAsync();
-            _ = task.Yield(TimeSpan.FromSeconds(1));
-            t.Stop();
-            Assert.True(t.ElapsedMilliseconds.IsBetween(500, 1250));
-            Assert.AreEqual(1, await task);
+            await Task.Delay(1500);
+            return 1;
         }
+        Stopwatch? t = new();
+        t.Start();
+        int v = GetValueAsync().Yield(new CancellationTokenSource(2000).Token);
+        t.Stop();
+        Assert.True(t.ElapsedMilliseconds.IsBetween(1250, 1750));
+        Assert.AreEqual(1, v);
+        t.Restart();
+        Task<int>? task = GetValueAsync();
+        _ = task.Yield(new CancellationTokenSource(1000).Token);
+        t.Stop();
+        Assert.True(t.ElapsedMilliseconds <= 1250);
+        Assert.AreEqual(1, await task);
+    }
 
-        [Test]
-        public async Task Yield_With_CancellationToken_Test()
+    [Test]
+    public async Task Yield_Full_Test()
+    {
+        static async Task<int> GetValueAsync()
         {
-            async Task<int> GetValueAsync()
-            {
-                await Task.Delay(1500);
-                return 1;
-            }
-            Stopwatch? t = new();
-            t.Start();
-            int v = GetValueAsync().Yield(new CancellationTokenSource(2000).Token);
-            t.Stop();
-            Assert.True(t.ElapsedMilliseconds.IsBetween(1250, 1750));
-            Assert.AreEqual(1, v);
-            t.Restart();
-            Task<int>? task = GetValueAsync();
-            _ = task.Yield(new CancellationTokenSource(1000).Token);
-            t.Stop();
-            Assert.True(t.ElapsedMilliseconds <= 1250);
-            Assert.AreEqual(1, await task);
+            await Task.Delay(2000);
+            return 1;
         }
+        Stopwatch? t = new();
+        t.Start();
+        Task<int>? task = GetValueAsync();
+        _ = task.Yield(1250, new CancellationTokenSource(3000).Token);
+        t.Stop();
+        Assert.True(t.ElapsedMilliseconds.IsBetween(500, 1500));
+        Assert.AreEqual(1, await task);
 
-        [Test]
-        public async Task Yield_Full_Test()
-        {
-            async Task<int> GetValueAsync()
-            {
-                await Task.Delay(2000);
-                return 1;
-            }
-            Stopwatch? t = new();
-            t.Start();
-            Task<int>? task = GetValueAsync();
-            int v = task.Yield(1250, new CancellationTokenSource(3000).Token);
-            t.Stop();
-            Assert.True(t.ElapsedMilliseconds.IsBetween(500, 1500));
-            Assert.AreEqual(1, await task);
-
-            t.Restart();
-            task = GetValueAsync();
-            _ = task.Yield(2000, new CancellationTokenSource(1000).Token);
-            t.Stop();
-            Assert.True(t.ElapsedMilliseconds <= 1250);
-            Assert.AreEqual(1, await task);
-        }
+        t.Restart();
+        task = GetValueAsync();
+        _ = task.Yield(2000, new CancellationTokenSource(1000).Token);
+        t.Stop();
+        Assert.True(t.ElapsedMilliseconds <= 1250);
+        Assert.AreEqual(1, await task);
     }
 }

@@ -22,85 +22,83 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Tests.Types.Extensions;
+using NUnit.Framework;
 using System.Collections.Specialized;
 using System.Linq;
 using TheXDS.MCART.Types.Extensions;
-using NUnit.Framework;
 
-namespace TheXDS.MCART.Tests.Types.Extensions
+public class NameValueCollectionExtensionsTests
 {
-    public class NameValueCollectionExtensionsTests
+    private static NameValueCollection GetCollection(bool withNull = false)
     {
-        private static NameValueCollection GetCollection(bool withNull = false)
+        NameValueCollection? c = new()
         {
-            NameValueCollection? c = new()
-            {
-                {"name1", "value1"},
-                {"name2", "value2"},
-                {"name3", "value3"},
-                {"name1", "value4"},
-                {"name2", "value5"},
-                {"name3", "value6"},
-            };
-            if (withNull)
-            {
-                c.Add(null, "value7");
-                c.Add(null, "value8");
-            }
-            return c;
+            {"name1", "value1"},
+            {"name2", "value2"},
+            {"name3", "value3"},
+            {"name1", "value4"},
+            {"name2", "value5"},
+            {"name3", "value6"},
+        };
+        if (withNull)
+        {
+            c.Add(null, "value7");
+            c.Add(null, "value8");
         }
+        return c;
+    }
 
-        [Test]
-        public void ToGroup_Test()
-        {
-            IGrouping<string?, string>[]? g = GetCollection(withNull: true).ToGroup().ToArray();
-            Assert.AreEqual(4, g.Length);
-            Assert.AreEqual("name1", g[0].Key);
-            Assert.AreEqual(new[] { "value1", "value4" }, g[0].ToArray());
-            Assert.AreEqual("name2", g[1].Key);
-            Assert.AreEqual(new[] { "value2", "value5" }, g[1].ToArray());
-            Assert.AreEqual("name3", g[2].Key);
-            Assert.AreEqual(new[] { "value3", "value6" }, g[2].ToArray());
-            Assert.Null(g[3].Key);
-            Assert.AreEqual(new[] { "value7", "value8" }, g[3].ToArray());
-        }
+    [Test]
+    public void ToGroup_Test()
+    {
+        IGrouping<string?, string>[]? g = GetCollection(withNull: true).ToGroup().ToArray();
+        Assert.AreEqual(4, g.Length);
+        Assert.AreEqual("name1", g[0].Key);
+        Assert.AreEqual(new[] { "value1", "value4" }, g[0].ToArray());
+        Assert.AreEqual("name2", g[1].Key);
+        Assert.AreEqual(new[] { "value2", "value5" }, g[1].ToArray());
+        Assert.AreEqual("name3", g[2].Key);
+        Assert.AreEqual(new[] { "value3", "value6" }, g[2].ToArray());
+        Assert.Null(g[3].Key);
+        Assert.AreEqual(new[] { "value7", "value8" }, g[3].ToArray());
+    }
 
-        [Test]
-        public void ToNamedObjectCollection_Test()
-        {
-            MCART.Types.NamedObject<string[]>[]? g = GetCollection().ToNamedObjectCollection().ToArray();
-            Assert.AreEqual(3, g.Length);
-            Assert.AreEqual("name1", g[0].Name);
-            Assert.AreEqual(new[] { "value1", "value4" }, g[0].Value);
-            Assert.AreEqual("name2", g[1].Name);
-            Assert.AreEqual(new[] { "value2", "value5" }, g[1].Value);
-            Assert.AreEqual("name3", g[2].Name);
-            Assert.AreEqual(new[] { "value3", "value6" }, g[2].Value);
-        }
+    [Test]
+    public void ToNamedObjectCollection_Test()
+    {
+        MCART.Types.NamedObject<string[]>[]? g = GetCollection().ToNamedObjectCollection().ToArray();
+        Assert.AreEqual(3, g.Length);
+        Assert.AreEqual("name1", g[0].Name);
+        Assert.AreEqual(new[] { "value1", "value4" }, g[0].Value);
+        Assert.AreEqual("name2", g[1].Name);
+        Assert.AreEqual(new[] { "value2", "value5" }, g[1].Value);
+        Assert.AreEqual("name3", g[2].Name);
+        Assert.AreEqual(new[] { "value3", "value6" }, g[2].Value);
+    }
 
-        [Test]
-        public void ToKeyValuePair_Test()
-        {
-            System.Collections.Generic.KeyValuePair<string?, string>[]? g = GetCollection(withNull: true).ToKeyValuePair().ToArray();
-            Assert.AreEqual(4, g.Length);
-            Assert.AreEqual("name1", g[0].Key);
-            Assert.AreEqual("value1,value4", g[0].Value);
-            Assert.AreEqual("name2", g[1].Key);
-            Assert.AreEqual("value2,value5", g[1].Value);
-            Assert.AreEqual("name3", g[2].Key);
-            Assert.AreEqual("value3,value6", g[2].Value);
-            Assert.Null(g[3].Key);
-            Assert.AreEqual("value7,value8", g[3].Value);
-        }
+    [Test]
+    public void ToKeyValuePair_Test()
+    {
+        System.Collections.Generic.KeyValuePair<string?, string>[]? g = GetCollection(withNull: true).ToKeyValuePair().ToArray();
+        Assert.AreEqual(4, g.Length);
+        Assert.AreEqual("name1", g[0].Key);
+        Assert.AreEqual("value1,value4", g[0].Value);
+        Assert.AreEqual("name2", g[1].Key);
+        Assert.AreEqual("value2,value5", g[1].Value);
+        Assert.AreEqual("name3", g[2].Key);
+        Assert.AreEqual("value3,value6", g[2].Value);
+        Assert.Null(g[3].Key);
+        Assert.AreEqual("value7,value8", g[3].Value);
+    }
 
-        [Test]
-        public void ToDictionary_Test()
-        {
-            System.Collections.Generic.Dictionary<string, string[]>? g = GetCollection().ToDictionary();
-            Assert.AreEqual(3, g.Keys.Count);
-            Assert.AreEqual(new[] { "value1", "value4" }, g["name1"]);
-            Assert.AreEqual(new[] { "value2", "value5" }, g["name2"]);
-            Assert.AreEqual(new[] { "value3", "value6" }, g["name3"]);
-        }
+    [Test]
+    public void ToDictionary_Test()
+    {
+        System.Collections.Generic.Dictionary<string, string[]>? g = GetCollection().ToDictionary();
+        Assert.AreEqual(3, g.Keys.Count);
+        Assert.AreEqual(new[] { "value1", "value4" }, g["name1"]);
+        Assert.AreEqual(new[] { "value2", "value5" }, g["name2"]);
+        Assert.AreEqual(new[] { "value3", "value6" }, g["name3"]);
     }
 }

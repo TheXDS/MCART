@@ -22,80 +22,73 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
-using System.IO;
+namespace TheXDS.MCART.Tests.Resources;
 using NUnit.Framework;
+using System;
 using TheXDS.MCART.Exceptions;
-using TheXDS.MCART.Types.Base;
-using E = TheXDS.MCART.Resources.Errors;
-
-namespace TheXDS.MCART.CoreTests.Resources
+using E = MCART.Resources.Errors;
+public class ErrorsTests
 {
-    public class ErrorsTests
+    [Test]
+    public void InvalidValue_Test()
     {
-        [Test]
-        public void InvalidValue_Test()
-        {
-            ArgumentException ex = E.InvalidValue("test");
-            Assert.IsAssignableFrom<ArgumentException>(ex);
-            Assert.AreEqual("test", ex.ParamName);
-        }
+        ArgumentException ex = E.InvalidValue("test");
+        Assert.IsAssignableFrom<ArgumentException>(ex);
+        Assert.AreEqual("test", ex.ParamName);
+    }
 
-        [Test]
-        public void ClassNotInstantiable_Test()
-        {
-            ClassNotInstantiableException ex = E.ClassNotInstantiable();
-            Assert.IsAssignableFrom<ClassNotInstantiableException>(ex);
-            Assert.IsNull(ex.OffendingObject);
-        }
-        
-        [Theory]
-#if CLSCompliance
-        [CLSCompliant(false)]
-#endif
-        [TestCase(typeof(int))]
-        [TestCase(typeof(float))]
-        [TestCase(typeof(Delegate))]
-        [TestCase(null)]
-        public void ClassNotInstantiable_With_Args_Test(Type? testType)
-        {
-            ClassNotInstantiableException ex = E.ClassNotInstantiable(testType);
-            Assert.IsAssignableFrom<ClassNotInstantiableException>(ex);
-            Assert.AreEqual(testType, ex.OffendingObject);
-        }
-        
-        [Theory]
-        [TestCase(typeof(int))]
-        [TestCase(typeof(float))]
-        [TestCase(typeof(Delegate))]
-        public void MissingGuidAttr_Test(Type testType)
-        {
-            IncompleteTypeException ex = E.MissingGuidAttr(testType);
-            Assert.IsAssignableFrom<IncompleteTypeException>(ex);
-            Assert.AreEqual(testType, ex.OffendingObject);
-        }
+    [Test]
+    public void ClassNotInstantiable_Test()
+    {
+        ClassNotInstantiableException ex = E.ClassNotInstantiable();
+        Assert.IsAssignableFrom<ClassNotInstantiableException>(ex);
+        Assert.IsNull(ex.OffendingObject);
+    }
 
-        [Test]
-        public void Tamper_Test()
-        {
-            Assert.IsAssignableFrom<TamperException>(E.Tamper());
-        }
+    [Theory]
+    [CLSCompliant(false)]
+    [TestCase(typeof(int))]
+    [TestCase(typeof(float))]
+    [TestCase(typeof(Delegate))]
+    [TestCase(null)]
+    public void ClassNotInstantiable_With_Args_Test(Type? testType)
+    {
+        ClassNotInstantiableException ex = E.ClassNotInstantiable(testType);
+        Assert.IsAssignableFrom<ClassNotInstantiableException>(ex);
+        Assert.AreEqual(testType, ex.OffendingObject);
+    }
 
-        [Theory]
-        [TestCase(typeof(int))]
-        [TestCase(typeof(float))]
-        [TestCase(typeof(Delegate))]
-        public void EnumerableTypeExpected_Test(Type testType)
-        {
-            InvalidTypeException ex = E.EnumerableTypeExpected(testType);
-            Assert.IsAssignableFrom<InvalidTypeException>(ex);
-            Assert.AreEqual(testType, ex.OffendingObject);
-        }
-        
-        [Test]
-        public void CircularOpDetected_Test()
-        {
-            Assert.IsAssignableFrom<InvalidOperationException>(E.CircularOpDetected());
-        }
+    [Theory]
+    [TestCase(typeof(int))]
+    [TestCase(typeof(float))]
+    [TestCase(typeof(Delegate))]
+    public void MissingGuidAttr_Test(Type testType)
+    {
+        IncompleteTypeException ex = E.MissingGuidAttr(testType);
+        Assert.IsAssignableFrom<IncompleteTypeException>(ex);
+        Assert.AreEqual(testType, ex.OffendingObject);
+    }
+
+    [Test]
+    public void Tamper_Test()
+    {
+        Assert.IsAssignableFrom<TamperException>(E.Tamper());
+    }
+
+    [Theory]
+    [TestCase(typeof(int))]
+    [TestCase(typeof(float))]
+    [TestCase(typeof(Delegate))]
+    public void EnumerableTypeExpected_Test(Type testType)
+    {
+        InvalidTypeException ex = E.EnumerableTypeExpected(testType);
+        Assert.IsAssignableFrom<InvalidTypeException>(ex);
+        Assert.AreEqual(testType, ex.OffendingObject);
+    }
+
+    [Test]
+    public void CircularOpDetected_Test()
+    {
+        Assert.IsAssignableFrom<InvalidOperationException>(E.CircularOpDetected());
     }
 }

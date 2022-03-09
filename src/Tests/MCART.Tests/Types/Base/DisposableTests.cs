@@ -22,72 +22,73 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Tests.Types.Base;
 using NUnit.Framework;
+using System.Diagnostics.CodeAnalysis;
 using TheXDS.MCART.Types.Base;
 using TheXDS.MCART.Types.Extensions;
 using static System.Reflection.BindingFlags;
 
-namespace TheXDS.MCART.Tests.Types.Base
+public class DisposableTests
 {
-    public class DisposableTests
+    [ExcludeFromCodeCoverage]
+    private class DisposableOne : Disposable
     {
-        private class DisposableOne : Disposable
+        protected override void OnDispose()
         {
-            protected override void OnDispose()
-            {
-                DidOnDisposeRun = true;
-            }
-
-            public bool ShouldFinalize => GetType().GetMethod(nameof(OnFinalize), Instance | NonPublic)!.IsOverride();
-
-            public bool DidOnDisposeRun { get; private set; }
+            DidOnDisposeRun = true;
         }
 
-        private class DisposableTwo : Disposable
+        public bool ShouldFinalize => GetType().GetMethod(nameof(OnFinalize), Instance | NonPublic)!.IsOverride();
+
+        public bool DidOnDisposeRun { get; private set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    private class DisposableTwo : Disposable
+    {
+        protected override void OnDispose()
         {
-            protected override void OnDispose()
-            {
-                /* No hacer nada. */
-            }
-
-            protected override void OnFinalize()
-            {
-                /* No hacer nada. */
-            }
-
-            public bool ShouldFinalize => GetType().GetMethod(nameof(OnFinalize), Instance | NonPublic)!.IsOverride();
+            /* No hacer nada. */
         }
 
-        [Test]
-        public void OnDisposeExecutionTest()
+        protected override void OnFinalize()
         {
-            DisposableOne? m1 = new();
-            using (m1)
-            {
-                Assert.False(m1.DidOnDisposeRun);
-            }
-            Assert.True(m1.IsDisposed);
-            Assert.True(m1.DidOnDisposeRun);
+            /* No hacer nada. */
         }
 
-        [Test]
-        public void DisposeVsFinalizeTest()
-        {
-            DisposableOne? m1 = new();
-            using (m1)
-            {
-                Assert.False(m1.IsDisposed);
-                Assert.False(m1.ShouldFinalize);
-            }
-            Assert.True(m1.IsDisposed);
+        public bool ShouldFinalize => GetType().GetMethod(nameof(OnFinalize), Instance | NonPublic)!.IsOverride();
+    }
 
-            DisposableTwo? m2 = new();
-            using (m2)
-            {
-                Assert.False(m2.IsDisposed);
-                Assert.True(m2.ShouldFinalize);
-            }
-            Assert.True(m2.IsDisposed);
+    [Test]
+    public void OnDisposeExecutionTest()
+    {
+        DisposableOne? m1 = new();
+        using (m1)
+        {
+            Assert.False(m1.DidOnDisposeRun);
         }
+        Assert.True(m1.IsDisposed);
+        Assert.True(m1.DidOnDisposeRun);
+    }
+
+    [Test]
+    public void DisposeVsFinalizeTest()
+    {
+        DisposableOne? m1 = new();
+        using (m1)
+        {
+            Assert.False(m1.IsDisposed);
+            Assert.False(m1.ShouldFinalize);
+        }
+        Assert.True(m1.IsDisposed);
+
+        DisposableTwo? m2 = new();
+        using (m2)
+        {
+            Assert.False(m2.IsDisposed);
+            Assert.True(m2.ShouldFinalize);
+        }
+        Assert.True(m2.IsDisposed);
     }
 }

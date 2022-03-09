@@ -22,20 +22,18 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Tests.Attributes;
+using NUnit.Framework;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Resources;
-using NUnit.Framework;
 
-namespace TheXDS.MCART.Tests.Attributes
+public class McartComponentAttributeTests
 {
-    public class McartComponentAttributeTests
+    [Test]
+    public void McartComponentAttributeBasicInstancing_Test()
     {
-        [Test]
-        public void McartComponentAttributeBasicInstancing_Test()
-        {
-            McartComponentAttribute? l = new(RtInfo.ComponentKind.Core);
-            Assert.AreEqual(RtInfo.ComponentKind.Core, l.Kind);
-            Assert.AreEqual(RtInfo.ComponentKind.Core, ((IValueAttribute<RtInfo.ComponentKind>)l).Value);
-        }
+        McartComponentAttribute? l = new(RtInfo.ComponentKind.Core);
+        Assert.AreEqual(RtInfo.ComponentKind.Core, l.Kind);
+        Assert.AreEqual(RtInfo.ComponentKind.Core, ((IValueAttribute<RtInfo.ComponentKind>)l).Value);
     }
 }

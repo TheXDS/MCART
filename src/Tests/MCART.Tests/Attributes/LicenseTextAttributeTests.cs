@@ -22,34 +22,32 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Tests.Attributes;
+using NUnit.Framework;
 using System;
 using TheXDS.MCART.Attributes;
-using NUnit.Framework;
 
-namespace TheXDS.MCART.Tests.Attributes
+public class LicenseTextAttributeTests
 {
-    public class LicenseTextAttributeTests
+    [Test]
+    public void BasicInstancingTest()
     {
-        [Test]
-        public void BasicInstancingTest()
-        {
-            Resources.License? a = new LicenseTextAttribute("Title", "Test").GetLicense(null!);
+        MCART.Resources.License? a = new LicenseTextAttribute("Title", "Test").GetLicense(null!);
 
-            Assert.AreEqual("Title", a.Name);
-            Assert.AreEqual("Test", a.LicenseContent);
+        Assert.AreEqual("Title", a.Name);
+        Assert.AreEqual("Test", a.LicenseContent);
 
-            a = new LicenseTextAttribute("Title\nTest").GetLicense(null!);
-            Assert.AreEqual("Title", a.Name);
-            Assert.AreEqual("Title\nTest", a.LicenseContent);
-        }
+        a = new LicenseTextAttribute("Title\nTest").GetLicense(null!);
+        Assert.AreEqual("Title", a.Name);
+        Assert.AreEqual("Title\nTest", a.LicenseContent);
+    }
 
-        [Test]
-        public void ConstructorContract_Test()
-        {
-            Assert.Throws<ArgumentNullException>(() => new LicenseTextAttribute(null!));
-            Assert.Throws<ArgumentNullException>(() => new LicenseTextAttribute(null!, "Test"));
-            Assert.Throws<ArgumentNullException>(() => new LicenseTextAttribute("Test", null!));
-            Assert.Throws<ArgumentNullException>(() => new LicenseTextAttribute(null!, null!));
-        }
+    [Test]
+    public void ConstructorContract_Test()
+    {
+        Assert.Throws<ArgumentNullException>(() => new LicenseTextAttribute(null!));
+        Assert.Throws<ArgumentNullException>(() => new LicenseTextAttribute(null!, "Test"));
+        Assert.Throws<ArgumentNullException>(() => new LicenseTextAttribute("Test", null!));
+        Assert.Throws<ArgumentNullException>(() => new LicenseTextAttribute(null!, null!));
     }
 }

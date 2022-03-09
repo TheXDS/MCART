@@ -22,83 +22,81 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Tests.Types.Extensions;
+using NUnit.Framework;
 using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
-using TheXDS.MCART.Types.Extensions;
-using NUnit.Framework;
 using System.Linq;
+using TheXDS.MCART.Types.Extensions;
 
-namespace TheXDS.MCART.Tests.Types.Extensions
+public class PropertyInfoExtensionsTests
 {
-    public class PropertyInfoExtensionsTests
+    [ExcludeFromCodeCoverage]
+    private class Test : IDisposable
     {
-        [ExcludeFromCodeCoverage]
-        private class Test : IDisposable
+        [DefaultValue(1)] public int? Prop1 { get; set; } = 1;
+        public int? Prop2 { get; set; } = 2;
+        public int? Prop3 { get; set; }
+
+        public void Dispose()
         {
-            [DefaultValue(1)] public int? Prop1 { get; set; } = 1;
-            public int? Prop2 { get; set; } = 2;
-            public int? Prop3 { get; set; }
-
-            public void Dispose()
-            {
-            }
         }
+    }
 
-        [ExcludeFromCodeCoverage]
-        private class Test2
+    [ExcludeFromCodeCoverage]
+    private class Test2
+    {
+        public int Prop1 { get; } = 10;
+    }
+
+    [ExcludeFromCodeCoverage]
+    private static class Test3
+    {
+        [DefaultValue(1)]
+        public static int? Prop1 { get; set; } = 1;
+        public static int? Prop2 { get; set; }
+    }
+
+    [Test]
+    public void SetDefault_Test()
+    {
+        Test? o = new() { Prop1 = 9, Prop2 = 9, Prop3 = 9 };
+        foreach (System.Reflection.PropertyInfo? j in o.GetType().GetProperties())
         {
-            public int Prop1 { get; } = 10;
+            j.SetDefault(o);
         }
+        Assert.AreEqual(1, o.Prop1);
+        Assert.AreEqual(2, o.Prop2);
+        Assert.Null(o.Prop3);
+    }
 
-        [ExcludeFromCodeCoverage]
-        private static class Test3
+    [Test]
+    public void SetDefault_Contract_Test()
+    {
+        Test2? o = new();
+        Assert.Throws<InvalidOperationException>(() => o.GetType().GetProperties()[0].SetDefault(o));
+        Assert.Throws<MissingMemberException>(() => typeof(Exception).GetProperty("Message")!.SetDefault(o));
+    }
+
+    [Test]
+    public void SetDefault_Static_Property_Test()
+    {
+        Test3.Prop1 = 9;
+        Test3.Prop2 = 9;
+
+        foreach (System.Reflection.PropertyInfo? j in typeof(Test3).GetProperties())
         {
-            [DefaultValue(1)]
-            public static int? Prop1 { get; set; } = 1;
-            public static int? Prop2 { get; set; }
+            j.SetDefault();
         }
+        Assert.AreEqual(1, Test3.Prop1);
+        Assert.Null(Test3.Prop2);
+    }
 
-        [Test]
-        public void SetDefault_Test()
-        {
-            Test? o = new() { Prop1 = 9, Prop2 = 9, Prop3 = 9 };
-            foreach (System.Reflection.PropertyInfo? j in o.GetType().GetProperties())
-            {
-                j.SetDefault(o);
-            }
-            Assert.AreEqual(1, o.Prop1);
-            Assert.AreEqual(2, o.Prop2);
-            Assert.Null(o.Prop3);
-        }
-
-        [Test]
-        public void SetDefault_Contract_Test()
-        {
-            Test2? o = new();
-            Assert.Throws<InvalidOperationException>(() => o.GetType().GetProperties()[0].SetDefault(o));
-            Assert.Throws<MissingMemberException>(() => typeof(Exception).GetProperty("Message")!.SetDefault(o));
-        }
-
-        [Test]
-        public void SetDefault_Static_Property_Test()
-        {
-            Test3.Prop1 = 9;
-            Test3.Prop2 = 9;
-
-            foreach (System.Reflection.PropertyInfo? j in typeof(Test3).GetProperties())
-            {
-                j.SetDefault();
-            }
-            Assert.AreEqual(1, Test3.Prop1);
-            Assert.Null(Test3.Prop2);
-        }
-
-        [Test]
-        public void IsReadWrite_Test()
-        {
-            Assert.True(typeof(Test).GetProperties().All(p => p.IsReadWrite()));
-            Assert.True(typeof(Test2).GetProperties().All(p => !p.IsReadWrite()));
-        }
+    [Test]
+    public void IsReadWrite_Test()
+    {
+        Assert.True(typeof(Test).GetProperties().All(p => p.IsReadWrite()));
+        Assert.True(typeof(Test2).GetProperties().All(p => !p.IsReadWrite()));
     }
 }

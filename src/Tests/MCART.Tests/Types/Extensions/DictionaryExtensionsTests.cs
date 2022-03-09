@@ -22,70 +22,68 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Tests.Types.Extensions;
+using NUnit.Framework;
 using System.Collections.Generic;
 using TheXDS.MCART.Types.Extensions;
-using NUnit.Framework;
 
-namespace TheXDS.MCART.Tests.Types.Extensions
+public class DictionaryExtensionsTests
 {
-    public class DictionaryExtensionsTests
+    [Test]
+    public void CheckCircularRef_Test()
     {
-        [Test]
-        public void CheckCircularRef_Test()
+        Dictionary<char, IEnumerable<char>>? d = new()
         {
-            Dictionary<char, IEnumerable<char>>? d = new()
-            {
-                { 'a', new[] { 'b', 'c' } },
-                { 'b', new[] { 'c', 'd' } },
-                { 'c', new[] { 'd', 'e' } },
-            };
+            { 'a', new[] { 'b', 'c' } },
+            { 'b', new[] { 'c', 'd' } },
+            { 'c', new[] { 'd', 'e' } },
+        };
 
-            Assert.False(d.CheckCircularRef('a'));
-            Assert.False(((IEnumerable<KeyValuePair<char, IEnumerable<char>>>)d).CheckCircularRef('a'));
-            d.Add('d', new[] { 'e', 'a' });
-            Assert.True(d.CheckCircularRef('a'));
-            Assert.True(((IEnumerable<KeyValuePair<char, IEnumerable<char>>>)d).CheckCircularRef('a'));
-        }
+        Assert.False(d.CheckCircularRef('a'));
+        Assert.False(((IEnumerable<KeyValuePair<char, IEnumerable<char>>>)d).CheckCircularRef('a'));
+        d.Add('d', new[] { 'e', 'a' });
+        Assert.True(d.CheckCircularRef('a'));
+        Assert.True(((IEnumerable<KeyValuePair<char, IEnumerable<char>>>)d).CheckCircularRef('a'));
+    }
 
-        [Test]
-        public void CheckCircularRef_Test2()
+    [Test]
+    public void CheckCircularRef_Test2()
+    {
+        Dictionary<char, ICollection<char>>? d = new()
         {
-            Dictionary<char, ICollection<char>>? d = new()
-            {
-                { 'a', new[] { 'b', 'c' } },
-                { 'b', new[] { 'c', 'd' } },
-                { 'c', new[] { 'd', 'e' } },
-            };
+            { 'a', new[] { 'b', 'c' } },
+            { 'b', new[] { 'c', 'd' } },
+            { 'c', new[] { 'd', 'e' } },
+        };
 
-            Assert.False(d.CheckCircularRef('a'));
-            Assert.False(((IEnumerable<KeyValuePair<char, ICollection<char>>>)d).CheckCircularRef('a'));
-            d.Add('d', new[] { 'e', 'a' });
-            Assert.True(((IEnumerable<KeyValuePair<char, ICollection<char>>>)d).CheckCircularRef('a'));
-            Assert.True(d.CheckCircularRef('a'));
-        }
+        Assert.False(d.CheckCircularRef('a'));
+        Assert.False(((IEnumerable<KeyValuePair<char, ICollection<char>>>)d).CheckCircularRef('a'));
+        d.Add('d', new[] { 'e', 'a' });
+        Assert.True(((IEnumerable<KeyValuePair<char, ICollection<char>>>)d).CheckCircularRef('a'));
+        Assert.True(d.CheckCircularRef('a'));
+    }
 
-        [Test]
-        public void Push_Test()
+    [Test]
+    public void Push_Test()
+    {
+        Dictionary<int, string>? d = new();
+        Assert.IsAssignableFrom<string>(d.Push(1, "test"));
+    }
+
+    [Test]
+    public void Pop_Test()
+    {
+        Dictionary<int, string>? d = new()
         {
-            Dictionary<int, string>? d = new();
-            Assert.IsAssignableFrom<string>(d.Push(1, "test"));
-        }
+            { 1, "test" },
+            { 2, "test2" }
+        };
 
-        [Test]
-        public void Pop_Test()
-        {
-            Dictionary<int, string>? d = new()
-            {
-                { 1, "test" },
-                { 2, "test2" }
-            };
-
-            Assert.True(d.Pop(1, out string? s));
-            Assert.AreEqual("test", s);
-            Assert.False(d.ContainsKey(1));
-            Assert.False(d.ContainsValue("test"));
-            Assert.False(d.Pop(3, out string? s2));
-            Assert.Null(s2);
-        }
+        Assert.True(d.Pop(1, out string? s));
+        Assert.AreEqual("test", s);
+        Assert.False(d.ContainsKey(1));
+        Assert.False(d.ContainsValue("test"));
+        Assert.False(d.Pop(3, out string? s2));
+        Assert.Null(s2);
     }
 }

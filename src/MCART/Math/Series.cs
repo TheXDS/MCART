@@ -96,7 +96,7 @@ public static class Series
     /// </returns>
     public static IEnumerable<long> MakeSeriesAdditive(long a, long b)
     {
-        while (true)
+        while (a >= 0)
         {
             yield return a;
             yield return b;

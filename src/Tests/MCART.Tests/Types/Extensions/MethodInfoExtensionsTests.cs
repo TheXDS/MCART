@@ -22,47 +22,45 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Tests.Types.Extensions;
+using NUnit.Framework;
 using System;
 using TheXDS.MCART.Helpers;
-using NUnit.Framework;
 using static TheXDS.MCART.Types.Extensions.MethodInfoExtensions;
 
-namespace TheXDS.MCART.Tests.Types.Extensions
+public class MethodInfoExtensionsTests
 {
-    public class MethodInfoExtensionsTests
+    private static string TestStatic() => "TestStatic";
+    private string TestInstance() => "TestInstance";
+
+    [Test]
+    public void ToDelegateTest()
     {
-        private static string TestStatic() => "TestStatic";
-        private string TestInstance() => "TestInstance";
+        Func<string>? ts = ReflectionHelpers.GetMethod<Func<string>>(() => TestStatic).ToDelegate<Func<string>>();
+        Func<string>? ti = ReflectionHelpers.GetMethod<Func<string>>(() => TestInstance).ToDelegate<Func<string>>(this);
 
-        [Test]
-        public void ToDelegateTest()
-        {
-            Func<string>? ts = ReflectionHelpers.GetMethod<Func<string>>(() => TestStatic).ToDelegate<Func<string>>();
-            Func<string>? ti = ReflectionHelpers.GetMethod<Func<string>>(() => TestInstance).ToDelegate<Func<string>>(this);
+        Assert.NotNull(ts);
+        Assert.IsAssignableFrom<Func<string>>(ts);
+        Assert.AreEqual("TestStatic", ts!.Invoke());
 
-            Assert.NotNull(ts);
-            Assert.IsAssignableFrom<Func<string>>(ts);
-            Assert.AreEqual("TestStatic", ts!.Invoke());
+        Assert.NotNull(ti);
+        Assert.IsAssignableFrom<Func<string>>(ti);
+        Assert.AreEqual("TestInstance", ti!.Invoke());
+    }
 
-            Assert.NotNull(ti);
-            Assert.IsAssignableFrom<Func<string>>(ti);
-            Assert.AreEqual("TestInstance", ti!.Invoke());
-        }
+    [Test]
+    public void ToDelegate_Contract_Test()
+    {
+        Assert.Throws<MemberAccessException>(() =>
+            ReflectionHelpers.GetMethod<Func<string>>(() => TestStatic).ToDelegate<Func<string>>(this));
+        Assert.Throws<MemberAccessException>(() =>
+            ReflectionHelpers.GetMethod<Func<string>>(() => TestInstance).ToDelegate<Func<string>>());
+    }
 
-        [Test]
-        public void ToDelegate_Contract_Test()
-        {
-            Assert.Throws<MemberAccessException>(() =>
-                ReflectionHelpers.GetMethod<Func<string>>(() => TestStatic).ToDelegate<Func<string>>(this));
-            Assert.Throws<MemberAccessException>(() =>
-                ReflectionHelpers.GetMethod<Func<string>>(() => TestInstance).ToDelegate<Func<string>>());
-        }
-
-        [Test]
-        public void IsVoidTest()
-        {
-            Assert.True(ReflectionHelpers.GetMethod<Action>(() => IsVoidTest).IsVoid());
-            Assert.False(ReflectionHelpers.GetMethod<Func<object, object, bool>>(() => Equals).IsVoid());
-        }
+    [Test]
+    public void IsVoidTest()
+    {
+        Assert.True(ReflectionHelpers.GetMethod<Action>(() => IsVoidTest).IsVoid());
+        Assert.False(ReflectionHelpers.GetMethod<Func<object, object, bool>>(() => Equals).IsVoid());
     }
 }

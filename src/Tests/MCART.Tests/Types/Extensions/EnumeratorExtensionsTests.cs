@@ -22,30 +22,27 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Tests.Types.Extensions;
+using NUnit.Framework;
 using System;
 using System.Linq;
 using TheXDS.MCART.Types.Extensions;
-using NUnit.Framework;
 
-namespace TheXDS.MCART.Tests.Types.Extensions
+public class EnumeratorExtensionsTests
 {
-    public class EnumeratorExtensionsTests
+    [Test]
+    public void Skip_Test()
     {
-        [Test]
-        public void Skip_Test()
-        {
-            System.Collections.Generic.IEnumerable<int>? a = Enumerable.Range(0, 10);
-            using System.Collections.Generic.IEnumerator<int>? e = a.GetEnumerator();
-            e.MoveNext();
-            Assert.AreEqual(0, e.Current);
-            e.MoveNext();
-            Assert.AreEqual(1, e.Current);
-            Assert.AreEqual(5, e.Skip(5));
-            Assert.AreEqual(6, e.Current);
-            Assert.AreEqual(4, e.Skip(10));
-            Assert.AreEqual(10, e.Current);
-
-            Assert.Throws<ArgumentOutOfRangeException>(() => e.Skip(-1));
-        }
+        System.Collections.Generic.IEnumerable<int>? a = Enumerable.Range(0, 10);
+        using System.Collections.Generic.IEnumerator<int>? e = a.GetEnumerator();
+        e.MoveNext();
+        Assert.AreEqual(0, e.Current);
+        e.MoveNext();
+        Assert.AreEqual(1, e.Current);
+        Assert.AreEqual(5, e.Skip(5));
+        Assert.AreEqual(6, e.Current);
+        Assert.AreEqual(4, e.Skip(10));
+        Assert.AreEqual(10, e.Current);
+        Assert.Throws<ArgumentOutOfRangeException>(() => e.Skip(-1));
     }
 }

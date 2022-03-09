@@ -22,37 +22,35 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
-using TheXDS.MCART.Component;
+namespace TheXDS.MCART.Tests.Component;
 using NUnit.Framework;
+using System;
 using System.Linq;
+using TheXDS.MCART.Component;
 
-namespace TheXDS.MCART.Tests.Component
+public class AssemblyInfoTests
 {
-    public class AssemblyInfoTests
+    [Test]
+    public void Get_Information_Test()
     {
-        [Test]
-        public void Get_Information_Test()
-        {
-            AssemblyInfo? a = new(typeof(AssemblyInfo).Assembly);
-            Assert.AreEqual("MCART", a.Name);
-            Assert.IsTrue(a.Copyright!.StartsWith("Copyright"));
-            Assert.NotNull(a.Description);
-            Assert.IsTrue(a.Authors!.Contains("César Andrés Morgan"));
-            Assert.IsAssignableFrom<Version>(a.Version);
-            Assert.True(a.HasLicense);
-            Assert.NotNull(a.License);
-            Assert.NotNull(a.InformationalVersion);
+        AssemblyInfo? a = new(typeof(AssemblyInfo).Assembly);
+        Assert.AreEqual("MCART", a.Name);
+        Assert.IsTrue(a.Copyright!.StartsWith("Copyright"));
+        Assert.NotNull(a.Description);
+        Assert.IsTrue(a.Authors!.Contains("César Andrés Morgan"));
+        Assert.IsAssignableFrom<Version>(a.Version);
+        Assert.True(a.HasLicense);
+        Assert.NotNull(a.License);
+        Assert.NotNull(a.InformationalVersion);
 #if CLSCompliance
-            Assert.True(a.ClsCompliant);
+        Assert.True(a.ClsCompliant);
 #endif
-        }
+    }
 
-        [Test]
-        public void Self_Information_Test()
-        {
-            AssemblyInfo? a = new();
-            Assert.AreSame(typeof(AssemblyInfoTests).Assembly, a.Assembly);
-        }
+    [Test]
+    public void Self_Information_Test()
+    {
+        AssemblyInfo? a = new();
+        Assert.AreSame(typeof(AssemblyInfoTests).Assembly, a.Assembly);
     }
 }

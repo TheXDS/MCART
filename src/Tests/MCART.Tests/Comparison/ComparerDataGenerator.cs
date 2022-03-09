@@ -22,24 +22,22 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Tests.Comparison;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace TheXDS.MCART.Tests.Comparison
+public abstract class ComparerDataGenerator<T> : IEnumerable<object[]> where T : notnull
 {
-    public abstract class ComparerDataGenerator<T> : IEnumerable<object[]> where T : notnull
+    protected abstract IEnumerable<(T a, T b, bool equal)> GetSequences();
+
+    private IEnumerable<object[]> Transform()
     {
-        protected abstract IEnumerable<(T a, T b, bool equal)> GetSequences();
-
-        private IEnumerable<object[]> Transform()
+        foreach ((T a, T b, bool equal) in GetSequences())
         {
-            foreach ((T a, T b, bool equal) in GetSequences())
-            {
-                yield return new object[] { a, b, equal };
-            }
+            yield return new object[] { a, b, equal };
         }
-
-        IEnumerator<object[]> IEnumerable<object[]>.GetEnumerator() => Transform().GetEnumerator();
-        IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable)Transform()).GetEnumerator();
     }
+
+    IEnumerator<object[]> IEnumerable<object[]>.GetEnumerator() => Transform().GetEnumerator();
+    IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable)Transform()).GetEnumerator();
 }

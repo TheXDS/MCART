@@ -720,7 +720,7 @@ public static partial class Common
     /// </exception>
     public static IEnumerable<int> Sequence(int floor, int top, int stepping)
     {
-        Sequence_Contract(stepping);
+        Sequence_Contract(top, stepping);
         if (floor > top) stepping *= -1;
         for (int b = floor; stepping > 0 ? b <= top : b >= top; b += stepping)
             yield return b;

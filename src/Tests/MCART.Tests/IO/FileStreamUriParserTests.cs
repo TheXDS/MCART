@@ -25,51 +25,50 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#pragma warning disable CS0618
+
+namespace TheXDS.MCART.Tests.IO;
+using NUnit.Framework;
 using System;
 using System.IO;
 using TheXDS.MCART.IO;
-using NUnit.Framework;
 
-namespace TheXDS.MCART.Tests.IO
+public class FileStreamUriParserTests
 {
-    //[Obsolete("Estos objetos utilizan clases deprecadas en .Net 6.")]
-    public class FileStreamUriParserTests
+    [Test]
+    public void Open_WithFullUri_Test()
     {
-        [Test]
-        public void Open_WithFullUri_Test()
-        {
-            string? f = Path.GetTempFileName();
-            string? furi = $"file://{f.Replace('\\', '/')}";
-            File.WriteAllText(f, "test");
+        string? f = Path.GetTempFileName();
+        string? furi = $"file://{f.Replace('\\', '/')}";
+        File.WriteAllText(f, "test");
 
-            FileStreamUriParser? fp = new();
-            Stream? fu = fp.Open(new Uri(furi))!;
+        FileStreamUriParser? fp = new();
+        Stream? fu = fp.Open(new Uri(furi))!;
 
-            Assert.NotNull(fu);
-            Assert.IsInstanceOf<Stream>(fu);
-            using StreamReader? r = new(fu);
-            Assert.AreEqual("test", r.ReadToEnd());
-            fu.Dispose();
-            r.Dispose();
-            File.Delete(f);
-        }
+        Assert.NotNull(fu);
+        Assert.IsInstanceOf<Stream>(fu);
+        using StreamReader? r = new(fu);
+        Assert.AreEqual("test", r.ReadToEnd());
+        fu.Dispose();
+        r.Dispose();
+        File.Delete(f);
+    }
 
-        [Test]
-        public void Open_WithFilePath_Test()
-        {
-            string? f = Path.GetTempFileName();
-            File.WriteAllText(f, "test");
+    [Test]
+    public void Open_WithFilePath_Test()
+    {
+        string? f = Path.GetTempFileName();
+        File.WriteAllText(f, "test");
 
-            FileStreamUriParser? fp = new();
-            Stream? fu = fp.Open(new Uri(f))!;
+        FileStreamUriParser? fp = new();
+        Stream? fu = fp.Open(new Uri(f))!;
 
-            Assert.NotNull(fu);
-            Assert.IsInstanceOf<FileStream>(fu);
-            using StreamReader? r = new(fu);
-            Assert.AreEqual("test", r.ReadToEnd());
-            fu.Dispose();
-            r.Dispose();
-            File.Delete(f);
-        }
+        Assert.NotNull(fu);
+        Assert.IsInstanceOf<FileStream>(fu);
+        using StreamReader? r = new(fu);
+        Assert.AreEqual("test", r.ReadToEnd());
+        fu.Dispose();
+        r.Dispose();
+        File.Delete(f);
     }
 }

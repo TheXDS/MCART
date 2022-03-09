@@ -1,5 +1,5 @@
 ﻿/*
-DisposableTests.cs
+StreamUriParserTests.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,22 +22,20 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using TheXDS.MCART.Types.Base;
+namespace TheXDS.MCART.Tests.Types.Base;
 using NUnit.Framework;
-using TheXDS.MCART.IO;
 using System;
+using TheXDS.MCART.IO;
+using TheXDS.MCART.Types.Base;
 
-namespace TheXDS.MCART.Tests.Types.Base
+public class StreamUriParserTests
 {
-    public class StreamUriParserTests
+    [Test, Obsolete("Estos objetos utilizan métodos deprecados en .Net 6.")]
+    public void InferTest()
     {
-        [Test, Obsolete("Estos objetos utilizan métodos deprecados en .Net 6.")]
-        public void InferTest()
-        {
-            Assert.IsAssignableFrom<FileStreamUriParser>(StreamUriParser.Infer("file://test.txt"));
-            Assert.IsAssignableFrom<HttpStreamUriParser>(StreamUriParser.Infer("http://www.test.com/test.txt"));
-            Assert.IsAssignableFrom<HttpStreamUriParser>(StreamUriParser.Infer("https://www.test.com/test.txt"));
-            Assert.IsAssignableFrom<FtpStreamUriParser>(StreamUriParser.Infer("ftp://test.com/test.txt"));
-        }
+        Assert.IsAssignableFrom<FileStreamUriParser>(StreamUriParser.Infer("file://test.txt"));
+        Assert.IsAssignableFrom<HttpStreamUriParser>(StreamUriParser.Infer("http://www.test.com/test.txt"));
+        Assert.IsAssignableFrom<HttpStreamUriParser>(StreamUriParser.Infer("https://www.test.com/test.txt"));
+        Assert.IsAssignableFrom<FtpStreamUriParser>(StreamUriParser.Infer("ftp://test.com/test.txt"));
     }
 }
