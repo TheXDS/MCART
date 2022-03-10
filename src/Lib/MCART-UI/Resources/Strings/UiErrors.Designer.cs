@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TheXDS.MCART.UI.Resources.Strings {
+namespace TheXDS.MCART.Resources.Strings {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace TheXDS.MCART.UI.Resources.Strings {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("TheXDS.MCART.UI.Resources.Strings.UiErrors", typeof(UiErrors).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("TheXDS.MCART.Resources.Strings.UiErrors", typeof(UiErrors).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

@@ -22,45 +22,45 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Controls
-{
-    /// <summary>
-    /// Determina las capacidades de edición disponibles en este control.
-    /// </summary>
-    [System.Flags]
-    public enum NavigationBarEditMode : byte
-    {
-        /// <summary>
-        /// Control de sólo lectura. El usuario podrá navegar, pero no podrá editar.
-        /// </summary>
-        ReadOnly,
-        /// <summary>
-        /// Otorga al usuario la facultad de crear nuevos elementos.
-        /// </summary>
-        Newable,
-        /// <summary>
-        /// Otorga al usuario la facultad de editar elementos.
-        /// </summary>
-        Editable,
-        /// <summary>
-        /// Otorga al usuario la facultad de crear y editar elementos.
-        /// </summary>
-        NewEdit,
-        /// <summary>
-        /// Otorga al usuario la facultad de eliminar elementos.
-        /// </summary>
-        Deletable,
-        /// <summary>
-        /// Otorga al usuario la facultad de crear y eliminar elementos.
-        /// </summary>
-        NewDelete,
-        /// <summary>
-        /// Otorga al usuario la facultad de editar y eliminar elementos.
-        /// </summary>
-        EditDelete,
-        /// <summary>
-        /// Otorga al usuario todas las facultades de edición
-        /// </summary>
-        All
-    }
-}
+//namespace TheXDS.MCART.Controls
+//{
+//    /// <summary>
+//    /// Determina las capacidades de edición disponibles en este control.
+//    /// </summary>
+//    [System.Flags]
+//    public enum NavigationBarEditMode : byte
+//    {
+//        /// <summary>
+//        /// Control de sólo lectura. El usuario podrá navegar, pero no podrá editar.
+//        /// </summary>
+//        ReadOnly,
+//        /// <summary>
+//        /// Otorga al usuario la facultad de crear nuevos elementos.
+//        /// </summary>
+//        Newable,
+//        /// <summary>
+//        /// Otorga al usuario la facultad de editar elementos.
+//        /// </summary>
+//        Editable,
+//        /// <summary>
+//        /// Otorga al usuario la facultad de crear y editar elementos.
+//        /// </summary>
+//        NewEdit,
+//        /// <summary>
+//        /// Otorga al usuario la facultad de eliminar elementos.
+//        /// </summary>
+//        Deletable,
+//        /// <summary>
+//        /// Otorga al usuario la facultad de crear y eliminar elementos.
+//        /// </summary>
+//        NewDelete,
+//        /// <summary>
+//        /// Otorga al usuario la facultad de editar y eliminar elementos.
+//        /// </summary>
+//        EditDelete,
+//        /// <summary>
+//        /// Otorga al usuario todas las facultades de edición
+//        /// </summary>
+//        All
+//    }
+//}

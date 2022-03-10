@@ -1,5 +1,5 @@
 ﻿/*
-Interaction.cs
+InteractionBase.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,54 +22,52 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.UI.Base;
 using System;
 using TheXDS.MCART.Types.Base;
 
-namespace TheXDS.MCART.UI.Base
+/// <summary>
+/// Clase base para todos los objetos que describan una interacción
+/// disponible dentro de un sistema de menús.
+/// </summary>
+public abstract class InteractionBase : INameable, IDescriptible
 {
     /// <summary>
-    /// Clase base para todos los objetos que describan una interacción
-    /// disponible dentro de un sistema de menús.
+    /// Obtiene el nombre a mostrar para esta interacción.
     /// </summary>
-    public abstract class InteractionBase : INameable, IDescriptible
+    public string Name { get; }
+
+    /// <summary>
+    /// Obtiene una descripción para esta interacción.
+    /// </summary>
+    public string? Description { get; }
+
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="InteractionBase"/>, estableciendo un nombre
+    /// descriptivo a mostrar.
+    /// </summary>
+    /// <param name="name">
+    /// Nombre descriptivo a mostrar.
+    /// </param>
+    protected InteractionBase(string name) : this(name, null)
     {
-        /// <summary>
-        /// Obtiene el nombre a mostrar para esta interacción.
-        /// </summary>
-        public string Name { get; }
+    }
 
-        /// <summary>
-        /// Obtiene una descripción para esta interacción.
-        /// </summary>
-        public string? Description { get; }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="InteractionBase"/>, estableciendo un nombre
-        /// descriptivo a mostrar.
-        /// </summary>
-        /// <param name="name">
-        /// Nombre descriptivo a mostrar.
-        /// </param>
-        protected InteractionBase(string name) : this(name, null)
-        {
-        }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="InteractionBase"/>, estableciendo un nombre
-        /// y una descripción a mostrar.
-        /// </summary>
-        /// <param name="name">
-        /// Nombre descriptivo a mostrar.
-        /// </param>
-        /// <param name="description">
-        /// Descripción del elemento.
-        /// </param>
-        protected InteractionBase(string name, string? description)
-        {
-            Name = name ?? throw new ArgumentNullException(nameof(name));
-            Description = description;
-        }
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="InteractionBase"/>, estableciendo un nombre
+    /// y una descripción a mostrar.
+    /// </summary>
+    /// <param name="name">
+    /// Nombre descriptivo a mostrar.
+    /// </param>
+    /// <param name="description">
+    /// Descripción del elemento.
+    /// </param>
+    protected InteractionBase(string name, string? description)
+    {
+        Name = name ?? throw new ArgumentNullException(nameof(name));
+        Description = description;
     }
 }

@@ -1,7 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <Description>MCART interactive components</Description>
+    <RootNamespace>TheXDS.MCART</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Update="Resources\Strings\UiErrors.Designer.cs">

@@ -22,40 +22,16 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.ViewModel
+namespace TheXDS.MCART.ViewModel;
+
+/// <summary>
+/// Define una serie de métodos a implementar por una clase que exponga
+/// una entidad dentro de una clase ViewModel del patrón MVVM.
+/// </summary>
+public interface IEntityViewModel : IViewModel
 {
     /// <summary>
-    /// Define una serie de métodos a implementar por una clase que exponga
-    /// una entidad dentro de una clase ViewModel del patrón MVVM.
+    /// Instancia de la entidad controlada por este ViewModel.
     /// </summary>
-    /// <typeparam name="T">
-    /// Tipo de entidad a controlar.
-    /// </typeparam>
-    public interface IEntityViewModel<T> : IReadEntityViewModel<T>, IEntityViewModel
-    {
-        /// <summary>
-        /// Instancia de la entidad controlada por este ViewModel.
-        /// </summary>
-        new T Entity { get; set; }
-
-        object? IEntityViewModel.Entity
-        {
-            get => Entity;
-            set => Entity = (T)value!;
-        }
-
-        T IReadEntityViewModel<T>.Entity => Entity;
-    }
-
-    /// <summary>
-    /// Define una serie de métodos a implementar por una clase que exponga
-    /// una entidad dentro de una clase ViewModel del patrón MVVM.
-    /// </summary>
-    public interface IEntityViewModel : IViewModel
-    {
-        /// <summary>
-        /// Instancia de la entidad controlada por este ViewModel.
-        /// </summary>
-        object? Entity { get; set; }
-    }
+    object? Entity { get; set; }
 }

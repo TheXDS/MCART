@@ -22,55 +22,53 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.UI;
 using System.Collections.Generic;
 using TheXDS.MCART.UI.Base;
 
-namespace TheXDS.MCART.UI
+/// <summary>
+/// Representa una entrada de menú que contiene a otros elementos hijos
+/// interactivos.
+/// </summary>
+public class SubMenu : InteractionBase
 {
     /// <summary>
-    /// Representa una entrada de menú que contiene a otros elementos hijos
-    /// interactivos.
+    /// Obtiene una secuencia de interacciones que forman parte de un 
+    /// sub-menú de este elemento.
     /// </summary>
-    public class SubMenu : InteractionBase
+    public IEnumerable<InteractionBase> Children { get; }
+
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="SubMenu"/>, estableciendo las entradas de
+    /// sub-menú a mostrar.
+    /// </summary>
+    /// <param name="name">
+    /// Nombre a mostrar para el elemento.
+    /// </param>
+    /// <param name="subMenu">
+    /// Sub-menú que forma parte de este elemento.
+    /// </param>
+    public SubMenu(string name, IEnumerable<InteractionBase> subMenu) : this(name, null, subMenu)
     {
-        /// <summary>
-        /// Obtiene una secuencia de interacciones que forman parte de un 
-        /// sub-menú de este elemento.
-        /// </summary>
-        public IEnumerable<InteractionBase> Children { get; }
+    }
 
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="SubMenu"/>, estableciendo las entradas de
-        /// sub-menú a mostrar.
-        /// </summary>
-        /// <param name="name">
-        /// Nombre a mostrar para el elemento.
-        /// </param>
-        /// <param name="subMenu">
-        /// Sub-menú que forma parte de este elemento.
-        /// </param>
-        public SubMenu(string name, IEnumerable<InteractionBase> subMenu) : this(name, null, subMenu)
-        {
-        }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="SubMenu"/>, estableciendo las entradas de
-        /// sub-menú a mostrar.
-        /// </summary>
-        /// <param name="name">
-        /// Nombre a mostrar para este elemento.
-        /// </param>
-        /// <param name="description">
-        /// Descripción a mostrar para este elemento.
-        /// </param>
-        /// <param name="subMenu">
-        /// Sub-menú que forma parte de este elemento.
-        /// </param>
-        public SubMenu(string name, string? description, IEnumerable<InteractionBase> subMenu) : base(name, description)
-        {
-            Children = subMenu;
-        }
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="SubMenu"/>, estableciendo las entradas de
+    /// sub-menú a mostrar.
+    /// </summary>
+    /// <param name="name">
+    /// Nombre a mostrar para este elemento.
+    /// </param>
+    /// <param name="description">
+    /// Descripción a mostrar para este elemento.
+    /// </param>
+    /// <param name="subMenu">
+    /// Sub-menú que forma parte de este elemento.
+    /// </param>
+    public SubMenu(string name, string? description, IEnumerable<InteractionBase> subMenu) : base(name, description)
+    {
+        Children = subMenu;
     }
 }

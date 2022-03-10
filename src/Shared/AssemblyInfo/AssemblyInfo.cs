@@ -21,7 +21,9 @@ Public License for more details.
 You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
-using TheXDS.MCART.Attributes;using TheXDS.MCART.Resources;
+
+using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Resources;
 
 [assembly: SpdxLicense(SpdxLicenseId.GPL_3_0_or_later)]
 [assembly: Author("César Andrés Morgan")]

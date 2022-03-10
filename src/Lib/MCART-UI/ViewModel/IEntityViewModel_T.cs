@@ -1,5 +1,5 @@
 ﻿/*
-IUpdatableViewModel.cs
+IEntityViewModel_T.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -25,19 +25,24 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 namespace TheXDS.MCART.ViewModel;
 
 /// <summary>
-/// Define una serie de miembros a implementar por una clase que
-/// implemente funcionalidades básicas de edición de entidades de
-/// ViewModel.
+/// Define una serie de métodos a implementar por una clase que exponga
+/// una entidad dentro de una clase ViewModel del patrón MVVM.
 /// </summary>
-/// <typeparam name="T">Tipo de entidad actualizable.</typeparam>
-public interface IUpdatableViewModel<T> : IEntityViewModel<T>
+/// <typeparam name="T">
+/// Tipo de entidad a controlar.
+/// </typeparam>
+public interface IEntityViewModel<T> : IReadEntityViewModel<T>, IEntityViewModel
 {
     /// <summary>
-    /// Edita la instancia de <typeparamref name="T"/> dentro de este
-    /// ViewModel.
+    /// Instancia de la entidad controlada por este ViewModel.
     /// </summary>
-    /// <param name="entity">
-    /// Entidad desde la cual extraer información.
-    /// </param>
-    void Update(T entity);
+    new T Entity { get; set; }
+
+    object? IEntityViewModel.Entity
+    {
+        get => Entity;
+        set => Entity = (T)value!;
+    }
+
+    T IReadEntityViewModel<T>.Entity => Entity;
 }

@@ -22,77 +22,75 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.ViewModel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using static System.Reflection.BindingFlags;
 
-namespace TheXDS.MCART.ViewModel
+/// <summary>
+/// Clase base para un <see cref="ViewModelBase"/> cuyos campos de
+/// almacenamiento sean parte de un modelo de entidad.
+/// </summary>
+/// <typeparam name="T">
+/// Tipo de entidad a utilizar como almacenamiento interno de este
+/// ViewModel.
+/// </typeparam>
+public class ViewModel<T> : ViewModelBase, IEntityViewModel<T>, IUpdatableViewModel<T>
 {
+    private static readonly HashSet<PropertyInfo> _modelProperties = new(typeof(T).GetProperties(Public | Instance).Where(p => p.CanRead));
+    private static IEnumerable<PropertyInfo> WrittableProperties => _modelProperties.Where(p => p.CanWrite);
+
+    private T _entity = default!;
+
     /// <summary>
-    /// Clase base para un <see cref="ViewModelBase"/> cuyos campos de
-    /// almacenamiento sean parte de un modelo de entidad.
+    /// Instancia de la entidad controlada por este ViewModel.
     /// </summary>
-    /// <typeparam name="T">
-    /// Tipo de entidad a utilizar como almacenamiento interno de este
-    /// ViewModel.
-    /// </typeparam>
-    public class ViewModel<T> : ViewModelBase, IEntityViewModel<T>, IUpdatableViewModel<T>
+    public virtual T Entity
     {
-        private static readonly HashSet<PropertyInfo> _modelProperties = new(typeof(T).GetProperties(Public | Instance).Where(p => p.CanRead));
-        private static IEnumerable<PropertyInfo> WrittableProperties => _modelProperties.Where(p => p.CanWrite);
+        get => _entity;
+        set => Change(ref _entity, value);
+    }
 
-        private T _entity = default!;
-
-        /// <summary>
-        /// Instancia de la entidad controlada por este ViewModel.
-        /// </summary>
-        public virtual T Entity
+    /// <summary>
+    /// Edita la instancia de <typeparamref name="T"/> dentro de este
+    /// ViewModel.
+    /// </summary>
+    /// <param name="entity">
+    /// Entidad conlos nuevos valores a establecer en la entidad
+    /// actualmente establecida en la propiedad <see cref="Entity"/>.
+    /// </param>
+    public virtual void Update(T entity)
+    {
+        foreach (PropertyInfo? j in WrittableProperties)
         {
-            get => _entity;
-            set => Change(ref _entity, value);
+            j.SetValue(Entity, j.GetValue(entity));
         }
+        Refresh();
+    }
 
-        /// <summary>
-        /// Edita la instancia de <typeparamref name="T"/> dentro de este
-        /// ViewModel.
-        /// </summary>
-        /// <param name="entity">
-        /// Entidad conlos nuevos valores a establecer en la entidad
-        /// actualmente establecida en la propiedad <see cref="Entity"/>.
-        /// </param>
-        public virtual void Update(T entity)
+    /// <summary>
+    /// Notifica al sistema que las propiedades de este
+    /// <see cref="ViewModel{T}"/> han cambiado.
+    /// </summary>
+    public override void Refresh()
+    {
+        if (Entity is null) return;
+        lock (Entity)
         {
-            foreach (PropertyInfo? j in WrittableProperties)
-            {
-                j.SetValue(Entity, j.GetValue(entity));
-            }
-            Refresh();
+            Notify(nameof(Entity));
         }
+    }
 
-        /// <summary>
-        /// Notifica al sistema que las propiedades de este
-        /// <see cref="ViewModel{T}"/> han cambiado.
-        /// </summary>
-        public override void Refresh()
-        {
-            if (Entity is null) return;
-            lock (Entity)
-            {
-                Notify(nameof(Entity));
-            }
-        }
-
-        /// <summary>
-        /// Convierte implícitamente un <see cref="ViewModel{T}"/>
-        /// en un <typeparamref name="T"/>.
-        /// </summary>
-        /// <param name="vm">
-        /// <see cref="ViewModel{T}"/> a convertir.
-        /// </param>
-        public static implicit operator T(ViewModel<T> vm)
-        {
-            return vm.Entity;
-        }
+    /// <summary>
+    /// Convierte implícitamente un <see cref="ViewModel{T}"/>
+    /// en un <typeparamref name="T"/>.
+    /// </summary>
+    /// <param name="vm">
+    /// <see cref="ViewModel{T}"/> a convertir.
+    /// </param>
+    public static implicit operator T(ViewModel<T> vm)
+    {
+        return vm.Entity;
     }
 }

@@ -1,5 +1,5 @@
 ﻿/*
-IEntityViewModel.cs
+IReadEntityViewModel.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,21 +22,20 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.ViewModel
+namespace TheXDS.MCART.ViewModel;
+
+/// <summary>
+/// Define una serie de métodos a implementar por una clase que exponga
+/// una entidad de sólo lectura dentro de una clase ViewModel del patrón
+/// MVVM.
+/// </summary>
+/// <typeparam name="T">
+/// Tipo de entidad a controlar.
+/// </typeparam>
+public interface IReadEntityViewModel<out T> : IViewModel
 {
     /// <summary>
-    /// Define una serie de métodos a implementar por una clase que exponga
-    /// una entidad de sólo lectura dentro de una clase ViewModel del patrón
-    /// MVVM.
+    /// Instancia de la entidad controlada por este ViewModel.
     /// </summary>
-    /// <typeparam name="T">
-    /// Tipo de entidad a controlar.
-    /// </typeparam>
-    public interface IReadEntityViewModel<out T> : IViewModel
-    {
-        /// <summary>
-        /// Instancia de la entidad controlada por este ViewModel.
-        /// </summary>
-        T Entity { get; }
-    }
+    T Entity { get; }
 }

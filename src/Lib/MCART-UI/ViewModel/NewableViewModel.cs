@@ -22,25 +22,24 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.ViewModel
+namespace TheXDS.MCART.ViewModel;
+
+/// <summary>
+/// Clase base para un <see cref="ViewModel{T}"/> que permite crear
+/// nuevas instancias de entidades.
+/// </summary>
+/// <typeparam name="T">
+/// Tipo de entidad a utilizar como almacenamiento interno de este
+/// ViewModel.
+/// </typeparam>
+public abstract class NewableViewModel<T> : ViewModel<T>, INewEntityViewModel<T> where T : new()
 {
     /// <summary>
-    /// Clase base para un <see cref="ViewModel{T}"/> que permite crear
-    /// nuevas instancias de entidades.
+    /// Instancia un nuevo <typeparamref name="T"/> en este ViewModel.
     /// </summary>
-    /// <typeparam name="T">
-    /// Tipo de entidad a utilizar como almacenamiento interno de este
-    /// ViewModel.
-    /// </typeparam>
-    public abstract class NewableViewModel<T> : ViewModel<T>, INewEntityViewModel<T> where T : new()
+    public void New()
     {
-        /// <summary>
-        /// Instancia un nuevo <typeparamref name="T"/> en este ViewModel.
-        /// </summary>
-        public void New()
-        {
-            Entity = new T();
-            Refresh();
-        }
+        Entity = new T();
+        Refresh();
     }
 }

@@ -22,21 +22,21 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Controls
-{
-    /// <summary>
-    /// Enumera los diferentes valores de enumeración que indican el
-    /// sentido en el que un objeto gráfico giratorio avanza.
-    /// </summary>
-    public enum SweepDirection : short
-    {
-        /// <summary>
-        /// Sentido de las agujas del reloj.
-        /// </summary>
-        Clockwise = 1,
-        /// <summary>
-        /// El sentido contrario a las agujas del reloj. 
-        /// </summary>
-        CounterClockwise = -1
-    }
-}
+//namespace TheXDS.MCART.Controls
+//{
+//    /// <summary>
+//    /// Enumera los diferentes valores de enumeración que indican el
+//    /// sentido en el que un objeto gráfico giratorio avanza.
+//    /// </summary>
+//    public enum SweepDirection : short
+//    {
+//        /// <summary>
+//        /// Sentido de las agujas del reloj.
+//        /// </summary>
+//        Clockwise = 1,
+//        /// <summary>
+//        /// El sentido contrario a las agujas del reloj. 
+//        /// </summary>
+//        CounterClockwise = -1
+//    }
+//}

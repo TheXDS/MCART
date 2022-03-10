@@ -22,15 +22,13 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.ViewModel;
 using TheXDS.MCART.Types.Base;
 using System.ComponentModel;
 
-namespace TheXDS.MCART.ViewModel
+/// <summary>
+/// Interfaz base para todos los ViewModel administrables por MCART.
+/// </summary>
+public interface IViewModel : IRefreshable, INotifyPropertyChanged
 {
-    /// <summary>
-    /// Interfaz base para todos los ViewModel administrables por MCART.
-    /// </summary>
-    public interface IViewModel : IRefreshable, INotifyPropertyChanged
-    {
-    }
 }

@@ -23,7 +23,16 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 namespace TheXDS.MCART.Misc;
-using System;using System.Diagnostics;using System.Diagnostics.CodeAnalysis;using System.Reflection;using System.Runtime.CompilerServices;using TheXDS.MCART.Attributes;using TheXDS.MCART.Exceptions;using TheXDS.MCART.Helpers;using TheXDS.MCART.Resources;using TheXDS.MCART.Types.Extensions;
+using System;
+using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
+using System.Runtime.CompilerServices;
+using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Helpers;
+using TheXDS.MCART.Resources;
+using TheXDS.MCART.Types.Extensions;
 
 [ExcludeFromCodeCoverage]
 internal static class Internals
