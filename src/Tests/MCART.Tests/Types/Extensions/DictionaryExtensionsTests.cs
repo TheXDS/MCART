@@ -25,7 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 namespace TheXDS.MCART.Tests.Types.Extensions;
 using NUnit.Framework;
 using System.Collections.Generic;
-using TheXDS.MCART.Types.Extensions;
+using TheXDS.MCART.Types.Factory;
 
 public class DictionaryExtensionsTests
 {

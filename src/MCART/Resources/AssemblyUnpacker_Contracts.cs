@@ -27,7 +27,7 @@ using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using static TheXDS.MCART.Misc.Internals;
-using static TheXDS.MCART.Types.Extensions.StringExtensions;
+using static TheXDS.MCART.Types.Factory.StringExtensions;
 
 public abstract partial class AssemblyUnpacker<T>
 {

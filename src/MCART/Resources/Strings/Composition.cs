@@ -28,7 +28,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using TheXDS.MCART.Types.Extensions;
+using TheXDS.MCART.Types.Factory;
 using System.Reflection;
 
 /// <summary>

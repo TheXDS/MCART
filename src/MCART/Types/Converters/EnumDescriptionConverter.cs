@@ -27,7 +27,7 @@ using System;
 using System.ComponentModel;
 using System.Globalization;
 using TheXDS.MCART.Attributes;
-using TheXDS.MCART.Types.Extensions;
+using TheXDS.MCART.Types.Factory;
 
 /// <summary>
 /// Convierte un valor de enumeración a su presentación amigable como una cadena.

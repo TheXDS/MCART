@@ -27,7 +27,7 @@ using System.Runtime.CompilerServices;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Helpers;
-using TheXDS.MCART.Types.Extensions;
+using TheXDS.MCART.Types.Factory;
 
 /// <summary>
 /// Clase base interna para exponer íconos incrustados en los 

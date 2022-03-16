@@ -29,7 +29,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TheXDS.MCART.Types.Extensions;
+using TheXDS.MCART.Types.Factory;
 
 public class StreamExtensionsTests
 {

@@ -22,54 +22,52 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types;
 using System.Reflection;
 using System.Reflection.Emit;
 
-namespace TheXDS.MCART.Types
+/// <summary>
+/// Clase base que contiene información compartida de construcción de un
+/// miembro de clase.
+/// </summary>
+public abstract class MemberBuildInfo<T> where T : MemberInfo
 {
     /// <summary>
-    /// Clase base que contiene información compartida de construcción de un
-    /// miembro de clase.
+    /// Referencia al <see cref="System.Reflection.Emit.TypeBuilder"/> en
+    /// el cual se ha construido la propiedad.
     /// </summary>
-    public abstract class MemberBuildInfo<T> where T : MemberInfo
+    public TypeBuilder TypeBuilder { get; }
+
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="MemberBuildInfo{T}"/>.
+    /// </summary>
+    /// <param name="typeBuilder">
+    /// <see cref="System.Reflection.Emit.TypeBuilder"/> en donde se ha
+    /// definido este miembro.
+    /// </param>
+    /// <param name="member">
+    /// Referencia al miembro que ha sido definido.
+    /// </param>
+    protected MemberBuildInfo(TypeBuilder typeBuilder, T member)
     {
-        /// <summary>
-        /// Referencia al <see cref="System.Reflection.Emit.TypeBuilder"/> en
-        /// el cual se ha construido la propiedad.
-        /// </summary>
-        public TypeBuilder TypeBuilder { get; }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="MemberBuildInfo{T}"/>.
-        /// </summary>
-        /// <param name="typeBuilder">
-        /// <see cref="System.Reflection.Emit.TypeBuilder"/> en donde se ha
-        /// definido este miembro.
-        /// </param>
-        /// <param name="member">
-        /// Referencia al miembro que ha sido definido.
-        /// </param>
-        protected MemberBuildInfo(TypeBuilder typeBuilder, T member)
-        {
-            TypeBuilder = typeBuilder;
-            Member = member;
-        }
-
-        /// <summary>
-        /// Referencia al <see cref="PropertyBuilder"/> utilizado para
-        /// construir a la propiedad.
-        /// </summary>
-        public T Member { get; }
-
-        /// <summary>
-        /// Convierte implícitamente un valor <typeparamref name="T"/>
-        /// en un <see cref="MemberBuildInfo{T}"/>.
-        /// </summary>
-        /// <param name="buildInfo">
-        /// <typeparamref name="T"/> desde el cual extraer el
-        /// <see cref="MemberBuildInfo{T}"/>.
-        /// </param>
-        public static implicit operator T(MemberBuildInfo<T> buildInfo) => buildInfo.Member;
+        TypeBuilder = typeBuilder;
+        Member = member;
     }
+
+    /// <summary>
+    /// Referencia al <see cref="PropertyBuilder"/> utilizado para
+    /// construir a la propiedad.
+    /// </summary>
+    public T Member { get; }
+
+    /// <summary>
+    /// Convierte implícitamente un valor <typeparamref name="T"/>
+    /// en un <see cref="MemberBuildInfo{T}"/>.
+    /// </summary>
+    /// <param name="buildInfo">
+    /// <typeparamref name="T"/> desde el cual extraer el
+    /// <see cref="MemberBuildInfo{T}"/>.
+    /// </param>
+    public static implicit operator T(MemberBuildInfo<T> buildInfo) => buildInfo.Member;
 }

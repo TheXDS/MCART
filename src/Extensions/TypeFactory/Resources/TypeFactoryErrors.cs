@@ -22,46 +22,44 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Resources;
 using System;
 using System.Reflection.Emit;
 using TheXDS.MCART.Exceptions;
-using St = TheXDS.MCART.Resources.TypeFactoryStrings;
+using St = Ext.TypeFactory.Resources.TypeFactoryStrings;
 
-namespace TheXDS.MCART.Resources
+internal static class TypeFactoryErrors
 {
-    internal static class TypeFactoryErrors
+    internal static Exception IfaceNotImpl<T>() => IfaceNotImpl(typeof(T));
+
+    internal static Exception IfaceNotImpl(Type t)
     {
-        internal static Exception IfaceNotImpl<T>() => IfaceNotImpl(typeof(T));
+        return new InvalidOperationException(string.Format(St.ErrIfaceNotImpl, t.Name));
+    }
+    internal static Exception PropGetterAlreadyDefined()
+    {
+        return new InvalidOperationException(St.ErrPropGetterAlreadyDefined);
+    }
+    internal static Exception PropFieldAlreadyDefined()
+    {
+        return new InvalidOperationException(St.ErrPropFieldAlreadyDefined);
+    }
+    internal static Exception PropCannotBeRead()
+    {
+        return new InvalidOperationException(St.ErrPropCannotBeRead);
+    }
 
-        internal static Exception IfaceNotImpl(Type t)
-        {
-            return new InvalidOperationException(string.Format(St.ErrIfaceNotImpl, t.Name));
-        }
-        internal static Exception PropGetterAlreadyDefined()
-        {
-            return new InvalidOperationException(St.ErrPropGetterAlreadyDefined);
-        }
-        internal static Exception PropFieldAlreadyDefined()
-        {
-            return new InvalidOperationException(St.ErrPropFieldAlreadyDefined);
-        }
-        internal static Exception PropCannotBeRead()
-        {
-            return new InvalidOperationException(St.ErrPropCannotBeRead);
-        }
+    internal static Exception IFaceMethodExpected()
+    {
+        return new InvalidOperationException(St.ErrIFaceMethodExpected);
+    }
 
-        internal static Exception IFaceMethodExpected()
-        {
-            return new InvalidOperationException(St.ErrIFaceMethodExpected);
-        }
-
-        internal static Exception TypeBuilderTypeMismatch<T>(TypeBuilder typebuilder)
-        {
-            return new ArgumentException(
-                string.Format(St.TypeBuilderTypeMismatch,
-                typebuilder.BaseType,
-                typeof(T)),
-                new InvalidTypeException(typebuilder));
-        }
+    internal static Exception TypeBuilderTypeMismatch<T>(TypeBuilder typebuilder)
+    {
+        return new ArgumentException(
+            string.Format(St.TypeBuilderTypeMismatch,
+            typebuilder.BaseType,
+            typeof(T)),
+            new InvalidTypeException(typebuilder));
     }
 }

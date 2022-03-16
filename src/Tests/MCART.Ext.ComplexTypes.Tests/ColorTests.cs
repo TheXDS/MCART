@@ -1,12 +1,12 @@
 /*
-ColorExtensions_Contracts.cs
+ColorTests.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
 Author(s):
-     CÃ©sar AndrÃ©s Morgan <xds_xps_ivx@hotmail.com>
+     César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright Â© 2011 - 2021 CÃ©sar AndrÃ©s Morgan
+Copyright © 2011 - 2021 César Andrés Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -22,19 +22,19 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Types.Factory;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
-using TheXDS.MCART.Helpers;
-using TheXDS.MCART.Resources;
+namespace TheXDS.MCART.Ext.ComplexTypes.Tests;
+using NUnit.Framework;
+using TheXDS.MCART.Types.Entity;
 
-public static partial class ColorExtensions
+public class ColorTests
 {
-    [Conditional("EnforceContracts")]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    [DebuggerNonUserCode]
-    private static void WithAlpha_Contract(in float value)
+    [Test]
+    public void ComplexTypeToNormalTypeTest()
     {
-        if (!value.IsBetween(0f, 1f)) throw Errors.ValueOutOfRange(nameof(value), 0f, 1f);
+        Color? c1 = new() { A = 255, B = 128, G = 192, R = 240 };
+        Types.Color c2 = new(240, 192, 128, 255);
+
+        Assert.AreEqual(c2, (Types.Color)c1);
+        Assert.AreEqual(c1, (Color)c2);
     }
 }

@@ -1,6 +1,6 @@
 using System;
 using TheXDS.MCART.Types;
-using TheXDS.MCART.Types.Extensions;
+using TheXDS.MCART.Types.Factory;
 using NUnit.Framework;
 
 namespace TheXDS.MCART.Tests

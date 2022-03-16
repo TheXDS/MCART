@@ -30,7 +30,7 @@ using System.Reflection;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Types.Base;
-using TheXDS.MCART.Types.Extensions;
+using TheXDS.MCART.Types.Factory;
 
 /// <summary>
 /// Estructura que permite asignarle una etiqueta a cualquier objeto.
@@ -189,7 +189,7 @@ public struct NamedObject<T> : INameable
         return obj switch
         {
             INameable n => n.Name,
-            MemberInfo m => Extensions.MemberInfoExtensions.NameOf(m),
+            MemberInfo m => Factory.MemberInfoExtensions.NameOf(m),
             Enum e => EnumExtensions.NameOf(e),
             null => throw new ArgumentNullException(nameof(obj)),
             _ => obj.GetAttr<NameAttribute>()?.Value ?? obj.ToString() ?? obj.GetType().NameOf()

@@ -28,7 +28,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using TheXDS.MCART.Types.Base;
-using TheXDS.MCART.Types.Extensions;
+using TheXDS.MCART.Types.Factory;
 
 /// <summary>
 /// Implementa una transformación criptográfica para encriptar datos

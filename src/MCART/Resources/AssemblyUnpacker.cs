@@ -29,8 +29,8 @@ using System.Reflection;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Helpers;
-using static TheXDS.MCART.Types.Extensions.StringExtensions;
-using static TheXDS.MCART.Types.Extensions.TypeExtensions;
+using static TheXDS.MCART.Types.Factory.StringExtensions;
+using static TheXDS.MCART.Types.Factory.TypeExtensions;
 
 /// <summary>
 /// Clase base que permite definir un <see cref="IUnpacker{T}"/> que extrae

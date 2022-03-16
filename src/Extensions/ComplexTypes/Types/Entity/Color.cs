@@ -22,89 +22,87 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types.Entity;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using TheXDS.MCART.Types.Base;
 
-namespace TheXDS.MCART.Types.Entity
+/// <summary>
+/// Estructura universal que describe un color en sus componentes alfa,
+/// rojo, verde y azul.
+/// </summary>
+[ComplexType]
+public class Color : IColor, IEquatable<Color>
 {
     /// <summary>
-    /// Estructura universal que describe un color en sus componentes alfa,
-    /// rojo, verde y azul.
+    /// Componente Alfa del color.
     /// </summary>
-    [ComplexType]
-    public class Color : IColor, IEquatable<Color>
+    public byte A { get; set; }
+
+    /// <summary>
+    ///  Componente Azul del color.
+    /// </summary>
+    public byte B { get; set; }
+
+    /// <summary>
+    ///  Componente Verde del color.
+    /// </summary>
+    public byte G { get; set; }
+
+    /// <summary>
+    ///  Componente Rojo del color.
+    /// </summary>
+    public byte R { get; set; }
+
+    /// <summary>
+    /// Convierte implícitamente un <see cref="Types.Color"/> en un
+    /// <see cref="Color"/>.
+    /// </summary>
+    /// <param name="color">
+    /// <see cref="Types.Color"/> a convertir.
+    /// </param>
+    public static implicit operator Color(Types.Color color)
     {
-        /// <summary>
-        /// Componente Alfa del color.
-        /// </summary>
-        public byte A { get; set; }
-
-        /// <summary>
-        ///  Componente Azul del color.
-        /// </summary>
-        public byte B { get; set; }
-
-        /// <summary>
-        ///  Componente Verde del color.
-        /// </summary>
-        public byte G { get; set; }
-
-        /// <summary>
-        ///  Componente Rojo del color.
-        /// </summary>
-        public byte R { get; set; }
-
-        /// <summary>
-        /// Convierte implícitamente un <see cref="Types.Color"/> en un
-        /// <see cref="Color"/>.
-        /// </summary>
-        /// <param name="color">
-        /// <see cref="Types.Color"/> a convertir.
-        /// </param>
-        public static implicit operator Color(Types.Color color)
+        return new Color
         {
-            return new Color
-            {
-                A = color.A,
-                B = color.B,
-                G = color.G,
-                R = color.R,
-            };
-        }
+            A = color.A,
+            B = color.B,
+            G = color.G,
+            R = color.R,
+        };
+    }
 
-        /// <summary>
-        /// Convierte implícitamente un <see cref="Color"/> en un
-        /// <see cref="Types.Color"/>.
-        /// </summary>
-        /// <param name="color">
-        /// <see cref="Color"/> a convertir.
-        /// </param>
-        public static implicit operator Types.Color(Color color)
-        {
-            return new Types.Color(color.R, color.G, color.B, color.A);
-        }
+    /// <summary>
+    /// Convierte implícitamente un <see cref="Color"/> en un
+    /// <see cref="Types.Color"/>.
+    /// </summary>
+    /// <param name="color">
+    /// <see cref="Color"/> a convertir.
+    /// </param>
+    public static implicit operator Types.Color(Color color)
+    {
+        return new Types.Color(color.R, color.G, color.B, color.A);
+    }
 
-        /// <inheritdoc/>
-        public bool Equals(Color? other)
-        {
-            if (other is null) return false;
-            if (ReferenceEquals(this, other)) return true;
-            return A == other.A && B == other.B && G == other.G && R == other.R;
-        }
+    /// <inheritdoc/>
+    public bool Equals(Color? other)
+    {
+        if (other is null) return false;
+        if (ReferenceEquals(this, other)) return true;
+        return A == other.A && B == other.B && G == other.G && R == other.R;
+    }
 
-        /// <inheritdoc/>
-        public override bool Equals(object? obj)
-        {
-            if (obj is null) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == this.GetType() && Equals((Color)obj);
-        }
+    /// <inheritdoc/>
+    public override bool Equals(object? obj)
+    {
+        if (obj is null) return false;
+        if (ReferenceEquals(this, obj)) return true;
+        return obj.GetType() == this.GetType() && Equals((Color)obj);
+    }
 
-        /// <inheritdoc/>
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(A, B, G, R);
-        }
+    /// <inheritdoc/>
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(A, B, G, R);
     }
 }

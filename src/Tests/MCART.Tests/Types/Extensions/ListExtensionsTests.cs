@@ -31,7 +31,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using TheXDS.MCART.Exceptions;
-using TheXDS.MCART.Types.Extensions;
+using TheXDS.MCART.Types.Factory;
 
 public class ListExtensionsTests
 {

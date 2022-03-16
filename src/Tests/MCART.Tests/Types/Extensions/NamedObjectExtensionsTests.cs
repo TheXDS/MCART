@@ -25,7 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 namespace TheXDS.MCART.Tests.Types.Extensions;
 using NUnit.Framework;
 using System;
-using static TheXDS.MCART.Types.Extensions.NamedObjectExtensions;
+using static TheXDS.MCART.Types.Factory.NamedObjectExtensions;
 
 public class NamedObjectExtensionsTests
 {

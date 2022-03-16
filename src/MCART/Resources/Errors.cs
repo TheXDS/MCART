@@ -27,7 +27,7 @@ using System;
 using System.Collections;
 using System.Reflection;
 using TheXDS.MCART.Exceptions;
-using TheXDS.MCART.Types.Extensions;
+using TheXDS.MCART.Types.Factory;
 using Ers = Strings.Errors;
 using Str = Strings.Common;
 

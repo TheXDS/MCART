@@ -34,7 +34,7 @@ using System.Security;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types;
 using static TheXDS.MCART.Helpers.Common;
-using static TheXDS.MCART.Types.Extensions.SecureStringExtensions;
+using static TheXDS.MCART.Types.Factory.SecureStringExtensions;
 
 public class CommonTest
 {

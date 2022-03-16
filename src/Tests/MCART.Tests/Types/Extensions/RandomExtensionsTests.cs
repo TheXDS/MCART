@@ -27,7 +27,7 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types;
-using static TheXDS.MCART.Types.Extensions.RandomExtensions;
+using static TheXDS.MCART.Types.Factory.RandomExtensions;
 
 public class RandomExtensionsTests
 {

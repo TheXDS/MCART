@@ -22,31 +22,29 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types.Factory.ConstantLoaders;
 using System;
 using System.Reflection.Emit;
 
-namespace TheXDS.MCART.Types.Extensions
+/// <summary>
+/// Define una serie de miembros a implementar por un tipo que permita
+/// cargar valores constantes en una secuencia de instrucciones MSIL.
+/// </summary>
+public interface IConstantLoader
 {
     /// <summary>
-    /// Define una serie de miembros a implementar por un tipo que permita
-    /// cargar valores constantes en una secuencia de instrucciones MSIL.
+    /// Carga un valor constante en la secuencia de instrucciones MSIL.
     /// </summary>
-    public interface IConstantLoader
-    {
-        /// <summary>
-        /// Carga un valor constante en la secuencia de instrucciones MSIL.
-        /// </summary>
-        /// <param name="il">Generador de IL a utilizar.</param>
-        /// <param name="value">
-        /// Valor constante a cargar en la secuencia de instrucciones.
-        /// </param>
-        void Emit(ILGenerator il, object? value);
+    /// <param name="il">Generador de IL a utilizar.</param>
+    /// <param name="value">
+    /// Valor constante a cargar en la secuencia de instrucciones.
+    /// </param>
+    void Emit(ILGenerator il, object? value);
 
-        /// <summary>
-        /// Obtiene el tipo de constante que este 
-        /// <see cref="IConstantLoader"/> es capaz de cargar en la
-        /// secuencia de instrucciones MSIL.
-        /// </summary>
-        Type ConstantType { get; }
-    }
+    /// <summary>
+    /// Obtiene el tipo de constante que este 
+    /// <see cref="IConstantLoader"/> es capaz de cargar en la
+    /// secuencia de instrucciones MSIL.
+    /// </summary>
+    Type ConstantType { get; }
 }

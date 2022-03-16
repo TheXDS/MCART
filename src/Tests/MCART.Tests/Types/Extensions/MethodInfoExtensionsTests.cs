@@ -26,7 +26,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions;
 using NUnit.Framework;
 using System;
 using TheXDS.MCART.Helpers;
-using static TheXDS.MCART.Types.Extensions.MethodInfoExtensions;
+using static TheXDS.MCART.Types.Factory.MethodInfoExtensions;
 
 public class MethodInfoExtensionsTests
 {

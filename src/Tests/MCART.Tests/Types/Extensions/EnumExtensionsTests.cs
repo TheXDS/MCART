@@ -28,7 +28,7 @@ using System;
 using System.Linq;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Types;
-using static TheXDS.MCART.Types.Extensions.EnumExtensions;
+using static TheXDS.MCART.Types.Factory.EnumExtensions;
 
 public class EnumExtensionsTests
 {

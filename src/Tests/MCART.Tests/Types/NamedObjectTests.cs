@@ -32,9 +32,9 @@ using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Base;
-using TheXDS.MCART.Types.Extensions;
+using TheXDS.MCART.Types.Factory;
 using NUnit.Framework;
-using static TheXDS.MCART.Types.Extensions.NamedObjectExtensions;
+using static TheXDS.MCART.Types.Factory.NamedObjectExtensions;
 
 public class NamedObjectTests
 {

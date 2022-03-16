@@ -30,9 +30,9 @@ using System.Reflection;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Misc;
 using TheXDS.MCART.Resources;
-using TheXDS.MCART.Types.Extensions;
+using TheXDS.MCART.Types.Factory;
 using static TheXDS.MCART.Misc.Internals;
-using MIE = Types.Extensions.MemberInfoExtensions;
+using MIE = Types.Factory.MemberInfoExtensions;
 
 /// <summary>
 /// Expone la información de identificación de un ensamblado.

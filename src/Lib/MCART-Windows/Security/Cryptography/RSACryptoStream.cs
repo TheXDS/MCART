@@ -27,7 +27,7 @@ using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.IO;
-using TheXDS.MCART.Types.Extensions;
+using TheXDS.MCART.Types.Factory;
 using System.Linq;
 
 /// <summary>

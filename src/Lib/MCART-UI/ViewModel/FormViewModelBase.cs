@@ -33,7 +33,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types.Base;
-using TheXDS.MCART.Types.Extensions;
+using TheXDS.MCART.Types.Factory;
 using St = Resources.Strings.UiErrors;
 
 /// <summary>

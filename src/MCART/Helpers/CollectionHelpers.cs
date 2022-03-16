@@ -34,10 +34,10 @@ using System.Threading.Tasks;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Math;
-using TheXDS.MCART.Types.Extensions;
+using TheXDS.MCART.Types.Factory;
 using static TheXDS.MCART.Misc.Internals;
-using static TheXDS.MCART.Types.Extensions.EnumerableExtensions;
-using static TheXDS.MCART.Types.Extensions.TypeExtensions;
+using static TheXDS.MCART.Types.Factory.EnumerableExtensions;
+using static TheXDS.MCART.Types.Factory.TypeExtensions;
 
 /// <summary>
 /// Funciones auxiliares para trabajar con colecciones y enumeraciones.

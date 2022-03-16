@@ -26,7 +26,7 @@ namespace TheXDS.MCART.Tests.Types.Extensions;
 using NUnit.Framework;
 using System;
 using System.Text;
-using TheXDS.MCART.Types.Extensions;
+using TheXDS.MCART.Types.Factory;
 
 public class StringBuilderExtensionsTests
 {

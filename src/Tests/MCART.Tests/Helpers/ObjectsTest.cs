@@ -37,7 +37,7 @@ using TheXDS.MCART.Events;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Resources;
-using TheXDS.MCART.Types.Extensions;
+using TheXDS.MCART.Types.Factory;
 using static TheXDS.MCART.Helpers.Objects;
 
 [AttrTest]

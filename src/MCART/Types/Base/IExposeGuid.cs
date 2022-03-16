@@ -26,7 +26,7 @@ namespace TheXDS.MCART.Types.Base;
 using System;
 using System.Runtime.InteropServices;
 using TheXDS.MCART.Resources;
-using TheXDS.MCART.Types.Extensions;
+using TheXDS.MCART.Types.Factory;
 
 /// <summary>
 /// Define una serie de métodos a implementar por un tipo que exponga

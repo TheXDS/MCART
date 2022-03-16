@@ -29,7 +29,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using TheXDS.MCART.Helpers;
-using static TheXDS.MCART.Types.Extensions.TaskExtensions;
+using static TheXDS.MCART.Types.Factory.TaskExtensions;
 
 public class TaskExtensionsTest
 {

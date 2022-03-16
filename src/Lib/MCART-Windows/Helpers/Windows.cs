@@ -30,7 +30,7 @@ using System.Security.Principal;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Component;
 using TheXDS.MCART.PInvoke.Structs;
-using TheXDS.MCART.Types.Extensions;
+using TheXDS.MCART.Types.Factory;
 using static TheXDS.MCART.PInvoke.Gdi32;
 using static TheXDS.MCART.PInvoke.Kernel32;
 using static TheXDS.MCART.PInvoke.User32;

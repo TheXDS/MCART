@@ -26,10 +26,10 @@ namespace TheXDS.MCART.Attributes;
 using System;
 using System.Collections.Generic;
 using TheXDS.MCART.Resources;
-using TheXDS.MCART.Types.Extensions;
+using TheXDS.MCART.Types.Factory;
 using static System.AttributeTargets;
 using static TheXDS.MCART.Misc.Internals;
-using static TheXDS.MCART.Types.Extensions.DictionaryExtensions;
+using static TheXDS.MCART.Types.Factory.DictionaryExtensions;
 
 /// <summary>
 /// Marca un elemento con la licencia Open-Source correspondiente.

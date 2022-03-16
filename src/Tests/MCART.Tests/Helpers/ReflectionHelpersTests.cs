@@ -32,7 +32,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using TheXDS.MCART.Exceptions;
-using TheXDS.MCART.Types.Extensions;
+using TheXDS.MCART.Types.Factory;
 using static TheXDS.MCART.Helpers.ReflectionHelpers;
 
 public class ReflectionHelpersTests
@@ -108,7 +108,7 @@ public class ReflectionHelpersTests
 
         Assert.True(m2.IsOverride());
         Assert.False(m1.IsOverride());
-        Assert.Throws<ArgumentNullException>(() => TheXDS.MCART.Types.Extensions.MethodInfoExtensions.IsOverride(null!));
+        Assert.Throws<ArgumentNullException>(() => TheXDS.MCART.Types.Factory.MethodInfoExtensions.IsOverride(null!));
     }
 
     [Test]
