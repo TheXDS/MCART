@@ -22,116 +22,114 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Component;
 using System;
 using TheXDS.MCART.Types;
 using TheXDS.MCART.PInvoke.Structs;
 using static TheXDS.MCART.PInvoke.User32;
 
-namespace TheXDS.MCART.Component
+/// <summary>
+/// Define una serie de miembros a implementar por un tipo que represente
+/// una ventana de Microsoft Windows.
+/// </summary>
+public interface IMsWindow : IWindow
 {
     /// <summary>
-    /// Define una serie de miembros a implementar por un tipo que represente
-    /// una ventana de Microsoft Windows.
+    /// Obtiene el Handle por medio del cual la ventana puede ser
+    /// manipulada.
     /// </summary>
-    public interface IMsWindow : IWindow
+    IntPtr Handle { get; }
+
+    /// <summary>
+    /// Obtiene o establece el margen interior de espaciado entre los 
+    /// bordes de la ventana y su contenido.
+    /// </summary>
+    Margins Padding { get; set; }
+
+    /// <summary>
+    /// Obtiene o establece el tamaño de la ventana.
+    /// </summary>
+    Size IWindow.Size
     {
-        /// <summary>
-        /// Obtiene el Handle por medio del cual la ventana puede ser
-        /// manipulada.
-        /// </summary>
-        IntPtr Handle { get; }
-
-        /// <summary>
-        /// Obtiene o establece el margen interior de espaciado entre los 
-        /// bordes de la ventana y su contenido.
-        /// </summary>
-        Margins Padding { get; set; }
-
-        /// <summary>
-        /// Obtiene o establece el tamaño de la ventana.
-        /// </summary>
-        Size IWindow.Size
+        get
         {
-            get
-            {
-                return GetRect().Size;
-            }
-            set
-            {
-                Rect info = GetRect();
-                MoveWindow(Handle, info.Left, info.Top, (int)value.Width, (int)value.Height, true);
-            }
+            return GetRect().Size;
         }
-
-        /// <summary>
-        /// Obtiene o establece la posición de la ventana en coordenadas
-        /// absolutas de pantalla.
-        /// </summary>
-        Types.Point IWindow.Location
+        set
         {
-            get
-            {
-                return GetRect().Location;
-            }
-            set
-            {
-                Rect info = GetRect();
-                MoveWindow(Handle, (int)value.X, (int)value.Y, info.Width, info.Height, true);
-            }
+            Rect info = GetRect();
+            MoveWindow(Handle, info.Left, info.Top, (int)value.Width, (int)value.Height, true);
         }
+    }
 
-        /// <summary>
-        /// Oculta la ventana sin cerrarla.
-        /// </summary>
-        void IWindow.Hide()
+    /// <summary>
+    /// Obtiene o establece la posición de la ventana en coordenadas
+    /// absolutas de pantalla.
+    /// </summary>
+    Types.Point IWindow.Location
+    {
+        get
         {
-            CallShowWindow(ShowWindowFlags.Hide);
+            return GetRect().Location;
         }
+        set
+        {
+            Rect info = GetRect();
+            MoveWindow(Handle, (int)value.X, (int)value.Y, info.Width, info.Height, true);
+        }
+    }
 
-        /// <summary>
-        /// Maximiza la ventana.
-        /// </summary>
-        void IWindow.Maximize()
-        {
-            CallShowWindow(ShowWindowFlags.ShowMaximized);
-        }
+    /// <summary>
+    /// Oculta la ventana sin cerrarla.
+    /// </summary>
+    void IWindow.Hide()
+    {
+        CallShowWindow(ShowWindowFlags.Hide);
+    }
 
-        /// <summary>
-        /// Minimiza la ventana.
-        /// </summary>
-        void IWindow.Minimize()
-        {
-            CallShowWindow(ShowWindowFlags.Minimize);
-        }
+    /// <summary>
+    /// Maximiza la ventana.
+    /// </summary>
+    void IWindow.Maximize()
+    {
+        CallShowWindow(ShowWindowFlags.ShowMaximized);
+    }
 
-        /// <summary>
-        /// Restaura el tamaño de la ventana.
-        /// </summary>
-        void IWindow.Restore()
-        {
-            CallShowWindow(ShowWindowFlags.Restore);
-        }
+    /// <summary>
+    /// Minimiza la ventana.
+    /// </summary>
+    void IWindow.Minimize()
+    {
+        CallShowWindow(ShowWindowFlags.Minimize);
+    }
 
-        /// <summary>
-        /// Cambia el estado de la ventana entre Maximizar y Restaurar.
-        /// </summary>
-        void IWindow.ToggleMaximize()
-        {
-            WindowStyles s = (WindowStyles)GetWindowLong(Handle, WindowData.GWL_STYLE);
-            if (s.HasFlag(WindowStyles.WS_MAXIMIZE)) Restore();
-            else Maximize();
-        }
+    /// <summary>
+    /// Restaura el tamaño de la ventana.
+    /// </summary>
+    void IWindow.Restore()
+    {
+        CallShowWindow(ShowWindowFlags.Restore);
+    }
 
-        private void CallShowWindow(ShowWindowFlags flags)
-        {
-            if (Handle != IntPtr.Zero) ShowWindowAsync(Handle, flags);
-        }
+    /// <summary>
+    /// Cambia el estado de la ventana entre Maximizar y Restaurar.
+    /// </summary>
+    void IWindow.ToggleMaximize()
+    {
+        WindowStyles s = (WindowStyles)GetWindowLong(Handle, WindowData.GWL_STYLE);
+        if (s.HasFlag(WindowStyles.WS_MAXIMIZE)) Restore();
+        else Maximize();
+    }
 
-        private Rect GetRect()
-        {
-            Rect info = new();
-            GetWindowRect(Handle, ref info);
-            return info;
-        }
+    private void CallShowWindow(ShowWindowFlags flags)
+    {
+        if (Handle != IntPtr.Zero) ShowWindowAsync(Handle, flags);
+    }
+
+    private Rect GetRect()
+    {
+        Rect info = new();
+        GetWindowRect(Handle, ref info);
+        return info;
     }
 }

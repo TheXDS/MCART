@@ -22,24 +22,22 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.PInvoke.Structs;
 using System.Runtime.InteropServices;
 
-namespace TheXDS.MCART.PInvoke.Structs
+[StructLayout(LayoutKind.Sequential)]
+internal struct Point
 {
-    [StructLayout(LayoutKind.Sequential)]
-    internal struct Point
+    public int X;
+    public int Y;
+
+    public static implicit operator Types.Point(Point point)
     {
-        public int X;
-        public int Y;
+        return new(point.X, point.Y);
+    }
 
-        public static implicit operator Types.Point(Point point)
-        {
-            return new(point.X, point.Y);
-        }
-
-        public static implicit operator System.Drawing.Point(Point point)
-        {
-            return new(point.X, point.Y);
-        }
+    public static implicit operator System.Drawing.Point(Point point)
+    {
+        return new(point.X, point.Y);
     }
 }

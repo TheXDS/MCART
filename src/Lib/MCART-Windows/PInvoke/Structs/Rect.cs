@@ -23,104 +23,102 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.PInvoke.Structs;
 using System.Runtime.InteropServices;
 
-namespace TheXDS.MCART.PInvoke.Structs
+[StructLayout(LayoutKind.Sequential)]
+internal struct Rect
 {
-    [StructLayout(LayoutKind.Sequential)]
-    internal struct Rect
+    public int Left, Top, Right, Bottom;
+
+    public Rect(int left, int top, int right, int bottom)
     {
-        public int Left, Top, Right, Bottom;
+        Left = left;
+        Top = top;
+        Right = right;
+        Bottom = bottom;
+    }
 
-        public Rect(int left, int top, int right, int bottom)
+    public Rect(System.Drawing.Rectangle r) : this(r.Left, r.Top, r.Right, r.Bottom) { }
+
+    public int X
+    {
+        get => Left;
+        set { Right -= Left - value; Left = value; }
+    }
+
+    public int Y
+    {
+        get => Top;
+        set { Bottom -= Top - value; Top = value; }
+    }
+
+    public int Height
+    {
+        get => Bottom - Top;
+        set => Bottom = value + Top;
+    }
+
+    public int Width
+    {
+        get => Right - Left;
+        set => Right = value + Left;
+    }
+
+    public System.Drawing.Point Location
+    {
+        get => new(Left, Top);
+        set { X = value.X; Y = value.Y; }
+    }
+
+    public System.Drawing.Size Size
+    {
+        get => new(Width, Height);
+        set { Width = value.Width; Height = value.Height; }
+    }
+
+    public static implicit operator System.Drawing.Rectangle(Rect r)
+    {
+        return new System.Drawing.Rectangle(r.Left, r.Top, r.Width, r.Height);
+    }
+
+    public static implicit operator Rect(System.Drawing.Rectangle r)
+    {
+        return new Rect(r);
+    }
+
+    public static bool operator ==(Rect r1, Rect r2)
+    {
+        return r1.Equals(r2);
+    }
+
+    public static bool operator !=(Rect r1, Rect r2)
+    {
+        return !r1.Equals(r2);
+    }
+
+    public bool Equals(Rect r)
+    {
+        return r.Left == Left && r.Top == Top && r.Right == Right && r.Bottom == Bottom;
+    }
+
+    public override bool Equals(object? obj)
+    {
+        return obj switch
         {
-            Left = left;
-            Top = top;
-            Right = right;
-            Bottom = bottom;
-        }
+            Rect rect => Equals(rect),
+            System.Drawing.Rectangle rectangle => Equals(new Rect(rectangle)),
+            _ => false,
+        };
+    }
 
-        public Rect(System.Drawing.Rectangle r) : this(r.Left, r.Top, r.Right, r.Bottom) { }
+    public override int GetHashCode()
+    {
+        return ((System.Drawing.Rectangle)this).GetHashCode();
+    }
 
-        public int X
-        {
-            get => Left;
-            set { Right -= Left - value; Left = value; }
-        }
-
-        public int Y
-        {
-            get => Top;
-            set { Bottom -= Top - value; Top = value; }
-        }
-
-        public int Height
-        {
-            get => Bottom - Top;
-            set => Bottom = value + Top;
-        }
-
-        public int Width
-        {
-            get => Right - Left;
-            set => Right = value + Left;
-        }
-
-        public System.Drawing.Point Location
-        {
-            get => new(Left, Top);
-            set { X = value.X; Y = value.Y; }
-        }
-
-        public System.Drawing.Size Size
-        {
-            get => new(Width, Height);
-            set { Width = value.Width; Height = value.Height; }
-        }
-
-        public static implicit operator System.Drawing.Rectangle(Rect r)
-        {
-            return new System.Drawing.Rectangle(r.Left, r.Top, r.Width, r.Height);
-        }
-
-        public static implicit operator Rect(System.Drawing.Rectangle r)
-        {
-            return new Rect(r);
-        }
-
-        public static bool operator ==(Rect r1, Rect r2)
-        {
-            return r1.Equals(r2);
-        }
-
-        public static bool operator !=(Rect r1, Rect r2)
-        {
-            return !r1.Equals(r2);
-        }
-
-        public bool Equals(Rect r)
-        {
-            return r.Left == Left && r.Top == Top && r.Right == Right && r.Bottom == Bottom;
-        }
-
-        public override bool Equals(object? obj)
-        {
-            return obj switch
-            {
-                Rect rect => Equals(rect),
-                System.Drawing.Rectangle rectangle => Equals(new Rect(rectangle)),
-                _ => false,
-            };
-        }
-
-        public override int GetHashCode()
-        {
-            return ((System.Drawing.Rectangle)this).GetHashCode();
-        }
-
-        public override string ToString()
-        {
-            return $"{{Left={Left}, Top={Top}, Right={Right}, Bottom={Bottom}}}";
-        }
+    public override string ToString()
+    {
+        return $"{{Left={Left}, Top={Top}, Right={Right}, Bottom={Bottom}}}";
     }
 }

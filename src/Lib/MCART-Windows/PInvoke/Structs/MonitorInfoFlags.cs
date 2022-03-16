@@ -22,24 +22,22 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.PInvoke.Structs;
 using System;
 
-namespace TheXDS.MCART.PInvoke.Structs
+/// <summary>
+/// Flags that may be defined on the <see cref="MonitorInfo.Flags"/> field.
+/// </summary>
+[Flags]
+public enum MonitorInfoFlags
 {
     /// <summary>
-    /// Flags that may be defined on the <see cref="MonitorInfo.Flags"/> field.
+    /// No flags.
     /// </summary>
-    [Flags]
-    public enum MonitorInfoFlags
-    {
-        /// <summary>
-        /// No flags.
-        /// </summary>
-        None = 0x0,
+    None = 0x0,
 
-        /// <summary>
-        /// This is the primary display monitor.
-        /// </summary>
-        PrimaryDisplay = 0x1,
-    }
+    /// <summary>
+    /// This is the primary display monitor.
+    /// </summary>
+    PrimaryDisplay = 0x1,
 }

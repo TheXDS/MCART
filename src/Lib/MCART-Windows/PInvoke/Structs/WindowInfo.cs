@@ -23,27 +23,25 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.PInvoke.Structs;
 using System.Runtime.InteropServices;
 
-namespace TheXDS.MCART.PInvoke.Structs
+[StructLayout(LayoutKind.Sequential)]
+internal struct WindowInfo
 {
-    [StructLayout(LayoutKind.Sequential)]
-    internal struct WindowInfo
-    {
-        public uint CbSize;
-        public Rect RcWindow;
-        public Rect RcClient;
-        public WindowStyles DwStyle;
-        public WindowStyles DwExtendedStyle;
-        public uint DwWindowStatus;
-        public uint CxWindowBorders;
-        public uint CyWindowBorders;
-        public ushort AtomWindowType;
-        public ushort WCreatorVersion;
+    public uint CbSize;
+    public Rect RcWindow;
+    public Rect RcClient;
+    public WindowStyles DwStyle;
+    public WindowStyles DwExtendedStyle;
+    public uint DwWindowStatus;
+    public uint CxWindowBorders;
+    public uint CyWindowBorders;
+    public ushort AtomWindowType;
+    public ushort WCreatorVersion;
 
-        public WindowInfo(bool setCbSize = true) : this()
-        {
-            if (setCbSize) CbSize = (uint)Marshal.SizeOf(typeof(WindowInfo));
-        }
+    public WindowInfo(bool setCbSize = true) : this()
+    {
+        if (setCbSize) CbSize = (uint)Marshal.SizeOf(typeof(WindowInfo));
     }
 }

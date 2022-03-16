@@ -1,5 +1,5 @@
 ﻿/*
-Gdi32.cs
+FirmwareType.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,11 +22,27 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.PInvoke;
-using System;
-using System.Runtime.InteropServices;
+namespace TheXDS.MCART.Component;
 
-internal class Gdi32
+/// <summary>
+/// Enumera los posibles tipos de firmware que podría utilizar un equipo.
+/// </summary>
+public enum FirmwareType
 {
-    [DllImport("gdi32.dll")] internal static extern int GetDeviceCaps(IntPtr hdc, int nIndex);
+    /// <summary>
+    /// Tipo de firmware desconocido.
+    /// </summary>
+    FirmwareTypeUnknown,
+    /// <summary>
+    /// Firmware clásico BIOS
+    /// </summary>
+    FirmwareTypeBios,
+    /// <summary>
+    /// Firmware UEFI
+    /// </summary>
+    FirmwareTypeUefi,
+    /// <summary>
+    /// Valor máximo de la enumeración.
+    /// </summary>
+    FirmwareTypeMax
 }

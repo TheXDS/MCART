@@ -22,19 +22,17 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.PInvoke.Structs;
 using System.Runtime.InteropServices;
 
-namespace TheXDS.MCART.PInvoke.Structs
+[StructLayout(LayoutKind.Sequential, Pack = 4)]
+internal struct MonitorInfo
 {
-    [StructLayout(LayoutKind.Sequential, Pack = 4)]
-    internal struct MonitorInfo
-    {
-        public int cbSize; // = Marshal.SizeOf(typeof(MonitorInfo));
+    public int cbSize; // = Marshal.SizeOf(typeof(MonitorInfo));
 
-        public Rect Monitor;
+    public Rect Monitor;
 
-        public Rect WorkArea;
+    public Rect WorkArea;
 
-        public MonitorInfoFlags Flags;
-    }
+    public MonitorInfoFlags Flags;
 }

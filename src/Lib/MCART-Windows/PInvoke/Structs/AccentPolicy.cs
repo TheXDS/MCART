@@ -22,16 +22,14 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.PInvoke.Structs;
 using System.Runtime.InteropServices;
 
-namespace TheXDS.MCART.PInvoke.Structs
+[StructLayout(LayoutKind.Sequential)]
+internal struct AccentPolicy
 {
-    [StructLayout(LayoutKind.Sequential)]
-    internal struct AccentPolicy
-    {
-        public AccentState AccentState;
-        public int AccentFlags;
-        public int GradientColor;
-        public int AnimationId;
-    }
+    public AccentState AccentState;
+    public int AccentFlags;
+    public int GradientColor;
+    public int AnimationId;
 }

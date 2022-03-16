@@ -22,12 +22,11 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.PInvoke.Structs
+namespace TheXDS.MCART.PInvoke.Structs;
+
+internal enum WindowCompositionAttribute
 {
-    internal enum WindowCompositionAttribute
-    {
-        // ...
-        WCA_ACCENT_POLICY = 19
-        // ...
-    }
+    // ...
+    WCA_ACCENT_POLICY = 19
+    // ...
 }
