@@ -22,6 +22,7 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Ext.TypeFactory.Tests;
 using NUnit.Framework;
 using System;
 using System.ComponentModel;
@@ -31,74 +32,71 @@ using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Base;
 using TheXDS.MCART.Types.Factory;
 
-namespace TheXDS.MCART.TypeFactoryTests
+public class TypeFactoryTests
 {
-    public class TypeFactoryTests
+    public abstract class NpcBaseClass : INotifyPropertyChanged
     {
-        public abstract class NpcBaseClass : INotifyPropertyChanged
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        [NpcChangeInvocator]
+        protected void OnPropertyChanged([CallerMemberName] string? propertyName = null!)
         {
-            public event PropertyChangedEventHandler? PropertyChanged;
-
-            [NpcChangeInvocator]
-            protected void OnPropertyChanged([CallerMemberName] string? propertyName = null!)
-            {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+    }
 
-        private static readonly TypeFactory _factory = new("TheXDS.MCART.Tests.TypeFactoryTests._Generated");
+    private static readonly TypeFactory _factory = new("TheXDS.MCART.Tests.TypeFactoryTests._Generated");
 
-        [Test]
-        public void Build_Simple_Type_Test()
-        {
-            System.Reflection.Emit.TypeBuilder? t = _factory.NewClass("GreeterClass");
-            PropertyBuildInfo? nameProp = t.AddAutoProperty<string>("Name");
-            t.AddComputedProperty<string>("Greeting", p => p
-                .LoadConstant("Hello, ")
-                .LoadProperty(nameProp)
-                .Call<Func<string?, string?, string>>(string.Concat)
-                .Return());
+    [Test]
+    public void Build_Simple_Type_Test()
+    {
+        System.Reflection.Emit.TypeBuilder? t = _factory.NewClass("GreeterClass");
+        PropertyBuildInfo? nameProp = t.AddAutoProperty<string>("Name");
+        t.AddComputedProperty<string>("Greeting", p => p
+            .LoadConstant("Hello, ")
+            .LoadProperty(nameProp)
+            .Call<Func<string?, string?, string>>(string.Concat)
+            .Return());
 
-            object? greeterInstance = t.New();
-            ((dynamic)greeterInstance).Name = "Jhon";
+        object? greeterInstance = t.New();
+        ((dynamic)greeterInstance).Name = "Jhon";
 
-            Assert.AreEqual("TheXDS.MCART.Tests.TypeFactoryTests._Generated", t.Namespace);
-            Assert.AreEqual("Jhon", (string)((dynamic)greeterInstance).Name);
-            Assert.AreEqual("Hello, Jhon", (string)((dynamic)greeterInstance).Greeting);
-        }
+        Assert.AreEqual("TheXDS.MCART.Tests.TypeFactoryTests._Generated", t.Namespace);
+        Assert.AreEqual("Jhon", (string)((dynamic)greeterInstance).Name);
+        Assert.AreEqual("Hello, Jhon", (string)((dynamic)greeterInstance).Greeting);
+    }
 
-        [Test]
-        public void Build_Npc_Type_Test()
-        {
-            TypeBuilder<NotifyPropertyChanged>? t = _factory.NewType<NotifyPropertyChanged>("NpcTestClass");
-            t.AddNpcProperty<string>("Name");
-            dynamic npcInstance = t.New();
+    [Test]
+    public void Build_Npc_Type_Test()
+    {
+        TypeBuilder<NotifyPropertyChanged>? t = _factory.NewType<NotifyPropertyChanged>("NpcTestClass");
+        t.AddNpcProperty<string>("Name");
+        dynamic npcInstance = t.New();
 
-            (object? Sender, PropertyChangedEventArgs Arguments)? evt = null;
-            void OnPropertyChanged(object? sender, PropertyChangedEventArgs e) => evt = (sender, e);
-            ((NotifyPropertyChanged)npcInstance).PropertyChanged += OnPropertyChanged;
-            npcInstance.Name = "Test";
-            ((NotifyPropertyChanged)npcInstance).PropertyChanged -= OnPropertyChanged;
-            Assert.NotNull(evt);
-            Assert.AreEqual("Name", evt!.Value.Arguments.PropertyName);
-            Assert.AreEqual("Test", (string)npcInstance.Name);
-        }
+        (object? Sender, PropertyChangedEventArgs Arguments)? evt = null;
+        void OnPropertyChanged(object? sender, PropertyChangedEventArgs e) => evt = (sender, e);
+        ((NotifyPropertyChanged)npcInstance).PropertyChanged += OnPropertyChanged;
+        npcInstance.Name = "Test";
+        ((NotifyPropertyChanged)npcInstance).PropertyChanged -= OnPropertyChanged;
+        Assert.NotNull(evt);
+        Assert.AreEqual("Name", evt!.Value.Arguments.PropertyName);
+        Assert.AreEqual("Test", (string)npcInstance.Name);
+    }
 
-        [Test]
-        public void Build_Npc_Type_With_Public_Base_Class_Test()
-        {
-            TypeBuilder<NpcBaseClass>? t = _factory.NewType<NpcBaseClass>("NpcBaseTestClass");
-            t.AddNpcProperty<string>("Name");
-            t.AddNpcProperty<int>("Age");
-            dynamic npcInstance = t.New();
-            (object? Sender, PropertyChangedEventArgs Arguments)? evt = null;
-            void OnPropertyChanged(object? sender, PropertyChangedEventArgs e) => evt = (sender, e);
-            ((INotifyPropertyChanged)npcInstance).PropertyChanged += OnPropertyChanged;
-            npcInstance.Name = "Test";
-            ((INotifyPropertyChanged)npcInstance).PropertyChanged -= OnPropertyChanged;
-            Assert.NotNull(evt);
-            Assert.AreEqual("Name", evt!.Value.Arguments.PropertyName);
-            Assert.AreEqual("Test", (string)npcInstance.Name);
-        }
+    [Test]
+    public void Build_Npc_Type_With_Public_Base_Class_Test()
+    {
+        TypeBuilder<NpcBaseClass>? t = _factory.NewType<NpcBaseClass>("NpcBaseTestClass");
+        t.AddNpcProperty<string>("Name");
+        t.AddNpcProperty<int>("Age");
+        dynamic npcInstance = t.New();
+        (object? Sender, PropertyChangedEventArgs Arguments)? evt = null;
+        void OnPropertyChanged(object? sender, PropertyChangedEventArgs e) => evt = (sender, e);
+        ((INotifyPropertyChanged)npcInstance).PropertyChanged += OnPropertyChanged;
+        npcInstance.Name = "Test";
+        ((INotifyPropertyChanged)npcInstance).PropertyChanged -= OnPropertyChanged;
+        Assert.NotNull(evt);
+        Assert.AreEqual("Name", evt!.Value.Arguments.PropertyName);
+        Assert.AreEqual("Test", (string)npcInstance.Name);
     }
 }

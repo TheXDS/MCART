@@ -22,82 +22,80 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Helpers;
 using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using TheXDS.MCART.ViewModel;
 
-namespace TheXDS.MCART.Helpers
+/// <summary>
+/// Contiene métodos que permiten crear objetos, 
+/// <see cref="ConfiguredObservingCommand{T}"/> los cuales permiten
+/// configurar un <see cref="ObservingCommand"/>.
+/// </summary>
+public static class ConfiguredObservingCommand
 {
     /// <summary>
-    /// Contiene métodos que permiten crear objetos, 
-    /// <see cref="ConfiguredObservingCommand{T}"/> los cuales permiten
-    /// configurar un <see cref="ObservingCommand"/>.
+    /// Crea un nuevo <see cref="ConfiguredObservingCommand{T}"/>.
     /// </summary>
-    public static class ConfiguredObservingCommand
+    /// <typeparam name="T">Tipo del objeto que será observado.</typeparam>
+    /// <param name="observedObject">Objeto observado.</param>
+    /// <param name="action">Acción a asociar al comando.</param>
+    /// <returns>
+    /// Un nuevo <see cref="ConfiguredObservingCommand{T}"/> que puede
+    /// utilizarse para configurar y crear un
+    /// <see cref="ObservingCommand"/>.
+    /// </returns>
+    public static ConfiguredObservingCommand<T> Create<T>(this T observedObject, Action action) where T : INotifyPropertyChanged
     {
-        /// <summary>
-        /// Crea un nuevo <see cref="ConfiguredObservingCommand{T}"/>.
-        /// </summary>
-        /// <typeparam name="T">Tipo del objeto que será observado.</typeparam>
-        /// <param name="observedObject">Objeto observado.</param>
-        /// <param name="action">Acción a asociar al comando.</param>
-        /// <returns>
-        /// Un nuevo <see cref="ConfiguredObservingCommand{T}"/> que puede
-        /// utilizarse para configurar y crear un
-        /// <see cref="ObservingCommand"/>.
-        /// </returns>
-        public static ConfiguredObservingCommand<T> Create<T>(this T observedObject, Action action) where T : INotifyPropertyChanged
-        {
-            return new ConfiguredObservingCommand<T>(observedObject, action);
-        }
+        return new ConfiguredObservingCommand<T>(observedObject, action);
+    }
 
-        /// <summary>
-        /// Crea un nuevo <see cref="ConfiguredObservingCommand{T}"/>.
-        /// </summary>
-        /// <typeparam name="T">Tipo del objeto que será observado.</typeparam>
-        /// <param name="observedObject">Objeto observado.</param>
-        /// <param name="action">Acción a asociar al comando.</param>
-        /// <returns>
-        /// Un nuevo <see cref="ConfiguredObservingCommand{T}"/> que puede
-        /// utilizarse para configurar y crear un
-        /// <see cref="ObservingCommand"/>.
-        /// </returns>
-        public static ConfiguredObservingCommand<T> Create<T>(this T observedObject, Action<object?> action) where T : INotifyPropertyChanged
-        {
-            return new ConfiguredObservingCommand<T>(observedObject, action);
-        }
+    /// <summary>
+    /// Crea un nuevo <see cref="ConfiguredObservingCommand{T}"/>.
+    /// </summary>
+    /// <typeparam name="T">Tipo del objeto que será observado.</typeparam>
+    /// <param name="observedObject">Objeto observado.</param>
+    /// <param name="action">Acción a asociar al comando.</param>
+    /// <returns>
+    /// Un nuevo <see cref="ConfiguredObservingCommand{T}"/> que puede
+    /// utilizarse para configurar y crear un
+    /// <see cref="ObservingCommand"/>.
+    /// </returns>
+    public static ConfiguredObservingCommand<T> Create<T>(this T observedObject, Action<object?> action) where T : INotifyPropertyChanged
+    {
+        return new ConfiguredObservingCommand<T>(observedObject, action);
+    }
 
-        /// <summary>
-        /// Crea un nuevo <see cref="ConfiguredObservingCommand{T}"/>.
-        /// </summary>
-        /// <typeparam name="T">Tipo del objeto que será observado.</typeparam>
-        /// <param name="observedObject">Objeto observado.</param>
-        /// <param name="action">Acción a asociar al comando.</param>
-        /// <returns>
-        /// Un nuevo <see cref="ConfiguredObservingCommand{T}"/> que puede
-        /// utilizarse para configurar y crear un
-        /// <see cref="ObservingCommand"/>.
-        /// </returns>
-        public static ConfiguredObservingCommand<T> Create<T>(this T observedObject, Func<Task> action) where T : INotifyPropertyChanged
-        {
-            return new ConfiguredObservingCommand<T>(observedObject, action);
-        }
+    /// <summary>
+    /// Crea un nuevo <see cref="ConfiguredObservingCommand{T}"/>.
+    /// </summary>
+    /// <typeparam name="T">Tipo del objeto que será observado.</typeparam>
+    /// <param name="observedObject">Objeto observado.</param>
+    /// <param name="action">Acción a asociar al comando.</param>
+    /// <returns>
+    /// Un nuevo <see cref="ConfiguredObservingCommand{T}"/> que puede
+    /// utilizarse para configurar y crear un
+    /// <see cref="ObservingCommand"/>.
+    /// </returns>
+    public static ConfiguredObservingCommand<T> Create<T>(this T observedObject, Func<Task> action) where T : INotifyPropertyChanged
+    {
+        return new ConfiguredObservingCommand<T>(observedObject, action);
+    }
 
-        /// <summary>
-        /// Crea un nuevo <see cref="ConfiguredObservingCommand{T}"/>.
-        /// </summary>
-        /// <typeparam name="T">Tipo del objeto que será observado.</typeparam>
-        /// <param name="observedObject">Objeto observado.</param>
-        /// <param name="action">Acción a asociar al comando.</param>
-        /// <returns>
-        /// Un nuevo <see cref="ConfiguredObservingCommand{T}"/> que puede
-        /// utilizarse para configurar y crear un
-        /// <see cref="ObservingCommand"/>.
-        /// </returns>
-        public static ConfiguredObservingCommand<T> Create<T>(this T observedObject, Func<object?, Task> action) where T : INotifyPropertyChanged
-        {
-            return new ConfiguredObservingCommand<T>(observedObject, action);
-        }
+    /// <summary>
+    /// Crea un nuevo <see cref="ConfiguredObservingCommand{T}"/>.
+    /// </summary>
+    /// <typeparam name="T">Tipo del objeto que será observado.</typeparam>
+    /// <param name="observedObject">Objeto observado.</param>
+    /// <param name="action">Acción a asociar al comando.</param>
+    /// <returns>
+    /// Un nuevo <see cref="ConfiguredObservingCommand{T}"/> que puede
+    /// utilizarse para configurar y crear un
+    /// <see cref="ObservingCommand"/>.
+    /// </returns>
+    public static ConfiguredObservingCommand<T> Create<T>(this T observedObject, Func<object?, Task> action) where T : INotifyPropertyChanged
+    {
+        return new ConfiguredObservingCommand<T>(observedObject, action);
     }
 }
