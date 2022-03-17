@@ -29,7 +29,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Helpers;
-using TheXDS.MCART.Types.Factory;
+using TheXDS.MCART.Types.Extensions;
 
 public class DelegateExtensionsTests
 {

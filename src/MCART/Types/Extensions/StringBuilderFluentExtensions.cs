@@ -22,10 +22,11 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Types.Factory;
+namespace TheXDS.MCART.Types.Extensions;
 using System;
 using System.Text;
 using TheXDS.MCART.Helpers;
+using TheXDS.MCART.Types.Extensions;
 
 /// <summary>
 /// Extensiones de la clase <see cref="StringBuilder"/>.

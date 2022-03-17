@@ -28,7 +28,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using TheXDS.MCART.Exceptions;
-using TheXDS.MCART.Types.Factory;
+using TheXDS.MCART.Types.Extensions;
 using TheXDS.MCART.ViewModel;
 using static TheXDS.MCART.Helpers.ReflectionHelpers;
 

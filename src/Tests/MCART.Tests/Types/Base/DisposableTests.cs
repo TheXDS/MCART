@@ -26,7 +26,7 @@ namespace TheXDS.MCART.Tests.Types.Base;
 using NUnit.Framework;
 using System.Diagnostics.CodeAnalysis;
 using TheXDS.MCART.Types.Base;
-using TheXDS.MCART.Types.Factory;
+using TheXDS.MCART.Types.Extensions;
 using static System.Reflection.BindingFlags;
 
 public class DisposableTests

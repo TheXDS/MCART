@@ -29,7 +29,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Base;
-using TheXDS.MCART.Types.Factory;
+using TheXDS.MCART.Types.Extensions;
 using NUnit.Framework;
 
 public class CollectionExtensionsTests
@@ -75,7 +75,7 @@ public class CollectionExtensionsTests
     public void RemoveAll_With_Predicate_No_Action_Test()
     {
         List<int>? l = Enumerable.Range(1, 10).ToList();
-        TheXDS.MCART.Types.Factory.CollectionExtensions.RemoveAll(l, p => p % 2 == 1);
+        TheXDS.MCART.Types.Extensions.CollectionExtensions.RemoveAll(l, p => p % 2 == 1);
         Assert.AreEqual(new[] { 2, 4, 6, 8, 10 }, l.ToArray());
     }
 

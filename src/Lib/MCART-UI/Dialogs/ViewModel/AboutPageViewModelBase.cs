@@ -31,7 +31,7 @@ using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Component;
 using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Base;
-using TheXDS.MCART.Types.Factory;
+using TheXDS.MCART.Types.Extensions;
 using TheXDS.MCART.ViewModel;
 
 /// <summary>

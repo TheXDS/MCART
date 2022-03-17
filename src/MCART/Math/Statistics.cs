@@ -30,7 +30,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types;
-using TheXDS.MCART.Types.Factory;
+using TheXDS.MCART.Types.Extensions;
 
 /// <summary>
 /// Contiene diversas funciones estadísticas.

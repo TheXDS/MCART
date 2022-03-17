@@ -30,7 +30,7 @@ using TheXDS.MCART.Misc;
 using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Base;
 using static System.Math;
-using static TheXDS.MCART.Types.Factory.StringExtensions;
+using static TheXDS.MCART.Types.Extensions.StringExtensions;
 using CI = System.Globalization.CultureInfo;
 
 /// <summary>

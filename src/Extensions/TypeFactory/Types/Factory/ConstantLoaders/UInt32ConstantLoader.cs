@@ -22,7 +22,7 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Types.Factory.ConstantLoaders;
+namespace TheXDS.MCART.Types.Extensions.ConstantLoaders;
 using System;
 using System.Reflection.Emit;
 using static System.Reflection.Emit.OpCodes;

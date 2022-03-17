@@ -31,7 +31,7 @@ using System.Linq;
 using System.Reflection;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types;
-using TheXDS.MCART.Types.Factory;
+using TheXDS.MCART.Types.Extensions;
 
 [ExcludeFromCodeCoverage]
 internal static class PrivateInternals

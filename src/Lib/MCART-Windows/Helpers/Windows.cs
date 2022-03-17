@@ -30,10 +30,11 @@ using System.Security.Principal;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Component;
 using TheXDS.MCART.PInvoke.Structs;
-using TheXDS.MCART.Types.Factory;
+using TheXDS.MCART.Types.Extensions;
 using static TheXDS.MCART.PInvoke.Gdi32;
 using static TheXDS.MCART.PInvoke.Kernel32;
 using static TheXDS.MCART.PInvoke.User32;
+using static TheXDS.MCART.PInvoke.DwmApi;
 
 /// <summary>
 /// Contiene una serie de métodos auxiliares de la API de Microsoft
@@ -228,9 +229,37 @@ public static class Windows
         return c;
     }
 
+    /// <summary>
+    /// Intenta borrar un objeto dado su Handle específico.
+    /// </summary>
+    /// <param name="hwnd">
+    /// Handle del objeto de Windows a borrar.
+    /// </param>
+    /// <returns>
+    /// <see langword="true"/> si la operación ha sido exitosa,
+    /// <see langword="false"/> en caso contrario.
+    /// </returns>
+    public static bool TryDeleteObject(IntPtr hwnd)
+    {
+        return DeleteObject(hwnd);
+    }
+
     private static float GetScalingFactor(IntPtr handle)
     {
         IntPtr h = Graphics.FromHwnd(handle).GetHdc();
         return (float)GetDeviceCaps(h, 10) / GetDeviceCaps(h, 117);
+    }
+
+    /// <summary>
+    /// Comprueba si la composición de ventanas está disponible en el
+    /// sistema.
+    /// </summary>
+    /// <returns>
+    /// <see langword="true"/> si la composición de ventanas está
+    /// disponible, <see langword="false"/> en caso contrario.
+    /// </returns>
+    public static bool IsCompositionEnabled()
+    {
+        return DwmIsCompositionEnabled();
     }
 }

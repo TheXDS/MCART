@@ -25,7 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 namespace TheXDS.MCART.Component;
 using System;
 using TheXDS.MCART.PInvoke.Structs;
-using TheXDS.MCART.Types.Factory;
+using TheXDS.MCART.Types.Extensions;
 using static TheXDS.MCART.PInvoke.Kernel32;
 
 /// <summary>

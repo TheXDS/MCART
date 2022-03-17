@@ -34,7 +34,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Types;
-using TheXDS.MCART.Types.Factory;
+using TheXDS.MCART.Types.Extensions;
 
 public class TypeExtensionsTests
 {
@@ -93,7 +93,7 @@ public class TypeExtensionsTests
     public void ToNamedEnum_Test()
     {
         Assert.IsInstanceOf<IEnumerable<NamedObject<Enum>>>(typeof(DayOfWeek).ToNamedEnum());
-        Assert.Throws<ArgumentNullException>(() => _ = TheXDS.MCART.Types.Factory.TypeExtensions.ToNamedEnum(null!));
+        Assert.Throws<ArgumentNullException>(() => _ = TheXDS.MCART.Types.Extensions.TypeExtensions.ToNamedEnum(null!));
         Assert.Throws<ArgumentException>(() => _ = typeof(string).ToNamedEnum());
     }
 

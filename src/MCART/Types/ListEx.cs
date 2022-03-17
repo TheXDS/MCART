@@ -32,7 +32,7 @@ using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Events;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Types.Base;
-using TheXDS.MCART.Types.Factory;
+using TheXDS.MCART.Types.Extensions;
 
 /// <summary>
 /// Extensión observable de la clase 

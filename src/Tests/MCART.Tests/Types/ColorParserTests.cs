@@ -26,7 +26,7 @@ namespace TheXDS.MCART.Tests.Types;
 using NUnit.Framework;
 using System;
 using TheXDS.MCART.Types;
-using TheXDS.MCART.Types.Factory;
+using TheXDS.MCART.Types.Extensions;
 
 public class ColorParserTests
 {

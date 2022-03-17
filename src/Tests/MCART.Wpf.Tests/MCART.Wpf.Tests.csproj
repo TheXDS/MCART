@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<UseWpf>true</UseWpf>
+	</PropertyGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Platform\MCART.Wpf\MCART.Wpf.csproj" />
+	</ItemGroup>
+</Project>

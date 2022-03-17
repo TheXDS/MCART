@@ -28,7 +28,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using TheXDS.MCART.Resources;
-using TheXDS.MCART.Types.Factory;
+using TheXDS.MCART.Types.Extensions;
 using static TheXDS.MCART.Misc.Internals;
 
 public abstract partial class NotifyPropertyChangeBase

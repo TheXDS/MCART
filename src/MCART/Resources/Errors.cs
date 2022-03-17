@@ -27,7 +27,7 @@ using System;
 using System.Collections;
 using System.Reflection;
 using TheXDS.MCART.Exceptions;
-using TheXDS.MCART.Types.Factory;
+using TheXDS.MCART.Types.Extensions;
 using Ers = Strings.Errors;
 using Str = Strings.Common;
 
@@ -118,12 +118,12 @@ public static class Errors
     /// <returns>
     /// Una nueva instancia de la clase <see cref="ArgumentException"/>.
     /// </returns>
-    public static ArgumentException InvalidValue(string? argName, object? value)
+    public static ArgumentException InvalidValue(string? argName, object? value, Exception? inner = null)
     {
         string? msg = string.Format(Ers.InvalidXValue, value?.ToString() ?? Str.Null);
         return argName is { } s
-            ? new(msg, s)
-            : new(msg);
+            ? new(msg, s, inner)
+            : new(msg, inner);
     }
 
     /// <summary>

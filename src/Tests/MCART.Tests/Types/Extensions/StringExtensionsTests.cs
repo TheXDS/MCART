@@ -33,8 +33,8 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using TheXDS.MCART.Helpers;
-using static TheXDS.MCART.Types.Factory.SecureStringExtensions;
-using static TheXDS.MCART.Types.Factory.StringExtensions;
+using static TheXDS.MCART.Types.Extensions.SecureStringExtensions;
+using static TheXDS.MCART.Types.Extensions.StringExtensions;
 
 public class StringExtensionsTests
 {

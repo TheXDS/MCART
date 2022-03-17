@@ -28,8 +28,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using TheXDS.MCART.Types.Factory;
+using TheXDS.MCART.Types.Extensions;
 using System.Reflection;
+using TheXDS.MCART.Types.Extensions;
 
 /// <summary>
 /// Contiene cadenas de texto genéricas, además de funciones de

@@ -25,7 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 namespace TheXDS.MCART.Ext.TypeFactory.Tests;
 using System;
 using TheXDS.MCART.Types;
-using TheXDS.MCART.Types.Factory;
+using TheXDS.MCART.Types.Extensions;
 using NUnit.Framework;
 
 public class TypeExtensionsTests

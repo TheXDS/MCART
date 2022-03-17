@@ -22,9 +22,9 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Types.Factory;
+namespace TheXDS.MCART.Types.Extensions;
 using System.Collections.Generic;
-using TheXDS.MCART.Types.Factory.ConstantLoaders;
+using TheXDS.MCART.Types.Extensions.ConstantLoaders;
 
 /// <summary>
 /// Permite comparar la igualdad entre dos 

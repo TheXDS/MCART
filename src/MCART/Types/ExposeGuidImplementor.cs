@@ -27,7 +27,7 @@ using System;
 using System.Runtime.InteropServices;
 using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Base;
-using TheXDS.MCART.Types.Factory;
+using TheXDS.MCART.Types.Extensions;
 
 /// <summary>
 /// Implementa directamente <see cref="IExposeGuid"/>.

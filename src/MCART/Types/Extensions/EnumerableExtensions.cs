@@ -22,7 +22,7 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Types.Factory;
+namespace TheXDS.MCART.Types.Extensions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -622,7 +622,7 @@ public static partial class EnumerableExtensions
     /// <typeparam name="T">Tipo de la colección.</typeparam>
     /// <returns>
     /// Un <see cref="ListEx{T}" /> extendido del espacio de nombres
-    /// <see cref="Factory" />.
+    /// <see cref="Extensions" />.
     /// </returns>
     public static ListEx<T> ToExtendedList<T>(this IEnumerable<T> collection)
     {

@@ -2,7 +2,35 @@
 	<PropertyGroup>
 		<Description>MCART WPF Library</Description>
 		<OutputType>Library</OutputType>
-		<TargetFramework>net5.0-Windows</TargetFramework>
+		<TargetFramework>net6.0-Windows</TargetFramework>
 		<UseWPF>true</UseWPF>
 	</PropertyGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Lib\MCART-Windows\MCART.Windows.csproj" />
+	  <ProjectReference Include="..\..\MCART\MCART.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Update="Resources\Strings\Common.Designer.cs">
+	    <DependentUpon>Common.resx</DependentUpon>
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	  </Compile>
+	  <Compile Update="Resources\Strings\Errors.Designer.cs">
+	    <DependentUpon>Errors.resx</DependentUpon>
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	  </Compile>
+	</ItemGroup>
+	<ItemGroup>
+	  <EmbeddedResource Update="Resources\Strings\Common.resx">
+	    <CustomToolNamespace>TheXDS.MCART.Wpf.Resources.Strings</CustomToolNamespace>
+	    <LastGenOutput>Common.Designer.cs</LastGenOutput>
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Resources\Strings\Errors.resx">
+	    <CustomToolNamespace>TheXDS.MCART.Wpf.Resources.Strings</CustomToolNamespace>
+	    <LastGenOutput>Errors.Designer.cs</LastGenOutput>
+	    <Generator>ResXFileCodeGenerator</Generator>
+	  </EmbeddedResource>
+	</ItemGroup>
 </Project>

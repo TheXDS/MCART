@@ -27,7 +27,7 @@ using NUnit.Framework;
 using System;
 using System.IO;
 using System.Text;
-using TheXDS.MCART.Types.Factory;
+using TheXDS.MCART.Types.Extensions;
 
 public class BinaryWriterExtensionsTests
 {

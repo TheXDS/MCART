@@ -25,7 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 namespace TheXDS.MCART.Types;
 using System;
 using System.Reflection;
-using TheXDS.MCART.Types.Factory;
+using TheXDS.MCART.Types.Extensions;
 using static System.Reflection.MethodAttributes;
 using static TheXDS.MCART.Misc.Internals;
 

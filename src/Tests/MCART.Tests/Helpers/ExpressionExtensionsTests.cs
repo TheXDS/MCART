@@ -25,7 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 namespace TheXDS.MCART.Tests.Helpers;
 using NUnit.Framework;
 using System.Linq.Expressions;
-using TheXDS.MCART.Types.Factory;
+using TheXDS.MCART.Types.Extensions;
 
 public class ExpressionExtensionsTests
 {

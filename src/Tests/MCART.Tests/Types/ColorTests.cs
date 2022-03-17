@@ -32,7 +32,7 @@ using TheXDS.MCART.Math;
 using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Base;
-using TheXDS.MCART.Types.Factory;
+using TheXDS.MCART.Types.Extensions;
 
 public class ColorTests
 {

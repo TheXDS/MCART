@@ -22,7 +22,7 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Types.Factory;
+namespace TheXDS.MCART.Types.Extensions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -32,7 +32,7 @@ using System.Reflection;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Helpers;
 using static TheXDS.MCART.Misc.Internals;
-using static TheXDS.MCART.Types.Factory.EnumerableExtensions;
+using static TheXDS.MCART.Types.Extensions.EnumerableExtensions;
 
 /// <summary>
 /// Contiene extensiones útiles para la clase <see cref="object" />.

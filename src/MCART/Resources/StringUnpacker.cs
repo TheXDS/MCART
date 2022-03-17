@@ -29,7 +29,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using TheXDS.MCART.Helpers;
-using TheXDS.MCART.Types.Factory;
+using TheXDS.MCART.Types.Extensions;
 using St = TheXDS.MCART.Resources.Strings;
 
 /// <summary>

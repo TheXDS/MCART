@@ -22,7 +22,7 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Types.Factory;
+namespace TheXDS.MCART.Types.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -35,7 +35,8 @@ using System.Text.RegularExpressions;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Helpers;
-using St = TheXDS.MCART.Resources.Strings;
+using TheXDS.MCART.Types.Extensions;
+using St = Resources.Strings;
 
 /// <summary>
 /// Extensiones de la clase <see cref="string" />.
@@ -197,7 +198,7 @@ public static class StringExtensions
     /// Un arreglo de cadenas con el contenido de la cadena original 
     /// separado en filas de hasta 80 caracteres.
     /// </returns>
-    public static string[] TextWrap(this string str) => TextWrap(str, 80);
+    public static string[] TextWrap(this string str) => str.TextWrap(80);
 
     /// <summary>
     /// Separa en líneas el contenido de una cadena larga.
@@ -218,9 +219,7 @@ public static class StringExtensions
         foreach (string? j in str.Split(' '))
         {
             if ((l.LastOrDefault() ?? string.Empty).Length + j.Length > width)
-            {
                 l.AddRange(j.Split(width));
-            }
             else
             {
                 if (!l.Any()) l.Add(string.Empty);
@@ -238,7 +237,7 @@ public static class StringExtensions
             return str.Substring(ch,
                 ch + chunkSize > str.Length ? str.Length - ch : chunkSize);
         }
-        return Enumerable.Range(0, (str.Length / chunkSize) + 1).Select(Selector);
+        return Enumerable.Range(0, str.Length / chunkSize + 1).Select(Selector);
     }
 
     /// <summary>
@@ -254,7 +253,7 @@ public static class StringExtensions
     [Sugar]
     public static bool ContainsAny(this string stringToCheck, params char[] chars)
     {
-        return ContainsAny(stringToCheck, out _, chars);
+        return stringToCheck.ContainsAny(out _, chars);
     }
 
     /// <summary>
@@ -320,7 +319,7 @@ public static class StringExtensions
     [Sugar]
     public static bool ContainsAny(this string stringToCheck, params string[] strings)
     {
-        return ContainsAny(stringToCheck, strings, out _);
+        return stringToCheck.ContainsAny(strings, out _);
     }
 
     /// <summary>
@@ -336,7 +335,7 @@ public static class StringExtensions
     [Sugar]
     public static bool ContainsAny(this string stringToCheck, IEnumerable<string> strings)
     {
-        return ContainsAny(stringToCheck, strings, out _);
+        return stringToCheck.ContainsAny(strings, out _);
     }
 
     /// <summary>
@@ -456,7 +455,7 @@ public static class StringExtensions
     /// </exception>
     public static float CouldItBe(this string checkName, string actualName)
     {
-        return CouldItBe(checkName, actualName, 0.75f);
+        return checkName.CouldItBe(actualName, 0.75f);
     }
 
     /// <summary>
@@ -525,7 +524,7 @@ public static class StringExtensions
     [Sugar]
     public static int CountChars(this string stringToCheck, string chars)
     {
-        return CountChars(stringToCheck, chars.ToCharArray());
+        return stringToCheck.CountChars(chars.ToCharArray());
     }
 
     /// <summary>
@@ -572,7 +571,7 @@ public static class StringExtensions
     /// </returns>
     public static bool IsFormattedAs(this string checkString, string format)
     {
-        return IsFormattedAs(checkString, format, false);
+        return checkString.IsFormattedAs(format, false);
     }
 
     /// <summary>
@@ -655,7 +654,7 @@ public static class StringExtensions
     /// <param name="toString">Cadena B a comparar.</param>
     public static float Likeness(this string ofString, string toString)
     {
-        return Likeness(ofString, toString, 3);
+        return ofString.Likeness(toString, 3);
     }
 
     /// <summary>
@@ -798,7 +797,7 @@ public static class StringExtensions
     /// </returns>
     public static string Spell(this string str)
     {
-        return Separate(str, ' ');
+        return str.Separate(' ');
     }
 
     /// <summary>
@@ -926,7 +925,7 @@ public static class StringExtensions
     /// </returns>
     public static bool TokenSearch(this string str, string searchTerms)
     {
-        return TokenSearch(str, searchTerms, SearchOptions.Default);
+        return str.TokenSearch(searchTerms, SearchOptions.Default);
     }
 
     /// <summary>
@@ -948,7 +947,7 @@ public static class StringExtensions
     /// </returns>
     public static bool TokenSearch(this string str, string searchTerms, SearchOptions options)
     {
-        return TokenSearch(str, searchTerms, ' ', options);
+        return str.TokenSearch(searchTerms, ' ', options);
     }
 
     /// <summary>
@@ -1032,7 +1031,7 @@ public static class StringExtensions
     /// </remarks>
     public static Stream ToStream(this string @string)
     {
-        return ToStream(@string, Encoding.UTF8);
+        return @string.ToStream(Encoding.UTF8);
     }
 
     /// <summary>
@@ -1058,7 +1057,7 @@ public static class StringExtensions
     /// <returns>
     /// Una cadena en formato base64 con el contenido de la cadena original.
     /// </returns>
-    public static string ToBase64(this string @string) => ToBase64(@string, Encoding.UTF8);
+    public static string ToBase64(this string @string) => @string.ToBase64(Encoding.UTF8);
 
     /// <summary>
     /// Devuelve una nueva cadena sin los caracteres especificados.

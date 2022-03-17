@@ -27,7 +27,7 @@ using System;
 using System.Windows.Input;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Types;
-using TheXDS.MCART.Types.Factory;
+using TheXDS.MCART.Types.Extensions;
 using TheXDS.MCART.UI.Base;
 using TheXDS.MCART.ViewModel;
 

@@ -30,7 +30,8 @@ using System.Collections.Generic;
 using System.Linq;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Helpers;
-using TheXDS.MCART.Types.Factory;
+using TheXDS.MCART.Types.Extensions;
+using TheXDS.MCART.Types.Extensions;
 
 /// <summary>
 /// Representa una expresión que puede resolverse a un tipo definido.

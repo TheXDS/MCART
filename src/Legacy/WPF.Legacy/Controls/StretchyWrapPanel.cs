@@ -292,13 +292,11 @@ namespace TheXDS.MCART.Controls
         {
             bool useItemU;
             double itemU = 0.0;
-            if (Orientation == Orientation.Horizontal)
+            if (useItemU = !double.IsNaN(ItemHeight))
             {
-                if (useItemU = !double.IsNaN(ItemWidth)) itemU = ItemWidth;
-            }
-            else
-            {
-                if (useItemU = !double.IsNaN(ItemHeight)) itemU = ItemHeight;
+                itemU = Orientation == Orientation.Horizontal
+                    ? ItemWidth
+                    : ItemHeight;
             }
             return (useItemU, itemU);
         }

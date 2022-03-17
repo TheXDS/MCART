@@ -27,7 +27,7 @@ using NUnit.Framework;
 using System;
 using System.Globalization;
 using TheXDS.MCART.Resources.Strings;
-using TheXDS.MCART.Types.Factory;
+using TheXDS.MCART.Types.Extensions;
 
 public class TimeSpanExtensionsTests
 {

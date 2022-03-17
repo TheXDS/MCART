@@ -33,10 +33,10 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using TheXDS.MCART.Attributes;
-using TheXDS.MCART.Types.Factory;
+using TheXDS.MCART.Types.Extensions;
 using static TheXDS.MCART.Misc.Internals;
-using static TheXDS.MCART.Types.Factory.EnumerableExtensions;
-using static TheXDS.MCART.Types.Factory.TypeExtensions;
+using static TheXDS.MCART.Types.Extensions.EnumerableExtensions;
+using static TheXDS.MCART.Types.Extensions.TypeExtensions;
 
 /// <summary>
 /// Funciones de manipulación de objetos.

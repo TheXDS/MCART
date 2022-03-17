@@ -28,7 +28,7 @@ using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Resources;
-using TheXDS.MCART.Types.Factory;
+using TheXDS.MCART.Types.Extensions;
 
 /// <summary>
 /// <see cref="TypeBuilder"/> que incluye información fuertemente tipeada

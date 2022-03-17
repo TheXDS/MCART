@@ -22,12 +22,13 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Types.Factory;
+namespace TheXDS.MCART.Types.Extensions;
 using System;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Types.Extensions;
 
 /// <summary>
 /// Contiene extensiones para la clase <see cref="MethodBase"/>.
@@ -52,7 +53,7 @@ public static partial class MethodBaseExtensions
         s.Append(method.Name);
         if (method.IsGenericMethod)
         {
-            s.Append(string.Join(", ", method.GetGenericArguments().Select(Types.Factory.TypeExtensions.CSharpName)).OrNull("<{0}>"));
+            s.Append(string.Join(", ", method.GetGenericArguments().Select(Types.Extensions.TypeExtensions.CSharpName)).OrNull("<{0}>"));
         }
         s.Append($"({string.Join(", ", method.GetParameters().Select(q => q.ParameterType.CSharpName()))})");
         return s.ToString();

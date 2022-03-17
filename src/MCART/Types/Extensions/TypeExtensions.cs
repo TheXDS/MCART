@@ -26,7 +26,7 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Types.Factory;
+namespace TheXDS.MCART.Types.Extensions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -41,6 +41,7 @@ using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Resources;
 using System.Linq.Expressions;
 using TheXDS.MCART.Helpers;
+using TheXDS.MCART.Types.Extensions;
 
 /// <summary>
 /// Extensiones para todos los elementos de tipo <see cref="Type"/>.

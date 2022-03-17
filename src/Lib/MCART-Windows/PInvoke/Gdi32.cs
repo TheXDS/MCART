@@ -29,4 +29,6 @@ using System.Runtime.InteropServices;
 internal class Gdi32
 {
     [DllImport("gdi32.dll")] internal static extern int GetDeviceCaps(IntPtr hdc, int nIndex);
+    [return: MarshalAs(UnmanagedType.Bool)]
+    [DllImport("gdi32.dll")] internal static extern bool DeleteObject(IntPtr value);
 }

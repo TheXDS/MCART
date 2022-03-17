@@ -27,7 +27,7 @@ using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Base;
-using static TheXDS.MCART.Types.Factory.StringExtensions;
+using static TheXDS.MCART.Types.Extensions.StringExtensions;
 using CI = System.Globalization.CultureInfo;
 
 /// <summary>

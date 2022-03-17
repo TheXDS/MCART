@@ -29,8 +29,8 @@ using System.Reflection;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Helpers;
-using static TheXDS.MCART.Types.Factory.StringExtensions;
-using static TheXDS.MCART.Types.Factory.TypeExtensions;
+using static TheXDS.MCART.Types.Extensions.StringExtensions;
+using static TheXDS.MCART.Types.Extensions.TypeExtensions;
 
 /// <summary>
 /// Clase base que permite definir un <see cref="IUnpacker{T}"/> que extrae
@@ -173,21 +173,6 @@ public abstract partial class AssemblyUnpacker<T> : IUnpacker<T>
     /// </returns>
     public abstract T Unpack(string id, ICompressorGetter compressor);
 
-#if !RatherDRY
-    private static bool InternalTryUnpack(Func<T> function, out T result)
-    {
-        try
-        {
-            result = function();
-            return true;
-        }
-        catch
-        {
-            result = default!;
-            return false;
-        }
-    }
-
     /// <summary>
     /// Intenta obtener un recurso identificable.
     /// </summary>
@@ -245,26 +230,12 @@ public abstract partial class AssemblyUnpacker<T> : IUnpacker<T>
     {
         return AssemblyUnpacker<T>.InternalTryUnpack(() => Unpack(id, compressor), out result);
     }
-#else
-    public virtual bool TryUnpack(string id, out T result)
-    {
-        try
-        {
-            result = Unpack(id);
-            return true;
-        }
-        catch
-        {
-            result = default!;
-            return false;
-        }
-    }
 
-    public virtual bool TryUnpack(string id, string compressorId, out T result)
+    private static bool InternalTryUnpack(Func<T> function, out T result)
     {
         try
         {
-            result = Unpack(id, compressorId);
+            result = function();
             return true;
         }
         catch
@@ -273,19 +244,4 @@ public abstract partial class AssemblyUnpacker<T> : IUnpacker<T>
             return false;
         }
     }
-
-    public virtual bool TryUnpack(string id, ICompressorGetter compressor, out T result)
-    {
-        try
-        {
-            result = Unpack(id, compressor);
-            return true;
-        }
-        catch
-        {
-            result = default!;
-            return false;
-        }
-    }
-#endif
 }

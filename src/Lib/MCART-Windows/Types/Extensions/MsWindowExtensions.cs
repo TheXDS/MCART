@@ -22,7 +22,7 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Types.Factory;
+namespace TheXDS.MCART.Types.Extensions;
 using System;
 using System.Runtime.InteropServices;
 using TheXDS.MCART.Component;
@@ -35,19 +35,6 @@ using static TheXDS.MCART.PInvoke.User32;
 /// </summary>
 public static class MsWindowExtensions
 {
-    /// <summary>
-    /// Comprueba si la composición de ventanas está disponible en el
-    /// sistema.
-    /// </summary>
-    /// <returns>
-    /// <see langword="true"/> si la composición de ventanas está
-    /// disponible, <see langword="false"/> en caso contrario.
-    /// </returns>
-    public static bool IsCompositionEnabled()
-    {
-        return DwmIsCompositionEnabled();
-    }
-
     /// <summary>
     /// Deshabilita todos los efectos de la ventana.
     /// </summary>
@@ -105,7 +92,7 @@ public static class MsWindowExtensions
     /// </param>
     public static void SetFramePadding(this IMsWindow window, Margins padding)
     {
-        if (IsCompositionEnabled())
+        if (Helpers.Windows.IsCompositionEnabled())
             if (Marshal.GetExceptionForHR(DwmExtendFrameIntoClientArea(window.Handle, ref padding)) is { } ex) throw ex;
     }
 
