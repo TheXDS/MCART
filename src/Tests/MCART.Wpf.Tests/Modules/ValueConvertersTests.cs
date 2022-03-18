@@ -29,6 +29,11 @@ using System.Globalization;
 using System.Windows;
 using TheXDS.MCART.ValueConverters;
 
+public class WpfUtilsTests
+{
+
+}
+
 public class ValueConvertersTests
 {
     [Test]

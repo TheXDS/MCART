@@ -33,4 +33,12 @@
 	    <Generator>ResXFileCodeGenerator</Generator>
 	  </EmbeddedResource>
 	</ItemGroup>
+	<ItemGroup>
+	  <Page Update="Resources\ControlTemplates\BusyIndicator.xaml">
+	    <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+	  </Page>
+	  <Page Update="Themes\Generic.xaml">
+	    <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+	  </Page>
+	</ItemGroup>
 </Project>

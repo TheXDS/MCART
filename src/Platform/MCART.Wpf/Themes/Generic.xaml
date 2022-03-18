@@ -1,0 +1,7 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/MCART.Wpf;component/Resources/ControlTemplates/SelectorPanel.xaml"/>
+        <ResourceDictionary Source="/MCART.Wpf;component/Resources/ControlTemplates/BusyIndicator.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

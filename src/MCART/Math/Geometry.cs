@@ -22,7 +22,9 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Math;using TheXDS.MCART.Attributes;using TheXDS.MCART.Types;
+namespace TheXDS.MCART.Math;
+using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Types;
 
 /// <summary>
 /// Contiene funciones de trigonometría y geometría.
@@ -82,8 +84,8 @@ public static partial class Geometry
     /// </returns>
     public static Point GetArcPoint(in double radius, in double startAngle, in double endAngle, in double position)
     {
-        double x = (startAngle - endAngle) * position * DegRad;
-        return new Point(System.Math.Sin(x) * radius, System.Math.Cos(x) * radius);
+        (double x, double y) = System.Math.SinCos((startAngle - endAngle) * position * DegRad);
+        return new Point(x * radius, y * radius);
     }
 
     /// <summary>

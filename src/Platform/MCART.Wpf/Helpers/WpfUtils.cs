@@ -165,19 +165,19 @@ public static class WpfUtils
     /// </returns>
     public static PathGeometry GetCircleArc(double radius, double angle, double thickness = 0)
     {
-        Point cp = new(radius + thickness / 2, radius + thickness / 2);
+        double t2 = thickness / 2;
+        double rt = radius - t2;
+        var p = C.GetArcPoint(rt, 0, angle - 180, 1);
         ArcSegment? arc = new()
         {
             IsLargeArc = angle > 180.0,
-            Point = new Point(
-                cp.X + System.Math.Sin(C.DegRad * angle) * radius,
-                cp.Y - System.Math.Cos(C.DegRad * angle) * radius),
-            Size = new Size(radius, radius),
+            Point = new(p.X + radius, p.Y + radius),
+            Size = new(rt, rt),
             SweepDirection = SweepDirection.Clockwise
         };
         PathFigure? pth = new()
         {
-            StartPoint = new Point(cp.X, cp.Y - radius),
+            StartPoint = new(radius, t2),
             IsClosed = false
         };
         pth.Segments.Add(arc);
