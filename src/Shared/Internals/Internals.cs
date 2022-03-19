@@ -33,7 +33,6 @@ using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Extensions;
-using TheXDS.MCART.Types.Extensions;
 
 [ExcludeFromCodeCoverage]
 internal static class Internals

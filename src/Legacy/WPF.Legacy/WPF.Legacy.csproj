@@ -39,6 +39,7 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Modules\" />
+	  <Folder Include="Resources\Templates\" />
 	  <Folder Include="ViewModel\" />
 	</ItemGroup>
 </Project>
