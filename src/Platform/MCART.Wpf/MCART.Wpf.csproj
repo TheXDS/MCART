@@ -34,10 +34,7 @@
 	  </EmbeddedResource>
 	</ItemGroup>
 	<ItemGroup>
-	  <Page Update="Resources\ControlTemplates\BusyContainer.xaml">
-	    <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-	  </Page>
-	  <Page Update="Resources\ControlTemplates\BusyIndicator.xaml">
+	  <Page Update="Resources\ControlTemplates\*.xaml">
 	    <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
 	  </Page>
 	  <Page Update="Themes\Generic.xaml">

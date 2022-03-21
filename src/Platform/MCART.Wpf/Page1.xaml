@@ -11,12 +11,14 @@
     <Grid>
         <TextBlock Text="{Binding SelectedIndex, ElementName=sel1}"/>
         <controls:SelectorPanel
-            SelectedIndex="0"
+            SelectedIndex="1"
             x:Name="sel1" 
             VerticalAlignment="Center"
             HorizontalAlignment="Center">
-            <controls:BusyIndicator Thickness="4" Radius="24"/>
-            <Ellipse Fill="Green"/>
+            <controls:BusyIndicator Stroke="Red"/>
+            <controls:ProgressRing Value="65" IsIndeterminate="False">
+                
+            </controls:ProgressRing>
             <Ellipse Fill="Blue"/>
         </controls:SelectorPanel>
     </Grid>

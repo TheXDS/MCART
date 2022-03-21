@@ -25,23 +25,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 namespace TheXDS.MCART.Helpers;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Input;
-using System.Windows.Interop;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
-using TheXDS.MCART.Attributes;
-using TheXDS.MCART.Component;
 using TheXDS.MCART.Types.Base;
 using TheXDS.MCART.Types.Extensions;
-using static TheXDS.MCART.Types.Extensions.StringExtensions;
 using static TheXDS.MCART.Types.Extensions.TypeExtensions;
 using C = Math.Geometry;
 
