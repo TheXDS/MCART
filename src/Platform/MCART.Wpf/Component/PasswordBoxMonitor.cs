@@ -85,28 +85,33 @@ namespace TheXDS.MCART.Wpf.Component
             All
         }
 
-        private static readonly DependencyPropertyKey IsMonitoringDependencyPropertyKey = DependencyProperty.RegisterAttachedReadOnly("IsMonitoring", typeof(bool), typeof(PasswordBoxMonitor), new PropertyMetadata(false));
+        private static readonly DependencyPropertyKey IsMonitoringDependencyPropertyKey = DependencyProperty.RegisterAttachedReadOnly(
+            "IsMonitoring", typeof(bool), typeof(PasswordBoxMonitor), new PropertyMetadata(false));
 
         /// <summary>
         /// Permite monitorear un <see cref="PasswordBox"/>.
         /// </summary>
-        public static readonly DependencyProperty MonitoringProperty = DependencyProperty.RegisterAttached("Monitoring", typeof(MonitorLevel), typeof(PasswordBoxMonitor), new PropertyMetadata(MonitorLevel.None, OnMonitoringChanged),ValidateMonitorValue);
+        public static readonly DependencyProperty MonitoringProperty = DependencyProperty.RegisterAttached(
+            "Monitoring", typeof(MonitorLevel), typeof(PasswordBoxMonitor), new PropertyMetadata(MonitorLevel.None, OnMonitoringChanged),ValidateMonitorValue);
 
         /// <summary>
         /// Obtiene la longitud de la contraseña presentada en el
         /// <see cref="PasswordBox"/>.
         /// </summary>
-        public static readonly DependencyProperty PasswordLengthProperty = DependencyProperty.RegisterAttached("PasswordLength", typeof(int), typeof(PasswordBoxMonitor), new PropertyMetadata(0));
+        public static readonly DependencyProperty PasswordLengthProperty = DependencyProperty.RegisterAttached(
+            "PasswordLength", typeof(int), typeof(PasswordBoxMonitor), new PropertyMetadata(0));
 
         /// <summary>
         /// Emula una propiedad <see cref="PasswordBox.Password"/> bindeable.
         /// </summary>
-        public static readonly DependencyProperty PasswordProperty = DependencyProperty.RegisterAttached("Password", typeof(string), typeof(PasswordBoxMonitor), new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+        public static readonly DependencyProperty PasswordProperty = DependencyProperty.RegisterAttached(
+            "Password", typeof(string), typeof(PasswordBoxMonitor), new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
         /// <summary>
         /// Emula una propiedad <see cref="PasswordBox.SecurePassword"/> bindeable.
         /// </summary>
-        public static readonly DependencyProperty SecurePasswordProperty = DependencyProperty.RegisterAttached("SecurePassword", typeof(SecureString), typeof(PasswordBoxMonitor), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+        public static readonly DependencyProperty SecurePasswordProperty = DependencyProperty.RegisterAttached(
+            "SecurePassword", typeof(SecureString), typeof(PasswordBoxMonitor), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
         /// <summary>
         /// Obtiene una propiedad que indica si el <see cref="PasswordBox"/>
@@ -129,7 +134,7 @@ namespace TheXDS.MCART.Wpf.Component
         /// </returns>
         public static bool GetIsMonitoring(DependencyObject obj)
         {
-            return (MonitorLevel)obj.GetValue(MonitoringProperty) != MonitorLevel.None;
+            return GetMonitoring(obj) != MonitorLevel.None;
         }
 
         /// <summary>

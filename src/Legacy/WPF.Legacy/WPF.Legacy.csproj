@@ -38,6 +38,7 @@
 	  </Page>
 	</ItemGroup>
 	<ItemGroup>
+	  <Folder Include="Component\" />
 	  <Folder Include="Modules\" />
 	  <Folder Include="Resources\Templates\" />
 	  <Folder Include="ViewModel\" />

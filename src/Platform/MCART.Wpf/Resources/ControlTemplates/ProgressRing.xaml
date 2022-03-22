@@ -6,7 +6,7 @@
     xmlns:controls="clr-namespace:TheXDS.MCART.Controls"
     xmlns:valueconverters="clr-namespace:TheXDS.MCART.ValueConverters"
     mc:Ignorable="d">
-    <Style TargetType="{x:Type controls:ProgressRing}">
+    <Style TargetType="controls:ProgressRing">
         <Style.Resources>
             <valueconverters:BooleanToInvVisibilityConverter x:Key="b2ivc"/>
         </Style.Resources>

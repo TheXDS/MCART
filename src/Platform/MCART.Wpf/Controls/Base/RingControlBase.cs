@@ -115,6 +115,13 @@ public abstract class RingControlBase : Control
         p.OnLayoutUpdate((double)d.GetValue(RadiusProperty), (double)d.GetValue(ThicknessProperty));
     }
 
+    /// <summary>
+    /// Actualiza el estado visual completo del control.
+    /// </summary>
+    /// <param name="d">Objeto que es el origen del evento.</param>
+    /// <param name="e">
+    /// Argumentos de cambio de valor de la propiedad de dependencia.
+    /// </param>
     protected static void UpdateFullLayout(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
         if (d is not RingControlBase) return;
@@ -125,6 +132,13 @@ public abstract class RingControlBase : Control
         d.SetValue(HeightProperty, r * 2);
     }
 
+    /// <summary>
+    /// Actualiza el estado de grosor de los anillos del control de anillo.
+    /// </summary>
+    /// <param name="d">Objeto que es el origen del evento.</param>
+    /// <param name="e">
+    /// Argumentos de cambio de valor de la propiedad de dependencia.
+    /// </param>
     protected static void UpdateThicknessLayout(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
         if (d is null) return;

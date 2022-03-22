@@ -20,8 +20,6 @@
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
 	  </Compile>
-	</ItemGroup>
-	<ItemGroup>
 	  <EmbeddedResource Update="Resources\Strings\Common.resx">
 	    <CustomToolNamespace>TheXDS.MCART.Wpf.Resources.Strings</CustomToolNamespace>
 	    <LastGenOutput>Common.Designer.cs</LastGenOutput>
