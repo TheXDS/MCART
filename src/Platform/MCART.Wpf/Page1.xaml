@@ -8,18 +8,72 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Page1">
+    <Page.Resources>
+        <Style x:Key="testbi" TargetType="{x:Type controls:BusyIndicator}">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type controls:BusyIndicator}">
+                        <Path
+                            Height="{TemplateBinding Height}"
+                            Width="{TemplateBinding Width}"  
+                            x:Name="PART_path"
+                            StrokeEndLineCap="Round"
+                            StrokeStartLineCap="Round"
+                            RenderTransformOrigin="0.5,0.5"
+                            Stroke="{TemplateBinding Stroke}"
+                            StrokeThickness="{TemplateBinding Thickness}">
+                            <Path.RenderTransform>
+                                <RotateTransform x:Name="PART_rotate"/>
+                            </Path.RenderTransform>
+                        </Path>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Running" Value="True">
+                                <Trigger.EnterActions>
+                                    <StopStoryboard BeginStoryboardName="WaitingAnim" />
+                                    <BeginStoryboard Name="DefaultAnim">
+                                        <Storyboard>
+                                            <DoubleAnimation
+                                            Storyboard.TargetName="PART_rotate"
+                                            Storyboard.TargetProperty="Angle"
+                                            From="0" To="360" Duration="0:0:2"
+                                            RepeatBehavior="Forever"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                            </Trigger>
+                            <Trigger Property="Running" Value="False">
+                                <Trigger.EnterActions>
+                                    <StopStoryboard BeginStoryboardName="DefaultAnim" />
+                                    <BeginStoryboard Name="WaitingAnim">
+                                        <Storyboard>
+                                            <DoubleAnimation
+                                            Storyboard.TargetName="PART_rotate"
+                                            Storyboard.TargetProperty="Angle"
+                                            From="0" To="-360" Duration="0:0:4"
+                                            RepeatBehavior="Forever"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.Setters>
+                                    <Setter TargetName="PART_path" Property="Stroke" Value="{Binding Stroke2, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                                </Trigger.Setters>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
     <Grid>
         <TextBlock Text="{Binding SelectedIndex, ElementName=sel1}"/>
         <controls:SelectorPanel
-            SelectedIndex="1"
+            SelectedIndex="2"
             x:Name="sel1" 
             VerticalAlignment="Center"
             HorizontalAlignment="Center">
-            <controls:BusyIndicator Stroke="Red"/>
-            <controls:ProgressRing Value="65" IsIndeterminate="False">
-                
-            </controls:ProgressRing>
-            <Ellipse Fill="Blue"/>
+            <controls:ProgressRing Value="22" Radius="128" TextBlock.FontFamily="Calibri light"/>
+            <Ellipse Fill="Blue" Width="100" Height="100"/>
+            <controls:BusyIndicator Radius="128" Thickness="8"/>
         </controls:SelectorPanel>
     </Grid>
 </Page>

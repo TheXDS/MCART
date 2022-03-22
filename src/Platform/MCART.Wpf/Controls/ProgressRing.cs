@@ -23,8 +23,6 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 namespace TheXDS.MCART.Controls;
-
-using System;
 using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Media;
@@ -99,6 +97,7 @@ public class ProgressRing : RingControlBase
     }
 
     private Path? path;
+    private Ellipse? ringbg;
 
     /// <summary>
     /// Obtiene o establece el contenido interno a mostrar en el área interna del control.
@@ -174,13 +173,19 @@ public class ProgressRing : RingControlBase
     {
         base.OnApplyTemplate();
         path = (Path)GetTemplateChild($"PART_{nameof(path)}");
+        ringbg = (Ellipse)GetTemplateChild($"PART_{nameof(ringbg)}");
+        SetControlSize();
     }
 
     /// <inheritdoc/>
     protected override void OnLayoutUpdate(double radius, double thickness)
     {
-        if (path is null) return;
-        path.Data = GetCircleArc(radius, GetAngle(), thickness);
+        if (path is not null) path.Data = GetCircleArc(radius, GetAngle(), thickness);
+        if (ringbg is not null)
+        {
+            ringbg.Height = ringbg.Width = radius * 2;
+            ringbg.StrokeThickness = thickness;
+        }
     }
 
     private double GetAngle()

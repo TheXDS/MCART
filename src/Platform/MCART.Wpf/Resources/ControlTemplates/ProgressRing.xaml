@@ -3,24 +3,28 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:controls="clr-namespace:TheXDS.MCART.Controls" xmlns:valueconverters="clr-namespace:TheXDS.MCART.ValueConverters"
+    xmlns:controls="clr-namespace:TheXDS.MCART.Controls"
+    xmlns:valueconverters="clr-namespace:TheXDS.MCART.ValueConverters"
     mc:Ignorable="d">
     <Style TargetType="{x:Type controls:ProgressRing}">
         <Style.Resources>
             <valueconverters:BooleanToInvVisibilityConverter x:Key="b2ivc"/>
         </Style.Resources>
         <Setter Property="InnerContent">
-            <Setter.Value>                
-                <TextBlock
-                    Visibility="{Binding IsIndeterminate, RelativeSource={RelativeSource AncestorType=controls:ProgressRing}, Converter={StaticResource b2ivc}}"
-                    Text="{Binding Value, RelativeSource={RelativeSource AncestorType=controls:ProgressRing}}"/>
+            <Setter.Value>
+                <Viewbox>
+                    <TextBlock
+                        Margin="5"
+                        Visibility="{Binding IsIndeterminate, RelativeSource={RelativeSource AncestorType=controls:ProgressRing}, Converter={StaticResource b2ivc}}"
+                        Text="{Binding Value, RelativeSource={RelativeSource AncestorType=controls:ProgressRing}}"/>
+                </Viewbox>
             </Setter.Value>
         </Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:ProgressRing">
                     <Grid>
-                        <Ellipse Width="48" Height="48" StrokeThickness="4" Stroke="{TemplateBinding RingBackground}"/>
+                        <Ellipse x:Name="PART_ringbg" Width="48" Height="48" StrokeThickness="4" Stroke="{TemplateBinding RingBackground}"/>
                         <Path
                             x:Name="PART_path"
                             Height="{TemplateBinding Height}"

@@ -83,19 +83,6 @@ public abstract class RingControlBase : Control
         set => SetValue(StrokeProperty, value);
     }
 
-    ///// <summary>
-    ///// Agrega al tipo especificado como un propietario para las propiedades de
-    ///// dependencia definidas en esta clase base.
-    ///// </summary>
-    ///// <param name="ownerType">
-    ///// Referencia al tipo que implementa esta clase base.
-    ///// </param>
-    //protected static void SetupProperties(Type ownerType)
-    //{
-    //    RadiusProperty.AddOwner(ownerType);
-    //    ThicknessProperty.AddOwner(ownerType);
-    //}
-
     private static bool ChkDblValue(object value)
     {
         return (double)value >= 0;
@@ -167,5 +154,4 @@ public abstract class RingControlBase : Control
         base.OnInitialized(e);
         SetControlSize();
     }
-
 }

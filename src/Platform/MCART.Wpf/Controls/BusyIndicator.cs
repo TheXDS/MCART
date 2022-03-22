@@ -23,8 +23,6 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 namespace TheXDS.MCART.Controls;
-
-using System;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -104,17 +102,18 @@ public class BusyIndicator : RingControlBase
     {
         base.OnApplyTemplate();
         path = (Path)GetTemplateChild($"PART_{nameof(path)}");
+        SetControlSize();
     }
-
-    private static bool ChkAngle(object value)
-    {
-        return value is double v && v.IsBetween(0, 360);
-    }
-
+    
     /// <inheritdoc/>
     protected override void OnLayoutUpdate(double radius, double thickness)
     {
         if (path is null) return;
         path.Data = GetCircleArc(radius, ArcAngle, thickness);
+    }
+
+    private static bool ChkAngle(object value)
+    {
+        return value is double v && v.IsBetween(0, 360);
     }
 }
