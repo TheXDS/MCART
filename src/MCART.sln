@@ -102,6 +102,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MCART.Ext.TypeFactory.Tests
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MCART.Wpf.Tests", "Tests\MCART.Wpf.Tests\MCART.Wpf.Tests.csproj", "{69CB6CD1-F671-4D17-8116-6170FAF8310F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MCART.Security", "Lib\MCART.Security\MCART.Security.csproj", "{E8929564-6C7E-48B1-A9CD-445427FE06F5}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Shared\AssemblyInfo\AssemblyInfo.projitems*{967afaa3-ded3-4ec0-9401-7193b318fce8}*SharedItemsImports = 13
@@ -315,6 +317,16 @@ Global
 		{69CB6CD1-F671-4D17-8116-6170FAF8310F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{69CB6CD1-F671-4D17-8116-6170FAF8310F}.Release-Publish|Any CPU.ActiveCfg = Release|Any CPU
 		{69CB6CD1-F671-4D17-8116-6170FAF8310F}.Release-Publish|Any CPU.Build.0 = Release|Any CPU
+		{E8929564-6C7E-48B1-A9CD-445427FE06F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8929564-6C7E-48B1-A9CD-445427FE06F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8929564-6C7E-48B1-A9CD-445427FE06F5}.Debug-Publish|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8929564-6C7E-48B1-A9CD-445427FE06F5}.Debug-Publish|Any CPU.Build.0 = Debug|Any CPU
+		{E8929564-6C7E-48B1-A9CD-445427FE06F5}.Debug-PublishLocal|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8929564-6C7E-48B1-A9CD-445427FE06F5}.Debug-PublishLocal|Any CPU.Build.0 = Debug|Any CPU
+		{E8929564-6C7E-48B1-A9CD-445427FE06F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8929564-6C7E-48B1-A9CD-445427FE06F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8929564-6C7E-48B1-A9CD-445427FE06F5}.Release-Publish|Any CPU.ActiveCfg = Release|Any CPU
+		{E8929564-6C7E-48B1-A9CD-445427FE06F5}.Release-Publish|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -343,6 +355,7 @@ Global
 		{628BEBFA-9DB9-4C01-A79A-B7C31517D1B5} = {19EC529F-C50D-4A09-8B2A-70E21B642109}
 		{D8DC46C7-750F-4BD3-B0EA-D42A5C81C737} = {19EC529F-C50D-4A09-8B2A-70E21B642109}
 		{69CB6CD1-F671-4D17-8116-6170FAF8310F} = {19EC529F-C50D-4A09-8B2A-70E21B642109}
+		{E8929564-6C7E-48B1-A9CD-445427FE06F5} = {8D80435C-F7CE-46FE-82F0-58F0D5282344}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A16C9D23-2B39-4202-8A15-4A3536784E27}

@@ -24,6 +24,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 namespace TheXDS.MCART.Types.Extensions;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -214,6 +215,20 @@ public static partial class BinaryReaderExtensions
     /// <seealso cref="ReadStruct{T}(BinaryReader)"/>
     public static object Read(this BinaryReader reader, Type type)
     {
+        
+        *** TODO: implementar escritura de arreglos multi-dimensionales.
+
+        if (type.IsArray && type.GetArrayRank() == 1)
+        {
+            Type elementType = type.GetElementType()!;
+            int size = reader.ReadInt32();
+            Array a = Array.CreateInstance(elementType, size);
+            for (int i = 0; i < size; i++)
+            {
+                a.SetValue(Read(reader, elementType), i);
+            }
+            return a;
+        }
         if (type.IsEnum) return Enum.ToObject(type, ReadEnum(reader, type));
         if (type.Implements<ISerializable>())
         {
@@ -319,11 +334,37 @@ public static partial class BinaryReaderExtensions
 
     private static object ByFieldReadStructInternal(BinaryReader reader, Type t)
     {
-        object? obj = Activator.CreateInstance(t) ?? throw Errors.Tamper();
+        var c = SearchConstructor(t);
+        object obj = c?.Invoke(null, ReadCtorParameters(c, reader).ToArray()) ?? Activator.CreateInstance(t) ?? throw Errors.Tamper();
         foreach (FieldInfo? j in t.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic))
         {
             if (!j.IsInitOnly) j.SetValue(obj, reader.Read(j.FieldType));
         }
         return obj;
+    }
+
+    private static ConstructorInfo? SearchConstructor(Type t)
+    {
+        static bool IsFieldMapped((FieldInfo f, ParameterInfo p) x) =>
+            (x.f.FieldType != x.p.ParameterType) &&
+            x.f.Name.ToLowerInvariant().StartsWith($"<{x.p.Name!.ToLowerInvariant()}>");
+
+        var props = t.GetFields(BindingFlags.Instance | BindingFlags.NonPublic).Where(p => p.IsInitOnly).ToArray();
+        foreach (var c in t.GetConstructors())
+        {
+            if (!c.IsPublic) continue;
+            var @params = c.GetParameters();
+            if (props.Length != @params.Length) continue;
+            if (props.Zip(@params).All(IsFieldMapped)) return c;
+        }
+        return null;
+    }
+
+    private static IEnumerable<object> ReadCtorParameters(ConstructorInfo c, BinaryReader reader)
+    {
+        foreach (var j in c.GetParameters()) 
+        {
+            yield return reader.Read(j.ParameterType);
+        }
     }
 }

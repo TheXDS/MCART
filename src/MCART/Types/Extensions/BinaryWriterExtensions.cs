@@ -24,6 +24,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 namespace TheXDS.MCART.Types.Extensions;
 using System;
+using System.Collections;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -37,6 +38,43 @@ using TheXDS.MCART.Resources;
 /// </summary>
 public static partial class BinaryWriterExtensions
 {
+    private record struct BwDynCheck(bool CanWrite, object? PredicateContext)
+    {
+        public BwDynCheck(bool CanWrite)
+            : this(CanWrite, null)
+        {
+        }
+
+        public static implicit operator BwDynCheck(bool value) => new(value);
+    }
+
+    private record struct DynWriteSet(DynCheck Predicate, DynWrite WriteAction)
+    {
+        public DynWriteSet(Func<Type, bool> func, DynWrite action)
+            : this(t => new(func(t), null), action)
+        {
+
+        }
+
+        public DynWriteSet(Func<Type, bool> func, Action<BinaryWriter, object> action)
+            : this(func, (_, bw, v) => action(bw, v))
+        {
+
+        }
+    }
+
+    private delegate BwDynCheck DynCheck(Type type);
+    private delegate void DynWrite(object? predicateContext, BinaryWriter writer, object value);
+    
+    private static readonly DynWriteSet[] DynamicWriteSets =
+    {
+        new(t => t.IsArray, DynamicWriteArray),
+        new(CanUseBinaryWriter, DynamicWriteBinaryWriter),
+        new(CanUseBinaryWriterEx, DynamicWriteBinaryWriterEx),
+        new(TypeExtensions.Implements<ISerializable>, DynamicWriteISerializable),
+        new(TypeExtensions.IsStruct, ByFieldWriteStructInternal),
+    };
+
     /// <summary>
     /// Escribe un <see cref="Guid"/> en el <see cref="BinaryWriter"/>
     /// especificado.
@@ -112,7 +150,7 @@ public static partial class BinaryWriterExtensions
         DataContractSerializer? d = new(value.GetType());
         using MemoryStream? ms = new();
         d.WriteObject(ms, value);
-        bw.Write(BitConverter.ToString(ms.ToArray()));
+        bw.Write(System.Text.Encoding.UTF8.GetString(ms.ToArray()));
     }
 
     /// <summary>
@@ -136,24 +174,7 @@ public static partial class BinaryWriterExtensions
     public static void DynamicWrite(this BinaryWriter bw, object value)
     {
         DynamicWrite_Contract(bw, value);
-        Type? t = value.GetType();
-
-        if (typeof(BinaryWriter).GetMethods().FirstOrDefault(p => CanWrite(p, t)) is { } m)
-        {
-            m.Invoke(bw, new[] { value });
-        }
-        else if (typeof(BinaryWriterExtensions).GetMethods().FirstOrDefault(p => CanExWrite(p, t)) is { } e)
-        {
-            e.Invoke(null, new[] { bw, value });
-        }
-        else if (value.GetType().IsStruct())
-        {
-            ByFieldWriteStructInternal(bw, value);
-        }
-        else
-        {
-            throw Errors.CantWriteObj(value.GetType());
-        }
+        DynamicInternalWrite(bw, value, value.GetType());
     }
 
     /// <summary>
@@ -221,5 +242,61 @@ public static partial class BinaryWriterExtensions
             && l.Length == 2
             && l.First().ParameterType == typeof(BinaryWriter)
             && l.Last().ParameterType == t;
+    }
+
+    private static void DynamicInternalWrite(BinaryWriter bw, object value, Type t)
+    {
+        foreach (var j in DynamicWriteSets)
+        {
+            var p = j.Predicate(t);
+            if (p.CanWrite)
+            {
+                j.WriteAction(p.PredicateContext, bw, value);
+                return;
+            }
+        }
+        throw Errors.CantWriteObj(value.GetType());
+    }
+
+    private static BwDynCheck CanUseBinaryWriter(Type t)
+    {
+        return typeof(BinaryWriter).GetMethods().FirstOrDefault(p => CanWrite(p, t)) is { } m 
+            ? new (true, m) 
+            : new (false);
+    }
+
+    private static BwDynCheck CanUseBinaryWriterEx(Type t)
+    {
+        return typeof(BinaryWriterExtensions).GetMethods().FirstOrDefault(p => CanExWrite(p, t)) is { } m
+            ? new (true, m)
+            : new(false);
+    }
+
+    private static void DynamicWriteArray(BinaryWriter bw, object value)
+    {
+        var a = (Array)value;
+        for (int j = 0; j > a.Rank; j++)
+        {
+            bw.Write(a.GetLength(j));
+        }
+        foreach (var j in a)
+        {
+            DynamicInternalWrite(bw, j, a.GetType().GetElementType()!);
+        }
+    }
+
+    private static void DynamicWriteBinaryWriter(object? m, BinaryWriter bw, object value)
+    {
+        ((MethodInfo)m!).Invoke(bw, new[] { value });
+    }
+
+    private static void DynamicWriteBinaryWriterEx(object? m, BinaryWriter bw, object value)
+    {
+        ((MethodInfo)m!).Invoke(null, new[] { bw, value });
+    }
+
+    private static void DynamicWriteISerializable(BinaryWriter bw, object value)
+    {
+        Write(bw, (ISerializable)value);
     }
 }

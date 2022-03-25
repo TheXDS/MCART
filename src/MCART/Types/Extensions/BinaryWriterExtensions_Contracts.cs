@@ -58,6 +58,9 @@ public static partial class BinaryWriterExtensions
         }
     }
 
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
     private static void WriteStruct_Contract(this BinaryWriter bw)
     {
         Internals.NullCheck(bw, nameof(bw));
