@@ -403,6 +403,15 @@ namespace TheXDS.MCART.Resources.Strings {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a El tipo {0} no es válido en este contexto. Se esperaba un tipo {1}..
+        /// </summary>
+        public static string UnexpectedType {
+            get {
+                return ResourceManager.GetString("UnexpectedType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a El valor debe estar entre {0} y {1}..
         /// </summary>
         public static string ValueMustBeBetweenXandY {

@@ -59,6 +59,7 @@ public static partial class BinaryReaderExtensions
     {
         return typeof(BinaryReader).GetMethods().FirstOrDefault(p =>
            p.Name.StartsWith("Read")
+           && p.Name != "Read7BitEncodedInt"
            && p.Name.Length > 4
            && p.GetParameters().Length == 0
            && p.ReturnType == t);
@@ -215,19 +216,9 @@ public static partial class BinaryReaderExtensions
     /// <seealso cref="ReadStruct{T}(BinaryReader)"/>
     public static object Read(this BinaryReader reader, Type type)
     {
-        
-        *** TODO: implementar escritura de arreglos multi-dimensionales.
-
-        if (type.IsArray && type.GetArrayRank() == 1)
+        if (type.IsArray)
         {
-            Type elementType = type.GetElementType()!;
-            int size = reader.ReadInt32();
-            Array a = Array.CreateInstance(elementType, size);
-            for (int i = 0; i < size; i++)
-            {
-                a.SetValue(Read(reader, elementType), i);
-            }
-            return a;
+            return ReadArray(reader, type);
         }
         if (type.IsEnum) return Enum.ToObject(type, ReadEnum(reader, type));
         if (type.Implements<ISerializable>())
@@ -240,6 +231,43 @@ public static partial class BinaryReaderExtensions
             ?? LookupExMethod(type)?.Invoke(null, new object[] { reader })
             ?? (type.IsStruct() ? ByFieldReadStructInternal(reader, type) : default)
             ?? throw new InvalidOperationException();
+    }
+
+    public static T ReadArray<T>(this BinaryReader reader)
+    {
+        return (T)(object)ReadArray(reader, typeof(T));
+    }
+
+    public static Array ReadArray(this BinaryReader reader, Type arrayType)
+    {
+        static bool Inc(int i, int[] counter, int[] indices)
+        {
+            if (++counter[i] == indices[i])
+            {
+                counter[i] = 0;
+                return i <= 0 || Inc(i - 1, counter, indices);
+            }
+            return false;
+        }
+
+        if (!arrayType.IsArray)
+        {
+            throw Errors.UnexpectedType(arrayType, typeof(Array));
+        }
+        Type elementType = arrayType.GetElementType()!;
+        int[] i = new int[arrayType.GetArrayRank()];
+        for (int j = 0; j < i.Length; j++)
+        {
+            i[j] = reader.ReadInt32();
+        }
+        Array a = Array.CreateInstance(elementType, i);
+        int[] c = new int[i.Length];
+        while (true)
+        {
+            a.SetValue(Read(reader, elementType), c);
+            if (Inc(i.Length - 1, c, i)) break;
+        }
+        return a;
     }
 
     /// <summary>

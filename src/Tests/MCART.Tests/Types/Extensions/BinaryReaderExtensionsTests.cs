@@ -60,6 +60,20 @@ public class BinaryReaderExtensionsTests
     }
 
     [Test]
+    public void ReadArray_multi_dimentional_Test()
+    {
+        int[,] a = new int[3, 2] { { 9, 99 }, { 3, 33 }, { 5, 55 } };
+        using MemoryStream? ms = new();
+        using (BinaryWriter? bw = new(ms, Encoding.Default, true))
+        {
+            bw.DynamicWrite(a);
+        }
+        ms.Seek(0, SeekOrigin.Begin);
+        using BinaryReader br = new(ms);
+        Assert.AreEqual(a, br.ReadArray<int[,]>());
+    }
+
+    [Test]
     public void ReadGuid_Test()
     {
         Guid g = Guid.NewGuid();

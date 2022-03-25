@@ -275,7 +275,7 @@ public static partial class BinaryWriterExtensions
     private static void DynamicWriteArray(BinaryWriter bw, object value)
     {
         var a = (Array)value;
-        for (int j = 0; j > a.Rank; j++)
+        for (int j = 0; j < a.Rank; j++)
         {
             bw.Write(a.GetLength(j));
         }
