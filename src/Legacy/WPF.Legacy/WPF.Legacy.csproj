@@ -17,30 +17,11 @@
 			<Generator>PublicResXFileCodeGenerator</Generator>
 			<LastGenOutput>Strings.Designer.cs</LastGenOutput>
 		</EmbeddedResource>
-		<None Include="Art\**" />
-		<Page Remove="Art\**" />
-		<Compile Remove="Art\**" />
-		<EmbeddedResource Remove="Art\**" />
 		<None Remove="Resources\Icons\**" />
 		<EmbeddedResource Include="Resources\Icons\**" />
 		<ProjectReference Include="$(SolutionDir)Lib\MCART-GUI\MCART.GUI.csproj" />
 		<ProjectReference Include="$(SolutionDir)Lib\MCART-UI\MCART.UI.csproj" />
 		<EmbeddedFiles Include="Dialogs/*" />
 		<EmbeddedFiles Include="Pages/*" />
-	</ItemGroup>
-	<ItemGroup>
-	  <EmbeddedFiles Remove="Dialogs\PasswordDialog.xaml" />
-	  <EmbeddedFiles Remove="Dialogs\PasswordDialog.xaml.cs" />
-	</ItemGroup>
-	<ItemGroup>
-	  <Page Update="Dialogs\PasswordDialog.xaml">
-	    <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-	  </Page>
-	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="Component\" />
-	  <Folder Include="Modules\" />
-	  <Folder Include="Resources\Templates\" />
-	  <Folder Include="ViewModel\" />
 	</ItemGroup>
 </Project>

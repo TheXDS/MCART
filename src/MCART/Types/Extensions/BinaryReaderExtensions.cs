@@ -32,7 +32,6 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using TheXDS.MCART.Resources;
-using TheXDS.MCART.Types.Extensions;
 
 /// <summary>
 /// Contiene extensiones útiles para la clase
@@ -40,6 +39,15 @@ using TheXDS.MCART.Types.Extensions;
 /// </summary>
 public static partial class BinaryReaderExtensions
 {
+    private delegate object BrDelegate(BinaryReader reader, Type type);
+    private record struct BrDynCheck(Func<Type, bool> Predicate, BrDelegate ReadDelegate);
+    private static readonly BrDynCheck[] DynamicReadSets =
+    {
+        new(t => t.IsArray, ReadArray),
+        new(t => t.IsEnum, DynamicReadEnum),
+        new(TypeExtensions.Implements<ISerializable>, DynamicReadISerializable)
+    };
+
     /// <summary>
     /// Obtiene un método de lectura definido en la clase
     /// <see cref="BinaryReader"/> que pueda ser utilizado para leer un
@@ -59,7 +67,7 @@ public static partial class BinaryReaderExtensions
     {
         return typeof(BinaryReader).GetMethods().FirstOrDefault(p =>
            p.Name.StartsWith("Read")
-           && p.Name != "Read7BitEncodedInt"
+           && !p.Name.StartsWith("Read7BitEncodedInt") // Se debe ignorar este método especial.
            && p.Name.Length > 4
            && p.GetParameters().Length == 0
            && p.ReturnType == t);
@@ -216,15 +224,12 @@ public static partial class BinaryReaderExtensions
     /// <seealso cref="ReadStruct{T}(BinaryReader)"/>
     public static object Read(this BinaryReader reader, Type type)
     {
-        if (type.IsArray)
+        foreach (var j in DynamicReadSets)
         {
-            return ReadArray(reader, type);
-        }
-        if (type.IsEnum) return Enum.ToObject(type, ReadEnum(reader, type));
-        if (type.Implements<ISerializable>())
-        {
-            DataContractSerializer? d = new(type);
-            return d.ReadObject(reader.ReadString().ToStream())!;
+            if (j.Predicate(type))
+            {
+                return j.ReadDelegate(reader, type);
+            }
         }
 
         return GetBinaryReadMethod(type)?.Invoke(reader, Array.Empty<object>())
@@ -233,12 +238,56 @@ public static partial class BinaryReaderExtensions
             ?? throw new InvalidOperationException();
     }
 
-    public static T ReadArray<T>(this BinaryReader reader)
+    /// <summary>
+    /// Lee un tipo de arreglo desde el <paramref name="reader"/>.
+    /// </summary>
+    /// <param name="reader">
+    /// Instancia de <see cref="BinaryReader"/> desde la cual realizar
+    /// la lectura.
+    /// </param>
+    /// <param name="arrayType">Tipo de arreglo a leer.</param>
+    /// <returns>
+    /// Un <see cref="Array"/> del tipo especificado que ha sido leído desde el
+    /// <see cref="BinaryReader"/> especificado.
+    /// </returns>
+    public static Array ReadArray(this BinaryReader reader, Type arrayType)
     {
-        return (T)(object)ReadArray(reader, typeof(T));
+        ReadArray_Contract(reader, arrayType);
+        return ReadArray(reader, arrayType.GetElementType()!, arrayType.GetArrayRank());
     }
 
-    public static Array ReadArray(this BinaryReader reader, Type arrayType)
+    /// <summary>
+    /// Lee un arreglo unidimensional desde el <paramref name="reader"/>.
+    /// </summary>
+    /// <typeparam name="T">Tipo de elementos del arreglo.</typeparam>
+    /// <param name="reader">
+    /// Instancia de <see cref="BinaryReader"/> desde la cual realizar
+    /// la lectura.
+    /// </param>
+    /// <returns>
+    /// Un arreglo unidimensional cuyos elementos son del tipo especificado que
+    /// ha sido leído desde el <see cref="BinaryReader"/> especificado.
+    /// </returns>
+    public static T[] ReadArray<T>(this BinaryReader reader)
+    {
+        return (T[])ReadArray(reader, typeof(T), 1);
+    }
+
+    /// <summary>
+    /// Lee un tipo de arreglo desde el <paramref name="reader"/>.
+    /// </summary>
+    /// <param name="reader">
+    /// Instancia de <see cref="BinaryReader"/> desde la cual realizar
+    /// la lectura.
+    /// </param>
+    /// <param name="elementType">Tipo de elementos del arreglo.</param>
+    /// <param name="dimensions">Cantidad de dimensiones del arreglo.</param>
+    /// <returns>
+    /// Un <see cref="Array"/> con las dimensiones especificadas y cuyos
+    /// elementos son del tipo especificado que ha sido leído desde el
+    /// <see cref="BinaryReader"/> especificado.
+    /// </returns>
+    public static Array ReadArray(this BinaryReader reader, Type elementType, int dimensions)
     {
         static bool Inc(int i, int[] counter, int[] indices)
         {
@@ -249,13 +298,7 @@ public static partial class BinaryReaderExtensions
             }
             return false;
         }
-
-        if (!arrayType.IsArray)
-        {
-            throw Errors.UnexpectedType(arrayType, typeof(Array));
-        }
-        Type elementType = arrayType.GetElementType()!;
-        int[] i = new int[arrayType.GetArrayRank()];
+        int[] i = new int[dimensions];
         for (int j = 0; j < i.Length; j++)
         {
             i[j] = reader.ReadInt32();
@@ -394,5 +437,16 @@ public static partial class BinaryReaderExtensions
         {
             yield return reader.Read(j.ParameterType);
         }
+    }
+
+    private static object DynamicReadISerializable(BinaryReader reader, Type type)
+    {
+        DataContractSerializer? d = new(type);
+        return d.ReadObject(reader.ReadString().ToStream())!;
+    }
+
+    private static object DynamicReadEnum(BinaryReader r, Type t)
+    {
+        return Enum.ToObject(t, ReadEnum(r, t));
     }
 }

@@ -115,6 +115,9 @@ public static class Errors
     /// <param name="value">
     /// Valor del argumento que ha generado la excepción.
     /// </param>
+    /// <param name="inner">
+    /// Excepción que es la causa original de esta excepción.
+    /// </param>
     /// <returns>
     /// Una nueva instancia de la clase <see cref="ArgumentException"/>.
     /// </returns>
@@ -344,7 +347,7 @@ public static class Errors
     
     /// <summary>
     /// Crea una nueva instancia de un <see cref="InvalidTypeException"/>
-    /// que indica que el tipo especificado no es un tipo de enumeración.
+    /// que indica que el tipo especificado no es un tipo válido.
     /// </summary>
     /// <param name="offendingType">
     /// Tipo por el cual se ha producido la excepción.

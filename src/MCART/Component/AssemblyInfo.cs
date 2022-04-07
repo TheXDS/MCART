@@ -31,7 +31,6 @@ using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Misc;
 using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Extensions;
-using TheXDS.MCART.Types.Extensions;
 using static TheXDS.MCART.Misc.Internals;
 using MIE = Types.Extensions.MemberInfoExtensions;
 

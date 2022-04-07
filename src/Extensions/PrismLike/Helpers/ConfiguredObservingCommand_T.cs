@@ -31,7 +31,6 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using TheXDS.MCART.Math;
 using TheXDS.MCART.Types.Extensions;
-using TheXDS.MCART.Types.Extensions;
 using TheXDS.MCART.ViewModel;
 using static TheXDS.MCART.Helpers.ReflectionHelpers;
 

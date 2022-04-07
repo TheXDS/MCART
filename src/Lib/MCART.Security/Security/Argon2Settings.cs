@@ -1,5 +1,5 @@
 ﻿/*
-Pbkdf2Settings.cs
+Argon2Settings.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 

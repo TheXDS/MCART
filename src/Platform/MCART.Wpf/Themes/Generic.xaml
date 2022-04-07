@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
     <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/MCART.Wpf;component/Resources/ControlTemplates/AboutView.xaml"/>
         <ResourceDictionary Source="/MCART.Wpf;component/Resources/ControlTemplates/BusyContainer.xaml"/>
         <ResourceDictionary Source="/MCART.Wpf;component/Resources/ControlTemplates/BusyIndicator.xaml"/>
         <ResourceDictionary Source="/MCART.Wpf;component/Resources/ControlTemplates/ProgressRing.xaml"/>

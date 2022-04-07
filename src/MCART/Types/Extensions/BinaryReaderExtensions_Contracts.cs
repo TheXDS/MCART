@@ -23,10 +23,12 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 namespace TheXDS.MCART.Types.Extensions;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.CompilerServices;
-using TheXDS.MCART.Misc;
+using TheXDS.MCART.Resources;
+using static TheXDS.MCART.Misc.Internals;
 
 public static partial class BinaryReaderExtensions
 {
@@ -35,6 +37,15 @@ public static partial class BinaryReaderExtensions
     [DebuggerNonUserCode]
     private static void ReadStruct_Contract(this BinaryReader reader)
     {
-        Internals.NullCheck(reader, nameof(reader));
+        NullCheck(reader, nameof(reader));
+    }
+
+    private static void ReadArray_Contract(BinaryReader reader, Type arrayType)
+    {
+        NullCheck(reader, nameof(reader));
+        if (!NullChecked(arrayType, nameof(arrayType)).IsArray)
+        {
+            throw Errors.UnexpectedType(arrayType, typeof(Array));
+        }
     }
 }

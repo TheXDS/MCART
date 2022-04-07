@@ -35,7 +35,6 @@ using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Math;
 using TheXDS.MCART.Types.Extensions;
-using TheXDS.MCART.Types.Extensions;
 using static TheXDS.MCART.Misc.Internals;
 using static TheXDS.MCART.Types.Extensions.EnumerableExtensions;
 using static TheXDS.MCART.Types.Extensions.TypeExtensions;

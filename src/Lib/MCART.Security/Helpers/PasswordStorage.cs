@@ -24,14 +24,10 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 namespace TheXDS.MCART.Helpers;
-
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Security;
-using System.Security.Cryptography;
-using System.Threading.Tasks;
-using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Security;
 using TheXDS.MCART.Types.Extensions;
 
@@ -42,7 +38,7 @@ using TheXDS.MCART.Types.Extensions;
 /// </summary>
 public static class PasswordStorage
 {
-    private static IEnumerable<IPasswordStorage> _algs = Objects.FindAllObjects<IPasswordStorage>();
+    private static readonly IEnumerable<IPasswordStorage> _algs = Objects.FindAllObjects<IPasswordStorage>();
 
     /// <summary>
     /// Crea un Hash seguro para almacenar la contraseña.

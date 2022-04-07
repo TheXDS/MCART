@@ -127,6 +127,9 @@ public static class SecureStringExtensions
     /// <returns>
     /// Un arreglo de <see cref="byte" /> de código administrado.
     /// </returns>
+    /// <remarks>
+    /// El arreglo de bytes leídos corresponderá a una cadena UTF-16.
+    /// </remarks>
     public static byte[] ReadBytes(this SecureString value)
     {
         List<byte>? outp = new();
@@ -151,6 +154,10 @@ public static class SecureStringExtensions
     /// <returns>
     /// Un valor de tipo <see cref="string"/> en formato base64.
     /// </returns>
+    /// <remarks>
+    /// El arreglo de bytes leídos previo a la conversión a Base64
+    /// corresponderá a una cadena UTF-16.
+    /// </remarks>
     public static string ToBase64(this SecureString value)
     {
         return Convert.ToBase64String(ReadBytes(value));

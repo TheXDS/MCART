@@ -39,7 +39,9 @@ public interface IPasswordStorage
     string AlgId => GetType().Name.ChopEndAny("PasswordStorage", "Storage").ToUpperInvariant();
 
     /// <summary>
-    /// Obtiene la configuración a partir del bloque especificado.
+    /// Obtiene la configuración a partir del bloque especificado, haciendo
+    /// avanzar el lector la cantidad de bytes requeridos por la configuración
+    /// de esta instancia.
     /// </summary>
     /// <param name="reader">
     /// Objeto a partir del cual leer los valores de configuración.
@@ -65,10 +67,22 @@ public interface IPasswordStorage
     /// <returns>
     /// Un arreglo de bytes con la clave derivada a partir de la contraseña 
     /// especificada.</returns>
-    byte[] Generate(SecureString input);
+    byte[] Generate(byte[] input);
 
     /// <summary>
-    /// Obtiene un valor que indica la cantidad de bytes que esta instancia generará.
+    /// Genera un blob binario que puede ser almacenado en una base de datos.
+    /// </summary>
+    /// <param name="input">
+    /// Contraseña a partir de la cual derivar una clave.
+    /// </param>
+    /// <returns>
+    /// Un arreglo de bytes con la clave derivada a partir de la contraseña 
+    /// especificada.</returns>
+    byte[] Generate(SecureString input) => Generate(System.Text.Encoding.UTF8.GetBytes(input.Read()));
+
+    /// <summary>
+    /// Obtiene un valor que indica la cantidad de bytes de clave que esta
+    /// instancia generará.
     /// </summary>
     int KeyLength { get; }
 }

@@ -24,7 +24,6 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 namespace TheXDS.MCART.Types.Extensions;
 using System;
-using System.Collections;
 using System.IO;
 using System.Linq;
 using System.Reflection;

@@ -74,14 +74,16 @@ public class Pbkdf2Storage : IPasswordStorage
         writer.Write((short)Settings.Salt.Length);
         writer.Write(Settings.Salt);
         writer.Write(Settings.Iterations);
-        writer.Write(Settings.HashFunction);
+        writer.Write(Settings.HashFunction ?? "SHA1");
         writer.Write(Settings.DerivedKeyLength);
         return ms.ToArray();
     }
 
-    byte[] IPasswordStorage.Generate(SecureString input)
+    byte[] IPasswordStorage.Generate(byte[] input)
     {
-        using Rfc2898DeriveBytes? pbkdf2 = new(input.ReadBytes(), Settings.Salt, Settings.Iterations, new HashAlgorithmName(Settings.HashFunction));
+        using Rfc2898DeriveBytes? pbkdf2 = Settings.HashFunction.IsEmpty()
+            ? new(input, Settings.Salt, Settings.Iterations)
+            : new(input, Settings.Salt, Settings.Iterations, new HashAlgorithmName(Settings.HashFunction));
         return pbkdf2.GetBytes(Settings.DerivedKeyLength);
     }
 }

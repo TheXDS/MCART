@@ -45,7 +45,7 @@ public record struct Pbkdf2Settings
     /// Obtiene o inicializa el nombre del algoritmo hash a utilizar para
     /// derivar la clave.
     /// </summary>
-    public string HashFunction { get; init; }
+    public string? HashFunction { get; init; }
 
     /// <summary>
     /// Obtiene o inicializa un valor que determina la cantidad de bytes a
