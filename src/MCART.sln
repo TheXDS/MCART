@@ -70,14 +70,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Legacy", "Legacy", "{9F98174D-1653-413B-809C-AFE91D5DAC42}"
-	ProjectSection(SolutionItems) = preProject
-		Legacy\Directory.Build.props = Legacy\Directory.Build.props
-		Legacy\Directory.Build.targets = Legacy\Directory.Build.targets
-	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPF.Legacy", "Legacy\WPF.Legacy\WPF.Legacy.csproj", "{467EAF9D-334E-4204-8C01-5B364D8D1700}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MCART.Wpf", "Platform\MCART.Wpf\MCART.Wpf.csproj", "{6F6C1A57-CB22-401C-8850-1B0E5C7ED848}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MCART.Windows", "Lib\MCART-Windows\MCART.Windows.csproj", "{727186F1-E48E-4781-8467-FCAF3A4F316B}"
@@ -92,9 +84,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MCART.Wpf.Tests", "Tests\MC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MCART.Security", "Lib\MCART.Security\MCART.Security.csproj", "{E8929564-6C7E-48B1-A9CD-445427FE06F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MCART.Security.Tests", "Tests\MCART.Security.Tests\MCART.Security.Tests.csproj", "{0B8EE3E5-FFF3-4577-8097-F77DF6E2B406}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MCART.Security.Tests", "Tests\MCART.Security.Tests\MCART.Security.Tests.csproj", "{0B8EE3E5-FFF3-4577-8097-F77DF6E2B406}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlowDocumentExtensions", "Extensions\FlowDocumentExtensions\FlowDocumentExtensions.csproj", "{CFC17646-D6BA-4372-831D-D420E459FC1F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlowDocumentExtensions", "Extensions\FlowDocumentExtensions\FlowDocumentExtensions.csproj", "{CFC17646-D6BA-4372-831D-D420E459FC1F}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -179,16 +171,6 @@ Global
 		{3645F57D-5159-43C6-95D5-9796CBABDDC7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3645F57D-5159-43C6-95D5-9796CBABDDC7}.Release-Publish|Any CPU.ActiveCfg = Release|Any CPU
 		{3645F57D-5159-43C6-95D5-9796CBABDDC7}.Release-Publish|Any CPU.Build.0 = Release|Any CPU
-		{467EAF9D-334E-4204-8C01-5B364D8D1700}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{467EAF9D-334E-4204-8C01-5B364D8D1700}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{467EAF9D-334E-4204-8C01-5B364D8D1700}.Debug-Publish|Any CPU.ActiveCfg = Debug|Any CPU
-		{467EAF9D-334E-4204-8C01-5B364D8D1700}.Debug-Publish|Any CPU.Build.0 = Debug|Any CPU
-		{467EAF9D-334E-4204-8C01-5B364D8D1700}.Debug-PublishLocal|Any CPU.ActiveCfg = Debug|Any CPU
-		{467EAF9D-334E-4204-8C01-5B364D8D1700}.Debug-PublishLocal|Any CPU.Build.0 = Debug|Any CPU
-		{467EAF9D-334E-4204-8C01-5B364D8D1700}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{467EAF9D-334E-4204-8C01-5B364D8D1700}.Release|Any CPU.Build.0 = Release|Any CPU
-		{467EAF9D-334E-4204-8C01-5B364D8D1700}.Release-Publish|Any CPU.ActiveCfg = Release|Any CPU
-		{467EAF9D-334E-4204-8C01-5B364D8D1700}.Release-Publish|Any CPU.Build.0 = Release|Any CPU
 		{6F6C1A57-CB22-401C-8850-1B0E5C7ED848}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6F6C1A57-CB22-401C-8850-1B0E5C7ED848}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F6C1A57-CB22-401C-8850-1B0E5C7ED848}.Debug-Publish|Any CPU.ActiveCfg = Debug|Any CPU
@@ -294,7 +276,6 @@ Global
 		{DC106299-465B-48B7-8373-125D496856DE} = {8D80435C-F7CE-46FE-82F0-58F0D5282344}
 		{837EA48D-A64F-4FB9-81E7-06A5183CA0B0} = {B80D3805-8722-4877-AF4E-C7763C850A9E}
 		{3645F57D-5159-43C6-95D5-9796CBABDDC7} = {19EC529F-C50D-4A09-8B2A-70E21B642109}
-		{467EAF9D-334E-4204-8C01-5B364D8D1700} = {9F98174D-1653-413B-809C-AFE91D5DAC42}
 		{6F6C1A57-CB22-401C-8850-1B0E5C7ED848} = {DB2C9D58-DF3F-4361-ACE4-EF1219AD1810}
 		{727186F1-E48E-4781-8467-FCAF3A4F316B} = {8D80435C-F7CE-46FE-82F0-58F0D5282344}
 		{8C72A433-B96E-4351-89BF-3B8D43C58787} = {19EC529F-C50D-4A09-8B2A-70E21B642109}

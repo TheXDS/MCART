@@ -24,28 +24,24 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 namespace TheXDS.MCART.Controls;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Media.Effects;
-using TheXDS.MCART.Helpers;
-using TheXDS.MCART.Math;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TheXDS.MCART.Attributes;
 using System.Reflection;
-using TheXDS.MCART.Types.Extensions;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using System.Windows.Documents;
+using System.Windows.Media;
+using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Component;
 using TheXDS.MCART.Resources;
-using System.Windows.Documents;
-using System.Windows.Input;
+using TheXDS.MCART.Types.Extensions;
 using TheXDS.MCART.ViewModel;
-using System.Windows.Controls.Primitives;
-using System.Windows.Data;
 
+/// <summary>
+/// Control que permite mostrar un cuadro de información de un ensamblado,
+/// aplicación, programa u otro elemento similar.
+/// </summary>
 public class AboutView : Control
 {
     /// <summary>
@@ -95,42 +91,70 @@ public class AboutView : Control
         DefaultStyleKeyProperty.OverrideMetadata(typeof(AboutView), new FrameworkPropertyMetadata(typeof(AboutView)));
     }
 
+    /// <summary>
+    /// Obtiene o establece el ícono a mostrar en el cuadro de información.
+    /// </summary>
     public ImageSource? Icon
     {
         get => (ImageSource?)GetValue(IconProperty);
         set => SetValue(IconProperty, value);
     }
 
+    /// <summary>
+    /// Obtiene o establece el título del elemento del cual se muestra la
+    /// información.
+    /// </summary>
     public string? Title
     {
         get => (string?)GetValue(TitleProperty);
         set => SetValue(TitleProperty, value);
     }
 
+    /// <summary>
+    /// Obtiene o establece una cadena que representa la versión del elemento
+    /// del cual se muestra la información.
+    /// </summary>
     public string? Version
     {
         get => (string?)GetValue(VersionProperty);
         set => SetValue(VersionProperty, value);
     }
 
+    /// <summary>
+    /// Obtiene o establece la descripción del elemento del cual se muestra la
+    /// información.
+    /// </summary>
     public string? Description
     {
         get => (string?)GetValue(DescriptionProperty);
         set => SetValue(DescriptionProperty, value);
     }
 
+    /// <summary>
+    /// Obtiene o establece la cadena de Copyright del elemento del cual se 
+    /// muestra la información.
+    /// </summary>
     public string? Copyright
     {
         get => (string?)GetValue(CopyrightProperty);
         set => SetValue(CopyrightProperty, value);
     }
 
+    /// <summary>
+    /// Obtiene o establece un objeto a utilizar como el orígen de información
+    /// de licencia a mostrar en este cuadro de información.
+    /// </summary>
     public object? LicenseSource
     {
         get => (object?)GetValue(LicenseSourceProperty);
         set => SetValue(LicenseSourceProperty, value);
     }
 
+    /// <summary>
+    /// Obtiene o establece una colección de objetos a utilizar como orígen de
+    /// información de licencias de terceros a mostrar en este cuadro de
+    /// información.
+    /// </summary>
     public IEnumerable<object>? ThirdPartyLicenseSource
     {
         get => (IEnumerable<object>?)GetValue(ThirdPartyLicenseSourceProperty);

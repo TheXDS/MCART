@@ -70,7 +70,7 @@ public class BinaryReaderExtensionsTests
         }
         ms.Seek(0, SeekOrigin.Begin);
         using BinaryReader br = new(ms);
-        Assert.AreEqual(a, br.ReadArray<int[,]>());
+        Assert.AreEqual(a, br.ReadArray(typeof(int[,])));
     }
 
     [Test]
