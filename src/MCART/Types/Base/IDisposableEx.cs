@@ -22,42 +22,40 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types.Base;
 using System;
 
-namespace TheXDS.MCART.Types.Base
+/// <summary>
+/// Extensión de la interfaz <see cref="IDisposable"/>. Provee de toda
+/// la funcionalidad previamente disponible, e incluye algunas
+/// extensiones útiles.
+/// </summary>
+public interface IDisposableEx : IDisposable
 {
     /// <summary>
-    /// Extensión de la interfaz <see cref="IDisposable"/>. Provee de toda
-    /// la funcionalidad previamente disponible, e incluye algunas
-    /// extensiones útiles.
+    /// Obtiene un valor que indica si este objeto ha sido desechado.
     /// </summary>
-    public interface IDisposableEx : IDisposable
-    {
-        /// <summary>
-        /// Obtiene un valor que indica si este objeto ha sido desechado.
-        /// </summary>
-        bool IsDisposed { get; }
+    bool IsDisposed { get; }
 
-        /// <summary>
-        /// Intenta liberar los recursos de esta instancia.
-        /// </summary>
-        /// <returns>
-        /// <see langword="true"/> si la instancia se ha desechado
-        /// correctamente, <see langword="false"/> si esta instancia ya ha sido
-        /// desechada o si ha ocurrido un error al desecharla.
-        /// </returns>
-        bool TryDispose()
+    /// <summary>
+    /// Intenta liberar los recursos de esta instancia.
+    /// </summary>
+    /// <returns>
+    /// <see langword="true"/> si la instancia se ha desechado
+    /// correctamente, <see langword="false"/> si esta instancia ya ha sido
+    /// desechada o si ha ocurrido un error al desecharla.
+    /// </returns>
+    bool TryDispose()
+    {
+        if (!IsDisposed)
         {
-            if (!IsDisposed)
+            try
             {
-                try
-                {
-                    Dispose();
-                    return true;
-                }
-                catch { }
+                Dispose();
+                return true;
             }
-            return false;
+            catch { }
         }
+        return false;
     }
 }

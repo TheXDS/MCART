@@ -22,32 +22,30 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.PInvoke;
 using System;
 using System.Runtime.InteropServices;
 using TheXDS.MCART.PInvoke.Structs;
 
-namespace TheXDS.MCART.PInvoke
+internal class User32
 {
-    internal class User32
-    {
-        public delegate bool MonitorEnumProc(IntPtr monitor, IntPtr hdc, IntPtr lprcMonitor, IntPtr lParam);
+    public delegate bool MonitorEnumProc(IntPtr monitor, IntPtr hdc, IntPtr lprcMonitor, IntPtr lParam);
 
-        [return: MarshalAs(UnmanagedType.Bool)]
-        [DllImport("user32.dll", SetLastError = true)] internal static extern bool GetWindowInfo(IntPtr hWnd, ref WindowInfo nCmdShow);
-        [DllImport("user32.dll")] internal static extern long GetWindowLong(IntPtr hwnd, WindowData index);
-        [DllImport("user32.dll")] internal static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
-        [DllImport("user32.dll", SetLastError = true)] internal static extern int SetWindowLong(IntPtr hwnd, int index, uint newStyle);
-        [DllImport("user32.dll")] internal static extern bool SetWindowPos(IntPtr hwnd, IntPtr hwndInsertAfter, int x, int y, int width, int height, uint flags);
-        [DllImport("user32.dll")] internal static extern bool ShowWindow(IntPtr hWnd, ShowWindowFlags nCmdShow);
-        [DllImport("user32.dll")] internal static extern bool ShowWindowAsync(IntPtr hWnd, ShowWindowFlags nCmdShow);
-        [DllImport("user32.dll")] internal static extern bool GetCursorPos(out Point lpPoint);
-        [DllImport("user32.dll", SetLastError = true)] internal static extern bool GetWindowRect(IntPtr hWnd, ref Rect lpRect);
-        [DllImport("user32.dll", SetLastError = true)] internal static extern bool MoveWindow(IntPtr hWnd, int X, int Y, int nWidth, int nHeight, bool bRepaint);
-        [DllImport("user32.dll")] internal static extern bool GetMonitorInfo(IntPtr hmonitor, ref MonitorInfo info);
-        [DllImport("user32.dll")] internal static extern bool EnumDisplayMonitors(HandleRef hdc, Rect rcClip, MonitorEnumProc lpfnEnum, IntPtr dwData);
-        [DllImport("user32.dll")] internal static extern IntPtr MonitorFromWindow(HandleRef handle, int flags);
-        [DllImport("user32.dll")] internal static extern int GetSystemMetrics(int nIndex);
-        [DllImport("user32.dll")] internal static extern bool SystemParametersInfo(int nAction, int nParam, ref Rect rc, int nUpdate);
-        [DllImport("user32.dll")] internal static extern IntPtr MonitorFromPoint(Point pt, int flags);
-    }
+    [return: MarshalAs(UnmanagedType.Bool)]
+    [DllImport("user32.dll", SetLastError = true)] internal static extern bool GetWindowInfo(IntPtr hWnd, ref WindowInfo nCmdShow);
+    [DllImport("user32.dll")] internal static extern long GetWindowLong(IntPtr hwnd, WindowData index);
+    [DllImport("user32.dll")] internal static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
+    [DllImport("user32.dll", SetLastError = true)] internal static extern int SetWindowLong(IntPtr hwnd, int index, uint newStyle);
+    [DllImport("user32.dll")] internal static extern bool SetWindowPos(IntPtr hwnd, IntPtr hwndInsertAfter, int x, int y, int width, int height, uint flags);
+    [DllImport("user32.dll")] internal static extern bool ShowWindow(IntPtr hWnd, ShowWindowFlags nCmdShow);
+    [DllImport("user32.dll")] internal static extern bool ShowWindowAsync(IntPtr hWnd, ShowWindowFlags nCmdShow);
+    [DllImport("user32.dll")] internal static extern bool GetCursorPos(out Point lpPoint);
+    [DllImport("user32.dll", SetLastError = true)] internal static extern bool GetWindowRect(IntPtr hWnd, ref Rect lpRect);
+    [DllImport("user32.dll", SetLastError = true)] internal static extern bool MoveWindow(IntPtr hWnd, int X, int Y, int nWidth, int nHeight, bool bRepaint);
+    [DllImport("user32.dll")] internal static extern bool GetMonitorInfo(IntPtr hmonitor, ref MonitorInfo info);
+    [DllImport("user32.dll")] internal static extern bool EnumDisplayMonitors(HandleRef hdc, Rect rcClip, MonitorEnumProc lpfnEnum, IntPtr dwData);
+    [DllImport("user32.dll")] internal static extern IntPtr MonitorFromWindow(HandleRef handle, int flags);
+    [DllImport("user32.dll")] internal static extern int GetSystemMetrics(int nIndex);
+    [DllImport("user32.dll")] internal static extern bool SystemParametersInfo(int nAction, int nParam, ref Rect rc, int nUpdate);
+    [DllImport("user32.dll")] internal static extern IntPtr MonitorFromPoint(Point pt, int flags);
 }

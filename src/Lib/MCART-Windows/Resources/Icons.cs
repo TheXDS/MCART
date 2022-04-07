@@ -22,31 +22,29 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Resources;
 using System.Drawing;
 using System.Runtime.CompilerServices;
 
-namespace TheXDS.MCART.Resources
+/// <summary>
+/// Contiene íconos y otras imágenes para utilizar en cualquier aplicación.
+/// </summary>
+public sealed class Icons : McartIconLibrary<Bitmap>
 {
-    /// <summary>
-    /// Contiene íconos y otras imágenes para utilizar en cualquier aplicación.
-    /// </summary>
-    public sealed class Icons : McartIconLibrary<Bitmap>
-    {
-        private static readonly BitmapUnpacker _imgs = new(typeof(McartIconLibrary<>).Assembly, typeof(Icons).FullName!);
+    private static readonly BitmapUnpacker _imgs = new(typeof(McartIconLibrary<>).Assembly, typeof(Icons).FullName!);
 
-        /// <summary>
-        /// Implementa el método de obtención del ícono basado en el nombre
-        /// del ícono solicitado.
-        /// </summary>
-        /// <param name="id">
-        /// Id del ícono solicitado.
-        /// </param>
-        /// <returns>
-        /// El ícono solicitado.
-        /// </returns>
-        protected sealed override Bitmap GetIcon([CallerMemberName] string? id = null)
-        {
-            return _imgs.Unpack($"{id}.png", new NullGetter());
-        }
+    /// <summary>
+    /// Implementa el método de obtención del ícono basado en el nombre
+    /// del ícono solicitado.
+    /// </summary>
+    /// <param name="id">
+    /// Id del ícono solicitado.
+    /// </param>
+    /// <returns>
+    /// El ícono solicitado.
+    /// </returns>
+    protected sealed override Bitmap GetIcon([CallerMemberName] string? id = null)
+    {
+        return _imgs.Unpack($"{id}.png", new NullGetter());
     }
 }

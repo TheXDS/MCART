@@ -22,43 +22,41 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Events;
 using System;
 
-namespace TheXDS.MCART.Events
+/// <summary>
+/// Incluye información de evento para cualquier clase con eventos de
+/// excepción.
+/// </summary>
+public class ExceptionEventArgs : ValueEventArgs<Exception?>
 {
     /// <summary>
-    /// Incluye información de evento para cualquier clase con eventos de
-    /// excepción.
+    /// Inicializa una nueva instancia de este objeto sin especificar
+    /// una excepción producida.
     /// </summary>
-    public class ExceptionEventArgs : ValueEventArgs<Exception?>
+    public ExceptionEventArgs() : base(null)
     {
-        /// <summary>
-        /// Inicializa una nueva instancia de este objeto sin especificar
-        /// una excepción producida.
-        /// </summary>
-        public ExceptionEventArgs() : base(null)
-        {
-        }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de este objeto con la excepción
-        /// especificada.
-        /// </summary>
-        /// <param name="ex">
-        /// <see cref="Exception" /> que se ha producido en el código.
-        /// </param>
-        public ExceptionEventArgs(Exception? ex) : base(ex)
-        {
-        }
-
-        /// <summary>
-        /// Convierte implícitamente un <see cref="Exception"/> en un
-        /// <see cref="ExceptionEventArgs"/>.
-        /// </summary>
-        /// <param name="ex">
-        /// <see cref="Exception"/> a partir de la cual crear el nuevo
-        /// <see cref="ExceptionEventArgs"/>.
-        /// </param>
-        public static implicit operator ExceptionEventArgs(Exception ex) => new(ex);
     }
+
+    /// <summary>
+    /// Inicializa una nueva instancia de este objeto con la excepción
+    /// especificada.
+    /// </summary>
+    /// <param name="ex">
+    /// <see cref="Exception" /> que se ha producido en el código.
+    /// </param>
+    public ExceptionEventArgs(Exception? ex) : base(ex)
+    {
+    }
+
+    /// <summary>
+    /// Convierte implícitamente un <see cref="Exception"/> en un
+    /// <see cref="ExceptionEventArgs"/>.
+    /// </summary>
+    /// <param name="ex">
+    /// <see cref="Exception"/> a partir de la cual crear el nuevo
+    /// <see cref="ExceptionEventArgs"/>.
+    /// </param>
+    public static implicit operator ExceptionEventArgs(Exception ex) => new(ex);
 }

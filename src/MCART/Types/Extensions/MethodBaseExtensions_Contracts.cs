@@ -22,23 +22,21 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types.Extensions;
 using System;
 using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using TheXDS.MCART.Exceptions;
 
-namespace TheXDS.MCART.Types.Extensions
+public static partial class MethodBaseExtensions
 {
-    public static partial class MethodBaseExtensions
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void IsOverriden_Contract(MethodBase method, object thisInstance)
     {
-        [Conditional("EnforceContracts")]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [DebuggerNonUserCode]
-        private static void IsOverriden_Contract(MethodBase method, object thisInstance)
-        {
-            if (method?.DeclaringType is null) throw new ArgumentNullException(nameof(method));
-            if (!(thisInstance?.GetType() ?? throw new ArgumentNullException(nameof(thisInstance))).Implements(method.DeclaringType)) throw new InvalidTypeException(thisInstance.GetType());
-        }
+        if (method?.DeclaringType is null) throw new ArgumentNullException(nameof(method));
+        if (!(thisInstance?.GetType() ?? throw new ArgumentNullException(nameof(thisInstance))).Implements(method.DeclaringType)) throw new InvalidTypeException(thisInstance.GetType());
     }
 }

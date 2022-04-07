@@ -22,22 +22,21 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Attributes;
 using System;
 
-namespace TheXDS.MCART.Attributes
+/// <summary>
+/// Indica una cadena que puede utilizarse para identificar a este elemento.
+/// </summary>
+[AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
+public sealed class IdentifierAttribute : TextAttribute
 {
     /// <summary>
     /// Indica una cadena que puede utilizarse para identificar a este elemento.
     /// </summary>
-    [AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
-    public sealed class IdentifierAttribute : TextAttribute
+    /// <param name="identifier">Identificador a utilizar.</param>
+    public IdentifierAttribute(string identifier) 
+        : base(identifier)
     {
-        /// <summary>
-        /// Indica una cadena que puede utilizarse para identificar a este elemento.
-        /// </summary>
-        /// <param name="identifier">Identificador a utilizar.</param>
-        public IdentifierAttribute(string identifier) : base(identifier)
-        {
-        }
     }
 }

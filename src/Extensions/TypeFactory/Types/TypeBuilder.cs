@@ -22,6 +22,7 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types;
 using System.Diagnostics;
 using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
@@ -29,64 +30,61 @@ using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Extensions;
 
-namespace TheXDS.MCART.Types
+/// <summary>
+/// <see cref="TypeBuilder"/> que incluye información fuertemente tipeada
+/// sobre su clase base.
+/// </summary>
+/// <typeparam name="T">
+/// Clase base del tipo a construir.
+/// </typeparam>
+public class TypeBuilder<T> : ITypeBuilder<T>
 {
     /// <summary>
-    /// <see cref="TypeBuilder"/> que incluye información fuertemente tipeada
-    /// sobre su clase base.
+    /// <see cref="TypeBuilder"/> subyacente de esta instancia.
     /// </summary>
-    /// <typeparam name="T">
-    /// Clase base del tipo a construir.
-    /// </typeparam>
-    public class TypeBuilder<T> : ITypeBuilder<T>
+    public TypeBuilder Builder { get; }
+
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase
+    ///  <see cref="TypeBuilder{T}"/> especificando al
+    ///  <see cref="TypeBuilder"/> subyacente a asociar.
+    /// </summary>
+    /// <param name="builder">
+    /// <see cref="TypeBuilder"/> subyacente a asociar.
+    /// </param>
+    public TypeBuilder(TypeBuilder builder)
     {
-        /// <summary>
-        /// <see cref="TypeBuilder"/> subyacente de esta instancia.
-        /// </summary>
-        public TypeBuilder Builder { get; }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        ///  <see cref="TypeBuilder{T}"/> especificando al
-        ///  <see cref="TypeBuilder"/> subyacente a asociar.
-        /// </summary>
-        /// <param name="builder">
-        /// <see cref="TypeBuilder"/> subyacente a asociar.
-        /// </param>
-        public TypeBuilder(TypeBuilder builder)
+        if (Builder is { BaseType: { } t } && !t.Implements<T>())
         {
-            if (Builder is { BaseType: { } t } && !t.Implements<T>())
-            {
-                throw TypeFactoryErrors.TypeBuilderTypeMismatch<T>(builder);
-            }
-            Builder = builder;
+            throw TypeFactoryErrors.TypeBuilderTypeMismatch<T>(builder);
         }
-
-        /// <summary>
-        /// Convierte implícitamente un <see cref="TypeBuilder{T}"/> en un
-        /// <see cref="TypeBuilder"/>.
-        /// </summary>
-        /// <param name="builder">
-        /// <see cref="TypeBuilder"/> a convertir.
-        /// </param>
-        public static implicit operator TypeBuilder(TypeBuilder<T> builder) => builder.Builder;
-
-        /// <summary>
-        /// Convierte implícitamente un <see cref="TypeBuilder"/> en un
-        /// <see cref="TypeBuilder{T}"/>.
-        /// </summary>
-        /// <param name="builder">
-        /// <see cref="TypeBuilder"/> a convertir.
-        /// </param>
-        public static implicit operator TypeBuilder<T>(TypeBuilder builder) => new(builder);
-
-        /// <summary>
-        /// Inicializa una nueva instancia del tipo en runtime especificado.
-        /// </summary>
-        /// <returns>La nueva instancia del tipo especificado.</returns>
-        [DebuggerStepThrough]
-        [Sugar]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public T New() => (T)Builder.New();
+        Builder = builder;
     }
+
+    /// <summary>
+    /// Convierte implícitamente un <see cref="TypeBuilder{T}"/> en un
+    /// <see cref="TypeBuilder"/>.
+    /// </summary>
+    /// <param name="builder">
+    /// <see cref="TypeBuilder"/> a convertir.
+    /// </param>
+    public static implicit operator TypeBuilder(TypeBuilder<T> builder) => builder.Builder;
+
+    /// <summary>
+    /// Convierte implícitamente un <see cref="TypeBuilder"/> en un
+    /// <see cref="TypeBuilder{T}"/>.
+    /// </summary>
+    /// <param name="builder">
+    /// <see cref="TypeBuilder"/> a convertir.
+    /// </param>
+    public static implicit operator TypeBuilder<T>(TypeBuilder builder) => new(builder);
+
+    /// <summary>
+    /// Inicializa una nueva instancia del tipo en runtime especificado.
+    /// </summary>
+    /// <returns>La nueva instancia del tipo especificado.</returns>
+    [DebuggerStepThrough]
+    [Sugar]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public T New() => (T)Builder.New();
 }

@@ -22,38 +22,38 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Attributes;
 using System;
 using static System.AttributeTargets;
 
-namespace TheXDS.MCART.Attributes
+/// <summary>
+/// Especifica la versión del elemento.
+/// </summary>
+[AttributeUsage(Method | Class | Module | Assembly)]
+[Serializable]
+public sealed class VersionAttribute : VersionAttributeBase
 {
     /// <summary>
-    /// Especifica la versión del elemento.
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="VersionAttribute" />.
     /// </summary>
-    [AttributeUsage(Method | Class | Module | Assembly)]
-    [Serializable]
-    public sealed class VersionAttribute : VersionAttributeBase
+    /// <param name="major">Número de versión mayor.</param>
+    /// <param name="minor">Número de versión menor.</param>
+    public VersionAttribute(int major, int minor)
+        : base(major, minor, int.MaxValue, int.MaxValue)
     {
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="VersionAttribute" />.
-        /// </summary>
-        /// <param name="major">Número de versión mayor.</param>
-        /// <param name="minor">Número de versión menor.</param>
-        public VersionAttribute(int major, int minor) : base(major, minor, int.MaxValue, int.MaxValue)
-        {
-        }
+    }
 
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="VersionAttribute" />.
-        /// </summary>
-        /// <param name="major">Número de versión mayor.</param>
-        /// <param name="minor">Número de versión menor.</param>
-        /// <param name="build">Número de compilación.</param>
-        /// <param name="rev">Número de revisión.</param>
-        public VersionAttribute(int major, int minor, int build, int rev) : base(major, minor, build, rev)
-        {
-        }
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="VersionAttribute" />.
+    /// </summary>
+    /// <param name="major">Número de versión mayor.</param>
+    /// <param name="minor">Número de versión menor.</param>
+    /// <param name="build">Número de compilación.</param>
+    /// <param name="rev">Número de revisión.</param>
+    public VersionAttribute(int major, int minor, int build, int rev)
+        : base(major, minor, build, rev)
+    {
     }
 }

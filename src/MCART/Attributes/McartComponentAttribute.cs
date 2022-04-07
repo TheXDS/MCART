@@ -22,37 +22,35 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Attributes;
 using System;
 using TheXDS.MCART.Resources;
 
-namespace TheXDS.MCART.Attributes
+/// <summary>
+/// Marca un ensamblado como un componente de MCART.
+/// </summary>
+[AttributeUsage(AttributeTargets.Assembly)]
+public sealed class McartComponentAttribute : Attribute, IValueAttribute<RtInfo.ComponentKind>
 {
     /// <summary>
-    /// Marca un ensamblado como un componente de MCART.
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="McartComponentAttribute" />.
     /// </summary>
-    [AttributeUsage(AttributeTargets.Assembly)]
-    public sealed class McartComponentAttribute : Attribute, IValueAttribute<RtInfo.ComponentKind>
+    /// <param name="kind">
+    /// Tipo de componente que este ensamblado es.
+    /// </param>
+    public McartComponentAttribute(RtInfo.ComponentKind kind)
     {
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="McartComponentAttribute" />.
-        /// </summary>
-        /// <param name="kind">
-        /// Tipo de componente que este ensamblado es.
-        /// </param>
-        public McartComponentAttribute(RtInfo.ComponentKind kind)
-        {
-            Kind = kind;
-        }
-
-        /// <summary>
-        /// Obtiene el tipo de componente que es este ensamblado de MCART.
-        /// </summary>
-        public RtInfo.ComponentKind Kind { get; }
-
-        /// <summary>
-        /// Obtiene el valor de este atributo.
-        /// </summary>
-        RtInfo.ComponentKind IValueAttribute<RtInfo.ComponentKind>.Value => Kind;
+        Kind = kind;
     }
+
+    /// <summary>
+    /// Obtiene el tipo de componente que es este ensamblado de MCART.
+    /// </summary>
+    public RtInfo.ComponentKind Kind { get; }
+
+    /// <summary>
+    /// Obtiene el valor de este atributo.
+    /// </summary>
+    RtInfo.ComponentKind IValueAttribute<RtInfo.ComponentKind>.Value => Kind;
 }

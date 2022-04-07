@@ -22,119 +22,117 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Exceptions;
 using System;
 using System.Runtime.Serialization;
 
-namespace TheXDS.MCART.Exceptions
+/// <summary>
+/// Excepción que se produce cuando se hace referencia a un recurso que no existe.
+/// </summary>
+[Serializable]
+public class MissingResourceException : OffendingException<string>
 {
     /// <summary>
-    /// Excepción que se produce cuando se hace referencia a un recurso que no existe.
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="MissingResourceException" />.
     /// </summary>
-    [Serializable]
-    public class MissingResourceException : OffendingException<string>
+    public MissingResourceException()
     {
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="MissingResourceException" />.
-        /// </summary>
-        public MissingResourceException()
-        {
-        }
+    }
 
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="MissingResourceException" />.
-        /// </summary>
-        /// <param name="offendingObject">
-        /// Id del recurso que ha producido la excepción.
-        /// </param>
-        public MissingResourceException(string offendingObject) : base(offendingObject)
-        {
-        }
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="MissingResourceException" />.
+    /// </summary>
+    /// <param name="offendingObject">
+    /// Id del recurso que ha producido la excepción.
+    /// </param>
+    public MissingResourceException(string offendingObject) : base(offendingObject)
+    {
+    }
 
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="MissingResourceException" />.
-        /// </summary>
-        /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
-        public MissingResourceException(Exception inner) : base(inner)
-        {
-        }
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase <see cref="MissingResourceException" />.
+    /// </summary>
+    /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
+    public MissingResourceException(Exception inner) : base(inner)
+    {
+    }
 
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="MissingResourceException" />.
-        /// </summary>
-        /// <param name="message">
-        /// Un <see cref="string" /> que describe a la excepción.
-        /// </param>
-        /// <param name="offendingObject">
-        /// Id del recurso que ha producido la excepción.
-        /// </param>
-        public MissingResourceException(string message, string offendingObject) : base(message, offendingObject)
-        {
-        }
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="MissingResourceException" />.
+    /// </summary>
+    /// <param name="message">
+    /// Un <see cref="string" /> que describe a la excepción.
+    /// </param>
+    /// <param name="offendingObject">
+    /// Id del recurso que ha producido la excepción.
+    /// </param>
+    public MissingResourceException(string message, string offendingObject) : base(message, offendingObject)
+    {
+    }
 
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="MissingResourceException" />.
-        /// </summary>
-        /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
-        /// <param name="offendingObject">
-        /// Id del recurso que ha producido la excepción.
-        /// </param>
-        public MissingResourceException(Exception inner, string offendingObject) : base(inner, offendingObject)
-        {
-        }
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase <see cref="MissingResourceException" />.
+    /// </summary>
+    /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
+    /// <param name="offendingObject">
+    /// Id del recurso que ha producido la excepción.
+    /// </param>
+    public MissingResourceException(Exception inner, string offendingObject) : base(inner, offendingObject)
+    {
+    }
 
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="MissingResourceException" />.
-        /// </summary>
-        /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
-        /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
-        public MissingResourceException(string message, Exception inner) : base(message, inner)
-        {
-        }
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase <see cref="MissingResourceException" />.
+    /// </summary>
+    /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
+    /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
+    public MissingResourceException(string message, Exception inner) : base(message, inner)
+    {
+    }
 
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="MissingResourceException" />.
-        /// </summary>
-        /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
-        /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
-        /// <param name="offendingObject">
-        /// Id del recurso que ha producido la excepción.
-        /// </param>
-        public MissingResourceException(string message, Exception inner, string offendingObject) : base(message, inner, offendingObject)
-        {
-        }
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase <see cref="MissingResourceException" />.
+    /// </summary>
+    /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
+    /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
+    /// <param name="offendingObject">
+    /// Id del recurso que ha producido la excepción.
+    /// </param>
+    public MissingResourceException(string message, Exception inner, string offendingObject) : base(message, inner, offendingObject)
+    {
+    }
 
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="MissingResourceException" />.
-        /// </summary>
-        /// <param name="info">
-        /// El objeto que contiene la información de serialización.
-        /// </param>
-        /// <param name="context">
-        /// La información contextual acerca del orígen o el destino.
-        /// </param>
-        protected MissingResourceException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-        }
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="MissingResourceException" />.
+    /// </summary>
+    /// <param name="info">
+    /// El objeto que contiene la información de serialización.
+    /// </param>
+    /// <param name="context">
+    /// La información contextual acerca del orígen o el destino.
+    /// </param>
+    protected MissingResourceException(SerializationInfo info, StreamingContext context) : base(info, context)
+    {
+    }
 
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="MissingResourceException" />.
-        /// </summary>
-        /// <param name="info">
-        /// El objeto que contiene la información de serialización.
-        /// </param>
-        /// <param name="context">
-        /// La información contextual acerca del orígen o el destino.
-        /// </param>
-        /// <param name="offendingObject">
-        /// Id del recurso que ha producido la excepción.
-        /// </param>
-        protected MissingResourceException(SerializationInfo info, StreamingContext context, string offendingObject) : base(info, context, offendingObject)
-        {
-        }
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="MissingResourceException" />.
+    /// </summary>
+    /// <param name="info">
+    /// El objeto que contiene la información de serialización.
+    /// </param>
+    /// <param name="context">
+    /// La información contextual acerca del orígen o el destino.
+    /// </param>
+    /// <param name="offendingObject">
+    /// Id del recurso que ha producido la excepción.
+    /// </param>
+    protected MissingResourceException(SerializationInfo info, StreamingContext context, string offendingObject) : base(info, context, offendingObject)
+    {
     }
 }

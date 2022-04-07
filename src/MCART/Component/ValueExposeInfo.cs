@@ -22,37 +22,35 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Component;
 using System;
 using System.Collections.Generic;
 using TheXDS.MCART.Resources;
 
-namespace TheXDS.MCART.Component
+/// <summary>
+/// Expone los valores de información de la interfaz
+/// <see cref="IExposeInfo"/> para valores especificados por el usuario.
+/// </summary>
+public struct ValueExposeInfo : IExposeInfo
 {
-    /// <summary>
-    /// Expone los vamores de información de la interfaz
-    /// <see cref="IExposeInfo"/> con valores especificados por el usuario.
-    /// </summary>
-    public struct ValueExposeInfo : IExposeInfo
-    {
-        /// <inheritdoc/>
-        public IEnumerable<string>? Authors { get; set; }
+    /// <inheritdoc/>
+    public IEnumerable<string>? Authors { get; set; }
 
-        /// <inheritdoc/>
-        public string? Copyright { get; set; }
+    /// <inheritdoc/>
+    public string? Copyright { get; set; }
 
-        /// <inheritdoc/>
-        public License? License { get; set; }
+    /// <inheritdoc/>
+    public string? Description { get; set; }
 
-        /// <inheritdoc/>
-        public Version? Version { get; set; }
+    /// <inheritdoc/>
+    public License? License { get; set; }
 
-        /// <inheritdoc/>
-        public IEnumerable<License>? ThirdPartyLicenses { get; set; }
+    /// <inheritdoc/>
+    public string Name { get; set; }
 
-        /// <inheritdoc/>
-        public string Name { get; set; }
+    /// <inheritdoc/>
+    public IEnumerable<License>? ThirdPartyLicenses { get; set; }
 
-        /// <inheritdoc/>
-        public string? Description { get; set; }
-    }
+    /// <inheritdoc/>
+    public Version? Version { get; set; }
 }

@@ -22,62 +22,60 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Events;
 using System.ComponentModel;
 
-namespace TheXDS.MCART.Events
+/// <summary>
+/// Contiene información de evento para cualquier clase con eventos donde
+/// se guardará información.
+/// </summary>
+public class ItemCreatingEventArgs<T> : CancelEventArgs where T : notnull
 {
     /// <summary>
-    /// Contiene información de evento para cualquier clase con eventos donde
-    /// se guardará información.
+    /// Inicializa una nueva instancia de esta clase con la información de
+    /// evento provista.
     /// </summary>
-    public class ItemCreatingEventArgs<T> : CancelEventArgs where T : notnull
+    /// <param name="item">Objeto que ha sido guardado.</param>
+    public ItemCreatingEventArgs(T item) : this(item, false)
     {
-        /// <summary>
-        /// Inicializa una nueva instancia de esta clase con la información de
-        /// evento provista.
-        /// </summary>
-        /// <param name="item">Objeto que ha sido guardado.</param>
-        public ItemCreatingEventArgs(T item) : this(item, false)
-        {
-        }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de esta clase con la información de
-        /// evento provista.
-        /// </summary>
-        /// <param name="item">Objeto que ha sido guardado.</param>
-        /// <param name="cancel">
-        /// Determina si este evento se cancelará de forma predeterminada.
-        /// </param>
-        /// <exception cref="System.ArgumentNullException">
-        /// Se produce si <paramref name="item"/> es <see langword="null"/>.
-        /// </exception>
-        public ItemCreatingEventArgs(T item, bool cancel) : base(cancel)
-        {
-            Misc.Internals.NullCheck(item, nameof(item));
-            Item = item;
-        }
-
-        /// <summary>
-        /// Obtiene el elemento que ha sido creado/editado.
-        /// </summary>
-        /// <returns>
-        /// Una referencia de instancia al objeto creado/editado.
-        /// </returns>
-        public T Item { get; }
-
-        /// <summary>
-        /// Convierte explícitamente un <see cref="ItemCreatingEventArgs{T}" /> en un
-        /// <see cref="ItemCreatedEventArgs{T}" />.
-        /// </summary>
-        /// <param name="fromValue">Objeto a convertir.</param>
-        /// <returns>
-        /// Un <see cref="ItemCreatedEventArgs{T}" /> con la misma información de
-        /// evento que el <see cref="ItemCreatingEventArgs{T}" /> especificado.
-        /// </returns>
-        public static implicit operator ItemCreatedEventArgs<T>(ItemCreatingEventArgs<T> fromValue)
-        {
-            return new(fromValue.Item);
-        }
     }
+
+    /// <summary>
+    /// Inicializa una nueva instancia de esta clase con la información de
+    /// evento provista.
+    /// </summary>
+    /// <param name="item">Objeto que ha sido guardado.</param>
+    /// <param name="cancel">
+    /// Determina si este evento se cancelará de forma predeterminada.
+    /// </param>
+    /// <exception cref="System.ArgumentNullException">
+    /// Se produce si <paramref name="item"/> es <see langword="null"/>.
+    /// </exception>
+    public ItemCreatingEventArgs(T item, bool cancel) : base(cancel)
+    {
+        Misc.Internals.NullCheck(item, nameof(item));
+        Item = item;
+    }
+
+    /// <summary>
+    /// Convierte explícitamente un <see cref="ItemCreatingEventArgs{T}" /> en un
+    /// <see cref="ItemCreatedEventArgs{T}" />.
+    /// </summary>
+    /// <param name="fromValue">Objeto a convertir.</param>
+    /// <returns>
+    /// Un <see cref="ItemCreatedEventArgs{T}" /> con la misma información de
+    /// evento que el <see cref="ItemCreatingEventArgs{T}" /> especificado.
+    /// </returns>
+    public static implicit operator ItemCreatedEventArgs<T>(ItemCreatingEventArgs<T> fromValue)
+    {
+        return new(fromValue.Item);
+    }
+
+    /// <summary>
+    /// Obtiene el elemento que ha sido creado/editado.
+    /// </summary>
+    /// <returns>
+    /// Una referencia de instancia al objeto creado/editado.
+    /// </returns>
+    public T Item { get; }
 }

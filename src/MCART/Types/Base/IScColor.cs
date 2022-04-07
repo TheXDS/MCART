@@ -22,32 +22,31 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Types.Base
+namespace TheXDS.MCART.Types.Base;
+
+/// <summary>
+/// Define una serie de métodos a implementar por un tipo que exponga
+/// información de color utilizando números de punto flotante.
+/// </summary>
+public interface IScColor
 {
     /// <summary>
-    /// Define una serie de métodos a implementar por un tipo que exponga
-    /// información de color utilizando números de punto flotante.
+    /// Componente Alfa del color.
     /// </summary>
-    public interface IScColor
-    {
-        /// <summary>
-        /// Componente Alfa del color.
-        /// </summary>
-        float ScA { get; set; }
+    float ScA { get; set; }
 
-        /// <summary>
-        ///  Componente Azul del color.
-        /// </summary>
-        float ScB { get; set; }
+    /// <summary>
+    ///  Componente Azul del color.
+    /// </summary>
+    float ScB { get; set; }
 
-        /// <summary>
-        ///  Componente Verde del color.
-        /// </summary>
-        float ScG { get; set; }
+    /// <summary>
+    ///  Componente Verde del color.
+    /// </summary>
+    float ScG { get; set; }
 
-        /// <summary>
-        ///  Componente Rojo del color.
-        /// </summary>
-        float ScR { get; set; }
-    }
+    /// <summary>
+    ///  Componente Rojo del color.
+    /// </summary>
+    float ScR { get; set; }
 }

@@ -349,11 +349,29 @@ namespace TheXDS.MCART.Resources.Strings {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a El método Change debe llamarse desde la misma propiedad que se está cambiando. Es recomendable que omita el parámetro propertyName para que el compilador determine automáticamente este valor..
+        /// </summary>
+        public static string PropChangeSame {
+            get {
+                return ResourceManager.GetString("PropChangeSame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a La propiedad &apos;{0}&apos; es de sólo lectura..
         /// </summary>
         public static string PropIsReadOnly {
             get {
                 return ResourceManager.GetString("PropIsReadOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El método Change debe ser llamado únicamente por el bloque set de una propiedad en un objeto que hereda de NotifyPropertyChangeBase o una de sus clases derivadas..
+        /// </summary>
+        public static string PropSetMustCall {
+            get {
+                return ResourceManager.GetString("PropSetMustCall", resourceCulture);
             }
         }
         
@@ -381,6 +399,15 @@ namespace TheXDS.MCART.Resources.Strings {
         public static string UndefinedEnum {
             get {
                 return ResourceManager.GetString("UndefinedEnum", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El tipo {0} no es válido en este contexto. Se esperaba un tipo {1}..
+        /// </summary>
+        public static string UnexpectedType {
+            get {
+                return ResourceManager.GetString("UnexpectedType", resourceCulture);
             }
         }
         

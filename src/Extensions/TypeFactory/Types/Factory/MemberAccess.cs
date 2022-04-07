@@ -22,29 +22,28 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Types.Extensions
+namespace TheXDS.MCART.Types.Extensions;
+
+/// <summary>
+/// Enumeración simplificada de niveles de acceso para un miembro.
+/// </summary>
+public enum MemberAccess
 {
     /// <summary>
-    /// Enumeración simplificada de niveles de acceso para un miembro.
+    /// Miembro privado.
     /// </summary>
-    public enum MemberAccess
-    {
-        /// <summary>
-        /// Miembro privado.
-        /// </summary>
-        Private,
-        /// <summary>
-        /// Miembro protegido, solo disponible en clases derivadas.
-        /// </summary>
-        Protected,
-        /// <summary>
-        /// Miembro interno, disponible de forma pública únicamente para el
-        /// ensamblado que contiene al tipo.
-        /// </summary>
-        Internal,
-        /// <summary>
-        /// Miembro público.
-        /// </summary>
-        Public
-    }
+    Private,
+    /// <summary>
+    /// Miembro protegido, solo disponible en clases derivadas.
+    /// </summary>
+    Protected,
+    /// <summary>
+    /// Miembro interno, disponible de forma pública únicamente para el
+    /// ensamblado que contiene al tipo.
+    /// </summary>
+    Internal,
+    /// <summary>
+    /// Miembro público.
+    /// </summary>
+    Public
 }

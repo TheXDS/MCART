@@ -22,49 +22,54 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Attributes;
 using System;
 using TheXDS.MCART.Resources;
 using static System.AttributeTargets;
 using static TheXDS.MCART.Misc.Internals;
 
-namespace TheXDS.MCART.Attributes
+/// <summary>
+/// Establece el texto de licencia a asociar con el elemento.
+/// </summary>
+[AttributeUsage(Class | Module | Assembly)]
+public sealed class LicenseTextAttribute : LicenseAttributeBase
 {
+    private readonly string _title;
+
     /// <summary>
-    /// Establece el texto de licencia a asociar con el elemento.
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="LicenseTextAttribute" />.
     /// </summary>
-    [AttributeUsage(Class | Module | Assembly)]
-    public sealed class LicenseTextAttribute : LicenseAttributeBase
+    /// <param name="title">Título de la licencia</param>
+    /// <param name="licenseText">Texto de la licencia.</param>
+    public LicenseTextAttribute(string title, string licenseText) 
+        : base(licenseText)
     {
-        private readonly string _title;
+        _title = EmptyChecked(title, nameof(title));
+        EmptyCheck(licenseText, nameof(licenseText));
+    }
 
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="LicenseTextAttribute" />.
-        /// </summary>
-        /// <param name="title">Título de la licencia</param>
-        /// <param name="licenseText">Texto de la licencia.</param>
-        public LicenseTextAttribute(string title, string licenseText) : base(licenseText)
-        {
-            _title = NullChecked(title, nameof(title));
-            NullCheck(licenseText, nameof(licenseText));
-        }
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="LicenseTextAttribute" />.
+    /// </summary>
+    /// <param name="licenseText">Texto de la licencia.</param>
+    public LicenseTextAttribute(string licenseText)
+        : this(EmptyChecked(licenseText, nameof(licenseText)).Split('\n', 2)[0].Trim(), licenseText)
+    {
+    }
 
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="LicenseTextAttribute" />.
-        /// </summary>
-        /// <param name="licenseText">Texto de la licencia.</param>
-        public LicenseTextAttribute(string licenseText) : this(NullChecked(licenseText, nameof(licenseText)).Split('\n', 2)[0].Trim(), licenseText)
-        {
-        }
-
-        /// <summary>
-        /// Obtiene el contenido de la licencia.
-        /// </summary>
-        /// <returns>El contenido de la licencia.</returns>
-        public override License GetLicense(object _)
-        {
-            return new TextLicense(_title, Value!);
-        }
+    /// <summary>
+    /// Obtiene una licencia asociada a este atributo.
+    /// </summary>
+    /// <param name="context">
+    /// Objeto del cual se ha extraído este atributo.
+    /// </param>
+    /// <returns>
+    /// Una licencia asociada a este atributo.
+    /// </returns>
+    public override License GetLicense(object context)
+    {
+        return new TextLicense(_title, Value!);
     }
 }

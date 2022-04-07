@@ -22,15 +22,14 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Types.Converters
+namespace TheXDS.MCART.Types.Converters;
+
+/// <summary>
+/// Permite realizar la conversión entre tipos
+/// <see cref="string" /> y
+/// <see cref="Range{T}" /> para rangos de tipo
+/// <see cref="char" />.
+/// </summary>
+public class CharRangeConverter : RangeConverter<char>
 {
-    /// <summary>
-    /// Permite realizar la conversión entre tipos
-    /// <see cref="string" /> y
-    /// <see cref="Range{T}" /> para rangos de tipo
-    /// <see cref="char" />.
-    /// </summary>
-    public class CharRangeConverter : RangeConverter<char>
-    {
-    }
 }

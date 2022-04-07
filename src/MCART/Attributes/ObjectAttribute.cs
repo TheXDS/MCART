@@ -22,34 +22,33 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Attributes;
 using System;
 
-namespace TheXDS.MCART.Attributes
+/* -= NOTA =-
+ * Los atributos (al momento de incluir esta nota, incluso en C#10) no soportan
+ * clases genéricas, por lo cual es necesario crear una implementación base
+ * para cada posible tipo de atributo con base de valor que pueda ser
+ * necesaria.
+ */
+
+/// <summary>
+/// Clase base para los atributos de cualquier tipo.
+/// </summary>
+public abstract class ObjectAttribute : Attribute, IValueAttribute<object?>
 {
-    /* -= NOTA =-
-     * Los atributos no soportan clases genéricas, por lo cual es necesario
-     * crear una implementación base para cada posible tipo de atributo con
-     * base de valor que pueda ser necesaria.
-     */
+    /// <summary>
+    /// Crea una nueva isntancia de la clase
+    /// <see cref="ObjectAttribute" />.
+    /// </summary>
+    /// <param name="attributeValue">Valor de este atributo.</param>
+    protected ObjectAttribute(object? attributeValue)
+    {
+        Value = attributeValue;
+    }
 
     /// <summary>
-    /// Clase base para los atributos de cualquier tipo.
+    /// Obtiene el valor asociado a este atributo.
     /// </summary>
-    public abstract class ObjectAttribute : Attribute, IValueAttribute<object?>
-    {
-        /// <summary>
-        /// Crea una nueva isntancia de la clase
-        /// <see cref="ObjectAttribute" />.
-        /// </summary>
-        /// <param name="attributeValue">Valor de este atributo.</param>
-        protected ObjectAttribute(object? attributeValue)
-        {
-            Value = attributeValue;
-        }
-
-        /// <summary>
-        /// Obtiene el valor asociado a este atributo.
-        /// </summary>
-        public object? Value { get; }
-    }
+    public object? Value { get; }
 }

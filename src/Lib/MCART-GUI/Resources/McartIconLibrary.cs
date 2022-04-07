@@ -22,68 +22,66 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Resources;
 using System.Runtime.CompilerServices;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types.Extensions;
 
-namespace TheXDS.MCART.Resources
+/// <summary>
+/// Clase base interna para exponer íconos incrustados en los 
+/// ensamblados de MCART.
+/// </summary>
+/// <typeparam name="T">
+/// Tipo de ícono a obtener.
+/// </typeparam>
+public abstract class McartIconLibrary<T>
 {
+    private static readonly McartIconLibrary<T> _staticInstance = Objects.FindFirstObject<McartIconLibrary<T>>() ?? throw new MissingTypeException(typeof(McartIconLibrary<T>));
+
     /// <summary>
-    /// Clase base interna para exponer íconos incrustados en los 
-    /// ensamblados de MCART.
+    /// Inicializa la clase <see cref="McartIconLibrary{T}"/>
     /// </summary>
-    /// <typeparam name="T">
-    /// Tipo de ícono a obtener.
-    /// </typeparam>
-    public abstract class McartIconLibrary<T>
+    static McartIconLibrary()
     {
-        private static readonly McartIconLibrary<T> _staticInstance = Objects.FindFirstObject<McartIconLibrary<T>>() ?? throw new MissingTypeException(typeof(McartIconLibrary<T>));
-
-        /// <summary>
-        /// Inicializa la clase <see cref="McartIconLibrary{T}"/>
-        /// </summary>
-        static McartIconLibrary()
-        {
-            if (!_staticInstance.GetType().Assembly.HasAttr<McartComponentAttribute>()) throw new TamperException();
-        }
-
-        /// <summary>
-        /// Implementa el método de obtención del ícono basado en el nombre
-        /// del ícono solicitado.
-        /// </summary>
-        /// <param name="id">
-        /// Id del ícono solicitado.
-        /// </param>
-        /// <returns>
-        /// El ícono solicitado.
-        /// </returns>
-        protected abstract T GetIcon([CallerMemberName] string? id = null!);
-
-        /// <summary>
-        /// Ícono principal de MCART.
-        /// </summary>
-        public static T MCART => _staticInstance.GetIcon();
-
-        /// <summary>
-        /// Ícono de plugin de MCART.
-        /// </summary>
-        public static T Plugin => _staticInstance.GetIcon();
-
-        /// <summary>
-        /// Ícono de archivo incorrecto.
-        /// </summary>
-        public static T BadFile => _staticInstance.GetIcon();
-
-        /// <summary>
-        /// Ícono de archivo no encontrado.
-        /// </summary>
-        public static T FileMissing => _staticInstance.GetIcon();
-
-        /// <summary>
-        /// Ícono de problema con archivo.
-        /// </summary>
-        public static T FileWarning => _staticInstance.GetIcon();
+        if (!_staticInstance.GetType().Assembly.HasAttr<McartComponentAttribute>()) throw new TamperException();
     }
+
+    /// <summary>
+    /// Implementa el método de obtención del ícono basado en el nombre
+    /// del ícono solicitado.
+    /// </summary>
+    /// <param name="id">
+    /// Id del ícono solicitado.
+    /// </param>
+    /// <returns>
+    /// El ícono solicitado.
+    /// </returns>
+    protected abstract T GetIcon([CallerMemberName] string? id = null!);
+
+    /// <summary>
+    /// Ícono principal de MCART.
+    /// </summary>
+    public static T MCART => _staticInstance.GetIcon();
+
+    /// <summary>
+    /// Ícono de plugin de MCART.
+    /// </summary>
+    public static T Plugin => _staticInstance.GetIcon();
+
+    /// <summary>
+    /// Ícono de archivo incorrecto.
+    /// </summary>
+    public static T BadFile => _staticInstance.GetIcon();
+
+    /// <summary>
+    /// Ícono de archivo no encontrado.
+    /// </summary>
+    public static T FileMissing => _staticInstance.GetIcon();
+
+    /// <summary>
+    /// Ícono de problema con archivo.
+    /// </summary>
+    public static T FileWarning => _staticInstance.GetIcon();
 }

@@ -22,52 +22,50 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Component;
 using System;
 using TheXDS.MCART.PInvoke.Structs;
 using TheXDS.MCART.Types.Extensions;
 using static TheXDS.MCART.PInvoke.Kernel32;
 
-namespace TheXDS.MCART.Component
+/// <summary>
+/// Clase auxiliar envolvente que permite realizar llamadas de gestión de
+/// la ventana de consola de la aplicación.
+/// </summary>
+public class ConsoleWindow : IMsWindow
 {
+    private Margins _margins;
+
     /// <summary>
-    /// Clase auxiliar envolvente que permite realizar llamadas de gestión de
-    /// la ventana de consola de la aplicación.
+    /// Obtiene un valor que indica si la aplicación tiene acceso a la
+    /// consola.
     /// </summary>
-    public class ConsoleWindow : IMsWindow
+    public static bool HasConsole => GetConsoleWindow() != IntPtr.Zero;
+
+    internal ConsoleWindow()
     {
-        private Margins _margins;
+        if (Handle == IntPtr.Zero) AllocConsole();
+    }
 
-        /// <summary>
-        /// Obtiene un valor que indica si la aplicación tiene acceso a la
-        /// consola.
-        /// </summary>
-        public static bool HasConsole => GetConsoleWindow() != IntPtr.Zero;
+    /// <inheritdoc/>
+    public IntPtr Handle => GetConsoleWindow();
 
-        internal ConsoleWindow()
+    /// <inheritdoc/>
+    public Margins Padding
+    {
+        get => _margins;
+        set
         {
-            if (Handle == IntPtr.Zero) AllocConsole();
+            _margins = value;
+            this.SetClientPadding(value);
         }
+    }
 
-        /// <inheritdoc/>
-        public IntPtr Handle => GetConsoleWindow();
-
-        /// <inheritdoc/>
-        public Margins Padding
-        {
-            get => _margins;
-            set
-            {
-                _margins = value;
-                this.SetClientPadding(value);
-            }
-        }
-
-        /// <summary>
-        /// Cierra la ventana de consola.
-        /// </summary>
-        public void Close()
-        {
-            if (Handle != IntPtr.Zero) FreeConsole();
-        }
+    /// <summary>
+    /// Cierra la ventana de consola.
+    /// </summary>
+    public void Close()
+    {
+        if (Handle != IntPtr.Zero) FreeConsole();
     }
 }

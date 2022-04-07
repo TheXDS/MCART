@@ -22,18 +22,16 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.PInvoke;
 using System;
 using System.Runtime.InteropServices;
 using TheXDS.MCART.PInvoke.Structs;
 
-namespace TheXDS.MCART.PInvoke
+internal class DwmApi
 {
-    internal class DwmApi
-    {
-        [DllImport("dwmapi.dll")] internal static extern int DwmExtendFrameIntoClientArea(IntPtr hWnd, ref Margins pMargins);
-        [DllImport("dwmapi.dll", PreserveSig = false)] internal static extern bool DwmIsCompositionEnabled();
-        [DllImport("dwmapi.dll")] internal static extern int DwmGetWindowAttribute(IntPtr hwnd, DwmWindowAttribute dwAttribute, out bool pvAttribute, int cbAttribute);
-        [DllImport("dwmapi.dll")] internal static extern int DwmSetWindowAttribute(IntPtr hwnd, DwmWindowAttribute dwAttribute, ref int pvAttribute, int cbAttribute);
-        [DllImport("dwmapi.dll")] internal static extern int DwmGetColorizationColor(out uint pcrColorization, [MarshalAs(UnmanagedType.Bool)] out bool pfOpaqueBlend);
-    }
+    [DllImport("dwmapi.dll")] internal static extern int DwmExtendFrameIntoClientArea(IntPtr hWnd, ref Margins pMargins);
+    [DllImport("dwmapi.dll", PreserveSig = false)] internal static extern bool DwmIsCompositionEnabled();
+    [DllImport("dwmapi.dll")] internal static extern int DwmGetWindowAttribute(IntPtr hwnd, DwmWindowAttribute dwAttribute, out bool pvAttribute, int cbAttribute);
+    [DllImport("dwmapi.dll")] internal static extern int DwmSetWindowAttribute(IntPtr hwnd, DwmWindowAttribute dwAttribute, ref int pvAttribute, int cbAttribute);
+    [DllImport("dwmapi.dll")] internal static extern int DwmGetColorizationColor(out uint pcrColorization, [MarshalAs(UnmanagedType.Bool)] out bool pfOpaqueBlend);
 }

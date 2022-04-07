@@ -22,23 +22,21 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Resources;
 using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using static TheXDS.MCART.Misc.Internals;
 using static TheXDS.MCART.Types.Extensions.StringExtensions;
 
-namespace TheXDS.MCART.Resources
+public abstract partial class AssemblyUnpacker<T>
 {
-    public abstract partial class AssemblyUnpacker<T>
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void UnpackStream_Contract(string id)
     {
-        [Conditional("EnforceContracts")]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [DebuggerNonUserCode]
-        private static void UnpackStream_Contract(string id)
-        {
-            NullCheck(id, nameof(id));
-            if (id.IsEmpty()) throw new ArgumentException(null, nameof(id));
-        }
+        EmptyCheck(id, nameof(id));
+        if (id.IsEmpty()) throw new ArgumentException(null, nameof(id));
     }
 }

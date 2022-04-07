@@ -23,16 +23,17 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 #if !CLSCompliance
-namespace TheXDS.MCART.Types.Converters
+
+namespace TheXDS.MCART.Types.Converters;
+
+/// <summary>
+/// Permite realizar la conversión entre tipos
+/// <see cref="string" /> y
+/// <see cref="Range{T}" /> para rangos de tipo
+/// <see cref="sbyte" />.
+/// </summary>
+public class SByteRangeConverter : RangeConverter<sbyte>
 {
-    /// <summary>
-    /// Permite realizar la conversión entre tipos
-    /// <see cref="string" /> y
-    /// <see cref="Range{T}" /> para rangos de tipo
-    /// <see cref="sbyte" />.
-    /// </summary>
-    public class SByteRangeConverter : RangeConverter<sbyte>
-    {
-    }
 }
+
 #endif

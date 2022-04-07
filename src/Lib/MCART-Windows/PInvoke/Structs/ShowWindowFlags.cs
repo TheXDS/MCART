@@ -22,20 +22,19 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.PInvoke.Structs
+namespace TheXDS.MCART.PInvoke.Structs;
+
+internal enum ShowWindowFlags : int
 {
-    internal enum ShowWindowFlags : int
-    {
-        Hide = 0,
-        ShowNormal = 1,
-        ShowMinimized = 2,
-        ShowMaximized = 3,
-        ShowNoActivate = 4,
-        Show = 5,
-        Minimize = 6,
-        ShowMinNoActive = 7,
-        ShowNA = 8,
-        Restore = 9,
-        ShowDefault = 10
-    }
+    Hide = 0,
+    ShowNormal = 1,
+    ShowMinimized = 2,
+    ShowMaximized = 3,
+    ShowNoActivate = 4,
+    Show = 5,
+    Minimize = 6,
+    ShowMinNoActive = 7,
+    ShowNA = 8,
+    Restore = 9,
+    ShowDefault = 10
 }

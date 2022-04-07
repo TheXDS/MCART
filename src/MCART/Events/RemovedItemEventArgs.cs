@@ -22,37 +22,35 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Events;
 using System;
 using TheXDS.MCART.Types;
 
-namespace TheXDS.MCART.Events
+/// <summary>
+/// Contiene información para el evento
+/// <see cref="ListEx{T}.RemovedItem"/>.
+/// </summary>
+/// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
+public class RemovedItemEventArgs<T> : EventArgs
 {
-    /// <summary>
-    /// Contiene información para el evento
-    /// <see cref="ListEx{T}.RemovedItem"/>.
-    /// </summary>
-    /// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
-    public class RemovedItemEventArgs<T> : EventArgs
+    internal RemovedItemEventArgs(T removedItem)
     {
-        /// <summary>
-        /// Convierte implícitamente un
-        /// <see cref="RemovingItemEventArgs{T}"/> en un
-        /// <see cref="RemovedItemEventArgs{T}"/>.
-        /// </summary>
-        /// <param name="from">
-        /// <see cref="RemovingItemEventArgs{T}"/> a convertir.
-        /// </param>
-        public static implicit operator RemovedItemEventArgs<T>(RemovingItemEventArgs<T> from) => new(from.RemovedItem);
-
-        /// <summary>
-        /// Objeto que fue quitado del <see cref="ListEx{T}"/> que generó
-        /// el evento.
-        /// </summary>
-        public T RemovedItem { get; }
-
-        internal RemovedItemEventArgs(T removedItem)
-        {
-            RemovedItem = removedItem;
-        }
+        RemovedItem = removedItem;
     }
+
+    /// <summary>
+    /// Convierte implícitamente un
+    /// <see cref="RemovingItemEventArgs{T}"/> en un
+    /// <see cref="RemovedItemEventArgs{T}"/>.
+    /// </summary>
+    /// <param name="from">
+    /// <see cref="RemovingItemEventArgs{T}"/> a convertir.
+    /// </param>
+    public static implicit operator RemovedItemEventArgs<T>(RemovingItemEventArgs<T> from) => new(from.RemovedItem);
+
+    /// <summary>
+    /// Objeto que fue quitado del <see cref="ListEx{T}"/> que generó
+    /// el evento.
+    /// </summary>
+    public T RemovedItem { get; }
 }

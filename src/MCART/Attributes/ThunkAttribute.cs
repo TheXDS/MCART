@@ -22,22 +22,20 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Attributes;
 using System;
 using static System.AttributeTargets;
 
-namespace TheXDS.MCART.Attributes
+/// <summary>
+/// Indica que un elemento es un proveedor de Thunking (facilita la
+/// llamada a otros entornos o Frameworks).
+/// </summary>
+/// <remarks>
+/// Este atributo no debería aplicarse a sobrecargas de un método que
+/// no sea en sí mismo un método de Thunking.
+/// </remarks>
+[AttributeUsage(Property | Method | Class | Module | Assembly)]
+[Serializable]
+public sealed class ThunkAttribute : Attribute
 {
-    /// <summary>
-    /// Indica que un elemento es un proveedor de Thunking (facilita la
-    /// llamada a otros entornos o Frameworks).
-    /// </summary>
-    /// <remarks>
-    /// Este atributo no debería aplicarse a sobrecargas de un método que
-    /// no sea en sí mismo un método de Thunking.
-    /// </remarks>
-    [AttributeUsage(Property | Method | Class | Module | Assembly)]
-    [Serializable]
-    public sealed class ThunkAttribute : Attribute
-    {
-    }
 }

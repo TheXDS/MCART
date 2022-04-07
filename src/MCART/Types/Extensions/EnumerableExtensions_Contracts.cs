@@ -22,31 +22,29 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types.Extensions;
 using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using TheXDS.MCART.Exceptions;
 using static TheXDS.MCART.Misc.Internals;
 
-namespace TheXDS.MCART.Types.Extensions
+public static partial class EnumerableExtensions
 {
-    public static partial class EnumerableExtensions
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void FirstOf_OfType_Contract<T>(Type? type)
     {
-        [Conditional("EnforceContracts")]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [DebuggerNonUserCode]
-        private static void FirstOf_OfType_Contract<T>(Type? type)
-        {
-            NullCheck(type, nameof(type));
-            if (!typeof(T).IsAssignableFrom(type)) throw new InvalidTypeException(type!);
-        }
+        NullCheck(type, nameof(type));
+        if (!typeof(T).IsAssignableFrom(type)) throw new InvalidTypeException(type!);
+    }
 
-        [Conditional("EnforceContracts")]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [DebuggerNonUserCode]
-        private static void Count_Contract(System.Collections.IEnumerable e)
-        {
-            NullCheck(e, nameof(e));
-        }
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void Count_Contract(System.Collections.IEnumerable e)
+    {
+        NullCheck(e, nameof(e));
     }
 }

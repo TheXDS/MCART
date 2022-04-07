@@ -22,18 +22,17 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Component
+namespace TheXDS.MCART.Component;
+
+/// <summary>
+/// Define una serie de miembros a implementar por un tipo que represente a
+/// un elemento de UI que puede ser cerrado, como ser las ventanas de una
+/// aplicación.
+/// </summary>
+public interface ICloseable
 {
     /// <summary>
-    /// Define una serie de miembros a implementar por un tipo que represente a
-    /// un elemento de UI que puede ser cerrado, como ser las ventanas de una
-    /// aplicación.
+    /// Cierra esta instancia.
     /// </summary>
-    public interface ICloseable
-    {
-        /// <summary>
-        /// Cierra esta instancia.
-        /// </summary>
-        void Close();
-    }
+    void Close();
 }

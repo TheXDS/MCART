@@ -213,8 +213,14 @@
   <data name="ObjectIsDisabled" xml:space="preserve">
     <value>El objeto está deshabilitado.</value>
   </data>
+  <data name="PropChangeSame" xml:space="preserve">
+    <value>El método Change debe llamarse desde la misma propiedad que se está cambiando. Es recomendable que omita el parámetro propertyName para que el compilador determine automáticamente este valor.</value>
+  </data>
   <data name="PropIsReadOnly" xml:space="preserve">
     <value>La propiedad '{0}' es de sólo lectura.</value>
+  </data>
+  <data name="PropSetMustCall" xml:space="preserve">
+    <value>El método Change debe ser llamado únicamente por el bloque set de una propiedad en un objeto que hereda de NotifyPropertyChangeBase o una de sus clases derivadas.</value>
   </data>
   <data name="StackUnderflow" xml:space="preserve">
     <value>La pila está vacía.</value>
@@ -224,6 +230,9 @@
   </data>
   <data name="UndefinedEnum" xml:space="preserve">
     <value>El valor {0} está fuera del rango de valores definidos para la enumeración {1}.</value>
+  </data>
+  <data name="UnexpectedType" xml:space="preserve">
+    <value>El tipo {0} no es válido en este contexto. Se esperaba un tipo {1}.</value>
   </data>
   <data name="ValueMustBeBetweenXandY" xml:space="preserve">
     <value>El valor debe estar entre {0} y {1}.</value>

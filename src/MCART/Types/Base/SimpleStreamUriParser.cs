@@ -22,44 +22,42 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types.Base;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace TheXDS.MCART.Types.Base
+/// <summary>
+/// Clase base para un <see cref="StreamUriParser"/> simple cuya lógica
+/// de comprobación de <see cref="Uri"/> requiere únicamente una lista
+/// de esquemas o protocolos compatibles.
+/// </summary>
+public abstract class SimpleStreamUriParser : StreamUriParser
 {
     /// <summary>
-    /// Clase base para un <see cref="StreamUriParser"/> simple cuya lógica
-    /// de comprobación de <see cref="Uri"/> requiere únicamente una lista
-    /// de esquemas o protocolos compatibles.
+    /// Enumera los protocolos aceptados de <see cref="Uri"/> para la
+    /// apertura de un nuevo <see cref="Stream"/> para la lectura del
+    /// recurso.
     /// </summary>
-    public abstract class SimpleStreamUriParser : StreamUriParser
-    {
-        /// <summary>
-        /// Enumera los protocolos aceptados de <see cref="Uri"/> para la
-        /// apertura de un nuevo <see cref="Stream"/> para la lectura del
-        /// recurso.
-        /// </summary>
-        protected abstract IEnumerable<string> SchemeList { get; }
+    protected abstract IEnumerable<string> SchemeList { get; }
 
-        /// <summary>
-        /// Determina si este <see cref="StreamUriParser"/> puede crear un
-        /// <see cref="Stream"/> a partir del <see cref="Uri"/>
-        /// especificado.
-        /// </summary>
-        /// <param name="uri">
-        /// <see cref="Uri"/> a comprobar.
-        /// </param>
-        /// <returns>
-        /// <see langword="true"/> si este <see cref="StreamUriParser"/>
-        /// puede crear un <see cref="Stream"/> a partir del
-        /// <see cref="Uri"/> especificado, <see langword="false"/> en caso
-        /// contrario.
-        /// </returns>
-        public override bool Handles(Uri uri)
-        {
-            return SchemeList.Contains(uri.Scheme);
-        }
+    /// <summary>
+    /// Determina si este <see cref="StreamUriParser"/> puede crear un
+    /// <see cref="Stream"/> a partir del <see cref="Uri"/>
+    /// especificado.
+    /// </summary>
+    /// <param name="uri">
+    /// <see cref="Uri"/> a comprobar.
+    /// </param>
+    /// <returns>
+    /// <see langword="true"/> si este <see cref="StreamUriParser"/>
+    /// puede crear un <see cref="Stream"/> a partir del
+    /// <see cref="Uri"/> especificado, <see langword="false"/> en caso
+    /// contrario.
+    /// </returns>
+    public override bool Handles(Uri uri)
+    {
+        return SchemeList.Contains(uri.Scheme);
     }
 }

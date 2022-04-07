@@ -22,24 +22,23 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.PInvoke.Structs
+namespace TheXDS.MCART.PInvoke.Structs;
+
+internal enum DwmWindowAttribute
 {
-    internal enum DwmWindowAttribute
-    {
-        NCRenderingEnabled = 1,
-        NCRenderingPolicy,
-        TransitionsForceDisabled,
-        AllowNCPaint,
-        CaptionButtonBounds,
-        NonClientRtlLayout,
-        ForceIconicRepresentation,
-        Flip3DPolicy,
-        ExtendedFrameBounds,
-        HasIconicBitmap,
-        DisallowPeek,
-        ExcludedFromPeek,
-        Cloak,
-        Cloaked,
-        FreezeRepresentation
-    }
+    NCRenderingEnabled = 1,
+    NCRenderingPolicy,
+    TransitionsForceDisabled,
+    AllowNCPaint,
+    CaptionButtonBounds,
+    NonClientRtlLayout,
+    ForceIconicRepresentation,
+    Flip3DPolicy,
+    ExtendedFrameBounds,
+    HasIconicBitmap,
+    DisallowPeek,
+    ExcludedFromPeek,
+    Cloak,
+    Cloaked,
+    FreezeRepresentation
 }

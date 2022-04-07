@@ -22,30 +22,28 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Events;
 using System.ComponentModel;
 using TheXDS.MCART.Types;
 
-namespace TheXDS.MCART.Events
+/// <summary>
+/// Contiene información para el evento <see cref="ListEx{T}.AddingItem"/>.
+/// </summary>
+/// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
+public class AddingItemEventArgs<T> : CancelEventArgs
 {
     /// <summary>
-    /// Contiene información para el evento <see cref="ListEx{T}.AddingItem"/>.
+    /// Inicializa una nueva instancia de la clase 
+    /// <see cref="AddingItemEventArgs{T}"/>.
     /// </summary>
-    /// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
-    public class AddingItemEventArgs<T> : CancelEventArgs
-    {
-        /// <summary>
-        /// Obtiene el objeto que se agregará al <see cref="ListEx{T}"/>.
-        /// </summary>
-        public T NewItem { get; }
+    /// <param name="newItem">
+    /// Objeto a ser agregado al <see cref="ListEx{T}"/> que generó el 
+    /// evento.
+    /// </param>
+    internal AddingItemEventArgs(T newItem) { NewItem = newItem; }
 
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="AddingItemEventArgs{T}"/>.
-        /// </summary>
-        /// <param name="newItem">
-        /// Objeto a ser agregado al <see cref="ListEx{T}"/> que generó el 
-        /// evento.
-        /// </param>
-        internal AddingItemEventArgs(T newItem) { NewItem = newItem; }
-    }
+    /// <summary>
+    /// Obtiene el objeto que se agregará al <see cref="ListEx{T}"/>.
+    /// </summary>
+    public T NewItem { get; }
 }

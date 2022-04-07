@@ -22,32 +22,30 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.ViewModel;
 using System;
 
-namespace TheXDS.MCART.ViewModel
+/// <summary>
+/// Define una serie de miembros a implementar por un tipo que permita
+/// configurar reglas de validación para una propiedad.
+/// </summary>
+/// <typeparam name="T">Tipo de la propiedad seleccionada.</typeparam>
+public interface IValidationEntry<T>
 {
     /// <summary>
-    /// Define una serie de miembros a implementar por un tipo que permita
-    /// configurar reglas de validación para una propiedad.
+    /// Agrega una regla de validación para la propiedad seleccionada.
     /// </summary>
-    /// <typeparam name="T">Tipo de la propiedad seleccionada.</typeparam>
-    public interface IValidationEntry<T>
-    {
-        /// <summary>
-        /// Agrega una regla de validación para la propiedad seleccionada.
-        /// </summary>
-        /// <param name="rule">
-        /// FUnción que ejecutala validación. La función debe devolder 
-        /// <see langword="true"/> si la propiedad pasa satisfactoriamente
-        /// la prueba, <see langword="false"/> en caso contrario.
-        /// </param>
-        /// <param name="error">
-        /// Mensaje de error a mostrarse si la regla falla.
-        /// </param>
-        /// <returns>
-        /// La misma instancia de regla de validación, permitiendo el uso
-        /// de sintaxis Fluent.
-        /// </returns>
-        IValidationEntry<T> AddRule(Func<T, bool> rule, string error);
-    }
+    /// <param name="rule">
+    /// FUnción que ejecutala validación. La función debe devolder 
+    /// <see langword="true"/> si la propiedad pasa satisfactoriamente
+    /// la prueba, <see langword="false"/> en caso contrario.
+    /// </param>
+    /// <param name="error">
+    /// Mensaje de error a mostrarse si la regla falla.
+    /// </param>
+    /// <returns>
+    /// La misma instancia de regla de validación, permitiendo el uso
+    /// de sintaxis Fluent.
+    /// </returns>
+    IValidationEntry<T> AddRule(Func<T, bool> rule, string error);
 }

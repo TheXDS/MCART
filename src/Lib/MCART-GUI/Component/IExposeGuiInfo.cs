@@ -22,18 +22,17 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Component
+namespace TheXDS.MCART.Component;
+
+/// <summary>
+/// Extensión de la interfaz <see cref="IExposeInfo" /> que permite
+/// establecer un ícono.
+/// </summary>
+/// <typeparam name="TIcon">Tipo del ícono a exponer.</typeparam>
+public interface IExposeGuiInfo<out TIcon> : IExposeInfo
 {
     /// <summary>
-    /// Extensión de la interfaz <see cref="IExposeInfo" /> que permite
-    /// establecer un ícono.
+    /// Obtiene el ícono establecido del elemento.
     /// </summary>
-    /// <typeparam name="TIcon">Tipo del ícono a exponer.</typeparam>
-    public interface IExposeGuiInfo<out TIcon> : IExposeInfo
-    {
-        /// <summary>
-        /// Obtiene el ícono establecido del elemento.
-        /// </summary>
-        TIcon Icon { get; }
-    }
+    TIcon Icon { get; }
 }

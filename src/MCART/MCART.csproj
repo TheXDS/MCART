@@ -1,8 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <Description>MCART Core Library</Description>
-    <NeutralLanguage>es-419</NeutralLanguage>
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Data\*" />

@@ -22,16 +22,14 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Resources;
 using System;
 using Ers = TheXDS.MCART.Windows.Resources.Strings.WinErrors;
 
-namespace TheXDS.MCART.Resources
+internal static class WindowsErrors
 {
-    internal static class WindowsErrors
+    public static ArgumentException OffsetCountOutsideBuffer()
     {
-        public static ArgumentException OffsetCountOutsideBuffer()
-        {
-            return new ArgumentException(Ers.OffsetCountOutsideBuffer);
-        }
+        return new ArgumentException(Ers.OffsetCountOutsideBuffer);
     }
 }

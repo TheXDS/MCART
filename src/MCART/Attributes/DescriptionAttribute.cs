@@ -22,24 +22,23 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Attributes;
 using System;
 
-namespace TheXDS.MCART.Attributes
+/// <summary>
+/// Establece una descripción larga para este elemento.
+/// </summary>
+[AttributeUsage(AttributeTargets.All)]
+[Serializable]
+public sealed class DescriptionAttribute : TextAttribute
 {
     /// <summary>
-    /// Establece una descripción larga para este elemento.
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="DescriptionAttribute" />.
     /// </summary>
-    [AttributeUsage(AttributeTargets.All)]
-    [Serializable]
-    public sealed class DescriptionAttribute : TextAttribute
+    /// <param name="description">Valor del atributo.</param>
+    public DescriptionAttribute(string description)
+        : base(description)
     {
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="DescriptionAttribute" />.
-        /// </summary>
-        /// <param name="description">Valor del atributo.</param>
-        public DescriptionAttribute(string description) : base(description)
-        {
-        }
     }
 }

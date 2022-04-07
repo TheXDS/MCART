@@ -22,6 +22,7 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -29,188 +30,185 @@ using System.Threading;
 using System.Threading.Tasks;
 using TheXDS.MCART.Attributes;
 
-namespace TheXDS.MCART.Types.Extensions
+/// <summary>
+/// Extensiones para la clase <see cref="Task"/>.
+/// </summary>
+[DebuggerStepThrough]
+public static class TaskExtensions
 {
     /// <summary>
-    /// Extensiones para la clase <see cref="Task"/>.
+    /// Agrega soporte de cancelación a las tareas que no admiten el
+    /// uso de un <see cref="CancellationToken"/> de forma nativa.
     /// </summary>
-    [DebuggerStepThrough]
-    public static class TaskExtensions
+    /// <typeparam name="T">
+    /// Tipo de resultado devuelto por la tarea.
+    /// </typeparam>
+    /// <param name="task">
+    /// Tarea a ejecutar.
+    /// </param>
+    /// <param name="cancellationToken">
+    /// Token de cancelación.
+    /// </param>
+    /// <returns>
+    /// El resutlado de la operación asíncrona.
+    /// </returns>
+    /// <exception cref="TaskCanceledException">
+    /// Se produce cuando la tarea es cancelada por medio de
+    /// <paramref name="cancellationToken"/> antes de finalizar.
+    /// </exception>
+    public static Task<T> WithCancellation<T>(this Task<T> task, CancellationToken cancellationToken)
     {
-        /// <summary>
-        /// Agrega soporte de cancelación a las tareas que no admiten el
-        /// uso de un <see cref="CancellationToken"/> de forma nativa.
-        /// </summary>
-        /// <typeparam name="T">
-        /// Tipo de resultado devuelto por la tarea.
-        /// </typeparam>
-        /// <param name="task">
-        /// Tarea a ejecutar.
-        /// </param>
-        /// <param name="cancellationToken">
-        /// Token de cancelación.
-        /// </param>
-        /// <returns>
-        /// El resutlado de la operación asíncrona.
-        /// </returns>
-        /// <exception cref="TaskCanceledException">
-        /// Se produce cuando la tarea es cancelada por medio de
-        /// <paramref name="cancellationToken"/> antes de finalizar.
-        /// </exception>
-        public static Task<T> WithCancellation<T>(this Task<T> task, CancellationToken cancellationToken)
-        {
-            return task.IsCompleted
-                ? task
-                : task.ContinueWith(
-                    completedTask => completedTask.GetAwaiter().GetResult(),
-                    cancellationToken,
-                    TaskContinuationOptions.ExecuteSynchronously,
-                    TaskScheduler.Default);
-        }
+        return task.IsCompleted
+            ? task
+            : task.ContinueWith(
+                completedTask => completedTask.GetAwaiter().GetResult(),
+                cancellationToken,
+                TaskContinuationOptions.ExecuteSynchronously,
+                TaskScheduler.Default);
+    }
 
-        /// <summary>
-        /// Agrega soporte de cancelación a las tareas que no admiten el
-        /// uso de un <see cref="CancellationToken"/> de forma nativa.
-        /// </summary>
-        /// <param name="task">
-        /// Tarea a ejecutar.
-        /// </param>
-        /// <param name="cancellationToken">
-        /// Token de cancelación.
-        /// </param>
-        /// <returns>
-        /// El resutlado de la operación asíncrona.
-        /// </returns>
-        /// <exception cref="TaskCanceledException">
-        /// Se produce cuando la tarea es cancelada por medio de
-        /// <paramref name="cancellationToken"/> antes de finalizar.
-        /// </exception>
-        public static Task WithCancellation(this Task task, CancellationToken cancellationToken)
-        {
-            return task.IsCompleted
-                ? task
-                : task.ContinueWith(
-                    completedTask => completedTask.GetAwaiter().GetResult(),
-                    cancellationToken,
-                    TaskContinuationOptions.ExecuteSynchronously,
-                    TaskScheduler.Default);
-        }
+    /// <summary>
+    /// Agrega soporte de cancelación a las tareas que no admiten el
+    /// uso de un <see cref="CancellationToken"/> de forma nativa.
+    /// </summary>
+    /// <param name="task">
+    /// Tarea a ejecutar.
+    /// </param>
+    /// <param name="cancellationToken">
+    /// Token de cancelación.
+    /// </param>
+    /// <returns>
+    /// El resutlado de la operación asíncrona.
+    /// </returns>
+    /// <exception cref="TaskCanceledException">
+    /// Se produce cuando la tarea es cancelada por medio de
+    /// <paramref name="cancellationToken"/> antes de finalizar.
+    /// </exception>
+    public static Task WithCancellation(this Task task, CancellationToken cancellationToken)
+    {
+        return task.IsCompleted
+            ? task
+            : task.ContinueWith(
+                completedTask => completedTask.GetAwaiter().GetResult(),
+                cancellationToken,
+                TaskContinuationOptions.ExecuteSynchronously,
+                TaskScheduler.Default);
+    }
 
-        /// <summary>
-        /// Espera la finalización de una tarea y devuelve su resultado.
-        /// </summary>
-        /// <typeparam name="T">
-        /// Tipo de resultado devuelto por el <see cref="Task{TResult}"/>.
-        /// </typeparam>
-        /// <param name="task">Tarea a esperar.</param>
-        /// <returns>El resultado del <see cref="Task{TResult}"/>.</returns>
-        [Sugar]
-        public static T Yield<T>(this Task<T> task)
-        {
-            return task.GetAwaiter().GetResult();
-        }
+    /// <summary>
+    /// Espera la finalización de una tarea y devuelve su resultado.
+    /// </summary>
+    /// <typeparam name="T">
+    /// Tipo de resultado devuelto por el <see cref="Task{TResult}"/>.
+    /// </typeparam>
+    /// <param name="task">Tarea a esperar.</param>
+    /// <returns>El resultado del <see cref="Task{TResult}"/>.</returns>
+    [Sugar]
+    public static T Yield<T>(this Task<T> task)
+    {
+        return task.GetAwaiter().GetResult();
+    }
 
-        /// <summary>
-        /// Espera la finalización de una tarea y devuelve su resultado.
-        /// </summary>
-        /// <typeparam name="T">
-        /// Tipo de resultado devuelto por el <see cref="Task{TResult}"/>.
-        /// </typeparam>
-        /// <param name="task">Tarea a esperar.</param>
-        /// <param name="ct">Token de cancelación de la tarea.</param>
-        /// <returns>El resultado del <see cref="Task{TResult}"/>.</returns>
-        [Sugar]
-        public static T Yield<T>(this Task<T> task, CancellationToken ct)
+    /// <summary>
+    /// Espera la finalización de una tarea y devuelve su resultado.
+    /// </summary>
+    /// <typeparam name="T">
+    /// Tipo de resultado devuelto por el <see cref="Task{TResult}"/>.
+    /// </typeparam>
+    /// <param name="task">Tarea a esperar.</param>
+    /// <param name="ct">Token de cancelación de la tarea.</param>
+    /// <returns>El resultado del <see cref="Task{TResult}"/>.</returns>
+    [Sugar]
+    public static T Yield<T>(this Task<T> task, CancellationToken ct)
+    {
+        try
         {
-            try
-            {
-                task.Wait(ct);
-                return task.IsCompletedSuccessfully ? task.Result : default!;
-            }
-            catch (OperationCanceledException)
-            {
-                return default!;
-            }
+            task.Wait(ct);
+            return task.IsCompletedSuccessfully ? task.Result : default!;
         }
+        catch (OperationCanceledException)
+        {
+            return default!;
+        }
+    }
 
-        /// <summary>
-        /// Espera la finalización de una tarea y devuelve su resultado.
-        /// </summary>
-        /// <typeparam name="T">
-        /// Tipo de resultado devuelto por el <see cref="Task{TResult}"/>.
-        /// </typeparam>
-        /// <param name="task">Tarea a esperar.</param>
-        /// <param name="timeout">
-        /// Cantidad de tiempo a esperar a que la tarea finalice antes de
-        /// abortarla forzosamente.
-        /// </param>
-        /// <returns>El resultado del <see cref="Task{TResult}"/>.</returns>
-        [Sugar]
-        public static T Yield<T>(this Task<T> task, TimeSpan timeout)
-        {
-            return task.Wait(timeout) ? task.Result : default!;
-        }
+    /// <summary>
+    /// Espera la finalización de una tarea y devuelve su resultado.
+    /// </summary>
+    /// <typeparam name="T">
+    /// Tipo de resultado devuelto por el <see cref="Task{TResult}"/>.
+    /// </typeparam>
+    /// <param name="task">Tarea a esperar.</param>
+    /// <param name="timeout">
+    /// Cantidad de tiempo a esperar a que la tarea finalice antes de
+    /// abortarla forzosamente.
+    /// </param>
+    /// <returns>El resultado del <see cref="Task{TResult}"/>.</returns>
+    [Sugar]
+    public static T Yield<T>(this Task<T> task, TimeSpan timeout)
+    {
+        return task.Wait(timeout) ? task.Result : default!;
+    }
 
-        /// <summary>
-        /// Espera la finalización de una tarea y devuelve su resultado.
-        /// </summary>
-        /// <typeparam name="T">
-        /// Tipo de resultado devuelto por el <see cref="Task{TResult}"/>.
-        /// </typeparam>
-        /// <param name="task">Tarea a esperar.</param>
-        /// <param name="msTimeout">
-        /// Cantidad de tiempo en milisegundos a esperar a que la tarea
-        /// finalice antes de abortarla forzosamente.
-        /// </param>
-        /// <returns>El resultado del <see cref="Task{TResult}"/>.</returns>
-        [Sugar]
-        public static T Yield<T>(this Task<T> task, int msTimeout)
-        {
-            return task.Wait(msTimeout) ? task.Result : default!;
-        }
+    /// <summary>
+    /// Espera la finalización de una tarea y devuelve su resultado.
+    /// </summary>
+    /// <typeparam name="T">
+    /// Tipo de resultado devuelto por el <see cref="Task{TResult}"/>.
+    /// </typeparam>
+    /// <param name="task">Tarea a esperar.</param>
+    /// <param name="msTimeout">
+    /// Cantidad de tiempo en milisegundos a esperar a que la tarea
+    /// finalice antes de abortarla forzosamente.
+    /// </param>
+    /// <returns>El resultado del <see cref="Task{TResult}"/>.</returns>
+    [Sugar]
+    public static T Yield<T>(this Task<T> task, int msTimeout)
+    {
+        return task.Wait(msTimeout) ? task.Result : default!;
+    }
 
-        /// <summary>
-        /// Espera la finalización de una tarea y devuelve su resultado.
-        /// </summary>
-        /// <typeparam name="T">
-        /// Tipo de resultado devuelto por el <see cref="Task{TResult}"/>.
-        /// </typeparam>
-        /// <param name="task">Tarea a esperar.</param>
-        /// <param name="msTimeout">
-        /// Cantidad de tiempo en milisegundos a esperar a que la tarea
-        /// finalice antes de abortarla forzosamente.
-        /// </param>
-        /// <param name="ct">Token de cancelación de la tarea.</param>
-        /// <returns>El resultado del <see cref="Task{TResult}"/>.</returns>
-        [Sugar]
-        public static T Yield<T>(this Task<T> task, int msTimeout, CancellationToken ct)
+    /// <summary>
+    /// Espera la finalización de una tarea y devuelve su resultado.
+    /// </summary>
+    /// <typeparam name="T">
+    /// Tipo de resultado devuelto por el <see cref="Task{TResult}"/>.
+    /// </typeparam>
+    /// <param name="task">Tarea a esperar.</param>
+    /// <param name="msTimeout">
+    /// Cantidad de tiempo en milisegundos a esperar a que la tarea
+    /// finalice antes de abortarla forzosamente.
+    /// </param>
+    /// <param name="ct">Token de cancelación de la tarea.</param>
+    /// <returns>El resultado del <see cref="Task{TResult}"/>.</returns>
+    [Sugar]
+    public static T Yield<T>(this Task<T> task, int msTimeout, CancellationToken ct)
+    {
+        try
         {
-            try
-            {
-                task.Wait(msTimeout, ct);
-                return task.IsCompletedSuccessfully ? task.Result : default!;
-            }
-            catch (OperationCanceledException)
-            {
-                return default!;
-            }
+            task.Wait(msTimeout, ct);
+            return task.IsCompletedSuccessfully ? task.Result : default!;
         }
+        catch (OperationCanceledException)
+        {
+            return default!;
+        }
+    }
 
-        /// <summary>
-        /// Pone en cola una tarea.
-        /// </summary>
-        /// <typeparam name="T">Tipo de la tarea.</typeparam>
-        /// <param name="task">Tarea a agregar a la cola.</param>
-        /// <param name="tasks">Cola de tareas.</param>
-        /// <returns>
-        /// <paramref name="task"/>, lo cual permite realizar llamadas con
-        /// sintaxis Fluent.
-        /// </returns>
-        [Sugar]
-        public static T Enqueue<T>(this T task, ICollection<Task> tasks) where T : Task
-        {
-            tasks.Add(task);
-            return task;
-        }
+    /// <summary>
+    /// Pone en cola una tarea.
+    /// </summary>
+    /// <typeparam name="T">Tipo de la tarea.</typeparam>
+    /// <param name="task">Tarea a agregar a la cola.</param>
+    /// <param name="tasks">Cola de tareas.</param>
+    /// <returns>
+    /// <paramref name="task"/>, lo cual permite realizar llamadas con
+    /// sintaxis Fluent.
+    /// </returns>
+    [Sugar]
+    public static T Enqueue<T>(this T task, ICollection<Task> tasks) where T : Task
+    {
+        tasks.Add(task);
+        return task;
     }
 }

@@ -22,34 +22,32 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Events;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using TheXDS.MCART.Types;
 
-namespace TheXDS.MCART.Events
+/// <summary>
+/// Contiene información para el evento 
+/// <see cref="ListEx{T}.ListUpdating"/>.
+/// </summary>
+/// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
+public class ListUpdatingEventArgs<T> : CancelEventArgs
 {
-    /// <summary>
-    /// Contiene información para el evento 
-    /// <see cref="ListEx{T}.ListUpdating"/>.
-    /// </summary>
-    /// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
-    public class ListUpdatingEventArgs<T> : CancelEventArgs
+    internal ListUpdatingEventArgs(ListUpdateType updateType, IEnumerable<T>? affectedItems)
     {
-        /// <summary>
-        /// Elementos afectados por la actualización.
-        /// </summary>
-        public IReadOnlyCollection<T>? AffectedItems { get; }
-        /// <summary>
-        /// Tipo de actualización a realizar en el
-        /// <see cref="ListEx{T}"/> que generó el evento.
-        /// </summary>
-        public ListUpdateType UpdateType { get; }
-
-        internal ListUpdatingEventArgs(ListUpdateType updateType, IEnumerable<T>? affectedItems)
-        {
-            UpdateType = updateType;
-            AffectedItems = affectedItems?.ToList().AsReadOnly();
-        }
+        UpdateType = updateType;
+        AffectedItems = affectedItems?.ToList().AsReadOnly();
     }
+
+    /// <summary>
+    /// Elementos afectados por la actualización.
+    /// </summary>
+    public IReadOnlyCollection<T>? AffectedItems { get; }
+    /// <summary>
+    /// Tipo de actualización a realizar en el
+    /// <see cref="ListEx{T}"/> que generó el evento.
+    /// </summary>
+    public ListUpdateType UpdateType { get; }
 }

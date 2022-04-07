@@ -22,66 +22,64 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types.Entity;
 using System.ComponentModel.DataAnnotations.Schema;
 using TheXDS.MCART.Types.Base;
 
-namespace TheXDS.MCART.Types.Entity
+/// <summary>
+/// Estructura universal que describe un color en sus componentes alfa,
+/// rojo, verde y azul.
+/// </summary>
+[ComplexType]
+public class ScColor : IScColor
 {
     /// <summary>
-    /// Estructura universal que describe un color en sus componentes alfa,
-    /// rojo, verde y azul.
+    /// Componente Alfa del color.
     /// </summary>
-    [ComplexType]
-    public class ScColor : IScColor
+    public float ScA { get; set; }
+
+    /// <summary>
+    ///  Componente Azul del color.
+    /// </summary>
+    public float ScB { get; set; }
+
+    /// <summary>
+    ///  Componente Verde del color.
+    /// </summary>
+    public float ScG { get; set; }
+
+    /// <summary>
+    ///  Componente Rojo del color.
+    /// </summary>
+    public float ScR { get; set; }
+
+    /// <summary>
+    /// Convierte implcitamente un <see cref="Types.Color"/> en un
+    /// <see cref="ScColor"/>.
+    /// </summary>
+    /// <param name="color">
+    /// <see cref="Types.Color"/> a convertir.
+    /// </param>
+    public static implicit operator ScColor(Types.Color color)
     {
-        /// <summary>
-        /// Componente Alfa del color.
-        /// </summary>
-        public float ScA { get; set; }
-
-        /// <summary>
-        ///  Componente Azul del color.
-        /// </summary>
-        public float ScB { get; set; }
-
-        /// <summary>
-        ///  Componente Verde del color.
-        /// </summary>
-        public float ScG { get; set; }
-
-        /// <summary>
-        ///  Componente Rojo del color.
-        /// </summary>
-        public float ScR { get; set; }
-
-        /// <summary>
-        /// Convierte implcitamente un <see cref="Types.Color"/> en un
-        /// <see cref="ScColor"/>.
-        /// </summary>
-        /// <param name="color">
-        /// <see cref="Types.Color"/> a convertir.
-        /// </param>
-        public static implicit operator ScColor(Types.Color color)
+        return new ScColor
         {
-            return new ScColor
-            {
-                ScA = color.ScA,
-                ScB = color.ScB,
-                ScG = color.ScG,
-                ScR = color.ScR,
-            };
-        }
+            ScA = color.ScA,
+            ScB = color.ScB,
+            ScG = color.ScG,
+            ScR = color.ScR,
+        };
+    }
 
-        /// <summary>
-        /// Convierte implcitamente un <see cref="ScColor"/> en un
-        /// <see cref="Types.Color"/>.
-        /// </summary>
-        /// <param name="color">
-        /// <see cref="ScColor"/> a convertir.
-        /// </param>
-        public static implicit operator Types.Color(ScColor color)
-        {
-            return new Types.Color(color.ScR, color.ScG, color.ScB, color.ScA);
-        }
+    /// <summary>
+    /// Convierte implcitamente un <see cref="ScColor"/> en un
+    /// <see cref="Types.Color"/>.
+    /// </summary>
+    /// <param name="color">
+    /// <see cref="ScColor"/> a convertir.
+    /// </param>
+    public static implicit operator Types.Color(ScColor color)
+    {
+        return new Types.Color(color.ScR, color.ScG, color.ScB, color.ScA);
     }
 }

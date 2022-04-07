@@ -22,50 +22,49 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types.Extensions;
 using System;
 using System.Text;
 using TheXDS.MCART.Helpers;
+using TheXDS.MCART.Types.Extensions;
 
-namespace TheXDS.MCART.Types.Extensions
+/// <summary>
+/// Extensiones de la clase <see cref="StringBuilder"/>.
+/// </summary>
+public static class StringBuilderFluentExtensions
 {
     /// <summary>
-    /// Extensiones de la clase <see cref="StringBuilder"/>.
+    /// Concatena el texto especificado seguido del terminador de línea
+    /// predeterminado al final de esta instancia solamente si la
+    /// cadena no es <see langword="null"/>.
     /// </summary>
-    public static class StringBuilderFluentExtensions
+    /// <param name="sb">
+    /// Instancia de <see cref="StringBuilder"/> sobre la cual realizar
+    /// la operación.
+    /// </param>
+    /// <param name="text">
+    /// Texto a concatenar. Si es <see langword="null"/>, no se
+    /// realizará ninguna acción.
+    /// </param>
+    /// <returns>
+    /// La misma instancia que <paramref name="sb"/>.
+    /// </returns>
+    public static StringBuilder AppendLineIfNotNull(this StringBuilder sb, string? text)
     {
-        /// <summary>
-        /// Concatena el texto especificado seguido del terminador de línea
-        /// predeterminado al final de esta instancia solamente si la
-        /// cadena no es <see langword="null"/>.
-        /// </summary>
-        /// <param name="sb">
-        /// Instancia de <see cref="StringBuilder"/> sobre la cual realizar
-        /// la operación.
-        /// </param>
-        /// <param name="text">
-        /// Texto a concatenar. Si es <see langword="null"/>, no se
-        /// realizará ninguna acción.
-        /// </param>
-        /// <returns>
-        /// La misma instancia que <paramref name="sb"/>.
-        /// </returns>
-        public static StringBuilder AppendLineIfNotNull(this StringBuilder sb, string? text)
-        {
-            if (text is { }) sb.AppendLine(text);
-            return sb;
-        }
+        if (text is { }) sb.AppendLine(text);
+        return sb;
+    }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sb"></param>
-        /// <param name="text"></param>
-        /// <param name="width"></param>
-        /// <returns></returns>
-        public static StringBuilder AppendAndWrap(this StringBuilder sb, string? text, int width)
-        {
-            sb.Append(string.Join(Environment.NewLine, text?.TextWrap(width).NotEmpty()!));
-            return sb;
-        }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="sb"></param>
+    /// <param name="text"></param>
+    /// <param name="width"></param>
+    /// <returns></returns>
+    public static StringBuilder AppendAndWrap(this StringBuilder sb, string? text, int width)
+    {
+        sb.Append(string.Join(Environment.NewLine, text?.TextWrap(width).NotEmpty()!));
+        return sb;
     }
 }

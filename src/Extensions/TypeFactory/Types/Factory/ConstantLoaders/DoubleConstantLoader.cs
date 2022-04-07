@@ -22,25 +22,23 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types.Extensions.ConstantLoaders;
 using System.Reflection.Emit;
 using static System.Reflection.Emit.OpCodes;
 
-namespace TheXDS.MCART.Types.Extensions
+/// <summary>
+/// Carga un valor constante <see cref="double"/> en la secuencia de
+/// instrucciones MSIL.
+/// </summary>
+public class DoubleConstantLoader : ConstantLoader<double>
 {
     /// <summary>
     /// Carga un valor constante <see cref="double"/> en la secuencia de
     /// instrucciones MSIL.
     /// </summary>
-    public class DoubleConstantLoader : ConstantLoader<double>
-    {
-        /// <summary>
-        /// Carga un valor constante <see cref="double"/> en la secuencia de
-        /// instrucciones MSIL.
-        /// </summary>
-        /// <param name="il">Generador de IL a utilizar.</param>
-        /// <param name="value">
-        /// Valor constante a cargar en la secuencia de instrucciones.
-        /// </param>
-        public override void Emit(ILGenerator il, double value) => il.Emit(Ldc_R8, value);
-    }
+    /// <param name="il">Generador de IL a utilizar.</param>
+    /// <param name="value">
+    /// Valor constante a cargar en la secuencia de instrucciones.
+    /// </param>
+    public override void Emit(ILGenerator il, double value) => il.Emit(Ldc_R8, value);
 }

@@ -22,57 +22,59 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Attributes;
 using System;
 using System.IO;
 using TheXDS.MCART.Resources;
 using static System.AttributeTargets;
 
-namespace TheXDS.MCART.Attributes
+/// <summary>
+/// Establece un archivo de licencia externo a asociar con el elemento.
+/// </summary>
+[AttributeUsage(Class | Module | Assembly | Field)]
+public sealed class LicenseUriAttribute : LicenseAttributeBase
 {
     /// <summary>
-    /// Establece un archivo de licencia externo a asociar con el elemento.
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="LicenseFileAttribute" />.
     /// </summary>
-    [AttributeUsage(Class | Module | Assembly | Field)]
-    public sealed class LicenseUriAttribute : LicenseAttributeBase
+    /// <param name="licenseUri">
+    /// Ruta Uri de la licencia.
+    /// </param>
+    public LicenseUriAttribute(string licenseUri)
+        : base(licenseUri)
     {
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="LicenseFileAttribute" />.
-        /// </summary>
-        /// <param name="licenseUri">
-        /// Ruta Uri de la licencia.
-        /// </param>
-        public LicenseUriAttribute(string licenseUri) : base(licenseUri)
-        {
-            Uri = new Uri(licenseUri);
-        }
-
-        /// <summary>
-        /// Obtiene la ruta de almacenamiento de la licencia.
-        /// </summary>
-        public Uri Uri { get; }
-
-        /// <summary>
-        /// Obtiene una licencia a partir del <see cref="Uri"/>
-        /// especificado para este atributo.
-        /// </summary>
-        /// <returns>
-        /// Una licencia a partir del <see cref="Uri"/> especificado para
-        /// este atributo.
-        /// </returns>
-        public override License GetLicense(object _)
-        {
-            return new(Path.GetFileNameWithoutExtension(Uri.LocalPath), Uri);
-        }
-
-        /// <summary>
-        /// Obtiene una licencia a partir del <see cref="Uri"/>
-        /// especificado para este atributo.
-        /// </summary>
-        /// <returns>
-        /// Una licencia a partir del <see cref="Uri"/> especificado para
-        /// este atributo.
-        /// </returns>
-        public License GetLicense() => GetLicense(null!);
+        Uri = new Uri(licenseUri);
     }
+
+    /// <summary>
+    /// Obtiene la ruta de almacenamiento de la licencia.
+    /// </summary>
+    public Uri Uri { get; }
+
+    /// <summary>
+    /// Obtiene una licencia a partir del <see cref="Uri"/>
+    /// especificado para este atributo.
+    /// </summary>
+    /// <param name="context">
+    /// Objeto del cual se ha extraído este atributo.
+    /// </param>
+    /// <returns>
+    /// Una licencia a partir del <see cref="Uri"/> especificado para
+    /// este atributo.
+    /// </returns>
+    public override License GetLicense(object context)
+    {
+        return new(Path.GetFileNameWithoutExtension(Uri.LocalPath), Uri);
+    }
+
+    /// <summary>
+    /// Obtiene una licencia a partir del <see cref="Uri"/>
+    /// especificado para este atributo.
+    /// </summary>
+    /// <returns>
+    /// Una licencia a partir del <see cref="Uri"/> especificado para
+    /// este atributo.
+    /// </returns>
+    public License GetLicense() => GetLicense(null!);
 }

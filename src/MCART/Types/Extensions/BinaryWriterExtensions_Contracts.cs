@@ -22,6 +22,7 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types.Extensions;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -30,38 +31,38 @@ using System.Runtime.CompilerServices;
 using TheXDS.MCART.Misc;
 using TheXDS.MCART.Resources;
 
-namespace TheXDS.MCART.Types.Extensions
+public static partial class BinaryWriterExtensions
 {
-    public static partial class BinaryWriterExtensions
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void DynamicWrite_Contract(this BinaryWriter bw, object value)
     {
-        [Conditional("EnforceContracts")]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [DebuggerNonUserCode]
-        private static void DynamicWrite_Contract(this BinaryWriter bw, object value)
-        {
-            Internals.NullCheck(bw, nameof(bw));
-            Internals.NullCheck(value, nameof(value));
-        }
+        Internals.NullCheck(bw, nameof(bw));
+        Internals.NullCheck(value, nameof(value));
+    }
 
-        [Conditional("EnforceContracts")]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [DebuggerNonUserCode]
-        private static void WriteStruct_Contract(this BinaryWriter bw, Type t)
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void WriteStruct_Contract(this BinaryWriter bw, Type t)
+    {
+        Internals.NullCheck(bw, nameof(bw));
+        if (typeof(BinaryWriter).GetMethods().FirstOrDefault(p => CanWrite(p, t)) is { } m)
         {
-            Internals.NullCheck(bw, nameof(bw));
-            if (typeof(BinaryWriter).GetMethods().FirstOrDefault(p => CanWrite(p, t)) is { } m)
-            {
-                throw Errors.BinaryWriteNotSupported(t, m);
-            }
-            if (typeof(BinaryWriterExtensions).GetMethods().FirstOrDefault(p => CanExWrite(p, t)) is { } mx)
-            {
-                throw Errors.BinaryWriteNotSupported(t, mx);
-            }
+            throw Errors.BinaryWriteNotSupported(t, m);
         }
+        if (typeof(BinaryWriterExtensions).GetMethods().FirstOrDefault(p => CanExWrite(p, t)) is { } mx)
+        {
+            throw Errors.BinaryWriteNotSupported(t, mx);
+        }
+    }
 
-        private static void WriteStruct_Contract(this BinaryWriter bw)
-        {
-            Internals.NullCheck(bw, nameof(bw));
-        }
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void WriteStruct_Contract(this BinaryWriter bw)
+    {
+        Internals.NullCheck(bw, nameof(bw));
     }
 }

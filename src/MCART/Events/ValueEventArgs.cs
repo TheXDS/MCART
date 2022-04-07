@@ -22,20 +22,19 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Events
+namespace TheXDS.MCART.Events;
+
+/// <summary>
+/// Incluye información de evento para cualquier clase con eventos que
+/// incluyan tipos de valor.
+/// </summary>
+public class ValueEventArgs : ValueEventArgs<object?>
 {
     /// <summary>
-    /// Incluye información de evento para cualquier clase con eventos que
-    /// incluyan tipos de valor.
+    /// Inicializa una nueva instancia de este objeto con el valor provisto.
     /// </summary>
-    public class ValueEventArgs : ValueEventArgs<object?>
+    /// <param name="value">Valor asociado al evento generado.</param>
+    public ValueEventArgs(object? value) : base(value)
     {
-        /// <summary>
-        /// Inicializa una nueva instancia de este objeto con el valor provisto.
-        /// </summary>
-        /// <param name="value">Valor asociado al evento generado.</param>
-        public ValueEventArgs(object? value) : base(value)
-        {
-        }
     }
 }

@@ -22,6 +22,7 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types.Base;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -31,132 +32,130 @@ using System.Runtime.CompilerServices;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Helpers;
+using TheXDS.MCART.Resources;
 
-namespace TheXDS.MCART.Types.Base
+/// <summary>
+/// Clase base para los objetos que puedan notificar sobre el cambio
+/// del valor de una de sus propiedades, tanto antes como después de
+/// haber ocurrido dicho cambio.
+/// </summary>
+public abstract class NotifyPropertyChange : NotifyPropertyChangeBase, INotifyPropertyChanging, INotifyPropertyChanged
 {
+    private readonly HashSet<WeakReference<PropertyChangeObserver>> _observeSubscriptions = new();
+
     /// <summary>
-    /// Clase base para los objetos que puedan notificar sobre el cambio
-    /// del valor de una de sus propiedades, tanto antes como después de
-    /// haber ocurrido dicho cambio.
+    /// Se produce cuando se cambiará el valor de una propiedad.
     /// </summary>
-    public abstract class NotifyPropertyChange : NotifyPropertyChangeBase, INotifyPropertyChanging, INotifyPropertyChanged
+    public event PropertyChangingEventHandler? PropertyChanging;
+
+    /// <summary>
+    /// Ocurre cuando el valor de una propiedad ha cambiado.
+    /// </summary>
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    /// <summary>
+    /// Notifica a los clientes que el valor de una propiedad cambiará.
+    /// </summary>
+    protected virtual void OnPropertyChanging([CallerMemberName] string propertyName = null!)
     {
-        private readonly HashSet<WeakReference<PropertyChangeObserver>> _observeSubscriptions = new();
-
-        /// <summary>
-        /// Se produce cuando se cambiará el valor de una propiedad.
-        /// </summary>
-        public event PropertyChangingEventHandler? PropertyChanging;
-
-        /// <summary>
-        /// Ocurre cuando el valor de una propiedad ha cambiado.
-        /// </summary>
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        /// <summary>
-        /// Notifica a los clientes que el valor de una propiedad cambiará.
-        /// </summary>
-        protected virtual void OnPropertyChanging([CallerMemberName] string propertyName = null!)
-        {
-            if (propertyName is null) throw new ArgumentNullException(nameof(propertyName));
-            PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(propertyName));
-        }
-
-        /// <summary>
-        /// Notifica a los clientes que el valor de una propiedad ha
-        /// cambiado.
-        /// </summary>
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null!)
-        {
-            if (propertyName is null) throw new ArgumentNullException(nameof(propertyName));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-            NotifyRegistroir(propertyName);
-            foreach (INotifyPropertyChangeBase? j in _forwardings) j.Notify(propertyName);
-        }
-
-        /// <summary>
-        /// Cambia el valor de un campo, y genera los eventos de
-        /// notificación correspondientes.
-        /// </summary>
-        /// <typeparam name="T">Tipo de valores a procesar.</typeparam>
-        /// <param name="field">Campo a actualizar.</param>
-        /// <param name="value">Nuevo valor del campo.</param>
-        /// <param name="propertyName">
-        /// Nombre de la propiedad. Por lo general, este valor debe
-        /// omitirse.
-        /// </param>
-        /// <returns>
-        /// <see langword="true"/> si el valor de la propiedad ha
-        /// cambiado, <see langword="false"/> en caso contrario.
-        /// </returns>
-        [NpcChangeInvocator]
-        protected sealed override bool Change<T>(ref T field, T value, [CallerMemberName] string propertyName = null!)
-        {
-            if (field?.Equals(value) ?? Objects.AreAllNull(field, value)) return false;
-
-            MethodBase? m = ReflectionHelpers.GetCallingMethod() ?? throw new TamperException();
-            PropertyInfo? p = GetType().GetProperties().SingleOrDefault(q => q.SetMethod == m)
-                ?? throw new InvalidOperationException();
-            if (p.Name != propertyName) throw new TamperException();
-
-            OnPropertyChanging(propertyName);
-            field = value;
-
-            HashSet<WeakReference<PropertyChangeObserver>>? rm = new();
-            foreach (WeakReference<PropertyChangeObserver>? j in _observeSubscriptions)
-            {
-                if (j.TryGetTarget(out PropertyChangeObserver? t)) t.Invoke(this, p);
-                else rm.Add(j);
-            }
-            foreach (WeakReference<PropertyChangeObserver>? j in rm)
-            {
-                _observeSubscriptions.Remove(j);
-            }
-            OnPropertyChanged(propertyName);
-            return true;
-        }
-
-        /// <summary>
-        /// Suscribe a un delegado para observar el cambio de una propiedad.
-        /// </summary>
-        /// <param name="callback">Delegado a suscribir.</param>
-        public void Subscribe(PropertyChangeObserver callback)
-        {
-            _observeSubscriptions.Add(new WeakReference<PropertyChangeObserver>(callback));
-        }
-
-        /// <summary>
-        /// Quita al delegado previamente suscrito de la lista de
-        /// suscripciones de notificación de cambios de propiedad.
-        /// </summary>
-        /// <param name="callback">Delegado a quitar.</param>
-        public void Unsubscribe(PropertyChangeObserver callback)
-        {
-            WeakReference<PropertyChangeObserver>? rm = _observeSubscriptions.FirstOrDefault(p => p.TryGetTarget(out PropertyChangeObserver? t) && t == callback);
-            if (rm is not null) _observeSubscriptions.Remove(rm);
-        }
-
-        /// <summary>
-        /// Notifica el cambio en el valor de una propiedad.
-        /// </summary>
-        /// <param name="property">
-        /// Propiedad a notificar.
-        /// </param>
-        public override void Notify(string property)
-        {
-            OnPropertyChanged(property);
-        }
+        if (propertyName is null) throw new ArgumentNullException(nameof(propertyName));
+        PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(propertyName));
     }
 
     /// <summary>
-    /// Delegado que define un método para observar y procesar cambios en
-    /// el valor de una propiedad asociada a un objeto.
+    /// Notifica a los clientes que el valor de una propiedad ha
+    /// cambiado.
     /// </summary>
-    /// <param name="instance">
-    /// Instancia del objeto a observar.
+    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null!)
+    {
+        if (propertyName is null) throw new ArgumentNullException(nameof(propertyName));
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        NotifyRegistroir(propertyName);
+        foreach (INotifyPropertyChangeBase? j in _forwardings) j.Notify(propertyName);
+    }
+
+    /// <summary>
+    /// Cambia el valor de un campo, y genera los eventos de
+    /// notificación correspondientes.
+    /// </summary>
+    /// <typeparam name="T">Tipo de valores a procesar.</typeparam>
+    /// <param name="field">Campo a actualizar.</param>
+    /// <param name="value">Nuevo valor del campo.</param>
+    /// <param name="propertyName">
+    /// Nombre de la propiedad. Por lo general, este valor debe
+    /// omitirse.
     /// </param>
+    /// <returns>
+    /// <see langword="true"/> si el valor de la propiedad ha
+    /// cambiado, <see langword="false"/> en caso contrario.
+    /// </returns>
+    [NpcChangeInvocator]
+    protected sealed override bool Change<T>(ref T field, T value, [CallerMemberName] string propertyName = null!)
+    {
+        if (field?.Equals(value) ?? Objects.AreAllNull(field, value)) return false;
+        if (ReflectionHelpers.GetCallingMethod() is not { } m || GetType().GetProperties().SingleOrDefault(q => q.SetMethod == m) is not { } p)
+        {
+            throw Errors.PropSetMustCall();
+        }
+        if (p.Name != propertyName) throw Errors.PropChangeSame();
+
+        OnPropertyChanging(propertyName);
+        field = value;
+
+        HashSet<WeakReference<PropertyChangeObserver>>? rm = new();
+        foreach (WeakReference<PropertyChangeObserver>? j in _observeSubscriptions)
+        {
+            if (j.TryGetTarget(out PropertyChangeObserver? t)) t.Invoke(this, p);
+            else rm.Add(j);
+        }
+        foreach (WeakReference<PropertyChangeObserver>? j in rm)
+        {
+            _observeSubscriptions.Remove(j);
+        }
+        OnPropertyChanged(propertyName);
+        return true;
+    }
+
+    /// <summary>
+    /// Suscribe a un delegado para observar el cambio de una propiedad.
+    /// </summary>
+    /// <param name="callback">Delegado a suscribir.</param>
+    public void Subscribe(PropertyChangeObserver callback)
+    {
+        _observeSubscriptions.Add(new WeakReference<PropertyChangeObserver>(callback));
+    }
+
+    /// <summary>
+    /// Quita al delegado previamente suscrito de la lista de
+    /// suscripciones de notificación de cambios de propiedad.
+    /// </summary>
+    /// <param name="callback">Delegado a quitar.</param>
+    public void Unsubscribe(PropertyChangeObserver callback)
+    {
+        WeakReference<PropertyChangeObserver>? rm = _observeSubscriptions.FirstOrDefault(p => p.TryGetTarget(out PropertyChangeObserver? t) && t == callback);
+        if (rm is not null) _observeSubscriptions.Remove(rm);
+    }
+
+    /// <summary>
+    /// Notifica el cambio en el valor de una propiedad.
+    /// </summary>
     /// <param name="property">
-    /// Propiedad observada.
+    /// Propiedad a notificar.
     /// </param>
-    public delegate void PropertyChangeObserver(object instance, PropertyInfo property);
+    public override void Notify(string property)
+    {
+        OnPropertyChanged(property);
+    }
 }
+
+/// <summary>
+/// Delegado que define un método para observar y procesar cambios en
+/// el valor de una propiedad asociada a un objeto.
+/// </summary>
+/// <param name="instance">
+/// Instancia del objeto a observar.
+/// </param>
+/// <param name="property">
+/// Propiedad observada.
+/// </param>
+public delegate void PropertyChangeObserver(object instance, PropertyInfo property);

@@ -22,13 +22,13 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.PInvoke;
 using System;
 using System.Runtime.InteropServices;
 
-namespace TheXDS.MCART.PInvoke
+internal class Gdi32
 {
-    internal class Gdi32
-    {
-        [DllImport("gdi32.dll")] internal static extern int GetDeviceCaps(IntPtr hdc, int nIndex);
-    }
+    [DllImport("gdi32.dll")] internal static extern int GetDeviceCaps(IntPtr hdc, int nIndex);
+    [return: MarshalAs(UnmanagedType.Bool)]
+    [DllImport("gdi32.dll")] internal static extern bool DeleteObject(IntPtr value);
 }

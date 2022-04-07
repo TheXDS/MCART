@@ -24,6 +24,7 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -33,35 +34,32 @@ using System.Runtime.CompilerServices;
 using TheXDS.MCART.Exceptions;
 using static TheXDS.MCART.Misc.Internals;
 
-namespace TheXDS.MCART.Helpers
+/// <summary>
+/// Funciones auxiliares de reflexión.
+/// </summary>
+public static partial class ReflectionHelpers
 {
-    /// <summary>
-    /// Funciones auxiliares de reflexión.
-    /// </summary>
-    public static partial class ReflectionHelpers
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void GetCallingMethod_Contract(int nCaller)
     {
-        [Conditional("EnforceContracts")]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [DebuggerNonUserCode]
-        private static void GetCallingMethod_Contract(int nCaller)
-        {
-            if (checked(nCaller++) < 1) throw new ArgumentOutOfRangeException(nameof(nCaller));
-        }
+        if (checked(nCaller++) < 1) throw new ArgumentOutOfRangeException(nameof(nCaller));
+    }
 
-        [Conditional("EnforceContracts")]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [DebuggerNonUserCode]
-        private static void FieldsOf_Contract(IEnumerable<FieldInfo> fields, object? instance)
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void FieldsOf_Contract(IEnumerable<FieldInfo> fields, object? instance)
+    {
+        NullCheck(fields, nameof(fields));
+        if (fields.IsAnyNull()) throw new NullItemException();
+        if (instance is { } obj)
         {
-            NullCheck(fields, nameof(fields));
-            if (fields.IsAnyNull()) throw new NullItemException();
-            if (instance is { } obj)
+            FieldInfo[]? f = obj.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public);
+            foreach (FieldInfo? j in fields.Where(p => !p.IsStatic))
             {
-                FieldInfo[]? f = obj.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public);
-                foreach (FieldInfo? j in fields.Where(p => !p.IsStatic))
-                {
-                    if (!f.Contains(j)) throw new MissingFieldException(obj.GetType().Name, j.Name);
-                }
+                if (!f.Contains(j)) throw new MissingFieldException(obj.GetType().Name, j.Name);
             }
         }
     }

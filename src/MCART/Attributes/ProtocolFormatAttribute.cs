@@ -22,60 +22,48 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Attributes;
 using System;
 using static System.AttributeTargets;
+using static Misc.Internals;
 
-namespace TheXDS.MCART.Attributes
+/// <summary>
+/// Establece un formato de protocolo para abrir un vínculo por medio
+/// del sistema operativo.
+/// </summary>
+[AttributeUsage(Property | Field)]
+[Serializable]
+public sealed class ProtocolFormatAttribute : Attribute, IValueAttribute<string>
 {
     /// <summary>
-    /// Establece un formato de protocolo para abrir un vínculo por medio
-    /// del sistema operativo.
+    /// Establece un formato de protocolo para abrir un vínculo por medio del sistema operativo.
     /// </summary>
-    [AttributeUsage(Property | Field)]
-    [Serializable]
-    public sealed class ProtocolFormatAttribute : Attribute, IValueAttribute<string>
+    /// <param name="format">Máscara a aplicar.</param>
+    public ProtocolFormatAttribute(string format)
     {
-        /// <summary>
-        /// Formato de llamada de protocolo.
-        /// </summary>
-        public string Format { get; }
+        Format = EmptyChecked(format, nameof(format));
+    }
 
-        /// <summary>
-        /// Obtiene el valor de este atributo.
-        /// </summary>
-        string IValueAttribute<string>.Value => Format;
+    /// <summary>
+    /// Formato de llamada de protocolo.
+    /// </summary>
+    public string Format { get; }
 
-        /// <summary>
-        /// Establece un formato de protocolo para abrir un vínculo por medio del sistema operativo.
-        /// </summary>
-        /// <param name="format">Máscara a aplicar.</param>
-        public ProtocolFormatAttribute(string format)
-        {
-            Format = format;
-        }
+    /// <summary>
+    /// Obtiene el valor de este atributo.
+    /// </summary>
+    string IValueAttribute<string>.Value => Format;
 
-        /// <summary>
-        /// Abre un url con este protocolo formateado.
-        /// </summary>
-        /// <param name="url">
-        /// URL del recurso a abrir por medio del protocolo definido por
-        /// este atributo.
-        /// </param>
-        public void Open(string url)
-        {
-            if (string.IsNullOrWhiteSpace(url)) return;
-            try
-            {
-                System.Diagnostics.Process.Start(string.Format(Format, url));
-            }
-            catch
-            {
-#if PreferExceptions
-                throw;
-#else
-                /* Ignorar excepción */
-#endif
-            }
-        }
+    /// <summary>
+    /// Abre un url con este protocolo formateado.
+    /// </summary>
+    /// <param name="url">
+    /// URL del recurso a abrir por medio del protocolo definido por
+    /// este atributo.
+    /// </param>
+    public void Open(string url)
+    {
+        if (string.IsNullOrWhiteSpace(url)) return;
+        System.Diagnostics.Process.Start(string.Format(Format, url));
     }
 }

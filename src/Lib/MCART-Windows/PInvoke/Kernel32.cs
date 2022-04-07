@@ -22,16 +22,14 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.PInvoke;
 using System;
 using System.Runtime.InteropServices;
 
-namespace TheXDS.MCART.PInvoke
+internal class Kernel32
 {
-    internal class Kernel32
-    {
-        [DllImport("kernel32.dll")] internal static extern bool AllocConsole();
-        [DllImport("kernel32.dll")] internal static extern bool FreeConsole();
-        [DllImport("kernel32.dll")] internal static extern IntPtr GetConsoleWindow();
-        [DllImport("kernel32.dll")] internal static extern bool GetFirmwareType(ref uint FirmwareType);
-    }
+    [DllImport("kernel32.dll")] internal static extern bool AllocConsole();
+    [DllImport("kernel32.dll")] internal static extern bool FreeConsole();
+    [DllImport("kernel32.dll")] internal static extern IntPtr GetConsoleWindow();
+    [DllImport("kernel32.dll")] internal static extern bool GetFirmwareType(ref uint FirmwareType);
 }

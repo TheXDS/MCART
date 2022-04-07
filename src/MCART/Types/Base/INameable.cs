@@ -22,17 +22,16 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Types.Base
+namespace TheXDS.MCART.Types.Base;
+
+/// <summary>
+/// Describe una serie de miembros a implementar por una clase o
+/// estructura que expone un nombre para su identificación.
+/// </summary>
+public interface INameable
 {
     /// <summary>
-    /// Describe una serie de miembros a implementar por una clase o
-    /// estructura que expone un nombre para su identificación.
+    /// Obtiene el nombre del elemento.
     /// </summary>
-    public interface INameable
-    {
-        /// <summary>
-        /// Obtiene el nombre del elemento.
-        /// </summary>
-        string Name { get; }
-    }
+    string Name { get; }
 }

@@ -11,7 +11,4 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\License\GPLv3.deflate" />
-  </ItemGroup>
 </Project>

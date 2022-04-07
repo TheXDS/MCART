@@ -22,25 +22,23 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.ViewModel;
 using TheXDS.MCART.Types.Base;
 
-namespace TheXDS.MCART.ViewModel
+/// <summary>
+/// Define una serie de miembros a implementar por un tipo que extienda
+/// <see cref="IViewModel"/> que provee de servicios de validación de datos.
+/// </summary>
+public interface IValidatingViewModel : IViewModel, INotifyPropertyChangeBase
 {
     /// <summary>
-    /// Define una serie de miembros a implementar por un tipo que extienda
-    /// <see cref="IViewModel"/> que provee de servicios de validación de datos.
+    /// Obtiene el origen de validación para esta instancia.
     /// </summary>
-    public interface IValidatingViewModel : IViewModel, INotifyPropertyChangeBase
-    {
-        /// <summary>
-        /// Obtiene el origen de validación para esta instancia.
-        /// </summary>
-        /// <remarks>
-        /// Esta propiedad debe establecerse en el constructor del ViewModel de la siguiente manera:
-        /// <code lang="csharp">
-        /// ErrorSource = new ValidationSource&lt;TViewModel&gt;(this);
-        /// </code>
-        /// </remarks>
-        ValidationSource ErrorSource { get; }
-    }
+    /// <remarks>
+    /// Esta propiedad debe establecerse en el constructor del ViewModel de la siguiente manera:
+    /// <code lang="csharp">
+    /// ErrorSource = new ValidationSource&lt;TViewModel&gt;(this);
+    /// </code>
+    /// </remarks>
+    ValidationSource ErrorSource { get; }
 }

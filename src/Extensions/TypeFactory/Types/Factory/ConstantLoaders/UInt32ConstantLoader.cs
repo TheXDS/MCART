@@ -22,29 +22,25 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types.Extensions.ConstantLoaders;
 using System;
 using System.Reflection.Emit;
 using static System.Reflection.Emit.OpCodes;
 
-namespace TheXDS.MCART.Types.Extensions
+/// <summary>
+/// Carga un valor constante <see cref="sbyte"/> en la secuencia de
+/// instrucciones MSIL.
+/// </summary>
+[CLSCompliant(false)]
+public class UInt32ConstantLoader : ConstantLoader<uint>
 {
     /// <summary>
-    /// Carga un valor constante <see cref="sbyte"/> en la secuencia de
+    /// Carga un valor constante <see cref="uint"/> en la secuencia de
     /// instrucciones MSIL.
     /// </summary>
-#if CLSCompliance
-    [CLSCompliant(false)]
-#endif
-    public class UInt32ConstantLoader : ConstantLoader<uint>
-    {
-        /// <summary>
-        /// Carga un valor constante <see cref="uint"/> en la secuencia de
-        /// instrucciones MSIL.
-        /// </summary>
-        /// <param name="il">Generador de IL a utilizar.</param>
-        /// <param name="value">
-        /// Valor constante a cargar en la secuencia de instrucciones.
-        /// </param>
-        public override void Emit(ILGenerator il, uint value) => il.Emit(Ldc_I4, unchecked((int)value));
-    }
+    /// <param name="il">Generador de IL a utilizar.</param>
+    /// <param name="value">
+    /// Valor constante a cargar en la secuencia de instrucciones.
+    /// </param>
+    public override void Emit(ILGenerator il, uint value) => il.Emit(Ldc_I4, unchecked((int)value));
 }

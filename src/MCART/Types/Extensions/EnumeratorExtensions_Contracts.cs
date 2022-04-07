@@ -22,23 +22,21 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types.Extensions;
 using System;
 using System.Collections;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using static TheXDS.MCART.Misc.Internals;
 
-namespace TheXDS.MCART.Types.Extensions
+public static partial class EnumeratorExtensions
 {
-    public static partial class EnumeratorExtensions
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void Skip_Contract(IEnumerator enumerator, int steps)
     {
-        [Conditional("EnforceContracts")]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [DebuggerNonUserCode]
-        private static void Skip_Contract(IEnumerator enumerator, int steps)
-        {
-            NullCheck(enumerator, nameof(enumerator));
-            if (steps < 0) throw new ArgumentOutOfRangeException(nameof(steps));
-        }
+        NullCheck(enumerator, nameof(enumerator));
+        if (steps < 0) throw new ArgumentOutOfRangeException(nameof(steps));
     }
 }

@@ -39,7 +39,7 @@ namespace TheXDS.MCART.Windows.Resources.Strings {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("TheXDS.MCART.Resources.Strings.WinErrors", typeof(WinErrors).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("TheXDS.MCART.Windows.Resources.Strings.WinErrors", typeof(WinErrors).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

@@ -6,7 +6,4 @@
   <Import 
     Condition="'$(MSBuildProjectExtension)'=='.csproj' And '$(NoInternals)'!='true'" 
     Project="$(SolutionDir)Shared\Internals\Internals.projitems" Label="Internals" />
-  <Import 
-    Condition="'$(MSBuildProjectExtension)'=='.csproj'" 
-    Project="$(SolutionDir)Shared\Globals\Globals.projitems" Label="Globals" />
 </Project>

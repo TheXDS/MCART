@@ -22,38 +22,36 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Resources;
 using System.IO;
 using System.IO.Compression;
 using TheXDS.MCART.Attributes;
 
-namespace TheXDS.MCART.Resources
+/// <summary>
+/// <see cref="ICompressorGetter"/> que construye un
+/// <see cref="DeflateStream"/> que puede ser utilizado para extraer
+/// información comprimida desde un <see cref="Stream"/>.
+/// </summary>
+[Identifier("deflate")]
+public sealed class DeflateGetter : ICompressorGetter
 {
     /// <summary>
-    /// <see cref="ICompressorGetter"/> que construye un
-    /// <see cref="DeflateStream"/> que puede ser utilizado para extraer
-    /// información comprimida desde un <see cref="Stream"/>.
+    /// Obtiene un <see cref="DeflateStream"/> para extraer información
+    /// comprimida desde <paramref name="inputStream"/>.
     /// </summary>
-    [Identifier("deflate")]
-    public sealed class DeflateGetter : ICompressorGetter
-    {
-        /// <summary>
-        /// Obtiene un <see cref="DeflateStream"/> para extraer información
-        /// comprimida desde <paramref name="inputStream"/>.
-        /// </summary>
-        /// <param name="inputStream">
-        /// <see cref="Stream"/> que contiene la información a extraer.
-        /// </param>
-        /// <returns>
-        /// Un <see cref="DeflateStream"/> que puede utilizarse para extraer
-        /// información comprimida desde <paramref name="inputStream"/>.
-        /// </returns>
-        public Stream GetCompressor(Stream inputStream) => new DeflateStream(inputStream, CompressionMode.Decompress);
+    /// <param name="inputStream">
+    /// <see cref="Stream"/> que contiene la información a extraer.
+    /// </param>
+    /// <returns>
+    /// Un <see cref="DeflateStream"/> que puede utilizarse para extraer
+    /// información comprimida desde <paramref name="inputStream"/>.
+    /// </returns>
+    public Stream GetCompressor(Stream inputStream) => new DeflateStream(inputStream, CompressionMode.Decompress);
 
-        /// <summary>
-        /// Obtiene la extensión utilizada de forma predeterminada para un
-        /// recurso comprimido utilizando este
-        /// <see cref="ICompressorGetter"/>.
-        /// </summary>
-        public string Extension => ".deflate";
-    }
+    /// <summary>
+    /// Obtiene la extensión utilizada de forma predeterminada para un
+    /// recurso comprimido utilizando este
+    /// <see cref="ICompressorGetter"/>.
+    /// </summary>
+    public string Extension => ".deflate";
 }

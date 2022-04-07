@@ -22,6 +22,7 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -31,22 +32,19 @@ using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Resources;
 using static TheXDS.MCART.Misc.Internals;
 
-namespace TheXDS.MCART.Types.Extensions
+public static partial class ListExtensions
 {
-    public static partial class ListExtensions
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void Shuffle_Contract<T>(IList<T> toShuffle, in int firstIdx, in int lastIdx, in int deepness, Random random)
     {
-        [Conditional("EnforceContracts")]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [DebuggerNonUserCode]
-        private static void Shuffle_Contract<T>(IList<T> toShuffle, in int firstIdx, in int lastIdx, in int deepness, Random random)
-        {
-            NullCheck(toShuffle, nameof(toShuffle));
-            NullCheck(random, nameof(random));
-            if (!toShuffle.Any()) throw Errors.EmptyCollection(toShuffle);
-            if (!firstIdx.IsBetween(0, toShuffle.Count - 1)) throw new IndexOutOfRangeException();
-            if (!lastIdx.IsBetween(0, toShuffle.Count - 1)) throw new IndexOutOfRangeException();
-            if (firstIdx > lastIdx) throw Errors.MinGtMax();
-            if (!deepness.IsBetween(1, lastIdx - firstIdx)) throw new ArgumentOutOfRangeException(nameof(deepness));
-        }
+        NullCheck(toShuffle, nameof(toShuffle));
+        NullCheck(random, nameof(random));
+        if (!toShuffle.Any()) throw Errors.EmptyCollection(toShuffle);
+        if (!firstIdx.IsBetween(0, toShuffle.Count - 1)) throw new IndexOutOfRangeException();
+        if (!lastIdx.IsBetween(0, toShuffle.Count - 1)) throw new IndexOutOfRangeException();
+        if (firstIdx > lastIdx) throw Errors.MinGtMax();
+        if (!deepness.IsBetween(1, lastIdx - firstIdx)) throw new ArgumentOutOfRangeException(nameof(deepness));
     }
 }

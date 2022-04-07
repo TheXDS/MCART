@@ -22,10 +22,9 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.PInvoke.Structs
+namespace TheXDS.MCART.PInvoke.Structs;
+
+internal enum SysCommand
 {
-    internal enum SysCommand
-    {
-        SC_CONTEXTHELP = 0xF180
-    }
+    SC_CONTEXTHELP = 0xF180
 }

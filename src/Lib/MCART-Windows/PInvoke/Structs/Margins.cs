@@ -22,34 +22,32 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.PInvoke.Structs;
 using System.Runtime.InteropServices;
 
-namespace TheXDS.MCART.PInvoke.Structs
+/// <summary>
+/// Define una serie de márgenes aplicables a ventanas de Microsoft Windows.
+/// </summary>
+[StructLayout(LayoutKind.Sequential)]
+public struct Margins
 {
     /// <summary>
-    /// Define una serie de márgenes aplicables a ventanas de Microsoft Windows.
+    /// Describe el margen izquierdo.
     /// </summary>
-    [StructLayout(LayoutKind.Sequential)]
-    public struct Margins
-    {
-        /// <summary>
-        /// Describe el margen izquierdo.
-        /// </summary>
-        public int Left;
+    public int Left;
 
-        /// <summary>
-        /// Describe el margen derecho.
-        /// </summary>
-        public int Right;
+    /// <summary>
+    /// Describe el margen derecho.
+    /// </summary>
+    public int Right;
 
-        /// <summary>
-        /// Describe el margen superior.
-        /// </summary>
-        public int Top;
+    /// <summary>
+    /// Describe el margen superior.
+    /// </summary>
+    public int Top;
 
-        /// <summary>
-        /// Describe el margen inferior.
-        /// </summary>
-        public int Bottom;
-    }
+    /// <summary>
+    /// Describe el margen inferior.
+    /// </summary>
+    public int Bottom;
 }

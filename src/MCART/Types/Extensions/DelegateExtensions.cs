@@ -26,32 +26,29 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types.Extensions;
 using System;
 using TheXDS.MCART.Attributes;
-using TheXDS.MCART.Helpers;
 
-namespace TheXDS.MCART.Types.Extensions
+/// <summary>
+/// Contiene extensiones para objetos de tipo <see cref="Delegate"/>.
+/// </summary>
+public static class DelegateExtensions
 {
     /// <summary>
-    /// Contiene extensiones para objetos de tipo <see cref="Delegate"/>.
+    /// Obtiene un nombre descriptivo para un <see cref="Delegate"/>.
     /// </summary>
-    public static class DelegateExtensions
+    /// <param name="d">
+    /// <see cref="Delegate"/> para el cual obtener un nombre
+    /// descriptivo.
+    /// </param>
+    /// <returns>
+    /// Un nombre descriptivo para un <see cref="Delegate"/>, o el
+    /// nombre del método representado por el delegado si este no 
+    /// contiene un atributo <see cref="NameAttribute"/>.
+    /// </returns>
+    public static string NameOf(this Delegate d)
     {
-        /// <summary>
-        /// Obtiene un nombre descriptivo para un <see cref="Delegate"/>.
-        /// </summary>
-        /// <param name="d">
-        /// <see cref="Delegate"/> para el cual obtener un nombre
-        /// descriptivo.
-        /// </param>
-        /// <returns>
-        /// Un nombre descriptivo para un <see cref="Delegate"/>, o el
-        /// nombre del método representado por el delegado si este no 
-        /// contiene un atributo <see cref="NameAttribute"/>.
-        /// </returns>
-        public static string NameOf(this Delegate d)
-        {
-            return d.GetAttr<NameAttribute>()?.Value ?? d.Method.NameOf();
-        }
+        return d.GetAttr<NameAttribute>()?.Value ?? d.Method.NameOf();
     }
 }

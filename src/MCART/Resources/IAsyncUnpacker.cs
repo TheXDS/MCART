@@ -22,46 +22,44 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Resources;
 using System.Threading.Tasks;
 
-namespace TheXDS.MCART.Resources
+/// <summary>
+/// Define una serie de métodos a implementar por una clase que permita
+/// obtener y extraer recursos de forma asíncrona.
+/// </summary>
+/// <typeparam name="T">Tipo de recursos a obtener.</typeparam>
+public interface IAsyncUnpacker<T>
 {
     /// <summary>
-    /// Define una serie de métodos a implementar por una clase que permita
-    /// obtener y extraer recursos de forma asíncrona.
+    /// Obtiene un recurso identificable de forma asíncrona.
     /// </summary>
-    /// <typeparam name="T">Tipo de recursos a obtener.</typeparam>
-    public interface IAsyncUnpacker<T>
-    {
-        /// <summary>
-        /// Obtiene un recurso identificable de forma asíncrona.
-        /// </summary>
-        /// <param name="id">Identificador del recurso.</param>
-        /// <returns>Un recurso de tipo <typeparamref name="T"/>.</returns>
-        Task<T> UnpackAsync(string id);
-        /// <summary>
-        /// Extrae un recurso comprimido utilizando el compresor con el
-        /// identificador especificado de forma asíncrona.
-        /// </summary>
-        /// <param name="id">Identificador del recurso.</param>
-        /// <param name="compressorId">
-        /// Identificador del compresor a utilizar para extraer al recurso.
-        /// </param>
-        /// <returns>
-        /// Un recurso sin comprimir de tipo <typeparamref name="T"/>.
-        /// </returns>
-        Task<T> UnpackAsync(string id, string compressorId);
-        /// <summary>
-        /// Extrae un recurso comprimido utilizando el compresor con el
-        /// identificador especificado de forma asíncrona.
-        /// </summary>
-        /// <param name="id">Identificador del recurso.</param>
-        /// <param name="compressor">
-        /// <see cref="ICompressorGetter"/> a utilizar para extraer al recurso.
-        /// </param>
-        /// <returns>
-        /// Un recurso sin comprimir de tipo <typeparamref name="T"/>.
-        /// </returns>
-        Task<T> UnpackAsync(string id, ICompressorGetter compressor);
-    }
+    /// <param name="id">Identificador del recurso.</param>
+    /// <returns>Un recurso de tipo <typeparamref name="T"/>.</returns>
+    Task<T> UnpackAsync(string id);
+    /// <summary>
+    /// Extrae un recurso comprimido utilizando el compresor con el
+    /// identificador especificado de forma asíncrona.
+    /// </summary>
+    /// <param name="id">Identificador del recurso.</param>
+    /// <param name="compressorId">
+    /// Identificador del compresor a utilizar para extraer al recurso.
+    /// </param>
+    /// <returns>
+    /// Un recurso sin comprimir de tipo <typeparamref name="T"/>.
+    /// </returns>
+    Task<T> UnpackAsync(string id, string compressorId);
+    /// <summary>
+    /// Extrae un recurso comprimido utilizando el compresor con el
+    /// identificador especificado de forma asíncrona.
+    /// </summary>
+    /// <param name="id">Identificador del recurso.</param>
+    /// <param name="compressor">
+    /// <see cref="ICompressorGetter"/> a utilizar para extraer al recurso.
+    /// </param>
+    /// <returns>
+    /// Un recurso sin comprimir de tipo <typeparamref name="T"/>.
+    /// </returns>
+    Task<T> UnpackAsync(string id, ICompressorGetter compressor);
 }

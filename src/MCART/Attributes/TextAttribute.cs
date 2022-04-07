@@ -22,33 +22,31 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Attributes;
 using System;
 using static System.AttributeTargets;
 
-namespace TheXDS.MCART.Attributes
+/// <summary>
+/// Agrega un elemento textual genérico a un elemento, además de ser la
+/// clase base para los atributos que describan un valor representable como
+/// <see cref="string" /> para un elemento.
+/// </summary>
+[AttributeUsage(All), Serializable]
+public class TextAttribute : Attribute, IValueAttribute<string?>
 {
     /// <summary>
-    /// Agrega un elemento textual genérico a un elemento, además de ser la
-    /// clase base para los atributos que describan un valor representable como
-    /// <see cref="string" /> para un elemento.
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="TextAttribute" />.
     /// </summary>
-    [AttributeUsage(All), Serializable]
-    public class TextAttribute : Attribute, IValueAttribute<string?>
+    /// <param name="text">Valor de este atributo.</param>
+    protected TextAttribute(string? text)
     {
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="TextAttribute" />.
-        /// </summary>
-        /// <param name="text">Valor de este atributo.</param>
-        protected TextAttribute(string? text)
-        {
-            Value = text;
-        }
-
-        /// <summary>
-        /// Obtiene el valor asociado a este atributo.
-        /// </summary>
-        /// <value>El valor de este atributo.</value>
-        public string? Value { get; }
+        Value = text;
     }
+
+    /// <summary>
+    /// Obtiene el valor asociado a este atributo.
+    /// </summary>
+    /// <value>El valor de este atributo.</value>
+    public string? Value { get; }
 }

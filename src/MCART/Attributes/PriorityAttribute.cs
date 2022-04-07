@@ -22,25 +22,24 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Attributes;
 using System;
 using static System.AttributeTargets;
 
-namespace TheXDS.MCART.Attributes
+/// <summary>
+/// Marca un elemento con un valor de prioridad.
+/// </summary>
+[AttributeUsage(Assembly | Class | Module | Event | GenericParameter | Interface | Method | Module | Parameter | Property | Struct)]
+[Serializable]
+public sealed class PriorityAttribute : IntAttribute
 {
     /// <summary>
-    /// Marca un elemento con un valor de prioridad.
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="PriorityAttribute"/>.
     /// </summary>
-    [AttributeUsage(Assembly | Class | Module | Event | GenericParameter | Interface | Method | Module | Parameter | Property | Struct)]
-    [Serializable]
-    public sealed class PriorityAttribute : IntAttribute
+    /// <param name="priority">Valor de prioridad a asociar.</param>
+    public PriorityAttribute(int priority) 
+        : base(priority)
     {
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="PriorityAttribute"/>.
-        /// </summary>
-        /// <param name="priority">Valor de prioridad a asociar.</param>
-        public PriorityAttribute(int priority) : base(priority)
-        {
-        }
     }
 }

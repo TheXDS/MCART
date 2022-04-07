@@ -24,29 +24,26 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
+namespace TheXDS.MCART.Helpers;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using TheXDS.MCART.Resources;
 
-namespace TheXDS.MCART.Helpers
+public static partial class Common
 {
-    public static partial class Common
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void ByteUnits_Contract(in int bytes, in ByteUnitType unit, byte magnitude)
     {
-        [Conditional("EnforceContracts")]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [DebuggerNonUserCode]
-        private static void Sequence_Contract(in int stepping)
-        {
-            if (stepping == 0) throw new ArgumentOutOfRangeException(nameof(stepping));
-        }
+        if (magnitude > 8) throw Errors.ValueOutOfRange(nameof(magnitude), 0, 8);
+    }
 
-        [Conditional("EnforceContracts")]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [DebuggerNonUserCode]
-        private static void ByteUnits_Contract(in int bytes, in ByteUnitType unit, byte magnitude)
-        {
-            if (magnitude > 8) throw Errors.ValueOutOfRange(nameof(magnitude), 0, 8);
-        }
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void Sequence_Contract(in int top, in int stepping)
+    {
+        if (stepping == 0) throw Errors.ValueOutOfRange(nameof(stepping), 1, top);
     }
 }

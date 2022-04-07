@@ -22,21 +22,19 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types.Extensions;
 using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using static TheXDS.MCART.Misc.Internals;
 
-namespace TheXDS.MCART.Types.Extensions
+public static partial class AssemblyExtensions
 {
-    public static partial class AssemblyExtensions
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void HasAttrs_Contract(Assembly assembly)
     {
-        [Conditional("EnforceContracts")]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [DebuggerNonUserCode]
-        private static void HasAttrs_Contract(Assembly assembly)
-        {
-            NullCheck(assembly, nameof(assembly));
-        }
+        NullCheck(assembly, nameof(assembly));
     }
 }

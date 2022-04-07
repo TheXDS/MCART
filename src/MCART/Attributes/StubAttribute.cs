@@ -22,18 +22,16 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Attributes;
 using System;
 
-namespace TheXDS.MCART.Attributes
+/// <summary>
+/// Indica un elemento cuyo propósito es simplemente el de reservar
+/// espacio para una posible expansión, y por lo tanto, actualmente no
+/// tiene ninguna funcionalidad.
+/// </summary>
+[AttributeUsage(AttributeTargets.All)]
+[Serializable]
+public sealed class StubAttribute : Attribute
 {
-    /// <summary>
-    /// Indica un elemento cuyo propósito es simplemente el de reservar
-    /// espacio para una posible expansión, y por lo tanto, actualmente no
-    /// tiene ninguna funcionalidad.
-    /// </summary>
-    [AttributeUsage(AttributeTargets.All)]
-    [Serializable]
-    public sealed class StubAttribute : Attribute
-    {
-    }
 }

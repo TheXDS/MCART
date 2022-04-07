@@ -22,67 +22,65 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.ViewModel;
 using TheXDS.MCART.Types;
 
-namespace TheXDS.MCART.ViewModel
+/// <summary>
+/// ViewModel con propiedades básicas de gestión de la ventana.
+/// </summary>
+public abstract class WindowViewModel : ViewModelBase
 {
+    private string _title = string.Empty;
+    private Size _size;
+
     /// <summary>
-    /// ViewModel con propiedades básicas de gestión de la ventana.
+    /// Obtiene o establece el título de la ventana.
     /// </summary>
-    public abstract class WindowViewModel : ViewModelBase
+    public string Title
     {
-        private string _title = string.Empty;
-        private Size _size;
+        get => _title;
+        set => Change(ref _title, value);
+    }
 
-        /// <summary>
-        /// Obtiene o establece el título de la ventana.
-        /// </summary>
-        public string Title
+    /// <summary>
+    /// Obtiene o establece la altura deseada de la ventana.
+    /// </summary>
+    public double WindowHeight
+    {
+        get => _size.Height;
+        set
         {
-            get => _title;
-            set => Change(ref _title, value);
+            if (_size.Height == value) return;
+            _size.Height = value;
+            Notify(nameof(WindowHeight), nameof(WindowSize));
         }
+    }
 
-        /// <summary>
-        /// Obtiene o establece la altura deseada de la ventana.
-        /// </summary>
-        public double WindowHeight
+    /// <summary>
+    /// Obtiene o establece el ancho deseado de la ventana.
+    /// </summary>
+    public double WindowWidth
+    {
+        get => _size.Width;
+        set
         {
-            get => _size.Height;
-            set
-            {
-                if (_size.Height == value) return;
-                _size.Height = value;
-                Notify(nameof(WindowHeight), nameof(WindowSize));
-            }
+            if (_size.Width == value) return;
+            _size.Width = value;
+            Notify(nameof(WindowWidth), nameof(WindowSize));
         }
+    }
 
-        /// <summary>
-        /// Obtiene o establece el ancho deseado de la ventana.
-        /// </summary>
-        public double WindowWidth
+    /// <summary>
+    /// Obtiene o establece el tamaño deseado de la ventana.
+    /// </summary>
+    public Size WindowSize
+    {
+        get => _size;
+        set
         {
-            get => _size.Width;
-            set
+            if (Change(ref _size, value))
             {
-                if (_size.Width == value) return;
-                _size.Width = value;
-                Notify(nameof(WindowWidth), nameof(WindowSize));
-            }
-        }
-
-        /// <summary>
-        /// Obtiene o establece el tamaño deseado de la ventana.
-        /// </summary>
-        public Size WindowSize
-        {
-            get => _size;
-            set
-            {
-                if (Change(ref _size, value))
-                {
-                    Notify(nameof(WindowHeight), nameof(WindowWidth));
-                }
+                Notify(nameof(WindowHeight), nameof(WindowWidth));
             }
         }
     }

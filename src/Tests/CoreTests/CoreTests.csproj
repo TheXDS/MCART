@@ -1,9 +1,0 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-	<PropertyGroup>
-		<TargetFramework>net5.0</TargetFramework>
-		<RootNamespace>TheXDS.MCART.Tests</RootNamespace>
-	</PropertyGroup>
-	<ItemGroup>
-		<ProjectReference Include="..\..\MCART\MCART.csproj" />
-	</ItemGroup>
-</Project>

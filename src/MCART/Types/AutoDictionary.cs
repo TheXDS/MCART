@@ -22,42 +22,40 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types;
 using System.Collections.Generic;
 
-namespace TheXDS.MCART.Types
+/// <summary>
+/// Diccionario con soporte para instanciación automática de claves no
+/// existentes.
+/// </summary>
+/// <typeparam name="TKey">Tipo de llave a utilizar.</typeparam>
+/// <typeparam name="TValue">
+/// Tipo del valor contenido en este diccionario.
+/// </typeparam>
+public class AutoDictionary<TKey, TValue> : Dictionary<TKey, TValue> where TKey : notnull where TValue : new()
 {
     /// <summary>
-    /// Diccionario con soporte para instanciación automática de claves no
-    /// existentes.
+    /// Obtiene o establece el valor asociado con la llave
+    /// especificada, instanciando un nuevo valor si la misma no
+    /// existe.
     /// </summary>
-    /// <typeparam name="TKey">Tipo de llave a utilizar.</typeparam>
-    /// <typeparam name="TValue">
-    /// Tipo del valor contenido en este diccionario.
-    /// </typeparam>
-    public class AutoDictionary<TKey, TValue> : Dictionary<TKey, TValue> where TKey : notnull where TValue : new()
+    /// <param name="key">
+    /// Llave del valor a obtener o establecer.
+    /// Se creará un nuevo valor si la llave no existe.
+    /// </param>
+    /// <returns>
+    /// Valor asociado a la clave especificada. Si no se encuentra la
+    /// clave especificada, se creará un nuevo elemento con dicha
+    /// clave.
+    /// </returns>
+    public new TValue this[TKey key]
     {
-        /// <summary>
-        /// Obtiene o establece el valor asociado con la llave
-        /// especificada, instanciando un nuevo valor si la misma no
-        /// existe.
-        /// </summary>
-        /// <param name="key">
-        /// Llave del valor a obtener o establecer.
-        /// Se creará un nuevo valor si la llave no existe.
-        /// </param>
-        /// <returns>
-        /// Valor asociado a la clave especificada. Si no se encuentra la
-        /// clave especificada, se creará un nuevo elemento con dicha
-        /// clave.
-        /// </returns>
-        public new TValue this[TKey key]
+        get
         {
-            get
-            {
-                if (!ContainsKey(key)) Add(key, new TValue());
-                return base[key];
-            }
-            set => base[key] = value;
+            if (!ContainsKey(key)) Add(key, new TValue());
+            return base[key];
         }
+        set => base[key] = value;
     }
 }

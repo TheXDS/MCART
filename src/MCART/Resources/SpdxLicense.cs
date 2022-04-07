@@ -22,38 +22,48 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Resources;
 using System;
 using System.Diagnostics.CodeAnalysis;
 
-namespace TheXDS.MCART.Resources
+/// <summary>
+/// Representa una licencia registrada dentro de los estándares de
+/// Software Package Data Exchange (SPDX).
+/// </summary>
+public class SpdxLicense : License, IEquatable<SpdxLicense>
 {
     /// <summary>
-    /// Representa una licencia registrada dentro de los estándares de
-    /// Software Package Data Exchange (SPDX).
+    /// Obtiene el identificador corto de la licencia.
     /// </summary>
-    public class SpdxLicense : License, IEquatable<SpdxLicense>
+    public string SpdxShortName { get; }
+
+    internal SpdxLicense(string id, string? name, Uri url) : base(name ?? id, url)
     {
-        /// <summary>
-        /// Obtiene el identificador corto de la licencia.
-        /// </summary>
-        public string SpdxShortName { get; }
+        SpdxShortName = id;
+    }
 
-        internal SpdxLicense(string id, string? name, Uri url) : base(name ?? id, url)
-        {
-            SpdxShortName = id;
-        }
+    /// <summary>
+    /// Comprueba la igualdad entre dos instancias de la clase <see cref="SpdxLicense"/>.
+    /// </summary>
+    /// <param name="other">El otro objeto a comparar.</param>
+    /// <returns>
+    /// <see langword="true"/> si ambas instancias son consideradas
+    /// iguales, <see langword="false"/> en caso contrario.
+    /// </returns>
+    public bool Equals([AllowNull] SpdxLicense other)
+    {
+        return SpdxShortName == other?.SpdxShortName;
+    }
 
-        /// <summary>
-        /// Comprueba la igualdad entre dos instancias de la clase <see cref="SpdxLicense"/>.
-        /// </summary>
-        /// <param name="other">El otro objeto a comparar.</param>
-        /// <returns>
-        /// <see langword="true"/> si ambas instancias son consideradas
-        /// iguales, <see langword="false"/> en caso contrario.
-        /// </returns>
-        public bool Equals([AllowNull] SpdxLicense other)
-        {
-            return SpdxShortName == other?.SpdxShortName;
-        }
+    /// <inheritdoc/>
+    public override bool Equals(object? obj)
+    {
+        return Equals(obj as SpdxLicense);
+    }
+
+    /// <inheritdoc/>
+    public override int GetHashCode()
+    {
+        return SpdxShortName.GetHashCode();
     }
 }

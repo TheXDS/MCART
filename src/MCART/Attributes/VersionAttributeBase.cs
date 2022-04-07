@@ -22,34 +22,32 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Attributes;
 using System;
 
-namespace TheXDS.MCART.Attributes
+/// <summary>
+/// Especifica la versión de un elemento, además de ser la clase base para
+/// los atributos que describan un valor <see cref="Version" /> para un
+/// elemento.
+/// </summary>
+public abstract class VersionAttributeBase : Attribute, IValueAttribute<Version>
 {
     /// <summary>
-    /// Especifica la versión de un elemento, además de ser la clase base para
-    /// los atributos que describan un valor <see cref="Version" /> para un
-    /// elemento.
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="VersionAttributeBase" />.
     /// </summary>
-    public abstract class VersionAttributeBase : Attribute, IValueAttribute<Version>
+    /// <param name="major">Número de versión mayor.</param>
+    /// <param name="minor">Número de versión menor.</param>
+    /// <param name="build">Número de compilación.</param>
+    /// <param name="rev">Número de revisión.</param>
+    protected VersionAttributeBase(int major, int minor, int build, int rev)
     {
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="VersionAttributeBase" />.
-        /// </summary>
-        /// <param name="major">Número de versión mayor.</param>
-        /// <param name="minor">Número de versión menor.</param>
-        /// <param name="build">Número de compilación.</param>
-        /// <param name="rev">Número de revisión.</param>
-        protected VersionAttributeBase(int major, int minor, int build, int rev)
-        {
-            Value = new Version(major, minor, build, rev);
-        }
-
-        /// <summary>
-        /// Obtiene el valor asociado a este atributo.
-        /// </summary>
-        /// <value>El valor de este atributo.</value>
-        public Version Value { get; }
+        Value = new(major, minor, build, rev);
     }
+
+    /// <summary>
+    /// Obtiene el valor asociado a este atributo.
+    /// </summary>
+    /// <value>El valor de este atributo.</value>
+    public Version Value { get; }
 }

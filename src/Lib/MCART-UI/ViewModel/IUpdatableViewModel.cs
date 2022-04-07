@@ -1,5 +1,5 @@
 ﻿/*
-ISetteableViewModel.cs
+IUpdatableViewModel.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,23 +22,22 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.ViewModel
+namespace TheXDS.MCART.ViewModel;
+
+/// <summary>
+/// Define una serie de miembros a implementar por una clase que
+/// implemente funcionalidades básicas de edición de entidades de
+/// ViewModel.
+/// </summary>
+/// <typeparam name="T">Tipo de entidad actualizable.</typeparam>
+public interface IUpdatableViewModel<T> : IEntityViewModel<T>
 {
     /// <summary>
-    /// Define una serie de miembros a implementar por una clase que
-    /// implemente funcionalidades básicas de edición de entidades de
+    /// Edita la instancia de <typeparamref name="T"/> dentro de este
     /// ViewModel.
     /// </summary>
-    /// <typeparam name="T">Tipo de entidad actualizable.</typeparam>
-    public interface IUpdatableViewModel<T> : IEntityViewModel<T>
-    {
-        /// <summary>
-        /// Edita la instancia de <typeparamref name="T"/> dentro de este
-        /// ViewModel.
-        /// </summary>
-        /// <param name="entity">
-        /// Entidad desde la cual extraer información.
-        /// </param>
-        void Update(T entity);
-    }
+    /// <param name="entity">
+    /// Entidad desde la cual extraer información.
+    /// </param>
+    void Update(T entity);
 }

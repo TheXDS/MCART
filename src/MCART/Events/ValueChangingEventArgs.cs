@@ -22,26 +22,25 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Events
+namespace TheXDS.MCART.Events;
+
+/// <summary>
+/// Incluye información para cualquier evento que incluya tipos de valor y
+/// puedan ser cancelados.
+/// </summary>
+public class ValueChangingEventArgs : ValueChangingEventArgs<object?>
 {
     /// <summary>
-    /// Incluye información para cualquier evento que incluya tipos de valor y
-    /// puedan ser cancelados.
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="ValueChangingEventArgs{T}" /> con el valor provisto.
     /// </summary>
-    public class ValueChangingEventArgs : ValueChangingEventArgs<object?>
+    /// <param name="oldValue">
+    /// Valor original asociado al evento generado.
+    /// </param>
+    /// <param name="newValue">
+    /// Nuevo valor asociado al evento generado.
+    /// </param>
+    public ValueChangingEventArgs(object? oldValue, object? newValue) : base(oldValue, newValue)
     {
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="ValueChangingEventArgs{T}" /> con el valor provisto.
-        /// </summary>
-        /// <param name="oldValue">
-        /// Valor original asociado al evento generado.
-        /// </param>
-        /// <param name="newValue">
-        /// Nuevo valor asociado al evento generado.
-        /// </param>
-        public ValueChangingEventArgs(object? oldValue, object? newValue) : base(oldValue, newValue)
-        {
-        }
     }
 }

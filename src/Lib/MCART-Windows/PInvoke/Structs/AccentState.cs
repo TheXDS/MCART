@@ -1,5 +1,5 @@
 ﻿/*
-PInvoke.cs
+AccentState.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -22,14 +22,13 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.PInvoke.Structs
+namespace TheXDS.MCART.PInvoke.Structs;
+
+internal enum AccentState
 {
-    internal enum AccentState
-    {
-        ACCENT_DISABLED = 0,
-        ACCENT_ENABLE_GRADIENT = 1,
-        ACCENT_ENABLE_TRANSPARENTGRADIENT = 2,
-        ACCENT_ENABLE_BLURBEHIND = 3,
-        ACCENT_ENABLE_ACRYLICBLURBEHIND = 4
-    }
+    ACCENT_DISABLED = 0,
+    ACCENT_ENABLE_GRADIENT = 1,
+    ACCENT_ENABLE_TRANSPARENTGRADIENT = 2,
+    ACCENT_ENABLE_BLURBEHIND = 3,
+    ACCENT_ENABLE_ACRYLICBLURBEHIND = 4
 }

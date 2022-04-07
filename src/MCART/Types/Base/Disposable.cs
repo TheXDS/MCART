@@ -22,75 +22,73 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types.Base;
 using System;
 using System.Runtime.CompilerServices;
 using TheXDS.MCART.Types.Extensions;
 using static System.Reflection.BindingFlags;
 
-namespace TheXDS.MCART.Types.Base
+/// <summary>
+/// Clase base que simplifica la implementación de la interfaz
+/// <see cref="IDisposable"/>.
+/// </summary>
+/// <remarks>
+/// Si la clase a implementar contendrá acciones asíncronas de limpieza,
+/// utilice la clase <see cref="AsyncDisposable"/> como clase base.
+/// </remarks>
+public abstract class Disposable : IDisposableEx
 {
     /// <summary>
-    /// Clase base que simplifica la implementación de la interfaz
-    /// <see cref="IDisposable"/>.
+    /// Destruye esta instancia de la clase <see cref="Disposable"/>.
     /// </summary>
-    /// <remarks>
-    /// Si la clase a implementar contendrá acciones asíncronas de limpieza,
-    /// utilice la clase <see cref="AsyncDisposable"/> como clase base.
-    /// </remarks>
-    public abstract class Disposable : IDisposableEx
+    ~Disposable()
     {
-        private bool ShouldFinalize() => GetType().GetMethod(nameof(OnFinalize), Instance | NonPublic)!.IsOverride();
+        if (ShouldFinalize()) Dispose(false);
+    }
 
-        /// <summary>
-        /// Obtiene un valor que indica si este objeto ha sido desechado.
-        /// </summary>
-        public bool IsDisposed { get; private set; } = false;
+    /// <summary>
+    /// Obtiene un valor que indica si este objeto ha sido desechado.
+    /// </summary>
+    public bool IsDisposed { get; private set; } = false;
 
-        /// <summary>
-        /// Libera los recursos utilizados por esta instancia.
-        /// </summary>
-        /// <param name="disposing">
-        /// Indica si deben liberarse los recursos administrados.
-        /// </param>
-        protected void Dispose(bool disposing)
+    private bool ShouldFinalize() => GetType().GetMethod(nameof(OnFinalize), Instance | NonPublic)!.IsOverride();
+
+    /// <summary>
+    /// Libera los recursos utilizados por esta instancia.
+    /// </summary>
+    /// <param name="disposing">
+    /// Indica si deben liberarse los recursos administrados.
+    /// </param>
+    protected void Dispose(bool disposing)
+    {
+        if (IsDisposed) return;
+
+        if (disposing)
         {
-            if (IsDisposed) return;
-
-            if (disposing)
-            {
-                OnDispose();
-            }
-            OnFinalize();
-            IsDisposed = true;
+            OnDispose();
         }
+        OnFinalize();
+        IsDisposed = true;
+    }
 
-        /// <summary>
-        /// Realiza operaciones de limpieza para objetos no administrados.
-        /// </summary>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected virtual void OnFinalize() { }
+    /// <summary>
+    /// Realiza operaciones de limpieza para objetos no administrados.
+    /// </summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    protected virtual void OnFinalize() { }
 
-        /// <summary>
-        /// Realiza las operaciones de limpieza de objetos administrados
-        /// desechables de esta instancia.
-        /// </summary>
-        protected abstract void OnDispose();
+    /// <summary>
+    /// Realiza las operaciones de limpieza de objetos administrados
+    /// desechables de esta instancia.
+    /// </summary>
+    protected abstract void OnDispose();
 
-        /// <summary>
-        /// Libera los recursos utilizados por esta instancia.
-        /// </summary>
-        public void Dispose()
-        {
-            Dispose(true);
-            if (ShouldFinalize()) GC.SuppressFinalize(this);
-        }
-
-        /// <summary>
-        /// Destruye esta instancia de la clase <see cref="Disposable"/>.
-        /// </summary>
-        ~Disposable()
-        {
-            if (ShouldFinalize()) Dispose(false);
-        }
+    /// <summary>
+    /// Libera los recursos utilizados por esta instancia.
+    /// </summary>
+    public void Dispose()
+    {
+        Dispose(true);
+        if (ShouldFinalize()) GC.SuppressFinalize(this);
     }
 }

@@ -22,44 +22,42 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Events;
 using System;
 using TheXDS.MCART.Types;
 
-namespace TheXDS.MCART.Events
+/// <summary>
+/// Contiene información para el evento 
+/// <see cref="ListEx{T}.InsertedItem"/>.
+/// </summary>
+/// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
+public class InsertedItemEventArgs<T> : EventArgs
 {
-    /// <summary>
-    /// Contiene información para el evento 
-    /// <see cref="ListEx{T}.InsertedItem"/>.
-    /// </summary>
-    /// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
-    public class InsertedItemEventArgs<T> : EventArgs
+    internal InsertedItemEventArgs(int index, T insertedItem)
     {
-        /// <summary>
-        /// Convierte implícitamente un 
-        /// <see cref="InsertingItemEventArgs{T}"/> en un
-        /// <see cref="InsertedItemEventArgs{T}"/>.
-        /// </summary>
-        /// <param name="from">
-        /// <see cref="InsertingItemEventArgs{T}"/> a convertir.
-        /// </param>
-        public static implicit operator InsertedItemEventArgs<T>(InsertingItemEventArgs<T> from) => new(from.Index, from.InsertedItem);
-
-        /// <summary>
-        /// Elemento que fue insertado en el <see cref="ListEx{T}"/> que
-        /// generó el evento.
-        /// </summary>
-        public T InsertedItem { get; }
-
-        /// <summary>
-        /// Índice del objeto dentro del <see cref="ListEx{T}"/> que generó
-        /// el evento.
-        /// </summary>
-        public int Index { get; }
-
-        internal InsertedItemEventArgs(int index, T insertedItem)
-        {
-            Index = index;
-            InsertedItem = insertedItem;
-        }
+        Index = index;
+        InsertedItem = insertedItem;
     }
+
+    /// <summary>
+    /// Convierte implícitamente un 
+    /// <see cref="InsertingItemEventArgs{T}"/> en un
+    /// <see cref="InsertedItemEventArgs{T}"/>.
+    /// </summary>
+    /// <param name="from">
+    /// <see cref="InsertingItemEventArgs{T}"/> a convertir.
+    /// </param>
+    public static implicit operator InsertedItemEventArgs<T>(InsertingItemEventArgs<T> from) => new(from.Index, from.InsertedItem);
+
+    /// <summary>
+    /// Elemento que fue insertado en el <see cref="ListEx{T}"/> que
+    /// generó el evento.
+    /// </summary>
+    public T InsertedItem { get; }
+
+    /// <summary>
+    /// Índice del objeto dentro del <see cref="ListEx{T}"/> que generó
+    /// el evento.
+    /// </summary>
+    public int Index { get; }
 }

@@ -22,38 +22,37 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Types
+namespace TheXDS.MCART.Types;
+
+/// <summary>
+/// Implementa un <see cref="IColorParser{T}" /> que tiene como formato
+/// de color un valor monocromático de 1 bit, sin alfa.
+/// </summary>
+public class MonochromeColorParser : IColorParser<bool>
 {
     /// <summary>
-    /// Implementa un <see cref="IColorParser{T}" /> que tiene como formato
-    /// de color un valor monocromático de 1 bit, sin alfa.
+    /// Convierte una estructura compatible en un <see cref="Color" />.
     /// </summary>
-    public class MonochromeColorParser : IColorParser<bool>
+    /// <param name="value">Valor a convertir.</param>
+    /// <returns>
+    /// Un <see cref="Color" /> creado a partir del valor especificado.
+    /// </returns>
+    public Color From(bool value)
     {
-        /// <summary>
-        /// Convierte una estructura compatible en un <see cref="Color" />.
-        /// </summary>
-        /// <param name="value">Valor a convertir.</param>
-        /// <returns>
-        /// Un <see cref="Color" /> creado a partir del valor especificado.
-        /// </returns>
-        public Color From(bool value)
-        {
-            byte m = value ? byte.MaxValue : byte.MinValue;
-            return new Color(m, m, m);
-        }
+        byte m = value ? byte.MaxValue : byte.MinValue;
+        return new Color(m, m, m);
+    }
 
-        /// <summary>
-        /// Convierte un <see cref="Color" /> en un valor, utilizando el
-        /// <see cref="IColorParser{T}" /> especificado.
-        /// </summary>
-        /// <param name="color"><see cref="Color" /> a convertir.</param>
-        /// <returns>
-        /// Un valor creado a partir de este <see cref="Color" />.
-        /// </returns>
-        public bool To(Color color)
-        {
-            return (color.B | color.G | color.R) * 2 / 256 == 1;
-        }
+    /// <summary>
+    /// Convierte un <see cref="Color" /> en un valor, utilizando el
+    /// <see cref="IColorParser{T}" /> especificado.
+    /// </summary>
+    /// <param name="color"><see cref="Color" /> a convertir.</param>
+    /// <returns>
+    /// Un valor creado a partir de este <see cref="Color" />.
+    /// </returns>
+    public bool To(Color color)
+    {
+        return (color.B | color.G | color.R) * 2 / 256 == 1;
     }
 }

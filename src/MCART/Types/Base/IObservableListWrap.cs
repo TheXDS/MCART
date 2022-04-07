@@ -22,51 +22,27 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types.Base;
 using System.Collections;
-using System.Collections.Generic;
 using System.Collections.Specialized;
 
-namespace TheXDS.MCART.Types.Base
+/// <summary>
+/// Define una serie de miembros a implementar por una clase que defina
+/// un envoltorio observable sobre un <see cref="IList"/>.
+/// </summary>
+public interface IObservableListWrap : IList, INotifyCollectionChanged, IRefreshable
 {
     /// <summary>
-    /// Define una serie de miembros a implementar por una clase que defina
-    /// un envoltorio observable sobre un <see cref="IList"/>.
+    /// Obtiene una referencia a la lista subyacente de este envoltorio
+    /// observable.
     /// </summary>
-    public interface IObservableListWrap : IList, INotifyCollectionChanged, IRefreshable
-    {
-        /// <summary>
-        /// Obtiene una referencia a la lista subyacente de este envoltorio
-        /// observable.
-        /// </summary>
-        IList UnderlyingList { get; }
-
-        /// <summary>
-        /// Sustituye la lista subyacente por una nueva.
-        /// </summary>
-        /// <param name="newCollection">
-        /// Lista a establecer como la lista subyacente.
-        /// </param>
-        void Substitute(IList newCollection);
-    }
+    IList UnderlyingList { get; }
 
     /// <summary>
-    /// Define una serie de miembros a implementar por una clase que defina
-    /// un envoltorio observable sobre un <see cref="IList{T}"/>.
+    /// Sustituye la lista subyacente por una nueva.
     /// </summary>
-    public interface IObservableListWrap<T> : INotifyCollectionChanged, IList<T>, IRefreshable
-    {
-        /// <summary>
-        /// Obtiene una referencia a la lista subyacente de este envoltorio
-        /// observable.
-        /// </summary>
-        IList<T> UnderlyingList { get; }
-
-        /// <summary>
-        /// Sustituye la lista subyacente por una nueva.
-        /// </summary>
-        /// <param name="newCollection">
-        /// Lista a establecer como la lista subyacente.
-        /// </param>
-        void Substitute(IList<T> newCollection);
-    }
+    /// <param name="newCollection">
+    /// Lista a establecer como la lista subyacente.
+    /// </param>
+    void Substitute(IList newCollection);
 }

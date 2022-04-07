@@ -22,29 +22,27 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Attributes;
 using System;
 
-namespace TheXDS.MCART.Attributes
+/// <summary>
+/// Clase base para los atributos basados en valores booleanos.
+/// </summary>
+public abstract class BoolAttribute : Attribute, IValueAttribute<bool>
 {
     /// <summary>
-    /// Clase base para los atributos basados en valores booleanos.
+    /// Crea una nueva isntancia de la clase
+    /// <see cref="BoolAttribute" />.
     /// </summary>
-    public abstract class BoolAttribute : Attribute, IValueAttribute<bool>
+    /// <param name="attributeValue">Valor de este atributo.</param>
+    protected BoolAttribute(bool attributeValue)
     {
-        /// <summary>
-        /// Crea una nueva isntancia de la clase
-        /// <see cref="BoolAttribute" />.
-        /// </summary>
-        /// <param name="attributeValue">Valor de este atributo.</param>
-        protected BoolAttribute(bool attributeValue)
-        {
-            Value = attributeValue;
-        }
-
-        /// <summary>
-        /// Obtiene el valor asociado a este atributo.
-        /// </summary>
-        /// <value>El valor de este atributo.</value>
-        public bool Value { get; }
+        Value = attributeValue;
     }
+
+    /// <summary>
+    /// Obtiene el valor asociado a este atributo.
+    /// </summary>
+    /// <value>El valor de este atributo.</value>
+    public bool Value { get; }
 }

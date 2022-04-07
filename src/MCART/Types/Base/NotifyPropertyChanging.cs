@@ -22,68 +22,66 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types.Base;
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using TheXDS.MCART.Helpers;
 
-namespace TheXDS.MCART.Types.Base
+/// <summary>
+/// Clase base para los objetos que puedan notificar sobre el cambio
+/// del valor de una de sus propiedades.
+/// </summary>
+public abstract class NotifyPropertyChanging : NotifyPropertyChangeBase, INotifyPropertyChanging
 {
     /// <summary>
-    /// Clase base para los objetos que puedan notificar sobre el cambio
-    /// del valor de una de sus propiedades.
+    /// Se produce cuando cambia el valor de una propiedad.
     /// </summary>
-    public abstract class NotifyPropertyChanging : NotifyPropertyChangeBase, INotifyPropertyChanging
+    public event PropertyChangingEventHandler? PropertyChanging;
+
+    /// <summary>
+    /// Notifica a los clientes que el valor de una propiedad cambiará.
+    /// </summary>
+    protected virtual void OnPropertyChanging([CallerMemberName] string? propertyName = null)
     {
-        /// <summary>
-        /// Se produce cuando cambia el valor de una propiedad.
-        /// </summary>
-        public event PropertyChangingEventHandler? PropertyChanging;
+        if (propertyName is null) throw new ArgumentNullException(nameof(propertyName));
+        PropertyChanging?.Invoke(this, new(propertyName));
+        NotifyRegistroir(propertyName);
+        foreach (INotifyPropertyChangeBase? j in _forwardings) j.Notify(propertyName);
+    }
 
-        /// <summary>
-        /// Notifica a los clientes que el valor de una propiedad cambiará.
-        /// </summary>
-        protected virtual void OnPropertyChanging([CallerMemberName] string? propertyName = null)
-        {
-            if (propertyName is null) throw new ArgumentNullException(nameof(propertyName));
-            PropertyChanging?.Invoke(this, new(propertyName));
-            NotifyRegistroir(propertyName);
-            foreach (INotifyPropertyChangeBase? j in _forwardings) j.Notify(propertyName);
-        }
+    /// <summary>
+    /// Cambia el valor de un campo, y genera los eventos de
+    /// notificación correspondientes.
+    /// </summary>
+    /// <typeparam name="T">Tipo de valores a procesar.</typeparam>
+    /// <param name="field">Campo a actualizar.</param>
+    /// <param name="value">Nuevo valor del campo.</param>
+    /// <param name="propertyName">
+    /// Nombre de la propiedad. Por lo general, este valor debe
+    /// omitirse.
+    /// </param>
+    /// <returns>
+    /// <see langword="true"/> si el valor de la propiedad ha
+    /// cambiado, <see langword="false"/> en caso contrario.
+    /// </returns>
+    protected sealed override bool Change<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
+    {
+        if (propertyName is null) throw new ArgumentNullException(nameof(propertyName));
+        if (field?.Equals(value) ?? Objects.AreAllNull(field, value)) return false;
+        Notify(propertyName);
+        field = value;
+        return true;
+    }
 
-        /// <summary>
-        /// Cambia el valor de un campo, y genera los eventos de
-        /// notificación correspondientes.
-        /// </summary>
-        /// <typeparam name="T">Tipo de valores a procesar.</typeparam>
-        /// <param name="field">Campo a actualizar.</param>
-        /// <param name="value">Nuevo valor del campo.</param>
-        /// <param name="propertyName">
-        /// Nombre de la propiedad. Por lo general, este valor debe
-        /// omitirse.
-        /// </param>
-        /// <returns>
-        /// <see langword="true"/> si el valor de la propiedad ha
-        /// cambiado, <see langword="false"/> en caso contrario.
-        /// </returns>
-        protected sealed override bool Change<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
-        {
-            if (propertyName is null) throw new ArgumentNullException(nameof(propertyName));
-            if (field?.Equals(value) ?? Objects.AreAllNull(field, value)) return false;
-            Notify(propertyName);
-            field = value;
-            return true;
-        }
-
-        /// <summary>
-        /// Notifica el cambio en el valor de una propiedad.
-        /// </summary>
-        /// <param name="property">
-        /// Propiedad a notificar.
-        /// </param>
-        public override void Notify(string property)
-        {
-            OnPropertyChanging(property);
-        }
+    /// <summary>
+    /// Notifica el cambio en el valor de una propiedad.
+    /// </summary>
+    /// <param name="property">
+    /// Propiedad a notificar.
+    /// </param>
+    public override void Notify(string property)
+    {
+        OnPropertyChanging(property);
     }
 }

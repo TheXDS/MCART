@@ -26,102 +26,100 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types.Extensions;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 
-namespace TheXDS.MCART.Types.Extensions
+/// <summary>
+/// Funciones misceláneas y extensiones para todos los elementos de
+/// tipo <see cref="NameValueCollection"/>.
+/// </summary>
+public static class NameValueCollectionExtensions
 {
     /// <summary>
-    /// Funciones misceláneas y extensiones para todos los elementos de
-    /// tipo <see cref="NameValueCollection"/>.
+    /// Convierte un <see cref="NameValueCollection"/> en una colección de
+    /// <see cref="IGrouping{TKey, TElement}"/>.
     /// </summary>
-    public static class NameValueCollectionExtensions
+    /// <param name="nvc">
+    /// <see cref="NameValueCollection"/> a convertir.
+    /// </param>
+    /// <returns>
+    /// Una colección de <see cref="IGrouping{TKey, TElement}"/> con las
+    /// llaves y sus respectivos valores.
+    /// </returns>
+    public static IEnumerable<IGrouping<string?, string>> ToGroup(this NameValueCollection nvc)
     {
-        /// <summary>
-        /// Convierte un <see cref="NameValueCollection"/> en una colección de
-        /// <see cref="IGrouping{TKey, TElement}"/>.
-        /// </summary>
-        /// <param name="nvc">
-        /// <see cref="NameValueCollection"/> a convertir.
-        /// </param>
-        /// <returns>
-        /// Una colección de <see cref="IGrouping{TKey, TElement}"/> con las
-        /// llaves y sus respectivos valores.
-        /// </returns>
-        public static IEnumerable<IGrouping<string?, string>> ToGroup(this NameValueCollection nvc)
+        foreach (string? j in nvc.AllKeys)
         {
-            foreach (string? j in nvc.AllKeys)
-            {
-                if (nvc.GetValues(j) is { } v) yield return new Grouping<string?, string>(j, v);
-            }
+            if (nvc.GetValues(j) is { } v) yield return new Grouping<string?, string>(j, v);
         }
+    }
 
-        /// <summary>
-        /// Convierte un <see cref="NameValueCollection"/> en una colección de
-        /// <see cref="NamedObject{T}"/>.
-        /// </summary>
-        /// <param name="nvc">
-        /// <see cref="NameValueCollection"/> a convertir.
-        /// </param>
-        /// <returns>
-        /// Una colección de <see cref="NamedObject{T}"/> con las llaves y sus
-        /// respectivos valores.
-        /// </returns>
-        /// <remarks>
-        /// Este método omitirá todos aquellos valores cuyo nombre sea
-        /// <see langword="null"/>.
-        /// </remarks>
-        public static IEnumerable<NamedObject<string[]>> ToNamedObjectCollection(this NameValueCollection nvc)
+    /// <summary>
+    /// Convierte un <see cref="NameValueCollection"/> en una colección de
+    /// <see cref="NamedObject{T}"/>.
+    /// </summary>
+    /// <param name="nvc">
+    /// <see cref="NameValueCollection"/> a convertir.
+    /// </param>
+    /// <returns>
+    /// Una colección de <see cref="NamedObject{T}"/> con las llaves y sus
+    /// respectivos valores.
+    /// </returns>
+    /// <remarks>
+    /// Este método omitirá todos aquellos valores cuyo nombre sea
+    /// <see langword="null"/>.
+    /// </remarks>
+    public static IEnumerable<NamedObject<string[]>> ToNamedObjectCollection(this NameValueCollection nvc)
+    {
+        foreach (string? j in nvc.AllKeys.NotNull())
         {
-            foreach (string? j in nvc.AllKeys.NotNull())
-            {
-                if (nvc.GetValues(j) is { } v) yield return new NamedObject<string[]>(v, j);
-            }
+            if (nvc.GetValues(j) is { } v) yield return new NamedObject<string[]>(v, j);
         }
+    }
 
-        /// <summary>
-        /// Convierte un <see cref="NameValueCollection"/> en una colección de
-        /// <see cref="KeyValuePair{TKey, TValue}"/>.
-        /// </summary>
-        /// <param name="nvc">
-        /// <see cref="NameValueCollection"/> a convertir.
-        /// </param>
-        /// <returns>
-        /// Una colección de <see cref="KeyValuePair{TKey, TValue}"/> con las
-        /// llaves y sus respectivos valores.
-        /// </returns>
-        public static IEnumerable<KeyValuePair<string?, string>> ToKeyValuePair(this NameValueCollection nvc)
+    /// <summary>
+    /// Convierte un <see cref="NameValueCollection"/> en una colección de
+    /// <see cref="KeyValuePair{TKey, TValue}"/>.
+    /// </summary>
+    /// <param name="nvc">
+    /// <see cref="NameValueCollection"/> a convertir.
+    /// </param>
+    /// <returns>
+    /// Una colección de <see cref="KeyValuePair{TKey, TValue}"/> con las
+    /// llaves y sus respectivos valores.
+    /// </returns>
+    public static IEnumerable<KeyValuePair<string?, string>> ToKeyValuePair(this NameValueCollection nvc)
+    {
+        foreach (string? j in nvc.AllKeys)
         {
-            foreach (string? j in nvc.AllKeys)
-            {
-                if (nvc.Get(j) is { } v) yield return new KeyValuePair<string?, string>(j, v);
-            }
+            if (nvc.Get(j) is { } v) yield return new KeyValuePair<string?, string>(j, v);
         }
+    }
 
-        /// <summary>
-        /// Convierte un <see cref="NameValueCollection"/> en una colección de
-        /// <see cref="Dictionary{TKey, TValue}"/>.
-        /// </summary>
-        /// <param name="nvc">
-        /// <see cref="NameValueCollection"/> a convertir.
-        /// </param>
-        /// <returns>
-        /// Una colección de <see cref="Dictionary{TKey, TValue}"/> con las
-        /// llaves y sus respectivos valores.
-        /// </returns>
-        /// <remarks>
-        /// Este método omitirá todos aquellos valores cuyo nombre sea
-        /// <see langword="null"/>.
-        /// </remarks>
-        public static Dictionary<string, string[]> ToDictionary(this NameValueCollection nvc)
+    /// <summary>
+    /// Convierte un <see cref="NameValueCollection"/> en una colección de
+    /// <see cref="Dictionary{TKey, TValue}"/>.
+    /// </summary>
+    /// <param name="nvc">
+    /// <see cref="NameValueCollection"/> a convertir.
+    /// </param>
+    /// <returns>
+    /// Una colección de <see cref="Dictionary{TKey, TValue}"/> con las
+    /// llaves y sus respectivos valores.
+    /// </returns>
+    /// <remarks>
+    /// Este método omitirá todos aquellos valores cuyo nombre sea
+    /// <see langword="null"/>.
+    /// </remarks>
+    public static Dictionary<string, string[]> ToDictionary(this NameValueCollection nvc)
+    {
+        Dictionary<string, string[]>? d = new();
+        foreach (string? j in nvc.AllKeys.NotNull())
         {
-            Dictionary<string, string[]>? d = new();
-            foreach (string? j in nvc.AllKeys.NotNull())
-            {
-                if (nvc.GetValues(j) is { } v) d.Add(j, v);
-            }
-            return d;
+            if (nvc.GetValues(j) is { } v) d.Add(j, v);
         }
+        return d;
     }
 }

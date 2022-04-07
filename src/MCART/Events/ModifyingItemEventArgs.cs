@@ -22,49 +22,47 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Events;
 using System.ComponentModel;
 using TheXDS.MCART.Types;
 
-namespace TheXDS.MCART.Events
+/// <summary>
+/// Contiene información para el evento
+/// <see cref="ListEx{T}.ModifyingItem"/>.
+/// </summary>
+/// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
+public class ModifyingItemEventArgs<T> : CancelEventArgs
 {
     /// <summary>
-    /// Contiene información para el evento
-    /// <see cref="ListEx{T}.ModifyingItem"/>.
+    /// Inicializa una nueva instancia de la clase 
+    /// <see cref="ModifyingItemEventArgs{T}"/>.
     /// </summary>
-    /// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
-    public class ModifyingItemEventArgs<T> : CancelEventArgs
+    /// <param name="index">
+    /// Índice del objeto en el <see cref="ListEx{T}"/> que generó el
+    /// evento.
+    /// </param>
+    /// <param name="oldValue">Valor original del objeto.</param>
+    /// <param name="newValue">Nuevo valor del objeto.</param>
+    internal ModifyingItemEventArgs(int index, T oldValue, T newValue)
     {
-        /// <summary>
-        /// Obtiene el nuevo valor del objeto.
-        /// </summary>
-        public T NewValue { get; }
-
-        /// <summary>
-        /// Obtiene el valor actual del objeto.
-        /// </summary>
-        public T OldValue { get; }
-
-        /// <summary>
-        /// Obtiene el índice del objeto dentro del <see cref="ListEx{T}"/>
-        /// que generó el evento.
-        /// </summary>
-        public int Index { get; }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="ModifyingItemEventArgs{T}"/>.
-        /// </summary>
-        /// <param name="index">
-        /// Índice del objeto en el <see cref="ListEx{T}"/> que generó el
-        /// evento.
-        /// </param>
-        /// <param name="oldValue">Valor original del objeto.</param>
-        /// <param name="newValue">Nuevo valor del objeto.</param>
-        internal ModifyingItemEventArgs(int index, T oldValue, T newValue)
-        {
-            OldValue = oldValue;
-            NewValue = newValue;
-            Index = index;
-        }
+        OldValue = oldValue;
+        NewValue = newValue;
+        Index = index;
     }
+
+    /// <summary>
+    /// Obtiene el nuevo valor del objeto.
+    /// </summary>
+    public T NewValue { get; }
+
+    /// <summary>
+    /// Obtiene el valor actual del objeto.
+    /// </summary>
+    public T OldValue { get; }
+
+    /// <summary>
+    /// Obtiene el índice del objeto dentro del <see cref="ListEx{T}"/>
+    /// que generó el evento.
+    /// </summary>
+    public int Index { get; }
 }

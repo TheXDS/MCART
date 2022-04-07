@@ -22,50 +22,48 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Component;
 using TheXDS.MCART.Types;
 
-namespace TheXDS.MCART.Component
+/// <summary>
+/// Define una serie de miembros a implementar por un tipo que represente
+/// una ventana en cualquier sistema operativo con interfaz gráfica.
+/// </summary>
+public interface IWindow : ICloseable
 {
     /// <summary>
-    /// Define una serie de miembros a implementar por un tipo que represente
-    /// una ventana en cualquier sistema operativo con interfaz gráfica.
+    /// Obtiene o establece el tamaño de la ventana.
     /// </summary>
-    public interface IWindow : ICloseable
-    {
-        /// <summary>
-        /// Obtiene o establece el tamaño de la ventana.
-        /// </summary>
-        Size Size { get; set; }
+    Size Size { get; set; }
 
-        /// <summary>
-        /// Obtiene o establece la posición de la ventana en coordenadas
-        /// absolutas de pantalla.
-        /// </summary>
-        Point Location { get; set; }
+    /// <summary>
+    /// Obtiene o establece la posición de la ventana en coordenadas
+    /// absolutas de pantalla.
+    /// </summary>
+    Point Location { get; set; }
 
-        /// <summary>
-        /// Oculta la ventana sin cerrarla.
-        /// </summary>
-        void Hide();
+    /// <summary>
+    /// Oculta la ventana sin cerrarla.
+    /// </summary>
+    void Hide();
 
-        /// <summary>
-        /// Maximiza la ventana.
-        /// </summary>
-        void Maximize();
+    /// <summary>
+    /// Maximiza la ventana.
+    /// </summary>
+    void Maximize();
 
-        /// <summary>
-        /// Minimiza la ventana.
-        /// </summary>
-        void Minimize();
+    /// <summary>
+    /// Minimiza la ventana.
+    /// </summary>
+    void Minimize();
 
-        /// <summary>
-        /// Restaura el tamaño de la ventana.
-        /// </summary>
-        void Restore();
+    /// <summary>
+    /// Restaura el tamaño de la ventana.
+    /// </summary>
+    void Restore();
 
-        /// <summary>
-        /// Cambia el estado de la ventana entre Maximizar y Restaurar.
-        /// </summary>
-        void ToggleMaximize();
-    }
+    /// <summary>
+    /// Cambia el estado de la ventana entre Maximizar y Restaurar.
+    /// </summary>
+    void ToggleMaximize();
 }

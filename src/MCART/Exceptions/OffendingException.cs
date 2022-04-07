@@ -22,164 +22,162 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Exceptions;
 using System;
 using System.Runtime.Serialization;
 using TheXDS.MCART.Resources.Strings;
 
-namespace TheXDS.MCART.Exceptions
+/// <summary>
+/// Excepción estándar producida al encontrarse un problema con un objeto.
+/// </summary>
+[Serializable]
+public class OffendingException<T> : Exception
 {
     /// <summary>
-    /// Excepción estándar producida al encontrarse un problema con un objeto.
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="OffendingException{T}" />.
     /// </summary>
-    [Serializable]
-    public class OffendingException<T> : Exception
+    public OffendingException() : base(Errors.InvalidValue)
     {
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="OffendingException{T}" />.
-        /// </summary>
-        public OffendingException() : base(Errors.InvalidValue)
-        {
-        }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="OffendingException{T}" />.
-        /// </summary>
-        /// <param name="offendingObject">
-        /// Objeto que es la causa de esta excepción.
-        /// </param>
-        public OffendingException(T offendingObject) : this()
-        {
-            OffendingObject = offendingObject;
-        }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="OffendingException{T}" />.
-        /// </summary>
-        /// <param name="message">
-        /// Un <see cref="string" /> que describe a la excepción.
-        /// </param>
-        public OffendingException(string message) : base(message)
-        {
-        }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="OffendingException{T}" />.
-        /// </summary>
-        /// <param name="message">
-        /// Un <see cref="string" /> que describe a la excepción.
-        /// </param>
-        /// <param name="offendingObject">
-        /// Objeto que es la causa de esta excepción.
-        /// </param>
-        public OffendingException(string message, T offendingObject) : base(message)
-        {
-            OffendingObject = offendingObject;
-        }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="OffendingException{T}" />.
-        /// </summary>
-        /// <param name="inner">
-        /// <see cref="Exception" /> que es la causa de esta excepción.
-        /// </param>
-        public OffendingException(Exception inner) : base(Errors.InvalidValue, inner)
-        {
-        }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="OffendingException{T}" />.
-        /// </summary>
-        /// <param name="inner">
-        /// <see cref="Exception" /> que es la causa de esta excepción.
-        /// </param>
-        /// <param name="offendingObject">
-        /// Objeto que es la causa de esta excepción.
-        /// </param>
-        public OffendingException(Exception inner, T offendingObject) : this(inner)
-        {
-            OffendingObject = offendingObject;
-        }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="OffendingException{T}" />.
-        /// </summary>
-        /// <param name="message">
-        /// Un <see cref="string" /> que describe a la excepción.
-        /// </param>
-        /// <param name="inner">
-        /// <see cref="Exception" /> que es la causa de esta excepción.
-        /// </param>
-        public OffendingException(string message, Exception inner) : base(message, inner)
-        {
-        }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="OffendingException{T}" />.
-        /// </summary>
-        /// <param name="message">
-        /// Un <see cref="string" /> que describe a la excepción.
-        /// </param>
-        /// <param name="inner">
-        /// <see cref="Exception" /> que es la causa de esta excepción.
-        /// </param>
-        /// <param name="offendingObject">
-        /// Objeto que es la causa de esta excepción.
-        /// </param>
-        public OffendingException(string message, Exception inner, T offendingObject) : base(message, inner)
-        {
-            OffendingObject = offendingObject;
-        }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="OffendingException{T}" /> con datos serializados.
-        /// </summary>
-        /// <param name="context">
-        /// El <see cref="StreamingContext" /> que contiene información
-        /// contextual acerca del orígen o el destino.
-        /// </param>
-        /// <param name="info">
-        /// El <see cref="SerializationInfo" /> que contiene la información
-        /// serializada del objeto acerca de la excepción que está siendo
-        /// lanzada.
-        /// </param>
-        protected OffendingException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-        }
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="OffendingException{T}" /> con datos serializados.
-        /// </summary>
-        /// <param name="context">
-        /// El <see cref="StreamingContext" /> que contiene información
-        /// contextual acerca del orígen o el destino.
-        /// </param>
-        /// <param name="info">
-        /// El <see cref="SerializationInfo" /> que contiene la información
-        /// serializada del objeto acerca de la excepción que está siendo
-        /// lanzada.
-        /// </param>
-        /// <param name="offendingObject">
-        /// Objeto que es la causa de esta excepción.
-        /// </param>
-        protected OffendingException(SerializationInfo info, StreamingContext context, T offendingObject) : base(info,
-            context)
-        {
-            OffendingObject = offendingObject;
-        }
-
-        /// <summary>
-        /// Objeto que ha causado la excepción.
-        /// </summary>
-        public T OffendingObject { get; } = default!;
     }
+
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="OffendingException{T}" />.
+    /// </summary>
+    /// <param name="offendingObject">
+    /// Objeto que es la causa de esta excepción.
+    /// </param>
+    public OffendingException(T offendingObject) : this()
+    {
+        OffendingObject = offendingObject;
+    }
+
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="OffendingException{T}" />.
+    /// </summary>
+    /// <param name="message">
+    /// Un <see cref="string" /> que describe a la excepción.
+    /// </param>
+    public OffendingException(string message) : base(message)
+    {
+    }
+
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="OffendingException{T}" />.
+    /// </summary>
+    /// <param name="message">
+    /// Un <see cref="string" /> que describe a la excepción.
+    /// </param>
+    /// <param name="offendingObject">
+    /// Objeto que es la causa de esta excepción.
+    /// </param>
+    public OffendingException(string message, T offendingObject) : base(message)
+    {
+        OffendingObject = offendingObject;
+    }
+
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="OffendingException{T}" />.
+    /// </summary>
+    /// <param name="inner">
+    /// <see cref="Exception" /> que es la causa de esta excepción.
+    /// </param>
+    public OffendingException(Exception inner) : base(Errors.InvalidValue, inner)
+    {
+    }
+
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="OffendingException{T}" />.
+    /// </summary>
+    /// <param name="inner">
+    /// <see cref="Exception" /> que es la causa de esta excepción.
+    /// </param>
+    /// <param name="offendingObject">
+    /// Objeto que es la causa de esta excepción.
+    /// </param>
+    public OffendingException(Exception inner, T offendingObject) : this(inner)
+    {
+        OffendingObject = offendingObject;
+    }
+
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="OffendingException{T}" />.
+    /// </summary>
+    /// <param name="message">
+    /// Un <see cref="string" /> que describe a la excepción.
+    /// </param>
+    /// <param name="inner">
+    /// <see cref="Exception" /> que es la causa de esta excepción.
+    /// </param>
+    public OffendingException(string message, Exception inner) : base(message, inner)
+    {
+    }
+
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="OffendingException{T}" />.
+    /// </summary>
+    /// <param name="message">
+    /// Un <see cref="string" /> que describe a la excepción.
+    /// </param>
+    /// <param name="inner">
+    /// <see cref="Exception" /> que es la causa de esta excepción.
+    /// </param>
+    /// <param name="offendingObject">
+    /// Objeto que es la causa de esta excepción.
+    /// </param>
+    public OffendingException(string message, Exception inner, T offendingObject) : base(message, inner)
+    {
+        OffendingObject = offendingObject;
+    }
+
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="OffendingException{T}" /> con datos serializados.
+    /// </summary>
+    /// <param name="context">
+    /// El <see cref="StreamingContext" /> que contiene información
+    /// contextual acerca del orígen o el destino.
+    /// </param>
+    /// <param name="info">
+    /// El <see cref="SerializationInfo" /> que contiene la información
+    /// serializada del objeto acerca de la excepción que está siendo
+    /// lanzada.
+    /// </param>
+    protected OffendingException(SerializationInfo info, StreamingContext context) : base(info, context)
+    {
+    }
+
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="OffendingException{T}" /> con datos serializados.
+    /// </summary>
+    /// <param name="context">
+    /// El <see cref="StreamingContext" /> que contiene información
+    /// contextual acerca del orígen o el destino.
+    /// </param>
+    /// <param name="info">
+    /// El <see cref="SerializationInfo" /> que contiene la información
+    /// serializada del objeto acerca de la excepción que está siendo
+    /// lanzada.
+    /// </param>
+    /// <param name="offendingObject">
+    /// Objeto que es la causa de esta excepción.
+    /// </param>
+    protected OffendingException(SerializationInfo info, StreamingContext context, T offendingObject) : base(info,
+        context)
+    {
+        OffendingObject = offendingObject;
+    }
+
+    /// <summary>
+    /// Objeto que ha causado la excepción.
+    /// </summary>
+    public T OffendingObject { get; } = default!;
 }

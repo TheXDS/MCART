@@ -22,17 +22,15 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Attributes;
 using System;
 using static System.AttributeTargets;
 
-namespace TheXDS.MCART.Attributes
+/// <summary>
+/// Marca un elemento como versión Beta.
+/// </summary>
+[AttributeUsage(Method | Class | Module | Assembly)]
+[Serializable]
+public sealed class BetaAttribute : Attribute
 {
-    /// <summary>
-    /// Marca un elemento como versión Beta.
-    /// </summary>
-    [AttributeUsage(Method | Class | Module | Assembly)]
-    [Serializable]
-    public sealed class BetaAttribute : Attribute
-    {
-    }
 }

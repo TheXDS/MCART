@@ -22,159 +22,157 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Exceptions;
 using System;
 using System.Reflection;
 using System.Runtime.Serialization;
 using static TheXDS.MCART.Resources.Strings.Errors;
 
-namespace TheXDS.MCART.Exceptions
+/// <summary>
+/// Excepción que se produce cuando la firma de un método representado en un
+/// <see cref="MethodInfo" /> no es válida.
+/// </summary>
+[Serializable]
+public class InvalidMethodSignatureException : OffendingException<MethodInfo>
 {
     /// <summary>
-    /// Excepción que se produce cuando la firma de un método representado en un
-    /// <see cref="MethodInfo" /> no es válida.
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="InvalidMethodSignatureException" />.
     /// </summary>
-    [Serializable]
-    public class InvalidMethodSignatureException : OffendingException<MethodInfo>
+    /// <param name="context">
+    /// El <see cref="StreamingContext" /> que contiene información
+    /// contextual acerca del orígen o el destino.
+    /// </param>
+    /// <param name="info">
+    /// El <see cref="SerializationInfo" /> que contiene la información
+    /// serializada del objeto acerca de la excepción que está siendo
+    /// lanzada.
+    /// </param>
+    protected InvalidMethodSignatureException(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="InvalidMethodSignatureException" />.
-        /// </summary>
-        /// <param name="context">
-        /// El <see cref="StreamingContext" /> que contiene información
-        /// contextual acerca del orígen o el destino.
-        /// </param>
-        /// <param name="info">
-        /// El <see cref="SerializationInfo" /> que contiene la información
-        /// serializada del objeto acerca de la excepción que está siendo
-        /// lanzada.
-        /// </param>
-        protected InvalidMethodSignatureException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-        }
+    }
 
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="InvalidMethodSignatureException" />.
-        /// </summary>
-        /// <param name="context">
-        /// El <see cref="StreamingContext" /> que contiene información
-        /// contextual acerca del orígen o el destino.
-        /// </param>
-        /// <param name="info">
-        /// El <see cref="SerializationInfo" /> que contiene la información
-        /// serializada del objeto acerca de la excepción que está siendo
-        /// lanzada.
-        /// </param>
-        /// <param name="offendingMethod">Referencia al método que ha causado la excepción.</param>
-        protected InvalidMethodSignatureException(SerializationInfo info, StreamingContext context,
-            MethodInfo offendingMethod) : base(info, context, offendingMethod)
-        {
-        }
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="InvalidMethodSignatureException" />.
+    /// </summary>
+    /// <param name="context">
+    /// El <see cref="StreamingContext" /> que contiene información
+    /// contextual acerca del orígen o el destino.
+    /// </param>
+    /// <param name="info">
+    /// El <see cref="SerializationInfo" /> que contiene la información
+    /// serializada del objeto acerca de la excepción que está siendo
+    /// lanzada.
+    /// </param>
+    /// <param name="offendingMethod">Referencia al método que ha causado la excepción.</param>
+    protected InvalidMethodSignatureException(SerializationInfo info, StreamingContext context,
+        MethodInfo offendingMethod) : base(info, context, offendingMethod)
+    {
+    }
 
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="InvalidMethodSignatureException" />.
-        /// </summary>
-        public InvalidMethodSignatureException() : base(Msg())
-        {
-        }
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="InvalidMethodSignatureException" />.
+    /// </summary>
+    public InvalidMethodSignatureException() : base(Msg())
+    {
+    }
 
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="InvalidMethodSignatureException" />.
-        /// </summary>
-        /// <param name="offendingMethod">Referencia al método que ha causado la excepción.</param>
-        public InvalidMethodSignatureException(MethodInfo offendingMethod) : base(Msg(offendingMethod), offendingMethod)
-        {
-        }
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="InvalidMethodSignatureException" />.
+    /// </summary>
+    /// <param name="offendingMethod">Referencia al método que ha causado la excepción.</param>
+    public InvalidMethodSignatureException(MethodInfo offendingMethod) : base(Msg(offendingMethod), offendingMethod)
+    {
+    }
 
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="InvalidMethodSignatureException" />.
-        /// </summary>
-        /// <param name="message">
-        /// Un <see cref="string" /> que describe a la excepción.
-        /// </param>
-        public InvalidMethodSignatureException(string message) : base(message)
-        {
-        }
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase 
+    /// <see cref="InvalidMethodSignatureException" />.
+    /// </summary>
+    /// <param name="message">
+    /// Un <see cref="string" /> que describe a la excepción.
+    /// </param>
+    public InvalidMethodSignatureException(string message) : base(message)
+    {
+    }
 
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="InvalidMethodSignatureException" />.
-        /// </summary>
-        /// <param name="message">
-        /// Un <see cref="string" /> que describe a la excepción.
-        /// </param>
-        /// <param name="offendingMethod">Referencia al método que ha causado la excepción.</param>
-        public InvalidMethodSignatureException(string message, MethodInfo offendingMethod) : base(message,
-            offendingMethod)
-        {
-        }
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="InvalidMethodSignatureException" />.
+    /// </summary>
+    /// <param name="message">
+    /// Un <see cref="string" /> que describe a la excepción.
+    /// </param>
+    /// <param name="offendingMethod">Referencia al método que ha causado la excepción.</param>
+    public InvalidMethodSignatureException(string message, MethodInfo offendingMethod) : base(message,
+        offendingMethod)
+    {
+    }
 
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="InvalidMethodSignatureException" />.
-        /// </summary>
-        /// <param name="inner">
-        /// <see cref="Exception" /> que es la causa de esta excepción.
-        /// </param>
-        public InvalidMethodSignatureException(Exception inner) : base(Msg(), inner)
-        {
-        }
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="InvalidMethodSignatureException" />.
+    /// </summary>
+    /// <param name="inner">
+    /// <see cref="Exception" /> que es la causa de esta excepción.
+    /// </param>
+    public InvalidMethodSignatureException(Exception inner) : base(Msg(), inner)
+    {
+    }
 
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="InvalidMethodSignatureException" />.
-        /// </summary>
-        /// <param name="inner">
-        /// <see cref="Exception" /> que es la causa de esta excepción.
-        /// </param>
-        /// <param name="offendingMethod">Referencia al método que ha causado la excepción.</param>
-        public InvalidMethodSignatureException(Exception inner, MethodInfo offendingMethod) : base(Msg(offendingMethod),
-            inner, offendingMethod)
-        {
-        }
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="InvalidMethodSignatureException" />.
+    /// </summary>
+    /// <param name="inner">
+    /// <see cref="Exception" /> que es la causa de esta excepción.
+    /// </param>
+    /// <param name="offendingMethod">Referencia al método que ha causado la excepción.</param>
+    public InvalidMethodSignatureException(Exception inner, MethodInfo offendingMethod) : base(Msg(offendingMethod),
+        inner, offendingMethod)
+    {
+    }
 
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="InvalidMethodSignatureException" />.
-        /// </summary>
-        /// <param name="message">
-        /// Un <see cref="string" /> que describe a la excepción.
-        /// </param>
-        /// <param name="inner">
-        /// <see cref="Exception" /> que es la causa de esta excepción.
-        /// </param>
-        public InvalidMethodSignatureException(string message, Exception inner) : base(message, inner)
-        {
-        }
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="InvalidMethodSignatureException" />.
+    /// </summary>
+    /// <param name="message">
+    /// Un <see cref="string" /> que describe a la excepción.
+    /// </param>
+    /// <param name="inner">
+    /// <see cref="Exception" /> que es la causa de esta excepción.
+    /// </param>
+    public InvalidMethodSignatureException(string message, Exception inner) : base(message, inner)
+    {
+    }
 
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="InvalidMethodSignatureException" />.
-        /// </summary>
-        /// <param name="message">
-        /// Un <see cref="string" /> que describe a la excepción.
-        /// </param>
-        /// <param name="inner">
-        /// <see cref="Exception" /> que es la causa de esta excepción.
-        /// </param>
-        /// <param name="offendingMethod">Referencia al método que ha causado la excepción.</param>
-        public InvalidMethodSignatureException(string message, Exception inner, MethodInfo offendingMethod) : base(
-            message, inner, offendingMethod)
-        {
-        }
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="InvalidMethodSignatureException" />.
+    /// </summary>
+    /// <param name="message">
+    /// Un <see cref="string" /> que describe a la excepción.
+    /// </param>
+    /// <param name="inner">
+    /// <see cref="Exception" /> que es la causa de esta excepción.
+    /// </param>
+    /// <param name="offendingMethod">Referencia al método que ha causado la excepción.</param>
+    public InvalidMethodSignatureException(string message, Exception inner, MethodInfo offendingMethod) : base(
+        message, inner, offendingMethod)
+    {
+    }
 
-        private static string Msg()
-        {
-            return InvalidMethodSignature;
-        }
+    private static string Msg()
+    {
+        return InvalidMethodSignature;
+    }
 
-        private static string Msg(MemberInfo offendingMethod)
-        {
-            return string.Format(InvalidMethodXSignature, $"{offendingMethod.DeclaringType?.FullName}.{offendingMethod.Name}");
-        }
+    private static string Msg(MemberInfo offendingMethod)
+    {
+        return string.Format(InvalidMethodXSignature, $"{offendingMethod.DeclaringType?.FullName}.{offendingMethod.Name}");
     }
 }

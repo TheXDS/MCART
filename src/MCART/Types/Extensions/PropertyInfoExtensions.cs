@@ -22,88 +22,85 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types.Extensions;
 using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
-using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Resources;
 
-namespace TheXDS.MCART.Types.Extensions
+/// <summary>
+/// Extensiones varias para objetos <see cref="PropertyInfo" />.
+/// </summary>
+public static class PropertyInfoExtensions
 {
     /// <summary>
-    /// Extensiones varias para objetos <see cref="PropertyInfo" />.
+    /// Establece el valor de la propiedad de un objeto a su valor
+    /// predeterminado.
     /// </summary>
-    public static class PropertyInfoExtensions
+    /// <param name="property">Propiedad a restablecer.</param>
+    /// <param name="instance">
+    /// Instancia del objeto que contiene la propiedad.
+    /// </param>
+    public static void SetDefault(this PropertyInfo property, object? instance)
     {
-        /// <summary>
-        /// Establece el valor de la propiedad de un objeto a su valor
-        /// predeterminado.
-        /// </summary>
-        /// <param name="property">Propiedad a restablecer.</param>
-        /// <param name="instance">
-        /// Instancia del objeto que contiene la propiedad.
-        /// </param>
-        public static void SetDefault(this PropertyInfo property, object? instance)
+        object? GetDefault()
         {
-            object? GetDefault()
+            object? d = null;
+            try
             {
-                object? d = null;
-                try
-                {
-                    return (instance?.GetType().TryInstance(out d) ?? false) ? property.GetValue(d) : null;
-                }
-                finally
-                {
-                    if (d is IDisposable i) i.Dispose();
-                }
+                return (instance?.GetType().TryInstance(out d) ?? false) ? property.GetValue(d) : null;
             }
-
-            if (instance is null || instance.GetType().GetProperties().Any(p => p.Is(property)))
+            finally
             {
-                if (property.SetMethod is null)
-                {
-                    throw Errors.PropIsReadOnly(property);
-                }
-                property.SetMethod.Invoke(instance, new[]
-                {
-                    property.GetAttr<DefaultValueAttribute>()?.Value ??
-                    GetDefault() ??
-                    property.PropertyType.Default()
-                });
-            }
-            else
-            {
-                throw Errors.MissingMember(instance.GetType(), property);
+                if (d is IDisposable i) i.Dispose();
             }
         }
 
-        /// <summary>
-        /// Establece el valor de una propiedad estática a su valor
-        /// predeterminado.
-        /// </summary>
-        /// <param name="property">Propiedad a restablecer.</param>
-        public static void SetDefault(this PropertyInfo property)
+        if (instance is null || instance.GetType().GetProperties().Any(p => p.Is(property)))
         {
-            SetDefault(property, null);
+            if (property.SetMethod is null)
+            {
+                throw Errors.PropIsReadOnly(property);
+            }
+            property.SetMethod.Invoke(instance, new[]
+            {
+                property.GetAttr<DefaultValueAttribute>()?.Value ??
+                GetDefault() ??
+                property.PropertyType.Default()
+            });
         }
+        else
+        {
+            throw Errors.MissingMember(instance.GetType(), property);
+        }
+    }
 
-        /// <summary>
-        /// Obtiene un valor que determina si la propiedad admite lectura y
-        /// escritura.
-        /// </summary>
-        /// <param name="property">
-        /// Propiedad a comprobar.
-        /// </param>
-        /// <returns>
-        /// <see langword="true"/> si la propiedad admite lectura y
-        /// escritura, <see langword="false"/> en caso contrario.
-        /// </returns>
-        [Sugar]
-        public static bool IsReadWrite(this PropertyInfo property)
-        {
-            return property.CanRead && property.CanWrite;
-        }
+    /// <summary>
+    /// Establece el valor de una propiedad estática a su valor
+    /// predeterminado.
+    /// </summary>
+    /// <param name="property">Propiedad a restablecer.</param>
+    public static void SetDefault(this PropertyInfo property)
+    {
+        SetDefault(property, null);
+    }
+
+    /// <summary>
+    /// Obtiene un valor que determina si la propiedad admite lectura y
+    /// escritura.
+    /// </summary>
+    /// <param name="property">
+    /// Propiedad a comprobar.
+    /// </param>
+    /// <returns>
+    /// <see langword="true"/> si la propiedad admite lectura y
+    /// escritura, <see langword="false"/> en caso contrario.
+    /// </returns>
+    [Sugar]
+    public static bool IsReadWrite(this PropertyInfo property)
+    {
+        return property.CanRead && property.CanWrite;
     }
 }

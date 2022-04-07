@@ -22,29 +22,25 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types.Extensions.ConstantLoaders;
 using System;
 using System.Reflection.Emit;
 using static System.Reflection.Emit.OpCodes;
 
-namespace TheXDS.MCART.Types.Extensions
+/// <summary>
+/// Carga un valor constante <see cref="sbyte"/> en la secuencia de
+/// instrucciones MSIL.
+/// </summary>
+[CLSCompliant(false)]
+public class SByteConstantLoader : ConstantLoader<sbyte>
 {
     /// <summary>
     /// Carga un valor constante <see cref="sbyte"/> en la secuencia de
     /// instrucciones MSIL.
     /// </summary>
-#if CLSCompliance
-    [CLSCompliant(false)]
-#endif
-    public class SByteConstantLoader : ConstantLoader<sbyte>
-    {
-        /// <summary>
-        /// Carga un valor constante <see cref="sbyte"/> en la secuencia de
-        /// instrucciones MSIL.
-        /// </summary>
-        /// <param name="il">Generador de IL a utilizar.</param>
-        /// <param name="value">
-        /// Valor constante a cargar en la secuencia de instrucciones.
-        /// </param>
-        public override void Emit(ILGenerator il, sbyte value) => il.Emit(Ldc_I4_S, value);
-    }
+    /// <param name="il">Generador de IL a utilizar.</param>
+    /// <param name="value">
+    /// Valor constante a cargar en la secuencia de instrucciones.
+    /// </param>
+    public override void Emit(ILGenerator il, sbyte value) => il.Emit(Ldc_I4_S, value);
 }

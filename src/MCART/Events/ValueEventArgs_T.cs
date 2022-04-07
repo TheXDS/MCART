@@ -22,46 +22,44 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Events;
 using System;
 
-namespace TheXDS.MCART.Events
+/// <summary>
+/// Incluye información de evento para cualquier clase con eventos que
+/// incluyan tipos de valor.
+/// </summary>
+/// <typeparam name="T">
+/// Tipo del valor almacenado por esta instancia.
+/// </typeparam>
+public class ValueEventArgs<T> : EventArgs
 {
     /// <summary>
-    /// Incluye información de evento para cualquier clase con eventos que
-    /// incluyan tipos de valor.
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="ValueEventArgs{T}"/> con el valor provisto.
     /// </summary>
-    /// <typeparam name="T">
-    /// Tipo del valor almacenado por esta instancia.
-    /// </typeparam>
-    public class ValueEventArgs<T> : EventArgs
+    /// <param name="value">Valor asociado al evento generado.</param>
+    public ValueEventArgs(T value)
     {
-        /// <summary>
-        /// Crea implícitamente un <see cref="ValueEventArgs{T}"/> a partir
-        /// de un valor <typeparamref name="T"/>.
-        /// </summary>
-        /// <param name="value">
-        /// Valor a partir del cual crear el nuevo
-        /// <see cref="ValueEventArgs{T}"/>.
-        /// </param>
-        public static implicit operator ValueEventArgs<T>(T value) => new(value);
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="ValueEventArgs{T}"/> con el valor provisto.
-        /// </summary>
-        /// <param name="value">Valor asociado al evento generado.</param>
-        public ValueEventArgs(T value)
-        {
-            Value = value;
-        }
-
-        /// <summary>
-        /// Devuelve el valor asociado a este evento.
-        /// </summary>
-        /// <returns>
-        /// Un valor de tipo <typeparamref name="T" /> con el valor asociado a
-        /// este evento.
-        /// </returns>
-        public T Value { get; }
+        Value = value;
     }
+
+    /// <summary>
+    /// Crea implícitamente un <see cref="ValueEventArgs{T}"/> a partir
+    /// de un valor <typeparamref name="T"/>.
+    /// </summary>
+    /// <param name="value">
+    /// Valor a partir del cual crear el nuevo
+    /// <see cref="ValueEventArgs{T}"/>.
+    /// </param>
+    public static implicit operator ValueEventArgs<T>(T value) => new(value);
+
+    /// <summary>
+    /// Devuelve el valor asociado a este evento.
+    /// </summary>
+    /// <returns>
+    /// Un valor de tipo <typeparamref name="T" /> con el valor asociado a
+    /// este evento.
+    /// </returns>
+    public T Value { get; }
 }

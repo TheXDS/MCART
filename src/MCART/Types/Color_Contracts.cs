@@ -22,46 +22,42 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Resources;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
 using static TheXDS.MCART.Misc.Internals;
-using CI = System.Globalization.CultureInfo;
-using DR = System.Drawing;
 
-namespace TheXDS.MCART.Types
+/// <summary>
+/// Estructura universal que describe un color en sus componentes alfa,
+/// rojo, verde y azul.
+/// </summary>
+public partial struct Color
 {
-    /// <summary>
-    /// Estructura universal que describe un color en sus componentes alfa,
-    /// rojo, verde y azul.
-    /// </summary>
-    public partial struct Color
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void Blend_Contract(in IEnumerable<Color> colors)
     {
-        [Conditional("EnforceContracts")]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [DebuggerNonUserCode]
-        private static void Blend_Contract(in IEnumerable<Color> colors)
-        {
-            if (!colors.Any()) throw Errors.EmptyCollection(colors);
-        }
+        if (!colors.Any()) throw Errors.EmptyCollection(colors);
+    }
 
-        [Conditional("EnforceContracts")]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [DebuggerNonUserCode]
-        private static void AreClose_Contract(in float delta)
-        {
-            if (!delta.IsBetween(0f, 1f)) throw Errors.ValueOutOfRange(nameof(delta), 0f, 1f);
-        }
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void AreClose_Contract(in float delta)
+    {
+        if (!delta.IsBetween(0f, 1f)) throw Errors.ValueOutOfRange(nameof(delta), 0f, 1f);
+    }
 
-        [Conditional("EnforceContracts")]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [DebuggerNonUserCode]
-        private static void TryParse_Contract(string from)
-        {
-            NullCheck(from, nameof(from));
-        }
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void TryParse_Contract(string from)
+    {
+        EmptyCheck(from, nameof(from));
     }
 }

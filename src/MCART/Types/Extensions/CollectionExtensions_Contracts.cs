@@ -22,53 +22,49 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using TheXDS.MCART.Helpers;
-using TheXDS.MCART.Resources;
 using static TheXDS.MCART.Misc.Internals;
 
-namespace TheXDS.MCART.Types.Extensions
+public static partial class CollectionExtensions
 {
-    public static partial class CollectionExtensions
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void AddClone_Contract<T>(ICollection<T> collection, T item) where T : ICloneable
     {
-        [Conditional("EnforceContracts")]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [DebuggerNonUserCode]
-        private static void AddClone_Contract<T>(ICollection<T> collection, T item) where T : ICloneable
-        {
-            NullCheck(collection, nameof(collection));
-            NullCheck(item, nameof(item));
-        }
+        NullCheck(collection, nameof(collection));
+        NullCheck(item, nameof(item));
+    }
 
-        [Conditional("EnforceContracts")]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [DebuggerNonUserCode]
-        private static void AddClones_Contract<T>(this ICollection<T> collection, IEnumerable<T> source)
-        {
-            NullCheck(collection, nameof(collection));
-            NullCheck(source, nameof(source));
-        }
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void AddClones_Contract<T>(this ICollection<T> collection, IEnumerable<T> source)
+    {
+        NullCheck(collection, nameof(collection));
+        NullCheck(source, nameof(source));
+    }
 
-        [Conditional("EnforceContracts")]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [DebuggerNonUserCode]
-        private static void AddRange_Contract<T>(this ICollection<T> collection, IEnumerable<T> items)
-        {
-            NullCheck(collection, nameof(collection));
-            NullCheck(items, nameof(items));
-        }
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void AddRange_Contract<T>(this ICollection<T> collection, IEnumerable<T> items)
+    {
+        NullCheck(collection, nameof(collection));
+        NullCheck(items, nameof(items));
+    }
 
-        private static void ToObservable_Contract<T>(this ICollection<T> collection)
-        {
-            NullCheck(collection, nameof(collection));
-        }
+    private static void ToObservable_Contract<T>(this ICollection<T> collection)
+    {
+        NullCheck(collection, nameof(collection));
+    }
 
-        private static void Push_Contract<TCollection>(this ICollection<TCollection> collection)
-        {
-            NullCheck(collection, nameof(collection));
-        }
+    private static void Push_Contract<TCollection>(this ICollection<TCollection> collection)
+    {
+        NullCheck(collection, nameof(collection));
     }
 }

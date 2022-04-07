@@ -26,47 +26,45 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using TheXDS.MCART.Attributes;
 
-namespace TheXDS.MCART.Types.Extensions
+/// <summary>
+/// Funciones misceláneas y extensiones para todos los elementos de
+/// tipo <see cref="NamedObject{T}"/>.
+/// </summary>
+public static partial class NamedObjectExtensions
 {
     /// <summary>
-    /// Funciones misceláneas y extensiones para todos los elementos de
-    /// tipo <see cref="NamedObject{T}"/>.
+    /// Enumera todos los valores de enumeración del tipo especificado
+    /// como <see cref="NamedObject{T}"/>.
     /// </summary>
-    public static partial class NamedObjectExtensions
+    /// <typeparam name="T">Tipo de enumeración a convertir.</typeparam>
+    /// <returns>
+    /// Una enumeración de <see cref="NamedObject{T}"/> a partir de los
+    /// valores de enumeración del tipo especificado.
+    /// </returns>
+    [Sugar]
+    public static IEnumerable<NamedObject<T>> AsNamedObject<T>() where T : Enum
     {
-        /// <summary>
-        /// Enumera todos los valores de enumeración del tipo especificado
-        /// como <see cref="NamedObject{T}"/>.
-        /// </summary>
-        /// <typeparam name="T">Tipo de enumeración a convertir.</typeparam>
-        /// <returns>
-        /// Una enumeración de <see cref="NamedObject{T}"/> a partir de los
-        /// valores de enumeración del tipo especificado.
-        /// </returns>
-        [Sugar]
-        public static IEnumerable<NamedObject<T>> AsNamedObject<T>() where T : Enum
-        {
-            return NamedObject<T>.FromEnum();
-        }
+        return NamedObject<T>.FromEnum();
+    }
 
-        /// <summary>
-        /// Enumera todos los valores de enumeración del tipo especificado
-        /// como <see cref="NamedObject{T}"/>.
-        /// </summary>
-        /// <param name="t">Tipo de enumeración a convertir.</param>
-        /// <returns>
-        /// Una enumeración de <see cref="NamedObject{T}"/> a partir de los
-        /// valores de enumeración del tipo especificado.
-        /// </returns>
-        public static IEnumerable<NamedObject<Enum>> AsNamedEnum(this Type t)
-        {
-            Type? q = AsNamedEnum_Contract(t);
-            return q.GetEnumValues().OfType<Enum>().Select(p => new NamedObject<Enum>(p, p.NameOf()));
-        }
+    /// <summary>
+    /// Enumera todos los valores de enumeración del tipo especificado
+    /// como <see cref="NamedObject{T}"/>.
+    /// </summary>
+    /// <param name="t">Tipo de enumeración a convertir.</param>
+    /// <returns>
+    /// Una enumeración de <see cref="NamedObject{T}"/> a partir de los
+    /// valores de enumeración del tipo especificado.
+    /// </returns>
+    public static IEnumerable<NamedObject<Enum>> AsNamedEnum(this Type t)
+    {
+        Type? q = AsNamedEnum_Contract(t);
+        return q.GetEnumValues().OfType<Enum>().Select(p => new NamedObject<Enum>(p, p.NameOf()));
     }
 }

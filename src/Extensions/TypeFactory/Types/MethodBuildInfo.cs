@@ -22,46 +22,44 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types;
 using System;
 using System.Reflection.Emit;
 
-namespace TheXDS.MCART.Types
+/// <summary>
+/// Contiene información acerca de la construcción de un método.
+/// </summary>
+public class MethodBuildInfo : MemberBuildInfo<MethodBuilder>
 {
     /// <summary>
-    /// Contiene información acerca de la construcción de un método.
+    /// Referencia al generador de código del método.
     /// </summary>
-    public class MethodBuildInfo : MemberBuildInfo<MethodBuilder>
+    public ILGenerator Il { get; }
+
+    /// <summary>
+    /// Obtiene un valor que indica si el método descrito por esta
+    /// instancia es una función (si su tipo de retorno no es
+    /// <see langword="void"/>).
+    /// </summary>
+    /// <value>
+    /// <see langword="true"/> si el método tiene un tipo de retorno,
+    /// <see langword="false"/> si el tipo de retorno del método es
+    /// <see langword="void"/>).
+    /// </value>
+    public bool IsFunction => Member.ReturnType != typeof(void);
+
+    /// <summary>
+    /// Obtiene el tipo de retorno del método.
+    /// </summary>
+    /// <value>
+    /// El tipo retornado por el método, o <see langword="null"/> si el
+    /// método no devuelve ningún valor (si su tipo de retorno no es
+    /// <see langword="void"/>).
+    /// </value>
+    public Type? ReturnType => Member.ReturnType is { } r && r != typeof(void) ? r : null;
+
+    internal MethodBuildInfo(TypeBuilder typeBuilder, MethodBuilder member) : base(typeBuilder, member)
     {
-        /// <summary>
-        /// Referencia al generador de código del método.
-        /// </summary>
-        public ILGenerator Il { get; }
-
-        /// <summary>
-        /// Obtiene un valor que indica si el método descrito por esta
-        /// instancia es una función (si su tipo de retorno no es
-        /// <see langword="void"/>).
-        /// </summary>
-        /// <value>
-        /// <see langword="true"/> si el método tiene un tipo de retorno,
-        /// <see langword="false"/> si el tipo de retorno del método es
-        /// <see langword="void"/>).
-        /// </value>
-        public bool IsFunction => Member.ReturnType != typeof(void);
-
-        /// <summary>
-        /// Obtiene el tipo de retorno del método.
-        /// </summary>
-        /// <value>
-        /// El tipo retornado por el método, o <see langword="null"/> si el
-        /// método no devuelve ningún valor (si su tipo de retorno no es
-        /// <see langword="void"/>).
-        /// </value>
-        public Type? ReturnType => Member.ReturnType is { } r && r != typeof(void) ? r : null;
-
-        internal MethodBuildInfo(TypeBuilder typeBuilder, MethodBuilder member) : base(typeBuilder, member)
-        {
-            Il = member.GetILGenerator();
-        }
+        Il = member.GetILGenerator();
     }
 }

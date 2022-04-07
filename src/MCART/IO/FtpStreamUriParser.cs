@@ -22,32 +22,30 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.IO;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
 
-namespace TheXDS.MCART.IO
+/// <summary>
+/// Obtiene un <see cref="Stream"/> a partir de un <see cref="Uri"/>
+/// que apunta a un recurso web.
+/// </summary>
+#if NET6_0_OR_GREATER
+[Obsolete("Esta clase utiliza métodos web deprecados en .Net 6.")]
+#endif
+public class FtpStreamUriParser : WebStreamUriParser<FtpWebResponse>
 {
     /// <summary>
-    /// Obtiene un <see cref="Stream"/> a partir de un <see cref="Uri"/>
-    /// que apunta a un recurso web.
+    /// Enumera los protocolos soportados por este
+    /// <see cref="FtpStreamUriParser"/>.
     /// </summary>
-#if NET6_0_OR_GREATER
-    [Obsolete("Esta clase utiliza métodos web deprecados en .Net 6.")]
-#endif
-    public class FtpStreamUriParser : WebStreamUriParser<FtpWebResponse>
+    protected override IEnumerable<string> SchemeList
     {
-        /// <summary>
-        /// Enumera los protocolos soportados por este
-        /// <see cref="FtpStreamUriParser"/>.
-        /// </summary>
-        protected override IEnumerable<string> SchemeList
+        get
         {
-            get
-            {
-                yield return "ftp";
-            }
+            yield return "ftp";
         }
     }
 }

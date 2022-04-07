@@ -22,22 +22,21 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Attributes;
 using System;
 
-namespace TheXDS.MCART.Attributes
+/// <summary>
+/// Atributo que indica el compresor utilizado para este elemento.
+/// </summary>
+[AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
+public sealed class CompressorAttribute : TextAttribute
 {
     /// <summary>
-    /// Atributo que indica el compresor utilizado para este elemento.
+    /// Indica el compresor utilizado por este elemento.
     /// </summary>
-    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
-    public sealed class CompressorAttribute : TextAttribute
+    /// <param name="compressor">Nombre del compresor utilizado.</param>
+    public CompressorAttribute(string compressor) 
+        : base(compressor)
     {
-        /// <summary>
-        /// Indica el compresor utilizado por este elemento.
-        /// </summary>
-        /// <param name="compressor">Nombre del compresor utilizado.</param>
-        public CompressorAttribute(string compressor) : base(compressor)
-        {
-        }
     }
 }

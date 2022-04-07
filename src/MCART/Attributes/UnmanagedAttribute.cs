@@ -22,17 +22,15 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Attributes;
 using System;
 using static System.AttributeTargets;
 
-namespace TheXDS.MCART.Attributes
+/// <summary>
+/// Indica que un elemento contiene código no administrado.
+/// </summary>
+[AttributeUsage(Property | Method | Constructor | Class | Module | Assembly)]
+[Serializable]
+public sealed class UnmanagedAttribute : Attribute
 {
-    /// <summary>
-    /// Indica que un elemento contiene código no administrado.
-    /// </summary>
-    [AttributeUsage(Property | Method | Constructor | Class | Module | Assembly)]
-    [Serializable]
-    public sealed class UnmanagedAttribute : Attribute
-    {
-    }
 }

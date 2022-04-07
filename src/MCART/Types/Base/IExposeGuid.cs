@@ -22,30 +22,28 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types.Base;
 using System;
 using System.Runtime.InteropServices;
 using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Extensions;
 
-namespace TheXDS.MCART.Types.Base
+/// <summary>
+/// Define una serie de métodos a implementar por un tipo que exponga
+/// un <see cref="Guid"/> como una propiedad de instancia.
+/// </summary>
+public interface IExposeGuid
 {
     /// <summary>
-    /// Define una serie de métodos a implementar por un tipo que exponga
-    /// un <see cref="Guid"/> como una propiedad de instancia.
+    /// Obtiene el <see cref="Guid"/> asociado a este objeto.
     /// </summary>
-    public interface IExposeGuid
+    Guid Guid
     {
-        /// <summary>
-        /// Obtiene el <see cref="Guid"/> asociado a este objeto.
-        /// </summary>
-        Guid Guid
+        get
         {
-            get
-            {
-                Type? t = GetType();
-                GuidAttribute? g = t.GetAttr<GuidAttribute>() ?? throw Errors.MissingGuidAttr(t);
-                return new Guid(g.Value);
-            }
+            Type? t = GetType();
+            GuidAttribute? g = t.GetAttr<GuidAttribute>() ?? throw Errors.MissingGuidAttr(t);
+            return new Guid(g.Value);
         }
     }
 }

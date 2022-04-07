@@ -22,63 +22,61 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace TheXDS.MCART.Types.Extensions.ConstantLoaders;
 using System.Reflection.Emit;
 using static System.Reflection.Emit.OpCodes;
 
-namespace TheXDS.MCART.Types.Extensions
+/// <summary>
+/// Carga un valor constante <see cref="int"/> en la secuencia de
+/// instrucciones MSIL.
+/// </summary>
+public class Int32ConstantLoader : ConstantLoader<int>
 {
     /// <summary>
     /// Carga un valor constante <see cref="int"/> en la secuencia de
     /// instrucciones MSIL.
     /// </summary>
-    public class Int32ConstantLoader : ConstantLoader<int>
+    /// <param name="il">Generador de IL a utilizar.</param>
+    /// <param name="value">
+    /// Valor constante a cargar en la secuencia de instrucciones.
+    /// </param>
+    public override void Emit(ILGenerator il, int value)
     {
-        /// <summary>
-        /// Carga un valor constante <see cref="int"/> en la secuencia de
-        /// instrucciones MSIL.
-        /// </summary>
-        /// <param name="il">Generador de IL a utilizar.</param>
-        /// <param name="value">
-        /// Valor constante a cargar en la secuencia de instrucciones.
-        /// </param>
-        public override void Emit(ILGenerator il, int value)
+        switch (value)
         {
-            switch (value)
-            {
-                case -1:
-                    il.Emit(Ldc_I4_M1);
-                    break;
-                case 0:
-                    il.Emit(Ldc_I4_0);
-                    break;
-                case 1:
-                    il.Emit(Ldc_I4_1);
-                    break;
-                case 2:
-                    il.Emit(Ldc_I4_2);
-                    break;
-                case 3:
-                    il.Emit(Ldc_I4_3);
-                    break;
-                case 4:
-                    il.Emit(Ldc_I4_4);
-                    break;
-                case 5:
-                    il.Emit(Ldc_I4_5);
-                    break;
-                case 6:
-                    il.Emit(Ldc_I4_6);
-                    break;
-                case 7:
-                    il.Emit(Ldc_I4_7);
-                    break;
-                case 8:
-                    il.Emit(Ldc_I4_8);
-                    break;
-                default:
-                    il.Emit(Ldc_I4, value);
-                    break;
-            }
+            case -1:
+                il.Emit(Ldc_I4_M1);
+                break;
+            case 0:
+                il.Emit(Ldc_I4_0);
+                break;
+            case 1:
+                il.Emit(Ldc_I4_1);
+                break;
+            case 2:
+                il.Emit(Ldc_I4_2);
+                break;
+            case 3:
+                il.Emit(Ldc_I4_3);
+                break;
+            case 4:
+                il.Emit(Ldc_I4_4);
+                break;
+            case 5:
+                il.Emit(Ldc_I4_5);
+                break;
+            case 6:
+                il.Emit(Ldc_I4_6);
+                break;
+            case 7:
+                il.Emit(Ldc_I4_7);
+                break;
+            case 8:
+                il.Emit(Ldc_I4_8);
+                break;
+            default:
+                il.Emit(Ldc_I4, value);
+                break;
         }
     }
 }
