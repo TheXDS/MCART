@@ -22,15 +22,18 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Types;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
 using TheXDS.MCART.Component;
+using TheXDS.MCART.Types.Base;
 using TheXDS.MCART.Types.Extensions;
+
+namespace TheXDS.MCART.Types;
 
 /// <summary>
 /// Fábrica de tipos. Permite compilar nuevos tipos en Runtime.
@@ -123,7 +126,7 @@ public class TypeFactory : IExposeAssembly
     /// Un <see cref="TypeBuilder{T}"/> por medio del cual se podrá definir a
     /// los miembros de la nueva clase.
     /// </returns>
-    public TypeBuilder<T> NewType<T>(string name, IEnumerable<Type>? interfaces)
+    public ITypeBuilder<T> NewType<T>(string name, IEnumerable<Type>? interfaces)
     {
         return new TypeBuilder<T>(_mBuilder.DefineType(GetName(name), (typeof(T).Attributes & ~TypeAttributes.VisibilityMask & ~TypeAttributes.Abstract) | TypeAttributes.Public, typeof(T), interfaces?.ToArray()));
     }
@@ -137,7 +140,7 @@ public class TypeFactory : IExposeAssembly
     /// Un <see cref="TypeBuilder{T}"/> por medio del cual se podrá definir a
     /// los miembros de la nueva clase.
     /// </returns>
-    public TypeBuilder<T> NewType<T>(string name)
+    public ITypeBuilder<T> NewType<T>(string name)
     {
         return NewType<T>(name, null);
     }
@@ -198,6 +201,34 @@ public class TypeFactory : IExposeAssembly
     public TypeBuilder NewClass(string name, IEnumerable<Type> interfaces)
     {
         return NewType(name, typeof(object), interfaces);
+    }
+
+    /// <summary>
+    /// Crea una nueva clase pública que implementa el patrón ViewModel por
+    /// medio de una clase base <see cref="NotifyPropertyChanged"/>, y que
+    /// incluirá todas las propiedades del modelo de tipo
+    /// <typeparamref name="TModel"/> especificado como propiedades con
+    /// notificación de cambio de valor.
+    /// </summary>
+    /// <typeparam name="TModel">
+    /// Modelo para el cual crear la clase con patrón ViewModel.
+    /// </typeparam>
+    /// <param name="interfaces">
+    /// Colección de interfaces adicionales a implementar por el tipo final.
+    /// </param>
+    /// <returns>
+    /// Un <see cref="TypeBuilder"/> por medio del cual se podrá definir a
+    /// los miembros de la nueva clase.
+    /// </returns>
+    public ITypeBuilder<INotifyPropertyChanged> CreateViewModelClass<TModel>(IEnumerable<Type>? interfaces)
+        where TModel : notnull, new()
+    {
+        ITypeBuilder<NotifyPropertyChanged> t = NewType<NotifyPropertyChanged>($"{typeof(TModel).Name}ViewModel", interfaces);
+        foreach (var p in typeof(TModel).GetProperties().Where(p => p.CanRead && p.CanWrite))
+        {
+            ((ITypeBuilder<INotifyPropertyChanged>)t).AddNpcProperty(p.Name, p.PropertyType);
+        }
+        return t;
     }
 
     private string GetName(string name)
