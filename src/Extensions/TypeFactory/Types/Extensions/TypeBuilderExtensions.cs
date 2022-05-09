@@ -1038,47 +1038,18 @@ public static class TypeBuilderExtensions
     private static PropertyBuildInfo BuildNpcProp(TypeBuilder tb, string name, Type t, MemberAccess access, bool @virtual, Action<Label, ILGenerator> evtHandler, MethodInfo method)
     {
         CheckImplements<INotifyPropertyChanged>(tb.BaseType!);
-
         PropertyBuildInfo? p = AddProperty(tb, name, t, true, access, @virtual).WithBackingField(out FieldBuilder? field);
-        Label setRet = p.Setter!.DefineLabel();
-
-        p.Setter!.LoadField(field);
-        if (t.IsValueType)
-        {
-            p.Setter!.LoadArg1()
-                .CompareEqual()
-                .BranchTrue(setRet);
-        }
-        else
-        {
-            p.Setter!
-                .BranchFalseNewLabel(out Label fieldIsNull)
-                .LoadField(field)
+        p.BuildNpcPropSetterSkeleton(
+            (_, v) => v.LoadField(field),
+            (l, v) =>
+            {
+                v.This()
                 .LoadArg1()
-                .Call(GetEqualsMethod(t))
-                .BranchTrue(setRet)
-                .BranchNewLabel(out Label doSet)
-                .PutLabel(fieldIsNull)
-                .LoadArg1()
-                .BranchFalse(setRet)
-                .PutLabel(doSet);
-        }
-        p.Setter!
-            .This()
-            .LoadArg1()
-            .StoreField(field);
-
-        evtHandler(setRet, p.Setter!);
-        p.Setter!
-            .Call(method)
-            .Return(setRet);
+                .StoreField(field);
+                evtHandler(l, p.Setter!);
+                v.Call(method);
+            }, t);
         return new PropertyBuildInfo(tb, p.Member, field);
-    }
-
-    private static MethodInfo GetEqualsMethod(Type type)
-    {
-        return type.GetMethod(nameof(object.Equals), BindingFlags.Public | BindingFlags.Instance, null, new[] { type }, null)
-            ?? type.GetMethod(nameof(object.Equals), BindingFlags.Public | BindingFlags.Instance, null, new[] { typeof(object) }, null)!;
     }
 
     private static MethodInfo GetNpcChangeMethod(ITypeBuilder<NotifyPropertyChangeBase> tb, Type t)

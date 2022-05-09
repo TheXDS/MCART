@@ -24,7 +24,10 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 namespace TheXDS.MCART.Types;
 using System;
+using System.Diagnostics;
 using System.Reflection.Emit;
+using System.Runtime.CompilerServices;
+using TheXDS.MCART.Attributes;
 
 /// <summary>
 /// Define una serie de miembros a implementar por un descriptor de
@@ -52,4 +55,10 @@ public interface ITypeBuilder<out T>
     /// Referencia al tipo base real del <see cref="TypeBuilder"/>.
     /// </summary>
     Type ActualBaseType => Builder.BaseType ?? SpecificBaseType;
+
+    /// <summary>
+    /// Inicializa una nueva instancia del tipo en runtime especificado.
+    /// </summary>
+    /// <returns>La nueva instancia del tipo especificado.</returns>
+    T New();
 }

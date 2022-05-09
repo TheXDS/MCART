@@ -508,10 +508,10 @@ public static class ILGeneratorExtensions
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
     /// de sintáxis Fluent.
     /// </returns>
-    public static ILGenerator If(this ILGenerator ilGen, Action trueBranch)
+    public static ILGenerator If(this ILGenerator ilGen, Action<ILGenerator> trueBranch)
     {
         ilGen.BranchFalseNewLabel(out Label endIf);
-        trueBranch();
+        trueBranch(ilGen);
         return ilGen.PutLabel(endIf);
     }
 
@@ -536,15 +536,15 @@ public static class ILGeneratorExtensions
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
     /// de sintáxis Fluent.
     /// </returns>
-    public static ILGenerator If(this ILGenerator ilGen, Action trueBranch, Action falseBranch)
+    public static ILGenerator If(this ILGenerator ilGen, Action<ILGenerator> trueBranch, Action<ILGenerator> falseBranch)
     {
         Label endIf = ilGen.DefineLabel();
         Label @else = ilGen.DefineLabel();
         ilGen.Emit(Brfalse, @else);
-        trueBranch();
+        trueBranch(ilGen);
         ilGen.Emit(Br, endIf);
         ilGen.MarkLabel(@else);
-        falseBranch();
+        falseBranch(ilGen);
         ilGen.MarkLabel(endIf);
         return ilGen;
     }
@@ -1564,6 +1564,28 @@ public static class ILGeneratorExtensions
     public static ILGenerator LoadProperty(this ILGenerator ilGen, PropertyBuildInfo property)
     {
         return LoadProperty(ilGen, property.Member);
+    }
+
+    /// <summary>
+    /// Inserta la carga del valor de una propiedad en la secuencia del
+    /// lenguaje intermedio de Microsoft® (MSIL).
+    /// </summary>
+    /// <typeparam name="T">
+    /// Tipo de objeto desde el cual seleccionar la propiedad a cargar.
+    /// </typeparam>
+    /// <param name="ilGen">
+    /// Secuencia de instrucciones en la cual insertar la carga del valor.
+    /// </param>
+    /// <param name="propertySelector">
+    /// Expresión que indica qué propiedad del tipo debe devolverse.
+    /// </param>
+    /// <returns>
+    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+    /// de sintáxis Fluent.
+    /// </returns>
+    public static ILGenerator LoadProperty<T>(this ILGenerator ilGen, Expression<Func<T, object?>> propertySelector)
+    {
+        return LoadProperty(ilGen, ReflectionHelpers.GetProperty(propertySelector));
     }
 
     /// <summary>

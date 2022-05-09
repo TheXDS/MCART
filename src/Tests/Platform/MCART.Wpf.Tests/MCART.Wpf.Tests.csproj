@@ -4,6 +4,6 @@
 		<UseWpf>true</UseWpf>
 	</PropertyGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\..\Platform\MCART.Wpf\MCART.Wpf.csproj" />
+	  <ProjectReference Include="$(SolutionDir)Platform\MCART.Wpf\MCART.Wpf.csproj" />
 	</ItemGroup>
 </Project>

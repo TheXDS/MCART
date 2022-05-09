@@ -23,6 +23,8 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 namespace TheXDS.MCART.Types.Extensions;
+
+using System;
 using System.Reflection;
 using System.Reflection.Emit;
 using static TheXDS.MCART.Types.TypeBuilderHelpers;
@@ -58,5 +60,47 @@ public static class PropertyBuildInfoExtensions
         field = builder.TypeBuilder.DefineField(UndName(builder.Member.Name), builder.Member.PropertyType, FieldAttributes.Private | FieldAttributes.PrivateScope);
         builder.Getter?.LoadField(field).Return();
         return builder;
+    }
+
+
+    /// <summary>
+    /// Construye un esqueleto para el setter de una propiedad que notifica el cambio de su valor.
+    /// </summary>
+    /// <param name="prop">Propiedad para la cual definir el nuevo setter con notificación de cambio de valor.</param>
+    /// <param name="valueProvider"></param>
+    /// <param name="valueSetter"></param>
+    /// <param name="propertyType"></param>
+    public static void BuildNpcPropSetterSkeleton(this PropertyBuildInfo prop, Action<Label, ILGenerator> valueProvider, Action<Label, ILGenerator> valueSetter, Type propertyType)
+    {
+        var setRet = prop.Setter!.DefineLabel();
+        valueProvider(setRet, prop.Setter);
+        if (propertyType.IsValueType)
+        {
+            prop.Setter.LoadArg1()
+                .CompareEqual()
+                .BranchTrue(setRet);
+        }
+        else
+        {
+            prop.Setter.BranchFalseNewLabel(out var fieldIsNull);
+            valueProvider(setRet, prop.Setter);
+            prop.Setter
+                .LoadArg1()
+                .Call(GetEqualsMethod(propertyType))
+                .BranchTrue(setRet)
+                .BranchNewLabel(out var doSet)
+                .PutLabel(fieldIsNull)
+                .LoadArg1()
+                .BranchFalse(setRet)
+                .PutLabel(doSet);
+        }
+        valueSetter(setRet, prop.Setter);
+        prop.Setter.Return(setRet);
+    }
+
+    private static MethodInfo GetEqualsMethod(Type type)
+    {
+        return type.GetMethod(nameof(object.Equals), BindingFlags.Public | BindingFlags.Instance, null, new[] { type }, null)
+            ?? type.GetMethod(nameof(object.Equals), BindingFlags.Public | BindingFlags.Instance, null, new[] { typeof(object) }, null)!;
     }
 }

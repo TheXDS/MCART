@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Lib\MCART.Security\MCART.Security.csproj" />
+    <ProjectReference Include="$(SolutionDir)Lib\MCART.Security\MCART.Security.csproj" />
   </ItemGroup>
 
 </Project>

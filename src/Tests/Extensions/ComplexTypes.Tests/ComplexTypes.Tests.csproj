@@ -3,6 +3,6 @@
 		<TargetFramework>net6.0</TargetFramework>
 	</PropertyGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\..\Extensions\ComplexTypes\ComplexTypes.csproj" />
+		<ProjectReference Include="$(SolutionDir)Extensions\ComplexTypes\ComplexTypes.csproj" />
 	</ItemGroup>
 </Project>

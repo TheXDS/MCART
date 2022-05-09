@@ -22,11 +22,12 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Ext.TypeFactory.Tests;
 using System;
 using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Extensions;
 using NUnit.Framework;
+
+namespace TheXDS.MCART.Tests;
 
 public class TypeExtensionsTests
 {

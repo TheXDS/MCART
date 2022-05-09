@@ -36,7 +36,7 @@ using TheXDS.MCART.Types.Extensions;
 namespace TheXDS.MCART.Types;
 
 /// <summary>
-/// Fábrica de tipos. Permite compilar nuevos tipos en Runtime.
+/// Fábrica de tipos. Permite definir y compilar nuevos tipos en Runtime.
 /// </summary>
 public class TypeFactory : IExposeAssembly
 {
@@ -206,9 +206,8 @@ public class TypeFactory : IExposeAssembly
     /// <summary>
     /// Crea una nueva clase pública que implementa el patrón ViewModel por
     /// medio de una clase base <see cref="NotifyPropertyChanged"/>, y que
-    /// incluirá todas las propiedades del modelo de tipo
-    /// <typeparamref name="TModel"/> especificado como propiedades con
-    /// notificación de cambio de valor.
+    /// incluirá todas las propiedades del tipo <typeparamref name="TModel"/>
+    /// como propiedades con notificación de cambio de valor.
     /// </summary>
     /// <typeparam name="TModel">
     /// Modelo para el cual crear la clase con patrón ViewModel.
@@ -220,15 +219,34 @@ public class TypeFactory : IExposeAssembly
     /// Un <see cref="TypeBuilder"/> por medio del cual se podrá definir a
     /// los miembros de la nueva clase.
     /// </returns>
-    public ITypeBuilder<INotifyPropertyChanged> CreateViewModelClass<TModel>(IEnumerable<Type>? interfaces)
+    public ITypeBuilder<INotifyPropertyChanged> CreateNpcClass<TModel>(IEnumerable<Type>? interfaces)
         where TModel : notnull, new()
     {
-        ITypeBuilder<NotifyPropertyChanged> t = NewType<NotifyPropertyChanged>($"{typeof(TModel).Name}ViewModel", interfaces);
+        ITypeBuilder<NotifyPropertyChanged> t = NewType<NotifyPropertyChanged>($"{typeof(TModel).Name}Npc", interfaces);
         foreach (var p in typeof(TModel).GetProperties().Where(p => p.CanRead && p.CanWrite))
         {
-            ((ITypeBuilder<INotifyPropertyChanged>)t).AddNpcProperty(p.Name, p.PropertyType);
+            ((ITypeBuilder<NotifyPropertyChangeBase>)t).AddNpcProperty(p.Name, p.PropertyType);
         }
         return t;
+    }
+
+    /// <summary>
+    /// Crea una nueva clase pública que implementa el patrón ViewModel por
+    /// medio de una clase base <see cref="NotifyPropertyChanged"/>, y que
+    /// incluirá todas las propiedades del tipo <typeparamref name="TModel"/>
+    /// como propiedades con notificación de cambio de valor.
+    /// </summary>
+    /// <typeparam name="TModel">
+    /// Modelo para el cual crear la clase con patrón ViewModel.
+    /// </typeparam>
+    /// <returns>
+    /// Un <see cref="TypeBuilder"/> por medio del cual se podrá definir a
+    /// los miembros de la nueva clase.
+    /// </returns>
+    public ITypeBuilder<INotifyPropertyChanged> CreateNpcClass<TModel>()
+        where TModel : notnull, new()
+    {
+        return CreateNpcClass<TModel>(null);
     }
 
     private string GetName(string name)
