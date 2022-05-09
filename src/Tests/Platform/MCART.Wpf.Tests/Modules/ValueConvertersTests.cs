@@ -22,17 +22,13 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Wpf.Tests.Modules;
 using NUnit.Framework;
 using System;
 using System.Globalization;
 using System.Windows;
 using TheXDS.MCART.ValueConverters;
 
-public class WpfUtilsTests
-{
-
-}
+namespace TheXDS.MCART.Wpf.Tests.Modules;
 
 public class ValueConvertersTests
 {

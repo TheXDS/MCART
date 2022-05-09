@@ -62,7 +62,6 @@ public static class PropertyBuildInfoExtensions
         return builder;
     }
 
-
     /// <summary>
     /// Construye un esqueleto para el setter de una propiedad que notifica el cambio de su valor.
     /// </summary>
