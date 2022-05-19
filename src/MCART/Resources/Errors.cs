@@ -38,6 +38,20 @@ using Str = Strings.Common;
 public static class Errors
 {
     /// <summary>
+    /// Crea una nueva instancia de un <see cref="InvalidOperationException"/>
+    /// con un mensaje predeterminado que indica que una lista debe contener a
+    /// dos objetos determinados en el contexto en que la excepción es lanzada.
+    /// </summary>
+    /// <returns>
+    /// Una nueva instancia de la clase
+    /// <see cref="InvalidOperationException"/>.
+    /// </returns>
+    public static InvalidOperationException ListMustContainBoth()
+    {
+        return new(Ers.ListMustContainBoth);
+    }
+    
+    /// <summary>
     /// Crea una nueva instancia de un
     /// <see cref="InvalidOperationException"/> con un mensaje
     /// predeterminado que indica que la llamada al método 
@@ -473,7 +487,7 @@ public static class Errors
     /// Una nueva instancia de la clase
     /// <see cref="InvalidOperationException"/>.
     /// </returns>
-    public static Exception EmptyCollection(IEnumerable collection)
+    public static InvalidOperationException EmptyCollection(IEnumerable collection)
     {
         return new InvalidOperationException(Ers.EmptyCollection, new EmptyCollectionException(collection));
     }

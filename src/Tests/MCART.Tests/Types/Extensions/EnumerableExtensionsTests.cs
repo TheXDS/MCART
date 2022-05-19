@@ -22,7 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Tests.Types.Extensions;
 using NUnit.Framework;
 using System;
 using System.Collections;
@@ -33,15 +32,16 @@ using System.Threading;
 using System.Threading.Tasks;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Types.Extensions;
-using static TheXDS.MCART.Types.Extensions.EnumerableExtensions;
+
+namespace TheXDS.MCART.Tests.Types.Extensions;
 
 public class EnumerableExtensionsTests
 {
     [Test]
     public void Pick_Test()
     {
-        int[]? c = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-        List<int>? l = new();
+        int[] c = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        List<int> l = new();
         do
         {
             l.Add(c.Pick());
@@ -52,9 +52,9 @@ public class EnumerableExtensionsTests
     [Test]
     public void ItemsEqual_Test()
     {
-        int[]? c1 = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-        int[]? c2 = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-        int[]? c3 = new[] { 1, 2, 3, 11, 5, 6, 7, 8, 9, 10 };
+        int[] c1 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        int[] c2 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        int[] c3 = { 1, 2, 3, 11, 5, 6, 7, 8, 9, 10 };
         Assert.True(c1.ItemsEqual(c2));
         Assert.False(c1.ItemsEqual(c3));
     }
@@ -94,7 +94,7 @@ public class EnumerableExtensionsTests
         int[] l = { 1, 2, 3, 4 };
         bool f1 = false;
 
-        Task? t1 = Task.Run(() => l.Locked(i =>
+        Task t1 = Task.Run(() => l.Locked(i =>
         {
             Thread.Sleep(500);
             f1 = true;
@@ -104,7 +104,7 @@ public class EnumerableExtensionsTests
         // Este debe ser tiempo suficiente para que la tarea t1 inicie ejecución.
         await Task.Delay(250);
 
-        Task? t2 = Task.Run(() => l.Locked(i =>
+        Task t2 = Task.Run(() => l.Locked(i =>
         {
             Assert.AreSame(l, i);
             Assert.True(f1);
@@ -144,8 +144,8 @@ public class EnumerableExtensionsTests
     [Test]
     public void Shuffled_Test()
     {
-        int[]? a = MCART.Helpers.Common.Sequence(1, 100).ToArray();
-        int[]? b = a.Shuffled().ToArray();
+        int[] a = MCART.Helpers.Common.Sequence(1, 100).ToArray();
+        int[] b = a.Shuffled().ToArray();
         Assert.AreEqual(a.Length, b.Length);
         foreach (int j in b)
         {
@@ -158,8 +158,8 @@ public class EnumerableExtensionsTests
     [Test]
     public void Shuffled_WithRange_Test()
     {
-        int[]? a = MCART.Helpers.Common.Sequence(1, 60).ToArray();
-        int[]? b = a.Shuffled(20, 39).ToArray();
+        int[] a = MCART.Helpers.Common.Sequence(1, 60).ToArray();
+        int[] b = a.Shuffled(20, 39).ToArray();
         Assert.True(a.Take(20).All(p => a.FindIndexOf(p) == b.FindIndexOf(p)));
         Assert.False(a.Skip(20).Take(20).All(p => a.FindIndexOf(p) == b.FindIndexOf(p)));
         Assert.True(a.Skip(40).Take(20).All(p => a.FindIndexOf(p) == b.FindIndexOf(p)));
@@ -179,13 +179,13 @@ public class EnumerableExtensionsTests
     [Test]
     public void GroupByType_Test()
     {
-        object?[]? c = new object?[]
+        object?[] c =
         {
-                1, 2,
-                "Test", "Test2",
-                null, null
+            1, 2,
+            "Test", "Test2",
+            null, null
         };
-        List<IGrouping<Type, object>>? g = c.GroupByType().ToList();
+        List<IGrouping<Type, object>> g = c.GroupByType().ToList();
 
         Assert.AreEqual(typeof(int), g[0].Key);
         Assert.True(g[0].Contains(1));
@@ -222,8 +222,8 @@ public class EnumerableExtensionsTests
     [Test]
     public void ContainsAll_Test()
     {
-        int[]? a = MCART.Helpers.Common.Sequence(1, 100).ToArray();
-        int[]? b = MCART.Helpers.Common.Sequence(50, 60).ToArray();
+        int[] a = MCART.Helpers.Common.Sequence(1, 100).ToArray();
+        int[] b = MCART.Helpers.Common.Sequence(50, 60).ToArray();
         Assert.True(a.ContainsAll(b));
         Assert.False(new[] { 101, 102, 103 }.ContainsAll(b));
 
@@ -234,8 +234,8 @@ public class EnumerableExtensionsTests
     [Test]
     public void ContainsAny_Test()
     {
-        int[]? a = MCART.Helpers.Common.Sequence(1, 100).ToArray();
-        int[]? b = MCART.Helpers.Common.Sequence(95, 110).ToArray();
+        int[] a = MCART.Helpers.Common.Sequence(1, 100).ToArray();
+        int[] b = MCART.Helpers.Common.Sequence(95, 110).ToArray();
         Assert.True(a.ContainsAny(b));
         Assert.True(new[] { 101, 102, 103 }.ContainsAny(b));
         Assert.False(new[] { 121, 122, 123 }.ContainsAny(b));
@@ -300,12 +300,12 @@ public class EnumerableExtensionsTests
     [Test]
     public void Copy_Test()
     {
-        object? o1 = new();
-        object? o2 = new();
+        object o1 = new();
+        object o2 = new();
         Assert.AreNotSame(o1, o2);
 
-        object[]? a = new[] { o1, o2 };
-        object[]? b = a.Copy().ToArray();
+        object[] a = { o1, o2 };
+        object[] b = a.Copy().ToArray();
         Assert.AreNotSame(a, b);
 
         Assert.AreSame(a[0], b.First());
@@ -315,7 +315,7 @@ public class EnumerableExtensionsTests
     [Test]
     public void Range_Test()
     {
-        int[]? c = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        int[] c = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
         Assert.AreEqual(new[] { 1, 2, 3 }, c.Range(0, 3));
         Assert.AreEqual(new[] { 4, 5, 6 }, c.Range(3, 3));
@@ -327,7 +327,7 @@ public class EnumerableExtensionsTests
     [Test]
     public void ToExtendedList_Test()
     {
-        MCART.Types.ListEx<int>? c = new[] { 1, 2, 3 }.ToExtendedList();
+        MCART.Types.ListEx<int> c = new[] { 1, 2, 3 }.ToExtendedList();
 
         Assert.IsAssignableFrom<MCART.Types.ListEx<int>>(c);
         Assert.AreEqual(3, c.Count);
@@ -354,13 +354,33 @@ public class EnumerableExtensionsTests
     [Test]
     public void Shift_Test()
     {
-        int[]? c = new[] { 1, 2, 3, 4, 5 };
+        int[] c = { 1, 2, 3, 4, 5 };
 
         Assert.AreEqual(new[] { 1, 2, 3, 4, 5 }, c.Shift(0).ToArray());
         Assert.AreEqual(new[] { 2, 3, 4, 5, 0 }, c.Shift(1).ToArray());
         Assert.AreEqual(new[] { 3, 4, 5, 0, 0 }, c.Shift(2).ToArray());
         Assert.AreEqual(new[] { 0, 1, 2, 3, 4 }, c.Shift(-1).ToArray());
         Assert.AreEqual(new[] { 0, 0, 1, 2, 3 }, c.Shift(-2).ToArray());
+    }
+
+    [Test]
+    public async Task PickAsync_Test()
+    {
+        int[] c = { 1, 2, 3, 4, 5 };
+        HashSet<int> l = new();
+        for (int j = 0; j < 100; j++)
+        {
+            int i = await c.PickAsync();
+            Assert.Contains(i, c);
+            l.Add(i);
+        }
+        Assert.AreEqual(c, l.Distinct().Ordered().ToArray());
+    }
+
+    [Test]
+    public void PickAsync_Contract_Test()
+    {
+        Assert.ThrowsAsync<InvalidOperationException>(async () => await Array.Empty<int>().PickAsync());
     }
 
     [Theory]
@@ -376,16 +396,16 @@ public class EnumerableExtensionsTests
             for (int j = 0; j < arrSize; j++) yield return j;
         }
 
-        int[]? a = new int[arrSize];
+        int[] a = new int[arrSize];
         Assert.AreEqual(arrSize, ((IEnumerable)a).Count());
 
-        string? s = new('x', arrSize);
+        string s = new('x', arrSize);
         Assert.AreEqual(arrSize, ((IEnumerable)s).Count());
 
-        List<int>? l = new(a);
+        List<int> l = new(a);
         Assert.AreEqual(arrSize, ((IEnumerable)l).Count());
 
-        Collection<int>? c = new(a);
+        Collection<int> c = new(a);
         Assert.AreEqual(arrSize, ((IEnumerable)c).Count());
 
         Assert.AreEqual(arrSize, ((IEnumerable)Enumerate()).Count());
@@ -396,7 +416,7 @@ public class EnumerableExtensionsTests
     [Test]
     public void AreAllEqual_Test()
     {
-        int[]? a = new int[10];
+        int[] a = new int[10];
         Assert.True(a.AreAllEqual());
         a[4] = 1;
         Assert.False(a.AreAllEqual());
@@ -408,7 +428,7 @@ public class EnumerableExtensionsTests
     [Test]
     public void Rotate_Test()
     {
-        int[]? c = new[] { 1, 2, 3, 4, 5 };
+        int[] c = { 1, 2, 3, 4, 5 };
 
         Assert.AreEqual(new[] { 1, 2, 3, 4, 5 }, c.Rotate(0).ToArray());
         Assert.AreEqual(new[] { 2, 3, 4, 5, 1 }, c.Rotate(1).ToArray());
@@ -420,9 +440,9 @@ public class EnumerableExtensionsTests
     [Test]
     public void ExceptForTest_WithValues()
     {
-        int[]? array = new[] { 1, 2, 3, 4, 5 };
-        int[]? exclusions = new[] { 2, 4 };
-        int[]? result = new[] { 1, 3, 5 };
+        int[] array = { 1, 2, 3, 4, 5 };
+        int[] exclusions = { 2, 4 };
+        int[] result = { 1, 3, 5 };
 
         Assert.AreEqual(result, array.ExceptFor(exclusions));
     }
@@ -430,10 +450,10 @@ public class EnumerableExtensionsTests
     [Test]
     public void ExceptForTest_WithObjects()
     {
-        object[]? array = new object[5];
+        object[] array = new object[5];
         for (int j = 0; j < 5; j++) array[j] = new object();
-        object[]? exclusions = array.Range(3, 2).ToArray();
-        object[]? result = array.Range(0, 3).ToArray();
+        object[] exclusions = array.Range(3, 2).ToArray();
+        object[] result = array.Range(0, 3).ToArray();
 
         Assert.AreEqual(result, array.ExceptFor(exclusions).ToArray());
     }

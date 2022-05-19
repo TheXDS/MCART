@@ -130,6 +130,24 @@ public class CommonTest
     }
 
     [Test]
+    public void FlipEndianessTest_UInt16()
+    {
+        Assert.AreEqual((short)0x0102, ((ushort)0x0201).FlipEndianess());
+    }
+
+    [Test]
+    public void FlipEndianessTest_UInt32()
+    {
+        Assert.AreEqual(0x01020304, ((uint)0x04030201).FlipEndianess());
+    }
+
+    [Test]
+    public void FlipEndianessTest_UInt64()
+    {
+        Assert.AreEqual(0x0102030405060708, ((ulong)0x0807060504030201).FlipEndianess());
+    }
+    
+    [Test]
     public void FlipEndianessTest_Single()
     {
         Assert.AreEqual(3.02529E-39f, 123456f.FlipEndianess());
@@ -276,6 +294,16 @@ public class CommonTest
     }
 
     [Test]
+    public void ToBits_WithUInt64_Test()
+    {
+        bool[]? c = new bool[sizeof(ulong) * 8];
+        Assert.AreEqual(c, ((ulong)0).ToBits());
+
+        c[1] = true; c[3] = true;
+        Assert.AreEqual(c, ((ulong)10L).ToBits());
+    }
+
+    [Test]
     public void ToBits_WithInt32_Test()
     {
         bool[]? c = new bool[sizeof(int) * 8];
@@ -283,6 +311,16 @@ public class CommonTest
 
         c[1] = true; c[3] = true;
         Assert.AreEqual(c, 10.ToBits());
+    }
+    
+    [Test]
+    public void ToBits_WithUInt32_Test()
+    {
+        bool[]? c = new bool[sizeof(uint) * 8];
+        Assert.AreEqual(c, ((uint)0).ToBits());
+
+        c[1] = true; c[3] = true;
+        Assert.AreEqual(c, ((uint)10).ToBits());
     }
 
     [Test]
@@ -294,7 +332,27 @@ public class CommonTest
         c[1] = true; c[3] = true;
         Assert.AreEqual(c, ((short)10).ToBits());
     }
+    
+    [Test]
+    public void ToBits_WithUInt16_Test()
+    {
+        bool[]? c = new bool[sizeof(ushort) * 8];
+        Assert.AreEqual(c, ((ushort)0).ToBits());
 
+        c[1] = true; c[3] = true;
+        Assert.AreEqual(c, ((ushort)10).ToBits());
+    }
+    
+    [Test]
+    public void ToBits_WithSInt8_Test()
+    {
+        bool[]? c = new bool[sizeof(sbyte) * 8];
+        Assert.AreEqual(c, ((sbyte)0).ToBits());
+
+        c[1] = true; c[3] = true;
+        Assert.AreEqual(c, ((sbyte)10).ToBits());
+    }
+    
     [Test]
     public void ToBits_WithInt8_Test()
     {
@@ -313,6 +371,8 @@ public class CommonTest
     [TestCase(7, 127)]
     [TestCase(1, 128)]
     [TestCase(8, 255)]
+    [TestCase(57, -128)]
+    [TestCase(64, -1)]
     public void BitCount_Int64_Test(byte bitCount, long value)
     {
         Assert.AreEqual(bitCount, value.BitCount());
@@ -326,6 +386,8 @@ public class CommonTest
     [TestCase(7, 127)]
     [TestCase(1, 128)]
     [TestCase(8, 255)]
+    [TestCase(25, -128)]
+    [TestCase(32, -1)]
     public void BitCount_Int32_Test(byte bitCount, int value)
     {
         Assert.AreEqual(bitCount, value.BitCount());
@@ -339,6 +401,8 @@ public class CommonTest
     [TestCase(7, 127)]
     [TestCase(1, 128)]
     [TestCase(8, 255)]
+    [TestCase(9, -128)]
+    [TestCase(16, -1)]
     public void BitCount_Int16_Test(byte bitCount, short value)
     {
         Assert.AreEqual(bitCount, value.BitCount());
@@ -356,7 +420,59 @@ public class CommonTest
     {
         Assert.AreEqual(bitCount, value.BitCount());
     }
-
+    
+    [CLSCompliant(false)]
+    [TestCase(0, 0)]
+    [TestCase(2, 10)]
+    [TestCase(3, 11)]
+    [TestCase(2, 12)]
+    [TestCase(7, 127)]
+    [TestCase(1, -128)]
+    [TestCase(8, -1)]
+    public void BitCount_SInt8_Test(byte bitCount, sbyte value)
+    {
+        Assert.AreEqual(bitCount, value.BitCount());
+    }
+    
+    [CLSCompliant(false)]
+    [TestCase(0, (ushort)0)]
+    [TestCase(2, (ushort)10)]
+    [TestCase(3, (ushort)11)]
+    [TestCase(2, (ushort)12)]
+    [TestCase(7, (ushort)127)]
+    [TestCase(1, (ushort)128)]
+    [TestCase(8, (ushort)255)]
+    public void BitCount_UInt16_Test(byte bitCount, ushort value)
+    {
+        Assert.AreEqual(bitCount, value.BitCount());
+    }
+    
+    [CLSCompliant(false)]
+    [TestCase(0, (uint)0)]
+    [TestCase(2, (uint)10)]
+    [TestCase(3, (uint)11)]
+    [TestCase(2, (uint)12)]
+    [TestCase(7, (uint)127)]
+    [TestCase(1, (uint)128)]
+    [TestCase(8, (uint)255)]
+    public void BitCount_UInt32_Test(byte bitCount, uint value)
+    {
+        Assert.AreEqual(bitCount, value.BitCount());
+    }
+    
+    [CLSCompliant(false)]
+    [TestCase(0, (ulong)0)]
+    [TestCase(2, (ulong)10)]
+    [TestCase(3, (ulong)11)]
+    [TestCase(2, (ulong)12)]
+    [TestCase(7, (ulong)127)]
+    [TestCase(1, (ulong)128)]
+    [TestCase(8, (ulong)255)]
+    public void BitCount_UInt64_Test(byte bitCount, ulong value)
+    {
+        Assert.AreEqual(bitCount, value.BitCount());
+    }
+    
     [Test]
     public void ToHexTest1()
     {

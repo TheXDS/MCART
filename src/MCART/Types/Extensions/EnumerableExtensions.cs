@@ -22,7 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Types.Extensions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -33,7 +32,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Resources;
 using static TheXDS.MCART.Misc.Internals;
+
+namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
 /// Extensiones para todos los elementos de tipo
@@ -395,7 +397,7 @@ public static partial class EnumerableExtensions
     /// </returns>
     public static IEnumerable<T>? OrNull<T>(this IEnumerable<T> collection)
     {
-        T[]? c = collection.ToArray();
+        T[] c = collection.ToArray();
         return c.Any() ? c : null;
     }
 
@@ -439,7 +441,7 @@ public static partial class EnumerableExtensions
     /// </exception>
     public static IEnumerable<T> Range<T>(this IEnumerable<T> from, int index, int count)
     {
-        using IEnumerator<T>? e = from.GetEnumerator();
+        using IEnumerator<T> e = from.GetEnumerator();
         e.Reset();
         e.MoveNext();
         int c = 0;
@@ -468,7 +470,7 @@ public static partial class EnumerableExtensions
     /// </typeparam>
     public static IEnumerable<T> Copy<T>(this IEnumerable<T> collection)
     {
-        List<T>? tmp = new();
+        List<T> tmp = new();
         tmp.AddRange(collection);
         return tmp;
     }
@@ -505,7 +507,7 @@ public static partial class EnumerableExtensions
     /// </returns>
     public static IEnumerable<T> Shuffled<T>(this IEnumerable<T> collection, in int deepness)
     {
-        List<T>? enumerable = collection.ToList();
+        List<T> enumerable = collection.ToList();
         return Shuffled(enumerable, 0, enumerable.Count - 1, deepness, RandomExtensions.Rnd);
     }
 
@@ -550,7 +552,7 @@ public static partial class EnumerableExtensions
     /// </returns>
     public static IEnumerable<T> Shuffled<T>(this IEnumerable<T> collection, in int firstIdx, in int lastIdx, in int deepness, in Random random)
     {
-        List<T>? tmp = new(collection);
+        List<T> tmp = new(collection);
         tmp.Shuffle(firstIdx, lastIdx, deepness, random);
         return tmp;
     }
@@ -585,13 +587,9 @@ public static partial class EnumerableExtensions
     /// </returns>
     public static T Pick<T>(this IEnumerable<T> collection, in Random random)
     {
-        List<T>? c = collection.ToList();
-#if PreferExceptions
-        if (!c.Any()) throw new EmptyCollectionException(c);
+        List<T> c = collection.ToList();
+        if (!c.Any()) throw Errors.EmptyCollection(c);
         return c.ElementAt(RandomExtensions.Rnd.Next(0, c.Count));
-#else
-        return !c.Any() ? default! : c.ElementAt(random.Next(0, c.Count));
-#endif
     }
 
     /// <summary>
@@ -606,13 +604,9 @@ public static partial class EnumerableExtensions
     /// </returns>
     public static async Task<T> PickAsync<T>(this IEnumerable<T> collection)
     {
-        List<T>? c = await collection.ToListAsync();
-#if PreferExceptions
-        if (!c.Any()) throw new EmptyCollectionException(c);
+        List<T> c = await collection.ToListAsync();
+        if (!c.Any()) throw Errors.EmptyCollection(collection);
         return c.ElementAt(RandomExtensions.Rnd.Next(0, c.Count));
-#else
-        return !c.Any() ? default! : c.ElementAt(RandomExtensions.Rnd.Next(0, c.Count));
-#endif
     }
 
     /// <summary>
@@ -671,7 +665,7 @@ public static partial class EnumerableExtensions
         {
             case > 0:
                 {
-                    using IEnumerator<T>? e = collection.GetEnumerator();
+                    using IEnumerator<T> e = collection.GetEnumerator();
                     e.Reset();
                     int j = 0;
 
@@ -688,8 +682,8 @@ public static partial class EnumerableExtensions
                 }
             case < 0:
                 {
-                    List<T>? c = new();
-                    using IEnumerator<T>? e = collection.GetEnumerator();
+                    List<T> c = new();
+                    using IEnumerator<T> e = collection.GetEnumerator();
                     e.Reset();
 
                     // HACK: La implementación para IList<T> es funcional, y no requiere de trucos inusuales para rotar.
@@ -723,7 +717,7 @@ public static partial class EnumerableExtensions
         {
             case > 0:
                 {
-                    using IEnumerator<T>? e = collection.GetEnumerator();
+                    using IEnumerator<T> e = collection.GetEnumerator();
                     e.Reset();
                     int j = 0;
                     while (j++ < steps) e.MoveNext();
@@ -733,11 +727,11 @@ public static partial class EnumerableExtensions
                 }
             case < 0:
                 {
-                    using IEnumerator<T>? e = collection.GetEnumerator();
+                    using IEnumerator<T> e = collection.GetEnumerator();
                     e.Reset();
                     int j = 0;
 
-                    List<T>? c = new();
+                    List<T> c = new();
 
                     // HACK: Enumeración manual
                     while (e.MoveNext()) c.Add(e.Current);
@@ -769,8 +763,8 @@ public static partial class EnumerableExtensions
     /// </returns>
     public static bool ItemsEqual(this IEnumerable collection, IEnumerable items)
     {
-        IEnumerator? ea = collection.GetEnumerator();
-        IEnumerator? eb = items.GetEnumerator();
+        IEnumerator ea = collection.GetEnumerator();
+        IEnumerator eb = items.GetEnumerator();
         while (ea.MoveNext())
         {
             if (!eb.MoveNext() || (!ea.Current?.Equals(eb.Current) ?? false)) return false;
@@ -910,7 +904,7 @@ public static partial class EnumerableExtensions
         where TAttrValue : struct
         where TAttr : Attribute, IValueAttribute<TAttrValue>
     {
-        Type? t = typeof(TAttrValue);
+        Type t = typeof(TAttrValue);
         TAttrValue d = t.GetField(@"MaxValue", BindingFlags.Public | BindingFlags.Static) is { } f ? (TAttrValue)f.GetValue(null)! : default;
         return c.OrderBy(p => p?.GetAttr<TAttr>()?.Value ?? d);
     }
@@ -988,7 +982,7 @@ public static partial class EnumerableExtensions
     /// </exception>
     public static async ValueTask<int> CountAsync<T>(this IAsyncEnumerable<T> e, CancellationToken ct)
     {
-        IAsyncEnumerator<T>? n = e.GetAsyncEnumerator(ct);
+        IAsyncEnumerator<T> n = e.GetAsyncEnumerator(ct);
         if (ct.IsCancellationRequested) throw new TaskCanceledException();
         int c = 0;
         while (await n.MoveNextAsync())
@@ -1053,9 +1047,9 @@ public static partial class EnumerableExtensions
     /// </returns>
     public static bool AreAllEqual<T>(this IEnumerable<T> c)
     {
-        using IEnumerator<T>? j = c.GetEnumerator();
+        using IEnumerator<T> j = c.GetEnumerator();
         if (!j.MoveNext()) throw new EmptyCollectionException(c);
-        T? eq = j.Current;
+        T eq = j.Current;
         while (j.MoveNext())
         {
             if (!eq?.Equals(j.Current) ?? j.Current is { }) return false;
@@ -1112,7 +1106,7 @@ public static partial class EnumerableExtensions
 
     private static int IndexOfEnumerable(IEnumerable e, object? i)
     {
-        IEnumerator? n = e.GetEnumerator();
+        IEnumerator n = e.GetEnumerator();
         int c = 0;
         while (n.MoveNext())
         {
@@ -1125,7 +1119,7 @@ public static partial class EnumerableExtensions
 
     private static int CountEnumerable(IEnumerable e)
     {
-        IEnumerator? n = e.GetEnumerator();
+        IEnumerator n = e.GetEnumerator();
         int c = 0;
         while (n.MoveNext()) c++;
         (n as IDisposable)?.Dispose();

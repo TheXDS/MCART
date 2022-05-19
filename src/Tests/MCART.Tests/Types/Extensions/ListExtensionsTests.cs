@@ -165,6 +165,6 @@ public class ListExtensionsTests
         List<string>? l = new[] { "a", "b", "c", "d" }.ToList();
         l.Swap("b", "c");
         Assert.AreEqual(new[] { "a", "c", "b", "d" }, l.ToArray());
-        Assert.Throws<Exception>(() => l.Swap("b", "e"));
+        Assert.Throws<InvalidOperationException>(() => l.Swap("b", "e"));
     }
 }

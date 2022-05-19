@@ -23,6 +23,8 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System;
+
 namespace TheXDS.MCART.Security.Tests.Helpers;
 using NUnit.Framework;
 using System.IO;
@@ -42,6 +44,38 @@ internal class PasswordStorageTests
         public void ConfigureFrom(BinaryReader reader) => _ = reader.ReadBytes(8);
         public byte[] DumpSettings() => Encoding.UTF8.GetBytes("TESTtest");
         public byte[] Generate(byte[] input) => input.Concat(new byte[16]).ToArray()[0..16];
+    }
+
+    private class Dummy2PasswordStorage : IPasswordStorage<int>
+    {
+        public byte[] Generate(byte[] input) => input.Concat(new byte[KeyLength]).ToArray()[0..KeyLength];
+        public int KeyLength { get; set; }
+        public int Settings { get; set; }
+    }
+    
+    [Test]
+    public void DumpSettings_default_impl_Test()
+    {
+        IPasswordStorage p = new Dummy2PasswordStorage
+        {
+            Settings = 1234,
+            KeyLength = 2
+        };
+        var s = p.DumpSettings();
+        Assert.AreEqual(BitConverter.GetBytes(1234), s);
+    }
+    
+    [Test]
+    public void ConfigureFrom_default_impl_Test()
+    {
+        IPasswordStorage<int> p = new Dummy2PasswordStorage
+        {
+            Settings = 1234,
+            KeyLength = 2
+        };
+        var s = BitConverter.GetBytes(5678);
+        p.ConfigureFrom(s);
+        Assert.AreEqual(5678, p.Settings);
     }
 
     [Test]

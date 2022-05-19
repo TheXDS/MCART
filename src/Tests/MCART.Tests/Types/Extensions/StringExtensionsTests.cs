@@ -88,10 +88,10 @@ public class StringExtensionsTests
     [Test]
     public void ToStream_Test()
     {
-        using (System.IO.StreamReader? r = new("Test".ToStream()))
+        using (System.IO.StreamReader r = new("Test".ToStream()))
             Assert.AreEqual("Test", r.ReadToEnd());
 
-        using (System.IO.StreamReader? r = new("Test".ToStream(Encoding.Unicode)))
+        using (System.IO.StreamReader r = new("Test".ToStream(Encoding.Unicode)))
             Assert.AreEqual("T\0e\0s\0t\0", r.ReadToEnd());
     }
 
@@ -220,6 +220,12 @@ public class StringExtensionsTests
         },
         "Test".ToSecureString().ReadBytes());
     }
+    
+    [Test]
+    public void SecureString_ToBase64_Test()
+    {
+        Assert.AreEqual("VABlAHMAdAA=", "Test".ToSecureString().ToBase64());
+    }
 
     [Test]
     public void StartsWithAny_Test()
@@ -239,7 +245,7 @@ public class StringExtensionsTests
     [Test]
     public void Chop_Test()
     {
-        string? str = "TestTestStringTestTest";
+        string str = "TestTestStringTestTest";
         Assert.AreEqual("TestStringTest", str.Chop("Test"));
     }
 
@@ -309,11 +315,11 @@ public class StringExtensionsTests
             Assert.True(line.Split().All(p => p == "test"));
         }
 
-        string[]? str = new string('x', 120).TextWrap();
+        string[] str = new string('x', 120).TextWrap();
         Assert.AreEqual(80, str[0].Length);
         Assert.AreEqual(40, str[1].Length);
-        string[]? str2 = string.Join(' ', Enumerable.Range(1, 30).Select(_ => "test")).TextWrap();
-        foreach (string? j in str2) ValidLine(j);
+        string[] str2 = string.Join(' ', Enumerable.Range(1, 30).Select(_ => "test")).TextWrap();
+        foreach (string j in str2) ValidLine(j);
         Assert.AreEqual("test  test", "test  test".TextWrap()[0]);
     }
 }

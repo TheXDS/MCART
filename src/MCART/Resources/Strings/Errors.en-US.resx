@@ -237,4 +237,7 @@
   <data name="ValueMustBeBetweenXandY" xml:space="preserve">
     <value>The value must be between {0} and {1}.</value>
   </data>
+  <data name="ListMustContainBoth" xml:space="preserve">
+    <value>The specified collection must contain both objects.</value>
+  </data>
 </root>

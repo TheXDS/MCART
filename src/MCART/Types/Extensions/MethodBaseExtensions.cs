@@ -22,13 +22,13 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Types.Extensions;
 using System;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using TheXDS.MCART.Exceptions;
-using TheXDS.MCART.Types.Extensions;
+
+namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
 /// Contiene extensiones para la clase <see cref="MethodBase"/>.
@@ -48,12 +48,12 @@ public static partial class MethodBaseExtensions
     /// </returns>
     public static string FullName(this MethodBase method)
     {
-        StringBuilder? s = new();
+        StringBuilder s = new();
         s.Append(method.DeclaringType?.CSharpName().OrNull("{0}."));
         s.Append(method.Name);
         if (method.IsGenericMethod)
         {
-            s.Append(string.Join(", ", method.GetGenericArguments().Select(Types.Extensions.TypeExtensions.CSharpName)).OrNull("<{0}>"));
+            s.Append(string.Join(", ", method.GetGenericArguments().Select(TypeExtensions.CSharpName)).OrNull("<{0}>"));
         }
         s.Append($"({string.Join(", ", method.GetParameters().Select(q => q.ParameterType.CSharpName()))})");
         return s.ToString();
@@ -86,7 +86,7 @@ public static partial class MethodBaseExtensions
     public static bool IsOverriden(this MethodBase method, object instance)
     {
         IsOverriden_Contract(method, instance);
-        MethodInfo? m = instance.GetType().GetMethod(method.Name, GetBindingFlags(method), null, method.GetParameters().Select(p => p.ParameterType).ToArray(), null)
+        MethodInfo m = instance.GetType().GetMethod(method.Name, GetBindingFlags(method), null, method.GetParameters().Select(p => p.ParameterType).ToArray(), null)
             ?? throw new TamperException(new MissingMethodException(instance.GetType().Name, method.Name));
 
         return method.DeclaringType != m.DeclaringType;

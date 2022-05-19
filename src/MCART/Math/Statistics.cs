@@ -99,8 +99,8 @@ public static class Statistics
     /// <returns>La tendencia geométrica de un set de datos.</returns>
     public static double GeometricMean(this IEnumerable<double> data)
     {
-        double c = 0.0;
-        int t = 0;
+        double c = 1.0;
+        double t = 0;
         foreach (double j in data)
         {
             c *= j;
@@ -144,7 +144,7 @@ public static class Statistics
 
         int p = d.Count / 2;
 
-        return d.Count % 2 == 1 ? d[p] : (d[p - 1] + d[p]) / 2;
+        return d.Count % 2 == 1 ? d[p] : (d[p - 2] + d[p - 1]) / 2;
 
     }
 

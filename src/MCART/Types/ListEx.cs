@@ -424,7 +424,7 @@ public class ListEx<T> : List<T>, ICloneable<ListEx<T>>
     }
 
     /// <summary>
-    /// Ordena los elementos de todo el <see cref="ListEx{T}"/>
+    /// Ordena todos los elementos del <see cref="ListEx{T}"/>
     /// utilizando el comparador predeterminado.
     /// </summary>
     public new void Sort()
@@ -441,7 +441,7 @@ public class ListEx<T> : List<T>, ICloneable<ListEx<T>>
     }
 
     /// <summary>
-    /// Ordena los elementos de todo el <see cref="ListEx{T}"/>
+    /// Ordena todos los elementos del <see cref="ListEx{T}"/>
     /// utilizando el <see cref="Comparison{T}"/> especificado.
     /// </summary>
     /// <param name="comparsion">
@@ -462,7 +462,7 @@ public class ListEx<T> : List<T>, ICloneable<ListEx<T>>
     }
 
     /// <summary>
-    /// Ordena los elementos de todo el <see cref="ListEx{T}"/>
+    /// Ordena todos los elementos del <see cref="ListEx{T}"/>
     /// utilizando el <see cref="IComparer{T}"/> especificado.
     /// </summary>
     /// <param name="comparer">

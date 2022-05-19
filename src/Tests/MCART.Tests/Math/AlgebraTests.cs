@@ -232,6 +232,34 @@ public class AlgebraTests
     {
         Assert.True(IsTwoPow(value));
     }
+    
+    [CLSCompliant(false)]
+    [TestCaseSource(typeof(AlgebraTests), nameof(Get2Pows), new object[] { typeof(sbyte), 64L, 1 })]
+    public void IsTwoPow_sbyte_YieldsFalse_Test(sbyte value)
+    {
+        Assert.False(IsTwoPow(value));
+    }
+
+    [CLSCompliant(false)]
+    [TestCaseSource(typeof(AlgebraTests), nameof(Get2Pows), new object[] { typeof(sbyte), 64L, 0 })]
+    public void IsTwoPow_sbyte_YieldsTrue_Test(sbyte value)
+    {
+        Assert.True(IsTwoPow(value));
+    }
+    
+    [CLSCompliant(false)]
+    [TestCaseSource(typeof(AlgebraTests), nameof(Get2Pows), new object[] { typeof(ushort), 65536L, 1 })]
+    public void IsTwoPow_ushort_YieldsFalse_Test(ushort value)
+    {
+        Assert.False(IsTwoPow(value));
+    }
+
+    [CLSCompliant(false)]
+    [TestCaseSource(typeof(AlgebraTests), nameof(Get2Pows), new object[] { typeof(ushort), 65536L, 0 })]
+    public void IsTwoPow_ushort_YieldsTrue_Test(ushort value)
+    {
+        Assert.True(IsTwoPow(value));
+    }
 
     [CLSCompliant(false)]
     [TestCaseSource(typeof(AlgebraTests), nameof(Get2Pows), new object[] { typeof(short), 32768L, 1 })]
@@ -246,7 +274,21 @@ public class AlgebraTests
     {
         Assert.True(IsTwoPow(value));
     }
+    
+    [CLSCompliant(false)]
+    [TestCaseSource(typeof(AlgebraTests), nameof(Get2Pows), new object[] { typeof(uint), 131072L, 1 })]
+    public void IsTwoPow_uint_YieldsFalse_Test(uint value)
+    {
+        Assert.False(IsTwoPow(value));
+    }
 
+    [CLSCompliant(false)]
+    [TestCaseSource(typeof(AlgebraTests), nameof(Get2Pows), new object[] { typeof(uint), 131072L, 0 })]
+    public void IsTwoPow_uint_YieldsTrue_Test(uint value)
+    {
+        Assert.True(IsTwoPow(value));
+    }
+    
     [CLSCompliant(false)]
     [TestCaseSource(typeof(AlgebraTests), nameof(Get2Pows), new object[] { typeof(int), 131072L, 1 })]
     public void IsTwoPow_int_YieldsFalse_Test(int value)
@@ -257,6 +299,20 @@ public class AlgebraTests
     [CLSCompliant(false)]
     [TestCaseSource(typeof(AlgebraTests), nameof(Get2Pows), new object[] { typeof(int), 131072L, 0 })]
     public void IsTwoPow_int_YieldsTrue_Test(int value)
+    {
+        Assert.True(IsTwoPow(value));
+    }
+
+    [CLSCompliant(false)]
+    [TestCaseSource(typeof(AlgebraTests), nameof(Get2Pows), new object[] { typeof(ulong), 131072L, 1 })]
+    public void IsTwoPow_ulong_YieldsFalse_Test(ulong value)
+    {
+        Assert.False(IsTwoPow(value));
+    }
+
+    [CLSCompliant(false)]
+    [TestCaseSource(typeof(AlgebraTests), nameof(Get2Pows), new object[] { typeof(ulong), 131072L, 0 })]
+    public void IsTwoPow_ulong_YieldsTrue_Test(ulong value)
     {
         Assert.True(IsTwoPow(value));
     }

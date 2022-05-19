@@ -382,7 +382,7 @@ public static partial class CollectionHelpers
     public static sbyte And(this IEnumerable<sbyte> collection)
     {
         And_Contract(collection);
-        return collection.Aggregate(default(sbyte), (current, j) => (sbyte)(current & j));
+        return collection.Aggregate((sbyte) -1, (current, j) => (sbyte)(current & j));
     }
 
     /// <summary>
@@ -404,7 +404,7 @@ public static partial class CollectionHelpers
     public static ushort And(this IEnumerable<ushort> collection)
     {
         And_Contract(collection);
-        return collection.Aggregate(default(ushort), (current, j) => (ushort)(current & j));
+        return collection.Aggregate(ushort.MaxValue, (current, j) => (ushort)(current & j));
     }
 
     /// <summary>
@@ -426,7 +426,7 @@ public static partial class CollectionHelpers
     public static uint And(this IEnumerable<uint> collection)
     {
         And_Contract(collection);
-        return collection.Aggregate(default(uint), (current, j) => current & j);
+        return collection.Aggregate(uint.MaxValue, (current, j) => current & j);
     }
 
     /// <summary>
@@ -448,7 +448,7 @@ public static partial class CollectionHelpers
     public static ulong And(this IEnumerable<ulong> collection)
     {
         And_Contract(collection);
-        return collection.Aggregate(default(ulong), (current, j) => current & j);
+        return collection.Aggregate(ulong.MaxValue, (current, j) => current & j);
     }
 
     /// <summary>

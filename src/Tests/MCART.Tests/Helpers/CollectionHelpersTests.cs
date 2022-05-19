@@ -60,8 +60,28 @@ public class CollectionHelpersTests
     }
 
     [CLSCompliant(false)]
+    [TestCase(new sbyte[] { 1, 2, 4 }, 7)]
+    [TestCase(new sbyte[] { 1, 2, 4, 8, 16, 32, 64 }, 127)]
+    [TestCase(new sbyte[] { -128, 127 }, -1)]
+    public void Or_Test_Sbyte(sbyte[] array, sbyte orValue)
+    {
+        Assert.AreEqual(orValue, array.Or());
+        Assert.Throws<ArgumentNullException>(() => ((IEnumerable<sbyte>)null!).Or());
+    }
+    
+    [CLSCompliant(false)]
+    [TestCase(new ushort[] { 1, 2, 4 }, (ushort)7)]
+    [TestCase(new ushort[] { 128, 255, 16384 }, (ushort)16639)]
+    public void Or_Test_UInt16(ushort[] array, ushort orValue)
+    {
+        Assert.AreEqual(orValue, array.Or());
+        Assert.Throws<ArgumentNullException>(() => ((IEnumerable<ushort>)null!).Or());
+    }
+
+    [CLSCompliant(false)]
     [TestCase(new short[] { 1, 2, 4 }, 7)]
     [TestCase(new short[] { 128, 255, 16384 }, 16639)]
+    [TestCase(new short[] { -32768, 32767 }, (short)-1)]
     public void Or_Test_Int16(short[] array, short orValue)
     {
         Assert.AreEqual(orValue, array.Or());
@@ -80,6 +100,7 @@ public class CollectionHelpersTests
     [CLSCompliant(false)]
     [TestCase(new[] { 1, 2, 4 }, 7)]
     [TestCase(new[] { 128, 255, 131072 }, 131327)]
+    [TestCase(new[] { -2147483648, 2147483647 }, -1)]
     public void Or_Test_Int32(int[] array, int orValue)
     {
         Assert.AreEqual(orValue, array.Or());
@@ -87,14 +108,33 @@ public class CollectionHelpersTests
     }
 
     [CLSCompliant(false)]
-    [TestCase(new long[] { 1, 2, 4 }, 7)]
-    [TestCase(new long[] { 128, 255, 131072 }, 131327)]
+    [TestCase(new uint[] { 1, 2, 4 }, (uint)7)]
+    [TestCase(new uint[] { 128, 255, 131072 }, (uint)131327)]
+    public void Or_Test_UInt32(uint[] array, uint orValue)
+    {
+        Assert.AreEqual(orValue, array.Or());
+        Assert.Throws<ArgumentNullException>(() => ((IEnumerable<uint>)null!).Or());
+    }
+    
+    [CLSCompliant(false)]
+    [TestCase(new [] { 1L, 2L, 4L }, 7L)]
+    [TestCase(new [] { 128L, 255L, 131072L }, 131327L)]
+    [TestCase(new [] { -9223372036854775808L, 9223372036854775807L }, -1L)]
     public void Or_Test_Int64(long[] array, long orValue)
     {
         Assert.AreEqual(orValue, array.Or());
         Assert.Throws<ArgumentNullException>(() => ((IEnumerable<long>)null!).Or());
     }
 
+    [CLSCompliant(false)]
+    [TestCase(new ulong[] { 1, 2, 4 }, (ulong)7)]
+    [TestCase(new ulong[] { 128, 255, 131072 }, (ulong)131327)]
+    public void Or_Test_UInt64(ulong[] array, ulong orValue)
+    {
+        Assert.AreEqual(orValue, array.Or());
+        Assert.Throws<ArgumentNullException>(() => ((IEnumerable<ulong>)null!).Or());
+    }
+    
     [Test]
     public void And_Test_bool()
     {
@@ -119,8 +159,29 @@ public class CollectionHelpersTests
     }
 
     [CLSCompliant(false)]
+    [TestCase(new sbyte[] { 1, 2, 4, 8, 16, 32, 64 }, 0)]
+    [TestCase(new sbyte[] { 64, 127 }, 64)]
+    public void And_Test_sbyte(sbyte[] array, sbyte orValue)
+    {
+        Assert.AreEqual(orValue, array.And());
+        Assert.Throws<ArgumentNullException>(() => ((IEnumerable<sbyte>)null!).And());
+        Assert.Throws<EmptyCollectionException>(() => Array.Empty<sbyte>().And());
+    }
+        
+    [CLSCompliant(false)]
+    [TestCase(new ushort[] { 1, 2, 4 }, (ushort)0)]
+    [TestCase(new ushort[] { 0x10F0, 0x100F }, (ushort)0x1000)]
+    public void And_Test_UInt16(ushort[] array, ushort orValue)
+    {
+        Assert.AreEqual(orValue, array.And());
+        Assert.Throws<ArgumentNullException>(() => ((IEnumerable<ushort>)null!).And());
+        Assert.Throws<EmptyCollectionException>(() => Array.Empty<ushort>().And());
+    }
+    
+    [CLSCompliant(false)]
     [TestCase(new short[] { 1, 2, 4 }, 0)]
     [TestCase(new short[] { 0x10F0, 0x100F }, 0x1000)]
+    [TestCase(new short[] { -1, 32767 }, 32767)]
     public void And_Test_Int16(short[] array, short orValue)
     {
         Assert.AreEqual(orValue, array.And());
@@ -139,8 +200,19 @@ public class CollectionHelpersTests
     }
 
     [CLSCompliant(false)]
+    [TestCase(new uint[] { 1, 2, 4 }, (uint)0)]
+    [TestCase(new uint[] { 0x10F0, 0x100F }, (uint)0x1000)]
+    public void And_Test_UInt32(uint[] array, uint orValue)
+    {
+        Assert.AreEqual(orValue, array.And());
+        Assert.Throws<ArgumentNullException>(() => ((IEnumerable<uint>)null!).And());
+        Assert.Throws<EmptyCollectionException>(() => Array.Empty<uint>().And());
+    }
+    
+    [CLSCompliant(false)]
     [TestCase(new[] { 1, 2, 4 }, 0)]
     [TestCase(new[] { 0x10F0, 0x100F }, 0x1000)]
+    [TestCase(new[] { -1, 2147483647 }, 2147483647)]
     public void And_Test_Int32(int[] array, int orValue)
     {
         Assert.AreEqual(orValue, array.And());
@@ -148,9 +220,21 @@ public class CollectionHelpersTests
         Assert.Throws<EmptyCollectionException>(() => Array.Empty<int>().And());
     }
 
+    
+    [CLSCompliant(false)]
+    [TestCase(new ulong[] { 1, 2, 4 }, (ulong)0)]
+    [TestCase(new ulong[] { 0x10F0, 0x100F }, (ulong)0x1000)]
+    public void And_Test_UInt64(ulong[] array, ulong orValue)
+    {
+        Assert.AreEqual(orValue, array.And());
+        Assert.Throws<ArgumentNullException>(() => ((IEnumerable<ulong>)null!).And());
+        Assert.Throws<EmptyCollectionException>(() => Array.Empty<ulong>().And());
+    }
+
     [CLSCompliant(false)]
     [TestCase(new long[] { 1, 2, 4 }, 0)]
     [TestCase(new long[] { 0x10F0, 0x100F }, 0x1000)]
+    [TestCase(new [] { -1L, 9223372036854775807L }, 9223372036854775807L)]
     public void And_Test_Int64(long[] array, long orValue)
     {
         Assert.AreEqual(orValue, array.And());
@@ -177,10 +261,28 @@ public class CollectionHelpersTests
         Assert.AreEqual(orValue, array.Xor());
         Assert.Throws<ArgumentNullException>(() => ((IEnumerable<byte>)null!).Xor());
     }
+    
+    [CLSCompliant(false)]
+    [TestCase(new sbyte[] { 85, 15 }, 90)]
+    public void Xor_Test_Sbyte(sbyte[] array, sbyte orValue)
+    {
+        Assert.AreEqual(orValue, array.Xor());
+        Assert.Throws<ArgumentNullException>(() => ((IEnumerable<sbyte>)null!).Xor());
+    }
 
+    [CLSCompliant(false)]
+    [TestCase(new ushort[] { 131, 140 }, (ushort)15)]
+    [TestCase(new ushort[] { 0x10F0, 0x100F }, (ushort)0x00FF)]
+    public void Xor_Test_UInt16(ushort[] array, ushort orValue)
+    {
+        Assert.AreEqual(orValue, array.Xor());
+        Assert.Throws<ArgumentNullException>(() => ((IEnumerable<ushort>)null!).Xor());
+    }
+    
     [CLSCompliant(false)]
     [TestCase(new short[] { 131, 140 }, 15)]
     [TestCase(new short[] { 0x10F0, 0x100F }, 0x00FF)]
+    [TestCase(new short[] { -3856, -21846 }, 23130)]
     public void Xor_Test_Int16(short[] array, short orValue)
     {
         Assert.AreEqual(orValue, array.Xor());
@@ -197,6 +299,15 @@ public class CollectionHelpersTests
     }
 
     [CLSCompliant(false)]
+    [TestCase(new uint[] { 131, 140 }, (uint)15)]
+    [TestCase(new uint[] { 0x10F0, 0x100F }, (uint)0x00FF)]
+    public void Xor_Test_UInt32(uint[] array, uint orValue)
+    {
+        Assert.AreEqual(orValue, array.Xor());
+        Assert.Throws<ArgumentNullException>(() => ((IEnumerable<uint>)null!).Xor());
+    }
+    
+    [CLSCompliant(false)]
     [TestCase(new[] { 131, 140 }, 15)]
     [TestCase(new[] { 0x10F0, 0x100F }, 0x00FF)]
     public void Xor_Test_Int32(int[] array, int orValue)
@@ -205,6 +316,15 @@ public class CollectionHelpersTests
         Assert.Throws<ArgumentNullException>(() => ((IEnumerable<int>)null!).Xor());
     }
 
+    [CLSCompliant(false)]
+    [TestCase(new ulong[] { 131, 140 }, (ulong)15)]
+    [TestCase(new ulong[] { 0x10F0, 0x100F }, (ulong)0x00FF)]
+    public void Xor_Test_UInt64(ulong[] array, ulong orValue)
+    {
+        Assert.AreEqual(orValue, array.Xor());
+        Assert.Throws<ArgumentNullException>(() => ((IEnumerable<ulong>)null!).Xor());
+    }
+    
     [CLSCompliant(false)]
     [TestCase(new long[] { 131, 140 }, 15)]
     [TestCase(new long[] { 0x10F0, 0x100F }, 0x00FF)]

@@ -44,7 +44,7 @@ public class TypeExpression
     /// Inicializa una nueva instancia de la clase
     /// <see cref="TypeExpression"/>.
     /// </summary>
-    /// <param name="fullName"></param>
+    /// <param name="fullName">Nombre completo del tipo al que esta expresión hace referencia.</param>
     public TypeExpression(string fullName)
     {
         _fullName = fullName;

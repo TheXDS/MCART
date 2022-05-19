@@ -22,7 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Tests.Types.Base;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -32,6 +31,62 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Types.Base;
+
+namespace TheXDS.MCART.Tests.Types.Base;
+
+public class NotifyPropertyChangeBaseTests
+{
+    private class NpcTestClass : NotifyPropertyChanged
+    {
+        private int _id;
+        private string _prefix = "test";
+        
+        public int Id
+        {
+            get => _id;
+            set => Change(ref _id, value);
+        }
+
+        public string Prefix
+        {
+            get => _prefix;
+            set => Change(ref _prefix, value);
+        }
+
+        public string IdAsString => $"{Prefix} {Id}";
+        
+        
+        public NpcTestClass()
+        {
+            RegisterPropertyChangeBroadcast(nameof(Id), new []{ nameof(IdAsString) }.AsEnumerable());
+            RegisterPropertyChangeTrigger(nameof(IdAsString), nameof(Prefix));
+        }
+    }
+
+    [Test]
+    public void Broadcast_registration_test()
+    {
+        bool risen = false;
+        NpcTestClass c = new();
+        
+        void TestPropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(c.IdAsString)) risen = true;
+        }
+        
+        c.PropertyChanged += TestPropertyChanged;
+        
+        c.Id = 1;
+        Assert.IsTrue(risen);
+        Assert.AreEqual("test 1", c.IdAsString);
+        
+        c.Prefix = "Test";
+        Assert.IsTrue(risen);
+        Assert.AreEqual("Test 1", c.IdAsString);
+        
+        c.PropertyChanged -= TestPropertyChanged;
+    }
+}
 
 public class NotifyPropertyChangedTests : NotifyPropertyChanged
 {

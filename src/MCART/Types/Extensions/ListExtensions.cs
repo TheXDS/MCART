@@ -22,11 +22,12 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Types.Extensions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Resources;
+namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
 /// Extensiones para todos los elementos de tipo <see cref="IList{T}" />.
@@ -44,7 +45,7 @@ public static partial class ListExtensions
         int i = 0;
         while (i < c.Count)
         {
-            if (typeof(T).IsInstanceOfType(c[i]))
+            if (c[i] is T)
             {
                 c.RemoveAt(i);
             }
@@ -237,7 +238,7 @@ public static partial class ListExtensions
     /// <param name="b">Segundo elemento.</param>
     public static void Swap<T>(this IList<T> collection, T a, T b)
     {
-        if (!collection.ContainsAll(a, b)) throw new Exception(); //TODO: agregar excepción específica
+        if (!collection.ContainsAll(a, b)) throw Errors.ListMustContainBoth();
         Swap(collection, collection.IndexOf(a), collection.IndexOf(b));
     }
 }

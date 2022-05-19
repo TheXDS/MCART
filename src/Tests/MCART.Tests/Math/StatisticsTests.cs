@@ -33,6 +33,34 @@ using static TheXDS.MCART.Math.Statistics;
 public class StatisticsTests
 {
     [Test]
+    public void GeometricMean_Test()
+    {
+        var d = new double[] { 2, 4, 6, 8, 10 }.GeometricMean();
+        Assert.True(d.IsBetween(5.2103421, 5.2103422));
+    }
+    
+    [Test]
+    public void HarmonicMean_Test()
+    {
+        var d = new double[] { 2, 4, 6, 8, 10 }.HarmonicMean();
+        Assert.True(d.IsBetween(4.3795, 4.3797));
+    }
+    
+    [Test]
+    public void Median_Test()
+    {
+        var d = new [] { 2.5, 4.75, 6.11, 9.14 }.Median();
+        Assert.AreEqual(3.625 , d);
+    }
+    
+    [Test]
+    public void Mode_Test()
+    {
+        var d = new [] { 2.5, 4.75, 6.11, 9.14, 2.5, 4.75 }.Mode();
+        Assert.AreEqual(new [] { 2.5, 4.75 } , d);
+    }
+
+    [Test]
     public void TendencyTest()
     {
         Assert.AreEqual(2.0, new double[] { 3, 5, 7 }.MeanTendency());

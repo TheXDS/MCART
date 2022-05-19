@@ -38,8 +38,8 @@ public class TypeFactoryTests
 {
     private class TestModel
     {
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public string? Name { get; set; }
+        public string? Description { get; set; }
     }
 
     public abstract class NpcBaseClass : INotifyPropertyChanged

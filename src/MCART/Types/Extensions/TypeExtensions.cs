@@ -26,7 +26,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TheXDS.MCART.Types.Extensions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -41,7 +40,8 @@ using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Resources;
 using System.Linq.Expressions;
 using TheXDS.MCART.Helpers;
-using TheXDS.MCART.Types.Extensions;
+
+namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
 /// Extensiones para todos los elementos de tipo <see cref="Type"/>.
@@ -139,7 +139,7 @@ public static partial class TypeExtensions
         if (!baseType.GenericTypeArguments.Any())
             return (type.IsConstructedGenericType && type.GetGenericTypeDefinition() == baseType) || type.GetInterfaces().Any(p => p.Implements(baseType));
 
-        Type? gt = baseType.MakeGenericType(type);
+        Type gt = baseType.MakeGenericType(type);
         return !gt.ContainsGenericParameters && gt.IsAssignableFrom(type);
     }
 
@@ -156,7 +156,7 @@ public static partial class TypeExtensions
     public static bool Implements(this Type type, Type baseType, params Type[] typeArgs)
     {
         if (!baseType.ContainsGenericParameters) return baseType.IsAssignableFrom(type);
-        Type? gt = baseType.MakeGenericType(typeArgs);
+        Type gt = baseType.MakeGenericType(typeArgs);
         return !gt.ContainsGenericParameters && gt.IsAssignableFrom(type);
     }
 
@@ -204,7 +204,7 @@ public static partial class TypeExtensions
     /// </returns>
     public static bool ImplementsOperator(this Type type, Func<Expression, Expression, BinaryExpression> @operator)
     {
-        ConstantExpression? c = Expression.Constant(type.Default(), type);
+        ConstantExpression c = Expression.Constant(type.Default(), type);
         try
         {
             _ = Expression.Lambda(
@@ -434,7 +434,7 @@ public static partial class TypeExtensions
     [DebuggerStepThrough]
     public static T? New<T>(this Type type, bool throwOnFail, IEnumerable? parameters)
     {
-        object?[]? p = parameters?.ToGeneric().ToArray() ?? Array.Empty<object?>();
+        object?[] p = parameters?.ToGeneric().ToArray() ?? Array.Empty<object?>();
         try
         {
             New_Contract(type, p);
@@ -559,9 +559,9 @@ public static partial class TypeExtensions
     /// <see langword="true"/>.
     /// </exception>
     [DebuggerStepThrough]
-    public static async Task<object?> NewAsync(this Type type, bool throwOnFail, bool @async, IEnumerable parameters)
+    public static async Task<object?> NewAsync(this Type type, bool throwOnFail, bool @async, IEnumerable? parameters)
     {
-        object?[]? p = parameters?.ToGeneric().ToArray() ?? Array.Empty<object?>();
+        object?[] p = parameters?.ToGeneric().ToArray() ?? Array.Empty<object?>();
         New_Contract(type, p);
         try
         {
@@ -628,7 +628,7 @@ public static partial class TypeExtensions
     {
         object? r = await NewAsync(type, throwOnFail, async, parameters);
         if (r is T v) return v;
-        return throwOnFail ? throw new InvalidCastException() : (T)default!;
+        return throwOnFail ? throw new InvalidCastException() : default!;
     }
 
     /// <summary>
@@ -661,7 +661,7 @@ public static partial class TypeExtensions
     /// </returns>
     public static Type? ResolveToDefinedType(this Type t)
     {
-        return (t.Assembly?.IsDynamic ?? false) ? ResolveToDefinedType(t.BaseType!) : t;
+        return t.Assembly.IsDynamic ? ResolveToDefinedType(t.BaseType!) : t;
     }
 
     /// <summary>
@@ -790,7 +790,7 @@ public static partial class TypeExtensions
     public static IEnumerable<Type> Derivates(this Type type, IEnumerable<Assembly> assemblies)
     {
         Derivates_Contract(assemblies);
-        List<Type>? retval = new();
+        List<Type> retval = new();
         foreach (Assembly? j in assemblies)
         {
             IEnumerable<Type> types;
@@ -825,7 +825,7 @@ public static partial class TypeExtensions
     public static IEnumerable<Type> Derivates(this Type type, IEnumerable<Type> types)
     {
         Derivates_Contract(type, types);
-        foreach (Type? k in types)
+        foreach (Type k in types)
         {
             if (type.IsAssignableFrom(k ?? throw new NullItemException())) yield return k;
         }

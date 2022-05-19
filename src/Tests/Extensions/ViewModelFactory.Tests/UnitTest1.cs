@@ -4,9 +4,9 @@ ViewModelFactoryTests.cs
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
 Author(s):
-     César Andrés Morgan <xds_xps_ivx@hotmail.com>
+     CÃ©sar AndrÃ©s Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2021 César Andrés Morgan
+Copyright Â© 2011 - 2021 CÃ©sar AndrÃ©s Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
@@ -36,8 +36,8 @@ public class ViewModelFactoryTests
     [ExcludeFromCodeCoverage]
     public class TestModel
     {
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public string? Name { get; set; }
+        public string? Description { get; set; }
     }
 
     private static readonly TypeFactory _factory = new($"{typeof(ViewModelFactoryTests).FullName}._Generated");

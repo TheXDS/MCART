@@ -67,7 +67,7 @@ public static partial class Common
     {
         byte c = 0;
         byte f = 0;
-        while (value != 0 || f++ == maxBits)
+        while (value != 0 & f++ < maxBits)
         {
             c += (byte)(value & 1);
             value >>= 1;

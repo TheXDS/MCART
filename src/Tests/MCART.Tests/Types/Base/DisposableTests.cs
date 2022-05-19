@@ -41,7 +41,7 @@ public class DisposableTests
 
         public bool ShouldFinalize => GetType().GetMethod(nameof(OnFinalize), Instance | NonPublic)!.IsOverride();
 
-        public bool DidOnDisposeRun { get; private set; }
+        public bool DidOnDisposeRun { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -63,7 +63,7 @@ public class DisposableTests
     [Test]
     public void OnDisposeExecutionTest()
     {
-        DisposableOne? m1 = new();
+        DisposableOne m1 = new();
         using (m1)
         {
             Assert.False(m1.DidOnDisposeRun);
@@ -73,9 +73,24 @@ public class DisposableTests
     }
 
     [Test]
+    public void Call_Dispose_multiple_times()
+    {
+        DisposableOne m1 = new();
+        m1.Dispose();
+        Assert.IsTrue(m1.IsDisposed);
+        Assert.IsTrue(m1.DidOnDisposeRun);
+        m1.Dispose();
+        m1.DidOnDisposeRun = false;
+        Assert.IsTrue(m1.IsDisposed);
+        Assert.IsFalse(m1.DidOnDisposeRun);
+    }
+    
+    
+
+    [Test]
     public void DisposeVsFinalizeTest()
     {
-        DisposableOne? m1 = new();
+        DisposableOne m1 = new();
         using (m1)
         {
             Assert.False(m1.IsDisposed);
@@ -83,7 +98,7 @@ public class DisposableTests
         }
         Assert.True(m1.IsDisposed);
 
-        DisposableTwo? m2 = new();
+        DisposableTwo m2 = new();
         using (m2)
         {
             Assert.False(m2.IsDisposed);

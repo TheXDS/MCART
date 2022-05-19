@@ -37,7 +37,7 @@ using TheXDS.MCART.Resources;
 /// </summary>
 public static partial class BinaryWriterExtensions
 {
-    private record struct BwDynCheck(bool CanWrite, object? PredicateContext)
+    private readonly record struct BwDynCheck(bool CanWrite, object? PredicateContext)
     {
         public BwDynCheck(bool CanWrite)
             : this(CanWrite, null)
@@ -47,18 +47,16 @@ public static partial class BinaryWriterExtensions
         public static implicit operator BwDynCheck(bool value) => new(value);
     }
 
-    private record struct DynWriteSet(DynCheck Predicate, DynWrite WriteAction)
+    private readonly record struct DynWriteSet(DynCheck Predicate, DynWrite WriteAction)
     {
         public DynWriteSet(Func<Type, bool> func, DynWrite action)
             : this(t => new(func(t), null), action)
         {
-
         }
 
         public DynWriteSet(Func<Type, bool> func, Action<BinaryWriter, object> action)
             : this(func, (_, bw, v) => action(bw, v))
         {
-
         }
     }
 

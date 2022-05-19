@@ -270,7 +270,7 @@ public static class Algebra
     /// <see langword="false"/> en caso contrario.
     /// </returns>
     [CLSCompliant(false)]
-    public static bool IsTwoPow(in sbyte value) => (value & ~1).BitCount() == 1;
+    public static bool IsTwoPow(in sbyte value) => value.BitCount() == 1;
 
     /// <summary>
     /// Determina si el valor es una potencia de 2.
@@ -281,7 +281,7 @@ public static class Algebra
     /// <see langword="false"/> en caso contrario.
     /// </returns>
     [CLSCompliant(false)]
-    public static bool IsTwoPow(in ushort value) => (value & ~1).BitCount() == 1;
+    public static bool IsTwoPow(in ushort value) => value.BitCount() == 1;
 
     /// <summary>
     /// Determina si el valor es una potencia de 2.
@@ -292,7 +292,7 @@ public static class Algebra
     /// <see langword="false"/> en caso contrario.
     /// </returns>
     [CLSCompliant(false)]
-    public static bool IsTwoPow(in uint value) => (value & ~1).BitCount() == 1;
+    public static bool IsTwoPow(in uint value) => value.BitCount() == 1;
 
     /// <summary>
     /// Determina si el valor es una potencia de 2.
@@ -303,7 +303,7 @@ public static class Algebra
     /// <see langword="false"/> en caso contrario.
     /// </returns>
     [CLSCompliant(false)]
-    public static bool IsTwoPow(in ulong value) => unchecked((long)(value & ~1UL)).BitCount() == 1;
+    public static bool IsTwoPow(in ulong value) => value.BitCount() == 1;
 
     /// <summary>
     /// Devuelve la primer potencia de <paramref name="powerBase" /> que es mayor que <paramref name="value" />

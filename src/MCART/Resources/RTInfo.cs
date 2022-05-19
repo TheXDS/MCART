@@ -123,7 +123,7 @@ public class RtInfo : AssemblyInfo
     /// <param name="type"><see cref="Type" /> a comprobar.</param>
     public static bool? RtSupport(Type type)
     {
-        /* HACK: Problema al implementar RTSupport(Type)
+        /* BUG: Problema al implementar RTSupport(Type)
          * Esta función debe reimplementarse completa debido a un
          * problema de boxing al intentar llamar a RTSupport<T>(T), ya que
          * .Net Framework podría pasar un objeto de tipo interno, 
