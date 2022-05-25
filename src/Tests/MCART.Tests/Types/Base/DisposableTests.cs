@@ -84,8 +84,6 @@ public class DisposableTests
         Assert.IsTrue(m1.IsDisposed);
         Assert.IsFalse(m1.DidOnDisposeRun);
     }
-    
-    
 
     [Test]
     public void DisposeVsFinalizeTest()

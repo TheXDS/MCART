@@ -40,8 +40,6 @@ public abstract partial class NotifyPropertyChangeBase
     {
         EmptyCheck(property, nameof(property));
         NullCheck(affectedProperties, nameof(affectedProperties));
-
-        
         if (affectedProperties.Length == 0) throw Errors.EmptyCollection(affectedProperties);
         if (affectedProperties.Any(StringExtensions.IsEmpty)) throw Errors.InvalidValue(nameof(affectedProperties));
         if (affectedProperties

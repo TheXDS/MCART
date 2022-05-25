@@ -86,7 +86,7 @@ public static class WpfWindowExtensions
                 Types.Point mp = Windows.GetCursorPosition();
                 double wi = window.ActualWidth;
                 window.WindowState = WindowState.Normal;
-                window.Left = mp.X - wp.X * (window.Width - rightChromeWidth) / (wi + rightChromeWidth);
+                window.Left = mp.X - (wp.X * (window.Width - rightChromeWidth) / (wi + rightChromeWidth));
                 window.Top = mp.Y - wp.Y;
             }
             window.DragMove();
