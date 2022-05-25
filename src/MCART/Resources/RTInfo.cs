@@ -22,9 +22,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-[assembly: TheXDS.MCART.Attributes.McartComponent(TheXDS.MCART.Resources.RtInfo.ComponentKind.Core)]
-
-namespace TheXDS.MCART.Resources;
 using System;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
@@ -32,6 +29,9 @@ using TheXDS.MCART.Component;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types.Extensions;
 
+[assembly: McartComponent(TheXDS.MCART.Resources.RtInfo.ComponentKind.Core)]
+
+namespace TheXDS.MCART.Resources;
 
 /// <summary>
 /// Contiene métodos con funciones de identificación en información del

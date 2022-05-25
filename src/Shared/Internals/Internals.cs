@@ -80,7 +80,6 @@ internal static class Internals
         return str;
     }
 
-
     [Conditional("EnforceContracts")]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static void EmptyCheck(string? str, string name)

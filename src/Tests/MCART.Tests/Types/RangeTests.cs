@@ -29,7 +29,6 @@ using TheXDS.MCART.Types;
 
 public class RangeTests
 {
-
     [CLSCompliant(false)]
     [TestCase("1-5")]
     [TestCase("1 - 5")]

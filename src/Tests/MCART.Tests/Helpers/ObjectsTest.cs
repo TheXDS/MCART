@@ -86,7 +86,6 @@ public class ObjectsTest
         public int TestField = 2;
     }
     
-    
     [ExcludeFromCodeCoverage]
     private class TestClass4 : ITestInterface
     {
@@ -189,7 +188,6 @@ public class ObjectsTest
         Assert.IsNotEmpty(c);
         Assert.AreEqual(1, c.Length);
     }
-    
             
     [Test]
     public void FindFirstObject_Simple_Test()

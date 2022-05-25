@@ -55,7 +55,7 @@ public static class WpfUtils
     /// </returns>
     public static BitmapImage? GetBitmap(Stream? stream)
     {
-        if (stream is null || stream.CanSeek && stream.Length == 0) return null;
+        if (stream is null || (stream.CanSeek && stream.Length == 0)) return null;
         try
         {
             BitmapImage? retVal = new();
@@ -199,16 +199,16 @@ public static class WpfUtils
         {
             IsLargeArc = endAngle - startAngle > 180.0,
             Point = new Point(
-                cp.X + System.Math.Sin(C.DegRad * endAngle) * radius,
-                cp.Y - System.Math.Cos(C.DegRad * endAngle) * radius),
+                cp.X + (Math.Sin(C.DegRad * endAngle) * radius),
+                cp.Y - (Math.Cos(C.DegRad * endAngle) * radius)),
             Size = new Size(radius, radius),
             SweepDirection = SweepDirection.Clockwise
         };
         PathFigure? pth = new()
         {
             StartPoint = new Point(
-                cp.X + System.Math.Sin(C.DegRad * startAngle) * radius,
-                cp.Y - System.Math.Cos(C.DegRad * startAngle) * radius),
+                cp.X + (Math.Sin(C.DegRad * startAngle) * radius),
+                cp.Y - (Math.Cos(C.DegRad * startAngle) * radius)),
             IsClosed = false
         };
         pth.Segments.Add(arc);
