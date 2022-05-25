@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ErrCannotJoinTypes" xml:space="preserve">
+    <value>No es posible combinar los tipos especificados debido a conflictos entre los miembros a incluir en el tipo resultante.</value>
+  </data>
   <data name="ErrIFaceMethodExpected" xml:space="preserve">
     <value>Se esperaba una definición de método desde una interfaz.</value>
   </data>

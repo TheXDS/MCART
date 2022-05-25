@@ -406,7 +406,7 @@ public static partial class BinaryReaderExtensions
     private static object ByFieldReadStructInternal(BinaryReader reader, Type t)
     {
         var c = SearchConstructor(t);
-        object obj = c?.Invoke(null, ReadCtorParameters(c, reader).ToArray()) ?? Activator.CreateInstance(t) ?? throw Errors.Tamper();
+        object obj = c?.Invoke(ReadCtorParameters(c, reader).ToArray()) ?? Activator.CreateInstance(t) ?? throw Errors.Tamper();
         foreach (FieldInfo? j in t.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic))
         {
             if (!j.IsInitOnly) j.SetValue(obj, reader.Read(j.FieldType));
@@ -417,7 +417,7 @@ public static partial class BinaryReaderExtensions
     private static ConstructorInfo? SearchConstructor(Type t)
     {
         static bool IsFieldMapped((FieldInfo f, ParameterInfo p) x) =>
-            (x.f.FieldType != x.p.ParameterType) &&
+            x.f.FieldType == x.p.ParameterType &&
             x.f.Name.ToLowerInvariant().StartsWith($"<{x.p.Name!.ToLowerInvariant()}>");
 
         var props = t.GetFields(BindingFlags.Instance | BindingFlags.NonPublic).Where(p => p.IsInitOnly).ToArray();

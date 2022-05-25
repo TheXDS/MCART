@@ -122,5 +122,22 @@ namespace TheXDS.MCART.Types.Extensions
         {
             NullCheck(type, nameof(type));
         }
+
+        [Conditional("EnforceContracts")]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [DebuggerNonUserCode]
+        private static void GetDefinedMethods_Contract(Type type)
+        {
+            NullCheck(type, nameof(type));
+        }
+
+
+        [Conditional("EnforceContracts")]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [DebuggerNonUserCode]
+        private static void GetPublicProperties_Contract(Type type)
+        {
+            NullCheck(type, nameof(type));
+        }
     }
 }

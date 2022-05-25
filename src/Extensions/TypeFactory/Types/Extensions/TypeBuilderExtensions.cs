@@ -980,7 +980,7 @@ public static class TypeBuilderExtensions
     /// Un <see cref="ILGenerator"/> que permite definir las instrucciones
     /// del constructor.
     /// </returns>
-    public static ILGenerator AddPublicConstructor(this TypeBuilder tb, Type[] arguments)
+    public static ILGenerator AddPublicConstructor(this TypeBuilder tb, params Type[] arguments)
     {
         return tb.DefineConstructor(Public | SpecialName | HideBySig | RTSpecialName, CallingConventions.HasThis, arguments).GetILGenerator();
     }

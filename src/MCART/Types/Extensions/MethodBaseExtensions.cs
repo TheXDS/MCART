@@ -126,4 +126,18 @@ public static partial class MethodBaseExtensions
 
         return retVal;
     }
+
+    /// <summary>
+    /// Obtiene un arreglo con los tipos de parámetro del método.
+    /// </summary>
+    /// <param name="method">
+    /// Método del cual extraer la colección de tipos de parámetro.
+    /// </param>
+    /// <returns>
+    /// Un arreglo con los tipos de cada uno de los parámetros del método.
+    /// </returns>
+    public static Type[] GetParameterTypes(this MethodBase method)
+    {
+        return method.GetParameters().Select(p => p.ParameterType).ToArray();
+    }
 }

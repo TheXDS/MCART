@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TheXDS.MCART.Ext.TypeFactory.Resources {
+namespace TheXDS.MCART.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace TheXDS.MCART.Ext.TypeFactory.Resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("TheXDS.MCART.Ext.TypeFactory.Resources.TypeFactoryStrings", typeof(TypeFactoryStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("TheXDS.MCART.Resources.TypeFactoryStrings", typeof(TypeFactoryStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,6 +57,15 @@ namespace TheXDS.MCART.Ext.TypeFactory.Resources {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a No es posible combinar los tipos especificados debido a conflictos entre los miembros a incluir en el tipo resultante..
+        /// </summary>
+        internal static string ErrCannotJoinTypes {
+            get {
+                return ResourceManager.GetString("ErrCannotJoinTypes", resourceCulture);
             }
         }
         

@@ -403,8 +403,8 @@ public static class ILGeneratorExtensions
     public static ILGenerator CallBaseCtor<TClass>(this ILGenerator ilGen, Type[] baseCtorArgs)
     {
         ilGen.This();
-        ilGen.Emit(Op.Call, typeof(TClass).BaseType?.GetConstructor(baseCtorArgs)
-            ?? typeof(TClass).BaseType?.GetConstructors(BindingFlags.NonPublic | BindingFlags.Instance).FirstOrDefault(p => p.GetParameters().Select(p => p.ParameterType).ItemsEqual(baseCtorArgs))
+        ilGen.Emit(Op.Call, typeof(TClass).GetConstructor(baseCtorArgs)
+            ?? typeof(TClass).GetConstructors(BindingFlags.NonPublic | BindingFlags.Instance).FirstOrDefault(p => p.GetParameters().Select(p => p.ParameterType).ItemsEqual(baseCtorArgs))
             ?? throw new MissingMemberException());
         return ilGen;
     }
@@ -489,6 +489,23 @@ public static class ILGeneratorExtensions
     public static ILGenerator Call(this ILGenerator ilGen, MethodInfo method)
     {
         ilGen.Emit(method.IsVirtual ? Callvirt : Op.Call, method);
+        return ilGen;
+    }
+
+    /// <summary>
+    /// Inserta una llamada explícitamente virtual al método especificado.
+    /// </summary>
+    /// <param name="ilGen">
+    /// Secuencia de instrucciones en la cual insertar la llamada.
+    /// </param>
+    /// <param name="method">Método a llamar.</param>
+    /// <returns>
+    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+    /// de sintáxis Fluent.
+    /// </returns>
+    public static ILGenerator CallVirt(this ILGenerator ilGen, MethodInfo method)
+    {
+        ilGen.Emit(Callvirt, method);
         return ilGen;
     }
 
@@ -1780,6 +1797,19 @@ public static class ILGeneratorExtensions
     public static ILGenerator Remainder(this ILGenerator ilGen) => OneLiner(ilGen, Rem);
 
     /// <summary>
+    /// Inserta una instrucción NOP en la secuencia del lenguaje intermedio de
+    /// Microsoft® (MSIL).
+    /// </summary>
+    /// <param name="ilGen">
+    /// Secuencia de instrucciones en la cual insertar la operación.
+    /// </param>
+    /// <returns>
+    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+    /// de sintáxis Fluent.
+    /// </returns>
+    public static ILGenerator Nop(this ILGenerator ilGen) => OneLiner(ilGen, OpCodes.Nop);
+
+    /// <summary>
     /// Inserta la carga de la referencia a la instancia del tipo (el valor
     /// <see langword="this"/>) en la secuencia del lenguaje intermedio de
     /// Microsoft® (MSIL).
@@ -1875,6 +1905,24 @@ public static class ILGeneratorExtensions
     {
         if (argIndex < 0) throw new ArgumentOutOfRangeException(nameof(argIndex));
         ilGen.Emit(Ldarga, argIndex);
+        return ilGen;
+    }
+
+    /// <summary>
+    /// Inserta la carga de un parámetro en la secuencia del lenguaje
+    /// intermedio de Microsoft® (MSIL).
+    /// </summary>
+    /// <param name="ilGen">
+    /// Secuencia de instrucciones en la cual insertar la operación.
+    /// </param>
+    /// <param name="parameter">Parámetro a cargar.</param>
+    /// <returns>
+    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+    /// de sintáxis Fluent.
+    /// </returns>
+    public static ILGenerator LoadParameter(this ILGenerator ilGen, ParameterInfo parameter)
+    {
+        ilGen.Emit(Ldarg, parameter.Position + 1);
         return ilGen;
     }
 

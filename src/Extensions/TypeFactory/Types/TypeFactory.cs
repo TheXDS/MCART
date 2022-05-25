@@ -72,6 +72,19 @@ public class TypeFactory : IExposeAssembly
     /// Inicializa una nueva instancia de la clase 
     /// <see cref="TypeFactory"/>.
     /// </summary>
+    /// <param name="useGuid">
+    /// <see langword="true"/> para adjuntar un Guid al final del nombre de
+    /// los tipos generados por medio de este <see cref="TypeFactory"/>.
+    /// </param>
+    public TypeFactory(bool useGuid) : this()
+    {
+        _useGuid = useGuid;
+    }
+
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase 
+    /// <see cref="TypeFactory"/>.
+    /// </summary>
     /// <param name="namespace">
     /// Espacio de nombres a utilizar para los tipos a construir.
     /// </param>

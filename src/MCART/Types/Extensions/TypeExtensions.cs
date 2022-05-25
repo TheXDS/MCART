@@ -998,4 +998,50 @@ public static partial class TypeExtensions
         FieldsOf_Contract(type);
         return ReflectionHelpers.FieldsOf<T>(type.GetFields(BindingFlags.Static | BindingFlags.Public), null);
     }
+
+    /// <summary>
+    /// Obtiene una colección de los métodos definidos directamente en el tipo.
+    /// </summary>
+    /// <param name="type">Tipo para el cual listar los métodos.</param>
+    /// <param name="flags">
+    /// Banderas a utilizar para filtrar los métodos a obtener.
+    /// </param>
+    /// <returns>
+    /// Una enumeración de los métodos definidos directamente en el tipo.
+    /// </returns>
+    public static IEnumerable<MethodInfo> GetDefinedMethods(this Type type, BindingFlags flags)
+    {
+        return type.GetMethods(flags).Where(p => p.DeclaringType == type && p.IsSpecialName == false);
+    }
+
+    /// <summary>
+    /// Obtiene una colección de los métodos de instancia públicos definidos
+    /// directamente en el tipo.
+    /// </summary>
+    /// <param name="type">Tipo para el cual listar los métodos.</param>
+    /// <returns>
+    /// Una enumeración de los métodos definidos directamente en el tipo.
+    /// </returns>
+    public static IEnumerable<MethodInfo> GetDefinedMethods(this Type type)
+    {
+        GetDefinedMethods_Contract(type);
+        return GetDefinedMethods(type, BindingFlags.Public | BindingFlags.Instance);
+    }
+
+    /// <summary>
+    /// Enumera todas las propiedades públicas de instancia del tipo.
+    /// </summary>
+    /// <param name="type">
+    /// Tipo para el cual enumerar las propiedades públicas de instancia.
+    /// </param>
+    /// <returns>
+    /// Una enumeración con todas las propiedades públicas de instancia del
+    /// tipo.
+    /// </returns>
+    [Sugar]
+    public static IEnumerable<PropertyInfo> GetPublicProperties(this Type type)
+    {
+        GetPublicProperties_Contract(type);
+        return type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+    }
 }

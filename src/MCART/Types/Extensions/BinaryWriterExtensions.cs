@@ -218,7 +218,7 @@ public static partial class BinaryWriterExtensions
     {
         foreach (FieldInfo? j in obj.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic))
         {
-            if (!j.IsInitOnly) writer.DynamicWrite(j.GetValue(obj) ?? throw Errors.FieldIsNull(j));
+            writer.DynamicWrite(j.GetValue(obj) ?? throw Errors.FieldIsNull(j));
         }
     }
 
