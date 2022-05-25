@@ -131,7 +131,6 @@ namespace TheXDS.MCART.Types.Extensions
             NullCheck(type, nameof(type));
         }
 
-
         [Conditional("EnforceContracts")]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DebuggerNonUserCode]
