@@ -111,8 +111,15 @@ public static partial class EnumerableExtensions
     {
         if (collection is ICollection c)
         {
-            if (c.IsSynchronized) action(collection);
-            else lock (c.SyncRoot) action(collection);
+            try
+            {
+                if (c.IsSynchronized) action(collection);
+                else lock (c.SyncRoot) action(collection);
+            }
+            catch (NotSupportedException)
+            {
+                action(collection);
+            }
         }
         else
         {
@@ -140,8 +147,15 @@ public static partial class EnumerableExtensions
     {
         if (collection is ICollection c)
         {
-            if (c.IsSynchronized) return func(collection);
-            lock (c.SyncRoot) return func(collection);
+            try
+            {
+                if (c.IsSynchronized) return func(collection);
+                lock (c.SyncRoot) return func(collection);
+            }
+            catch (NotSupportedException)
+            {
+                return func(collection);
+            }
         }
         lock (collection) return func(collection);
     }
@@ -589,7 +603,7 @@ public static partial class EnumerableExtensions
     {
         List<T> c = collection.ToList();
         if (!c.Any()) throw Errors.EmptyCollection(c);
-        return c.ElementAt(RandomExtensions.Rnd.Next(0, c.Count));
+        return c.ElementAt(random.Next(0, c.Count));
     }
 
     /// <summary>

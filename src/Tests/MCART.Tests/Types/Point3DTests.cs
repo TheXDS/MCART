@@ -309,6 +309,15 @@ public class Point3DTests
         Assert.AreEqual(2, p.Y);
         Assert.AreEqual(3, p.Z);
     }
+    
+    [Test]
+    public void Implicit_Point_to_Point3D_Operator_Test()
+    {
+        Point3D p = new Point(3, 5);
+        Assert.AreEqual(3, p.X);
+        Assert.AreEqual(5, p.Y);
+        Assert.AreEqual(double.NaN, p.Z);
+    }
 
     [Test]
     public void NotEquals_Test()

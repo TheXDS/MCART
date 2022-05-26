@@ -159,35 +159,6 @@ public class TypeFactory : IExposeAssembly
     }
 
     /// <summary>
-    /// Crea una nueva estructura pública.
-    /// </summary>
-    /// <param name="name">Nombre de la nueva estructura.</param>
-    /// <param name="interfaces">
-    /// Interfaces a implementar por la nueva estructura.
-    /// </param>
-    /// <returns>
-    /// Un <see cref="TypeBuilder"/> por medio del cual se podrá definir a
-    /// los miembros de la nueva estructura.
-    /// </returns>
-    public TypeBuilder NewStruct(string name, IEnumerable<Type>? interfaces)
-    {
-        return _mBuilder.DefineType(GetName(name), TypeAttributes.Public, null, interfaces?.ToArray());
-    }
-
-    /// <summary>
-    /// Crea una nueva estructura pública.
-    /// </summary>
-    /// <param name="name">Nombre de la nueva estructura.</param>
-    /// <returns>
-    /// Un <see cref="TypeBuilder"/> por medio del cual se podrá definir a
-    /// los miembros de la nueva estructura.
-    /// </returns>
-    public TypeBuilder NewStruct(string name)
-    {
-        return NewStruct(name, null);
-    }
-
-    /// <summary>
     /// Crea una nueva clase pública.
     /// </summary>
     /// <param name="name">Nombre de la nueva clase.</param>

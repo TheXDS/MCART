@@ -25,6 +25,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 using NUnit.Framework;
 using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -47,6 +48,12 @@ public class EnumerableExtensionsTests
             l.Add(c.Pick());
         } while (l.Count > 10);
         Assert.AreNotEqual(c, l.ToArray());
+    }
+    
+    [Test]
+    public void Pick_contract_test()
+    {
+        Assert.Throws<InvalidOperationException>(() => Array.Empty<int>().Pick());
     }
 
     [Test]
@@ -132,6 +139,34 @@ public class EnumerableExtensionsTests
         Assert.AreEqual(3, Enumerate().Locked(p => p.Count()));
     }
 
+    [Test]
+    public void Locked_Test3()
+    {
+        ICollection c = new[] { 1, 2, 3 };
+        c.Locked(p =>
+        {
+            foreach (object? j in p)
+            {
+                Assert.IsAssignableFrom<int>(j);
+            }
+        });
+        Assert.AreEqual(3, c.Locked(p => p.Count()));
+    }
+    
+    [Test]
+    public void Locked_Test4()
+    {
+        ICollection c = new ConcurrentBag<int> { 1, 2, 3 };
+        c.Locked(p =>
+        {
+            foreach (object? j in p)
+            {
+                Assert.IsAssignableFrom<int>(j);
+            }
+        });
+        Assert.AreEqual(3, c.Locked(p => p.Count()));
+    }
+    
     [Test]
     public async Task SelectAsync_Test()
     {
@@ -321,7 +356,7 @@ public class EnumerableExtensionsTests
         Assert.AreEqual(new[] { 4, 5, 6 }, c.Range(3, 3));
         Assert.AreEqual(new[] { 7, 8, 9 }, c.Range(6, 3));
         Assert.AreEqual(new[] { 9, 10 }, c.Range(8, 3));
-        Assert.Throws<IndexOutOfRangeException>(() => c.Range(99, 5).ToArray());
+        Assert.Throws<IndexOutOfRangeException>(() => _ = c.Range(99, 5).ToArray());
     }
 
     [Test]

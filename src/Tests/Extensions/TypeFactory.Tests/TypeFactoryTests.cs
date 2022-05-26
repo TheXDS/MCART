@@ -22,17 +22,18 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-using NUnit.Framework;
 using System;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
+using NUnit.Framework;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Base;
 using TheXDS.MCART.Types.Extensions;
 
-namespace TheXDS.MCART.Tests;
+namespace TheXDS.MCART.TypeFactory.Tests;
 
 public class TypeFactoryTests
 {
@@ -53,22 +54,22 @@ public class TypeFactoryTests
         }
     }
 
-    private static readonly TypeFactory _factory = new($"{typeof(TypeFactoryTests).FullName}._Generated");
+    private static readonly Types.TypeFactory _factory = new($"{typeof(TypeFactoryTests).FullName}._Generated");
     [Test]
     public void Build_Simple_Type_Test()
     {
-        System.Reflection.Emit.TypeBuilder? t = _factory.NewClass("GreeterClass");
-        PropertyBuildInfo? nameProp = t.AddAutoProperty<string>("Name");
+        System.Reflection.Emit.TypeBuilder t = _factory.NewClass("GreeterClass");
+        PropertyBuildInfo nameProp = t.AddAutoProperty<string>("Name");
         t.AddComputedProperty<string>("Greeting", p => p
             .LoadConstant("Hello, ")
             .LoadProperty(nameProp)
             .Call<Func<string?, string?, string>>(string.Concat)
             .Return());
 
-        object? greeterInstance = t.New();
+        object greeterInstance = t.New();
         ((dynamic)greeterInstance).Name = "Jhon";
 
-        Assert.AreEqual("TheXDS.MCART.Tests.TypeFactoryTests._Generated", t.Namespace);
+        Assert.AreEqual("TheXDS.MCART.TypeFactory.Tests.TypeFactoryTests._Generated", t.Namespace);
         Assert.AreEqual("Jhon", (string)((dynamic)greeterInstance).Name);
         Assert.AreEqual("Hello, Jhon", (string)((dynamic)greeterInstance).Greeting);
     }
@@ -76,7 +77,7 @@ public class TypeFactoryTests
     [Test]
     public void Build_Npc_Type_Test()
     {
-        ITypeBuilder<NotifyPropertyChanged>? t = _factory.NewType<NotifyPropertyChanged>("NpcTestClass");
+        ITypeBuilder<NotifyPropertyChanged> t = _factory.NewType<NotifyPropertyChanged>("NpcTestClass");
         t.AddNpcProperty<string>("Name");
         dynamic npcInstance = t.New();
         (object? Sender, PropertyChangedEventArgs Arguments)? evt = null;
@@ -92,7 +93,7 @@ public class TypeFactoryTests
     [Test]
     public void Build_Npc_Type_With_Public_Base_Class_Test()
     {
-        ITypeBuilder<NpcBaseClass>? t = _factory.NewType<NpcBaseClass>("NpcBaseTestClass");
+        ITypeBuilder<NpcBaseClass> t = _factory.NewType<NpcBaseClass>("NpcBaseTestClass");
         t.AddNpcProperty<string>("Name");
         t.AddNpcProperty<int>("Age");
         dynamic npcInstance = t.New();
@@ -122,5 +123,12 @@ public class TypeFactoryTests
             Assert.AreEqual("Test", j.GetValue(instance));
         }
         ((NotifyPropertyChanged)instance).PropertyChanged -= OnPropertyChanged;
+    }
+
+    [Test]
+    public void Factory_exposes_dynamic_assembly()
+    {
+        Assert.IsInstanceOf<Assembly>(_factory.Assembly);
+        Assert.True(_factory.Assembly.IsDynamic);
     }
 }

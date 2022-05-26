@@ -25,6 +25,9 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+using Microsoft.VisualStudio.TestPlatform.Utilities;
+using NUnit.Framework.Internal;
+
 namespace TheXDS.MCART.Tests.Types.Extensions;
 using NUnit.Framework;
 using System;
@@ -249,6 +252,40 @@ public class StringExtensionsTests
         Assert.AreEqual("TestStringTest", str.Chop("Test"));
     }
 
+    [Test]
+    public void ChopEndAny_Test()
+    {
+        string[] s = { "A000A", "A000B", "A000C" };
+        Assert.True(s.Select(p => p.ChopEndAny("0A", "0B", "0C")).All(p => p == "A00"));
+        Assert.True(s.Select(p => p.ChopEndAny("0D", "0E", "0F")).All(p => p != "A00"));
+    }
+
+    [Test]
+    public void ChopStartAny_Test()
+    {
+        string[] s = { "A000A", "B000A", "C000A" };
+        Assert.True(s.Select(p => p.ChopStartAny("A0", "B0", "C0")).All(p => p == "00A"));
+        Assert.True(s.Select(p => p.ChopStartAny("D0", "E0", "F0")).All(p => p != "00A"));
+    }
+
+    [Test]
+    public void ToBase64_Test()
+    {
+        Assert.AreEqual("VGVzdA==", "Test".ToBase64());
+    }
+
+    [Test]
+    public void ToBase64_Test2()
+    {
+        Assert.AreEqual("VGVzdA==", "Test".ToBase64(Encoding.Default));
+        Assert.AreEqual("VGVzdA==", "Test".ToBase64(Encoding.Latin1));
+        Assert.AreEqual("VABlAHMAdAA=", "Test".ToBase64(Encoding.Unicode));
+        Assert.AreEqual("AFQAZQBzAHQ=", "Test".ToBase64(Encoding.BigEndianUnicode));
+        Assert.AreEqual("VGVzdA==", "Test".ToBase64(Encoding.UTF8));
+        Assert.AreEqual("VAAAAGUAAABzAAAAdAAAAA==", "Test".ToBase64(Encoding.UTF32));
+        Assert.AreEqual("VGVzdA==", "Test".ToBase64(Encoding.ASCII));
+    }
+    
     [Test]
     public void OrNull_Test()
     {
