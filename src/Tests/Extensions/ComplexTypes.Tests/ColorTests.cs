@@ -1,12 +1,12 @@
-/*
+ï»¿/*
 ColorTests.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
 Author(s):
-     César Andrés Morgan <xds_xps_ivx@hotmail.com>
+     Cï¿½sar Andrï¿½s Morgan <xds_xps_ivx@hotmail.com>
 
-Copyright © 2011 - 2021 César Andrés Morgan
+Copyright ï¿½ 2011 - 2021 Cï¿½sar Andrï¿½s Morgan
 
 Morgan's CLR Advanced Runtime (MCART) is free software: you can redistribute it
 and/or modify it under the terms of the GNU General Public License as published
