@@ -1215,7 +1215,7 @@ public static partial class FlowDocumentExtensions
                 new Run
                 {
                     Text = text,
-                    FontSize = 36 - 6 * level
+                    FontSize = 36 - (6 * level)
                 }
             },
             TextAlignment = alignment
