@@ -12,7 +12,7 @@
     <RepositoryUrl>https://github.com/TheXDS/MCART</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <Description>$(Product) es un conjunto de funciones, extensiones y módulos que he encontrado útiles a lo largo de mis años de experiencia con lenguajes .Net, particularmente con Visual Basic. Trata de añadir características que no se encuentran fácilmente disponibles en .Net Framework, y además añade controles, ventanas, recursos y otros objetos de utilidad.</Description>
-    <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageDescription>$(Description)</PackageDescription>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
   </PropertyGroup>
