@@ -28,12 +28,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.ValueConverters;
 using System.Globalization;
 using System.Windows.Data;
 using TheXDS.MCART.ValueConverters.Base;
-using MT = Types;
+using MT = TheXDS.MCART.Types;
 
+namespace TheXDS.MCART.ValueConverters;
 
 /// <summary>
 /// Convierte valores desde y hacia objetos de tipo

@@ -28,10 +28,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.ValueConverters;
 using System;
 using System.Globalization;
 using System.Windows.Data;
+
+namespace TheXDS.MCART.ValueConverters;
 
 /// <summary>
 /// Clase base para crear convertidores de valores booleanos que pueden ser
@@ -69,7 +70,6 @@ public sealed class NullBoolConverter<T> : IValueConverter
     {
         True = trueValue;
         Null = False = falseValue!;
-
     }
 
     /// <summary>

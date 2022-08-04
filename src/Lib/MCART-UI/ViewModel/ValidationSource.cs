@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.ViewModel;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -36,6 +35,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using TheXDS.MCART.Types.Extensions;
+
+namespace TheXDS.MCART.ViewModel;
 
 /// <summary>
 /// Ejecuta validaciones de datos dentro de un 
@@ -48,6 +49,7 @@ public abstract class ValidationSource : INotifyDataErrorInfo
         IEnumerable<string> Check(object? value);
         PropertyInfo Property { get; }
     }
+
     private protected class ValidationEntry<T> : IValidationEntry, IValidationEntry<T>
     {
         private class ValidationRule

@@ -40,12 +40,12 @@ namespace TheXDS.MCART.Types.Extensions;
 public static class TypeFactoryVmExtensions
 {
     /// <summary>
-    /// Compila un nuevo <see cref="ViewModel{T}"/> definiendo un campo de
+    /// Compila un nuevo <see cref="EntityViewModel{T}"/> definiendo un campo de
     /// entidad de tipo <typeparamref name="TModel"/>.
     /// </summary>
     /// <typeparam name="TModel">
     /// Tipo de entidad para la cual compilar un nuevo
-    /// <see cref="ViewModel{T}"/>.
+    /// <see cref="EntityViewModel{T}"/>.
     /// </typeparam>
     /// <param name="factory">
     /// Fábrica de tipos a utilizar para crear el nuevo tipo.
@@ -63,12 +63,12 @@ public static class TypeFactoryVmExtensions
     /// de valor que utilizarán como campo de almacenamiento a la entidad en
     /// cuestión.
     /// </remarks>
-    public static ITypeBuilder<ViewModel<TModel>> CreateViewModelClass<TModel>(this TypeFactory factory, IEnumerable<Type>? interfaces)
+    public static ITypeBuilder<EntityViewModel<TModel>> CreateViewModelClass<TModel>(this TypeFactory factory, IEnumerable<Type>? interfaces)
         where TModel : notnull, new()
     {
-        ITypeBuilder<ViewModel<TModel>> t = factory.NewType<ViewModel<TModel>>($"{typeof(TModel).Name}ViewModel", interfaces);
-        PropertyInfo e = ReflectionHelpers.GetProperty<ViewModel<TModel>>(p => p.Entity);
-        MethodInfo nm = ReflectionHelpers.GetMethod<ViewModel<TModel>, Action<string>>(p => p.Notify);
+        ITypeBuilder<EntityViewModel<TModel>> t = factory.NewType<EntityViewModel<TModel>>($"{typeof(TModel).Name}ViewModel", interfaces);
+        PropertyInfo e = ReflectionHelpers.GetProperty<EntityViewModel<TModel>>(p => p.Entity);
+        MethodInfo nm = ReflectionHelpers.GetMethod<EntityViewModel<TModel>, Action<string>>(p => p.Notify);
 
         foreach (var p in typeof(TModel).GetProperties().Where(p => p.CanRead && p.CanWrite))
         {
@@ -98,12 +98,12 @@ public static class TypeFactoryVmExtensions
     }
 
     /// <summary>
-    /// Compila un nuevo <see cref="ViewModel{T}"/> definiendo un campo de
+    /// Compila un nuevo <see cref="EntityViewModel{T}"/> definiendo un campo de
     /// entidad de tipo <typeparamref name="TModel"/>.
     /// </summary>
     /// <typeparam name="TModel">
     /// Tipo de entidad para la cual compilar un nuevo
-    /// <see cref="ViewModel{T}"/>.
+    /// <see cref="EntityViewModel{T}"/>.
     /// </typeparam>
     /// <param name="factory">
     /// Fábrica de tipos a utilizar para crear el nuevo tipo.
@@ -111,7 +111,7 @@ public static class TypeFactoryVmExtensions
     /// <returns>
     /// Un objeto que puede utilizarse para construir un nuevo tipo.
     /// </returns>
-    public static ITypeBuilder<ViewModel<TModel>> CreateViewModelClass<TModel>(this TypeFactory factory)
+    public static ITypeBuilder<EntityViewModel<TModel>> CreateViewModelClass<TModel>(this TypeFactory factory)
         where TModel : notnull, new()
     {
         return CreateViewModelClass<TModel>(factory, null);

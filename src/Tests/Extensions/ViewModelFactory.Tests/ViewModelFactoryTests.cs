@@ -62,7 +62,7 @@ public class ViewModelFactoryTests
 
         instance.Entity = m;
         Assert.AreSame(m, instance.Entity);
-        Assert.AreEqual(nameof(ViewModel<TestModel>.Entity), evt!.Value.Arguments.PropertyName);
+        Assert.AreEqual(nameof(EntityViewModel<TestModel>.Entity), evt!.Value.Arguments.PropertyName);
 
         ((dynamic)instance).Name = "Test";
         Assert.AreEqual("Name", evt!.Value.Arguments.PropertyName);

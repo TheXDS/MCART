@@ -28,12 +28,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Tests.Types.Base;
 using NUnit.Framework;
 using System.Diagnostics.CodeAnalysis;
 using TheXDS.MCART.Types.Base;
 using TheXDS.MCART.Types.Extensions;
 using static System.Reflection.BindingFlags;
+
+namespace TheXDS.MCART.Tests.Types.Base;
 
 public class DisposableTests
 {

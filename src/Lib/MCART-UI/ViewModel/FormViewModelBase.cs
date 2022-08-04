@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.ViewModel;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -40,7 +39,9 @@ using System.Runtime.CompilerServices;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types.Base;
 using TheXDS.MCART.Types.Extensions;
-using St = Resources.Strings.UiErrors;
+using St = TheXDS.MCART.Resources.Strings.UiErrors;
+
+namespace TheXDS.MCART.ViewModel;
 
 /// <summary>
 /// Clase base que permite definir un ViewModel que provee de servicios de

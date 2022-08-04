@@ -1,5 +1,5 @@
 ﻿/*
-NewableViewModel.cs
+FloatAttributeTests.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,24 +28,25 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.ViewModel;
+using NUnit.Framework;
+using TheXDS.MCART.Attributes;
 
-/// <summary>
-/// Clase base para un <see cref="EntityViewModel{T}"/> que permite crear
-/// nuevas instancias de entidades.
-/// </summary>
-/// <typeparam name="T">
-/// Tipo de entidad a utilizar como almacenamiento interno de este
-/// ViewModel.
-/// </typeparam>
-public abstract class NewableViewModel<T> : EntityViewModel<T>, INewEntityViewModel<T> where T : new()
+namespace TheXDS.MCART.Tests.Attributes;
+
+public class FloatAttributeTests
 {
-    /// <summary>
-    /// Instancia un nuevo <typeparamref name="T"/> en este ViewModel.
-    /// </summary>
-    public void New()
+    private class AttrTest : FloatAttribute
     {
-        Entity = new T();
-        Refresh();
+        public AttrTest(float attributeValue) : base(attributeValue)
+        {
+        }
+    }
+
+    [TestCase(2.5f)]
+    [TestCase(float.Epsilon)]
+    public void Instancing_test(float value)
+    {
+        AttrTest b = new(value);
+        Assert.AreEqual(value, b.Value);
     }
 }

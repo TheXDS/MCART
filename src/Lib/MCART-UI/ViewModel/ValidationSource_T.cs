@@ -28,11 +28,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using TheXDS.MCART.Helpers;
+
+namespace TheXDS.MCART.ViewModel;
 
 /// <summary>
 /// Ejecuta validaciones de datos dentro de un 

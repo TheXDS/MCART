@@ -29,9 +29,12 @@ SOFTWARE.
 */
 
 namespace TheXDS.MCART.Types;
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using TheXDS.MCART.Types.Base;
+using TheXDS.MCART.Types.Extensions;
 using Nccha = System.Collections.Specialized.NotifyCollectionChangedAction;
 using NcchEa = System.Collections.Specialized.NotifyCollectionChangedEventArgs;
 
@@ -73,9 +76,10 @@ public class ObservableListWrap<T> : ObservableWrap<T, IList<T>>, IList<T>
     /// </returns>
     public T this[int index]
     {
-        get => UnderlyingCollection[index];
+        get => UnderlyingCollection is not null ? UnderlyingCollection[index] : default!;
         set
         {
+            if (UnderlyingCollection is null) throw new InvalidOperationException();
             T? oldItem = UnderlyingCollection[index];
             UnderlyingCollection[index] = value;
             RaiseCollectionChanged(new NcchEa(Nccha.Replace, value, oldItem));
@@ -92,7 +96,7 @@ public class ObservableListWrap<T> : ObservableWrap<T, IList<T>>, IList<T>
     /// <returns>
     /// El índice del elemento especificado.
     /// </returns>
-    public int IndexOf(T item) => UnderlyingCollection.IndexOf(item);
+    public int IndexOf(T item) => UnderlyingCollection?.IndexOf(item) ?? -1;
 
     /// <summary>
     /// Determina si la secuencia subyacente contiene al elemento
@@ -105,7 +109,7 @@ public class ObservableListWrap<T> : ObservableWrap<T, IList<T>>, IList<T>
     /// <see langword="true"/> si la secuencia contiene al elemento
     /// especificado, <see langword="false"/> en caso contrario.
     /// </returns>
-    public override bool Contains(T item) => UnderlyingCollection.Contains(item);
+    public override bool Contains(T item) => UnderlyingCollection?.Contains(item) ?? false;
 
     /// <summary>
     /// Inserta un elemento dentro de este
@@ -119,6 +123,7 @@ public class ObservableListWrap<T> : ObservableWrap<T, IList<T>>, IList<T>
     /// </param>
     public void Insert(int index, T item)
     {
+        if (UnderlyingCollection is null) throw new InvalidOperationException();
         UnderlyingCollection.Insert(index, item);
         RaiseCollectionChanged(new NcchEa(Nccha.Add, item));
         Notify(nameof(Count));
@@ -133,6 +138,7 @@ public class ObservableListWrap<T> : ObservableWrap<T, IList<T>>, IList<T>
     /// </param>
     public void RemoveAt(int index)
     {
+        if (UnderlyingCollection is null) throw new IndexOutOfRangeException();
         T? item = UnderlyingCollection[index];
         UnderlyingCollection.RemoveAt(index);
         RaiseCollectionChanged(new NcchEa(Nccha.Remove, item, index));

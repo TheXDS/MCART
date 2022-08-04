@@ -28,13 +28,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.ValueConverters;
 using System;
 using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 
+namespace TheXDS.MCART.ValueConverters;
 
 /// <summary>
 /// Determina un valor de visibilidad basado en que exista al menos un

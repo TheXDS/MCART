@@ -1,5 +1,5 @@
 ﻿/*
-ViewModel.cs
+EntiyViewModel.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,11 +28,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.ViewModel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using static System.Reflection.BindingFlags;
+
+namespace TheXDS.MCART.ViewModel;
 
 /// <summary>
 /// Clase base para un <see cref="ViewModelBase"/> cuyos campos de
@@ -42,7 +43,7 @@ using static System.Reflection.BindingFlags;
 /// Tipo de entidad a utilizar como almacenamiento interno de este
 /// ViewModel.
 /// </typeparam>
-public class ViewModel<T> : ViewModelBase, IEntityViewModel<T>, IUpdatableViewModel<T>
+public class EntityViewModel<T> : ViewModelBase, IEntityViewModel<T>, IUpdatableViewModel<T>
 {
     private static readonly HashSet<PropertyInfo> _modelProperties = new(typeof(T).GetProperties(Public | Instance).Where(p => p.CanRead));
     private static IEnumerable<PropertyInfo> WrittableProperties => _modelProperties.Where(p => p.CanWrite);
@@ -77,7 +78,7 @@ public class ViewModel<T> : ViewModelBase, IEntityViewModel<T>, IUpdatableViewMo
 
     /// <summary>
     /// Notifica al sistema que las propiedades de este
-    /// <see cref="ViewModel{T}"/> han cambiado.
+    /// <see cref="EntityViewModel{T}"/> han cambiado.
     /// </summary>
     public override void Refresh()
     {
@@ -89,13 +90,13 @@ public class ViewModel<T> : ViewModelBase, IEntityViewModel<T>, IUpdatableViewMo
     }
 
     /// <summary>
-    /// Convierte implícitamente un <see cref="ViewModel{T}"/>
+    /// Convierte implícitamente un <see cref="EntityViewModel{T}"/>
     /// en un <typeparamref name="T"/>.
     /// </summary>
     /// <param name="vm">
-    /// <see cref="ViewModel{T}"/> a convertir.
+    /// <see cref="EntityViewModel{T}"/> a convertir.
     /// </param>
-    public static implicit operator T(ViewModel<T> vm)
+    public static implicit operator T(EntityViewModel<T> vm)
     {
         return vm.Entity;
     }

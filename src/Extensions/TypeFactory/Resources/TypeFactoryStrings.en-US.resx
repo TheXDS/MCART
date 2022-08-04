@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,13 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="RequiredField" xml:space="preserve">
-    <value>This field is required.</value>
+  <data name="ErrIfaceNotImpl" xml:space="preserve">
+    <value>The type does not implement the '{0}' interface.</value>
   </data>
-  <data name="RequiredNumber" xml:space="preserve">
-    <value>This field requires a numeric value.</value>
+  <data name="ErrPropCannotBeRead" xml:space="preserve">
+    <value>The property does not have a read accessor.</value>
   </data>
-  <data name="ResourceNotFound" xml:space="preserve">
-    <value>Could not find a resource with the ID {0}.</value>
+  <data name="TypeBuilderTypeMismatch" xml:space="preserve">
+    <value>The types for the TypeBuilder with a base type of {0} and an explicit type of {1} don't match. A base type that implements or inherits from {1} is required.</value>
+  </data>
+  <data name="ErrCannotJoinTypes" xml:space="preserve">
+    <value>Unable to join the specified types due to conflicts between their declared members. in the resulting type.</value>
+  </data>
+  <data name="ErrIFaceMethodExpected" xml:space="preserve">
+    <value>An interface method implementation was expected.</value>
+  </data>
+  <data name="ErrPropFieldAlreadyDefined" xml:space="preserve">
+    <value>A storage field has been already defined for the property.</value>
+  </data>
+  <data name="ErrPropGetterAlreadyDefined" xml:space="preserve">
+    <value>A getter has been already defined for the property.</value>
+  </data>
+  <data name="ErrPropSetterAlreadyDefined" xml:space="preserve">
+    <value>A setter has been already defined for the property.</value>
   </data>
 </root>

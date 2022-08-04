@@ -68,7 +68,7 @@ public abstract class ObservableWrap<T, TCollection> : ObservableWrapBase, IColl
     /// Obtiene acceso directo a la colección subyacente envuelta por
     /// este <see cref="ObservableWrap{T, TCollection}"/>.
     /// </summary>
-    public TCollection UnderlyingCollection { get; private set; } = default!;
+    public TCollection? UnderlyingCollection { get; private set; } = default;
 
     /// <summary>
     /// Obtiene la cuenta de elementos contenidos dentro de la
@@ -79,7 +79,7 @@ public abstract class ObservableWrap<T, TCollection> : ObservableWrapBase, IColl
     /// <summary>
     /// Obtiene un valor que indica si la colección es de solo lectura.
     /// </summary>
-    public bool IsReadOnly => UnderlyingCollection?.IsReadOnly ?? false;
+    public bool IsReadOnly => UnderlyingCollection?.IsReadOnly ?? true;
 
     /// <summary>
     /// Agrega un nuevo elemento al final de la colección.
@@ -89,7 +89,7 @@ public abstract class ObservableWrap<T, TCollection> : ObservableWrapBase, IColl
     {
         if (UnderlyingCollection is null) throw new InvalidOperationException();
         UnderlyingCollection.Add(item);
-        RaiseCollectionChanged(new NcchEa(Nccha.Add, item, UnderlyingCollection?.FindIndexOf(item) ?? -1));
+        RaiseCollectionChanged(new NcchEa(Nccha.Add, item, UnderlyingCollection.FindIndexOf(item)));
         Notify(nameof(Count));
     }
 
@@ -130,7 +130,8 @@ public abstract class ObservableWrap<T, TCollection> : ObservableWrapBase, IColl
     public bool Remove(T item)
     {
         int idx = UnderlyingCollection?.FindIndexOf(item) ?? -1;
-        bool result = UnderlyingCollection?.Remove(item) ?? false;
+        if (idx == -1) return false;
+        bool result = UnderlyingCollection!.Remove(item);
         if (result)
         {
             RaiseCollectionChanged(new NcchEa(Nccha.Remove, item, idx));
@@ -177,13 +178,15 @@ public abstract class ObservableWrap<T, TCollection> : ObservableWrapBase, IColl
     /// <param name="newCollection">
     /// Colección a establecer como la colección subyacente.
     /// </param>
-    public void Substitute(TCollection newCollection)
+    public void Substitute(TCollection? newCollection)
     {
-        UnderlyingCollection = default!;
+        UnderlyingCollection = default;
         RaiseCollectionChanged(new NcchEa(Reset));
         UnderlyingCollection = newCollection;
-
-        if (newCollection is not null) RaiseCollectionChanged(new NcchEa(Nccha.Add, (IList)UnderlyingCollection));
+        if (newCollection is not null)
+        { 
+            RaiseCollectionChanged(new NcchEa(Nccha.Add, (IList)newCollection));
+        }
         Notify(nameof(Count));
     }
 
@@ -197,7 +200,7 @@ public abstract class ObservableWrap<T, TCollection> : ObservableWrapBase, IColl
     /// </param>
     public void Replace(TCollection newCollection)
     {
-        UnderlyingCollection.Locked(c =>
+        UnderlyingCollection?.Locked(c =>
         {
             c.Clear();
             if (newCollection is null) return;
@@ -221,5 +224,5 @@ public abstract class ObservableWrap<T, TCollection> : ObservableWrapBase, IColl
     /// <see langword="true"/> si la secuencia contiene al elemento
     /// especificado, <see langword="false"/> en caso contrario.
     /// </returns>
-    public virtual bool Contains(T item) => UnderlyingCollection.Contains(item);
+    public virtual bool Contains(T item) => UnderlyingCollection?.Contains(item) ?? false;
 }

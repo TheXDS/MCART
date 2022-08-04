@@ -232,7 +232,7 @@
     <value>the value '{0}' is outside of the defined values for the enum '{1}'.</value>
   </data>
   <data name="UnexpectedType" xml:space="preserve">
-    <value>The {0} type is not valid in this context. A type of {0} was expected.</value>
+    <value>The {0} type is not valid in this context. A type of {1} was expected.</value>
   </data>
   <data name="ValueMustBeBetweenXandY" xml:space="preserve">
     <value>The value must be between {0} and {1}.</value>

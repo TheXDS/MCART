@@ -29,8 +29,11 @@ SOFTWARE.
 */
 
 namespace TheXDS.MCART.Types;
+
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Diagnostics.CodeAnalysis;
 using TheXDS.MCART.Types.Base;
 using NcchEa = System.Collections.Specialized.NotifyCollectionChangedEventArgs;
 
@@ -74,9 +77,10 @@ public class ObservableDictionaryWrap<TKey, TValue> : ObservableWrap<KeyValuePai
     /// </returns>
     public TValue this[TKey key]
     {
-        get => UnderlyingCollection[key];
+        get => UnderlyingCollection is not null ? UnderlyingCollection[key] : default!;
         set
         {
+            if (UnderlyingCollection is null) throw new InvalidOperationException();
             TValue? oldValue = UnderlyingCollection[key];
             UnderlyingCollection[key] = value;
             RaiseCollectionChanged(new NcchEa(NotifyCollectionChangedAction.Replace, oldValue, value));
@@ -86,12 +90,12 @@ public class ObservableDictionaryWrap<TKey, TValue> : ObservableWrap<KeyValuePai
     /// <summary>
     /// Obtiene una colección con todas las llaves del diccionario.
     /// </summary>
-    public ICollection<TKey> Keys => UnderlyingCollection.Keys;
+    public ICollection<TKey> Keys => UnderlyingCollection?.Keys ?? Array.Empty<TKey>();
 
     /// <summary>
     /// Obtiene una colección con todos los valores del diccionario.
     /// </summary>
-    public ICollection<TValue> Values => UnderlyingCollection.Values;
+    public ICollection<TValue> Values => UnderlyingCollection?.Values ?? Array.Empty<TValue>();
 
     /// <summary>
     /// Agrega un valor a este diccionario en el índice especificado.
@@ -104,6 +108,7 @@ public class ObservableDictionaryWrap<TKey, TValue> : ObservableWrap<KeyValuePai
     /// </param>
     public void Add(TKey key, TValue value)
     {
+        if (UnderlyingCollection is null) throw new InvalidOperationException();
         UnderlyingCollection.Add(key, value);
         RaiseCollectionChanged(new NcchEa(NotifyCollectionChangedAction.Add, new KeyValuePair<TKey, TValue>(key, value)));
     }
@@ -135,8 +140,8 @@ public class ObservableDictionaryWrap<TKey, TValue> : ObservableWrap<KeyValuePai
     /// 
     public bool Remove(TKey key)
     {
-        if (!UnderlyingCollection.ContainsKey(key)) return false;
-        TValue? oldItem = UnderlyingCollection[key];
+        if (!UnderlyingCollection?.ContainsKey(key) ?? true) return false;
+        TValue? oldItem = UnderlyingCollection![key];
         UnderlyingCollection.Remove(key);
         RaiseCollectionChanged(new NcchEa(NotifyCollectionChangedAction.Remove, new KeyValuePair<TKey, TValue>(key, oldItem)));
         return true;
@@ -156,5 +161,13 @@ public class ObservableDictionaryWrap<TKey, TValue> : ObservableWrap<KeyValuePai
     /// no existía en el diccionario o si ocurre otro problema
     /// obteniendo el valor.
     /// </returns>
-    public bool TryGetValue(TKey key, out TValue value) => UnderlyingCollection.TryGetValue(key, out value!);
+    public bool TryGetValue(TKey key, [MaybeNullWhen(false)] out TValue value)
+    {
+        if (UnderlyingCollection is not null) 
+        { 
+            return UnderlyingCollection.TryGetValue(key, out value!);
+        }
+        value = default!;
+        return false;
+    }
 }

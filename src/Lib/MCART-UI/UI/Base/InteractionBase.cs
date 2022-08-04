@@ -28,25 +28,39 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.UI.Base;
 using System;
 using TheXDS.MCART.Types.Base;
+
+namespace TheXDS.MCART.UI.Base;
 
 /// <summary>
 /// Clase base para todos los objetos que describan una interacción
 /// disponible dentro de un sistema de menús.
 /// </summary>
-public abstract class InteractionBase : INameable, IDescriptible
+public abstract class InteractionBase : NotifyPropertyChanged, INameable, IDescriptible
 {
-    /// <summary>
-    /// Obtiene el nombre a mostrar para esta interacción.
-    /// </summary>
-    public string Name { get; }
+    private string _Name;
+    private string? _Description;
 
     /// <summary>
-    /// Obtiene una descripción para esta interacción.
+    /// Obtiene o establece el nombre a mostrar para esta interacción.
     /// </summary>
-    public string? Description { get; }
+    /// <value>El nombre a mostrar para esta interacción.</value>
+    public string Name
+    {
+        get => _Name;
+        set => Change(ref _Name, value);
+    }
+
+    /// <summary>
+    /// Obtiene o establece una descripción para esta interacción.
+    /// </summary>
+    /// <value>Una descripción para esta interacción.</value>
+    public string? Description
+    {
+        get => _Description;
+        set => Change(ref _Description, value);
+    }
 
     /// <summary>
     /// Inicializa una nueva instancia de la clase
@@ -73,7 +87,7 @@ public abstract class InteractionBase : INameable, IDescriptible
     /// </param>
     protected InteractionBase(string name, string? description)
     {
-        Name = name ?? throw new ArgumentNullException(nameof(name));
+        _Name = name ?? throw new ArgumentNullException(nameof(name));
         Description = description;
     }
 }

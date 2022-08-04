@@ -1,5 +1,5 @@
 ﻿/*
-NewableViewModel.cs
+MaximumAttributeTests.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,24 +28,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.ViewModel;
+using NUnit.Framework;
+using TheXDS.MCART.Attributes;
 
-/// <summary>
-/// Clase base para un <see cref="EntityViewModel{T}"/> que permite crear
-/// nuevas instancias de entidades.
-/// </summary>
-/// <typeparam name="T">
-/// Tipo de entidad a utilizar como almacenamiento interno de este
-/// ViewModel.
-/// </typeparam>
-public abstract class NewableViewModel<T> : EntityViewModel<T>, INewEntityViewModel<T> where T : new()
+namespace TheXDS.MCART.Tests.Attributes;
+
+public class MaximumAttributeTests
 {
-    /// <summary>
-    /// Instancia un nuevo <typeparamref name="T"/> en este ViewModel.
-    /// </summary>
-    public void New()
+    [TestCase(99)]
+    [TestCase(25)]
+    public void Instancing_test(int testValue)
     {
-        Entity = new T();
-        Refresh();
+        MaximumAttribute b = new(testValue);
+        Assert.AreEqual(testValue, b.Value);
     }
 }
