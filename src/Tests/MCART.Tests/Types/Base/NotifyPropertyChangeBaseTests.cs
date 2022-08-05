@@ -57,7 +57,6 @@ public class NotifyPropertyChangeBaseTests
 
         public string IdAsString => $"{Prefix} {Id}";
         
-        
         public NpcTestClass()
         {
             RegisterPropertyChangeBroadcast(nameof(Id), new []{ nameof(IdAsString) }.AsEnumerable());

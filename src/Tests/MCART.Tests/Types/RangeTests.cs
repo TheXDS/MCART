@@ -28,10 +28,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Tests.Types;
 using NUnit.Framework;
 using System;
 using TheXDS.MCART.Types;
+
+namespace TheXDS.MCART.Tests.Types;
 
 public class RangeTests
 {

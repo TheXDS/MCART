@@ -40,7 +40,7 @@ using CI = System.Globalization.CultureInfo;
 /// Tipo universal para un conjunto de coordenadas bidimensionales.
 /// </summary>
 [ComplexType]
-public class Point : I2DVector, IFormattable, IEquatable<Point>
+public class Point : IVector, IFormattable, IEquatable<Point>
 {
     /// <summary>
     /// Coordenada X.
@@ -76,13 +76,13 @@ public class Point : I2DVector, IFormattable, IEquatable<Point>
     /// Compara la igualdad de los vectores.
     /// </summary>
     /// <param name="other">
-    /// <see cref="I2DVector" /> contra el cual comparar.
+    /// <see cref="IVector" /> contra el cual comparar.
     /// </param>
     /// <returns>
     /// <see langword="true" /> si todos los vectores de ambos objetos
     /// son iguales, <see langword="false" /> en caso contrario.
     /// </returns>
-    public bool Equals(I2DVector? other)
+    public bool Equals(IVector? other)
     {
         return other is { } o && this == o;
     }
@@ -114,7 +114,7 @@ public class Point : I2DVector, IFormattable, IEquatable<Point>
     /// </returns>
     public override bool Equals(object? obj)
     {
-        return obj is I2DVector p && this == p;
+        return obj is IVector p && this == p;
     }
 
     /// <summary>
@@ -198,7 +198,7 @@ public class Point : I2DVector, IFormattable, IEquatable<Point>
     /// <see langword="true" /> si todos los vectores de ambos puntos son iguales;
     /// de lo contrario, <see langword="false" />.
     /// </returns>
-    public static bool operator ==(Point l, I2DVector r)
+    public static bool operator ==(Point l, IVector r)
     {
         return l.X == r.X && l.Y == r.Y;
     }
@@ -226,7 +226,7 @@ public class Point : I2DVector, IFormattable, IEquatable<Point>
     /// <see langword="true" /> si los vectores de ambos puntos son diferentes;  de lo
     /// contrario, <see langword="false" />.
     /// </returns>
-    public static bool operator !=(Point l, I2DVector r)
+    public static bool operator !=(Point l, IVector r)
     {
         return l.X != r.X || l.Y != r.Y;
     }

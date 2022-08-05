@@ -140,7 +140,7 @@ public class ListExTests
         Assert.AreEqual(typeof(int), new ListEx<int>().ItemType);
         Assert.AreEqual(typeof(string), new ListEx<string>().ItemType);
         Assert.AreEqual(typeof(DayOfWeek), new ListEx<DayOfWeek>().ItemType);
-        Assert.AreEqual(typeof(I2DVector), new ListEx<I2DVector>().ItemType);
+        Assert.AreEqual(typeof(IVector), new ListEx<IVector>().ItemType);
         Assert.AreEqual(typeof(Exception), new ListEx<Exception>().ItemType);
         Assert.AreEqual(typeof(Guid), new ListEx<Guid>().ItemType);
     }

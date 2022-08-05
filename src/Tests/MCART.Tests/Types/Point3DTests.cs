@@ -118,20 +118,20 @@ public class Point3DTests
 
         Assert.True(p.Equals(q));
         Assert.False(p.Equals(r));
-        Assert.True(p.Equals((I3DVector)q));
-        Assert.False(p.Equals((I3DVector)r));
+        Assert.True(p.Equals((IVector3D)q));
+        Assert.False(p.Equals((IVector3D)r));
         Assert.True(p.Equals((object?)q));
         Assert.False(p.Equals((object?)r));
         Assert.False(p.Equals(Guid.NewGuid()));
         Assert.False(p.Equals((object?)null));
-        Assert.False(p.Equals((I3DVector?)null));
+        Assert.False(p.Equals((IVector3D?)null));
     }
 
     [Test]
     public void Equals_With_2DVector_Test()
     {
-        Assert.True(Point3D.Origin2D.Equals((I2DVector)Point.Origin));
-        Assert.True(new Point3D(3, 5).Equals((I2DVector)new Point(3, 5)));
+        Assert.True(Point3D.Origin2D.Equals((IVector)Point.Origin));
+        Assert.True(new Point3D(3, 5).Equals((IVector)new Point(3, 5)));
         Assert.True(new Point(3, 5).Equals(new Point3D(3, 5)));
     }
 
@@ -157,7 +157,7 @@ public class Point3DTests
         Assert.AreEqual(y3, r.Y);
         Assert.AreEqual(z3, r.Z);
 
-        Point3D s = p + (I3DVector)q;
+        Point3D s = p + (IVector3D)q;
         Assert.AreEqual(x3, s.X);
         Assert.AreEqual(y3, s.Y);
         Assert.AreEqual(z3, s.Z);
@@ -182,7 +182,7 @@ public class Point3DTests
         Assert.AreEqual(y3, r.Y);
         Assert.AreEqual(z3, r.Z);
 
-        Point3D s = p - (I3DVector)q;
+        Point3D s = p - (IVector3D)q;
         Assert.AreEqual(x3, s.X);
         Assert.AreEqual(y3, s.Y);
         Assert.AreEqual(z3, s.Z);
@@ -207,7 +207,7 @@ public class Point3DTests
         Assert.AreEqual(y3, r.Y);
         Assert.AreEqual(z3, r.Z);
 
-        Point3D s = p * (I3DVector)q;
+        Point3D s = p * (IVector3D)q;
         Assert.AreEqual(x3, s.X);
         Assert.AreEqual(y3, s.Y);
         Assert.AreEqual(z3, s.Z);
@@ -232,7 +232,7 @@ public class Point3DTests
         Assert.AreEqual(y3, r.Y);
         Assert.AreEqual(z3, r.Z);
 
-        Point3D s = p / (I3DVector)q;
+        Point3D s = p / (IVector3D)q;
         Assert.AreEqual(x3, s.X);
         Assert.AreEqual(y3, s.Y);
         Assert.AreEqual(z3, s.Z);
@@ -258,7 +258,7 @@ public class Point3DTests
         Assert.AreEqual(y3, r.Y);
         Assert.AreEqual(z3, r.Z);
 
-        Point3D s = p % (I3DVector)q;
+        Point3D s = p % (IVector3D)q;
         Assert.AreEqual(x3, s.X);
         Assert.AreEqual(y3, s.Y);
         Assert.AreEqual(z3, s.Z);
@@ -334,8 +334,8 @@ public class Point3DTests
 
         Assert.True(p != r);
         Assert.False(p != q);
-        Assert.True(p != (I3DVector)r);
-        Assert.False(p != (I3DVector)q);
+        Assert.True(p != (IVector3D)r);
+        Assert.False(p != (IVector3D)q);
     }
 
     [Test]

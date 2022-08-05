@@ -32,13 +32,13 @@ namespace TheXDS.MCART.Types;
 using System;
 using TheXDS.MCART.Types.Base;
 
-internal struct Internal3DVector : I3DVector
+internal struct Internal3DVector : IVector3D
 {
     public double X { get; set; }
     public double Y { get; set; }
     public double Z { get; set; }
-    public bool Equals(I3DVector? other) => X.Equals(other?.X) && Y.Equals(other.Y) && Z.Equals(other.Z);
-    public bool Equals(I2DVector? other) => X.Equals(other?.X) && Y.Equals(other.Y);
+    public bool Equals(IVector3D? other) => X.Equals(other?.X) && Y.Equals(other.Y) && Z.Equals(other.Z);
+    public bool Equals(IVector? other) => X.Equals(other?.X) && Y.Equals(other.Y);
     public override bool Equals(object? obj) => obj is Internal3DVector other && Equals(other);
     public override int GetHashCode() => HashCode.Combine(X, Y, Z);
 }

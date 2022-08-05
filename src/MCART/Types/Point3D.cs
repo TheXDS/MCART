@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Types;
 using System;
 using System.Linq;
 using TheXDS.MCART.Helpers;
@@ -39,6 +38,8 @@ using TheXDS.MCART.Types.Base;
 using TheXDS.MCART.Types.Extensions;
 using CI = System.Globalization.CultureInfo;
 
+namespace TheXDS.MCART.Types;
+
 /// <summary>
 /// Tipo universal para un conjunto de coordenadas tridimensionales.
 /// </summary>
@@ -47,7 +48,7 @@ using CI = System.Globalization.CultureInfo;
 /// implementación de MCART definir métodos para convertir a la clase
 /// correspondiente para los diferentes tipos de UI disponibles.
 /// </remarks>
-public partial struct Point3D : IFormattable, IEquatable<Point3D>, I3DVector
+public partial struct Point3D : IFormattable, IEquatable<Point3D>, IVector3D
 {
     /// <summary>
     /// Obtiene un punto que no representa ninguna posición. Este campo es
@@ -118,7 +119,7 @@ public partial struct Point3D : IFormattable, IEquatable<Point3D>, I3DVector
     /// <param name="l">Punto 1.</param>
     /// <param name="r">Punto 2.</param>
     /// <returns>La suma de los vectores de los puntos.</returns>
-    public static Point3D operator +(Point3D l, I3DVector r)
+    public static Point3D operator +(Point3D l, IVector3D r)
     {
         return new(l.X + r.X, l.Y + r.Y, l.Z + r.Z);
     }
@@ -143,7 +144,7 @@ public partial struct Point3D : IFormattable, IEquatable<Point3D>, I3DVector
     /// <param name="l">Punto 1.</param>
     /// <param name="r">Punto 2.</param>
     /// <returns>La resta de los vectores de los puntos.</returns>
-    public static Point3D operator -(Point3D l, I3DVector r)
+    public static Point3D operator -(Point3D l, IVector3D r)
     {
         return new(l.X - r.X, l.Y - r.Y, l.Z - r.Z);
     }
@@ -168,7 +169,7 @@ public partial struct Point3D : IFormattable, IEquatable<Point3D>, I3DVector
     /// <param name="l">Punto 1.</param>
     /// <param name="r">Punto 2.</param>
     /// <returns>La multiplicación de los vectores de los puntos.</returns>
-    public static Point3D operator *(Point3D l, I3DVector r)
+    public static Point3D operator *(Point3D l, IVector3D r)
     {
         return new(l.X * r.X, l.Y * r.Y, l.Z * r.Z);
     }
@@ -193,7 +194,7 @@ public partial struct Point3D : IFormattable, IEquatable<Point3D>, I3DVector
     /// <param name="l">Punto 1.</param>
     /// <param name="r">Punto 2.</param>
     /// <returns>La división de los vectores de los puntos.</returns>
-    public static Point3D operator /(Point3D l, I3DVector r)
+    public static Point3D operator /(Point3D l, IVector3D r)
     {
         return new(l.X / r.X, l.Y / r.Y, l.Z / r.Z);
     }
@@ -218,7 +219,7 @@ public partial struct Point3D : IFormattable, IEquatable<Point3D>, I3DVector
     /// <param name="l">Punto 1.</param>
     /// <param name="r">Punto 2.</param>
     /// <returns>El residuo de los vectores de los puntos.</returns>
-    public static Point3D operator %(Point3D l, I3DVector r)
+    public static Point3D operator %(Point3D l, IVector3D r)
     {
         return new(l.X % r.X, l.Y % r.Y, l.Z % r.Z);
     }
@@ -292,7 +293,7 @@ public partial struct Point3D : IFormattable, IEquatable<Point3D>, I3DVector
     /// <see langword="true" /> si todos los vectores de ambos puntos son iguales;
     /// de lo contrario, <see langword="false" />.
     /// </returns>
-    public static bool operator ==(Point3D l, I3DVector r)
+    public static bool operator ==(Point3D l, IVector3D r)
     {
         return l.X.Equals(r.X) && l.Y.Equals(r.Y) && l.Z.Equals(r.Z);
     }
@@ -306,7 +307,7 @@ public partial struct Point3D : IFormattable, IEquatable<Point3D>, I3DVector
     /// <see langword="true" /> si los vectores de ambos puntos son diferentes;  de lo
     /// contrario, <see langword="false" />.
     /// </returns>
-    public static bool operator !=(Point3D l, I3DVector r)
+    public static bool operator !=(Point3D l, IVector3D r)
     {
         return !(l == r);
     }
@@ -578,32 +579,6 @@ public partial struct Point3D : IFormattable, IEquatable<Point3D>, I3DVector
     }
 
     /// <summary>
-    /// Convierte este objeto en su representación como una cadena.
-    /// </summary>
-    /// <param name="format">Formato a utilizar.</param>
-    /// <param name="formatProvider">
-    /// Parámetro opcional.
-    /// Proveedor de formato de la cultura a utilizar para dar formato a
-    /// la representación como una cadena de este objeto. Si se omite,
-    /// se utilizará <see cref="CI.CurrentCulture" />.
-    /// </param>
-    /// <returns>
-    /// Una representación en forma de <see cref="string" /> de este objeto.
-    /// </returns>
-    public string ToString(string? format, IFormatProvider? formatProvider)
-    {
-        if (format.IsEmpty()) format = "C";
-        return format.ToUpperInvariant()[0] switch
-        {
-            'C' => $"{X}, {Y}, {Z}",
-            'B' => $"[{X}, {Y}, {Z}]",
-            'V' => $"X: {X}, Y: {Y}, Z: {Z}",
-            'N' => $"X: {X}{Environment.NewLine}Y: {Y}{Environment.NewLine}Z: {Z}",
-            _ => throw Errors.FormatNotSupported(format),
-        };
-    }
-
-    /// <summary>
     /// Indica si esta instancia y un objeto especificado son iguales.
     /// </summary>
     /// <param name="obj">
@@ -651,16 +626,30 @@ public partial struct Point3D : IFormattable, IEquatable<Point3D>, I3DVector
     }
 
     /// <summary>
-    /// Indica si esta instancia y un objeto especificado son iguales.
+    /// Convierte este objeto en su representación como una cadena.
     /// </summary>
-    /// <param name="other">
-    /// Objeto que se va a compara con la instancia actual.
+    /// <param name="format">Formato a utilizar.</param>
+    /// <param name="formatProvider">
+    /// Parámetro opcional.
+    /// Proveedor de formato de la cultura a utilizar para dar formato a
+    /// la representación como una cadena de este objeto. Si se omite,
+    /// se utilizará <see cref="CI.CurrentCulture" />.
     /// </param>
     /// <returns>
-    /// <see langword="true" /> si esta instancia y <paramref name="other" /> son iguales;
-    /// de lo contrario, <see langword="false" />.
+    /// Una representación en forma de <see cref="string" /> de este objeto.
     /// </returns>
-    public bool Equals(I2DVector? other) => other is not null && X.Equals(other.X) && Y.Equals(other.Y) && !Z.IsValid();
+    public string ToString(string? format, IFormatProvider? formatProvider)
+    {
+        if (format.IsEmpty()) format = "C";
+        return format.ToUpperInvariant()[0] switch
+        {
+            'C' => $"{X}, {Y}, {Z}",
+            'B' => $"[{X}, {Y}, {Z}]",
+            'V' => $"X: {X}, Y: {Y}, Z: {Z}",
+            'N' => $"X: {X}{Environment.NewLine}Y: {Y}{Environment.NewLine}Z: {Z}",
+            _ => throw Errors.FormatNotSupported(format),
+        };
+    }
 
     /// <summary>
     /// Indica si esta instancia y un objeto especificado son iguales.
@@ -672,5 +661,17 @@ public partial struct Point3D : IFormattable, IEquatable<Point3D>, I3DVector
     /// <see langword="true" /> si esta instancia y <paramref name="other" /> son iguales;
     /// de lo contrario, <see langword="false" />.
     /// </returns>
-    public bool Equals(I3DVector? other) => other is not null && X.Equals(other.X) && Y.Equals(other.Y) && Z.Equals(other.Z);
+    public bool Equals(IVector? other) => other is not null && X.Equals(other.X) && Y.Equals(other.Y) && !Z.IsValid();
+
+    /// <summary>
+    /// Indica si esta instancia y un objeto especificado son iguales.
+    /// </summary>
+    /// <param name="other">
+    /// Objeto que se va a compara con la instancia actual.
+    /// </param>
+    /// <returns>
+    /// <see langword="true" /> si esta instancia y <paramref name="other" /> son iguales;
+    /// de lo contrario, <see langword="false" />.
+    /// </returns>
+    public bool Equals(IVector3D? other) => other is not null && X.Equals(other.X) && Y.Equals(other.Y) && Z.Equals(other.Z);
 }

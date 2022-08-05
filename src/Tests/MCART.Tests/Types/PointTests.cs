@@ -110,13 +110,13 @@ public class PointTests
 
         Assert.True(p.Equals(q));
         Assert.False(p.Equals(r));
-        Assert.True(p.Equals((I2DVector)q));
-        Assert.False(p.Equals((I2DVector)r));
+        Assert.True(p.Equals((IVector)q));
+        Assert.False(p.Equals((IVector)r));
         Assert.True(p.Equals((object?)q));
         Assert.False(p.Equals((object?)r));
         Assert.False(p.Equals(Guid.NewGuid()));
         Assert.False(p.Equals((object?)null));
-        Assert.False(p.Equals((I2DVector?)null));
+        Assert.False(p.Equals((IVector?)null));
     }
 
     [Test]
@@ -154,7 +154,7 @@ public class PointTests
         Assert.AreEqual(x3, r.X);
         Assert.AreEqual(y3, r.Y);
 
-        Point s = p + (I2DVector)q;
+        Point s = p + (IVector)q;
         Assert.AreEqual(x3, s.X);
         Assert.AreEqual(y3, s.Y);
 
@@ -176,7 +176,7 @@ public class PointTests
         Assert.AreEqual(x3, r.X);
         Assert.AreEqual(y3, r.Y);
 
-        Point s = p - (I2DVector)q;
+        Point s = p - (IVector)q;
         Assert.AreEqual(x3, s.X);
         Assert.AreEqual(y3, s.Y);
 
@@ -198,7 +198,7 @@ public class PointTests
         Assert.AreEqual(x3, r.X);
         Assert.AreEqual(y3, r.Y);
 
-        Point s = p * (I2DVector)q;
+        Point s = p * (IVector)q;
         Assert.AreEqual(x3, s.X);
         Assert.AreEqual(y3, s.Y);
 
@@ -220,7 +220,7 @@ public class PointTests
         Assert.AreEqual(x3, r.X);
         Assert.AreEqual(y3, r.Y);
 
-        Point s = p / (I2DVector)q;
+        Point s = p / (IVector)q;
         Assert.AreEqual(x3, s.X);
         Assert.AreEqual(y3, s.Y);
 
@@ -243,7 +243,7 @@ public class PointTests
         Assert.AreEqual(x3, r.X);
         Assert.AreEqual(y3, r.Y);
 
-        Point s = p % (I2DVector)q;
+        Point s = p % (IVector)q;
         Assert.AreEqual(x3, s.X);
         Assert.AreEqual(y3, s.Y);
 
@@ -302,8 +302,8 @@ public class PointTests
 
         Assert.True(p != r);
         Assert.False(p != q);
-        Assert.True(p != (I2DVector)r);
-        Assert.False(p != (I2DVector)q);
+        Assert.True(p != (IVector)r);
+        Assert.False(p != (IVector)q);
     }
 
     [TestCase(1, 0, 0)]

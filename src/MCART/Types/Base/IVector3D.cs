@@ -1,5 +1,5 @@
 ﻿/*
-I3DSize.cs
+IVector3D.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -31,13 +31,15 @@ SOFTWARE.
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
-/// Define una serie de miembros a implementar por un tipo que represente
-/// un tamaño en tres dimensiones.
+/// Interfaz que define propiedades comunes para estructuras de datos
+/// que describen coordenadas, vectores, magnitudes y tamaños en un
+/// espacio de tres dimensiones.
 /// </summary>
-public interface I3DSize : ISize
+public interface IVector3D : IVector
 {
     /// <summary>
-    /// Obtiene el componente de profundidad del tamaño.
+    /// Obtiene el componente del eje Z representado por este
+    /// <see cref="IVector3D"/>.
     /// </summary>
-    double Depth { get; set; }
+    double Z { get; }
 }

@@ -1,5 +1,5 @@
 ﻿/*
-I2DVector.cs
+IVector.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -36,17 +36,17 @@ using System;
 /// que describen coordenadas, vectores, magnitudes y tamaños en un
 /// espacio de dos dimensiones.
 /// </summary>
-public interface I2DVector : IEquatable<I2DVector>
+public interface IVector : IEquatable<IVector>
 {
     /// <summary>
     /// Obtiene el componente horizontal (eje X) representado por este
-    /// <see cref="I2DVector"/>.
+    /// <see cref="IVector"/>.
     /// </summary>
     double X { get; }
 
     /// <summary>
     /// Obtiene el componente vertical (eje Y) representado por este
-    /// <see cref="I2DVector"/>.
+    /// <see cref="IVector"/>.
     /// </summary>
     double Y { get; }
 }

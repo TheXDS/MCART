@@ -31,9 +31,9 @@ SOFTWARE.
 namespace TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Base;
 
-internal struct Internal2DVector : I2DVector
+internal struct Internal2DVector : IVector
 {
     public double X { get; set; }
     public double Y { get; set; }
-    public bool Equals(I2DVector? other) => X.Equals(other?.X) && Y.Equals(other.Y);
+    public bool Equals(IVector? other) => X.Equals(other?.X) && Y.Equals(other.Y);
 }
