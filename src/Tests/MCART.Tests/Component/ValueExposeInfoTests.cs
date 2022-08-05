@@ -1,5 +1,5 @@
 ﻿/*
-AssemblyInfoTests.cs
+ValueExposeInfoTests.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -29,55 +29,36 @@ SOFTWARE.
 */
 
 using NUnit.Framework;
-using System;
-using System.Linq;
 using TheXDS.MCART.Component;
-using TheXDS.MCART.Types.Extensions;
+using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Tests.Component;
 
-public class AssemblyInfoTests
+public class ValueExposeInfoTests
 {
     [Test]
-    public void Get_Information_Test()
+    public void Get_information_test()
     {
-        AssemblyInfo? a = new(typeof(AssemblyInfo).Assembly);
-        Assert.AreEqual("MCART", a.Name);
-        Assert.IsTrue(a.Copyright!.StartsWith("Copyright"));
-        Assert.NotNull(a.Description);
-        Assert.IsTrue(a.Authors!.Contains("César Andrés Morgan"));
-        Assert.IsAssignableFrom<Version>(a.Version);
-        Assert.True(a.HasLicense);
-        Assert.NotNull(a.License);
-        Assert.NotNull(a.InformationalVersion);
-#if CLSCompliance
-        Assert.True(a.ClsCompliant);
-#endif
-    }
+        IExposeInfo a = new ValueExposeInfo()
+        {
+            Authors = new[] { "test" },
+            Copyright = "Copyright (C) 2001 test",
+            Description = "Test object",
+            License = new TextLicense("Test license", "This is a test"),
+            Name = "Test",
+            ThirdPartyLicenses = new[] { SpdxLicense.FromId(SpdxLicenseId.CC0_1_0) },
+            Version = new(1, 0)
+        };
 
-    [Test]
-    public void Get_extended_information_test()
-    {
-        var a = new AssemblyInfo(typeof(object).Assembly);
-        Assert.IsFalse(a.Beta);
+        Assert.IsNotEmpty(a.Authors!);
         Assert.IsNotEmpty(a.Copyright);
         Assert.IsNotEmpty(a.Description);
-        Assert.IsFalse(a.Has3rdPartyLicense);
+        Assert.IsTrue(a.Has3rdPartyLicense);
+        Assert.IsTrue(a.HasLicense);
         Assert.IsNotEmpty(a.InformationalVersion);
-        Assert.IsNull(a.License);
+        Assert.IsNotNull(a.License);
         Assert.IsNotEmpty(a.Name);
-        Assert.IsNotEmpty(a.Product);
-        Assert.IsEmpty(a.ThirdPartyComponents);
-        Assert.IsEmpty(a.ThirdPartyLicenses);
-        Assert.IsNotEmpty(a.Trademark);
-        Assert.IsFalse(a.Unmanaged);
+        Assert.IsNotEmpty(a.ThirdPartyLicenses!);
         Assert.IsNotNull(a.Version);
-    }
-
-    [Test]
-    public void Self_Information_Test()
-    {
-        AssemblyInfo? a = new();
-        Assert.AreSame(typeof(AssemblyInfoTests).Assembly, a.Assembly);
     }
 }

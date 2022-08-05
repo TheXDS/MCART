@@ -34,7 +34,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using TheXDS.MCART.Types.Base;
-using TheXDS.MCART.Types.Extensions;
 using Nccha = System.Collections.Specialized.NotifyCollectionChangedAction;
 using NcchEa = System.Collections.Specialized.NotifyCollectionChangedEventArgs;
 

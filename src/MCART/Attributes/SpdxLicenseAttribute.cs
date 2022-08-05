@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Attributes;
 using System;
 using System.Collections.Generic;
 using TheXDS.MCART.Resources;
@@ -37,14 +36,14 @@ using static System.AttributeTargets;
 using static TheXDS.MCART.Misc.Internals;
 using static TheXDS.MCART.Types.Extensions.DictionaryExtensions;
 
+namespace TheXDS.MCART.Attributes;
+
 /// <summary>
 /// Marca un elemento con la licencia Open-Source correspondiente.
 /// </summary>
 [AttributeUsage(Class | Module | Assembly)]
 public sealed class SpdxLicenseAttribute : LicenseAttributeBase
 {
-    private static readonly Dictionary<string, SpdxLicense> _licenses = new();
-
     /// <summary>
     /// Marca al elemento con una licencia SPDX específica.
     /// </summary>
@@ -83,22 +82,6 @@ public sealed class SpdxLicenseAttribute : LicenseAttributeBase
     /// </returns>
     public override License GetLicense(object context)
     {
-        string? n = Id?.GetAttr<NameAttribute>()?.Value;
-
-        if (n is null)
-        {
-            string? id = Id.ToString() ?? Value!;
-            for (byte i = 0; i <= 9; i++)
-            {
-                id = id.Replace(i.ToString(), $"-{i}-");
-            }
-            n = id.Replace("-_-", ".").Replace("--", string.Empty).Replace('_', '-').Replace("--", "-").Trim('-');
-        }
-
-        if (_licenses.ContainsKey(n)) return _licenses[n];
-        string? d = Id?.GetAttr<DescriptionAttribute>()?.Value ?? $"{n} License";
-        Uri? u = Id?.GetAttr<LicenseUriAttribute>()?.Uri ?? new Uri($"https://spdx.org/licenses/{n}.html");
-
-        return new SpdxLicense(n, d, u).PushInto(n, _licenses);
+        return Id is not null ? SpdxLicense.FromId(Id.Value) : SpdxLicense.FromName(Value!);
     }
 }
