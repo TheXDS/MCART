@@ -60,7 +60,7 @@ public class TypeBuilder<T> : ITypeBuilder<T>
     /// </param>
     public TypeBuilder(TypeBuilder builder)
     {
-        if (Builder is { BaseType: { } t } && !t.Implements<T>())
+        if (builder is { BaseType: { } t } && !t.Implements<T>())
         {
             throw TypeFactoryErrors.TypeBuilderTypeMismatch<T>(builder);
         }

@@ -29,6 +29,8 @@ SOFTWARE.
 */
 
 namespace TheXDS.MCART.Types.Entity;
+
+using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using TheXDS.MCART.Types.Base;
 
@@ -37,7 +39,7 @@ using TheXDS.MCART.Types.Base;
 /// rojo, verde y azul.
 /// </summary>
 [ComplexType]
-public class ScColor : IScColor
+public class ScColor : IScColor, IEquatable<ScColor>
 {
     /// <summary>
     /// Componente Alfa del color.
@@ -87,5 +89,27 @@ public class ScColor : IScColor
     public static implicit operator Types.Color(ScColor color)
     {
         return new Types.Color(color.ScR, color.ScG, color.ScB, color.ScA);
+    }
+
+    /// <inheritdoc/>
+    public bool Equals(ScColor? other)
+    {
+        if (other is null) return false;
+        if (ReferenceEquals(this, other)) return true;
+        return ScA == other.ScA && ScB == other.ScB && ScG == other.ScG && ScR == other.ScR;
+    }
+
+    /// <inheritdoc/>
+    public override bool Equals(object? obj)
+    {
+        if (obj is null) return false;
+        if (ReferenceEquals(this, obj)) return true;
+        return obj.GetType() == this.GetType() && Equals((ScColor)obj);
+    }
+
+    /// <inheritdoc/>
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(ScA, ScB, ScG, ScR);
     }
 }

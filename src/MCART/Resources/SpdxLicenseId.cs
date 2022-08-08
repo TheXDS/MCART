@@ -28,8 +28,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Resources;
 using TheXDS.MCART.Attributes;
+
+namespace TheXDS.MCART.Resources;
 
 /// <summary>
 /// Enumera todas las licencias registradas dentro de los estándares de

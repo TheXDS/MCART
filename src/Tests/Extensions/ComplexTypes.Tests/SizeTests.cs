@@ -1,5 +1,5 @@
 ﻿/*
-ColorTests.cs
+SizeTests.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -32,36 +32,43 @@ using NUnit.Framework;
 using TheXDS.MCART.Types.Entity;
 
 namespace TheXDS.MCART.Ext.ComplexTypes.Tests;
-public class ColorTests
+
+public class SizeTests
 {
+    [Test]
+    public void Ctor_test()
+    {
+        Size c1 = new() { Width = 15, Height = 8 };
+        Size c2 = new(15, 8);
+        Assert.AreEqual(c1, c2);
+    }
+
     [Test]
     public void ComplexTypeToNormalTypeTest()
     {
-        Color c1 = new() { A = 255, B = 128, G = 192, R = 240 };
-        Types.Color c2 = new(240, 192, 128, 255);
+        Size c1 = new() { Width = 15, Height = 8 };
+        Types.Size c2 = new(15, 8);
 
-        Assert.AreEqual(c2, (Types.Color)c1);
-        Assert.AreEqual(c1, (Color)c2);
+        Assert.AreEqual(c2, (Types.Size)c1);
+        Assert.AreEqual(c1, (Size)c2);
     }
 
     [Test]
     public void GetHashCode_test()
     {
-        Color c1 = new() { A = 255, B = 128, G = 192, R = 240 };
-        Color c2 = new() { A = 255, B = 128, G = 192, R = 240 };
-        Color c3 = new() { A = 255, B = 128, G = 128, R = 128 };
+        Size c1 = new() { Width = 15, Height = 8 };
+        Size c2 = new() { Width = 15, Height = 8 };
 
         Assert.AreNotSame(c1, c2);
         Assert.AreEqual(c1.GetHashCode(), c2.GetHashCode());
-        Assert.AreNotEqual(c1.GetHashCode(), c3.GetHashCode());
     }
 
     [Test]
     public void Equals_obj_test()
     {
-        Color c1 = new() { A = 255, B = 128, G = 192, R = 240 };
-        Color c2 = new() { A = 255, B = 128, G = 192, R = 240 };
-        Color c3 = new() { A = 255, B = 128, G = 128, R = 128 };
+        Size c1 = new() { Width = 15, Height = 8 };
+        Size c2 = new() { Width = 15, Height = 8 };
+        Size c3 = new() { Width = 12, Height = 7 };
 
         Assert.IsFalse(c1.Equals((object?)null));
         Assert.IsFalse(c1.Equals((object?)c3));
@@ -71,15 +78,17 @@ public class ColorTests
     }
 
     [Test]
-    public void Equals_color_test()
+    public void Equals_size_test()
     {
-        Color c1 = new() { A = 255, B = 128, G = 192, R = 240 };
-        Color c2 = new() { A = 255, B = 128, G = 192, R = 240 };
-        Color c3 = new() { A = 255, B = 128, G = 128, R = 128 };
+        Size c1 = new() { Width = 15, Height = 8 };
+        Size c2 = new() { Width = 15, Height = 8 };
+        Size c3 = new() { Width = 12, Height = 7 };
 
-        Assert.IsFalse(c1.Equals((Color?)null));
-        Assert.IsFalse(c1.Equals((Color?)c3));
-        Assert.IsTrue(c1.Equals((Color?)c1));
-        Assert.IsTrue(c1.Equals((Color?)c2));
+        Assert.IsFalse(c1.Equals((Size?)null));
+        Assert.IsFalse(c1.Equals((Size?)c3));
+        Assert.IsTrue(c1.Equals((Size?)c1));
+        Assert.IsTrue(c1.Equals((Size?)c2));
+        Assert.IsTrue(c1 == c2);
+        Assert.IsTrue(c1 != c3);
     }
 }

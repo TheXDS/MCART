@@ -65,12 +65,12 @@ paket add TheXDS.MCART
 
 **Referencia de paquete**  
 ```xml
-<PackageReference Include="TheXDS.MCART" Version="0.15.0.1" />
+<PackageReference Include="TheXDS.MCART" Version="0.16.0" />
 ```
 
 **Ventana interactiva (CSI)**  
 ```
-#r "nuget: TheXDS.MCART, 0.15.0.1"
+#r "nuget: TheXDS.MCART, 0.16.0"
 ```
 
 #### Repositorio de GitHub
@@ -82,12 +82,12 @@ nuget sources add -Name "TheXDS GitHub Repo" -Source https://nuget.pkg.github.co
 ```
 
 ## Compilación
-MCART requiere de un compilador compatible con C# 9.0, debido a ciertas
+MCART requiere de un compilador compatible con C# 10.0, debido a ciertas
 características especiales del lenguaje que ayudan a disminuir la
 complejidad del código.
 
-MCART también requiere que [.Net SDK 5.0](https://dotnet.microsoft.com/) o
-posterior esté instalado en el sistema.
+MCART también requiere que [.Net SDK 6.0](https://dotnet.microsoft.com/) esté
+instalado en el sistema.
 
 ### Compilando MCART
 ```sh

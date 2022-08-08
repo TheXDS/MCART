@@ -1,5 +1,5 @@
 ﻿/*
-TypeExtensionsTests.cs
+TypeBuilderTests.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -32,25 +32,32 @@ using System;
 using System.Reflection.Emit;
 using NUnit.Framework;
 using TheXDS.MCART.Types;
-using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.TypeFactory.Tests;
 
-public class TypeExtensionsTests
+public class TypeBuilderTests
 {
-    private static readonly Types.TypeFactory _factory = new("TheXDS.MCART.Tests.TypeExtensionsTests._Generated");
+    private static readonly Types.TypeFactory _factory = new("TheXDS.MCART.Tests.TypeBuilderTests._Generated");
+    
+    [Test]
+    public void Ctor_test()
+    {
+        TypeBuilder? t = _factory.NewType("RandomTestClass", typeof(Random), Type.EmptyTypes);
+        Assert.Throws<ArgumentException>(() => new TypeBuilder<Uri>(t));
+    }
 
     [Test]
-    public void ResolveToDefinedType_Test()
+    public void TypeBuilder_T_to_TypeBuilder_test()
     {
-        TypeBuilder? t = _factory.NewClass("GreeterClass");
-        PropertyBuildInfo? nameProp = t.AddAutoProperty<string>("Name");
-        t.AddComputedProperty<string>("Greeting", p => p
-            .LoadConstant("Hello, ")
-            .LoadProperty(nameProp)
-            .Call<Func<string?, string?, string>>(string.Concat)
-            .Return());
-        Assert.AreEqual(typeof(int), typeof(int).ResolveToDefinedType());
-        Assert.AreEqual(typeof(object), t.New().GetType().ResolveToDefinedType());
+        TypeBuilder? t = _factory.NewType("RandomTestClass", typeof(Random), Type.EmptyTypes);
+        TypeBuilder<Random> tb = new(t);
+        Assert.IsAssignableFrom<TypeBuilder>((TypeBuilder)tb);
+    }
+
+    [Test]
+    public void TypeBuilder_to_TypeBuilder_T_test()
+    {
+        TypeBuilder? t = _factory.NewType("RandomTestClass", typeof(Random), Type.EmptyTypes);
+        Assert.IsAssignableFrom<TypeBuilder<Random>>((TypeBuilder<Random>)t);
     }
 }

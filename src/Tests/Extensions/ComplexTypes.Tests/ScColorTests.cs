@@ -1,5 +1,5 @@
 ﻿/*
-ColorTests.cs
+ScColorTests.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -32,24 +32,15 @@ using NUnit.Framework;
 using TheXDS.MCART.Types.Entity;
 
 namespace TheXDS.MCART.Ext.ComplexTypes.Tests;
-public class ColorTests
+
+public class ScColorTests
 {
-    [Test]
-    public void ComplexTypeToNormalTypeTest()
-    {
-        Color c1 = new() { A = 255, B = 128, G = 192, R = 240 };
-        Types.Color c2 = new(240, 192, 128, 255);
-
-        Assert.AreEqual(c2, (Types.Color)c1);
-        Assert.AreEqual(c1, (Color)c2);
-    }
-
     [Test]
     public void GetHashCode_test()
     {
-        Color c1 = new() { A = 255, B = 128, G = 192, R = 240 };
-        Color c2 = new() { A = 255, B = 128, G = 192, R = 240 };
-        Color c3 = new() { A = 255, B = 128, G = 128, R = 128 };
+        ScColor c1 = new() { ScA = 1f, ScB = 0.25f, ScG = 0.5f, ScR = 0.75f };
+        ScColor c2 = new() { ScA = 1f, ScB = 0.25f, ScG = 0.5f, ScR = 0.75f };
+        ScColor c3 = new() { ScA = 1f, ScB = 0.5f, ScG = 0.5f, ScR = 0.5f };
 
         Assert.AreNotSame(c1, c2);
         Assert.AreEqual(c1.GetHashCode(), c2.GetHashCode());
@@ -57,11 +48,21 @@ public class ColorTests
     }
 
     [Test]
+    public void ComplexTypeToNormalTypeTest()
+    {
+        ScColor c1 = new() { ScA = 1f, ScB = 0.25f, ScG = 0.5f, ScR = 0.75f };
+        Types.Color c2 = new(0.75f, 0.5f, 0.25f, 1f);
+
+        Assert.AreEqual(c2, (Types.Color)c1);
+        Assert.AreEqual(c1, (ScColor)c2);
+    }
+
+    [Test]
     public void Equals_obj_test()
     {
-        Color c1 = new() { A = 255, B = 128, G = 192, R = 240 };
-        Color c2 = new() { A = 255, B = 128, G = 192, R = 240 };
-        Color c3 = new() { A = 255, B = 128, G = 128, R = 128 };
+        ScColor c1 = new() { ScA = 1f, ScB = 0.25f, ScG = 0.5f, ScR = 0.75f };
+        ScColor c2 = new() { ScA = 1f, ScB = 0.25f, ScG = 0.5f, ScR = 0.75f };
+        ScColor c3 = new() { ScA = 1f, ScB = 0.5f, ScG = 0.5f, ScR = 0.5f };
 
         Assert.IsFalse(c1.Equals((object?)null));
         Assert.IsFalse(c1.Equals((object?)c3));
@@ -73,13 +74,14 @@ public class ColorTests
     [Test]
     public void Equals_color_test()
     {
-        Color c1 = new() { A = 255, B = 128, G = 192, R = 240 };
-        Color c2 = new() { A = 255, B = 128, G = 192, R = 240 };
-        Color c3 = new() { A = 255, B = 128, G = 128, R = 128 };
+        ScColor c1 = new() { ScA = 1f, ScB = 0.25f, ScG = 0.5f, ScR = 0.75f };
+        ScColor c2 = new() { ScA = 1f, ScB = 0.25f, ScG = 0.5f, ScR = 0.75f };
+        ScColor c3 = new() { ScA = 1f, ScB = 0.5f, ScG = 0.5f, ScR = 0.5f };
 
-        Assert.IsFalse(c1.Equals((Color?)null));
-        Assert.IsFalse(c1.Equals((Color?)c3));
-        Assert.IsTrue(c1.Equals((Color?)c1));
-        Assert.IsTrue(c1.Equals((Color?)c2));
+        Assert.IsFalse(c1.Equals((ScColor?)null));
+        Assert.IsFalse(c1.Equals((ScColor?)c3));
+        Assert.IsTrue(c1.Equals((ScColor?)c1));
+        Assert.IsTrue(c1.Equals((ScColor?)c2));
     }
+
 }

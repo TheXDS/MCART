@@ -41,6 +41,9 @@ public class SpdxLicenceTests
     {
         SpdxLicenseAttribute? l = new(SpdxLicenseId.GPL_3_0_or_later);
         Assert.AreEqual(SpdxLicenseId.GPL_3_0_or_later, l.Id);
+
+        l = new(SpdxLicenseId.BSD0);
+        Assert.AreEqual(SpdxLicenseId.BSD0, l.Id);
     }
 
     [Test]
@@ -48,6 +51,16 @@ public class SpdxLicenceTests
     {
         SpdxLicenseAttribute? l = new("GPL_3_0_or_later");
         Assert.AreEqual(SpdxLicenseId.GPL_3_0_or_later, l.Id);
+    }
+
+    [Test]
+    public void GetLicense_test()
+    {
+        SpdxLicenseAttribute? l = new(SpdxLicenseId.GPL_3_0_or_later);
+        Assert.IsNotNull(l.GetLicense(new object()));
+
+        l = new("test_1_0");
+        Assert.IsNotNull(l.GetLicense(new object()));
     }
 
     [Test]

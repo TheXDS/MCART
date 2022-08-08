@@ -28,10 +28,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Types.Entity;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using TheXDS.MCART.Types.Base;
+
+namespace TheXDS.MCART.Types.Entity;
 
 /// <summary>
 /// Estructura universal que describe un color en sus componentes alfa,
