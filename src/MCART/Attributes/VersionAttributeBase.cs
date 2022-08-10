@@ -30,6 +30,8 @@ SOFTWARE.
 
 namespace TheXDS.MCART.Attributes;
 using System;
+using TheXDS.MCART.Math;
+using TheXDS.MCART.Resources;
 
 /// <summary>
 /// Especifica la versión de un elemento, además de ser la clase base para
@@ -49,6 +51,29 @@ public abstract class VersionAttributeBase : Attribute, IValueAttribute<Version>
     protected VersionAttributeBase(int major, int minor, int build, int rev)
     {
         Value = new(major, minor, build, rev);
+    }
+
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="VersionAttributeBase" />.
+    /// </summary>
+    /// <param name="major">Número de versión mayor.</param>
+    /// <param name="minor">Número de versión menor.</param>
+    protected VersionAttributeBase(int major, int minor)
+        : this(major, minor, 0, 0)
+    {
+    }
+
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="VersionAttributeBase" />.
+    /// </summary>
+    /// <param name="version">Número de versión en formato <c>0.0</c>.</param>
+    protected VersionAttributeBase(double version)
+    {
+        if (!version.IsValid()) throw Errors.InvalidValue(nameof(version));
+        var v = version.ToString("0.0").Split('.');
+        Value = new(int.Parse(v[0]), int.Parse(v[1]), 0, 0);
     }
 
     /// <summary>

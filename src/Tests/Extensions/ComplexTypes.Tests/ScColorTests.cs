@@ -83,5 +83,4 @@ public class ScColorTests
         Assert.IsTrue(c1.Equals((ScColor?)c1));
         Assert.IsTrue(c1.Equals((ScColor?)c2));
     }
-
 }

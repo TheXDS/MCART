@@ -43,10 +43,19 @@ public sealed class VersionAttribute : VersionAttributeBase
     /// Inicializa una nueva instancia de la clase
     /// <see cref="VersionAttribute" />.
     /// </summary>
+    /// <param name="version">Número de versión en formato <c>0.0</c>.</param>
+    public VersionAttribute(double version) : base(version)
+    {
+    }
+
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="VersionAttribute" />.
+    /// </summary>
     /// <param name="major">Número de versión mayor.</param>
     /// <param name="minor">Número de versión menor.</param>
     public VersionAttribute(int major, int minor)
-        : base(major, minor, int.MaxValue, int.MaxValue)
+        : base(major, minor)
     {
     }
 

@@ -1,5 +1,5 @@
 ﻿/*
-TypeAttribute.cs
+ServerAttributeTests.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,32 +28,43 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Attributes;
+using NUnit.Framework;
 using System;
-using static System.AttributeTargets;
+using TheXDS.MCART.Attributes;
 
-/// <summary>
-/// Agrega un elemento de tipo a un elemento, además de ser la
-/// clase base para los atributos que describan un valor representable como
-/// <see cref="Type" /> para un elemento.
-/// </summary>
-[AttributeUsage(All)]
-[Serializable]
-public class TypeAttribute : Attribute, IValueAttribute<Type>
+namespace TheXDS.MCART.Tests.Attributes;
+
+public class ServerAttributeTests
 {
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="TypeAttribute" />.
-    /// </summary>
-    /// <param name="type">Valor de este atributo.</param>
-    public TypeAttribute(Type type)
+    [Test]
+    public void Ctor_test()
     {
-        Value = type;
+        var a = new ServerAttribute("test.com", 51200);
+        Assert.AreEqual("test.com", a.Server);
+        Assert.AreEqual(51200, a.Port);
     }
 
-    /// <summary>
-    /// Obtiene el valor asociado a este atributo.
-    /// </summary>
-    /// <value>El valor de este atributo.</value>
-    public Type Value { get; }
+    [Test]
+    public void ToString_test()
+    {
+        var a = new ServerAttribute("test.com", 51200);
+        Assert.AreEqual("test.com:51200", a.ToString());
+    }
+
+    [Test]
+    public void Attribute_as_IValueAttribute_of_string_test()
+    {
+        IValueAttribute<string> a = new ServerAttribute("test.com", 51200);
+        Assert.AreEqual("test.com:51200", a.Value);
+    }
+
+    [Test]
+    public void Ctor_contract_test()
+    {
+        Assert.Throws<ArgumentOutOfRangeException>(() => _ = new ServerAttribute("test.com", 0));
+        Assert.Throws<ArgumentOutOfRangeException>(() => _ = new ServerAttribute("test.com", 65536));
+        Assert.Throws<ArgumentException>(() => _ = new ServerAttribute(string.Empty, 1234));
+        Assert.Throws<ArgumentNullException>(() => _ = new ServerAttribute(null!, 1234));
+        Assert.Throws<ArgumentException>(() => _ = new ServerAttribute("    ", 1234));
+    }
 }

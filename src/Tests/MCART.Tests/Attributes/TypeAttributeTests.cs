@@ -1,5 +1,5 @@
 ﻿/*
-TypeAttribute.cs
+TypeAttributeTests.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,32 +28,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Attributes;
+using NUnit.Framework;
 using System;
-using static System.AttributeTargets;
+using TheXDS.MCART.Attributes;
 
-/// <summary>
-/// Agrega un elemento de tipo a un elemento, además de ser la
-/// clase base para los atributos que describan un valor representable como
-/// <see cref="Type" /> para un elemento.
-/// </summary>
-[AttributeUsage(All)]
-[Serializable]
-public class TypeAttribute : Attribute, IValueAttribute<Type>
+namespace TheXDS.MCART.Tests.Attributes;
+
+public class TypeAttributeTests
 {
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="TypeAttribute" />.
-    /// </summary>
-    /// <param name="type">Valor de este atributo.</param>
-    public TypeAttribute(Type type)
+    [Test]
+    public void Ctor_Test()
     {
-        Value = type;
+        IValueAttribute<Type> a = new TypeAttribute(typeof(Random));
+        Assert.AreEqual(typeof(Random), a.Value);
     }
-
-    /// <summary>
-    /// Obtiene el valor asociado a este atributo.
-    /// </summary>
-    /// <value>El valor de este atributo.</value>
-    public Type Value { get; }
 }
