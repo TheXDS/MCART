@@ -28,11 +28,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Types.Entity;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using TheXDS.MCART.Helpers;
+using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Base;
+
+namespace TheXDS.MCART.Types.Entity;
 
 /// <summary>
 /// Define un rango de valores.
@@ -127,7 +129,7 @@ public class Range<T> : IRange<T> where T : IComparable<T>
     /// </param>
     public Range(T minimum, T maximum, bool minInclusive, bool maxInclusive)
     {
-        if (minimum.CompareTo(maximum) > 0) throw new ArgumentOutOfRangeException();
+        if (minimum.CompareTo(maximum) > 0) throw Errors.MinGtMax();
         Minimum = minimum;
         Maximum = maximum;
         MinInclusive = minInclusive;

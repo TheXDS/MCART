@@ -31,6 +31,7 @@ SOFTWARE.
 namespace TheXDS.MCART.ViewModel;
 using System;
 using System.Windows.Input;
+using TheXDS.MCART.Resources;
 
 /// <summary>
 /// Clase base para las implementaciones de la interfaz

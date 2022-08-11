@@ -71,7 +71,7 @@ public class SizeTests
         Size c3 = new() { Width = 12, Height = 7 };
 
         Assert.IsFalse(c1.Equals((object?)null));
-        Assert.IsFalse(c1.Equals((object?)c3));
+        Assert.IsFalse(c1!.Equals((object?)c3));
         Assert.IsFalse(c1.Equals((object?)new object()));
         Assert.IsTrue(c1.Equals((object?)c1));
         Assert.IsTrue(c1.Equals((object?)c2));
@@ -85,7 +85,7 @@ public class SizeTests
         Size c3 = new() { Width = 12, Height = 7 };
 
         Assert.IsFalse(c1.Equals((Size?)null));
-        Assert.IsFalse(c1.Equals((Size?)c3));
+        Assert.IsFalse(c1!.Equals((Size?)c3));
         Assert.IsTrue(c1.Equals((Size?)c1));
         Assert.IsTrue(c1.Equals((Size?)c2));
         Assert.IsTrue(c1 == c2);

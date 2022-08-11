@@ -28,13 +28,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Types.Entity;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using TheXDS.MCART.Math;
 using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Base;
 using static TheXDS.MCART.Types.Extensions.StringExtensions;
 using CI = System.Globalization.CultureInfo;
+
+namespace TheXDS.MCART.Types.Entity;
 
 /// <summary>
 /// Tipo universal para un conjunto de coordenadas bidimensionales.
@@ -186,7 +188,7 @@ public class Point : IVector, IFormattable, IEquatable<Point>
     /// </returns>
     public static bool operator ==(Point l, Point r)
     {
-        return l.X == r.X && l.Y == r.Y;
+        return (l.X == r.X || !new[] { l.X, r.X }.AreValid()) && (l.Y == r.Y || !new[] { l.Y, r.Y }.AreValid());
     }
 
     /// <summary>
@@ -200,7 +202,7 @@ public class Point : IVector, IFormattable, IEquatable<Point>
     /// </returns>
     public static bool operator ==(Point l, IVector r)
     {
-        return l.X == r.X && l.Y == r.Y;
+        return (l.X == r.X || !new[] { l.X, r.X }.AreValid()) && (l.Y == r.Y || !new[] { l.Y, r.Y }.AreValid());
     }
 
     /// <summary>
@@ -214,7 +216,7 @@ public class Point : IVector, IFormattable, IEquatable<Point>
     /// </returns>
     public static bool operator !=(Point l, Point r)
     {
-        return l.X != r.X || l.Y != r.Y;
+        return (l.X != r.X || !new[] { l.X, r.X }.AreValid()) && (l.Y != r.Y || !new[] { l.Y, r.Y }.AreValid());
     }
 
     /// <summary>
@@ -228,7 +230,7 @@ public class Point : IVector, IFormattable, IEquatable<Point>
     /// </returns>
     public static bool operator !=(Point l, IVector r)
     {
-        return l.X != r.X || l.Y != r.Y;
+        return (l.X != r.X || !new[] { l.X, r.X }.AreValid()) && (l.Y != r.Y || !new[] { l.Y, r.Y }.AreValid());
     }
 
     /// <summary>
