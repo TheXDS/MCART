@@ -1,5 +1,5 @@
 ﻿/*
-ObservingCommandTests.cs
+NewableViewModelTests.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -30,38 +30,29 @@ SOFTWARE.
 
 using NUnit.Framework;
 using System.Diagnostics.CodeAnalysis;
-using TheXDS.MCART.Types.Base;
-using TheXDS.MCART.Types.Extensions;
 using TheXDS.MCART.ViewModel;
 
 namespace TheXDS.MCART.UI.Tests.ViewModel;
 
-public class ObservingCommandTests
+public class NewableViewModelTests
 {
-    private class TestNpcClass : NotifyPropertyChanged
+    [ExcludeFromCodeCoverage]
+    private class TestModel
     {
-        private string? _TestString;
+        public int Prop { get; set; }
+    }
 
-        public string? TestString
-        {
-            get => _TestString;
-            set => Change(ref _TestString, value);
-        }
+    [ExcludeFromCodeCoverage]
+    private class TestViewModel : NewableViewModel<TestModel>
+    {
     }
 
     [Test]
-    public void PropertyChange_Fires_Notification_Test()
+    public void New_test()
     {
-        TestNpcClass? i = new();
-        ObservingCommand? obs = new ObservingCommand(i, NoAction)
-            .SetCanExecute((a, b) => !i.TestString.IsEmpty())
-            .RegisterObservedProperty(nameof(TestNpcClass.TestString));
-
-        Assert.False(obs.CanExecute(null));
-        i.TestString = "Test";
-        Assert.True(obs.CanExecute(null));
+        TestViewModel vm = new();
+        Assert.IsNull(vm.Entity);
+        vm.New();
+        Assert.IsNotNull(vm.Entity);
     }
-    
-    [ExcludeFromCodeCoverage]
-    private static void NoAction() { }
 }
