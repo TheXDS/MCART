@@ -28,6 +28,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System.Globalization;
+
 namespace TheXDS.MCART.Tests.Types;
 using NUnit.Framework;
 using System;
@@ -204,6 +206,7 @@ public class ColorTests
         Assert.True(c.A.IsBetween((byte)191, (byte)193));
     }
 
+    [Theory]
     [CLSCompliant(false)]
     [TestCase(null, ExpectedResult = "#FF4B0082")]
     [TestCase("", ExpectedResult = "#FF4B0082")]
@@ -211,8 +214,6 @@ public class ColorTests
     [TestCase("h", ExpectedResult = "#ff4b0082")]
     [TestCase("B", ExpectedResult = "A:255 R:75 G:0 B:130")]
     [TestCase("b", ExpectedResult = "a:255 r:75 g:0 b:130")]
-    [TestCase("F", ExpectedResult = "A:1 R:0.29411766 G:0 B:0.50980395")]
-    [TestCase("f", ExpectedResult = "a:1 r:0.29411766 g:0 b:0.50980395")]
     [TestCase("-RRGGBB-", ExpectedResult = "-4B0082-")]
     [TestCase("-rrggbb-", ExpectedResult = "-4b0082-")]
     [TestCase("-BBGGRR-", ExpectedResult = "-82004B-")]
@@ -220,6 +221,24 @@ public class ColorTests
     public string ToString_With_Formatting_Test(string? format)
     {
         return Colors.Indigo.ToString(format);
+    }
+
+    [Theory]
+    [CLSCompliant(false)]
+    [TestCase("F", ExpectedResult = "A:1 R:0,29411766 G:0 B:0,50980395")]
+    [TestCase("f", ExpectedResult = "a:1 r:0,29411766 g:0 b:0,50980395")]
+    public string ToString_with_custom_culture_test(string? format)
+    {
+        return Colors.Indigo.ToString(format, CultureInfo.CreateSpecificCulture("es-es"));
+    }
+    
+    [Theory]
+    [CLSCompliant(false)]
+    [TestCase("F", ExpectedResult = "A:1 R:0.29411766 G:0 B:0.50980395")]
+    [TestCase("f", ExpectedResult = "a:1 r:0.29411766 g:0 b:0.50980395")]
+    public string ToString_with_invariant_culture_test(string? format)
+    {
+        return Colors.Indigo.ToString(format, CultureInfo.InvariantCulture);
     }
 
     [Test]

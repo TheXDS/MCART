@@ -31,10 +31,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Tests.Helpers;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Security;
 using TheXDS.MCART.Helpers;
@@ -42,12 +42,14 @@ using TheXDS.MCART.Types;
 using static TheXDS.MCART.Helpers.Common;
 using static TheXDS.MCART.Types.Extensions.SecureStringExtensions;
 
+namespace TheXDS.MCART.Tests.Helpers;
+
 public class CommonTest
 {
     [Test]
     public void ReadCharsTest()
     {
-        SecureString? s = new();
+        SecureString s = new();
         s.AppendChar('T');
         s.AppendChar('e');
         s.AppendChar('s');
@@ -64,7 +66,18 @@ public class CommonTest
     [TestCase(1,1000,ByteUnitType.Decimal,"1.0 MB")]
     public void ByteUnits_Test(byte mag, int val, ByteUnitType unit, string output)
     {
-        Assert.AreEqual(output, Common.ByteUnits(val, unit, mag));
+        Assert.AreEqual(output, Common.ByteUnits(val, unit, mag, CultureInfo.InvariantCulture));
+    }
+    
+    [Theory]
+    [CLSCompliant(false)]
+    [TestCase(0,1536,ByteUnitType.Binary,"1,5 KiB")]
+    [TestCase(0,1500,ByteUnitType.Decimal,"1,5 KB")]
+    [TestCase(1,1536,ByteUnitType.Binary,"1,5 MiB")]
+    [TestCase(1,1500,ByteUnitType.Decimal,"1,5 MB")]
+    public void ByteUnits_custom_culture_Test(byte mag, int val, ByteUnitType unit, string output)
+    {
+        Assert.AreEqual(output, Common.ByteUnits(val, unit, mag, CultureInfo.CreateSpecificCulture("es-es")));
     }
 
     [Test]
@@ -97,7 +110,7 @@ public class CommonTest
             new[] { 10, 8, 6, 4, 2 },
             Sequence(10, 1, 2));
 
-        Assert.Throws<ArgumentOutOfRangeException>(() => Sequence(1, 10, 0).ToList());
+        Assert.Throws<ArgumentOutOfRangeException>(() => _ = Sequence(1, 10, 0).ToList());
     }
 
     [Test]
@@ -175,7 +188,7 @@ public class CommonTest
     [Test]
     public void CollectionListedTest()
     {
-        string? outp = new[]
+        string outp = new[]
         {
             "This", "is", "a", "test"
         }.Listed();
@@ -261,17 +274,17 @@ public class CommonTest
     [Test]
     public void ReadBytesTest()
     {
-        SecureString? s = new();
+        SecureString s = new();
         s.AppendChar('@');
         s.MakeReadOnly();
-        byte[]? r = s.ReadBytes();
+        byte[] r = s.ReadBytes();
         Assert.AreEqual(new byte[] { 64, 0 }, r);
     }
 
     [Test]
     public void ReadInt16Test()
     {
-        SecureString? s = new();
+        SecureString s = new();
         s.AppendChar('@');
         s.MakeReadOnly();
         Assert.AreEqual((short)64, s.ReadInt16()[0]);
@@ -280,7 +293,7 @@ public class CommonTest
     [Test]
     public void ReadTest()
     {
-        SecureString? s = new();
+        SecureString s = new();
         s.AppendChar('T');
         s.AppendChar('e');
         s.AppendChar('s');
@@ -292,7 +305,7 @@ public class CommonTest
     [Test]
     public void ToBits_WithInt64_Test()
     {
-        bool[]? c = new bool[sizeof(long) * 8];
+        bool[] c = new bool[sizeof(long) * 8];
         Assert.AreEqual(c, 0L.ToBits());
 
         c[1] = true; c[3] = true;
@@ -302,7 +315,7 @@ public class CommonTest
     [Test]
     public void ToBits_WithUInt64_Test()
     {
-        bool[]? c = new bool[sizeof(ulong) * 8];
+        bool[] c = new bool[sizeof(ulong) * 8];
         Assert.AreEqual(c, ((ulong)0).ToBits());
 
         c[1] = true; c[3] = true;
@@ -312,7 +325,7 @@ public class CommonTest
     [Test]
     public void ToBits_WithInt32_Test()
     {
-        bool[]? c = new bool[sizeof(int) * 8];
+        bool[] c = new bool[sizeof(int) * 8];
         Assert.AreEqual(c, 0.ToBits());
 
         c[1] = true; c[3] = true;
@@ -322,7 +335,7 @@ public class CommonTest
     [Test]
     public void ToBits_WithUInt32_Test()
     {
-        bool[]? c = new bool[sizeof(uint) * 8];
+        bool[] c = new bool[sizeof(uint) * 8];
         Assert.AreEqual(c, ((uint)0).ToBits());
 
         c[1] = true; c[3] = true;
@@ -332,7 +345,7 @@ public class CommonTest
     [Test]
     public void ToBits_WithInt16_Test()
     {
-        bool[]? c = new bool[sizeof(short) * 8];
+        bool[] c = new bool[sizeof(short) * 8];
         Assert.AreEqual(c, ((short)0).ToBits());
 
         c[1] = true; c[3] = true;
@@ -342,7 +355,7 @@ public class CommonTest
     [Test]
     public void ToBits_WithUInt16_Test()
     {
-        bool[]? c = new bool[sizeof(ushort) * 8];
+        bool[] c = new bool[sizeof(ushort) * 8];
         Assert.AreEqual(c, ((ushort)0).ToBits());
 
         c[1] = true; c[3] = true;
@@ -352,7 +365,7 @@ public class CommonTest
     [Test]
     public void ToBits_WithSInt8_Test()
     {
-        bool[]? c = new bool[sizeof(sbyte) * 8];
+        bool[] c = new bool[sizeof(sbyte) * 8];
         Assert.AreEqual(c, ((sbyte)0).ToBits());
 
         c[1] = true; c[3] = true;
@@ -362,7 +375,7 @@ public class CommonTest
     [Test]
     public void ToBits_WithInt8_Test()
     {
-        bool[]? c = new bool[sizeof(byte) * 8];
+        bool[] c = new bool[sizeof(byte) * 8];
         Assert.AreEqual(c, ((byte)0).ToBits());
 
         c[1] = true; c[3] = true;
@@ -499,9 +512,21 @@ public class CommonTest
     [TestCase(1048576, ByteUnitType.DecimalLong, "1.0 Megabytes")]
     public void ByteUnitsTest_Long_ByteUnitType(long bytes, ByteUnitType unit, string result)
     {
-        Assert.AreEqual(result, TheXDS.MCART.Helpers.Common.ByteUnits(bytes, unit));
+        Assert.AreEqual(result, Common.ByteUnits(bytes, unit, CultureInfo.InvariantCulture));
     }
 
+    [CLSCompliant(false)]
+    [TestCase(1000, ByteUnitType.Binary, "1000 Bytes")]
+    [TestCase(1000, ByteUnitType.Decimal, "1,0 KB")]
+    [TestCase(100000, (ByteUnitType)255, "100000 Bytes")]
+    [TestCase(1100000, ByteUnitType.BinaryLong, "1,1 Mebibytes")]
+    [TestCase(1048576, ByteUnitType.DecimalLong, "1,0 Megabytes")]
+    public void ByteUnitsTest_custom_culture_Long_ByteUnitType(long bytes, ByteUnitType unit, string result)
+    {
+        Assert.AreEqual(result, Common.ByteUnits(bytes, unit, CultureInfo.CreateSpecificCulture("es-es")));
+    }
+    
+    [Theory]
     [CLSCompliant(false)]
     [TestCase(1000, "1000 Bytes")]
     [TestCase(1024, "1.0 KiB")]
@@ -513,15 +538,32 @@ public class CommonTest
     [TestCase(1099511627776L, "1.0 TiB")]
     [TestCase(1125899906842624L, "1.0 PiB")]
     [TestCase(1152921504606846976L, "1.0 EiB")]
-    public void ByteUnitsTest_Long(long bytes, string result)
+    public void ByteUnits_Test_Long(long bytes, string result)
     {
-        Assert.AreEqual(result, bytes.ByteUnits());
+        Assert.AreEqual(result, bytes.ByteUnits(CultureInfo.InvariantCulture));
+    }
+    
+    [Theory]
+    [CLSCompliant(false)]
+    [TestCase(1000, "1000 Bytes")]
+    [TestCase(1024, "1,0 KiB")]
+    [TestCase(1536, "1,5 KiB")]
+    [TestCase(1768, "1,7 KiB")]
+    [TestCase(1048576, "1,0 MiB")]
+    [TestCase(1150976, "1,1 MiB")]
+    [TestCase(1073741824, "1,0 GiB")]
+    [TestCase(1099511627776L, "1,0 TiB")]
+    [TestCase(1125899906842624L, "1,0 PiB")]
+    [TestCase(1152921504606846976L, "1,0 EiB")]
+    public void ByteUnits_custom_culture_test_long(long bytes, string result)
+    {
+        Assert.AreEqual(result, bytes.ByteUnits(CultureInfo.CreateSpecificCulture("es-es")));
     }
 
     [Test]
     public void AnyEmptyTest()
     {
-        string?[]? array = new[] { "0", null, "2", "3", null, "5" };
+        string?[] array = new[] { "0", null, "2", "3", null, "5" };
         Assert.False(new[] { "0", "1", "2" }.AnyEmpty(out int i));
         Assert.AreEqual(-1, i);
         Assert.True(array.AnyEmpty(out int index));

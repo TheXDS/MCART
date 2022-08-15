@@ -92,7 +92,7 @@ public class TaskExtensionsTest
     {
         static async Task<int> GetValueAsync()
         {
-            await Task.Delay(1000);
+            await Task.Delay(1100);
             return 1;
         }
         Stopwatch? t = new();

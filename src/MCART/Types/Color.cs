@@ -581,8 +581,8 @@ public partial struct Color : IEquatable<Color>, IFormattable, IComparable<Color
             "h" => $"#{new[] { A, R, G, B }.ToHex().ToLower((CI)formatProvider)}",
             "B" => $"A:{A} R:{R} G:{G} B:{B}",
             "b" => $"a:{A} r:{R} g:{G} b:{B}",
-            "F" => $"A:{_a} R:{_r} G:{_g} B:{_b}",
-            "f" => $"a:{_a} r:{_r} g:{_g} b:{_b}",
+            "F" => $"A:{_a.ToString(formatProvider)} R:{_r.ToString(formatProvider)} G:{_g.ToString(formatProvider)} B:{_b.ToString(formatProvider)}",
+            "f" => $"a:{_a.ToString(formatProvider)} r:{_r.ToString(formatProvider)} g:{_g.ToString(formatProvider)} b:{_b.ToString(formatProvider)}",
             _ => CustomFormat(format, (CI)formatProvider)
         };
     }

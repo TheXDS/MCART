@@ -28,6 +28,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System.Globalization;
+
 namespace TheXDS.MCART.Attributes;
 using System;
 using TheXDS.MCART.Math;
@@ -72,7 +74,7 @@ public abstract class VersionAttributeBase : Attribute, IValueAttribute<Version>
     protected VersionAttributeBase(double version)
     {
         if (!version.IsValid()) throw Errors.InvalidValue(nameof(version));
-        var v = version.ToString("0.0").Split('.');
+        var v = version.ToString("0.0", CultureInfo.InvariantCulture).Split('.');
         Value = new(int.Parse(v[0]), int.Parse(v[1]), 0, 0);
     }
 

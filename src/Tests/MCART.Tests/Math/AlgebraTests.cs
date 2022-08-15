@@ -140,6 +140,30 @@ public class AlgebraTests
         Assert.False(number.IsPrime());
         Assert.False(number.IsPrimeMp());
     }
+    
+    [CLSCompliant(false)]
+    [TestCaseSource(typeof(AlgebraTests), nameof(GetKnownNotPrimes), new object[] { typeof(sbyte), (long)sbyte.MaxValue })]
+    public void AssertNotPrimes_sbyte_Test(sbyte number)
+    {
+        Assert.False(number.IsPrime());
+        Assert.False(number.IsPrimeMp());
+    }
+
+    [CLSCompliant(false)]
+    [TestCaseSource(typeof(AlgebraTests), nameof(GetKnownNotPrimes), new object[] { typeof(ushort), (long)ushort.MaxValue })]
+    public void AssertNotPrimes_ushort_Test(ushort number)
+    {
+        Assert.False(number.IsPrime());
+        Assert.False(number.IsPrimeMp());
+    }
+    
+    [CLSCompliant(false)]
+    [TestCaseSource(typeof(AlgebraTests), nameof(GetKnownNotPrimes), new object[] { typeof(uint), (long)uint.MaxValue })]
+    public void AssertNotPrimes_uint_Test(uint number)
+    {
+        Assert.False(number.IsPrime());
+        Assert.False(number.IsPrimeMp());
+    }
 
     [Test]
     public void IsValidTest()

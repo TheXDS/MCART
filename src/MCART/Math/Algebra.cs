@@ -172,6 +172,42 @@ public static class Algebra
     {
         return ((long)number).IsPrimeMp();
     }
+    
+    /// <summary>
+    /// Comprueba si un número es primo.
+    /// </summary>
+    /// <returns>
+    /// <see langword="true" />si el número es primo, <see langword="false" /> en caso contrario.
+    /// </returns>
+    /// <param name="number">Número a comprobar.</param>
+    public static bool IsPrimeMp(this in sbyte number)
+    {
+        return ((long)number).IsPrimeMp();
+    }
+    
+    /// <summary>
+    /// Comprueba si un número es primo.
+    /// </summary>
+    /// <returns>
+    /// <see langword="true" />si el número es primo, <see langword="false" /> en caso contrario.
+    /// </returns>
+    /// <param name="number">Número a comprobar.</param>
+    public static bool IsPrimeMp(this in ushort number)
+    {
+        return ((long)number).IsPrimeMp();
+    }
+    
+    /// <summary>
+    /// Comprueba si un número es primo.
+    /// </summary>
+    /// <returns>
+    /// <see langword="true" />si el número es primo, <see langword="false" /> en caso contrario.
+    /// </returns>
+    /// <param name="number">Número a comprobar.</param>
+    public static bool IsPrimeMp(this in uint number)
+    {
+        return ((long)number).IsPrimeMp();
+    }
 
     /// <summary>
     /// Comprueba si un número es primo.

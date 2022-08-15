@@ -101,11 +101,12 @@ public class CommonTests
     [TestCase(17, 2)]
     public void WrapTest(int expression, int wrapped)
     {
+        Assert.AreEqual((sbyte)wrapped, ((sbyte)expression).Wrap((sbyte)1, (sbyte)15));
         Assert.AreEqual((short)wrapped, ((short)expression).Wrap((short)1, (short)15));
         Assert.AreEqual(wrapped, expression.Wrap(1, 15));
         Assert.AreEqual(wrapped, M.Wrap(expression, 1L, 15L));
         Assert.AreEqual(wrapped, M.Wrap(expression, 1f, 15f));
-        Assert.AreEqual(wrapped, M.Wrap(expression, 1.0, 15.0));
+        Assert.AreEqual(wrapped, M.Wrap(expression, 1.0, 15.0)); 
         Assert.AreEqual(wrapped, M.Wrap(expression, 1M, 15M));
 
         // Para tipos sin signo, no se deben realizar los tests con valores negativos.
@@ -113,6 +114,9 @@ public class CommonTests
         {
             Assert.AreEqual((byte)wrapped, ((byte)expression).Wrap((byte)1, (byte)15));
             Assert.AreEqual((char)wrapped, ((char)expression).Wrap((char)1, (char)15));
+            Assert.AreEqual((ushort)wrapped, ((ushort)expression).Wrap((ushort)1, (ushort)15));
+            Assert.AreEqual((uint)wrapped, ((uint)expression).Wrap((uint)1, (uint)15));
+            Assert.AreEqual((ulong)wrapped, ((ulong)expression).Wrap((ulong)1, (ulong)15));
         }
     }
 

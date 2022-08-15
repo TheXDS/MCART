@@ -28,6 +28,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System.ComponentModel;
+
 namespace TheXDS.MCART.UI.Tests.ViewModel;
 using NUnit.Framework;
 using System;
@@ -60,6 +62,23 @@ public class ObservingCommandTests
         Assert.False(obs.CanExecute(null));
         i.TestString = "Test";
         Assert.True(obs.CanExecute(null));
+    }
+    
+    
+    [Test]
+    public void SetCanExecute_removes_callback_test()
+    {
+        TestNpcClass? i = new();
+        ObservingCommand? obs = new ObservingCommand(i, NoAction)
+            .SetCanExecute((a, b) =>
+            {
+                Assert.Fail();
+                return false;
+            })
+            .RegisterObservedProperty(nameof(TestNpcClass.TestString));
+
+        obs.SetCanExecute((Func<INotifyPropertyChanged, object?, bool>?)null);
+        Assert.IsTrue(obs.CanExecute(null));
     }
     
     [ExcludeFromCodeCoverage]

@@ -35,6 +35,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System.Globalization;
+
 namespace TheXDS.MCART.Helpers;
 using System;
 using System.Collections.Generic;
@@ -259,11 +261,12 @@ public static partial class Common
     /// en bytes de la operación. El valor máximo permitido es <c>8</c>
     /// para indicar Yottabytes.
     /// </param>
+    /// <param name="format">Formato de cadena a utilizar.</param>
     /// <returns>
     /// Una cadena con la cantidad de bytes utilizando la unidad de
     /// magnitud adecuada.
     /// </returns>
-    public static string ByteUnits(in this int bytes, in ByteUnitType unit, byte magnitude)
+    public static string ByteUnits(in this int bytes, in ByteUnitType unit, byte magnitude, IFormatProvider? format = null)
     {
         ByteUnits_Contract(bytes, unit, magnitude);
         return ByteUnits((long)(bytes * System.Math.Pow(unit switch
@@ -271,7 +274,7 @@ public static partial class Common
             ByteUnitType.Binary or ByteUnitType.BinaryLong => 1024,
             ByteUnitType.Decimal or ByteUnitType.DecimalLong => 1000,
             _ => throw Errors.UndefinedEnum(nameof(unit), unit)
-        }, magnitude)), unit);
+        }, magnitude)), unit, format);
     }
 
     /// <summary>
@@ -279,13 +282,14 @@ public static partial class Common
     /// bytes en la unidad de magnitud más fácil de leer.
     /// </summary>
     /// <param name="bytes">Cantidad de bytes a representar.</param>
+    /// <param name="format">Formato de cadena a utilizar.</param>
     /// <returns>
     /// Una cadena con la cantidad de bytes utilizando la unidad de
     /// magnitud adecuada.
     /// </returns>
-    public static string ByteUnits(in this long bytes)
+    public static string ByteUnits(in this long bytes, IFormatProvider? format = null)
     {
-        return ByteUnits(bytes, ByteUnitType.Binary);
+        return ByteUnits(bytes, ByteUnitType.Binary, format);
     }
 
     /// <summary>
@@ -294,11 +298,12 @@ public static partial class Common
     /// </summary>
     /// <param name="bytes">Cantidad de bytes a representar.</param>
     /// <param name="unit">Tipo de unidad a utilizar.</param>
+    /// <param name="format">Formato de cadena a utilizar.</param>
     /// <returns>
     /// Una cadena con la cantidad de bytes utilizando la unidad de
     /// magnitud adecuada.
     /// </returns>
-    public static string ByteUnits(in this long bytes, in ByteUnitType unit)
+    public static string ByteUnits(in this long bytes, in ByteUnitType unit, IFormatProvider? format = null)
     {
         int c = 0;
         double b = bytes;
@@ -318,7 +323,7 @@ public static partial class Common
             b /= mag;
         }
 
-        return c > 0 ? $"{b + (b / mag):F1} {u[c.Clamp(u.Length) - 1]}" : $"{bytes} {St.Bytes}";
+        return c > 0 ? $"{(b + (b / mag)).ToString("0.0", format ?? CultureInfo.CurrentCulture)} {u[c.Clamp(u.Length) - 1]}" : $"{bytes} {St.Bytes}";
     }
 
     /// <summary>

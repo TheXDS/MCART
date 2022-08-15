@@ -88,6 +88,12 @@ public class RangeTests
         Assert.IsFalse(r.MaxInclusive);
     }
 
+    [Test]
+    public void Ctor_contract_test()
+    {
+        Assert.Throws<ArgumentException>(() => _ = new Range<int>(10, 5));
+    }
+
     [Theory]
     [TestCase(1,10, 5, 15, true)]
     [TestCase(1,10, 15, 25, false)]
@@ -108,5 +114,21 @@ public class RangeTests
     {
         var r = new Range<int>(min, max);
         Assert.AreEqual(result, r.IsWithin(value));
+    }
+
+    [Test]
+    public void Implicit_conversion_test()
+    {
+        Range<int> r1 = new(5, 10, false, true);
+        Types.Range<int> r2 = new(5, 10, false, true);
+
+        Assert.AreEqual(r1.Minimum, ((Range<int>)r2).Minimum);
+        Assert.AreEqual(r1.Maximum, ((Range<int>)r2).Maximum);
+        Assert.AreEqual(r1.MinInclusive, ((Range<int>)r2).MinInclusive);
+        Assert.AreEqual(r1.MaxInclusive, ((Range<int>)r2).MaxInclusive);
+        Assert.AreEqual(r2.Minimum, ((Types.Range<int>)r1).Minimum);
+        Assert.AreEqual(r2.Maximum, ((Types.Range<int>)r1).Maximum);
+        Assert.AreEqual(r2.MinInclusive, ((Types.Range<int>)r1).MinInclusive);
+        Assert.AreEqual(r2.MaxInclusive, ((Types.Range<int>)r1).MaxInclusive);
     }
 }

@@ -30,20 +30,20 @@ SOFTWARE.
 */
 
 using System;
-
-namespace TheXDS.MCART.Security.Tests.Helpers;
+using System.Diagnostics.CodeAnalysis;
 using NUnit.Framework;
 using System.IO;
 using System.Linq;
 using System.Security;
 using System.Text;
-using TheXDS.MCART.Security;
 using TheXDS.MCART.Types.Extensions;
 using static TheXDS.MCART.Helpers.PasswordStorage;
-using static TheXDS.MCART.Types.Extensions.SecureStringExtensions;
+
+namespace TheXDS.MCART.Security.Tests.Helpers;
 
 internal class PasswordStorageTests
 {
+    [ExcludeFromCodeCoverage]
     private class DummyPasswordStorage : IPasswordStorage
     {
         public int KeyLength => 16;
@@ -51,7 +51,8 @@ internal class PasswordStorageTests
         public byte[] DumpSettings() => Encoding.UTF8.GetBytes("TESTtest");
         public byte[] Generate(byte[] input) => input.Concat(new byte[16]).ToArray()[0..16];
     }
-
+    
+    [ExcludeFromCodeCoverage]
     private class Dummy2PasswordStorage : IPasswordStorage<int>
     {
         public byte[] Generate(byte[] input) => input.Concat(new byte[KeyLength]).ToArray()[0..KeyLength];
