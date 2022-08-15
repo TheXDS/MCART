@@ -72,7 +72,6 @@ public class PointTests
         Assert.AreEqual(c1, (Point)c2);
     }
 
-
     [Test]
     public void ToString_Test()
     {

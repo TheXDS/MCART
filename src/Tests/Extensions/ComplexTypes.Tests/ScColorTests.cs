@@ -65,7 +65,7 @@ public class ScColorTests
         ScColor c3 = new() { ScA = 1f, ScB = 0.5f, ScG = 0.5f, ScR = 0.5f };
 
         Assert.IsFalse(c1.Equals((object?)null));
-        Assert.IsFalse(c1.Equals((object?)c3));
+        Assert.IsFalse(c1!.Equals((object?)c3));
         Assert.IsFalse(c1.Equals((object?)new object()));
         Assert.IsTrue(c1.Equals((object?)c1));
         Assert.IsTrue(c1.Equals((object?)c2));
@@ -79,7 +79,7 @@ public class ScColorTests
         ScColor c3 = new() { ScA = 1f, ScB = 0.5f, ScG = 0.5f, ScR = 0.5f };
 
         Assert.IsFalse(c1.Equals((ScColor?)null));
-        Assert.IsFalse(c1.Equals((ScColor?)c3));
+        Assert.IsFalse(c1!.Equals((ScColor?)c3));
         Assert.IsTrue(c1.Equals((ScColor?)c1));
         Assert.IsTrue(c1.Equals((ScColor?)c2));
     }

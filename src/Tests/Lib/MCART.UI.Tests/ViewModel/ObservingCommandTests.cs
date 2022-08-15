@@ -1,4 +1,4 @@
-﻿/*
+/*
 ObservingCommandTests.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
@@ -28,15 +28,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.ComponentModel;
-
-namespace TheXDS.MCART.UI.Tests.ViewModel;
 using NUnit.Framework;
 using System;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using TheXDS.MCART.Types.Base;
 using TheXDS.MCART.Types.Extensions;
 using TheXDS.MCART.ViewModel;
+
+namespace TheXDS.MCART.UI.Tests.ViewModel;
 
 public class ObservingCommandTests
 {
@@ -83,128 +83,4 @@ public class ObservingCommandTests
     
     [ExcludeFromCodeCoverage]
     private static void NoAction() { }
-}
-
-public class CommandBaseTests
-{
-    private class TestClass : CommandBase
-    {
-        private bool canExecuteField;
-        public object? CexParameter;
-
-        public bool CanExecuteField
-        {
-            get => canExecuteField;
-            set
-            {
-                canExecuteField = value;
-                RaiseCanExecuteChanged();
-            }
-        }
-
-        public TestClass(Action<object?> action) : base(action)
-        {
-        }
-
-        public override bool CanExecute(object? parameter)
-        {
-            Assert.AreSame(CexParameter, parameter);
-            return CanExecuteField;
-        }
-    }
-
-    [Test]
-    public void Ctor_contract_test()
-    {
-        Assert.Throws<ArgumentNullException>(() => _ = new TestClass(null!));
-    }
-
-    [Test]
-    public void CanExecute_test()
-    {
-        var c = new TestClass(NoAction)
-        {
-            CexParameter = null,
-            CanExecuteField = true
-        };
-        Assert.IsTrue(c.CanExecute());
-        c.CanExecuteField = false;
-        Assert.IsFalse(c.CanExecute());
-    }
-
-    [Test]
-    public void Execute_test()
-    {
-        bool actionRan = false;
-        var param = new object();
-        var c = new TestClass(p =>
-        {
-            Assert.AreSame(p, param);
-            actionRan = true;
-        })
-        {
-            CanExecuteField = true
-        };
-        c.Execute(param);
-        Assert.IsTrue(actionRan);
-        param = null;
-        actionRan = false;
-        c.Execute();
-        Assert.IsTrue(actionRan);
-    }
-
-    [Test]
-    public void TryExecute_test()
-    {
-        bool actionRan = false;
-        var param = new object();
-        var c = new TestClass(p =>
-        {
-            Assert.AreSame(p, param);
-            actionRan = true;
-        })
-        {
-            CanExecuteField = false,
-            CexParameter = param
-        };
-        Assert.IsFalse(c.TryExecute(param));
-        Assert.IsFalse(actionRan);
-        c.CanExecuteField = true;
-        Assert.IsTrue(c.TryExecute(param));
-        Assert.IsTrue(actionRan);
-        param = null;
-        actionRan = false;
-        c.CanExecuteField = false;
-        c.CexParameter = null;
-        Assert.IsFalse(c.TryExecute());
-        Assert.IsFalse(actionRan);
-        c.CanExecuteField = true;
-        Assert.IsTrue(c.TryExecute());
-        Assert.IsTrue(actionRan);
-    }
-
-    [Test]
-    public void CanExecuteChanged_test()
-    {
-        bool eventFired = false;
-        var c = new TestClass(NoAction);
-
-        void C_CanExecuteChanged(object? sender, EventArgs e)
-        {
-            eventFired = true;
-            Assert.AreSame(c, sender);
-            Assert.AreEqual(EventArgs.Empty, e);
-        }
-
-        c.CanExecuteChanged += C_CanExecuteChanged;
-        c.CanExecuteField = true;
-        Assert.IsTrue(eventFired);
-        c.CanExecuteChanged -= C_CanExecuteChanged;
-    }
-
-
-    [ExcludeFromCodeCoverage]
-    private static void NoAction(object? arg)
-    {
-    }
 }

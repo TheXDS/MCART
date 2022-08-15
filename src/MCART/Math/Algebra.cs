@@ -180,6 +180,7 @@ public static class Algebra
     /// <see langword="true" />si el número es primo, <see langword="false" /> en caso contrario.
     /// </returns>
     /// <param name="number">Número a comprobar.</param>
+    [CLSCompliant(false)]
     public static bool IsPrimeMp(this in sbyte number)
     {
         return ((long)number).IsPrimeMp();
@@ -192,6 +193,7 @@ public static class Algebra
     /// <see langword="true" />si el número es primo, <see langword="false" /> en caso contrario.
     /// </returns>
     /// <param name="number">Número a comprobar.</param>
+    [CLSCompliant(false)]
     public static bool IsPrimeMp(this in ushort number)
     {
         return ((long)number).IsPrimeMp();
@@ -204,6 +206,7 @@ public static class Algebra
     /// <see langword="true" />si el número es primo, <see langword="false" /> en caso contrario.
     /// </returns>
     /// <param name="number">Número a comprobar.</param>
+    [CLSCompliant(false)]
     public static bool IsPrimeMp(this in uint number)
     {
         return ((long)number).IsPrimeMp();

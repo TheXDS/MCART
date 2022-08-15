@@ -64,7 +64,7 @@ public class ColorTests
         Color c3 = new() { A = 255, B = 128, G = 128, R = 128 };
 
         Assert.IsFalse(c1.Equals((object?)null));
-        Assert.IsFalse(c1.Equals((object?)c3));
+        Assert.IsFalse(c1!.Equals((object?)c3));
         Assert.IsFalse(c1.Equals((object?)new object()));
         Assert.IsTrue(c1.Equals((object?)c1));
         Assert.IsTrue(c1.Equals((object?)c2));
@@ -78,7 +78,7 @@ public class ColorTests
         Color c3 = new() { A = 255, B = 128, G = 128, R = 128 };
 
         Assert.IsFalse(c1.Equals((Color?)null));
-        Assert.IsFalse(c1.Equals((Color?)c3));
+        Assert.IsFalse(c1!.Equals((Color?)c3));
         Assert.IsTrue(c1.Equals((Color?)c1));
         Assert.IsTrue(c1.Equals((Color?)c2));
     }
