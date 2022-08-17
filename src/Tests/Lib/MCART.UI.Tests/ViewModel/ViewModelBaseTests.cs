@@ -93,7 +93,6 @@ public class ViewModelBaseTests
         {
             return BusyOp(task);
         }
-
     }
 
     [Test]
@@ -142,7 +141,6 @@ public class ViewModelBaseTests
         vm.BusyOpTest(testTask());
         Assert.IsFalse(vm.IsBusy);
     }
-
 
     [Test]
     public void BusyOp_T_test()

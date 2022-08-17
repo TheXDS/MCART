@@ -64,7 +64,6 @@ public class ObservingCommandTests
         Assert.True(obs.CanExecute(null));
     }
     
-    
     [Test]
     public void SetCanExecute_removes_callback_test()
     {
