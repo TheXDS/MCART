@@ -285,8 +285,7 @@ public static partial class TypeExtensions
     /// </returns>
     public static bool IsInstantiable(this Type type, IEnumerable<Type>? constructorArgs)
     {
-        if (constructorArgs is null) return !(type.IsAbstract || type.IsInterface) && type.GetConstructors().Any();
-        return !(type.IsAbstract || type.IsInterface) && type.GetConstructor(constructorArgs.ToArray()) is not null;
+        return !(type.IsAbstract || type.IsInterface) && type.GetConstructor(constructorArgs?.ToArray() ?? Type.EmptyTypes) is not null;
     }
 
     /// <summary>
@@ -323,9 +322,9 @@ public static partial class TypeExtensions
     /// </returns>
     [DebuggerStepThrough]
     [Sugar]
-    public static bool IsInstantiable(this Type type, params Type[] constructorArgs)
+    public static bool IsInstantiable(this Type type, params Type[]? constructorArgs)
     {
-        return IsInstantiable(type, constructorArgs.AsEnumerable());
+        return IsInstantiable(type, constructorArgs?.AsEnumerable());
     }
 
     /// <summary>

@@ -28,12 +28,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Tests.Types.Extensions;
+using Newtonsoft.Json.Bson;
 using NUnit.Framework;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -41,6 +42,8 @@ using System.Threading.Tasks;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Extensions;
+
+namespace TheXDS.MCART.Tests.Types.Extensions;
 
 public class TypeExtensionsTests
 {
@@ -56,14 +59,14 @@ public class TypeExtensionsTests
     [Test]
     public void AnyAssignableFrom_Test()
     {
-        Assert.True(typeof(ResolveEventArgs).Assignables(typeof(int), typeof(EventArgs), typeof(Exception)).First() == typeof(EventArgs));
+        Assert.IsTrue(typeof(ResolveEventArgs).Assignables(typeof(int), typeof(EventArgs), typeof(Exception)).First() == typeof(EventArgs));
         Assert.False(typeof(ResolveEventArgs).Assignables(typeof(int), typeof(Version), typeof(Exception)).Any());
     }
 
     [Test]
     public void AreAssignableFrom_Test()
     {
-        Assert.True(typeof(ResolveEventArgs).AreAllAssignable(typeof(EventArgs), typeof(ResolveEventArgs)));
+        Assert.IsTrue(typeof(ResolveEventArgs).AreAllAssignable(typeof(EventArgs), typeof(ResolveEventArgs)));
         Assert.False(typeof(ResolveEventArgs).AreAllAssignable(typeof(AppContext), typeof(ResolveEventArgs)));
     }
 
@@ -89,10 +92,18 @@ public class TypeExtensionsTests
     [Test]
     public void IsInstantiable_Test()
     {
-        Assert.True(typeof(Exception).IsInstantiable());
-        Assert.True(typeof(Exception).IsInstantiable((IEnumerable<Type>?)null));
-        Assert.True(typeof(Exception).IsInstantiable(typeof(string)));
-        Assert.False(typeof(Exception).IsInstantiable(typeof(int)));
+        Assert.IsTrue(typeof(Exception).IsInstantiable());
+        Assert.IsTrue(typeof(Exception).IsInstantiable((IEnumerable<Type>?)null));
+        Assert.IsTrue(typeof(Exception).IsInstantiable(typeof(string)));
+        Assert.IsFalse(typeof(Exception).IsInstantiable(typeof(int)));
+        Assert.IsTrue(typeof(Random).IsInstantiable());
+        Assert.IsTrue(typeof(Random).IsInstantiable((IEnumerable<Type>?)null));
+        Assert.IsFalse(typeof(FileStream).IsInstantiable());
+        Assert.IsFalse(typeof(FileStream).IsInstantiable((IEnumerable<Type>?)null));
+        Assert.IsFalse(typeof(IEnumerable<int>).IsInstantiable());
+        Assert.IsFalse(typeof(IEnumerable<int>).IsInstantiable((IEnumerable<Type>?)null));
+        Assert.IsFalse(typeof(File).IsInstantiable());
+        Assert.IsFalse(typeof(File).IsInstantiable((IEnumerable<Type>?)null));
     }
 
     [Test]
@@ -119,7 +130,7 @@ public class TypeExtensionsTests
     [Test]
     public void IsStruct_Test()
     {
-        Assert.True(typeof(Guid).IsStruct());
+        Assert.IsTrue(typeof(Guid).IsStruct());
         Assert.False(typeof(int).IsStruct());
         Assert.False(typeof(string).IsStruct());
     }
@@ -129,9 +140,9 @@ public class TypeExtensionsTests
     {
         Assert.False(typeof(int).IsCollectionType());
         Assert.False(typeof(Exception).IsCollectionType());
-        Assert.True(typeof(string).IsCollectionType());
-        Assert.True(typeof(int[]).IsCollectionType());
-        Assert.True(typeof(List<bool>).IsCollectionType());
+        Assert.IsTrue(typeof(string).IsCollectionType());
+        Assert.IsTrue(typeof(int[]).IsCollectionType());
+        Assert.IsTrue(typeof(List<bool>).IsCollectionType());
     }
 
     [Test]
@@ -160,7 +171,7 @@ public class TypeExtensionsTests
     [Test]
     public void IsAnyAssignable_Test()
     {
-        Assert.True(typeof(Exception).IsAnyAssignable(typeof(int), typeof(DayOfWeek), typeof(ArgumentNullException)));
+        Assert.IsTrue(typeof(Exception).IsAnyAssignable(typeof(int), typeof(DayOfWeek), typeof(ArgumentNullException)));
         Assert.False(typeof(Exception).IsAnyAssignable(typeof(int), typeof(DayOfWeek), typeof(System.IO.Stream)));
     }
 
@@ -174,46 +185,51 @@ public class TypeExtensionsTests
     [Test]
     public void Implements_Test()
     {
-        Assert.True(typeof(ArgumentException).Implements(typeof(Exception), Type.EmptyTypes));
-        Assert.True(typeof(int[]).Implements(typeof(IEnumerable<>), typeof(int)));
-        Assert.True(typeof(int[]).Implements(typeof(IEnumerable<>)));
-        Assert.True(typeof(string).Implements(typeof(IEnumerable<char>)));
-        Assert.True(typeof(int[]).Implements(typeof(IEnumerable<int>)));
-        Assert.True(typeof(List<int>).Implements(typeof(IEnumerable)));
-        Assert.True(typeof(Dictionary<int, string>).Implements(typeof(IDictionary<,>)));
-        Assert.True(typeof(Array).Implements(typeof(IEnumerable)));
-        Assert.True(typeof(List<int>).Implements(typeof(IEnumerable<int>)));
-        Assert.True(typeof(IEnumerable<float>).Implements(typeof(IEnumerable<>)));
-        Assert.False(typeof(float[]).Implements(typeof(IEnumerable<>), typeof(int)));
-        Assert.False(typeof(Exception).Implements(typeof(IEnumerable<>)));
-        Assert.False(typeof(ValueTask<string>).Implements(typeof(IEnumerable<>)));
-        Assert.True(typeof(List<string>).Implements(new[] {
+        Assert.IsTrue(typeof(ArgumentException).Implements(typeof(Exception), Type.EmptyTypes));
+        Assert.IsTrue(typeof(int[]).Implements(typeof(IEnumerable<>), typeof(int)));
+        Assert.IsTrue(typeof(int[]).Implements(typeof(IEnumerable<>)));
+        Assert.IsTrue(typeof(string).Implements(typeof(IEnumerable<char>)));
+        Assert.IsTrue(typeof(int[]).Implements(typeof(IEnumerable<int>)));
+        Assert.IsTrue(typeof(List<int>).Implements(typeof(IEnumerable)));
+        Assert.IsTrue(typeof(Dictionary<int, string>).Implements(typeof(IDictionary<,>)));
+        Assert.IsTrue(typeof(Array).Implements(typeof(IEnumerable)));
+        Assert.IsTrue(typeof(List<int>).Implements(typeof(IEnumerable<int>)));
+        Assert.IsTrue(typeof(IEnumerable<float>).Implements(typeof(IEnumerable<>)));
+        Assert.IsFalse(typeof(float[]).Implements(typeof(IEnumerable<>), typeof(int)));
+        Assert.IsFalse(typeof(Exception).Implements(typeof(IEnumerable<>)));
+        Assert.IsFalse(typeof(ValueTask<string>).Implements(typeof(IEnumerable<>)));
+        Assert.IsTrue(typeof(List<string>).Implements(new[] {
             typeof(IEnumerable),
             typeof(ICollection<string>),
             typeof(IList)
         }));
-        Assert.True(typeof(List<int>).Implements(new[] {
+        Assert.IsTrue(typeof(List<int>).Implements(new[] {
             typeof(IEnumerable),
             typeof(ICollection<>),
             typeof(IList)
         }));
-        Assert.True(typeof(List<string>).Implements(new[] {
+        Assert.IsTrue(typeof(List<string>).Implements(new[] {
             typeof(IEnumerable),
             typeof(ICollection<string>),
             typeof(IList)
         }));
+        Assert.IsTrue(typeof(List<>).Implements(typeof(IEnumerable)));
+        Assert.IsTrue(typeof(List<>).Implements(typeof(IEnumerable<>)));
+        Assert.IsTrue(typeof(List<int>).Implements(typeof(IEnumerable<>)));
+        Assert.IsTrue(typeof(List<int>).Implements(typeof(IEnumerable<>), typeof(int)));
+        Assert.IsFalse(typeof(List<>).Implements(typeof(IEnumerable<>), typeof(int)));
     }
 
     [Test]
     public void TryInstance_Test()
     {
-        Assert.True(typeof(Exception).TryInstance(out Exception? ex, "message"));
+        Assert.IsTrue(typeof(Exception).TryInstance(out Exception? ex, "message"));
         Assert.NotNull(ex);
         Assert.False(typeof(Exception).TryInstance(out Exception? ex2, 1, 2, 3, 4));
         Assert.Null(ex2);
         Assert.False(typeof(ICloneable).TryInstance<ICloneable>(out ICloneable? x));
         Assert.Null(x);
-        Assert.True(typeof(decimal).TryInstance<decimal>(out decimal d));
+        Assert.IsTrue(typeof(decimal).TryInstance<decimal>(out decimal d));
         Assert.AreEqual(default(decimal), d);
         Assert.False(typeof(ThrowingTest).TryInstance<ThrowingTest>(out ThrowingTest? tt));
         Assert.Null(tt);
@@ -222,11 +238,11 @@ public class TypeExtensionsTests
     [Test]
     public void ImplementsOperator_Test()
     {
-        Assert.True(typeof(int).ImplementsOperator(Expression.Add));
-        Assert.True(typeof(int).ImplementsOperator(Expression.Subtract));
-        Assert.True(typeof(int).ImplementsOperator(Expression.Multiply));
-        Assert.True(typeof(int).ImplementsOperator(Expression.Divide));
-        Assert.True(typeof(int).ImplementsOperator(Expression.Modulo));
+        Assert.IsTrue(typeof(int).ImplementsOperator(Expression.Add));
+        Assert.IsTrue(typeof(int).ImplementsOperator(Expression.Subtract));
+        Assert.IsTrue(typeof(int).ImplementsOperator(Expression.Multiply));
+        Assert.IsTrue(typeof(int).ImplementsOperator(Expression.Divide));
+        Assert.IsTrue(typeof(int).ImplementsOperator(Expression.Modulo));
         Assert.False(typeof(object).ImplementsOperator(Expression.Add));
         Assert.False(typeof(object).ImplementsOperator(Expression.Subtract));
     }
