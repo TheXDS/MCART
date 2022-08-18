@@ -35,12 +35,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.Globalization;
-
-namespace TheXDS.MCART.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Math;
@@ -48,7 +46,9 @@ using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Extensions;
 using static TheXDS.MCART.Misc.Internals;
-using St = Resources.Strings.Common;
+using St = TheXDS.MCART.Resources.Strings.Common;
+
+namespace TheXDS.MCART.Helpers;
 
 /// <summary>
 /// Contiene operaciones comunes de transformación de datos en los
@@ -66,7 +66,7 @@ public static partial class Common
         bool[]? a = new bool[maxBits];
         for (int j = 0; j < maxBits; j++)
         {
-            a[j] = (value & (ulong)Math.Pow(2, j)) != 0;
+            a[j] = (value & (ulong)System.Math.Pow(2, j)) != 0;
         }
         return a;
     }
@@ -533,6 +533,38 @@ public static partial class Common
     public static ushort FlipEndianess(this in ushort value)
     {
         return BitConverter.ToUInt16(BitConverter.GetBytes(value).Reverse().ToArray(), 0);
+    }
+
+    /// <summary>
+    /// Ejecuta una operación si un valor es distinto de
+    /// <see langword="null"/>.
+    /// </summary>
+    /// <typeparam name="T">Tipo de valor a comprobar.</typeparam>
+    /// <param name="value">Valor a comprobar.</param>
+    /// <param name="operation">
+    /// Operación a ejecutar si <paramref name="value"/> es distinto de
+    /// <see langword="null"/>.
+    /// </param>
+    public static void IfNotNull<T>(this T? value, Action<T> operation) where T : class
+    {
+        IfNotNull_Contract(operation);
+        if (value is not null) operation(value);
+    }
+
+    /// <summary>
+    /// Ejecuta una operación si un valor es distinto de
+    /// <see langword="null"/>.
+    /// </summary>
+    /// <typeparam name="T">Tipo de valor a comprobar.</typeparam>
+    /// <param name="value">Valor a comprobar.</param>
+    /// <param name="operation">
+    /// Operación a ejecutar si <paramref name="value"/> es distinto de
+    /// <see langword="null"/>.
+    /// </param>
+    public static void IfNotNull<T>(this T? value, Action<T> operation) where T : struct
+    {
+        IfNotNull_Contract(operation);
+        if (value is not null) operation(value.Value);
     }
 
     /// <summary>

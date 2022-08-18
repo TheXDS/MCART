@@ -179,6 +179,39 @@ public class CommonTest
     }
 
     [Test]
+    public void IfNotNull_skips_if_null_test()
+    {
+        ((object?)null).IfNotNull(_ => Assert.Fail());
+        ((Random?)null).IfNotNull(_ => Assert.Fail());
+        ((int?)null).IfNotNull(_ => Assert.Fail());
+    }
+
+    [Test]
+    public void IfNotNull_runs_if_not_null_test()
+    {
+        var pass = false;
+        new object().IfNotNull(_ => pass= true);
+        Assert.True(pass);
+
+        pass = false;
+        new Random().IfNotNull(_ => pass = true);
+        Assert.True(pass);
+
+        pass = false;
+        ((int?)1).IfNotNull(_ => pass = true);
+        Assert.True(pass);
+    }
+
+    [Test]
+    public void IfNotNull_Contract_test()
+    {
+        Assert.Throws<ArgumentNullException>(() => ((object?)null).IfNotNull((Action<object?>)null!));
+        Assert.Throws<ArgumentNullException>(() => new object().IfNotNull((Action<object?>)null!));
+        Assert.Throws<ArgumentNullException>(() => ((int?)null).IfNotNull(null!));
+        Assert.Throws<ArgumentNullException>(() => ((int?)1).IfNotNull(null!));
+    }
+
+    [Test]
     public void AreAllEmptyTest()
     {
         Assert.True(AllEmpty(null, " ", string.Empty));
