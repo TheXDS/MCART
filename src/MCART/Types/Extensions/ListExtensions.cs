@@ -33,6 +33,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Resources;
+
 namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>

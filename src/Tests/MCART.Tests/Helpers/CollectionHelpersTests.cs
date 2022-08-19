@@ -55,6 +55,7 @@ public class CollectionHelpersTests
         Assert.Throws<ArgumentNullException>(() => ((IEnumerable<bool>)null!).Or());
     }
 
+    [Theory]
     [CLSCompliant(false)]
     [TestCase(new byte[] { 1, 2, 4 }, 7)]
     [TestCase(new byte[] { 1, 2, 4, 8, 16, 32, 64, 128 }, 255)]
@@ -65,6 +66,7 @@ public class CollectionHelpersTests
         Assert.Throws<ArgumentNullException>(() => ((IEnumerable<byte>)null!).Or());
     }
 
+    [Theory]
     [CLSCompliant(false)]
     [TestCase(new sbyte[] { 1, 2, 4 }, 7)]
     [TestCase(new sbyte[] { 1, 2, 4, 8, 16, 32, 64 }, 127)]
@@ -74,7 +76,8 @@ public class CollectionHelpersTests
         Assert.AreEqual(orValue, array.Or());
         Assert.Throws<ArgumentNullException>(() => ((IEnumerable<sbyte>)null!).Or());
     }
-    
+
+    [Theory]
     [CLSCompliant(false)]
     [TestCase(new ushort[] { 1, 2, 4 }, (ushort)7)]
     [TestCase(new ushort[] { 128, 255, 16384 }, (ushort)16639)]
@@ -84,6 +87,7 @@ public class CollectionHelpersTests
         Assert.Throws<ArgumentNullException>(() => ((IEnumerable<ushort>)null!).Or());
     }
 
+    [Theory]
     [CLSCompliant(false)]
     [TestCase(new short[] { 1, 2, 4 }, 7)]
     [TestCase(new short[] { 128, 255, 16384 }, 16639)]
@@ -94,6 +98,7 @@ public class CollectionHelpersTests
         Assert.Throws<ArgumentNullException>(() => ((IEnumerable<short>)null!).Or());
     }
 
+    [Theory]
     [CLSCompliant(false)]
     [TestCase(new[] { '\x0001', '\x0002', '\x0004' }, '\x0007')]
     [TestCase(new[] { '\x0080', '\x00FF', '\x1000' }, '\x10FF')]
@@ -103,6 +108,7 @@ public class CollectionHelpersTests
         Assert.Throws<ArgumentNullException>(() => ((IEnumerable<char>)null!).Or());
     }
 
+    [Theory]
     [CLSCompliant(false)]
     [TestCase(new[] { 1, 2, 4 }, 7)]
     [TestCase(new[] { 128, 255, 131072 }, 131327)]
@@ -284,7 +290,8 @@ public class CollectionHelpersTests
         Assert.AreEqual(orValue, array.Xor());
         Assert.Throws<ArgumentNullException>(() => ((IEnumerable<ushort>)null!).Xor());
     }
-    
+
+    [Theory]
     [CLSCompliant(false)]
     [TestCase(new short[] { 131, 140 }, 15)]
     [TestCase(new short[] { 0x10F0, 0x100F }, 0x00FF)]
@@ -295,6 +302,7 @@ public class CollectionHelpersTests
         Assert.Throws<ArgumentNullException>(() => ((IEnumerable<short>)null!).Xor());
     }
 
+    [Theory]
     [CLSCompliant(false)]
     [TestCase(new[] { (char)131, (char)140 }, (char)15)]
     [TestCase(new[] { '\x10F0', '\x100F' }, '\x00FF')]
@@ -304,6 +312,7 @@ public class CollectionHelpersTests
         Assert.Throws<ArgumentNullException>(() => ((IEnumerable<char>)null!).Xor());
     }
 
+    [Theory]
     [CLSCompliant(false)]
     [TestCase(new uint[] { 131, 140 }, (uint)15)]
     [TestCase(new uint[] { 0x10F0, 0x100F }, (uint)0x00FF)]

@@ -173,4 +173,13 @@ public class ListExtensionsTests
         Assert.AreEqual(new[] { "a", "c", "b", "d" }, l.ToArray());
         Assert.Throws<InvalidOperationException>(() => l.Swap("b", "e"));
     }
+
+    [Test]
+    public void Swap_with_index_Test()
+    {
+        List<string>? l = new[] { "a", "b", "c", "d" }.ToList();
+        l.Swap(1, 2);
+        Assert.AreEqual(new[] { "a", "c", "b", "d" }, l.ToArray());
+        Assert.Throws<ArgumentOutOfRangeException>(() => l.Swap(1, 4));
+    }
 }

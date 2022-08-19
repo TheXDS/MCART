@@ -136,8 +136,6 @@ public class SizeTests
         Assert.False(p.Equals(r));
         Assert.True(p.Equals((ISize)q));
         Assert.False(p.Equals((ISize)r));
-        Assert.True(p.Equals((ISize)q));
-        Assert.False(p.Equals((ISize)r));
         Assert.True(p.Equals((IVector)q));
         Assert.False(p.Equals((IVector)r));
         Assert.True(p.Equals((object?)q));
@@ -149,7 +147,37 @@ public class SizeTests
     }
 
     [Test]
+    public void Equals_operator_test()
+    {
+        Size p = new(3, 5);
+        Size q = new(3, 5);
+        Size r = new(5, 3);
+
+        Assert.True(p == q);
+        Assert.False(p == r);
+        Assert.True(p == (ISize)q);
+        Assert.False(p == (ISize)r);
+        Assert.True(p == (IVector)q);
+        Assert.False(p == (IVector)r);
+    }
+
+    [Test]
     public void NotEquals_Test()
+    {
+        Size p = new(3, 5);
+        Size q = new(3, 5);
+        Size r = new(5, 3);
+
+        Assert.True(p != r);
+        Assert.False(p != q);
+        Assert.True(p != (ISize)r);
+        Assert.False(p != (ISize)q);
+        Assert.True(p != (IVector)r);
+        Assert.False(p != (IVector)q);
+    }
+
+    [Test]
+    public void NotEquals_operator_test()
     {
         Size p = new(3, 5);
         Size q = new(3, 5);
@@ -189,6 +217,10 @@ public class SizeTests
         Assert.AreEqual(x3, s.Width);
         Assert.AreEqual(y3, s.Height);
 
+        Size t = p + (IVector)q;
+        Assert.AreEqual(x3, t.Width);
+        Assert.AreEqual(y3, t.Height);
+
         Assert.AreEqual(x3, (p + x2).Width);
         Assert.AreEqual(y3, (p + y2).Height);
     }
@@ -211,6 +243,10 @@ public class SizeTests
         Size s = p - (ISize)q;
         Assert.AreEqual(x3, s.Width);
         Assert.AreEqual(y3, s.Height);
+
+        Size t = p - (IVector)q;
+        Assert.AreEqual(x3, t.Width);
+        Assert.AreEqual(y3, t.Height);
 
         Assert.AreEqual(x3, (p - x2).Width);
         Assert.AreEqual(y3, (p - y2).Height);
@@ -235,6 +271,10 @@ public class SizeTests
         Assert.AreEqual(x3, s.Width);
         Assert.AreEqual(y3, s.Height);
 
+        Size t = p * (IVector)q;
+        Assert.AreEqual(x3, t.Width);
+        Assert.AreEqual(y3, t.Height);
+
         Assert.AreEqual(x3, (p * x2).Width);
         Assert.AreEqual(y3, (p * y2).Height);
     }
@@ -257,6 +297,10 @@ public class SizeTests
         Size s = p / (ISize)q;
         Assert.AreEqual(x3, s.Width);
         Assert.AreEqual(y3, s.Height);
+
+        Size t = p / (IVector)q;
+        Assert.AreEqual(x3, t.Width);
+        Assert.AreEqual(y3, t.Height);
 
         Assert.AreEqual(x3, (p / x2).Width);
         Assert.AreEqual(y3, (p / y2).Height);
@@ -281,6 +325,10 @@ public class SizeTests
         Size s = p % (ISize)q;
         Assert.AreEqual(x3, s.Width);
         Assert.AreEqual(y3, s.Height);
+
+        Size t = p % (IVector)q;
+        Assert.AreEqual(x3, t.Width);
+        Assert.AreEqual(y3, t.Height);
 
         Assert.AreEqual(x3, (p % x2).Width);
         Assert.AreEqual(y3, (p % y2).Height);
@@ -372,5 +420,27 @@ public class SizeTests
         Assert.IsFalse(new Size(1, double.NaN).IsValid);
         Assert.IsFalse(Size.Nothing.IsValid);
         Assert.IsFalse(Size.Infinity.IsValid);
+    }
+
+    [Theory]
+    [CLSCompliant(false)]
+    [TestCase(1.0, 2.0)]
+    [TestCase(3.2, 5.3)]
+    [TestCase(-2.1, -3.8)]
+    public void Implicit_conversion_test(double x, double y)
+    {
+        Size s1 = new(x, y);
+        var s2 = (System.Drawing.Size)s1;
+        var s3 = (System.Drawing.SizeF)s1;
+        var s4 = (Size)s2;
+        var s5 = (Size)s3;
+        Assert.AreEqual((int)x, s2.Width);
+        Assert.AreEqual((int)y, s2.Height);
+        Assert.IsTrue(s3.Width - x < 0.000001);
+        Assert.IsTrue(s3.Height - y < 0.000001);
+        Assert.AreEqual((int)x, s4.Width);
+        Assert.AreEqual((int)y, s4.Height);
+        Assert.IsTrue(s5.Width - x < 0.000001);
+        Assert.IsTrue(s5.Height - y < 0.000001);
     }
 }
