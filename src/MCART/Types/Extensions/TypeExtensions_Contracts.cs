@@ -112,10 +112,10 @@ namespace TheXDS.MCART.Types.Extensions
         [Conditional("EnforceContracts")]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DebuggerNonUserCode]
-        private static void New_Contract(Type type, IEnumerable<object?> parameters)
+        private static void New_Contract(Type type, bool throwOnFail, IEnumerable<object?>? parameters)
         {
             NullCheck(type, nameof(type));
-            if (!type.IsInstantiable(parameters.ToTypes()))
+            if (throwOnFail && !type.IsInstantiable(parameters?.ToTypes()))
             {
                 throw Errors.ClassNotInstantiable(type);
             }

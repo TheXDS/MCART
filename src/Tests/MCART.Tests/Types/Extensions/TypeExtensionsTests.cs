@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using Newtonsoft.Json.Bson;
 using NUnit.Framework;
 using System;
 using System.Collections;
@@ -104,6 +103,61 @@ public class TypeExtensionsTests
         Assert.IsFalse(typeof(IEnumerable<int>).IsInstantiable((IEnumerable<Type>?)null));
         Assert.IsFalse(typeof(File).IsInstantiable());
         Assert.IsFalse(typeof(File).IsInstantiable((IEnumerable<Type>?)null));
+    }
+
+    [Test]
+    public void NewAsync_contract_test()
+    {
+        Assert.ThrowsAsync<ArgumentNullException>(() => ((Type?)null!).NewAsync<Random>());
+        Assert.ThrowsAsync<ArgumentNullException>(() => ((Type?)null!).NewAsync(null!));
+        Assert.ThrowsAsync<InvalidCastException>(() => typeof(Random).NewAsync<FileInfo>());
+        Assert.ThrowsAsync<TypeLoadException>(() => typeof(ThrowingTest).NewAsync<ThrowingTest>());
+    }
+
+    [Test]
+    public async Task NewAsync_with_default_ctor_test()
+    {
+        Assert.IsInstanceOf<Random>(await typeof(Random).NewAsync());
+        Assert.IsInstanceOf<Random>(await typeof(Random).NewAsync(false));
+        Assert.IsInstanceOf<Random>(await typeof(Random).NewAsync(false, null));
+
+        Assert.IsNull(await typeof(Random).NewAsync(false, new object?[] { "Test", DayOfWeek.Monday }));
+        Assert.ThrowsAsync<ClassNotInstantiableException>(() => typeof(Random).NewAsync(true, new object?[] { "Test", DayOfWeek.Monday }));
+        Assert.ThrowsAsync<ClassNotInstantiableException>(() => typeof(Random).NewAsync(new object?[] { "Test", DayOfWeek.Monday }));
+    }
+
+    [Test]
+    public async Task NewAsync_T_with_default_ctor_test()
+    {
+        Assert.IsInstanceOf<Random>(await typeof(Random).NewAsync<Random>());
+        Assert.IsInstanceOf<Random>(await typeof(Random).NewAsync<Random>(false));
+        Assert.IsInstanceOf<Random>(await typeof(Random).NewAsync<Random>(false, null));
+
+        Assert.IsNull(await typeof(Random).NewAsync<Random>(false, new object?[] { "Test", DayOfWeek.Monday }));
+        Assert.ThrowsAsync<ClassNotInstantiableException>(() => typeof(Random).NewAsync<Random>(true, new object?[] { "Test", DayOfWeek.Monday }));
+        Assert.ThrowsAsync<ClassNotInstantiableException>(() => typeof(Random).NewAsync<Random>(new object?[] { "Test", DayOfWeek.Monday }));
+    }
+
+    [Test]
+    public async Task NewAsync_with_parameterized_ctor_test()
+    {
+        Assert.IsInstanceOf<Exception>(await typeof(Exception).NewAsync(new object?[] { "Test" }));
+        Assert.IsInstanceOf<Exception>(await typeof(Exception).NewAsync(false, new object?[] { "Test" }));
+
+        Assert.IsNull(await typeof(Exception).NewAsync(false, new object?[] { 123m, DayOfWeek.Monday }));
+        Assert.ThrowsAsync<ClassNotInstantiableException>(() => typeof(Exception).NewAsync(true, new object?[] { 123m, DayOfWeek.Monday }));
+        Assert.ThrowsAsync<ClassNotInstantiableException>(() => typeof(Exception).NewAsync(new object?[] { 123m, DayOfWeek.Monday }));
+    }
+
+    [Test]
+    public async Task NewAsync_T_with_parameterized_ctor_test()
+    {
+        Assert.IsInstanceOf<Exception>(await typeof(Exception).NewAsync<Exception>(new object?[] { "Test" }));
+        Assert.IsInstanceOf<Exception>(await typeof(Exception).NewAsync<Exception>(false, new object?[] { "Test" }));
+
+        Assert.IsNull(await typeof(Exception).NewAsync<Exception>(false, new object?[] { 123m, DayOfWeek.Monday }));
+        Assert.ThrowsAsync<ClassNotInstantiableException>(() => typeof(Exception).NewAsync<Exception>(true, new object?[] { 123m, DayOfWeek.Monday }));
+        Assert.ThrowsAsync<ClassNotInstantiableException>(() => typeof(Exception).NewAsync<Exception>(new object?[] { 123m, DayOfWeek.Monday }));
     }
 
     [Test]
