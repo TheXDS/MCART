@@ -61,6 +61,8 @@ namespace TheXDS.MCART.Helpers;
 /// </remarks>
 public static partial class Common
 {
+    private static Dictionary<Type, Type>? KnownConverters;
+
     private static IEnumerable<bool> ToBits(this in ulong value, in byte maxBits)
     {
         bool[]? a = new bool[maxBits];
@@ -343,6 +345,31 @@ public static partial class Common
     /// </exception>
     public static TypeConverter? FindConverter(Type source, Type target)
     {
+        /* BUG:
+         * ====
+         * En .Net, los convertidores de tipo primitivos tienden a no filtrar
+         * correctamente los tipos que pueden convertir, por ejemplo,
+         * System.ComponentModel.ByteConverter reporta que puede convertir a 
+         * System.Double, a pesar de que la documentación lo prohíbe.
+         */
+
+        if (source == typeof(string) && (KnownConverters ??= new Dictionary<Type, Type>
+        {
+            { typeof(byte), typeof(ByteConverter) },
+            { typeof(sbyte), typeof(SByteConverter) },
+            { typeof(short), typeof(Int16Converter) },
+            { typeof(ushort), typeof(UInt16Converter) },
+            { typeof(int), typeof(Int32Converter) },
+            { typeof(uint), typeof(UInt32Converter) },
+            { typeof(long), typeof(Int64Converter) },
+            { typeof(ulong), typeof(UInt64Converter) },
+            { typeof(float), typeof(SingleConverter) },
+            { typeof(double), typeof(DoubleConverter) },
+            { typeof(decimal), typeof(DecimalConverter) },
+        }).TryGetValue(target, out var cType))
+        {
+            return cType.New<TypeConverter>(false, Array.Empty<object>());
+        }
         return FindConverters(source, target).FirstOrDefault();
     }
 

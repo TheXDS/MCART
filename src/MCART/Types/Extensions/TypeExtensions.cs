@@ -1084,8 +1084,12 @@ public static partial class TypeExtensions
     /// </returns>
     public static string CleanFullName(this Type type)
     {
-        if (type.FullName is null) return type.Name;
-        return type.FullName.Contains('`') ? type.FullName[..type.FullName.IndexOf('`')] : type.FullName;
+        var name = type.FullName ?? type.Name;
+
+        if (name.Contains('`')) name = name[..name.IndexOf('`')];
+        name = name.TrimEnd("&*".ToCharArray());
+        if (name.EndsWith("[]")) name = name[..^2];
+        return name;
     }
 
     /// <summary>

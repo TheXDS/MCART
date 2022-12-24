@@ -307,4 +307,16 @@ public class TypeExtensionsTests
         Assert.AreEqual("System.Collections.Generic.List<System.String>", typeof(List<string>).CSharpName());
         Assert.AreEqual("System.Collections.Generic.Dictionary<System.Int32, System.String>", typeof(Dictionary<int, string>).CSharpName());
     }
+
+
+    [TestCase(typeof(List<>), "System.Collections.Generic.List")]
+    [TestCase(typeof(int), "System.Int32")]
+    public void CleanFullName_Test(Type type, string typeName)
+    {
+        Assert.AreEqual(typeName, type.CleanFullName());
+        Assert.AreEqual(typeName, type.MakeByRefType().CleanFullName());
+        Assert.AreEqual(typeName, type.MakeArrayType().CleanFullName());
+        Assert.AreEqual(typeName, type.MakeArrayType().MakeByRefType().CleanFullName());
+        Assert.AreEqual(typeName, type.MakePointerType().CleanFullName());
+    }
 }

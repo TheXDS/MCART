@@ -42,13 +42,13 @@ public class ValueConvertersTests
     public void ThresholdConverterTest()
     {
         ThresholdConverter<double, Visibility>? c = new(Visibility.Collapsed, Visibility.Visible, Visibility.Hidden);
-        Assert.Throws<ArgumentNullException>(() => c.Convert(null, typeof(Visibility), 100.0, CultureInfo.CurrentCulture));
-        Assert.Throws<ArgumentException>(() => c.Convert("X", typeof(Visibility), 100.0, CultureInfo.CurrentCulture));
-        Assert.AreEqual(Visibility.Visible, c.Convert(105.0, typeof(Visibility), 100.0, CultureInfo.CurrentCulture));
-        Assert.AreEqual(Visibility.Visible, c.Convert(105.0, typeof(Visibility), "100.0", CultureInfo.CurrentCulture));
-        Assert.AreEqual(Visibility.Collapsed, c.Convert(95.0, typeof(Visibility), 100.0, CultureInfo.CurrentCulture));
-        Assert.AreEqual(Visibility.Hidden, c.Convert(100.0, typeof(Visibility), 100.0, CultureInfo.CurrentCulture));
-        Assert.Throws<ArgumentNullException>(() => c.Convert(150.0, typeof(Visibility), null, CultureInfo.CurrentCulture));
-        Assert.Throws<ArgumentException>(() => c.Convert(150.0, typeof(Visibility), "X", CultureInfo.CurrentCulture));
+        Assert.Throws<ArgumentNullException>(() => c.Convert(null, typeof(Visibility), 100.0, CultureInfo.InvariantCulture));
+        Assert.Throws<ArgumentException>(() => c.Convert("X", typeof(Visibility), 100.0, CultureInfo.InvariantCulture));
+        Assert.AreEqual(Visibility.Visible, c.Convert(105.0, typeof(Visibility), 100.0, CultureInfo.InvariantCulture));
+        Assert.AreEqual(Visibility.Visible, c.Convert(105.0, typeof(Visibility), "100.0", CultureInfo.InvariantCulture));
+        Assert.AreEqual(Visibility.Collapsed, c.Convert(95.0, typeof(Visibility), 100.0, CultureInfo.InvariantCulture));
+        Assert.AreEqual(Visibility.Hidden, c.Convert(100.0, typeof(Visibility), 100.0, CultureInfo.InvariantCulture));
+        Assert.Throws<ArgumentNullException>(() => c.Convert(150.0, typeof(Visibility), null, CultureInfo.InvariantCulture));
+        Assert.Throws<ArgumentException>(() => c.Convert(150.0, typeof(Visibility), "X", CultureInfo.InvariantCulture));
     }
 }

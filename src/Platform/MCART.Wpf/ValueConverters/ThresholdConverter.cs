@@ -119,7 +119,7 @@ public class ThresholdConverter<TIn, TOut> : IValueConverter where TIn : ICompar
     {
         return value switch
         {
-            TIn v => v.CompareTo(GetCurrentValue(parameter)) switch
+            TIn v => v.CompareTo(GetCurrentValue(parameter, culture)) switch
             {
                 -1 => BelowValue,
                 0 => AtValue ?? BelowValue,
@@ -131,23 +131,23 @@ public class ThresholdConverter<TIn, TOut> : IValueConverter where TIn : ICompar
         };
     }
 
-    private static TIn GetCurrentValue(object? parameter)
+    private static TIn GetCurrentValue(object? parameter, CultureInfo culture)
     {
         return parameter switch
         {
             TIn tin => tin,
-            string str => ConvertFromString(str),
+            string str => ConvertFromString(str, culture),
             null => throw new ArgumentNullException(nameof(parameter)),
             _ => throw Errors.InvalidValue(nameof(parameter), parameter),
         };
     }
 
-    private static TIn ConvertFromString(string str)
+    private static TIn ConvertFromString(string str, CultureInfo culture)
     {
         TypeConverter? typeConverter = GetConverter() ?? throw new InvalidCastException();
         try
         {
-            return (TIn)typeConverter.ConvertTo(str, typeof(TIn))!;
+            return (TIn)typeConverter.ConvertTo(null, culture, str, typeof(TIn))!;
         }
         catch (Exception ex)
         {
@@ -157,7 +157,7 @@ public class ThresholdConverter<TIn, TOut> : IValueConverter where TIn : ICompar
 
     private static TypeConverter? GetConverter()
     {
-        if (typeof(string).HasAttr<TypeConverterAttribute>(out TypeConverterAttribute? tc))
+        if (typeof(string).HasAttr(out TypeConverterAttribute? tc))
         {
             System.Collections.Generic.IEnumerable<Type>? converters = Objects.PublicTypes<TypeConverter>().Where(TypeExtensions.IsInstantiable);
             return converters.FirstOrDefault(p => p.AssemblyQualifiedName == tc.ConverterTypeName)?.New<TypeConverter>();
