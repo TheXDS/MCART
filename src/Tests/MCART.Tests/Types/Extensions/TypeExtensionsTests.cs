@@ -308,7 +308,6 @@ public class TypeExtensionsTests
         Assert.AreEqual("System.Collections.Generic.Dictionary<System.Int32, System.String>", typeof(Dictionary<int, string>).CSharpName());
     }
 
-
     [TestCase(typeof(List<>), "System.Collections.Generic.List")]
     [TestCase(typeof(int), "System.Int32")]
     public void CleanFullName_Test(Type type, string typeName)
