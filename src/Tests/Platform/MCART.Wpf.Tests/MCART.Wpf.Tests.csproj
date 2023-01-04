@@ -3,6 +3,9 @@
 		<TargetFramework>net6.0-windows</TargetFramework>
 		<UseWpf>true</UseWpf>
 	</PropertyGroup>
+	<PropertyGroup Condition="'$(OS)' != 'Windows_NT'">
+		<EnableWindowsTargeting>true</EnableWindowsTargeting>
+	</PropertyGroup>
 	<ItemGroup>
 	  <ProjectReference Include="$(SolutionDir)Platform\MCART.Wpf\MCART.Wpf.csproj" />
 	</ItemGroup>

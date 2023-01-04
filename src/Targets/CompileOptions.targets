@@ -10,6 +10,9 @@
 		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
 		<NeutralLanguage>es-419</NeutralLanguage>
 	</PropertyGroup>
+	<PropertyGroup Condition="'$(OS)' != 'Windows_NT'">
+		<EnableWindowsTargeting>true</EnableWindowsTargeting>
+	</PropertyGroup>
 	<PropertyGroup Condition="$(AssemblyName.StartsWith('TheXDS.MCART'))=='False'">
 		<PackageId>TheXDS.MCART.$(AssemblyName)</PackageId>
 		<RootNamespace>TheXDS.MCART.$(AssemblyName)</RootNamespace>
