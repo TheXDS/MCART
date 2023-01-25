@@ -289,16 +289,29 @@ public class TypeExtensionsTests
         Assert.Null(tt);
     }
 
-    [Test]
-    public void ImplementsOperator_Test()
+    [TestCase(typeof(int))]
+    [TestCase(typeof(int?))]
+    [TestCase(typeof(decimal))]
+    [TestCase(typeof(decimal?))]
+    public void ImplementsOperator_returns_true_for_valid_types_Test(Type t)
     {
-        Assert.IsTrue(typeof(int).ImplementsOperator(Expression.Add));
-        Assert.IsTrue(typeof(int).ImplementsOperator(Expression.Subtract));
-        Assert.IsTrue(typeof(int).ImplementsOperator(Expression.Multiply));
-        Assert.IsTrue(typeof(int).ImplementsOperator(Expression.Divide));
-        Assert.IsTrue(typeof(int).ImplementsOperator(Expression.Modulo));
-        Assert.False(typeof(object).ImplementsOperator(Expression.Add));
-        Assert.False(typeof(object).ImplementsOperator(Expression.Subtract));
+        Assert.IsTrue(t.ImplementsOperator(Expression.Add));
+        Assert.IsTrue(t.ImplementsOperator(Expression.Subtract));
+        Assert.IsTrue(t.ImplementsOperator(Expression.Multiply));
+        Assert.IsTrue(t.ImplementsOperator(Expression.Divide));
+        Assert.IsTrue(t.ImplementsOperator(Expression.Modulo));
+    }
+
+    [TestCase(typeof(object))]
+    [TestCase(typeof(Guid))]
+    [TestCase(typeof(Exception))]
+    public void ImplementsOperator_returns_false_for_invalid_types_Test(Type t)
+    {
+        Assert.IsFalse(t.ImplementsOperator(Expression.Add));
+        Assert.IsFalse(t.ImplementsOperator(Expression.Subtract));
+        Assert.IsFalse(t.ImplementsOperator(Expression.Multiply));
+        Assert.IsFalse(t.ImplementsOperator(Expression.Divide));
+        Assert.IsFalse(t.ImplementsOperator(Expression.Modulo));
     }
 
     [Test]

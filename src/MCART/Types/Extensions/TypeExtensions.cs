@@ -210,7 +210,7 @@ public static partial class TypeExtensions
     /// </returns>
     public static bool ImplementsOperator(this Type type, Func<Expression, Expression, BinaryExpression> @operator)
     {
-        ConstantExpression c = Expression.Constant(type.Default(), type);
+        ConstantExpression c = Expression.Constant((Nullable.GetUnderlyingType(type) is { } t ? t : type).Default(), type);
         try
         {
             _ = Expression.Lambda(
