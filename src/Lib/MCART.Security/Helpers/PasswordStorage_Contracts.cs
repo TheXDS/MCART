@@ -34,7 +34,6 @@ namespace TheXDS.MCART.Helpers;
 
 public static partial class PasswordStorage
 {
-
     [Conditional("EnforceContracts")]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     [DebuggerNonUserCode]

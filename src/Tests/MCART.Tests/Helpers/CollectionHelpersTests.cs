@@ -100,8 +100,8 @@ public class CollectionHelpersTests
 
     [Theory]
     [CLSCompliant(false)]
-    [TestCase(new[] { '\x0001', '\x0002', '\x0004' }, '\x0007')]
-    [TestCase(new[] { '\x0080', '\x00FF', '\x1000' }, '\x10FF')]
+    [TestCase(new[] { '\x1001', '\x1002', '\x1004' }, '\x1007')]
+    [TestCase(new[] { '\x1080', '\x10FF', '\x1000' }, '\x10FF')]
     public void Or_Test_Char(char[] array, char orValue)
     {
         Assert.AreEqual(orValue, array.Or());
@@ -202,7 +202,7 @@ public class CollectionHelpersTests
     }
 
     [CLSCompliant(false)]
-    [TestCase(new[] { '\x0001', '\x0002', '\x0004' }, '\x0000')]
+    [TestCase(new[] { '\x1001', '\x1002', '\x1004' }, '\x1000')]
     [TestCase(new[] { '\x10F0', '\x100F' }, '\x1000')]
     public void And_Test_char(char[] array, char orValue)
     {
@@ -304,8 +304,8 @@ public class CollectionHelpersTests
 
     [Theory]
     [CLSCompliant(false)]
-    [TestCase(new[] { (char)131, (char)140 }, (char)15)]
-    [TestCase(new[] { '\x10F0', '\x100F' }, '\x00FF')]
+    [TestCase(new[] { '\x1083', '\x118c' }, '\x010f')]
+    [TestCase(new[] { '\x10F0', '\x110F' }, '\x01FF')]
     public void Xor_Test_char(char[] array, char orValue)
     {
         Assert.AreEqual(orValue, array.Xor());

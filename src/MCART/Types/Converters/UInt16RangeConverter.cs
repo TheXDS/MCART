@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-
 namespace TheXDS.MCART.Types.Converters;
 
 /// <summary>
@@ -43,4 +42,3 @@ namespace TheXDS.MCART.Types.Converters;
 public class UInt16RangeConverter : RangeConverter<ushort>
 {
 }
-

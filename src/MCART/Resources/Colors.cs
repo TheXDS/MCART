@@ -47,7 +47,7 @@ public static class Colors
     /// <returns>
     /// Un <see cref="Color"/> seleccionado aleatoriamente.
     /// </returns>
-    public static Color Pick() => (Color)typeof(Colors).GetPropertiesOf<Color>(BindingFlags.Static).Pick().GetValue(null)!;
+    public static Color Pick() => (Color)typeof(Colors).GetPropertiesOf<Color>(BindingFlags.Static | BindingFlags.Public).Pick().GetValue(null)!;
 
     /// <summary>
     /// Obtiene el color azul Alicia.

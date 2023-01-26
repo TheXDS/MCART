@@ -36,6 +36,7 @@ namespace TheXDS.MCART.Tests.Helpers;
 using NUnit.Framework;
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Reflection;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Types.Extensions;
@@ -188,6 +189,25 @@ public class ReflectionHelpersTests
         PropertyInfo? o = GetProperty<Test1>(t => t.TestProperty);
         Assert.IsInstanceOf<PropertyInfo>(o);
         Assert.AreEqual("TestProperty", o.Name);
+    }
+
+    [Test]
+    public void GetPropertiesOf_Test()
+    {
+        var c = typeof(Test1).GetPropertiesOf<float>().ToArray();
+        Assert.AreEqual(1, c.Length);
+        Assert.IsInstanceOf<PropertyInfo>(c[0]);
+        Assert.AreEqual("TestProperty", c[0].Name);
+    }
+
+
+    [Test]
+    public void GetPropertiesOf_with_BindingFlags_Test()
+    {
+        var c = typeof(Test1).GetPropertiesOf<float>(BindingFlags.Public | BindingFlags.Instance).ToArray();
+        Assert.AreEqual(1, c.Length);
+        Assert.IsInstanceOf<PropertyInfo>(c[0]);
+        Assert.AreEqual("TestProperty", c[0].Name);
     }
 
     [ExcludeFromCodeCoverage]
