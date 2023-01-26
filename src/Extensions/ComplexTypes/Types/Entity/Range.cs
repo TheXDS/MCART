@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -153,7 +153,7 @@ public class Range<T> : IRange<T> where T : IComparable<T>
     /// <summary>
     /// Comprueba si un valor <typeparamref name="T"/> se encuentra dentro de este <see cref="Range{T}"/>.
     /// </summary>
-    /// <param name="value">Valor a comporbar.</param>
+    /// <param name="value">Valor a comprobar.</param>
     /// <returns>
     /// <see langword="true"/> si el valor se encuentra dentro de este <see cref="Range{T}"/>,
     /// <see langword="false"/> en caso contrario.
@@ -164,7 +164,7 @@ public class Range<T> : IRange<T> where T : IComparable<T>
     }
 
     /// <summary>
-    /// Convierte implcitamente un <see cref="Types.Range{T}"/> en un
+    /// Convierte implícitamente un <see cref="Types.Range{T}"/> en un
     /// <see cref="Range{T}"/>.
     /// </summary>
     /// <param name="value">
@@ -176,7 +176,7 @@ public class Range<T> : IRange<T> where T : IComparable<T>
     }
 
     /// <summary>
-    /// Convierte implcitamente un <see cref="Range{T}"/> en un
+    /// Convierte implícitamente un <see cref="Range{T}"/> en un
     /// <see cref="Types.Range{T}"/>.
     /// </summary>
     /// <param name="value">

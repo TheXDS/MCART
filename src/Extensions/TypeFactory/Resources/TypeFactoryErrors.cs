@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -37,9 +37,9 @@ namespace TheXDS.MCART.Resources;
 
 internal static class TypeFactoryErrors
 {
-    internal static InvalidOperationException IfaceNotImpl<T>() => IfaceNotImpl(typeof(T));
+    internal static InvalidOperationException InterfaceNotImplemented<T>() => InterfaceNotImplemented(typeof(T));
 
-    internal static InvalidOperationException IfaceNotImpl(Type t)
+    internal static InvalidOperationException InterfaceNotImplemented(Type t)
     {
         return new InvalidOperationException(string.Format(St.ErrIfaceNotImpl, t.Name));
     }
@@ -61,13 +61,13 @@ internal static class TypeFactoryErrors
         return new InvalidOperationException(St.ErrIFaceMethodExpected);
     }
 
-    internal static ArgumentException TypeBuilderTypeMismatch<T>(TypeBuilder typebuilder)
+    internal static ArgumentException TypeBuilderTypeMismatch<T>(TypeBuilder typeBuilder)
     {
         return new ArgumentException(
             string.Format(St.TypeBuilderTypeMismatch,
-            typebuilder.BaseType,
+            typeBuilder.BaseType,
             typeof(T)),
-            new InvalidTypeException(typebuilder));
+            new InvalidTypeException(typeBuilder));
     }
 
     internal static InvalidOperationException CannotJoinObjects()

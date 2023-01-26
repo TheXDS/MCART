@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -29,12 +29,10 @@ SOFTWARE.
 */
 
 using System;
-using System.Collections.Generic;
 using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Extensions;
 using static System.AttributeTargets;
 using static TheXDS.MCART.Misc.Internals;
-using static TheXDS.MCART.Types.Extensions.DictionaryExtensions;
 
 namespace TheXDS.MCART.Attributes;
 

@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,13 +28,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.ValueConverters;
 using System.Globalization;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System;
 using System.Linq;
 using System.Windows;
+
+namespace TheXDS.MCART.ValueConverters;
 
 /// <summary>
 /// Para un <see cref="ContentControl" /> o un <see cref="Panel" />,
@@ -68,7 +69,7 @@ public sealed class AnyContentVisibilityConverter : IValueConverter
             ContentControl contentControl => (contentControl.Content as FrameworkElement)?.Visibility ??
                                              Visibility.Collapsed,
             Panel panel => panel.Children.Cast<object?>()
-                .Any(j => (j as FrameworkElement)?.Visibility == Visibility.Visible)
+                .Any(j => j is FrameworkElement { Visibility: Visibility.Visible })
                 ? Visibility.Visible
                 : Visibility.Collapsed,
             _ => Visibility.Visible

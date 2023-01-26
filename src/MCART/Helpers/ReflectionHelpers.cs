@@ -9,7 +9,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -30,7 +30,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -41,6 +40,8 @@ using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Extensions;
+
+namespace TheXDS.MCART.Helpers;
 
 /// <summary>
 /// Funciones auxiliares de reflexión.
@@ -487,6 +488,38 @@ public static partial class ReflectionHelpers
         return GetMember<FieldInfo, T, object?>(fieldSelector);
     }
 
+    /// <summary>
+    /// Enumera las propiedades del tipo especificado cuyo tipo de valor sea
+    /// <typeparamref name="T"/>.
+    /// </summary>
+    /// <typeparam name="T">Tipo de las propiedades a obtener.</typeparam>
+    /// <param name="t">Tipo del cual enumerar las propiedades.</param>
+    /// <returns>
+    /// Una enumeración de las propiedades del tipo deseado contenidas dentro
+    /// del tipo especificado.
+    /// </returns>
+    public static IEnumerable<PropertyInfo> GetPropertiesOf<T>(this Type t)
+    {
+        return t.GetProperties().Where(p => p.PropertyType.Implements<T>());
+    }
+
+    /// <summary>
+    /// Enumera las propiedades del tipo especificado cuyo tipo de valor sea
+    /// <typeparamref name="T"/>.
+    /// </summary>
+    /// <typeparam name="T">Tipo de las propiedades a obtener.</typeparam>
+    /// <param name="t">Tipo del cual enumerar las propiedades.</param>
+    /// <param name="flags">
+    /// Banderas de declaración a utilizar para filtrar los miembros a obtener.
+    /// </param>
+    /// <returns>
+    /// Una enumeración de las propiedades del tipo deseado contenidas dentro
+    /// del tipo especificado.
+    /// </returns>
+    public static IEnumerable<PropertyInfo> GetPropertiesOf<T>(this Type t, BindingFlags flags)
+    {
+        return t.GetProperties(flags).Where(p => p.PropertyType.Implements<T>());
+    }
 
     private static MemberInfo GetMemberInternal(LambdaExpression memberSelector)
     {

@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -95,15 +95,15 @@ public class ReflectionHelpersTests
         MethodInfo? m2 = GetMethod<Test2, Action>(t => t.Test);
         MethodInfo? m3 = GetMethod<Test1, Action>(t => t.TestC<int>);
 
-        Assert.False(m1.IsOverriden(t1));
-        Assert.True(m1.IsOverriden(t2));
-        Assert.False(m2.IsOverriden(t2));
-        Assert.True(m3.IsOverriden(t2));
-        Assert.False(m3.IsOverriden(t1));
+        Assert.False(m1.IsOverridden(t1));
+        Assert.True(m1.IsOverridden(t2));
+        Assert.False(m2.IsOverridden(t2));
+        Assert.True(m3.IsOverridden(t2));
+        Assert.False(m3.IsOverridden(t1));
 
-        Assert.Throws<ArgumentNullException>(() => m1.IsOverriden(null!));
-        Assert.Throws<ArgumentNullException>(() => MethodBaseExtensions.IsOverriden(null!, null!));
-        Assert.Throws<InvalidTypeException>(() => m2.IsOverriden(t1));
+        Assert.Throws<ArgumentNullException>(() => m1.IsOverridden(null!));
+        Assert.Throws<ArgumentNullException>(() => MethodBaseExtensions.IsOverridden(null!, null!));
+        Assert.Throws<InvalidTypeException>(() => m2.IsOverridden(t1));
     }
 
     [Test]

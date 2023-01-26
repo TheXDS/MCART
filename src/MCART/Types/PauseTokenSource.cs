@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -43,7 +43,7 @@ public class PauseTokenSource
     private volatile TaskCompletionSource<bool>? m_paused;
 
     /// <summary>
-    /// Obtiene o establece un valor que indica si este orígen de pausa se
+    /// Obtiene o establece un valor que indica si este origen de pausa se
     /// encuentra en estado pausado.
     /// </summary>
     public bool IsPaused

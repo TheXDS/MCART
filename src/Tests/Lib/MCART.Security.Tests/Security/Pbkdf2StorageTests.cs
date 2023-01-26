@@ -8,7 +8,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -29,15 +29,36 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Security.Tests.Helpers;
 using NUnit.Framework;
 using System;
 using System.IO;
-using TheXDS.MCART.Security;
+using System.Security;
+using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types.Extensions;
+
+namespace TheXDS.MCART.Security.Tests.Helpers;
 
 internal class Pbkdf2StorageTests
 {
+    [TestCase("SHA1")]
+    [TestCase("SHA256")]
+    [TestCase("SHA512")]
+    public void Use_PBKDF2_for_password_storage(string hashFunction)
+    {
+        IPasswordStorage pbkdf2 = new Pbkdf2Storage()
+        {
+            Settings = Pbkdf2Storage.GetDefaultSettings() with
+            {
+                HashFunction = hashFunction
+            }
+        };
+        SecureString pw1 = "password".ToSecureString();
+        SecureString pw2 = "Test@123".ToSecureString();
+        byte[] hash = PasswordStorage.CreateHash(pbkdf2, pw1);
+        Assert.IsTrue(PasswordStorage.VerifyPassword(pw1, hash));
+        Assert.IsFalse(PasswordStorage.VerifyPassword(pw2, hash));
+    }
+
     [Test]
     public void Generate_SHA1_Test()
     {

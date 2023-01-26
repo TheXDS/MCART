@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Component;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -36,6 +35,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using TheXDS.MCART.Resources;
+
+namespace TheXDS.MCART.Component;
 
 /// <summary>
 /// Expone la información de ensamblado de una aplicación de WPF.
@@ -48,11 +49,11 @@ public class ApplicationInfo : IExposeExtendedGuiInfo<UIElement?>
     {
         UriBuilder? uri = new(asm.Location ?? string.Empty);
         string? path = Uri.UnescapeDataString(uri.Path);
-        using System.Drawing.Icon? sysicon = System.Drawing.Icon.ExtractAssociatedIcon(path) ?? throw new Exception();
+        using System.Drawing.Icon? systemIcon = System.Drawing.Icon.ExtractAssociatedIcon(path) ?? throw new Exception();
         return new Image
         {
             Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHIcon(
-                sysicon.Handle,
+                systemIcon.Handle,
                 Int32Rect.Empty,
                 BitmapSizeOptions.FromEmptyOptions())
         };

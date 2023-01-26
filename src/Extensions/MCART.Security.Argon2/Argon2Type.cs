@@ -1,5 +1,5 @@
 ﻿/*
-ICasteable.cs
+Argon2Type.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,18 +28,27 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Types.Base;
-using System;
+namespace TheXDS.MCART.Security;
 
 /// <summary>
-/// Define una serie de miembros a implementar por un objeto que
-/// permita realizar conversiones desde su tipo hacia otro.
+/// Enumera las variantes del algoritmo Argon2 que pueden ser utilizadas para
+/// derivar claves.
 /// </summary>
-public interface ICasteable : ICasteable<object>
+public enum Argon2Type : byte
 {
     /// <summary>
-    /// Obtiene una referencia al tipo de destino de conversión para
-    /// este objeto.
+    /// Algoritmo Argon2d. Ofrece resistencia frente a ataques de GPU.
     /// </summary>
-    Type TargetType { get; }
+    Argon2d,
+
+    /// <summary>
+    /// Algoritmo Argon2i. Ofrece resistencia frente a ataques Side-Channel.
+    /// </summary>
+    Argon2i,
+
+    /// <summary>
+    /// Algoritmo Argon2id. Ofrece las ventajas de Argon2d y Argon2i de forma
+    /// simultánea, en detrimento del rendimiento de cómputo.
+    /// </summary>
+    Argon2id
 }

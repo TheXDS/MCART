@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Types.Extensions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -39,6 +38,8 @@ using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Helpers;
 using static TheXDS.MCART.Misc.Internals;
 using static TheXDS.MCART.Types.Extensions.EnumerableExtensions;
+
+namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
 /// Contiene extensiones útiles para la clase <see cref="object" />.
@@ -53,10 +54,10 @@ public static class ObjectExtensions
     /// objetos especificados, <see langword="false" /> en caso contrario.
     /// </returns>
     /// <param name="obj">Objeto a comprobar.</param>
-    /// <param name="objs">Lista de objetos a comparar.</param>
-    public static bool IsEither(this object obj, params object[] objs)
+    /// <param name="objects">Lista de objetos a comparar.</param>
+    public static bool IsEither(this object obj, params object[] objects)
     {
-        return objs.Any(p => p?.Is(obj) ?? obj is null);
+        return objects.Any(p => p?.Is(obj) ?? obj is null);
     }
 
     /// <summary>
@@ -67,10 +68,10 @@ public static class ObjectExtensions
     /// objetos especificados, <see langword="false" /> en caso contrario.
     /// </returns>
     /// <param name="obj">Objeto a comprobar.</param>
-    /// <param name="objs">Lista de objetos a comparar.</param>
-    public static bool IsEither(this object obj, IEnumerable objs)
+    /// <param name="objects">Lista de objetos a comparar.</param>
+    public static bool IsEither(this object obj, IEnumerable objects)
     {
-        return objs.ToGeneric().Any(obj.Is);
+        return objects.ToGeneric().Any(obj.Is);
     }
 
     /// <summary>
@@ -81,10 +82,10 @@ public static class ObjectExtensions
     /// objetos especificados, <see langword="false" /> en caso contrario.
     /// </returns>
     /// <param name="obj">Objeto a comprobar.</param>
-    /// <param name="objs">Lista de objetos a comparar.</param>
-    public static bool IsNeither(this object obj, params object[] objs)
+    /// <param name="objects">Lista de objetos a comparar.</param>
+    public static bool IsNeither(this object obj, params object[] objects)
     {
-        return obj.IsNeither(objs.AsEnumerable());
+        return obj.IsNeither(objects.AsEnumerable());
     }
 
     /// <summary>
@@ -95,10 +96,10 @@ public static class ObjectExtensions
     /// objetos especificados, <see langword="false" /> en caso contrario.
     /// </returns>
     /// <param name="obj">Objeto a comprobar.</param>
-    /// <param name="objs">Lista de objetos a comparar.</param>
-    public static bool IsNeither(this object obj, IEnumerable objs)
+    /// <param name="objects">Lista de objetos a comparar.</param>
+    public static bool IsNeither(this object obj, IEnumerable objects)
     {
-        return objs.ToGeneric().All(p => !p.Is(obj));
+        return objects.ToGeneric().All(p => !p.Is(obj));
     }
 
 
@@ -234,7 +235,7 @@ public static class ObjectExtensions
             Assembly a => a.HasAttr(out attribute),
             MemberInfo m => m.HasAttr(out attribute),
             Enum e => e.HasAttr(out attribute),
-            _ => HasAttrs<T>(obj.GetType(), out IEnumerable<T>? attrs) & (attribute = attrs?.FirstOrDefault()) is not null
+            _ => HasAttrs<T>(obj.GetType(), out IEnumerable<T>? attributes) & (attribute = attributes?.FirstOrDefault()) is not null
         };
     }
 
@@ -274,8 +275,8 @@ public static class ObjectExtensions
             case Enum e:
                 return e.HasAttrValue<TAttribute, TValue>(out value);
             default:
-                bool retVal = HasAttrs<TAttribute>(obj, out IEnumerable<TAttribute>? attrs);
-                value = attrs?.FirstOrDefault() is { Value: { } v } ? v : default!;
+                bool retVal = HasAttrs<TAttribute>(obj, out IEnumerable<TAttribute>? attributes);
+                value = attributes?.FirstOrDefault() is { Value: { } v } ? v : default!;
                 return retVal;
         }
     }

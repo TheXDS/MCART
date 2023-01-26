@@ -8,7 +8,7 @@ Author(s):
      PInvoke.net Community <http://www.pinvoke.net>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -29,8 +29,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.PInvoke.Structs;
 using System.Runtime.InteropServices;
+
+namespace TheXDS.MCART.PInvoke.Structs;
 
 [StructLayout(LayoutKind.Sequential)]
 internal struct WindowInfo

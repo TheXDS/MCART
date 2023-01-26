@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Types;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -39,6 +38,8 @@ using TheXDS.MCART.Events;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Types.Base;
 using TheXDS.MCART.Types.Extensions;
+
+namespace TheXDS.MCART.Types;
 
 /// <summary>
 /// Extensión observable de la clase 
@@ -129,7 +130,7 @@ public class ListEx<T> : List<T>, ICloneable<ListEx<T>>
     /// <see cref="ListEx{T}" />.
     /// </summary>
     /// <param name="collection">
-    /// Colección incial de este <see cref="ListEx{T}" />.
+    /// Colección inicial de este <see cref="ListEx{T}" />.
     /// </param>
     public ListEx(IEnumerable<T> collection) : base(collection) { }
 
@@ -450,21 +451,21 @@ public class ListEx<T> : List<T>, ICloneable<ListEx<T>>
     /// Ordena todos los elementos del <see cref="ListEx{T}"/>
     /// utilizando el <see cref="Comparison{T}"/> especificado.
     /// </summary>
-    /// <param name="comparsion">
+    /// <param name="comparison">
     /// <see cref="Comparison{T}"/> que se va a utilizar al comparar 
     /// elementos.
     /// </param>
-    public new void Sort(Comparison<T> comparsion)
+    public new void Sort(Comparison<T> comparison)
     {
         if (TriggerEvents)
         {
             ListUpdatingEventArgs<T>? a = new(ListUpdateType.ItemsMoved, this);
             ListUpdating?.Invoke(this, a);
             if (a.Cancel) return;
-            base.Sort(comparsion);
+            base.Sort(comparison);
             ListUpdated?.Invoke(this, a);
         }
-        else base.Sort(comparsion);
+        else base.Sort(comparison);
     }
 
     /// <summary>
@@ -490,14 +491,14 @@ public class ListEx<T> : List<T>, ICloneable<ListEx<T>>
     }
 
     /// <summary>
-    /// Ordena los elementos en un intevalo especificado del 
+    /// Ordena los elementos en un intervalo especificado del 
     /// <see cref="ListEx{T}"/> utilizando el comparador especificado.
     /// </summary>
     /// <param name="index">
     /// Índice inicial de base cero del intervalo que se va a ordenar.
     /// </param>
     /// <param name="count">
-    /// Longitud del intervalo que se va a ordernar.
+    /// Longitud del intervalo que se va a ordenar.
     /// </param>
     /// <param name="comparer">
     /// Implementación de <see cref="IComparer{T}"/> que se va a

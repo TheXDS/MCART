@@ -11,7 +11,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -34,7 +34,6 @@ SOFTWARE.
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using TheXDS.MCART.Exceptions;
@@ -42,107 +41,106 @@ using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Resources;
 using static TheXDS.MCART.Misc.Internals;
 
-namespace TheXDS.MCART.Types.Extensions
+namespace TheXDS.MCART.Types.Extensions;
+
+/// <summary>
+/// Extensiones para todos los elementos de tipo <see cref="Type"/>.
+/// </summary>
+public static partial class TypeExtensions
 {
-    /// <summary>
-    /// Extensiones para todos los elementos de tipo <see cref="Type"/>.
-    /// </summary>
-    public static partial class TypeExtensions
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void ToNamedEnum_Contract(Type type)
     {
-        [Conditional("EnforceContracts")]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [DebuggerNonUserCode]
-        private static void ToNamedEnum_Contract(Type type)
-        {
-            NullCheck(type, nameof(type));
-            if (!type.IsEnum) throw Errors.EnumExpected(nameof(type), type);
-        }
+        NullCheck(type, nameof(type));
+        if (!type.IsEnum) throw Errors.EnumExpected(nameof(type), type);
+    }
 
-        [Conditional("EnforceContracts")]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [DebuggerNonUserCode]
-        private static void TryInstance_Contract(Type t, object[]? args)
-        {
-            NullCheck(t, nameof(t));
-            if (args?.IsAnyNull() ?? false) throw new NullItemException(args);
-        }
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void TryInstance_Contract(Type t, object[]? args)
+    {
+        NullCheck(t, nameof(t));
+        if (args?.IsAnyNull() ?? false) throw new NullItemException(args);
+    }
 
-        [Conditional("EnforceContracts")]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [DebuggerNonUserCode]
-        private static void NotNullable_Contract(Type t)
-        {
-            NullCheck(t, nameof(t));
-        }
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void NotNullable_Contract(Type t)
+    {
+        NullCheck(t, nameof(t));
+    }
 
-        [Conditional("EnforceContracts")]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [DebuggerNonUserCode]
-        private static void GetCollectionType_Contract(Type collectionType)
-        {
-            NullCheck(collectionType, nameof(collectionType));
-            if (!collectionType.IsCollectionType()) throw Errors.EnumerableTypeExpected(collectionType);
-        }
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void GetCollectionType_Contract(Type collectionType)
+    {
+        NullCheck(collectionType, nameof(collectionType));
+        if (!collectionType.IsCollectionType()) throw Errors.EnumerableTypeExpected(collectionType);
+    }
 
-        [Conditional("EnforceContracts")]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [DebuggerNonUserCode]
-        private static void Derivates_Contract(IEnumerable<Assembly> assemblies)
-        {
-            NullCheck(assemblies, nameof(assemblies));
-        }
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void Derivates_Contract(IEnumerable<Assembly> assemblies)
+    {
+        NullCheck(assemblies, nameof(assemblies));
+    }
 
-        [Conditional("EnforceContracts")]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [DebuggerNonUserCode]
-        private static void Derivates_Contract(Type type, IEnumerable<Type> types)
-        {
-            NullCheck(type, nameof(type));
-            NullCheck(types, nameof(types));
-        }
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void Derivates_Contract(Type type, IEnumerable<Type> types)
+    {
+        NullCheck(type, nameof(type));
+        NullCheck(types, nameof(types));
+    }
 
-        [Conditional("EnforceContracts")]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [DebuggerNonUserCode]
-        private static void Derivates_Contract(AppDomain domain)
-        {
-            NullCheck(domain, nameof(domain));
-        }
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void Derivates_Contract(AppDomain domain)
+    {
+        NullCheck(domain, nameof(domain));
+    }
 
-        [Conditional("EnforceContracts")]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [DebuggerNonUserCode]
-        private static void New_Contract(Type type, bool throwOnFail, IEnumerable<object?>? parameters)
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void New_Contract(Type type, bool throwOnFail, IEnumerable<object?>? parameters)
+    {
+        NullCheck(type, nameof(type));
+        if (throwOnFail && !type.IsInstantiable(parameters?.ToTypes()))
         {
-            NullCheck(type, nameof(type));
-            if (throwOnFail && !type.IsInstantiable(parameters?.ToTypes()))
-            {
-                throw Errors.ClassNotInstantiable(type);
-            }
+            throw Errors.ClassNotInstantiable(type);
         }
+    }
 
-        [Conditional("EnforceContracts")]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [DebuggerNonUserCode]
-        private static void FieldsOf_Contract(Type type)
-        {
-            NullCheck(type, nameof(type));
-        }
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void FieldsOf_Contract(Type type)
+    {
+        NullCheck(type, nameof(type));
+    }
 
-        [Conditional("EnforceContracts")]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [DebuggerNonUserCode]
-        private static void GetDefinedMethods_Contract(Type type)
-        {
-            NullCheck(type, nameof(type));
-        }
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void GetDefinedMethods_Contract(Type type)
+    {
+        NullCheck(type, nameof(type));
+    }
 
-        [Conditional("EnforceContracts")]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [DebuggerNonUserCode]
-        private static void GetPublicProperties_Contract(Type type)
-        {
-            NullCheck(type, nameof(type));
-        }
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void GetPublicProperties_Contract(Type type)
+    {
+        NullCheck(type, nameof(type));
     }
 }

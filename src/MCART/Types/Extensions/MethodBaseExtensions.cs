@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -89,9 +89,9 @@ public static partial class MethodBaseExtensions
     /// Se produce si la definición de <paramref name="method"/> no existe
     /// en el tipo de <paramref name="instance"/>.
     /// </exception>
-    public static bool IsOverriden(this MethodBase method, object instance)
+    public static bool IsOverridden(this MethodBase method, object instance)
     {
-        IsOverriden_Contract(method, instance);
+        IsOverridden_Contract(method, instance);
         MethodInfo m = instance.GetType().GetMethod(method.Name, GetBindingFlags(method), null, method.GetParameters().Select(p => p.ParameterType).ToArray(), null)
             ?? throw new TamperException(new MissingMethodException(instance.GetType().Name, method.Name));
 

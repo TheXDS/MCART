@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -39,6 +38,8 @@ using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Base;
+
+namespace TheXDS.MCART.ViewModel;
 
 /// <summary>
 /// Clase base para la creación de ViewModels.
@@ -60,7 +61,7 @@ public abstract partial class ViewModelBase : NotifyPropertyChanged, IViewModel
     }
 
     /// <summary>
-    /// Inicialica una nueva instancia de la clase 
+    /// Inicializa una nueva instancia de la clase 
     /// <see cref="ViewModelBase"/>.
     /// </summary>
     protected ViewModelBase()
@@ -186,7 +187,7 @@ public abstract partial class ViewModelBase : NotifyPropertyChanged, IViewModel
     }
 
     /// <summary>
-    /// Ejecuta una tearea controlando automáticamente el estado de
+    /// Ejecuta una tarea controlando automáticamente el estado de
     /// 'ocupado' de este ViewModel.
     /// </summary>
     /// <param name="task">Tarea a ejecutar.</param>

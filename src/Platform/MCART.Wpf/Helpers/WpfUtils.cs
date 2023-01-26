@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Helpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -40,7 +39,9 @@ using System.Windows.Media.Imaging;
 using TheXDS.MCART.Types.Base;
 using TheXDS.MCART.Types.Extensions;
 using static TheXDS.MCART.Types.Extensions.TypeExtensions;
-using C = Math.Geometry;
+using C = TheXDS.MCART.Math.Geometry;
+
+namespace TheXDS.MCART.Helpers;
 
 /// <summary>
 /// Contiene varias herramientas de UI para utilizar en proyectos de
@@ -178,9 +179,9 @@ public static class WpfUtils
             IsClosed = false
         };
         pth.Segments.Add(arc);
-        PathGeometry? outp = new();
-        outp.Figures.Add(pth);
-        return outp;
+        PathGeometry? returnValue = new();
+        returnValue.Figures.Add(pth);
+        return returnValue;
     }
 
     /// <summary>
@@ -205,21 +206,21 @@ public static class WpfUtils
         {
             IsLargeArc = endAngle - startAngle > 180.0,
             Point = new Point(
-                cp.X + (Math.Sin(C.DegRad * endAngle) * radius),
-                cp.Y - (Math.Cos(C.DegRad * endAngle) * radius)),
+                cp.X + (System.Math.Sin(C.DegRad * endAngle) * radius),
+                cp.Y - (System.Math.Cos(C.DegRad * endAngle) * radius)),
             Size = new Size(radius, radius),
             SweepDirection = SweepDirection.Clockwise
         };
         PathFigure? pth = new()
         {
             StartPoint = new Point(
-                cp.X + (Math.Sin(C.DegRad * startAngle) * radius),
-                cp.Y - (Math.Cos(C.DegRad * startAngle) * radius)),
+                cp.X + (System.Math.Sin(C.DegRad * startAngle) * radius),
+                cp.Y - (System.Math.Cos(C.DegRad * startAngle) * radius)),
             IsClosed = false
         };
         pth.Segments.Add(arc);
-        PathGeometry? outp = new();
-        outp.Figures.Add(pth);
-        return outp;
+        PathGeometry? returnValue = new();
+        returnValue.Figures.Add(pth);
+        return returnValue;
     }
 }

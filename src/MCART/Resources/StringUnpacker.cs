@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Resources;
 using System;
 using System.IO;
 using System.Reflection;
@@ -37,6 +36,8 @@ using System.Threading.Tasks;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types.Extensions;
 using St = TheXDS.MCART.Resources.Strings;
+
+namespace TheXDS.MCART.Resources;
 
 /// <summary>
 /// <see cref="AssemblyUnpacker{T}" /> que permite extraer archivos de
@@ -101,7 +102,7 @@ public class StringUnpacker : AssemblyUnpacker<string>, IAsyncUnpacker<string>
     }
 
     /// <summary>
-    /// Intenta obtiener un <see cref="StreamReader"/> a partir del
+    /// Intenta obtener un <see cref="StreamReader"/> a partir del
     /// <paramref name="id"/> y del <paramref name="compressor"/>
     /// especificados.
     /// </summary>
@@ -135,7 +136,7 @@ public class StringUnpacker : AssemblyUnpacker<string>, IAsyncUnpacker<string>
     }
 
     /// <summary>
-    /// Intenta obtiener un <see cref="StreamReader"/> a partir del
+    /// Intenta obtener un <see cref="StreamReader"/> a partir del
     /// <paramref name="id"/> especificado.
     /// </summary>
     /// <param name="id">
@@ -185,7 +186,7 @@ public class StringUnpacker : AssemblyUnpacker<string>, IAsyncUnpacker<string>
     }
 
     /// <summary>
-    /// Intenta obtiener un <see cref="StreamReader"/> a partir del
+    /// Intenta obtener un <see cref="StreamReader"/> a partir del
     /// <paramref name="id"/> y del <paramref name="compressorId"/>
     /// especificados.
     /// </summary>

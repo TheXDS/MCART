@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Types.Base;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -36,13 +35,15 @@ using System.Diagnostics;
 using Nccha = System.Collections.Specialized.NotifyCollectionChangedAction;
 using NcchEa = System.Collections.Specialized.NotifyCollectionChangedEventArgs;
 
+namespace TheXDS.MCART.Types.Base;
+
 /// <summary>
 /// Clase base para los envoltorios observables de colecciones.
 /// </summary>
 [DebuggerStepThrough]
 public abstract class ObservableWrapBase : NotifyPropertyChanged, INotifyCollectionChanged, IEnumerable
 {
-    private readonly IDictionary<NotifyPropertyChangeBase, HashSet<string>> _notifyRegistroir = new Dictionary<NotifyPropertyChangeBase, HashSet<string>>();
+    private readonly IDictionary<NotifyPropertyChangeBase, HashSet<string>> _notifyRegistrar = new Dictionary<NotifyPropertyChangeBase, HashSet<string>>();
 
     /// <summary>
     /// Se produce al ocurrir un cambio en la colección.
@@ -56,7 +57,7 @@ public abstract class ObservableWrapBase : NotifyPropertyChanged, INotifyCollect
     protected void RaiseCollectionChanged(NcchEa eventArgs)
     {
         CollectionChanged?.Invoke(this, eventArgs);
-        foreach (KeyValuePair<NotifyPropertyChangeBase, HashSet<string>> j in _notifyRegistroir)
+        foreach (KeyValuePair<NotifyPropertyChangeBase, HashSet<string>> j in _notifyRegistrar)
         {
             j.Key.Notify(j.Value);
         }
@@ -142,13 +143,13 @@ public abstract class ObservableWrapBase : NotifyPropertyChanged, INotifyCollect
     /// </param>
     public void ForwardNotify(NotifyPropertyChangeBase target, params string[] properties)
     {
-        if (!_notifyRegistroir.ContainsKey(target))
-            _notifyRegistroir.Add(target, new HashSet<string>(properties));
+        if (!_notifyRegistrar.ContainsKey(target))
+            _notifyRegistrar.Add(target, new HashSet<string>(properties));
         else
         {
             foreach (string? j in properties)
             {
-                _notifyRegistroir[target].Add(j);
+                _notifyRegistrar[target].Add(j);
             }
         }
     }

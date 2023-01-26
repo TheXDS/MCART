@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Types.Extensions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -41,6 +40,8 @@ using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types.Extensions.ConstantLoaders;
 using static System.Reflection.Emit.OpCodes;
 using Op = System.Reflection.Emit.OpCodes;
+
+namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
 /// Contiene extensiones útiles para la generación de código por medio
@@ -128,7 +129,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     /// <exception cref="NotImplementedException">
     /// Se produce al intentar cargar un valor constante desconocido.
@@ -171,7 +172,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     /// <exception cref="T:System.NotImplementedException">
     /// Se produce al intentar cargar un valor constante desconocido.
@@ -210,7 +211,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     /// <exception cref="NotImplementedException">
     /// Se produce al intentar cargar un valor constante desconocido.
@@ -243,7 +244,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     /// <exception cref="ClassNotInstantiableException">
     /// Se produce si la clase no es instanciable, o si no existe un 
@@ -274,7 +275,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     /// <exception cref="ClassNotInstantiableException">
     /// Se produce si la clase no es instanciable, o si no existe un 
@@ -302,7 +303,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     /// <exception cref="ClassNotInstantiableException">
     /// Se produce si la clase no es instanciable, o si no existe un 
@@ -333,7 +334,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     /// <exception cref="ClassNotInstantiableException">
     /// Se produce si la clase no es instanciable, o si no existe un 
@@ -379,7 +380,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator Call<TClass, TMethod>(this ILGenerator ilGen, Expression<Func<TClass, TMethod>> methodSelector) where TMethod : Delegate
     {
@@ -404,7 +405,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator CallBaseCtor<TClass>(this ILGenerator ilGen, Type[] baseCtorArgs)
     {
@@ -430,7 +431,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator CallBaseCtor<TClass>(this ILGenerator ilGen) => CallBaseCtor<TClass>(ilGen, Type.EmptyTypes);
 
@@ -450,7 +451,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator Call<TMethod>(this ILGenerator ilGen, Expression<Func<TMethod>> methodSelector) where TMethod : Delegate
     {
@@ -473,7 +474,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator Call<TMethod>(this ILGenerator ilGen, TMethod method) where TMethod : Delegate
     {
@@ -490,7 +491,7 @@ public static class ILGeneratorExtensions
     /// <param name="method">Método a llamar.</param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator Call(this ILGenerator ilGen, MethodInfo method)
     {
@@ -507,7 +508,7 @@ public static class ILGeneratorExtensions
     /// <param name="method">Método a llamar.</param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator CallVirt(this ILGenerator ilGen, MethodInfo method)
     {
@@ -529,7 +530,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator If(this ILGenerator ilGen, Action<ILGenerator> trueBranch)
     {
@@ -557,7 +558,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator If(this ILGenerator ilGen, Action<ILGenerator> trueBranch, Action<ILGenerator> falseBranch)
     {
@@ -597,13 +598,13 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <param name="forBlock">
     /// Acción que permite definir las acciones a ejecutar dentro del
-    /// bloque <see langword="for"/>. La acción incuye un parámetro que
+    /// bloque <see langword="for"/>. La acción incluye un parámetro que
     /// puede usarse como la etiqueta de salida para finalizar el bloque
     /// <see langword="for"/>.
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator For(this ILGenerator ilGen, LocalBuilder accumulator, object? initialValue, Action condition, Action incrementor, ForBlock forBlock)
     {
@@ -634,26 +635,26 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <param name="condition">
     /// Acción que permite definir la evaluación inicial del bloque
-    /// <see langword="for"/>. La acción incuye una referencia al 
+    /// <see langword="for"/>. La acción incluye una referencia al 
     /// <see cref="FieldBuilder"/> del acumulador del bloque
     /// <see langword="for"/>.
     /// </param>
     /// <param name="incrementor">
     /// Acción que permite definir la acción de incremento a ejecutar al
-    /// final del bloque <see langword="for"/>. La acción incuye una referencia al 
+    /// final del bloque <see langword="for"/>. La acción incluye una referencia al 
     /// <see cref="FieldBuilder"/> del acumulador del bloque
     /// <see langword="for"/>.
     /// </param>
     /// <param name="forBlock">
     /// Acción que permite definir las acciones a ejecutar dentro del
-    /// bloque <see langword="for"/>. La acción incuye una referencia al 
+    /// bloque <see langword="for"/>. La acción incluye una referencia al 
     /// <see cref="FieldBuilder"/> del acumulador del bloque
     /// <see langword="for"/> y un parámetro que puede usarse como la
     /// etiqueta de salida para finalizar el bloque <see langword="for"/>.
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator For<T>(this ILGenerator ilGen, T initialValue, Action<LocalBuilder> condition, Action<LocalBuilder> incrementor, ForBlock forBlock)
     {
@@ -688,14 +689,14 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <param name="forBlock">
     /// Acción que permite definir las acciones a ejecutar dentro del
-    /// bloque <see langword="for"/>. La acción incuye una referencia al 
+    /// bloque <see langword="for"/>. La acción incluye una referencia al 
     /// <see cref="FieldBuilder"/> del acumulador del bloque
     /// <see langword="for"/> y un parámetro que puede usarse como la
     /// etiqueta de salida para finalizar el bloque <see langword="for"/>.
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator For(this ILGenerator ilGen, int startValue, int endValue, ForBlock forBlock)
     {
@@ -731,14 +732,14 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <param name="forBlock">
     /// Acción que permite definir las acciones a ejecutar dentro del
-    /// bloque <see langword="for"/>. La acción incuye una referencia al 
+    /// bloque <see langword="for"/>. La acción incluye una referencia al 
     /// <see cref="FieldBuilder"/> del acumulador del bloque
     /// <see langword="for"/> y un parámetro que puede usarse como la
     /// etiqueta de salida para finalizar el bloque <see langword="for"/>.
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator For(this ILGenerator ilGen, Range<int> range, ForBlock forBlock)
     {
@@ -780,13 +781,13 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <param name="foreachBlock">
     /// Delegado que permite definir las acciones a ejecutar dentro del
-    /// bloque <see langword="foreach"/>. La acción incuye una referencia al 
+    /// bloque <see langword="foreach"/>. La acción incluye una referencia al 
     /// <see cref="LocalBuilder"/> del elemento actual del bloque
     /// <see langword="foreach"/>.
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     /// <remarks>
     /// Esta instrucción espera que el valor en la parte superior de la
@@ -824,7 +825,7 @@ public static class ILGeneratorExtensions
     /// <see langword="using"/>.
     /// </param>
     /// <param name="disposable">
-    /// Referencia a un <see cref="LocalBuilder"/> que contiene la intancia
+    /// Referencia a un <see cref="LocalBuilder"/> que contiene la instancia
     /// del objeto desechable a utilizar dentro del bloque 
     /// <see langword="using"/>.
     /// </param>
@@ -834,7 +835,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator Using(this ILGenerator ilGen, LocalBuilder disposable, UsingBlock usingBlock)
     {
@@ -859,7 +860,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator Using<T>(this ILGenerator ilGen, UsingBlock usingBlock) where T : IDisposable, new()
     {
@@ -896,7 +897,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator InsertNewLabel(this ILGenerator ilGen, out Label label)
     {
@@ -915,7 +916,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator PutLabel(this ILGenerator ilGen, Label label)
     {
@@ -936,7 +937,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator Branch(this ILGenerator ilGen, Label label)
     {
@@ -957,7 +958,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator BranchNewLabel(this ILGenerator ilGen, out Label label)
     {
@@ -997,7 +998,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator BranchTrue(this ILGenerator ilGen, Label label)
     {
@@ -1018,7 +1019,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator BranchTrueNewLabel(this ILGenerator ilGen, out Label label)
     {
@@ -1039,7 +1040,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator BranchFalse(this ILGenerator ilGen, Label label)
     {
@@ -1060,7 +1061,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator BranchFalseNewLabel(this ILGenerator ilGen, out Label label)
     {
@@ -1082,7 +1083,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator BranchGreaterThan(this ILGenerator ilGen, Label label)
     {
@@ -1104,7 +1105,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator BranchGreaterThanNewLabel(this ILGenerator ilGen, out Label label)
     {
@@ -1126,7 +1127,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator BranchLessThan(this ILGenerator ilGen, Label label)
     {
@@ -1148,7 +1149,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator BranchLessThanNewLabel(this ILGenerator ilGen, out Label label)
     {
@@ -1170,7 +1171,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator BranchEqual(this ILGenerator ilGen, Label label)
     {
@@ -1192,7 +1193,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator BranchEqualNewLabel(this ILGenerator ilGen, out Label label)
     {
@@ -1214,7 +1215,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator BranchGreaterThanOrEqual(this ILGenerator ilGen, Label label)
     {
@@ -1236,7 +1237,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator BranchGreaterThanOrEqualNewLabel(this ILGenerator ilGen, out Label label)
     {
@@ -1258,7 +1259,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator BranchLessThanOrEqual(this ILGenerator ilGen, Label label)
     {
@@ -1280,7 +1281,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator BranchLessThanOrEqualNewLabel(this ILGenerator ilGen, out Label label)
     {
@@ -1302,7 +1303,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator BranchNotEqual(this ILGenerator ilGen, Label label)
     {
@@ -1324,7 +1325,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator BranchNotEqualNewLabel(this ILGenerator ilGen, out Label label)
     {
@@ -1344,7 +1345,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator LoadLocalAddress(this ILGenerator ilGen, LocalBuilder local)
     {
@@ -1365,7 +1366,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator LoadLocal(this ILGenerator ilGen, LocalBuilder local)
     {
@@ -1386,7 +1387,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator StoreLocal(this ILGenerator ilGen, LocalBuilder local)
     {
@@ -1407,7 +1408,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator StoreNewLocal<T>(this ILGenerator ilGen, out LocalBuilder local)
     {
@@ -1432,7 +1433,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator InitNewLocal<T>(this ILGenerator ilGen, T value, out LocalBuilder local)
     {
@@ -1455,7 +1456,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator InitLocal(this ILGenerator ilGen, LocalBuilder local, object? value)
     {
@@ -1474,7 +1475,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator LoadField(this ILGenerator ilGen, FieldInfo field)
     {
@@ -1494,7 +1495,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator StoreField(this ILGenerator ilGen, FieldInfo field)
     {
@@ -1515,7 +1516,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator StoreProperty(this ILGenerator ilGen, PropertyInfo prop)
     {
@@ -1536,7 +1537,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator LoadFieldAddress(this ILGenerator ilGen, FieldInfo field)
     {
@@ -1555,7 +1556,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator LoadProperty(this ILGenerator ilGen, PropertyInfo property)
     {
@@ -1582,7 +1583,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator LoadProperty(this ILGenerator ilGen, PropertyBuildInfo property)
     {
@@ -1604,7 +1605,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator LoadProperty<T>(this ILGenerator ilGen, Expression<Func<T, object?>> propertySelector)
     {
@@ -1633,7 +1634,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator TryFinally(this ILGenerator ilGen, TryBlock tryBlock, Action finallyBlock)
     {
@@ -1662,13 +1663,13 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <param name="catchBlocks">
     /// Colección de bloques <see langword="catch"/> a insertar. Cada
-    /// acción inclyue un parámetro que puede usarse como la etiqueta de
+    /// acción incluye un parámetro que puede usarse como la etiqueta de
     /// salida para finalizar el bloque <see langword="catch"/> por medio
     /// de una instrucción <see cref="Leave(ILGenerator, Label)"/>.
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator TryCatch(this ILGenerator ilGen, TryBlock tryBlock, IEnumerable<KeyValuePair<Type, TryBlock>> catchBlocks)
     {
@@ -1696,7 +1697,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <param name="catchBlocks">
     /// Colección de bloques <see langword="catch"/> a insertar. Cada
-    /// acción inclyue un parámetro que puede usarse como la etiqueta de
+    /// acción incluye un parámetro que puede usarse como la etiqueta de
     /// salida para finalizar el bloque <see langword="catch"/> por medio
     /// de una instrucción <see cref="Leave(ILGenerator, Label)"/>.
     /// </param>
@@ -1706,7 +1707,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator TryCatchFinally(this ILGenerator ilGen, TryBlock tryBlock, IEnumerable<KeyValuePair<Type, TryBlock>> catchBlocks, Action finallyBlock)
     {
@@ -1726,7 +1727,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     /// <remarks>
     /// Este método espera que existan dos valores en la pila sobre los
@@ -1743,13 +1744,13 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     /// <remarks>
     /// Este método espera que existan dos valores en la pila sobre los
     /// cuales pueda aplicarse la operación de resta.
     /// </remarks>
-    public static ILGenerator Substract(this ILGenerator ilGen) => OneLiner(ilGen, Sub);
+    public static ILGenerator Subtract(this ILGenerator ilGen) => OneLiner(ilGen, Sub);
 
     /// <summary>
     /// Inserta una operación de multiplicación en la secuencia del
@@ -1760,13 +1761,13 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     /// <remarks>
     /// Este método espera que existan dos valores en la pila sobre los
     /// cuales pueda aplicarse la operación de multiplicación.
     /// </remarks>
-    public static ILGenerator Muliply(this ILGenerator ilGen) => OneLiner(ilGen, Mul);
+    public static ILGenerator Multiply(this ILGenerator ilGen) => OneLiner(ilGen, Mul);
 
     /// <summary>
     /// Inserta una operación de división en la secuencia del lenguaje 
@@ -1777,7 +1778,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     /// <remarks>
     /// Este método espera que existan dos valores en la pila sobre los
@@ -1786,7 +1787,7 @@ public static class ILGeneratorExtensions
     public static ILGenerator Divide(this ILGenerator ilGen) => OneLiner(ilGen, Div);
 
     /// <summary>
-    /// Inserta una operación de resíduo en la secuencia del lenguaje 
+    /// Inserta una operación de residuo en la secuencia del lenguaje 
     /// intermedio de Microsoft® (MSIL).
     /// </summary>
     /// <param name="ilGen">
@@ -1794,11 +1795,11 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     /// <remarks>
     /// Este método espera que existan dos valores en la pila sobre los
-    /// cuales pueda aplicarse la operación de resíduo.
+    /// cuales pueda aplicarse la operación de residuo.
     /// </remarks>
     public static ILGenerator Remainder(this ILGenerator ilGen) => OneLiner(ilGen, Rem);
 
@@ -1811,7 +1812,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator Nop(this ILGenerator ilGen) => OneLiner(ilGen, OpCodes.Nop);
 
@@ -1825,7 +1826,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator This(this ILGenerator ilGen) => OneLiner(ilGen, Ldarg_0);
 
@@ -1838,7 +1839,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator LoadArg1(this ILGenerator ilGen) => OneLiner(ilGen, Ldarg_1);
 
@@ -1851,7 +1852,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator LoadArg2(this ILGenerator ilGen) => OneLiner(ilGen, Ldarg_2);
 
@@ -1864,7 +1865,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator LoadArg3(this ILGenerator ilGen) => OneLiner(ilGen, Ldarg_3);
 
@@ -1882,7 +1883,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator LoadArg(this ILGenerator ilGen, short argIndex)
     {
@@ -1899,13 +1900,13 @@ public static class ILGeneratorExtensions
     /// Secuencia de instrucciones en la cual insertar la operación.
     /// </param>
     /// <param name="argIndex">
-    /// Índice del argumento paraa el cual cargar una referencia. El valor
+    /// Índice del argumento para el cual cargar una referencia. El valor
     /// de <c>0</c> cargará una referencia a la instancia del tipo actual
     /// (el valor <see langword="this"/>).
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator LoadArgAddress(this ILGenerator ilGen, short argIndex)
     {
@@ -1924,7 +1925,7 @@ public static class ILGeneratorExtensions
     /// <param name="parameter">Parámetro a cargar.</param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator LoadParameter(this ILGenerator ilGen, ParameterInfo parameter)
     {
@@ -1942,7 +1943,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator Duplicate(this ILGenerator ilGen) => OneLiner(ilGen, Dup);
 
@@ -1956,7 +1957,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator Pop(this ILGenerator ilGen) => OneLiner(ilGen, Op.Pop);
 
@@ -1970,7 +1971,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator LoadNull(this ILGenerator ilGen) => OneLiner(ilGen, Ldnull);
 
@@ -1984,7 +1985,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator CompareEqual(this ILGenerator ilGen) => OneLiner(ilGen, Ceq);
 
@@ -1998,7 +1999,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator CompareGreaterThan(this ILGenerator ilGen) => OneLiner(ilGen, Cgt);
 
@@ -2012,7 +2013,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator CompareLessThan(this ILGenerator ilGen) => OneLiner(ilGen, Clt);
 
@@ -2055,7 +2056,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator NewObj(this ILGenerator ilGen, Type newObjectType)
     {
@@ -2076,7 +2077,7 @@ public static class ILGeneratorExtensions
     /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintáxis Fluent.
+    /// de sintaxis Fluent.
     /// </returns>
     public static ILGenerator NewObj<T>(this ILGenerator ilGen)
     {

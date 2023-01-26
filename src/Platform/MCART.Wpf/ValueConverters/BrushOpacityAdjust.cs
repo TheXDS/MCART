@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,12 +28,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.ValueConverters;
 using System;
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
 using TheXDS.MCART.Helpers;
+using TheXDS.MCART.Resources;
+
+namespace TheXDS.MCART.ValueConverters;
 
 /// <summary>
 /// Permite compartir un recurso de <see cref="Brush" /> entre controles,
@@ -60,7 +62,7 @@ public sealed class BrushOpacityAdjust : IValueConverter
     {
         if (value is not Brush brush) return null;
         double opacity = (double)System.Convert.ChangeType(parameter, typeof(double));
-        if (!opacity.IsBetween(0, 1)) throw new ArgumentOutOfRangeException(nameof(opacity));
+        if (!opacity.IsBetween(0.0, 1.0)) throw Errors.ValueOutOfRange(nameof(opacity), 0.0, 1.0);
         Brush? b = brush.Clone();
         b.Opacity = opacity;
         return b;

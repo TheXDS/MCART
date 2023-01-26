@@ -1,5 +1,5 @@
 ﻿/*
-IncommingDataEventArgs.cs
+Statistics.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,26 +28,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Events;
+using TheXDS.MCART.Resources;
 
-/// <summary>
-/// Incluye información de evento para cualquier clase con eventos de
-/// recepción de datos.
-/// </summary>
-public class IncommingDataEventArgs : ValueEventArgs<byte[]>
+namespace TheXDS.MCART.Math;
+
+public static partial class Statistics
 {
-    /// <summary>
-    /// Inicializa una nueva instancia de este objeto con los datos
-    /// recibidos.
-    /// </summary>
-    /// <param name="data">
-    /// Colección de <see cref="byte" /> con los datos recibidos.
-    /// </param>
-    /// <exception cref="System.ArgumentNullException">
-    /// Se produce si <paramref name="data"/> es <see langword="null"/>.
-    /// </exception>
-    public IncommingDataEventArgs(byte[] data) : base(data)
+    private static void Average_Contract(in double value, in int samples, in double oldAverage)
     {
-        Misc.Internals.NullCheck(data, nameof(data));
+        if (!value.IsValid()) throw Errors.InvalidValue(nameof(value));
+        if (samples < 0) throw Errors.ValueOutOfRange(nameof(samples), 0, int.MaxValue);
+        if (!oldAverage.IsValid()) throw Errors.InvalidValue(nameof(oldAverage));
     }
 }

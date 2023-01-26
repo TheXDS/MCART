@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Types;
 using System;
 using System.Collections.Generic;
 using TheXDS.MCART.Helpers;
@@ -40,11 +39,13 @@ using static TheXDS.MCART.Types.Extensions.StringExtensions;
 using CI = System.Globalization.CultureInfo;
 using DR = System.Drawing;
 
+namespace TheXDS.MCART.Types;
+
 /// <summary>
 /// Estructura universal que describe un color en sus componentes alfa,
 /// rojo, verde y azul.
 /// </summary>
-public partial struct Color : IEquatable<Color>, IFormattable, IComparable<Color>, IColor, IScColor, ICasteable<DR.Color>, ICloneable<Color>
+public partial struct Color : IEquatable<Color>, IFormattable, IComparable<Color>, IColor, IScColor, ICastable<DR.Color>, ICloneable<Color>
 {
     /// <summary>
     /// Obtiene una referencia al color transparente.
@@ -680,5 +681,5 @@ public partial struct Color : IEquatable<Color>, IFormattable, IComparable<Color
         return format;
     }
 
-    DR.Color ICasteable<DR.Color>.Cast() => this;
+    DR.Color ICastable<DR.Color>.Cast() => this;
 }

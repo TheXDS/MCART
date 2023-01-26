@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -34,28 +34,18 @@ namespace TheXDS.MCART.Security;
 /// Contiene valores de configuración a utilizar para derivar contraseñas
 /// utilizando el algoritmo PBKDF2.
 /// </summary>
-public record struct Pbkdf2Settings
-{
-    /// <summary>
-    /// Obtiene o inicializa el bloque de sal a utilizar para derivar la clave.
-    /// </summary>
-    public byte[] Salt { get; init; }
-
-    /// <summary>
-    /// Obtiene o inicializa un valor que determina la cantidad de iteraciones
-    /// a ejecutar de PBKDF2 para derivar una clave.
-    /// </summary>
-    public int Iterations { get; init; }
-
-    /// <summary>
-    /// Obtiene o inicializa el nombre del algoritmo hash a utilizar para
-    /// derivar la clave.
-    /// </summary>
-    public string? HashFunction { get; init; }
-
-    /// <summary>
-    /// Obtiene o inicializa un valor que determina la cantidad de bytes a
-    /// derivar.
-    /// </summary>
-    public int DerivedKeyLength { get; init; }
-}
+/// <param name="Salt">Bloque de sal a utilizar para derivar la clave.</param>
+/// <param name="Iterations">
+/// Iteraciones de PBKDF2 a ejecutar para derivar la clave.
+/// </param>
+/// <param name="HashFunction">
+/// Nombre del algoritmo hash a utilizar para derivar la clave.
+/// </param>
+/// <param name="DerivedKeyLength">
+/// Cantidad de bytes a derivar.
+/// </param>
+public readonly record struct Pbkdf2Settings(
+    byte[] Salt,
+    int Iterations,
+    string? HashFunction,
+    int DerivedKeyLength);

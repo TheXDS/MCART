@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Component;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,7 +37,9 @@ using TheXDS.MCART.Misc;
 using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Extensions;
 using static TheXDS.MCART.Misc.Internals;
-using MIE = Types.Extensions.MemberInfoExtensions;
+using MIE = TheXDS.MCART.Types.Extensions.MemberInfoExtensions;
+
+namespace TheXDS.MCART.Component;
 
 /// <summary>
 /// Expone la información de identificación de un ensamblado.
@@ -136,7 +137,7 @@ public class AssemblyInfo : IExposeExtendedInfo, IExposeAssembly
     public string? Product => Assembly.GetAttr<AssemblyProductAttribute>()?.Product;
 
     /// <summary>
-    /// Obtiene una colección con todos los comnponentes marcados como de
+    /// Obtiene una colección con todos los componentes marcados como de
     /// terceros en el ensamblado.
     /// </summary>
     public IEnumerable<Type> ThirdPartyComponents => Assembly.SafeGetTypes().Where(MIE.HasAttr<ThirdPartyAttribute>);

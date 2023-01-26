@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Types.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -42,7 +41,9 @@ using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types.Extensions;
-using St = Resources.Strings;
+using St = TheXDS.MCART.Resources.Strings;
+
+namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
 /// Extensiones de la clase <see cref="string" />.
@@ -418,7 +419,7 @@ public static class StringExtensions
     /// <param name="ucase">
     /// Opcional. Especifica el tipo de comprobación a realizar. Si es
     /// <see langword="true" />, Se tomarán en cuenta únicamente los caracteres en
-    /// mayúsculas, si es <see langword="false" />, se tomarán en cuenta unicamente  los
+    /// mayúsculas, si es <see langword="false" />, se tomarán en cuenta únicamente  los
     /// caracteres en minúsculas. Si se omite o se establece en <see langword="null" />,
     /// se tomarán en cuenta ambos casos.
     /// </param>

@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,13 +28,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Types.Base;
 using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Helpers;
+
+namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
 /// Clase base para un objeto que permite crear un <see cref="Stream"/>
@@ -161,7 +162,7 @@ public abstract class StreamUriParser : IStreamUriParser
     /// <summary>
     /// Obtiene un valor que determina si el <see cref="Stream"/>
     /// producido por este objeto requiere ser cargado por completo en
-    /// un búffer de lectura en memoria.
+    /// un búfer de lectura en memoria.
     /// </summary>
     public virtual bool PreferFullTransfer { get; } = false;
 

@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Types.Extensions;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -40,7 +39,9 @@ using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types.Base;
 using static System.Reflection.MethodAttributes;
 using static TheXDS.MCART.Types.TypeBuilderHelpers;
-using Errors = Resources.TypeFactoryErrors;
+using Errors = TheXDS.MCART.Resources.TypeFactoryErrors;
+
+namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
 /// Contiene extensiones útiles para la generación de miembros por medio
@@ -445,7 +446,7 @@ public static class TypeBuilderExtensions
     /// clase derivada. 
     /// </param>
     /// <param name="npcInvocator">
-    /// Métod que invoca al manejador de eventos para los tipos construidos
+    /// Método que invoca al manejador de eventos para los tipos construidos
     /// que implementan directamente <see cref="INotifyPropertyChanged"/>.
     /// Si se omite o se establece en <see langword="null"/>
     /// (<see langword="Nothing"/> en Visual Basic), se buscará un campo
@@ -504,7 +505,7 @@ public static class TypeBuilderExtensions
     /// <param name="type">Tipo de la nueva propiedad.</param>
     /// <param name="access">Nivel de acceso de la nueva propiedad.</param>
     /// <param name="npcInvocator">
-    /// Métod que invoca al manejador de eventos para los tipos construidos
+    /// Método que invoca al manejador de eventos para los tipos construidos
     /// que implementan directamente <see cref="INotifyPropertyChanged"/>.
     /// Si se omite o se establece en <see langword="null"/>
     /// (<see langword="Nothing"/> en Visual Basic), se buscará un campo
@@ -560,7 +561,7 @@ public static class TypeBuilderExtensions
     /// <param name="name">Nombre de la nueva propiedad.</param>
     /// <param name="type">Tipo de la nueva propiedad.</param>
     /// <param name="npcInvocator">
-    /// Métod que invoca al manejador de eventos para los tipos construidos
+    /// Método que invoca al manejador de eventos para los tipos construidos
     /// que implementan directamente <see cref="INotifyPropertyChanged"/>.
     /// Si se omite o se establece en <see langword="null"/>
     /// (<see langword="Nothing"/> en Visual Basic), se buscará un campo
@@ -614,7 +615,7 @@ public static class TypeBuilderExtensions
     /// </param>
     /// <param name="name">Nombre de la nueva propiedad.</param>
     /// <param name="npcInvocator">
-    /// Métod que invoca al manejador de eventos para los tipos construidos
+    /// Método que invoca al manejador de eventos para los tipos construidos
     /// que implementan directamente <see cref="INotifyPropertyChanged"/>.
     /// Si se omite o se establece en <see langword="null"/>
     /// (<see langword="Nothing"/> en Visual Basic), se buscará un campo
@@ -640,7 +641,7 @@ public static class TypeBuilderExtensions
     /// </param>
     /// <param name="name">Nombre de la nueva propiedad.</param>
     /// <param name="type">Tipo de la nueva propiedad.</param>
-    /// <param name="writtable">
+    /// <param name="writable">
     /// <see langword="true"/> para crear una propiedad que contiene
     /// accesor de escritura (accesor <see langword="set"/>),
     /// <see langword="false"/> para no incluir un accesor de escritura en
@@ -660,14 +661,14 @@ public static class TypeBuilderExtensions
     /// La propiedad generada requerirá que se implementen los accesores
     /// antes de construir el tipo.
     /// </remarks>
-    public static PropertyBuildInfo AddProperty(this TypeBuilder tb, string name, Type type, bool writtable, MemberAccess access, bool @virtual)
+    public static PropertyBuildInfo AddProperty(this TypeBuilder tb, string name, Type type, bool writable, MemberAccess access, bool @virtual)
     {
         ILGenerator? setIl = null;
         PropertyBuilder? prop = tb.DefineProperty(name, PropertyAttributes.HasDefault, type, null);
         MethodBuilder? getM = MkGet(tb, name, type, access, @virtual);
         ILGenerator? getIl = getM.GetILGenerator();
         prop.SetGetMethod(getM);
-        if (writtable)
+        if (writable)
         {
             MethodBuilder? setM = MkSet(tb, name, type, access, @virtual);
             setIl = setM.GetILGenerator();
@@ -685,7 +686,7 @@ public static class TypeBuilderExtensions
     /// Constructor del tipo en el cual crear la nueva propiedad.
     /// </param>
     /// <param name="name">Nombre de la nueva propiedad.</param>
-    /// <param name="writtable">
+    /// <param name="writable">
     /// <see langword="true"/> para crear una propiedad que contiene
     /// accesor de escritura (accesor <see langword="set"/>),
     /// <see langword="false"/> para no incluir un accesor de escritura en
@@ -705,9 +706,9 @@ public static class TypeBuilderExtensions
     /// La propiedad generada requerirá que se implementen los accesores
     /// antes de construir el tipo.
     /// </remarks>
-    public static PropertyBuildInfo AddProperty<T>(this TypeBuilder tb, string name, bool writtable, MemberAccess access, bool @virtual)
+    public static PropertyBuildInfo AddProperty<T>(this TypeBuilder tb, string name, bool writable, MemberAccess access, bool @virtual)
     {
-        return AddProperty(tb, name, typeof(T), writtable, access, @virtual);
+        return AddProperty(tb, name, typeof(T), writable, access, @virtual);
     }
 
     /// <summary>
@@ -719,7 +720,7 @@ public static class TypeBuilderExtensions
     /// Constructor del tipo en el cual crear la nueva propiedad.
     /// </param>
     /// <param name="name">Nombre de la nueva propiedad.</param>
-    /// <param name="writtable">
+    /// <param name="writable">
     /// <see langword="true"/> para crear una propiedad que contiene
     /// accesor de escritura (accesor <see langword="set"/>),
     /// <see langword="false"/> para no incluir un accesor de escritura en
@@ -734,9 +735,9 @@ public static class TypeBuilderExtensions
     /// La propiedad generada requerirá que se implementen los accesores
     /// antes de construir el tipo.
     /// </remarks>
-    public static PropertyBuildInfo AddProperty<T>(this TypeBuilder tb, string name, bool writtable, MemberAccess access)
+    public static PropertyBuildInfo AddProperty<T>(this TypeBuilder tb, string name, bool writable, MemberAccess access)
     {
-        return AddProperty(tb, name, typeof(T), writtable, access, false);
+        return AddProperty(tb, name, typeof(T), writable, access, false);
     }
 
     /// <summary>
@@ -748,7 +749,7 @@ public static class TypeBuilderExtensions
     /// Constructor del tipo en el cual crear la nueva propiedad.
     /// </param>
     /// <param name="name">Nombre de la nueva propiedad.</param>
-    /// <param name="writtable">
+    /// <param name="writable">
     /// <see langword="true"/> para crear una propiedad que contiene
     /// accesor de escritura (accesor <see langword="set"/>),
     /// <see langword="false"/> para no incluir un accesor de escritura en
@@ -762,9 +763,9 @@ public static class TypeBuilderExtensions
     /// La propiedad generada requerirá que se implementen los accesores
     /// antes de construir el tipo.
     /// </remarks>
-    public static PropertyBuildInfo AddProperty<T>(this TypeBuilder tb, string name, bool writtable)
+    public static PropertyBuildInfo AddProperty<T>(this TypeBuilder tb, string name, bool writable)
     {
-        return AddProperty(tb, name, typeof(T), writtable, MemberAccess.Public, false);
+        return AddProperty(tb, name, typeof(T), writable, MemberAccess.Public, false);
     }
 
     /// <summary>
@@ -1016,7 +1017,7 @@ public static class TypeBuilderExtensions
     public static MethodBuildInfo ExplicitImplementMethod(this TypeBuilder tb, MethodInfo method)
     {
         if (!method.DeclaringType?.IsInterface ?? true) throw Errors.IFaceMethodExpected();
-        if (!tb.GetInterfaces().Contains(method.DeclaringType!)) throw Errors.IfaceNotImpl(method.DeclaringType!);
+        if (!tb.GetInterfaces().Contains(method.DeclaringType!)) throw Errors.InterfaceNotImplemented(method.DeclaringType!);
 
         MethodBuilder? m = tb.DefineMethod($"{method.DeclaringType!.Name}.{method.Name}",
             Private | HideBySig | NewSlot | Virtual | Final,
@@ -1038,7 +1039,7 @@ public static class TypeBuilderExtensions
     [DebuggerNonUserCode]
     private static void CheckImplements<T>(Type t)
     {
-        if (!t.Implements<T>()) throw Errors.IfaceNotImpl<T>();
+        if (!t.Implements<T>()) throw Errors.InterfaceNotImplemented<T>();
     }
 
     private static PropertyBuildInfo BuildNpcProp(TypeBuilder tb, string name, Type t, MemberAccess access, bool @virtual, Action<Label, ILGenerator> evtHandler, MethodInfo method)

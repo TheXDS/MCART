@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,13 +28,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Types.Extensions;
-
 using System;
 using System.Reflection;
 using System.Reflection.Emit;
 using static TheXDS.MCART.Types.TypeBuilderHelpers;
-using Errors = Resources.TypeFactoryErrors;
+using Errors = TheXDS.MCART.Resources.TypeFactoryErrors;
+
+namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
 /// Contiene extensiones útiles para objetos de tipo
@@ -52,7 +52,7 @@ public static class PropertyBuildInfoExtensions
     /// almacenamiento.
     /// </param>
     /// <param name="field">
-    /// <see cref="FieldBuilder"/> generado que repesenta al campo de
+    /// <see cref="FieldBuilder"/> generado que representa al campo de
     /// almacenamiento.
     /// </param>
     /// <returns>

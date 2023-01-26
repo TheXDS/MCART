@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,8 +28,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Types.Extensions;
 using System.Collections.Generic;
+
+namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
 /// Extensiones para todos los elementos de tipo <see cref="IDictionary{TKey, TValue}" />.
@@ -50,7 +51,7 @@ public static class DictionaryExtensions
     /// <param name="value">Valor a agregar.</param>
     /// <returns>
     /// La misma instancia que <paramref name="value"/>, permitiendo
-    /// utilizar sintáxis Fluent.
+    /// utilizar sintaxis Fluent.
     /// </returns>
     public static TValue Push<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue value) where TKey : notnull
     {
@@ -72,7 +73,7 @@ public static class DictionaryExtensions
     /// <param name="value">Valor a agregar.</param>
     /// <returns>
     /// La misma instancia que <paramref name="value"/>, permitiendo
-    /// utilizar sintáxis Fluent.
+    /// utilizar sintaxis Fluent.
     /// </returns>
     public static TValue PushInto<TKey, TValue>(this TValue value, TKey key, IDictionary<TKey, TValue> dictionary) where TKey : notnull
     {
@@ -90,7 +91,7 @@ public static class DictionaryExtensions
     /// <typeparam name="TValue">
     /// Tipo de valor contenido por el diccionario.
     /// </typeparam>
-    /// <param name="dict">
+    /// <param name="dictionary">
     /// Diccionario desde el cual obtener y remover el objeto.
     /// </param>
     /// <param name="key">Llave del objeto a obtener.</param>
@@ -100,15 +101,15 @@ public static class DictionaryExtensions
     /// del diccionario, <see langword="false"/> en caso que el diccionario
     /// no contuviese a un elemento con la llave especificada.
     /// </returns>
-    public static bool Pop<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key, out TValue value) where TKey : notnull
+    public static bool Pop<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, out TValue value) where TKey : notnull
     {
-        if (!dict.ContainsKey(key))
+        if (!dictionary.ContainsKey(key))
         {
             value = default!;
             return false;
         }
-        value = dict[key];
-        return dict.Remove(key);
+        value = dictionary[key];
+        return dictionary.Remove(key);
     }
 
     /// <summary>

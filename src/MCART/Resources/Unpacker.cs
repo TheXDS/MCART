@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,11 +28,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Resources;
 using System;
 using System.IO;
 using System.Reflection;
 using TheXDS.MCART.Exceptions;
+
+namespace TheXDS.MCART.Resources;
 
 /// <summary>
 /// <see cref="AssemblyUnpacker{T}"/> que expone directamente los
@@ -54,12 +55,26 @@ public class Unpacker : AssemblyUnpacker<Stream>
     public Unpacker(Assembly assembly, string path) : base(assembly, path) { }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="Unpacker"/>.
+    /// Inicializa una nueva instancia de la clase <see cref="Unpacker"/>,
+    /// buscando los recursos a extraer en el ensamblado que declara al tipo
+    /// especificado, además usando el mismo como la referencia de ruta (en
+    /// formato de espacio de nombre) para buscar los recursos incrustados.
     /// </summary>
     /// <param name="resReference">
     /// Tipo a tomar como referencia de la ubicación de los recursos.
     /// </param>
     public Unpacker(Type resReference) : this(resReference.Assembly, resReference.FullName ?? resReference.ToString()) { }
+
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase <see cref="Unpacker"/>,
+    /// buscando los recursos a extraer en el ensamblado desde el cual se crea
+    /// esta instancia.
+    /// </summary>
+    /// <param name="path">
+    /// Ruta (en formato de espacio de nombre) donde se ubicarán los
+    /// recursos incrustados.
+    /// </param>
+    public Unpacker(string path) : this(Assembly.GetCallingAssembly(), path) { }
 
     /// <summary>
     /// Obtiene un recurso identificable.

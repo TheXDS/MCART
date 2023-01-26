@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,9 +28,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Resources;
+using System.Linq;
 using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Extensions;
+using System.Reflection;
+using TheXDS.MCART.Helpers;
+
+namespace TheXDS.MCART.Resources;
 
 /// <summary>
 /// Incluye una colección de colores adicionales.
@@ -43,35 +47,35 @@ public static class Colors
     /// <returns>
     /// Un <see cref="Color"/> seleccionado aleatoriamente.
     /// </returns>
-    public static Color Pick() => (Color)typeof(Colors).GetProperties().Pick().GetValue(null)!;
+    public static Color Pick() => (Color)typeof(Colors).GetPropertiesOf<Color>(BindingFlags.Static).Pick().GetValue(null)!;
 
     /// <summary>
-    /// Obtiene el color azul alicia.
+    /// Obtiene el color azul Alicia.
     /// </summary>
     public static Color AliceBlue => new(240, 248, 255);
 
     /// <summary>
-    /// Obtiene el color blanco antíguo en su tonalidad alternativa 1.
+    /// Obtiene el color blanco antiguo en su tonalidad alternativa 1.
     /// </summary>
     public static Color AntiqueWhite1 => new(255, 239, 219);
 
     /// <summary>
-    /// Obtiene el color blanco antíguo en su tonalidad alternativa 2.
+    /// Obtiene el color blanco antiguo en su tonalidad alternativa 2.
     /// </summary>
     public static Color AntiqueWhite2 => new(238, 223, 204);
 
     /// <summary>
-    /// Obtiene el color blanco antíguo en su tonalidad alternativa 3.
+    /// Obtiene el color blanco antiguo en su tonalidad alternativa 3.
     /// </summary>
     public static Color AntiqueWhite3 => new(205, 192, 176);
 
     /// <summary>
-    /// Obtiene el color blanco antíguo en su tonalidad alternativa 4.
+    /// Obtiene el color blanco antiguo en su tonalidad alternativa 4.
     /// </summary>
     public static Color AntiqueWhite4 => new(139, 131, 120);
 
     /// <summary>
-    /// Obtiene el color blanco antíguo.
+    /// Obtiene el color blanco antiguo.
     /// </summary>
     public static Color AntiqueWhite => new(250, 235, 215);
 
@@ -426,7 +430,7 @@ public static class Colors
     public static Color DarkGoldenRod => new(184, 134, 11);
 
     /// <summary>
-    /// Obtiene el color girs oscuro.
+    /// Obtiene el color gris oscuro.
     /// </summary>
     public static Color DarkGray => new(169, 169, 169);
 
@@ -533,22 +537,22 @@ public static class Colors
     /// <summary>
     /// Obtiene el color verde marino oscuro en su tonalidad alternativa 1.
     /// </summary>
-    public static Color DarkseaGreen1 => new(193, 255, 193);
+    public static Color DarkSeaGreen1 => new(193, 255, 193);
 
     /// <summary>
     /// Obtiene el color verde marino oscuro en su tonalidad alternativa 2.
     /// </summary>
-    public static Color DarkseaGreen2 => new(180, 238, 180);
+    public static Color DarkSeaGreen2 => new(180, 238, 180);
 
     /// <summary>
     /// Obtiene el color verde marino oscuro en su tonalidad alternativa 3.
     /// </summary>
-    public static Color DarkseaGreen3 => new(155, 205, 155);
+    public static Color DarkSeaGreen3 => new(155, 205, 155);
 
     /// <summary>
     /// Obtiene el color verde marino oscuro en su tonalidad alternativa 4.
     /// </summary>
-    public static Color DarkseaGreen4 => new(105, 139, 105);
+    public static Color DarkSeaGreen4 => new(105, 139, 105);
 
     /// <summary>
     /// Obtiene el color verde marino oscuro.
@@ -586,7 +590,7 @@ public static class Colors
     public static Color DarkSlateGray => new(47, 79, 79);
 
     /// <summary>
-    /// Obtiene el color turqueza oscuro.
+    /// Obtiene el color turquesa oscuro.
     /// </summary>
     public static Color DarkTurquoise => new(0, 206, 209);
 
@@ -711,7 +715,7 @@ public static class Colors
     public static Color ForestGreen => new(34, 139, 34);
 
     /// <summary>
-    /// Obtiene el color gris gainsboro.
+    /// Obtiene el color gris Gainsboro.
     /// </summary>
     public static Color Gainsboro => new(220, 220, 220);
 
@@ -968,22 +972,22 @@ public static class Colors
     /// <summary>
     /// Obtiene el color gasa de limón en su tonalidad alternativa 2.
     /// </summary>
-    public static Color Lemonchiffon2 => new(238, 233, 191);
+    public static Color LemonChiffon2 => new(238, 233, 191);
 
     /// <summary>
     /// Obtiene el color gasa de limón en su tonalidad alternativa 3.
     /// </summary>
-    public static Color Lemonchiffon3 => new(205, 201, 165);
+    public static Color LemonChiffon3 => new(205, 201, 165);
 
     /// <summary>
     /// Obtiene el color gasa de limón en su tonalidad alternativa 4.
     /// </summary>
-    public static Color Lemonchiffon4 => new(139, 137, 112);
+    public static Color LemonChiffon4 => new(139, 137, 112);
 
     /// <summary>
     /// Obtiene el color gasa de limón.
     /// </summary>
-    public static Color Lemonchiffon => new(255, 250, 205);
+    public static Color LemonChiffon => new(255, 250, 205);
 
     /// <summary>
     /// Obtiene el color azul claro en su tonalidad alternativa 1.
@@ -1341,7 +1345,7 @@ public static class Colors
     public static Color MediumSpringGreen => new(0, 250, 154);
 
     /// <summary>
-    /// Obtiene el color turqueza medio.
+    /// Obtiene el color turquesa medio.
     /// </summary>
     public static Color MediumTurquoise => new(72, 209, 204);
 
@@ -1421,7 +1425,7 @@ public static class Colors
     public static Color Navy => new(0, 0, 128);
 
     /// <summary>
-    /// Obtiene el color encaje antíguo.
+    /// Obtiene el color encaje antiguo.
     /// </summary>
     public static Color OldLace => new(253, 245, 230);
 
@@ -1546,22 +1550,22 @@ public static class Colors
     public static Color PaleGreen => new(152, 251, 152);
 
     /// <summary>
-    /// Obtiene el color turqueza pálido en su tonalidad alternativa 2.
+    /// Obtiene el color turquesa pálido en su tonalidad alternativa 2.
     /// </summary>
     public static Color PaleTurquoise2 => new(187, 255, 255);
 
     /// <summary>
-    /// Obtiene el color turqueza pálido en su tonalidad alternativa 3.
+    /// Obtiene el color turquesa pálido en su tonalidad alternativa 3.
     /// </summary>
     public static Color PaleTurquoise3 => new(150, 205, 205);
 
     /// <summary>
-    /// Obtiene el color turqueza pálido en su tonalidad alternativa 4.
+    /// Obtiene el color turquesa pálido en su tonalidad alternativa 4.
     /// </summary>
     public static Color PaleTurquoise4 => new(102, 139, 139);
 
     /// <summary>
-    /// Obtiene el color turqueza pálido.
+    /// Obtiene el color turquesa pálido.
     /// </summary>
     public static Color PaleTurquoise => new(174, 238, 238);
 
@@ -1616,12 +1620,12 @@ public static class Colors
     public static Color PeachPuff => new(255, 218, 185);
 
     /// <summary>
-    /// Obtiene el color pavoreal.
+    /// Obtiene el color pavorreal.
     /// </summary>
     public static Color Peacock => new(51, 161, 201);
 
     /// <summary>
-    /// Obtiene el color perú.
+    /// Obtiene el color Perú.
     /// </summary>
     public static Color Peru => new(205, 133, 63);
 
@@ -1946,7 +1950,7 @@ public static class Colors
     public static Color SgiLightBlue => new(125, 158, 192);
 
     /// <summary>
-    /// Obtiene el color girs claro de la paleta de SGI.
+    /// Obtiene el color gris claro de la paleta de SGI.
     /// </summary>
     public static Color SgiLightGray => new(170, 170, 170);
 
@@ -1968,7 +1972,7 @@ public static class Colors
     /// <summary>
     /// Obtiene el color verde azulado de la paleta de SGI.
     /// </summary>
-    public static Color Sgiteal => new(56, 142, 142);
+    public static Color SgiTeal => new(56, 142, 142);
 
     /// <summary>
     /// Obtiene el color siena en su tonalidad alternativa 1.
@@ -2211,32 +2215,32 @@ public static class Colors
     public static Color Tomato => new(255, 99, 71);
 
     /// <summary>
-    /// Obtiene el color azul turqueza en su tonalidad alternativa 1.
+    /// Obtiene el color azul turquesa en su tonalidad alternativa 1.
     /// </summary>
     public static Color Turquoise1 => new(0, 245, 255);
 
     /// <summary>
-    /// Obtiene el color azul turqueza en su tonalidad alternativa 2.
+    /// Obtiene el color azul turquesa en su tonalidad alternativa 2.
     /// </summary>
     public static Color Turquoise2 => new(0, 229, 238);
 
     /// <summary>
-    /// Obtiene el color azul turqueza en su tonalidad alternativa 3.
+    /// Obtiene el color azul turquesa en su tonalidad alternativa 3.
     /// </summary>
     public static Color Turquoise3 => new(0, 197, 205);
 
     /// <summary>
-    /// Obtiene el color azul turqueza en su tonalidad alternativa 4.
+    /// Obtiene el color azul turquesa en su tonalidad alternativa 4.
     /// </summary>
     public static Color Turquoise4 => new(0, 134, 139);
 
     /// <summary>
-    /// Obtiene el color azul turqueza.
+    /// Obtiene el color azul turquesa.
     /// </summary>
     public static Color TurquoiseBlue => new(0, 199, 140);
 
     /// <summary>
-    /// Obtiene el color Turqueza.
+    /// Obtiene el color turquesa.
     /// </summary>
     public static Color Turquoise => new(64, 224, 208);
 
@@ -2308,7 +2312,7 @@ public static class Colors
     /// <summary>
     /// Obtiene el color blanco humo.
     /// </summary>
-    public static Color Whitesmoke => new(245, 245, 245);
+    public static Color WhiteSmoke => new(245, 245, 245);
 
     /// <summary>
     /// Obtiene el color amarillo madero.

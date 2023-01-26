@@ -9,7 +9,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -30,7 +30,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Math;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,10 +37,12 @@ using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Extensions;
 
+namespace TheXDS.MCART.Math;
+
 /// <summary>
 /// Contiene diversas funciones estadísticas.
 /// </summary>
-public static class Statistics
+public static partial class Statistics
 {
     /// <summary>
     /// Varía un valor de acuerdo a un porcentaje de su delta.
@@ -72,6 +73,22 @@ public static class Statistics
     }
 
     /// <summary>
+    /// Obtiene un nuevo valor de promedio a partir de los parámetros
+    /// especificados.
+    /// </summary>
+    /// <param name="value">Nuevo valor a agregar al promedio.</param>
+    /// <param name="samples">Número de muestras del promedio anterior.</param>
+    /// <param name="oldAverage">Promedio anterior.</param>
+    /// <returns>
+    /// Un nuevo promedio que incluye a <paramref name="value"/>.
+    /// </returns>
+    public static double Average(this in double value, in int samples, in double oldAverage)
+    {
+        Average_Contract(value, samples, oldAverage);
+        return oldAverage + ((value - oldAverage) / (samples + 1));
+    }
+
+    /// <summary>
     /// Calcula la tendencia media de un set de datos.
     /// </summary>
     /// <param name="data">
@@ -82,17 +99,14 @@ public static class Statistics
     {
         List<double>? c = new();
         double last;
-
         using IEnumerator<double>? e = data.GetEnumerator();
         if (e.MoveNext()) last = e.Current;
         else return double.NaN;
-
         while (e.MoveNext())
         {
             c.Add(e.Current - last);
             last = e.Current;
         }
-
         return c.Any() ? c.Average() : 0.0;
     }
 
@@ -145,13 +159,9 @@ public static class Statistics
     {
         List<double>? d = data.ToList();
         if (!d.Any()) return double.NaN;
-
         d.Sort();
-
         int p = d.Count / 2;
-
         return d.Count % 2 == 1 ? d[p] : (d[p - 2] + d[p - 1]) / 2;
-
     }
 
     /// <summary>
@@ -214,7 +224,7 @@ public static class Statistics
     /// <returns>
     /// La desviación absoluta del punto en un set de datos.
     /// </returns>
-    public static double AbsoluteDeviation(this IEnumerable<double> data, double point)
+    public static double AbsoluteDeviation(this IEnumerable<double> data, in double point)
     {
         double d = 0.0;
         int c = 0;
@@ -242,20 +252,12 @@ public static class Statistics
     /// </exception>
     public static double Correlation(IEnumerable<double> dataA, IEnumerable<double> dataB)
     {
-        List<double>? da = dataA.ToList();
-        List<double>? db = dataB.ToList();
-        double avga = da.Average();
-        double avgb = db.Average();
-        using List<double>.Enumerator ea = da.GetEnumerator();
-        using List<double>.Enumerator eb = db.GetEnumerator();
         double sigmaXY = 0.0, sigmaX = 0.0, sigmaY = 0.0;
-        while (ea.MoveNext() && eb.MoveNext())
-        {
-            sigmaXY += (ea.Current - avga) * (eb.Current - avgb);
-            sigmaX += System.Math.Pow(ea.Current - avga, 2);
-            sigmaY += System.Math.Pow(eb.Current - avgb, 2);
-        }
-        if (ea.MoveNext() || eb.MoveNext()) throw new IndexOutOfRangeException();
+        DataSetComputation(dataA, dataB, (in double a, in double b, in double avgA, in double avgB) => {
+            sigmaXY += (a - avgA) * (b - avgB);
+            sigmaX += System.Math.Pow(a - avgA, 2);
+            sigmaY += System.Math.Pow(b - avgB, 2);
+        });
         return sigmaXY / System.Math.Sqrt(sigmaX * sigmaY);
     }
 
@@ -274,22 +276,9 @@ public static class Statistics
     /// </exception>
     public static double Covariance(IEnumerable<double> dataA, IEnumerable<double> dataB)
     {
-        List<double>? da = dataA.ToList();
-        List<double>? db = dataB.ToList();
-        double avga = da.Average();
-        double avgb = db.Average();
-        using List<double>.Enumerator ea = da.GetEnumerator();
-        using List<double>.Enumerator eb = db.GetEnumerator();
-
-        double sigmaXY = 0.0;
-        while (ea.MoveNext() && eb.MoveNext())
-        {
-            sigmaXY += (ea.Current - avga) * (eb.Current - avgb);
-        }
-
-        if (ea.MoveNext() || eb.MoveNext()) throw new IndexOutOfRangeException();
-
-        return sigmaXY / da.Count;
+        double sigmaXY = 0.0;        
+        (_, _, int countA, _) = DataSetComputation(dataA, dataB, (in double a, in double b, in double avgA, in double avgB) => sigmaXY += (a - avgA) * (b - avgB));
+        return sigmaXY / countA;
     }
 
     /// <summary>
@@ -341,26 +330,14 @@ public static class Statistics
     /// </returns>
     public static double Forecast(in double valueA, IEnumerable<double> dataA, IEnumerable<double> dataB)
     {
-        List<double>? da = dataA.ToList();
-        List<double>? db = dataB.ToList();
-        double avga = da.Average();
-        double avgb = db.Average();
-
-        using List<double>.Enumerator ea = da.GetEnumerator();
-        using List<double>.Enumerator eb = db.GetEnumerator();
-
         double sigmaXY = 0.0, sigmaX = 0.0;
-        while (ea.MoveNext() && eb.MoveNext())
+        (double avgA, double avgB, _, _) = DataSetComputation(dataA, dataB, (in double a, in double b, in double avgA, in double avgB) => 
         {
-            sigmaXY += (ea.Current - avga) * (eb.Current - avgb);
-            sigmaX += System.Math.Pow(ea.Current - avga, 2);
-        }
-
-        if (ea.MoveNext() || eb.MoveNext()) throw new IndexOutOfRangeException();
-
+            sigmaXY += (a - avgA) * (b - avgB);
+            sigmaX += System.Math.Pow(a - avgA, 2);
+        });
         double b = sigmaXY / sigmaX;
-        double a = avgb - b * avga;
-
+        double a = avgB - b * avgA;
         return a + b * valueA;
     }
 
@@ -376,5 +353,23 @@ public static class Statistics
         List<double>? d = data.ToList();
         double avg = d.Average();
         return System.Math.Sqrt(d.Sum(p => System.Math.Pow(p - avg, 2)) / d.Count);
+    }
+
+    private delegate void DataSetAction(in double currentA, in double currentB, in double avgA, in double avgB);
+
+    private static (double averageA, double averageB, int countA, int countB) DataSetComputation(IEnumerable<double> dataA, IEnumerable<double> dataB, DataSetAction action)
+    {
+        List<double>? dA = dataA.ToList();
+        List<double>? dB = dataB.ToList();
+        double avgA = dA.Average();
+        double avgB = dB.Average();
+        using List<double>.Enumerator eA = dA.GetEnumerator();
+        using List<double>.Enumerator eB = dB.GetEnumerator();
+        while (eA.MoveNext() && eB.MoveNext())
+        {
+            action(eA.Current, eB.Current, avgA, avgB);
+        }
+        if (eA.MoveNext() || eB.MoveNext()) throw new IndexOutOfRangeException();
+        return (avgA, avgB, dA.Count, dB.Count);
     }
 }

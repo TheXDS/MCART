@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.ViewModel;
 using System;
 using System.Diagnostics;
 using System.Linq;
@@ -38,6 +37,8 @@ using System.Threading.Tasks;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Types.Base;
 using static TheXDS.MCART.Misc.Internals;
+
+namespace TheXDS.MCART.ViewModel;
 
 public abstract partial class ViewModelBase : NotifyPropertyChanged, IViewModel
 {
@@ -56,13 +57,13 @@ public abstract partial class ViewModelBase : NotifyPropertyChanged, IViewModel
     }
 
     [Conditional("EnforceContracts")]
-    private void Observe_Contract<T>(Expression<Func<T>> propertySelector)
+    private static void Observe_Contract<T>(Expression<Func<T>> propertySelector)
     {
         NullCheck(propertySelector, nameof(propertySelector));
     }
 
     [Conditional("EnforceContracts")]
-    private void Observe_Contract(string propertyName, Action handler)
+    private static void Observe_Contract(string propertyName, Action handler)
     {
         NullCheck(propertyName, nameof(propertyName));
         NullCheck(handler, nameof(handler));

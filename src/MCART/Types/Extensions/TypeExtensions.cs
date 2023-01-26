@@ -11,7 +11,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -307,7 +307,7 @@ public static partial class TypeExtensions
 
     /// <summary>
     /// Obtiene un valor que determina si el tipo es instanciable
-    /// utilizando un contrustor que acepte los parámetros
+    /// utilizando un constructor que acepte los parámetros
     /// especificados.
     /// </summary>
     /// <param name="type">Tipo a comprobar.</param>
@@ -687,7 +687,7 @@ public static partial class TypeExtensions
         }
         catch (Exception e)
         {
-            return throwOnFail ? throw Errors.CouldntInstanceClass(type, e) : null;
+            return throwOnFail ? throw Errors.CannotInstanceClass(type, e) : null;
         }
     }
 
@@ -853,12 +853,12 @@ public static partial class TypeExtensions
     }
 
     /// <summary>
-    /// Se asegura de devolver un tipo no nulable para las estructuras.
+    /// Se asegura de devolver un tipo no nullable para las estructuras.
     /// </summary>
     /// <param name="t">Tipo a devolver</param>
     /// <returns>
     /// El tipo subyacente de un <see cref="Nullable{T}"/>, o
-    /// <paramref name="t"/> si el tipo no es nulable.
+    /// <paramref name="t"/> si el tipo no es nullable.
     /// </returns>
     [DebuggerStepThrough, Sugar]
     public static Type NotNullable(this Type t)
@@ -909,7 +909,7 @@ public static partial class TypeExtensions
     /// <remarks>
     /// Por convención, se asume que el tipo de elementos de una colección
     /// está basado en los argumentos de tipo genéricos utilizados en la
-    /// definición del tipo, utilizando una concención común de colocar el
+    /// definición del tipo, utilizando una convención común de colocar el
     /// tipo de elementos al final de los argumentos de tipo.
     /// </remarks>
     public static Type GetCollectionType(this Type collectionType)
@@ -1011,7 +1011,7 @@ public static partial class TypeExtensions
     public static IEnumerable<Type> Derivates(this Type type, IEnumerable<Assembly> assemblies)
     {
         Derivates_Contract(assemblies);
-        List<Type> retval = new();
+        List<Type> returnValue = new();
         foreach (Assembly? j in assemblies)
         {
             IEnumerable<Type> types;
@@ -1023,9 +1023,9 @@ public static partial class TypeExtensions
             {
                 types = rex.Types.NotNull();
             }
-            retval.AddRange(Derivates(type, types));
+            returnValue.AddRange(Derivates(type, types));
         }
-        return retval;
+        return returnValue;
     }
 
     /// <summary>
@@ -1053,7 +1053,7 @@ public static partial class TypeExtensions
     }
 
     /// <summary>
-    /// Obtiene el nombre del tipo tal cual se declaría en C#.
+    /// Obtiene el nombre del tipo tal cual se declararía en C#.
     /// </summary>
     /// <param name="type">
     /// Tipo del cual obtener la cadena de declaración.

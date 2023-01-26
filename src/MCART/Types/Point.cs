@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -56,10 +56,10 @@ public struct Point : IVector, IFormattable, IEquatable<Point>
     public static readonly Point Nowhere = new(double.NaN, double.NaN);
 
     /// <summary>
-    /// Obtiene un punto en el orígen. Este campo es de solo lectura.
+    /// Obtiene un punto en el origen. Este campo es de solo lectura.
     /// </summary>
     /// <value>
-    /// Un <see cref="Point" /> con sus coordenadas en el orígen.
+    /// Un <see cref="Point" /> con sus coordenadas en el origen.
     /// </value>
     public static readonly Point Origin = new(0, 0);
 
@@ -237,34 +237,34 @@ public struct Point : IVector, IFormattable, IEquatable<Point>
     }
 
     /// <summary>
-    /// Realiza una operación de resíduo sobre los puntos.
+    /// Realiza una operación de residuo sobre los puntos.
     /// </summary>
     /// <param name="l">Punto 1.</param>
     /// <param name="r">Punto 2.</param>
-    /// <returns>El resíduo de los vectores de los puntos.</returns>
+    /// <returns>El residuo de los vectores de los puntos.</returns>
     public static Point operator %(Point l, Point r)
     {
         return new(l.X % r.X, l.Y % r.Y);
     }
 
     /// <summary>
-    /// Realiza una operación de resíduo sobre los puntos.
+    /// Realiza una operación de residuo sobre los puntos.
     /// </summary>
     /// <param name="l">Punto 1.</param>
     /// <param name="r">Punto 2.</param>
-    /// <returns>El resíduo de los vectores de los puntos.</returns>
+    /// <returns>El residuo de los vectores de los puntos.</returns>
     public static Point operator %(Point l, IVector r)
     {
         return new(l.X % r.X, l.Y % r.Y);
     }
 
     /// <summary>
-    /// Realiza una operación de resíduo sobre el punto.
+    /// Realiza una operación de residuo sobre el punto.
     /// </summary>
     /// <param name="l">Punto 1.</param>
-    /// <param name="r">Operando de resíduo.</param>
+    /// <param name="r">Operando de residuo.</param>
     /// <returns>
-    /// Un nuevo <see cref="Point" /> cuyos vectores son el resíduo de los
+    /// Un nuevo <see cref="Point" /> cuyos vectores son el residuo de los
     /// vectores originales % <paramref name="r" />.
     /// </returns>
     public static Point operator %(Point l, double r)
@@ -441,12 +441,12 @@ public struct Point : IVector, IFormattable, IEquatable<Point>
     /// <returns><see cref="Point"/> que ha sido creado.</returns>
     public static Point Parse(string value)
     {
-        if (TryParse(value, out Point retval)) return retval;
+        if (TryParse(value, out Point returnValue)) return returnValue;
         throw new FormatException();
     }
 
     /// <summary>
-    /// Calcula el ángulo formado por la línea que intersecta el orígen y
+    /// Calcula el ángulo formado por la línea que intersecta el origen y
     /// este <see cref="Point" /> contra el eje horizontal X.
     /// </summary>
     /// <returns>El ángulo calculado.</returns>
@@ -559,35 +559,35 @@ public struct Point : IVector, IFormattable, IEquatable<Point>
     /// <param name="y2">La segunda coordenada y.</param>
     public readonly bool WithinBox(in double x1, in double y1, in double x2, in double y2)
     {
-        double minx, maxx, miny, maxy;
+        double minX, maxX, minY, maxY;
         if (x1 <= x2)
         {
-            minx = x1;
-            maxx = x2;
+            minX = x1;
+            maxX = x2;
         }
         else
         {
-            minx = x2;
-            maxx = x1;
+            minX = x2;
+            maxX = x1;
         }
         if (y1 <= y2)
         {
-            miny = y1;
-            maxy = y2;
+            minY = y1;
+            maxY = y2;
         }
         else
         {
-            miny = y2;
-            maxy = y1;
+            minY = y2;
+            maxY = y1;
         }
-        return X.IsBetween(minx, maxx) && Y.IsBetween(miny, maxy);
+        return X.IsBetween(minX, maxX) && Y.IsBetween(minY, maxY);
     }
 
     /// <summary>
     /// Calcula la magnitud de las coordenadas.
     /// </summary>
     /// <returns>
-    /// La magnitud resultante entre el punto y el orígen.
+    /// La magnitud resultante entre el punto y el origen.
     /// </returns>
     public double Magnitude()
     {
@@ -617,8 +617,8 @@ public struct Point : IVector, IFormattable, IEquatable<Point>
     /// La magnitud resultante entre el punto y las coordenadas
     /// especificadas.
     /// </returns>
-    /// <param name="fromX">Coordenada X de orígen.</param>
-    /// <param name="fromY">Coordenada Y de orígen.</param>
+    /// <param name="fromX">Coordenada X de origen.</param>
+    /// <param name="fromY">Coordenada Y de origen.</param>
     public double Magnitude(double fromX, double fromY)
     {
         double x = X - fromX, y = Y - fromY;

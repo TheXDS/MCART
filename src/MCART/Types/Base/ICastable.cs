@@ -1,5 +1,5 @@
 ﻿/*
-SweepDirection.cs
+ICastable.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,21 +28,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-//namespace TheXDS.MCART.Controls
-//{
-//    /// <summary>
-//    /// Enumera los diferentes valores de enumeración que indican el
-//    /// sentido en el que un objeto gráfico giratorio avanza.
-//    /// </summary>
-//    public enum SweepDirection : short
-//    {
-//        /// <summary>
-//        /// Sentido de las agujas del reloj.
-//        /// </summary>
-//        Clockwise = 1,
-//        /// <summary>
-//        /// El sentido contrario a las agujas del reloj. 
-//        /// </summary>
-//        CounterClockwise = -1
-//    }
-//}
+using System;
+
+namespace TheXDS.MCART.Types.Base;
+
+/// <summary>
+/// Define una serie de miembros a implementar por un objeto que
+/// permita realizar conversiones desde su tipo hacia otro.
+/// </summary>
+public interface ICastable : ICastable<object>
+{
+    /// <summary>
+    /// Obtiene una referencia al tipo de destino de conversión para
+    /// este objeto.
+    /// </summary>
+    Type TargetType { get; }
+}

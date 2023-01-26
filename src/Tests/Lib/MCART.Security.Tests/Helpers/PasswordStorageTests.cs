@@ -8,7 +8,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -46,9 +46,10 @@ internal class PasswordStorageTests
     [ExcludeFromCodeCoverage]
     private class DummyPasswordStorage : IPasswordStorage
     {
+        private string settings = "TESTtest";
         public int KeyLength => 16;
-        public void ConfigureFrom(BinaryReader reader) => _ = reader.ReadBytes(8);
-        public byte[] DumpSettings() => Encoding.UTF8.GetBytes("TESTtest");
+        public void ConfigureFrom(BinaryReader reader) => settings = Encoding.UTF8.GetString(reader.ReadBytes(8));
+        public byte[] DumpSettings() => Encoding.UTF8.GetBytes(settings);
         public byte[] Generate(byte[] input) => input.Concat(new byte[16]).ToArray()[0..16];
     }
     
@@ -61,7 +62,7 @@ internal class PasswordStorageTests
     }
     
     [Test]
-    public void DumpSettings_default_impl_Test()
+    public void DumpSettings_default_implementation_Test()
     {
         IPasswordStorage p = new Dummy2PasswordStorage
         {
@@ -73,7 +74,7 @@ internal class PasswordStorageTests
     }
     
     [Test]
-    public void ConfigureFrom_default_impl_Test()
+    public void ConfigureFrom_default_implementation_Test()
     {
         IPasswordStorage<int> p = new Dummy2PasswordStorage
         {
@@ -107,6 +108,7 @@ internal class PasswordStorageTests
         SecureString pw1 = "password".ToSecureString();
         SecureString pw2 = "Test@123".ToSecureString();
         byte[] hash = CreateHash<DummyPasswordStorage>(pw1);
+
         Assert.IsTrue(VerifyPassword(pw1, hash));
         Assert.IsFalse(VerifyPassword(pw2, hash));
 

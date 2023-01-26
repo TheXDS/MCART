@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Types.Extensions;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
@@ -36,6 +35,8 @@ using System.Reflection;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.ViewModel;
 using static TheXDS.MCART.Helpers.ReflectionHelpers;
+
+namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
 /// Brinda de extensiones sintácticas similares a Prism a los objetos
@@ -58,7 +59,7 @@ public static partial class ObservingCommandExtensions
     /// Expresión Lambda de selección de propiedad.
     /// </param>
     /// <returns>
-    /// <paramref name="command"/>, permitiendo el uso de sintáxis
+    /// <paramref name="command"/>, permitiendo el uso de sintaxis
     /// Fluent.
     /// </returns>
     /// <exception cref="InvalidArgumentException">
@@ -82,7 +83,7 @@ public static partial class ObservingCommandExtensions
     /// Expresión Lambda de selección de propiedad.
     /// </param>
     /// <returns>
-    /// <paramref name="command"/>, permitiendo el uso de sintáxis
+    /// <paramref name="command"/>, permitiendo el uso de sintaxis
     /// Fluent.
     /// </returns>
     /// <exception cref="InvalidArgumentException">
@@ -106,7 +107,7 @@ public static partial class ObservingCommandExtensions
     /// Colección de selectores de propiedades a ser escuchadas.
     /// </param>
     /// <returns>
-    /// <paramref name="command"/>, permitiendo el uso de sintáxis
+    /// <paramref name="command"/>, permitiendo el uso de sintaxis
     /// Fluent.
     /// </returns>
     /// <exception cref="InvalidArgumentException">
@@ -133,11 +134,11 @@ public static partial class ObservingCommandExtensions
     /// Comando para el cual se configurará la escucha.
     /// </param>
     /// <param name="selector">
-    /// Expresión Lambda de selección de propiedado de método con tipo
+    /// Expresión Lambda de selección de propiedad o de método con tipo
     /// de retorno <see cref="bool"/>.
     /// </param>
     /// <returns>
-    /// <paramref name="command"/>, permitiendo el uso de sintáxis
+    /// <paramref name="command"/>, permitiendo el uso de sintaxis
     /// Fluent.
     /// </returns>
     /// <exception cref="InvalidArgumentException">
@@ -160,11 +161,11 @@ public static partial class ObservingCommandExtensions
     /// Comando para el cual se configurará la escucha.
     /// </param>
     /// <param name="selector">
-    /// Expresión Lambda de selección de propiedado de método con tipo
+    /// Expresión Lambda de selección de propiedad o de método con tipo
     /// de retorno <see cref="bool"/>.
     /// </param>
     /// <returns>
-    /// <paramref name="command"/>, permitiendo el uso de sintáxis
+    /// <paramref name="command"/>, permitiendo el uso de sintaxis
     /// Fluent.
     /// </returns>
     /// <exception cref="InvalidArgumentException">
@@ -180,14 +181,14 @@ public static partial class ObservingCommandExtensions
 
     /// <summary>
     /// Configura un <see cref="ObservingCommand"/> para poder ejecutarse
-    /// cuando las propiedades inidicadas no sean <see langword="null"/>.
+    /// cuando las propiedades indicadas no sean <see langword="null"/>.
     /// </summary>
     /// <param name="command">Comando a configurar.</param>
     /// <param name="propertySelectors">
     /// Selectores de propiedades a observar.
     /// </param>
     /// <returns>
-    /// <paramref name="command"/>, permitiendo el uso de sintáxis
+    /// <paramref name="command"/>, permitiendo el uso de sintaxis
     /// Fluent.
     /// </returns>
     public static ObservingCommand CanExecuteIfNotNull(this ObservingCommand command, params Expression<Func<object?>>[] propertySelectors)
@@ -198,14 +199,14 @@ public static partial class ObservingCommandExtensions
 
     /// <summary>
     /// Configura un <see cref="ObservingCommand"/> para poder ejecutarse
-    /// cuando las propiedades inidicadas no sean <see langword="null"/>.
+    /// cuando las propiedades indicadas no sean <see langword="null"/>.
     /// </summary>
     /// <param name="command">Comando a configurar.</param>
     /// <param name="propertySelectors">
     /// Selectores de propiedades a observar.
     /// </param>
     /// <returns>
-    /// <paramref name="command"/>, permitiendo el uso de sintáxis
+    /// <paramref name="command"/>, permitiendo el uso de sintaxis
     /// Fluent.
     /// </returns>
     public static ObservingCommand CanExecuteIfNotDefault(this ObservingCommand command, params Expression<Func<ValueType>>[] propertySelectors)

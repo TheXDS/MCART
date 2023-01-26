@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,14 +28,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Resources;
 using System;
 using System.Collections;
 using System.Reflection;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Types.Extensions;
-using Ers = Strings.Errors;
-using Str = Strings.Common;
+using Ers = TheXDS.MCART.Resources.Strings.Errors;
+using Str = TheXDS.MCART.Resources.Strings.Common;
+
+namespace TheXDS.MCART.Resources;
 
 /// <summary>
 /// Contiene recursos que generan nuevas instancias de excepción a ser
@@ -83,7 +84,7 @@ public static class Errors
     /// <see cref="Types.Base.NotifyPropertyChangeBase.Change{T}(ref T, T, string)"/> 
     /// es inválida porque se ha llamado desde una propiedad distinta a la que
     /// ha cambiado de valor, o bien, se ha especificado un valor para el
-    /// argumento <c>propertyName</c> y este no coincide conel nombre de la
+    /// argumento <c>propertyName</c> y este no coincide con el nombre de la
     /// propiedad actual.
     /// </summary>
     /// <returns>
@@ -188,7 +189,7 @@ public static class Errors
     /// <see cref="ArgumentOutOfRangeException"/> que indica que el valor
     /// se encuentra fuera de los valores definidos de la enumeración.
     /// </summary>
-    /// <typeparam name="T">Tipo de enuemración.</typeparam>
+    /// <typeparam name="T">Tipo de enumeración.</typeparam>
     /// <param name="argName">
     /// Nombre del argumento para el cual se generará la excepción.
     /// </param>
@@ -417,7 +418,7 @@ public static class Errors
     /// </remarks>
     /// <seealso cref="ClassNotInstantiable()"/>
     /// <seealso cref="ClassNotInstantiable(Type?)"/>
-    public static TypeLoadException CouldntInstanceClass(Type t, Exception? inner = null)
+    public static TypeLoadException CannotInstanceClass(Type t, Exception? inner = null)
     {
         return new(string.Format(Ers.ClassNotInstantiableWIthArgs, t.NameOf()), inner);
     }
@@ -429,7 +430,7 @@ public static class Errors
     /// deseable.
     /// </summary>
     /// <param name="id">
-    /// Identificador de los datos quese han intentado duplicar.
+    /// Identificador de los datos que se han intentado duplicar.
     /// </param>
     /// <returns>
     /// Una nueva instancia de la clase
@@ -482,7 +483,7 @@ public static class Errors
     /// <summary>
     /// Crean una nueva instancia de un
     /// <see cref="InvalidOperationException"/> que indica que no es
-    /// posisble procesar la operación debido a que la colección no
+    /// posible procesar la operación debido a que la colección no
     /// contiene elementos.
     /// </summary>
     /// <param name="collection">

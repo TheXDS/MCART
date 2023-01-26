@@ -1,5 +1,5 @@
 ﻿/*
-ICasteable_T.cs
+UiErrors.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,49 +28,28 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Types.Base;
-using System.Diagnostics.CodeAnalysis;
+using System;
+
+namespace TheXDS.MCART.Resources;
 
 /// <summary>
-/// Define una serie de miembros a implementar por un objeto que
-/// permita realizar conversiones desde su tipo hacia otro.
+/// Contiene una serie de funciones que generan excepciones para errores
+/// ocurridos dentro de las funciones de UI de MCART.
 /// </summary>
-/// <typeparam name="T">
-/// Tipo de destino para la conversión.
-/// </typeparam>
-public interface ICasteable<T>
+public static class UiErrors
 {
     /// <summary>
-    /// Convierte la instancia actual a un objeto de tipo
-    /// <typeparamref name="T"/>.
+    /// Genera una excepción cuando un valor es <see langword="null"/>.
     /// </summary>
-    /// <returns>
-    /// Un objeto de tipo <typeparamref name="T"/>.
-    /// </returns>
-    T Cast();
-
-    /// <summary>
-    /// Intenta realizar una operación de conversión de la instancia
-    /// actual a un objeto de tipo <typeparamref name="T"/>.
-    /// </summary>
-    /// <param name="result">
-    /// Resultado de la conversión.
+    /// <param name="v">
+    /// Nombre del valor que es <see langword="null"/>.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si la conversión ha sido exitosa,
-    /// <see langword="false"/> en caso contrario.
+    /// Una nueva instancia de la clase <see cref="ArgumentException"/> que
+    /// describe el error.
     /// </returns>
-    bool TryCast([MaybeNullWhen(false)] out T result)
+    public static Exception NullValue(string v)
     {
-        try
-        {
-            result = Cast();
-            return true;
-        }
-        catch
-        {
-            result = default;
-            return false;
-        }
+        return new ArgumentException(string.Format(Strings.UiErrors.NullValueException, v));
     }
 }

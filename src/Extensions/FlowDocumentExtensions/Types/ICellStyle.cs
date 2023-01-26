@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -41,10 +41,11 @@ namespace TheXDS.MCART.FlowDocumentExtensions.Types;
 public interface ICellStyle : IWpfStyle
 {
     /// <summary>
-    /// Obtiene o establece la anileación de texto a utilizar en la
+    /// Obtiene o establece la alineación de texto a utilizar en la
     /// celda.
     /// </summary>
     TextAlignment Alignment { get; set; }
+
     /// <summary>
     /// Obtiene o establece un color de fondo para filas de número
     /// impar.

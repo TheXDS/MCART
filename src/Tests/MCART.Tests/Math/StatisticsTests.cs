@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -38,6 +38,18 @@ using static TheXDS.MCART.Math.Statistics;
 
 public class StatisticsTests
 {
+    [CLSCompliant(false)]
+    [TestCase(100, 10, 100, 100)]
+    [TestCase(100, 1, 50, 75)]
+    [TestCase(100, 2, 50, 66.66666667)]
+    [TestCase(100, 3, 80, 85)]
+    [TestCase(100, 19, 80, 81)]
+    public void Average_Test(double value, int samples, double oldAverage, double expectedAverage)
+    {
+        const double epsilon = 0.00001;
+        Assert.IsTrue((value.Average(samples, oldAverage) - expectedAverage).IsBetween(-epsilon, epsilon));
+    }
+
     [Test]
     public void GeometricMean_Test()
     {

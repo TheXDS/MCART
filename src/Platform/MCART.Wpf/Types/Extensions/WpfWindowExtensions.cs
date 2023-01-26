@@ -3,11 +3,11 @@ WpfWindowExtensions.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
-Author:
+Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Helpers;
 using System;
 using System.ComponentModel;
 using System.Windows;
@@ -36,6 +35,8 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using TheXDS.MCART.Component;
 using TheXDS.MCART.Types.Extensions;
+
+namespace TheXDS.MCART.Helpers;
 
 /// <summary>
 /// Contiene extensiones para las clases <see cref="Window"/> y
@@ -133,11 +134,11 @@ public static class WpfWindowExtensions
         new WpfWindowWrap(window).HookHelp(handler);
     }
 
-    private static HwndSourceHook CreateHookDelegate(Window window, int syscommand, HandledEventHandler handler)
+    private static HwndSourceHook CreateHookDelegate(Window window, int systemCommand, HandledEventHandler handler)
     {
         return (IntPtr hwnd, int msg, IntPtr param, IntPtr lParam, ref bool handled) =>
         {
-            if (msg != 0x0112 || ((int)param & 0xFFF0) != syscommand) return IntPtr.Zero;
+            if (msg != 0x0112 || ((int)param & 0xFFF0) != systemCommand) return IntPtr.Zero;
             HandledEventArgs? e = new();
             handler?.Invoke(window, e);
             handled = e.Handled;

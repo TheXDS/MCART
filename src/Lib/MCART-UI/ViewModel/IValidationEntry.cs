@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,8 +28,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.ViewModel;
 using System;
+
+namespace TheXDS.MCART.ViewModel;
 
 /// <summary>
 /// Define una serie de miembros a implementar por un tipo que permita
@@ -42,7 +43,7 @@ public interface IValidationEntry<T>
     /// Agrega una regla de validación para la propiedad seleccionada.
     /// </summary>
     /// <param name="rule">
-    /// FUnción que ejecutala validación. La función debe devolder 
+    /// Función que ejecuta la validación. La función debe devolver 
     /// <see langword="true"/> si la propiedad pasa satisfactoriamente
     /// la prueba, <see langword="false"/> en caso contrario.
     /// </param>

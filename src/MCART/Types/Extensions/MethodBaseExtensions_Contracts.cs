@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,19 +28,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Types.Extensions;
 using System;
 using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using TheXDS.MCART.Exceptions;
 
+namespace TheXDS.MCART.Types.Extensions;
+
 public static partial class MethodBaseExtensions
 {
     [Conditional("EnforceContracts")]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     [DebuggerNonUserCode]
-    private static void IsOverriden_Contract(MethodBase method, object thisInstance)
+    private static void IsOverridden_Contract(MethodBase method, object thisInstance)
     {
         if (method?.DeclaringType is null) throw new ArgumentNullException(nameof(method));
         if (!(thisInstance?.GetType() ?? throw new ArgumentNullException(nameof(thisInstance))).Implements(method.DeclaringType)) throw new InvalidTypeException(thisInstance.GetType());

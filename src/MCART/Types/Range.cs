@@ -10,7 +10,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -193,7 +193,7 @@ public struct Range<T> : IRange<T>, IEquatable<IRange<T>>, ICloneable<Range<T>> 
     /// <summary>
     /// Comprueba si un valor <typeparamref name="T"/> se encuentra dentro de este <see cref="Range{T}"/>.
     /// </summary>
-    /// <param name="value">Valor a comporbar.</param>
+    /// <param name="value">Valor a comprobar.</param>
     /// <returns>
     /// <see langword="true"/> si el valor se encuentra dentro de este <see cref="Range{T}"/>,
     /// <see langword="false"/> en caso contrario.
@@ -215,7 +215,7 @@ public struct Range<T> : IRange<T>, IEquatable<IRange<T>>, ICloneable<Range<T>> 
     /// <returns><see cref="Range{T}"/> que ha sido creado.</returns>
     public static Range<T> Parse(string value)
     {
-        if (TryParse(value, out Range<T> retval)) return retval;
+        if (TryParse(value, out Range<T> returnValue)) return returnValue;
         throw new FormatException();
     }
 

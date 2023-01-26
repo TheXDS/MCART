@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -36,7 +36,7 @@ namespace TheXDS.MCART.Types;
 /// Estructura que representa un token utilizado para pausar temporalmente
 /// la ejecución de tareas.
 /// </summary>
-public struct PauseToken
+public readonly struct PauseToken
 {
     private readonly PauseTokenSource? m_source;
 
@@ -57,7 +57,7 @@ public struct PauseToken
     /// del estado de pausa.
     /// </summary>
     /// <returns>
-    /// Un objeto <see cref="Task"/> que finalizará cuando estetoken no se
+    /// Un objeto <see cref="Task"/> que finalizará cuando este token no se
     /// encuentre en pausa.
     /// </returns>
     public Task WaitWhilePausedAsync()

@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,20 +28,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Types.Extensions.ConstantLoaders;
 using System;
 using System.Reflection.Emit;
 
+namespace TheXDS.MCART.Types.Extensions.ConstantLoaders;
+
 /// <summary>
 /// Clase abstracta que define un objeto que permite cargar un valor 
-/// constante enla secuencia de instrucciones MSIL.
+/// constante en la secuencia de instrucciones MSIL.
 /// </summary>
 /// <typeparam name="T">Tipo de constante a cargar.</typeparam>
 public abstract class ConstantLoader<T> : IConstantLoader, IEquatable<IConstantLoader>
 {
     /// <summary>
     /// Obtiene una referencia al tipo de constante que esta instancia
-    /// puede cargar en la secuencia de instruciones MSIL.
+    /// puede cargar en la secuencia de instrucciones MSIL.
     /// </summary>
     public Type ConstantType => typeof(T);
 

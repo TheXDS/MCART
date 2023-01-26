@@ -1,5 +1,5 @@
 ﻿/*
-SubstractConverter.cs
+SubtractConverter.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,17 +28,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.ValueConverters;
 using System;
 using System.Globalization;
 using System.Linq.Expressions;
 using System.Windows.Data;
 using TheXDS.MCART.ValueConverters.Base;
 
+namespace TheXDS.MCART.ValueConverters;
+
 /// <summary>
 /// Permite la substracción de propiedades numéricas.
 /// </summary>
-public sealed class SubstractConverter : PrimitiveMathOpConverterBase, IValueConverter
+public sealed class SubtractConverter : PrimitiveMathOpConverterBase, IValueConverter
 {
     /// <summary>
     /// Devuelve la resta entre <paramref name="value" /> y

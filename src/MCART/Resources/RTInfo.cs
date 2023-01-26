@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -111,10 +111,10 @@ public class RtInfo : AssemblyInfo
     /// es, y <see langword="null" /> si no se ha podido determinar la
     /// compatibilidad.
     /// </returns>
-    /// <param name="asmbly">Ensamblado a comprobar.</param>
-    public static bool? RtSupport(Assembly asmbly)
+    /// <param name="assembly">Ensamblado a comprobar.</param>
+    public static bool? RtSupport(Assembly assembly)
     {
-        return RtSupport<Assembly>(asmbly);
+        return RtSupport<Assembly>(assembly);
     }
 
     /// <summary>
@@ -130,7 +130,7 @@ public class RtInfo : AssemblyInfo
     public static bool? RtSupport(Type type)
     {
         /* BUG: Problema al implementar RTSupport(Type)
-         * Esta función debe reimplementarse completa debido a un
+         * Esta función debe re-implementarse completa debido a un
          * problema de boxing al intentar llamar a RTSupport<T>(T), ya que
          * .Net Framework podría pasar un objeto de tipo interno, 
          * System.Reflection.RuntimeType, el cual se encaja como Object al

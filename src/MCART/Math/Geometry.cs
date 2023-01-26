@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,9 +28,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Math;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Types;
+
+namespace TheXDS.MCART.Math;
 
 /// <summary>
 /// Contiene funciones de trigonometría y geometría.
@@ -44,22 +45,22 @@ public static partial class Geometry
 
     /// <summary>
     /// Obtiene las coordenadas X,Y de una posición específica dentro de un
-    /// bezier cuadrático
+    /// Bézier cuadrático
     /// </summary>
     /// <param name="position">
     /// Posición a obtener. Debe ser un <see cref="double" /> entre 0.0 y
     /// 1.0.
     /// </param>
     /// <param name="startPoint">
-    /// Punto inicial del bezier cuadrático.
+    /// Punto inicial del Bézier cuadrático.
     /// </param>
     /// <param name="controlPoint">
-    /// Punto de control del bezier cuadrático.
+    /// Punto de control del Bézier cuadrático.
     /// </param>
-    /// <param name="endPoint">Punto final del bezier cuadrático.</param>
+    /// <param name="endPoint">Punto final del Bézier cuadrático.</param>
     /// <returns>
     /// Un <see cref="Point" /> con las coordenadas correspondientes a la
-    /// posición dentro del bezier cuadrático dado por
+    /// posición dentro del Bézier cuadrático dado por
     /// <paramref name="position" />.
     /// </returns>
     public static Point GetQuadBezierPoint(in double position, in Point startPoint, in Point controlPoint, in Point endPoint)

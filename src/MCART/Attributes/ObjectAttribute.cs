@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,14 +28,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Attributes;
 using System;
+
+namespace TheXDS.MCART.Attributes;
 
 /* -= NOTA =-
  * Los atributos (al momento de incluir esta nota, incluso en C#10) no soportan
  * clases genéricas, por lo cual es necesario crear una implementación base
  * para cada posible tipo de atributo con base de valor que pueda ser
  * necesaria.
+ * 
+ * UPDATE: C#11 y .Net 7 soportan atributos genéricos. Sin embargo, al no ser
+ * estos un release LTS, esta característica aún no será soportada por MCART.
  */
 
 /// <summary>
@@ -44,7 +48,7 @@ using System;
 public abstract class ObjectAttribute : Attribute, IValueAttribute<object?>
 {
     /// <summary>
-    /// Crea una nueva isntancia de la clase
+    /// Crea una nueva instancia de la clase
     /// <see cref="ObjectAttribute" />.
     /// </summary>
     /// <param name="attributeValue">Valor de este atributo.</param>

@@ -7,9 +7,6 @@
     <EmbeddedResource Include="Resources\Data\*" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\.editorconfig" Link=".editorconfig" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Update="Resources\Strings\Common.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

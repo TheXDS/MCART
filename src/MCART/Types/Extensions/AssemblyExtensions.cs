@@ -11,7 +11,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -32,13 +32,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Types.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
+
+namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
 /// Extensiones varias para objetos <see cref="Assembly" />.
@@ -118,8 +119,8 @@ public static partial class AssemblyExtensions
     /// </returns>
     public static bool HasAttr<T>(this Assembly assembly, [NotNullWhen(true)] out T? attribute) where T : notnull, Attribute
     {
-        bool retVal = HasAttrs(assembly, out IEnumerable<T>? attrs);
-        attribute = attrs.FirstOrDefault();
+        bool retVal = HasAttrs(assembly, out IEnumerable<T>? attributes);
+        attribute = attributes.FirstOrDefault();
         return retVal;
     }
 
@@ -150,8 +151,8 @@ public static partial class AssemblyExtensions
     public static bool HasAttrValue<TAttribute, TValue>(this Assembly assembly, out TValue value)
         where TAttribute : Attribute, IValueAttribute<TValue>
     {
-        bool retVal = HasAttrs<TAttribute>(assembly, out IEnumerable<TAttribute>? attrs);
-        TAttribute? a = attrs.FirstOrDefault();
+        bool retVal = HasAttrs<TAttribute>(assembly, out IEnumerable<TAttribute>? attributes);
+        TAttribute? a = attributes.FirstOrDefault();
         value = a is not null ? a.Value : default!;
         return retVal;
     }

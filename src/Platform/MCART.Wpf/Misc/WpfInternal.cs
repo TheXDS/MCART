@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -29,11 +29,13 @@ SOFTWARE.
 */
 
 using System.Windows;
-[assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)]
-namespace TheXDS.MCART.Misc;
 using System;
 using System.Reflection;
 using TheXDS.MCART.Helpers;
+
+[assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)]
+
+namespace TheXDS.MCART.Misc;
 
 internal class WpfInternal
 {

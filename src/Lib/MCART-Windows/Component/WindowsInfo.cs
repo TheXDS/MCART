@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -30,7 +30,6 @@ SOFTWARE.
 
 #pragma warning disable CA1822
 
-namespace TheXDS.MCART.Component;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -41,6 +40,8 @@ using System.Runtime.CompilerServices;
 using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Base;
 using static TheXDS.MCART.PInvoke.Kernel32;
+
+namespace TheXDS.MCART.Component;
 
 /// <summary>
 /// Expone información detallada sobre Windows.
@@ -175,9 +176,9 @@ public class WindowsInfo : INameable, IDescriptible, IExposeInfo
     {
         get
         {
-            uint firmwaretype = 0;
-            if (GetFirmwareType(ref firmwaretype))
-                return (FirmwareType)firmwaretype;
+            uint firmwareType = 0;
+            if (GetFirmwareType(ref firmwareType))
+                return (FirmwareType)firmwareType;
             else
                 return FirmwareType.FirmwareTypeUnknown;
         }
@@ -371,7 +372,7 @@ public class WindowsInfo : INameable, IDescriptible, IExposeInfo
 
     /// <summary>
     /// Obtiene el tamaño ocupado por los archivos de paginación en el
-    /// almacenamiento local del equpio.
+    /// almacenamiento local del equipo.
     /// </summary>
     [CLSCompliant(false)]
     public ulong SizeStoredInPagingFiles => GetFromWmi<ulong>();
@@ -450,12 +451,12 @@ public class WindowsInfo : INameable, IDescriptible, IExposeInfo
     /// <summary>
     /// Obtiene el texto de licencia asociado a Windows.
     /// </summary>
-    public License License => new("Microsoft Windows EULA", new Uri(GetWinLicencePath()));
+    public License License => new("Microsoft Windows EULA", new Uri(GetWinLicensePath()));
 
     /// <summary>
     /// Obtiene un valor que determina si Windows incluye un CLUF
     /// </summary>
-    public bool HasLicense => File.Exists(GetWinLicencePath());
+    public bool HasLicense => File.Exists(GetWinLicensePath());
 
     /// <summary>
     /// Obtiene un valor que indica si Windows cumple con el CLS.
@@ -473,7 +474,7 @@ public class WindowsInfo : INameable, IDescriptible, IExposeInfo
     public string? InformationalVersion => $"{Version}-{BuildLabEx}";
 
     /// <summary>
-    /// Enumera las liciencias de terceros incluidas con el sistema
+    /// Enumera las licencias de terceros incluidas con el sistema
     /// operativo.
     /// </summary>
     public IEnumerable<License>? ThirdPartyLicenses => null;
@@ -484,7 +485,7 @@ public class WindowsInfo : INameable, IDescriptible, IExposeInfo
     /// </summary>
     public bool Has3rdPartyLicense => false;
 
-    private string GetWinLicencePath()
+    private string GetWinLicensePath()
     {
         return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "license.rtf");
     }

@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Types.Extensions;
 using System;
 using System.IO;
 using System.Linq;
@@ -36,6 +35,8 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using TheXDS.MCART.Resources;
+
+namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
 /// Contiene extensiones útiles para la clase
@@ -139,7 +140,7 @@ public static partial class BinaryWriterExtensions
     }
 
     /// <summary>
-    /// Escribe un objeto serialziable en el
+    /// Escribe un objeto serializable en el
     /// <see cref="BinaryWriter"/> especificado.
     /// </summary>
     /// <param name="bw">

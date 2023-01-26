@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,53 +28,52 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Resources.Strings
+namespace TheXDS.MCART.Resources.Strings;
+
+/// <summary>
+/// Contiene una colección de constantes de cadena.
+/// </summary>
+public static class Constants
 {
     /// <summary>
-    /// Contiene una colección de constantes de cadena.
+    /// Obtiene una cadena con todos los caracteres alfabéticos en minúscula.
     /// </summary>
-    public static class Constants
-    {
-        /// <summary>
-        /// Obtiene una cadena con todos los caracteres alfabéticos en minúscula.
-        /// </summary>
-        public const string AlphaLc = "abcdefghijklmnopqrstuvwxyz";
+    public const string AlphaLc = "abcdefghijklmnopqrstuvwxyz";
 
-        /// <summary>
-        /// Obtiene una cadena con todos los caracteres alfabéticos en mayúscula.
-        /// </summary>
-        public const string AlphaUc = "abcdefghijklmnopqrstuvwxyz";
+    /// <summary>
+    /// Obtiene una cadena con todos los caracteres alfabéticos en mayúscula.
+    /// </summary>
+    public const string AlphaUc = "abcdefghijklmnopqrstuvwxyz";
 
-        /// <summary>
-        /// Obtiene una cadena con todos los dígitos numéricos.
-        /// </summary>
-        public const string Numbers = "0123456789";
+    /// <summary>
+    /// Obtiene una cadena con todos los dígitos numéricos.
+    /// </summary>
+    public const string Numbers = "0123456789";
 
-        /// <summary>
-        /// Obtiene una cadena con todos los signos de puntuación comunes.
-        /// </summary>
-        public const string Symbols = "`~!@#$%^&*()-_=+\\|]}[{'\";:/?.>,<";
+    /// <summary>
+    /// Obtiene una cadena con todos los signos de puntuación comunes.
+    /// </summary>
+    public const string Symbols = "`~!@#$%^&*()-_=+\\|]}[{'\";:/?.>,<";
 
-        /// <summary>
-        /// Obtiene una cadena con todos los caracteres alfanuméricos y signos
-        /// de puntuación comunes.
-        /// </summary>
-        public const string Chars = AlphaLc + AlphaUc + Numbers + Symbols;
+    /// <summary>
+    /// Obtiene una cadena con todos los caracteres alfanuméricos y signos
+    /// de puntuación comunes.
+    /// </summary>
+    public const string Chars = AlphaLc + AlphaUc + Numbers + Symbols;
 
-        /// <summary>
-        /// Obtiene un cadena con distintos caracteres utilizados en distintos
-        /// alfabetos latinos.
-        /// </summary>
-        public const string LatinChars = "áéíóúüñäåöàèìòùâêîôûç";
+    /// <summary>
+    /// Obtiene un cadena con distintos caracteres utilizados en distintos
+    /// alfabetos latinos.
+    /// </summary>
+    public const string LatinChars = "áéíóúüñäåöàèìòùâêîôûç";
 
-        /// <summary>
-        /// Obtiene una cadena con distintos caracteres misceláneos.
-        /// </summary>
-        public const string MoreChars = @"ẁèỳùìòàǜǹẀÈỲÙÌÒÀǛǸẽẼỹỸũŨĩĨõÕãÃṽṼñÑ`~1!¡¹2@²űŰőŐ˝3#ĒǕŌĀ¯4$¤£5%€şḑģḩķļçņȩŗţ¸6ŵêŷûîôâŝĝĥĵẑĉŴÊŶÛÎÔÂŜĜĤĴẐĈ¼^7&ươƯƠ̛8*¾ęųįǫąĘŲĮǪĄ˛9(‘ĕŭĭŏăĔŬĬŎĂ˘0)’ẘẙůŮåÅ-_¥ẉẹṛṭỵụịọạṣḍḥḳḷṿḅṇṃ̣=+×÷qQwWeErR®tTþÞyYuUiIoOpP[{«“]}»”\|¬¦aAsSß§dDðÐfFgGhHjJkKœŒlLøØ;:¶°ẃéŕýúíóṕáśǵḱĺźćǘńḿ'ẅëẗÿüïöäḧẍẄËŸÜÏÖÄḦẌ""zZæÆxXcC©¢vVbBnNmMµ,<çÇ.>ˇěřťǔǐǒǎšďǧȟǰǩǩľžčǚň/?¿ʠⱳẻƭỷủỈỏƥảʂɗƒɠɦƙȥƈʋɓɲɱ̉";
+    /// <summary>
+    /// Obtiene una cadena con distintos caracteres misceláneos.
+    /// </summary>
+    public const string MoreChars = @"ẁèỳùìòàǜǹẀÈỲÙÌÒÀǛǸẽẼỹỸũŨĩĨõÕãÃṽṼñÑ`~1!¡¹2@²űŰőŐ˝3#ĒǕŌĀ¯4$¤£5%€şḑģḩķļçņȩŗţ¸6ŵêŷûîôâŝĝĥĵẑĉŴÊŶÛÎÔÂŜĜĤĴẐĈ¼^7&ươƯƠ̛8*¾ęųįǫąĘŲĮǪĄ˛9(‘ĕŭĭŏăĔŬĬŎĂ˘0)’ẘẙůŮåÅ-_¥ẉẹṛṭỵụịọạṣḍḥḳḷṿḅṇṃ̣=+×÷qQwWeErR®tTþÞyYuUiIoOpP[{«“]}»”\|¬¦aAsSß§dDðÐfFgGhHjJkKœŒlLøØ;:¶°ẃéŕýúíóṕáśǵḱĺźćǘńḿ'ẅëẗÿüïöäḧẍẄËŸÜÏÖÄḦẌ""zZæÆxXcC©¢vVbBnNmMµ,<çÇ.>ˇěřťǔǐǒǎšďǧȟǰǩǩľžčǚň/?¿ʠⱳẻƭỷủỈỏƥảʂɗƒɠɦƙȥƈʋɓɲɱ̉";
 
-        /// <summary>
-        /// Obtiene una cadena con símbolos misceláneos.
-        /// </summary>
-        public const string MoreSymbs = "¡²³¤€¼½¾‘’¥×»«¬´¶¿Ç®ÞßÐØÆ©µ¹£÷¦¨°çþ§";
-    }
+    /// <summary>
+    /// Obtiene una cadena con símbolos misceláneos.
+    /// </summary>
+    public const string MoreSymbols = "¡²³¤€¼½¾‘’¥×»«¬´¶¿Ç®ÞßÐØÆ©µ¹£÷¦¨°çþ§";
 }

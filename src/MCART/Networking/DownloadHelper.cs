@@ -4,13 +4,13 @@ DownloadHelper.cs
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
 Este archivo contiene funciones para la descarga de archivos por medio de
-protocolos web que se bansen en TCP, como http y ftp.
+protocolos web que se basen en TCP, como http y ftp.
 
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -31,7 +31,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Networking;
 using System;
 using System.IO;
 using System.Net;
@@ -40,6 +39,8 @@ using System.Threading.Tasks;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.IO;
 using TheXDS.MCART.Types.Base;
+
+namespace TheXDS.MCART.Networking;
 
 /// <summary>
 /// Contiene funciones de descarga de archivos por medio de protocolos web.

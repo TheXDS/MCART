@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -79,7 +79,7 @@ public static class TypeFactoryHelpers
     {
         foreach (var j in type.GetProperties())
         {
-            AddProp(field, j, tb);
+            AddProperty(field, j, tb);
         }
         foreach (var j in type.GetDefinedMethods())
         {
@@ -87,7 +87,7 @@ public static class TypeFactoryHelpers
         }
     }
 
-    private static void AddProp(FieldInfo field, PropertyInfo property, TypeBuilder t)
+    private static void AddProperty(FieldInfo field, PropertyInfo property, TypeBuilder t)
     {
         var prop = t.AddProperty(property.Name, property.PropertyType, property.CanWrite, MemberAccess.Public, false);
         prop.Getter!.LoadField(field).Call(property.GetMethod!).Return();

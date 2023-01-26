@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,14 +28,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Controls.Base;
-
 using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using TheXDS.MCART.Controls;
 using TheXDS.MCART.Math;
+
+namespace TheXDS.MCART.Controls.Base;
 
 /// <summary>
 /// Clase base que define una serie de miembros a implementar por un control gráfico de anillos.
@@ -112,10 +111,10 @@ public abstract class RingControlBase : Control
     /// dependencia cambie de valor.
     /// </summary>
     /// <param name="d">Objeto que es el origen del evento.</param>
-    /// <param name="e">
+    /// <param name="_">
     /// Argumentos de cambio de valor de la propiedad de dependencia.
     /// </param>
-    protected static void UpdateLayout(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    protected static void UpdateLayout(DependencyObject d, DependencyPropertyChangedEventArgs _)
     {
         if (d is not RingControlBase p) return;
         p.OnLayoutUpdate((double)d.GetValue(RadiusProperty), (double)d.GetValue(ThicknessProperty));

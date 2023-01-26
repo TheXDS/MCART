@@ -1,5 +1,5 @@
 ﻿/*
-Argon2Settings.cs
+IncomingDataEventArgs.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,40 +28,26 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Security;
+namespace TheXDS.MCART.Events;
 
 /// <summary>
-/// Contiene valores de configuración a utilizar para derivar contraseñas
-/// utilizando el algoritmo Argon2.
+/// Incluye información de evento para cualquier clase con eventos de
+/// recepción de datos.
 /// </summary>
-public record struct Argon2Settings
+public class IncomingDataEventArgs : ValueEventArgs<byte[]>
 {
     /// <summary>
-    /// Obtiene o inicializa el bloque de sal a utilizar para derivar la clave.
+    /// Inicializa una nueva instancia de este objeto con los datos
+    /// recibidos.
     /// </summary>
-    public byte[] Salt { get; init; }
-
-    /// <summary>
-    /// Obtiene o inicializa un valor que determina la cantidad de iteraciones
-    /// a ejecutar de PBKDF2 para derivar una clave.
-    /// </summary>
-    public int Iterations { get; init; }
-
-    /// <summary>
-    /// Obtiene o inicializa un valor que indica la cantidad de memoria (en KB)
-    /// a utilizar para derivar la clave.
-    /// </summary>
-    public int KbMemSize { get;init; }
-
-    /// <summary>
-    /// Obtiene o inicializa un valor que indica la cantidad de hilos a 
-    /// utilizar al derivar una clave.
-    /// </summary>
-    public short Parallelism { get; init; }
-
-    /// <summary>
-    /// Obtiene o inicializa un valor que determina la cantidad de bytes a
-    /// derivar.
-    /// </summary>
-    public int KeyLength { get; init; }
+    /// <param name="data">
+    /// Colección de <see cref="byte" /> con los datos recibidos.
+    /// </param>
+    /// <exception cref="System.ArgumentNullException">
+    /// Se produce si <paramref name="data"/> es <see langword="null"/>.
+    /// </exception>
+    public IncomingDataEventArgs(byte[] data) : base(data)
+    {
+        Misc.Internals.NullCheck(data, nameof(data));
+    }
 }

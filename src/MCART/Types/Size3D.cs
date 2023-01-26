@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -644,7 +644,7 @@ public struct Size3D : IFormattable, IEquatable<Size3D>, IEquatable<ISize3D>, IE
     /// <returns><see cref="Size"/> que ha sido creado.</returns>
     public static Size3D Parse(string value)
     {
-        if (TryParse(value, out Size3D retval)) return retval;
+        if (TryParse(value, out Size3D returnValue)) return returnValue;
         throw new FormatException();
     }
 

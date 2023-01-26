@@ -9,7 +9,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -30,7 +30,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Helpers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -43,6 +42,8 @@ using TheXDS.MCART.Types.Extensions;
 using static TheXDS.MCART.Misc.Internals;
 using static TheXDS.MCART.Types.Extensions.EnumerableExtensions;
 using static TheXDS.MCART.Types.Extensions.TypeExtensions;
+
+namespace TheXDS.MCART.Helpers;
 
 /// <summary>
 /// Funciones de manipulación de objetos.
@@ -86,7 +87,7 @@ public static partial class Objects
     /// </summary>
     /// <typeparam name="T">Tipo de objetos a buscar.</typeparam>
     /// <param name="typeFilter">
-    /// Función de filtro a aplicar a los tipos coincidientes.
+    /// Función de filtro a aplicar a los tipos coincidentes.
     /// </param>
     /// <returns>
     /// Una enumeración de todas las instancias de objeto de tipo
@@ -164,7 +165,7 @@ public static partial class Objects
     /// </summary>
     /// <typeparam name="T">Tipo de objeto a buscar.</typeparam>
     /// <param name="typeFilter">
-    /// Función de filtro a aplicar a los tipos coincidientes.
+    /// Función de filtro a aplicar a los tipos coincidentes.
     /// </param>
     /// <returns>
     /// Una nueva instancia del objeto solicitado, o
@@ -208,7 +209,7 @@ public static partial class Objects
     /// Argumentos a pasar al constructor de instancia de la clase.
     /// </param>
     /// <param name="typeFilter">
-    /// Función de filtro a aplicar a los tipos coincidientes.
+    /// Función de filtro a aplicar a los tipos coincidentes.
     /// </param>
     /// <returns>
     /// Una nueva instancia del objeto solicitado, o
@@ -247,7 +248,7 @@ public static partial class Objects
     /// </summary>
     /// <typeparam name="T">Tipo de objeto a buscar.</typeparam>
     /// <param name="typeFilter">
-    /// Función de filtro a aplicar a los tipos coincidientes.
+    /// Función de filtro a aplicar a los tipos coincidentes.
     /// </param>
     /// <returns>
     /// Una nueva instancia del objeto solicitado, o
@@ -291,7 +292,7 @@ public static partial class Objects
     /// Argumentos a pasar al constructor de instancia de la clase.
     /// </param>
     /// <param name="typeFilter">
-    /// Función de filtro a aplicar a los tipos coincidientes.
+    /// Función de filtro a aplicar a los tipos coincidentes.
     /// </param>
     /// <returns>
     /// Una nueva instancia del objeto solicitado, o
@@ -551,7 +552,7 @@ public static partial class Objects
     /// </param>
     /// <param name="instantiablesOnly">
     /// Si se establece en <see langword="true" />, únicamente se incluirán aquellos tipos instanciables.
-    /// <see langword="false" /> hará que se devuelvan todos los tipos coincidientes.
+    /// <see langword="false" /> hará que se devuelvan todos los tipos coincidentes.
     /// </param>
     /// <returns>
     /// Una lista de tipos de las clases que implementan a la interfaz o que heredan a la clase base
@@ -578,7 +579,7 @@ public static partial class Objects
     /// <typeparam name="T">Interfaz o clase base a buscar.</typeparam>
     /// <param name="instantiablesOnly">
     /// Si se establece en <see langword="true" />, únicamente se incluirán aquellos tipos instanciables.
-    /// <see langword="false" /> hará que se devuelvan todos los tipos coincidientes.
+    /// <see langword="false" /> hará que se devuelvan todos los tipos coincidentes.
     /// </param>
     /// <returns>
     /// Una lista de tipos de las clases que implementan a la interfaz o que heredan a la clase base

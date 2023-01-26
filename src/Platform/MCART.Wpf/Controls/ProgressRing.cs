@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Controls;
 using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Media;
@@ -36,6 +35,8 @@ using System.Windows.Shapes;
 using TheXDS.MCART.Controls.Base;
 using TheXDS.MCART.Math;
 using static TheXDS.MCART.Helpers.WpfUtils;
+
+namespace TheXDS.MCART.Controls;
 
 /// <summary>
 /// Control que muestra un anillo de progreso.
@@ -103,7 +104,7 @@ public class ProgressRing : RingControlBase
     }
 
     private Path? path;
-    private Ellipse? ringbg;
+    private Ellipse? ringBg;
 
     /// <summary>
     /// Obtiene o establece el contenido interno a mostrar en el área interna del control.
@@ -179,7 +180,7 @@ public class ProgressRing : RingControlBase
     {
         base.OnApplyTemplate();
         path = (Path)GetTemplateChild($"PART_{nameof(path)}");
-        ringbg = (Ellipse)GetTemplateChild($"PART_{nameof(ringbg)}");
+        ringBg = (Ellipse)GetTemplateChild($"PART_{nameof(ringBg)}");
         SetControlSize();
     }
 
@@ -187,10 +188,10 @@ public class ProgressRing : RingControlBase
     protected override void OnLayoutUpdate(double radius, double thickness)
     {
         if (path is not null) path.Data = GetCircleArc(radius, GetAngle(), thickness);
-        if (ringbg is not null)
+        if (ringBg is not null)
         {
-            ringbg.Height = ringbg.Width = radius * 2;
-            ringbg.StrokeThickness = thickness;
+            ringBg.Height = ringBg.Width = radius * 2;
+            ringBg.StrokeThickness = thickness;
         }
     }
 

@@ -1,5 +1,5 @@
 ﻿/*
-EntiyViewModel.cs
+EntityViewModel.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -46,7 +46,7 @@ namespace TheXDS.MCART.ViewModel;
 public class EntityViewModel<T> : ViewModelBase, IEntityViewModel<T>, IUpdatableViewModel<T>
 {
     private static readonly HashSet<PropertyInfo> _modelProperties = new(typeof(T).GetProperties(Public | Instance).Where(p => p.CanRead));
-    private static IEnumerable<PropertyInfo> WrittableProperties => _modelProperties.Where(p => p.CanWrite);
+    private static IEnumerable<PropertyInfo> WritableProperties => _modelProperties.Where(p => p.CanWrite);
 
     private T _entity = default!;
 
@@ -64,12 +64,12 @@ public class EntityViewModel<T> : ViewModelBase, IEntityViewModel<T>, IUpdatable
     /// ViewModel.
     /// </summary>
     /// <param name="entity">
-    /// Entidad conlos nuevos valores a establecer en la entidad
+    /// Entidad con los nuevos valores a establecer en la entidad
     /// actualmente establecida en la propiedad <see cref="Entity"/>.
     /// </param>
     public virtual void Update(T entity)
     {
-        foreach (PropertyInfo? j in WrittableProperties)
+        foreach (PropertyInfo? j in WritableProperties)
         {
             j.SetValue(Entity, j.GetValue(entity));
         }

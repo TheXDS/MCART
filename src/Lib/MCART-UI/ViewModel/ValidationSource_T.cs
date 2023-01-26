@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -60,7 +60,7 @@ public sealed class ValidationSource<T> : ValidationSource where T : IValidating
     /// </summary>
     /// <typeparam name="TValue">Tipo de la propiedad.</typeparam>
     /// <param name="propertySelector">
-    /// Espresión que selecciona la propiedad a configurar.
+    /// Expresión que selecciona la propiedad a configurar.
     /// </param>
     /// <returns>
     /// La misma instancia de validación, lo cual permite utilizar sintaxis

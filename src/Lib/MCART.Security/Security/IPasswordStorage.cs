@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,9 +28,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Security;
 using System.Security;
 using TheXDS.MCART.Types.Extensions;
+
+namespace TheXDS.MCART.Security;
 
 /// <summary>
 /// Define una serie de miembros a implementar por un tipo que provea de 
@@ -91,4 +92,9 @@ public interface IPasswordStorage
     /// instancia generará.
     /// </summary>
     int KeyLength { get; }
+
+    /// <summary>
+    /// Obtiene un objeto que contiene la configuración del algoritmo.
+    /// </summary>
+    public object? Settings => null;
 }

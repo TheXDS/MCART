@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,11 +28,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Types.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Security;
+
+namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
 /// Extensiones de la clase <see cref="SecureString" />.
@@ -82,13 +83,13 @@ public static class SecureStringExtensions
     public static short[] ReadInt16(this SecureString value)
     {
         const int sz = sizeof(short);
-        List<short>? outp = new();
+        List<short>? output = new();
         IntPtr valuePtr = IntPtr.Zero;
         try
         {
             valuePtr = Marshal.SecureStringToGlobalAllocUnicode(value);
-            for (int i = 0; i < value.Length * sz; i += sz) outp.Add(Marshal.ReadInt16(valuePtr, i));
-            return outp.ToArray();
+            for (int i = 0; i < value.Length * sz; i += sz) output.Add(Marshal.ReadInt16(valuePtr, i));
+            return output.ToArray();
         }
         finally
         {
@@ -109,13 +110,13 @@ public static class SecureStringExtensions
     public static char[] ReadChars(this SecureString value)
     {
         const int sz = sizeof(char);
-        List<char>? outp = new();
+        List<char>? output = new();
         IntPtr valuePtr = IntPtr.Zero;
         try
         {
             valuePtr = Marshal.SecureStringToGlobalAllocUnicode(value);
-            for (int i = 0; i < value.Length * sz; i += sz) outp.Add((char)Marshal.ReadInt16(valuePtr, i));
-            return outp.ToArray();
+            for (int i = 0; i < value.Length * sz; i += sz) output.Add((char)Marshal.ReadInt16(valuePtr, i));
+            return output.ToArray();
         }
         finally
         {
@@ -138,13 +139,13 @@ public static class SecureStringExtensions
     /// </remarks>
     public static byte[] ReadBytes(this SecureString value)
     {
-        List<byte>? outp = new();
+        List<byte>? output = new();
         IntPtr valuePtr = IntPtr.Zero;
         try
         {
             valuePtr = Marshal.SecureStringToGlobalAllocUnicode(value);
-            for (int i = 0; i < value.Length * 2; i++) outp.Add(Marshal.ReadByte(valuePtr, i));
-            return outp.ToArray();
+            for (int i = 0; i < value.Length * 2; i++) output.Add(Marshal.ReadByte(valuePtr, i));
+            return output.ToArray();
         }
         finally
         {

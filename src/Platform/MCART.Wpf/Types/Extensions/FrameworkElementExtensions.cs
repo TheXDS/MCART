@@ -7,7 +7,7 @@ Author:
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,12 +28,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Helpers;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
 using TheXDS.MCART.Attributes;
+
+namespace TheXDS.MCART.Helpers;
 
 /// <summary>
 /// Contiene extensiones para la clase <see cref="FrameworkElement"/>.
@@ -45,7 +46,7 @@ public static class FrameworkElementExtensions
     /// </summary>
     /// <param name="obj">Objeto destino del enlace</param>
     /// <param name="dp">Propiedad de dependencia a enlazar.</param>
-    /// <param name="source">Orígen del enlace.</param>
+    /// <param name="source">origen del enlace.</param>
     [Sugar]
     public static void Bind(this FrameworkElement obj, DependencyProperty dp, DependencyObject source)
     {
@@ -57,7 +58,7 @@ public static class FrameworkElementExtensions
     /// </summary>
     /// <param name="obj">Objeto destino del enlace</param>
     /// <param name="dp">Propiedad de dependencia a enlazar.</param>
-    /// <param name="source">Orígen del enlace.</param>
+    /// <param name="source">origen del enlace.</param>
     /// <param name="mode">Modo del enlace.</param>
     [Sugar]
     public static void Bind(this FrameworkElement obj, DependencyProperty dp, DependencyObject source, BindingMode mode)
@@ -71,7 +72,7 @@ public static class FrameworkElementExtensions
     /// </summary>
     /// <param name="obj">Objeto destino del enlace</param>
     /// <param name="dp">Propiedad de dependencia a enlazar.</param>
-    /// <param name="source">Orígen del enlace.</param>
+    /// <param name="source">origen del enlace.</param>
     [Sugar]
     public static void Bind(this FrameworkElement obj, DependencyProperty dp, INotifyPropertyChanged source)
     {
@@ -84,7 +85,7 @@ public static class FrameworkElementExtensions
     /// </summary>
     /// <param name="obj">Objeto destino del enlace</param>
     /// <param name="dp">Propiedad de dependencia a enlazar.</param>
-    /// <param name="source">Orígen del enlace.</param>
+    /// <param name="source">origen del enlace.</param>
     /// <param name="mode">Modo del enlace.</param>
     [Sugar]
     public static void Bind(this FrameworkElement obj, DependencyProperty dp, INotifyPropertyChanged source, BindingMode mode)
@@ -97,7 +98,7 @@ public static class FrameworkElementExtensions
     /// </summary>
     /// <param name="obj">Objeto destino del enlace</param>
     /// <param name="targetDp">Propiedad de dependencia de destino del enlace.</param>
-    /// <param name="source">Orígen del enlace.</param>
+    /// <param name="source">origen del enlace.</param>
     /// <param name="sourceDp">Propiedad de dependencia de destino del enlace.</param>
     [Sugar]
     public static void Bind(this FrameworkElement obj, DependencyProperty targetDp, DependencyObject source, DependencyProperty sourceDp)
@@ -110,7 +111,7 @@ public static class FrameworkElementExtensions
     /// </summary>
     /// <param name="obj">Objeto destino del enlace</param>
     /// <param name="targetDp">Propiedad de dependencia de destino del enlace.</param>
-    /// <param name="source">Orígen del enlace.</param>
+    /// <param name="source">origen del enlace.</param>
     /// <param name="sourceDp">Propiedad de dependencia de destino del enlace.</param>
     /// <param name="mode">Modo del enlace.</param>
     [Sugar]
@@ -125,7 +126,7 @@ public static class FrameworkElementExtensions
     /// </summary>
     /// <param name="obj">Objeto destino del enlace</param>
     /// <param name="targetDp">Propiedad de dependencia de destino del enlace.</param>
-    /// <param name="source">Orígen del enlace.</param>
+    /// <param name="source">origen del enlace.</param>
     /// <param name="sourceDp">Propiedad de dependencia de destino del enlace.</param>
     [Sugar]
     public static void Bind(this FrameworkElement obj, DependencyProperty targetDp, INotifyPropertyChanged source, DependencyProperty sourceDp)
@@ -139,7 +140,7 @@ public static class FrameworkElementExtensions
     /// </summary>
     /// <param name="obj">Objeto destino del enlace</param>
     /// <param name="targetDp">Propiedad de dependencia de destino del enlace.</param>
-    /// <param name="source">Orígen del enlace.</param>
+    /// <param name="source">origen del enlace.</param>
     /// <param name="sourceDp">Propiedad de dependencia de destino del enlace.</param>
     /// <param name="mode">Modo del enlace.</param>
     [Sugar]
@@ -153,7 +154,7 @@ public static class FrameworkElementExtensions
     /// </summary>
     /// <param name="obj">Objeto destino del enlace</param>
     /// <param name="targetDp">Propiedad de dependencia de destino del enlace.</param>
-    /// <param name="source">Orígen del enlace.</param>
+    /// <param name="source">origen del enlace.</param>
     /// <param name="sourceDp">Propiedad de dependencia de destino del enlace.</param>
     /// <param name="mode">Modo del enlace.</param>
     [Sugar]

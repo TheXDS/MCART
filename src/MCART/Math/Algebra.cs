@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Math;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -38,6 +37,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Resources;
+
+namespace TheXDS.MCART.Math;
 
 /// <summary>
 /// Contiene series, operaciones, ecuaciones y constantes matemáticas adicionales.
@@ -597,7 +598,7 @@ public static class Algebra
     private static int[] ReadKnownPrimes()
     {
         List<int>? l = new();
-        Unpacker? a = new(typeof(Algebra).Assembly, @"TheXDS.MCART.Resources.Data");
+        Unpacker? a = new(@"TheXDS.MCART.Resources.Data");
         using Stream? s = a.Unpack("primes", new DeflateGetter());
         using BinaryReader? b = new(s);
         int c = b.ReadInt32();

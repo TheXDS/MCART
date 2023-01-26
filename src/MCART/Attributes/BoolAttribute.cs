@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,8 +28,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Attributes;
 using System;
+
+namespace TheXDS.MCART.Attributes;
 
 /// <summary>
 /// Clase base para los atributos basados en valores booleanos.
@@ -37,7 +38,7 @@ using System;
 public abstract class BoolAttribute : Attribute, IValueAttribute<bool>
 {
     /// <summary>
-    /// Crea una nueva isntancia de la clase
+    /// Crea una nueva instancia de la clase
     /// <see cref="BoolAttribute" />.
     /// </summary>
     /// <param name="attributeValue">Valor de este atributo.</param>

@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -262,7 +262,7 @@ public class ColorTests
     {
         Color c = Colors.Pick();
         System.Drawing.Color d = (System.Drawing.Color)c;
-        System.Drawing.Color e = ((ICasteable<System.Drawing.Color>)c).Cast();
+        System.Drawing.Color e = ((ICastable<System.Drawing.Color>)c).Cast();
 
         Assert.AreEqual(c.R, d.R);
         Assert.AreEqual(c.G, d.G);

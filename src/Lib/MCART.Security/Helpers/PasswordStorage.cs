@@ -8,7 +8,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -29,22 +29,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Helpers;
-using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Security;
 using TheXDS.MCART.Security;
 using TheXDS.MCART.Types.Extensions;
+
+namespace TheXDS.MCART.Helpers;
 
 /// <summary>
 /// Contiene métodos para crear Salty Hashes de contraseñas que son
 /// seguros para ser almacenados, así como también comprobar la validez
 /// de una contraseña.
 /// </summary>
-public static class PasswordStorage
+public static partial class PasswordStorage
 {
-    private static readonly IEnumerable<IPasswordStorage> _algs = Objects.FindAllObjects<IPasswordStorage>();
+    private static IEnumerable<IPasswordStorage>? _algorithms;
 
     /// <summary>
     /// Crea un Hash seguro para almacenar la contraseña.
@@ -72,7 +70,7 @@ public static class PasswordStorage
     /// <returns>
     /// Un arreglo de bytes que puede ser almacenado de forma segura en una
     /// base de datos que luego puede utilizarse para verificar una contraseña.
-    /// El arrelgo inclute información sobre el algoritmo de derivación
+    /// El arreglo incluye información sobre el algoritmo de derivación
     /// utilizado, además de todos los valores de configuración del mismo.
     /// </returns>
     public static byte[] CreateHash(IPasswordStorage algorithm, SecureString password)
@@ -110,8 +108,9 @@ public static class PasswordStorage
             using var ms = new MemoryStream(hash);
             using var reader = new BinaryReader(ms);
             var id = reader.ReadString();
-            var algorithm = _algs.SingleOrDefault(p => p.AlgId == id);
+            var algorithm = (_algorithms ??= Objects.FindAllObjects<IPasswordStorage>()).SingleOrDefault(p => p.AlgId == id);
             if (algorithm is null) return null;
+            CheckSettings(algorithm.Settings?.GetType());
             algorithm.ConfigureFrom(reader);
             return algorithm.Generate(password).SequenceEqual(reader.ReadBytes((int)ms.RemainingBytes()));
         }

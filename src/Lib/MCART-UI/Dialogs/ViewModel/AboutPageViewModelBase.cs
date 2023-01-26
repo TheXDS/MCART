@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2022 César Andrés Morgan
+Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Dialogs.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -39,6 +38,8 @@ using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Base;
 using TheXDS.MCART.Types.Extensions;
 using TheXDS.MCART.ViewModel;
+
+namespace TheXDS.MCART.Dialogs.ViewModel;
 
 /// <summary>
 /// ViewModel que describe el comportamiento de una ventana que muestra
@@ -75,7 +76,7 @@ public abstract class AboutPageViewModelBase<T> : ViewModelBase, IExposeExtended
     /// más información sobre las licencias de terceros incluidas en la
     /// aplicación.
     /// </summary>
-    public ICommand ThidPartiLicensesCommand { get; }
+    public ICommand ThirdPartyLicensesCommand { get; }
 
     /// <summary>
     /// Inicializa una nueva instancia de la clase
@@ -91,7 +92,7 @@ public abstract class AboutPageViewModelBase<T> : ViewModelBase, IExposeExtended
             .RegisterObservedProperty(nameof(Element))
             .SetCanExecute(() => HasLicense);
 
-        ThidPartiLicensesCommand = new ObservingCommand(this, On3rdPartyLicenses)
+        ThirdPartyLicensesCommand = new ObservingCommand(this, On3rdPartyLicenses)
             .RegisterObservedProperty(nameof(Element))
             .SetCanExecute(() => Has3rdPartyLicense);
 
@@ -162,7 +163,7 @@ public abstract class AboutPageViewModelBase<T> : ViewModelBase, IExposeExtended
     public License? License => Element?.License;
 
     /// <summary>
-    /// Obtiene el nombrer del <see cref="IExposeInfo"/> para el cual
+    /// Obtiene el nombre del <see cref="IExposeInfo"/> para el cual
     /// se presentan los detalles.
     /// </summary>
     public string Name => Element?.Name ?? string.Empty;
