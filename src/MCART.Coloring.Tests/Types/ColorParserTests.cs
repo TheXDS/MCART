@@ -28,11 +28,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Tests.Types;
+#pragma warning disable CS1591
+
 using NUnit.Framework;
 using System;
 using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Extensions;
+
+namespace TheXDS.MCART.Tests.Types;
 
 public class ColorParserTests
 {
@@ -69,7 +72,10 @@ public class ColorParserTests
         Color actual = (Color)f.Invoke(c, new[] { sourceValue })!;
         object? convertBack = t.Invoke(c, new object[] { actual })!;
 
-        Assert.True(expected == actual);
-        Assert.AreEqual(sourceValue, convertBack);
+        Assert.Multiple(() =>
+        {
+            Assert.That(expected, Is.EqualTo(actual));
+            Assert.That(convertBack, Is.EqualTo(sourceValue));
+        });
     }
 }

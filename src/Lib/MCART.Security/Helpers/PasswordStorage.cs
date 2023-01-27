@@ -108,7 +108,7 @@ public static partial class PasswordStorage
             using var ms = new MemoryStream(hash);
             using var reader = new BinaryReader(ms);
             var id = reader.ReadString();
-            var algorithm = (_algorithms ??= Objects.FindAllObjects<IPasswordStorage>()).SingleOrDefault(p => p.AlgId == id);
+            var algorithm = (_algorithms ??= Objects.FindAllObjects<IPasswordStorage>().ToArray()).SingleOrDefault(p => p.AlgId == id);
             if (algorithm is null) return null;
             CheckSettings(algorithm.Settings?.GetType());
             algorithm.ConfigureFrom(reader);

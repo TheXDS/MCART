@@ -1,5 +1,5 @@
 ﻿/*
-Bgr222ColorParser.cs
+IColorParser_T.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,42 +28,43 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Types;
+namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
-/// Implementa un <see cref="IColorParser{T}" /> que tiene como formato
-/// de color un valor de 6 bits, 2 bits por canal, sin alfa.
+/// Define una serie de métodos a implementar por una clase que permita
+/// convertir un valor fuertemente tipeado en un <see cref="Color" />.
 /// </summary>
-public class Bgr222ColorParser : IColorParser<byte>
+/// <typeparam name="T">Tipo de valor a convertir.</typeparam>
+public interface IColorParser<T> : IColorParser where T : struct
 {
     /// <summary>
-    /// Convierte una estructura compatible en un <see cref="Color" />.
+    /// Convierte un <typeparamref name="T" /> en un
+    /// <see cref="Color" />.
     /// </summary>
     /// <param name="value">Valor a convertir.</param>
     /// <returns>
-    /// Un <see cref="Color" /> creado a partir del valor especificado.
+    /// Un <see cref="Color" /> creado a partir del valor.
     /// </returns>
-    public Color From(byte value)
-    {
-        return new(
-            (byte)((value & 0x3) * 255 / 3),
-            (byte)(((value & 0xc) >> 2) * 255 / 3),
-            (byte)(((value & 0x30) >> 4) * 255 / 3));
-    }
+    Color From(T value);
 
     /// <summary>
-    /// Convierte un <see cref="Color" /> en un valor, utilizando el
-    /// <see cref="IColorParser{T}" /> especificado.
+    /// Convierte un <see cref="Color" /> en un valor de tipo
+    /// <typeparamref name="T" />.
     /// </summary>
     /// <param name="color"><see cref="Color" /> a convertir.</param>
     /// <returns>
-    /// Un valor creado a partir de este <see cref="Color" />.
+    /// Un valor de tipo <typeparamref name="T" /> creado a partir del
+    /// <see cref="Color" /> especificado.
     /// </returns>
-    public byte To(Color color)
+    T To(Color color);
+
+    Color IColorParser.From(object value)
     {
-        return (byte)(
-            (color.R * 3 / 255) |
-            ((color.G * 3 / 255) << 2) |
-            ((color.B * 3 / 255) << 4));
+        return value switch
+        {
+            T v => From(v),
+            null => throw new ArgumentNullException(nameof(value)),
+            _ => throw new InvalidCastException(nameof(value))
+        };
     }
 }

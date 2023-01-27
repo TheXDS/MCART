@@ -1,5 +1,5 @@
 ﻿/*
-GrayscaleColorParser.cs
+Abgr16ColorParser.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,14 +28,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using TheXDS.MCART.Math;
+using TheXDS.MCART.Types.Base;
+
 namespace TheXDS.MCART.Types;
 
 /// <summary>
 /// Implementa un <see cref="IColorParser{T}" /> que tiene como formato
-/// de color un valor monocromático de 8 bits (escala de grises) sin
-/// alfa, en escala lineal.
+/// de color un valor de 16 bits, 5 bits por canal, 1 bit de alfa.
 /// </summary>
-public class GrayscaleColorParser : IColorParser<byte>
+public class Abgr16ColorParser : IColorParser<short>
 {
     /// <summary>
     /// Convierte una estructura compatible en un <see cref="Color" />.
@@ -44,9 +46,13 @@ public class GrayscaleColorParser : IColorParser<byte>
     /// <returns>
     /// Un <see cref="Color" /> creado a partir del valor especificado.
     /// </returns>
-    public Color From(byte value)
+    public Color From(short value)
     {
-        return new(value, value, value);
+        return new(
+            (byte)((value & 0x1f) * 255 / 31).Clamp(0, 255),
+            (byte)(((value & 0x3e0) >> 5) * 255 / 31 - 1).Clamp(0, 255),
+            (byte)(((value & 0x7c00) >> 10) * 255 / 31 - 1).Clamp(0, 255),
+            (byte)(((value & 0x8000) >> 15) * 255));
     }
 
     /// <summary>
@@ -57,8 +63,12 @@ public class GrayscaleColorParser : IColorParser<byte>
     /// <returns>
     /// Un valor creado a partir de este <see cref="Color" />.
     /// </returns>
-    public byte To(Color color)
+    public short To(Color color)
     {
-        return (byte)((color.R + color.G + color.B) / 3);
+        return (short)(
+            (byte)System.Math.Round(color.R * 31f / 255) |
+            ((short)System.Math.Round(color.G * 31f / 255) << 5) |
+            ((short)System.Math.Round(color.B * 31f / 255) << 10) |
+            (color.A >= 128 ? 0x8000 : 0));
     }
 }

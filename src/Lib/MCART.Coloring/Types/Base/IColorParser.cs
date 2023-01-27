@@ -1,5 +1,5 @@
 ﻿/*
-Rgb233ColorParser.cs
+IColorParser.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,43 +28,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Types;
+namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
-/// Implementa un <see cref="IColorParser{T}" /> que tiene como formato
-/// de color un valor de 8 bits, 3 bits para los canales rojo y verde,
-/// 2 para el canal azul, sin alfa.
+/// Define una serie de métodos a implementar por una clase que permita
+/// convertir un valor en un <see cref="Color" />.
 /// </summary>
-public class Rgb233ColorParser : IColorParser<byte>
+public interface IColorParser
 {
     /// <summary>
-    /// Convierte una estructura compatible en un <see cref="Color" />.
+    /// Convierte un objeto en un
+    /// <see cref="Color" />.
     /// </summary>
     /// <param name="value">Valor a convertir.</param>
     /// <returns>
-    /// Un <see cref="Color" /> creado a partir del valor especificado.
+    /// Un <see cref="Color" /> creado a partir del valor.
     /// </returns>
-    public Color From(byte value)
-    {
-        return new(
-            (byte)(((value & 0xe0) >> 5) * 256 / 8),
-            (byte)(((value & 0x1c) >> 2) * 256 / 8),
-            (byte)((value & 0x3) * 256 / 4));
-    }
-
-    /// <summary>
-    /// Convierte un <see cref="Color" /> en un valor, utilizando el
-    /// <see cref="IColorParser{T}" /> especificado.
-    /// </summary>
-    /// <param name="color"><see cref="Color" /> a convertir.</param>
-    /// <returns>
-    /// Un valor creado a partir de este <see cref="Color" />.
-    /// </returns>
-    public byte To(Color color)
-    {
-        return (byte)(
-            ((color.B * 4 / 256) << 5) |
-            ((color.G * 8 / 256) << 2) |
-            (color.R * 8 / 256));
-    }
+    Color From(object value);
 }

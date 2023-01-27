@@ -38,11 +38,6 @@ namespace TheXDS.MCART.Security;
 /// </summary>
 public class Pbkdf2Storage : IPasswordStorage
 {
-    /// <inheritdoc/>
-    public Pbkdf2Settings Settings { get; set; } = GetDefaultSettings();
-
-    int IPasswordStorage.KeyLength => Settings.DerivedKeyLength;
-
     /// <summary>
     /// Obtiene un <see cref="Pbkdf2Settings"/> que representa la configuración
     /// predeterminada recomendada para derivar claves de almacenamiento.
@@ -61,6 +56,33 @@ public class Pbkdf2Storage : IPasswordStorage
             DerivedKeyLength = 64,
         };
     }
+
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase <see cref="Pbkdf2Storage"/>,
+    /// estableciendo la configuración del algoritmo de derivación de claves a
+    /// los valores predeterminados.
+    /// </summary>
+    public Pbkdf2Storage() : this(GetDefaultSettings())
+    {
+    }
+
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase <see cref="Pbkdf2Storage"/>,
+    /// especificando la configuración del algoritmo de derivación de claves a
+    /// utilizar.
+    /// </summary>
+    /// <param name="settings">
+    /// Configuración del algoritmo de derivación de claves a utilizar.
+    /// </param>
+    public Pbkdf2Storage(Pbkdf2Settings settings)
+    {
+        Settings = settings;
+    }
+
+    /// <inheritdoc/>
+    public Pbkdf2Settings Settings { get; set; }
+
+    int IPasswordStorage.KeyLength => Settings.DerivedKeyLength;
 
     void IPasswordStorage.ConfigureFrom(BinaryReader reader)
     {
@@ -87,9 +109,14 @@ public class Pbkdf2Storage : IPasswordStorage
 
     byte[] IPasswordStorage.Generate(byte[] input)
     {
-        using Rfc2898DeriveBytes? pbkdf2 = Settings.HashFunction.IsEmpty()
+        using Rfc2898DeriveBytes? pbkdf2 = GetPbkdf2(input);
+        return pbkdf2.GetBytes(Settings.DerivedKeyLength);
+    }
+
+    private Rfc2898DeriveBytes GetPbkdf2(byte[] input)
+    {
+        return Settings.HashFunction.IsEmpty()
             ? new(input, Settings.Salt, Settings.Iterations)
             : new(input, Settings.Salt, Settings.Iterations, new HashAlgorithmName(Settings.HashFunction));
-        return pbkdf2.GetBytes(Settings.DerivedKeyLength);
     }
 }

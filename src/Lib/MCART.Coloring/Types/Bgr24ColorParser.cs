@@ -1,5 +1,5 @@
 ﻿/*
-Bgr12ColorParser.cs
+Bgr24ColorParser.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,13 +28,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using TheXDS.MCART.Types.Base;
+
 namespace TheXDS.MCART.Types;
 
 /// <summary>
 /// Implementa un <see cref="IColorParser{T}" /> que tiene como formato
-/// de color un valor de 12 bits, 4 bits por canal, sin alfa.
+/// de color un valor de 24 bits, 8 bits por canal, sin alfa.
 /// </summary>
-public class Bgr12ColorParser : IColorParser<short>
+public class Bgr24ColorParser : IColorParser<int>
 {
     /// <summary>
     /// Convierte una estructura compatible en un <see cref="Color" />.
@@ -43,13 +45,12 @@ public class Bgr12ColorParser : IColorParser<short>
     /// <returns>
     /// Un <see cref="Color" /> creado a partir del valor especificado.
     /// </returns>
-    public Color From(short value)
+    public Color From(int value)
     {
         return new(
-            (byte)((value & 0xf) * 255 / 15),
-            (byte)(((value & 0xf0) >> 4) * 255 / 15),
-            (byte)(((value & 0xf00) >> 8) * 255 / 15),
-            255);
+            (byte)(value & 0xff),
+            (byte)((value & 0xff00) >> 8),
+            (byte)((value & 0xff0000) >> 16));
     }
 
     /// <summary>
@@ -60,11 +61,8 @@ public class Bgr12ColorParser : IColorParser<short>
     /// <returns>
     /// Un valor creado a partir de este <see cref="Color" />.
     /// </returns>
-    public short To(Color color)
+    public int To(Color color)
     {
-        return (short)(
-            (color.R * 15 / 255) |
-            ((color.G * 15 / 255) << 4) |
-            ((color.B * 15 / 255) << 8));
+        return color.R | (color.G << 8) | (color.B << 16);
     }
 }

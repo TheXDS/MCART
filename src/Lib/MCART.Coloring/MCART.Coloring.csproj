@@ -6,9 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\Lib\MCART-UI\MCART.UI.csproj" />
-    <ProjectReference Include="..\..\Lib\MCART.TypeFactory\MCART.TypeFactory.csproj" />
-  </ItemGroup>
-
 </Project>

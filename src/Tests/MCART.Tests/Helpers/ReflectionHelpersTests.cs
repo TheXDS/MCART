@@ -88,7 +88,7 @@ public class ReflectionHelpersTests
     }
 
     [Test]
-    public void IsOverriden_Test()
+    public void IsOverridden_Test()
     {
         Test1? t1 = new();
         Test2? t2 = new();
@@ -199,7 +199,6 @@ public class ReflectionHelpersTests
         Assert.IsInstanceOf<PropertyInfo>(c[0]);
         Assert.AreEqual("TestProperty", c[0].Name);
     }
-
 
     [Test]
     public void GetPropertiesOf_with_BindingFlags_Test()

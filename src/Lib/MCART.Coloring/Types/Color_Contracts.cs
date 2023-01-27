@@ -1,5 +1,5 @@
 ﻿/*
-IColorParser.cs
+Color_Contracts.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,33 +28,35 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using TheXDS.MCART.Helpers;
+using TheXDS.MCART.Resources;
+using static TheXDS.MCART.Misc.Internals;
+
 namespace TheXDS.MCART.Types;
 
 /// <summary>
-/// Define una serie de métodos a implementar por una clase que permita
-/// convertir un valor en un <see cref="Color" />.
+/// Estructura universal que describe un color en sus componentes alfa,
+/// rojo, verde y azul.
 /// </summary>
-/// <typeparam name="T">Tipo de valor a convertir.</typeparam>
-public interface IColorParser<T> where T : struct
+public partial struct Color
 {
-    /// <summary>
-    /// Convierte un <typeparamref name="T" /> en un
-    /// <see cref="Color" />.
-    /// </summary>
-    /// <param name="value">Valor a convertir.</param>
-    /// <returns>
-    /// Un <see cref="Color" /> creado a partir del valor.
-    /// </returns>
-    Color From(T value);
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void Blend_Contract(in IEnumerable<Color> colors)
+    {
+        if (!colors.Any()) throw Errors.EmptyCollection(colors);
+    }
 
-    /// <summary>
-    /// Convierte un <see cref="Color" /> en un valor de tipo
-    /// <typeparamref name="T" />.
-    /// </summary>
-    /// <param name="color"><see cref="Color" /> a convertir.</param>
-    /// <returns>
-    /// Un valor de tipo <typeparamref name="T" /> creado a partir del
-    /// <see cref="Color" /> especificado.
-    /// </returns>
-    T To(Color color);
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void AreClose_Contract(in float delta)
+    {
+        if (!delta.IsBetween(0f, 1f)) throw Errors.ValueOutOfRange(nameof(delta), 0f, 1f);
+    }
 }

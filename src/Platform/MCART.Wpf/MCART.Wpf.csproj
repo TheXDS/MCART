@@ -31,6 +31,7 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\..\Lib\MCART-Windows\MCART.Windows.csproj" />
+	  <ProjectReference Include="..\..\lib\MCART.Coloring\MCART.Coloring.csproj" />
 	  <ProjectReference Include="..\..\MCART\MCART.csproj" />
 	</ItemGroup>
 	<ItemGroup>

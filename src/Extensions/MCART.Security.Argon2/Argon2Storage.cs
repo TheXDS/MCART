@@ -61,14 +61,34 @@ public class Argon2Storage : IPasswordStorage<Argon2Settings>
         };
     }
 
-    /// <inheritdoc/>
-    public Argon2Settings Settings { get; set; } = GetDefaultSettings();
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase <see cref="Argon2Storage"/>,
+    /// estableciendo la configuración del algoritmo de derivación de claves a
+    /// los valores predeterminados.
+    /// </summary>
+    public Argon2Storage() : this(GetDefaultSettings())
+    {
+    }
+
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase <see cref="Argon2Storage"/>,
+    /// especificando la configuración del algoritmo de derivación de claves a
+    /// utilizar.
+    /// </summary>
+    /// <param name="settings">
+    /// Configuración del algoritmo de derivación de claves a utilizar.
+    /// </param>
+    public Argon2Storage(Argon2Settings settings)
+    {
+        Settings = settings;
+    }
 
     /// <inheritdoc/>
-    public int KeyLength => Settings.KeyLength;
+    public Argon2Settings Settings { get; set; }
 
-    /// <inheritdoc/>
-    public byte[] Generate(byte[] input)
+    int IPasswordStorage.KeyLength => Settings.KeyLength;
+
+    byte[] IPasswordStorage.Generate(byte[] input)
     {
         using Argon2 a = GetArgon2(input);
         ConfigureArgon2(a);

@@ -28,11 +28,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.Linq;
-using TheXDS.MCART.Types;
-using TheXDS.MCART.Types.Extensions;
 using System.Reflection;
 using TheXDS.MCART.Helpers;
+using TheXDS.MCART.Types;
+using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Resources;
 

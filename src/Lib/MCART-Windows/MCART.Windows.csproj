@@ -11,6 +11,7 @@
   </ItemGroup>  
   <ItemGroup>
     <ProjectReference Include="..\MCART-GUI\MCART.GUI.csproj" />
+    <ProjectReference Include="..\MCART.Coloring\MCART.Coloring.csproj" />
   </ItemGroup>  
   <ItemGroup>
     <Compile Update="Resources\Strings\WinErrors.Designer.cs">

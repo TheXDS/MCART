@@ -1,5 +1,5 @@
 ﻿/*
-Abgr2222ColorParser.cs
+Bgr565ColorParser.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,13 +28,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using TheXDS.MCART.Types.Base;
+
 namespace TheXDS.MCART.Types;
 
 /// <summary>
 /// Implementa un <see cref="IColorParser{T}" /> que tiene como formato
-/// de color un valor de 8 bits, 2 bits por canal, 2 bits de alfa.
+/// de color un valor de 16 bits, 5 bits para los canales rojo y azul,
+/// 6 para el canal verde, sin alfa.
 /// </summary>
-public class Abgr2222ColorParser : IColorParser<byte>
+public class Bgr565ColorParser : IColorParser<short>
 {
     /// <summary>
     /// Convierte una estructura compatible en un <see cref="Color" />.
@@ -43,13 +46,13 @@ public class Abgr2222ColorParser : IColorParser<byte>
     /// <returns>
     /// Un <see cref="Color" /> creado a partir del valor especificado.
     /// </returns>
-    public Color From(byte value)
+    public Color From(short value)
     {
         return new(
-            (byte)((value & 0x3) * 255 / 3),
-            (byte)(((value & 0xc) >> 2) * 255 / 3),
-            (byte)(((value & 0x30) >> 4) * 255 / 3),
-            (byte)(((value & 0xf0) >> 6) * 255 / 3));
+            (byte)((value & 0x1f) * 255 / 31),
+            (byte)(((value & 0x7e0) >> 5) * 255 / 63),
+            (byte)(((value & 0xf800) >> 11) * 255 / 31),
+            255);
     }
 
     /// <summary>
@@ -60,12 +63,11 @@ public class Abgr2222ColorParser : IColorParser<byte>
     /// <returns>
     /// Un valor creado a partir de este <see cref="Color" />.
     /// </returns>
-    public byte To(Color color)
+    public short To(Color color)
     {
-        return (byte)(
-            (color.R * 3 / 255) |
-            ((color.G * 3 / 255) << 2) |
-            ((color.B * 3 / 255) << 4) |
-            ((color.A * 3 / 255) << 6));
+        return (short)(
+            (byte)System.Math.Round(color.R * 31f / 255) |
+            ((short)System.Math.Round(color.G * 63f / 255) << 5) |
+            ((short)System.Math.Round(color.B * 31f / 255) << 11));
     }
 }

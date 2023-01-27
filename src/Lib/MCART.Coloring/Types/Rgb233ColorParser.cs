@@ -1,5 +1,5 @@
 ﻿/*
-Abgr16ColorParser.cs
+Rgb233ColorParser.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,15 +28,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using TheXDS.MCART.Math;
+using TheXDS.MCART.Types.Base;
 
 namespace TheXDS.MCART.Types;
 
 /// <summary>
 /// Implementa un <see cref="IColorParser{T}" /> que tiene como formato
-/// de color un valor de 16 bits, 5 bits por canal, 1 bit de alfa.
+/// de color un valor de 8 bits, 3 bits para los canales rojo y verde,
+/// 2 para el canal azul, sin alfa.
 /// </summary>
-public class Abgr16ColorParser : IColorParser<short>
+public class Rgb233ColorParser : IColorParser<byte>
 {
     /// <summary>
     /// Convierte una estructura compatible en un <see cref="Color" />.
@@ -45,13 +46,12 @@ public class Abgr16ColorParser : IColorParser<short>
     /// <returns>
     /// Un <see cref="Color" /> creado a partir del valor especificado.
     /// </returns>
-    public Color From(short value)
+    public Color From(byte value)
     {
         return new(
-            (byte)((value & 0x1f) * 255 / 31).Clamp(0, 255),
-            (byte)(((value & 0x3e0) >> 5) * 255 / 31 - 1).Clamp(0, 255),
-            (byte)(((value & 0x7c00) >> 10) * 255 / 31 - 1).Clamp(0, 255),
-            (byte)(((value & 0x8000) >> 15) * 255));
+            (byte)(((value & 0xe0) >> 5) * 256 / 8),
+            (byte)(((value & 0x1c) >> 2) * 256 / 8),
+            (byte)((value & 0x3) * 256 / 4));
     }
 
     /// <summary>
@@ -62,12 +62,11 @@ public class Abgr16ColorParser : IColorParser<short>
     /// <returns>
     /// Un valor creado a partir de este <see cref="Color" />.
     /// </returns>
-    public short To(Color color)
+    public byte To(Color color)
     {
-        return (short)(
-            (byte)System.Math.Round(color.R * 31f / 255) |
-            ((short)System.Math.Round(color.G * 31f / 255) << 5) |
-            ((short)System.Math.Round(color.B * 31f / 255) << 10) |
-            (color.A >= 128 ? 0x8000 : 0));
+        return (byte)(
+            ((color.B * 4 / 256) << 5) |
+            ((color.G * 8 / 256) << 2) |
+            (color.R * 8 / 256));
     }
 }

@@ -1,5 +1,5 @@
 ﻿/*
-Color_Contracts.cs
+Bgr555ColorParser.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,43 +28,45 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using TheXDS.MCART.Helpers;
-using TheXDS.MCART.Resources;
-using static TheXDS.MCART.Misc.Internals;
+using TheXDS.MCART.Types.Base;
 
 namespace TheXDS.MCART.Types;
 
 /// <summary>
-/// Estructura universal que describe un color en sus componentes alfa,
-/// rojo, verde y azul.
+/// Implementa un <see cref="IColorParser{T}" /> que tiene como formato
+/// de color un valor de 15 bits, 5 bits por canal, sin alfa.
 /// </summary>
-public partial struct Color
+public class Bgr555ColorParser : IColorParser<short>
 {
-    [Conditional("EnforceContracts")]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    [DebuggerNonUserCode]
-    private static void Blend_Contract(in IEnumerable<Color> colors)
+    /// <summary>
+    /// Convierte una estructura compatible en un <see cref="Color" />.
+    /// </summary>
+    /// <param name="value">Valor a convertir.</param>
+    /// <returns>
+    /// Un <see cref="Color" /> creado a partir del valor especificado.
+    /// </returns>
+    public Color From(short value)
     {
-        if (!colors.Any()) throw Errors.EmptyCollection(colors);
+        return new(
+            (byte)((value & 0x1f) * 255 / 31),
+            (byte)(((value & 0x3e0) >> 5) * 255 / 31),
+            (byte)(((value & 0x7c00) >> 10) * 255 / 31),
+            255);
     }
 
-    [Conditional("EnforceContracts")]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    [DebuggerNonUserCode]
-    private static void AreClose_Contract(in float delta)
+    /// <summary>
+    /// Convierte un <see cref="Color" /> en un valor, utilizando el
+    /// <see cref="IColorParser{T}" /> especificado.
+    /// </summary>
+    /// <param name="color"><see cref="Color" /> a convertir.</param>
+    /// <returns>
+    /// Un valor creado a partir de este <see cref="Color" />.
+    /// </returns>
+    public short To(Color color)
     {
-        if (!delta.IsBetween(0f, 1f)) throw Errors.ValueOutOfRange(nameof(delta), 0f, 1f);
-    }
-
-    [Conditional("EnforceContracts")]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    [DebuggerNonUserCode]
-    private static void TryParse_Contract(string from)
-    {
-        EmptyCheck(from, nameof(from));
+        return (short)(
+            (byte)System.Math.Round(color.R * 31f / 255) |
+            ((short)System.Math.Round(color.G * 31f / 255) << 5) |
+            ((short)System.Math.Round(color.B * 31f / 255) << 10));
     }
 }

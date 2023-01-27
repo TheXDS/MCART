@@ -1,5 +1,5 @@
 ﻿/*
-Abgr32ColorParser.cs
+Abgr4444ColorParser.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,14 +28,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using TheXDS.MCART.Types.Base;
+
 namespace TheXDS.MCART.Types;
 
 /// <summary>
 /// Implementa un <see cref="IColorParser{T}" /> que tiene como formato
-/// de color un valor de 32 bits, 8 bits por canal, 8 bits de alfa,
-/// ordenados como AABBGGRR.
+/// de color un valor de 16 bits, 4 bits por canal, 4 bits de alfa.
 /// </summary>
-public class Abgr32ColorParser : IColorParser<int>
+public class Abgr4444ColorParser : IColorParser<short>
 {
     /// <summary>
     /// Convierte una estructura compatible en un <see cref="Color" />.
@@ -44,13 +45,13 @@ public class Abgr32ColorParser : IColorParser<int>
     /// <returns>
     /// Un <see cref="Color" /> creado a partir del valor especificado.
     /// </returns>
-    public Color From(int value)
+    public Color From(short value)
     {
         return new(
-            (byte)(value & 0xff),
-            (byte)((value & 0xff00) >> 8),
-            (byte)((value & 0xff0000) >> 16),
-            (byte)((value & 0xff000000) >> 24));
+            (byte)((value & 0xf) * 255 / 15),
+            (byte)(((value & 0xf0) >> 4) * 255 / 15),
+            (byte)(((value & 0xf00) >> 8) * 255 / 15),
+            (byte)(((value & 0xf000) >> 12) * 255 / 15));
     }
 
     /// <summary>
@@ -61,8 +62,12 @@ public class Abgr32ColorParser : IColorParser<int>
     /// <returns>
     /// Un valor creado a partir de este <see cref="Color" />.
     /// </returns>
-    public int To(Color color)
+    public short To(Color color)
     {
-        return color.R | (color.G << 8) | (color.B << 16) | (color.A << 24);
+        return (short)(
+            (color.R * 15 / 255) |
+            ((color.G * 15 / 255) << 4) |
+            ((color.B * 15 / 255) << 8) |
+            ((color.A * 15 / 255) << 12));
     }
 }

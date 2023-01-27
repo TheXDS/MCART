@@ -4,4 +4,7 @@
     <Description>Complex Type Definitions for common MCART Types</Description>
     <AssemblyName>MCART.Ext.$(MSBuildProjectName)</AssemblyName>
   </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\lib\MCART.Coloring\MCART.Coloring.csproj" />
+  </ItemGroup>
 </Project>
