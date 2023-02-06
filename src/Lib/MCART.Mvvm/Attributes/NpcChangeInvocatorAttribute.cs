@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System;
 using TheXDS.MCART.Types.Base;
 
 namespace TheXDS.MCART.Attributes;

@@ -1,5 +1,5 @@
 ﻿/*
-ConfiguredObservingCommand_T.cs
+ObservingCommandBuilder_T.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -42,7 +42,7 @@ namespace TheXDS.MCART.Helpers;
 /// <see cref="ObservingCommand"/>.
 /// </summary>
 /// <typeparam name="T">Tipo de objeto observado.</typeparam>
-public partial class ConfiguredObservingCommand<T> where T : INotifyPropertyChanged
+public partial class ObservingCommandBuilder<T> where T : INotifyPropertyChanged
 {
     private readonly ObservingCommand command;
     private readonly T observedObject;
@@ -55,22 +55,22 @@ public partial class ConfiguredObservingCommand<T> where T : INotifyPropertyChan
     /// </summary>
     public bool IsBuilt { get; private set; }
 
-    internal ConfiguredObservingCommand(T observedObject, Action action)
+    internal ObservingCommandBuilder(T observedObject, Action action)
     {
         command = new(this.observedObject = observedObject, action);
     }
 
-    internal ConfiguredObservingCommand(T observedObject, Action<object?> action)
+    internal ObservingCommandBuilder(T observedObject, Action<object?> action)
     {
         command = new(this.observedObject = observedObject, action);
     }
 
-    internal ConfiguredObservingCommand(T observedObject, Func<Task> action)
+    internal ObservingCommandBuilder(T observedObject, Func<Task> action)
     {
         command = new(this.observedObject = observedObject, action);
     }
 
-    internal ConfiguredObservingCommand(T observedObject, Func<object?, Task> action)
+    internal ObservingCommandBuilder(T observedObject, Func<object?, Task> action)
     {
         command = new(this.observedObject = observedObject, action);
     }
@@ -85,10 +85,10 @@ public partial class ConfiguredObservingCommand<T> where T : INotifyPropertyChan
     /// </param>
     /// <returns>
     /// Esta instancia de la clase
-    /// <see cref="ConfiguredObservingCommand{T}"/>, permitiendo el uso de
+    /// <see cref="ObservingCommandBuilder{T}"/>, permitiendo el uso de
     /// sintaxis Fluent.
     /// </returns>
-    public ConfiguredObservingCommand<T> ListensTo(params Expression<Func<T, object?>>[] properties)
+    public ObservingCommandBuilder<T> ListensTo(params Expression<Func<T, object?>>[] properties)
     {
         ListensTo<object?>(properties);
         return this;
@@ -104,10 +104,10 @@ public partial class ConfiguredObservingCommand<T> where T : INotifyPropertyChan
     /// </param>
     /// <returns>
     /// Esta instancia de la clase
-    /// <see cref="ConfiguredObservingCommand{T}"/>, permitiendo el uso de
+    /// <see cref="ObservingCommandBuilder{T}"/>, permitiendo el uso de
     /// sintaxis Fluent.
     /// </returns>
-    public ConfiguredObservingCommand<T> ListensTo<TValue>(params Expression<Func<T, TValue>>[] properties)
+    public ObservingCommandBuilder<T> ListensTo<TValue>(params Expression<Func<T, TValue>>[] properties)
     {
         ListensToProperty_Contract(properties);
         command.RegisterObservedProperty(properties.Select(GetProperty).Select(p => p.Name).ToArray());
@@ -125,15 +125,16 @@ public partial class ConfiguredObservingCommand<T> where T : INotifyPropertyChan
     /// </param>
     /// <returns>
     /// Esta instancia de la clase
-    /// <see cref="ConfiguredObservingCommand{T}"/>, permitiendo el uso de
+    /// <see cref="ObservingCommandBuilder{T}"/>, permitiendo el uso de
     /// sintaxis Fluent.
     /// </returns>
-    public ConfiguredObservingCommand<T> ListensToCanExecute(Expression<Func<T, bool>> selector)
+    public ObservingCommandBuilder<T> ListensToCanExecute(Expression<Func<T, bool>> selector)
     {
-        var pi = GetProperty(selector);
-        ListensToCanExecute_Contract(pi, typeof(T));
-        command.RegisterObservedProperty(pi.Name);
-        canExecuteTree.Add(_ => selector.Compile().Invoke(observedObject));
+        var property = GetProperty(selector);
+        ListensToCanExecute_Contract(property, typeof(T));
+        command.RegisterObservedProperty(property.Name);
+        var callback = selector.Compile();
+        canExecuteTree.Add(_ => callback.Invoke(observedObject));
         return this;
     }
 
@@ -148,10 +149,10 @@ public partial class ConfiguredObservingCommand<T> where T : INotifyPropertyChan
     /// </param>
     /// <returns>
     /// Esta instancia de la clase
-    /// <see cref="ConfiguredObservingCommand{T}"/>, permitiendo el uso de
+    /// <see cref="ObservingCommandBuilder{T}"/>, permitiendo el uso de
     /// sintaxis Fluent.
     /// </returns>
-    public ConfiguredObservingCommand<T> CanExecute(Func<object?, bool> canExecute)
+    public ObservingCommandBuilder<T> CanExecute(Func<object?, bool> canExecute)
     {
         IsBuilt_Contract();
         canExecuteTree.Add(canExecute);
@@ -168,10 +169,10 @@ public partial class ConfiguredObservingCommand<T> where T : INotifyPropertyChan
     /// </param>
     /// <returns>
     /// Esta instancia de la clase
-    /// <see cref="ConfiguredObservingCommand{T}"/>, permitiendo el uso de
+    /// <see cref="ObservingCommandBuilder{T}"/>, permitiendo el uso de
     /// sintaxis Fluent.
     /// </returns>
-    public ConfiguredObservingCommand<T> CanExecute(Func<bool> canExecute)
+    public ObservingCommandBuilder<T> CanExecute(Func<bool> canExecute)
     {
         IsBuilt_Contract();
         canExecuteTree.Add(_ => canExecute());
@@ -189,10 +190,10 @@ public partial class ConfiguredObservingCommand<T> where T : INotifyPropertyChan
     /// </param>
     /// <returns>
     /// Esta instancia de la clase
-    /// <see cref="ConfiguredObservingCommand{T}"/>, permitiendo el uso de
+    /// <see cref="ObservingCommandBuilder{T}"/>, permitiendo el uso de
     /// sintaxis Fluent.
     /// </returns>
-    public ConfiguredObservingCommand<T> CanExecuteIfNotNull(params Expression<Func<T, object?>>[] properties)
+    public ObservingCommandBuilder<T> CanExecuteIfNotNull(params Expression<Func<T, object?>>[] properties)
     {
         return CanExecuteIf(p => p is not null, properties);
     }
@@ -209,12 +210,12 @@ public partial class ConfiguredObservingCommand<T> where T : INotifyPropertyChan
     /// </param>
     /// <returns>
     /// Esta instancia de la clase
-    /// <see cref="ConfiguredObservingCommand{T}"/>, permitiendo el uso de
+    /// <see cref="ObservingCommandBuilder{T}"/>, permitiendo el uso de
     /// sintaxis Fluent.
     /// </returns>
-    public ConfiguredObservingCommand<T> CanExecuteIfNotDefault(params Expression<Func<T, object?>>[] properties)
+    public ObservingCommandBuilder<T> CanExecuteIfNotDefault(params Expression<Func<T, object?>>[] properties)
     {
-        return CanExecuteIf(p => p is not null && p != p.GetType().Default(), properties);
+        return CanExecuteIf(p => p is not null && !p.Equals(p.GetType().Default()), properties);
     }
 
     /// <summary>
@@ -228,10 +229,10 @@ public partial class ConfiguredObservingCommand<T> where T : INotifyPropertyChan
     /// </param>
     /// <returns>
     /// Esta instancia de la clase
-    /// <see cref="ConfiguredObservingCommand{T}"/>, permitiendo el uso de
+    /// <see cref="ObservingCommandBuilder{T}"/>, permitiendo el uso de
     /// sintaxis Fluent.
     /// </returns>
-    public ConfiguredObservingCommand<T> CanExecuteIfFilled(params Expression<Func<T, string?>>[] properties)
+    public ObservingCommandBuilder<T> CanExecuteIfFilled(params Expression<Func<T, string?>>[] properties)
     {
         return CanExecuteIf(p => !p.IsEmpty(), properties);
     }
@@ -249,10 +250,10 @@ public partial class ConfiguredObservingCommand<T> where T : INotifyPropertyChan
     /// </param>
     /// <returns>
     /// Esta instancia de la clase
-    /// <see cref="ConfiguredObservingCommand{T}"/>, permitiendo el uso de
+    /// <see cref="ObservingCommandBuilder{T}"/>, permitiendo el uso de
     /// sintaxis Fluent.
     /// </returns>
-    public ConfiguredObservingCommand<T> CanExecuteIfValid(params Expression<Func<T, float>>[] properties)
+    public ObservingCommandBuilder<T> CanExecuteIfValid(params Expression<Func<T, float>>[] properties)
     {
         return CanExecuteIf(p => p.IsValid(), properties);
     }
@@ -271,10 +272,10 @@ public partial class ConfiguredObservingCommand<T> where T : INotifyPropertyChan
     /// </param>
     /// <returns>
     /// Esta instancia de la clase
-    /// <see cref="ConfiguredObservingCommand{T}"/>, permitiendo el uso de
+    /// <see cref="ObservingCommandBuilder{T}"/>, permitiendo el uso de
     /// sintaxis Fluent.
     /// </returns>
-    public ConfiguredObservingCommand<T> CanExecuteIfValid(params Expression<Func<T, float?>>[] properties)
+    public ObservingCommandBuilder<T> CanExecuteIfValid(params Expression<Func<T, float?>>[] properties)
     {
         return CanExecuteIf(p => p.HasValue && p.Value.IsValid(), properties);
     }
@@ -292,10 +293,10 @@ public partial class ConfiguredObservingCommand<T> where T : INotifyPropertyChan
     /// </param>
     /// <returns>
     /// Esta instancia de la clase
-    /// <see cref="ConfiguredObservingCommand{T}"/>, permitiendo el uso de
+    /// <see cref="ObservingCommandBuilder{T}"/>, permitiendo el uso de
     /// sintaxis Fluent.
     /// </returns>
-    public ConfiguredObservingCommand<T> CanExecuteIfValid(params Expression<Func<T, double>>[] properties)
+    public ObservingCommandBuilder<T> CanExecuteIfValid(params Expression<Func<T, double>>[] properties)
     {
         return CanExecuteIf(p => p.IsValid(), properties);
     }
@@ -314,10 +315,10 @@ public partial class ConfiguredObservingCommand<T> where T : INotifyPropertyChan
     /// </param>
     /// <returns>
     /// Esta instancia de la clase
-    /// <see cref="ConfiguredObservingCommand{T}"/>, permitiendo el uso de
+    /// <see cref="ObservingCommandBuilder{T}"/>, permitiendo el uso de
     /// sintaxis Fluent.
     /// </returns>
-    public ConfiguredObservingCommand<T> CanExecuteIfValid(params Expression<Func<T, double?>>[] properties)
+    public ObservingCommandBuilder<T> CanExecuteIfValid(params Expression<Func<T, double?>>[] properties)
     {
         return CanExecuteIf(p => p.HasValue && p.Value.IsValid(), properties);
     }
@@ -334,10 +335,10 @@ public partial class ConfiguredObservingCommand<T> where T : INotifyPropertyChan
     /// </param>
     /// <returns>
     /// Esta instancia de la clase
-    /// <see cref="ConfiguredObservingCommand{T}"/>, permitiendo el uso de
+    /// <see cref="ObservingCommandBuilder{T}"/>, permitiendo el uso de
     /// sintaxis Fluent.
     /// </returns>
-    public ConfiguredObservingCommand<T> CanExecuteIfNotZero<TValue>(params Expression<Func<T, TValue>>[] properties) where TValue : notnull, IComparable<TValue>
+    public ObservingCommandBuilder<T> CanExecuteIfNotZero<TValue>(params Expression<Func<T, TValue>>[] properties) where TValue : notnull, IComparable<TValue>
     {
         return CanExecuteIf(p => p.CompareTo((TValue)p.GetType().Default()!) != 0, properties);
     }
@@ -350,10 +351,10 @@ public partial class ConfiguredObservingCommand<T> where T : INotifyPropertyChan
     /// </summary>
     /// <returns>
     /// Esta instancia de la clase
-    /// <see cref="ConfiguredObservingCommand{T}"/>, permitiendo el uso de
+    /// <see cref="ObservingCommandBuilder{T}"/>, permitiendo el uso de
     /// sintaxis Fluent.
     /// </returns>
-    public ConfiguredObservingCommand<T> CanExecuteIfObservedIsFilled()
+    public ObservingCommandBuilder<T> CanExecuteIfObservedIsFilled()
     {
         static bool IsFilled(object? p)
         {
@@ -387,9 +388,9 @@ public partial class ConfiguredObservingCommand<T> where T : INotifyPropertyChan
         return command.SetCanExecute(o => canExecuteTree.All(p => p(o)));
     }
 
-    private ConfiguredObservingCommand<T> CanExecuteIf<TValue>(Func<TValue, bool> predicate, params Expression<Func<T, TValue>>[] properties)
+    private ObservingCommandBuilder<T> CanExecuteIf<TValue>(Func<TValue, bool> predicate, params Expression<Func<T, TValue>>[] properties)
     {
-        if (IsBuilt) throw new InvalidOperationException();
+        IsBuilt_Contract();
         ListensTo(properties);
         CanExecute(_ => properties.Select(p => p.Compile().Invoke(observedObject)).All(predicate));
         return this;
@@ -400,5 +401,5 @@ public partial class ConfiguredObservingCommand<T> where T : INotifyPropertyChan
     /// <see cref="ObservingCommand"/>.
     /// </summary>
     /// <param name="command">Objeto a convertir.</param>
-    public static implicit operator ObservingCommand(ConfiguredObservingCommand<T> command) => command.Build();
+    public static implicit operator ObservingCommand(ObservingCommandBuilder<T> command) => command.Build();
 }

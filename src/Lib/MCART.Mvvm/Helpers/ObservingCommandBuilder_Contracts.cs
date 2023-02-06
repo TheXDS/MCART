@@ -37,7 +37,7 @@ using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Helpers;
 
-public partial class ConfiguredObservingCommand<T> where T : INotifyPropertyChanged
+public partial class ObservingCommandBuilder<T> where T : INotifyPropertyChanged
 {
     [Conditional("EnforceContracts")]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
