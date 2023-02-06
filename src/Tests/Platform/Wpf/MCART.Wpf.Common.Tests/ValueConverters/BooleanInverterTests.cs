@@ -1,5 +1,5 @@
 ﻿/*
-IValidatingViewModel.cs
+BooleanInverterTests.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,25 +28,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.ComponentModel;
-using TheXDS.MCART.Types.Base;
+using System.Globalization;
+using TheXDS.MCART.ValueConverters;
+using NUnit.Framework;
 
-namespace TheXDS.MCART.ViewModel;
+namespace TheXDS.MCART.Wpf.Tests.ValueConverters;
 
-/// <summary>
-/// Define una serie de miembros a implementar por un tipo que implemente un
-/// ViewModel que provee de servicios de validación de datos.
-/// </summary>
-public interface IValidatingViewModel : INotifyPropertyChanged
+public class BooleanInverterTests
 {
-    /// <summary>
-    /// Obtiene el origen de validación para esta instancia.
-    /// </summary>
-    /// <remarks>
-    /// Esta propiedad debe establecerse en el constructor del ViewModel de la siguiente manera:
-    /// <code lang="csharp">
-    /// ErrorSource = new ValidationSource&lt;TViewModel&gt;(this);
-    /// </code>
-    /// </remarks>
-    ValidationSource ErrorSource { get; }
+    [Test]
+    public void Inversion_Test()
+    {
+        BooleanInverter? c = new();
+        Assert.True((bool)c.Convert(false, typeof(bool), null, CultureInfo.CurrentCulture)!);
+        Assert.False((bool)c.Convert(true, typeof(bool), null, CultureInfo.CurrentCulture)!);
+        Assert.Null(c.Convert("Test", typeof(bool), null, CultureInfo.CurrentCulture));
+    }
 }

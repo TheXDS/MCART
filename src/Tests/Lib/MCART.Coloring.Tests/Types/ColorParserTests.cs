@@ -28,8 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#pragma warning disable CS1591
-
 using NUnit.Framework;
 using System;
 using TheXDS.MCART.Types;
@@ -40,7 +38,6 @@ namespace TheXDS.MCART.Tests.Types;
 public class ColorParserTests
 {
     [Theory]
-    [CLSCompliant(false)]
     [TestCase(typeof(Abgr4444ColorParser), (short)0x7abc, 0x77, 0xcc, 0xbb, 0xaa)]
     [TestCase(typeof(Abgr4444ColorParser), (short)0x7f04, 0x77, 0x44, 0x00, 0xff)]
     [TestCase(typeof(Bgr12ColorParser), (short)0xabc, 0xff, 0xcc, 0xbb, 0xaa)]

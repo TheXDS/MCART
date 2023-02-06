@@ -1,5 +1,5 @@
 ﻿/*
-IValidatingViewModel.cs
+ValueExposeInfoTests.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,25 +28,38 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.ComponentModel;
+using NUnit.Framework;
+using TheXDS.MCART.Component;
+using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Base;
 
-namespace TheXDS.MCART.ViewModel;
+namespace TheXDS.MCART.Tests.Component;
 
-/// <summary>
-/// Define una serie de miembros a implementar por un tipo que implemente un
-/// ViewModel que provee de servicios de validación de datos.
-/// </summary>
-public interface IValidatingViewModel : INotifyPropertyChanged
+public class ValueExposeInfoTests
 {
-    /// <summary>
-    /// Obtiene el origen de validación para esta instancia.
-    /// </summary>
-    /// <remarks>
-    /// Esta propiedad debe establecerse en el constructor del ViewModel de la siguiente manera:
-    /// <code lang="csharp">
-    /// ErrorSource = new ValidationSource&lt;TViewModel&gt;(this);
-    /// </code>
-    /// </remarks>
-    ValidationSource ErrorSource { get; }
+    [Test]
+    public void Get_information_test()
+    {
+        IExposeInfo a = new ValueExposeInfo()
+        {
+            Authors = new[] { "test" },
+            Copyright = "Copyright (C) 2001 test",
+            Description = "Test object",
+            License = new TextLicense("Test license", "This is a test"),
+            Name = "Test",
+            ThirdPartyLicenses = new[] { SpdxLicense.FromId(SpdxLicenseId.CC0_1_0) },
+            Version = new(1, 0)
+        };
+
+        Assert.IsNotEmpty(a.Authors!);
+        Assert.IsNotEmpty(a.Copyright);
+        Assert.IsNotEmpty(a.Description);
+        Assert.IsTrue(a.Has3rdPartyLicense);
+        Assert.IsTrue(a.HasLicense);
+        Assert.IsNotEmpty(a.InformationalVersion);
+        Assert.IsNotNull(a.License);
+        Assert.IsNotEmpty(a.Name);
+        Assert.IsNotEmpty(a.ThirdPartyLicenses!);
+        Assert.IsNotNull(a.Version);
+    }
 }

@@ -32,8 +32,9 @@ using System.Collections;
 using System.ComponentModel;
 using System.Reflection;
 using TheXDS.MCART.Types.Extensions;
+using TheXDS.MCART.ViewModel;
 
-namespace TheXDS.MCART.ViewModel;
+namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
 /// Ejecuta validaciones de datos dentro de un 
@@ -164,9 +165,7 @@ public abstract class ValidationSource : INotifyDataErrorInfo
         foreach (string? j in entry.Check(value) ?? Array.Empty<string>())
         {
             if (_errors.TryGetValue(entry.Property.Name, out List<string>? l))
-            {
                 l.Add(j);
-            }
             else
             {
                 _errors.Add(entry.Property.Name, new List<string> { j });

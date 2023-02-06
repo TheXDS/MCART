@@ -49,17 +49,6 @@ public class TypeFactoryTests
         public string? Description { get; set; }
     }
 
-    public abstract class NpcBaseClass : INotifyPropertyChanged
-    {
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        [NpcChangeInvocator]
-        protected void OnPropertyChanged([CallerMemberName] string? propertyName = null!)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-    }
-
     private static readonly Types.TypeFactory _factory = new($"{typeof(TypeFactoryTests).FullName}._Generated");
     [Test]
     public void Build_Simple_Type_Test()
@@ -78,57 +67,6 @@ public class TypeFactoryTests
         Assert.AreEqual("TheXDS.MCART.TypeFactory.Tests.TypeFactoryTests._Generated", t.Namespace);
         Assert.AreEqual("Jhon", (string)((dynamic)greeterInstance).Name);
         Assert.AreEqual("Hello, Jhon", (string)((dynamic)greeterInstance).Greeting);
-    }
-
-    [Test]
-    public void Build_Npc_Type_Test()
-    {
-        ITypeBuilder<NotifyPropertyChanged> t = _factory.NewType<NotifyPropertyChanged>("NpcTestClass");
-        t.AddNpcProperty<string>("Name");
-        dynamic npcInstance = t.New();
-        (object? Sender, PropertyChangedEventArgs Arguments)? evt = null;
-        void OnPropertyChanged(object? sender, PropertyChangedEventArgs e) => evt = (sender, e);
-        ((NotifyPropertyChanged)npcInstance).PropertyChanged += OnPropertyChanged;
-        npcInstance.Name = "Test";
-        ((NotifyPropertyChanged)npcInstance).PropertyChanged -= OnPropertyChanged;
-        Assert.NotNull(evt);
-        Assert.AreEqual("Name", evt!.Value.Arguments.PropertyName);
-        Assert.AreEqual("Test", (string)npcInstance.Name);
-    }
-
-    [Test]
-    public void Build_Npc_Type_With_Public_Base_Class_Test()
-    {
-        ITypeBuilder<NpcBaseClass> t = _factory.NewType<NpcBaseClass>("NpcBaseTestClass");
-        t.AddNpcProperty<string>("Name");
-        t.AddNpcProperty<int>("Age");
-        dynamic npcInstance = t.New();
-        (object? Sender, PropertyChangedEventArgs Arguments)? evt = null;
-        void OnPropertyChanged(object? sender, PropertyChangedEventArgs e) => evt = (sender, e);
-        ((INotifyPropertyChanged)npcInstance).PropertyChanged += OnPropertyChanged;
-        npcInstance.Name = "Test";
-        ((INotifyPropertyChanged)npcInstance).PropertyChanged -= OnPropertyChanged;
-        Assert.NotNull(evt);
-        Assert.AreEqual("Name", evt!.Value.Arguments.PropertyName);
-        Assert.AreEqual("Test", (string)npcInstance.Name);
-    }
-
-    [Test]
-    public void Build_Npc_class_from_Model()
-    {
-        var t = _factory.CreateNpcClass<TestModel>();
-        object instance = t.New();
-        Assert.IsInstanceOf<INotifyPropertyChanged>(instance);
-        ((NotifyPropertyChanged)instance).PropertyChanged += OnPropertyChanged;
-        (object? Sender, PropertyChangedEventArgs Arguments)? evt = null;
-        void OnPropertyChanged(object? sender, PropertyChangedEventArgs e) => evt = (sender, e);
-        foreach (var j in instance.GetType().GetProperties().Where(p => p.CanRead && p.CanWrite))
-        {
-            j.SetValue(instance, "Test");
-            Assert.AreEqual(j.Name, evt!.Value.Arguments.PropertyName);
-            Assert.AreEqual("Test", j.GetValue(instance));
-        }
-        ((NotifyPropertyChanged)instance).PropertyChanged -= OnPropertyChanged;
     }
 
     [Test]

@@ -28,14 +28,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#pragma warning disable CS1591
-
-using System.Globalization;
 using NUnit.Framework;
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Reflection;
-using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Math;
 using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types;
@@ -52,7 +49,6 @@ public class ColorTests
     [TestCase(0.5f, 0, 255, 0)]
     [TestCase(0.75f, 255, 255, 0)]
     [TestCase(1f, 255, 0, 0)]
-    [CLSCompliant(false)]
     public void BlendHeat_Test(float value, int r, int g, int b)
     {
         Color c = Color.BlendHeat(value);
@@ -70,7 +66,6 @@ public class ColorTests
     [TestCase(0.5f, 255, 255)]
     [TestCase(0.75f, 127, 255)]
     [TestCase(1f, 0, 255)]
-    [CLSCompliant(false)]
     public void BlendHealth_Test(float value, int r, int g)
     {
         Color c = Color.BlendHealth(value);
@@ -112,7 +107,6 @@ public class ColorTests
         Assert.Throws<ArgumentOutOfRangeException>(() => Color.AreClose(Colors.Red, Colors.Blue, -0.1f));
     }
 
-    [CLSCompliant(false)]
     [TestCase("Brown1")]
     [TestCase("#FF4040FF")]
     [TestCase("#4040FF")]
@@ -127,7 +121,6 @@ public class ColorTests
         });
     }
 
-    [CLSCompliant(false)]
     [TestCase("test")]
     [TestCase("#12345678901234567890")]
     [TestCase("1234")]
@@ -143,7 +136,6 @@ public class ColorTests
         });
     }
 
-    [CLSCompliant(false)]
     [TestCase("Brown1")]
     [TestCase("#FF4040FF")]
     [TestCase("#4040FF")]
@@ -154,7 +146,6 @@ public class ColorTests
         Assert.That(Color.AreClose(Colors.Brown1, Color.Parse(value)), Is.True);
     }
 
-    [CLSCompliant(false)]
     [TestCase("test")]
     [TestCase("#12345678901234567890")]
     [TestCase("1234")]
@@ -257,7 +248,6 @@ public class ColorTests
     }
 
     [Theory]
-    [CLSCompliant(false)]
     [TestCase(null, ExpectedResult = "#FF4B0082")]
     [TestCase("", ExpectedResult = "#FF4B0082")]
     [TestCase("H", ExpectedResult = "#FF4B0082")]
@@ -274,7 +264,6 @@ public class ColorTests
     }
 
     [Theory]
-    [CLSCompliant(false)]
     [TestCase("F", ExpectedResult = "A:1 R:0,29411766 G:0 B:0,50980395")]
     [TestCase("f", ExpectedResult = "a:1 r:0,29411766 g:0 b:0,50980395")]
     public string ToString_with_custom_culture_test(string? format)
@@ -283,7 +272,6 @@ public class ColorTests
     }
     
     [Theory]
-    [CLSCompliant(false)]
     [TestCase("F", ExpectedResult = "A:1 R:0.29411766 G:0 B:0.50980395")]
     [TestCase("f", ExpectedResult = "a:1 r:0.29411766 g:0 b:0.50980395")]
     public string ToString_with_invariant_culture_test(string? format)

@@ -30,8 +30,9 @@ SOFTWARE.
 
 using System.Linq.Expressions;
 using TheXDS.MCART.Helpers;
+using TheXDS.MCART.ViewModel;
 
-namespace TheXDS.MCART.ViewModel;
+namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
 /// Ejecuta validaciones de datos dentro de un 

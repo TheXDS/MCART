@@ -1,5 +1,5 @@
 ﻿/*
-IValidatingViewModel.cs
+AllVisibleConverterTests.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,25 +28,31 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.ComponentModel;
-using TheXDS.MCART.Types.Base;
+using System;
+using System.Globalization;
+using System.Windows;
+using NUnit.Framework;
+using TheXDS.MCART.ValueConverters;
 
-namespace TheXDS.MCART.ViewModel;
+namespace TheXDS.MCART.Wpf.Tests.ValueConverters;
 
-/// <summary>
-/// Define una serie de miembros a implementar por un tipo que implemente un
-/// ViewModel que provee de servicios de validación de datos.
-/// </summary>
-public interface IValidatingViewModel : INotifyPropertyChanged
+public class AllVisibleConverterTests
 {
-    /// <summary>
-    /// Obtiene el origen de validación para esta instancia.
-    /// </summary>
-    /// <remarks>
-    /// Esta propiedad debe establecerse en el constructor del ViewModel de la siguiente manera:
-    /// <code lang="csharp">
-    /// ErrorSource = new ValidationSource&lt;TViewModel&gt;(this);
-    /// </code>
-    /// </remarks>
-    ValidationSource ErrorSource { get; }
+    [Test]
+    public void Convert_Test()
+    {
+        AllVisibleConverter c = new();
+        Assert.AreEqual(Visibility.Visible, c.Convert(new object[] { Visibility.Visible, Visibility.Visible }, typeof(Visibility), null!, CultureInfo.CurrentCulture));
+        Assert.AreEqual(Visibility.Collapsed, c.Convert(new object[] { Visibility.Collapsed, Visibility.Visible }, typeof(Visibility), null!, CultureInfo.CurrentCulture));
+    }
+
+    [Test]
+    public void ConvertBack_Test()
+    {
+        AllVisibleConverter c = new();
+        Assert.Throws<InvalidOperationException>(() =>
+            c.ConvertBack(Visibility.Collapsed, new[] { typeof(Visibility), typeof(Visibility) }, null!,
+                CultureInfo.CurrentCulture)
+        );
+    }
 }

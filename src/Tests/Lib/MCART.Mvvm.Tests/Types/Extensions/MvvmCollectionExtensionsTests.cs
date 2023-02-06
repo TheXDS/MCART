@@ -1,5 +1,5 @@
 ﻿/*
-IValidatingViewModel.cs
+CollectionExtensionsTests.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,25 +28,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.ComponentModel;
+namespace TheXDS.MCART.Mvvm.Tests.Types.Extensions;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Base;
+using TheXDS.MCART.Types.Extensions;
+using NUnit.Framework;
 
-namespace TheXDS.MCART.ViewModel;
-
-/// <summary>
-/// Define una serie de miembros a implementar por un tipo que implemente un
-/// ViewModel que provee de servicios de validación de datos.
-/// </summary>
-public interface IValidatingViewModel : INotifyPropertyChanged
+public class MvvmCollectionExtensionsTests
 {
-    /// <summary>
-    /// Obtiene el origen de validación para esta instancia.
-    /// </summary>
-    /// <remarks>
-    /// Esta propiedad debe establecerse en el constructor del ViewModel de la siguiente manera:
-    /// <code lang="csharp">
-    /// ErrorSource = new ValidationSource&lt;TViewModel&gt;(this);
-    /// </code>
-    /// </remarks>
-    ValidationSource ErrorSource { get; }
+    [Test]
+    public void ToObservable_Test()
+    {
+        Assert.IsAssignableFrom<ObservableCollectionWrap<int>>(new Collection<int>().ToObservable());
+    }
 }
