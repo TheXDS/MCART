@@ -99,7 +99,7 @@ public static class ILGeneratorExtensions
     /// </param>
     public delegate void UsingBlock(LocalBuilder disposable, Label leaveTry);
 
-    private static readonly HashSet<IConstantLoader> _constantLoaders = new(Objects.FindAllObjects<IConstantLoader>(), new ConstantLoaderComparer());
+    private static readonly HashSet<IConstantLoader> _constantLoaders = new(ReflectionHelpers.FindAllObjects<IConstantLoader>(), new ConstantLoaderComparer());
 
     /// <summary>
     /// Registra un <see cref="IConstantLoader"/> para el método
@@ -174,10 +174,10 @@ public static class ILGeneratorExtensions
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
     /// de sintaxis Fluent.
     /// </returns>
-    /// <exception cref="T:System.NotImplementedException">
+    /// <exception cref="NotImplementedException">
     /// Se produce al intentar cargar un valor constante desconocido.
     /// </exception>
-    /// <exception cref="T:System.InvalidOperationException">
+    /// <exception cref="InvalidOperationException">
     /// Se produce al intentar cargar un valor que no es constante, como
     /// una instancia de objeto.
     /// </exception>

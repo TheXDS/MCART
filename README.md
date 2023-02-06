@@ -75,7 +75,7 @@ paket add TheXDS.MCART
 
 #### Repositorio de GitHub
 Para obtener los paquetes de MCART directamente desde GitHub, es necesario
-agregar mi repositorio privado. Paar lograr esto, solo es necesario
+agregar mi repositorio privado. Para lograr esto, solo es necesario
 ejecutar en una terminal:
 ```sh
 nuget sources add -Name "TheXDS GitHub Repo" -Source https://nuget.pkg.github.com/TheXDS/index.json
@@ -93,7 +93,7 @@ instalado en el sistema.
 ```sh
 dotnet build ./src/MCART.sln
 ```
-Los binarios se encontarán en la carpeta `Build` en la raíz del repositorio.
+Los binarios se encontrarán en la carpeta `Build` en la raíz del repositorio.
 
 ### Ejecutando pruebas
 ```sh

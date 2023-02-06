@@ -4,6 +4,9 @@
     <Description>TypeFactory Extension for MCART</Description>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MCART\MCART.csproj" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Update="Resources\TypeFactoryStrings.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

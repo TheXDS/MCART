@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<UseWPF>true</UseWPF>
+	</PropertyGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\Lib\MCART.Mvvm\MCART.Mvvm.csproj" />
+		<ProjectReference Include="..\MCART.Wpf.Common\MCART.Wpf.Common.csproj" />
+	</ItemGroup>
+</Project>

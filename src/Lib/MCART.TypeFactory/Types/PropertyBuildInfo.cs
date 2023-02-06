@@ -86,18 +86,72 @@ public class PropertyBuildInfo : MemberBuildInfo<PropertyBuilder>
     /// </param>
     public static implicit operator FieldInfo?(PropertyBuildInfo buildInfo) => buildInfo.Field;
 
-    internal PropertyBuildInfo(TypeBuilder typeBuilder, PropertyBuilder property, FieldBuilder field) : this(typeBuilder, property)
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase 
+    /// <see cref="PropertyBuildInfo"/>.
+    /// </summary>
+    /// <param name="typeBuilder">
+    /// Instancia de <see cref="TypeBuilder"/> en la cual se ha definido la
+    /// propiedad.
+    /// </param>
+    /// <param name="property">
+    /// <see cref="PropertyBuilder"/> que describe a la propiedad que ha sido
+    /// creada.
+    /// </param>
+    /// <param name="field">
+    /// Campo de almacenamiento definido para la propiedad.
+    /// </param>
+    public PropertyBuildInfo(TypeBuilder typeBuilder, PropertyBuilder property, FieldBuilder field) : this(typeBuilder, property)
     {
         Field = field;
     }
-    internal PropertyBuildInfo(TypeBuilder typeBuilder, PropertyBuilder property, ILGenerator getter) : this(typeBuilder, property, getter, null)
+
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase 
+    /// <see cref="PropertyBuildInfo"/>.
+    /// </summary>
+    /// <param name="typeBuilder">
+    /// Instancia de <see cref="TypeBuilder"/> en la cual se ha definido la
+    /// propiedad.
+    /// </param>
+    /// <param name="property">
+    /// <see cref="PropertyBuilder"/> que describe a la propiedad que ha sido
+    /// creada.
+    /// </param>
+    /// <param name="getter">
+    /// <see cref="ILGenerator"/> que permite definir el código a ejecutar para
+    /// el bloque <see langword="get"/> de la propiedad.
+    /// </param>
+    public PropertyBuildInfo(TypeBuilder typeBuilder, PropertyBuilder property, ILGenerator getter) : this(typeBuilder, property, getter, null)
     {
     }
-    internal PropertyBuildInfo(TypeBuilder typeBuilder, PropertyBuilder property, ILGenerator? getter, ILGenerator? setter) : this(typeBuilder, property)
+
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase 
+    /// <see cref="PropertyBuildInfo"/>.
+    /// </summary>
+    /// <param name="typeBuilder">
+    /// Instancia de <see cref="TypeBuilder"/> en la cual se ha definido la
+    /// propiedad.
+    /// </param>
+    /// <param name="property">
+    /// <see cref="PropertyBuilder"/> que describe a la propiedad que ha sido
+    /// creada.
+    /// </param>
+    /// <param name="getter">
+    /// <see cref="ILGenerator"/> que permite definir el código a ejecutar para
+    /// el bloque <see langword="get"/> de la propiedad.
+    /// </param>
+    /// <param name="setter">
+    /// <see cref="ILGenerator"/> que permite definir el código a ejecutar para
+    /// el bloque <see langword="set"/> de la propiedad.
+    /// </param>
+    public PropertyBuildInfo(TypeBuilder typeBuilder, PropertyBuilder property, ILGenerator? getter, ILGenerator? setter) : this(typeBuilder, property)
     {
         Getter = getter;
         Setter = setter;
     }
+
     private PropertyBuildInfo(TypeBuilder typeBuilder, PropertyBuilder property) : base(typeBuilder, property)
     {
     }

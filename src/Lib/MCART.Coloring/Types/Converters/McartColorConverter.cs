@@ -3,7 +3,7 @@ McartColorConverter.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
-Este archivo define la estructura Range<T>, la cual permite representar rangos
+Este archivo define la estructura Range<TValue>, la cual permite representar rangos
 de valores.
 
 Author(s):

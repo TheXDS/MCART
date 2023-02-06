@@ -1,0 +1,10 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/MCART.Wpf.Controls;component/Resources/ControlTemplates/AboutView.xaml"/>
+        <ResourceDictionary Source="/MCART.Wpf.Controls;component/Resources/ControlTemplates/BusyContainer.xaml"/>
+        <ResourceDictionary Source="/MCART.Wpf.Controls;component/Resources/ControlTemplates/BusyIndicator.xaml"/>
+        <ResourceDictionary Source="/MCART.Wpf.Controls;component/Resources/ControlTemplates/ProgressRing.xaml"/>
+        <ResourceDictionary Source="/MCART.Wpf.Controls;component/Resources/ControlTemplates/SelectorPanel.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

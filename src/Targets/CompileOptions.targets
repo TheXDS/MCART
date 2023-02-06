@@ -7,6 +7,7 @@
 		<DocumentationFile>$(OutDir)$(AssemblyName).xml</DocumentationFile>
 		<Title>$(AssemblyTitle)</Title>
 		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
 		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
 		<NeutralLanguage>es-419</NeutralLanguage>
 	</PropertyGroup>

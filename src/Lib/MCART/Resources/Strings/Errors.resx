@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BinWriteXNotSupported" xml:space="preserve">
+    <value>La escritura de un valor de tipo {0} no está soportada por este método. Utilice el método {1} definido en la clase {2}.</value>
+  </data>
+  <data name="CantWriteObjOfT" xml:space="preserve">
+    <value>No se puede escribir el objeto de tipo {0}.</value>
+  </data>
+  <data name="CircularOpDetected" xml:space="preserve">
+    <value>Operación circular detectada.</value>
+  </data>
+  <data name="ClassNotInstantiable" xml:space="preserve">
+    <value>La clase especificada no es instanciable.</value>
+  </data>
+  <data name="ClassNotInstantiableWIthArgs" xml:space="preserve">
+    <value>La clase '{0}' no pudo ser instanciada con los parámetros de constructor especificados.</value>
+  </data>
+  <data name="ClassXNotinstantiable" xml:space="preserve">
+    <value>La clase {0} no es instanciable.</value>
+  </data>
+  <data name="DuplicateData" xml:space="preserve">
+    <value>Ya existen datos con el id '{0}'.</value>
+  </data>
+  <data name="EmptyCollection" xml:space="preserve">
+    <value>La colección no contiene elementos.</value>
+  </data>
+  <data name="EnumerableTypeExpected" xml:space="preserve">
+    <value>Se esperaba un tipo de colección enumerable.</value>
+  </data>
+  <data name="EnumTypeExpected" xml:space="preserve">
+    <value>El tipo {0} no es un tipo de enumeración válido.</value>
+  </data>
+  <data name="ErrorLoadingLicense" xml:space="preserve">
+    <value>Se ha producido un error al intentar cargar el contenido de la licencia.</value>
+  </data>
+  <data name="ErrorLoadingRes" xml:space="preserve">
+    <value>Ha ocurrido un error al cargar el recurso {0}.</value>
+  </data>
+  <data name="FieldValueShouldNotBeNull" xml:space="preserve">
+    <value>El valor del campo {0} no debe ser null.</value>
+  </data>
+  <data name="FormatNotSupported" xml:space="preserve">
+    <value>El formato {0} no está soportado.</value>
+  </data>
+  <data name="InvalidArgument" xml:space="preserve">
+    <value>El argumento {0} contiene un valor inválido en este contexto.</value>
+  </data>
+  <data name="InvalidFuncReturnValue" xml:space="preserve">
+    <value>El método {0} ha devuelto un valor inválido en este contexto.</value>
+  </data>
+  <data name="InvalidFuncXReturnValue" xml:space="preserve">
+    <value>El método {0} ha devuelto {1}, el cual no es un valor válido en este contexto.</value>
+  </data>
+  <data name="InvalidMethodSignature" xml:space="preserve">
+    <value>El método no tiene una firma válida.</value>
+  </data>
+  <data name="InvalidMethodXSignature" xml:space="preserve">
+    <value>El método '{0}' no tiene una firma válida.</value>
+  </data>
+  <data name="InvalidReturnValue" xml:space="preserve">
+    <value>El método ha devuelto un valor inválido en este contexto.</value>
+  </data>
+  <data name="InvalidSelectorExpression" xml:space="preserve">
+    <value>La expresión utilizada en este contexto debe seleccionar a un miembro.</value>
+  </data>
+  <data name="InvalidType" xml:space="preserve">
+    <value>El tipo no es válido en este contexto.</value>
+  </data>
+  <data name="InvalidUri" xml:space="preserve">
+    <value>El URI apunta a un recurso no válido.</value>
+  </data>
+  <data name="InvalidValue" xml:space="preserve">
+    <value>El valor proporcionado no es válido en este contexto.</value>
+  </data>
+  <data name="InvalidXType" xml:space="preserve">
+    <value>El tipo {0} no es válido en este contexto.</value>
+  </data>
+  <data name="InvalidXUri" xml:space="preserve">
+    <value>El URI que apunta al recurso '{0}' no es válido.</value>
+  </data>
+  <data name="InvalidXValue" xml:space="preserve">
+    <value>El valor {0} no es válido en este contexto.</value>
+  </data>
+  <data name="InX" xml:space="preserve">
+    <value> en {0}</value>
+  </data>
+  <data name="MinGtMax" xml:space="preserve">
+    <value>El argumento mínimo debe ser inferior o igual al máximo.</value>
+  </data>
+  <data name="MissingGuidAttrFromType" xml:space="preserve">
+    <value>La declaración del tipo {0} requiere un atributo de Guid para utilizarse en este contexto.</value>
+  </data>
+  <data name="NoStackInfo" xml:space="preserve">
+    <value>No hay información de pila disponible.</value>
+  </data>
+  <data name="ObjectIsDisabled" xml:space="preserve">
+    <value>El objeto está deshabilitado.</value>
+  </data>
+  <data name="PropIsReadOnly" xml:space="preserve">
+    <value>La propiedad '{0}' es de sólo lectura.</value>
+  </data>
+  <data name="StackUnderflow" xml:space="preserve">
+    <value>La pila está vacía.</value>
+  </data>
+  <data name="TamperDetected" xml:space="preserve">
+    <value>Se ha detectado una manipulación inesperada de la aplicación, o la memoria del proceso ha sido corrompida. Detenga la ejecución del programa inmediatamente.</value>
+  </data>
+  <data name="UndefinedEnum" xml:space="preserve">
+    <value>El valor {0} está fuera del rango de valores definidos para la enumeración {1}.</value>
+  </data>
+  <data name="UnexpectedType" xml:space="preserve">
+    <value>El tipo {0} no es válido en este contexto. Se esperaba un tipo {1}.</value>
+  </data>
+  <data name="ValueMustBeBetweenXandY" xml:space="preserve">
+    <value>El valor debe estar entre {0} y {1}.</value>
+  </data>
+  <data name="ListMustContainBoth" xml:space="preserve">
+    <value>La colección debe contener a ambos objetos.</value>
+  </data>
+  <data name="PropXOnArgYNull" xml:space="preserve">
+    <value>El campo o propiedad '{0}' del parámetro '{1}' no debe ser null.</value>
+  </data>
+  <data name="InterfaceNotImplented" xml:space="preserve">
+    <value>El tipo no implementa la interfaz '{0}'.</value>
+  </data>
+</root>
