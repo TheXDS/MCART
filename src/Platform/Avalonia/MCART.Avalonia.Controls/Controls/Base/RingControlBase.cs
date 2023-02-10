@@ -38,7 +38,6 @@ namespace TheXDS.MCART.Controls.Base;
 /// <summary>
 /// Clase base que define una serie de miembros a implementar por un control gráfico de anillos.
 /// </summary>
-[CLSCompliant(false)]
 public abstract class RingControlBase : TemplatedControl
 {
     /// <summary>

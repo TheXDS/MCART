@@ -73,9 +73,8 @@ public class ApplicationInfo : AssemblyInfo, IExposeExtendedGuiInfo<Image?>
         Icon = icon;
     }
 
-
     /// <summary>
     /// Obtiene un ícono opcional a mostrar que describe al elemento.
     /// </summary>
-    public new virtual Image? Icon { get; }
+    public virtual Image? Icon { get; }
 }

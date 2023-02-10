@@ -69,11 +69,20 @@ public class BusyIndicator : RingControlBase
     public static readonly StyledProperty<IBrush?> Stroke2Property = AvaloniaProperty.Register<BusyIndicator, IBrush?>(nameof(Stroke2),
         defaultValue: Brushes.Gray);
 
-    public static readonly StyledProperty<double> RadiusProperty = RingControlBase.RadiusProperty.AddOwner<BusyIndicator>();
+    /// <summary>
+    /// Identifica a la propiedad de dependencia <see cref="RingControlBase.Radius" />.
+    /// </summary>
+    public static readonly new StyledProperty<double> RadiusProperty = RingControlBase.RadiusProperty.AddOwner<BusyIndicator>();
 
-    public static readonly StyledProperty<double> ThicknessProperty = RingControlBase.ThicknessProperty.AddOwner<BusyIndicator>();
+    /// <summary>
+    /// Identifica a la propiedad de dependencia <see cref="RingControlBase.Thickness" />.
+    /// </summary>
+    public static readonly new StyledProperty<double> ThicknessProperty = RingControlBase.ThicknessProperty.AddOwner<BusyIndicator>();
 
-    public static readonly StyledProperty<IBrush?> StrokeProperty = RingControlBase.StrokeProperty.AddOwner<BusyIndicator>();
+    /// <summary>
+    /// Identifica a la propiedad de dependencia <see cref="RingControlBase.Stroke" />.
+    /// </summary>
+    public static readonly new StyledProperty<IBrush?> StrokeProperty = RingControlBase.StrokeProperty.AddOwner<BusyIndicator>();
 
     static BusyIndicator()
     {

@@ -50,7 +50,7 @@ internal static class PrivateInternals
             StartPoint = new(radius, t2),
             IsClosed = false,
         };
-        path.Segments.Add(arc);
+        path.Segments?.Add(arc);
         PathGeometry? returnValue = new();
         returnValue.Figures.Add(path);
         return returnValue;
