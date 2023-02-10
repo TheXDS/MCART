@@ -1,5 +1,5 @@
 ﻿/*
-AssemblyInfo.cs
+NamedEnumValueProvider.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,11 +28,37 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using TheXDS.MCART.Attributes;
-using TheXDS.MCART.Resources;
+using TheXDS.MCART.Types;
+using TheXDS.MCART.Types.Extensions;
 
-[assembly: SpdxLicense(SpdxLicenseId.MIT)]
-[assembly: Author("César Andrés Morgan")]
-#if CLSCompliance && !ForceNoCLS
-[assembly: CLSCompliant(true)]
-#endif
+namespace TheXDS.MCART.Component;
+
+/// <summary>
+/// Define una extensión de Markup XAML que permite obtener valores de
+/// enumeración como una colección de <see cref="NamedObject{T}"/>.
+/// </summary>
+public class NamedEnumValueProvider : EnumValueProvider
+{
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="NamedEnumValueProvider"/>.
+    /// </summary>
+    /// <param name="enumType">Tipo de enumeración a exponer.</param>
+    /// <exception cref="ArgumentNullException">
+    /// Se produce si <paramref name="enumType"/> es
+    /// <see langword="null"/>.
+    /// </exception>
+    /// <exception cref="ArgumentException">
+    /// Se produce si <paramref name="enumType"/> no es un tipo válido de
+    /// enumeración.
+    /// </exception>
+    public NamedEnumValueProvider(Type enumType) : base(enumType)
+    {
+    }
+
+    /// <inheritdoc/>
+    public override object ProvideValue(IServiceProvider serviceProvider)
+    {
+        return EnumType.ToNamedEnum();
+    }
+}

@@ -146,7 +146,6 @@ public class ObjectsTest
         Assert.AreEqual(TestClass.StaticField, ReflectionHelpers.FieldsOf<double>(tc.GetType().GetFields()).FirstOrDefault());
         Assert.AreEqual(TestClass.StaticField, ReflectionHelpers.FieldsOf<double>(typeof(TestClass).GetFields()).FirstOrDefault());
     }
-
     
     [Test]
     public void HasAttrTest_Enum()

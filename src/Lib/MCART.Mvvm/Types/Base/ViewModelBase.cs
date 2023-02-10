@@ -34,7 +34,6 @@ using System.Reflection;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Helpers;
 
-
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>

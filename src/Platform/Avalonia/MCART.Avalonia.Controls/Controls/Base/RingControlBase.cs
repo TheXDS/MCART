@@ -28,9 +28,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
+using Avalonia;
+using Avalonia.Controls.Primitives;
+using Avalonia.Media;
 using TheXDS.MCART.Math;
 
 namespace TheXDS.MCART.Controls.Base;
@@ -38,34 +38,41 @@ namespace TheXDS.MCART.Controls.Base;
 /// <summary>
 /// Clase base que define una serie de miembros a implementar por un control gráfico de anillos.
 /// </summary>
-public abstract class RingControlBase : Control
+[CLSCompliant(false)]
+public abstract class RingControlBase : TemplatedControl
 {
     /// <summary>
     /// Identifica a la propiedad de dependencia <see cref="Radius" />.
     /// </summary>
-    public static readonly DependencyProperty RadiusProperty = DependencyProperty.Register(nameof(Radius),
-        typeof(double), typeof(RingControlBase),
-        new FrameworkPropertyMetadata(24.0, FrameworkPropertyMetadataOptions.AffectsMeasure, UpdateFullLayout, CoerceRadius), ChkDblValue);
+    public static readonly StyledProperty<double> RadiusProperty = AvaloniaProperty.Register<RingControlBase, double>(nameof(Radius),
+        defaultValue: 24.0,
+        defaultBindingMode: Avalonia.Data.BindingMode.TwoWay,
+        validate: ChkDblValue,
+        coerce: CoerceRadius,
+        notifying: UpdateFullLayout);
 
     /// <summary>
     /// Identifica a la propiedad de dependencia <see cref="Thickness" />.
     /// </summary>
-    public static readonly DependencyProperty ThicknessProperty = DependencyProperty.Register(nameof(Thickness),
-        typeof(double), typeof(RingControlBase),
-        new FrameworkPropertyMetadata(4.0, FrameworkPropertyMetadataOptions.AffectsMeasure, UpdateThicknessLayout, CoerceThickness), ChkDblValue);
+    public static readonly StyledProperty<double> ThicknessProperty = AvaloniaProperty.Register<RingControlBase, double>(nameof(Thickness),
+        defaultValue: 4.0,
+        defaultBindingMode: Avalonia.Data.BindingMode.TwoWay,
+        validate: ChkDblValue,
+        coerce: CoerceThickness,
+        notifying: UpdateThicknessLayout);
 
     /// <summary>
     /// Identifica a la propiedad de dependencia <see cref="Stroke" />.
     /// </summary>
-    public static readonly DependencyProperty StrokeProperty = DependencyProperty.Register(nameof(Stroke),
-        typeof(Brush), typeof(RingControlBase), new PropertyMetadata(SystemColors.HighlightBrush));
+    public static readonly StyledProperty<IBrush?> StrokeProperty = AvaloniaProperty.Register<RingControlBase, IBrush?>(nameof(Stroke),
+        defaultValue: Brushes.RoyalBlue);
 
     /// <summary>
     /// Obtiene o establece el radio de este control.
     /// </summary>
     public double Radius
     {
-        get => (double)GetValue(RadiusProperty);
+        get => GetValue(RadiusProperty);
         set => SetValue(RadiusProperty, value);
     }
 
@@ -74,34 +81,34 @@ public abstract class RingControlBase : Control
     /// </summary>
     public double Thickness
     {
-        get => (double)GetValue(ThicknessProperty);
+        get => GetValue(ThicknessProperty);
         set => SetValue(ThicknessProperty, value);
     }
 
     /// <summary>
     /// Obtiene o establece el <see cref="Brush" /> a aplicar al control.
     /// </summary>
-    public Brush? Stroke
+    public IBrush? Stroke
     {
-        get => (Brush?)GetValue(StrokeProperty);
+        get => GetValue(StrokeProperty);
         set => SetValue(StrokeProperty, value);
     }
 
-    private static bool ChkDblValue(object value)
+    private static bool ChkDblValue(double value)
     {
-        return (double)value >= 0;
+        return value >= 0;
     }
 
-    private static object CoerceRadius(DependencyObject d, object baseValue)
+    private static double CoerceRadius(IAvaloniaObject d, double baseValue)
     {
         if (d is not RingControlBase) return baseValue;
-        return ((double)baseValue).Clamp(0, double.MaxValue);
+        return baseValue.Clamp(0, double.MaxValue);
     }
 
-    private static object CoerceThickness(DependencyObject d, object baseValue)
+    private static double CoerceThickness(IAvaloniaObject d, double baseValue)
     {
         if (d is not RingControlBase b) return baseValue;
-        return ((double)baseValue).Clamp(0, b.Radius * 2);
+        return baseValue.Clamp(0, b.Radius * 2);
     }
 
     /// <summary>
@@ -110,13 +117,13 @@ public abstract class RingControlBase : Control
     /// dependencia cambie de valor.
     /// </summary>
     /// <param name="d">Objeto que es el origen del evento.</param>
-    /// <param name="_">
+    /// <param name="e">
     /// Argumentos de cambio de valor de la propiedad de dependencia.
     /// </param>
-    protected static void UpdateLayout(DependencyObject d, DependencyPropertyChangedEventArgs _)
+    protected static void UpdateLayout(IAvaloniaObject d, bool e)
     {
-        if (d is not RingControlBase p) return;
-        p.OnLayoutUpdate((double)d.GetValue(RadiusProperty), (double)d.GetValue(ThicknessProperty));
+        if (d is not RingControlBase p || !e) return;
+        p.OnLayoutUpdate(d.GetValue(RadiusProperty), d.GetValue(ThicknessProperty));
     }
 
     /// <summary>
@@ -126,12 +133,12 @@ public abstract class RingControlBase : Control
     /// <param name="e">
     /// Argumentos de cambio de valor de la propiedad de dependencia.
     /// </param>
-    protected static void UpdateFullLayout(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    protected static void UpdateFullLayout(IAvaloniaObject d, bool e)
     {
-        if (d is not RingControlBase) return;
+        if (d is not RingControlBase || !e) return;
         d.CoerceValue(RadiusProperty);
         UpdateThicknessLayout(d, e);
-        double r = (double)d.GetValue(RadiusProperty);
+        double r = d.GetValue(RadiusProperty);
         d.SetValue(WidthProperty, r * 2);
         d.SetValue(HeightProperty, r * 2);
     }
@@ -143,7 +150,7 @@ public abstract class RingControlBase : Control
     /// <param name="e">
     /// Argumentos de cambio de valor de la propiedad de dependencia.
     /// </param>
-    protected static void UpdateThicknessLayout(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    protected static void UpdateThicknessLayout(IAvaloniaObject d, bool e)
     {
         if (d is null) return;
         d.CoerceValue(ThicknessProperty);
@@ -155,7 +162,7 @@ public abstract class RingControlBase : Control
     /// </summary>
     protected void SetControlSize()
     {
-        UpdateFullLayout(this, new DependencyPropertyChangedEventArgs());
+        UpdateFullLayout(this, true);
     }
 
     /// <summary>
@@ -167,9 +174,9 @@ public abstract class RingControlBase : Control
     protected abstract void OnLayoutUpdate(double radius, double thickness);
 
     /// <inheritdoc/>
-    protected override void OnInitialized(EventArgs e)
+    public override void EndInit()
     {
-        base.OnInitialized(e);
+        base.EndInit();
         SetControlSize();
     }
 }

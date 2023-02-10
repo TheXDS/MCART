@@ -1,5 +1,5 @@
 ﻿/*
-AssemblyInfo.cs
+EnumValueProvider_Contracts.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,11 +28,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using TheXDS.MCART.Attributes;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using TheXDS.MCART.Resources;
+using static TheXDS.MCART.Misc.Internals;
 
-[assembly: SpdxLicense(SpdxLicenseId.MIT)]
-[assembly: Author("César Andrés Morgan")]
-#if CLSCompliance && !ForceNoCLS
-[assembly: CLSCompliant(true)]
-#endif
+namespace TheXDS.MCART.Component;
+
+public partial class EnumValueProvider
+{
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void EnumValueProvider_Contract(Type enumType)
+    {
+        NullCheck(enumType, nameof(enumType));
+        if (!enumType.IsEnum)
+        {
+            throw Errors.EnumExpected(nameof(enumType), enumType);
+        }
+    }
+}

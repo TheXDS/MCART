@@ -28,10 +28,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using Avalonia;
+using Avalonia.Controls;
 using System.Reflection;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media.Imaging;
 using TheXDS.MCART.Types.Base;
 
 namespace TheXDS.MCART.Component;
@@ -39,23 +38,8 @@ namespace TheXDS.MCART.Component;
 /// <summary>
 /// Expone la información de ensamblado de una aplicación de WPF.
 /// </summary>
-public class ApplicationInfo : ApplicationInfoBase<Application>, IExposeExtendedGuiInfo<UIElement?>
+public class ApplicationInfo : AssemblyInfo, IExposeExtendedGuiInfo<Image?>
 {
-    private static UIElement? InferIcon(Assembly asm)
-    {
-        if (GetIconFromOS(asm) is not { } systemIcon) return null;
-        using (systemIcon)
-        {
-            return new Image
-            {
-                Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHIcon(
-                    systemIcon.Handle,
-                    Int32Rect.Empty,
-                    BitmapSizeOptions.FromEmptyOptions())
-            };
-        }
-    }
-
     /// <summary>
     /// Inicializa una nueva instancia de la clase
     /// <see cref="ApplicationInfo" />.
@@ -63,20 +47,7 @@ public class ApplicationInfo : ApplicationInfoBase<Application>, IExposeExtended
     /// <param name="application">
     /// Aplicación de la cual se mostrará la información.
     /// </param>
-    public ApplicationInfo(Application application) : base(application, null) { }
-
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="ApplicationInfo" />.
-    /// </summary>
-    /// <param name="application">
-    /// Aplicación de la cual se mostrará la información.
-    /// </param>
-    /// <param name="inferIcon">
-    /// <see langword="true"/> para intentar determinar el ícono de la
-    /// aplicación, <see langword="false"/> para no mostrar un ícono.
-    /// </param>
-    public ApplicationInfo(Application application, bool inferIcon) : this(application, inferIcon ? InferIcon(application.GetType().Assembly) : null) { }
+    public ApplicationInfo(Application application) : this(application, null) { }
 
     /// <summary>
     /// Inicializa una nueva instancia de la clase
@@ -86,7 +57,7 @@ public class ApplicationInfo : ApplicationInfoBase<Application>, IExposeExtended
     /// Aplicación de la cual se mostrará la información.
     /// </param>
     /// <param name="icon">Ícono a mostrar de la aplicación.</param>
-    public ApplicationInfo(Application application, UIElement? icon)
+    public ApplicationInfo(Application application, Image? icon)
         : this(application.GetType().Assembly, icon) { }
 
     /// <summary>
@@ -97,26 +68,14 @@ public class ApplicationInfo : ApplicationInfoBase<Application>, IExposeExtended
     /// Ensamblado del cual se mostrará la información.
     /// </param>
     /// <param name="icon">Ícono a mostrar del ensamblado.</param>
-    public ApplicationInfo(Assembly assembly, UIElement? icon) : base(assembly, GetIconFromOS(assembly))
+    public ApplicationInfo(Assembly assembly, Image? icon) : base(assembly)
     {
         Icon = icon;
     }
 
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="ApplicationInfo" />.
-    /// </summary>
-    /// <param name="assembly">
-    /// Ensamblado del cual se mostrará la información.
-    /// </param>
-    /// <param name="inferIcon">
-    /// <see langword="true"/> para intentar determinar el ícono del
-    /// ensamblado, <see langword="false"/> para no mostrar un ícono.
-    /// </param>
-    public ApplicationInfo(Assembly assembly, bool inferIcon) : this(assembly, inferIcon ? InferIcon(assembly) : null) { }
 
     /// <summary>
     /// Obtiene un ícono opcional a mostrar que describe al elemento.
     /// </summary>
-    public new virtual UIElement? Icon { get; }
+    public new virtual Image? Icon { get; }
 }
