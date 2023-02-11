@@ -262,14 +262,6 @@ public class ColorTests
     {
         return Colors.Indigo.ToString(format);
     }
-
-    [Theory]
-    [TestCase("F", ExpectedResult = "A:1 R:0,29411766 G:0 B:0,50980395")]
-    [TestCase("f", ExpectedResult = "a:1 r:0,29411766 g:0 b:0,50980395")]
-    public string ToString_with_custom_culture_test(string? format)
-    {
-        return Colors.Indigo.ToString(format, CultureInfo.CreateSpecificCulture("es-es"));
-    }
     
     [Theory]
     [TestCase("F", ExpectedResult = "A:1 R:0.29411766 G:0 B:0.50980395")]

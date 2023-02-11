@@ -154,7 +154,9 @@ public abstract class FormViewModelBase : ViewModelBase, INotifyDataErrorInfo
             {
                 AppendErrors(j, j.Property.GetValue(this));
             }
-            return !HasErrors && p.Any();
+            var pass = !HasErrors && p.Any();
+            SetAffectedCommands(pass);
+            return pass;
         });
     }
 
@@ -212,7 +214,7 @@ public abstract class FormViewModelBase : ViewModelBase, INotifyDataErrorInfo
         {
             AppendErrors(vr, value);
             bool act = GetErrors(propertyName).ToGeneric().Any();
-            foreach (SimpleCommand? j in _validationAffectedCommands ?? Array.Empty<SimpleCommand>()) j.SetCanExecute(act);
+            SetAffectedCommands(act);
         }
         return true;
     }
@@ -267,5 +269,10 @@ public abstract class FormViewModelBase : ViewModelBase, INotifyDataErrorInfo
         OnPropertyChanged(nameof(HasErrors));
         OnPropertyChanged(nameof(ErrorSource));
         ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(entry?.Property.Name));
+    }
+
+    private void SetAffectedCommands(bool canExecute)
+    {
+        foreach (SimpleCommand? j in _validationAffectedCommands ?? Array.Empty<SimpleCommand>()) j.SetCanExecute(canExecute);
     }
 }

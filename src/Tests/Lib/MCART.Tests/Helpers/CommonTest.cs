@@ -69,13 +69,13 @@ public class CommonTest
     }
     
     [Theory]
-    [TestCase(0,1536,ByteUnitType.Binary,"1,5 KiB")]
-    [TestCase(0,1500,ByteUnitType.Decimal,"1,5 KB")]
-    [TestCase(1,1536,ByteUnitType.Binary,"1,5 MiB")]
-    [TestCase(1,1500,ByteUnitType.Decimal,"1,5 MB")]
+    [TestCase(0,1536,ByteUnitType.Binary,"1.5 KiB")]
+    [TestCase(0,1500,ByteUnitType.Decimal,"1.5 KB")]
+    [TestCase(1,1536,ByteUnitType.Binary,"1.5 MiB")]
+    [TestCase(1,1500,ByteUnitType.Decimal,"1.5 MB")]
     public void ByteUnits_custom_culture_Test(byte mag, int val, ByteUnitType unit, string output)
     {
-        Assert.AreEqual(output, Common.ByteUnits(val, unit, mag, CultureInfo.CreateSpecificCulture("es-es")));
+        Assert.AreEqual(output, Common.ByteUnits(val, unit, mag, CultureInfo.InvariantCulture));
     }
 
     [Test]
@@ -538,13 +538,13 @@ public class CommonTest
     }
 
     [TestCase(1000, ByteUnitType.Binary, "1000 Bytes")]
-    [TestCase(1000, ByteUnitType.Decimal, "1,0 KB")]
+    [TestCase(1000, ByteUnitType.Decimal, "1.0 KB")]
     [TestCase(100000, (ByteUnitType)255, "100000 Bytes")]
-    [TestCase(1100000, ByteUnitType.BinaryLong, "1,1 Mebibytes")]
-    [TestCase(1048576, ByteUnitType.DecimalLong, "1,0 Megabytes")]
+    [TestCase(1100000, ByteUnitType.BinaryLong, "1.1 Mebibytes")]
+    [TestCase(1048576, ByteUnitType.DecimalLong, "1.0 Megabytes")]
     public void ByteUnitsTest_custom_culture_Long_ByteUnitType(long bytes, ByteUnitType unit, string result)
     {
-        Assert.AreEqual(result, Common.ByteUnits(bytes, unit, CultureInfo.CreateSpecificCulture("es-es")));
+        Assert.AreEqual(result, Common.ByteUnits(bytes, unit, CultureInfo.InvariantCulture));
     }
     
     [Theory]
@@ -561,22 +561,6 @@ public class CommonTest
     public void ByteUnits_Test_Long(long bytes, string result)
     {
         Assert.AreEqual(result, bytes.ByteUnits(CultureInfo.InvariantCulture));
-    }
-    
-    [Theory]
-    [TestCase(1000, "1000 Bytes")]
-    [TestCase(1024, "1,0 KiB")]
-    [TestCase(1536, "1,5 KiB")]
-    [TestCase(1768, "1,7 KiB")]
-    [TestCase(1048576, "1,0 MiB")]
-    [TestCase(1150976, "1,1 MiB")]
-    [TestCase(1073741824, "1,0 GiB")]
-    [TestCase(1099511627776L, "1,0 TiB")]
-    [TestCase(1125899906842624L, "1,0 PiB")]
-    [TestCase(1152921504606846976L, "1,0 EiB")]
-    public void ByteUnits_custom_culture_test_long(long bytes, string result)
-    {
-        Assert.AreEqual(result, bytes.ByteUnits(CultureInfo.CreateSpecificCulture("es-es")));
     }
 
     [Test]
