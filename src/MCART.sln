@@ -154,13 +154,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wpf.CommonDialogs", "Extras
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Winforms", "Winforms", "{B27108CB-0D03-47A2-A41F-68EBC8104D81}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MCART.WinForms.Common", "Platform\WinForms\MCART.WinForms.Common\MCART.WinForms.Common.csproj", "{779C7535-EF1C-488E-A939-FB210D6854CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MCART.WinForms.Common", "Platform\WinForms\MCART.WinForms.Common\MCART.WinForms.Common.csproj", "{779C7535-EF1C-488E-A939-FB210D6854CA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Avalonia", "Avalonia", "{D3E9B767-D681-43FB-80C7-7579D7E1EE11}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MCART.Avalonia.Common", "Platform\Avalonia\MCART.Avalonia.Common\MCART.Avalonia.Common.csproj", "{2F2633BE-B110-41E0-8A68-B5FD723D4F7D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MCART.Avalonia.Common", "Platform\Avalonia\MCART.Avalonia.Common\MCART.Avalonia.Common.csproj", "{2F2633BE-B110-41E0-8A68-B5FD723D4F7D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MCART.Avalonia.Controls", "Platform\Avalonia\MCART.Avalonia.Controls\MCART.Avalonia.Controls.csproj", "{64D0244D-271D-4B77-910F-66A8448DA886}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MCART.Avalonia.Controls", "Platform\Avalonia\MCART.Avalonia.Controls\MCART.Avalonia.Controls.csproj", "{64D0244D-271D-4B77-910F-66A8448DA886}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TestShared", "Tests\TestShared\TestShared.shproj", "{F1F6814E-B9A8-495E-A124-198E45577102}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -331,12 +333,16 @@ Global
 		{D3E9B767-D681-43FB-80C7-7579D7E1EE11} = {F8837530-EC64-4679-9384-2C05FD2AC04F}
 		{2F2633BE-B110-41E0-8A68-B5FD723D4F7D} = {D3E9B767-D681-43FB-80C7-7579D7E1EE11}
 		{64D0244D-271D-4B77-910F-66A8448DA886} = {D3E9B767-D681-43FB-80C7-7579D7E1EE11}
+		{F1F6814E-B9A8-495E-A124-198E45577102} = {9F25E152-37CC-4376-9C87-7A7497748F81}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {63BB1063-9448-4D86-ADAF-29683E2E7E73}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Tests\TestShared\TestShared.projitems*{48dde395-2087-4d6d-9028-d6c09455aa15}*SharedItemsImports = 5
 		Shared\AssemblyInfo\AssemblyInfo.projitems*{967afaa3-ded3-4ec0-9401-7193b318fce8}*SharedItemsImports = 13
+		Tests\TestShared\TestShared.projitems*{ee764992-f9e4-4898-8c2b-8466409b0fac}*SharedItemsImports = 5
+		Tests\TestShared\TestShared.projitems*{f1f6814e-b9a8-495e-a124-198e45577102}*SharedItemsImports = 13
 		Shared\Internals\Internals.projitems*{f7b14aea-6c0a-4343-81ae-fb06dcd9c69c}*SharedItemsImports = 13
 	EndGlobalSection
 EndGlobal

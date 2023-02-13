@@ -28,56 +28,52 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Tests.Resources;
 using NUnit.Framework;
 using System;
 using TheXDS.MCART.Exceptions;
-using E = MCART.Resources.Errors;
-public class ErrorsTests
+using E = TheXDS.MCART.Resources.Errors;
+
+namespace TheXDS.MCART.Tests.Resources;
+
+public class ErrorsTests : ExceptionResourceTestClass
 {
     [Test]
     public void InvalidValue_Test()
     {
-        ArgumentException ex = E.InvalidValue("test");
-        Assert.IsAssignableFrom<ArgumentException>(ex);
-        Assert.AreEqual("test", ex.ParamName);
+        ArgumentException ex = TestException(E.InvalidValue("test"));
+        Assert.That(ex.ParamName, Is.EqualTo("test"));
     }
 
     [Test]
     public void ClassNotInstantiable_Test()
     {
-        ClassNotInstantiableException ex = E.ClassNotInstantiable();
-        Assert.IsAssignableFrom<ClassNotInstantiableException>(ex);
-        Assert.IsNull(ex.OffendingObject);
+        ClassNotInstantiableException ex = TestException(E.ClassNotInstantiable());
+        Assert.That(ex.OffendingObject, Is.Null);
     }
 
-    [Theory]
     [TestCase(typeof(int))]
     [TestCase(typeof(float))]
     [TestCase(typeof(Delegate))]
     [TestCase(null)]
     public void ClassNotInstantiable_With_Args_Test(Type? testType)
     {
-        ClassNotInstantiableException ex = E.ClassNotInstantiable(testType);
-        Assert.IsAssignableFrom<ClassNotInstantiableException>(ex);
-        Assert.AreEqual(testType, ex.OffendingObject);
+        ClassNotInstantiableException ex = TestException(E.ClassNotInstantiable(testType));
+        Assert.That(ex.OffendingObject, Is.EqualTo(testType));
     }
 
-    [Theory]
     [TestCase(typeof(int))]
     [TestCase(typeof(float))]
     [TestCase(typeof(Delegate))]
     public void MissingGuidAttr_Test(Type testType)
     {
-        IncompleteTypeException ex = E.MissingGuidAttribute(testType);
-        Assert.IsAssignableFrom<IncompleteTypeException>(ex);
-        Assert.AreEqual(testType, ex.OffendingObject);
+        IncompleteTypeException ex = TestException(E.MissingGuidAttribute(testType));
+        Assert.That(ex.OffendingObject, Is.EqualTo(testType));
     }
 
     [Test]
     public void Tamper_Test()
     {
-        Assert.IsAssignableFrom<TamperException>(E.Tamper());
+       TestException(E.Tamper());
     }
 
     [Theory]
@@ -86,14 +82,13 @@ public class ErrorsTests
     [TestCase(typeof(Delegate))]
     public void EnumerableTypeExpected_Test(Type testType)
     {
-        InvalidTypeException ex = E.EnumerableTypeExpected(testType);
-        Assert.IsAssignableFrom<InvalidTypeException>(ex);
-        Assert.AreEqual(testType, ex.OffendingObject);
+        InvalidTypeException ex = TestException(E.EnumerableTypeExpected(testType));
+        Assert.That(ex.OffendingObject, Is.EqualTo(testType));
     }
 
     [Test]
     public void CircularOpDetected_Test()
     {
-        Assert.IsAssignableFrom<InvalidOperationException>(E.CircularOpDetected());
+        TestException(E.CircularOpDetected());
     }
 }
