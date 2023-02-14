@@ -1,10 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
-		<RootNamespace>TheXDS.MCART.Tests</RootNamespace>
 	</PropertyGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\..\..\Lib\MCART\MCART.csproj" />
 	</ItemGroup>
-	<Import Project="..\..\TestShared\TestShared.projitems" Label="Shared" />
 </Project>

@@ -63,7 +63,8 @@ public abstract class ObservableWrapBase : NotifyPropertyChanged, INotifyCollect
         }
     }
 
-    IEnumerator IEnumerable.GetEnumerator() => OnGetEnumerator();
+    /// <inheritdoc/>
+    public IEnumerator GetEnumerator() => OnGetEnumerator();
 
     /// <summary>
     /// Obtiene un enumerador que itera sobre la colección.

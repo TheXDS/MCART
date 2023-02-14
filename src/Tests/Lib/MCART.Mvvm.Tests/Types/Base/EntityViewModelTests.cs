@@ -28,66 +28,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
-using TheXDS.MCART.Component;
 using TheXDS.MCART.Types.Base;
-using TheXDS.MCART.Types.Extensions;
-using TheXDS.MCART.ViewModel;
 
 namespace TheXDS.MCART.Mvvm.Tests.Types.Base;
-
-public class FormViewModelBaseTests
-{
-    private class TestFormViewModel : FormViewModelBase
-    {
-        private string? _StringProperty;
-
-        public string? StringProperty
-        {
-            get => _StringProperty;
-            set => Change(ref _StringProperty, value);
-        }
-
-        public SimpleCommand TestCommand { get; }
-
-        private void OnTestCommand()
-        {
-        }
-
-        public TestFormViewModel()
-        {
-            TestCommand = new SimpleCommand(OnTestCommand);
-            RegisterValidation(() => StringProperty)
-                .AddRule(p => !p.IsEmpty(), "Test error");
-
-            ValidationAffects(TestCommand);
-        }
-    }
-
-    [TestCase(null, true)]
-    [TestCase("", true)]
-    [TestCase("Test", false)]
-    public void HasErrors_test(string? value, bool expected)
-    {
-        var vm = new TestFormViewModel
-        {
-            StringProperty = value
-        };
-        vm.CheckErrors();
-        Assert.That(vm.HasErrors, Is.EqualTo(expected));
-    }
-
-    [Test]
-    public void Validation_errors_disable_SimpleCommands_test()
-    {
-        var vm = new TestFormViewModel();
-        vm.CheckErrors();
-        Assert.That(vm.TestCommand.CanExecute(null), Is.False);
-    }
-}
 
 public class EntityViewModelTests
 {

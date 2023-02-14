@@ -28,9 +28,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using TheXDS.MCART.Types.Base;
@@ -53,7 +51,6 @@ public class ObservableListWrap : ObservableWrapBase, IList, INotifyCollectionCh
     /// </summary>
     public ObservableListWrap()
     {
-        UnderlyingList = new List<object>();
     }
 
     /// <summary>
@@ -72,7 +69,7 @@ public class ObservableListWrap : ObservableWrapBase, IList, INotifyCollectionCh
     /// Obtiene acceso directo a la lista subyacente controlada por
     /// este <see cref="ObservableListWrap"/>.
     /// </summary>
-    public IList UnderlyingList { get; private set; }
+    public IList? UnderlyingList { get; private set; }
 
     /// <summary>
     /// Permite acceder de forma indexada al contenido de este
@@ -87,12 +84,12 @@ public class ObservableListWrap : ObservableWrapBase, IList, INotifyCollectionCh
     /// </returns>
     public object? this[int index]
     {
-        get => UnderlyingList[index];
+        get => GetUnderlyingList()[index];
         set
         {
-            object? oldItem = UnderlyingList[index];
-            UnderlyingList[index] = value;
-            RaiseCollectionChanged(new NcchEa(Replace, value, oldItem));
+            object? oldItem = GetUnderlyingList()[index];
+            UnderlyingList![index] = value;
+            RaiseCollectionChanged(new NcchEa(Replace, value, oldItem, index));
         }
     }
 
@@ -108,32 +105,32 @@ public class ObservableListWrap : ObservableWrapBase, IList, INotifyCollectionCh
     /// <summary>
     /// Obtiene un valor que determina si esta lista es de tamaño fijo.
     /// </summary>
-    public bool IsFixedSize => UnderlyingList.IsFixedSize;
+    public bool IsFixedSize => GetUnderlyingList().IsFixedSize;
 
     /// <summary>
     /// Obtiene un valor que determina si esta lista es de solo
     /// lectura.
     /// </summary>
-    public bool IsReadOnly => UnderlyingList.IsReadOnly;
+    public bool IsReadOnly => GetUnderlyingList().IsReadOnly;
 
     /// <summary>
     /// Obtiene la cuenta de elementos contenidos dentro de la
     /// colección.
     /// </summary>
-    public int Count => UnderlyingList.Count;
+    public int Count => GetUnderlyingList().Count;
 
     /// <summary>
     /// Obtiene un valor que indica si el acceso a esta
     /// <see cref="ICollection"/> es sincronizado (seguro para
     /// multihilo).
     /// </summary>
-    public bool IsSynchronized => UnderlyingList.IsSynchronized;
+    public bool IsSynchronized => GetUnderlyingList().IsSynchronized;
 
     /// <summary>
     /// Obtiene un objeto que puede ser utilizado para sincronizar el
     /// acceso al <see cref="ICollection"/>.
     /// </summary>
-    public object SyncRoot => UnderlyingList.SyncRoot;
+    public object SyncRoot => GetUnderlyingList().SyncRoot;
 
     /// <summary>
     /// Agrega un elemento a este <see cref="ObservableListWrap"/>.
@@ -146,8 +143,8 @@ public class ObservableListWrap : ObservableWrapBase, IList, INotifyCollectionCh
     /// </returns>
     public int Add(object? value)
     {
-        int returnValue = UnderlyingList.Add(value);
-        RaiseCollectionChanged(new NcchEa(Nccha.Add, value));
+        int returnValue = GetUnderlyingList().Add(value);
+        RaiseCollectionChanged(new NcchEa(Nccha.Add, value, returnValue));
         Notify(nameof(Count));
         return returnValue;
     }
@@ -158,7 +155,7 @@ public class ObservableListWrap : ObservableWrapBase, IList, INotifyCollectionCh
     /// </summary>
     public void Clear()
     {
-        UnderlyingList.Clear();
+        GetUnderlyingList().Clear();
         RaiseCollectionChanged(new NcchEa(Reset));
         Notify(nameof(Count));
     }
@@ -177,7 +174,7 @@ public class ObservableListWrap : ObservableWrapBase, IList, INotifyCollectionCh
     /// </returns>
     public override bool Contains(object? value)
     {
-        return UnderlyingList.Contains(value);
+        return GetUnderlyingList().Contains(value);
     }
 
     /// <summary>
@@ -191,7 +188,7 @@ public class ObservableListWrap : ObservableWrapBase, IList, INotifyCollectionCh
     /// </param>
     public void CopyTo(Array array, int index)
     {
-        UnderlyingList.CopyTo(array, index);
+        GetUnderlyingList().CopyTo(array, index);
     }
 
     /// <summary>
@@ -202,7 +199,7 @@ public class ObservableListWrap : ObservableWrapBase, IList, INotifyCollectionCh
     /// </returns>
     protected override IEnumerator OnGetEnumerator()
     {
-        return UnderlyingList.GetEnumerator();
+        return GetUnderlyingList().GetEnumerator();
     }
 
     /// <summary>
@@ -219,7 +216,7 @@ public class ObservableListWrap : ObservableWrapBase, IList, INotifyCollectionCh
     /// </returns>
     public override int IndexOf(object? value)
     {
-        return UnderlyingList.IndexOf(value);
+        return GetUnderlyingList().IndexOf(value);
     }
 
     /// <summary>
@@ -234,8 +231,8 @@ public class ObservableListWrap : ObservableWrapBase, IList, INotifyCollectionCh
     /// </param>
     public void Insert(int index, object? value)
     {
-        UnderlyingList.Insert(index, value);
-        RaiseCollectionChanged(new NcchEa(Nccha.Add, value));
+        GetUnderlyingList().Insert(index, value);
+        RaiseCollectionChanged(new NcchEa(Nccha.Add, value, index));
         Notify(nameof(Count));
     }
 
@@ -247,9 +244,9 @@ public class ObservableListWrap : ObservableWrapBase, IList, INotifyCollectionCh
     /// </param>
     public void Remove(object? value)
     {
-        if (UnderlyingList.Contains(value))
+        if (GetUnderlyingList().Contains(value))
         {
-            int index = UnderlyingList.IndexOf(value);
+            int index = UnderlyingList!.IndexOf(value);
             UnderlyingList.Remove(value);
             RaiseCollectionChanged(new NcchEa(Nccha.Remove, value, index));
             Notify(nameof(Count));
@@ -265,8 +262,8 @@ public class ObservableListWrap : ObservableWrapBase, IList, INotifyCollectionCh
     /// </param>
     public void RemoveAt(int index)
     {
-        object? item = UnderlyingList[index];
-        UnderlyingList.RemoveAt(index);
+        object? item = GetUnderlyingList()[index];
+        UnderlyingList!.RemoveAt(index);
         RaiseCollectionChanged(new NcchEa(Nccha.Remove, item, index));
         Notify(nameof(Count));
     }
@@ -276,8 +273,9 @@ public class ObservableListWrap : ObservableWrapBase, IList, INotifyCollectionCh
     /// </summary>
     public override void Refresh()
     {
+        _ = GetUnderlyingList();
         base.Refresh();
-        Substitute(UnderlyingList);
+        Substitute(UnderlyingList!);
     }
 
     /// <summary>
@@ -288,9 +286,15 @@ public class ObservableListWrap : ObservableWrapBase, IList, INotifyCollectionCh
     /// </param>
     public void Substitute(IList newList)
     {
+        var oldList = UnderlyingList;
         UnderlyingList = Array.Empty<object>();
         RaiseCollectionChanged(new NcchEa(Reset));
         UnderlyingList = newList;
-        if (newList is not null) RaiseCollectionChanged(new NcchEa(Nccha.Add, newList));
+        if (newList is not null) RaiseCollectionChanged(new NcchEa(Nccha.Add, newList, 0));
+    }
+
+    private IList GetUnderlyingList()
+    {
+        return UnderlyingList ?? throw new InvalidOperationException();
     }
 }

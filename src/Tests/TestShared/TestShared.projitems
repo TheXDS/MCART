@@ -9,7 +9,11 @@
     <Import_RootNamespace>TestShared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)EventTestEntry.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EventTestHelpers.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EventTriggerTest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExceptionResourceTestClass.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IEventTestEntry.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StringResourceTestClass.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StringResourceTestClass_T.cs" />
   </ItemGroup>

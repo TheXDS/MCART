@@ -74,7 +74,7 @@ public class ListExTests
             e.Cancel = true;
             cancelCalled = true;
         }
-        void DontCancel(object? sender, ModifyingItemEventArgs<int> e)
+        void DoNotCancel(object? sender, ModifyingItemEventArgs<int> e)
         {
             Assert.AreEqual(3,e.OldValue);
             Assert.AreEqual(6,e.NewValue);
@@ -93,12 +93,12 @@ public class ListExTests
         Assert.True(cancelCalled);
         l.ModifiedItem -= CheckModified;
         l.ModifyingItem -= JustCancel;
-        l.ModifyingItem += DontCancel;
+        l.ModifyingItem += DoNotCancel;
         cancelCalled = false;
         l[2] = 6;
         Assert.AreEqual(6, l[2]);
         Assert.True(cancelCalled);
-        l.ModifyingItem -= DontCancel;
+        l.ModifyingItem -= DoNotCancel;
     }
 
     [Test]

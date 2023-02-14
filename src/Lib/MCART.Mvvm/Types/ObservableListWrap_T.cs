@@ -28,8 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using TheXDS.MCART.Types.Base;
 using Nccha = System.Collections.Specialized.NotifyCollectionChangedAction;
@@ -137,7 +135,7 @@ public class ObservableListWrap<T> : ObservableWrap<T, IList<T>>, IList<T>
     /// </param>
     public void RemoveAt(int index)
     {
-        if (UnderlyingCollection is null) throw new IndexOutOfRangeException();
+        if (UnderlyingCollection is null) throw new InvalidOperationException();
         T? item = UnderlyingCollection[index];
         UnderlyingCollection.RemoveAt(index);
         RaiseCollectionChanged(new NcchEa(Nccha.Remove, item, index));

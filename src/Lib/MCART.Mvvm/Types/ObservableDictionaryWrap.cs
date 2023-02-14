@@ -81,7 +81,7 @@ public class ObservableDictionaryWrap<TKey, TValue> : ObservableWrap<KeyValuePai
             if (UnderlyingCollection is null) throw new InvalidOperationException();
             TValue? oldValue = UnderlyingCollection[key];
             UnderlyingCollection[key] = value;
-            RaiseCollectionChanged(new NcchEa(NotifyCollectionChangedAction.Replace, oldValue, value));
+            RaiseCollectionChanged(new NcchEa(NotifyCollectionChangedAction.Replace, new KeyValuePair<TKey, TValue>(key, value), new KeyValuePair<TKey, TValue>(key, oldValue)));
         }
     }
 

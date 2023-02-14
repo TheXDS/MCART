@@ -6,8 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution items", "Solution items", "{B3DE9472-6772-4DDB-AA67-038A59C7AE8D}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
-		Directory.Build.props = Directory.Build.props
-		Directory.Build.targets = Directory.Build.targets
 		publish-docs.ps1 = publish-docs.ps1
 	EndProjectSection
 EndProject
@@ -163,6 +161,36 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MCART.Avalonia.Controls", "Platform\Avalonia\MCART.Avalonia.Controls\MCART.Avalonia.Controls.csproj", "{64D0244D-271D-4B77-910F-66A8448DA886}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TestShared", "Tests\TestShared\TestShared.shproj", "{F1F6814E-B9A8-495E-A124-198E45577102}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Targets-src", "Targets-src", "{58F0B4D1-47BE-49EF-8B97-CDD2154CA983}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+		Directory.Build.targets = Directory.Build.targets
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extras", "Extras", "{61B4F1EF-FB50-4788-9FEB-7BE032E16EE4}"
+	ProjectSection(SolutionItems) = preProject
+		Extras\Directory.Build.props = Extras\Directory.Build.props
+		Extras\Directory.Build.targets = Extras\Directory.Build.targets
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{DDE61DD5-C986-4075-9DE4-39A2D902541F}"
+	ProjectSection(SolutionItems) = preProject
+		Lib\Directory.Build.props = Lib\Directory.Build.props
+		Lib\Directory.Build.targets = Lib\Directory.Build.targets
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Platform", "Platform", "{064CE42F-1F47-4F24-AF64-B82766ED2D8A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Avalonia", "Avalonia", "{31C97B59-356C-406B-84C4-4CCB27B8FCC2}"
+	ProjectSection(SolutionItems) = preProject
+		Platform\Avalonia\Directory.Build.targets = Platform\Avalonia\Directory.Build.targets
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{CC47FE7E-9142-4331-9ECE-E054D0D894D4}"
+	ProjectSection(SolutionItems) = preProject
+		Tests\Directory.Build.targets = Tests\Directory.Build.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -334,14 +362,18 @@ Global
 		{2F2633BE-B110-41E0-8A68-B5FD723D4F7D} = {D3E9B767-D681-43FB-80C7-7579D7E1EE11}
 		{64D0244D-271D-4B77-910F-66A8448DA886} = {D3E9B767-D681-43FB-80C7-7579D7E1EE11}
 		{F1F6814E-B9A8-495E-A124-198E45577102} = {9F25E152-37CC-4376-9C87-7A7497748F81}
+		{58F0B4D1-47BE-49EF-8B97-CDD2154CA983} = {B3DE9472-6772-4DDB-AA67-038A59C7AE8D}
+		{61B4F1EF-FB50-4788-9FEB-7BE032E16EE4} = {58F0B4D1-47BE-49EF-8B97-CDD2154CA983}
+		{DDE61DD5-C986-4075-9DE4-39A2D902541F} = {58F0B4D1-47BE-49EF-8B97-CDD2154CA983}
+		{064CE42F-1F47-4F24-AF64-B82766ED2D8A} = {58F0B4D1-47BE-49EF-8B97-CDD2154CA983}
+		{31C97B59-356C-406B-84C4-4CCB27B8FCC2} = {064CE42F-1F47-4F24-AF64-B82766ED2D8A}
+		{CC47FE7E-9142-4331-9ECE-E054D0D894D4} = {58F0B4D1-47BE-49EF-8B97-CDD2154CA983}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {63BB1063-9448-4D86-ADAF-29683E2E7E73}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Tests\TestShared\TestShared.projitems*{48dde395-2087-4d6d-9028-d6c09455aa15}*SharedItemsImports = 5
 		Shared\AssemblyInfo\AssemblyInfo.projitems*{967afaa3-ded3-4ec0-9401-7193b318fce8}*SharedItemsImports = 13
-		Tests\TestShared\TestShared.projitems*{ee764992-f9e4-4898-8c2b-8466409b0fac}*SharedItemsImports = 5
 		Tests\TestShared\TestShared.projitems*{f1f6814e-b9a8-495e-a124-198e45577102}*SharedItemsImports = 13
 		Shared\Internals\Internals.projitems*{f7b14aea-6c0a-4343-81ae-fb06dcd9c69c}*SharedItemsImports = 13
 	EndGlobalSection
