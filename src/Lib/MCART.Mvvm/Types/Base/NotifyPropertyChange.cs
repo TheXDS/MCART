@@ -100,6 +100,7 @@ public abstract class NotifyPropertyChange : NotifyPropertyChangeBase, INotifyPr
     /// bloque <see langword="set"/> no corresponde a la propiedad especificada
     /// en el argumento <paramref name="propertyName"/>.
     /// </exception>
+    [MethodImpl(MethodImplOptions.NoInlining)]
 #else
     /// <summary>
     /// Cambia el valor de un campo, y genera los eventos de
@@ -121,7 +122,7 @@ public abstract class NotifyPropertyChange : NotifyPropertyChangeBase, INotifyPr
     protected sealed override bool Change<T>(ref T field, T value, [CallerMemberName] string propertyName = null!)
     {
 #if EnforceContracts
-        if (ReflectionHelpers.GetCallingMethod(3) is not { } m || GetType().GetProperties().SingleOrDefault(q => q.SetMethod == m) is not { } p)
+        if (ReflectionHelpers.GetCallingMethod() is not { } m || GetType().GetProperties().SingleOrDefault(q => q.SetMethod == m) is not { } p)
         {
             throw MvvmErrors.PropSetMustCall();
         }

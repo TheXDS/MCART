@@ -34,6 +34,7 @@ using System.Collections;
 using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Resources;
@@ -468,6 +469,12 @@ public static partial class ReflectionHelpers
     /// método desde el punto de entrada de la aplicación (generalmente
     /// la función <c>Main()</c>).
     /// </returns>
+    /// <remarks>Debido a algunas optimizaciones realizadas por el compilador,
+    /// es recomendable que en los métodos donde se llame a
+    /// <see cref="GetCallingMethod()"/> sean anotados con el atributo
+    /// <see cref="MethodImplAttribute"/> con el valor
+    /// <see cref="MethodImplOptions.NoInlining"/>.
+    /// </remarks>
     public static MethodBase? GetCallingMethod()
     {
         return GetCallingMethod(3);
@@ -493,6 +500,12 @@ public static partial class ReflectionHelpers
     /// Se produce si <paramref name="nCaller"/> + 1 produce un error
     /// de sobreflujo.
     /// </exception>
+    /// <remarks>Debido a algunas optimizaciones realizadas por el compilador,
+    /// es recomendable que en los métodos donde se llame a
+    /// <see cref="GetCallingMethod(int)"/> sean anotados con el atributo
+    /// <see cref="MethodImplAttribute"/> con el valor
+    /// <see cref="MethodImplOptions.NoInlining"/>.
+    /// </remarks>
     public static MethodBase? GetCallingMethod(int nCaller)
     {
         GetCallingMethod_Contract(nCaller);

@@ -73,8 +73,12 @@ public class NotifyPropertyChange_Tests
     [Test]
     public void Change_basic_test()
     {
+        static void SetIntProperty(TestNpcClass obj)
+        {
+            obj.IntProperty = 1;
+        }
         var obj = new TestNpcClass();
-        TestEvents(obj, o => o.IntProperty = 1,
+        TestEvents(obj, SetIntProperty,
             new EventTestEntry<TestNpcClass, PropertyChangingEventHandler, PropertyChangingEventArgs>(nameof(TestNpcClass.PropertyChanging),
                 e => Assert.That(e.PropertyName, Is.EqualTo(nameof(TestNpcClass.IntProperty)))),
             new EventTestEntry<TestNpcClass, PropertyChangedEventHandler, PropertyChangedEventArgs>(nameof(TestNpcClass.PropertyChanged),
