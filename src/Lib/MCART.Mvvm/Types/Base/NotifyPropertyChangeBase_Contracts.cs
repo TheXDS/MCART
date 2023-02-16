@@ -31,7 +31,9 @@ SOFTWARE.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
+using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Extensions;
 using static TheXDS.MCART.Misc.Internals;
@@ -68,5 +70,14 @@ public abstract partial class NotifyPropertyChangeBase
             if (BranchScanFails(a, j, tree, keysChecked)) return true;
         }
         return false;
+    }
+
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private protected void Change_Contract(string propertyName, PropertyInfo p)
+    {
+        EmptyCheck(propertyName, nameof(propertyName));
+        if (p.Name != propertyName) throw MvvmErrors.PropChangeSame();
     }
 }

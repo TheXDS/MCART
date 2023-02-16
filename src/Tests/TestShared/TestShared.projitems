@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)EventTestEntry.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EventTestEntry_TEventHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)EventTestHelpers.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)EventTriggerTest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExceptionResourceTestClass.cs" />

@@ -28,10 +28,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using TheXDS.MCART.Attributes;
@@ -80,6 +77,7 @@ public abstract class NotifyPropertyChange : NotifyPropertyChangeBase, INotifyPr
         foreach (INotifyPropertyChangeBase? j in _forwardingCollection) j.Notify(propertyName);
     }
 
+#if EnforceContracts
     /// <summary>
     /// Cambia el valor de un campo, y genera los eventos de
     /// notificación correspondientes.
@@ -89,22 +87,49 @@ public abstract class NotifyPropertyChange : NotifyPropertyChangeBase, INotifyPr
     /// <param name="value">Nuevo valor del campo.</param>
     /// <param name="propertyName">
     /// Nombre de la propiedad. Por lo general, este valor debe
-    /// omitirse.
+    /// omitirse para que el compilador pueda especificarlo.
     /// </param>
     /// <returns>
     /// <see langword="true"/> si el valor de la propiedad ha
     /// cambiado, <see langword="false"/> en caso contrario.
     /// </returns>
+    /// <exception cref="InvalidOperationException">
+    /// Se produce cuando se llama al método
+    /// <see cref="Change{T}(ref T, T, string)"/> desde un lugar que no sea el
+    /// bloque <see langword="set"/> de una propiedad observable, o cuando el
+    /// bloque <see langword="set"/> no corresponde a la propiedad especificada
+    /// en el argumento <paramref name="propertyName"/>.
+    /// </exception>
+#else
+    /// <summary>
+    /// Cambia el valor de un campo, y genera los eventos de
+    /// notificación correspondientes.
+    /// </summary>
+    /// <typeparam name="T">Tipo de valores a procesar.</typeparam>
+    /// <param name="field">Campo a actualizar.</param>
+    /// <param name="value">Nuevo valor del campo.</param>
+    /// <param name="propertyName">
+    /// Nombre de la propiedad. Por lo general, este valor debe
+    /// omitirse para que el compilador pueda especificarlo.
+    /// </param>
+    /// <returns>
+    /// <see langword="true"/> si el valor de la propiedad ha
+    /// cambiado, <see langword="false"/> en caso contrario.
+    /// </returns>
+#endif
     [NpcChangeInvocator]
     protected sealed override bool Change<T>(ref T field, T value, [CallerMemberName] string propertyName = null!)
     {
-        if (field?.Equals(value) ?? Objects.AreAllNull(field, value)) return false;
-        if (ReflectionHelpers.GetCallingMethod() is not { } m || GetType().GetProperties().SingleOrDefault(q => q.SetMethod == m) is not { } p)
+#if EnforceContracts
+        if (ReflectionHelpers.GetCallingMethod(3) is not { } m || GetType().GetProperties().SingleOrDefault(q => q.SetMethod == m) is not { } p)
         {
             throw MvvmErrors.PropSetMustCall();
         }
-        if (p.Name != propertyName) throw MvvmErrors.PropChangeSame();
-
+        Change_Contract(propertyName, p);
+#else
+        PropertyInfo p = GetType().GetProperty(propertyName)!;
+#endif
+        if (field?.Equals(value) ?? Objects.AreAllNull(field, value)) return false;
         OnPropertyChanging(propertyName);
         field = value;
 
