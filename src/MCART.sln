@@ -76,6 +76,36 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "vs-snippets", "vs-snippets"
 		..\vs-snippets\simplecommand.snippet = ..\vs-snippets\simplecommand.snippet
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Targets-src", "Targets-src", "{58F0B4D1-47BE-49EF-8B97-CDD2154CA983}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+		Directory.Build.targets = Directory.Build.targets
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extras", "Extras", "{61B4F1EF-FB50-4788-9FEB-7BE032E16EE4}"
+	ProjectSection(SolutionItems) = preProject
+		Extras\Directory.Build.props = Extras\Directory.Build.props
+		Extras\Directory.Build.targets = Extras\Directory.Build.targets
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{DDE61DD5-C986-4075-9DE4-39A2D902541F}"
+	ProjectSection(SolutionItems) = preProject
+		Lib\Directory.Build.props = Lib\Directory.Build.props
+		Lib\Directory.Build.targets = Lib\Directory.Build.targets
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Platform", "Platform", "{064CE42F-1F47-4F24-AF64-B82766ED2D8A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Avalonia", "Avalonia", "{31C97B59-356C-406B-84C4-4CCB27B8FCC2}"
+	ProjectSection(SolutionItems) = preProject
+		Platform\Avalonia\Directory.Build.targets = Platform\Avalonia\Directory.Build.targets
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{CC47FE7E-9142-4331-9ECE-E054D0D894D4}"
+	ProjectSection(SolutionItems) = preProject
+		Tests\Directory.Build.targets = Tests\Directory.Build.targets
+	EndProjectSection
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{51B477E4-5C71-40AB-B571-07ED90DB80FC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MCART", "Lib\MCART\MCART.csproj", "{C0C0202D-A37B-4250-BB42-796136346535}"
@@ -162,36 +192,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MCART.Avalonia.Controls", "
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TestShared", "Tests\TestShared\TestShared.shproj", "{F1F6814E-B9A8-495E-A124-198E45577102}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Targets-src", "Targets-src", "{58F0B4D1-47BE-49EF-8B97-CDD2154CA983}"
-	ProjectSection(SolutionItems) = preProject
-		Directory.Build.props = Directory.Build.props
-		Directory.Build.targets = Directory.Build.targets
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extras", "Extras", "{61B4F1EF-FB50-4788-9FEB-7BE032E16EE4}"
-	ProjectSection(SolutionItems) = preProject
-		Extras\Directory.Build.props = Extras\Directory.Build.props
-		Extras\Directory.Build.targets = Extras\Directory.Build.targets
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{DDE61DD5-C986-4075-9DE4-39A2D902541F}"
-	ProjectSection(SolutionItems) = preProject
-		Lib\Directory.Build.props = Lib\Directory.Build.props
-		Lib\Directory.Build.targets = Lib\Directory.Build.targets
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Platform", "Platform", "{064CE42F-1F47-4F24-AF64-B82766ED2D8A}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Avalonia", "Avalonia", "{31C97B59-356C-406B-84C4-4CCB27B8FCC2}"
-	ProjectSection(SolutionItems) = preProject
-		Platform\Avalonia\Directory.Build.targets = Platform\Avalonia\Directory.Build.targets
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{CC47FE7E-9142-4331-9ECE-E054D0D894D4}"
-	ProjectSection(SolutionItems) = preProject
-		Tests\Directory.Build.targets = Tests\Directory.Build.targets
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -226,10 +226,6 @@ Global
 		{1DA29D9F-46D1-402C-B1BC-D6E28F837D5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1DA29D9F-46D1-402C-B1BC-D6E28F837D5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1DA29D9F-46D1-402C-B1BC-D6E28F837D5D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{967AFAA3-DED3-4EC0-9401-7193B318FCE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{967AFAA3-DED3-4EC0-9401-7193B318FCE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F7B14AEA-6C0A-4343-81AE-FB06DCD9C69C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F7B14AEA-6C0A-4343-81AE-FB06DCD9C69C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2D283B4-2F7F-47F1-8477-C69061F9B2EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C2D283B4-2F7F-47F1-8477-C69061F9B2EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2D283B4-2F7F-47F1-8477-C69061F9B2EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -328,6 +324,12 @@ Global
 		{28ADBE55-B43C-46E8-BFB5-CD11E91AA5E4} = {B3DE9472-6772-4DDB-AA67-038A59C7AE8D}
 		{A96B3E63-89F2-44D6-8832-CD6F7AE705E8} = {28ADBE55-B43C-46E8-BFB5-CD11E91AA5E4}
 		{FA30A0E8-C9F6-4E3E-9E74-419BC848D843} = {B3DE9472-6772-4DDB-AA67-038A59C7AE8D}
+		{58F0B4D1-47BE-49EF-8B97-CDD2154CA983} = {B3DE9472-6772-4DDB-AA67-038A59C7AE8D}
+		{61B4F1EF-FB50-4788-9FEB-7BE032E16EE4} = {58F0B4D1-47BE-49EF-8B97-CDD2154CA983}
+		{DDE61DD5-C986-4075-9DE4-39A2D902541F} = {58F0B4D1-47BE-49EF-8B97-CDD2154CA983}
+		{064CE42F-1F47-4F24-AF64-B82766ED2D8A} = {58F0B4D1-47BE-49EF-8B97-CDD2154CA983}
+		{31C97B59-356C-406B-84C4-4CCB27B8FCC2} = {064CE42F-1F47-4F24-AF64-B82766ED2D8A}
+		{CC47FE7E-9142-4331-9ECE-E054D0D894D4} = {58F0B4D1-47BE-49EF-8B97-CDD2154CA983}
 		{C0C0202D-A37B-4250-BB42-796136346535} = {51B477E4-5C71-40AB-B571-07ED90DB80FC}
 		{E794621F-F09B-4E0F-AF70-D038C5BF81D2} = {51B477E4-5C71-40AB-B571-07ED90DB80FC}
 		{96F6FD64-BBAB-4513-821D-6EE518274C78} = {51B477E4-5C71-40AB-B571-07ED90DB80FC}
@@ -366,12 +368,6 @@ Global
 		{2F2633BE-B110-41E0-8A68-B5FD723D4F7D} = {D3E9B767-D681-43FB-80C7-7579D7E1EE11}
 		{64D0244D-271D-4B77-910F-66A8448DA886} = {D3E9B767-D681-43FB-80C7-7579D7E1EE11}
 		{F1F6814E-B9A8-495E-A124-198E45577102} = {9F25E152-37CC-4376-9C87-7A7497748F81}
-		{58F0B4D1-47BE-49EF-8B97-CDD2154CA983} = {B3DE9472-6772-4DDB-AA67-038A59C7AE8D}
-		{61B4F1EF-FB50-4788-9FEB-7BE032E16EE4} = {58F0B4D1-47BE-49EF-8B97-CDD2154CA983}
-		{DDE61DD5-C986-4075-9DE4-39A2D902541F} = {58F0B4D1-47BE-49EF-8B97-CDD2154CA983}
-		{064CE42F-1F47-4F24-AF64-B82766ED2D8A} = {58F0B4D1-47BE-49EF-8B97-CDD2154CA983}
-		{31C97B59-356C-406B-84C4-4CCB27B8FCC2} = {064CE42F-1F47-4F24-AF64-B82766ED2D8A}
-		{CC47FE7E-9142-4331-9ECE-E054D0D894D4} = {58F0B4D1-47BE-49EF-8B97-CDD2154CA983}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {63BB1063-9448-4D86-ADAF-29683E2E7E73}
