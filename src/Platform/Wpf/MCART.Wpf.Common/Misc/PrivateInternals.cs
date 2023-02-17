@@ -29,6 +29,7 @@ SOFTWARE.
 */
 
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using TheXDS.MCART.Helpers;
 
@@ -38,11 +39,13 @@ namespace TheXDS.MCART.Misc;
 
 internal class PrivateInternals
 {
+    [MethodImpl(MethodImplOptions.NoInlining)]
     internal static Uri MakePackUri(string path)
     {
         return MakePackUri(path, ReflectionHelpers.GetCallingMethod()?.DeclaringType?.Assembly ?? throw new InvalidOperationException());
     }
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     internal static Uri MkTemplateUri()
     {
         Type? t = ReflectionHelpers.GetCallingMethod()?.DeclaringType ?? throw new InvalidOperationException();

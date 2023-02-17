@@ -27,7 +27,6 @@
 // SOFTWARE.
 
 using NUnit.Framework;
-using System;
 using System.Globalization;
 using System.Reflection;
 using TheXDS.MCART.Exceptions;
@@ -38,15 +37,22 @@ namespace TheXDS.MCART.Tests;
 public abstract class StringResourceTestClass
 {
     private readonly Type resourceClass;
+    private readonly PropertyInfo cultureProperty;
 
     protected StringResourceTestClass(Type resourceClass)
     {
         this.resourceClass = resourceClass;
+        cultureProperty =  resourceClass.GetProperty("Culture", BindingFlags.NonPublic | BindingFlags.Static) ?? throw new TamperException();
     }
 
     private void SetCulture(CultureInfo culture)
     {
-        (resourceClass.GetProperty("Culture", BindingFlags.NonPublic | BindingFlags.Static) ?? throw new TamperException()).SetValue(null, culture);
+        cultureProperty.SetValue(null, culture);
+    }
+
+    private CultureInfo GetCulture()
+    {
+        return (CultureInfo)cultureProperty.GetValue(null)!;
     }
 
     [TestCase("es-MX")]
@@ -54,7 +60,8 @@ public abstract class StringResourceTestClass
     public void Translations_Test(string culture)
     {
         SetCulture(CultureInfo.CreateSpecificCulture(culture));
-        foreach (var property in resourceClass.GetPropertiesOf<string>(BindingFlags.Public | BindingFlags.Static))
+        Assert.That(GetCulture().Name, Is.EqualTo(culture));
+        foreach (var property in resourceClass.GetPropertiesOf<string>(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static))
         {
             Assert.That(property.GetValue(null) as string, Is.Not.Null.And.Not.Empty);
         }

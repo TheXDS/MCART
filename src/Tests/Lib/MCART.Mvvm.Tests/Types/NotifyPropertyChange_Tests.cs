@@ -26,12 +26,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using TheXDS.MCART.Tests;
 using TheXDS.MCART.Types.Base;
 using static TheXDS.MCART.Tests.EventTestHelpers;
@@ -67,6 +65,16 @@ public class NotifyPropertyChange_Tests
         public void InvalidChangeCall()
         {
             Change(ref _IntProperty, int.MaxValue);
+        }
+
+        public void CallOnPropertyChanging(string? propertyName)
+        {
+            OnPropertyChanging(propertyName!);
+        }
+
+        public void CallOnPropertyChanged(string? propertyName)
+        {
+            OnPropertyChanged(propertyName!);
         }
     }
 
@@ -122,6 +130,56 @@ public class NotifyPropertyChange_Tests
         });
         obj.IntProperty = 1;
         Assert.That(pcoWasCalled);
+    }
+
+    [Test]
+    public void OnPropertyChanging_contract_test()
+    {
+        var obj = new TestNpcClass();
+        Assert.That(() => obj.CallOnPropertyChanging(null), Throws.ArgumentNullException);
+    }
+
+    [Test]
+    public void OnPropertyChanged_contract_test()
+    {
+        var obj = new TestNpcClass();
+        Assert.That(() => obj.CallOnPropertyChanged(null), Throws.ArgumentNullException);
+    }
+
+    [Test]
+    public void PropertyChange_forwards_changes_test()
+    {
+        var source = new TestNpcClass();
+        var target = new TestNpcClass();
+        source.ForwardChange(target);
+        TestEvents(target, _ => source.IntProperty = 3,
+            new EventTestEntry<TestNpcClass, PropertyChangedEventHandler, PropertyChangedEventArgs>(nameof(TestNpcClass.PropertyChanged),
+                e => Assert.That(e.PropertyName, Is.EqualTo(nameof(TestNpcClass.IntProperty))))
+            );
+    }
+
+    [Test]
+    public void PropertyChange_notifies_registered_observers_test()
+    {
+        bool observerCalled = false;
+        var source = new TestNpcClass();
+        source.Subscribe((o, e) => {
+            observerCalled = true;
+            Assert.That(o, Is.SameAs(source));
+            Assert.That(e.Name, Is.EqualTo(nameof(TestNpcClass.IntProperty)));
+        });
+        source.IntProperty = 5;
+        Assert.That(observerCalled);
+    }
+
+    [Test]
+    public void Subscriptions_can_be_removed_test()
+    {
+        static void TestDelegate(object instance, PropertyInfo property) => Assert.Fail();
+        var source = new TestNpcClass();
+        source.Subscribe(TestDelegate);
+        source.Unsubscribe(TestDelegate);
+        source.IntProperty = 5;
     }
 
 #if EnforceContracts

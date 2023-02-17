@@ -28,9 +28,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Diagnostics;
 using TheXDS.MCART.Types.Extensions;
 using static System.Collections.Specialized.NotifyCollectionChangedAction;
@@ -148,7 +146,7 @@ public abstract class ObservableWrap<T, TCollection> : ObservableWrapBase, IColl
     /// <returns>
     /// Un enumerador que puede ser utilizado para iterar sobre la colección.
     /// </returns>
-    public IEnumerator<T> GetEnumerator()
+    public new IEnumerator<T> GetEnumerator()
     {
         return UnderlyingCollection?.GetEnumerator() ?? new List<T>().GetEnumerator();
     }

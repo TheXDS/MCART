@@ -32,6 +32,7 @@ using NUnit.Framework;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using TheXDS.MCART.Types.Base;
+using static TheXDS.MCART.Tests.EventTestHelpers;
 
 namespace TheXDS.MCART.Mvvm.Tests.Types.Base;
 
@@ -60,46 +61,18 @@ public class EntityViewModelTests
     [Test]
     public void Update_test()
     {
-        bool eventTriggered = false;
-        void Vm_PropertyChanged(object? sender, PropertyChangedEventArgs e)
-        {
-            eventTriggered = true;
-        }
-
-        TestViewModel vm = new()
-        {
-            Entity = new()
-            {
-                Prop = 1
-            }
-        };
-
-        TestModel m = new()
-        {
-            Prop = 2
-        };
-
-        vm.PropertyChanged += Vm_PropertyChanged;
-        vm.Update(m);
-        vm.PropertyChanged -= Vm_PropertyChanged;
-        Assert.IsTrue(eventTriggered);
+        TestViewModel vm = new() { Entity = new() { Prop = 1 } };
+        TestModel m = new() { Prop = 2 };
+        TestEvent<TestViewModel, PropertyChangedEventHandler, PropertyChangedEventArgs>(vm, nameof(TestViewModel.PropertyChanged), p => p.Update(m));
         Assert.AreEqual(2, vm.Entity.Prop);
     }
 
     [Test]
     public void Refresh_on_null_entity_test()
     {
-        bool eventTriggered = false;
-        void Vm_PropertyChanged(object? sender, PropertyChangedEventArgs e)
-        {
-            eventTriggered = true;
-        }
         TestViewModel vm = new();
         Assert.IsNull(vm.Entity);
-        vm.PropertyChanged += Vm_PropertyChanged;
-        vm.Refresh();
-        vm.PropertyChanged -= Vm_PropertyChanged;
-        Assert.IsFalse(eventTriggered);
+        TestEvent<TestViewModel, PropertyChangedEventHandler, PropertyChangedEventArgs>(vm, nameof(TestViewModel.PropertyChanged), p => p.Refresh(), false);
     }
 
     [Test]
@@ -113,5 +86,23 @@ public class EntityViewModelTests
             }
         };
         Assert.IsInstanceOf<TestModel>((TestModel)vm);
+    }
+
+    [Test]
+    public void IEntityViewModel_default_implementation_test()
+    {
+        IEntityViewModel vm = new TestViewModel();
+        Assert.IsNull(vm.Entity);
+        vm.Entity = new TestModel();
+        Assert.IsInstanceOf<TestModel>(vm.Entity);
+    }
+
+    [Test]
+    public void IEntityViewModel_T_default_implementation_test()
+    {
+        IEntityViewModel<TestModel> vm = new TestViewModel();
+        Assert.IsNull(vm.Entity);
+        vm.Entity = new TestModel();
+        Assert.IsInstanceOf<TestModel>(vm.Entity);
     }
 }

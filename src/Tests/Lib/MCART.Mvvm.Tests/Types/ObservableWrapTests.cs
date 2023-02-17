@@ -90,6 +90,17 @@ public class ObservableWrapTests
     }
 
     [Test]
+    public void Replace_test() 
+    {
+        List<string>? l1 = new() { "1", "2", "3" };
+        List<string>? l2 = new() { "4", "5", "6" };
+        ObservableCollectionWrap<string>? c = new(l1);
+        Assert.That(c.UnderlyingCollection, Is.EquivalentTo(l1.ToArray()));
+        c.Replace(l2);
+        Assert.That(c.UnderlyingCollection, Is.EquivalentTo(l2.ToArray()));
+    }
+
+    [Test]
     public void IsReadOnlyTest()
     {
         ObservableCollectionWrap<int> c = new();
