@@ -33,7 +33,7 @@ namespace TheXDS.MCART.Types.Base;
 /// <summary>
 /// ViewModel con propiedades básicas de gestión de la ventana.
 /// </summary>
-public abstract class WindowViewModel : ViewModelBase
+public class WindowViewModel : ViewModelBase
 {
     private string _title = string.Empty;
     private Size _size;

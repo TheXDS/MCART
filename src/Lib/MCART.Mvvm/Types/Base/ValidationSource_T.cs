@@ -30,7 +30,6 @@ SOFTWARE.
 
 using System.Linq.Expressions;
 using TheXDS.MCART.Helpers;
-using TheXDS.MCART.ViewModel;
 
 namespace TheXDS.MCART.Types.Base;
 
@@ -83,7 +82,7 @@ public sealed class ValidationSource<T> : ValidationSource where T : IValidating
     /// Una enumeración con todos los errores de validación de la propiedad
     /// seleccionada.
     /// </returns>
-    public IEnumerable<string> GetErrors(Expression<Func<T>> propertySelector)
+    public IEnumerable<string> GetErrors(Expression<Func<T, object?>> propertySelector)
     {
         return base[ReflectionHelpers.GetProperty(propertySelector).Name];
     }

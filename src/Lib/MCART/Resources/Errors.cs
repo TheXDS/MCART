@@ -150,7 +150,7 @@ public static class Errors
     /// </returns>
     public static ArgumentException InvalidValue(string? argName, object? value, Exception? inner = null)
     {
-        string? msg = string.Format(Ers.InvalidXValue, value?.ToString() ?? Str.Null);
+        string msg = string.Format(Ers.InvalidXValue, value?.ToString() ?? Str.Null);
         return argName is { } s
             ? new(msg, s, inner)
             : new(msg, inner);
@@ -187,7 +187,7 @@ public static class Errors
     /// </returns>
     public static ArgumentOutOfRangeException ValueOutOfRange(string argName, object min, object max)
     {
-        return new(string.Format(Ers.ValueMustBeBetweenXandY, min, max), argName);
+        return new(argName, string.Format(Ers.ValueMustBeBetweenXandY, min, max));
     }
 
     /// <summary>
@@ -225,13 +225,13 @@ public static class Errors
     /// </returns>
     public static ArgumentOutOfRangeException UndefinedEnum(Type enumType, string argName, Enum offendingValue)
     {
-        return new(string.Format(Ers.UndefinedEnum, offendingValue, enumType.NameOf()), argName);
+        return new(argName, string.Format(Ers.UndefinedEnum, offendingValue, enumType.NameOf()));
     }
 
     /// <summary>
     /// Crea una nueva instancia de un
     /// <see cref="InvalidOperationException"/> que indica que el objeto
-    /// especificado no puso ser escrito.
+    /// especificado no pudo ser escrito.
     /// </summary>
     /// <param name="t">Tipo del objeto que no pudo ser escrito.</param>
     /// <returns>
@@ -280,7 +280,7 @@ public static class Errors
         return new(type.Name, missingMember.Name);
     }
 
-    internal static Exception FieldIsNull(FieldInfo j)
+    internal static NullReferenceException FieldIsNull(FieldInfo j)
     {
         return new NullReferenceException(string.Format(Ers.FieldValueShouldNotBeNull, j.Name));
     }
@@ -318,19 +318,6 @@ public static class Errors
 
     /// <summary>
     /// Crea una nueva instancia de un
-    /// <see cref="ClassNotInstantiableException"/>.
-    /// </summary>
-    /// <returns>
-    /// Una nueva instancia de la clase
-    /// <see cref="ClassNotInstantiableException"/>.
-    /// </returns>
-    public static ClassNotInstantiableException ClassNotInstantiable()
-    {
-        return ClassNotInstantiable(null);
-    }
-
-    /// <summary>
-    /// Crea una nueva instancia de un
     /// <see cref="ClassNotInstantiableException"/> indicando el tipo de la
     /// clase que no pudo ser instanciada.
     /// </summary>
@@ -341,7 +328,7 @@ public static class Errors
     /// Una nueva instancia de la clase
     /// <see cref="ClassNotInstantiableException"/>.
     /// </returns>
-    public static ClassNotInstantiableException ClassNotInstantiable(Type? @class)
+    public static ClassNotInstantiableException ClassNotInstantiable(Type? @class = null)
     {
         return new(@class);
     }
@@ -438,10 +425,8 @@ public static class Errors
     /// El error se capturará cuando ocurre un error dentro del
     /// constructor del tipo a ser instanciado. Si la clase no contiene un
     /// constructor que acepte los argumentos, llame al método
-    /// <see cref="ClassNotInstantiable()"/> o a una de sus sobrecargas en
-    /// su lugar.
+    /// <see cref="ClassNotInstantiable(Type?)"/> en su lugar.
     /// </remarks>
-    /// <seealso cref="ClassNotInstantiable()"/>
     /// <seealso cref="ClassNotInstantiable(Type?)"/>
     public static TypeLoadException CannotInstanceClass(Type t, Exception? inner = null)
     {
@@ -479,7 +464,7 @@ public static class Errors
     /// Una nueva instancia de la clase
     /// <see cref="InvalidReturnValueException"/>.
     /// </returns>
-    public static Exception InvalidReturnValue(Delegate call, object? returnValue)
+    public static InvalidReturnValueException InvalidReturnValue(Delegate call, object? returnValue)
     {
         return new InvalidReturnValueException(call, returnValue);
     }
@@ -500,7 +485,7 @@ public static class Errors
     /// Una nueva instancia de la clase
     /// <see cref="NotSupportedException"/>.
     /// </returns>
-    public static Exception BinaryWriteNotSupported(Type offendingType, MethodInfo alternative)
+    public static NotSupportedException BinaryWriteNotSupported(Type offendingType, MethodInfo alternative)
     {
         return new NotSupportedException(string.Format(Ers.BinWriteXNotSupported, offendingType, alternative.Name, alternative.DeclaringType));
     }

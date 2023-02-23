@@ -28,15 +28,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System;
 using System.Globalization;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using NUnit.Framework;
 using TheXDS.MCART.ValueConverters;
 
-namespace TheXDS.MCART.Wpf.Tests.ValueConverters;
+namespace TheXDS.MCART.Wpf.Common.Tests.ValueConverters;
 
 public class AnyContentVisibilityConverterTests
 {

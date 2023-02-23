@@ -27,9 +27,8 @@
 // SOFTWARE.
 
 using TheXDS.MCART.Resources.Strings;
-using TheXDS.MCART.Tests;
 
-namespace TheXDS.MCART.Mvvm.Tests.Resources.Strings;
+namespace TheXDS.MCART.Tests.Resources.Strings;
 
 public class MvvmErrors_Tests : StringResourceTestClass
 {

@@ -37,7 +37,6 @@ using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Base;
 using TheXDS.MCART.Types.Extensions;
-using TheXDS.MCART.ViewModel;
 
 namespace TheXDS.MCART.Tests;
 

@@ -28,9 +28,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System;
-
-namespace TheXDS.MCART.ViewModel;
+namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
 /// Define una serie de miembros a implementar por un tipo que permita
@@ -39,6 +37,26 @@ namespace TheXDS.MCART.ViewModel;
 /// <typeparam name="T">Tipo de la propiedad seleccionada.</typeparam>
 public interface IValidationEntry<T>
 {
+    /// <summary>
+    /// Agrega una regla de validación para la propiedad seleccionada.
+    /// </summary>
+    /// <param name="rule">
+    /// Función que ejecuta la validación. La función debe devolver 
+    /// <see langword="true"/> si la propiedad pasa satisfactoriamente
+    /// la prueba, <see langword="false"/> en caso contrario. Si la
+    /// función de evaluación devuelve <see langword="null"/>, se
+    /// detendrá la evaluación de cualquier regla posterior que no ha
+    /// sido ejecutada aún.
+    /// </param>
+    /// <param name="error">
+    /// Mensaje de error a mostrarse si la regla falla.
+    /// </param>
+    /// <returns>
+    /// La misma instancia de regla de validación, permitiendo el uso
+    /// de sintaxis Fluent.
+    /// </returns>
+    IValidationEntry<T> AddRule(Func<T, bool?> rule, string error);
+
     /// <summary>
     /// Agrega una regla de validación para la propiedad seleccionada.
     /// </summary>
@@ -54,5 +72,5 @@ public interface IValidationEntry<T>
     /// La misma instancia de regla de validación, permitiendo el uso
     /// de sintaxis Fluent.
     /// </returns>
-    IValidationEntry<T> AddRule(Func<T, bool> rule, string error);
+    IValidationEntry<T> AddRule(Func<T, bool> rule, string error) => AddRule(p => (bool?)rule(p), error);
 }

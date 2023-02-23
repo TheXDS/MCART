@@ -29,9 +29,8 @@ SOFTWARE.
 */
 
 using System.ComponentModel;
-using TheXDS.MCART.Types.Base;
 
-namespace TheXDS.MCART.ViewModel;
+namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
 /// Define una serie de miembros a implementar por un tipo que implemente un

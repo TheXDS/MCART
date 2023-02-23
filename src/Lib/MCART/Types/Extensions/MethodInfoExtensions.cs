@@ -92,7 +92,7 @@ public static partial class MethodInfoExtensions
     /// Comprueba que la firma de un método sea compatible con el delegado
     /// especificado.
     /// </summary>
-    /// <param name="methodInfo">
+    /// <param name="staticMethodInfo">
     /// <see cref="MethodInfo" /> a comprobar.
     /// </param>
     /// <param name="delegate">
@@ -102,16 +102,16 @@ public static partial class MethodInfoExtensions
     /// <see langword="true" /> si el método es compatible con la firma del
     /// delegado especificado, <see langword="false" /> en caso contrario.
     /// </returns>
-    public static bool IsSignatureCompatible(this MethodInfo methodInfo, Type @delegate)
+    public static bool IsSignatureCompatible(this MethodInfo staticMethodInfo, Type @delegate)
     {
-        return Delegate.CreateDelegate(@delegate, methodInfo, false) is not null;
+        return Delegate.CreateDelegate(@delegate, staticMethodInfo, false) is not null;
     }
 
     /// <summary>
     /// Comprueba que la firma de un método sea compatible con el delegado
     /// especificado.
     /// </summary>
-    /// <param name="methodInfo">
+    /// <param name="staticMethodInfo">
     /// <see cref="MethodInfo" /> a comprobar.
     /// </param>
     /// <typeparam name="T">
@@ -121,8 +121,8 @@ public static partial class MethodInfoExtensions
     /// <see langword="true" /> si el método es compatible con la firma del
     /// delegado especificado, <see langword="false" /> en caso contrario.
     /// </returns>
-    public static bool IsSignatureCompatible<T>(this MethodInfo methodInfo) where T : Delegate
+    public static bool IsSignatureCompatible<T>(this MethodInfo staticMethodInfo) where T : Delegate
     {
-        return IsSignatureCompatible(methodInfo, typeof(T));
+        return IsSignatureCompatible(staticMethodInfo, typeof(T));
     }
 }

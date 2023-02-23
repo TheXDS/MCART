@@ -46,6 +46,30 @@ public static partial class ObservingCommandExtensions
     /// Indica que un <see cref="ObservingCommand"/> escuchará los
     /// cambios anunciados de la propiedad seleccionada.
     /// </summary>
+    /// <param name="command">
+    /// Comando para el cual se configurará la escucha.
+    /// </param>
+    /// <param name="propertySelector">
+    /// Expresión Lambda de selección de propiedad.
+    /// </param>
+    /// <returns>
+    /// <paramref name="command"/>, permitiendo el uso de sintaxis
+    /// Fluent.
+    /// </returns>
+    /// <exception cref="InvalidArgumentException">
+    /// Se produce si el elemento seleccionado por medio de
+    /// <paramref name="propertySelector"/> no es una propiedad.
+    /// </exception>
+    public static ObservingCommand ListensToProperty(this ObservingCommand command, Expression<Func<object?>> propertySelector)
+    {
+        ListensToProperty_Contract(command, propertySelector);
+        return command.RegisterObservedProperty(GetProperty(propertySelector).Name);
+    }
+
+    /// <summary>
+    /// Indica que un <see cref="ObservingCommand"/> escuchará los
+    /// cambios anunciados de la propiedad seleccionada.
+    /// </summary>
     /// <typeparam name="T">
     /// Tipo de objeto para el cual seleccionar una propiedad.
     /// Generalmente, se trata de la referencia <see langword="this"/>.
@@ -71,27 +95,51 @@ public static partial class ObservingCommandExtensions
     }
 
     /// <summary>
-    /// Indica que un <see cref="ObservingCommand"/> escuchará los
-    /// cambios anunciados de la propiedad seleccionada.
+    /// Registra un conjunto de propiedades a ser escuchadas por este
+    /// <see cref="ObservingCommand"/>.
     /// </summary>
     /// <param name="command">
     /// Comando para el cual se configurará la escucha.
     /// </param>
-    /// <param name="propertySelector">
-    /// Expresión Lambda de selección de propiedad.
+    /// <param name="properties">
+    /// Colección de selectores de propiedades a ser escuchadas.
     /// </param>
     /// <returns>
     /// <paramref name="command"/>, permitiendo el uso de sintaxis
     /// Fluent.
     /// </returns>
     /// <exception cref="InvalidArgumentException">
-    /// Se produce si el elemento seleccionado por medio de
-    /// <paramref name="propertySelector"/> no es una propiedad.
+    /// Se produce si cualquiera de los elementos seleccionados por medio
+    /// de <paramref name="properties"/> no es una propiedad.
     /// </exception>
-    public static ObservingCommand ListensToProperty<T>(this ObservingCommand command, Expression<Func<T>> propertySelector)
+    public static ObservingCommand ListensToProperties<TProperty>(this ObservingCommand command, params Expression<Func<TProperty>>[] properties)
     {
-        ListensToProperty_Contract(command, propertySelector);
-        return command.RegisterObservedProperty(GetProperty(propertySelector).Name);
+        ListensToProperties_Contract(command, properties);
+        return command.RegisterObservedProperty(properties.Select(GetProperty).Select(p => p.Name).ToArray());
+    }
+    
+    /// <summary>
+    /// Registra un conjunto de propiedades a ser escuchadas por este
+    /// <see cref="ObservingCommand"/>.
+    /// </summary>
+    /// <param name="command">
+    /// Comando para el cual se configurará la escucha.
+    /// </param>
+    /// <param name="properties">
+    /// Colección de selectores de propiedades a ser escuchadas.
+    /// </param>
+    /// <returns>
+    /// <paramref name="command"/>, permitiendo el uso de sintaxis
+    /// Fluent.
+    /// </returns>
+    /// <exception cref="InvalidArgumentException">
+    /// Se produce si cualquiera de los elementos seleccionados por medio
+    /// de <paramref name="properties"/> no es una propiedad.
+    /// </exception>
+    public static ObservingCommand ListensToProperties(this ObservingCommand command, params Expression<Func<object?>>[] properties)
+    {
+        ListensToProperties_Contract(command, properties);
+        return command.RegisterObservedProperty(properties.Select(GetProperty).Select(p => p.Name).ToArray());
     }
 
     /// <summary>
@@ -112,7 +160,31 @@ public static partial class ObservingCommandExtensions
     /// Se produce si cualquiera de los elementos seleccionados por medio
     /// de <paramref name="properties"/> no es una propiedad.
     /// </exception>
-    public static ObservingCommand ListensToProperties<T>(this ObservingCommand command, params Expression<Func<T>>[] properties)
+    public static ObservingCommand ListensToProperties<T>(this ObservingCommand command, params Expression<Func<T, object?>>[] properties)
+    {
+        ListensToProperties_Contract(command, properties);
+        return command.RegisterObservedProperty(properties.Select(GetProperty).Select(p => p.Name).ToArray());
+    }
+    
+    /// <summary>
+    /// Registra un conjunto de propiedades a ser escuchadas por este
+    /// <see cref="ObservingCommand"/>.
+    /// </summary>
+    /// <param name="command">
+    /// Comando para el cual se configurará la escucha.
+    /// </param>
+    /// <param name="properties">
+    /// Colección de selectores de propiedades a ser escuchadas.
+    /// </param>
+    /// <returns>
+    /// <paramref name="command"/>, permitiendo el uso de sintaxis
+    /// Fluent.
+    /// </returns>
+    /// <exception cref="InvalidArgumentException">
+    /// Se produce si cualquiera de los elementos seleccionados por medio
+    /// de <paramref name="properties"/> no es una propiedad.
+    /// </exception>
+    public static ObservingCommand ListensToProperties<T, TProperty>(this ObservingCommand command, params Expression<Func<T, TProperty>>[] properties)
     {
         ListensToProperties_Contract(command, properties);
         return command.RegisterObservedProperty(properties.Select(GetProperty).Select(p => p.Name).ToArray());
@@ -210,9 +282,45 @@ public static partial class ObservingCommandExtensions
     public static ObservingCommand CanExecuteIfNotDefault(this ObservingCommand command, params Expression<Func<ValueType>>[] propertySelectors)
     {
         return ListensToProperties(command, propertySelectors)
-            .SetCanExecute(() => propertySelectors.Select(p => p.Compile().Invoke()).All(p => p != p.GetType().Default()));
+            .SetCanExecute(() => propertySelectors.Select(p => p.Compile().Invoke()).All(p => !Equals(p, p.GetType().Default())));
     }
 
+    /// <summary>
+    /// Configura un <see cref="ObservingCommand"/> para poder ejecutarse
+    /// cuando las propiedades indicadas no sean <see langword="null"/>.
+    /// </summary>
+    /// <param name="command">Comando a configurar.</param>
+    /// <param name="propertySelectors">
+    /// Selectores de propiedades a observar.
+    /// </param>
+    /// <returns>
+    /// <paramref name="command"/>, permitiendo el uso de sintaxis
+    /// Fluent.
+    /// </returns>
+    public static ObservingCommand CanExecuteIfNotNull<T>(this ObservingCommand command, params Expression<Func<T, object?>>[] propertySelectors)
+    {
+        return ListensToProperties(command, propertySelectors)
+            .SetCanExecute(() => propertySelectors.Select(p => p.Compile().Invoke((T)command.ObservedSource)).All(p => p is not null));
+    }
+
+    /// <summary>
+    /// Configura un <see cref="ObservingCommand"/> para poder ejecutarse
+    /// cuando las propiedades indicadas no sean <see langword="null"/>.
+    /// </summary>
+    /// <param name="command">Comando a configurar.</param>
+    /// <param name="propertySelectors">
+    /// Selectores de propiedades a observar.
+    /// </param>
+    /// <returns>
+    /// <paramref name="command"/>, permitiendo el uso de sintaxis
+    /// Fluent.
+    /// </returns>
+    public static ObservingCommand CanExecuteIfNotDefault<T>(this ObservingCommand command, params Expression<Func<T, ValueType>>[] propertySelectors)
+    {
+        return ListensToProperties(command, propertySelectors)
+            .SetCanExecute(() => propertySelectors.Select(p => p.Compile().Invoke((T)command.ObservedSource)).All(p => !Equals(p, p.GetType().Default())));
+    }
+    
     private static ObservingCommand RegisterCanExecute(this ObservingCommand command, MemberInfo m)
     {
         switch (m)
@@ -223,9 +331,9 @@ public static partial class ObservingCommandExtensions
                     .RegisterObservedProperty(m.Name);
                 break;
             case MethodInfo mi:
-                if (mi.ToDelegate<Func<object?, bool>>() is { } oFunc)
+                if (mi.ToDelegate<Func<object?, bool>>(command.ObservedSource) is { } oFunc)
                     command.SetCanExecute(oFunc);
-                else if (mi.ToDelegate<Func<bool>>() is { } function)
+                else if (mi.ToDelegate<Func<bool>>(command.ObservedSource) is { } function)
                     command.SetCanExecute(function);
                 else
                     throw new InvalidArgumentException("selector");

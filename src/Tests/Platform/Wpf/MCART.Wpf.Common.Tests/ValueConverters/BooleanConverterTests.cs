@@ -29,10 +29,10 @@ SOFTWARE.
 */
 
 using System.Globalization;
-using TheXDS.MCART.ValueConverters;
 using NUnit.Framework;
+using TheXDS.MCART.ValueConverters;
 
-namespace TheXDS.MCART.Wpf.Tests.ValueConverters;
+namespace TheXDS.MCART.Wpf.Common.Tests.ValueConverters;
 
 public class BooleanConverterTests
 {

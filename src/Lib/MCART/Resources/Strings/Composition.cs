@@ -28,10 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Text;
 using TheXDS.MCART.Types.Extensions;
@@ -136,7 +132,7 @@ public static class Composition
         Write(ExDumpOptions.HResult, $" (0x{ex.HResult.ToString("X").PadLeft(8, '0')})");
         Separator();
         if (Write(ExDumpOptions.Message, ex.Message)) Separator();
-        if (Write(ExDumpOptions.Message, ex.StackTrace ?? Errors.NoStackInfo)) Separator();
+        if (Write(ExDumpOptions.StackTrace, ex.StackTrace ?? Errors.NoStackInfo)) Separator();
         if (options.HasFlag(ExDumpOptions.Inner))
         {
             foreach (PropertyInfo j in ex.GetType().GetProperties())

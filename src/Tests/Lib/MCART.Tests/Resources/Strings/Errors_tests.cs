@@ -1,23 +1,23 @@
-// ExceptionResourceTestClass.cs
-//
+﻿// Errors_tests.cs
+// 
 // This file is part of Morgan's CLR Advanced Runtime (MCART)
-//
+// 
 // Author(s):
 //      César Andrés Morgan <xds_xps_ivx@hotmail.com>
-//
+// 
 // Released under the MIT License (MIT)
 // Copyright © 2011 - 2023 César Andrés Morgan
-//
+// 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of
 // this software and associated documentation files (the “Software”), to deal in
 // the Software without restriction, including without limitation the rights to
 // use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
 // of the Software, and to permit persons to whom the Software is furnished to do
 // so, subject to the following conditions:
-//
+// 
 // The above copyright notice and this permission notice shall be included in all
 // copies or substantial portions of the Software.
-//
+// 
 // THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -26,25 +26,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using NUnit.Framework;
+using TheXDS.MCART.Resources.Strings;
 
-namespace TheXDS.MCART.Tests;
+namespace TheXDS.MCART.Tests.Resources.Strings;
 
-public abstract class ExceptionResourceTestClass
+public class Errors_tests : StringResourceTestClass<Errors>
 {
-    /// <summary>
-    /// Ejecuta una prueba básica sobre la excepción especificada.
-    /// </summary>
-    /// <typeparam name="T">Tipo de excepción.</typeparam>
-    /// <param name="exception">
-    /// Excepción para la cual ejecutar las pruebas unitarias básicas.
-    /// </param>
-    /// <returns>La misma instancia que <paramref name="exception"/>.</returns>
-    protected static T TestException<T>(T exception)
-    {
-        Assert.That(exception,
-            Is.InstanceOf<T>()
-            .And.Property(nameof(Exception.Message)).Not.Empty);
-        return exception;
-    }
 }

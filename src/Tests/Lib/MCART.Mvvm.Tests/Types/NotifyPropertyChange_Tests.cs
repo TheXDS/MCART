@@ -81,10 +81,7 @@ public class NotifyPropertyChange_Tests
     [Test]
     public void Change_basic_test()
     {
-        static void SetIntProperty(TestNpcClass obj)
-        {
-            obj.IntProperty = 1;
-        }
+        static void SetIntProperty(TestNpcClass obj) => obj.IntProperty = 1;
         var obj = new TestNpcClass();
         TestEvents(obj, SetIntProperty,
             new EventTestEntry<TestNpcClass, PropertyChangingEventHandler, PropertyChangingEventArgs>(nameof(TestNpcClass.PropertyChanging),

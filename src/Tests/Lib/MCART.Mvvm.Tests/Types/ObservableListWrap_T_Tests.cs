@@ -65,6 +65,21 @@ public class ObservableListWrap_T_Tests : ObservableCollectionTestsBase<Observab
         var (_, wrap) = GetTestWrap();
         Assert.That(wrap[0], Is.EqualTo("test 1"));
     }
+    
+    [Test]
+    public void Indexer_get_without_underlying_collection_test()
+    {
+        var wrap = new ObservableListWrap<string>();
+        Assert.That(() => wrap[0], Throws.InvalidOperationException);
+    }
+    
+        
+    [Test]
+    public void Indexer_set_without_underlying_collection_test()
+    {
+        var wrap = new ObservableListWrap<string>();
+        Assert.That(() => wrap[0] = "Test", Throws.InvalidOperationException);
+    }
 
     [Test]
     public void Indexer_set_fires_event_test()

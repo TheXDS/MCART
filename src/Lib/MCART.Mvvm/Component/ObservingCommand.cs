@@ -55,7 +55,7 @@ public partial class ObservingCommand : CommandBase
     /// </summary>
     /// <param name="observedSource">Origen de datos observado.</param>
     /// <param name="action">Acción a ejecutar.</param>
-    public ObservingCommand(INotifyPropertyChanged observedSource, Action action) : this(observedSource, (_) => action()) { }
+    public ObservingCommand(INotifyPropertyChanged observedSource, Action action) : this(observedSource, _ => action()) { }
 
     /// <summary>
     /// Inicializa una nueva instancia de la clase
@@ -63,7 +63,7 @@ public partial class ObservingCommand : CommandBase
     /// </summary>
     /// <param name="observedSource">Origen de datos observado.</param>
     /// <param name="task">Tarea a ejecutar.</param>
-    public ObservingCommand(INotifyPropertyChanged observedSource, Func<Task> task) : this(observedSource, (Action<object?>)(async (_) => await task())) { }
+    public ObservingCommand(INotifyPropertyChanged observedSource, Func<Task> task) : this(observedSource, (Action<object?>)(async _ => await task())) { }
 
     /// <summary>
     /// Inicializa una nueva instancia de la clase
@@ -71,7 +71,7 @@ public partial class ObservingCommand : CommandBase
     /// </summary>
     /// <param name="observedSource">Origen de datos observado.</param>
     /// <param name="task">Tarea a ejecutar.</param>
-    public ObservingCommand(INotifyPropertyChanged observedSource, Func<object?, Task> task) : this(observedSource, (Action<object?>)(async (object? o) => await task(o))) { }
+    public ObservingCommand(INotifyPropertyChanged observedSource, Func<object?, Task> task) : this(observedSource, (Action<object?>)(async o => await task(o))) { }
 
     /// <summary>
     /// Inicializa una nueva instancia de la clase
@@ -161,7 +161,7 @@ public partial class ObservingCommand : CommandBase
     public ObservingCommand SetCanExecute(Func<bool> canExecute)
     {
         NullCheck(canExecute, nameof(canExecute));
-        return SetCanExecute(_ => canExecute());
+        return SetCanExecute((_, _) => canExecute());
     }
 
     /// <summary>

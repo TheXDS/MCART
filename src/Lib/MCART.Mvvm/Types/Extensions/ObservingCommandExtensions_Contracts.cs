@@ -44,11 +44,25 @@ public static partial class ObservingCommandExtensions
     [Conditional("EnforceContracts")]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     [DebuggerNonUserCode]
-    private static void ListensToProperties_Contract<T>(ObservingCommand command, Expression<Func<T>>[] properties)
+    private static void ListensToProperties_Contract<TProperty>(ObservingCommand command, Expression<Func<TProperty>>[] properties)
     {
         NullCheck(command, nameof(command));
         if (!properties.Any()) throw Errors.EmptyCollection(properties);
-        PropertyInfo[]? t = command.ObservedSource.GetType().GetProperties();
+        PropertyInfo[] t = command.ObservedSource.GetType().GetProperties();
+        if (properties.Select(GetProperty).FirstOrDefault(p => !t.Contains(p)) is { } missingProp)
+        {
+            throw Errors.MissingMember(command.ObservedSource.GetType(), missingProp);
+        }
+    }
+    
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void ListensToProperties_Contract<T, TProperty>(ObservingCommand command, Expression<Func<T, TProperty>>[] properties)
+    {
+        NullCheck(command, nameof(command));
+        if (!properties.Any()) throw Errors.EmptyCollection(properties);
+        PropertyInfo[] t = command.ObservedSource.GetType().GetProperties();
         if (properties.Select(GetProperty).FirstOrDefault(p => !t.Contains(p)) is { } missingProp)
         {
             throw Errors.MissingMember(command.ObservedSource.GetType(), missingProp);
@@ -58,7 +72,7 @@ public static partial class ObservingCommandExtensions
     [Conditional("EnforceContracts")]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     [DebuggerNonUserCode]
-    private static void ListensToProperty_Contract<T>(ObservingCommand command, Expression<Func<T>> propertySelector)
+    private static void ListensToProperty_Contract(ObservingCommand command, Expression<Func<object?>> propertySelector)
     {
         ListensToProperty_Contract(command, () => GetProperty(propertySelector), command.ObservedSource.GetType());
     }
@@ -91,7 +105,7 @@ public static partial class ObservingCommandExtensions
     {
         NullCheck(command, nameof(command));
         NullCheck(selector, nameof(selector));
-        MemberInfo? member = selector();
+        MemberInfo member = selector();
         if (!GetAll<MemberInfo>(t).Contains(member))
         {
             throw Errors.MissingMember(t, member);
@@ -102,7 +116,7 @@ public static partial class ObservingCommandExtensions
     {
         NullCheck(command, nameof(command));
         NullCheck(propertySelector, nameof(propertySelector));
-        PropertyInfo? prop = propertySelector();
+        PropertyInfo prop = propertySelector();
         if (!GetAll<PropertyInfo>(t).Contains(prop))
         {
             throw Errors.MissingMember(t, prop);

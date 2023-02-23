@@ -32,7 +32,6 @@ using System.Collections;
 using System.ComponentModel;
 using System.Reflection;
 using TheXDS.MCART.Types.Extensions;
-using TheXDS.MCART.ViewModel;
 
 namespace TheXDS.MCART.Types.Base;
 
@@ -52,9 +51,9 @@ public abstract class ValidationSource : INotifyDataErrorInfo
     {
         private class ValidationRule
         {
-            public readonly Func<T, bool> Rule;
+            public readonly Func<T, bool?> Rule;
             public readonly string Error;
-            public ValidationRule(Func<T, bool> rule, string error)
+            public ValidationRule(Func<T, bool?> rule, string error)
             {
                 Rule = rule;
                 Error = error;
@@ -70,7 +69,7 @@ public abstract class ValidationSource : INotifyDataErrorInfo
             Property = property;
         }
 
-        IValidationEntry<T> IValidationEntry<T>.AddRule(Func<T, bool> rule, string error)
+        IValidationEntry<T> IValidationEntry<T>.AddRule(Func<T, bool?> rule, string error)
         {
             _rules.Add(new ValidationRule(rule, error));
             return this;
@@ -78,7 +77,18 @@ public abstract class ValidationSource : INotifyDataErrorInfo
 
         IEnumerable<string> IValidationEntry.Check(object? value)
         {
-            return _rules.Where(p => !p.Rule((T)value!)).Select(p => p.Error).NotNull();
+            foreach (var rule in _rules)
+            {
+                switch (rule.Rule((T)value!))
+                {
+                    case false:
+                        yield return rule.Error;
+                        break;
+                    case null:
+                        yield return rule.Error;
+                        yield break;
+                }
+            }
         }
     }
 
@@ -93,11 +103,23 @@ public abstract class ValidationSource : INotifyDataErrorInfo
     public bool HasErrors => _errors.Any();
 
     /// <summary>
+    /// Indica si el objeto a comprobar ha pasado todas las pruebas de validación.
+    /// </summary>
+    public bool PassesValidation => !HasErrors;
+
+    /// <summary>
     /// Obtiene una colección de los errores de validación para la
     /// propiedad especificada.
     /// </summary>
-    /// <param name="propertyName"></param>
-    /// <returns></returns>
+    /// <param name="propertyName">
+    /// Nombre de la propiedad para la cual se deben obtener los mensajes de
+    /// error.
+    /// </param>
+    /// <returns>
+    /// Una enumeración de los mensajes de error para la propiedad
+    /// especificada, o una enumeración vacía si la propiedad no contiene
+    /// errores.
+    /// </returns>
     public IEnumerable<string> this[string propertyName] => _errors.TryGetValue(propertyName, out List<string>? l) ? l.ToArray() : Array.Empty<string>();
 
     private protected ValidationSource(IValidatingViewModel npcSource)
@@ -116,9 +138,9 @@ public abstract class ValidationSource : INotifyDataErrorInfo
     {
         foreach (IValidationEntry? j in _validationRules)
         {
-            AppendErrors(j, j.Property.GetValue(this));
+            AppendErrors(j, j.Property.GetValue(_npcSource));
         }
-        return !HasErrors && _validationRules.Any();
+        return !_validationRules.Any() || !HasErrors;
     }
 
     /// <summary>
@@ -162,7 +184,7 @@ public abstract class ValidationSource : INotifyDataErrorInfo
     private void AppendErrors(IValidationEntry entry, object? value)
     {
         _errors.Remove(entry.Property.Name);
-        foreach (string? j in entry.Check(value) ?? Array.Empty<string>())
+        foreach (string? j in entry.Check(value))
         {
             if (_errors.TryGetValue(entry.Property.Name, out List<string>? l))
                 l.Add(j);

@@ -28,15 +28,29 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Tests.Types.Extensions;
 using NUnit.Framework;
-using System;
-using System.IO;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using TheXDS.MCART.Types.Extensions;
 
+namespace TheXDS.MCART.Tests.Types.Extensions;
+
 public class BinaryWriterExtensionsTests
 {
+    [ExcludeFromCodeCoverage]
+    private struct SimpleTestStruct
+    {
+        public int? NullableIntField;
+    }
+
+    [Test]
+    public void WriteStruct_contract_test()
+    {
+        using MemoryStream? ms = new();
+        using BinaryWriter? bw = new(ms, Encoding.Default, true);
+        Assert.That(() => bw.WriteStruct(new SimpleTestStruct() { NullableIntField = null }), Throws.InstanceOf<NullReferenceException>());
+    }
+    
     [Test]
     public void DynamicWrite_Test()
     {

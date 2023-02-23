@@ -73,7 +73,7 @@ public class ObservableListWrap<T> : ObservableWrap<T, IList<T>>, IList<T>
     /// </returns>
     public T this[int index]
     {
-        get => UnderlyingCollection is not null ? UnderlyingCollection[index] : default!;
+        get => UnderlyingCollection is not null ? UnderlyingCollection[index] : throw new InvalidOperationException();
         set
         {
             if (UnderlyingCollection is null) throw new InvalidOperationException();

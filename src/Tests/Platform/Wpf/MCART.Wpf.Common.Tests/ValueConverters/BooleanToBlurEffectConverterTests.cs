@@ -28,13 +28,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using NUnit.Framework;
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media.Effects;
+using NUnit.Framework;
 using TheXDS.MCART.ValueConverters;
 
-namespace TheXDS.MCART.Wpf.Tests.ValueConverters;
+namespace TheXDS.MCART.Wpf.Common.Tests.ValueConverters;
 
 public class BooleanToBlurEffectConverterTests
 {
