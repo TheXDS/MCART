@@ -144,6 +144,8 @@ public class Size3DTests
         Assert.False(p.Equals((object?)null));
         Assert.False(p.Equals((ISize3D?)null));
         Assert.False(p.Equals((IVector3D?)null));
+        Assert.True(((IEquatable<IVector>)p).Equals(q));
+        Assert.False(((IEquatable<IVector>)p).Equals(r));
     }
 
     [Test]
@@ -188,6 +190,11 @@ public class Size3DTests
         Assert.AreEqual(y3, s.Height);
         Assert.AreEqual(z3, s.Depth);
 
+        Size3D t = p + (IVector3D)q;
+        Assert.AreEqual(x3, t.Width);
+        Assert.AreEqual(y3, t.Height);
+        Assert.AreEqual(z3, t.Depth);
+
         Assert.AreEqual(x3, (p + x2).Width);
         Assert.AreEqual(y3, (p + y2).Height);
         Assert.AreEqual(z3, (p + z2).Depth);
@@ -212,6 +219,11 @@ public class Size3DTests
         Assert.AreEqual(x3, s.Width);
         Assert.AreEqual(y3, s.Height);
         Assert.AreEqual(z3, s.Depth);
+        
+        Size3D t = p - (IVector3D)q;
+        Assert.AreEqual(x3, t.Width);
+        Assert.AreEqual(y3, t.Height);
+        Assert.AreEqual(z3, t.Depth);
 
         Assert.AreEqual(x3, (p - x2).Width);
         Assert.AreEqual(y3, (p - y2).Height);
@@ -238,6 +250,11 @@ public class Size3DTests
         Assert.AreEqual(y3, s.Height);
         Assert.AreEqual(z3, s.Depth);
 
+        Size3D t = p * (IVector3D)q;
+        Assert.AreEqual(x3, t.Width);
+        Assert.AreEqual(y3, t.Height);
+        Assert.AreEqual(z3, t.Depth);
+
         Assert.AreEqual(x3, (p * x2).Width);
         Assert.AreEqual(y3, (p * y2).Height);
         Assert.AreEqual(z3, (p * z2).Depth);
@@ -263,6 +280,11 @@ public class Size3DTests
         Assert.AreEqual(y3, s.Height);
         Assert.AreEqual(z3, s.Depth);
 
+        Size3D t = p / (IVector3D)q;
+        Assert.AreEqual(x3, t.Width);
+        Assert.AreEqual(y3, t.Height);
+        Assert.AreEqual(z3, t.Depth);
+
         Assert.AreEqual(x3, (p / x2).Width);
         Assert.AreEqual(y3, (p / y2).Height);
         Assert.AreEqual(z3, (p / z2).Depth);
@@ -287,7 +309,12 @@ public class Size3DTests
         Size3D s = p % (ISize3D)q;
         Assert.AreEqual(x3, s.Width);
         Assert.AreEqual(y3, s.Height);
-        Assert.AreEqual(z3, s.Depth);
+        Assert.AreEqual(z3, s.Depth); 
+        
+        Size3D t = p % (IVector3D)q;
+        Assert.AreEqual(x3, t.Width);
+        Assert.AreEqual(y3, t.Height);
+        Assert.AreEqual(z3, t.Depth);
 
         Assert.AreEqual(x3, (p % x2).Width);
         Assert.AreEqual(y3, (p % y2).Height);
@@ -385,5 +412,13 @@ public class Size3DTests
         Assert.IsFalse(new Size3D(1, 2, double.NaN).IsValid);
         Assert.IsFalse(Size3D.Nothing.IsValid);
         Assert.IsFalse(Size3D.Infinity.IsValid);
+    }
+
+    [TestCase(1, 1, 1, 6)]
+    [TestCase(2, 2, 2, 12)]
+    [TestCase(5, 3, 2, 20)]
+    public void CubePerimeter_test(int width, int height, int depth, double expected)
+    {
+        Assert.That(new Size3D(width, height, depth).CubePerimeter, Is.EqualTo(expected));
     }
 }

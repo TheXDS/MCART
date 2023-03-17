@@ -4,6 +4,6 @@
     <Description>Complex Type Definitions for common MCART Types</Description>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\lib\MCART.Coloring\MCART.Coloring.csproj" />
+    <ProjectReference Include="..\..\Lib\MCART.Coloring\MCART.Coloring.csproj" />
   </ItemGroup>
 </Project>

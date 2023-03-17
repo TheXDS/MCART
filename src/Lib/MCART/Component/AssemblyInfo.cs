@@ -149,7 +149,7 @@ public class AssemblyInfo : IExposeExtendedInfo, IExposeAssembly
         {
             foreach (Type? j in ThirdPartyComponents)
             {
-                if (j.HasAttribute(out LicenseAttributeBase? lic)) yield return lic!.GetLicense(j);
+                if (j.HasAttribute(out LicenseAttributeBase? lic)) yield return lic.GetLicense(j);
             }
         }
     }

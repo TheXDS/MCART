@@ -30,9 +30,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Extensions;
@@ -97,9 +94,9 @@ public static partial class Statistics
     /// <returns>La tendencia media de un set de datos.</returns>
     public static double MeanTendency(this IEnumerable<double> data)
     {
-        List<double>? c = new();
+        List<double> c = new();
         double last;
-        using IEnumerator<double>? e = data.GetEnumerator();
+        using IEnumerator<double> e = data.GetEnumerator();
         if (e.MoveNext()) last = e.Current;
         else return double.NaN;
         while (e.MoveNext())
@@ -157,7 +154,7 @@ public static partial class Statistics
     /// <returns>La media de un set de datos.</returns>
     public static double Median(this IEnumerable<double> data)
     {
-        List<double>? d = data.ToList();
+        List<double> d = data.ToList();
         if (!d.Any()) return double.NaN;
         d.Sort();
         int p = d.Count / 2;
@@ -173,8 +170,8 @@ public static partial class Statistics
     /// <returns>La moda de un set de datos.</returns>
     public static IEnumerable<double> Mode(this IEnumerable<double> data)
     {
-        Dictionary<double, int>? d = new();
-        using IEnumerator<double>? e = data.GetEnumerator();
+        Dictionary<double, int> d = new();
+        using IEnumerator<double> e = data.GetEnumerator();
         while (e.MoveNext())
         {
             if (!d.ContainsKey(e.Current)) d.Add(e.Current, 1);
@@ -195,7 +192,7 @@ public static partial class Statistics
     /// </returns>
     public static double MeanAbsoluteDeviation(this IEnumerable<double> data)
     {
-        List<double>? d = data.ToList();
+        List<double> d = data.ToList();
         return AbsoluteDeviation(d, d.Average());
     }
 
@@ -208,7 +205,7 @@ public static partial class Statistics
     /// <returns>La desviación media absoluta de un set de datos.</returns>
     public static double MedianAbsoluteDeviation(this IEnumerable<double> data)
     {
-        List<double>? d = data.ToList();
+        List<double> d = data.ToList();
         return AbsoluteDeviation(d, d.Median());
     }
 
@@ -228,7 +225,7 @@ public static partial class Statistics
     {
         double d = 0.0;
         int c = 0;
-        using IEnumerator<double>? e = data.GetEnumerator();
+        using IEnumerator<double> e = data.GetEnumerator();
         while (e.MoveNext())
         {
             c++;
@@ -277,7 +274,7 @@ public static partial class Statistics
     public static double Covariance(IEnumerable<double> dataA, IEnumerable<double> dataB)
     {
         double sigmaXY = 0.0;        
-        (_, _, int countA, _) = DataSetComputation(dataA, dataB, (in double a, in double b, in double avgA, in double avgB) => sigmaXY += (a - avgA) * (b - avgB));
+        (_, _, int countA) = DataSetComputation(dataA, dataB, (in double a, in double b, in double avgA, in double avgB) => sigmaXY += (a - avgA) * (b - avgB));
         return sigmaXY / countA;
     }
 
@@ -290,7 +287,7 @@ public static partial class Statistics
     /// <returns>La desviación cuadrada de un set de datos.</returns>
     public static double DeviationSquared(this IEnumerable<double> data)
     {
-        List<double>? d = data.ToList();
+        List<double> d = data.ToList();
         double avg = d.Average();
         return d.Sum(p => System.Math.Pow(p - avg, 2));
     }
@@ -331,13 +328,13 @@ public static partial class Statistics
     public static double Forecast(in double valueA, IEnumerable<double> dataA, IEnumerable<double> dataB)
     {
         double sigmaXY = 0.0, sigmaX = 0.0;
-        (double avgA, double avgB, _, _) = DataSetComputation(dataA, dataB, (in double a, in double b, in double avgA, in double avgB) => 
+        (double averageA, double averageB, _) = DataSetComputation(dataA, dataB, (in double a, in double b, in double avgA, in double avgB) => 
         {
             sigmaXY += (a - avgA) * (b - avgB);
             sigmaX += System.Math.Pow(a - avgA, 2);
         });
         double b = sigmaXY / sigmaX;
-        double a = avgB - b * avgA;
+        double a = averageB - b * averageA;
         return a + b * valueA;
     }
 
@@ -350,17 +347,17 @@ public static partial class Statistics
     /// <returns>La desviación estándar de un set de datos.</returns>
     public static double StandardDeviation(this IEnumerable<double> data)
     {
-        List<double>? d = data.ToList();
+        List<double> d = data.ToList();
         double avg = d.Average();
         return System.Math.Sqrt(d.Sum(p => System.Math.Pow(p - avg, 2)) / d.Count);
     }
 
     private delegate void DataSetAction(in double currentA, in double currentB, in double avgA, in double avgB);
 
-    private static (double averageA, double averageB, int countA, int countB) DataSetComputation(IEnumerable<double> dataA, IEnumerable<double> dataB, DataSetAction action)
+    private static (double averageA, double averageB, int count) DataSetComputation(IEnumerable<double> dataA, IEnumerable<double> dataB, DataSetAction action)
     {
-        List<double>? dA = dataA.ToList();
-        List<double>? dB = dataB.ToList();
+        List<double> dA = dataA.ToList();
+        List<double> dB = dataB.ToList();
         double avgA = dA.Average();
         double avgB = dB.Average();
         using List<double>.Enumerator eA = dA.GetEnumerator();
@@ -370,6 +367,6 @@ public static partial class Statistics
             action(eA.Current, eB.Current, avgA, avgB);
         }
         if (eA.MoveNext() || eB.MoveNext()) throw new IndexOutOfRangeException();
-        return (avgA, avgB, dA.Count, dB.Count);
+        return (avgA, avgB, dA.Count);
     }
 }

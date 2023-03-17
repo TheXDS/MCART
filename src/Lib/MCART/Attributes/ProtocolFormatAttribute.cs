@@ -28,7 +28,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System;
+using System.Diagnostics;
 using static System.AttributeTargets;
 using static TheXDS.MCART.Misc.Internals;
 
@@ -68,9 +68,11 @@ public sealed class ProtocolFormatAttribute : Attribute, IValueAttribute<string>
     /// URL del recurso a abrir por medio del protocolo definido por
     /// este atributo.
     /// </param>
-    public void Open(string url)
+    /// <returns>
+    /// Una instancia de
+    /// </returns>
+    public Process? Open(string url)
     {
-        if (string.IsNullOrWhiteSpace(url)) return;
-        System.Diagnostics.Process.Start(string.Format(Format, url));
+        return string.IsNullOrWhiteSpace(url) ? null : Process.Start(string.Format(Format, url));
     }
 }

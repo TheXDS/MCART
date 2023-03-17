@@ -50,6 +50,14 @@ public class StatisticsTests
     }
 
     [Test]
+    public void Average_Contract_Test()
+    {
+        Assert.That(() => double.NaN.Average(0,0), Throws.ArgumentException);
+        Assert.That(() => 1.0.Average(-1,0), Throws.InstanceOf<ArgumentOutOfRangeException>());
+        Assert.That(() => 1.0.Average(0,double.NaN), Throws.ArgumentException);
+    }
+    
+    [Test]
     public void GeometricMean_Test()
     {
         var d = new double[] { 2, 4, 6, 8, 10 }.GeometricMean();
@@ -68,6 +76,7 @@ public class StatisticsTests
     {
         var d = new [] { 2.5, 4.75, 6.11, 9.14 }.Median();
         Assert.AreEqual(3.625 , d);
+        Assert.That(Array.Empty<double>().Median(), Is.EqualTo(double.NaN));
     }
     
     [Test]
@@ -86,6 +95,12 @@ public class StatisticsTests
         Assert.AreEqual(0.0, new double[] { 3, 5, 3, 5, 3, 5, 3 }.MeanTendency());
     }
 
+    [Test]
+    public void GeometricMean_test()
+    {
+        Assert.That(new double[] { 10, 25, 5, 30 }.GeometricMean(), Is.InRange(13.914, 13.916));
+    }
+    
     [Test]
     public void CorrelationTest()
     {
@@ -132,5 +147,17 @@ public class StatisticsTests
         Assert.AreEqual(17,b[1].Maximum);
         Assert.AreEqual(18,b[2].Minimum);
         Assert.AreEqual(22,b[2].Maximum);
+    }
+
+    [Test]
+    public void MeanAbsoluteDeviation_test()
+    {
+        Assert.That(new double[] { 10, 15, 15, 17, 18, 21 }.MeanAbsoluteDeviation(), Is.InRange(2.66, 2.68));
+    }
+    
+    [Test]
+    public void MedianAbsoluteDeviation_test()
+    {
+        Assert.That(new double[] { 1, 1, 2, 2, 4, 6, 9 }.MedianAbsoluteDeviation(), Is.InRange(2.140, 2.145));
     }
 }

@@ -2,6 +2,7 @@
 	<PropertyGroup>
 		<TargetFramework>net6.0-windows</TargetFramework>
 		<UseWPF>true</UseWPF>
+		<EnableWindowsTargeting>true</EnableWindowsTargeting>
 	</PropertyGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\..\Platform\Wpf\MCART.Wpf.Common\MCART.Wpf.Common.csproj" />

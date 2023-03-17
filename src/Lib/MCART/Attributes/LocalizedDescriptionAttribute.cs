@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System;
 using System.Resources;
 using static System.AttributeTargets;
 using static TheXDS.MCART.Misc.Internals;
@@ -40,7 +39,7 @@ namespace TheXDS.MCART.Attributes;
 /// </summary>
 [AttributeUsage(All)]
 [Serializable]
-public sealed class LocalizedDescriptionAttribute : System.ComponentModel.DescriptionAttribute
+public sealed class LocalizedDescriptionAttribute : System.ComponentModel.DescriptionAttribute, IValueAttribute<string>
 {
     private readonly string _stringId;
     private readonly ResourceManager _res;
@@ -59,4 +58,6 @@ public sealed class LocalizedDescriptionAttribute : System.ComponentModel.Descri
 
     /// <inheritdoc/>
     public override string Description => _res.GetString(_stringId) ?? $"[[{_stringId}]]";
+
+    string IValueAttribute<string>.Value => Description;
 }

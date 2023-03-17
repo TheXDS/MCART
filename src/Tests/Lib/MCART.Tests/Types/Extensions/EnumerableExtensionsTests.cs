@@ -29,14 +29,9 @@ SOFTWARE.
 */
 
 using NUnit.Framework;
-using System;
 using System.Collections;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Types.Extensions;
 
@@ -79,7 +74,7 @@ public class EnumerableExtensionsTests
         Assert.True(objSet.IsAnyOf<string>());
         Assert.False(objSet.IsAnyOf<DayOfWeek>());
         Assert.True(objSet.IsAnyOf(typeof(int)));
-        Assert.False(objSet.IsAnyOf(typeof(System.IO.Stream)));
+        Assert.False(objSet.IsAnyOf(typeof(Stream)));
     }
 
     [Test]
@@ -256,7 +251,7 @@ public class EnumerableExtensionsTests
                 Guid.NewGuid()
             };
         Assert.AreEqual(1.0, c.FirstOf<double>());
-        Assert.Null(c.FirstOf<System.IO.Stream>());
+        Assert.Null(c.FirstOf<Stream>());
     }
 
     [Test]
