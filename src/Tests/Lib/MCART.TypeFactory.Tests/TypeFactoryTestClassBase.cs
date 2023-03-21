@@ -33,5 +33,4 @@ namespace TheXDS.MCART.TypeFactory.Tests;
 public abstract class TypeFactoryTestClassBase
 {
     protected static readonly TheXDS.MCART.Types.TypeFactory Factory = new("TheXDS.MCART.TypeFactory.Tests._Generated", true);
-
 }

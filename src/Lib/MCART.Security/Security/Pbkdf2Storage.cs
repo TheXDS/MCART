@@ -79,7 +79,9 @@ public class Pbkdf2Storage : IPasswordStorage
         Settings = settings;
     }
 
-    /// <inheritdoc/>
+    /// <summary>
+    /// Obtiene una referencia a la configuración activa de esta instancia.
+    /// </summary>
     public Pbkdf2Settings Settings { get; set; }
 
     int IPasswordStorage.KeyLength => Settings.DerivedKeyLength;
@@ -97,8 +99,8 @@ public class Pbkdf2Storage : IPasswordStorage
 
     byte[] IPasswordStorage.DumpSettings()
     {
-        using var ms = new MemoryStream();
-        using var writer = new BinaryWriter(ms);
+        using MemoryStream ms = new();
+        using BinaryWriter writer = new(ms);
         writer.Write((short)Settings.Salt.Length);
         writer.Write(Settings.Salt);
         writer.Write(Settings.Iterations);
@@ -109,7 +111,7 @@ public class Pbkdf2Storage : IPasswordStorage
 
     byte[] IPasswordStorage.Generate(byte[] input)
     {
-        using Rfc2898DeriveBytes? pbkdf2 = GetPbkdf2(input);
+        using Rfc2898DeriveBytes pbkdf2 = GetPbkdf2(input);
         return pbkdf2.GetBytes(Settings.DerivedKeyLength);
     }
 

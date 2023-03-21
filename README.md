@@ -36,7 +36,7 @@ estado actual.
 MCART se compone de varios proyectos, y distintos proyectos de código
 compartido entre las plataformas. En ellos reside la raíz de la mayoría de
 características que pueden funcionar en diferentes entornos CIL. La
-funcionalidad está comprobada con .Net 5.0; lo que debería ser suficiente
+funcionalidad está comprobada con .Net 6.0; lo que debería ser suficiente
 para crear aplicaciones basadas en Win32, WPF, Gtk#, consola e incluso sitios
 web desarrollados en ASP .Net.
 

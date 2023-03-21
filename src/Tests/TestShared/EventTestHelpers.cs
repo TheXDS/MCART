@@ -93,7 +93,6 @@ public static class EventTestHelpers
     public static PropertyChangedEventArgs? TestNpcProperty<TObject>(TObject obj, Action<TObject> testDelegate,
         bool firedExpected = true)
         where TObject : class, INotifyPropertyChanged
-
     {
         return TestEvent<TObject, PropertyChangedEventHandler, PropertyChangedEventArgs>(obj, nameof(INotifyPropertyChanged.PropertyChanged), testDelegate, firedExpected);
     }
@@ -274,7 +273,6 @@ public static class EventTestHelpers
             additionalPropChangeNotifications);
         TestNpcProperty(instance, propertySelector, setTestValue, false,
             additionalPropChangeNotifications);
-
     }
 
     /// <summary>

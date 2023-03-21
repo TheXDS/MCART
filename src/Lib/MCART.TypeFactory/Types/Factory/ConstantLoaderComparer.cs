@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.Collections.Generic;
 using TheXDS.MCART.Types.Extensions.ConstantLoaders;
 
 namespace TheXDS.MCART.Types.Extensions;

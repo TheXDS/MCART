@@ -28,10 +28,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Reflection.Emit;
@@ -346,9 +343,10 @@ public static class ILGeneratorExtensions
     /// </exception>
     public static ILGenerator NewObject(this ILGenerator ilGen, Type type, IEnumerable args)
     {
-        if (type.GetConstructor(args.ToTypes().ToArray()) is not ConstructorInfo c)
+        object?[] ctorArgs = args.Cast<object?>().ToArray();
+        if (type.GetConstructor(ctorArgs.ToTypes().ToArray()) is not { } c)
             throw new ClassNotInstantiableException(type);
-        foreach (object? j in args)
+        foreach (object? j in ctorArgs)
         {
             if (j is null)
                 ilGen.LoadNull();
@@ -411,7 +409,8 @@ public static class ILGeneratorExtensions
     {
         ilGen.This();
         ilGen.Emit(Op.Call, typeof(TClass).GetConstructor(baseCtorArgs)
-            ?? typeof(TClass).GetConstructors(BindingFlags.NonPublic | BindingFlags.Instance).FirstOrDefault(p => p.GetParameters().Select(p => p.ParameterType).ItemsEqual(baseCtorArgs))
+            ?? typeof(TClass).GetConstructors(BindingFlags.NonPublic | BindingFlags.Instance)
+                .FirstOrDefault(p => p.GetParameters().Select(q => q.ParameterType).ItemsEqual(baseCtorArgs))
             ?? throw new MissingMemberException());
         return ilGen;
     }
@@ -1619,7 +1618,7 @@ public static class ILGeneratorExtensions
     /// </summary>
     /// <param name="ilGen">
     /// Secuencia de instrucciones en la cual insertar el bloque
-    /// <see langword="for"/>.
+    /// <see langword="try"/>.
     /// </param>
     /// <param name="tryBlock">
     /// Acción que permite definir las instrucciones a insertar en el
@@ -1686,7 +1685,7 @@ public static class ILGeneratorExtensions
     /// </summary>
     /// <param name="ilGen">
     /// Secuencia de instrucciones en la cual insertar el bloque
-    /// <see langword="for"/>.
+    /// <see langword="try"/>.
     /// </param>
     /// <param name="tryBlock">
     /// Acción que permite definir las instrucciones a insertar en el
