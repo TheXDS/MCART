@@ -140,8 +140,8 @@ public static class ILGeneratorExtensions
     /// </exception>
     public static ILGenerator LoadConstant<T>(this ILGenerator ilGen, T value)
     {
-        Type? t = typeof(T);
-        if (_constantLoaders.FirstOrDefault(p => p.ConstantType == t) is IConstantLoader cl)
+        Type t = typeof(T);
+        if (_constantLoaders.FirstOrDefault(p => p.ConstantType == t) is { } cl)
         {
             cl.Emit(ilGen, value);
         }
@@ -183,7 +183,7 @@ public static class ILGeneratorExtensions
     /// </exception>
     public static ILGenerator LoadConstant(this ILGenerator ilGen, Type t, object? value)
     {
-        if (_constantLoaders.FirstOrDefault(p => p.ConstantType == t) is IConstantLoader cl)
+        if (_constantLoaders.FirstOrDefault(p => p.ConstantType == t) is { } cl)
         {
             cl.Emit(ilGen, value);
         }
@@ -795,7 +795,7 @@ public static class ILGeneratorExtensions
     /// </remarks>
     public static ILGenerator ForEach<T>(this ILGenerator ilGen, ForEachBlock foreachBlock)
     {
-        LocalBuilder? itm = ilGen.DeclareLocal(typeof(T));
+        LocalBuilder itm = ilGen.DeclareLocal(typeof(T));
         return ilGen
             .Call<IEnumerable<T>, Func<IEnumerator<T>>>(p => p.GetEnumerator)
             .StoreNewLocal<IEnumerator<T>>(out LocalBuilder? enumerator)
@@ -1560,7 +1560,7 @@ public static class ILGeneratorExtensions
     /// </returns>
     public static ILGenerator LoadProperty(this ILGenerator ilGen, PropertyInfo property)
     {
-        MethodInfo? m = property.GetGetMethod()!;
+        MethodInfo m = property.GetGetMethod()!;
         if (m.IsStatic)
         {
             return ilGen.Call(m);

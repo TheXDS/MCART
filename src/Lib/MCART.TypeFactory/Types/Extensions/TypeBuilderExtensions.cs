@@ -106,7 +106,7 @@ public static class TypeBuilderExtensions
     /// </returns>
     public static PropertyBuildInfo AddAutoProperty(this TypeBuilder tb, string name, Type type, MemberAccess access, bool @virtual)
     {
-        PropertyBuildInfo? p = AddProperty(tb, name, type, true, access, @virtual).WithBackingField(out FieldBuilder? field);
+        PropertyBuildInfo p = AddProperty(tb, name, type, true, access, @virtual).WithBackingField(out FieldBuilder? field);
         p.Setter!
             .This()
             .LoadArg1()
@@ -183,7 +183,7 @@ public static class TypeBuilderExtensions
     /// <returns></returns>
     public static MethodBuildInfo AddOverride(this TypeBuilder tb, MethodInfo method)
     {
-        MethodBuilder? newMethod = tb.DefineMethod(method.Name, GetNonAbstract(method), method.IsVoid() ? null : method.ReturnType, method.GetParameters().Select(p => p.ParameterType).ToArray());
+        MethodBuilder newMethod = tb.DefineMethod(method.Name, GetNonAbstract(method), method.IsVoid() ? null : method.ReturnType, method.GetParameters().Select(p => p.ParameterType).ToArray());
         tb.DefineMethodOverride(newMethod, method);
         return new MethodBuildInfo(tb, newMethod);
     }
@@ -220,13 +220,13 @@ public static class TypeBuilderExtensions
     public static PropertyBuildInfo AddProperty(this TypeBuilder tb, string name, Type type, bool writable, MemberAccess access, bool @virtual)
     {
         ILGenerator? setIl = null;
-        PropertyBuilder? prop = tb.DefineProperty(name, PropertyAttributes.HasDefault, type, null);
-        MethodBuilder? getM = MkGet(tb, name, type, access, @virtual);
-        ILGenerator? getIl = getM.GetILGenerator();
+        PropertyBuilder prop = tb.DefineProperty(name, PropertyAttributes.HasDefault, type, null);
+        MethodBuilder getM = MkGet(tb, name, type, access, @virtual);
+        ILGenerator getIl = getM.GetILGenerator();
         prop.SetGetMethod(getM);
         if (writable)
         {
-            MethodBuilder? setM = MkSet(tb, name, type, access, @virtual);
+            MethodBuilder setM = MkSet(tb, name, type, access, @virtual);
             setIl = setM.GetILGenerator();
             prop.SetSetMethod(setM);
         }
@@ -387,7 +387,7 @@ public static class TypeBuilderExtensions
     /// </returns>
     public static PropertyBuildInfo AddComputedProperty(this TypeBuilder tb, string name, Type type, Action<ILGenerator> getterDefinition)
     {
-        PropertyBuildInfo? prop = AddProperty(tb, name, type, false, MemberAccess.Public, false);
+        PropertyBuildInfo prop = AddProperty(tb, name, type, false, MemberAccess.Public, false);
         getterDefinition(prop.Getter!);
         return prop;
     }
@@ -425,7 +425,7 @@ public static class TypeBuilderExtensions
     /// </returns>
     public static PropertyBuildInfo AddConstantProperty(this TypeBuilder tb, string name, Type type, object? value)
     {
-        PropertyBuildInfo? prop = AddProperty(tb, name, type, false, MemberAccess.Public, false);
+        PropertyBuildInfo prop = AddProperty(tb, name, type, false, MemberAccess.Public, false);
         prop.Getter!.LoadConstant(type, value).Return();
         return prop;
     }
@@ -507,9 +507,9 @@ public static class TypeBuilderExtensions
     /// </returns>
     public static PropertyBuildInfo AddWriteOnlyProperty(this TypeBuilder tb, string name, Type type, MemberAccess access, bool @virtual)
     {
-        PropertyBuilder? prop = tb.DefineProperty(name, PropertyAttributes.HasDefault, type, null);
-        MethodBuilder? setM = MkSet(tb, name, type, access, @virtual);
-        ILGenerator? setIl = setM.GetILGenerator();
+        PropertyBuilder prop = tb.DefineProperty(name, PropertyAttributes.HasDefault, type, null);
+        MethodBuilder setM = MkSet(tb, name, type, access, @virtual);
+        ILGenerator setIl = setM.GetILGenerator();
         prop.SetSetMethod(setM);
         return new PropertyBuildInfo(tb, prop, null, setIl);
     }
@@ -575,7 +575,7 @@ public static class TypeBuilderExtensions
         if (!method.DeclaringType?.IsInterface ?? true) throw Errors.IFaceMethodExpected();
         if (!tb.GetInterfaces().Contains(method.DeclaringType!)) throw Errors.InterfaceNotImplemented(method.DeclaringType!);
 
-        MethodBuilder? m = tb.DefineMethod($"{method.DeclaringType!.Name}.{method.Name}",
+        MethodBuilder m = tb.DefineMethod($"{method.DeclaringType!.Name}.{method.Name}",
             Private | HideBySig | NewSlot | Virtual | Final,
             method.IsVoid() ? null : method.ReturnType,
             method.GetParameters().Select(p => p.ParameterType).ToArray());
@@ -594,7 +594,7 @@ public static class TypeBuilderExtensions
 
     private static MethodBuilder MkGet(TypeBuilder tb, string name, Type t, MemberAccess a, bool v)
     {
-        string? n = $"get_{name}";
+        string n = $"get_{name}";
         return tb.DefineMethod(n, MkPFlags(tb, n, a, v), t, null);
     }
 

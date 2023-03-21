@@ -88,6 +88,6 @@ public abstract class ConstantLoader<T> : IConstantLoader, IEquatable<IConstantL
     /// </returns>
     public bool Equals(IConstantLoader? other)
     {
-        return other is { ConstantType: Type o } && ConstantType.Equals(o);
+        return other is { ConstantType: { } o } && ConstantType.Equals(o);
     }
 }

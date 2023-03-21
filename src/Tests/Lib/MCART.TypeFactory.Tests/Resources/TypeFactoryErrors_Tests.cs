@@ -1,4 +1,4 @@
-// LocalizedDescriptionAttribute_tests.cs
+// TypeFactoryErrors_Tests.cs
 // 
 // This file is part of Morgan's CLR Advanced Runtime (MCART)
 // 
@@ -27,28 +27,53 @@
 // SOFTWARE.
 
 using NUnit.Framework;
-using TheXDS.MCART.Attributes;
-using TheXDS.MCART.Resources.Strings;
-namespace TheXDS.MCART.Tests.Attributes
+using TheXDS.MCART.Resources;
+using TheXDS.MCART.Tests;
+using E = TheXDS.MCART.Resources.Errors;
+
+namespace TheXDS.MCART.TypeFactory.Tests.Resources;
+
+public class TypeFactoryErrors_Tests : ExceptionResourceTestClass
 {
-    public class LocalizedDescriptionAttribute_tests
+    [Test]
+    public void InterfaceNotImplemented_T_test()
     {
-        [Test]
-        public void Instancing_test()
-        {
-            LocalizedDescriptionAttribute attr = new(nameof(Common.AboutMCART), typeof(Common));
-            Assert.That(attr, Is.InstanceOf<LocalizedDescriptionAttribute>());
-            Assert.That(attr, Is.AssignableTo<IValueAttribute<string>>());
-            Assert.That(attr, Is.AssignableTo<Attribute>());
-        }
+        TestException(TypeFactoryErrors.InterfaceNotImplemented<IEnumerable<int>>());
+    }
+    
+    [Test]
+    public void InterfaceNotImplemented_test()
+    {
+        TestException(TypeFactoryErrors.InterfaceNotImplemented(typeof(IEnumerable<int>)));
+    }
+
+    [Test]
+    public void PropGetterAlreadyDefined_test()
+    {
+        TestException(TypeFactoryErrors.PropGetterAlreadyDefined());
+    }
+    
+    [Test]
+    public void PropFieldAlreadyDefined_test()
+    {
+        TestException(TypeFactoryErrors.PropFieldAlreadyDefined());
+    }
+    
+    [Test]
+    public void PropCannotBeRead_test()
+    {
+        TestException(TypeFactoryErrors.PropCannotBeRead());
+    }
         
-        [Test]
-        public void Description_test()
-        {
-            LocalizedDescriptionAttribute attr = new(nameof(Common.AboutMCART), typeof(Common));
-            IValueAttribute<string> iattr = attr;
-            Assert.That(attr.Description, Is.EqualTo(Common.AboutMCART));
-            Assert.That(iattr.Value, Is.EqualTo(attr.Description));
-        }
+    [Test]
+    public void IFaceMethodExpected_test()
+    {
+        TestException(TypeFactoryErrors.IFaceMethodExpected());
+    }
+
+    [Test]
+    public void CannotJoinObjects_test()
+    {
+        TestException(TypeFactoryErrors.CannotJoinObjects());
     }
 }

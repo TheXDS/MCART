@@ -1,5 +1,5 @@
 ﻿/*
-StringConstantLoader.cs
+TypeFactoryTests.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,28 +28,37 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.Reflection.Emit;
-using static System.Reflection.Emit.OpCodes;
+using System.Reflection;
+using NUnit.Framework;
+using TheXDS.MCART.Types;
+using TheXDS.MCART.Types.Extensions;
 
-namespace TheXDS.MCART.Types.Extensions.ConstantLoaders;
+namespace TheXDS.MCART.TypeFactory.Tests.Types;
 
-/// <summary>
-/// Carga un valor constante <see cref="string"/> en la secuencia
-/// de instrucciones MSIL.
-/// </summary>
-public class StringConstantLoader : ConstantLoader<string?>
+public class TypeFactoryTests : TypeFactoryTestClassBase
 {
-    /// <summary>
-    /// Carga un valor constante <see cref="string"/> en la secuencia
-    /// de instrucciones MSIL.
-    /// </summary>
-    /// <param name="il">Generador de IL a utilizar.</param>
-    /// <param name="value">
-    /// Valor constante a cargar en la secuencia de instrucciones.
-    /// </param>
-    public override void Emit(ILGenerator il, string? value)
+    [Test]
+    public void Build_Simple_Type_Test()
     {
-        if (value is null) il.Emit(Ldnull);
-        else il.Emit(Ldstr, value);
+        System.Reflection.Emit.TypeBuilder t = Factory.NewClass("GreeterClass");
+        PropertyBuildInfo nameProp = t.AddAutoProperty<string>("Name");
+        t.AddComputedProperty<string>("Greeting", p => p
+            .LoadConstant("Hello, ")
+            .LoadProperty(nameProp)
+            .Call<Func<string?, string?, string>>(string.Concat)
+            .Return());
+
+        object greeterInstance = t.New();
+        ((dynamic)greeterInstance).Name = "Jhon";
+
+        Assert.AreEqual("Jhon", (string)((dynamic)greeterInstance).Name);
+        Assert.AreEqual("Hello, Jhon", (string)((dynamic)greeterInstance).Greeting);
+    }
+
+    [Test]
+    public void Factory_exposes_dynamic_assembly()
+    {
+        Assert.IsInstanceOf<Assembly>(Factory.Assembly);
+        Assert.True(Factory.Assembly.IsDynamic);
     }
 }

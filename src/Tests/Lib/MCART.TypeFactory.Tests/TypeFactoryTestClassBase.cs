@@ -1,4 +1,4 @@
-// LocalizedDescriptionAttribute_tests.cs
+// TypeFactoryTestClassBase.cs
 // 
 // This file is part of Morgan's CLR Advanced Runtime (MCART)
 // 
@@ -26,29 +26,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using NUnit.Framework;
-using TheXDS.MCART.Attributes;
-using TheXDS.MCART.Resources.Strings;
-namespace TheXDS.MCART.Tests.Attributes
+#pragma warning disable CS1591
+
+namespace TheXDS.MCART.TypeFactory.Tests;
+
+public abstract class TypeFactoryTestClassBase
 {
-    public class LocalizedDescriptionAttribute_tests
-    {
-        [Test]
-        public void Instancing_test()
-        {
-            LocalizedDescriptionAttribute attr = new(nameof(Common.AboutMCART), typeof(Common));
-            Assert.That(attr, Is.InstanceOf<LocalizedDescriptionAttribute>());
-            Assert.That(attr, Is.AssignableTo<IValueAttribute<string>>());
-            Assert.That(attr, Is.AssignableTo<Attribute>());
-        }
-        
-        [Test]
-        public void Description_test()
-        {
-            LocalizedDescriptionAttribute attr = new(nameof(Common.AboutMCART), typeof(Common));
-            IValueAttribute<string> iattr = attr;
-            Assert.That(attr.Description, Is.EqualTo(Common.AboutMCART));
-            Assert.That(iattr.Value, Is.EqualTo(attr.Description));
-        }
-    }
+    protected static readonly TheXDS.MCART.Types.TypeFactory Factory = new("TheXDS.MCART.TypeFactory.Tests._Generated", true);
+
 }

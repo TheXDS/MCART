@@ -29,6 +29,7 @@ SOFTWARE.
 */
 
 using System;
+using System.Reflection;
 using System.Reflection.Emit;
 using static System.Reflection.Emit.OpCodes;
 
@@ -50,11 +51,13 @@ public class DecimalConstantLoader : ConstantLoader<decimal>
     /// </param>
     public override void Emit(ILGenerator il, decimal value)
     {
-        foreach (int j in decimal.GetBits(value))
-        {
-            il.Emit(Ldc_I4, j);
-        }
-        il.Emit(Newobj, typeof(decimal).GetConstructor(new Type[]
+        il.LoadConstant(typeof(decimal).GetProperty("Low", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(value));
+        il.LoadConstant(typeof(decimal).GetProperty("Mid", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(value));
+        il.LoadConstant(typeof(decimal).GetProperty("High", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(value));
+        il.LoadConstant(typeof(decimal).GetProperty("IsNegative", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(value));
+        il.LoadConstant(typeof(decimal).GetProperty("Scale", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(value));
+        
+        il.Emit(Newobj, typeof(decimal).GetConstructor(new []
         {
             typeof(int),
             typeof(int),

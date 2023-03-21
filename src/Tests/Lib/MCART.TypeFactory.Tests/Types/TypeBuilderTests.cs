@@ -1,5 +1,5 @@
 ﻿/*
-StringConstantLoader.cs
+TypeBuilderTests.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -10,7 +10,7 @@ Released under the MIT License (MIT)
 Copyright © 2011 - 2023 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
+this software and associated documentation files (the “Software”), to deal in
 the Software without restriction, including without limitation the rights to
 use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
 of the Software, and to permit persons to whom the Software is furnished to do
@@ -19,37 +19,42 @@ so, subject to the following conditions:
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+SOFTWARE. 
 */
 
 using System.Reflection.Emit;
-using static System.Reflection.Emit.OpCodes;
+using NUnit.Framework;
+using TheXDS.MCART.Types;
 
-namespace TheXDS.MCART.Types.Extensions.ConstantLoaders;
+namespace TheXDS.MCART.TypeFactory.Tests.Types;
 
-/// <summary>
-/// Carga un valor constante <see cref="string"/> en la secuencia
-/// de instrucciones MSIL.
-/// </summary>
-public class StringConstantLoader : ConstantLoader<string?>
+public class TypeBuilderTests : TypeFactoryTestClassBase
 {
-    /// <summary>
-    /// Carga un valor constante <see cref="string"/> en la secuencia
-    /// de instrucciones MSIL.
-    /// </summary>
-    /// <param name="il">Generador de IL a utilizar.</param>
-    /// <param name="value">
-    /// Valor constante a cargar en la secuencia de instrucciones.
-    /// </param>
-    public override void Emit(ILGenerator il, string? value)
+    [Test]
+    public void Ctor_test()
     {
-        if (value is null) il.Emit(Ldnull);
-        else il.Emit(Ldstr, value);
+        TypeBuilder t = Factory.NewType("RandomTestClass", typeof(Random), Type.EmptyTypes);
+        Assert.Throws<ArgumentException>(() => _ = new TypeBuilder<Uri>(t));
+    }
+
+    [Test]
+    public void TypeBuilder_T_to_TypeBuilder_test()
+    {
+        TypeBuilder t = Factory.NewType("RandomTestClass", typeof(Random), Type.EmptyTypes);
+        TypeBuilder<Random> tb = new(t);
+        Assert.IsAssignableFrom<TypeBuilder>((TypeBuilder)tb);
+    }
+
+    [Test]
+    public void TypeBuilder_to_TypeBuilder_T_test()
+    {
+        TypeBuilder t = Factory.NewType("RandomTestClass", typeof(Random), Type.EmptyTypes);
+        Assert.IsAssignableFrom<TypeBuilder<Random>>((TypeBuilder<Random>)t);
     }
 }

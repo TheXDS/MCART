@@ -1,4 +1,4 @@
-// LocalizedDescriptionAttribute_tests.cs
+// ConstantLoaderTestBase.cs
 // 
 // This file is part of Morgan's CLR Advanced Runtime (MCART)
 // 
@@ -26,29 +26,30 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using System.Reflection.Emit;
 using NUnit.Framework;
-using TheXDS.MCART.Attributes;
-using TheXDS.MCART.Resources.Strings;
-namespace TheXDS.MCART.Tests.Attributes
+using TheXDS.MCART.Types.Extensions;
+
+namespace TheXDS.MCART.TypeFactory.Tests.Types.ConstantLoaders;
+
+public abstract class ConstantLoaderTestBase<T> : TypeFactoryTestClassBase
 {
-    public class LocalizedDescriptionAttribute_tests
+    private readonly Func<IEnumerable<T>> _testValueSource;
+
+    public ConstantLoaderTestBase(Func<IEnumerable<T>> testValueSource)
     {
-        [Test]
-        public void Instancing_test()
+        _testValueSource = testValueSource;
+    }
+    
+    [Test]
+    public void Loader_Emits_value_test()
+    {
+        int c = 0;
+        foreach (var value in _testValueSource())
         {
-            LocalizedDescriptionAttribute attr = new(nameof(Common.AboutMCART), typeof(Common));
-            Assert.That(attr, Is.InstanceOf<LocalizedDescriptionAttribute>());
-            Assert.That(attr, Is.AssignableTo<IValueAttribute<string>>());
-            Assert.That(attr, Is.AssignableTo<Attribute>());
-        }
-        
-        [Test]
-        public void Description_test()
-        {
-            LocalizedDescriptionAttribute attr = new(nameof(Common.AboutMCART), typeof(Common));
-            IValueAttribute<string> iattr = attr;
-            Assert.That(attr.Description, Is.EqualTo(Common.AboutMCART));
-            Assert.That(iattr.Value, Is.EqualTo(attr.Description));
+            TypeBuilder t = Factory.NewClass($"{typeof(T)}ConstantLoaderTest{++c}");
+            t.AddConstantProperty("Value", value);
+            Assert.That(((dynamic)t.New()).Value, Is.EqualTo(value));
         }
     }
 }

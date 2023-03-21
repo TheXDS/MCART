@@ -202,7 +202,6 @@ public class ErrorsTests : ExceptionResourceTestClass
         var ex = TestException(E.ClassNotInstantiable(testType));
         Assert.That(ex.OffendingObject, Is.EqualTo(testType));
     }
-    
         
     [TestCase(typeof(int))]
     [TestCase(typeof(Stream))]
