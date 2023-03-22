@@ -28,14 +28,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
 using System.Runtime.CompilerServices;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
-using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Extensions;
 
@@ -46,24 +43,7 @@ internal static class Internals
 {
     internal static bool HasLicense(object obj)
     {
-        return obj.HasAttr<LicenseAttributeBase>();
-    }
-
-    internal static MethodBase? GetCallOutsideMcart(bool @throw = true)
-    {
-        MethodBase? m;
-        int c = 1;
-        do
-        {
-            m = ReflectionHelpers.GetCallingMethod(++c);
-            if (m is null)
-            {
-                if (@throw) throw new StackUnderflowException();
-                else break;
-            }
-        } while (m!.DeclaringType!.Assembly.HasAttr<McartComponentAttribute>());
-
-        return m;
+        return obj.HasAttribute<LicenseAttributeBase>();
     }
 
     [Conditional("EnforceContracts")]

@@ -75,5 +75,5 @@ public interface IPasswordStorage<T> : IPasswordStorage where T : struct
         return ms.ToArray();
     }
 
-    object? IPasswordStorage.Settings => Settings;
+    object IPasswordStorage.Settings => Settings;
 }

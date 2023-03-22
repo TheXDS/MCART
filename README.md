@@ -36,7 +36,7 @@ estado actual.
 MCART se compone de varios proyectos, y distintos proyectos de código
 compartido entre las plataformas. En ellos reside la raíz de la mayoría de
 características que pueden funcionar en diferentes entornos CIL. La
-funcionalidad está comprobada con .Net 5.0; lo que debería ser suficiente
+funcionalidad está comprobada con .Net 6.0; lo que debería ser suficiente
 para crear aplicaciones basadas en Win32, WPF, Gtk#, consola e incluso sitios
 web desarrollados en ASP .Net.
 
@@ -75,7 +75,7 @@ paket add TheXDS.MCART
 
 #### Repositorio de GitHub
 Para obtener los paquetes de MCART directamente desde GitHub, es necesario
-agregar mi repositorio privado. Paar lograr esto, solo es necesario
+agregar mi repositorio privado. Para lograr esto, solo es necesario
 ejecutar en una terminal:
 ```sh
 nuget sources add -Name "TheXDS GitHub Repo" -Source https://nuget.pkg.github.com/TheXDS/index.json
@@ -93,7 +93,7 @@ instalado en el sistema.
 ```sh
 dotnet build ./src/MCART.sln
 ```
-Los binarios se encontarán en la carpeta `Build` en la raíz del repositorio.
+Los binarios se encontrarán en la carpeta `Build` en la raíz del repositorio.
 
 ### Ejecutando pruebas
 ```sh

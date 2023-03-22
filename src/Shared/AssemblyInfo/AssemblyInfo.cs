@@ -33,6 +33,6 @@ using TheXDS.MCART.Resources;
 
 [assembly: SpdxLicense(SpdxLicenseId.MIT)]
 [assembly: Author("César Andrés Morgan")]
-#if CLSCompliance
-[assembly: System.CLSCompliant(true)]
+#if CLSCompliance && !ForceNoCLS
+[assembly: CLSCompliant(true)]
 #endif
