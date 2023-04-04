@@ -26,9 +26,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using NUnit.Framework;
 using System.ComponentModel;
 using System.Linq.Expressions;
-using NUnit.Framework;
 using TheXDS.MCART.Helpers;
 
 namespace TheXDS.MCART.Tests;

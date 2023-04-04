@@ -31,19 +31,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using Microsoft.VisualStudio.TestPlatform.Utilities;
-using NUnit.Framework.Internal;
-
-namespace TheXDS.MCART.Tests.Types.Extensions;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
+using NUnit.Framework.Internal;
 using System.Globalization;
-using System.Linq;
 using System.Text;
 using TheXDS.MCART.Helpers;
 using static TheXDS.MCART.Types.Extensions.SecureStringExtensions;
 using static TheXDS.MCART.Types.Extensions.StringExtensions;
+
+namespace TheXDS.MCART.Tests.Types.Extensions;
 
 public class StringExtensionsTests
 {
@@ -364,5 +360,12 @@ public class StringExtensionsTests
         string[] str2 = string.Join(' ', Enumerable.Range(1, 30).Select(_ => "test")).TextWrap();
         foreach (string j in str2) ValidLine(j);
         Assert.AreEqual("test  test", "test  test".TextWrap()[0]);
+    }
+
+    [Test]
+    public void TextWrap_respects_leading_space_Test()
+    {
+        Assert.That(string.Concat("  test  test".TextWrap()), Is.EqualTo("  test  test"));
+        Assert.That(string.Concat("    test    test".TextWrap()), Is.EqualTo("    test    test"));
     }
 }

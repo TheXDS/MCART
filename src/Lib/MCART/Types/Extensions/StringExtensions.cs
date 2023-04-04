@@ -221,19 +221,20 @@ public static class StringExtensions
     /// </returns>
     public static string[] TextWrap(this string str, int width)
     {
-        List<string>? l = new();
-
-        foreach (string? j in str.Split(' '))
+        List<string>? lines = new();
+        foreach (string? word in str.Split(' '))
         {
-            if ((l.LastOrDefault() ?? string.Empty).Length + j.Length > width)
-                l.AddRange(j.Split(width));
+            if ((lines.LastOrDefault() ?? string.Empty).Length + word.Length > width)
+            { 
+                lines.AddRange(word.Split(width));
+            }
             else
             {
-                if (!l.Any()) l.Add(string.Empty);
-                l[^1] += l[^1].IsEmpty() ? j : $" {j}";
+                if (!lines.Any()) lines.Add(string.Empty);
+                lines[^1] += lines[^1].IsEmpty() && !word.IsEmpty() ? word : $" {word}";
             }
         }
-        return l.ToArray();
+        return lines.ToArray();
     }
 
     static IEnumerable<string> Split(this string str, int chunkSize)

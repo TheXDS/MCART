@@ -240,4 +240,10 @@
   <data name="PropXOnArgYNull" xml:space="preserve">
     <value>The field or property '{0}' on the '{1}' parameter must not be null.</value>
   </data>
+  <data name="NoInner" xml:space="preserve">
+    <value>End of inner exception list.</value>
+  </data>
+  <data name="LoadedAssemblies" xml:space="preserve">
+    <value>Assemblies loaded in the current AppDomain (in load order):</value>
+  </data>
 </root>

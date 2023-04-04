@@ -41,6 +41,14 @@ namespace TheXDS.MCART.ValueConverters.Base;
 /// </summary>
 public abstract class SizeVisibilityConverter : IValueConverter
 {
+    private record class ConvertParser(Type TargetType, Func<object, T.Size> ConvertCallback)
+    {
+        public static ConvertParser Create<TResult>(Func<TResult, T.Size> convertCallback)
+        {
+            return new ConvertParser(typeof(TResult), obj => convertCallback((TResult)obj));
+        }
+    }
+
     private readonly Visibility _above;
     private readonly Visibility _below;
 
@@ -56,7 +64,7 @@ public abstract class SizeVisibilityConverter : IValueConverter
     }
 
     /// <summary>
-    /// Convierte un <see cref="Size" /> a un <see cref="Visibility" /> basado en un valor de umbral.
+    /// Convierte un <see cref="T.Size" /> a un <see cref="Visibility" /> basado en un valor de umbral.
     /// </summary>
     /// <param name="value">Objeto a convertir.</param>
     /// <param name="targetType">Tipo del destino.</param>
@@ -71,33 +79,25 @@ public abstract class SizeVisibilityConverter : IValueConverter
     /// </returns>
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        if (!targetType.IsAssignableFrom(typeof(Visibility))) throw new InvalidCastException();
-        T.Size size;
-        switch (parameter)
-        {
-            case string str:
+        ConvertParser[] parsers = {
+            ConvertParser.Create<string>(str => 
+            {
                 try
                 {
-                    size = T.Size.Parse(str);
+                    return T.Size.Parse(str);
                 }
                 catch (Exception e)
                 {
                     throw new ArgumentException(string.Empty, nameof(parameter), e);
                 }
-                break;
-            case T.Size sz:
-                size = sz;
-                break;
-            case double d:
-                size = new T.Size(d, d);
-                break;
-            case int d:
-                size = new T.Size(d, d);
-                break;
-            default:
-                throw new ArgumentException(string.Empty, nameof(parameter));
-        }
+            }),
+            ConvertParser.Create<T.Size>(p => p),
+            ConvertParser.Create<double>(p => new T.Size(p, p)),
+            ConvertParser.Create<int>(p => new T.Size(p, p)),
+        };
 
+        if (!targetType.IsAssignableFrom(typeof(Visibility))) throw new InvalidCastException();
+        T.Size size = (parsers.FirstOrDefault(p => p.TargetType == parameter.GetType()) ?? throw new ArgumentException(string.Empty, nameof(parameter))).ConvertCallback(parameter);
         return value switch
         {
             FrameworkElement f => f.ActualWidth < size.Width && f.ActualHeight < size.Height ? _below : _above,
@@ -118,7 +118,7 @@ public abstract class SizeVisibilityConverter : IValueConverter
     /// <see cref="CultureInfo" /> a utilizar para la conversión.
     /// </param>
     /// <returns>
-    /// Un valor de <see cref="Size" /> inferido a partir del valor de entrada.
+    /// Un valor de <see cref="T.Size" /> inferido a partir del valor de entrada.
     /// </returns>
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {

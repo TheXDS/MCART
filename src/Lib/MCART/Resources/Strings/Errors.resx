@@ -240,4 +240,10 @@
   <data name="InterfaceNotImplented" xml:space="preserve">
     <value>El tipo no implementa la interfaz '{0}'.</value>
   </data>
+  <data name="NoInner" xml:space="preserve">
+    <value>Fin de la lista de excepciones internas.</value>
+  </data>
+  <data name="LoadedAssemblies" xml:space="preserve">
+    <value>Ensamblados en el dominio de aplicación (en orden de carga):</value>
+  </data>
 </root>

@@ -331,6 +331,15 @@ namespace TheXDS.MCART.Resources.Strings {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Ensamblados en el dominio de aplicación (en orden de carga):.
+        /// </summary>
+        public static string LoadedAssemblies {
+            get {
+                return ResourceManager.GetString("LoadedAssemblies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a El argumento mínimo debe ser inferior o igual al máximo..
         /// </summary>
         public static string MinGtMax {
@@ -345,6 +354,15 @@ namespace TheXDS.MCART.Resources.Strings {
         public static string MissingGuidAttrFromType {
             get {
                 return ResourceManager.GetString("MissingGuidAttrFromType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Fin de la lista de excepciones internas..
+        /// </summary>
+        public static string NoInner {
+            get {
+                return ResourceManager.GetString("NoInner", resourceCulture);
             }
         }
         
