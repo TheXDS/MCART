@@ -1,4 +1,4 @@
-// CharConstantLoader_Tests.cs
+﻿// CharConstantLoader_Tests.cs
 // 
 // This file is part of Morgan's CLR Advanced Runtime (MCART)
 // 

@@ -1,4 +1,4 @@
-// BoolConstantLoader_Tests.cs
+﻿// BoolConstantLoader_Tests.cs
 // 
 // This file is part of Morgan's CLR Advanced Runtime (MCART)
 // 

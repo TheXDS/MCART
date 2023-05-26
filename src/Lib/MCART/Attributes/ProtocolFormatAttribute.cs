@@ -69,7 +69,9 @@ public sealed class ProtocolFormatAttribute : Attribute, IValueAttribute<string>
     /// este atributo.
     /// </param>
     /// <returns>
-    /// Una instancia de
+    /// Una instancia de la clas <see cref="Process"/> que representa al
+    /// proceso del sistema operativo que ha sido cargado al abrir el 
+    /// <paramref name="url"/> especificado.
     /// </returns>
     public Process? Open(string url)
     {

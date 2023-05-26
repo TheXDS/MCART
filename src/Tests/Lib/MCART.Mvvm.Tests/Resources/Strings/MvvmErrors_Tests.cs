@@ -26,7 +26,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using TheXDS.MCART.Mvvm.Tests;
 using TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.Tests.Resources.Strings;

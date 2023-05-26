@@ -1,4 +1,4 @@
-// Argon2StorageTests.cs
+﻿// Argon2StorageTests.cs
 //
 // This file is part of Morgan's CLR Advanced Runtime (MCART)
 //

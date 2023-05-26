@@ -72,7 +72,7 @@ public class ObservableListWrap_T_Tests : ObservableCollectionTestsBase<Observab
         var wrap = new ObservableListWrap<string>();
         Assert.That(() => wrap[0], Throws.InvalidOperationException);
     }
-    
+            
     [Test]
     public void Indexer_set_without_underlying_collection_test()
     {

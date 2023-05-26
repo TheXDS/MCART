@@ -1,4 +1,4 @@
-// Int32ConstantLoader_Tests.cs
+﻿// Int32ConstantLoader_Tests.cs
 // 
 // This file is part of Morgan's CLR Advanced Runtime (MCART)
 // 

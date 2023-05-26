@@ -1,4 +1,4 @@
-// StringResourceTestClass.cs
+﻿// StringResourceTestClass.cs
 //
 // This file is part of Morgan's CLR Advanced Runtime (MCART)
 //

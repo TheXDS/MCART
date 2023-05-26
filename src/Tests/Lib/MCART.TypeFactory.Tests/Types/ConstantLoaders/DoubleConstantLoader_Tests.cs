@@ -1,4 +1,4 @@
-// DoubleConstantLoader_Tests.cs
+﻿// DoubleConstantLoader_Tests.cs
 // 
 // This file is part of Morgan's CLR Advanced Runtime (MCART)
 // 

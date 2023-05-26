@@ -1,4 +1,4 @@
-// SByteConstantLoader_Tests.cs
+﻿// SByteConstantLoader_Tests.cs
 // 
 // This file is part of Morgan's CLR Advanced Runtime (MCART)
 // 

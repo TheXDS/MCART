@@ -1,4 +1,4 @@
-// SingleConstantLoader_Tests.cs
+﻿// SingleConstantLoader_Tests.cs
 // 
 // This file is part of Morgan's CLR Advanced Runtime (MCART)
 // 

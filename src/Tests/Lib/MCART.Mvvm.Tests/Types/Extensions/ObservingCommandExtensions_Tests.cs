@@ -1,4 +1,4 @@
-// ObservingCommandExtensions_Tests.cs
+﻿// ObservingCommandExtensions_Tests.cs
 // 
 // This file is part of Morgan's CLR Advanced Runtime (MCART)
 // 

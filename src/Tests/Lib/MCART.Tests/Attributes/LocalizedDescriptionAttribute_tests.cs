@@ -1,4 +1,4 @@
-// LocalizedDescriptionAttribute_tests.cs
+﻿// LocalizedDescriptionAttribute_tests.cs
 // 
 // This file is part of Morgan's CLR Advanced Runtime (MCART)
 // 
