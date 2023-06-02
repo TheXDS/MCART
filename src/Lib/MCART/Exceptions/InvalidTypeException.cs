@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System;
 using System.Runtime.Serialization;
 using TheXDS.MCART.Resources.Strings;
 
@@ -94,7 +93,7 @@ public class InvalidTypeException : OffendingException<Type>
     /// </summary>
     /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
     /// <param name="offendingType">Tipo que ha causado la excepción.</param>
-    public InvalidTypeException(Exception inner, Type offendingType) : base(Msg(offendingType), inner)
+    public InvalidTypeException(Exception inner, Type offendingType) : base(Msg(offendingType), inner, offendingType)
     {
     }
 

@@ -46,20 +46,20 @@ public sealed class HealthBrushConverter : FloatConverterBase, IValueConverter
 {
     /// <summary>Convierte un valor.</summary>
     /// <param name="value">
-    ///   Valor generado por el origen de enlace.
+    /// Valor generado por el origen de enlace.
     /// </param>
     /// <param name="targetType">
-    ///   El tipo de la propiedad del destino de enlace.
+    /// El tipo de la propiedad del destino de enlace.
     /// </param>
     /// <param name="parameter">
-    ///   Parámetro de convertidor que se va a usar.
+    /// Parámetro de convertidor que se va a usar.
     /// </param>
     /// <param name="culture">
-    ///   Referencia cultural que se va a usar en el convertidor.
+    /// Referencia cultural que se va a usar en el convertidor.
     /// </param>
     /// <returns>
-    ///   Valor convertido.
-    ///    Si el método devuelve <see langword="null" />, se usa el valor nulo válido.
+    /// Valor convertido.
+    /// Si el método devuelve <see langword="null" />, se usa el valor nulo válido.
     /// </returns>
     public object Convert(object value, Type targetType, object? parameter, CultureInfo? culture)
     {
@@ -68,18 +68,18 @@ public sealed class HealthBrushConverter : FloatConverterBase, IValueConverter
 
     /// <summary>Convierte un valor.</summary>
     /// <param name="value">
-    ///   Valor generado por el destino de enlace.
+    /// Valor generado por el destino de enlace.
     /// </param>
     /// <param name="targetType">Tipo al que se va a convertir.</param>
     /// <param name="parameter">
-    ///   Parámetro de convertidor que se va a usar.
+    /// Parámetro de convertidor que se va a usar.
     /// </param>
     /// <param name="culture">
-    ///   Referencia cultural que se va a usar en el convertidor.
+    /// Referencia cultural que se va a usar en el convertidor.
     /// </param>
     /// <returns>
-    ///   Valor convertido.
-    ///    Si el método devuelve <see langword="null" />, se usa el valor nulo válido.
+    /// Valor convertido.
+    /// Si el método devuelve <see langword="null" />, se usa el valor nulo válido.
     /// </returns>
     public object ConvertBack(object value, Type targetType, object? parameter, CultureInfo? culture)
     {

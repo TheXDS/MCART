@@ -52,31 +52,9 @@ public static class PropertyInfoExtensions
     /// </param>
     public static void SetDefault(this PropertyInfo property, object? instance)
     {
-        object? GetDefault()
-        {
-            object? d = null;
-            try
-            {
-                return (instance?.GetType().TryInstance(out d) ?? false) ? property.GetValue(d) : null;
-            }
-            finally
-            {
-                if (d is IDisposable i) i.Dispose();
-            }
-        }
-
         if (instance is null || instance.GetType().GetProperties().Any(p => p.Is(property)))
         {
-            if (property.SetMethod is null)
-            {
-                throw Errors.PropIsReadOnly(property);
-            }
-            property.SetMethod.Invoke(instance, new[]
-            {
-                property.GetAttribute<DefaultValueAttribute>()?.Value ??
-                GetDefault() ??
-                property.PropertyType.Default()
-            });
+            SetDefaultValueInternal(instance, property);
         }
         else
         {
@@ -109,5 +87,32 @@ public static class PropertyInfoExtensions
     public static bool IsReadWrite(this PropertyInfo property)
     {
         return property.CanRead && property.CanWrite;
+    }
+
+    private static object? GetDefaultFromInstance(object? instance, PropertyInfo property)
+    {
+        object? d = null;
+        try
+        {
+            return (instance?.GetType().TryInstance(out d) ?? false) ? property.GetValue(d) : null;
+        }
+        finally
+        {
+            if (d is IDisposable i) i.Dispose();
+        }
+    }
+
+    private static void SetDefaultValueInternal(object? instance, PropertyInfo property)
+    {
+        if (property.SetMethod is null)
+        {
+            throw Errors.PropIsReadOnly(property);
+        }
+        property.SetMethod.Invoke(instance, new[]
+        {
+            property.GetAttribute<DefaultValueAttribute>()?.Value ??
+            GetDefaultFromInstance(instance, property) ??
+            property.PropertyType.Default()
+        });
     }
 }

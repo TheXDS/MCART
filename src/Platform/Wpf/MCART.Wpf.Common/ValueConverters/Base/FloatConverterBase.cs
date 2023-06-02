@@ -48,20 +48,55 @@ public abstract class FloatConverterBase
     /// </returns>
     protected static float GetFloat(object? value)
     {
-        return value switch
+        return value is not null ? GetFloatFromNotNull(value) : 0f;
+    }
+
+    private static float GetFloatFromNotNull(object value)
+    {
+        return GetFloatFromParser(value) ?? GetFloatFromConverter(value) ?? 0f;
+    }
+
+    private static float? GetFloatFromParser(object value)
+    {
+        var parsers = new IFloatParser[]
         {
-            float f => f,
-            double d => (float)d,
-            byte b => b / 255f,
-            short s => s / 100f,
-            int i => i,
-            long l => l,
-            sbyte sb => sb,
-            ushort us => us / 100f,
-            uint ui => ui,
-            ulong ul => ul,
-            string str => float.TryParse(str, out float vv) ? vv : 0f,
-            _ => (float?)Common.FindConverter<float>()?.ConvertTo(value, typeof(float)) ?? 0f
+            new FloatParser<float>(o => o),
+            new FloatParser<double>(o => (float)o),
+            new FloatParser<byte>(o => o / 255f),
+            new FloatParser<short>(o => o / 100f),
+            new FloatParser<int>(o => o),
+            new FloatParser<long>(o => o),
+            new FloatParser<sbyte>(o => o),
+            new FloatParser<ushort>(o => o / 100f),
+            new FloatParser<uint>(o => o),
+            new FloatParser<ulong>(o => o),
+            new FloatParser<string>(o => float.TryParse(o, out float v) ? v : 0f),
         };
+        return parsers.FirstOrDefault(p => p.Type == typeof(float))?.Parse(value);
+    }
+
+    private static float? GetFloatFromConverter(object value)
+    {
+        return (float?)Common.FindConverter(value.GetType(), typeof(float))?.ConvertTo(value, typeof(float));
+    }
+
+    private interface IFloatParser
+    {
+        Type Type { get; }
+        float Parse(object value);
+    }
+
+    private class FloatParser<T> : IFloatParser where T : notnull
+    {
+        private readonly Func<T,float> _parser;
+
+        public FloatParser(Func<T, float> parser)
+        {
+            _parser = parser;
+        }
+
+        Type IFloatParser.Type => typeof(T);
+
+        float IFloatParser.Parse(object value) => _parser((T)value);
     }
 }

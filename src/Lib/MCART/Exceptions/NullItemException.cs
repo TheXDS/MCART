@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System;
 using System.Collections;
 using System.Runtime.Serialization;
 
@@ -65,6 +64,15 @@ public class NullItemException : OffendingException<IList>
     /// Lista en la cual se ha encontrado un elemento nulo.
     /// </param>
     public NullItemException(IList offendingObject) : base(offendingObject)
+    {
+    }
+
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="NullItemException"/>.
+    /// </summary>
+    /// <param name="message">Mensaje descriptivo de la excepción.</param>
+    public NullItemException(string message) : base(message)
     {
     }
 

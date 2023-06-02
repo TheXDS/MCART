@@ -31,6 +31,8 @@ SOFTWARE.
 #pragma warning disable CS8974
 
 using NUnit.Framework;
+using System.Collections;
+using System.Reflection;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Helpers;
 using E = TheXDS.MCART.Resources.Errors;
@@ -40,10 +42,46 @@ namespace TheXDS.MCART.Tests.Resources;
 public class ErrorsTests : ExceptionResourceTestClass
 {
     [Test]
+    public void InvalidArgumentException_Test()
+    {
+        var argName = "testArg";
+        var msg = $"Test message {typeof(InvalidArgumentException)}";
+        var inner = new Exception(msg);
+        InvalidArgumentException newEx;
+
+        TestException(new InvalidArgumentException());
+        Assert.That(TestException(new InvalidArgumentException(argName)).ParamName, Is.EqualTo(argName));
+        Assert.That(TestException(new InvalidArgumentException(inner)).InnerException, Is.EqualTo(inner));
+
+        newEx = TestException(new InvalidArgumentException(msg, inner));
+        Assert.That(newEx.Message.StartsWith(msg));
+        Assert.That(newEx.InnerException, Is.EqualTo(inner));
+
+        newEx = TestException(new InvalidArgumentException(msg, argName));
+        Assert.That(newEx.Message.StartsWith(msg));
+        Assert.That(newEx.ParamName, Is.EqualTo(argName));
+
+        newEx = TestException(new InvalidArgumentException(inner, argName));
+        Assert.That(newEx.InnerException, Is.EqualTo(inner));
+        Assert.That(newEx.ParamName, Is.EqualTo(argName));
+
+        newEx = TestException(new InvalidArgumentException(msg, inner, argName));
+        Assert.That(newEx.Message.StartsWith(msg));
+        Assert.That(newEx.InnerException, Is.EqualTo(inner));
+        Assert.That(newEx.ParamName, Is.EqualTo(argName));
+    }
+
+    [Test]
     public void InvalidValue_Test()
     {
         ArgumentException ex = TestException(E.InvalidValue("test"));
         Assert.That(ex.ParamName, Is.EqualTo("test"));
+    }
+
+    [Test]
+    public void ClassNotInstantiableException_Ctors_Test()
+    {
+        TestOffendingExceptionCtors<ClassNotInstantiableException, Type?>(typeof(float));
     }
 
     [Test]
@@ -95,6 +133,18 @@ public class ErrorsTests : ExceptionResourceTestClass
     }
 
     [Test]
+    public void EmptyCollectionException_Ctors_Test()
+    {
+        TestOffendingExceptionCtors<EmptyCollectionException, IEnumerable>(Array.Empty<int>());
+    }
+
+    [Test]
+    public void IncompleteTypeException_Ctors_Test()
+    {
+        TestOffendingExceptionCtors<IncompleteTypeException, Type>(typeof(int));
+    }
+
+    [Test]
     public void InterfaceNotImplemented_T_test()
     {
         TestException(E.InterfaceNotImplemented<ICloneable>());
@@ -105,13 +155,46 @@ public class ErrorsTests : ExceptionResourceTestClass
     {
         TestException(E.InterfaceNotImplemented(typeof(ICloneable)));
     }
-    
+
+    [Test]
+    public void InvalidMethodSignatureException_Ctors_Test()
+    {
+        TestOffendingExceptionCtors<InvalidMethodSignatureException, MethodInfo>(ReflectionHelpers.GetMethod<int>(i => (Func<string>)i.ToString));
+    }
+
+    [Test]
+    public void InvalidTypeException_Ctors_Test()
+    {
+        TestOffendingExceptionCtors<InvalidTypeException, Type>(typeof(int));
+    }
+
+    [Test]
+    public void InvalidUriException_Ctors_Test()
+    {
+        TestOffendingExceptionCtors<InvalidUriException, Uri>(new Uri("http://test/"));
+    }
+
+    [Test]
+    public void MissingTypeException_Ctors_Test()
+    {
+        TestOffendingExceptionCtors<MissingTypeException, Type>(typeof(int));
+    }
+
     [Test]
     public void NullArgumentValue_test()
     {
         TestException(E.NullArgumentValue("x.y", "z"));
     }
-    
+
+    [Test]
+    public void NullItemException_Ctors_Test()
+    {
+        TestOffendingExceptionCtors<NullItemException, IList>(new object?[] { null });
+
+        var ex = new NullItemException(new object?[] { "", null }) { NullIndex = 1 };
+        Assert.That(ex.NullIndex, Is.EqualTo(1));
+    }
+
     [Test]
     public void ListMustContainBoth_test()
     {
@@ -276,5 +359,17 @@ public class ErrorsTests : ExceptionResourceTestClass
         var ex = TestException(E.EmptyCollection(Array.Empty<int>()));
         Assert.That(ex.InnerException, Is.InstanceOf<EmptyCollectionException>());
         Assert.That(((EmptyCollectionException)ex.InnerException!).OffendingObject, Is.InstanceOf<int[]>());
+    }
+
+    [Test]
+    public void StackUnderflowException_Ctor_Test()
+    {
+        TestExceptionType<StackUnderflowException>();
+    }
+
+    [Test]
+    public void TamperException_Ctor_Test()
+    {
+        TestExceptionType<TamperException>();
     }
 }

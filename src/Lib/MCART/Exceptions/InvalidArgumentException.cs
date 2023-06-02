@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System;
 using System.Runtime.Serialization;
 using TheXDS.MCART.Resources.Strings;
 
@@ -72,7 +71,7 @@ public class InvalidArgumentException : ArgumentException
     /// <see cref="InvalidArgumentException" />.
     /// </summary>
     /// <param name="argumentName">Nombre del argumento inválido.</param>
-    public InvalidArgumentException(string argumentName) : base(string.Format(Errors.InvalidArgument, argumentName))
+    public InvalidArgumentException(string argumentName) : base(string.Format(Errors.InvalidArgument, argumentName), argumentName)
     {
     }
 
@@ -105,7 +104,7 @@ public class InvalidArgumentException : ArgumentException
     /// <see cref="Exception" /> que es la causa de esta excepción.
     /// </param>
     /// <param name="argumentName">Nombre del argumento inválido.</param>
-    public InvalidArgumentException(Exception inner, string argumentName) : base(string.Format(Errors.InvalidArgument, argumentName), inner)
+    public InvalidArgumentException(Exception inner, string argumentName) : base(string.Format(Errors.InvalidArgument, argumentName), argumentName, inner)
     {
     }
 

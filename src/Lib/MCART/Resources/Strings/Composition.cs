@@ -151,67 +151,28 @@ public static class Composition
 
     private static IEnumerable<string> ExDumpLines(Exception ex, ExDumpOptions options, int fixedTextWidth, int padding, bool isInner)
     {
-        #region Helpers
-
-        string GetSeparator(char separator = '-') => $"{(options.HasFlag(ExDumpOptions.TextWidthFormatted) ? new string(separator, fixedTextWidth - padding) : null)}";
-        string GetAsmInfo(Assembly asm) => $"{asm.FullName} {asm.GetAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? asm.GetName().Version?.ToString() ?? "1.0.0"}\n";
-
-        #endregion
-
-        #region Dumpers
-
-        ExDumpSection Separator(ExDumpOptions flag = 0, char separator = '-') => new(flag, _ => GetSeparator(separator));
-        ExDumpSection NewLine(ExDumpOptions flag = 0) => new(flag, _ => $"\n{new string(' ', padding)}");
-        ExDumpSection Padding(ExDumpOptions flag = 0) => new(flag, _ => new string(' ', padding));
-        ExDumpSection Constant(string text, ExDumpOptions flag = 0) => new(flag, _ => text);
-        string DumpName(Exception e) => e.GetType().NameOf();
-        string DumpSource(Exception e) => string.Format(Errors.InX, e.Source ?? "Unknown");
-        string DumpHResult(Exception e) => $" (0x{e.HResult.ToString("X").PadLeft(8, '0')})";
-        string DumpMessage(Exception e) => e.Message;
-        string DumpStackTrace(Exception e) => e.StackTrace ?? Errors.NoStackInfo;
-        IEnumerable<string> DumpLoadedAssemblies() => AppDomain.CurrentDomain.GetAssemblies().Select(GetAsmInfo);
-        IEnumerable<string> DumpInner(Exception e)
-        {
-            foreach (PropertyInfo j in ex.GetType().GetProperties())
-            {
-                switch (j.GetValue(ex))
-                {
-                    case IEnumerable<Exception?> exceptions:
-                        return exceptions.NotNull().SelectMany(DumpSingleInner);
-                    case Exception inner:
-                        return DumpSingleInner(inner);
-                }
-            }
-            return Array.Empty<string>();
-        }
-        IEnumerable<string> DumpSingleInner(Exception e) => (!options.HasFlag(ExDumpOptions.TextWidthFormatted) 
-            ? new[] { Environment.NewLine } 
-            : Array.Empty<string>()).Concat(ExDumpLines(e, options & ~ExDumpOptions.LoadedAssemblies, fixedTextWidth, padding + 2, true));
-
-        #endregion
-
         IEnumerable<ExDumpSection?> exDumpOptionRegistry = new ExDumpSection?[]
         {
-            isInner ? NewLine(ExDumpOptions.TextWidthFormatted) : null,
-            options.HasFlag(ExDumpOptions.TextWidthFormatted) ? null : Padding(),
+            isInner ? NewLine(padding, ExDumpOptions.TextWidthFormatted) : null,
+            options.HasFlag(ExDumpOptions.TextWidthFormatted) ? null : Padding(padding),
             new(ExDumpOptions.Name, DumpName),
             new(ExDumpOptions.HResult, DumpHResult),
             new(ExDumpOptions.Source, DumpSource),
-            NewLine(),
-            Separator(ExDumpOptions.Message | ExDumpOptions.TextWidthFormatted, '='),
-            NewLine(ExDumpOptions.TextWidthFormatted),
+            NewLine(padding),
+            Separator(options, padding, fixedTextWidth, ExDumpOptions.Message | ExDumpOptions.TextWidthFormatted, '='),
+            NewLine(padding, ExDumpOptions.TextWidthFormatted),
             new(ExDumpOptions.Message, DumpMessage),
-            NewLine(),
-            Separator(ExDumpOptions.StackTrace),
-            NewLine(ExDumpOptions.TextWidthFormatted),
+            NewLine(padding),
+            Separator(options, padding, fixedTextWidth, ExDumpOptions.StackTrace),
+            NewLine(padding, ExDumpOptions.TextWidthFormatted),
             new(ExDumpOptions.StackTrace, DumpStackTrace),
-            NewLine(),
-            new(ExDumpOptions.Inner, DumpInner),
-            isInner ? null : NewLine(),
+            NewLine(padding),
+            new(ExDumpOptions.Inner, x => DumpInner(options, padding, fixedTextWidth, x)),
+            isInner ? null : NewLine(padding),
             Constant(Errors.LoadedAssemblies, ExDumpOptions.LoadedAssemblies),
-            NewLine(ExDumpOptions.LoadedAssemblies),
-            Separator(ExDumpOptions.LoadedAssemblies | ExDumpOptions.TextWidthFormatted),
-            NewLine(ExDumpOptions.LoadedAssemblies | ExDumpOptions.TextWidthFormatted),
+            NewLine(padding, ExDumpOptions.LoadedAssemblies),
+            Separator(options, padding, fixedTextWidth, ExDumpOptions.LoadedAssemblies | ExDumpOptions.TextWidthFormatted),
+            NewLine(padding, ExDumpOptions.LoadedAssemblies | ExDumpOptions.TextWidthFormatted),
             new(ExDumpOptions.LoadedAssemblies, DumpLoadedAssemblies),
         };
 
@@ -221,4 +182,47 @@ public static class Composition
 
         return exDumpOptionRegistry.NotNull().Where(p => options.HasFlag(p.Flag)).SelectMany(p => p.StringCallback(ex)).Select(textTransform);        
     }
+
+    private static string GetSeparator(ExDumpOptions options, int padding, int fixedTextWidth, char separator = '-') => $"{(options.HasFlag(ExDumpOptions.TextWidthFormatted) ? new string(separator, fixedTextWidth - padding) : null)}";
+    
+    private static string GetAsmInfo(Assembly asm) => $"{asm.FullName} {asm.GetAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? asm.GetName().Version?.ToString() ?? "1.0.0"}\n";
+    
+    private static ExDumpSection Separator(ExDumpOptions options, int padding, int fixedTextWidth, ExDumpOptions flag = 0, char separator = '-') => new(flag, _ => GetSeparator(options, padding, fixedTextWidth, separator));
+    
+    private static ExDumpSection NewLine(int padding, ExDumpOptions flag = 0) => new(flag, _ => $"\n{new string(' ', padding)}");
+    
+    private static ExDumpSection Padding(int padding, ExDumpOptions flag = 0) => new(flag, _ => new string(' ', padding));
+    
+    private static ExDumpSection Constant(string text, ExDumpOptions flag = 0) => new(flag, _ => text);
+    
+    private static string DumpName(Exception e) => e.GetType().NameOf();
+    
+    private static string DumpSource(Exception e) => string.Format(Errors.InX, e.Source ?? "Unknown");
+    
+    private static string DumpHResult(Exception e) => $" (0x{e.HResult.ToString("X").PadLeft(8, '0')})";
+    
+    private static string DumpMessage(Exception e) => e.Message;
+    
+    private static string DumpStackTrace(Exception e) => e.StackTrace ?? Errors.NoStackInfo;
+    
+    private static IEnumerable<string> DumpLoadedAssemblies() => AppDomain.CurrentDomain.GetAssemblies().Select(GetAsmInfo);
+    
+    private static IEnumerable<string> DumpInner(ExDumpOptions options, int padding, int fixedTextWidth, Exception e)
+    {
+        foreach (PropertyInfo j in e.GetType().GetProperties())
+        {
+            switch (j.GetValue(e))
+            {
+                case IEnumerable<Exception?> exceptions:
+                    return exceptions.NotNull().SelectMany(ex => DumpSingleInner(options, padding, fixedTextWidth, ex));
+                case Exception inner:
+                    return DumpSingleInner(options, padding, fixedTextWidth, inner);
+            }
+        }
+        return Array.Empty<string>();
+    }
+    
+    private static IEnumerable<string> DumpSingleInner(ExDumpOptions options, int padding, int fixedTextWidth, Exception e) => (!options.HasFlag(ExDumpOptions.TextWidthFormatted)
+        ? new[] { Environment.NewLine }
+        : Array.Empty<string>()).Concat(ExDumpLines(e, options & ~ExDumpOptions.LoadedAssemblies, fixedTextWidth, padding + 2, true));
 }

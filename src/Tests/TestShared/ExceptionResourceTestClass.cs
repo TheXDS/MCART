@@ -27,6 +27,9 @@
 // SOFTWARE.
 
 using NUnit.Framework;
+using System;
+using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Tests;
 
@@ -46,5 +49,49 @@ public abstract class ExceptionResourceTestClass
             Is.InstanceOf<T>()
             .And.Property(nameof(Exception.Message)).Not.Empty);
         return exception;
+    }
+
+    protected static void TestExceptionType<T>() where T : Exception
+    {
+        TestExceptionType(typeof(T));
+    }
+
+    protected static void TestExceptionType(Type t)
+    {
+        var msg = $"Test message {t}";
+        var inner = new Exception(msg);
+
+        TestException(t.New<Exception>());
+        Assert.That(TestException(t.New<Exception>(msg)).Message, Is.EqualTo(msg));
+        Assert.That(TestException(t.New<Exception>(inner)).InnerException, Is.EqualTo(inner));
+
+        var newEx = TestException(t.New<Exception>(msg, inner));
+        Assert.That(newEx.Message, Is.EqualTo(msg));
+        Assert.That(newEx.InnerException, Is.EqualTo(inner));
+    }
+
+    protected static void TestOffendingExceptionCtors<TException, TOffend>(TOffend value) where TException : OffendingException<TOffend>
+    {
+        TestExceptionType<TException>();
+
+        var msg = $"Test message {typeof(TException)}";
+        Exception inner = new(msg);
+        TException newEx;
+
+        newEx = TestException(typeof(TException).New<TException>(value));
+        Assert.That(newEx.OffendingObject, Is.EqualTo(value));
+
+        newEx = TestException(typeof(TException).New<TException>(msg, value));
+        Assert.That(newEx.Message, Is.EqualTo(msg));
+        Assert.That(newEx.OffendingObject, Is.EqualTo(value));
+
+        newEx = TestException(typeof(TException).New<TException>(inner, value));
+        Assert.That(newEx.InnerException, Is.EqualTo(inner));
+        Assert.That(newEx.OffendingObject, Is.EqualTo(value));
+
+        newEx = TestException(typeof(TException).New<TException>(msg, inner, value));
+        Assert.That(newEx.Message, Is.EqualTo(msg));
+        Assert.That(newEx.InnerException, Is.EqualTo(inner));
+        Assert.That(newEx.OffendingObject, Is.EqualTo(value));
     }
 }
