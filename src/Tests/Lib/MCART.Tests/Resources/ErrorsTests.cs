@@ -337,7 +337,45 @@ public class ErrorsTests : ExceptionResourceTestClass
     {
         TestException(E.DuplicateData("X"));
     }
-    
+
+    [Test]
+    public void InvalidReturnValueException_test()
+    {
+        static int BadDelegate() => 0;
+        var msg = $"Test message {typeof(InvalidReturnValueException)}";
+        var inner = new Exception(msg);
+        InvalidReturnValueException newEx;
+        TestException(new InvalidReturnValueException());
+
+        newEx = TestException(new InvalidReturnValueException(BadDelegate));
+        Assert.That(newEx.OffendingFunction, Is.EqualTo(BadDelegate));
+        Assert.That(newEx.OffendingFunctionName!.Contains(nameof(BadDelegate)));
+
+        newEx = TestException(new InvalidReturnValueException(msg, inner));
+        Assert.That(newEx.Message, Is.EqualTo(msg));
+        Assert.That(newEx.InnerException, Is.EqualTo(inner));
+
+        newEx = TestException(new InvalidReturnValueException(nameof(BadDelegate)));
+        Assert.That(newEx.OffendingFunctionName!.Contains(nameof(BadDelegate)));
+
+        newEx = TestException(new InvalidReturnValueException(nameof(BadDelegate), 0));
+        Assert.That(newEx.OffendingFunction, Is.Null);
+        Assert.That(newEx.OffendingFunctionName!.Contains(nameof(BadDelegate)));
+        Assert.That(newEx.OffendingReturnValue, Is.EqualTo(0));
+
+        newEx = TestException(new InvalidReturnValueException(BadDelegate, 0, inner));
+        Assert.That(newEx.OffendingFunction, Is.EqualTo(BadDelegate));
+        Assert.That(newEx.OffendingFunctionName!.Contains(nameof(BadDelegate)));
+        Assert.That(newEx.OffendingReturnValue, Is.EqualTo(0));
+        Assert.That(newEx.InnerException, Is.EqualTo(inner));
+
+        newEx = TestException(new InvalidReturnValueException(nameof(BadDelegate), 0, inner));
+        Assert.That(newEx.OffendingFunction, Is.Null);
+        Assert.That(newEx.OffendingFunctionName!.Contains(nameof(BadDelegate)));
+        Assert.That(newEx.OffendingReturnValue, Is.EqualTo(0));
+        Assert.That(newEx.InnerException, Is.EqualTo(inner));
+    }
+
     [Test]
     public void InvalidReturnValue_test()
     {
@@ -345,6 +383,7 @@ public class ErrorsTests : ExceptionResourceTestClass
         var ex = TestException(E.InvalidReturnValue(BadDelegate, 0));
         Assert.That(ex.OffendingFunction, Is.EqualTo(BadDelegate));
         Assert.That(ex.OffendingReturnValue, Is.EqualTo(0));
+        Assert.That(ex.OffendingFunctionName!.Contains(nameof(BadDelegate)));
     } 
         
     [Test]

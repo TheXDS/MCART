@@ -36,6 +36,9 @@ namespace TheXDS.MCART.Component;
 /// <summary>
 /// Expone la información de ensamblado de una aplicación de Windows.
 /// </summary>
+/// <typeparam name="TApplication">
+/// Tipo de aplicación de Windows para el cual exponer información.
+/// </typeparam>
 public abstract class ApplicationInfoBase<TApplication> : IExposeExtendedGuiInfo<Icon?> where TApplication : notnull
 {
     private readonly AssemblyInfo _infoExposer;

@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System;
 using System.ComponentModel;
 using System.Globalization;
 using TheXDS.MCART.Attributes;
@@ -53,11 +52,21 @@ public class EnumDescriptionConverter : EnumConverter
     /// <inheritdoc/>
     public override object? ConvertTo(ITypeDescriptorContext? context, CultureInfo? culture, object? value, Type destinationType)
     {
-        return destinationType == typeof(string) && value is Enum e
-            ? e.GetAttribute<LocalizedDescriptionAttribute>()?.Description
-                ?? e.GetAttribute<System.ComponentModel.DescriptionAttribute>()?.Description
-                ?? e.GetAttribute<Attributes.DescriptionAttribute>()?.Value
-                ?? e.NameOf()
+        return destinationType == typeof(string) && value is Enum e 
+            ? _converters.Select(p => p.Invoke(e)).NotNull().First()
             : base.ConvertTo(context, culture, value, destinationType);
+    }
+
+    private static readonly Func<Enum, string?>[] _converters;
+
+    static EnumDescriptionConverter()
+    {
+        _converters = new Func<Enum, string?>[]
+        {
+            e => e.GetAttribute<LocalizedDescriptionAttribute>()?.Description,
+            e => e.GetAttribute<System.ComponentModel.DescriptionAttribute>()?.Description,
+            e => e.GetAttribute<Attributes.DescriptionAttribute>()?.Value,
+            e => e.NameOf()
+        };
     }
 }
