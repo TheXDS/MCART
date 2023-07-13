@@ -28,14 +28,29 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System;
 using System.Runtime.InteropServices;
 
 namespace TheXDS.MCART.PInvoke;
 
-internal class Gdi32
+internal partial class Gdi32
 {
-    [DllImport("gdi32.dll")] internal static extern int GetDeviceCaps(IntPtr hdc, int nIndex);
+#if NET7_0_OR_GREATER
+
+    [LibraryImport("gdi32.dll")]
+    internal static partial int GetDeviceCaps(IntPtr hdc, int nIndex);
+    
+    [LibraryImport("gdi32.dll")] 
     [return: MarshalAs(UnmanagedType.Bool)]
-    [DllImport("gdi32.dll")] internal static extern bool DeleteObject(IntPtr value);
+    internal static partial bool DeleteObject(IntPtr value);
+
+#else
+
+    [DllImport("gdi32.dll")]
+    internal static extern int GetDeviceCaps(IntPtr hdc, int nIndex);
+
+    [DllImport("gdi32.dll")]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    internal static extern bool DeleteObject(IntPtr value);
+
+#endif
 }

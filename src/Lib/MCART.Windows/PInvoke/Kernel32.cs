@@ -28,15 +28,46 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System;
 using System.Runtime.InteropServices;
+using System.Text;
 
 namespace TheXDS.MCART.PInvoke;
 
-internal class Kernel32
+internal partial class Kernel32
 {
-    [DllImport("kernel32.dll")] internal static extern bool AllocConsole();
-    [DllImport("kernel32.dll")] internal static extern bool FreeConsole();
-    [DllImport("kernel32.dll")] internal static extern IntPtr GetConsoleWindow();
-    [DllImport("kernel32.dll")] internal static extern bool GetFirmwareType(ref uint FirmwareType);
+#if NET7_0_OR_GREATER
+
+    [LibraryImport("kernel32.dll")]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    internal static partial bool AllocConsole();
+
+    [LibraryImport("kernel32.dll")]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    internal static partial bool FreeConsole();
+
+    [LibraryImport("kernel32.dll")]
+    internal static partial IntPtr GetConsoleWindow();
+
+    [LibraryImport("kernel32.dll")]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    internal static partial bool GetFirmwareType(ref uint FirmwareType);
+
+#else
+
+    [DllImport("kernel32.dll")]
+    internal static extern bool AllocConsole();
+
+    [DllImport("kernel32.dll")]
+    internal static extern bool FreeConsole();
+
+    [DllImport("kernel32.dll")]
+    internal static extern IntPtr GetConsoleWindow();
+
+    [DllImport("kernel32.dll")]
+    internal static extern bool GetFirmwareType(ref uint FirmwareType);
+
+#endif
+
+    [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+    internal static extern int GetCurrentPackageFullName(ref int packageFullNameLength, StringBuilder? packageFullName);
 }
