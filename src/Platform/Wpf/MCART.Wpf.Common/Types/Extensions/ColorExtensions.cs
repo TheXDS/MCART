@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.Linq;
 using System.Windows.Media;
 using TheXDS.MCART.Math;
 using B = System.Windows.Media.Brush;

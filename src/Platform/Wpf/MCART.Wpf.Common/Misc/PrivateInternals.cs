@@ -31,9 +31,13 @@ SOFTWARE.
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Markup;
 using TheXDS.MCART.Helpers;
 
 [assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)]
+[assembly: XmlnsDefinition("http://schemas.thexds.local/mcart", "TheXDS.MCART.Types", AssemblyName = "MCART.Wpf.Common")]
+[assembly: XmlnsDefinition("http://schemas.thexds.local/mcart", "TheXDS.MCART.ValueConverters", AssemblyName = "MCART.Wpf.Common")]
+[assembly: XmlnsPrefix("http://schemas.thexds.local/mcart", "mcart")]
 
 namespace TheXDS.MCART.Misc;
 

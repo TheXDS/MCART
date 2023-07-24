@@ -26,8 +26,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using System.Windows;
+using System.Windows.Markup;
 using System.Windows.Media;
 using C = TheXDS.MCART.Math.Geometry;
+
+[assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)]
+[assembly: XmlnsDefinition("http://schemas.thexds.local/mcart", "TheXDS.MCART.Controls", AssemblyName = "MCART.Wpf.Controls")]
+[assembly: XmlnsPrefix("http://schemas.thexds.local/mcart", "mcart")]
 
 namespace TheXDS.MCART.Misc;
 
