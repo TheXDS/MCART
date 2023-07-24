@@ -19,13 +19,9 @@ jobs:
             6.0.x
             7.0.x
     - name: Create NuGet Packages
-      run: dotnet pack $env:Solution_Name --configuration=$env:Configuration -p:Version=$env:GIT_REF_NAME -p:RepositoryBranch=${{ github.ref }} -p:ContinuousIntegrationBuild=true
-
+      run: dotnet pack $env:Solution_Name --configuration=${{ env.Configuration }} -p:Version=${{ github.ref_name }} -p:RepositoryBranch=${{ github.ref }} -p:ContinuousIntegrationBuild=true
     - name: Push packages to GitHub
-      run: dotnet nuget push "Build/**/*.nupkg" -k $env:GhToken --skip-duplicate --source "https://nuget.pkg.github.com/TheXDS/"
-      env:
-        GhToken: ${{ secrets.GITHUB_TOKEN }}
+      run: dotnet nuget push "Build/**/*.nupkg" -k ${{ secrets.GITHUB_TOKEN }} --skip-duplicate --source "https://nuget.pkg.github.com/TheXDS/"
     - name: Push packages to NuGet
-      run: dotnet nuget push "Build/**/*.nupkg" -k $env:NgToken --skip-duplicate --source "https://api.nuget.org/v3/index.json"
-      env:
-        NgToken: ${{ secrets.NUGET_TOKEN }}
+      run: dotnet nuget push "Build/**/*.nupkg" -k ${{ secrets.NUGET_TOKEN }} --skip-duplicate --source "https://api.nuget.org/v3/index.json"
+
