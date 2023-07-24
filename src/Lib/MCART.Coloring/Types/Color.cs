@@ -374,8 +374,7 @@ public partial struct Color : IEquatable<Color>, IFormattable, IComparable<Color
     /// Obtiene o establece el valor RGB del canal rojo del color.
     /// </summary>
     public byte R
-    {
-        get => (byte)(_r * byte.MaxValue);
+    { readonly get => (byte)(_r * byte.MaxValue);
         set => _r = (float)value / byte.MaxValue;
     }
 
@@ -383,8 +382,7 @@ public partial struct Color : IEquatable<Color>, IFormattable, IComparable<Color
     /// Obtiene o establece el valor RGB del canal verde del color.
     /// </summary>
     public byte G
-    {
-        get => (byte)(_g * byte.MaxValue);
+    { readonly get => (byte)(_g * byte.MaxValue);
         set => _g = (float)value / byte.MaxValue;
     }
 
@@ -392,8 +390,7 @@ public partial struct Color : IEquatable<Color>, IFormattable, IComparable<Color
     /// Obtiene o establece el valor RGB del canal azul del color.
     /// </summary>
     public byte B
-    {
-        get => (byte)(_b * byte.MaxValue);
+    { readonly get => (byte)(_b * byte.MaxValue);
         set => _b = (float)value / byte.MaxValue;
     }
 
@@ -401,8 +398,7 @@ public partial struct Color : IEquatable<Color>, IFormattable, IComparable<Color
     /// Obtiene o establece el valor RGB del canal alfa del color.
     /// </summary>
     public byte A
-    {
-        get => (byte)(_a * 255);
+    { readonly get => (byte)(_a * 255);
         set => _a = (float)value / byte.MaxValue;
     }
 
@@ -410,8 +406,7 @@ public partial struct Color : IEquatable<Color>, IFormattable, IComparable<Color
     /// Obtiene o establece el valor ScRGB del canal rojo del color.
     /// </summary>
     public float ScR
-    {
-        get => _r;
+    { readonly get => _r;
         set => _r = value.Clamp(0.0f, 1.0f);
     }
 
@@ -419,8 +414,7 @@ public partial struct Color : IEquatable<Color>, IFormattable, IComparable<Color
     /// Obtiene o establece el valor ScRGB del canal verde del color.
     /// </summary>
     public float ScG
-    {
-        get => _g;
+    { readonly get => _g;
         set => _g = value.Clamp(0.0f, 1.0f);
     }
 
@@ -428,8 +422,7 @@ public partial struct Color : IEquatable<Color>, IFormattable, IComparable<Color
     /// Obtiene o establece el valor ScRGB del canal azul del color.
     /// </summary>
     public float ScB
-    {
-        get => _b;
+    { readonly get => _b;
         set => _b = value.Clamp(0.0f, 1.0f);
     }
 
@@ -437,8 +430,7 @@ public partial struct Color : IEquatable<Color>, IFormattable, IComparable<Color
     /// Obtiene o establece el valor ScRGB del canal alfa del color.
     /// </summary>
     public float ScA
-    {
-        get => _a;
+    { readonly get => _a;
         set => _a = value.Clamp(0.0f, 1.0f);
     }
 
@@ -503,7 +495,7 @@ public partial struct Color : IEquatable<Color>, IFormattable, IComparable<Color
     /// <see langword="true" /> si el <see cref="Color" /> especificado es igual al
     /// <see cref="Color" /> actual, <see langword="false" /> en caso contrario.
     /// </returns>
-    public bool Equals(IScColor other)
+    public readonly bool Equals(IScColor other)
     {
         return _a == other.ScA && _r == other.ScR && _g == other.ScG && _b == other.ScB;
     }
@@ -519,7 +511,7 @@ public partial struct Color : IEquatable<Color>, IFormattable, IComparable<Color
     /// <see langword="true" /> si el <see cref="Color" /> especificado es igual al
     /// <see cref="Color" /> actual, <see langword="false" /> en caso contrario.
     /// </returns>
-    public bool Equals(IColor other)
+    public readonly bool Equals(IColor other)
     {
         return A == other.A && R == other.R && G == other.G && B == other.B;
     }
@@ -535,7 +527,7 @@ public partial struct Color : IEquatable<Color>, IFormattable, IComparable<Color
     /// <see langword="true" /> si el <see cref="Color" /> especificado es igual al
     /// <see cref="Color" /> actual, <see langword="false" /> en caso contrario.
     /// </returns>
-    public bool Equals(Color other)
+    public readonly bool Equals(Color other)
     {
         return _a == other._a && _r == other._r && _g == other._g && _b == other._b;
     }
@@ -549,7 +541,7 @@ public partial struct Color : IEquatable<Color>, IFormattable, IComparable<Color
     /// <see cref="Color"/>.
     /// </returns>
     /// <param name="format">Format.</param>
-    public string ToString(string? format)
+    public readonly string ToString(string? format)
     {
         return ToString(format, null);
     }
@@ -564,7 +556,7 @@ public partial struct Color : IEquatable<Color>, IFormattable, IComparable<Color
     /// </returns>
     /// <param name="format">Format.</param>
     /// <param name="formatProvider">Format provider.</param>
-    public string ToString(string? format, IFormatProvider? formatProvider)
+    public readonly string ToString(string? format, IFormatProvider? formatProvider)
     {
         if (format.IsEmpty()) format = "H";
         formatProvider ??= CI.CurrentCulture;
@@ -588,7 +580,7 @@ public partial struct Color : IEquatable<Color>, IFormattable, IComparable<Color
     /// Un valor que determina la posición ordinal de este color con
     /// respecto al otro.
     /// </returns>
-    public int CompareTo(Color other)
+    public readonly int CompareTo(Color other)
     {
         int first = new Abgr32ColorParser().To(this);
         int second = new Abgr32ColorParser().To(other);
@@ -600,7 +592,7 @@ public partial struct Color : IEquatable<Color>, IFormattable, IComparable<Color
     /// </summary>
     /// <param name="obj"></param>
     /// <returns></returns>
-    public override bool Equals(object? obj)
+    public override readonly bool Equals(object? obj)
     {
         return obj switch
         {
@@ -616,7 +608,7 @@ public partial struct Color : IEquatable<Color>, IFormattable, IComparable<Color
     /// Obtiene el código Hash pasa esta instancia.
     /// </summary>
     /// <returns></returns>
-    public override int GetHashCode()
+    public override readonly int GetHashCode()
     {
         return HashCode.Combine(_r, _g, _b, _a);
     }
@@ -629,13 +621,13 @@ public partial struct Color : IEquatable<Color>, IFormattable, IComparable<Color
     /// A <see cref="string"/> that represents the current 
     /// <see cref="Color"/>.
     /// </returns>
-    public override string ToString()
+    public override readonly string ToString()
     {
         return $"#{new[] { A, R, G, B }.ToHex()}";
     }
 
     /// <inheritdoc/>
-    public Color Clone()
+    public readonly Color Clone()
     {
         return new(_r, _g, _b, _a);
     }
@@ -660,7 +652,7 @@ public partial struct Color : IEquatable<Color>, IFormattable, IComparable<Color
         return new(color.R, color.G, color.B, color.A);
     }
 
-    private string CustomFormat(string format, CI formatProvider)
+    private readonly string CustomFormat(string format, CI formatProvider)
     {
         format = format.Replace("AA", A.ToString("x2").ToUpper(formatProvider));
         format = format.Replace("aa", A.ToString("x2").ToLower(formatProvider));
@@ -673,5 +665,5 @@ public partial struct Color : IEquatable<Color>, IFormattable, IComparable<Color
         return format;
     }
 
-    DR.Color ICastable<DR.Color>.Cast() => this;
+    readonly DR.Color ICastable<DR.Color>.Cast() => this;
 }

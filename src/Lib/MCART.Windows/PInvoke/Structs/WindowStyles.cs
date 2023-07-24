@@ -30,8 +30,6 @@ SOFTWARE.
 
 #pragma warning disable CA1069
 
-using System;
-
 namespace TheXDS.MCART.PInvoke.Structs;
 
 [Flags]
