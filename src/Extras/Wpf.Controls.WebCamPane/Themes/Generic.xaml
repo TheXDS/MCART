@@ -1,0 +1,38 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:w="clr-namespace:TheXDS.MCART.Controls"
+    xmlns:mcart="clr-namespace:TheXDS.MCART.Controls;assembly=MCART.Wpf.Controls"
+    xmlns:vc="clr-namespace:TheXDS.MCART.ValueConverters;assembly=MCART.Wpf.Common">
+    <Style TargetType="{x:Type w:WebCamPane}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="w:WebCamPane">
+                    <mcart:BusyContainer IsBusy="{Binding IsBusy, RelativeSource={RelativeSource TemplatedParent}}" BusyOpacity="1" BusyBackground="Black">
+                        <mcart:SelectorPanel x:Name="_selector" SelectedIndex="0">
+                            <ContentControl Content="{Binding DisabledContent, RelativeSource={RelativeSource TemplatedParent}}"/>
+                            <Grid Background="{TemplateBinding Background}">
+                                <Grid.Resources>
+                                    <vc:BooleanToInvVisibilityConverter x:Key="b2ivc"/>
+                                </Grid.Resources>
+                                <Image
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    Stretch="UniformToFill"
+                                    Source="{Binding FrameBuffer, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                <ContentControl
+                                    Visibility="{Binding IsBusy, Converter={StaticResource b2ivc}, RelativeSource={RelativeSource TemplatedParent}}"
+                                    Content="{Binding OverlayContent, RelativeSource={RelativeSource TemplatedParent}}"/>
+                            </Grid>
+                        </mcart:SelectorPanel>
+                    </mcart:BusyContainer>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsActive" Value="True">
+                            <Setter TargetName="_selector" Property="SelectedIndex" Value="1"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
