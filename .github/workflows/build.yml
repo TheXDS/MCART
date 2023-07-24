@@ -17,11 +17,13 @@ jobs:
       Configuration: Debug
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
-    - name: Install .NET Core
-      uses: actions/setup-dotnet@v1
+      uses: actions/checkout@v3
+    - name: Install .NET
+      uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 6.0.x
+        dotnet-version: | 
+            6.0.x
+            7.0.x
     - name: Install Codecov
       run: choco install codecov -y
     - name: Build and test MCART
