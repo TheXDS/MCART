@@ -374,6 +374,17 @@ public partial class ObservingCommandBuilder<T> where T : INotifyPropertyChanged
     }
 
     /// <summary>
+    /// Configura el <see cref="ObservingCommand"/> para poder ejecutarse
+    /// cuando las colecciones especificadas tengan al menos un elemento.
+    /// </summary>
+    /// <param name="properties"></param>
+    /// <returns></returns>
+    public ObservingCommandBuilder<T> CanexecuteIfNotEmpty(params Expression<Func<T, IEnumerable<object?>?>>[] properties)
+    {
+        return CanExecuteIf(p => p?.Any() ?? false, properties);
+    }
+
+    /// <summary>
     /// Finaliza la configuración del <see cref="ObservingCommand"/>
     /// subyacente, devolviéndolo.
     /// </summary>
