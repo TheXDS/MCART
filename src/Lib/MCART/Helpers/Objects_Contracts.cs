@@ -48,4 +48,13 @@ public static partial class Objects
     {
         NullCheck(rawBytes, nameof(rawBytes));
     }
+
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void ShallowCopyTo_Contract<T>(T source, T destination)
+    {
+        NullCheck(source, nameof(source));
+        NullCheck(destination, nameof(destination));
+    }
 }

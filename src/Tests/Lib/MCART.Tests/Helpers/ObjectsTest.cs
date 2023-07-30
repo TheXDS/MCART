@@ -31,10 +31,7 @@ SOFTWARE.
 #pragma warning disable CA1822
 
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Events;
@@ -93,6 +90,20 @@ public class ObjectsTest
         {
             _ = value;
         }
+    }
+
+    [ExcludeFromCodeCoverage]
+    private class TestClass5
+    {
+        private int PrivateIntField = 1;
+        private readonly float PrivateFloatField = 1.5f;
+
+        public int TestIntField = 3;
+        public readonly double TestDoubleField = 4.0;
+
+        public short ShortProperty { get; set; } = 4000;
+
+        public byte ByteProperty => (byte)(ShortProperty % 128);
     }
 
     private enum TestEnum : byte
@@ -273,6 +284,45 @@ public class ObjectsTest
         Assert.AreEqual(tc.TestProperty, tc.PropertiesOf<int>().FirstOrDefault());
         Assert.AreEqual(tc.TestProperty, tc.GetType().GetProperties().PropertiesOf<int>(tc).FirstOrDefault());
         Assert.AreEqual(TestClass.ByteProperty, tc.GetType().GetProperties().PropertiesOf<byte>().FirstOrDefault());
+    }
+
+    [Test]
+    public void ShallowCloneTest()
+    {
+        TestClass5 source = new()
+        {
+            TestIntField = 99,
+            ShortProperty = 9000,
+        };
+        TestClass5 clone = source.ShallowClone();
+
+        Assert.That(source, Is.Not.SameAs(clone));
+        Assert.That(source.TestIntField, Is.EqualTo(clone.TestIntField));
+        Assert.That(source.ShortProperty, Is.EqualTo(clone.ShortProperty));
+    }
+
+    [Test]
+    public void ShallowCopyToTest()
+    {
+        TestClass5 obj1 = new()
+        {
+            TestIntField = 99,
+            ShortProperty = 9000,
+        };
+        TestClass5 obj2 = new();
+        Assert.That(obj1.TestIntField, Is.Not.EqualTo(obj2.TestIntField));
+        Assert.That(obj1.ShortProperty, Is.Not.EqualTo(obj2.ShortProperty));
+        obj1.ShallowCopyTo(obj2);
+        Assert.That(obj1, Is.Not.SameAs(obj2));
+        Assert.That(obj1.TestIntField, Is.EqualTo(obj2.TestIntField));
+        Assert.That(obj1.ShortProperty, Is.EqualTo(obj2.ShortProperty));
+    }
+
+    [Test]
+    public void ShallowCopyTo_throws_on_null_parameters()
+    {
+        Assert.That(() => Objects.ShallowCopyTo(null!, new TestClass5()), Throws.ArgumentNullException);
+        Assert.That(() => new TestClass5().ShallowCopyTo(null!), Throws.ArgumentNullException);
     }
 
     [Test]

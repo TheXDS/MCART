@@ -178,7 +178,7 @@ public static partial class Objects
     /// <param name="obj">Objeto.</param>
     /// <typeparam name="T">Tipo de este objeto.</typeparam>
     /// <remarks>
-    /// Esta función únicamente es únicamente útil al utilizar Visual
+    /// Esta función es únicamente útil al utilizar Visual
     /// Basic en conjunto con la estructura <c lang="VB">With</c>.
     /// </remarks>
     [Sugar]
@@ -197,19 +197,32 @@ public static partial class Objects
     /// los mismos valores que <paramref name="source"/> en sus campos
     /// públicos y propiedades de lectura/escritura.
     /// </returns>
-    public static T ShallowClone<T>(this T source) where T : new()
+    public static T ShallowClone<T>(this T source) where T : notnull, new()
     {
         T copy = new();
-
-        foreach (FieldInfo? j in typeof(T).GetFields().Where(p => p.IsPublic))
-        {
-            j.SetValue(copy, j.GetValue(source));
-        }
-        foreach (PropertyInfo? j in typeof(T).GetProperties().Where(p => p.CanRead && p.CanWrite))
-        {
-            j.SetValue(copy, j.GetValue(source));
-        }
+        ShallowCopyTo(source, copy);
         return copy;
+    }
+
+    /// <summary>
+    /// Copia el valor de las propiedades de un objeto a otro.
+    /// </summary>
+    /// <typeparam name="T">
+    /// Tipo de objetos sobre los cuales ejecutar la operación.
+    /// </typeparam>
+    /// <param name="source">Objeto de origen.</param>
+    /// <param name="destination">Objeto de destino.</param>
+    public static void ShallowCopyTo<T>(this T source, T destination) where T : notnull
+    {
+        ShallowCopyTo_Contract(source, destination);
+        foreach (FieldInfo j in typeof(T).GetFields().Where(p => p.IsPublic && !p.IsInitOnly && !p.IsLiteral))
+        {
+            j.SetValue(destination, j.GetValue(source));
+        }
+        foreach (PropertyInfo j in typeof(T).GetProperties().Where(p => p.CanRead && p.CanWrite))
+        {
+            j.SetValue(destination, j.GetValue(source));
+        }
     }
 
     /// <summary>
