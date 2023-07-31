@@ -147,7 +147,7 @@ public static class TypeFactoryVmExtensions
                     .LoadProperty(e)
                     .LoadArg1()
                     .Call(p.SetMethod!)
-                    .This()
+                    .LoadArg0()
                     .LoadConstant(p.Name)
                     .Call(nm),
                 p.PropertyType);
@@ -278,7 +278,7 @@ public static class TypeFactoryVmExtensions
         CheckImplements<NotifyPropertyChangeBase>(tb.SpecificBaseType);
         PropertyBuildInfo? p = tb.Builder.AddProperty(name, type, true, access, @virtual).WithBackingField(out var field);
         p.Setter!
-            .This()
+            .LoadArg0()
             .LoadFieldAddress(field)
             .LoadArg1()
             .LoadConstant(name)
@@ -410,7 +410,7 @@ public static class TypeFactoryVmExtensions
              .Pop()
              .Branch(retLabel)
              .PutLabel(notify)
-             .This()
+             .LoadArg0()
              .LoadConstant(name)
              .NewObj<PropertyChangedEventArgs>()
         , ReflectionHelpers.GetMethod<PropertyChangedEventHandler, Action<object, PropertyChangedEventArgs>>(p => p.Invoke));
@@ -448,7 +448,7 @@ public static class TypeFactoryVmExtensions
     public static PropertyBuildInfo AddNpcProperty(this ITypeBuilder<INotifyPropertyChanged> tb, string name, Type type, MemberAccess access, bool @virtual, MethodInfo? npcInvocator)
     {
         npcInvocator ??= tb.SpecificBaseType.GetMethods(BindingFlags.NonPublic | BindingFlags.Instance).First(p => p.IsVoid() && p.GetParameters().Length == 1 && p.GetParameters()[0].ParameterType == typeof(string) && p.HasAttribute<NpcChangeInvocatorAttribute>());
-        return BuildNpcProp(tb.Builder, name, type, access, @virtual, (_, setter) => setter.This().LoadConstant(name), npcInvocator);
+        return BuildNpcProp(tb.Builder, name, type, access, @virtual, (_, setter) => setter.LoadArg0().LoadConstant(name), npcInvocator);
     }
 
     /// <summary>
@@ -627,7 +627,7 @@ public static class TypeFactoryVmExtensions
             (_, v) => v.LoadField(field),
             (l, v) =>
             {
-                v.This()
+                v.LoadArg0()
                 .LoadArg1()
                 .StoreField(field);
                 evtHandler(l, p.Setter!);

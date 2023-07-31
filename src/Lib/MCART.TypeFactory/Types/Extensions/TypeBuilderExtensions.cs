@@ -103,7 +103,7 @@ public static class TypeBuilderExtensions
     {
         PropertyBuildInfo p = AddProperty(tb, name, type, true, access, @virtual).WithBackingField(out FieldBuilder? field);
         p.Setter!
-            .This()
+            .LoadArg0()
             .LoadArg1()
             .StoreField(field)
             .Return();
@@ -577,6 +577,47 @@ public static class TypeBuilderExtensions
         tb.DefineMethodOverride(m, method);
 
         return new MethodBuildInfo(tb, m);
+    }
+
+    /// <summary>
+    /// Define un método que no devuelve valor.
+    /// </summary>
+    /// <param name="tb">
+    /// <see cref="TypeBuilder"/> en el cual se creará el nuevo método.
+    /// </param>
+    /// <param name="name">Nombre del nuevo método.</param>
+    /// <param name="parameterTypes">
+    /// Tipo de los parámetros aceptados por el método.
+    /// </param>
+    /// <returns>
+    /// Un <see cref="MethodBuilder"/> con el que se podrá definir al método.
+    /// </returns>
+    [Sugar]
+    public static MethodBuilder DefineVoidMethod(this TypeBuilder tb, string name, params Type[] parameterTypes)
+    {
+        return tb.DefineMethod(name, Public, typeof(void), parameterTypes);
+    }
+
+    /// <summary>
+    /// Define un método que devuelve un tipo especificado.
+    /// </summary>
+    /// <typeparam name="TResult">
+    /// Tipo de resultado devuelto por el método.
+    /// </typeparam>
+    /// <param name="tb">
+    /// <see cref="TypeBuilder"/> en el cual se creará el nuevo método.
+    /// </param>
+    /// <param name="name">Nombre del nuevo método.</param>
+    /// <param name="parameterTypes">
+    /// Tipo de los parámetros aceptados por el método.
+    /// </param>
+    /// <returns>
+    /// Un <see cref="MethodBuilder"/> con el que se podrá definir al método.
+    /// </returns>
+    [Sugar]
+    public static MethodBuilder DefineMethod<TResult>(this TypeBuilder tb, string name, params Type[] parameterTypes)
+    {
+        return tb.DefineMethod(name, Public, typeof(TResult), parameterTypes);
     }
 
     private static MethodAttributes GetNonAbstract(MethodInfo m)

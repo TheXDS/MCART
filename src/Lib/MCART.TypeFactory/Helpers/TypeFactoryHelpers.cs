@@ -65,7 +65,7 @@ public static class TypeFactoryHelpers
         short c = 1;
         foreach (var (field, type) in fields.Zip(types))
         {
-            ctorIl.This().LoadArg(c).StoreField(field);
+            ctorIl.StoreField(field, il => il.LoadArg(c));
             c++;
             AddMembers(type, field, typeBuilder);
         }
