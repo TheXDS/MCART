@@ -31,11 +31,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System;
-using System.IO;
 using System.Net;
-using System.Threading;
-using System.Threading.Tasks;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.IO;
 using TheXDS.MCART.Types.Base;
@@ -45,9 +41,7 @@ namespace TheXDS.MCART.Networking;
 /// <summary>
 /// Contiene funciones de descarga de archivos por medio de protocolos web.
 /// </summary>
-#if NET6_0_OR_GREATER
 [Obsolete("Esta clase utiliza métodos web deprecados en .Net 6.")]
-#endif
 public static class DownloadHelper
 {
     private static T GetResponse<T>(Uri uri) where T : WebResponse
@@ -56,50 +50,43 @@ public static class DownloadHelper
         wr.Timeout = 10000;
         return wr.GetResponse() as T ?? throw new InvalidUriException(uri);
     }
+
     private static async Task<T> GetResponseAsync<T>(Uri uri) where T : WebResponse
     {
         WebRequest? wr = WebRequest.Create(uri);
         wr.Timeout = 10000;
         return (await wr.GetResponseAsync()) as T ?? throw new InvalidUriException(uri);
     }
+
     private static void Copy(WebResponse r, Stream stream)
     {
         r.GetResponseStream()?.CopyTo(stream);
     }
-    private static async Task CopyAsync(WebResponse r, Stream stream, ReportCallBack? reportCallback, int polling)
+    
+    private static async Task Report(Stream targetStream, long totalLength, ReportCallBack cb, int polling, CancellationToken ct)
     {
-        using Stream? rStream = r.GetResponseStream();
-        using CancellationTokenSource? ct = new();
-        using Task? downloadTask = rStream?.CopyToAsync(stream);
-        void ReportDownload()
+        long spd = 0L;
+        long currentLength = targetStream.Length;
+        while (currentLength < totalLength)
         {
-            if (reportCallback is null) return;
-            long? t = r.ContentLength > 0 ? r.ContentLength : (long?)null;
-            long spd = 0L;
-            while (!ct?.IsCancellationRequested ?? false)
-            {
-                if (stream.CanSeek)
-                {
-                    long l = stream.Length;
-                    reportCallback.Invoke(l, t, (l - spd) * 1000 / polling);
-                    spd = l;
-                }
-                else reportCallback.Invoke(null, t, null);
-                Thread.Sleep(polling);
-            }
-
-            if (stream.CanSeek)
-            {
-                spd = stream.Length - spd;
-                reportCallback.Invoke(stream.Length, t, spd * 1000 / polling);
-            }
-            else reportCallback.Invoke(null, t, null);
+            cb.Invoke(currentLength, totalLength, (currentLength - spd) * 1000 / polling);
+            spd = currentLength;
+            try { await Task.Delay(polling, ct); }
+            catch (TaskCanceledException) { return; }
         }
-        using Task? reportTask = new(ReportDownload, ct.Token);
-        reportTask.Start();
-        if (downloadTask != null) await downloadTask;
-        ct.Cancel();
-        await reportTask;
+    }
+
+    private static  Task CopyAsync(WebResponse r, Stream stream, ReportCallBack? reportCallback, int polling)
+    {
+        using Stream rStream = r.GetResponseStream();
+        using CancellationTokenSource? ct = new();
+        List<Task> tasks = new() { rStream.CopyToAsync(stream) };
+        if (r.ContentLength > 0 && reportCallback is { } cb)
+        {
+            var reportTask = Task.Run(() => Report(stream, r.ContentLength, cb, polling, ct.Token));
+            tasks.Add(reportTask);
+        }
+        return Task.WhenAll(tasks);
     }
 
     /// <summary>
