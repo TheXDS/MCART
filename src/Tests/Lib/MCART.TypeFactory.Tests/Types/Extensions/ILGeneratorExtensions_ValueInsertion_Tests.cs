@@ -40,7 +40,6 @@ public partial class ILGeneratorExtensions_Tests : TypeFactoryTestClassBase
         Assert.That(testCallBack.Invoke(new object[] { 3 }), Is.EquivalentTo(new int[3]));
         Assert.That(testCallBack.Invoke(new object[] { 5 }), Is.EquivalentTo(new int[5]));
         Assert.That(testCallBack.Invoke(new object[] { 7 }), Is.EquivalentTo(new int[7]));
-
     }
 
     [Test]
@@ -59,7 +58,6 @@ public partial class ILGeneratorExtensions_Tests : TypeFactoryTestClassBase
         Assert.That(testCallBack.Invoke(new object[] { 3 }), Is.EquivalentTo(new int[3]));
         Assert.That(testCallBack.Invoke(new object[] { 5 }), Is.EquivalentTo(new int[5]));
         Assert.That(testCallBack.Invoke(new object[] { 7 }), Is.EquivalentTo(new int[7]));
-
     }
 
     [Test]

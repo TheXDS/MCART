@@ -47,7 +47,7 @@ public partial class ILGeneratorExtensions_Tests : TypeFactoryTestClassBase
 
     private static string IfElse_ExpectedSample(int input)
     {
-        if (1 > input)
+        if (input < 1)
             return "A";
         else
             return "B";
@@ -56,7 +56,7 @@ public partial class ILGeneratorExtensions_Tests : TypeFactoryTestClassBase
     private static string If_ExpectedSample(int input)
     {
         var result = "X";
-        if (1 > input) result = "A";
+        if (input < 1) result = "A";
         return result;
     }
 
