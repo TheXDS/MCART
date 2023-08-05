@@ -1,5 +1,5 @@
 ﻿/*
-UIColorType2BrushConverter.cs
+SystemBackdropType.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,38 +28,37 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.Globalization;
-using System.Windows.Data;
-using System.Windows.Media;
-using TheXDS.MCART.ValueConverters.Base;
-using TheXDS.MCART.Types.Extensions;
-using Windows.UI.ViewManagement;
-using MT = TheXDS.MCART.Types;
-
-namespace TheXDS.MCART.ValueConverters;
+namespace TheXDS.MCART.PInvoke.Structs;
 
 /// <summary>
-/// Convierte valores desde y hacia objetos de tipo
-/// <see cref="MT.Color"/> y <see cref="Brush"/>.
+/// Enumera los distintos tipos de fondo que se pueden aplicar al fondo de una
+/// ventana.
 /// </summary>
 [CLSCompliant(false)]
-public sealed class UIColorType2BrushConverter : IOneWayValueConverter<UIColorType, Brush>
+public enum SystemBackdropType : uint
 {
     /// <summary>
-    /// Convierte un <see cref="UIColorType"/> en un <see cref="Brush"/>.
+    /// Fondo automático. Windows determinará el tipo de fondo a dibujar.
     /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="parameter">
-    /// Parámetros personalizados para este <see cref="IValueConverter" />.
-    /// </param>
-    /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
-    /// </param>
-    /// <returns>
-    /// Un <see cref="Brush"/> equivalente al <see cref="UIColorType"/> original.
-    /// </returns>
-    public Brush Convert(UIColorType value, object? parameter, CultureInfo? culture)
-    {
-        return value.ToMediaBrush();
-    }
+    Auto = 0,
+
+    /// <summary>
+    /// No dibujar fondo.
+    /// </summary>
+    None = 1,
+
+    /// <summary>
+    /// Fondo de ventana principal.
+    /// </summary>
+    MainWindow = 2,
+
+    /// <summary>
+    /// Fondo de ventana secundaria.
+    /// </summary>
+    TransientWindow = 3,
+
+    /// <summary>
+    /// Fondo de ventana con pestañas.
+    /// </summary>
+    TabbedWindow = 4
 }

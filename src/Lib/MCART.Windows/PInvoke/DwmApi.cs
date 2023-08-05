@@ -28,13 +28,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using TheXDS.MCART.PInvoke.Structs;
 
 namespace TheXDS.MCART.PInvoke;
 
+[ExcludeFromCodeCoverage]
 internal partial class DwmApi
 {
+#pragma warning disable SYSLIB1054
+    [DllImport("dwmapi.dll", SetLastError = false, ExactSpelling = true)]
+    internal static extern int DwmEnableBlurBehindWindow(IntPtr hWnd, in DWM_BLURBEHIND pDwmBlurbehind);
+#pragma warning restore SYSLIB1054
+
 #if NET7_0_OR_GREATER
 
     [LibraryImport("dwmapi.dll")]
@@ -48,7 +55,7 @@ internal partial class DwmApi
     internal static partial int DwmGetWindowAttribute(IntPtr hwnd, DwmWindowAttribute dwAttribute, [MarshalAs(UnmanagedType.Bool)] out bool pvAttribute, int cbAttribute);
 
     [LibraryImport("dwmapi.dll")] 
-    internal static partial int DwmSetWindowAttribute(IntPtr hwnd, DwmWindowAttribute dwAttribute, ref int pvAttribute, int cbAttribute);
+    internal static partial int DwmSetWindowAttribute(IntPtr hwnd, DwmWindowAttribute dwAttribute, ref nint pvAttribute, nint cbAttribute);
 
     [LibraryImport("dwmapi.dll")]
     internal static partial int DwmGetColorizationColor(out uint pcrColorization, [MarshalAs(UnmanagedType.Bool)] out bool pfOpaqueBlend);
@@ -65,7 +72,7 @@ internal partial class DwmApi
     internal static extern int DwmGetWindowAttribute(IntPtr hwnd, DwmWindowAttribute dwAttribute, out bool pvAttribute, int cbAttribute);
 
     [DllImport("dwmapi.dll")]
-    internal static extern int DwmSetWindowAttribute(IntPtr hwnd, DwmWindowAttribute dwAttribute, ref int pvAttribute, int cbAttribute);
+    internal static extern int DwmSetWindowAttribute(IntPtr hwnd, DwmWindowAttribute dwAttribute, ref nint pvAttribute, int cbAttribute);
 
     [DllImport("dwmapi.dll")]
     internal static extern int DwmGetColorizationColor(out uint pcrColorization, [MarshalAs(UnmanagedType.Bool)] out bool pfOpaqueBlend);

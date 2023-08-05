@@ -28,8 +28,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
+using System.Runtime.Versioning;
 using TheXDS.MCART.Component;
 using TheXDS.MCART.PInvoke.Structs;
 using static TheXDS.MCART.PInvoke.DwmApi;
@@ -40,6 +41,7 @@ namespace TheXDS.MCART.Types.Extensions;
 /// <summary>
 /// Contiene funciones de gestión de ventanas por medio de Desktop Window Manager (DWM).
 /// </summary>
+[ExcludeFromCodeCoverage]
 public static class MsWindowExtensions
 {
     /// <summary>
@@ -57,7 +59,13 @@ public static class MsWindowExtensions
     /// <param name="window">Instancia de ventana a difuminar.</param>
     public static void EnableBlur(this IMsWindow window)
     {
-        SetWindowEffect(window, new AccentPolicy { AccentState = AccentState.ACCENT_ENABLE_BLURBEHIND });
+        CheckHResult(DwmEnableBlurBehindWindow(window.Handle, new DWM_BLURBEHIND(true)));
+        var accentPolicy = new AccentPolicy
+        {
+            AccentState = AccentState.ACCENT_ENABLE_BLURBEHIND | AccentState.ACCENT_ENABLE_GRADIENT,
+            GradientColor = (152 << 24) | (0x2B2B2B & 0xFFFFFF),
+        };
+        SetWindowEffect(window, accentPolicy);
     }
 
     /// <summary>
@@ -66,9 +74,145 @@ public static class MsWindowExtensions
     /// <param name="window">
     /// Instancia de ventana en la cual activar los efectos.
     /// </param>
+    [SupportedOSPlatform("windows10.0.17134")]
     public static void EnableAcrylic(this IMsWindow window)
     {
         SetWindowEffect(window, new AccentPolicy { AccentState = AccentState.ACCENT_ENABLE_ACRYLICBLURBEHIND });
+    }
+
+    /// <summary>
+    /// Habilita los efectos de Mica/Acrylic en la ventana.
+    /// </summary>
+    /// <param name="window">
+    /// Ventana en la cual habilitar el efecto de Mica/Acrylic.
+    /// </param>
+    /// <remarks>
+    /// Esta llamada no tendrá efecto en sistemas operativos Windows 10 16299 y
+    /// anteriores. En Windows 10 17134 en adelante, puede utilizar
+    /// <see cref="EnableAcrylic(IMsWindow)"/> para habilitar un efecto
+    /// acrílico equivalente, en cuyo caso la ventana resultante se dibujará
+    /// con bordes de Windows 10, incluso si la aplicación se ejecuta en
+    /// Windows 11.
+    /// </remarks>
+    public static void EnableMicaIfSupported(this IMsWindow window)
+    {
+        if (OperatingSystem.IsWindowsVersionAtLeast(10, 0, 22523))
+        {
+            SetBackdropType(window, SystemBackdropType.MainWindow);
+        }
+        else if (OperatingSystem.IsWindowsVersionAtLeast(10, 0, 22000))
+        {
+            SetMica(window, true);
+        }
+        else if (OperatingSystem.IsWindowsVersionAtLeast(10, 0, 17134))
+        {
+            EnableAcrylic(window);
+        }
+    }
+
+    /// <summary>
+    /// Habilita o deshabilita los efectos de Mica en la ventana.
+    /// </summary>
+    /// <param name="window">
+    /// Ventana en la cual habilitar o deshabilitar el efecto de Mica.
+    /// </param>
+    /// <param name="state">
+    /// <see langword="true"/> para habilitar el efecto de Mica en la ventana,
+    /// <see langword="false"/> para deshabilitarlo.
+    /// </param>
+    /// <remarks>
+    /// Esta llamada se encuentra disponible para sistemas Windows 11, desde
+    /// 22000 hasta antes de 22523. Para habilitar el efecto para el fondo de
+    /// las ventanas en Windows 11 22523 en adelante, utilice
+    /// <see cref="SetBackdropType(IMsWindow, SystemBackdropType)"/>.
+    /// </remarks>
+    /// <seealso cref="SetBackdropType(IMsWindow, SystemBackdropType)"/>.
+    [SupportedOSPlatform("windows10.0.22000")]
+    [UnsupportedOSPlatform("windows10.0.22523")]
+    public static void SetMica(this IMsWindow window, bool state)
+    {
+        SetWindowAttribute(window, DwmWindowAttribute.DWMWA_MICA, state ? 1 : 0);
+    }
+
+    /// <summary>
+    /// Establece un tipo de fondo a dibujar en la ventana.
+    /// </summary>
+    /// <param name="window">Ventana a configurar.</param>
+    /// <param name="backdropType">Tipo de fondo a dibujar.</param>
+    [SupportedOSPlatform("windows10.0.22523")]
+    [CLSCompliant(false)]
+    public static void SetBackdropType(this IMsWindow window, SystemBackdropType backdropType)
+    {
+        SetWindowAttribute(window, DwmWindowAttribute.DWMWA_SYSTEMBACKDROP_TYPE, backdropType);
+    }
+
+    /// <summary>
+    /// Establece las opciones de dibujado de esquinas en la ventana.
+    /// </summary>
+    /// <param name="window">
+    /// Ventana para la cual configurar el dibujado de bordes.
+    /// </param>
+    /// <param name="cornerPreference">
+    /// Configuración de bordes a aplicar.
+    /// </param>
+    [SupportedOSPlatform("windows10.0.22000")]
+    [CLSCompliant(false)]
+    public static void SetCornerPreference(this IMsWindow window, WindowCornerPreference cornerPreference)
+    {
+        SetWindowAttribute(window, DwmWindowAttribute.DWMWA_WINDOW_CORNER_PREFERENCE, cornerPreference);
+    }
+
+    /// <summary>
+    /// Habilita o deshabilita el tema oscuro inmersivo dentro de la ventana.
+    /// </summary>
+    /// <param name="window">
+    /// Ventana sobre la cual configurar el tema de modo oscuro inmersivo.
+    /// </param>
+    /// <param name="state">
+    /// <see langword="true"/> para habilitar el tema oscuro inmersivo,
+    /// <see langword="false"/> para deshabilitarlo.
+    /// </param>
+    [SupportedOSPlatform("windows10.0.19041")]
+    public static void SetImmersiveDarkMode(this IMsWindow window, bool state)
+    {
+        SetWindowAttribute(window, DwmWindowAttribute.DWMWA_USE_IMMERSIVE_DARK_MODE, state ? 1 : 0);
+    }
+
+    /// <summary>
+    /// Extiende el borde de la ventana para incluir el área de cliente de la
+    /// ventana.
+    /// </summary>
+    /// <param name="window">Ventana sobre la cual extender el borde.</param>
+    public static void ExtendFrameIntoClientArea(this IMsWindow window)
+    {
+        Margins margins = new(-1);
+        CheckHResult(DwmExtendFrameIntoClientArea(window.Handle, ref margins));
+    }
+
+    /// <summary>
+    /// Establece el color de título de la ventana.
+    /// </summary>
+    /// <param name="window">
+    /// Ventana a la cual establecerle el color de título.
+    /// </param>
+    /// <param name="color">Color a establecer.</param>
+    [SupportedOSPlatform("windows10.0.22000")]
+    public static void SetCaptionColor(this IMsWindow window, Color color)
+    {
+        SetWindowAttribute<ColorRef>(window, DwmWindowAttribute.DWMWA_CAPTION_COLOR, color, Marshal.SizeOf(color));
+    }
+
+    /// <summary>
+    /// Establece el color de texto de título de la ventana.
+    /// </summary>
+    /// <param name="window">
+    /// Ventana a la cual establecerle el color de texto de título.
+    /// </param>
+    /// <param name="color">Color a establecer.</param>
+    [SupportedOSPlatform("windows10.0.22000")]
+    public static void SetCaptionTextColor(this IMsWindow window, Color color)
+    {
+        SetWindowAttribute<ColorRef>(window, DwmWindowAttribute.DWMWA_TEXT_COLOR, color, Marshal.SizeOf(color));
     }
 
     /// <summary>
@@ -81,7 +225,7 @@ public static class MsWindowExtensions
     /// <param name="padding">
     /// Grosor de los márgenes internos de la ventana.
     /// </param>
-    public static void SetClientPadding(this IMsWindow window, Margins padding)
+    public static void SetClientPadding(this IMsWindow window, TheXDS.MCART.PInvoke.Structs.Margins padding)
     {
         window.Padding = padding;
         window.SetFramePadding(padding);
@@ -97,7 +241,7 @@ public static class MsWindowExtensions
     /// <param name="padding">
     /// Grosor de los márgenes internos de la ventana.
     /// </param>
-    public static void SetFramePadding(this IMsWindow window, Margins padding)
+    public static void SetFramePadding(this IMsWindow window, TheXDS.MCART.PInvoke.Structs.Margins padding)
     {
         if (Helpers.Windows.IsCompositionEnabled())
             if (Marshal.GetExceptionForHR(DwmExtendFrameIntoClientArea(window.Handle, ref padding)) is { } ex) throw ex;
@@ -259,7 +403,7 @@ public static class MsWindowExtensions
     /// Ventana sobre la cual realizar la operación.
     /// </param>
     /// <param name="newPosition">Nueva posición de la ventana.</param>
-    public static void Move(this IMsWindow window, Types.Point newPosition)
+    public static void Move(this IMsWindow window, Point newPosition)
     {
         SetWindowPos(window.Handle, IntPtr.Zero,
             (int)newPosition.X, (int)newPosition.Y,
@@ -280,6 +424,20 @@ public static class MsWindowExtensions
             WindowChanges.IgnoreResize |
             WindowChanges.IgnoreZOrder |
             WindowChanges.FrameChanged));
+    }
+
+    private unsafe static void SetWindowAttribute<T>(this IMsWindow window, DwmWindowAttribute attribute, T value) where T : unmanaged
+    {
+        SetWindowAttribute(window, attribute, value, sizeof(T));
+    }
+
+    private static void SetWindowAttribute<T>(this IMsWindow window, DwmWindowAttribute attribute, T value, int sizeOf)
+    {
+        var pinnedValue = GCHandle.Alloc(value, GCHandleType.Pinned);
+        var valueAddr = pinnedValue.AddrOfPinnedObject();
+        var result = DwmSetWindowAttribute(window.Handle, attribute, ref valueAddr, sizeOf);
+        pinnedValue.Free();
+        CheckHResult(result);
     }
 
     private static void SetWindowEffect(this IMsWindow window, AccentPolicy accent)
@@ -318,5 +476,11 @@ public static class MsWindowExtensions
             int v = Marshal.GetHRForLastWin32Error();
             throw Marshal.GetExceptionForHR(v) ?? new Exception { HResult = v };
         }
+    }
+
+    private static int CheckHResult(int result)
+    {
+        if (Marshal.GetExceptionForHR(result) is { } ex) throw ex;
+        return result;
     }
 }

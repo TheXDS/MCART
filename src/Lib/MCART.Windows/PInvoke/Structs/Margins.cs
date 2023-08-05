@@ -57,4 +57,10 @@ public struct Margins
     /// Describe el margen inferior.
     /// </summary>
     public int Bottom;
+
+    /// <summary>
+    /// Inicialiiza una nueva instancia de la estructura <see cref="Margins"/>.
+    /// </summary>
+    /// <param name="allMargins"></param>
+    public Margins(int allMargins) => Left = Right = Top = Bottom = allMargins;
 }

@@ -1,5 +1,5 @@
 ﻿/*
-UIColorType2BrushConverter.cs
+PInvoke.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,38 +28,31 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.Globalization;
-using System.Windows.Data;
-using System.Windows.Media;
-using TheXDS.MCART.ValueConverters.Base;
-using TheXDS.MCART.Types.Extensions;
-using Windows.UI.ViewManagement;
-using MT = TheXDS.MCART.Types;
-
-namespace TheXDS.MCART.ValueConverters;
+namespace TheXDS.MCART.PInvoke.Structs;
 
 /// <summary>
-/// Convierte valores desde y hacia objetos de tipo
-/// <see cref="MT.Color"/> y <see cref="Brush"/>.
+/// Enumera las posibles configuiraciones de dibujado de esquinas en las ventanas.
 /// </summary>
 [CLSCompliant(false)]
-public sealed class UIColorType2BrushConverter : IOneWayValueConverter<UIColorType, Brush>
+public enum WindowCornerPreference : uint
 {
     /// <summary>
-    /// Convierte un <see cref="UIColorType"/> en un <see cref="Brush"/>.
+    /// Dejar que el sistema determine automáticamente cómo se dibujarán las esquinas.
     /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="parameter">
-    /// Parámetros personalizados para este <see cref="IValueConverter" />.
-    /// </param>
-    /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
-    /// </param>
-    /// <returns>
-    /// Un <see cref="Brush"/> equivalente al <see cref="UIColorType"/> original.
-    /// </returns>
-    public Brush Convert(UIColorType value, object? parameter, CultureInfo? culture)
-    {
-        return value.ToMediaBrush();
-    }
+    Default = 0,
+
+    /// <summary>
+    /// No redondear las esquinas.
+    /// </summary>
+    DoNotRound = 1,
+
+    /// <summary>
+    /// Redondear las esquinas, si es apropiado.
+    /// </summary>
+    Round = 2,
+
+    /// <summary>
+    /// Redondear las esquinas con un radio pequeño, si es apropiado.
+    /// </summary>
+    RoundSmall = 3
 }
