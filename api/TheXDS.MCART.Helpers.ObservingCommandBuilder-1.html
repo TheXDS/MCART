@@ -1,0 +1,1201 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class ObservingCommandBuilder&lt;T&gt;
+ </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class ObservingCommandBuilder&lt;T&gt;
+ ">
+    
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="TheXDS.MCART.Helpers.ObservingCommandBuilder`1">
+
+
+
+  <h1 id="TheXDS_MCART_Helpers_ObservingCommandBuilder_1" data-uid="TheXDS.MCART.Helpers.ObservingCommandBuilder`1" class="text-break">Class ObservingCommandBuilder&lt;T&gt;
+</h1>
+  <div class="markdown level0 summary"><p>Clase envolvente que permite configurar y generar un
+<a class="xref" href="TheXDS.MCART.Component.ObservingCommand.html">ObservingCommand</a>.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">ObservingCommandBuilder&lt;T&gt;</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="TheXDS.html">TheXDS</a>.<a class="xref" href="TheXDS.MCART.html">MCART</a>.<a class="xref" href="TheXDS.MCART.Helpers.html">Helpers</a></h6>
+  <h6><strong>Assembly</strong>: MCART.Mvvm.dll</h6>
+  <h5 id="TheXDS_MCART_Helpers_ObservingCommandBuilder_1_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class ObservingCommandBuilder&lt;T&gt; where T : INotifyPropertyChanged</code></pre>
+  </div>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Tipo de objeto observado.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Helpers_ObservingCommandBuilder_1_IsBuilt.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Helpers.ObservingCommandBuilder%601.IsBuilt%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Lib/MCART.Mvvm/Helpers/ObservingCommandBuilder_T.cs/#L56">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Helpers_ObservingCommandBuilder_1_IsBuilt_" data-uid="TheXDS.MCART.Helpers.ObservingCommandBuilder`1.IsBuilt*"></a>
+  <h4 id="TheXDS_MCART_Helpers_ObservingCommandBuilder_1_IsBuilt" data-uid="TheXDS.MCART.Helpers.ObservingCommandBuilder`1.IsBuilt">IsBuilt</h4>
+  <div class="markdown level1 summary"><p>Obtiene un valor que indica si ya se ha terminado de definir el
+<a class="xref" href="TheXDS.MCART.Component.ObservingCommand.html">ObservingCommand</a> a obtener por medio de esta
+instancia.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsBuilt { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Helpers_ObservingCommandBuilder_1_Build.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Helpers.ObservingCommandBuilder%601.Build%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Lib/MCART.Mvvm/Helpers/ObservingCommandBuilder_T.cs/#L395">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Helpers_ObservingCommandBuilder_1_Build_" data-uid="TheXDS.MCART.Helpers.ObservingCommandBuilder`1.Build*"></a>
+  <h4 id="TheXDS_MCART_Helpers_ObservingCommandBuilder_1_Build" data-uid="TheXDS.MCART.Helpers.ObservingCommandBuilder`1.Build">Build()</h4>
+  <div class="markdown level1 summary"><p>Finaliza la configuración del <a class="xref" href="TheXDS.MCART.Component.ObservingCommand.html">ObservingCommand</a>
+subyacente, devolviéndolo.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ObservingCommand Build()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TheXDS.MCART.Component.ObservingCommand.html">ObservingCommand</a></td>
+        <td><p>El <a class="xref" href="TheXDS.MCART.Component.ObservingCommand.html">ObservingCommand</a> que ha sido configurado por medio
+de esta instancia.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Helpers_ObservingCommandBuilder_1_CanExecute_System_Func_System_Boolean__.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Helpers.ObservingCommandBuilder%601.CanExecute(System.Func%7BSystem.Boolean%7D)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Lib/MCART.Mvvm/Helpers/ObservingCommandBuilder_T.cs/#L175">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Helpers_ObservingCommandBuilder_1_CanExecute_" data-uid="TheXDS.MCART.Helpers.ObservingCommandBuilder`1.CanExecute*"></a>
+  <h4 id="TheXDS_MCART_Helpers_ObservingCommandBuilder_1_CanExecute_System_Func_System_Boolean__" data-uid="TheXDS.MCART.Helpers.ObservingCommandBuilder`1.CanExecute(System.Func{System.Boolean})">CanExecute(Func&lt;bool&gt;)</h4>
+  <div class="markdown level1 summary"><p>Establece explícitamente la función de comprobación que determina
+si el <a class="xref" href="TheXDS.MCART.Component.ObservingCommand.html">ObservingCommand</a> a configurar puede ser
+ejecutada.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ObservingCommandBuilder&lt;T&gt; CanExecute(Func&lt;bool&gt; canExecute)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</td>
+        <td><span class="parametername">canExecute</span></td>
+        <td><p>Función que determina so el comando puede ser ejecutado.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TheXDS.MCART.Helpers.ObservingCommandBuilder-1.html">ObservingCommandBuilder</a>&lt;T&gt;</td>
+        <td><p>Esta instancia de la clase
+<a class="xref" href="TheXDS.MCART.Helpers.ObservingCommandBuilder-1.html">ObservingCommandBuilder&lt;T&gt;</a>, permitiendo el uso de
+sintaxis Fluent.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Helpers_ObservingCommandBuilder_1_CanExecute_System_Func_System_Object_System_Boolean__.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Helpers.ObservingCommandBuilder%601.CanExecute(System.Func%7BSystem.Object%2CSystem.Boolean%7D)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Lib/MCART.Mvvm/Helpers/ObservingCommandBuilder_T.cs/#L155">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Helpers_ObservingCommandBuilder_1_CanExecute_" data-uid="TheXDS.MCART.Helpers.ObservingCommandBuilder`1.CanExecute*"></a>
+  <h4 id="TheXDS_MCART_Helpers_ObservingCommandBuilder_1_CanExecute_System_Func_System_Object_System_Boolean__" data-uid="TheXDS.MCART.Helpers.ObservingCommandBuilder`1.CanExecute(System.Func{System.Object,System.Boolean})">CanExecute(Func&lt;object?, bool&gt;)</h4>
+  <div class="markdown level1 summary"><p>Establece explícitamente la función de comprobación que determina
+si el <a class="xref" href="TheXDS.MCART.Component.ObservingCommand.html">ObservingCommand</a> a configurar puede ser
+ejecutada.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ObservingCommandBuilder&lt;T&gt; CanExecute(Func&lt;object?, bool&gt; canExecute)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</td>
+        <td><span class="parametername">canExecute</span></td>
+        <td><p>Función que determina so el comando puede ser ejecutado. La función
+admitirá un parámetro proporcionado por el enlace de datos.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TheXDS.MCART.Helpers.ObservingCommandBuilder-1.html">ObservingCommandBuilder</a>&lt;T&gt;</td>
+        <td><p>Esta instancia de la clase
+<a class="xref" href="TheXDS.MCART.Helpers.ObservingCommandBuilder-1.html">ObservingCommandBuilder&lt;T&gt;</a>, permitiendo el uso de
+sintaxis Fluent.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Helpers_ObservingCommandBuilder_1_CanExecuteIfFilled_System_Linq_Expressions_Expression_System_Func__0_System_String_____.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Helpers.ObservingCommandBuilder%601.CanExecuteIfFilled(System.Linq.Expressions.Expression%7BSystem.Func%7B%600%2CSystem.String%7D%7D%5B%5D)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Lib/MCART.Mvvm/Helpers/ObservingCommandBuilder_T.cs/#L235">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Helpers_ObservingCommandBuilder_1_CanExecuteIfFilled_" data-uid="TheXDS.MCART.Helpers.ObservingCommandBuilder`1.CanExecuteIfFilled*"></a>
+  <h4 id="TheXDS_MCART_Helpers_ObservingCommandBuilder_1_CanExecuteIfFilled_System_Linq_Expressions_Expression_System_Func__0_System_String_____" data-uid="TheXDS.MCART.Helpers.ObservingCommandBuilder`1.CanExecuteIfFilled(System.Linq.Expressions.Expression{System.Func{`0,System.String}}[])">CanExecuteIfFilled(params Expression&lt;Func&lt;T, string?&gt;&gt;[])</h4>
+  <div class="markdown level1 summary"><p>Configura el <a class="xref" href="TheXDS.MCART.Component.ObservingCommand.html">ObservingCommand</a> para poder ejecutarse
+cuando las propiedades especificadas contengan valores distintos
+del valor predeterminado para el tipo de cada una.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ObservingCommandBuilder&lt;T&gt; CanExecuteIfFilled(params Expression&lt;Func&lt;T, string?&gt;&gt;[] properties)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1">Expression</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;T, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;&gt;[]</td>
+        <td><span class="parametername">properties</span></td>
+        <td><p>Colección de expresiones selectoras que permiten especificar las
+propiedades a escuchar.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TheXDS.MCART.Helpers.ObservingCommandBuilder-1.html">ObservingCommandBuilder</a>&lt;T&gt;</td>
+        <td><p>Esta instancia de la clase
+<a class="xref" href="TheXDS.MCART.Helpers.ObservingCommandBuilder-1.html">ObservingCommandBuilder&lt;T&gt;</a>, permitiendo el uso de
+sintaxis Fluent.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Helpers_ObservingCommandBuilder_1_CanExecuteIfNotDefault_System_Linq_Expressions_Expression_System_Func__0_System_Object_____.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Helpers.ObservingCommandBuilder%601.CanExecuteIfNotDefault(System.Linq.Expressions.Expression%7BSystem.Func%7B%600%2CSystem.Object%7D%7D%5B%5D)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Lib/MCART.Mvvm/Helpers/ObservingCommandBuilder_T.cs/#L216">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Helpers_ObservingCommandBuilder_1_CanExecuteIfNotDefault_" data-uid="TheXDS.MCART.Helpers.ObservingCommandBuilder`1.CanExecuteIfNotDefault*"></a>
+  <h4 id="TheXDS_MCART_Helpers_ObservingCommandBuilder_1_CanExecuteIfNotDefault_System_Linq_Expressions_Expression_System_Func__0_System_Object_____" data-uid="TheXDS.MCART.Helpers.ObservingCommandBuilder`1.CanExecuteIfNotDefault(System.Linq.Expressions.Expression{System.Func{`0,System.Object}}[])">CanExecuteIfNotDefault(params Expression&lt;Func&lt;T, object?&gt;&gt;[])</h4>
+  <div class="markdown level1 summary"><p>Configura el <a class="xref" href="TheXDS.MCART.Component.ObservingCommand.html">ObservingCommand</a> para poder ejecutarse
+cuando las propiedades especificadas no sean igual a
+<a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a> o a su valor predeterminado en caso de ser
+estructuras.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ObservingCommandBuilder&lt;T&gt; CanExecuteIfNotDefault(params Expression&lt;Func&lt;T, object?&gt;&gt;[] properties)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1">Expression</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;T, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>&gt;&gt;[]</td>
+        <td><span class="parametername">properties</span></td>
+        <td><p>Colección de expresiones selectoras que permiten especificar las
+propiedades a escuchar.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TheXDS.MCART.Helpers.ObservingCommandBuilder-1.html">ObservingCommandBuilder</a>&lt;T&gt;</td>
+        <td><p>Esta instancia de la clase
+<a class="xref" href="TheXDS.MCART.Helpers.ObservingCommandBuilder-1.html">ObservingCommandBuilder&lt;T&gt;</a>, permitiendo el uso de
+sintaxis Fluent.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Helpers_ObservingCommandBuilder_1_CanExecuteIfNotNull_System_Linq_Expressions_Expression_System_Func__0_System_Object_____.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Helpers.ObservingCommandBuilder%601.CanExecuteIfNotNull(System.Linq.Expressions.Expression%7BSystem.Func%7B%600%2CSystem.Object%7D%7D%5B%5D)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Lib/MCART.Mvvm/Helpers/ObservingCommandBuilder_T.cs/#L196">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Helpers_ObservingCommandBuilder_1_CanExecuteIfNotNull_" data-uid="TheXDS.MCART.Helpers.ObservingCommandBuilder`1.CanExecuteIfNotNull*"></a>
+  <h4 id="TheXDS_MCART_Helpers_ObservingCommandBuilder_1_CanExecuteIfNotNull_System_Linq_Expressions_Expression_System_Func__0_System_Object_____" data-uid="TheXDS.MCART.Helpers.ObservingCommandBuilder`1.CanExecuteIfNotNull(System.Linq.Expressions.Expression{System.Func{`0,System.Object}}[])">CanExecuteIfNotNull(params Expression&lt;Func&lt;T, object?&gt;&gt;[])</h4>
+  <div class="markdown level1 summary"><p>Configura el <a class="xref" href="TheXDS.MCART.Component.ObservingCommand.html">ObservingCommand</a> para poder ejecutarse
+cuando las propiedades especificadas no sean igual a
+<a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ObservingCommandBuilder&lt;T&gt; CanExecuteIfNotNull(params Expression&lt;Func&lt;T, object?&gt;&gt;[] properties)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1">Expression</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;T, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>&gt;&gt;[]</td>
+        <td><span class="parametername">properties</span></td>
+        <td><p>Colección de expresiones selectoras que permiten especificar las
+propiedades a escuchar.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TheXDS.MCART.Helpers.ObservingCommandBuilder-1.html">ObservingCommandBuilder</a>&lt;T&gt;</td>
+        <td><p>Esta instancia de la clase
+<a class="xref" href="TheXDS.MCART.Helpers.ObservingCommandBuilder-1.html">ObservingCommandBuilder&lt;T&gt;</a>, permitiendo el uso de
+sintaxis Fluent.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Helpers_ObservingCommandBuilder_1_CanExecuteIfNotZero__1_System_Linq_Expressions_Expression_System_Func__0___0_____.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Helpers.ObservingCommandBuilder%601.CanExecuteIfNotZero%60%601(System.Linq.Expressions.Expression%7BSystem.Func%7B%600%2C%60%600%7D%7D%5B%5D)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Lib/MCART.Mvvm/Helpers/ObservingCommandBuilder_T.cs/#L341">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Helpers_ObservingCommandBuilder_1_CanExecuteIfNotZero_" data-uid="TheXDS.MCART.Helpers.ObservingCommandBuilder`1.CanExecuteIfNotZero*"></a>
+  <h4 id="TheXDS_MCART_Helpers_ObservingCommandBuilder_1_CanExecuteIfNotZero__1_System_Linq_Expressions_Expression_System_Func__0___0_____" data-uid="TheXDS.MCART.Helpers.ObservingCommandBuilder`1.CanExecuteIfNotZero``1(System.Linq.Expressions.Expression{System.Func{`0,``0}}[])">CanExecuteIfNotZero&lt;TValue&gt;(params Expression&lt;Func&lt;T, TValue&gt;&gt;[])</h4>
+  <div class="markdown level1 summary"><p>Configura el <a class="xref" href="TheXDS.MCART.Component.ObservingCommand.html">ObservingCommand</a> para poder ejecutarse
+cuando las propiedades especificadas tengan valores distintos de su
+valor predeterminado ordinal.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ObservingCommandBuilder&lt;T&gt; CanExecuteIfNotZero&lt;TValue&gt;(params Expression&lt;Func&lt;T, TValue&gt;&gt;[] properties) where TValue : notnull, IComparable&lt;TValue&gt;</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1">Expression</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;T, TValue&gt;&gt;[]</td>
+        <td><span class="parametername">properties</span></td>
+        <td><p>Colección de expresiones selectoras que permiten especificar las
+propiedades a escuchar.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TheXDS.MCART.Helpers.ObservingCommandBuilder-1.html">ObservingCommandBuilder</a>&lt;T&gt;</td>
+        <td><p>Esta instancia de la clase
+<a class="xref" href="TheXDS.MCART.Helpers.ObservingCommandBuilder-1.html">ObservingCommandBuilder&lt;T&gt;</a>, permitiendo el uso de
+sintaxis Fluent.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TValue</span></td>
+        <td><p>Tipo de valores.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Helpers_ObservingCommandBuilder_1_CanExecuteIfObservedIsFilled.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Helpers.ObservingCommandBuilder%601.CanExecuteIfObservedIsFilled%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Lib/MCART.Mvvm/Helpers/ObservingCommandBuilder_T.cs/#L357">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Helpers_ObservingCommandBuilder_1_CanExecuteIfObservedIsFilled_" data-uid="TheXDS.MCART.Helpers.ObservingCommandBuilder`1.CanExecuteIfObservedIsFilled*"></a>
+  <h4 id="TheXDS_MCART_Helpers_ObservingCommandBuilder_1_CanExecuteIfObservedIsFilled" data-uid="TheXDS.MCART.Helpers.ObservingCommandBuilder`1.CanExecuteIfObservedIsFilled">CanExecuteIfObservedIsFilled()</h4>
+  <div class="markdown level1 summary"><p>Configura el <a class="xref" href="TheXDS.MCART.Component.ObservingCommand.html">ObservingCommand</a> para poder ejecutarse
+cuando todas las propiedades que admiten lectura y escritura del
+objeto observado tengan valores distintos a su respectivo valor
+predeterminado.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ObservingCommandBuilder&lt;T&gt; CanExecuteIfObservedIsFilled()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TheXDS.MCART.Helpers.ObservingCommandBuilder-1.html">ObservingCommandBuilder</a>&lt;T&gt;</td>
+        <td><p>Esta instancia de la clase
+<a class="xref" href="TheXDS.MCART.Helpers.ObservingCommandBuilder-1.html">ObservingCommandBuilder&lt;T&gt;</a>, permitiendo el uso de
+sintaxis Fluent.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Helpers_ObservingCommandBuilder_1_CanExecuteIfValid_System_Linq_Expressions_Expression_System_Func__0_System_Double_____.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Helpers.ObservingCommandBuilder%601.CanExecuteIfValid(System.Linq.Expressions.Expression%7BSystem.Func%7B%600%2CSystem.Double%7D%7D%5B%5D)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Lib/MCART.Mvvm/Helpers/ObservingCommandBuilder_T.cs/#L299">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Helpers_ObservingCommandBuilder_1_CanExecuteIfValid_" data-uid="TheXDS.MCART.Helpers.ObservingCommandBuilder`1.CanExecuteIfValid*"></a>
+  <h4 id="TheXDS_MCART_Helpers_ObservingCommandBuilder_1_CanExecuteIfValid_System_Linq_Expressions_Expression_System_Func__0_System_Double_____" data-uid="TheXDS.MCART.Helpers.ObservingCommandBuilder`1.CanExecuteIfValid(System.Linq.Expressions.Expression{System.Func{`0,System.Double}}[])">CanExecuteIfValid(params Expression&lt;Func&lt;T, double&gt;&gt;[])</h4>
+  <div class="markdown level1 summary"><p>Configura el <a class="xref" href="TheXDS.MCART.Component.ObservingCommand.html">ObservingCommand</a> para poder ejecutarse
+cuando las propiedades especificadas tengan valores de punto
+flotante válidos, es decir, que no sean
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double.negativeinfinity">NegativeInfinity</a>,
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double.positiveinfinity">PositiveInfinity</a> o <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double.nan">NaN</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ObservingCommandBuilder&lt;T&gt; CanExecuteIfValid(params Expression&lt;Func&lt;T, double&gt;&gt;[] properties)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1">Expression</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;T, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a>&gt;&gt;[]</td>
+        <td><span class="parametername">properties</span></td>
+        <td><p>Colección de expresiones selectoras que permiten especificar las
+propiedades a escuchar.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TheXDS.MCART.Helpers.ObservingCommandBuilder-1.html">ObservingCommandBuilder</a>&lt;T&gt;</td>
+        <td><p>Esta instancia de la clase
+<a class="xref" href="TheXDS.MCART.Helpers.ObservingCommandBuilder-1.html">ObservingCommandBuilder&lt;T&gt;</a>, permitiendo el uso de
+sintaxis Fluent.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Helpers_ObservingCommandBuilder_1_CanExecuteIfValid_System_Linq_Expressions_Expression_System_Func__0_System_Nullable_System_Double______.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Helpers.ObservingCommandBuilder%601.CanExecuteIfValid(System.Linq.Expressions.Expression%7BSystem.Func%7B%600%2CSystem.Nullable%7BSystem.Double%7D%7D%7D%5B%5D)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Lib/MCART.Mvvm/Helpers/ObservingCommandBuilder_T.cs/#L321">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Helpers_ObservingCommandBuilder_1_CanExecuteIfValid_" data-uid="TheXDS.MCART.Helpers.ObservingCommandBuilder`1.CanExecuteIfValid*"></a>
+  <h4 id="TheXDS_MCART_Helpers_ObservingCommandBuilder_1_CanExecuteIfValid_System_Linq_Expressions_Expression_System_Func__0_System_Nullable_System_Double______" data-uid="TheXDS.MCART.Helpers.ObservingCommandBuilder`1.CanExecuteIfValid(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Double}}}[])">CanExecuteIfValid(params Expression&lt;Func&lt;T, double?&gt;&gt;[])</h4>
+  <div class="markdown level1 summary"><p>Configura el <a class="xref" href="TheXDS.MCART.Component.ObservingCommand.html">ObservingCommand</a> para poder ejecutarse
+cuando las propiedades especificadas tengan valores de punto
+flotante válidos, es decir, que no sean
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double.negativeinfinity">NegativeInfinity</a>,
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double.positiveinfinity">PositiveInfinity</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double.nan">NaN</a> o
+<a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ObservingCommandBuilder&lt;T&gt; CanExecuteIfValid(params Expression&lt;Func&lt;T, double?&gt;&gt;[] properties)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1">Expression</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;T, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a>?&gt;&gt;[]</td>
+        <td><span class="parametername">properties</span></td>
+        <td><p>Colección de expresiones selectoras que permiten especificar las
+propiedades a escuchar.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TheXDS.MCART.Helpers.ObservingCommandBuilder-1.html">ObservingCommandBuilder</a>&lt;T&gt;</td>
+        <td><p>Esta instancia de la clase
+<a class="xref" href="TheXDS.MCART.Helpers.ObservingCommandBuilder-1.html">ObservingCommandBuilder&lt;T&gt;</a>, permitiendo el uso de
+sintaxis Fluent.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Helpers_ObservingCommandBuilder_1_CanExecuteIfValid_System_Linq_Expressions_Expression_System_Func__0_System_Nullable_System_Single______.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Helpers.ObservingCommandBuilder%601.CanExecuteIfValid(System.Linq.Expressions.Expression%7BSystem.Func%7B%600%2CSystem.Nullable%7BSystem.Single%7D%7D%7D%5B%5D)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Lib/MCART.Mvvm/Helpers/ObservingCommandBuilder_T.cs/#L278">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Helpers_ObservingCommandBuilder_1_CanExecuteIfValid_" data-uid="TheXDS.MCART.Helpers.ObservingCommandBuilder`1.CanExecuteIfValid*"></a>
+  <h4 id="TheXDS_MCART_Helpers_ObservingCommandBuilder_1_CanExecuteIfValid_System_Linq_Expressions_Expression_System_Func__0_System_Nullable_System_Single______" data-uid="TheXDS.MCART.Helpers.ObservingCommandBuilder`1.CanExecuteIfValid(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Single}}}[])">CanExecuteIfValid(params Expression&lt;Func&lt;T, float?&gt;&gt;[])</h4>
+  <div class="markdown level1 summary"><p>Configura el <a class="xref" href="TheXDS.MCART.Component.ObservingCommand.html">ObservingCommand</a> para poder ejecutarse
+cuando las propiedades especificadas tengan valores de punto
+flotante válidos, es decir, que no sean
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single.negativeinfinity">NegativeInfinity</a>,
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single.positiveinfinity">PositiveInfinity</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single.nan">NaN</a> o
+<a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ObservingCommandBuilder&lt;T&gt; CanExecuteIfValid(params Expression&lt;Func&lt;T, float?&gt;&gt;[] properties)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1">Expression</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;T, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>?&gt;&gt;[]</td>
+        <td><span class="parametername">properties</span></td>
+        <td><p>Colección de expresiones selectoras que permiten especificar las
+propiedades a escuchar.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TheXDS.MCART.Helpers.ObservingCommandBuilder-1.html">ObservingCommandBuilder</a>&lt;T&gt;</td>
+        <td><p>Esta instancia de la clase
+<a class="xref" href="TheXDS.MCART.Helpers.ObservingCommandBuilder-1.html">ObservingCommandBuilder&lt;T&gt;</a>, permitiendo el uso de
+sintaxis Fluent.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Helpers_ObservingCommandBuilder_1_CanExecuteIfValid_System_Linq_Expressions_Expression_System_Func__0_System_Single_____.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Helpers.ObservingCommandBuilder%601.CanExecuteIfValid(System.Linq.Expressions.Expression%7BSystem.Func%7B%600%2CSystem.Single%7D%7D%5B%5D)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Lib/MCART.Mvvm/Helpers/ObservingCommandBuilder_T.cs/#L256">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Helpers_ObservingCommandBuilder_1_CanExecuteIfValid_" data-uid="TheXDS.MCART.Helpers.ObservingCommandBuilder`1.CanExecuteIfValid*"></a>
+  <h4 id="TheXDS_MCART_Helpers_ObservingCommandBuilder_1_CanExecuteIfValid_System_Linq_Expressions_Expression_System_Func__0_System_Single_____" data-uid="TheXDS.MCART.Helpers.ObservingCommandBuilder`1.CanExecuteIfValid(System.Linq.Expressions.Expression{System.Func{`0,System.Single}}[])">CanExecuteIfValid(params Expression&lt;Func&lt;T, float&gt;&gt;[])</h4>
+  <div class="markdown level1 summary"><p>Configura el <a class="xref" href="TheXDS.MCART.Component.ObservingCommand.html">ObservingCommand</a> para poder ejecutarse
+cuando las propiedades especificadas tengan valores de punto
+flotante válidos, es decir, que no sean
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single.negativeinfinity">NegativeInfinity</a>,
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single.positiveinfinity">PositiveInfinity</a> o <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single.nan">NaN</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ObservingCommandBuilder&lt;T&gt; CanExecuteIfValid(params Expression&lt;Func&lt;T, float&gt;&gt;[] properties)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1">Expression</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;T, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>&gt;&gt;[]</td>
+        <td><span class="parametername">properties</span></td>
+        <td><p>Colección de expresiones selectoras que permiten especificar las
+propiedades a escuchar.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TheXDS.MCART.Helpers.ObservingCommandBuilder-1.html">ObservingCommandBuilder</a>&lt;T&gt;</td>
+        <td><p>Esta instancia de la clase
+<a class="xref" href="TheXDS.MCART.Helpers.ObservingCommandBuilder-1.html">ObservingCommandBuilder&lt;T&gt;</a>, permitiendo el uso de
+sintaxis Fluent.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Helpers_ObservingCommandBuilder_1_CanexecuteIfNotEmpty_System_Linq_Expressions_Expression_System_Func__0_System_Collections_Generic_IEnumerable_System_Object______.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Helpers.ObservingCommandBuilder%601.CanexecuteIfNotEmpty(System.Linq.Expressions.Expression%7BSystem.Func%7B%600%2CSystem.Collections.Generic.IEnumerable%7BSystem.Object%7D%7D%7D%5B%5D)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Lib/MCART.Mvvm/Helpers/ObservingCommandBuilder_T.cs/#L382">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Helpers_ObservingCommandBuilder_1_CanexecuteIfNotEmpty_" data-uid="TheXDS.MCART.Helpers.ObservingCommandBuilder`1.CanexecuteIfNotEmpty*"></a>
+  <h4 id="TheXDS_MCART_Helpers_ObservingCommandBuilder_1_CanexecuteIfNotEmpty_System_Linq_Expressions_Expression_System_Func__0_System_Collections_Generic_IEnumerable_System_Object______" data-uid="TheXDS.MCART.Helpers.ObservingCommandBuilder`1.CanexecuteIfNotEmpty(System.Linq.Expressions.Expression{System.Func{`0,System.Collections.Generic.IEnumerable{System.Object}}}[])">CanexecuteIfNotEmpty(params Expression&lt;Func&lt;T, IEnumerable&lt;object?&gt;?&gt;&gt;[])</h4>
+  <div class="markdown level1 summary"><p>Configura el <a class="xref" href="TheXDS.MCART.Component.ObservingCommand.html">ObservingCommand</a> para poder ejecutarse
+cuando las colecciones especificadas tengan al menos un elemento.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ObservingCommandBuilder&lt;T&gt; CanexecuteIfNotEmpty(params Expression&lt;Func&lt;T, IEnumerable&lt;object?&gt;?&gt;&gt;[] properties)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1">Expression</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;T, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>&gt;&gt;&gt;[]</td>
+        <td><span class="parametername">properties</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TheXDS.MCART.Helpers.ObservingCommandBuilder-1.html">ObservingCommandBuilder</a>&lt;T&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Helpers_ObservingCommandBuilder_1_ListensTo_System_Linq_Expressions_Expression_System_Func__0_System_Object_____.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Helpers.ObservingCommandBuilder%601.ListensTo(System.Linq.Expressions.Expression%7BSystem.Func%7B%600%2CSystem.Object%7D%7D%5B%5D)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Lib/MCART.Mvvm/Helpers/ObservingCommandBuilder_T.cs/#L91">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Helpers_ObservingCommandBuilder_1_ListensTo_" data-uid="TheXDS.MCART.Helpers.ObservingCommandBuilder`1.ListensTo*"></a>
+  <h4 id="TheXDS_MCART_Helpers_ObservingCommandBuilder_1_ListensTo_System_Linq_Expressions_Expression_System_Func__0_System_Object_____" data-uid="TheXDS.MCART.Helpers.ObservingCommandBuilder`1.ListensTo(System.Linq.Expressions.Expression{System.Func{`0,System.Object}}[])">ListensTo(params Expression&lt;Func&lt;T, object?&gt;&gt;[])</h4>
+  <div class="markdown level1 summary"><p>Indica que el <a class="xref" href="TheXDS.MCART.Component.ObservingCommand.html">ObservingCommand</a> a configurar escuchará
+los cambios de las propiedades especificadas.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ObservingCommandBuilder&lt;T&gt; ListensTo(params Expression&lt;Func&lt;T, object?&gt;&gt;[] properties)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1">Expression</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;T, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>&gt;&gt;[]</td>
+        <td><span class="parametername">properties</span></td>
+        <td><p>Colección de expresiones selectoras que permiten especificar las
+propiedades a escuchar.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TheXDS.MCART.Helpers.ObservingCommandBuilder-1.html">ObservingCommandBuilder</a>&lt;T&gt;</td>
+        <td><p>Esta instancia de la clase
+<a class="xref" href="TheXDS.MCART.Helpers.ObservingCommandBuilder-1.html">ObservingCommandBuilder&lt;T&gt;</a>, permitiendo el uso de
+sintaxis Fluent.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Helpers_ObservingCommandBuilder_1_ListensToCanExecute_System_Linq_Expressions_Expression_System_Func__0_System_Boolean___.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Helpers.ObservingCommandBuilder%601.ListensToCanExecute(System.Linq.Expressions.Expression%7BSystem.Func%7B%600%2CSystem.Boolean%7D%7D)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Lib/MCART.Mvvm/Helpers/ObservingCommandBuilder_T.cs/#L131">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Helpers_ObservingCommandBuilder_1_ListensToCanExecute_" data-uid="TheXDS.MCART.Helpers.ObservingCommandBuilder`1.ListensToCanExecute*"></a>
+  <h4 id="TheXDS_MCART_Helpers_ObservingCommandBuilder_1_ListensToCanExecute_System_Linq_Expressions_Expression_System_Func__0_System_Boolean___" data-uid="TheXDS.MCART.Helpers.ObservingCommandBuilder`1.ListensToCanExecute(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">ListensToCanExecute(Expression&lt;Func&lt;T, bool&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Indica que el <a class="xref" href="TheXDS.MCART.Component.ObservingCommand.html">ObservingCommand</a> a configurar deberá
+escuchar a una propiedad de tipo <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a> y establecer la
+misma como el determinante de si el comando puede o no ser
+ejecutado.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ObservingCommandBuilder&lt;T&gt; ListensToCanExecute(Expression&lt;Func&lt;T, bool&gt;&gt; selector)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1">Expression</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;T, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;&gt;</td>
+        <td><span class="parametername">selector</span></td>
+        <td><p>Función selectora de la propiedad a utilizar.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TheXDS.MCART.Helpers.ObservingCommandBuilder-1.html">ObservingCommandBuilder</a>&lt;T&gt;</td>
+        <td><p>Esta instancia de la clase
+<a class="xref" href="TheXDS.MCART.Helpers.ObservingCommandBuilder-1.html">ObservingCommandBuilder&lt;T&gt;</a>, permitiendo el uso de
+sintaxis Fluent.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Helpers_ObservingCommandBuilder_1_ListensTo__1_System_Linq_Expressions_Expression_System_Func__0___0_____.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Helpers.ObservingCommandBuilder%601.ListensTo%60%601(System.Linq.Expressions.Expression%7BSystem.Func%7B%600%2C%60%600%7D%7D%5B%5D)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Lib/MCART.Mvvm/Helpers/ObservingCommandBuilder_T.cs/#L110">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Helpers_ObservingCommandBuilder_1_ListensTo_" data-uid="TheXDS.MCART.Helpers.ObservingCommandBuilder`1.ListensTo*"></a>
+  <h4 id="TheXDS_MCART_Helpers_ObservingCommandBuilder_1_ListensTo__1_System_Linq_Expressions_Expression_System_Func__0___0_____" data-uid="TheXDS.MCART.Helpers.ObservingCommandBuilder`1.ListensTo``1(System.Linq.Expressions.Expression{System.Func{`0,``0}}[])">ListensTo&lt;TValue&gt;(params Expression&lt;Func&lt;T, TValue&gt;&gt;[])</h4>
+  <div class="markdown level1 summary"><p>Indica que el <a class="xref" href="TheXDS.MCART.Component.ObservingCommand.html">ObservingCommand</a> a configurar escuchará
+los cambios de las propiedades especificadas.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ObservingCommandBuilder&lt;T&gt; ListensTo&lt;TValue&gt;(params Expression&lt;Func&lt;T, TValue&gt;&gt;[] properties)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1">Expression</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;T, TValue&gt;&gt;[]</td>
+        <td><span class="parametername">properties</span></td>
+        <td><p>Colección de expresiones selectoras que permiten especificar las
+propiedades a escuchar.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TheXDS.MCART.Helpers.ObservingCommandBuilder-1.html">ObservingCommandBuilder</a>&lt;T&gt;</td>
+        <td><p>Esta instancia de la clase
+<a class="xref" href="TheXDS.MCART.Helpers.ObservingCommandBuilder-1.html">ObservingCommandBuilder&lt;T&gt;</a>, permitiendo el uso de
+sintaxis Fluent.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TValue</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="operators">Operators
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Helpers_ObservingCommandBuilder_1_op_Implicit_TheXDS_MCART_Helpers_ObservingCommandBuilder__0___TheXDS_MCART_Component_ObservingCommand.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Helpers.ObservingCommandBuilder%601.op_Implicit(TheXDS.MCART.Helpers.ObservingCommandBuilder%7B%600%7D)~TheXDS.MCART.Component.ObservingCommand%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Lib/MCART.Mvvm/Helpers/ObservingCommandBuilder_T.cs/#L415">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Helpers_ObservingCommandBuilder_1_op_Implicit_" data-uid="TheXDS.MCART.Helpers.ObservingCommandBuilder`1.op_Implicit*"></a>
+  <h4 id="TheXDS_MCART_Helpers_ObservingCommandBuilder_1_op_Implicit_TheXDS_MCART_Helpers_ObservingCommandBuilder__0___TheXDS_MCART_Component_ObservingCommand" data-uid="TheXDS.MCART.Helpers.ObservingCommandBuilder`1.op_Implicit(TheXDS.MCART.Helpers.ObservingCommandBuilder{`0})~TheXDS.MCART.Component.ObservingCommand">implicit operator ObservingCommand(ObservingCommandBuilder&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Convierte implícitamente esta instancia en un
+<a class="xref" href="TheXDS.MCART.Component.ObservingCommand.html">ObservingCommand</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static implicit operator ObservingCommand(ObservingCommandBuilder&lt;T&gt; command)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TheXDS.MCART.Helpers.ObservingCommandBuilder-1.html">ObservingCommandBuilder</a>&lt;T&gt;</td>
+        <td><span class="parametername">command</span></td>
+        <td><p>Objeto a convertir.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TheXDS.MCART.Component.ObservingCommand.html">ObservingCommand</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObjectExtensions.html#TheXDS_MCART_Types_Extensions_ObjectExtensions_FieldsOf__1_System_Object_">ObjectExtensions.FieldsOf&lt;T&gt;(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObjectExtensions.html#TheXDS_MCART_Types_Extensions_ObjectExtensions_GetAttribute__1_System_Object_">ObjectExtensions.GetAttribute&lt;T&gt;(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObjectExtensions.html#TheXDS_MCART_Types_Extensions_ObjectExtensions_GetAttributes__1_System_Object_">ObjectExtensions.GetAttributes&lt;T&gt;(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObjectExtensions.html#TheXDS_MCART_Types_Extensions_ObjectExtensions_HasAttrValue__2_System_Object___1__">ObjectExtensions.HasAttrValue&lt;TAttribute, TValue&gt;(object, out TValue)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObjectExtensions.html#TheXDS_MCART_Types_Extensions_ObjectExtensions_HasAttribute__1_System_Object_">ObjectExtensions.HasAttribute&lt;T&gt;(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObjectExtensions.html#TheXDS_MCART_Types_Extensions_ObjectExtensions_HasAttribute__1_System_Object___0__">ObjectExtensions.HasAttribute&lt;T&gt;(object, out T?)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObjectExtensions.html#TheXDS_MCART_Types_Extensions_ObjectExtensions_HasAttributes__1_System_Object_System_Collections_Generic_IEnumerable___0___">ObjectExtensions.HasAttributes&lt;T&gt;(object, out IEnumerable&lt;T&gt;?)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObjectExtensions.html#TheXDS_MCART_Types_Extensions_ObjectExtensions_Is_System_Object_System_Object_">ObjectExtensions.Is(object?, object?)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObjectExtensions.html#TheXDS_MCART_Types_Extensions_ObjectExtensions_IsEither_System_Object_System_Collections_IEnumerable_">ObjectExtensions.IsEither(object, IEnumerable)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObjectExtensions.html#TheXDS_MCART_Types_Extensions_ObjectExtensions_IsEither_System_Object_System_Object___">ObjectExtensions.IsEither(object, params object[])</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObjectExtensions.html#TheXDS_MCART_Types_Extensions_ObjectExtensions_IsNeither_System_Object_System_Collections_IEnumerable_">ObjectExtensions.IsNeither(object, IEnumerable)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObjectExtensions.html#TheXDS_MCART_Types_Extensions_ObjectExtensions_IsNeither_System_Object_System_Object___">ObjectExtensions.IsNeither(object, params object[])</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObjectExtensions.html#TheXDS_MCART_Types_Extensions_ObjectExtensions_IsNot_System_Object_System_Object_">ObjectExtensions.IsNot(object?, object?)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObjectExtensions.html#TheXDS_MCART_Types_Extensions_ObjectExtensions_PropertiesOf__1_System_Object_">ObjectExtensions.PropertiesOf&lt;T&gt;(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObjectExtensions.html#TheXDS_MCART_Types_Extensions_ObjectExtensions_WhichAre_System_Object_System_Collections_Generic_IEnumerable_System_Object__">ObjectExtensions.WhichAre(object, IEnumerable&lt;object&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObjectExtensions.html#TheXDS_MCART_Types_Extensions_ObjectExtensions_WhichAre_System_Object_System_Object___">ObjectExtensions.WhichAre(object, params object[])</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Common.html#TheXDS_MCART_Helpers_Common_IfNotNull__1___0_System_Action___0__">Common.IfNotNull&lt;T&gt;(T?, Action&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_Itself__1___0_">Objects.Itself&lt;T&gt;(T)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_ShallowCopyTo__1___0___0_">Objects.ShallowCopyTo&lt;T&gt;(T, T)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.CollectionExtensions.html#TheXDS_MCART_Types_Extensions_CollectionExtensions_PushInto__2___0_System_Collections_Generic_ICollection___1__">CollectionExtensions.PushInto&lt;TItem, TCollection&gt;(TItem, ICollection&lt;TCollection&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.DictionaryExtensions.html#TheXDS_MCART_Types_Extensions_DictionaryExtensions_PushInto__2___1___0_System_Collections_Generic_IDictionary___0___1__">DictionaryExtensions.PushInto&lt;TKey, TValue&gt;(TValue, TKey, IDictionary&lt;TKey, TValue&gt;)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Helpers_ObservingCommandBuilder_1.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Helpers.ObservingCommandBuilder%601%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/TheXDS/MCART/blob/master/src/Lib/MCART.Mvvm/Helpers/ObservingCommandBuilder_T.cs/#L45" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

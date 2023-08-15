@@ -1,0 +1,893 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class ViewModelBase
+ </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class ViewModelBase
+ ">
+    
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="TheXDS.MCART.Types.Base.ViewModelBase">
+
+
+
+  <h1 id="TheXDS_MCART_Types_Base_ViewModelBase" data-uid="TheXDS.MCART.Types.Base.ViewModelBase" class="text-break">Class ViewModelBase
+</h1>
+  <div class="markdown level0 summary"><p>Clase base para la creación de ViewModels.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><a class="xref" href="TheXDS.MCART.Types.Base.NotifyPropertyChangeBase.html">NotifyPropertyChangeBase</a></div>
+    <div class="level2"><a class="xref" href="TheXDS.MCART.Types.Base.NotifyPropertyChanged.html">NotifyPropertyChanged</a></div>
+    <div class="level3"><span class="xref">ViewModelBase</span></div>
+      <div class="level4"><a class="xref" href="TheXDS.MCART.Types.Base.EntityViewModel-1.html">EntityViewModel&lt;T&gt;</a></div>
+      <div class="level4"><a class="xref" href="TheXDS.MCART.Types.Base.FormViewModelBase.html">FormViewModelBase</a></div>
+      <div class="level4"><a class="xref" href="TheXDS.MCART.Types.Base.WindowViewModel.html">WindowViewModel</a></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="TheXDS.MCART.Types.Base.INotifyPropertyChangeBase.html">INotifyPropertyChangeBase</a></div>
+    <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.componentmodel.inotifypropertychanged">INotifyPropertyChanged</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Types.Base.NotifyPropertyChanged.html#TheXDS_MCART_Types_Base_NotifyPropertyChanged_PropertyChanged">NotifyPropertyChanged.PropertyChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Types.Base.NotifyPropertyChanged.html#TheXDS_MCART_Types_Base_NotifyPropertyChanged_OnPropertyChanged_System_String_">NotifyPropertyChanged.OnPropertyChanged(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Types.Base.NotifyPropertyChanged.html#TheXDS_MCART_Types_Base_NotifyPropertyChanged_Change__1___0____0_System_String_">NotifyPropertyChanged.Change&lt;T&gt;(ref T, T, string)</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Types.Base.NotifyPropertyChanged.html#TheXDS_MCART_Types_Base_NotifyPropertyChanged_Notify_System_String_">NotifyPropertyChanged.Notify(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Types.Base.NotifyPropertyChangeBase.html#TheXDS_MCART_Types_Base_NotifyPropertyChangeBase_RegisterPropertyChangeBroadcast_System_String_System_String___">NotifyPropertyChangeBase.RegisterPropertyChangeBroadcast(string, params string[])</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Types.Base.NotifyPropertyChangeBase.html#TheXDS_MCART_Types_Base_NotifyPropertyChangeBase_RegisterPropertyChangeTrigger_System_String_System_String___">NotifyPropertyChangeBase.RegisterPropertyChangeTrigger(string, params string[])</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Types.Base.NotifyPropertyChangeBase.html#TheXDS_MCART_Types_Base_NotifyPropertyChangeBase_RegisterPropertyChangeBroadcast_System_String_System_Collections_Generic_IEnumerable_System_String__">NotifyPropertyChangeBase.RegisterPropertyChangeBroadcast(string, IEnumerable&lt;string&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Types.Base.NotifyPropertyChangeBase.html#TheXDS_MCART_Types_Base_NotifyPropertyChangeBase_UnregisterPropertyChangeBroadcast_System_String_">NotifyPropertyChangeBase.UnregisterPropertyChangeBroadcast(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Types.Base.NotifyPropertyChangeBase.html#TheXDS_MCART_Types_Base_NotifyPropertyChangeBase_ObserveTree">NotifyPropertyChangeBase.ObserveTree</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Types.Base.NotifyPropertyChangeBase.html#TheXDS_MCART_Types_Base_NotifyPropertyChangeBase_Notify_System_String___">NotifyPropertyChangeBase.Notify(params string[])</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Types.Base.NotifyPropertyChangeBase.html#TheXDS_MCART_Types_Base_NotifyPropertyChangeBase_NotifyRegistrar_System_String_">NotifyPropertyChangeBase.NotifyRegistrar(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Types.Base.NotifyPropertyChangeBase.html#TheXDS_MCART_Types_Base_NotifyPropertyChangeBase_Notify_System_Collections_Generic_IEnumerable_System_String__">NotifyPropertyChangeBase.Notify(IEnumerable&lt;string&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Types.Base.NotifyPropertyChangeBase.html#TheXDS_MCART_Types_Base_NotifyPropertyChangeBase_Notify_System_Collections_Generic_IEnumerable_System_Reflection_PropertyInfo__">NotifyPropertyChangeBase.Notify(IEnumerable&lt;PropertyInfo&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Types.Base.NotifyPropertyChangeBase.html#TheXDS_MCART_Types_Base_NotifyPropertyChangeBase_Refresh">NotifyPropertyChangeBase.Refresh()</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Types.Base.NotifyPropertyChangeBase.html#TheXDS_MCART_Types_Base_NotifyPropertyChangeBase_ForwardChange_TheXDS_MCART_Types_Base_INotifyPropertyChangeBase_">NotifyPropertyChangeBase.ForwardChange(INotifyPropertyChangeBase)</a>
+    </div>
+    <div>
+      <a class="xref" href="TheXDS.MCART.Types.Base.NotifyPropertyChangeBase.html#TheXDS_MCART_Types_Base_NotifyPropertyChangeBase_RemoveForwardChange_TheXDS_MCART_Types_Base_INotifyPropertyChangeBase_">NotifyPropertyChangeBase.RemoveForwardChange(INotifyPropertyChangeBase)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="TheXDS.html">TheXDS</a>.<a class="xref" href="TheXDS.MCART.html">MCART</a>.<a class="xref" href="TheXDS.MCART.Types.html">Types</a>.<a class="xref" href="TheXDS.MCART.Types.Base.html">Base</a></h6>
+  <h6><strong>Assembly</strong>: MCART.Mvvm.dll</h6>
+  <h5 id="TheXDS_MCART_Types_Base_ViewModelBase_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class ViewModelBase : NotifyPropertyChanged, INotifyPropertyChangeBase, INotifyPropertyChanged</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Types_Base_ViewModelBase__ctor.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Types.Base.ViewModelBase.%23ctor%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Lib/MCART.Mvvm/Types/Base/ViewModelBase.cs/#L51">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Types_Base_ViewModelBase__ctor_" data-uid="TheXDS.MCART.Types.Base.ViewModelBase.#ctor*"></a>
+  <h4 id="TheXDS_MCART_Types_Base_ViewModelBase__ctor" data-uid="TheXDS.MCART.Types.Base.ViewModelBase.#ctor">ViewModelBase()</h4>
+  <div class="markdown level1 summary"><p>Inicializa una nueva instancia de la clase
+<a class="xref" href="TheXDS.MCART.Types.Base.ViewModelBase.html">ViewModelBase</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected ViewModelBase()</code></pre>
+  </div>
+  <h3 id="properties">Properties
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Types_Base_ViewModelBase_IsBusy.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Types.Base.ViewModelBase.IsBusy%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Lib/MCART.Mvvm/Types/Base/ViewModelBase.cs/#L60">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Types_Base_ViewModelBase_IsBusy_" data-uid="TheXDS.MCART.Types.Base.ViewModelBase.IsBusy*"></a>
+  <h4 id="TheXDS_MCART_Types_Base_ViewModelBase_IsBusy" data-uid="TheXDS.MCART.Types.Base.ViewModelBase.IsBusy">IsBusy</h4>
+  <div class="markdown level1 summary"><p>Obtiene un valor que indica si este <a class="xref" href="TheXDS.MCART.Types.Base.ViewModelBase.html">ViewModelBase</a>
+está ocupado.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsBusy { get; protected set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Types_Base_ViewModelBase_BusyOp_System_Action_.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Types.Base.ViewModelBase.BusyOp(System.Action)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Lib/MCART.Mvvm/Types/Base/ViewModelBase.cs/#L175">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Types_Base_ViewModelBase_BusyOp_" data-uid="TheXDS.MCART.Types.Base.ViewModelBase.BusyOp*"></a>
+  <h4 id="TheXDS_MCART_Types_Base_ViewModelBase_BusyOp_System_Action_" data-uid="TheXDS.MCART.Types.Base.ViewModelBase.BusyOp(System.Action)">BusyOp(Action)</h4>
+  <div class="markdown level1 summary"><p>Ejecuta una acción controlando automáticamente el estado de
+'ocupado' de este ViewModel.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void BusyOp(Action action)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action">Action</a></td>
+        <td><span class="parametername">action</span></td>
+        <td><p>Acción a ejecutar.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Types_Base_ViewModelBase_BusyOp_System_Threading_Tasks_Task_.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Types.Base.ViewModelBase.BusyOp(System.Threading.Tasks.Task)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Lib/MCART.Mvvm/Types/Base/ViewModelBase.cs/#L192">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Types_Base_ViewModelBase_BusyOp_" data-uid="TheXDS.MCART.Types.Base.ViewModelBase.BusyOp*"></a>
+  <h4 id="TheXDS_MCART_Types_Base_ViewModelBase_BusyOp_System_Threading_Tasks_Task_" data-uid="TheXDS.MCART.Types.Base.ViewModelBase.BusyOp(System.Threading.Tasks.Task)">BusyOp(Task)</h4>
+  <div class="markdown level1 summary"><p>Ejecuta una tarea controlando automáticamente el estado de
+'ocupado' de este ViewModel.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Task BusyOp(Task task)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></td>
+        <td><span class="parametername">task</span></td>
+        <td><p>Tarea a ejecutar.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></td>
+        <td><p>Un <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a> que puede utilizarse para monitorear la
+operación asíncrona.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Types_Base_ViewModelBase_BusyOp__1_System_Func___0__.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Types.Base.ViewModelBase.BusyOp%60%601(System.Func%7B%60%600%7D)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Lib/MCART.Mvvm/Types/Base/ViewModelBase.cs/#L209">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Types_Base_ViewModelBase_BusyOp_" data-uid="TheXDS.MCART.Types.Base.ViewModelBase.BusyOp*"></a>
+  <h4 id="TheXDS_MCART_Types_Base_ViewModelBase_BusyOp__1_System_Func___0__" data-uid="TheXDS.MCART.Types.Base.ViewModelBase.BusyOp``1(System.Func{``0})">BusyOp&lt;T&gt;(Func&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Ejecuta una función controlando automáticamente el estado de
+'ocupado' de este ViewModel</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected T BusyOp&lt;T&gt;(Func&lt;T&gt; function)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;T&gt;</td>
+        <td><span class="parametername">function</span></td>
+        <td><p>Función a ejecutar.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><p>El resultado de ejecutar la función especificada.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Tipo de resultado de la función.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Types_Base_ViewModelBase_BusyOp__1_System_Threading_Tasks_Task___0__.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Types.Base.ViewModelBase.BusyOp%60%601(System.Threading.Tasks.Task%7B%60%600%7D)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Lib/MCART.Mvvm/Types/Base/ViewModelBase.cs/#L230">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Types_Base_ViewModelBase_BusyOp_" data-uid="TheXDS.MCART.Types.Base.ViewModelBase.BusyOp*"></a>
+  <h4 id="TheXDS_MCART_Types_Base_ViewModelBase_BusyOp__1_System_Threading_Tasks_Task___0__" data-uid="TheXDS.MCART.Types.Base.ViewModelBase.BusyOp``1(System.Threading.Tasks.Task{``0})">BusyOp&lt;T&gt;(Task&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Ejecuta una tarea que devuelve un resultado controlando
+automáticamente el estado de 'ocupado' de este ViewModel.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Task&lt;T&gt; BusyOp&lt;T&gt;(Task&lt;T&gt; task)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;T&gt;</td>
+        <td><span class="parametername">task</span></td>
+        <td><p>Tarea a ejecutar.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;T&gt;</td>
+        <td><p>Un <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a> que puede utilizarse para monitorear la
+operación asíncrona.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Tipo de resultado devuelto por la tarea.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Types_Base_ViewModelBase_Finalize.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Types.Base.ViewModelBase.Finalize%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Lib/MCART.Mvvm/Types/Base/ViewModelBase.cs/#L254">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Types_Base_ViewModelBase_Finalize_" data-uid="TheXDS.MCART.Types.Base.ViewModelBase.Finalize*"></a>
+  <h4 id="TheXDS_MCART_Types_Base_ViewModelBase_Finalize" data-uid="TheXDS.MCART.Types.Base.ViewModelBase.Finalize">~ViewModelBase()</h4>
+  <div class="markdown level1 summary"><p>Destruye esta instancia de la clase <a class="xref" href="TheXDS.MCART.Types.Base.ViewModelBase.html">ViewModelBase</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected ~ViewModelBase()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Types_Base_ViewModelBase_Observe_System_String_System_Action_.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Types.Base.ViewModelBase.Observe(System.String%2CSystem.Action)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Lib/MCART.Mvvm/Types/Base/ViewModelBase.cs/#L109">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Types_Base_ViewModelBase_Observe_" data-uid="TheXDS.MCART.Types.Base.ViewModelBase.Observe*"></a>
+  <h4 id="TheXDS_MCART_Types_Base_ViewModelBase_Observe_System_String_System_Action_" data-uid="TheXDS.MCART.Types.Base.ViewModelBase.Observe(System.String,System.Action)">Observe(string, Action)</h4>
+  <div class="markdown level1 summary"><p>Registra una propiedad con notificación de cambio de valor para ser
+observada y manejada por el delegado especificado.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void Observe(string propertyName, Action handler)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">propertyName</span></td>
+        <td><p>Nombre de la propiedad a observar.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action">Action</a></td>
+        <td><span class="parametername">handler</span></td>
+        <td><p>Delegado a invocar cuando la propiedad haya cambiado.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TheXDS.MCART.Exceptions.InvalidArgumentException.html">InvalidArgumentException</a></td>
+        <td><p>Se produce si <code class="paramref">propertyName</code> es una cadena vacía o
+una cadena de espacios.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
+        <td><p>Se produce si <code class="paramref">propertyName</code> o
+<code class="paramref">handler</code> son  <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Types_Base_ViewModelBase_ObserveFrom_System_ComponentModel_INotifyPropertyChanged_System_Reflection_PropertyInfo_System_Action_.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Types.Base.ViewModelBase.ObserveFrom(System.ComponentModel.INotifyPropertyChanged%2CSystem.Reflection.PropertyInfo%2CSystem.Action)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Lib/MCART.Mvvm/Types/Base/ViewModelBase.cs/#L164">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Types_Base_ViewModelBase_ObserveFrom_" data-uid="TheXDS.MCART.Types.Base.ViewModelBase.ObserveFrom*"></a>
+  <h4 id="TheXDS_MCART_Types_Base_ViewModelBase_ObserveFrom_System_ComponentModel_INotifyPropertyChanged_System_Reflection_PropertyInfo_System_Action_" data-uid="TheXDS.MCART.Types.Base.ViewModelBase.ObserveFrom(System.ComponentModel.INotifyPropertyChanged,System.Reflection.PropertyInfo,System.Action)">ObserveFrom(INotifyPropertyChanged, PropertyInfo, Action)</h4>
+  <div class="markdown level1 summary"><p>Registra una propiedad con notificación de cambio de valor para ser
+observada y manejada por el delegado especificado.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void ObserveFrom(INotifyPropertyChanged source, PropertyInfo property, Action handler)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.componentmodel.inotifypropertychanged">INotifyPropertyChanged</a></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>Origen observado.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.reflection.propertyinfo">PropertyInfo</a></td>
+        <td><span class="parametername">property</span></td>
+        <td><p>Propiedad a observar.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action">Action</a></td>
+        <td><span class="parametername">handler</span></td>
+        <td><p>Delegado a invocar cuando la propiedad haya cambiado.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
+        <td><p>Se produce si <code class="paramref">source</code>,
+<code class="paramref">property</code> o <code class="paramref">handler</code> son
+<a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.missingmemberexception">MissingMemberException</a></td>
+        <td><p>Se produce si la propiedad no ha sido encontrada en la instancia a
+configurar.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Types_Base_ViewModelBase_ObserveFrom__1___0_System_Linq_Expressions_Expression_System_Func___0_System_Object___System_Action_.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Types.Base.ViewModelBase.ObserveFrom%60%601(%60%600%2CSystem.Linq.Expressions.Expression%7BSystem.Func%7B%60%600%2CSystem.Object%7D%7D%2CSystem.Action)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Lib/MCART.Mvvm/Types/Base/ViewModelBase.cs/#L140">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Types_Base_ViewModelBase_ObserveFrom_" data-uid="TheXDS.MCART.Types.Base.ViewModelBase.ObserveFrom*"></a>
+  <h4 id="TheXDS_MCART_Types_Base_ViewModelBase_ObserveFrom__1___0_System_Linq_Expressions_Expression_System_Func___0_System_Object___System_Action_" data-uid="TheXDS.MCART.Types.Base.ViewModelBase.ObserveFrom``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Action)">ObserveFrom&lt;T&gt;(T, Expression&lt;Func&lt;T, object?&gt;&gt;, Action)</h4>
+  <div class="markdown level1 summary"><p>Registra una propiedad con notificación de cambio de valor para ser
+observada y manejada por el delegado especificado.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void ObserveFrom&lt;T&gt;(T source, Expression&lt;Func&lt;T, object?&gt;&gt; propertySelector, Action handler) where T : notnull, INotifyPropertyChanged</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>Origen observado.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1">Expression</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;T, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>&gt;&gt;</td>
+        <td><span class="parametername">propertySelector</span></td>
+        <td><p>Función selectora de la propiedad a observar.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action">Action</a></td>
+        <td><span class="parametername">handler</span></td>
+        <td><p>Delegado a invocar cuando la propiedad haya cambiado.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Tipo de la propiedad.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TheXDS.MCART.Exceptions.InvalidArgumentException.html">InvalidArgumentException</a></td>
+        <td><p>Se produce si la función de selección de propiedad no ha
+seleccionado un miembro válido de la instancia a configurar.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
+        <td><p>Se produce si <code class="paramref">source</code>,
+<code class="paramref">propertySelector</code> o <code class="paramref">handler</code>
+son <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Types_Base_ViewModelBase_Observe__1_System_Linq_Expressions_Expression_System_Func___0___System_Action_.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Types.Base.ViewModelBase.Observe%60%601(System.Linq.Expressions.Expression%7BSystem.Func%7B%60%600%7D%7D%2CSystem.Action)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Lib/MCART.Mvvm/Types/Base/ViewModelBase.cs/#L85">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Types_Base_ViewModelBase_Observe_" data-uid="TheXDS.MCART.Types.Base.ViewModelBase.Observe*"></a>
+  <h4 id="TheXDS_MCART_Types_Base_ViewModelBase_Observe__1_System_Linq_Expressions_Expression_System_Func___0___System_Action_" data-uid="TheXDS.MCART.Types.Base.ViewModelBase.Observe``1(System.Linq.Expressions.Expression{System.Func{``0}},System.Action)">Observe&lt;T&gt;(Expression&lt;Func&lt;T&gt;&gt;, Action)</h4>
+  <div class="markdown level1 summary"><p>Registra una propiedad con notificación de cambio de valor para ser
+observada y manejada por el delegado especificado.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void Observe&lt;T&gt;(Expression&lt;Func&lt;T&gt;&gt; propertySelector, Action handler)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1">Expression</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;T&gt;&gt;</td>
+        <td><span class="parametername">propertySelector</span></td>
+        <td><p>Función selectora de la propiedad a observar.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action">Action</a></td>
+        <td><span class="parametername">handler</span></td>
+        <td><p>Delegado a invocar cuando la propiedad haya cambiado.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Tipo de la propiedad.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TheXDS.MCART.Exceptions.InvalidArgumentException.html">InvalidArgumentException</a></td>
+        <td><p>Se produce si la función de selección de propiedad no ha
+seleccionado un miembro válido de la instancia a configurar.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
+        <td><p>Se produce si <code class="paramref">propertySelector</code> o
+<code class="paramref">handler</code> son <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Base.INotifyPropertyChangeBase.html">INotifyPropertyChangeBase</a>
+  </div>
+  <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.componentmodel.inotifypropertychanged">INotifyPropertyChanged</a>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObjectExtensions.html#TheXDS_MCART_Types_Extensions_ObjectExtensions_FieldsOf__1_System_Object_">ObjectExtensions.FieldsOf&lt;T&gt;(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObjectExtensions.html#TheXDS_MCART_Types_Extensions_ObjectExtensions_GetAttribute__1_System_Object_">ObjectExtensions.GetAttribute&lt;T&gt;(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObjectExtensions.html#TheXDS_MCART_Types_Extensions_ObjectExtensions_GetAttributes__1_System_Object_">ObjectExtensions.GetAttributes&lt;T&gt;(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObjectExtensions.html#TheXDS_MCART_Types_Extensions_ObjectExtensions_HasAttrValue__2_System_Object___1__">ObjectExtensions.HasAttrValue&lt;TAttribute, TValue&gt;(object, out TValue)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObjectExtensions.html#TheXDS_MCART_Types_Extensions_ObjectExtensions_HasAttribute__1_System_Object_">ObjectExtensions.HasAttribute&lt;T&gt;(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObjectExtensions.html#TheXDS_MCART_Types_Extensions_ObjectExtensions_HasAttribute__1_System_Object___0__">ObjectExtensions.HasAttribute&lt;T&gt;(object, out T?)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObjectExtensions.html#TheXDS_MCART_Types_Extensions_ObjectExtensions_HasAttributes__1_System_Object_System_Collections_Generic_IEnumerable___0___">ObjectExtensions.HasAttributes&lt;T&gt;(object, out IEnumerable&lt;T&gt;?)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObjectExtensions.html#TheXDS_MCART_Types_Extensions_ObjectExtensions_Is_System_Object_System_Object_">ObjectExtensions.Is(object?, object?)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObjectExtensions.html#TheXDS_MCART_Types_Extensions_ObjectExtensions_IsEither_System_Object_System_Collections_IEnumerable_">ObjectExtensions.IsEither(object, IEnumerable)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObjectExtensions.html#TheXDS_MCART_Types_Extensions_ObjectExtensions_IsEither_System_Object_System_Object___">ObjectExtensions.IsEither(object, params object[])</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObjectExtensions.html#TheXDS_MCART_Types_Extensions_ObjectExtensions_IsNeither_System_Object_System_Collections_IEnumerable_">ObjectExtensions.IsNeither(object, IEnumerable)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObjectExtensions.html#TheXDS_MCART_Types_Extensions_ObjectExtensions_IsNeither_System_Object_System_Object___">ObjectExtensions.IsNeither(object, params object[])</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObjectExtensions.html#TheXDS_MCART_Types_Extensions_ObjectExtensions_IsNot_System_Object_System_Object_">ObjectExtensions.IsNot(object?, object?)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObjectExtensions.html#TheXDS_MCART_Types_Extensions_ObjectExtensions_PropertiesOf__1_System_Object_">ObjectExtensions.PropertiesOf&lt;T&gt;(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObjectExtensions.html#TheXDS_MCART_Types_Extensions_ObjectExtensions_WhichAre_System_Object_System_Collections_Generic_IEnumerable_System_Object__">ObjectExtensions.WhichAre(object, IEnumerable&lt;object&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObjectExtensions.html#TheXDS_MCART_Types_Extensions_ObjectExtensions_WhichAre_System_Object_System_Object___">ObjectExtensions.WhichAre(object, params object[])</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Common.html#TheXDS_MCART_Helpers_Common_IfNotNull__1___0_System_Action___0__">Common.IfNotNull&lt;T&gt;(T?, Action&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_Itself__1___0_">Objects.Itself&lt;T&gt;(T)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_ShallowCopyTo__1___0___0_">Objects.ShallowCopyTo&lt;T&gt;(T, T)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.ObservingCommandBuilder.html#TheXDS_MCART_Helpers_ObservingCommandBuilder_Create__1___0_System_Action_">ObservingCommandBuilder.Create&lt;T&gt;(T, Action)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.ObservingCommandBuilder.html#TheXDS_MCART_Helpers_ObservingCommandBuilder_Create__1___0_System_Action_System_Object__">ObservingCommandBuilder.Create&lt;T&gt;(T, Action&lt;object?&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.ObservingCommandBuilder.html#TheXDS_MCART_Helpers_ObservingCommandBuilder_Create__1___0_System_Func_System_Object_System_Threading_Tasks_Task__">ObservingCommandBuilder.Create&lt;T&gt;(T, Func&lt;object?, Task&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.ObservingCommandBuilder.html#TheXDS_MCART_Helpers_ObservingCommandBuilder_Create__1___0_System_Func_System_Threading_Tasks_Task__">ObservingCommandBuilder.Create&lt;T&gt;(T, Func&lt;Task&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.CollectionExtensions.html#TheXDS_MCART_Types_Extensions_CollectionExtensions_PushInto__2___0_System_Collections_Generic_ICollection___1__">CollectionExtensions.PushInto&lt;TItem, TCollection&gt;(TItem, ICollection&lt;TCollection&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.DictionaryExtensions.html#TheXDS_MCART_Types_Extensions_DictionaryExtensions_PushInto__2___1___0_System_Collections_Generic_IDictionary___0___1__">DictionaryExtensions.PushInto&lt;TKey, TValue&gt;(TValue, TKey, IDictionary&lt;TKey, TValue&gt;)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Types_Base_ViewModelBase.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Types.Base.ViewModelBase%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/TheXDS/MCART/blob/master/src/Lib/MCART.Mvvm/Types/Base/ViewModelBase_Contracts.cs/#L42" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

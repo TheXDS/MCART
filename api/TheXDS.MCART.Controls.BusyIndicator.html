@@ -1,23 +1,22 @@
 ﻿<!DOCTYPE html>
 <!--[if IE]><![endif]-->
 <html>
-  
+
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class BusyIndicator
-   </title>
-    <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class BusyIndicator
-   ">
-    <meta name="generator" content="docfx 2.58.0.0">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class BusyIndicator
+ </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class BusyIndicator
+ ">
     
-    <link rel="shortcut icon" href="../favicon.ico">
-    <link rel="stylesheet" href="../styles/docfx.vendor.css">
-    <link rel="stylesheet" href="../styles/docfx.css">
-    <link rel="stylesheet" href="../styles/main.css">
-    <meta property="docfx:navrel" content="../toc.html">
-    <meta property="docfx:tocrel" content="toc.html">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
     
     
     
@@ -25,7 +24,7 @@
   <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
       <header>
-        
+
         <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
           <div class="container">
             <div class="navbar-header">
@@ -35,7 +34,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              
+
               <a class="navbar-brand" href="../index.html">
                 <img id="logo" class="svg" src="../logo.svg" alt="">
               </a>
@@ -49,7 +48,7 @@
             </div>
           </div>
         </nav>
-        
+
         <div class="subnav navbar navbar-default">
           <div class="container hide-when-search" id="breadcrumb">
             <ul class="breadcrumb">
@@ -59,7 +58,7 @@
         </div>
       </header>
       <div role="main" class="container body-content hide-when-search">
-        
+
         <div class="sidenav hide-when-search">
           <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
           <div class="sidetoggle collapse" id="sidetoggle">
@@ -69,1872 +68,958 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="TheXDS.MCART.Controls.BusyIndicator">
-  
-  
+
+
+
   <h1 id="TheXDS_MCART_Controls_BusyIndicator" data-uid="TheXDS.MCART.Controls.BusyIndicator" class="text-break">Class BusyIndicator
-  </h1>
+</h1>
   <div class="markdown level0 summary"><p>Control simple que indica al usuario que la aplicación está ocupada.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
-    <div class="level0"><span class="xref">System.Object</span></div>
-    <div class="level1"><span class="xref">System.Windows.Threading.DispatcherObject</span></div>
-    <div class="level2"><span class="xref">System.Windows.DependencyObject</span></div>
-    <div class="level3"><span class="xref">System.Windows.Media.Visual</span></div>
-    <div class="level4"><span class="xref">System.Windows.UIElement</span></div>
-    <div class="level5"><span class="xref">System.Windows.FrameworkElement</span></div>
-    <div class="level6"><span class="xref">System.Windows.Controls.Control</span></div>
-    <div class="level7"><span class="xref">BusyIndicator</span></div>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">AvaloniaObject</span></div>
+    <div class="level2"><span class="xref">Animatable</span></div>
+    <div class="level3"><span class="xref">StyledElement</span></div>
+    <div class="level4"><span class="xref">Visual</span></div>
+    <div class="level5"><span class="xref">Layoutable</span></div>
+    <div class="level6"><span class="xref">Interactive</span></div>
+    <div class="level7"><span class="xref">InputElement</span></div>
+    <div class="level8"><span class="xref">Control</span></div>
+    <div class="level9"><span class="xref">TemplatedControl</span></div>
+    <div class="level10"><a class="xref" href="TheXDS.MCART.Controls.Base.RingControlBase.html">RingControlBase</a></div>
+    <div class="level11"><span class="xref">BusyIndicator</span></div>
   </div>
-  <div classs="implements">
+  <div class="implements">
     <h5>Implements</h5>
-    <div><span class="xref">System.Windows.Media.Animation.IAnimatable</span></div>
-    <div><span class="xref">System.ComponentModel.ISupportInitialize</span></div>
-    <div><span class="xref">System.Windows.IFrameworkInputElement</span></div>
-    <div><span class="xref">System.Windows.IInputElement</span></div>
-    <div><span class="xref">System.Windows.Markup.IQueryAmbient</span></div>
+    <div><span class="xref">IAvaloniaObjectDebug</span></div>
+    <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.componentmodel.inotifypropertychanged">INotifyPropertyChanged</a></div>
+    <div><span class="xref">ISetLogicalParent</span></div>
+    <div><span class="xref">ISetInheritanceParent</span></div>
+    <div><span class="xref">IControl</span></div>
+    <div><span class="xref">IDataTemplateHost</span></div>
+    <div><span class="xref">ILayoutable</span></div>
+    <div><span class="xref">IInputElement</span></div>
+    <div><span class="xref">IVisual</span></div>
+    <div><span class="xref">IInteractive</span></div>
+    <div><span class="xref">IStyledElement</span></div>
+    <div><span class="xref">IStyleable</span></div>
+    <div><span class="xref">INamed</span></div>
+    <div><span class="xref">IStyleHost</span></div>
+    <div><span class="xref">ILogical</span></div>
+    <div><span class="xref">IResourceHost</span></div>
+    <div><span class="xref">IResourceNode</span></div>
+    <div><span class="xref">IDataContextProvider</span></div>
+    <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.componentmodel.isupportinitialize">ISupportInitialize</a></div>
+    <div><span class="xref">IVisualBrushInitialize</span></div>
+    <div><span class="xref">ISetterValue</span></div>
+    <div><span class="xref">ITemplatedControl</span></div>
+    <div><span class="xref">IAvaloniaObject</span></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
     <div>
-      <span class="xref">System.Windows.Controls.Control.BackgroundProperty</span>
+      <a class="xref" href="TheXDS.MCART.Controls.Base.RingControlBase.html#TheXDS_MCART_Controls_Base_RingControlBase_Radius">RingControlBase.Radius</a>
     </div>
     <div>
-      <span class="xref">System.Windows.Controls.Control.BorderBrushProperty</span>
+      <a class="xref" href="TheXDS.MCART.Controls.Base.RingControlBase.html#TheXDS_MCART_Controls_Base_RingControlBase_Thickness">RingControlBase.Thickness</a>
     </div>
     <div>
-      <span class="xref">System.Windows.Controls.Control.BorderThicknessProperty</span>
+      <a class="xref" href="TheXDS.MCART.Controls.Base.RingControlBase.html#TheXDS_MCART_Controls_Base_RingControlBase_Stroke">RingControlBase.Stroke</a>
     </div>
     <div>
-      <span class="xref">System.Windows.Controls.Control.FontFamilyProperty</span>
+      <a class="xref" href="TheXDS.MCART.Controls.Base.RingControlBase.html#TheXDS_MCART_Controls_Base_RingControlBase_UpdateLayout_Avalonia_IAvaloniaObject_System_Boolean_">RingControlBase.UpdateLayout(IAvaloniaObject, bool)</a>
     </div>
     <div>
-      <span class="xref">System.Windows.Controls.Control.FontSizeProperty</span>
+      <a class="xref" href="TheXDS.MCART.Controls.Base.RingControlBase.html#TheXDS_MCART_Controls_Base_RingControlBase_UpdateFullLayout_Avalonia_IAvaloniaObject_System_Boolean_">RingControlBase.UpdateFullLayout(IAvaloniaObject, bool)</a>
     </div>
     <div>
-      <span class="xref">System.Windows.Controls.Control.FontStretchProperty</span>
+      <a class="xref" href="TheXDS.MCART.Controls.Base.RingControlBase.html#TheXDS_MCART_Controls_Base_RingControlBase_UpdateThicknessLayout_Avalonia_IAvaloniaObject_System_Boolean_">RingControlBase.UpdateThicknessLayout(IAvaloniaObject, bool)</a>
     </div>
     <div>
-      <span class="xref">System.Windows.Controls.Control.FontStyleProperty</span>
+      <a class="xref" href="TheXDS.MCART.Controls.Base.RingControlBase.html#TheXDS_MCART_Controls_Base_RingControlBase_SetControlSize">RingControlBase.SetControlSize()</a>
     </div>
     <div>
-      <span class="xref">System.Windows.Controls.Control.FontWeightProperty</span>
+      <a class="xref" href="TheXDS.MCART.Controls.Base.RingControlBase.html#TheXDS_MCART_Controls_Base_RingControlBase_EndInit">RingControlBase.EndInit()</a>
     </div>
     <div>
-      <span class="xref">System.Windows.Controls.Control.ForegroundProperty</span>
+      <span class="xref">TemplatedControl.BackgroundProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.Controls.Control.HorizontalContentAlignmentProperty</span>
+      <span class="xref">TemplatedControl.BorderBrushProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.Controls.Control.IsTabStopProperty</span>
+      <span class="xref">TemplatedControl.BorderThicknessProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.Controls.Control.MouseDoubleClickEvent</span>
+      <span class="xref">TemplatedControl.CornerRadiusProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.Controls.Control.PaddingProperty</span>
+      <span class="xref">TemplatedControl.FontFamilyProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.Controls.Control.PreviewMouseDoubleClickEvent</span>
+      <span class="xref">TemplatedControl.FontSizeProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.Controls.Control.TabIndexProperty</span>
+      <span class="xref">TemplatedControl.FontStyleProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.Controls.Control.TemplateProperty</span>
+      <span class="xref">TemplatedControl.FontWeightProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.Controls.Control.VerticalContentAlignmentProperty</span>
+      <span class="xref">TemplatedControl.ForegroundProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.Controls.Control.ArrangeOverride(System.Windows.Size)</span>
+      <span class="xref">TemplatedControl.PaddingProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.Controls.Control.MeasureOverride(System.Windows.Size)</span>
+      <span class="xref">TemplatedControl.TemplateProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.Controls.Control.OnMouseDoubleClick(System.Windows.Input.MouseButtonEventArgs)</span>
+      <span class="xref">TemplatedControl.IsTemplateFocusTargetProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.Controls.Control.OnPreviewMouseDoubleClick(System.Windows.Input.MouseButtonEventArgs)</span>
+      <span class="xref">TemplatedControl.TemplateAppliedEvent</span>
     </div>
     <div>
-      <span class="xref">System.Windows.Controls.Control.OnTemplateChanged(System.Windows.Controls.ControlTemplate, System.Windows.Controls.ControlTemplate)</span>
+      <span class="xref">TemplatedControl.GetIsTemplateFocusTarget(Control)</span>
     </div>
     <div>
-      <span class="xref">System.Windows.Controls.Control.ToString()</span>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">TemplatedControl.SetIsTemplateFocusTarget(Control, bool)</a>
     </div>
     <div>
-      <span class="xref">System.Windows.Controls.Control.Background</span>
+      <span class="xref">TemplatedControl.ApplyTemplate()</span>
     </div>
     <div>
-      <span class="xref">System.Windows.Controls.Control.BorderBrush</span>
+      <span class="xref">TemplatedControl.GetTemplateFocusTarget()</span>
     </div>
     <div>
-      <span class="xref">System.Windows.Controls.Control.BorderThickness</span>
+      <span class="xref">TemplatedControl.NotifyChildResourcesChanged(ResourcesChangedEventArgs)</span>
     </div>
     <div>
-      <span class="xref">System.Windows.Controls.Control.FontFamily</span>
+      <span class="xref">TemplatedControl.OnAttachedToLogicalTree(LogicalTreeAttachmentEventArgs)</span>
     </div>
     <div>
-      <span class="xref">System.Windows.Controls.Control.FontSize</span>
+      <span class="xref">TemplatedControl.OnDetachedFromLogicalTree(LogicalTreeAttachmentEventArgs)</span>
     </div>
     <div>
-      <span class="xref">System.Windows.Controls.Control.FontStretch</span>
+      <span class="xref">TemplatedControl.OnTemplateApplied(TemplateAppliedEventArgs)</span>
     </div>
     <div>
-      <span class="xref">System.Windows.Controls.Control.FontStyle</span>
+      <span class="xref">TemplatedControl.OnTemplateChanged(AvaloniaPropertyChangedEventArgs)</span>
     </div>
     <div>
-      <span class="xref">System.Windows.Controls.Control.FontWeight</span>
+      <span class="xref">TemplatedControl.Background</span>
     </div>
     <div>
-      <span class="xref">System.Windows.Controls.Control.Foreground</span>
+      <span class="xref">TemplatedControl.BorderBrush</span>
     </div>
     <div>
-      <span class="xref">System.Windows.Controls.Control.HandlesScrolling</span>
+      <span class="xref">TemplatedControl.BorderThickness</span>
     </div>
     <div>
-      <span class="xref">System.Windows.Controls.Control.HorizontalContentAlignment</span>
+      <span class="xref">TemplatedControl.CornerRadius</span>
     </div>
     <div>
-      <span class="xref">System.Windows.Controls.Control.IsTabStop</span>
+      <span class="xref">TemplatedControl.FontFamily</span>
     </div>
     <div>
-      <span class="xref">System.Windows.Controls.Control.Padding</span>
+      <span class="xref">TemplatedControl.FontSize</span>
     </div>
     <div>
-      <span class="xref">System.Windows.Controls.Control.TabIndex</span>
+      <span class="xref">TemplatedControl.FontStyle</span>
     </div>
     <div>
-      <span class="xref">System.Windows.Controls.Control.Template</span>
+      <span class="xref">TemplatedControl.FontWeight</span>
     </div>
     <div>
-      <span class="xref">System.Windows.Controls.Control.VerticalContentAlignment</span>
+      <span class="xref">TemplatedControl.Foreground</span>
     </div>
     <div>
-      <span class="xref">System.Windows.Controls.Control.MouseDoubleClick</span>
+      <span class="xref">TemplatedControl.Padding</span>
     </div>
     <div>
-      <span class="xref">System.Windows.Controls.Control.PreviewMouseDoubleClick</span>
+      <span class="xref">TemplatedControl.Template</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.ActualHeightProperty</span>
+      <span class="xref">TemplatedControl.TemplateApplied</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.ActualWidthProperty</span>
+      <span class="xref">Control.FocusAdornerProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.BindingGroupProperty</span>
+      <span class="xref">Control.TagProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.ContextMenuClosingEvent</span>
+      <span class="xref">Control.ContextMenuProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.ContextMenuOpeningEvent</span>
+      <span class="xref">Control.ContextFlyoutProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.ContextMenuProperty</span>
+      <span class="xref">Control.RequestBringIntoViewEvent</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.CursorProperty</span>
+      <span class="xref">Control.ContextRequestedEvent</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.DataContextProperty</span>
+      <span class="xref">Control.OnAttachedToVisualTreeCore(VisualTreeAttachmentEventArgs)</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.DefaultStyleKeyProperty</span>
+      <span class="xref">Control.OnDetachedFromVisualTreeCore(VisualTreeAttachmentEventArgs)</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.FlowDirectionProperty</span>
+      <span class="xref">Control.OnGotFocus(GotFocusEventArgs)</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.FocusVisualStyleProperty</span>
+      <span class="xref">Control.OnLostFocus(RoutedEventArgs)</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.ForceCursorProperty</span>
+      <span class="xref">Control.OnPointerReleased(PointerReleasedEventArgs)</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.HeightProperty</span>
+      <span class="xref">Control.OnKeyUp(KeyEventArgs)</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.HorizontalAlignmentProperty</span>
+      <span class="xref">Control.FocusAdorner</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.InputScopeProperty</span>
+      <span class="xref">Control.DataTemplates</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.LanguageProperty</span>
+      <span class="xref">Control.ContextMenu</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.LayoutTransformProperty</span>
+      <span class="xref">Control.ContextFlyout</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.LoadedEvent</span>
+      <span class="xref">Control.Tag</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.MarginProperty</span>
+      <span class="xref">Control.Parent</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.MaxHeightProperty</span>
+      <span class="xref">Control.ContextRequested</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.MaxWidthProperty</span>
+      <span class="xref">InputElement.FocusableProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.MinHeightProperty</span>
+      <span class="xref">InputElement.IsEnabledProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.MinWidthProperty</span>
+      <span class="xref">InputElement.IsEffectivelyEnabledProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.NameProperty</span>
+      <span class="xref">InputElement.CursorProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.OverridesDefaultStyleProperty</span>
+      <span class="xref">InputElement.IsKeyboardFocusWithinProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.RequestBringIntoViewEvent</span>
+      <span class="xref">InputElement.IsFocusedProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.SizeChangedEvent</span>
+      <span class="xref">InputElement.IsHitTestVisibleProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.StyleProperty</span>
+      <span class="xref">InputElement.IsPointerOverProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.TagProperty</span>
+      <span class="xref">InputElement.IsTabStopProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.ToolTipClosingEvent</span>
+      <span class="xref">InputElement.GotFocusEvent</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.ToolTipOpeningEvent</span>
+      <span class="xref">InputElement.LostFocusEvent</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.ToolTipProperty</span>
+      <span class="xref">InputElement.KeyDownEvent</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.UnloadedEvent</span>
+      <span class="xref">InputElement.KeyUpEvent</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.UseLayoutRoundingProperty</span>
+      <span class="xref">InputElement.TabIndexProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.VerticalAlignmentProperty</span>
+      <span class="xref">InputElement.TextInputEvent</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.WidthProperty</span>
+      <span class="xref">InputElement.TextInputMethodClientRequestedEvent</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.AddLogicalChild(System.Object)</span>
+      <span class="xref">InputElement.TextInputOptionsQueryEvent</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.ApplyTemplate()</span>
+      <span class="xref">InputElement.PointerEnterEvent</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.ArrangeCore(System.Windows.Rect)</span>
+      <span class="xref">InputElement.PointerLeaveEvent</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.BeginInit()</span>
+      <span class="xref">InputElement.PointerMovedEvent</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.BeginStoryboard(System.Windows.Media.Animation.Storyboard)</span>
+      <span class="xref">InputElement.PointerPressedEvent</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.BeginStoryboard(System.Windows.Media.Animation.Storyboard, System.Windows.Media.Animation.HandoffBehavior)</span>
+      <span class="xref">InputElement.PointerReleasedEvent</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.BeginStoryboard(System.Windows.Media.Animation.Storyboard, System.Windows.Media.Animation.HandoffBehavior, System.Boolean)</span>
+      <span class="xref">InputElement.PointerCaptureLostEvent</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.BringIntoView()</span>
+      <span class="xref">InputElement.PointerWheelChangedEvent</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.BringIntoView(System.Windows.Rect)</span>
+      <span class="xref">InputElement.TappedEvent</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.EndInit()</span>
+      <span class="xref">InputElement.DoubleTappedEvent</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.FindName(System.String)</span>
+      <span class="xref">InputElement.Focus()</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.FindResource(System.Object)</span>
+      <span class="xref">InputElement.OnKeyDown(KeyEventArgs)</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.GetBindingExpression(System.Windows.DependencyProperty)</span>
+      <span class="xref">InputElement.OnTextInput(TextInputEventArgs)</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.GetFlowDirection(System.Windows.DependencyObject)</span>
+      <span class="xref">InputElement.OnPointerEnter(PointerEventArgs)</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.GetLayoutClip(System.Windows.Size)</span>
+      <span class="xref">InputElement.OnPointerLeave(PointerEventArgs)</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.GetTemplateChild(System.String)</span>
+      <span class="xref">InputElement.OnPointerMoved(PointerEventArgs)</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.GetUIParentCore()</span>
+      <span class="xref">InputElement.OnPointerPressed(PointerPressedEventArgs)</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.GetVisualChild(System.Int32)</span>
+      <span class="xref">InputElement.OnPointerCaptureLost(PointerCaptureLostEventArgs)</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.MeasureCore(System.Windows.Size)</span>
+      <span class="xref">InputElement.OnPointerWheelChanged(PointerWheelEventArgs)</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.MoveFocus(System.Windows.Input.TraversalRequest)</span>
+      <span class="xref">InputElement.OnPropertyChanged&lt;T&gt;(AvaloniaPropertyChangedEventArgs&lt;T&gt;)</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.OnContextMenuClosing(System.Windows.Controls.ContextMenuEventArgs)</span>
+      <span class="xref">InputElement.UpdateIsEffectivelyEnabled()</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.OnContextMenuOpening(System.Windows.Controls.ContextMenuEventArgs)</span>
+      <span class="xref">InputElement.Focusable</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.OnGotFocus(System.Windows.RoutedEventArgs)</span>
+      <span class="xref">InputElement.IsEnabled</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.OnInitialized(System.EventArgs)</span>
+      <span class="xref">InputElement.Cursor</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.OnPropertyChanged(System.Windows.DependencyPropertyChangedEventArgs)</span>
+      <span class="xref">InputElement.IsKeyboardFocusWithin</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.OnRenderSizeChanged(System.Windows.SizeChangedInfo)</span>
+      <span class="xref">InputElement.IsFocused</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.OnStyleChanged(System.Windows.Style, System.Windows.Style)</span>
+      <span class="xref">InputElement.IsHitTestVisible</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.OnToolTipClosing(System.Windows.Controls.ToolTipEventArgs)</span>
+      <span class="xref">InputElement.IsPointerOver</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.OnToolTipOpening(System.Windows.Controls.ToolTipEventArgs)</span>
+      <span class="xref">InputElement.IsTabStop</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.OnVisualParentChanged(System.Windows.DependencyObject)</span>
+      <span class="xref">InputElement.IsEffectivelyEnabled</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.ParentLayoutInvalidated(System.Windows.UIElement)</span>
+      <span class="xref">InputElement.TabIndex</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.PredictFocus(System.Windows.Input.FocusNavigationDirection)</span>
+      <span class="xref">InputElement.KeyBindings</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.RegisterName(System.String, System.Object)</span>
+      <span class="xref">InputElement.IsEnabledCore</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.RemoveLogicalChild(System.Object)</span>
+      <span class="xref">InputElement.GestureRecognizers</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.SetBinding(System.Windows.DependencyProperty, System.String)</span>
+      <span class="xref">InputElement.GotFocus</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.SetBinding(System.Windows.DependencyProperty, System.Windows.Data.BindingBase)</span>
+      <span class="xref">InputElement.LostFocus</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.SetFlowDirection(System.Windows.DependencyObject, System.Windows.FlowDirection)</span>
+      <span class="xref">InputElement.KeyDown</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.SetResourceReference(System.Windows.DependencyProperty, System.Object)</span>
+      <span class="xref">InputElement.KeyUp</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.System.Windows.Markup.IQueryAmbient.IsAmbientPropertyAvailable(System.String)</span>
+      <span class="xref">InputElement.TextInput</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.TryFindResource(System.Object)</span>
+      <span class="xref">InputElement.TextInputMethodClientRequested</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.UnregisterName(System.String)</span>
+      <span class="xref">InputElement.TextInputOptionsQuery</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.UpdateDefaultStyle()</span>
+      <span class="xref">InputElement.PointerEnter</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.ActualHeight</span>
+      <span class="xref">InputElement.PointerLeave</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.ActualWidth</span>
+      <span class="xref">InputElement.PointerMoved</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.BindingGroup</span>
+      <span class="xref">InputElement.PointerPressed</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.ContextMenu</span>
+      <span class="xref">InputElement.PointerReleased</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.Cursor</span>
+      <span class="xref">InputElement.PointerCaptureLost</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.DataContext</span>
+      <span class="xref">InputElement.PointerWheelChanged</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.DefaultStyleKey</span>
+      <span class="xref">InputElement.Tapped</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.FlowDirection</span>
+      <span class="xref">InputElement.DoubleTapped</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.FocusVisualStyle</span>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.delegate">Interactive.AddHandler(RoutedEvent, Delegate, RoutingStrategies, bool)</a>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.ForceCursor</span>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">Interactive.AddHandler&lt;TEventArgs&gt;(RoutedEvent&lt;TEventArgs&gt;, EventHandler&lt;TEventArgs&gt;, RoutingStrategies, bool)</a>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.Height</span>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.delegate">Interactive.RemoveHandler(RoutedEvent, Delegate)</a>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.HorizontalAlignment</span>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">Interactive.RemoveHandler&lt;TEventArgs&gt;(RoutedEvent&lt;TEventArgs&gt;, EventHandler&lt;TEventArgs&gt;)</a>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.InheritanceBehavior</span>
+      <span class="xref">Interactive.RaiseEvent(RoutedEventArgs)</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.InputScope</span>
+      <span class="xref">Interactive.BuildEventRoute(RoutedEvent)</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.IsInitialized</span>
+      <span class="xref">Layoutable.DesiredSizeProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.IsLoaded</span>
+      <span class="xref">Layoutable.WidthProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.Language</span>
+      <span class="xref">Layoutable.HeightProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.LayoutTransform</span>
+      <span class="xref">Layoutable.MinWidthProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.LogicalChildren</span>
+      <span class="xref">Layoutable.MaxWidthProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.Margin</span>
+      <span class="xref">Layoutable.MinHeightProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.MaxHeight</span>
+      <span class="xref">Layoutable.MaxHeightProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.MaxWidth</span>
+      <span class="xref">Layoutable.MarginProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.MinHeight</span>
+      <span class="xref">Layoutable.HorizontalAlignmentProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.MinWidth</span>
+      <span class="xref">Layoutable.VerticalAlignmentProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.Name</span>
+      <span class="xref">Layoutable.UseLayoutRoundingProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.OverridesDefaultStyle</span>
+      <span class="xref">Layoutable.Measure(Size)</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.Parent</span>
+      <span class="xref">Layoutable.Arrange(Rect)</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.Resources</span>
+      <span class="xref">Layoutable.InvalidateMeasure()</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.Style</span>
+      <span class="xref">Layoutable.InvalidateArrange()</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.Tag</span>
+      <span class="xref">Layoutable.AffectsMeasure(params AvaloniaProperty[])</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.TemplatedParent</span>
+      <span class="xref">Layoutable.AffectsMeasure&lt;T&gt;(params AvaloniaProperty[])</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.ToolTip</span>
+      <span class="xref">Layoutable.AffectsArrange(params AvaloniaProperty[])</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.Triggers</span>
+      <span class="xref">Layoutable.AffectsArrange&lt;T&gt;(params AvaloniaProperty[])</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.UseLayoutRounding</span>
+      <span class="xref">Layoutable.MeasureCore(Size)</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.VerticalAlignment</span>
+      <span class="xref">Layoutable.MeasureOverride(Size)</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.VisualChildrenCount</span>
+      <span class="xref">Layoutable.ArrangeCore(Rect)</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.Width</span>
+      <span class="xref">Layoutable.ArrangeOverride(Size)</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.ContextMenuClosing</span>
+      <span class="xref">Layoutable.InvalidateStyles()</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.ContextMenuOpening</span>
+      <span class="xref">Layoutable.OnMeasureInvalidated()</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.DataContextChanged</span>
+      <span class="xref">Layoutable.OnVisualParentChanged(IVisual, IVisual)</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.Initialized</span>
+      <span class="xref">Layoutable.Width</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.Loaded</span>
+      <span class="xref">Layoutable.Height</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.RequestBringIntoView</span>
+      <span class="xref">Layoutable.MinWidth</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.SizeChanged</span>
+      <span class="xref">Layoutable.MaxWidth</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.SourceUpdated</span>
+      <span class="xref">Layoutable.MinHeight</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.TargetUpdated</span>
+      <span class="xref">Layoutable.MaxHeight</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.ToolTipClosing</span>
+      <span class="xref">Layoutable.Margin</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.ToolTipOpening</span>
+      <span class="xref">Layoutable.HorizontalAlignment</span>
     </div>
     <div>
-      <span class="xref">System.Windows.FrameworkElement.Unloaded</span>
+      <span class="xref">Layoutable.VerticalAlignment</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.AllowDropProperty</span>
+      <span class="xref">Layoutable.DesiredSize</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.AreAnyTouchesCapturedProperty</span>
+      <span class="xref">Layoutable.IsMeasureValid</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.AreAnyTouchesCapturedWithinProperty</span>
+      <span class="xref">Layoutable.IsArrangeValid</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.AreAnyTouchesDirectlyOverProperty</span>
+      <span class="xref">Layoutable.UseLayoutRounding</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.AreAnyTouchesOverProperty</span>
+      <span class="xref">Layoutable.EffectiveViewportChanged</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.BitmapEffectInputProperty</span>
+      <span class="xref">Layoutable.LayoutUpdated</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.BitmapEffectProperty</span>
+      <span class="xref">Visual.BoundsProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.CacheModeProperty</span>
+      <span class="xref">Visual.TransformedBoundsProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.ClipProperty</span>
+      <span class="xref">Visual.ClipToBoundsProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.ClipToBoundsProperty</span>
+      <span class="xref">Visual.ClipProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.DragEnterEvent</span>
+      <span class="xref">Visual.IsVisibleProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.DragLeaveEvent</span>
+      <span class="xref">Visual.OpacityProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.DragOverEvent</span>
+      <span class="xref">Visual.OpacityMaskProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.DropEvent</span>
+      <span class="xref">Visual.RenderTransformProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.EffectProperty</span>
+      <span class="xref">Visual.RenderTransformOriginProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.FocusableProperty</span>
+      <span class="xref">Visual.VisualParentProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.GiveFeedbackEvent</span>
+      <span class="xref">Visual.ZIndexProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.GotFocusEvent</span>
+      <span class="xref">Visual.InvalidateVisual()</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.GotKeyboardFocusEvent</span>
+      <span class="xref">Visual.Render(DrawingContext)</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.GotMouseCaptureEvent</span>
+      <span class="xref">Visual.AffectsRender(params AvaloniaProperty[])</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.GotStylusCaptureEvent</span>
+      <span class="xref">Visual.AffectsRender&lt;T&gt;(params AvaloniaProperty[])</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.GotTouchCaptureEvent</span>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">Visual.LogicalChildrenCollectionChanged(object, NotifyCollectionChangedEventArgs)</a>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.IsEnabledProperty</span>
+      <span class="xref">Visual.OnAttachedToVisualTree(VisualTreeAttachmentEventArgs)</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.IsFocusedProperty</span>
+      <span class="xref">Visual.OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs)</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.IsHitTestVisibleProperty</span>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.exception">Visual.LogBindingError(AvaloniaProperty, Exception)</a>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.IsKeyboardFocusedProperty</span>
+      <span class="xref">Visual.Bounds</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.IsKeyboardFocusWithinProperty</span>
+      <span class="xref">Visual.TransformedBounds</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.IsManipulationEnabledProperty</span>
+      <span class="xref">Visual.ClipToBounds</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.IsMouseCapturedProperty</span>
+      <span class="xref">Visual.Clip</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.IsMouseCaptureWithinProperty</span>
+      <span class="xref">Visual.IsEffectivelyVisible</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.IsMouseDirectlyOverProperty</span>
+      <span class="xref">Visual.IsVisible</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.IsMouseOverProperty</span>
+      <span class="xref">Visual.Opacity</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.IsStylusCapturedProperty</span>
+      <span class="xref">Visual.OpacityMask</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.IsStylusCaptureWithinProperty</span>
+      <span class="xref">Visual.RenderTransform</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.IsStylusDirectlyOverProperty</span>
+      <span class="xref">Visual.RenderTransformOrigin</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.IsStylusOverProperty</span>
+      <span class="xref">Visual.ZIndex</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.IsVisibleProperty</span>
+      <span class="xref">Visual.VisualChildren</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.KeyDownEvent</span>
+      <span class="xref">Visual.VisualRoot</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.KeyUpEvent</span>
+      <span class="xref">Visual.AttachedToVisualTree</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.LostFocusEvent</span>
+      <span class="xref">Visual.DetachedFromVisualTree</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.LostKeyboardFocusEvent</span>
+      <span class="xref">StyledElement.DataContextProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.LostMouseCaptureEvent</span>
+      <span class="xref">StyledElement.NameProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.LostStylusCaptureEvent</span>
+      <span class="xref">StyledElement.ParentProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.LostTouchCaptureEvent</span>
+      <span class="xref">StyledElement.TemplatedParentProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.ManipulationBoundaryFeedbackEvent</span>
+      <span class="xref">StyledElement.BeginInit()</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.ManipulationCompletedEvent</span>
+      <span class="xref">StyledElement.ApplyStyling()</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.ManipulationDeltaEvent</span>
+      <span class="xref">StyledElement.InitializeIfNeeded()</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.ManipulationInertiaStartingEvent</span>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventargs">StyledElement.OnDataContextChanged(EventArgs)</a>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.ManipulationStartedEvent</span>
+      <span class="xref">StyledElement.OnDataContextBeginUpdate()</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.ManipulationStartingEvent</span>
+      <span class="xref">StyledElement.OnDataContextEndUpdate()</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.MouseDownEvent</span>
+      <span class="xref">StyledElement.OnInitialized()</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.MouseEnterEvent</span>
+      <span class="xref">StyledElement.Name</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.MouseLeaveEvent</span>
+      <span class="xref">StyledElement.Classes</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.MouseLeftButtonDownEvent</span>
+      <span class="xref">StyledElement.DataContext</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.MouseLeftButtonUpEvent</span>
+      <span class="xref">StyledElement.IsInitialized</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.MouseMoveEvent</span>
+      <span class="xref">StyledElement.Styles</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.MouseRightButtonDownEvent</span>
+      <span class="xref">StyledElement.Resources</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.MouseRightButtonUpEvent</span>
+      <span class="xref">StyledElement.TemplatedParent</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.MouseUpEvent</span>
+      <span class="xref">StyledElement.LogicalChildren</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.MouseWheelEvent</span>
+      <span class="xref">StyledElement.PseudoClasses</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.OpacityMaskProperty</span>
+      <span class="xref">StyledElement.AttachedToLogicalTree</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.OpacityProperty</span>
+      <span class="xref">StyledElement.DetachedFromLogicalTree</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.PreviewDragEnterEvent</span>
+      <span class="xref">StyledElement.DataContextChanged</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.PreviewDragLeaveEvent</span>
+      <span class="xref">StyledElement.Initialized</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.PreviewDragOverEvent</span>
+      <span class="xref">StyledElement.ResourcesChanged</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.PreviewDropEvent</span>
+      <span class="xref">Animatable.ClockProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.PreviewGiveFeedbackEvent</span>
+      <span class="xref">Animatable.TransitionsProperty</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.PreviewGotKeyboardFocusEvent</span>
+      <span class="xref">Animatable.EnableTransitions()</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.PreviewKeyDownEvent</span>
+      <span class="xref">Animatable.DisableTransitions()</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.PreviewKeyUpEvent</span>
+      <span class="xref">Animatable.OnPropertyChangedCore&lt;T&gt;(AvaloniaPropertyChangedEventArgs&lt;T&gt;)</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.PreviewLostKeyboardFocusEvent</span>
+      <span class="xref">Animatable.Clock</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.PreviewMouseDownEvent</span>
+      <span class="xref">Animatable.Transitions</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.PreviewMouseLeftButtonDownEvent</span>
+      <span class="xref">AvaloniaObject.CheckAccess()</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.PreviewMouseLeftButtonUpEvent</span>
+      <span class="xref">AvaloniaObject.VerifyAccess()</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.PreviewMouseMoveEvent</span>
+      <span class="xref">AvaloniaObject.ClearValue(AvaloniaProperty)</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.PreviewMouseRightButtonDownEvent</span>
+      <span class="xref">AvaloniaObject.ClearValue&lt;T&gt;(AvaloniaProperty&lt;T&gt;)</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.PreviewMouseRightButtonUpEvent</span>
+      <span class="xref">AvaloniaObject.ClearValue&lt;T&gt;(StyledPropertyBase&lt;T&gt;)</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.PreviewMouseUpEvent</span>
+      <span class="xref">AvaloniaObject.ClearValue&lt;T&gt;(DirectPropertyBase&lt;T&gt;)</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.PreviewMouseWheelEvent</span>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">AvaloniaObject.Equals(object)</a>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.PreviewQueryContinueDragEvent</span>
+      <span class="xref">AvaloniaObject.GetHashCode()</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.PreviewStylusButtonDownEvent</span>
+      <span class="xref">AvaloniaObject.GetValue(AvaloniaProperty)</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.PreviewStylusButtonUpEvent</span>
+      <span class="xref">AvaloniaObject.GetValue&lt;T&gt;(StyledPropertyBase&lt;T&gt;)</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.PreviewStylusDownEvent</span>
+      <span class="xref">AvaloniaObject.GetValue&lt;T&gt;(DirectPropertyBase&lt;T&gt;)</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.PreviewStylusInAirMoveEvent</span>
+      <span class="xref">AvaloniaObject.GetBaseValue&lt;T&gt;(StyledPropertyBase&lt;T&gt;, BindingPriority)</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.PreviewStylusInRangeEvent</span>
+      <span class="xref">AvaloniaObject.IsAnimating(AvaloniaProperty)</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.PreviewStylusMoveEvent</span>
+      <span class="xref">AvaloniaObject.IsSet(AvaloniaProperty)</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.PreviewStylusOutOfRangeEvent</span>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">AvaloniaObject.SetValue(AvaloniaProperty, object, BindingPriority)</a>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.PreviewStylusSystemGestureEvent</span>
+      <span class="xref">AvaloniaObject.SetValue&lt;T&gt;(StyledPropertyBase&lt;T&gt;, T, BindingPriority)</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.PreviewStylusUpEvent</span>
+      <span class="xref">AvaloniaObject.SetValue&lt;T&gt;(DirectPropertyBase&lt;T&gt;, T)</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.PreviewTextInputEvent</span>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iobservable-1">AvaloniaObject.Bind&lt;T&gt;(StyledPropertyBase&lt;T&gt;, IObservable&lt;BindingValue&lt;T&gt;&gt;, BindingPriority)</a>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.PreviewTouchDownEvent</span>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iobservable-1">AvaloniaObject.Bind&lt;T&gt;(DirectPropertyBase&lt;T&gt;, IObservable&lt;BindingValue&lt;T&gt;&gt;)</a>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.PreviewTouchMoveEvent</span>
+      <span class="xref">AvaloniaObject.CoerceValue&lt;T&gt;(StyledPropertyBase&lt;T&gt;)</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.PreviewTouchUpEvent</span>
+      <span class="xref">AvaloniaObject.BeginBatchUpdate()</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.QueryContinueDragEvent</span>
+      <span class="xref">AvaloniaObject.EndBatchUpdate()</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.QueryCursorEvent</span>
+      <span class="xref">AvaloniaObject.UpdateDataValidation&lt;T&gt;(AvaloniaProperty&lt;T&gt;, BindingValue&lt;T&gt;)</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.RenderTransformOriginProperty</span>
+      <span class="xref">AvaloniaObject.RaisePropertyChanged&lt;T&gt;(AvaloniaProperty&lt;T&gt;, Optional&lt;T&gt;, BindingValue&lt;T&gt;, BindingPriority)</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.RenderTransformProperty</span>
+      <span class="xref">AvaloniaObject.SetAndRaise&lt;T&gt;(AvaloniaProperty&lt;T&gt;, ref T, T)</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.SnapsToDevicePixelsProperty</span>
+      <span class="xref">AvaloniaObject.RaisePropertyChanged&lt;T&gt;(AvaloniaPropertyChangedEventArgs&lt;T&gt;)</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.StylusButtonDownEvent</span>
+      <span class="xref">AvaloniaObject.InheritanceParent</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.StylusButtonUpEvent</span>
+      <span class="xref">AvaloniaObject.this[AvaloniaProperty]</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.StylusDownEvent</span>
+      <span class="xref">AvaloniaObject.this[IndexerDescriptor]</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.StylusEnterEvent</span>
+      <span class="xref">AvaloniaObject.PropertyChanged</span>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.StylusInAirMoveEvent</span>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.StylusInRangeEvent</span>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.StylusLeaveEvent</span>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.StylusMoveEvent</span>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
     </div>
     <div>
-      <span class="xref">System.Windows.UIElement.StylusOutOfRangeEvent</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.StylusSystemGestureEvent</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.StylusUpEvent</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.TextInputEvent</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.TouchDownEvent</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.TouchEnterEvent</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.TouchLeaveEvent</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.TouchMoveEvent</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.TouchUpEvent</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.UidProperty</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.VisibilityProperty</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.AddHandler(System.Windows.RoutedEvent, System.Delegate)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.AddHandler(System.Windows.RoutedEvent, System.Delegate, System.Boolean)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.AddToEventRoute(System.Windows.EventRoute, System.Windows.RoutedEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.ApplyAnimationClock(System.Windows.DependencyProperty, System.Windows.Media.Animation.AnimationClock)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.ApplyAnimationClock(System.Windows.DependencyProperty, System.Windows.Media.Animation.AnimationClock, System.Windows.Media.Animation.HandoffBehavior)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.Arrange(System.Windows.Rect)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.BeginAnimation(System.Windows.DependencyProperty, System.Windows.Media.Animation.AnimationTimeline)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.BeginAnimation(System.Windows.DependencyProperty, System.Windows.Media.Animation.AnimationTimeline, System.Windows.Media.Animation.HandoffBehavior)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.CaptureMouse()</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.CaptureStylus()</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.CaptureTouch(System.Windows.Input.TouchDevice)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.Focus()</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.GetAnimationBaseValue(System.Windows.DependencyProperty)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.HitTestCore(System.Windows.Media.GeometryHitTestParameters)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.HitTestCore(System.Windows.Media.PointHitTestParameters)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.InputHitTest(System.Windows.Point)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.InvalidateArrange()</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.InvalidateMeasure()</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.InvalidateVisual()</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.Measure(System.Windows.Size)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnAccessKey(System.Windows.Input.AccessKeyEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnChildDesiredSizeChanged(System.Windows.UIElement)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnCreateAutomationPeer()</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnDragEnter(System.Windows.DragEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnDragLeave(System.Windows.DragEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnDragOver(System.Windows.DragEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnDrop(System.Windows.DragEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnGiveFeedback(System.Windows.GiveFeedbackEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnGotKeyboardFocus(System.Windows.Input.KeyboardFocusChangedEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnGotMouseCapture(System.Windows.Input.MouseEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnGotStylusCapture(System.Windows.Input.StylusEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnGotTouchCapture(System.Windows.Input.TouchEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnIsKeyboardFocusedChanged(System.Windows.DependencyPropertyChangedEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnIsKeyboardFocusWithinChanged(System.Windows.DependencyPropertyChangedEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnIsMouseCapturedChanged(System.Windows.DependencyPropertyChangedEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnIsMouseCaptureWithinChanged(System.Windows.DependencyPropertyChangedEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnIsMouseDirectlyOverChanged(System.Windows.DependencyPropertyChangedEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnIsStylusCapturedChanged(System.Windows.DependencyPropertyChangedEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnIsStylusCaptureWithinChanged(System.Windows.DependencyPropertyChangedEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnIsStylusDirectlyOverChanged(System.Windows.DependencyPropertyChangedEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnKeyDown(System.Windows.Input.KeyEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnKeyUp(System.Windows.Input.KeyEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnLostFocus(System.Windows.RoutedEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnLostKeyboardFocus(System.Windows.Input.KeyboardFocusChangedEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnLostMouseCapture(System.Windows.Input.MouseEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnLostStylusCapture(System.Windows.Input.StylusEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnLostTouchCapture(System.Windows.Input.TouchEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnManipulationBoundaryFeedback(System.Windows.Input.ManipulationBoundaryFeedbackEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnManipulationCompleted(System.Windows.Input.ManipulationCompletedEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnManipulationDelta(System.Windows.Input.ManipulationDeltaEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnManipulationInertiaStarting(System.Windows.Input.ManipulationInertiaStartingEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnManipulationStarted(System.Windows.Input.ManipulationStartedEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnManipulationStarting(System.Windows.Input.ManipulationStartingEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnMouseDown(System.Windows.Input.MouseButtonEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnMouseEnter(System.Windows.Input.MouseEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnMouseLeave(System.Windows.Input.MouseEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnMouseLeftButtonDown(System.Windows.Input.MouseButtonEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnMouseLeftButtonUp(System.Windows.Input.MouseButtonEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnMouseMove(System.Windows.Input.MouseEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnMouseRightButtonDown(System.Windows.Input.MouseButtonEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnMouseRightButtonUp(System.Windows.Input.MouseButtonEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnMouseUp(System.Windows.Input.MouseButtonEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnMouseWheel(System.Windows.Input.MouseWheelEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnPreviewDragEnter(System.Windows.DragEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnPreviewDragLeave(System.Windows.DragEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnPreviewDragOver(System.Windows.DragEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnPreviewDrop(System.Windows.DragEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnPreviewGiveFeedback(System.Windows.GiveFeedbackEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnPreviewGotKeyboardFocus(System.Windows.Input.KeyboardFocusChangedEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnPreviewKeyDown(System.Windows.Input.KeyEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnPreviewKeyUp(System.Windows.Input.KeyEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnPreviewLostKeyboardFocus(System.Windows.Input.KeyboardFocusChangedEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnPreviewMouseDown(System.Windows.Input.MouseButtonEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnPreviewMouseLeftButtonDown(System.Windows.Input.MouseButtonEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnPreviewMouseLeftButtonUp(System.Windows.Input.MouseButtonEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnPreviewMouseMove(System.Windows.Input.MouseEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnPreviewMouseRightButtonDown(System.Windows.Input.MouseButtonEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnPreviewMouseRightButtonUp(System.Windows.Input.MouseButtonEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnPreviewMouseUp(System.Windows.Input.MouseButtonEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnPreviewMouseWheel(System.Windows.Input.MouseWheelEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnPreviewQueryContinueDrag(System.Windows.QueryContinueDragEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnPreviewStylusButtonDown(System.Windows.Input.StylusButtonEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnPreviewStylusButtonUp(System.Windows.Input.StylusButtonEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnPreviewStylusDown(System.Windows.Input.StylusDownEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnPreviewStylusInAirMove(System.Windows.Input.StylusEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnPreviewStylusInRange(System.Windows.Input.StylusEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnPreviewStylusMove(System.Windows.Input.StylusEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnPreviewStylusOutOfRange(System.Windows.Input.StylusEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnPreviewStylusSystemGesture(System.Windows.Input.StylusSystemGestureEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnPreviewStylusUp(System.Windows.Input.StylusEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnPreviewTextInput(System.Windows.Input.TextCompositionEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnPreviewTouchDown(System.Windows.Input.TouchEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnPreviewTouchMove(System.Windows.Input.TouchEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnPreviewTouchUp(System.Windows.Input.TouchEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnQueryContinueDrag(System.Windows.QueryContinueDragEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnQueryCursor(System.Windows.Input.QueryCursorEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnRender(System.Windows.Media.DrawingContext)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnStylusButtonDown(System.Windows.Input.StylusButtonEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnStylusButtonUp(System.Windows.Input.StylusButtonEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnStylusDown(System.Windows.Input.StylusDownEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnStylusEnter(System.Windows.Input.StylusEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnStylusInAirMove(System.Windows.Input.StylusEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnStylusInRange(System.Windows.Input.StylusEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnStylusLeave(System.Windows.Input.StylusEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnStylusMove(System.Windows.Input.StylusEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnStylusOutOfRange(System.Windows.Input.StylusEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnStylusSystemGesture(System.Windows.Input.StylusSystemGestureEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnStylusUp(System.Windows.Input.StylusEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnTextInput(System.Windows.Input.TextCompositionEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnTouchDown(System.Windows.Input.TouchEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnTouchEnter(System.Windows.Input.TouchEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnTouchLeave(System.Windows.Input.TouchEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnTouchMove(System.Windows.Input.TouchEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OnTouchUp(System.Windows.Input.TouchEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.RaiseEvent(System.Windows.RoutedEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.ReleaseAllTouchCaptures()</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.ReleaseMouseCapture()</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.ReleaseStylusCapture()</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.ReleaseTouchCapture(System.Windows.Input.TouchDevice)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.RemoveHandler(System.Windows.RoutedEvent, System.Delegate)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.TranslatePoint(System.Windows.Point, System.Windows.UIElement)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.UpdateLayout()</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.AllowDrop</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.AreAnyTouchesCaptured</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.AreAnyTouchesCapturedWithin</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.AreAnyTouchesDirectlyOver</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.AreAnyTouchesOver</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.BitmapEffect</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.BitmapEffectInput</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.CacheMode</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.Clip</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.ClipToBounds</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.CommandBindings</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.DesiredSize</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.Effect</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.Focusable</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.HasAnimatedProperties</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.HasEffectiveKeyboardFocus</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.InputBindings</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.IsArrangeValid</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.IsEnabled</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.IsEnabledCore</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.IsFocused</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.IsHitTestVisible</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.IsInputMethodEnabled</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.IsKeyboardFocused</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.IsKeyboardFocusWithin</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.IsManipulationEnabled</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.IsMeasureValid</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.IsMouseCaptured</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.IsMouseCaptureWithin</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.IsMouseDirectlyOver</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.IsMouseOver</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.IsStylusCaptured</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.IsStylusCaptureWithin</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.IsStylusDirectlyOver</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.IsStylusOver</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.IsVisible</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.Opacity</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.OpacityMask</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.PersistId</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.RenderSize</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.RenderTransform</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.RenderTransformOrigin</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.SnapsToDevicePixels</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.StylusPlugIns</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.TouchesCaptured</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.TouchesCapturedWithin</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.TouchesDirectlyOver</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.TouchesOver</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.Uid</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.Visibility</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.DragEnter</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.DragLeave</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.DragOver</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.Drop</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.FocusableChanged</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.GiveFeedback</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.GotFocus</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.GotKeyboardFocus</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.GotMouseCapture</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.GotStylusCapture</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.GotTouchCapture</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.IsEnabledChanged</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.IsHitTestVisibleChanged</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.IsKeyboardFocusedChanged</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.IsKeyboardFocusWithinChanged</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.IsMouseCapturedChanged</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.IsMouseCaptureWithinChanged</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.IsMouseDirectlyOverChanged</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.IsStylusCapturedChanged</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.IsStylusCaptureWithinChanged</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.IsStylusDirectlyOverChanged</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.IsVisibleChanged</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.KeyDown</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.KeyUp</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.LayoutUpdated</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.LostFocus</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.LostKeyboardFocus</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.LostMouseCapture</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.LostStylusCapture</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.LostTouchCapture</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.ManipulationBoundaryFeedback</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.ManipulationCompleted</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.ManipulationDelta</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.ManipulationInertiaStarting</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.ManipulationStarted</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.ManipulationStarting</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.MouseDown</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.MouseEnter</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.MouseLeave</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.MouseLeftButtonDown</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.MouseLeftButtonUp</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.MouseMove</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.MouseRightButtonDown</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.MouseRightButtonUp</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.MouseUp</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.MouseWheel</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.PreviewDragEnter</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.PreviewDragLeave</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.PreviewDragOver</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.PreviewDrop</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.PreviewGiveFeedback</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.PreviewGotKeyboardFocus</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.PreviewKeyDown</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.PreviewKeyUp</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.PreviewLostKeyboardFocus</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.PreviewMouseDown</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.PreviewMouseLeftButtonDown</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.PreviewMouseLeftButtonUp</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.PreviewMouseMove</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.PreviewMouseRightButtonDown</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.PreviewMouseRightButtonUp</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.PreviewMouseUp</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.PreviewMouseWheel</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.PreviewQueryContinueDrag</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.PreviewStylusButtonDown</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.PreviewStylusButtonUp</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.PreviewStylusDown</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.PreviewStylusInAirMove</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.PreviewStylusInRange</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.PreviewStylusMove</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.PreviewStylusOutOfRange</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.PreviewStylusSystemGesture</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.PreviewStylusUp</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.PreviewTextInput</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.PreviewTouchDown</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.PreviewTouchMove</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.PreviewTouchUp</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.QueryContinueDrag</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.QueryCursor</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.StylusButtonDown</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.StylusButtonUp</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.StylusDown</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.StylusEnter</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.StylusInAirMove</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.StylusInRange</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.StylusLeave</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.StylusMove</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.StylusOutOfRange</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.StylusSystemGesture</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.StylusUp</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.TextInput</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.TouchDown</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.TouchEnter</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.TouchLeave</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.TouchMove</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.UIElement.TouchUp</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.Media.Visual.AddVisualChild(System.Windows.Media.Visual)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.Media.Visual.FindCommonVisualAncestor(System.Windows.DependencyObject)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.Media.Visual.IsAncestorOf(System.Windows.DependencyObject)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.Media.Visual.IsDescendantOf(System.Windows.DependencyObject)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.Media.Visual.OnDpiChanged(System.Windows.DpiScale, System.Windows.DpiScale)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.Media.Visual.OnVisualChildrenChanged(System.Windows.DependencyObject, System.Windows.DependencyObject)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.Media.Visual.PointFromScreen(System.Windows.Point)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.Media.Visual.PointToScreen(System.Windows.Point)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.Media.Visual.RemoveVisualChild(System.Windows.Media.Visual)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.Media.Visual.TransformToAncestor(System.Windows.Media.Media3D.Visual3D)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.Media.Visual.TransformToAncestor(System.Windows.Media.Visual)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.Media.Visual.TransformToDescendant(System.Windows.Media.Visual)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.Media.Visual.TransformToVisual(System.Windows.Media.Visual)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.Media.Visual.VisualBitmapEffect</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.Media.Visual.VisualBitmapEffectInput</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.Media.Visual.VisualBitmapScalingMode</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.Media.Visual.VisualCacheMode</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.Media.Visual.VisualClearTypeHint</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.Media.Visual.VisualClip</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.Media.Visual.VisualEdgeMode</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.Media.Visual.VisualEffect</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.Media.Visual.VisualOffset</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.Media.Visual.VisualOpacity</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.Media.Visual.VisualOpacityMask</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.Media.Visual.VisualParent</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.Media.Visual.VisualScrollableAreaClip</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.Media.Visual.VisualTextHintingMode</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.Media.Visual.VisualTextRenderingMode</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.Media.Visual.VisualTransform</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.Media.Visual.VisualXSnappingGuidelines</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.Media.Visual.VisualYSnappingGuidelines</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.DependencyObject.ClearValue(System.Windows.DependencyProperty)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.DependencyObject.ClearValue(System.Windows.DependencyPropertyKey)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.DependencyObject.CoerceValue(System.Windows.DependencyProperty)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.DependencyObject.Equals(System.Object)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.DependencyObject.GetHashCode()</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.DependencyObject.GetLocalValueEnumerator()</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.DependencyObject.GetValue(System.Windows.DependencyProperty)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.DependencyObject.InvalidateProperty(System.Windows.DependencyProperty)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.DependencyObject.ReadLocalValue(System.Windows.DependencyProperty)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.DependencyObject.SetCurrentValue(System.Windows.DependencyProperty, System.Object)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.DependencyObject.SetValue(System.Windows.DependencyProperty, System.Object)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.DependencyObject.SetValue(System.Windows.DependencyPropertyKey, System.Object)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.DependencyObject.ShouldSerializeProperty(System.Windows.DependencyProperty)</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.DependencyObject.DependencyObjectType</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.DependencyObject.IsSealed</span>
-    </div>
-    <div>
-      <span class="xref">System.Windows.Threading.DispatcherObject.Dispatcher</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.GetType()</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.MemberwiseClone()</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
     </div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="TheXDS.MCART.Controls.html">TheXDS.MCART.Controls</a></h6>
-  <h6><strong>Assembly</strong>: MCART.WPF.dll</h6>
+  <h6><strong>Namespace</strong>: <a class="xref" href="TheXDS.html">TheXDS</a>.<a class="xref" href="TheXDS.MCART.html">MCART</a>.<a class="xref" href="TheXDS.MCART.Controls.html">Controls</a></h6>
+  <h6><strong>Assembly</strong>: MCART.Avalonia.Controls.dll</h6>
   <h5 id="TheXDS_MCART_Controls_BusyIndicator_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class BusyIndicator : Control, IAnimatable, ISupportInitialize, IFrameworkInputElement, IInputElement, IQueryAmbient</code></pre>
+    <pre><code class="lang-csharp hljs">[TemplatePart(&quot;PART_path&quot;, typeof(Path))]
+[PseudoClasses(new string[] { &quot;:running&quot; })]
+public class BusyIndicator : RingControlBase, IAvaloniaObjectDebug, INotifyPropertyChanged, ISetLogicalParent, ISetInheritanceParent, IControl, IDataTemplateHost, ILayoutable, IInputElement, IVisual, IInteractive, IStyledElement, IStyleable, INamed, IStyleHost, ILogical, IResourceHost, IResourceNode, IDataContextProvider, ISupportInitialize, IVisualBrushInitialize, ISetterValue, ITemplatedControl, IAvaloniaObject</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Controls_BusyIndicator__ctor.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.BusyIndicator.%23ctor%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Platform/Avalonia/MCART.Avalonia.Controls/Controls/BusyIndicator.cs/#L98">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Controls_BusyIndicator__ctor_" data-uid="TheXDS.MCART.Controls.BusyIndicator.#ctor*"></a>
+  <h4 id="TheXDS_MCART_Controls_BusyIndicator__ctor" data-uid="TheXDS.MCART.Controls.BusyIndicator.#ctor">BusyIndicator()</h4>
+  <div class="markdown level1 summary"><p>Inicializa una nueva instancia de la clase <a class="xref" href="TheXDS.MCART.Controls.BusyIndicator.html">BusyIndicator</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BusyIndicator()</code></pre>
   </div>
   <h3 id="fields">Fields
-  </h3>
+</h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_Controls_BusyIndicator_RadiusProperty.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.BusyIndicator.RadiusProperty%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Controls_BusyIndicator_ArcAngleProperty.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.BusyIndicator.ArcAngleProperty%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Platform/WPF/Controls/BusyIndicator.cs/#L59">View Source</a>
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Platform/Avalonia/MCART.Avalonia.Controls/Controls/BusyIndicator.cs/#L55">View Source</a>
+  </span>
+  <h4 id="TheXDS_MCART_Controls_BusyIndicator_ArcAngleProperty" data-uid="TheXDS.MCART.Controls.BusyIndicator.ArcAngleProperty">ArcAngleProperty</h4>
+  <div class="markdown level1 summary"><p>Identifica a la propiedad de dependencia <a class="xref" href="TheXDS.MCART.Controls.BusyIndicator.html#TheXDS_MCART_Controls_BusyIndicator_ArcAngle">ArcAngle</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static readonly StyledProperty&lt;double&gt; ArcAngleProperty</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">StyledProperty</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Controls_BusyIndicator_RadiusProperty.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.BusyIndicator.RadiusProperty%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Platform/Avalonia/MCART.Avalonia.Controls/Controls/BusyIndicator.cs/#L75">View Source</a>
   </span>
   <h4 id="TheXDS_MCART_Controls_BusyIndicator_RadiusProperty" data-uid="TheXDS.MCART.Controls.BusyIndicator.RadiusProperty">RadiusProperty</h4>
-  <div class="markdown level1 summary"><p>Identifica a la propiedad de dependencia <a class="xref" href="TheXDS.MCART.Controls.BusyIndicator.html#TheXDS_MCART_Controls_BusyIndicator_Radius">Radius</a>.</p>
+  <div class="markdown level1 summary"><p>Identifica a la propiedad de dependencia <a class="xref" href="TheXDS.MCART.Controls.Base.RingControlBase.html#TheXDS_MCART_Controls_Base_RingControlBase_Radius">Radius</a>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static readonly DependencyProperty RadiusProperty</code></pre>
+    <pre><code class="lang-csharp hljs">public static readonly StyledProperty&lt;double&gt; RadiusProperty</code></pre>
   </div>
   <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1943,28 +1028,28 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Windows.DependencyProperty</span></td>
+        <td><span class="xref">StyledProperty</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a>&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_Controls_BusyIndicator_StateProperty.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.BusyIndicator.StateProperty%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Controls_BusyIndicator_RunningProperty.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.BusyIndicator.RunningProperty%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Platform/WPF/Controls/BusyIndicator.cs/#L66">View Source</a>
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Platform/Avalonia/MCART.Avalonia.Controls/Controls/BusyIndicator.cs/#L63">View Source</a>
   </span>
-  <h4 id="TheXDS_MCART_Controls_BusyIndicator_StateProperty" data-uid="TheXDS.MCART.Controls.BusyIndicator.StateProperty">StateProperty</h4>
-  <div class="markdown level1 summary"><p>Identifica a la propiedad de dependencia <a class="xref" href="TheXDS.MCART.Controls.BusyIndicator.html#TheXDS_MCART_Controls_BusyIndicator_State">State</a>.</p>
+  <h4 id="TheXDS_MCART_Controls_BusyIndicator_RunningProperty" data-uid="TheXDS.MCART.Controls.BusyIndicator.RunningProperty">RunningProperty</h4>
+  <div class="markdown level1 summary"><p>Identifica a la propiedad de dependencia <a class="xref" href="TheXDS.MCART.Controls.BusyIndicator.html#TheXDS_MCART_Controls_BusyIndicator_Running">Running</a>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static readonly DependencyProperty StateProperty</code></pre>
+    <pre><code class="lang-csharp hljs">public static readonly StyledProperty&lt;bool&gt; RunningProperty</code></pre>
   </div>
   <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1973,28 +1058,28 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Windows.DependencyProperty</span></td>
+        <td><span class="xref">StyledProperty</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_Controls_BusyIndicator_Stroke2Property.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.BusyIndicator.Stroke2Property%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Controls_BusyIndicator_Stroke2Property.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.BusyIndicator.Stroke2Property%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Platform/WPF/Controls/BusyIndicator.cs/#L78">View Source</a>
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Platform/Avalonia/MCART.Avalonia.Controls/Controls/BusyIndicator.cs/#L69">View Source</a>
   </span>
   <h4 id="TheXDS_MCART_Controls_BusyIndicator_Stroke2Property" data-uid="TheXDS.MCART.Controls.BusyIndicator.Stroke2Property">Stroke2Property</h4>
   <div class="markdown level1 summary"><p>Identifica a la propiedad de dependencia <a class="xref" href="TheXDS.MCART.Controls.BusyIndicator.html#TheXDS_MCART_Controls_BusyIndicator_Stroke2">Stroke2</a>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static readonly DependencyProperty Stroke2Property</code></pre>
+    <pre><code class="lang-csharp hljs">public static readonly StyledProperty&lt;IBrush?&gt; Stroke2Property</code></pre>
   </div>
   <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2003,28 +1088,28 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Windows.DependencyProperty</span></td>
+        <td><span class="xref">StyledProperty</span>&lt;<span class="xref">IBrush</span>&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_Controls_BusyIndicator_StrokeProperty.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.BusyIndicator.StrokeProperty%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Controls_BusyIndicator_StrokeProperty.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.BusyIndicator.StrokeProperty%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Platform/WPF/Controls/BusyIndicator.cs/#L72">View Source</a>
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Platform/Avalonia/MCART.Avalonia.Controls/Controls/BusyIndicator.cs/#L85">View Source</a>
   </span>
   <h4 id="TheXDS_MCART_Controls_BusyIndicator_StrokeProperty" data-uid="TheXDS.MCART.Controls.BusyIndicator.StrokeProperty">StrokeProperty</h4>
-  <div class="markdown level1 summary"><p>Identifica a la propiedad de dependencia <a class="xref" href="TheXDS.MCART.Controls.BusyIndicator.html#TheXDS_MCART_Controls_BusyIndicator_Stroke">Stroke</a>.</p>
+  <div class="markdown level1 summary"><p>Identifica a la propiedad de dependencia <a class="xref" href="TheXDS.MCART.Controls.Base.RingControlBase.html#TheXDS_MCART_Controls_Base_RingControlBase_Stroke">Stroke</a>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static readonly DependencyProperty StrokeProperty</code></pre>
+    <pre><code class="lang-csharp hljs">public static readonly StyledProperty&lt;IBrush?&gt; StrokeProperty</code></pre>
   </div>
   <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2033,28 +1118,28 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Windows.DependencyProperty</span></td>
+        <td><span class="xref">StyledProperty</span>&lt;<span class="xref">IBrush</span>&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_Controls_BusyIndicator_ThicknessProperty.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.BusyIndicator.ThicknessProperty%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Controls_BusyIndicator_ThicknessProperty.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.BusyIndicator.ThicknessProperty%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Platform/WPF/Controls/BusyIndicator.cs/#L84">View Source</a>
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Platform/Avalonia/MCART.Avalonia.Controls/Controls/BusyIndicator.cs/#L80">View Source</a>
   </span>
   <h4 id="TheXDS_MCART_Controls_BusyIndicator_ThicknessProperty" data-uid="TheXDS.MCART.Controls.BusyIndicator.ThicknessProperty">ThicknessProperty</h4>
-  <div class="markdown level1 summary"><p>Identifica a la propiedad de dependencia <a class="xref" href="TheXDS.MCART.Controls.BusyIndicator.html#TheXDS_MCART_Controls_BusyIndicator_Thickness">Thickness</a>.</p>
+  <div class="markdown level1 summary"><p>Identifica a la propiedad de dependencia <a class="xref" href="TheXDS.MCART.Controls.Base.RingControlBase.html#TheXDS_MCART_Controls_Base_RingControlBase_Thickness">Thickness</a>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static readonly DependencyProperty ThicknessProperty</code></pre>
+    <pre><code class="lang-csharp hljs">public static readonly StyledProperty&lt;double&gt; ThicknessProperty</code></pre>
   </div>
   <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2063,31 +1148,31 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Windows.DependencyProperty</span></td>
+        <td><span class="xref">StyledProperty</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a>&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h3 id="properties">Properties
-  </h3>
+</h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_Controls_BusyIndicator_Radius.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.BusyIndicator.Radius%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Controls_BusyIndicator_ArcAngle.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.BusyIndicator.ArcAngle%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Platform/WPF/Controls/BusyIndicator.cs/#L129">View Source</a>
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Platform/Avalonia/MCART.Avalonia.Controls/Controls/BusyIndicator.cs/#L108">View Source</a>
   </span>
-  <a id="TheXDS_MCART_Controls_BusyIndicator_Radius_" data-uid="TheXDS.MCART.Controls.BusyIndicator.Radius*"></a>
-  <h4 id="TheXDS_MCART_Controls_BusyIndicator_Radius" data-uid="TheXDS.MCART.Controls.BusyIndicator.Radius">Radius</h4>
-  <div class="markdown level1 summary"><p>Obtiene o establece el radio de este control.</p>
+  <a id="TheXDS_MCART_Controls_BusyIndicator_ArcAngle_" data-uid="TheXDS.MCART.Controls.BusyIndicator.ArcAngle*"></a>
+  <h4 id="TheXDS_MCART_Controls_BusyIndicator_ArcAngle" data-uid="TheXDS.MCART.Controls.BusyIndicator.ArcAngle">ArcAngle</h4>
+  <div class="markdown level1 summary"><p>Obtiene o establece el ángulo de cierre del arco de este control.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public double Radius { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">public double ArcAngle { get; set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2096,30 +1181,30 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Double</span></td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_Controls_BusyIndicator_State.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.BusyIndicator.State%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Controls_BusyIndicator_Running.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.BusyIndicator.Running%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Platform/WPF/Controls/BusyIndicator.cs/#L139">View Source</a>
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Platform/Avalonia/MCART.Avalonia.Controls/Controls/BusyIndicator.cs/#L118">View Source</a>
   </span>
-  <a id="TheXDS_MCART_Controls_BusyIndicator_State_" data-uid="TheXDS.MCART.Controls.BusyIndicator.State*"></a>
-  <h4 id="TheXDS_MCART_Controls_BusyIndicator_State" data-uid="TheXDS.MCART.Controls.BusyIndicator.State">State</h4>
+  <a id="TheXDS_MCART_Controls_BusyIndicator_Running_" data-uid="TheXDS.MCART.Controls.BusyIndicator.Running*"></a>
+  <h4 id="TheXDS_MCART_Controls_BusyIndicator_Running" data-uid="TheXDS.MCART.Controls.BusyIndicator.Running">Running</h4>
   <div class="markdown level1 summary"><p>Obtiene o establece un valor que indica si el control se dibujará
 en su estado secundario.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public BusyIndicator.ControlState State { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">public bool Running { get; set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2128,61 +1213,30 @@ en su estado secundario.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="TheXDS.MCART.Controls.BusyIndicator.ControlState.html">BusyIndicator.ControlState</a></td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_Controls_BusyIndicator_Stroke.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.BusyIndicator.Stroke%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Controls_BusyIndicator_Stroke2.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.BusyIndicator.Stroke2%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Platform/WPF/Controls/BusyIndicator.cs/#L148">View Source</a>
-  </span>
-  <a id="TheXDS_MCART_Controls_BusyIndicator_Stroke_" data-uid="TheXDS.MCART.Controls.BusyIndicator.Stroke*"></a>
-  <h4 id="TheXDS_MCART_Controls_BusyIndicator_Stroke" data-uid="TheXDS.MCART.Controls.BusyIndicator.Stroke">Stroke</h4>
-  <div class="markdown level1 summary"><p>Obtiene o establece el <span class="xref">System.Windows.Media.Brush</span> a aplicar al control.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Brush Stroke { get; set; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Windows.Media.Brush</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_Controls_BusyIndicator_Stroke2.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.BusyIndicator.Stroke2%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Platform/WPF/Controls/BusyIndicator.cs/#L158">View Source</a>
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Platform/Avalonia/MCART.Avalonia.Controls/Controls/BusyIndicator.cs/#L128">View Source</a>
   </span>
   <a id="TheXDS_MCART_Controls_BusyIndicator_Stroke2_" data-uid="TheXDS.MCART.Controls.BusyIndicator.Stroke2*"></a>
   <h4 id="TheXDS_MCART_Controls_BusyIndicator_Stroke2" data-uid="TheXDS.MCART.Controls.BusyIndicator.Stroke2">Stroke2</h4>
-  <div class="markdown level1 summary"><p>Obtiene o establece el <span class="xref">System.Windows.Media.Brush</span> a aplicar al estado
+  <div class="markdown level1 summary"><p>Obtiene o establece el <span class="xref">Avalonia.Media.Brush</span> a aplicar al estado
 secundario de el control.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Brush Stroke2 { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">public IBrush? Stroke2 { get; set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2191,182 +1245,232 @@ secundario de el control.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Windows.Media.Brush</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_Controls_BusyIndicator_Thickness.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.BusyIndicator.Thickness%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Platform/WPF/Controls/BusyIndicator.cs/#L167">View Source</a>
-  </span>
-  <a id="TheXDS_MCART_Controls_BusyIndicator_Thickness_" data-uid="TheXDS.MCART.Controls.BusyIndicator.Thickness*"></a>
-  <h4 id="TheXDS_MCART_Controls_BusyIndicator_Thickness" data-uid="TheXDS.MCART.Controls.BusyIndicator.Thickness">Thickness</h4>
-  <div class="markdown level1 summary"><p>Obtiene o establece el grosor de los elementos de este control.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public double Thickness { get; set; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Double</span></td>
+        <td><span class="xref">IBrush</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h3 id="methods">Methods
-  </h3>
+</h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_Controls_BusyIndicator_OnApplyTemplate.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.BusyIndicator.OnApplyTemplate%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Controls_BusyIndicator_OnApplyTemplate_Avalonia_Controls_Primitives_TemplateAppliedEventArgs_.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.BusyIndicator.OnApplyTemplate(Avalonia.Controls.Primitives.TemplateAppliedEventArgs)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Platform/WPF/Controls/BusyIndicator.cs/#L174">View Source</a>
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Platform/Avalonia/MCART.Avalonia.Controls/Controls/BusyIndicator.cs/#L135">View Source</a>
   </span>
   <a id="TheXDS_MCART_Controls_BusyIndicator_OnApplyTemplate_" data-uid="TheXDS.MCART.Controls.BusyIndicator.OnApplyTemplate*"></a>
-  <h4 id="TheXDS_MCART_Controls_BusyIndicator_OnApplyTemplate" data-uid="TheXDS.MCART.Controls.BusyIndicator.OnApplyTemplate">OnApplyTemplate()</h4>
+  <h4 id="TheXDS_MCART_Controls_BusyIndicator_OnApplyTemplate_Avalonia_Controls_Primitives_TemplateAppliedEventArgs_" data-uid="TheXDS.MCART.Controls.BusyIndicator.OnApplyTemplate(Avalonia.Controls.Primitives.TemplateAppliedEventArgs)">OnApplyTemplate(TemplateAppliedEventArgs)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override void OnApplyTemplate()</code></pre>
+    <pre><code class="lang-csharp hljs">protected override void OnApplyTemplate(TemplateAppliedEventArgs e)</code></pre>
   </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TemplateAppliedEventArgs</span></td>
+        <td><span class="parametername">e</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
   <h5 class="overrides">Overrides</h5>
-  <div><span class="xref">System.Windows.FrameworkElement.OnApplyTemplate()</span></div>
+  <div><span class="xref">Avalonia.Controls.Primitives.TemplatedControl.OnApplyTemplate(Avalonia.Controls.Primitives.TemplateAppliedEventArgs)</span></div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Controls_BusyIndicator_OnLayoutUpdate_System_Double_System_Double_.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.BusyIndicator.OnLayoutUpdate(System.Double%2CSystem.Double)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Platform/Avalonia/MCART.Avalonia.Controls/Controls/BusyIndicator.cs/#L143">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Controls_BusyIndicator_OnLayoutUpdate_" data-uid="TheXDS.MCART.Controls.BusyIndicator.OnLayoutUpdate*"></a>
+  <h4 id="TheXDS_MCART_Controls_BusyIndicator_OnLayoutUpdate_System_Double_System_Double_" data-uid="TheXDS.MCART.Controls.BusyIndicator.OnLayoutUpdate(System.Double,System.Double)">OnLayoutUpdate(double, double)</h4>
+  <div class="markdown level1 summary"><p>Cuando se invalida en una clase base, actualiza las figuras que
+componen al control.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnLayoutUpdate(double radius, double thickness)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></td>
+        <td><span class="parametername">radius</span></td>
+        <td><p>Radio del control.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></td>
+        <td><span class="parametername">thickness</span></td>
+        <td><p>Grosor de las líneas del control.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="TheXDS.MCART.Controls.Base.RingControlBase.html#TheXDS_MCART_Controls_Base_RingControlBase_OnLayoutUpdate_System_Double_System_Double_">RingControlBase.OnLayoutUpdate(double, double)</a></div>
   <h3 id="implements">Implements</h3>
   <div>
-      <span class="xref">System.Windows.Media.Animation.IAnimatable</span>
+      <span class="xref">Avalonia.Diagnostics.IAvaloniaObjectDebug</span>
   </div>
   <div>
-      <span class="xref">System.ComponentModel.ISupportInitialize</span>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.componentmodel.inotifypropertychanged">INotifyPropertyChanged</a>
   </div>
   <div>
-      <span class="xref">System.Windows.IFrameworkInputElement</span>
+      <span class="xref">Avalonia.Controls.ISetLogicalParent</span>
   </div>
   <div>
-      <span class="xref">System.Windows.IInputElement</span>
+      <span class="xref">Avalonia.Controls.ISetInheritanceParent</span>
   </div>
   <div>
-      <span class="xref">System.Windows.Markup.IQueryAmbient</span>
+      <span class="xref">Avalonia.Controls.IControl</span>
+  </div>
+  <div>
+      <span class="xref">Avalonia.Controls.Templates.IDataTemplateHost</span>
+  </div>
+  <div>
+      <span class="xref">Avalonia.Layout.ILayoutable</span>
+  </div>
+  <div>
+      <span class="xref">Avalonia.Input.IInputElement</span>
+  </div>
+  <div>
+      <span class="xref">Avalonia.VisualTree.IVisual</span>
+  </div>
+  <div>
+      <span class="xref">Avalonia.Interactivity.IInteractive</span>
+  </div>
+  <div>
+      <span class="xref">Avalonia.IStyledElement</span>
+  </div>
+  <div>
+      <span class="xref">Avalonia.Styling.IStyleable</span>
+  </div>
+  <div>
+      <span class="xref">Avalonia.INamed</span>
+  </div>
+  <div>
+      <span class="xref">Avalonia.Styling.IStyleHost</span>
+  </div>
+  <div>
+      <span class="xref">Avalonia.LogicalTree.ILogical</span>
+  </div>
+  <div>
+      <span class="xref">Avalonia.Controls.IResourceHost</span>
+  </div>
+  <div>
+      <span class="xref">Avalonia.Controls.IResourceNode</span>
+  </div>
+  <div>
+      <span class="xref">Avalonia.IDataContextProvider</span>
+  </div>
+  <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.componentmodel.isupportinitialize">ISupportInitialize</a>
+  </div>
+  <div>
+      <span class="xref">Avalonia.Rendering.IVisualBrushInitialize</span>
+  </div>
+  <div>
+      <span class="xref">Avalonia.Styling.ISetterValue</span>
+  </div>
+  <div>
+      <span class="xref">Avalonia.Styling.ITemplatedControl</span>
+  </div>
+  <div>
+      <span class="xref">Avalonia.IAvaloniaObject</span>
   </div>
   <h3 id="extensionmethods">Extension Methods</h3>
   <div>
-      <a class="xref" href="TheXDS.MCART.WpfUi.html#TheXDS_MCART_WpfUi_Bind_System_Windows_FrameworkElement_System_Windows_DependencyProperty_System_Windows_DependencyObject_">WpfUi.Bind(FrameworkElement, DependencyProperty, DependencyObject)</a>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObjectExtensions.html#TheXDS_MCART_Types_Extensions_ObjectExtensions_FieldsOf__1_System_Object_">ObjectExtensions.FieldsOf&lt;T&gt;(object)</a>
   </div>
   <div>
-      <a class="xref" href="TheXDS.MCART.WpfUi.html#TheXDS_MCART_WpfUi_Bind_System_Windows_FrameworkElement_System_Windows_DependencyProperty_System_Windows_DependencyObject_System_Windows_Data_BindingMode_">WpfUi.Bind(FrameworkElement, DependencyProperty, DependencyObject, BindingMode)</a>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObjectExtensions.html#TheXDS_MCART_Types_Extensions_ObjectExtensions_GetAttribute__1_System_Object_">ObjectExtensions.GetAttribute&lt;T&gt;(object)</a>
   </div>
   <div>
-      <a class="xref" href="TheXDS.MCART.WpfUi.html#TheXDS_MCART_WpfUi_Bind_System_Windows_FrameworkElement_System_Windows_DependencyProperty_System_ComponentModel_INotifyPropertyChanged_">WpfUi.Bind(FrameworkElement, DependencyProperty, INotifyPropertyChanged)</a>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObjectExtensions.html#TheXDS_MCART_Types_Extensions_ObjectExtensions_GetAttributes__1_System_Object_">ObjectExtensions.GetAttributes&lt;T&gt;(object)</a>
   </div>
   <div>
-      <a class="xref" href="TheXDS.MCART.WpfUi.html#TheXDS_MCART_WpfUi_Bind_System_Windows_FrameworkElement_System_Windows_DependencyProperty_System_ComponentModel_INotifyPropertyChanged_System_Windows_Data_BindingMode_">WpfUi.Bind(FrameworkElement, DependencyProperty, INotifyPropertyChanged, BindingMode)</a>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObjectExtensions.html#TheXDS_MCART_Types_Extensions_ObjectExtensions_HasAttrValue__2_System_Object___1__">ObjectExtensions.HasAttrValue&lt;TAttribute, TValue&gt;(object, out TValue)</a>
   </div>
   <div>
-      <a class="xref" href="TheXDS.MCART.WpfUi.html#TheXDS_MCART_WpfUi_Bind_System_Windows_FrameworkElement_System_Windows_DependencyProperty_System_Windows_DependencyObject_System_Windows_DependencyProperty_">WpfUi.Bind(FrameworkElement, DependencyProperty, DependencyObject, DependencyProperty)</a>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObjectExtensions.html#TheXDS_MCART_Types_Extensions_ObjectExtensions_HasAttribute__1_System_Object_">ObjectExtensions.HasAttribute&lt;T&gt;(object)</a>
   </div>
   <div>
-      <a class="xref" href="TheXDS.MCART.WpfUi.html#TheXDS_MCART_WpfUi_Bind_System_Windows_FrameworkElement_System_Windows_DependencyProperty_System_Windows_DependencyObject_System_Windows_DependencyProperty_System_Windows_Data_BindingMode_">WpfUi.Bind(FrameworkElement, DependencyProperty, DependencyObject, DependencyProperty, BindingMode)</a>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObjectExtensions.html#TheXDS_MCART_Types_Extensions_ObjectExtensions_HasAttribute__1_System_Object___0__">ObjectExtensions.HasAttribute&lt;T&gt;(object, out T?)</a>
   </div>
   <div>
-      <a class="xref" href="TheXDS.MCART.WpfUi.html#TheXDS_MCART_WpfUi_Bind_System_Windows_FrameworkElement_System_Windows_DependencyProperty_System_ComponentModel_INotifyPropertyChanged_System_Windows_DependencyProperty_">WpfUi.Bind(FrameworkElement, DependencyProperty, INotifyPropertyChanged, DependencyProperty)</a>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObjectExtensions.html#TheXDS_MCART_Types_Extensions_ObjectExtensions_HasAttributes__1_System_Object_System_Collections_Generic_IEnumerable___0___">ObjectExtensions.HasAttributes&lt;T&gt;(object, out IEnumerable&lt;T&gt;?)</a>
   </div>
   <div>
-      <a class="xref" href="TheXDS.MCART.WpfUi.html#TheXDS_MCART_WpfUi_Bind_System_Windows_FrameworkElement_System_Windows_DependencyProperty_System_ComponentModel_INotifyPropertyChanged_System_Windows_DependencyProperty_System_Windows_Data_BindingMode_">WpfUi.Bind(FrameworkElement, DependencyProperty, INotifyPropertyChanged, DependencyProperty, BindingMode)</a>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObjectExtensions.html#TheXDS_MCART_Types_Extensions_ObjectExtensions_Is_System_Object_System_Object_">ObjectExtensions.Is(object?, object?)</a>
   </div>
   <div>
-      <a class="xref" href="TheXDS.MCART.WpfUi.html#TheXDS_MCART_WpfUi_Bind_System_Windows_FrameworkElement_System_Windows_DependencyProperty_System_Object_System_Windows_DependencyProperty_System_Windows_Data_BindingMode_">WpfUi.Bind(FrameworkElement, DependencyProperty, Object, DependencyProperty, BindingMode)</a>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObjectExtensions.html#TheXDS_MCART_Types_Extensions_ObjectExtensions_IsEither_System_Object_System_Collections_IEnumerable_">ObjectExtensions.IsEither(object, IEnumerable)</a>
   </div>
   <div>
-      <a class="xref" href="TheXDS.MCART.WpfUi.html#TheXDS_MCART_WpfUi_ClearWarn_System_Windows_Controls_Control_">WpfUi.ClearWarn(Control)</a>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObjectExtensions.html#TheXDS_MCART_Types_Extensions_ObjectExtensions_IsEither_System_Object_System_Object___">ObjectExtensions.IsEither(object, params object[])</a>
   </div>
   <div>
-      <a class="xref" href="TheXDS.MCART.WpfUi.html#TheXDS_MCART_WpfUi_IsWarned_System_Windows_Controls_Control_">WpfUi.IsWarned(Control)</a>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObjectExtensions.html#TheXDS_MCART_Types_Extensions_ObjectExtensions_IsNeither_System_Object_System_Collections_IEnumerable_">ObjectExtensions.IsNeither(object, IEnumerable)</a>
   </div>
   <div>
-      <a class="xref" href="TheXDS.MCART.WpfUi.html#TheXDS_MCART_WpfUi_Render_System_Windows_FrameworkElement_">WpfUi.Render(FrameworkElement)</a>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObjectExtensions.html#TheXDS_MCART_Types_Extensions_ObjectExtensions_IsNeither_System_Object_System_Object___">ObjectExtensions.IsNeither(object, params object[])</a>
   </div>
   <div>
-      <a class="xref" href="TheXDS.MCART.WpfUi.html#TheXDS_MCART_WpfUi_Render_System_Windows_FrameworkElement_System_Int32_">WpfUi.Render(FrameworkElement, Int32)</a>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObjectExtensions.html#TheXDS_MCART_Types_Extensions_ObjectExtensions_IsNot_System_Object_System_Object_">ObjectExtensions.IsNot(object?, object?)</a>
   </div>
   <div>
-      <a class="xref" href="TheXDS.MCART.WpfUi.html#TheXDS_MCART_WpfUi_Render_System_Windows_Media_Visual_System_Windows_Size_System_Int32_">WpfUi.Render(Visual, Size, Int32)</a>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObjectExtensions.html#TheXDS_MCART_Types_Extensions_ObjectExtensions_PropertiesOf__1_System_Object_">ObjectExtensions.PropertiesOf&lt;T&gt;(object)</a>
   </div>
   <div>
-      <a class="xref" href="TheXDS.MCART.WpfUi.html#TheXDS_MCART_WpfUi_Render_System_Windows_FrameworkElement_System_Windows_Size_System_Windows_Size_System_Int32_">WpfUi.Render(FrameworkElement, Size, Size, Int32)</a>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObjectExtensions.html#TheXDS_MCART_Types_Extensions_ObjectExtensions_WhichAre_System_Object_System_Collections_Generic_IEnumerable_System_Object__">ObjectExtensions.WhichAre(object, IEnumerable&lt;object&gt;)</a>
   </div>
   <div>
-      <a class="xref" href="TheXDS.MCART.WpfUi.html#TheXDS_MCART_WpfUi_Render_System_Windows_UIElement_">WpfUi.Render(UIElement)</a>
+      <a class="xref" href="TheXDS.MCART.Types.Extensions.ObjectExtensions.html#TheXDS_MCART_Types_Extensions_ObjectExtensions_WhichAre_System_Object_System_Object___">ObjectExtensions.WhichAre(object, params object[])</a>
   </div>
   <div>
-      <a class="xref" href="TheXDS.MCART.WpfUi.html#TheXDS_MCART_WpfUi_Warn_System_Windows_Controls_Control_">WpfUi.Warn(Control)</a>
-  </div>
-  <div>
-      <a class="xref" href="TheXDS.MCART.WpfUi.html#TheXDS_MCART_WpfUi_Warn_System_Windows_Controls_Control_System_String_">WpfUi.Warn(Control, String)</a>
-  </div>
-  <div>
-      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_FieldsOf__1_System_Object_">Objects.FieldsOf&lt;T&gt;(Object)</a>
-  </div>
-  <div>
-      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_GetAttr__1_System_Object_">Objects.GetAttr&lt;T&gt;(Object)</a>
-  </div>
-  <div>
-      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_GetAttrs__1_System_Object_">Objects.GetAttrs&lt;T&gt;(Object)</a>
-  </div>
-  <div>
-      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_HasAttr__1_System_Object___0__">Objects.HasAttr&lt;T&gt;(Object, out T)</a>
-  </div>
-  <div>
-      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_HasAttrValue__2_System_Object___1__">Objects.HasAttrValue&lt;TAttribute, TValue&gt;(Object, out TValue)</a>
-  </div>
-  <div>
-      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_HasAttr__1_System_Object_">Objects.HasAttr&lt;T&gt;(Object)</a>
-  </div>
-  <div>
-      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_HasAttrs__1_System_Object_System_Collections_Generic_IEnumerable___0___">Objects.HasAttrs&lt;T&gt;(Object, out IEnumerable&lt;T&gt;)</a>
-  </div>
-  <div>
-      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_Is_System_Object_System_Object_">Objects.Is(Object, Object)</a>
-  </div>
-  <div>
-      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_IsEither__1___0___0___">Objects.IsEither&lt;T&gt;(T, T[])</a>
-  </div>
-  <div>
-      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_IsEither__1___0_System_Collections_Generic_IEnumerable___0__">Objects.IsEither&lt;T&gt;(T, IEnumerable&lt;T&gt;)</a>
-  </div>
-  <div>
-      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_IsNeither__1___0___0___">Objects.IsNeither&lt;T&gt;(T, T[])</a>
-  </div>
-  <div>
-      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_IsNeither__1___0_System_Collections_Generic_IEnumerable___0__">Objects.IsNeither&lt;T&gt;(T, IEnumerable&lt;T&gt;)</a>
-  </div>
-  <div>
-      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_IsNot_System_Object_System_Object_">Objects.IsNot(Object, Object)</a>
+      <a class="xref" href="TheXDS.MCART.Helpers.Common.html#TheXDS_MCART_Helpers_Common_IfNotNull__1___0_System_Action___0__">Common.IfNotNull&lt;T&gt;(T?, Action&lt;T&gt;)</a>
   </div>
   <div>
       <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_Itself__1___0_">Objects.Itself&lt;T&gt;(T)</a>
   </div>
   <div>
-      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_PropertiesOf__1_System_Object_">Objects.PropertiesOf&lt;T&gt;(Object)</a>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_ShallowClone__1___0_">Objects.ShallowClone&lt;T&gt;(T)</a>
   </div>
   <div>
-      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_WhichAre_System_Object_System_Collections_Generic_IEnumerable_System_Object__">Objects.WhichAre(Object, IEnumerable&lt;Object&gt;)</a>
+      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_ShallowCopyTo__1___0___0_">Objects.ShallowCopyTo&lt;T&gt;(T, T)</a>
   </div>
   <div>
-      <a class="xref" href="TheXDS.MCART.Helpers.Objects.html#TheXDS_MCART_Helpers_Objects_WhichAre_System_Object_System_Object___">Objects.WhichAre(Object, Object[])</a>
+      <a class="xref" href="TheXDS.MCART.Helpers.ObservingCommandBuilder.html#TheXDS_MCART_Helpers_ObservingCommandBuilder_Create__1___0_System_Action_">ObservingCommandBuilder.Create&lt;T&gt;(T, Action)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.ObservingCommandBuilder.html#TheXDS_MCART_Helpers_ObservingCommandBuilder_Create__1___0_System_Action_System_Object__">ObservingCommandBuilder.Create&lt;T&gt;(T, Action&lt;object?&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.ObservingCommandBuilder.html#TheXDS_MCART_Helpers_ObservingCommandBuilder_Create__1___0_System_Func_System_Object_System_Threading_Tasks_Task__">ObservingCommandBuilder.Create&lt;T&gt;(T, Func&lt;object?, Task&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Helpers.ObservingCommandBuilder.html#TheXDS_MCART_Helpers_ObservingCommandBuilder_Create__1___0_System_Func_System_Threading_Tasks_Task__">ObservingCommandBuilder.Create&lt;T&gt;(T, Func&lt;Task&gt;)</a>
   </div>
   <div>
       <a class="xref" href="TheXDS.MCART.Types.Extensions.CollectionExtensions.html#TheXDS_MCART_Types_Extensions_CollectionExtensions_PushInto__2___0_System_Collections_Generic_ICollection___1__">CollectionExtensions.PushInto&lt;TItem, TCollection&gt;(TItem, ICollection&lt;TCollection&gt;)</a>
@@ -2374,18 +1478,19 @@ secundario de el control.</p>
   <div>
       <a class="xref" href="TheXDS.MCART.Types.Extensions.DictionaryExtensions.html#TheXDS_MCART_Types_Extensions_DictionaryExtensions_PushInto__2___1___0_System_Collections_Generic_IDictionary___0___1__">DictionaryExtensions.PushInto&lt;TKey, TValue&gt;(TValue, TKey, IDictionary&lt;TKey, TValue&gt;)</a>
   </div>
+
 </article>
           </div>
-          
+
           <div class="hidden-sm col-md-2" role="complementary">
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/TheXDS/MCART/new/strings_redo/apiSpec/new?filename=TheXDS_MCART_Controls_BusyIndicator.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.BusyIndicator%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Controls_BusyIndicator.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.BusyIndicator%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/TheXDS/MCART/blob/strings_redo/src/Platform/WPF/Controls/BusyIndicator.cs/#L37" class="contribution-link">View Source</a>
+                    <a href="https://github.com/TheXDS/MCART/blob/master/src/Platform/Avalonia/MCART.Avalonia.Controls/Controls/BusyIndicator.cs/#L48" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>
@@ -2397,7 +1502,7 @@ secundario de el control.</p>
           </div>
         </div>
       </div>
-      
+
       <footer>
         <div class="grad-bottom"></div>
         <div class="footer">
@@ -2405,14 +1510,14 @@ secundario de el control.</p>
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-            
-            <span>Generated by <strong>DocFX</strong></span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
           </div>
         </div>
       </footer>
     </div>
-    
-    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
     <script type="text/javascript" src="../styles/docfx.js"></script>
     <script type="text/javascript" src="../styles/main.js"></script>
   </body>
