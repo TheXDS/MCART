@@ -1,4 +1,4 @@
-﻿<table>
+<table>
 <tr>
 <td>
 <h1 align="center">
@@ -13,7 +13,7 @@ MCART
 [![Build MCART](https://github.com/TheXDS/MCART/actions/workflows/build.yml/badge.svg)](https://github.com/TheXDS/MCART/actions/workflows/build.yml)
 [![Publish MCART](https://github.com/TheXDS/MCART/actions/workflows/publish.yml/badge.svg)](https://github.com/TheXDS/MCART/actions/workflows/publish.yml)
 [![Issues](https://img.shields.io/github/issues/TheXDS/MCART)](https://github.com/TheXDS/MCART/issues)
-[![GPL-v3.0](https://img.shields.io/github/license/TheXDS/MCART)](https://www.gnu.org/licenses/gpl-3.0.en.html)
+[![MIT](https://img.shields.io/github/license/TheXDS/MCART)](https://mit-license.org/)
 
 </td>
 </tr>
@@ -65,12 +65,12 @@ paket add TheXDS.MCART
 
 **Referencia de paquete**  
 ```xml
-<PackageReference Include="TheXDS.MCART" Version="0.16.0" />
+<PackageReference Include="TheXDS.MCART" Version="0.17.0" />
 ```
 
 **Ventana interactiva (CSI)**  
 ```
-#r "nuget: TheXDS.MCART, 0.16.0"
+#r "nuget: TheXDS.MCART, 0.17.0"
 ```
 
 #### Repositorio de GitHub

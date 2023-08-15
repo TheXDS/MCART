@@ -37,30 +37,3 @@ Tipo: (Tipo de fallo)
 #### Comentarios(en caso de existir):
 (Comentarios sobre el problema)
 ```
-
-# Errores conocidos
-
-### ```RingGraph``` no funciona correctamente.
-Desde: MCART 0.8 series  
-Tipo: Fallo de fiabilidad/estabilidad
-
-#### Problema:
-El control de gráfico de anillos, ```RingGraph```, no funciona más allá de lo
-que la aplicación de demostración permite observar.
-
-#### Detalles técnicos:
-Hay enormes problemas con las rutinas de dibujado y de escala de los
-sub-elementos. El refresco parece no funcionar tampoco, y no es posible agregar
-más de 3 o 4 puntos de datos a la gráfica sin que WPF enloquezca y cause un
-*crash*.
-
-#### Comentarios:
-Todo el subsistema de gráficos está pasando por un proceso de análisis de
-viabilidad, y es posible que sea removido totalmente de MCART en un futuro.
-Todos estos elementos posiblemente encuentren un nuevo hogar en un proyecto
-totalmente independiente, que se centre en este tipo de controles para WPF.
-
-Si este fuera el caso, cabrá la posibilidad que regresen los proyectos de MCART
-para GTK# y Win32 para la serie 0.12 del Runtime, especialmente ahora que para
-la serie 0.9 se pretende mudar todo el código de cuadros de diálogo y de UI en
-general al esquema MVVM. 
