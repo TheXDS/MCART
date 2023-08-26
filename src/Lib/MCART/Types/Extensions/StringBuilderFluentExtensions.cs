@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System;
 using System.Text;
 using TheXDS.MCART.Helpers;
 
@@ -62,15 +61,26 @@ public static class StringBuilderFluentExtensions
     }
 
     /// <summary>
-    /// 
+    /// Concatena una cadena luego de aplicar una operación que separa la
+    /// cadena en filas de hasta <paramref name="width"/> caracteres.
     /// </summary>
-    /// <param name="sb"></param>
-    /// <param name="text"></param>
-    /// <param name="width"></param>
-    /// <returns></returns>
+    /// <param name="sb">
+    /// Instancia de <see cref="StringBuilder"/> sobre la cual realizar
+    /// la operación.
+    /// </param>
+    /// <param name="text">
+    /// Texto a concatenar. Si es <see langword="null"/>, no se
+    /// realizará ninguna acción.
+    /// </param>
+    /// <param name="width">
+    /// Longitud máxima de las líneas de texto a agregar.
+    /// </param>
+    /// <returns>
+    /// La misma instancia que <paramref name="sb"/>.
+    /// </returns>
     public static StringBuilder AppendAndWrap(this StringBuilder sb, string? text, int width)
     {
-        sb.Append(string.Join(Environment.NewLine, text?.TextWrap(width).NotEmpty()!));
+        if (text is { } && string.Join(Environment.NewLine, text.TextWrap(width).NotEmpty()).OrNull() is { } txt) sb.Append(txt);
         return sb;
     }
 }
