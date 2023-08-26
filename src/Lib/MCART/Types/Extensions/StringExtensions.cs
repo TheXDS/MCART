@@ -28,12 +28,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using System.IO;
-using System.Linq;
 using System.Security;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -806,6 +802,28 @@ public static class StringExtensions
     public static string Spell(this string str)
     {
         return str.Separate(' ');
+    }
+
+    /// <summary>
+    /// Separa una cadena por el Casing de sus caracteres.
+    /// </summary>
+    /// <param name="name">Cadena a separar.</param>
+    /// <returns>
+    /// Una enumeración de las cadenas resultantes de la separación por Casing.
+    /// </returns>
+    public static IEnumerable<string> SplitByCase(this string? name)
+    {
+        var ch = new List<char>();
+        foreach (char c in name.NotNull())
+        {
+            if (char.IsUpper(c) && ch.Any())
+            {
+                yield return new string(ch.ToArray());
+                ch.Clear();
+            }
+            ch.Add(c);
+        }
+        if (ch.Any()) yield return new string(ch.ToArray());
     }
 
     /// <summary>

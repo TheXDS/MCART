@@ -317,9 +317,21 @@ public class StringExtensionsTests
     }
 
     [Test]
+    public void SplitByCase_test()
+    {
+        Assert.That(((string?)null).SplitByCase(), Is.EquivalentTo(Array.Empty<string>()));
+        Assert.That("".SplitByCase(), Is.EquivalentTo(Array.Empty<string>()));
+        Assert.That("Abc".SplitByCase(), Is.EquivalentTo(new[] { "Abc" }));
+        Assert.That("abc".SplitByCase(), Is.EquivalentTo(new[] { "abc" }));
+        Assert.That("AbcDef".SplitByCase(), Is.EquivalentTo(new[] { "Abc", "Def" }));
+        Assert.That("AbcDefGhi".SplitByCase(), Is.EquivalentTo(new[] { "Abc", "Def", "Ghi" }));
+        Assert.That("ABC".SplitByCase(), Is.EquivalentTo(new[] { "A", "B", "C" }));
+    }
+
+    [Test]
     public void Separate_Test()
     {
-        Assert.AreEqual(String.Empty, String.Empty.Separate(' '));
+        Assert.AreEqual(string.Empty, string.Empty.Separate(' '));
         Assert.AreEqual("T-e-s-t", "Test".Separate('-'));
     }
 
