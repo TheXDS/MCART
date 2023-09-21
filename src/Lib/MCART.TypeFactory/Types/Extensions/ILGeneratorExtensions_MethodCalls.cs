@@ -85,13 +85,29 @@ public static partial class ILGeneratorExtensions
     /// <param name="baseCtorArgs">
     /// Arreglo de tipos de argumentos del constructor a llamar.
     /// </param>
+    /// <param name="parameterLoadCallback">
+    /// Llamada a ejecutar para insertar la carga de argumentos a pasar al constructor base.
+    /// </param>
     /// <returns>
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
     /// de sintaxis Fluent.
     /// </returns>
-    public static ILGenerator CallBaseCtor<TClass>(this ILGenerator ilGen, Type[] baseCtorArgs)
+    /// <remarks>
+    /// Al llamar a este método, se insertará automáticamente la llamada a la
+    /// referencia actual (<see cref="LoadArg0(ILGenerator)"/>) cuando
+    /// <paramref name="baseCtorArgs"/> no sea una colección vacía y
+    /// <paramref name="parameterLoadCallback"/> haga referencia a un método a
+    /// llamar para cargar los parámetros del constructor, o cuando
+    /// <paramref name="baseCtorArgs"/> sea una colección vacía y
+    /// <paramref name="parameterLoadCallback"/> se establezca en
+    /// <see langword="null"/>. De lo contrario, deberá insertar la carga de
+    /// <c>Arg0</c> y todos los argumentos a pasar al constructor antes de
+    /// realizar esta llamada.
+    /// </remarks>
+    public static ILGenerator CallBaseCtor<TClass>(this ILGenerator ilGen, Type[] baseCtorArgs, Action<ILGenerator>? parameterLoadCallback)
     {
-        ilGen.LoadArg0();
+        if ((baseCtorArgs.Length == 0 && parameterLoadCallback is null) || (baseCtorArgs.Length > 0 && parameterLoadCallback is not null)) ilGen.LoadArg0();
+        parameterLoadCallback?.Invoke(ilGen);
         ilGen.Emit(Op.Call, typeof(TClass).GetConstructor(baseCtorArgs)
             ?? typeof(TClass).GetConstructors(BindingFlags.NonPublic | BindingFlags.Instance)
                 .FirstOrDefault(p => p.GetParameters().Select(q => q.ParameterType).ItemsEqual(baseCtorArgs))
@@ -116,7 +132,7 @@ public static partial class ILGeneratorExtensions
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
     /// de sintaxis Fluent.
     /// </returns>
-    public static ILGenerator CallBaseCtor<TClass>(this ILGenerator ilGen) => CallBaseCtor<TClass>(ilGen, Type.EmptyTypes);
+    public static ILGenerator CallBaseCtor<TClass>(this ILGenerator ilGen) => CallBaseCtor<TClass>(ilGen, Type.EmptyTypes, null);
 
     /// <summary>
     /// Inserta una llamada al método estático especificado en la secuencia
