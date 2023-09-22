@@ -32,6 +32,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Reflection.Emit;
 using TheXDS.MCART.Helpers;
+using TheXDS.MCART.Resources;
 using static System.Reflection.Emit.OpCodes;
 using Op = System.Reflection.Emit.OpCodes;
 
@@ -106,8 +107,16 @@ public static partial class ILGeneratorExtensions
     /// </remarks>
     public static ILGenerator CallBaseCtor<TClass>(this ILGenerator ilGen, Type[] baseCtorArgs, Action<ILGenerator>? parameterLoadCallback)
     {
-        if ((baseCtorArgs.Length == 0 && parameterLoadCallback is null) || (baseCtorArgs.Length > 0 && parameterLoadCallback is not null)) ilGen.LoadArg0();
-        parameterLoadCallback?.Invoke(ilGen);
+        if (parameterLoadCallback is not null)
+        {
+            if (baseCtorArgs.Length == 0) throw TypeFactoryErrors.CtorParamCallback();
+            if (baseCtorArgs.Length > 0)
+            { 
+                ilGen.LoadArg0();
+                parameterLoadCallback.Invoke(ilGen);
+            }
+        } else if (baseCtorArgs.Length == 0) ilGen.LoadArg0();
+
         ilGen.Emit(Op.Call, typeof(TClass).GetConstructor(baseCtorArgs)
             ?? typeof(TClass).GetConstructors(BindingFlags.NonPublic | BindingFlags.Instance)
                 .FirstOrDefault(p => p.GetParameters().Select(q => q.ParameterType).ItemsEqual(baseCtorArgs))

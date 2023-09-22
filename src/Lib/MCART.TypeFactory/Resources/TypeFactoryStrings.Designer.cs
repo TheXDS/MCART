@@ -61,6 +61,15 @@ namespace TheXDS.MCART.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a No se puede definir una llamada para la carga de argumentos en este contexto. Elimine la llamada, o especifique los parámetros del constructor base a llamar..
+        /// </summary>
+        internal static string ErrCallCtorCallback {
+            get {
+                return ResourceManager.GetString("ErrCallCtorCallback", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a No es posible combinar los tipos especificados debido a conflictos entre los miembros a incluir en el tipo resultante..
         /// </summary>
         internal static string ErrCannotJoinTypes {

@@ -141,4 +141,7 @@
   <data name="TypeBuilderTypeMismatch" xml:space="preserve">
     <value>Los tipos del TypeBuilder especificado con tipo base {0} y el tipo base explícito '{1}' no coinciden. Se requiere un tipo que herede/implemente {1}.</value>
   </data>
+  <data name="ErrCallCtorCallback" xml:space="preserve">
+    <value>No se puede definir una llamada para la carga de argumentos en este contexto. Elimine la llamada, o especifique los parámetros del constructor base a llamar.</value>
+  </data>
 </root>

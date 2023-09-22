@@ -73,4 +73,9 @@ internal static class TypeFactoryErrors
     {
         return new InvalidOperationException(St.ErrCannotJoinTypes);
     }
+
+    internal static InvalidOperationException CtorParamCallback()
+    {
+        return new InvalidOperationException(St.ErrCallCtorCallback);
+    }
 }

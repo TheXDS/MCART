@@ -141,4 +141,7 @@
   <data name="ErrPropSetterAlreadyDefined" xml:space="preserve">
     <value>A setter has been already defined for the property.</value>
   </data>
+  <data name="ErrCallCtorCallback" xml:space="preserve">
+    <value>Cannot include the specified callback in this context. Either remove the callback, or specify the base constructor arguments to load.</value>
+  </data>
 </root>
