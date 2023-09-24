@@ -36,7 +36,7 @@ namespace TheXDS.MCART.Security;
 /// <summary>
 /// Deriva claves a partir de contraseñas utilizando el algoritmo PBKDF2.
 /// </summary>
-public class Pbkdf2Storage : IPasswordStorage
+public class Pbkdf2Storage : IPasswordStorage<Pbkdf2Settings>
 {
     /// <summary>
     /// Obtiene un <see cref="Pbkdf2Settings"/> que representa la configuración
@@ -79,35 +79,10 @@ public class Pbkdf2Storage : IPasswordStorage
         Settings = settings;
     }
 
-    /// <summary>
-    /// Obtiene una referencia a la configuración activa de esta instancia.
-    /// </summary>
+    /// <inheritdoc/>
     public Pbkdf2Settings Settings { get; set; }
 
     int IPasswordStorage.KeyLength => Settings.DerivedKeyLength;
-
-    void IPasswordStorage.ConfigureFrom(BinaryReader reader)
-    {
-        Settings = new()
-        {
-            Salt = reader.ReadBytes(reader.ReadInt16()),
-            Iterations = reader.ReadInt32(),
-            HashFunction = reader.ReadString(),
-            DerivedKeyLength = reader.ReadInt32(),
-        };
-    }
-
-    byte[] IPasswordStorage.DumpSettings()
-    {
-        using MemoryStream ms = new();
-        using BinaryWriter writer = new(ms);
-        writer.Write((short)Settings.Salt.Length);
-        writer.Write(Settings.Salt);
-        writer.Write(Settings.Iterations);
-        writer.Write(Settings.HashFunction ?? "SHA1");
-        writer.Write(Settings.DerivedKeyLength);
-        return ms.ToArray();
-    }
 
     byte[] IPasswordStorage.Generate(byte[] input)
     {
