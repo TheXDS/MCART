@@ -99,3 +99,11 @@ Los binarios se encontrarán en la carpeta `Build` en la raíz del repositorio.
 ```sh
 dotnet test ./src/MCART.sln
 ```
+
+## Contribuir
+Si MCART te ha sido de utilidad, o te interesa donar para fomentar el
+desarrollo del proyecto, siéntete libre de hacer una donación por medio de
+[PayPal](https://paypal.me/thexds), o ponte en contacto directamente conmigo.
+
+Lamentablemente, no puedo ofrecer otros medios de donación por el momento
+debido a que mi país (Honduras) no es soportado por ninguna plataforma.
