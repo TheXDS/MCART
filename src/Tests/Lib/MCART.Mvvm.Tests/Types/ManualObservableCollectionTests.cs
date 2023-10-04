@@ -48,10 +48,7 @@ public class ManualObservableCollectionTests
     public void Observable_implements_IEnumerable()
     {
         var obs = new ManualObservableCollection<int>(Enumerable.Range(0, 4));
-
         Assert.That(obs.ToArray(), Is.EquivalentTo(new[] { 0, 1, 2, 3 }));
-
         Assert.That((IEnumerable)obs, Is.EquivalentTo(new[] { 0, 1, 2, 3 }));
-
     }
 }
