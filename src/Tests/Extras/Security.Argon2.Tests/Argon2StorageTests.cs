@@ -26,33 +26,47 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using Konscious.Security.Cryptography;
 using NUnit.Framework;
 using System.Security;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Security;
 using TheXDS.MCART.Types.Extensions;
 
-namespace MCART.Security.Argon2.Tests
+namespace TheXDS.MCART.Security.Argon2.Tests;
+
+public class Argon2StorageTests
 {
-    public class Argon2StorageTests
+    [TestCase(Argon2Type.Argon2i)]
+    [TestCase(Argon2Type.Argon2d)]
+    [TestCase(Argon2Type.Argon2id)]
+    public void Use_Argon2_for_password_storage(Argon2Type type)
     {
-        [TestCase(Argon2Type.Argon2i)]
-        [TestCase(Argon2Type.Argon2d)]
-        [TestCase(Argon2Type.Argon2id)]
-        public void Use_Argon2_for_password_storage(Argon2Type type)
+        IPasswordStorage argon2 = new Argon2Storage()
         {
-            IPasswordStorage argon2 = new Argon2Storage()
+            Settings = Argon2Storage.GetDefaultSettings() with
             {
-                Settings = Argon2Storage.GetDefaultSettings() with
-                {
-                    Type = type
-                }
-            };
-            SecureString pw1 = "password".ToSecureString();
-            SecureString pw2 = "Test@123".ToSecureString();
-            byte[] hash = PasswordStorage.CreateHash(argon2, pw1);
-            Assert.IsTrue(PasswordStorage.VerifyPassword(pw1, hash));
-            Assert.IsFalse(PasswordStorage.VerifyPassword(pw2, hash));
-        }
+                Type = type
+            }
+        };
+        SecureString pw1 = "password".ToSecureString();
+        SecureString pw2 = "Test@123".ToSecureString();
+        byte[] hash = PasswordStorage.CreateHash(argon2, pw1);
+        Assert.IsTrue(PasswordStorage.VerifyPassword(pw1, hash));
+        Assert.IsFalse(PasswordStorage.VerifyPassword(pw2, hash));
+    }
+
+    [Test]
+    public void Argon2_fails_if_settings_are_incorrect()
+    {
+        Argon2Settings brokenSettings = Argon2Storage.GetDefaultSettings() with { Type = (Argon2Type)128 };
+        Assert.That(()=> _ = ((IPasswordStorage)new Argon2Storage(brokenSettings)).Generate(Array.Empty<byte>()), Throws.TypeOf<ArgumentOutOfRangeException>());
+    }
+
+    [Test]
+    public void Argon2_exposes_key_length_property_on_IPasswordStorage_interface()
+    {
+        var settings = Argon2Storage.GetDefaultSettings();
+        Assert.That(((IPasswordStorage)new Argon2Storage(settings)).KeyLength, Is.EqualTo(settings.KeyLength));
     }
 }

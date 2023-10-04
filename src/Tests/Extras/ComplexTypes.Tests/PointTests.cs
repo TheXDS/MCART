@@ -86,15 +86,19 @@ public class PointTests
         Assert.Throws<FormatException>(() => p.ToString("???"));
     }
 
-    [Test]
-    public void Equals_Test()
+    [TestCase(3, 5)]
+    [TestCase(5, double.NaN)]
+    [TestCase(double.NaN, 3)]
+    [TestCase(double.NaN, double.NaN)]
+    public void Equals_Test(double x, double y)
     {
-        Point p = new(3, 5);
-        Point q = new(3, 5);
+        Point p = new(x, y);
+        Point q = new(x, y);
         Point r = new(5, 3);
 
         Assert.True(p.Equals(q));
         Assert.False(p.Equals(r));
+        Assert.False(p.Equals(null));
         Assert.True(p.Equals((IVector)q));
         Assert.False(p.Equals((IVector)r));
         Assert.True(p.Equals((object?)q));

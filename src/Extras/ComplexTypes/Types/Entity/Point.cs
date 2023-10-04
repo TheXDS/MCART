@@ -188,7 +188,7 @@ public class Point : IVector, IFormattable, IEquatable<Point>
     /// </returns>
     public static bool operator ==(Point l, Point r)
     {
-        return (l.X == r.X || !new[] { l.X, r.X }.AreValid()) && (l.Y == r.Y || !new[] { l.Y, r.Y }.AreValid());
+        return CompareValues(l.X, r.X) && CompareValues(l.Y, r.Y);
     }
 
     /// <summary>
@@ -202,7 +202,7 @@ public class Point : IVector, IFormattable, IEquatable<Point>
     /// </returns>
     public static bool operator ==(Point l, IVector r)
     {
-        return (l.X == r.X || !new[] { l.X, r.X }.AreValid()) && (l.Y == r.Y || !new[] { l.Y, r.Y }.AreValid());
+        return CompareValues(l.X, r.X) && CompareValues(l.Y, r.Y);
     }
 
     /// <summary>
@@ -216,7 +216,7 @@ public class Point : IVector, IFormattable, IEquatable<Point>
     /// </returns>
     public static bool operator !=(Point l, Point r)
     {
-        return (l.X != r.X || !new[] { l.X, r.X }.AreValid()) && (l.Y != r.Y || !new[] { l.Y, r.Y }.AreValid());
+        return !(l == r);
     }
 
     /// <summary>
@@ -230,7 +230,7 @@ public class Point : IVector, IFormattable, IEquatable<Point>
     /// </returns>
     public static bool operator !=(Point l, IVector r)
     {
-        return (l.X != r.X || !new[] { l.X, r.X }.AreValid()) && (l.Y != r.Y || !new[] { l.Y, r.Y }.AreValid());
+        return !(l == r);
     }
 
     /// <summary>
@@ -255,5 +255,10 @@ public class Point : IVector, IFormattable, IEquatable<Point>
     public static implicit operator Point(Types.Point p)
     {
         return new Point(p.X, p.Y);
+    }
+
+    private static bool CompareValues(double x,  double y)
+    {
+        return (Algebra.AreValid(x, y) && x == y) || (!x.IsValid() && !y.IsValid());
     }
 }
