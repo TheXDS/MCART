@@ -188,6 +188,23 @@ public class TypeFactory : IExposeAssembly
         return NewType(name, typeof(object), interfaces);
     }
 
+    /// <summary>
+    /// Crea una nueva clase pública, especificando el tipo base o interfaz única de la misma.
+    /// </summary>
+    /// <typeparam name="T">Tipo base o interfaz a implementar.</typeparam>
+    /// <param name="name">Nombre de la nueva clase.</param>
+    /// <returns>
+    /// Un <see cref="ITypeBuilder{T}"/> por medio del cual se podrá definir a
+    /// los miembros de la nueva clase.
+    /// </returns>
+    public ITypeBuilder<T> NewClass<T>(string name)
+    {
+        var typeAttr = (typeof(T).Attributes & ~TypeAttributes.VisibilityMask & ~TypeAttributes.Abstract & ~TypeAttributes.ClassSemanticsMask) | TypeAttributes.Public;
+        return typeof(T).IsInterface
+            ? new TypeBuilder<T>(_mBuilder.DefineType(GetName(name), typeAttr, typeof(object), new[] { typeof(T) }), false)
+            : new TypeBuilder<T>(_mBuilder.DefineType(GetName(name), typeAttr, typeof(T), Type.EmptyTypes), true);
+    }
+
     private string GetName(string name)
     {
         StringBuilder? nme = new();

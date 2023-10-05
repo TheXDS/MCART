@@ -61,7 +61,14 @@ public struct Point : IVector, IFormattable, IEquatable<Point>
     /// <value>
     /// Un <see cref="Point" /> con sus coordenadas en el origen.
     /// </value>
-    public static readonly Point Origin = new(0, 0);
+    public static readonly Point Origin = new();
+
+    /// <summary>
+    /// Inicializa una nueva instancia de la estructura <see cref="Point" />.
+    /// </summary>
+    public Point() : this(0,0)
+    {
+    }
 
     /// <summary>
     /// Inicializa una nueva instancia de la estructura <see cref="Point" />.

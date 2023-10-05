@@ -30,6 +30,9 @@ SOFTWARE.
 
 using System.Reflection;
 using System.Reflection.Emit;
+using TheXDS.MCART.Types.Extensions;
+using static System.Reflection.MethodAttributes;
+using static TheXDS.MCART.Types.TypeBuilderHelpers;
 
 namespace TheXDS.MCART.Types;
 
@@ -154,5 +157,96 @@ public class PropertyBuildInfo : MemberBuildInfo<PropertyBuilder>
 
     private PropertyBuildInfo(TypeBuilder typeBuilder, PropertyBuilder property) : base(typeBuilder, property)
     {
+    }
+
+    /// <summary>
+    /// Crea una propiedad en el tipo sin implementaciones de
+    /// <see langword="get"/> ni <see langword="set"/> establecidas.
+    /// </summary>
+    /// <param name="tb">
+    /// Constructor del tipo en el cual crear la nueva propiedad.
+    /// </param>
+    /// <param name="name">Nombre de la nueva propiedad.</param>
+    /// <param name="type">Tipo de la nueva propiedad.</param>
+    /// <param name="writable">
+    /// <see langword="true"/> para crear una propiedad que contiene
+    /// accesor de escritura (accesor <see langword="set"/>),
+    /// <see langword="false"/> para no incluir un accesor de escritura en
+    /// la propiedad.
+    /// </param>
+    /// <param name="access">Nivel de acceso de la nueva propiedad.</param>
+    /// <param name="virtual">
+    /// Si se establece en <see langword="true"/>, la propiedad será
+    /// definida como virtual, por lo que podrá ser reemplazada en una
+    /// clase derivada. 
+    /// </param>
+    /// <returns>
+    /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
+    /// la propiedad que ha sido construida.
+    /// </returns>
+    /// <remarks>
+    /// La propiedad generada requerirá que se implementen los accesores
+    /// antes de construir el tipo.
+    /// </remarks>
+    public static PropertyBuildInfo Create(TypeBuilder tb, string name, Type type, bool writable, MemberAccess access, bool @virtual)
+    {
+        ILGenerator? setIl = null;
+        PropertyBuilder prop = tb.DefineProperty(name, PropertyAttributes.HasDefault, type, null);
+        MethodBuilder getM = MkGet(tb, name, type, access, @virtual);
+        ILGenerator getIl = getM.GetILGenerator();
+        prop.SetGetMethod(getM);
+        if (writable)
+        {
+            MethodBuilder setM = MkSet(tb, name, type, access, @virtual);
+            setIl = setM.GetILGenerator();
+            prop.SetSetMethod(setM);
+        }
+        return new PropertyBuildInfo(tb, prop, getIl, setIl);
+    }
+
+    /// <summary>
+    /// Crea una propiedad de solo escritura en el tipo.
+    /// </summary>
+    /// <param name="tb">
+    /// Constructor del tipo en el cual crear la nueva propiedad.
+    /// </param>
+    /// <param name="name">Nombre de la nueva propiedad.</param>
+    /// <param name="type">Tipo de la nueva propiedad.</param>
+    /// <param name="access">Nivel de acceso de la nueva propiedad.</param>
+    /// <param name="virtual">
+    /// Si se establece en <see langword="true"/>, la propiedad será
+    /// definida como virtual, por lo que podrá ser reemplazada en una
+    /// clase derivada. 
+    /// </param>
+    /// <returns>
+    /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
+    /// la propiedad que ha sido construida.
+    /// </returns>
+    public static PropertyBuildInfo CreateWriteOnly(TypeBuilder tb, string name, Type type, MemberAccess access, bool @virtual)
+    {
+        PropertyBuilder prop = tb.DefineProperty(name, PropertyAttributes.HasDefault, type, null);
+        MethodBuilder setM = MkSet(tb, name, type, access, @virtual);
+        ILGenerator setIl = setM.GetILGenerator();
+        prop.SetSetMethod(setM);
+        return new PropertyBuildInfo(tb, prop, null, setIl);
+    }
+
+    private static MethodBuilder MkGet(TypeBuilder tb, string name, Type t, MemberAccess a, bool v)
+    {
+        string n = $"get_{name}";
+        return tb.DefineMethod(n, MkPFlags(tb, n, a, v), t, null);
+    }
+
+    private static MethodBuilder MkSet(TypeBuilder tb, string name, Type t, MemberAccess a, bool v)
+    {
+        string? n = $"set_{name}";
+        return tb.DefineMethod(n, MkPFlags(tb, n, a, v), null, new[] { t });
+    }
+
+    private static MethodAttributes MkPFlags(TypeBuilder tb, string n, MemberAccess a, bool v)
+    {
+        MethodAttributes f = Access(a) | SpecialName | HideBySig | ReuseSlot;
+        if (tb.Overridable(n) ?? v) f |= Virtual;
+        return f;
     }
 }

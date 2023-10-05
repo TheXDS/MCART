@@ -376,8 +376,24 @@ public static class Errors
     public static InvalidTypeException EnumerableTypeExpected(Type offendingType)
     {
         return new(Ers.EnumerableTypeExpected, offendingType);
-    } 
-    
+    }
+
+    /// <summary>
+    /// Crea una nueva instancia de un <see cref="InvalidTypeException"/>
+    /// que indica que el tipo especificado no es una interfaz.
+    /// </summary>
+    /// <param name="offendingType">
+    /// Tipo por el cual se ha producido la excepción.
+    /// </param>
+    /// <returns>
+    /// Una nueva instancia de la clase
+    /// <see cref="InvalidTypeException"/>.
+    /// </returns>
+    public static InvalidTypeException InterfaceTypeExpected(Type offendingType)
+    {
+        return new(Ers.InterfaceExpected, offendingType);
+    }
+
     /// <summary>
     /// Crea una nueva instancia de un <see cref="InvalidTypeException"/>
     /// que indica que el tipo especificado no es un tipo válido.

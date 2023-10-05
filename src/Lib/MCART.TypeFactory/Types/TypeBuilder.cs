@@ -59,9 +59,13 @@ public class TypeBuilder<T> : ITypeBuilder<T>
     /// <param name="builder">
     /// <see cref="TypeBuilder"/> subyacente a asociar.
     /// </param>
-    public TypeBuilder(TypeBuilder builder)
+    public TypeBuilder(TypeBuilder builder) : this(builder, true)
     {
-        if (builder is { BaseType: { } t } && !t.Implements<T>())
+    }
+
+    internal TypeBuilder(TypeBuilder builder, bool checkBaseType)
+    {
+        if (checkBaseType && builder is { BaseType: { } t } && !t.Implements<T>())
         {
             throw TypeFactoryErrors.TypeBuilderTypeMismatch<T>(builder);
         }

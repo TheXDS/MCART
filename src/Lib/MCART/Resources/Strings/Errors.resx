@@ -246,4 +246,7 @@
   <data name="LoadedAssemblies" xml:space="preserve">
     <value>Ensamblados en el dominio de aplicación (en orden de carga):</value>
   </data>
+  <data name="InterfaceExpected" xml:space="preserve">
+    <value>Se esperaba un tipo de interfaz.</value>
+  </data>
 </root>

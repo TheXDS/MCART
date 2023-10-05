@@ -187,6 +187,15 @@ namespace TheXDS.MCART.Resources.Strings {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Se esperaba un tipo de interfaz..
+        /// </summary>
+        public static string InterfaceExpected {
+            get {
+                return ResourceManager.GetString("InterfaceExpected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a El tipo no implementa la interfaz &apos;{0}&apos;..
         /// </summary>
         public static string InterfaceNotImplented {

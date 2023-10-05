@@ -45,4 +45,23 @@ public class TypeBuilderExtensions_Tests : TypeFactoryTestClassBase
         Assert.That(prop.CanWrite, Is.False);
         Assert.That((string)prop.GetValue(obj)!, Is.EqualTo("Hello"));
     }
+
+    [Test]
+    public void AddEvent_test()
+    {
+        var t = Factory.NewClass("EventTestClass");
+        var e = t.AddEvent("SomeEvent");
+        var obj = t.New();
+        var triggered = false;
+
+        EventInfo ev = obj.GetType().GetEvent("SomeEvent")!;
+        ev.AddEventHandler(obj, (EventHandler)((object? sender, EventArgs e) =>
+        {
+            triggered = true;
+            Assert.That(sender, Is.SameAs(obj));
+        }));
+        ev.RaiseMethod!.Invoke(obj, new[] { obj, EventArgs.Empty });
+
+        Assert.That(triggered, Is.True);
+    }
 }

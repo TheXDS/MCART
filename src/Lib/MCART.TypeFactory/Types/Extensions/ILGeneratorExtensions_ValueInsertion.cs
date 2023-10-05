@@ -177,7 +177,7 @@ public static partial class ILGeneratorExtensions
         }
         else if (t.IsStruct())
         {
-            ilGen.Emit(Newobj, t.GetConstructor(Type.EmptyTypes)!);
+            ilGen.Emit(Newobj, t.GetConstructor(Type.EmptyTypes) ?? throw TheXDS.MCART.Resources.Errors.ClassNotInstantiable(t));
         }
         else
         {

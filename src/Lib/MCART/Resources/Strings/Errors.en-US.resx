@@ -246,4 +246,7 @@
   <data name="LoadedAssemblies" xml:space="preserve">
     <value>Assemblies loaded in the current AppDomain (in load order):</value>
   </data>
+  <data name="InterfaceExpected" xml:space="preserve">
+    <value>An interface type was espected.</value>
+  </data>
 </root>

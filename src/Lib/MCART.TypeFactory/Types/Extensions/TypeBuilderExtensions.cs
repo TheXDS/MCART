@@ -33,7 +33,6 @@ using System.Reflection;
 using System.Reflection.Emit;
 using TheXDS.MCART.Attributes;
 using static System.Reflection.MethodAttributes;
-using static TheXDS.MCART.Types.TypeBuilderHelpers;
 using Errors = TheXDS.MCART.Resources.TypeFactoryErrors;
 
 namespace TheXDS.MCART.Types.Extensions;
@@ -214,18 +213,7 @@ public static class TypeBuilderExtensions
     /// </remarks>
     public static PropertyBuildInfo AddProperty(this TypeBuilder tb, string name, Type type, bool writable, MemberAccess access, bool @virtual)
     {
-        ILGenerator? setIl = null;
-        PropertyBuilder prop = tb.DefineProperty(name, PropertyAttributes.HasDefault, type, null);
-        MethodBuilder getM = MkGet(tb, name, type, access, @virtual);
-        ILGenerator getIl = getM.GetILGenerator();
-        prop.SetGetMethod(getM);
-        if (writable)
-        {
-            MethodBuilder setM = MkSet(tb, name, type, access, @virtual);
-            setIl = setM.GetILGenerator();
-            prop.SetSetMethod(setM);
-        }
-        return new PropertyBuildInfo(tb, prop, getIl, setIl);
+        return PropertyBuildInfo.Create(tb, name, type, writable, access, @virtual);
     }
 
     /// <summary>
@@ -502,11 +490,7 @@ public static class TypeBuilderExtensions
     /// </returns>
     public static PropertyBuildInfo AddWriteOnlyProperty(this TypeBuilder tb, string name, Type type, MemberAccess access, bool @virtual)
     {
-        PropertyBuilder prop = tb.DefineProperty(name, PropertyAttributes.HasDefault, type, null);
-        MethodBuilder setM = MkSet(tb, name, type, access, @virtual);
-        ILGenerator setIl = setM.GetILGenerator();
-        prop.SetSetMethod(setM);
-        return new PropertyBuildInfo(tb, prop, null, setIl);
+        return PropertyBuildInfo.CreateWriteOnly(tb, name, type, access, @virtual);
     }
 
     /// <summary>
@@ -620,30 +604,107 @@ public static class TypeBuilderExtensions
         return tb.DefineMethod(name, Public, typeof(TResult), parameterTypes);
     }
 
+    /// <summary>
+    /// Agrega un evento al tipo.
+    /// </summary>
+    /// <param name="builder">
+    /// <see cref="TypeBuilder"/> en el cual se creará el nuevo evento y sus
+    /// métodos auxiliares requeridos.
+    /// </param>
+    /// <param name="name">Nombre del nuevo evento.</param>
+    /// <returns>
+    /// Un <see cref="EventBuildInfo"/> que contiene información sobre el
+    /// evento que ha sido definido.
+    /// </returns>
+    public static EventBuildInfo AddEvent(this TypeBuilder builder, string name)
+    {
+        return AddEvent<EventHandler, EventArgs>(builder, name);
+    }
+
+    /// <summary>
+    /// Agrega un evento al tipo.
+    /// </summary>
+    /// <typeparam name="TEventArgs">
+    /// Tipo de argumentos de evento a pasar cuando se produzca el evento.
+    /// </typeparam>
+    /// <param name="builder">
+    /// <see cref="TypeBuilder"/> en el cual se creará el nuevo evento y sus
+    /// métodos auxiliares requeridos.
+    /// </param>
+    /// <param name="name">Nombre del nuevo evento.</param>
+    /// <returns>
+    /// Un <see cref="EventBuildInfo"/> que contiene información sobre el
+    /// evento que ha sido definido.
+    /// </returns>
+    public static EventBuildInfo AddEvent<TEventArgs>(this TypeBuilder builder, string name) where TEventArgs : EventArgs
+    {
+        return AddEvent<EventHandler<TEventArgs>, TEventArgs>(builder, name);
+    }
+
+    /// <summary>
+    /// Agrega un evento al tipo.
+    /// </summary>
+    /// <typeparam name="TEventHandler">
+    /// Delegado del manejador de eventos. Debe seguir la firma estándar de un
+    /// manejador de eventos, es decir, debe ser un método con tipo de retorno
+    /// <see langword="void"/>, y debe contener un argumento de tipo
+    /// <see cref="object"/>) y un argumento de tipo
+    /// <typeparamref name="TEventArgs"/>.
+    /// </typeparam>
+    /// <typeparam name="TEventArgs">
+    /// Tipo de argumentos de evento a pasar cuando se produzca el evento.
+    /// </typeparam>
+    /// <param name="builder">
+    /// <see cref="TypeBuilder"/> en el cual se creará el nuevo evento y sus
+    /// métodos auxiliares requeridos.
+    /// </param>
+    /// <param name="name">Nombre del nuevo evento.</param>
+    /// <returns>
+    /// Un <see cref="EventBuildInfo"/> que contiene información sobre el
+    /// evento que ha sido definido.
+    /// </returns>
+    public static EventBuildInfo AddEvent<TEventHandler, TEventArgs>(this TypeBuilder builder, string name) where TEventHandler : Delegate where TEventArgs : EventArgs
+    {
+        return AddEvent<TEventHandler, object, TEventArgs>(builder, name);
+    }
+
+    /// <summary>
+    /// Agrega un evento al tipo.
+    /// </summary>
+    /// <typeparam name="TEventHandler">
+    /// Delegado del manejador de eventos. Debe seguir la firma estándar de un
+    /// manejador de eventos, es decir, debe ser un método con tipo de retorno
+    /// <see langword="void"/>, y debe contener un argumento de tipo
+    /// <typeparamref name="TSender"/> (generalmente, se prefiere el tipo
+    /// <see cref="object"/>) y un argumento de tipo
+    /// <typeparamref name="TEventArgs"/>.
+    /// </typeparam>
+    /// <typeparam name="TSender">
+    /// Tipo del objeto que genera el evento. Puede utilizarse
+    /// <see cref="object"/>.
+    /// </typeparam>
+    /// <typeparam name="TEventArgs">
+    /// Tipo de argumentos de evento a pasar cuando se produzca el evento.
+    /// </typeparam>
+    /// <param name="builder">
+    /// <see cref="TypeBuilder"/> en el cual se creará el nuevo evento y sus
+    /// métodos auxiliares requeridos.
+    /// </param>
+    /// <param name="name">Nombre del nuevo evento.</param>
+    /// <returns>
+    /// Un <see cref="EventBuildInfo"/> que contiene información sobre el
+    /// evento que ha sido definido.
+    /// </returns>
+    public static EventBuildInfo AddEvent<TEventHandler, TSender, TEventArgs>(this TypeBuilder builder, string name) where TEventHandler : Delegate where TEventArgs : EventArgs
+    {
+        return EventBuildInfo.Create<TEventHandler, TSender, TEventArgs>(builder, name);
+    }
+
     private static MethodAttributes GetNonAbstract(MethodInfo m)
     {
         int a = (int)m.Attributes;
         a &= ~(int)Abstract;
         a |= (int)Virtual;
         return (MethodAttributes)a;
-    }
-
-    private static MethodBuilder MkGet(TypeBuilder tb, string name, Type t, MemberAccess a, bool v)
-    {
-        string n = $"get_{name}";
-        return tb.DefineMethod(n, MkPFlags(tb, n, a, v), t, null);
-    }
-
-    private static MethodBuilder MkSet(TypeBuilder tb, string name, Type t, MemberAccess a, bool v)
-    {
-        string? n = $"set_{name}";
-        return tb.DefineMethod(n, MkPFlags(tb, n, a, v), null, new[] { t });
-    }
-
-    private static MethodAttributes MkPFlags(TypeBuilder tb, string n, MemberAccess a, bool v)
-    {
-        MethodAttributes f = Access(a) | SpecialName | HideBySig | ReuseSlot;
-        if (tb.Overridable(n) ?? v) f |= Virtual;
-        return f;
     }
 }
