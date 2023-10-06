@@ -31,7 +31,6 @@ SOFTWARE.
 using NUnit.Framework;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
-using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Extensions;
 using static TheXDS.MCART.Types.TypeBuilderHelpers;
 
