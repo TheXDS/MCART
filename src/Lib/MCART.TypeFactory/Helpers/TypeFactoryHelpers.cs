@@ -65,7 +65,7 @@ public static class TypeFactoryHelpers
         short c = 1;
         foreach (var (field, type) in fields.Zip(types))
         {
-            ctorIl.StoreField(field, il => il.LoadArg(c));
+            ctorIl.LoadArg0().StoreField(field, il => il.LoadArg(c));
             c++;
             AddMembers(type, field, typeBuilder);
         }
@@ -88,10 +88,10 @@ public static class TypeFactoryHelpers
     private static void AddProperty(FieldInfo field, PropertyInfo property, TypeBuilder t)
     {
         var prop = t.AddProperty(property.Name, property.PropertyType, property.CanWrite, MemberAccess.Public, false);
-        prop.Getter!.LoadField(field).Call(property.GetMethod!).Return();
+        prop.Getter!.LoadArg0().LoadField(field).Call(property.GetMethod!).Return();
         if (property.CanWrite)
         {
-            prop.Setter!.LoadField(field).LoadArg1().Call(property.SetMethod!).Return();
+            prop.Setter!.LoadArg0().LoadField(field).LoadArg1().Call(property.SetMethod!).Return();
         }
     }
 
@@ -99,7 +99,7 @@ public static class TypeFactoryHelpers
     {
         var @params = method.GetParameterTypes();
         var m = t.DefineMethod(method.Name, method.Attributes, method.ReturnType, @params);
-        var il = m.GetILGenerator().LoadField(field);
+        var il = m.GetILGenerator().LoadArg0().LoadField(field);
         for (short j = 1; j <= @params.Length; j++)
         {
             il.LoadArg(j);

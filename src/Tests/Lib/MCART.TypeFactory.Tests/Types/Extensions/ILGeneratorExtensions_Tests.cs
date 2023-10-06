@@ -109,7 +109,7 @@ public partial class ILGeneratorExtensions_Tests : TypeFactoryTestClassBase
             .NewArray<int>(out var arr)
             .For(0,
             j => il.LoadLocal(j).LoadLocal(arr).GetArrayLength().CompareLessThan(),
-            (j, b, n) => il.LoadLocal(arr).LoadLocal(j).Duplicate().StoreInt32Element())
+            (il, j, b, n) => il.LoadLocal(arr).LoadLocal(j).Duplicate().StoreInt32Element())
             .LoadLocal(arr).Return());
         Assert.That(testCallBack.Invoke(new object[] { 3 }), Is.EquivalentTo(new int[] { 0, 1, 2 }));
         Assert.That(testCallBack.Invoke(new object[] { 10 }), Is.EquivalentTo(new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 }));
@@ -124,7 +124,7 @@ public partial class ILGeneratorExtensions_Tests : TypeFactoryTestClassBase
             .LoadArg1()
             .NewArray<int>(out var arr)
             .For(0, elements - 1,
-            (j, b, n) => il.LoadLocal(arr).LoadLocal(j).Duplicate().StoreInt32Element())
+            (il, j, b, n) => il.LoadLocal(arr).LoadLocal(j).Duplicate().StoreInt32Element())
             .LoadLocal(arr).Return(), $"for_test_{elements}_elements");
         Assert.That(testCallBack.Invoke(new object[] { elements }), Is.EquivalentTo(Enumerable.Range(0, elements)));
     }
@@ -138,9 +138,24 @@ public partial class ILGeneratorExtensions_Tests : TypeFactoryTestClassBase
             .LoadArg1()
             .NewArray<int>(out var arr)
             .For(new TheXDS.MCART.Types.Range<int>(0, elements, true, false),
-            (j, b, n) => il.LoadLocal(arr).LoadLocal(j).Duplicate().StoreInt32Element())
+            (il, j, b, n) => il.LoadLocal(arr).LoadLocal(j).Duplicate().StoreInt32Element())
             .LoadLocal(arr).Return(), $"for_test_{elements}_elements");
 
         Assert.That(testCallBack.Invoke(new object[] { elements }), Is.EquivalentTo(Enumerable.Range(0, elements)));
+    }
+
+    [TestCase(3)]
+    [TestCase(5)]
+    [TestCase(7)]
+    public void For_control_block_with_Range_max_inclusive(int elements)
+    {
+        var testCallBack = BuildTest<int[]>(new[] { typeof(int) }, il => il
+            .LoadArg1()
+            .NewArray<int>(out var arr)
+            .For(new TheXDS.MCART.Types.Range<int>(0, elements, true, true),
+            (il, j, b, n) => il.LoadLocal(arr).LoadLocal(j).Duplicate().StoreInt32Element())
+            .LoadLocal(arr).Return(), $"for_test_{elements}_elements");
+
+        Assert.That(testCallBack.Invoke(new object[] { elements + 1 }), Is.EquivalentTo(Enumerable.Range(0, elements + 1)));
     }
 }

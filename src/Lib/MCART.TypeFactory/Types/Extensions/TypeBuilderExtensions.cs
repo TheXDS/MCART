@@ -102,9 +102,7 @@ public static class TypeBuilderExtensions
     {
         PropertyBuildInfo p = AddProperty(tb, name, type, true, access, @virtual).WithBackingField(out FieldBuilder? field);
         p.Setter!
-            .LoadArg0()
-            .LoadArg1()
-            .StoreField(field)
+            .SetField(field, il => il.LoadArg1())
             .Return();
         return new PropertyBuildInfo(tb, p.Member, field);
     }

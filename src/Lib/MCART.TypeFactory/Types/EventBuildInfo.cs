@@ -160,6 +160,7 @@ public class EventBuildInfo
         var il = method.GetILGenerator();
 
         il
+            .LoadArg0()
             .LoadField(field)
             .Duplicate()
             .BranchTrueNewLabel(out var raiseLabel)

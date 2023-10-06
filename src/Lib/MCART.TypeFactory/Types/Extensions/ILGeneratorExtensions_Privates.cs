@@ -45,7 +45,7 @@ public static partial class ILGeneratorExtensions
 {
     private static readonly HashSet<IConstantLoader> _constantLoaders = new(ReflectionHelpers.FindAllObjects<IConstantLoader>(), new ConstantLoaderComparer());
 
-    private static ILGenerator LoadField(ILGenerator ilGen, FieldInfo field, OpCode opCode)
+    private static ILGenerator GetField(ILGenerator ilGen, FieldInfo field, OpCode opCode)
     {
         if (field.IsStatic)
         {
@@ -79,7 +79,7 @@ public static partial class ILGeneratorExtensions
     private static Label InsertTryBlock(ILGenerator ilGen, TryBlock block)
     {
         Label endTry = ilGen.BeginExceptionBlock();
-        block(endTry);
+        block(ilGen, endTry);
         return endTry;
     }
 
@@ -90,7 +90,7 @@ public static partial class ILGeneratorExtensions
         {
             if (!j.Key.Implements<Exception>()) throw new InvalidTypeException(j.Key);
             ilGen.BeginCatchBlock(j.Key);
-            j.Value(endTry);
+            j.Value(ilGen, endTry);
         }
     }
 }

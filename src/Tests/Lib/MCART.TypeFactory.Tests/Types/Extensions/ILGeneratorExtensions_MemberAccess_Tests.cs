@@ -41,9 +41,9 @@ public partial class ILGeneratorExtensions_Tests : TypeFactoryTestClassBase
         var tb = Factory.NewClass("Field_access_test_Class");
         var field = tb.DefineField("test", typeof(int), FieldAttributes.Public);
         tb.DefineMethod("TestSet", MethodAttributes.Public, null, new[] { typeof(int) }).GetILGenerator()
-            .StoreField(field, ILGeneratorExtensions.LoadArg1).Return();
+            .LoadArg0().StoreField(field, ILGeneratorExtensions.LoadArg1).Return();
         tb.DefineMethod("TestGet", MethodAttributes.Public, typeof(int), Type.EmptyTypes).GetILGenerator()
-            .LoadField(field).Return();
+            .LoadArg0().LoadField(field).Return();
         var obj = tb.New();
 
         var setMethod = obj.GetType().GetMethod("TestSet")!;
@@ -57,7 +57,7 @@ public partial class ILGeneratorExtensions_Tests : TypeFactoryTestClassBase
     [Test]
     public void Property_Access_test()
     {
-        var tb = Factory.NewClass("Field_access_test_Class");
+        var tb = NewClass();
         var prop = tb.AddAutoProperty<int>("TestProperty");
         tb.DefineMethod("TestSet", MethodAttributes.Public, null, new[] { typeof(int) }).GetILGenerator()
             .StoreProperty(prop, ILGeneratorExtensions.LoadArg1).Return();

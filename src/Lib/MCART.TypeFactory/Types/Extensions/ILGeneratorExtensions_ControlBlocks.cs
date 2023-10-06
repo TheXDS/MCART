@@ -136,17 +136,17 @@ public static partial class ILGeneratorExtensions
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
     /// de sintaxis Fluent.
     /// </returns>
-    public static ILGenerator For(this ILGenerator ilGen, LocalBuilder accumulator, object? initialValue, Action condition, Action incrementor, ForBlock forBlock)
+    public static ILGenerator For(this ILGenerator ilGen, LocalBuilder accumulator, object? initialValue, Action<ILGenerator> condition, Action<ILGenerator> incrementor, ForBlock forBlock)
     {
         Label next = ilGen.DefineLabel();
         ilGen
             .InitLocal(accumulator, initialValue)
             .InsertNewLabel(out Label @for);
-        condition();
+        condition(ilGen);
         ilGen.BranchFalseNewLabel(out Label endFor);
-        forBlock(accumulator, endFor, next);
+        forBlock(ilGen, accumulator, endFor, next);
         ilGen.PutLabel(next);
-        incrementor();
+        incrementor(ilGen);
         return ilGen
             .Branch(@for)
             .PutLabel(endFor);
@@ -194,7 +194,7 @@ public static partial class ILGeneratorExtensions
             .InsertNewLabel(out Label @for);
         condition(acc);
         ilGen.BranchFalseNewLabel(out Label endFor);
-        forBlock(acc, endFor, next);
+        forBlock(ilGen, acc, endFor, next);
         ilGen.PutLabel(next);
         incrementor(acc);
         return ilGen
@@ -270,7 +270,7 @@ public static partial class ILGeneratorExtensions
             .LoadLocal(acc)
             .LoadConstant(endValue)
             .BranchGreaterThanNewLabel(out Label endFor);
-        forBlock(acc, endFor, next);
+        forBlock(ilGen, acc, endFor, next);
         return ilGen
             .PutLabel(next)
             .LoadLocal(acc)
@@ -322,7 +322,7 @@ public static partial class ILGeneratorExtensions
         {
             ilGen.BranchGreaterThanOrEqual(endFor);
         }
-        forBlock(acc, endFor, next);
+        forBlock(ilGen, acc, endFor, next);
 
         return ilGen
             .PutLabel(next)
@@ -362,7 +362,7 @@ public static partial class ILGeneratorExtensions
         return ilGen
             .Call<IEnumerable<T>, Func<IEnumerator<T>>>(p => p.GetEnumerator)
             .StoreNewLocal<IEnumerator<T>>(out LocalBuilder? enumerator)
-            .Using(enumerator, (_, @break) =>
+            .Using(enumerator, (ilGen, _, @break) =>
             {
                 ilGen
                     .BranchNewLabel(out Label moveNext)
@@ -370,7 +370,7 @@ public static partial class ILGeneratorExtensions
                     .LoadLocalAddress(enumerator)
                     .Call(ReflectionHelpers.GetProperty<IEnumerator<T>>(p => p.Current).GetMethod!)
                     .StoreLocal(itm);
-                foreachBlock(itm, @break, moveNext);
+                foreachBlock(ilGen,itm, @break, moveNext);
                 ilGen
                     .PutLabel(moveNext)
                     .LoadLocalAddress(enumerator)
@@ -402,7 +402,7 @@ public static partial class ILGeneratorExtensions
     /// </returns>
     public static ILGenerator Using(this ILGenerator ilGen, LocalBuilder disposable, UsingBlock usingBlock)
     {
-        return ilGen.TryFinally(@break => usingBlock(disposable, @break), () => ilGen.Dispose(disposable));
+        return ilGen.TryFinally((ilGen, @break) => usingBlock(ilGen, disposable, @break), ilGen => ilGen.Dispose(disposable));
     }
 
     /// <summary>
@@ -428,7 +428,7 @@ public static partial class ILGeneratorExtensions
     public static ILGenerator Using<T>(this ILGenerator ilGen, UsingBlock usingBlock) where T : IDisposable, new()
     {
         ilGen.NewObject<T>().StoreNewLocal<T>(out LocalBuilder? disposable);
-        return ilGen.TryFinally(@break => usingBlock(disposable, @break), () => ilGen.Dispose(disposable));
+        return ilGen.TryFinally((ilGen, @break) => usingBlock(ilGen, disposable, @break), ilGen => ilGen.Dispose(disposable));
     }
 
     /// <summary>
@@ -472,11 +472,11 @@ public static partial class ILGeneratorExtensions
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
     /// de sintaxis Fluent.
     /// </returns>
-    public static ILGenerator TryFinally(this ILGenerator ilGen, TryBlock tryBlock, Action finallyBlock)
+    public static ILGenerator TryFinally(this ILGenerator ilGen, TryBlock tryBlock, Action<ILGenerator> finallyBlock)
     {
-        tryBlock(ilGen.BeginExceptionBlock());
+        tryBlock(ilGen, ilGen.BeginExceptionBlock());
         ilGen.BeginFinallyBlock();
-        finallyBlock();
+        finallyBlock(ilGen);
         ilGen.EndExceptionBlock();
         return ilGen;
     }
@@ -545,12 +545,47 @@ public static partial class ILGeneratorExtensions
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
     /// de sintaxis Fluent.
     /// </returns>
-    public static ILGenerator TryCatchFinally(this ILGenerator ilGen, TryBlock tryBlock, IEnumerable<KeyValuePair<Type, TryBlock>> catchBlocks, Action finallyBlock)
+    public static ILGenerator TryCatchFinally(this ILGenerator ilGen, TryBlock tryBlock, IEnumerable<KeyValuePair<Type, TryBlock>> catchBlocks, Action<ILGenerator> finallyBlock)
     {
         InsertCatchBlocks(ilGen, tryBlock, catchBlocks);
         ilGen.BeginFinallyBlock();
-        finallyBlock();
+        finallyBlock(ilGen);
         ilGen.EndExceptionBlock();
         return ilGen;
     }
+
+    /// <summary>
+    /// Inserta la istanciación y lanzamiento de una excepción sin argumentos
+    /// en la secuencia del lenguaje intermedio de Microsoft® (MSIL).
+    /// </summary>
+    /// <typeparam name="T">
+    /// Tipo de la excepción a lanzar. Debe contener un constructor publico sin
+    /// parámetros.
+    /// </typeparam>
+    /// <param name="ilGen">
+    /// Secuencia de instrucciones en la cual insertar lanzamiento de la
+    /// excepción.
+    /// </param>
+    /// <returns>
+    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+    /// de sintaxis Fluent.
+    /// </returns>
+    public static ILGenerator Throw<T>(this ILGenerator ilGen) where T: Exception, new()
+    {
+        return ilGen.NewObject<T>(Type.EmptyTypes).Throw();
+    }
+
+    /// <summary>
+    /// Inserta el lanzamiento de una excepción ya instanciada en la pila en la
+    /// secuencia del lenguaje intermedio de Microsoft® (MSIL).
+    /// </summary>
+    /// <param name="ilGen">
+    /// Secuencia de instrucciones en la cual insertar lanzamiento de la
+    /// excepción.
+    /// </param>
+    /// <returns>
+    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+    /// de sintaxis Fluent.
+    /// </returns>
+    public static ILGenerator Throw(this ILGenerator ilGen) => OneLiner(ilGen, Op.Throw);
 }

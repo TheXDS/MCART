@@ -177,7 +177,35 @@ public static partial class ILGeneratorExtensions
     /// </remarks>
     public static ILGenerator LoadField(this ILGenerator ilGen, FieldInfo field)
     {
-        return LoadField(ilGen, field, Ldfld);
+        ilGen.Emit(Ldfld, field);
+        return ilGen;
+    }
+
+    /// <summary>
+    /// Inserta la carga del valor de un campo en la secuencia del lenguaje
+    /// intermedio de Microsoft® (MSIL).
+    /// </summary>
+    /// <param name="ilGen">
+    /// Secuencia de instrucciones en la cual insertar la carga del valor.
+    /// </param>
+    /// <param name="field">
+    /// Campo desde el cual cargar el valor.
+    /// </param>
+    /// <returns>
+    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+    /// de sintaxis Fluent.
+    /// </returns>
+    /// <remarks>
+    /// Este método determinará automáticamente si es necesario agregar una
+    /// referencia a <see langword="this"/> (<see langword="Me"/> en Visual
+    /// Basic) en caso que el campo sea estático, por lo que no debe insertar
+    /// la llamada a cargar la instancia (<see cref="LoadArg0(ILGenerator)"/>).
+    /// <br/><br/>
+    /// Uso neto de pila: -1
+    /// </remarks>
+    public static ILGenerator GetField(this ILGenerator ilGen, FieldInfo field)
+    {
+        return GetField(ilGen, field, Ldfld);
     }
 
     /// <summary>
@@ -231,16 +259,16 @@ public static partial class ILGeneratorExtensions
     /// de sintaxis Fluent.
     /// </returns>
     /// <remarks>
-    /// Este método determinará automáticamente si es necesario agregar una
+    /// Este método no determinará automáticamente si es necesario agregar una
     /// referencia a <see langword="this"/> (<see langword="Me"/> en Visual
-    /// Basic) en caso que el campo sea estático, por lo que no debe insertar
+    /// Basic) en caso que el campo sea estático, por lo que debe insertar
     /// la llamada a cargar la instancia (<see cref="LoadArg0(ILGenerator)"/>).
     /// <br/><br/>
     /// Uso neto de pila: -1
     /// </remarks>
+    /// <seealso cref="SetField(ILGenerator, FieldInfo, Action{ILGenerator})"/>
     public static ILGenerator StoreField(this ILGenerator ilGen, FieldInfo field, Action<ILGenerator> value)
     {
-        if (!field.IsStatic) ilGen.LoadArg0();
         value.Invoke(ilGen);
         return StoreField(ilGen, field);
     }
@@ -264,6 +292,41 @@ public static partial class ILGeneratorExtensions
     /// de sintaxis Fluent.
     /// </returns>
     /// <remarks>
+    /// Este método no determinará automáticamente si es necesario agregar una
+    /// referencia a <see langword="this"/> (<see langword="Me"/> en Visual
+    /// Basic) en caso que el campo sea estático, por lo que debe insertar
+    /// la llamada a cargar la instancia (<see cref="LoadArg0(ILGenerator)"/>).
+    /// <br/><br/>
+    /// Uso neto de pila: -1
+    /// </remarks>
+    /// <seealso cref="SetField(ILGenerator, FieldInfo, Func{ILGenerator, ILGenerator})"/>
+    [Sugar]
+    public static ILGenerator StoreField(this ILGenerator ilGen, FieldInfo field, Func<ILGenerator, ILGenerator> value)
+    {
+        return StoreField(ilGen, field, (Action<ILGenerator>)(il => _ = value(il)));
+    }
+
+    /// <summary>
+    /// Inserta el almacenamiento de un valor a un campo en la secuencia
+    /// del lenguaje intermedio de Microsoft® (MSIL), determinando 
+    /// automáticamente si es necesario insertar una referencia a
+    /// <see langword="this"/>.
+    /// </summary>
+    /// <param name="ilGen">
+    /// Secuencia de instrucciones en la cual insertar el almacenamiento de
+    /// un valor.
+    /// </param>
+    /// <param name="field">
+    /// Campo en el cual almacenar el valor.
+    /// </param>
+    /// <param name="value">
+    /// Llamada que cargará el valor a almacenar en el campo.
+    /// </param>
+    /// <returns>
+    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+    /// de sintaxis Fluent.
+    /// </returns>
+    /// <remarks>
     /// Este método determinará automáticamente si es necesario agregar una
     /// referencia a <see langword="this"/> (<see langword="Me"/> en Visual
     /// Basic) en caso que el campo sea estático, por lo que no debe insertar
@@ -271,10 +334,46 @@ public static partial class ILGeneratorExtensions
     /// <br/><br/>
     /// Uso neto de pila: -1
     /// </remarks>
-    [Sugar]
-    public static ILGenerator StoreField(this ILGenerator ilGen, FieldInfo field, Func<ILGenerator, ILGenerator> value)
+    /// <seealso cref="StoreField(ILGenerator, FieldInfo, Func{ILGenerator, ILGenerator})"/>
+    public static ILGenerator SetField(this ILGenerator ilGen, FieldInfo field, Func<ILGenerator, ILGenerator> value)
     {
-        return StoreField(ilGen, field, (Action<ILGenerator>)(il => _ = value(il)));
+        if (!field.IsStatic) ilGen.LoadArg0();
+        return StoreField(ilGen, field, value);
+    }
+
+    /// <summary>
+    /// Inserta el almacenamiento de un valor a un campo en la secuencia
+    /// del lenguaje intermedio de Microsoft® (MSIL), determinando 
+    /// automáticamente si es necesario insertar una referencia a
+    /// <see langword="this"/>.
+    /// </summary>
+    /// <param name="ilGen">
+    /// Secuencia de instrucciones en la cual insertar el almacenamiento de
+    /// un valor.
+    /// </param>
+    /// <param name="field">
+    /// Campo en el cual almacenar el valor.
+    /// </param>
+    /// <param name="value">
+    /// Llamada que cargará el valor a almacenar en el campo.
+    /// </param>
+    /// <returns>
+    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+    /// de sintaxis Fluent.
+    /// </returns>
+    /// <remarks>
+    /// Este método determinará automáticamente si es necesario agregar una
+    /// referencia a <see langword="this"/> (<see langword="Me"/> en Visual
+    /// Basic) en caso que el campo sea estático, por lo que no debe insertar
+    /// la llamada a cargar la instancia (<see cref="LoadArg0(ILGenerator)"/>).
+    /// <br/><br/>
+    /// Uso neto de pila: -1
+    /// </remarks>
+    /// <seealso cref="StoreField(ILGenerator, FieldInfo, Action{ILGenerator})"/>
+    public static ILGenerator SetField(this ILGenerator ilGen, FieldInfo field, Action<ILGenerator> value)
+    {
+        if (!field.IsStatic) ilGen.LoadArg0();
+        return StoreField(ilGen, field, value);
     }
 
     /// <summary>
@@ -392,7 +491,7 @@ public static partial class ILGeneratorExtensions
     /// </returns>
     public static ILGenerator LoadFieldAddress(this ILGenerator ilGen, FieldInfo field)
     {
-        return LoadField(ilGen, field, Ldflda);
+        return GetField(ilGen, field, Ldflda);
     }
 
     /// <summary>

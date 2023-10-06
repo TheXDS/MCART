@@ -409,7 +409,11 @@ public static partial class ILGeneratorExtensions
     /// <param name="ilGen">
     /// Secuencia de instrucciones en la cual insertar la operación.
     /// </param>
-    public static void Return(this ILGenerator ilGen) => ilGen.Emit(Ret);
+    /// <returns>
+    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+    /// de sintaxis Fluent.
+    /// </returns>
+    public static ILGenerator Return(this ILGenerator ilGen) => ilGen.OneLiner(Ret);
 
     /// <summary>
     /// Inserta el retorno del método actual en la secuencia del lenguaje

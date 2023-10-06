@@ -26,9 +26,38 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using System.Reflection;
+using System.Reflection.Emit;
+using System.Runtime.CompilerServices;
+using TheXDS.MCART.Types.Extensions;
+
 namespace TheXDS.MCART.TypeFactory.Tests;
 
 public abstract class TypeFactoryTestClassBase
 {
     protected static readonly TheXDS.MCART.Types.TypeFactory Factory = new("TheXDS.MCART.TypeFactory.Tests._Generated", true);
+
+    protected static TypeBuilder NewClass([CallerMemberName]string name = null!)
+    {
+        return Factory.NewClass(name);
+    }
+
+    protected static (TypeBuilder builder, ILGenerator il) NewTestMethod([CallerMemberName] string name = null!)
+    {
+        var tb = NewClass($"{name}_Class");
+        tb.AddPublicConstructor().CallBaseCtor<object>().Return();
+        return (tb, tb.DefineMethod(name, MethodAttributes.Public, CallingConventions.HasThis).GetILGenerator());
+    }
+
+    protected static object InvokeTestMethod(TypeBuilder builder, [CallerMemberName] string name = null!)
+    {
+        var obj = builder.New();
+        obj.GetType().GetMethod(name)!.Invoke(obj, Array.Empty<object>());
+        return obj;
+    }
+
+    protected static object? GetField(object obj, string fieldName)
+    {
+        return obj.GetType().GetField(fieldName)!.GetValue(obj);
+    }
 }

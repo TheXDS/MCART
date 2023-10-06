@@ -145,6 +145,44 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
+    /// Inserta una serie de instrucciones que aumentarán el valor del valor
+    /// actualmente en la pila en 1 en la secuencia del lenguaje intermedio de
+    /// Microsoft® (MSIL).
+    /// </summary>
+    /// <param name="ilGen">
+    /// Secuencia de instrucciones en la cual insertar la serie de operaciones.
+    /// </param>
+    /// <returns>
+    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+    /// de sintaxis Fluent.
+    /// </returns>
+    public static ILGenerator Increment(this ILGenerator ilGen)
+    {
+        return ilGen.LoadConstant(1).Add();
+    }
+
+    /// <summary>
+    /// Inserta una serie de instrucciones que aumentarán el valor de una
+    /// variable local en 1 en la secuencia del lenguaje intermedio de
+    /// Microsoft® (MSIL).
+    /// </summary>
+    /// <param name="ilGen">
+    /// Secuencia de instrucciones en la cual insertar la serie de operaciones.
+    /// </param>
+    /// <param name="local">
+    /// Referencia a la variable local sobre la cual ejecutar la operación de 
+    /// incremento.
+    /// </param>
+    /// <returns>
+    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+    /// de sintaxis Fluent.
+    /// </returns>
+    public static ILGenerator Increment(this ILGenerator ilGen, LocalBuilder local)
+    {
+        return ilGen.LoadLocal(local).Increment().StoreLocal(local);
+    }
+
+    /// <summary>
     /// Inserta una constante en la secuencia del lenguaje intermedio 
     /// de Microsoft® (MSIL).
     /// </summary>
@@ -429,6 +467,68 @@ public static partial class ILGeneratorExtensions
     /// Inserta la instanciación de un objeto en la secuencia del
     /// lenguaje intermedio de Microsoft® (MSIL).
     /// </summary>
+    /// <typeparam name="T">
+    /// Tipo de objeto a instanciar.
+    /// </typeparam>
+    /// <param name="ilGen">
+    /// Secuencia de instrucciones en la cual insertar la instanciación
+    /// del objeto.
+    /// </param>
+    /// <param name="args">
+    /// Argumentos a pasar al constructor del objeto.
+    /// </param>
+    /// <returns>
+    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+    /// de sintaxis Fluent.
+    /// </returns>
+    /// <exception cref="ClassNotInstantiableException">
+    /// Se produce si la clase no es instanciable, o si no existe un 
+    /// constructor que acepte los argumentos especificados.
+    /// También puede producirse si uno de los parámetros es un objeto,
+    /// y no contiene un constructor predeterminado sin argumentos, en
+    /// cuyo caso, la excepción indicará el tipo que no puede
+    /// instanciarse.
+    /// </exception>
+    public static ILGenerator NewObject<T>(this ILGenerator ilGen, object?[] args)
+    {
+        return NewObject(ilGen, typeof(T), args);
+    }
+
+    /// <summary>
+    /// Inserta la instanciación de un objeto en la secuencia del
+    /// lenguaje intermedio de Microsoft® (MSIL).
+    /// </summary>
+    /// <typeparam name="T">
+    /// Tipo de objeto a instanciar.
+    /// </typeparam>
+    /// <param name="ilGen">
+    /// Secuencia de instrucciones en la cual insertar la instanciación
+    /// del objeto.
+    /// </param>
+    /// <param name="args">
+    /// Tipo de argumentos aceptados por el constructor del objeto a utilizar.
+    /// </param>
+    /// <returns>
+    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+    /// de sintaxis Fluent.
+    /// </returns>
+    /// <exception cref="ClassNotInstantiableException">
+    /// Se produce si la clase no es instanciable, o si no existe un 
+    /// constructor que acepte los argumentos especificados.
+    /// También puede producirse si uno de los parámetros es un objeto,
+    /// y no contiene un constructor predeterminado sin argumentos, en
+    /// cuyo caso, la excepción indicará el tipo que no puede
+    /// instanciarse.
+    /// </exception>
+    public static ILGenerator NewObject<T>(this ILGenerator ilGen, Type[] args)
+    {
+        return NewObject(ilGen, typeof(T), args);
+    }
+
+    /// <summary>
+    /// Inserta la instanciación de un objeto en la secuencia del
+    /// lenguaje intermedio de Microsoft® (MSIL).
+    /// </summary>
     /// <param name="type">
     /// Tipo de objeto a instanciar.
     /// </param>
@@ -481,10 +581,39 @@ public static partial class ILGeneratorExtensions
     /// </exception>
     public static ILGenerator NewObject(this ILGenerator ilGen, Type type, IEnumerable args)
     {
-        object?[] ctorArgs = args.Cast<object?>().ToArray();
-        if (type.GetConstructor(ctorArgs.ToTypes().ToArray()) is not { } c)
-            throw new ClassNotInstantiableException(type);
-        foreach (object? j in ctorArgs)
+        return NewObject(ilGen, type, args.Cast<object?>().ToArray());
+    }
+
+    /// <summary>
+    /// Inserta la instanciación de un objeto en la secuencia del
+    /// lenguaje intermedio de Microsoft® (MSIL).
+    /// </summary>
+    /// <param name="type">
+    /// Tipo de objeto a instanciar.
+    /// </param>
+    /// <param name="ilGen">
+    /// Secuencia de instrucciones en la cual insertar la instanciación
+    /// del objeto.
+    /// </param>
+    /// <param name="args">
+    /// Argumentos a pasar al constructor del objeto.
+    /// </param>
+    /// <returns>
+    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+    /// de sintaxis Fluent.
+    /// </returns>
+    /// <exception cref="ClassNotInstantiableException">
+    /// Se produce si la clase no es instanciable, o si no existe un 
+    /// constructor que acepte los argumentos especificados.
+    /// También puede producirse si uno de los parámetros es un objeto,
+    /// y no contiene un constructor predeterminado sin argumentos, en
+    /// cuyo caso, la excepción indicará el tipo que no puede
+    /// instanciarse.
+    /// </exception>
+    public static ILGenerator NewObject(this ILGenerator ilGen, Type type, object?[] args)
+    {
+        if (type.GetConstructor(args.ToTypes().ToArray()) is not { } c) throw new ClassNotInstantiableException(type);
+        foreach (object? j in args)
         {
             if (j is null)
                 ilGen.LoadNull();
@@ -493,6 +622,39 @@ public static partial class ILGeneratorExtensions
             else
                 LoadConstant(ilGen, j);
         }
+        ilGen.Emit(Newobj, c);
+        return ilGen;
+    }
+
+    /// <summary>
+    /// Inserta la instanciación de un objeto en la secuencia del
+    /// lenguaje intermedio de Microsoft® (MSIL).
+    /// </summary>
+    /// <param name="type">
+    /// Tipo de objeto a instanciar.
+    /// </param>
+    /// <param name="ilGen">
+    /// Secuencia de instrucciones en la cual insertar la instanciación
+    /// del objeto.
+    /// </param>
+    /// <param name="args">
+    /// Tipo de argumentos aceptados por el constructor del objeto a utilizar.
+    /// </param>
+    /// <returns>
+    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+    /// de sintaxis Fluent.
+    /// </returns>
+    /// <exception cref="ClassNotInstantiableException">
+    /// Se produce si la clase no es instanciable, o si no existe un 
+    /// constructor que acepte los argumentos especificados.
+    /// También puede producirse si uno de los parámetros es un objeto,
+    /// y no contiene un constructor predeterminado sin argumentos, en
+    /// cuyo caso, la excepción indicará el tipo que no puede
+    /// instanciarse.
+    /// </exception>
+    public static ILGenerator NewObject(this ILGenerator ilGen, Type type, Type[] args)
+    {
+        if (type.GetConstructor(args.ToTypes().ToArray()) is not { } c) throw new ClassNotInstantiableException(type);
         ilGen.Emit(Newobj, c);
         return ilGen;
     }

@@ -63,7 +63,7 @@ public static class PropertyBuildInfoExtensions
         if (builder.Field is not null) throw Errors.PropFieldAlreadyDefined();
         if ((builder.Getter?.ILOffset ?? 0) != 0) throw Errors.PropGetterAlreadyDefined();
         field = builder.TypeBuilder.DefineField(UndName(builder.Member.Name), builder.Member.PropertyType, FieldAttributes.Private | FieldAttributes.PrivateScope);
-        builder.Getter?.LoadField(field).Return();
+        builder.Getter?.GetField(field).Return();
         return builder;
     }
 

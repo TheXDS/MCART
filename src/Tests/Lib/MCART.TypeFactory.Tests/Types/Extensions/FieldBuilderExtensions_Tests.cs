@@ -36,6 +36,7 @@ using NUnit.Framework;
 using TheXDS.MCART.Types.Extensions;
 using TheXDS.MCART.Types;
 using TheXDS.MCART.Exceptions;
+using System.Diagnostics.CodeAnalysis;
 
 namespace TheXDS.MCART.TypeFactory.Tests.Types.Extensions;
 
@@ -89,6 +90,19 @@ public class FieldBuilderExtensions_Tests : TypeFactoryTestClassBase
         var field = t.DefineField(fieldName, typeof(Guid), FieldAttributes.Public);
         var ctorIl = t.AddPublicConstructor().CallBaseCtor<object>();
         Assert.That(() => field.InitField<Guid>(ctorIl), Throws.InstanceOf<ClassNotInstantiableException>());
+    }
+
+    [ExcludeFromCodeCoverage]
+    public abstract class AbstractType { }
+
+    [Test]
+    public void InitField_when_type_is_abstract_test()
+    {
+        var fieldName = $"AbstractField";
+        var t = Factory.NewClass($"Init_infered_Abstract_Test");
+        var field = t.DefineField(fieldName, typeof(AbstractType), FieldAttributes.Public);
+        var ctorIl = t.AddPublicConstructor().CallBaseCtor<object>();
+        Assert.That(() => field.InitField(ctorIl, typeof(AbstractType)), Throws.InstanceOf<InvalidTypeException>());
     }
 
     [Test]

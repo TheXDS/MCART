@@ -500,12 +500,10 @@ public static class TypeFactoryVmExtensions
         CheckImplements<INotifyPropertyChanged>(tb);
         PropertyBuildInfo? p = tb.AddProperty(name, t, true, access, @virtual).WithBackingField(out FieldBuilder? field);
         p.BuildNpcPropSetterSkeleton(
-            (_, v) => v.LoadField(field),
+            (_, v) => v.GetField(field),
             (l, v) =>
             {
-                v.LoadArg0()
-                .LoadArg1()
-                .StoreField(field);
+                v.SetField(field, il => il.LoadArg1());
                 evtHandler(l, p.Setter!);
                 v.Call(method);
             }, t);
