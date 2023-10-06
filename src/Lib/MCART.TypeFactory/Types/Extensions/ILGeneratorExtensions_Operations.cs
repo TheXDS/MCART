@@ -255,30 +255,9 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta una operación que almacena un valor <see cref="int"/> dentro de
-    /// un arreglo en el índice especificado en la secuencia del lenguaje
-    /// intermedio de Microsoft® (MSIL).
-    /// </summary>
-    /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar la operación.
-    /// </param>
-    /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
-    /// </returns>
-    /// <remarks>
-    /// La operación requiere que la pila contenga el valor <see cref="int"/> a
-    /// insertar en la parte superior, así como también el índice de tipo
-    /// <see cref="int"/> en el cual se insertará dicho valor justo debajo.
-    /// <br/><br/>
-    /// Uso de pila neto: -2
-    /// </remarks>
-    public static ILGenerator StoreInt32Element(this ILGenerator ilGen) => ilGen.OneLiner(Stelem_I4);
-
-    /// <summary>
-    /// Inserta una operación que almacena un valor <see cref="byte"/> dentro de
-    /// un arreglo en el índice especificado en la secuencia del lenguaje
-    /// intermedio de Microsoft® (MSIL).
+    /// Inserta una operación que almacena un valor <see cref="byte"/> o
+    /// <see cref="sbyte"/> dentro de un arreglo en el índice especificado en
+    /// la secuencia del lenguaje intermedio de Microsoft® (MSIL).
     /// </summary>
     /// <param name="ilGen">
     /// Secuencia de instrucciones en la cual insertar la operación.
@@ -297,9 +276,9 @@ public static partial class ILGeneratorExtensions
     public static ILGenerator StoreInt8Element(this ILGenerator ilGen) => ilGen.OneLiner(Stelem_I1);
 
     /// <summary>
-    /// Inserta una operación que almacena un valor <see cref="short"/> dentro de
-    /// un arreglo en el índice especificado en la secuencia del lenguaje
-    /// intermedio de Microsoft® (MSIL).
+    /// Inserta una operación que almacena un valor <see cref="short"/> o
+    /// <see cref="ushort"/> dentro de un arreglo en el índice especificado en
+    /// la secuencia del lenguaje intermedio de Microsoft® (MSIL).
     /// </summary>
     /// <param name="ilGen">
     /// Secuencia de instrucciones en la cual insertar la operación.
@@ -318,9 +297,30 @@ public static partial class ILGeneratorExtensions
     public static ILGenerator StoreInt16Element(this ILGenerator ilGen) => ilGen.OneLiner(Stelem_I2);
 
     /// <summary>
-    /// Inserta una operación que almacena un valor <see cref="long"/> dentro de
-    /// un arreglo en el índice especificado en la secuencia del lenguaje
-    /// intermedio de Microsoft® (MSIL).
+    /// Inserta una operación que almacena un valor <see cref="int"/> o
+    /// <see cref="uint"/> dentro de un arreglo en el índice especificado en la
+    /// secuencia del lenguaje intermedio de Microsoft® (MSIL).
+    /// </summary>
+    /// <param name="ilGen">
+    /// Secuencia de instrucciones en la cual insertar la operación.
+    /// </param>
+    /// <returns>
+    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+    /// de sintaxis Fluent.
+    /// </returns>
+    /// <remarks>
+    /// La operación requiere que la pila contenga el valor <see cref="int"/> a
+    /// insertar en la parte superior, así como también el índice de tipo
+    /// <see cref="int"/> en el cual se insertará dicho valor justo debajo.
+    /// <br/><br/>
+    /// Uso de pila neto: -2
+    /// </remarks>
+    public static ILGenerator StoreInt32Element(this ILGenerator ilGen) => ilGen.OneLiner(Stelem_I4);
+
+    /// <summary>
+    /// Inserta una operación que almacena un valor <see cref="long"/> o
+    /// <see cref="ulong"/> dentro de un arreglo en el índice especificado en
+    /// la secuencia del lenguaje intermedio de Microsoft® (MSIL).
     /// </summary>
     /// <param name="ilGen">
     /// Secuencia de instrucciones en la cual insertar la operación.
@@ -426,9 +426,154 @@ public static partial class ILGeneratorExtensions
     /// Etiqueta opcional creada anteriormente que recibe el control desde
     /// un salto para salir del método en ejecución.
     /// </param>
-    public static void Return(this ILGenerator ilGen, Label exitLabel)
+    /// <returns>
+    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+    /// de sintaxis Fluent.
+    /// </returns>
+    public static ILGenerator Return(this ILGenerator ilGen, Label exitLabel)
     {
         ilGen.MarkLabel(exitLabel);
         ilGen.Emit(Ret);
+        return ilGen;
     }
+
+    /// <summary>
+    /// Inserta una operación que convertirá el valor en la parte superior de
+    /// la pila en un valor de tipo <see cref="byte"/> en la secuencia del
+    /// lenguaje intermedio de Microsoft® (MSIL).
+    /// </summary>
+    /// <param name="ilGen">
+    /// Secuencia de instrucciones en la cual insertar la operación.
+    /// </param>
+    /// <returns>
+    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+    /// de sintaxis Fluent.
+    /// </returns>
+    public static ILGenerator CastAsByte(this ILGenerator ilGen) => OneLiner(ilGen, Conv_U1);
+
+    /// <summary>
+    /// Inserta una operación que convertirá el valor en la parte superior de
+    /// la pila en un valor de tipo <see cref="sbyte"/> en la secuencia del
+    /// lenguaje intermedio de Microsoft® (MSIL).
+    /// </summary>
+    /// <param name="ilGen">
+    /// Secuencia de instrucciones en la cual insertar la operación.
+    /// </param>
+    /// <returns>
+    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+    /// de sintaxis Fluent.
+    /// </returns>
+    public static ILGenerator CastAsSByte(this ILGenerator ilGen) => OneLiner(ilGen, Conv_I1);
+
+    /// <summary>
+    /// Inserta una operación que convertirá el valor en la parte superior de
+    /// la pila en un valor de tipo <see cref="short"/> en la secuencia del
+    /// lenguaje intermedio de Microsoft® (MSIL).
+    /// </summary>
+    /// <param name="ilGen">
+    /// Secuencia de instrucciones en la cual insertar la operación.
+    /// </param>
+    /// <returns>
+    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+    /// de sintaxis Fluent.
+    /// </returns>
+    public static ILGenerator CastAsShort(this ILGenerator ilGen) => OneLiner(ilGen, Conv_I2);
+
+    /// <summary>
+    /// Inserta una operación que convertirá el valor en la parte superior de
+    /// la pila en un valor de tipo <see cref="ushort"/> en la secuencia del
+    /// lenguaje intermedio de Microsoft® (MSIL).
+    /// </summary>
+    /// <param name="ilGen">
+    /// Secuencia de instrucciones en la cual insertar la operación.
+    /// </param>
+    /// <returns>
+    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+    /// de sintaxis Fluent.
+    /// </returns>
+    public static ILGenerator CastAsUShort(this ILGenerator ilGen) => OneLiner(ilGen, Conv_U2);
+
+    /// <summary>
+    /// Inserta una operación que convertirá el valor en la parte superior de
+    /// la pila en un valor de tipo <see cref="int"/> en la secuencia del
+    /// lenguaje intermedio de Microsoft® (MSIL).
+    /// </summary>
+    /// <param name="ilGen">
+    /// Secuencia de instrucciones en la cual insertar la operación.
+    /// </param>
+    /// <returns>
+    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+    /// de sintaxis Fluent.
+    /// </returns>
+    public static ILGenerator CastAsInt(this ILGenerator ilGen) => OneLiner(ilGen, Conv_I4);
+
+    /// <summary>
+    /// Inserta una operación que convertirá el valor en la parte superior de
+    /// la pila en un valor de tipo <see cref="uint"/> en la secuencia del
+    /// lenguaje intermedio de Microsoft® (MSIL).
+    /// </summary>
+    /// <param name="ilGen">
+    /// Secuencia de instrucciones en la cual insertar la operación.
+    /// </param>
+    /// <returns>
+    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+    /// de sintaxis Fluent.
+    /// </returns>
+    public static ILGenerator CastAsUInt(this ILGenerator ilGen) => OneLiner(ilGen, Conv_U4);
+
+    /// <summary>
+    /// Inserta una operación que convertirá el valor en la parte superior de
+    /// la pila en un valor de tipo <see cref="long"/> en la secuencia del
+    /// lenguaje intermedio de Microsoft® (MSIL).
+    /// </summary>
+    /// <param name="ilGen">
+    /// Secuencia de instrucciones en la cual insertar la operación.
+    /// </param>
+    /// <returns>
+    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+    /// de sintaxis Fluent.
+    /// </returns>
+    public static ILGenerator CastAsLong(this ILGenerator ilGen) => OneLiner(ilGen, Conv_I8);
+
+    /// <summary>
+    /// Inserta una operación que convertirá el valor en la parte superior de
+    /// la pila en un valor de tipo <see cref="ulong"/> en la secuencia del
+    /// lenguaje intermedio de Microsoft® (MSIL).
+    /// </summary>
+    /// <param name="ilGen">
+    /// Secuencia de instrucciones en la cual insertar la operación.
+    /// </param>
+    /// <returns>
+    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+    /// de sintaxis Fluent.
+    /// </returns>
+    public static ILGenerator CastAsULong(this ILGenerator ilGen) => OneLiner(ilGen, Conv_U8);
+
+    /// <summary>
+    /// Inserta una operación que convertirá el valor en la parte superior de
+    /// la pila en un valor de tipo <see cref="float"/> en la secuencia del
+    /// lenguaje intermedio de Microsoft® (MSIL).
+    /// </summary>
+    /// <param name="ilGen">
+    /// Secuencia de instrucciones en la cual insertar la operación.
+    /// </param>
+    /// <returns>
+    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+    /// de sintaxis Fluent.
+    /// </returns>
+    public static ILGenerator CastAsFloat(this ILGenerator ilGen) => OneLiner(ilGen, Conv_R4);
+
+    /// <summary>
+    /// Inserta una operación que convertirá el valor en la parte superior de
+    /// la pila en un valor de tipo <see cref="double"/> en la secuencia del
+    /// lenguaje intermedio de Microsoft® (MSIL).
+    /// </summary>
+    /// <param name="ilGen">
+    /// Secuencia de instrucciones en la cual insertar la operación.
+    /// </param>
+    /// <returns>
+    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
+    /// de sintaxis Fluent.
+    /// </returns>
+    public static ILGenerator CastAsDouble(this ILGenerator ilGen) => OneLiner(ilGen, Conv_R8);
 }
