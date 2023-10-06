@@ -165,9 +165,6 @@ public partial class ILGeneratorExtensions_Tests : TypeFactoryTestClassBase
         Assert.That(GetField(obj, "CatchTriggered"), Is.EqualTo(false));
     }
 
-
-
-
     [Test]
     public void Try_catch_finally_block_without_exceptions()
     {
