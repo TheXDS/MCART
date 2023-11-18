@@ -406,6 +406,12 @@ public class CollectionHelpersTests
         Assert.AreEqual(new[] { 0.2, 0.4, 0.6, 0.8, 1.0, double.NaN }, await Read(GetValuesAsync<double>(double.NaN).ToPercent(0, 5)));
     }
 
+    [Test]
+    public void WithIndex_test()
+    {
+        Assert.That("ABC".ToCharArray().WithIndex(), Is.EquivalentTo(new (int, char)[] { (0,'A'), (1, 'B'), (2, 'C') }));
+    }
+
     private static async IAsyncEnumerable<T> GetValuesAsync<T>(T? tail = null) where T : struct
     {
         yield return (T)Convert.ChangeType(1, typeof(T));

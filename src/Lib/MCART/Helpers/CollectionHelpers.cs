@@ -634,6 +634,24 @@ public static partial class CollectionHelpers
     }
 
     /// <summary>
+    /// Enumera los elementos de la colección, incluyendo el índice de cada
+    /// elemento devuelto.
+    /// </summary>
+    /// <typeparam name="T">Tipo de elementos de la colección.</typeparam>
+    /// <param name="collection">
+    /// Colección para la cual enumerar los elementos junto con su índice.
+    /// </param>
+    /// <returns>Una enumeración de cada elemento junto a su índice.</returns>
+    public static IEnumerable<(int index, T element)> WithIndex<T>(this IEnumerable<T> collection)
+    {
+        int i = 0;
+        foreach (var j in collection)
+        {
+            yield return (i++, j);
+        }
+    }
+
+    /// <summary>
     /// Convierte los valores de una colección de elementos
     /// <see cref="int" /> a porcentajes.
     /// </summary>
