@@ -99,11 +99,27 @@ Los binarios se encontrarán en la carpeta `Build` en la raíz del repositorio.
 ```sh
 dotnet test ./src/MCART.sln
 ```
+#### Reporte de cobertura
+Es posible obtener un reporte de la cobertura de código de manera local. Para ello, es necesario instalar 
+[`ReportGenerator`](https://github.com/danielpalme/ReportGenerator) , que leerá los resultados de la ejecución de las pruebas, y generará una página web con el resultado de la cobertura.
+
+Para instalar `ReportGenerator` ejecuta:
+```sh
+dotnet tool install -g dotnet-reportgenerator-globaltool
+```
+Luego de haber instalado `ReportGenerator`, será posible ejecutar el siguiente comando:
+```sh
+dotnet test ./src/MCART.sln --collect:"XPlat Code Coverage" --results-directory:./Build/Tests ; reportgenerator.exe -reports:./Build/Tests/*/coverage.cobertura.xml -targetdir:./Build/Coverage/
+```
+Los resultados de la cobertura se almacenarán en `./Build/Coverage`
 
 ## Contribuir
+[![Buy Me A Coffee](https://cdn.buymeacoffee.com/buttons/default-orange.png)](https://www.buymeacoffee.com/xdsxpsivx)
+
 Si MCART te ha sido de utilidad, o te interesa donar para fomentar el
 desarrollo del proyecto, siéntete libre de hacer una donación por medio de
-[PayPal](https://paypal.me/thexds), o ponte en contacto directamente conmigo.
+[PayPal](https://paypal.me/thexds), [BuyMeACoffee](https://www.buymeacoffee.com/xdsxpsivx)
+o ponte en contacto directamente conmigo.
 
 Lamentablemente, no puedo ofrecer otros medios de donación por el momento
 debido a que mi país (Honduras) no es soportado por ninguna plataforma.
