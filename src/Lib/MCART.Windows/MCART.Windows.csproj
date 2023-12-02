@@ -20,11 +20,16 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>WinErrors.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\Strings\WinErrors.en-US.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>WinErrors.en-US.resx</DependentUpon>
+    </Compile>
   </ItemGroup>  
   <ItemGroup>
-    <EmbeddedResource Update="Resources\Strings\WinErrors.en-us.resx">
+    <EmbeddedResource Update="Resources\Strings\WinErrors.en-US.resx">
       <CustomToolNamespace>TheXDS.MCART.Windows.Resources.Strings</CustomToolNamespace>
-      <LastGenOutput>Errors.en-US.Designer.cs</LastGenOutput>
+      <LastGenOutput>WinErrors.en-US.Designer.cs</LastGenOutput>
       <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Strings\WinErrors.resx">
