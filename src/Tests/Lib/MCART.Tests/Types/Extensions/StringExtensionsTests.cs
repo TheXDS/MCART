@@ -247,6 +247,23 @@ public class StringExtensionsTests
         Assert.False("TEST".StartsWithAny(new List<string> { "ta", "ti" }, StringComparison.OrdinalIgnoreCase));
     }
 
+    [TestCase("test", false, "Test")]
+    [TestCase("TEST", false, "Test")]
+    [TestCase("Test", false, "Test")]
+    [TestCase("tEST", false, "Test")]
+    [TestCase("tEsT", false, "Test")]
+    [TestCase("TeSt", false, "Test")]
+    [TestCase("test", true, "Test")]
+    [TestCase("TEST", true, "TEST")]
+    [TestCase("Test", true, "Test")]
+    [TestCase("tEST", true, "TEST")]
+    [TestCase("TeSt", true, "TeSt")]
+    [TestCase("tEsT", true, "TEsT")]
+    public void Capitalize_Test(string testString, bool keepCasing, string expected)
+    {
+        Assert.That(testString.Capitalize(keepCasing), Is.EqualTo(expected));
+    }
+
     [Test]
     public void Chop_Test()
     {

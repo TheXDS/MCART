@@ -82,6 +82,24 @@ public static class StringExtensions
     }
 
     /// <summary>
+    /// Obtiene una cadena con capitalización a partir de la cadena
+    /// proporcionada.
+    /// </summary>
+    /// <param name="str">Cadena a capitalizar.</param>
+    /// <param name="keepCasing">
+    /// Si se establece en <see langword="true"/>, se mantendrá la
+    /// capitalización del resto de los caracteres de la cadena.
+    /// </param>
+    /// <returns>
+    /// Una nueva cadena con capitalización a partir de la cadena
+    /// proporcionada.
+    /// </returns>
+    public static string Capitalize(this string str, bool keepCasing = false)
+    {
+        return str[0].ToString().ToUpper() + (keepCasing ? str[1..] : str[1..].ToLower());
+    }
+
+    /// <summary>
     /// Elimina una ocurrencia de una cadena a los extremos de otra.
     /// </summary>
     /// <param name="str">Cadena a comprobar.</param>
