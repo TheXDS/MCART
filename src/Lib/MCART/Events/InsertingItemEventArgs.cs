@@ -40,7 +40,13 @@ namespace TheXDS.MCART.Events;
 /// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
 public class InsertingItemEventArgs<T> : CancelEventArgs
 {
-    internal InsertingItemEventArgs(int index, T insertedItem)
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="InsertingItemEventArgs{T}"/>.
+    /// </summary>
+    /// <param name="index">Índice del elemento a insertar.</param>
+    /// <param name="insertedItem">Elemento a insertar.</param>
+    public InsertingItemEventArgs(int index, T insertedItem)
     {
         Index = index;
         InsertedItem = insertedItem;

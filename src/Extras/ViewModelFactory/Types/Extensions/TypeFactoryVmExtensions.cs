@@ -516,15 +516,10 @@ public static class TypeFactoryVmExtensions
         if (!CheckImplementsConditions.Any(p => p.Invoke(typeof(T), t))) throw Errors.InterfaceNotImplemented<T>();
     }
 
+    [DebuggerNonUserCode]
     private static void CheckImplements<T>(ITypeBuilder<object> t)
     {
         if (!t.SpecificBaseType.Implements(typeof(T))) throw Errors.InterfaceNotImplemented<T>();
-    }
-
-    private static MethodInfo GetEqualsMethod(Type type)
-    {
-        return type.GetMethod(nameof(object.Equals), BindingFlags.Public | BindingFlags.Instance, null, new[] { type }, null)
-            ?? type.GetMethod(nameof(object.Equals), BindingFlags.Public | BindingFlags.Instance, null, new[] { typeof(object) }, null)!;
     }
 
     private static MethodInfo GetNpcChangeMethod(ITypeBuilder<NotifyPropertyChangeBase> tb, Type t)

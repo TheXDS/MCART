@@ -48,4 +48,13 @@ public class ItemCreatedEventArgs<T> : ValueEventArgs<T> where T : notnull
     {
         Misc.Internals.NullCheck(item, nameof(item));
     }
+
+    /// <summary>
+    /// Converte implícitamente un <see cref="AddedItemEventArgs{T}"/> en un
+    /// objeto de tipo <typeparamref name="T"/>.
+    /// </summary>
+    /// <param name="from">
+    /// <see cref="AddedItemEventArgs{T}"/> a convertir.
+    /// </param>
+    public static implicit operator T(ItemCreatedEventArgs<T> from) => from.Value;
 }

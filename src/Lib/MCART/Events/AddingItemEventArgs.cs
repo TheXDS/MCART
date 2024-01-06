@@ -47,7 +47,10 @@ public class AddingItemEventArgs<T> : CancelEventArgs
     /// Objeto a ser agregado al <see cref="ListEx{T}"/> que generó el 
     /// evento.
     /// </param>
-    internal AddingItemEventArgs(T newItem) { NewItem = newItem; }
+    public AddingItemEventArgs(T newItem)
+    { 
+        NewItem = newItem;
+    }
 
     /// <summary>
     /// Obtiene el objeto que se agregará al <see cref="ListEx{T}"/>.

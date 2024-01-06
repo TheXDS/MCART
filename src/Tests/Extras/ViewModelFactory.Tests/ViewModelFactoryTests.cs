@@ -31,12 +31,12 @@ SOFTWARE.
 using NUnit.Framework;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Base;
 using TheXDS.MCART.Types.Extensions;
+using static TheXDS.MCART.Helpers.ReflectionHelpers;
 
 namespace TheXDS.MCART.Tests;
 
@@ -55,6 +55,17 @@ public class ViewModelFactoryTests
     }
 
     [ExcludeFromCodeCoverage]
+    public abstract class NpcBaseClass2 : INotifyPropertyChanged
+    {
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        public void OnPropertyChanged([CallerMemberName] string? propertyName = null!)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
+
+    [ExcludeFromCodeCoverage]
     public class TestModel
     {
         public string? Name { get; set; }
@@ -64,19 +75,27 @@ public class ViewModelFactoryTests
     private static readonly TypeFactory _factory = new($"{typeof(ViewModelFactoryTests).FullName}._Generated");
 
     [Test]
-    public void Build_Npc_Type_Test()
+    public void Build_Npc_Type_Test_from_NotifyPropertyChanged()
     {
         ITypeBuilder<NotifyPropertyChanged> t = _factory.NewType<NotifyPropertyChanged>("NpcTestClass");
         t.AddNpcProperty<string>("Name");
-        dynamic npcInstance = t.New();
-        (object? Sender, PropertyChangedEventArgs Arguments)? evt = null;
-        void OnPropertyChanged(object? sender, PropertyChangedEventArgs e) => evt = (sender, e);
-        ((NotifyPropertyChanged)npcInstance).PropertyChanged += OnPropertyChanged;
-        npcInstance.Name = "Test";
-        ((NotifyPropertyChanged)npcInstance).PropertyChanged -= OnPropertyChanged;
-        Assert.NotNull(evt);
-        Assert.AreEqual("Name", evt!.Value.Arguments.PropertyName);
-        Assert.AreEqual("Test", (string)npcInstance.Name);
+        Test_Npc_Type(t.New());
+    }
+
+    [Test]
+    public void Build_Npc_Type_Test_from_NotifyPropertyChangeBase()
+    {
+        ITypeBuilder<NotifyPropertyChangeBase> t = _factory.NewType<NotifyPropertyChanged>("NpcTestClass");
+        t.AddNpcProperty<string>("Name");
+        Test_Npc_Type(t.New());
+    }
+
+    [Test]
+    public void Build_Npc_Type_Test_from_INotifyPropertyChanged()
+    {
+        ITypeBuilder<INotifyPropertyChanged> t = _factory.NewType<NpcBaseClass2>("NpcTestClass");
+        t.AddNpcProperty<string>("Name", GetMethod<NpcBaseClass2, Action<string>>(p => p.OnPropertyChanged));
+        Test_Npc_Type(t.New());
     }
 
     [Test]
@@ -141,5 +160,17 @@ public class ViewModelFactoryTests
         Assert.AreEqual("Test", instance.Entity.Description);
 
         instance.PropertyChanged -= OnPropertyChanged;
+    }
+
+    private static void Test_Npc_Type(dynamic npcInstance)
+    {
+        (object? Sender, PropertyChangedEventArgs Arguments)? evt = null;
+        void OnPropertyChanged(object? sender, PropertyChangedEventArgs e) => evt = (sender, e);
+        ((INotifyPropertyChanged)npcInstance).PropertyChanged += OnPropertyChanged;
+        npcInstance.Name = "Test";
+        ((INotifyPropertyChanged)npcInstance).PropertyChanged -= OnPropertyChanged;
+        Assert.NotNull(evt);
+        Assert.AreEqual("Name", evt!.Value.Arguments.PropertyName);
+        Assert.AreEqual("Test", (string)npcInstance.Name);
     }
 }

@@ -50,4 +50,11 @@ public class IncomingDataEventArgs : ValueEventArgs<byte[]>
     {
         Misc.Internals.NullCheck(data, nameof(data));
     }
+
+    /// <summary>
+    /// Convierte implícitamente un arreglo de <see cref="byte"/> en un
+    /// <see cref="IncomingDataEventArgs"/>.
+    /// </summary>
+    /// <param name="value"></param>
+    public static implicit operator IncomingDataEventArgs(byte[] value) => new(value);
 }

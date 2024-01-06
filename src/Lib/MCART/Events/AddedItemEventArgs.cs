@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System;
 using TheXDS.MCART.Types;
 
 namespace TheXDS.MCART.Events;
@@ -39,10 +38,21 @@ namespace TheXDS.MCART.Events;
 /// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
 public class AddedItemEventArgs<T> : EventArgs
 {
-    internal AddedItemEventArgs(T newItem)
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="AddedItemEventArgs{T}"/>.
+    /// </summary>
+    /// <param name="newItem">Nuevo elemento que ha sido agregado.</param>
+    public AddedItemEventArgs(T newItem)
     {
         NewItem = newItem;
     }
+
+    /// <summary>
+    /// Elemento que fue agregado al <see cref="ListEx{T}"/> que generó el
+    /// evento.
+    /// </summary>
+    public T NewItem { get; }
 
     /// <summary>
     /// Convierte implícitamente un <see cref="AddingItemEventArgs{T}"/> en
@@ -54,8 +64,11 @@ public class AddedItemEventArgs<T> : EventArgs
     public static implicit operator AddedItemEventArgs<T>(AddingItemEventArgs<T> from) => new(from.NewItem);
 
     /// <summary>
-    /// Elemento que fue agregado al <see cref="ListEx{T}"/> que generó el
-    /// evento.
+    /// Converte implícitamente un <see cref="AddedItemEventArgs{T}"/> en un
+    /// objeto de tipo <typeparamref name="T"/>.
     /// </summary>
-    public T NewItem { get; }
+    /// <param name="from">
+    /// <see cref="AddedItemEventArgs{T}"/> a convertir.
+    /// </param>
+    public static implicit operator T(AddedItemEventArgs<T> from) => from.NewItem;
 }

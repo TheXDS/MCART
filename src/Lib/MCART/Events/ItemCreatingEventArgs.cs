@@ -65,7 +65,7 @@ public class ItemCreatingEventArgs<T> : CancelEventArgs where T : notnull
     }
 
     /// <summary>
-    /// Convierte explícitamente un <see cref="ItemCreatingEventArgs{T}" /> en un
+    /// Convierte implícitamente un <see cref="ItemCreatingEventArgs{T}" /> en un
     /// <see cref="ItemCreatedEventArgs{T}" />.
     /// </summary>
     /// <param name="fromValue">Objeto a convertir.</param>
