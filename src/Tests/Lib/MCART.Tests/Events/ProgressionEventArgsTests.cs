@@ -1,4 +1,4 @@
-﻿// InsertingItemEventArgsTests.cs
+﻿// ProgressionEventArgsTests.cs
 //
 // This file is part of Morgan's CLR Advanced Runtime (MCART)
 //
@@ -27,25 +27,43 @@
 // SOFTWARE.
 
 using NUnit.Framework;
-using System.ComponentModel;
 using TheXDS.MCART.Events;
 
 namespace TheXDS.MCART.Tests.Events;
 
-public class InsertingItemEventArgsTests
+public class ProgressionEventArgsTests
 {
     [Test]
-    public void Class_has_NewItem_property()
+    public void Class_inherits_from_ValueEventArgs_double()
     {
-        var evt = new InsertingItemEventArgs<char>(12, 'x');
-        Assert.That(evt.Index, Is.EqualTo(12));
-        Assert.That(evt.InsertedItem, Is.EqualTo('x'));
+        var evt = new ProgressionEventArgs(0.0);
+        Assert.That(evt, Is.AssignableTo<ValueEventArgs<double>>());
+    }
+
+
+    [Test]
+    public void Event_includes_Value_property()
+    {
+        var evt = new ProgressionEventArgs(0.5);
+        Assert.That(evt.Value, Is.EqualTo(0.5));
+        Assert.That(evt.HelpText, Is.Null);
     }
 
     [Test]
-    public void Class_inherits_from_CancelEventArgs()
+    public void Event_includes_HelpText_property()
     {
-        var evt = new InsertingItemEventArgs<char>(12, 'x');
-        Assert.That(evt, Is.AssignableTo<CancelEventArgs>());
+        var evt = new ProgressionEventArgs(1.0, "Test");
+        Assert.That(evt.Value, Is.EqualTo(1.0));
+        Assert.That(evt.HelpText, Is.EqualTo("Test"));
+    }
+
+    [Test]
+    public void Ctor_contract_test()
+    {
+        Assert.That(() => new ProgressionEventArgs(double.NaN), Throws.Nothing);
+        Assert.That(() => new ProgressionEventArgs(1.1), Throws.InstanceOf<ArgumentOutOfRangeException>());
+        Assert.That(() => new ProgressionEventArgs(-0.1), Throws.InstanceOf<ArgumentOutOfRangeException>());
+        Assert.That(() => new ProgressionEventArgs(double.PositiveInfinity), Throws.InstanceOf<ArgumentOutOfRangeException>());
+        Assert.That(() => new ProgressionEventArgs(double.NegativeInfinity), Throws.InstanceOf<ArgumentOutOfRangeException>());
     }
 }

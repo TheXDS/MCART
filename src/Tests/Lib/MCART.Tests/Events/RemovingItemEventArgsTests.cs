@@ -1,4 +1,4 @@
-﻿// InsertingItemEventArgsTests.cs
+﻿// RemovingItemEventArgsTests.cs
 //
 // This file is part of Morgan's CLR Advanced Runtime (MCART)
 //
@@ -32,20 +32,26 @@ using TheXDS.MCART.Events;
 
 namespace TheXDS.MCART.Tests.Events;
 
-public class InsertingItemEventArgsTests
+public class RemovingItemEventArgsTests
 {
     [Test]
-    public void Class_has_NewItem_property()
+    public void Class_has_RemovedItem_property()
     {
-        var evt = new InsertingItemEventArgs<char>(12, 'x');
-        Assert.That(evt.Index, Is.EqualTo(12));
-        Assert.That(evt.InsertedItem, Is.EqualTo('x'));
+        var evt = new RemovingItemEventArgs<int>(0, 10);
+        Assert.That(evt.RemovedItem, Is.EqualTo(10));
+    }
+
+    [Test]
+    public void Class_has_Index_property()
+    {
+        var evt = new RemovingItemEventArgs<int>(1, 10);
+        Assert.That(evt.Index, Is.EqualTo(1));
     }
 
     [Test]
     public void Class_inherits_from_CancelEventArgs()
     {
-        var evt = new InsertingItemEventArgs<char>(12, 'x');
+        var evt = new RemovingItemEventArgs<int>(0, 10);
         Assert.That(evt, Is.AssignableTo<CancelEventArgs>());
     }
 }

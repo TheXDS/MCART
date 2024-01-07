@@ -68,6 +68,6 @@ public class ColorimetricGrayscaleColorParser : IColorParser<byte>
         double lr = color.ScR > 0.04045f ? System.Math.Pow((color.ScR + 0.055) / 1.055, 2.4) : color.ScR / 12.92;
         double lg = color.ScG > 0.04045f ? System.Math.Pow((color.ScG + 0.055) / 1.055, 2.4) : color.ScG / 12.92;
         double lb = color.ScB > 0.04045f ? System.Math.Pow((color.ScB + 0.055) / 1.055, 2.4) : color.ScB / 12.92;
-        return (byte)((lr * 0.2126) + (lg * 0.7152) + (lb * 0.0722));
+        return (byte)(((lr * 0.2126) + (lg * 0.7152) + (lb * 0.0722)) * 255);
     }
 }

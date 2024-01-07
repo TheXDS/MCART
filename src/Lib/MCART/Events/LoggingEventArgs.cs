@@ -43,8 +43,9 @@ public class LoggingEventArgs : ValueEventArgs<string>
     /// <see cref="LoggingEventArgs" />, sin definir un objeto relacionado.
     /// </summary>
     /// <param name="message">Mensaje de esta entrada de log.</param>
-    /// <exception cref="System.ArgumentNullException">
-    /// Se produce si <paramref name="message"/> es <see langword="null"/>.
+    /// <exception cref="ArgumentException">
+    /// Se produce si <paramref name="message"/> es <see langword="null"/> o
+    /// una cadena vacía.
     /// </exception>
     public LoggingEventArgs(string message) : base(message)
     {
@@ -59,9 +60,12 @@ public class LoggingEventArgs : ValueEventArgs<string>
     /// Objeto relacionado a esta entrada de log.</param>
     /// <param name="message">Mensaje de esta entrada de log.
     /// </param>
-    /// <exception cref="System.ArgumentNullException">
-    /// Se produce si <paramref name="subject"/> o
-    /// <paramref name="message"/> son <see langword="null"/>.
+    /// <exception cref="ArgumentNullException">
+    /// Se produce si <paramref name="subject"/> es <see langword="null"/>.
+    /// </exception>
+    /// <exception cref="ArgumentException">
+    /// Se produce si <paramref name="message"/> es <see langword="null"/> o
+    /// una cadena vacía.
     /// </exception>
     public LoggingEventArgs(object subject, string message) : this(message)
     {

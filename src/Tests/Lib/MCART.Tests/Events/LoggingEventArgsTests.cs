@@ -1,4 +1,4 @@
-﻿// InsertingItemEventArgsTests.cs
+﻿// LoggingEventArgsTests.cs
 //
 // This file is part of Morgan's CLR Advanced Runtime (MCART)
 //
@@ -27,25 +27,33 @@
 // SOFTWARE.
 
 using NUnit.Framework;
-using System.ComponentModel;
 using TheXDS.MCART.Events;
 
 namespace TheXDS.MCART.Tests.Events;
 
-public class InsertingItemEventArgsTests
+public class LoggingEventArgsTests
 {
     [Test]
-    public void Class_has_NewItem_property()
+    public void Class_inherits_from_ValueEventArgs_string()
     {
-        var evt = new InsertingItemEventArgs<char>(12, 'x');
-        Assert.That(evt.Index, Is.EqualTo(12));
-        Assert.That(evt.InsertedItem, Is.EqualTo('x'));
+        var evt = new LoggingEventArgs("Test");
+        Assert.That(evt, Is.AssignableTo<ValueEventArgs<string>>());
     }
 
     [Test]
-    public void Class_inherits_from_CancelEventArgs()
+    public void Event_includes_Value_property()
     {
-        var evt = new InsertingItemEventArgs<char>(12, 'x');
-        Assert.That(evt, Is.AssignableTo<CancelEventArgs>());
+        var evt = new LoggingEventArgs("Test");
+        Assert.That(evt.Value, Is.EqualTo("Test"));
+        Assert.That(evt.Subject, Is.Null);
+    }
+
+    [Test]
+    public void Event_includes_Subject_property()
+    {
+        var obj = new object();
+        var evt = new LoggingEventArgs(obj, "Obj");
+        Assert.That(evt.Value, Is.EqualTo("Obj"));
+        Assert.That(evt.Subject, Is.SameAs(obj));
     }
 }

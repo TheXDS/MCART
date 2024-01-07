@@ -466,7 +466,7 @@ public partial struct Color : IEquatable<Color>, IFormattable, IComparable<Color
     /// <param name="r">Canal rojo.</param>
     /// <param name="g">Canal verde.</param>
     /// <param name="b">Canal azul.</param>
-    public Color(in float r, in float g, in float b) : this(r, g, b, 1.0f) { }
+    public Color(in float r, in float g, in float b) : this(r, g, b, 1f) { }
 
     /// <summary>
     /// Inicializa una nueva instancia de la estructura 

@@ -30,12 +30,13 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
 using TheXDS.MCART.Types.Extensions;
+using Tf = TheXDS.MCART.Types.TypeFactory;
 
 namespace TheXDS.MCART.TypeFactory.Tests;
 
 public abstract class TypeFactoryTestClassBase
 {
-    protected static readonly TheXDS.MCART.Types.TypeFactory Factory = new("TheXDS.MCART.TypeFactory.Tests._Generated", true);
+    protected static readonly Tf Factory = new("TheXDS.MCART.TypeFactory.Tests._Generated", true);
 
     protected static TypeBuilder NewClass([CallerMemberName]string name = null!)
     {

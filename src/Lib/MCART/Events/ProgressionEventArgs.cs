@@ -69,9 +69,7 @@ public class ProgressionEventArgs : ValueEventArgs<double>
     /// </summary>
     /// <param name="progress">
     /// Valor de progreso. Debe ser un <see cref="double" /> entre
-    /// <c>0.0</c> y <c>1.0</c>, o los valores <see cref="double.NaN" />,
-    /// <see cref="double.PositiveInfinity" /> o
-    /// <see cref="double.NegativeInfinity" />.
+    /// <c>0.0</c> y <c>1.0</c>, o el valor <see cref="double.NaN"/>.
     /// </param>
     /// <exception cref="ArgumentOutOfRangeException">
     /// Se produce si <paramref name="progress" /> no en un valor entre <c>0.0</c>

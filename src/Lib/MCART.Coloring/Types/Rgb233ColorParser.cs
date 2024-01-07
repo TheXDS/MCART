@@ -49,9 +49,9 @@ public class Rgb233ColorParser : IColorParser<byte>
     public Color From(byte value)
     {
         return new(
-            (byte)(((value & 0xe0) >> 5) * 256 / 8),
-            (byte)(((value & 0x1c) >> 2) * 256 / 8),
-            (byte)((value & 0x3) * 256 / 4));
+            (byte)(((value & 0b11000000) >> 6) * 255 / 3),
+            (byte)(((value & 0b00111000) >> 3) * 255 / 7),
+            (byte)((value & 0b00000111) * 255 / 7));
     }
 
     /// <summary>
@@ -65,8 +65,8 @@ public class Rgb233ColorParser : IColorParser<byte>
     public byte To(Color color)
     {
         return (byte)(
-            ((color.B * 4 / 256) << 5) |
-            ((color.G * 8 / 256) << 2) |
-            (color.R * 8 / 256));
+            ((color.R * 4 / 256) << 6) |
+            ((color.G * 8 / 256) << 3) |
+            (color.B * 8 / 256));
     }
 }

@@ -34,6 +34,7 @@ using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types.Extensions.ConstantLoaders;
 using static System.Reflection.Emit.OpCodes;
+using static TheXDS.MCART.Resources.Errors;
 
 namespace TheXDS.MCART.Types.Extensions;
 
@@ -215,7 +216,7 @@ public static partial class ILGeneratorExtensions
         }
         else if (t.IsStruct())
         {
-            ilGen.Emit(Newobj, t.GetConstructor(Type.EmptyTypes) ?? throw TheXDS.MCART.Resources.Errors.ClassNotInstantiable(t));
+            ilGen.Emit(Newobj, t.GetConstructor(Type.EmptyTypes) ?? throw ClassNotInstantiable(t));
         }
         else
         {

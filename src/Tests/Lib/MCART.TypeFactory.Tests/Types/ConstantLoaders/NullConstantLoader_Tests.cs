@@ -1,4 +1,4 @@
-﻿// InsertingItemEventArgsTests.cs
+﻿// NullConstantLoader_Tests.cs
 //
 // This file is part of Morgan's CLR Advanced Runtime (MCART)
 //
@@ -27,25 +27,18 @@
 // SOFTWARE.
 
 using NUnit.Framework;
-using System.ComponentModel;
-using TheXDS.MCART.Events;
+using System.Reflection.Emit;
+using TheXDS.MCART.Types.Extensions;
 
-namespace TheXDS.MCART.Tests.Events;
+namespace TheXDS.MCART.TypeFactory.Tests.Types.ConstantLoaders;
 
-public class InsertingItemEventArgsTests
+public class NullConstantLoader_Tests : TypeFactoryTestClassBase
 {
     [Test]
-    public void Class_has_NewItem_property()
+    public void Loader_emits_null()
     {
-        var evt = new InsertingItemEventArgs<char>(12, 'x');
-        Assert.That(evt.Index, Is.EqualTo(12));
-        Assert.That(evt.InsertedItem, Is.EqualTo('x'));
-    }
-
-    [Test]
-    public void Class_inherits_from_CancelEventArgs()
-    {
-        var evt = new InsertingItemEventArgs<char>(12, 'x');
-        Assert.That(evt, Is.AssignableTo<CancelEventArgs>());
+        TypeBuilder t = Factory.NewClass("NullConstantLoaderTest");
+        t.AddConstantProperty<object?>("Value", null);
+        Assert.That(((dynamic)t.New()).Value, Is.Null);
     }
 }

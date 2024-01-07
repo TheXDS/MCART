@@ -1,4 +1,4 @@
-﻿// AddedItemEventArgsTests.cs
+﻿// AddingItemEventArgsTests.cs
 //
 // This file is part of Morgan's CLR Advanced Runtime (MCART)
 //

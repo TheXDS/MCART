@@ -28,9 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using TheXDS.MCART.Types;
 
 namespace TheXDS.MCART.Events;
@@ -42,7 +39,17 @@ namespace TheXDS.MCART.Events;
 /// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
 public class ListUpdatedEventArgs<T> : EventArgs
 {
-    internal ListUpdatedEventArgs(ListUpdateType updateType, IEnumerable<T>? affectedItems)
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="ListUpdatingEventArgs{T}"/>.
+    /// </summary>
+    /// <param name="updateType">
+    /// Tipo de actualización realizada sobre la lista.
+    /// </param>
+    /// <param name="affectedItems">
+    /// Elementos que han sido afectados por la actualización de la lista.
+    /// </param>
+    public ListUpdatedEventArgs(ListUpdateType updateType, IEnumerable<T>? affectedItems)
     {
         UpdateType = updateType;
         AffectedItems = affectedItems?.ToList().AsReadOnly();

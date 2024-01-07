@@ -40,10 +40,23 @@ namespace TheXDS.MCART.Events;
 /// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
 public class RemovedItemEventArgs<T> : EventArgs
 {
-    internal RemovedItemEventArgs(T removedItem)
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="RemovedItemEventArgs{T}"/>.
+    /// </summary>
+    /// <param name="removedItem">
+    /// Elemento que ha sido eliminado de la colección.
+    /// </param>
+    public RemovedItemEventArgs(T removedItem)
     {
         RemovedItem = removedItem;
     }
+
+    /// <summary>
+    /// Objeto que fue quitado del <see cref="ListEx{T}"/> que generó
+    /// el evento.
+    /// </summary>
+    public T RemovedItem { get; }
 
     /// <summary>
     /// Convierte implícitamente un
@@ -56,8 +69,11 @@ public class RemovedItemEventArgs<T> : EventArgs
     public static implicit operator RemovedItemEventArgs<T>(RemovingItemEventArgs<T> from) => new(from.RemovedItem);
 
     /// <summary>
-    /// Objeto que fue quitado del <see cref="ListEx{T}"/> que generó
-    /// el evento.
+    /// Convierte implícitamente un <see cref="RemovedItemEventArgs{T}"/> en un
+    /// objeto de tipo <typeparamref name="T"/>.
     /// </summary>
-    public T RemovedItem { get; }
+    /// <param name="from">
+    /// <see cref="RemovedItemEventArgs{T}"/> a convertir.
+    /// </param>
+    public static implicit operator T(RemovedItemEventArgs<T> from) => from.RemovedItem;
 }

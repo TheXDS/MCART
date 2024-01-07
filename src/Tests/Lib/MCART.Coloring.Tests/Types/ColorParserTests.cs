@@ -32,6 +32,7 @@ using NUnit.Framework;
 using System;
 using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Extensions;
+using System.Reflection;
 
 namespace TheXDS.MCART.Tests.Types;
 
@@ -51,23 +52,28 @@ public class ColorParserTests
     [TestCase(typeof(Bgr555ColorParser), (short)0x001f, 0xff, 0xff, 0x0, 0x0)]
     [TestCase(typeof(Bgr565ColorParser), (short)0x7abc, 0xff, 0xe6, 0x55, 0x7b)]
     [TestCase(typeof(Bgr565ColorParser), (short)0x001f, 0xff, 0xff, 0x0, 0x0)]
+    [TestCase(typeof(ColorimetricGrayscaleColorParser), (byte)0xff, 0xff, 0xff, 0xff, 0xff)]
+    [TestCase(typeof(ColorimetricGrayscaleColorParser), (byte)0x0, 0xff, 0x0, 0x0, 0x0)]
     [TestCase(typeof(MonochromeColorParser), true, 0xff, 0xff, 0xff, 0xff)]
     [TestCase(typeof(MonochromeColorParser), false, 0xff, 0x00, 0x00, 0x00)]
     [TestCase(typeof(GrayscaleColorParser), (byte)0, 0xff, 0x00, 0x00, 0x00)]
     [TestCase(typeof(GrayscaleColorParser), (byte)0xff, 0xff, 0xff, 0xff, 0xff)]
     [TestCase(typeof(GrayscaleColorParser), (byte)0x40, 0xff, 0x40, 0x40, 0x40)]
+    [TestCase(typeof(Rgb233ColorParser), (byte)0b_11000000, 0xff, 0xff, 0x00, 0x00)]
+    [TestCase(typeof(Rgb233ColorParser), (byte)0b_00111000, 0xff, 0x00, 0xff, 0x00)]
+    [TestCase(typeof(Rgb233ColorParser), (byte)0b_00000111, 0xff, 0x00, 0x00, 0xff)]
     [TestCase(typeof(VgaAttributeByteColorParser), (byte)0x07, 0xff, 0x7f, 0x7f, 0x7f)]
     [TestCase(typeof(VgaAttributeByteColorParser), (byte)0x0f, 0xff, 0xff, 0xff, 0xff)]
     [TestCase(typeof(VgaAttributeByteColorParser), (byte)0x01, 0xff, 0x0, 0x0, 0x7f)]
     public void Convert_From_And_To_Color_Test(Type converter, object sourceValue, byte a, byte r, byte g, byte b)
     {
-        object? c = converter.New();
-        System.Reflection.MethodInfo? f = converter.GetMethod("From")!;
-        System.Reflection.MethodInfo? t = converter.GetMethod("To")!;
+        object c = converter.New();
+        MethodInfo f = converter.GetMethod("From")!;
+        MethodInfo t = converter.GetMethod("To")!;
 
         Color expected = new(r, g, b, a);
         Color actual = (Color)f.Invoke(c, new[] { sourceValue })!;
-        object? convertBack = t.Invoke(c, new object[] { actual })!;
+        object convertBack = t.Invoke(c, new object[] { actual })!;
 
         Assert.Multiple(() =>
         {

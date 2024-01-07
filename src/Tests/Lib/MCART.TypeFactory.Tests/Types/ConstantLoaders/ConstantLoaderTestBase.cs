@@ -26,8 +26,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using System.Reflection.Emit;
 using NUnit.Framework;
+using System.Reflection.Emit;
 using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.TypeFactory.Tests.Types.ConstantLoaders;
@@ -42,7 +42,7 @@ public abstract class ConstantLoaderTestBase<T> : TypeFactoryTestClassBase
     }
     
     [Test]
-    public void Loader_Emits_value_test()
+    public void Loader_emits_value_test()
     {
         int c = 0;
         foreach (var value in _testValueSource())

@@ -40,7 +40,13 @@ namespace TheXDS.MCART.Events;
 /// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
 public class RemovingItemEventArgs<T> : CancelEventArgs
 {
-    internal RemovingItemEventArgs(int index, T removedItem)
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase
+    /// <see cref="RemovingItemEventArgs{T}"/>.
+    /// </summary>
+    /// <param name="index">Índice del elemento que será removido.</param>
+    /// <param name="removedItem">Elemento que será removido.</param>
+    public RemovingItemEventArgs(int index, T removedItem)
     {
         RemovedItem = removedItem;
         Index = index;

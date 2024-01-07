@@ -1,4 +1,4 @@
-﻿// AddedItemEventArgsTests.cs
+﻿// ItemCreatedEventArgsTests.cs
 //
 // This file is part of Morgan's CLR Advanced Runtime (MCART)
 //
@@ -41,7 +41,7 @@ public class ItemCreatedEventArgsTests
     }
 
     [Test]
-    public void Can_convert_from_AddingItemEventArgs()
+    public void Can_convert_from_ItemCreatingEventArgs()
     {
         ItemCreatedEventArgs<int> evt = new ItemCreatingEventArgs<int>(10);
         Assert.That(evt.Value, Is.EqualTo(10));

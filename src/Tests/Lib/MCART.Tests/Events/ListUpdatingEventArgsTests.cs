@@ -1,4 +1,4 @@
-﻿// InsertingItemEventArgsTests.cs
+﻿// ListUpdatingEventArgsTests.cs
 //
 // This file is part of Morgan's CLR Advanced Runtime (MCART)
 //
@@ -29,23 +29,31 @@
 using NUnit.Framework;
 using System.ComponentModel;
 using TheXDS.MCART.Events;
+using TheXDS.MCART.Types;
 
 namespace TheXDS.MCART.Tests.Events;
 
-public class InsertingItemEventArgsTests
+public class ListUpdatingEventArgsTests
 {
     [Test]
-    public void Class_has_NewItem_property()
+    public void Class_has_AffectedItems_property()
     {
-        var evt = new InsertingItemEventArgs<char>(12, 'x');
-        Assert.That(evt.Index, Is.EqualTo(12));
-        Assert.That(evt.InsertedItem, Is.EqualTo('x'));
+        var evt = new ListUpdatingEventArgs<int>(ListUpdateType.ItemsAdded, new[] { 10 });
+        Assert.That(evt.AffectedItems, Is.EquivalentTo(new[] { 10 }));
+    }
+
+    [Test]
+    public void Class_has_UpdateType_property()
+    {
+        var evt = new ListUpdatingEventArgs<int>(ListUpdateType.ItemsAdded, new[] { 10 });
+        Assert.That(evt.UpdateType, Is.EqualTo(ListUpdateType.ItemsAdded));
     }
 
     [Test]
     public void Class_inherits_from_CancelEventArgs()
     {
-        var evt = new InsertingItemEventArgs<char>(12, 'x');
+        var evt = new ListUpdatingEventArgs<int>(ListUpdateType.ItemsAdded, new[] { 10 });
+        Assert.That(evt.Cancel, Is.False);
         Assert.That(evt, Is.AssignableTo<CancelEventArgs>());
     }
 }
