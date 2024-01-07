@@ -40,7 +40,6 @@ public class ProgressionEventArgsTests
         Assert.That(evt, Is.AssignableTo<ValueEventArgs<double>>());
     }
 
-
     [Test]
     public void Event_includes_Value_property()
     {
