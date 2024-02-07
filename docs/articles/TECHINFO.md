@@ -15,16 +15,13 @@ Directorio          | Contenido del directorio
 ./Art               | Archivos de recursos de arte. Contiene íconos e imágenes de MCART.
 ./Build             | Versiones compiladas y empaquetadas de las librerías distribuibles de MCART.
 ./docs              | Documentación estándar, y proyecto de DocFX para generar documentación de API.
-./Publish           | Repositorio de paquetes de NuGet de MCART que permite configurar orígenes locales.
-./src/Examples      | Varios ejemplos sobre el uso de MCART.
-./src/Extensions    | Extensiones especiales con funcionalidad muy específica y/o posibilidad de referencias externas.
+./src/Extras        | Extensiones especiales con funcionalidad muy específica y/o posibilidad de referencias externas.
 ./src/Lib           | Librerías auxiliares genéricas de MCART para la creación de ensamblados para distintas plataformas.
-./src/MCART         | Proyecto principal.
+./src/Lib/MCART     | Proyecto principal.
 ./src/Platform      | Proyectos de plataforma de UI.
 ./src/Shared        | Proyectos de código compartido.
 ./src/Targets       | Archivos de configuración de compilación.
 ./src/Tests         | Pruebas unitarias y de integración.
-./src/Utils         | Utilerías de desarrollo varias.
 ./vs-snippets       | Snippets de código para instalar en Visual Studio.
 
 ### Números de versión

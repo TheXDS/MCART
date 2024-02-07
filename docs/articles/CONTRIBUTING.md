@@ -100,10 +100,13 @@ convirtiéndose en una nueva rama independiente de MCART.
 Respecto a la decisión de utilizar una versión tan nueva del lenguaje, C# 10.0
 ofrece ciertas características de lenguaje sobre las cuales MCART depende.
 
-Es posible utilizar la aplicación *dotnet* incluída en el .Net SDK 6.0 para
+Es posible utilizar la aplicación *dotnet* incluída en el .Net SDK para
 compilar código de C# 10.0 en cualquier plataforma soportada.
 
-[.Net Core SDK (todas las plataformas)](https://www.microsoft.com/net/core)
+Es necesario instalar la version 6.0 del SDK, o una version posterior si además
+se incluye un *targeting pack* para .NET 6.0
+
+[SDK de .NET 6.0](https://dotnet.microsoft.com/)
 
 #### Proyectos de ejemplos
 Se incluyen algunas aplicaciones sencillas de prueba en la solución, su
