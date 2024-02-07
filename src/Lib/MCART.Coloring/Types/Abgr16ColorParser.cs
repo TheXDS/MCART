@@ -50,8 +50,8 @@ public class Abgr16ColorParser : IColorParser<short>
     {
         return new(
             (byte)((value & 0x1f) * 255 / 31).Clamp(0, 255),
-            (byte)(((value & 0x3e0) >> 5) * 255 / 31 - 1).Clamp(0, 255),
-            (byte)(((value & 0x7c00) >> 10) * 255 / 31 - 1).Clamp(0, 255),
+            (byte)((((value & 0x3e0) >> 5) * 255 / 31) - 1).Clamp(0, 255),
+            (byte)((((value & 0x7c00) >> 10) * 255 / 31) - 1).Clamp(0, 255),
             (byte)(((value & 0x8000) >> 15) * 255));
     }
 
