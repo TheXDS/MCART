@@ -160,7 +160,7 @@ public static class WpfUtils
     /// </returns>
     public static PathGeometry GetCircleArc(double radius, double startAngle, double endAngle, double thickness)
     {
-        Point cp = new(radius + thickness / 2, radius + thickness / 2);
+        Point cp = new(radius + (thickness / 2), radius + (thickness / 2));
         ArcSegment? arc = new()
         {
             IsLargeArc = endAngle - startAngle > 180.0,

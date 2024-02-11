@@ -55,7 +55,6 @@ public class ObservingCommandTests
             get => _testCanExecute;
             set => Change(ref _testCanExecute, value);
         }
-
         
         public bool GetTestCanExecute() => TestCanExecute;
     }
