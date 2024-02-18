@@ -8,7 +8,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -29,11 +29,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System;
 using System.Diagnostics.CodeAnalysis;
-using NUnit.Framework;
-using System.IO;
-using System.Linq;
 using System.Security;
 using System.Text;
 using TheXDS.MCART.Types.Extensions;
@@ -70,7 +66,7 @@ internal class PasswordStorageTests
             KeyLength = 2
         };
         var s = p.DumpSettings();
-        Assert.AreEqual(BitConverter.GetBytes(1234), s);
+        Assert.That(BitConverter.GetBytes(1234), Is.EqualTo(s));
     }
     
     [Test]
@@ -83,7 +79,7 @@ internal class PasswordStorageTests
         };
         var s = BitConverter.GetBytes(5678);
         p.ConfigureFrom(s);
-        Assert.AreEqual(5678, p.Settings);
+        Assert.That(5678, Is.EqualTo(p.Settings));
     }
 
     [Test]
@@ -99,7 +95,7 @@ internal class PasswordStorageTests
             0, 0, 0, 0, 0, 0, 0, 0
         };
 
-        Assert.AreEqual(expected, CreateHash<DummyPasswordStorage>(pw));
+        Assert.That(expected, Is.EqualTo(CreateHash<DummyPasswordStorage>(pw)));
     }
 
     [Test]
@@ -109,10 +105,10 @@ internal class PasswordStorageTests
         SecureString pw2 = "Test@123".ToSecureString();
         byte[] hash = CreateHash<DummyPasswordStorage>(pw1);
 
-        Assert.IsTrue(VerifyPassword(pw1, hash));
-        Assert.IsFalse(VerifyPassword(pw2, hash));
+        Assert.That(VerifyPassword(pw1, hash), Is.True);
+        Assert.That(VerifyPassword(pw2, hash), Is.False);
 
         hash[0] = (byte)'X';
-        Assert.IsNull(VerifyPassword(pw1, hash));
+        Assert.That(VerifyPassword(pw1, hash), Is.Null);
     }
 }

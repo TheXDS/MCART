@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -32,7 +32,6 @@ SOFTWARE.
 #pragma warning disable IDE0044
 #pragma warning disable IDE0051
 
-using NUnit.Framework;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
@@ -134,14 +133,14 @@ public class ObjectsTest
     [TestCase(typeof(string), false)]
     public void IsNumericTypeTest(Type type, bool result)
     {
-        Assert.AreEqual(result, type.IsNumericType());
+        Assert.That(result, Is.EqualTo(type.IsNumericType()));
     }
 
     [Test]
     public void AreAllNullTest()
     {
-        Assert.True(AreAllNull(null, null, null));
-        Assert.False(AreAllNull(0, null));
+        Assert.That(AreAllNull(null, null, null));
+        Assert.That(AreAllNull(0, null), Is.False);
     }
 
     [Test]
@@ -153,59 +152,59 @@ public class ObjectsTest
         Assert.Throws<ArgumentNullException>(() => ((FieldInfo[])null!).FieldsOf<int>());
         Assert.Throws<MissingFieldException>(() => ReflectionHelpers.FieldsOf<int>(typeof(TestClass2).GetFields(), tc));
 
-        Assert.AreEqual(tc.TestField, tc.FieldsOf<float>().FirstOrDefault());
-        Assert.AreEqual(tc.TestField, ReflectionHelpers.FieldsOf<float>(tc.GetType().GetFields(), tc).FirstOrDefault());
-        Assert.AreEqual(TestClass.StaticField, tc.GetType().FieldsOf<double>().FirstOrDefault());
-        Assert.AreEqual(TestClass.StaticField, ReflectionHelpers.FieldsOf<double>(tc.GetType().GetFields()).FirstOrDefault());
-        Assert.AreEqual(TestClass.StaticField, ReflectionHelpers.FieldsOf<double>(typeof(TestClass).GetFields()).FirstOrDefault());
+        Assert.That(tc.TestField, Is.EqualTo(tc.FieldsOf<float>().FirstOrDefault()));
+        Assert.That(tc.TestField, Is.EqualTo(ReflectionHelpers.FieldsOf<float>(tc.GetType().GetFields(), tc).FirstOrDefault()));
+        Assert.That(TestClass.StaticField, Is.EqualTo(tc.GetType().FieldsOf<double>().FirstOrDefault()));
+        Assert.That(TestClass.StaticField, Is.EqualTo(ReflectionHelpers.FieldsOf<double>(tc.GetType().GetFields()).FirstOrDefault()));
+        Assert.That(TestClass.StaticField, Is.EqualTo(ReflectionHelpers.FieldsOf<double>(typeof(TestClass).GetFields()).FirstOrDefault()));
     }
     
     [Test]
     public void HasAttrTest_Enum()
     {
-        Assert.False(TestEnum.Zero.HasAttribute<MCART.Attributes.DescriptionAttribute>());
-        Assert.True(TestEnum.One.HasAttribute<MCART.Attributes.DescriptionAttribute>());
+        Assert.That(TestEnum.Zero.HasAttribute<MCART.Attributes.DescriptionAttribute>(), Is.False);
+        Assert.That(TestEnum.One.HasAttribute<MCART.Attributes.DescriptionAttribute>());
 
-        Assert.False(TestEnum.Zero.HasAttribute(out MCART.Attributes.DescriptionAttribute? z));
-        Assert.True(TestEnum.One.HasAttribute(out MCART.Attributes.DescriptionAttribute? o));
+        Assert.That(TestEnum.Zero.HasAttribute(out MCART.Attributes.DescriptionAttribute? z), Is.False);
+        Assert.That(TestEnum.One.HasAttribute(out MCART.Attributes.DescriptionAttribute? o));
 
-        Assert.Null(z);
-        Assert.IsAssignableFrom<MCART.Attributes.DescriptionAttribute>(o);
-        Assert.AreEqual("One", o!.Value);
+        Assert.That(z, Is.Null);
+        Assert.That(o,Is.AssignableFrom<MCART.Attributes.DescriptionAttribute>());
+        Assert.That("One", Is.EqualTo(o!.Value));
 
-        Assert.False(((TestEnum)255).HasAttribute<MCART.Attributes.DescriptionAttribute>(out _));
+        Assert.That(((TestEnum)255).HasAttribute<MCART.Attributes.DescriptionAttribute>(out _), Is.False);
     }
 
     [Test]
     public void GetAttrTest()
     {
-        Assert.NotNull(typeof(MCART.Types.Point).Assembly.GetAttribute<AssemblyTitleAttribute>());
-        Assert.NotNull(MethodBase.GetCurrentMethod()?.GetAttribute<TestAttribute>());
-        Assert.NotNull(GetAttribute<AttrTestAttribute, ObjectsTest>());
-        Assert.NotNull(typeof(ObjectsTest).GetAttribute<AttrTestAttribute>());
+        Assert.That(typeof(MCART.Types.Point).Assembly.GetAttribute<AssemblyTitleAttribute>(), Is.Not.Null);
+        Assert.That(MethodBase.GetCurrentMethod()?.GetAttribute<TestAttribute>(), Is.Not.Null);
+        Assert.That(GetAttribute<AttrTestAttribute, ObjectsTest>(), Is.Not.Null);
+        Assert.That(typeof(ObjectsTest).GetAttribute<AttrTestAttribute>(), Is.Not.Null);
     }
 
     [Test]
     public void HasAttrTest_Assembly()
     {
-        Assert.True(typeof(MCART.Types.Point).Assembly.HasAttribute<AssemblyCopyrightAttribute>());
+        Assert.That(typeof(MCART.Types.Point).Assembly.HasAttribute<AssemblyCopyrightAttribute>());
     }
 
     [Test]
     public void HasAttrTest_Object()
     {
-        Assert.False(((object)TestEnum.Zero).HasAttribute(out MCART.Attributes.DescriptionAttribute? z));
-        Assert.True(((object)TestEnum.One).HasAttribute(out MCART.Attributes.DescriptionAttribute? o));
-        Assert.Null(z);
-        Assert.IsAssignableFrom<MCART.Attributes.DescriptionAttribute>(o);
-        Assert.AreEqual("One", o!.Value);
-        Assert.True(((object)typeof(MCART.Types.Point).Assembly).HasAttribute<AssemblyCopyrightAttribute>());
+        Assert.That(((object)TestEnum.Zero).HasAttribute(out MCART.Attributes.DescriptionAttribute? z), Is.False);
+        Assert.That(((object)TestEnum.One).HasAttribute(out MCART.Attributes.DescriptionAttribute? o));
+        Assert.That(z, Is.Null);
+        Assert.That(o, Is.AssignableFrom<MCART.Attributes.DescriptionAttribute>());
+        Assert.That("One", Is.EqualTo(o!.Value));
+        Assert.That(((object)typeof(MCART.Types.Point).Assembly).HasAttribute<AssemblyCopyrightAttribute>());
 
-        Assert.True(((object)MethodBase.GetCurrentMethod()!).HasAttribute<TestAttribute>(out _));
+        Assert.That(((object)MethodBase.GetCurrentMethod()!).HasAttribute<TestAttribute>(out _));
 
-        Assert.True(new TestClass().HasAttribute(out IdentifierAttribute? id));
-        Assert.IsAssignableFrom<IdentifierAttribute>(id);
-        Assert.AreEqual("FindTypeTest", id!.Value);
+        Assert.That(new TestClass().HasAttribute(out IdentifierAttribute? id));
+        Assert.That(id, Is.AssignableFrom<IdentifierAttribute>());
+        Assert.That("FindTypeTest", Is.EqualTo(id!.Value));
 
         Assert.Throws<ArgumentNullException>(() => ((object)null!).HasAttribute<MCART.Attributes.DescriptionAttribute>(out _));
     }
@@ -213,37 +212,37 @@ public class ObjectsTest
     [Test]
     public void HasAttrValueTest_Object()
     {
-        Assert.True(((object)TestEnum.One).HasAttrValue<MCART.Attributes.DescriptionAttribute, string?>(out string? o));
-        Assert.AreEqual("One", o);
+        Assert.That(((object)TestEnum.One).HasAttrValue<MCART.Attributes.DescriptionAttribute, string?>(out string? o));
+        Assert.That("One", Is.EqualTo(o));
 
-        Assert.True(new TestClass().HasAttrValue<IdentifierAttribute, string?>(out string? id));
-        Assert.AreEqual("FindTypeTest", id);
+        Assert.That(new TestClass().HasAttrValue<IdentifierAttribute, string?>(out string? id));
+        Assert.That("FindTypeTest", Is.EqualTo(id));
     }
 
     [Test]
     public void IsAnyNullTest()
     {
-        Assert.True(IsAnyNull(0, 1, null));
-        Assert.False(IsAnyNull(0, 1, 2, 3));
+        Assert.That(IsAnyNull(0, 1, null));
+        Assert.That(IsAnyNull(0, 1, 2, 3), Is.False);
     }
 
     [Test]
     public void IsEitherTest()
     {
         Type? t = typeof(int);
-        Assert.True(t.IsEither(typeof(bool), typeof(int)));
-        Assert.False(t.IsEither(typeof(bool), typeof(float)));
+        Assert.That(t.IsEither(typeof(bool), typeof(int)));
+        Assert.That(t.IsEither(typeof(bool), typeof(float)), Is.False);
 
-        Assert.True(t.IsEither(new HashSet<object> { typeof(bool), typeof(int) }));
-        Assert.False(t.IsEither(new HashSet<object> { typeof(bool), typeof(float) }));
+        Assert.That(t.IsEither(new HashSet<object> { typeof(bool), typeof(int) }));
+        Assert.That(t.IsEither(new HashSet<object> { typeof(bool), typeof(float) }), Is.False);
     }
 
     [Test]
     public void IsNeitherTest()
     {
         Type? t = typeof(int);
-        Assert.True(t.IsNeither(typeof(bool), typeof(float)));
-        Assert.False(t.IsNeither(typeof(bool), typeof(int)));
+        Assert.That(t.IsNeither(typeof(bool), typeof(float)));
+        Assert.That(t.IsNeither(typeof(bool), typeof(int)), Is.False);
     }
 
     [Test]
@@ -251,15 +250,15 @@ public class ObjectsTest
     {
         EventArgs ev = new ExceptionEventArgs(null);
         EventArgs e = new ExceptionEventArgs(null);
-        Assert.True(e.IsNot(ev));
+        Assert.That(e.IsNot(ev));
     }
 
     [Test]
     public void IsSignatureCompatibleTest()
     {
         MethodInfo? m = ReflectionHelpers.GetMethod<Action<int>>(() => TestClass.TestMethod)!;
-        Assert.True(m.IsSignatureCompatible<Action<int>>());
-        Assert.False(m.IsSignatureCompatible<Action<float>>());
+        Assert.That(m.IsSignatureCompatible<Action<int>>());
+        Assert.That(m.IsSignatureCompatible<Action<float>>(), Is.False);
     }
 
     [Test]
@@ -267,25 +266,25 @@ public class ObjectsTest
     {
         EventArgs? ev = EventArgs.Empty;
         EventArgs? e = ev;
-        Assert.True(e.Is(ev));
+        Assert.That(e.Is(ev));
     }
 
     [Test]
     public void ItselfTest()
     {
         ApplicationException? ex = new();
-        Assert.AreSame(ex, ex.Itself());
-        Assert.AreNotSame(ex, new ApplicationException());
-        Assert.AreNotSame(ex, null);
+        Assert.That(ex.Itself(), Is.Not.Null);
+        Assert.That(ex.Itself(), Is.SameAs(ex));
+        Assert.That(ex.Itself(), Is.Not.SameAs(new ApplicationException()));
     }
 
     [Test]
     public void PropertiesOfTest()
     {
         TestClass? tc = new();
-        Assert.AreEqual(tc.TestProperty, tc.PropertiesOf<int>().FirstOrDefault());
-        Assert.AreEqual(tc.TestProperty, tc.GetType().GetProperties().PropertiesOf<int>(tc).FirstOrDefault());
-        Assert.AreEqual(TestClass.ByteProperty, tc.GetType().GetProperties().PropertiesOf<byte>().FirstOrDefault());
+        Assert.That(tc.TestProperty, Is.EqualTo(tc.PropertiesOf<int>().FirstOrDefault()));
+        Assert.That(tc.TestProperty, Is.EqualTo(tc.GetType().GetProperties().PropertiesOf<int>(tc).FirstOrDefault()));
+        Assert.That(TestClass.ByteProperty, Is.EqualTo(tc.GetType().GetProperties().PropertiesOf<byte>().FirstOrDefault()));
     }
 
     [Test]
@@ -334,20 +333,22 @@ public class ObjectsTest
         System.Collections.IEnumerator? y = x.GetEnumerator();
         y.Reset();
         y.MoveNext();
-        Assert.AreSame(typeof(int), y.Current);
+        Assert.That(typeof(int), Is.SameAs(y.Current));
         y.MoveNext();
-        Assert.AreSame(typeof(string), y.Current);
+        Assert.That(typeof(string), Is.SameAs(y.Current));
         y.MoveNext();
-        Assert.AreSame(typeof(float), y.Current);
+        Assert.That(typeof(float), Is.SameAs(y.Current));
     }
 
     [Test]
     public void WhichAreNullTest()
     {
-        Assert.NotNull(Array.Empty<object>().WhichAreNull());
-        Assert.AreEqual(Array.Empty<int>(), WhichAreNull(new object(), new object()).ToArray());
-        Assert.AreEqual(new[] { 1 }, WhichAreNull(new object(), null, new object(), new object()).ToArray());
-        Assert.AreEqual(new[] { 2, 3 }, WhichAreNull(new object(), new object(), null, null).ToArray());
+        Assert.That(Array.Empty<object>().WhichAreNull(), Is.Not.Null);
+        Assert.That(Array.Empty<object>().WhichAreNull(), Is.Empty);
+        Assert.That(WhichAreNull(new object(), new object()), Is.Not.Null);
+        Assert.That(WhichAreNull(new object(), new object()), Is.Empty);
+        Assert.That(WhichAreNull(new object(), null, new object(), new object()), Is.EquivalentTo(new[] { 1 }));
+        Assert.That(WhichAreNull(new object(), new object(), null, null), Is.EquivalentTo(new[] { 2, 3 }));
         Assert.Throws<ArgumentNullException>(() => ((IEnumerable<object?>)null!).WhichAreNull().ToArray());
     }
 
@@ -355,28 +356,28 @@ public class ObjectsTest
     public void WhichAreTest()
     {
         object? x = new();
-        Assert.AreEqual(Array.Empty<int>(), x.WhichAre(new object(), 1, 0.0f).ToArray());
-        Assert.AreEqual(new[] { 2 }, x.WhichAre(new object(), 1, x).ToArray());
-        Assert.AreEqual(new[] { 1, 3 }, x.WhichAre(new object(), x, 0, x).ToArray());
+        Assert.That(x.WhichAre(new object(), 1, 0.0f), Is.Empty);
+        Assert.That(x.WhichAre(new object(), 1, x), Is.EquivalentTo(new[] { 2 }));
+        Assert.That(x.WhichAre(new object(), x, 0, x), Is.EquivalentTo(new[] { 1, 3 }));
     }
 
     [Test]
     public void WithSignatureTest()
     {
-        Assert.Null(typeof(TestClass).GetMethods().WithSignature<Action<short>>().FirstOrDefault());
+        Assert.That(typeof(TestClass).GetMethods().WithSignature<Action<short>>().FirstOrDefault(), Is.Null);
         Action<int>? m = typeof(TestClass).GetMethods().WithSignature<Action<int>>().FirstOrDefault()!;
-        Assert.NotNull(m);
-        m(1);
+        Assert.That(m, Is.Not.Null);
+        Assert.That(() => m(1), Throws.Nothing);
     }
 
     [Test]
     public void WithSignatureTest_object()
     {
         TestClass? tc = new();
-        Assert.Null(typeof(TestClass).GetMethods().WithSignature<Action<double>>(tc).FirstOrDefault());
+        Assert.That(typeof(TestClass).GetMethods().WithSignature<Action<double>>(tc).FirstOrDefault(), Is.Null);
         Action<float>? m = typeof(TestClass).GetMethods().WithSignature<Action<float>>(tc).FirstOrDefault()!;
-        Assert.NotNull(m);
-        m(1.0f);
+        Assert.That(m, Is.Not.Null);
+        Assert.That(() => m(1.0f), Throws.Nothing);
     }
 
     [Test]
@@ -384,26 +385,26 @@ public class ObjectsTest
     {
         MethodInfo? m = GetType().GetMethod(nameof(TestEventHandler))!;
 
-        Assert.True(TryCreateDelegate<EventHandler>(m, this, out _));
-        Assert.False(TryCreateDelegate<EventHandler>(m, null!, out _));
-        Assert.False(TryCreateDelegate<Action>(m, this, out _));
-        Assert.False(TryCreateDelegate<Action<int>>(m, this, out _));
-        Assert.False(TryCreateDelegate<EventHandler>(null!, out _));
-        Assert.False(TryCreateDelegate<Action>(m, out _));
-        Assert.False(TryCreateDelegate<Action<int>>(m, out _));
+        Assert.That(TryCreateDelegate<EventHandler>(m, this, out _));
+        Assert.That(TryCreateDelegate<EventHandler>(m, null!, out _), Is.False);
+        Assert.That(TryCreateDelegate<Action>(m, this, out _), Is.False);
+        Assert.That(TryCreateDelegate<Action<int>>(m, this, out _), Is.False);
+        Assert.That(TryCreateDelegate<EventHandler>(null!, out _), Is.False);
+        Assert.That(TryCreateDelegate<Action>(m, out _), Is.False);
+        Assert.That(TryCreateDelegate<Action<int>>(m, out _), Is.False);
     }
 
     [Test]
     public void FromBytes_Test()
     {
-        Assert.AreEqual(1000000, FromBytes<int>(new byte[] { 64, 66, 15, 0 }));
-        Assert.AreEqual(123456.789m, FromBytes<decimal>(new byte[] { 0, 0, 3, 0, 0, 0, 0, 0, 21, 205, 91, 7, 0, 0, 0, 0 }));
+        Assert.That(1000000, Is.EqualTo(FromBytes<int>(new byte[] { 64, 66, 15, 0 })));
+        Assert.That(123456.789m, Is.EqualTo(FromBytes<decimal>(new byte[] { 0, 0, 3, 0, 0, 0, 0, 0, 21, 205, 91, 7, 0, 0, 0, 0 })));
     }
 
     [Test]
     public void GetBytes_Test()
     {
-        Assert.AreEqual(new byte[] { 64, 66, 15, 0 }, GetBytes(1000000));
-        Assert.AreEqual(new byte[] { 0, 0, 3, 0, 0, 0, 0, 0, 21, 205, 91, 7, 0, 0, 0, 0 }, GetBytes(123456.789m));
+        Assert.That(new byte[] { 64, 66, 15, 0 }, Is.EqualTo(GetBytes(1000000)));
+        Assert.That(new byte[] { 0, 0, 3, 0, 0, 0, 0, 0, 21, 205, 91, 7, 0, 0, 0, 0 }, Is.EqualTo(GetBytes(123456.789m)));
     }
 }

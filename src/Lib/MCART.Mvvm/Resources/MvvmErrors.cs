@@ -6,7 +6,7 @@
 //      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 //
 // Released under the MIT License (MIT)
-// Copyright © 2011 - 2023 César Andrés Morgan
+// Copyright © 2011 - 2024 César Andrés Morgan
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of
 // this software and associated documentation files (the “Software”), to deal in
@@ -36,7 +36,7 @@ namespace TheXDS.MCART.Resources
         /// Crea una nueva instancia de un
         /// <see cref="InvalidOperationException"/> con un mensaje
         /// predeterminado que indica que la llamada al método 
-        /// <see cref="TheXDS.MCART.Types.Base.NotifyPropertyChangeBase.Change{T}(ref T, T, string)"/> 
+        /// <see cref="Types.Base.NotifyPropertyChangeBase.Change{T}(ref T, T, string)"/> 
         /// es inválida porque se ha llamado desde fuera de un bloque
         /// <see langword="set"/> de una propiedad en un objeto que hereda de
         /// <see cref="Types.Base.NotifyPropertyChangeBase"/> o de una de sus
@@ -55,7 +55,7 @@ namespace TheXDS.MCART.Resources
         /// Crea una nueva instancia de un
         /// <see cref="InvalidOperationException"/> con un mensaje
         /// predeterminado que indica que la llamada al método 
-        /// <see cref="TheXDS.MCART.Types.Base.NotifyPropertyChangeBase.Change{T}(ref T, T, string)"/> 
+        /// <see cref="Types.Base.NotifyPropertyChangeBase.Change{T}(ref T, T, string)"/> 
         /// es inválida porque se ha llamado desde una propiedad distinta a la que
         /// ha cambiado de valor, o bien, se ha especificado un valor para el
         /// argumento <c>propertyName</c> y este no coincide con el nombre de la

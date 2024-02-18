@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -30,14 +30,7 @@ SOFTWARE.
 
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Windows;
-using System.Windows.Markup;
 using TheXDS.MCART.Helpers;
-
-[assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)]
-[assembly: XmlnsDefinition("http://schemas.thexds.local/mcart", "TheXDS.MCART.Types", AssemblyName = "MCART.Wpf.Common")]
-[assembly: XmlnsDefinition("http://schemas.thexds.local/mcart", "TheXDS.MCART.ValueConverters", AssemblyName = "MCART.Wpf.Common")]
-[assembly: XmlnsPrefix("http://schemas.thexds.local/mcart", "mcart")]
 
 namespace TheXDS.MCART.Misc;
 

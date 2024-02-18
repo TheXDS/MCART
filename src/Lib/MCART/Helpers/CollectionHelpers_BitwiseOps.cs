@@ -9,7 +9,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -153,7 +153,7 @@ public static partial class CollectionHelpers
     /// El resultado de aplicar el operador And a todos los bits de la 
     /// colección.
     /// </returns>
-    /// <exception cref="System.ArgumentNullException">
+    /// <exception cref="ArgumentNullException">
     /// Se produce si <paramref name="collection"/> es
     /// <see langword="null"/>.
     /// </exception>
@@ -196,7 +196,7 @@ public static partial class CollectionHelpers
     /// El resultado de aplicar el operador And a todos los bits de la 
     /// colección.
     /// </returns>
-    /// <exception cref="System.ArgumentNullException">
+    /// <exception cref="ArgumentNullException">
     /// Se produce si <paramref name="collection"/> es
     /// <see langword="null"/>.
     /// </exception>
@@ -218,7 +218,7 @@ public static partial class CollectionHelpers
     /// El resultado de aplicar el operador And a todos los bits de la 
     /// colección.
     /// </returns>
-    /// <exception cref="System.ArgumentNullException">
+    /// <exception cref="ArgumentNullException">
     /// Se produce si <paramref name="collection"/> es
     /// <see langword="null"/>.
     /// </exception>
@@ -240,7 +240,7 @@ public static partial class CollectionHelpers
     /// El resultado de aplicar el operador And a todos los bits de la 
     /// colección.
     /// </returns>
-    /// <exception cref="System.ArgumentNullException">
+    /// <exception cref="ArgumentNullException">
     /// Se produce si <paramref name="collection"/> es
     /// <see langword="null"/>.
     /// </exception>
@@ -367,7 +367,7 @@ public static partial class CollectionHelpers
     /// El resultado de aplicar el operador OR a todos los bits de la 
     /// colección.
     /// </returns>
-    /// <exception cref="System.ArgumentNullException">
+    /// <exception cref="ArgumentNullException">
     /// Se produce si <paramref name="collection"/> es
     /// <see langword="null"/>.
     /// </exception>
@@ -410,7 +410,7 @@ public static partial class CollectionHelpers
     /// El resultado de aplicar el operador OR a todos los bits de la 
     /// colección.
     /// </returns>
-    /// <exception cref="System.ArgumentNullException">
+    /// <exception cref="ArgumentNullException">
     /// Se produce si <paramref name="collection"/> es
     /// <see langword="null"/>.
     /// </exception>
@@ -432,7 +432,7 @@ public static partial class CollectionHelpers
     /// El resultado de aplicar el operador OR a todos los bits de la 
     /// colección.
     /// </returns>
-    /// <exception cref="System.ArgumentNullException">
+    /// <exception cref="ArgumentNullException">
     /// Se produce si <paramref name="collection"/> es
     /// <see langword="null"/>.
     /// </exception>
@@ -454,7 +454,7 @@ public static partial class CollectionHelpers
     /// El resultado de aplicar el operador OR a todos los bits de la 
     /// colección.
     /// </returns>
-    /// <exception cref="System.ArgumentNullException">
+    /// <exception cref="ArgumentNullException">
     /// Se produce si <paramref name="collection"/> es
     /// <see langword="null"/>.
     /// </exception>
@@ -581,7 +581,7 @@ public static partial class CollectionHelpers
     /// El resultado de aplicar el operador Xor a todos los bits de la 
     /// colección.
     /// </returns>
-    /// <exception cref="System.ArgumentNullException">
+    /// <exception cref="ArgumentNullException">
     /// Se produce si <paramref name="collection"/> es
     /// <see langword="null"/>.
     /// </exception>
@@ -624,7 +624,7 @@ public static partial class CollectionHelpers
     /// El resultado de aplicar el operador Xor a todos los bits de la 
     /// colección.
     /// </returns>
-    /// <exception cref="System.ArgumentNullException">
+    /// <exception cref="ArgumentNullException">
     /// Se produce si <paramref name="collection"/> es
     /// <see langword="null"/>.
     /// </exception>
@@ -646,7 +646,7 @@ public static partial class CollectionHelpers
     /// El resultado de aplicar el operador Xor a todos los bits de la 
     /// colección.
     /// </returns>
-    /// <exception cref="System.ArgumentNullException">
+    /// <exception cref="ArgumentNullException">
     /// Se produce si <paramref name="collection"/> es
     /// <see langword="null"/>.
     /// </exception>
@@ -668,7 +668,7 @@ public static partial class CollectionHelpers
     /// El resultado de aplicar el operador Xor a todos los bits de la 
     /// colección.
     /// </returns>
-    /// <exception cref="System.ArgumentNullException">
+    /// <exception cref="ArgumentNullException">
     /// Se produce si <paramref name="collection"/> es
     /// <see langword="null"/>.
     /// </exception>

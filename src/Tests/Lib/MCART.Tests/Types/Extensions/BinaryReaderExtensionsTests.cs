@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,6 +28,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+#pragma warning disable IDE0250 // Convertir estructura en "readonly"
+#pragma warning disable IDE0051 // Quitar miembros privados no utilizados
+
 using System.Diagnostics.CodeAnalysis;
 
 namespace TheXDS.MCART.Tests.Types.Extensions;
@@ -44,7 +47,7 @@ public class BinaryReaderExtensionsTests
     public void GetBinaryReadMethod_Test()
     {
         System.Reflection.MethodInfo e = ReflectionHelpers.GetMethod<BinaryReader, Func<int>>(o => o.ReadInt32);
-        Assert.AreEqual(e, BinaryReaderExtensions.GetBinaryReadMethod(typeof(int)));
+        Assert.That(e, Is.EqualTo(BinaryReaderExtensions.GetBinaryReadMethod(typeof(int))));
     }
 
     [Test]
@@ -58,12 +61,12 @@ public class BinaryReaderExtensionsTests
         ms.Seek(0, SeekOrigin.Begin);
         using (BinaryReader br = new(ms, Encoding.Default, true))
         {
-            Assert.AreEqual(DayOfWeek.Tuesday, br.ReadEnum<DayOfWeek>());
+            Assert.That(DayOfWeek.Tuesday, Is.EqualTo(br.ReadEnum<DayOfWeek>()));
         }
         ms.Seek(0, SeekOrigin.Begin);
         using (BinaryReader br = new(ms, Encoding.Default))
         {
-            Assert.AreEqual(DayOfWeek.Tuesday, br.ReadEnum(typeof(DayOfWeek)));
+            Assert.That(DayOfWeek.Tuesday, Is.EqualTo(br.ReadEnum(typeof(DayOfWeek))));
         }
     }
 
@@ -78,7 +81,7 @@ public class BinaryReaderExtensionsTests
         }
         ms.Seek(0, SeekOrigin.Begin);
         using BinaryReader br = new(ms);
-        Assert.AreEqual(a, br.ReadArray(typeof(int[,])));
+        Assert.That(a, Is.EqualTo(br.ReadArray(typeof(int[,]))));
     }
 
     [Test]
@@ -92,7 +95,7 @@ public class BinaryReaderExtensionsTests
         }
         ms.Seek(0, SeekOrigin.Begin);
         using BinaryReader br = new(ms);
-        Assert.AreEqual(a, br.ReadArray<int>());
+        Assert.That(a, Is.EqualTo(br.ReadArray<int>()));
     }
 
     [Test]
@@ -107,7 +110,7 @@ public class BinaryReaderExtensionsTests
         }
         ms.Seek(0, SeekOrigin.Begin);
         using BinaryReader br = new(ms);
-        Assert.AreEqual(g, br.ReadGuid());
+        Assert.That(g, Is.EqualTo(br.ReadGuid()));
     }
 
     [Test]
@@ -122,7 +125,7 @@ public class BinaryReaderExtensionsTests
         }
         ms.Seek(0, SeekOrigin.Begin);
         using BinaryReader br = new(ms);
-        Assert.AreEqual(g, br.ReadDateTime());
+        Assert.That(g, Is.EqualTo(br.ReadDateTime()));
     }
 
     [Test]
@@ -137,7 +140,7 @@ public class BinaryReaderExtensionsTests
         }
         ms.Seek(0, SeekOrigin.Begin);
         using BinaryReader br = new(ms);
-        Assert.AreEqual(g, br.ReadTimeSpan());
+        Assert.That(g, Is.EqualTo(br.ReadTimeSpan()));
     }
 
     [Test]
@@ -153,8 +156,8 @@ public class BinaryReaderExtensionsTests
         }
         ms.Seek(0, SeekOrigin.Begin);
         using BinaryReader br = new(ms);
-        Assert.AreEqual(g, br.Read<TimeSpan>());
-        Assert.AreEqual(DayOfWeek.Tuesday, br.Read<DayOfWeek>());
+        Assert.That(g, Is.EqualTo(br.Read<TimeSpan>()));
+        Assert.That(DayOfWeek.Tuesday, Is.EqualTo(br.Read<DayOfWeek>()));
     }
 
     [Test]
@@ -169,7 +172,7 @@ public class BinaryReaderExtensionsTests
         using BinaryReader br = new(ms);
 
         decimal v = br.MarshalReadStruct<decimal>();
-        Assert.AreEqual(123456.789m, v);
+        Assert.That(123456.789m, Is.EqualTo(v));
     }
 
     [Test]
@@ -189,18 +192,18 @@ public class BinaryReaderExtensionsTests
         using (BinaryReader br = new(ms, Encoding.Default, true))
         {
             TestStruct v = br.Read<TestStruct>();
-            Assert.AreEqual(1000000, v.Int32Value);
-            Assert.True(v.BoolValue);
-            Assert.AreEqual("test", v.StringValue);
+            Assert.That(1000000, Is.EqualTo(v.Int32Value));
+            Assert.That(v.BoolValue);
+            Assert.That("test", Is.EqualTo(v.StringValue));
         }
 
         ms.Seek(0, SeekOrigin.Begin);
         using (BinaryReader br = new(ms))
         {
             TestStruct v = br.ReadStruct<TestStruct>();
-            Assert.AreEqual(1000000, v.Int32Value);
-            Assert.True(v.BoolValue);
-            Assert.AreEqual("test", v.StringValue);
+            Assert.That(1000000, Is.EqualTo(v.Int32Value));
+            Assert.That(v.BoolValue);
+            Assert.That("test", Is.EqualTo(v.StringValue));
         }
     }
 
@@ -213,12 +216,10 @@ public class BinaryReaderExtensionsTests
             bw.WriteStruct(new TestStruct2(5120, "test"));
         }
         ms.Seek(0, SeekOrigin.Begin);
-        using (BinaryReader br = new(ms, Encoding.Default, true))
-        {
-            TestStruct2 v = br.ReadStruct<TestStruct2>();
-            Assert.AreEqual(5120, v.IntProp);
-            Assert.AreEqual("test", v.StrProp);
-        }
+        using BinaryReader br = new(ms, Encoding.Default, true);
+        TestStruct2 v = br.ReadStruct<TestStruct2>();
+        Assert.That(5120, Is.EqualTo(v.IntProp));
+        Assert.That("test", Is.EqualTo(v.StrProp));
     }
 
     [ExcludeFromCodeCoverage]

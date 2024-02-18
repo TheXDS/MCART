@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,14 +28,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Tests.Types.Extensions;
-using NUnit.Framework;
-using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types.Extensions;
+
+namespace TheXDS.MCART.Tests.Types.Extensions;
 
 public class DelegateExtensionsTests
 {
@@ -51,7 +50,7 @@ public class DelegateExtensionsTests
     {
         static Delegate Get(Expression<Func<Action>> sel) => Delegate.CreateDelegate(typeof(Action), ReflectionHelpers.GetMethod(sel));
 
-        Assert.AreEqual("Method 1", Get(() => Method1).NameOf());
-        Assert.AreEqual("Method2", Get(() => Method2).NameOf());
+        Assert.That("Method 1", Is.EqualTo(Get(() => Method1).NameOf()));
+        Assert.That("Method2", Is.EqualTo(Get(() => Method2).NameOf()));
     }
 }

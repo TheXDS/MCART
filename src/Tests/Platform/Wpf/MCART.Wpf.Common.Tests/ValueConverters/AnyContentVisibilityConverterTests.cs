@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -31,7 +31,6 @@ SOFTWARE.
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
-using NUnit.Framework;
 using TheXDS.MCART.ValueConverters;
 
 namespace TheXDS.MCART.Wpf.Common.Tests.ValueConverters;
@@ -43,14 +42,14 @@ public class AnyContentVisibilityConverterTests
     public void Convert_Test()
     {
         AnyContentVisibilityConverter c = new();
-        Assert.AreEqual(Visibility.Visible, c.Convert(new Grid { Children = { new TextBlock() } }, typeof(Visibility), null!, CultureInfo.CurrentCulture));
-        Assert.AreEqual(Visibility.Collapsed, c.Convert(new Grid(), typeof(Visibility), null!, CultureInfo.CurrentCulture));
+        Assert.That(Visibility.Visible, Is.EqualTo(c.Convert(new Grid { Children = { new TextBlock() } }, typeof(Visibility), null!, CultureInfo.CurrentCulture)));
+        Assert.That(Visibility.Collapsed, Is.EqualTo(c.Convert(new Grid(), typeof(Visibility), null!, CultureInfo.CurrentCulture)));
 
-        Assert.AreEqual(Visibility.Visible, c.Convert(new Border { Child = new TextBlock() }, typeof(Visibility), null!, CultureInfo.CurrentCulture));
-        Assert.AreEqual(Visibility.Collapsed, c.Convert(new Border(), typeof(Visibility), null!, CultureInfo.CurrentCulture));
+        Assert.That(Visibility.Visible, Is.EqualTo(c.Convert(new Border { Child = new TextBlock() }, typeof(Visibility), null!, CultureInfo.CurrentCulture)));
+        Assert.That(Visibility.Collapsed, Is.EqualTo(c.Convert(new Border(), typeof(Visibility), null!, CultureInfo.CurrentCulture)));
 
-        Assert.AreEqual(Visibility.Visible, c.Convert(new ContentControl { Content = new TextBlock() }, typeof(Visibility), null!, CultureInfo.CurrentCulture));
-        Assert.AreEqual(Visibility.Collapsed, c.Convert(new ContentControl(), typeof(Visibility), null!, CultureInfo.CurrentCulture));
+        Assert.That(Visibility.Visible, Is.EqualTo(c.Convert(new ContentControl { Content = new TextBlock() }, typeof(Visibility), null!, CultureInfo.CurrentCulture)));
+        Assert.That(Visibility.Collapsed, Is.EqualTo(c.Convert(new ContentControl(), typeof(Visibility), null!, CultureInfo.CurrentCulture)));
     }
 
     [Test]

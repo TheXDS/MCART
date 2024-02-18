@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,10 +28,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Tests.Attributes;
-using NUnit.Framework;
-using System;
 using TheXDS.MCART.Attributes;
+
+namespace TheXDS.MCART.Tests.Attributes;
 
 public class LicenseTextAttributeTests
 {
@@ -40,12 +39,12 @@ public class LicenseTextAttributeTests
     {
         MCART.Resources.License? a = new LicenseTextAttribute("Title", "Test").GetLicense(null!);
 
-        Assert.AreEqual("Title", a.Name);
-        Assert.AreEqual("Test", a.LicenseContent);
+        Assert.That("Title", Is.EqualTo(a.Name));
+        Assert.That("Test", Is.EqualTo(a.LicenseContent));
 
         a = new LicenseTextAttribute("Title\nTest").GetLicense(null!);
-        Assert.AreEqual("Title", a.Name);
-        Assert.AreEqual("Title\nTest", a.LicenseContent);
+        Assert.That("Title", Is.EqualTo(a.Name));
+        Assert.That("Title\nTest", Is.EqualTo(a.LicenseContent));
     }
 
     [Test]

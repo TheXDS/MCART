@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,11 +28,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Resources;
@@ -280,7 +277,7 @@ public static class EnumExtensions
     public static bool HasAttrValue<TAttribute, TValue>(this Enum enumValue, out TValue value)
         where TAttribute : Attribute, IValueAttribute<TValue>
     {
-        bool retVal = HasAttribute<TAttribute>(enumValue, out TAttribute? attribute);
+        bool retVal = HasAttribute(enumValue, out TAttribute? attribute);
         value = retVal ? attribute!.Value : default!;
         return retVal;
     }
@@ -332,7 +329,7 @@ public static class EnumExtensions
     /// </returns>
     public static T? GetAttribute<T>(this Enum enumValue) where T : Attribute
     {
-        HasAttribute<T>(enumValue, out T? attribute);
+        HasAttribute(enumValue, out T? attribute);
         return attribute;
     }
 

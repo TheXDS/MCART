@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using NUnit.Framework;
 using System.Diagnostics.CodeAnalysis;
 using TheXDS.MCART.Types.Base;
 using TheXDS.MCART.Types.Extensions;
@@ -73,10 +72,10 @@ public class DisposableTests
         DisposableOne m1 = new();
         using (m1)
         {
-            Assert.False(m1.DidOnDisposeRun);
+            Assert.That(m1.DidOnDisposeRun, Is.False);
         }
-        Assert.True(m1.IsDisposed);
-        Assert.True(m1.DidOnDisposeRun);
+        Assert.That(m1.IsDisposed);
+        Assert.That(m1.DidOnDisposeRun);
     }
 
     [Test]
@@ -84,12 +83,12 @@ public class DisposableTests
     {
         DisposableOne m1 = new();
         m1.Dispose();
-        Assert.IsTrue(m1.IsDisposed);
-        Assert.IsTrue(m1.DidOnDisposeRun);
+        Assert.That(m1.IsDisposed);
+        Assert.That(m1.DidOnDisposeRun);
         m1.Dispose();
         m1.DidOnDisposeRun = false;
-        Assert.IsTrue(m1.IsDisposed);
-        Assert.IsFalse(m1.DidOnDisposeRun);
+        Assert.That(m1.IsDisposed);
+        Assert.That(m1.DidOnDisposeRun, Is.False);
     }
 
     [Test]
@@ -98,17 +97,17 @@ public class DisposableTests
         DisposableOne m1 = new();
         using (m1)
         {
-            Assert.False(m1.IsDisposed);
-            Assert.False(m1.ShouldFinalize);
+            Assert.That(m1.IsDisposed, Is.False);
+            Assert.That(m1.ShouldFinalize, Is.False);
         }
-        Assert.True(m1.IsDisposed);
+        Assert.That(m1.IsDisposed);
 
         DisposableTwo m2 = new();
         using (m2)
         {
-            Assert.False(m2.IsDisposed);
-            Assert.True(m2.ShouldFinalize);
+            Assert.That(m2.IsDisposed, Is.False);
+            Assert.That(m2.ShouldFinalize);
         }
-        Assert.True(m2.IsDisposed);
+        Assert.That(m2.IsDisposed);
     }
 }

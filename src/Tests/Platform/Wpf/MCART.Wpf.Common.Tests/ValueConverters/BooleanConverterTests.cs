@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -29,7 +29,6 @@ SOFTWARE.
 */
 
 using System.Globalization;
-using NUnit.Framework;
 using TheXDS.MCART.ValueConverters;
 
 namespace TheXDS.MCART.Wpf.Common.Tests.ValueConverters;
@@ -41,8 +40,8 @@ public class BooleanConverterTests
     {
         BooleanConverter<int>? c = new(5, -5);
 
-        Assert.AreEqual(5, c.True);
-        Assert.AreEqual(-5, c.False);
+        Assert.That(5, Is.EqualTo(c.True));
+        Assert.That(-5, Is.EqualTo(c.False));
     }
 
     [Test]
@@ -50,16 +49,16 @@ public class BooleanConverterTests
     {
         BooleanConverter<int>? c = new(5, -5);
 
-        Assert.AreEqual(5, c.Convert(true, typeof(int), null, CultureInfo.CurrentCulture));
-        Assert.AreEqual(-5, c.Convert(false, typeof(int), null, CultureInfo.CurrentCulture));
+        Assert.That(5, Is.EqualTo(c.Convert(true, typeof(int), null, CultureInfo.CurrentCulture)));
+        Assert.That(-5, Is.EqualTo(c.Convert(false, typeof(int), null, CultureInfo.CurrentCulture)));
     }
 
     [Test]
     public void Failure_Test()
     {
         BooleanConverter<int>? c = new(5, -5);
-        Assert.Null(c.Convert(3, typeof(int), null, CultureInfo.CurrentCulture));
-        Assert.Null(c.Convert("Test", typeof(int), null, CultureInfo.CurrentCulture));
+        Assert.That(c.Convert(3, typeof(int), null, CultureInfo.CurrentCulture), Is.Null);
+        Assert.That(c.Convert("Test", typeof(int), null, CultureInfo.CurrentCulture), Is.Null);
     }
 
     [Test]
@@ -67,8 +66,8 @@ public class BooleanConverterTests
     {
         BooleanConverter<int>? c = new(5, -5);
 
-        Assert.True((bool)c.ConvertBack(5, typeof(int), null, CultureInfo.CurrentCulture)!);
-        Assert.False((bool)c.ConvertBack(-5, typeof(int), null, CultureInfo.CurrentCulture)!);
-        Assert.Null(c.ConvertBack(2, typeof(int), null, CultureInfo.CurrentCulture));
+        Assert.That((bool)c.ConvertBack(5, typeof(int), null, CultureInfo.CurrentCulture)!, Is.True);
+        Assert.That((bool)c.ConvertBack(-5, typeof(int), null, CultureInfo.CurrentCulture)!, Is.False);
+        Assert.That(c.ConvertBack(2, typeof(int), null, CultureInfo.CurrentCulture), Is.Null);
     }
 }

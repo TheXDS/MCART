@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using NUnit.Framework;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using TheXDS.MCART.Types.Base;
@@ -53,9 +52,9 @@ public class EntityViewModelTests
     public void Entity_test()
     {
         TestViewModel vm = new();
-        Assert.IsNull(vm.Entity);
+        Assert.That(vm.Entity, Is.Null);
         vm.Entity = new TestModel();
-        Assert.IsInstanceOf<TestModel>(vm.Entity);
+        Assert.That(vm.Entity, Is.InstanceOf<TestModel>());
     }
 
     [Test]
@@ -64,14 +63,14 @@ public class EntityViewModelTests
         TestViewModel vm = new() { Entity = new() { Prop = 1 } };
         TestModel m = new() { Prop = 2 };
         TestEvent<TestViewModel, PropertyChangedEventHandler, PropertyChangedEventArgs>(vm, nameof(TestViewModel.PropertyChanged), p => p.Update(m));
-        Assert.AreEqual(2, vm.Entity.Prop);
+        Assert.That(2, Is.EqualTo(vm.Entity.Prop));
     }
 
     [Test]
     public void Refresh_on_null_entity_test()
     {
         TestViewModel vm = new();
-        Assert.IsNull(vm.Entity);
+        Assert.That(vm.Entity, Is.Null);
         TestEvent<TestViewModel, PropertyChangedEventHandler, PropertyChangedEventArgs>(vm, nameof(TestViewModel.PropertyChanged), p => p.Refresh(), false);
     }
 
@@ -85,24 +84,24 @@ public class EntityViewModelTests
                 Prop = 1
             }
         };
-        Assert.IsInstanceOf<TestModel>((TestModel)vm);
+        Assert.That((TestModel)vm, Is.InstanceOf<TestModel>());
     }
 
     [Test]
     public void IEntityViewModel_default_implementation_test()
     {
         IEntityViewModel vm = new TestViewModel();
-        Assert.IsNull(vm.Entity);
+        Assert.That(vm.Entity, Is.Null);
         vm.Entity = new TestModel();
-        Assert.IsInstanceOf<TestModel>(vm.Entity);
+        Assert.That(vm.Entity, Is.InstanceOf<TestModel>());
     }
 
     [Test]
     public void IEntityViewModel_T_default_implementation_test()
     {
         IEntityViewModel<TestModel> vm = new TestViewModel();
-        Assert.IsNull(vm.Entity);
+        Assert.That(vm.Entity, Is.Null);
         vm.Entity = new TestModel();
-        Assert.IsInstanceOf<TestModel>(vm.Entity);
+        Assert.That(vm.Entity, Is.InstanceOf<TestModel>());
     }
 }

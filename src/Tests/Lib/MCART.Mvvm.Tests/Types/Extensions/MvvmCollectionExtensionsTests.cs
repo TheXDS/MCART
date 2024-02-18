@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -31,7 +31,6 @@ SOFTWARE.
 using System.Collections.ObjectModel;
 using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Extensions;
-using NUnit.Framework;
 
 namespace TheXDS.MCART.Mvvm.Tests.Types.Extensions;
 
@@ -40,6 +39,6 @@ public class MvvmCollectionExtensionsTests
     [Test]
     public void ToObservable_Test()
     {
-        Assert.IsAssignableFrom<ObservableCollectionWrap<int>>(new Collection<int>().ToObservable());
+        Assert.That(new Collection<int>().ToObservable(), Is.AssignableFrom<ObservableCollectionWrap<int>>());
     }
 }

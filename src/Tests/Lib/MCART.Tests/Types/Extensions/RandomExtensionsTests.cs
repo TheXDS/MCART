@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,12 +28,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Tests.Types.Extensions;
-using NUnit.Framework;
-using System.Collections.Generic;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types;
 using static TheXDS.MCART.Types.Extensions.RandomExtensions;
+
+namespace TheXDS.MCART.Tests.Types.Extensions;
 
 public class RandomExtensionsTests
 {
@@ -41,8 +40,8 @@ public class RandomExtensionsTests
     public void RndText_Test()
     {
         string? str = Rnd.RndText(10);
-        Assert.IsAssignableFrom<string>(str);
-        Assert.AreEqual(10, str.Length);
+        Assert.That(str, Is.AssignableFrom<string>());
+        Assert.That(10, Is.EqualTo(str.Length));
     }
 
     [Test]
@@ -51,7 +50,7 @@ public class RandomExtensionsTests
         Range<int> r = new(1, 100);
         for (int j = 0; j < 1000; j++)
         {
-            Assert.True(Rnd.Next(r).IsBetween(1, 100));
+            Assert.That(Rnd.Next(r).IsBetween(1, 100));
         }
     }
 
@@ -63,7 +62,7 @@ public class RandomExtensionsTests
         {
             l.Add(Rnd.CoinFlip());
         }
-        Assert.Contains(true, l);
-        Assert.Contains(false, l);
+        Assert.That(l, Contains.Item(true));
+        Assert.That(l, Contains.Item(false));
     }
 }

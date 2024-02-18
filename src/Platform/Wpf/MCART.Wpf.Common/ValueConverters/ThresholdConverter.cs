@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,11 +28,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System;
 using System.ComponentModel;
 using System.Globalization;
-using System.Linq;
-using System.Windows;
 using System.Windows.Data;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Helpers;
@@ -180,13 +177,6 @@ public class ThresholdConverter<TIn, TOut> : IValueConverter where TIn : ICompar
     /// <param name="culture">
     /// <see cref="CultureInfo" /> a utilizar para la conversión.
     /// </param>
-    /// <exception cref="InvalidCastException">
-    /// Se produce si <paramref name="value" /> no es un <see cref="Visibility" />.
-    /// </exception>
-    /// <exception cref="TypeLoadException">
-    /// Se produce si <paramref name="targetType" /> no es una clase o estructura instanciable con un constructor sin
-    /// parámetros.
-    /// </exception>
     /// <returns>
     /// Este método siempre genera un <see cref="InvalidOperationException" />.
     /// </returns>

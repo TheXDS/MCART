@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,8 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.Linq;
-using System.Collections.Generic;
 using System.Collections;
 
 namespace TheXDS.MCART.Types;
@@ -57,7 +55,7 @@ public class OpenList<T> : IList<T>
     /// <returns>
     /// El elemento en el índice especificado.
     /// </returns>
-    /// <exception cref="System.ArgumentOutOfRangeException">
+    /// <exception cref="ArgumentOutOfRangeException">
     /// Se produce si <paramref name="index"/> no hace referencia a un
     /// elemento válido dentro de este <see cref="OpenList{T}"/>.
     /// </exception>
@@ -199,26 +197,26 @@ public class OpenList<T> : IList<T>
 
     /// <summary>
     /// Copia la totalidad de este <see cref="OpenList{T}"/> en una
-    /// matriz <see cref="System.Array"/> unidimensional compatible,
+    /// matriz <see cref="Array"/> unidimensional compatible,
     /// comenzando en el índice especificado de la matriz de destino.
     /// </summary>
     /// <param name="array">
-    /// <see cref="System.Array"/> unidimensional que constituye el
+    /// <see cref="Array"/> unidimensional que constituye el
     /// destino de los elementos copiados de este
-    /// <see cref="OpenList{T}"/>. La matriz <see cref="System.Array"/>
+    /// <see cref="OpenList{T}"/>. La matriz <see cref="Array"/>
     /// debe tener una indización de base cero.
     /// </param>
     /// <param name="arrayIndex">
     /// Índice de base cero en <paramref name="array"/> donde comienza
     /// la copia.
     /// </param>
-    /// <exception cref="System.ArgumentNullException">
+    /// <exception cref="ArgumentNullException">
     /// El valor de <paramref name="array"/> es <see langword="null"/>.
     /// </exception>
-    /// <exception cref="System.ArgumentOutOfRangeException">
+    /// <exception cref="ArgumentOutOfRangeException">
     /// <paramref name="arrayIndex"/> es menor que cero.
     /// </exception>
-    /// <exception cref="System.ArgumentException">
+    /// <exception cref="ArgumentException">
     /// El número de elementos de este <see cref="OpenList{T}"/> de
     /// origen es mayor que el espacio disponible desde
     /// <paramref name="arrayIndex"/> hasta el final de el 
@@ -274,7 +272,7 @@ public class OpenList<T> : IList<T>
     /// Objeto que se va a insertar. El valor puede ser
     /// <see langword="null"/> para los tipos de referencia.
     /// </param>
-    /// <exception cref="System.ArgumentOutOfRangeException">
+    /// <exception cref="ArgumentOutOfRangeException">
     /// Se produce si <paramref name="index"/> no hace referencia a un
     /// elemento válido dentro de este <see cref="OpenList{T}"/>.
     /// </exception>
@@ -297,7 +295,7 @@ public class OpenList<T> : IList<T>
     /// <param name="index">
     /// Índice del elemento que se va a quitar.
     /// </param>
-    /// <exception cref="System.ArgumentOutOfRangeException">
+    /// <exception cref="ArgumentOutOfRangeException">
     /// Se produce si <paramref name="index"/> no hace referencia a un
     /// elemento válido dentro de este <see cref="OpenList{T}"/>.
     /// </exception>

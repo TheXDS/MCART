@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,14 +28,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Tests.Types.Extensions;
-using NUnit.Framework;
-using System;
-using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using TheXDS.MCART.Types.Extensions;
+
+namespace TheXDS.MCART.Tests.Types.Extensions;
 
 public class StreamExtensionsTests
 {
@@ -45,7 +41,7 @@ public class StreamExtensionsTests
         using MemoryStream ms = new();
         ms.Write(Enumerable.Range(1, 100).Select(p => (byte)p).ToArray());
         ms.Destroy();
-        Assert.AreEqual(0, ms.Length);
+        Assert.That(0, Is.EqualTo(ms.Length));
     }
 
     [Test]
@@ -55,7 +51,7 @@ public class StreamExtensionsTests
         ms.Write(Enumerable.Range(1, 100).Select(p => (byte)p).ToArray());
         ms.Seek(0, SeekOrigin.Begin);
         ms.Skip(50);
-        Assert.AreEqual(50, ms.Position);
+        Assert.That(50, Is.EqualTo(ms.Position));
     }
 
     [Test]
@@ -66,7 +62,7 @@ public class StreamExtensionsTests
         Assert.Throws<ArgumentOutOfRangeException>(() => ms.Skip(10));
         ms.Seek(0, SeekOrigin.Begin);
         ms.Skip(50);
-        Assert.AreEqual(50, ms.Position);
+        Assert.That(50, Is.EqualTo(ms.Position));
         Assert.Throws<ArgumentOutOfRangeException>(() => ms.Skip(51));
         Assert.Throws<ArgumentOutOfRangeException>(() => ms.Skip(-1));
     }
@@ -77,8 +73,8 @@ public class StreamExtensionsTests
         using MemoryStream ms = new();
         ms.Write(Encoding.Default.GetBytes("TESTtest"));
         ms.Seek(0, SeekOrigin.Begin);
-        Assert.AreEqual("TEST", ms.ReadString(4));
-        Assert.AreEqual("test", ms.ReadString(4));
+        Assert.That("TEST", Is.EqualTo(ms.ReadString(4)));
+        Assert.That("test", Is.EqualTo(ms.ReadString(4)));
     }
 
     [Test]
@@ -87,9 +83,9 @@ public class StreamExtensionsTests
         using MemoryStream ms = new();
         ms.Write(Enumerable.Range(1, 100).Select(p => (byte)p).ToArray());
         ms.Seek(0, SeekOrigin.Begin);
-        Assert.AreEqual(100, ms.RemainingBytes());
+        Assert.That(100, Is.EqualTo(ms.RemainingBytes()));
         ms.Skip(50);
-        Assert.AreEqual(50, ms.RemainingBytes());
+        Assert.That(50, Is.EqualTo(ms.RemainingBytes()));
     }
 
     [Test]
@@ -98,11 +94,11 @@ public class StreamExtensionsTests
         await using MemoryStream ms = new();
         await ms.WriteAsync(Encoding.Default.GetBytes("TESTtest"));
         ms.Seek(0, SeekOrigin.Begin);
-        Assert.AreEqual("TEST", await ms.ReadStringAsync(4));
-        Assert.AreEqual("test", await ms.ReadStringAsync(4));
+        Assert.That("TEST", Is.EqualTo(await ms.ReadStringAsync(4)));
+        Assert.That("test", Is.EqualTo(await ms.ReadStringAsync(4)));
         ms.Seek(0, SeekOrigin.Begin);
-        Assert.AreEqual("TEST", await ms.ReadStringAsync(4, Encoding.Default));
-        Assert.AreEqual("test", await ms.ReadStringAsync(4, Encoding.Default));
+        Assert.That("TEST", Is.EqualTo(await ms.ReadStringAsync(4, Encoding.Default)));
+        Assert.That("test", Is.EqualTo(await ms.ReadStringAsync(4, Encoding.Default)));
     }
 
     [Test]
@@ -111,7 +107,7 @@ public class StreamExtensionsTests
         await using MemoryStream ms = new();
         await ms.WriteAsync(Encoding.Default.GetBytes("TESTtest"));
         ms.Seek(0, SeekOrigin.Begin);
-        Assert.AreEqual("TESTtest", await ms.ReadStringToEndAsync());
+        Assert.That("TESTtest", Is.EqualTo(await ms.ReadStringToEndAsync()));
     }
 
     [Test]
@@ -119,9 +115,9 @@ public class StreamExtensionsTests
     {
         await using MemoryStream ms = new();
         await ms.WriteAsync(Encoding.Default.GetBytes("TESTtest"));
-        Assert.AreEqual("test", await ms.ReadStringToAsync(4));
-        Assert.AreEqual(0, ms.RemainingBytes());
-        Assert.AreEqual("TESTtest", await ms.ReadStringToAsync(0));
+        Assert.That("test", Is.EqualTo(await ms.ReadStringToAsync(4)));
+        Assert.That(0, Is.EqualTo(ms.RemainingBytes()));
+        Assert.That("TESTtest", Is.EqualTo(await ms.ReadStringToAsync(0)));
     }
 
     [Test]
@@ -131,7 +127,7 @@ public class StreamExtensionsTests
         using MemoryStream ms = new();
         ms.WriteBytes(a);
         ms.Seek(0, SeekOrigin.Begin);
-        Assert.AreEqual(a, ms.ToArray());
+        Assert.That(a, Is.EqualTo(ms.ToArray()));
     }
 
     [Test]
@@ -142,6 +138,6 @@ public class StreamExtensionsTests
         using MemoryStream ms = new();
         ms.WriteSeveralBytes(a, b);
         ms.Seek(0, SeekOrigin.Begin);
-        Assert.AreEqual(a.Concat(b).ToArray(), ms.ToArray());
+        Assert.That(a.Concat(b).ToArray(), Is.EqualTo(ms.ToArray()));
     }
 }

@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -37,39 +37,39 @@ public class MathTests
     [Test]
     public void ClampTest()
     {
-        Assert.AreEqual(10, (5 + 10).Clamp(10));
-        Assert.AreEqual(0, (5 - 10).Clamp(10));
-        Assert.AreEqual(10, (5 + 10).Clamp(1, 10));
-        Assert.AreEqual(1, (5 - 10).Clamp(1, 10));
+        Assert.That(10, Is.EqualTo((5 + 10).Clamp(10)));
+        Assert.That(0, Is.EqualTo((5 - 10).Clamp(10)));
+        Assert.That(10, Is.EqualTo((5 + 10).Clamp(1, 10)));
+        Assert.That(1, Is.EqualTo((5 - 10).Clamp(1, 10)));
 
-        Assert.True(float.IsNaN(float.NaN.Clamp(1, 10)));
-        Assert.AreEqual(10f, 13f.Clamp(1, 10));
-        Assert.AreEqual(1f, (-5f).Clamp(1, 10));
-        Assert.AreEqual((-5f).Clamp(10), -5f);
-        Assert.AreEqual(10f, float.PositiveInfinity.Clamp(1, 10));
-        Assert.AreEqual(1f, float.NegativeInfinity.Clamp(1, 10));
+        Assert.That(float.IsNaN(float.NaN.Clamp(1, 10)));
+        Assert.That(10f, Is.EqualTo(13f.Clamp(1, 10)));
+        Assert.That(1f, Is.EqualTo((-5f).Clamp(1, 10)));
+        Assert.That((-5f).Clamp(10), Is.EqualTo(-5f));
+        Assert.That(10f, Is.EqualTo(float.PositiveInfinity.Clamp(1, 10)));
+        Assert.That(1f, Is.EqualTo(float.NegativeInfinity.Clamp(1, 10)));
 
-        Assert.True(double.IsNaN(double.NaN.Clamp(1, 10)));
-        Assert.AreEqual(10.0, 13.0.Clamp(1, 10));
-        Assert.AreEqual(1.0, (-5.0).Clamp(1, 10));
-        Assert.AreEqual((-5.0).Clamp(10), -5.0);
-        Assert.AreEqual(10.0, double.PositiveInfinity.Clamp(1, 10));
-        Assert.AreEqual(1.0, double.NegativeInfinity.Clamp(1, 10));
+        Assert.That(double.IsNaN(double.NaN.Clamp(1, 10)));
+        Assert.That(10.0, Is.EqualTo(13.0.Clamp(1, 10)));
+        Assert.That(1.0, Is.EqualTo((-5.0).Clamp(1, 10)));
+        Assert.That((-5.0).Clamp(10), Is.EqualTo(-5.0));
+        Assert.That(10.0, Is.EqualTo(double.PositiveInfinity.Clamp(1, 10)));
+        Assert.That(1.0, Is.EqualTo(double.NegativeInfinity.Clamp(1, 10)));
     }
 
     [Test]
     public void WrapTest()
     {
-        Assert.AreEqual(5f, 16f.Wrap(5, 15));
-        Assert.AreEqual(6f, 17f.Wrap(5, 15));
-        Assert.AreEqual(15f, 4f.Wrap(5, 15));
-        Assert.AreEqual(14f, 3f.Wrap(5, 15));
-        Assert.AreEqual(8f, 8f.Wrap(5, 15));
+        Assert.That(5f, Is.EqualTo(16f.Wrap(5, 15)));
+        Assert.That(6f, Is.EqualTo(17f.Wrap(5, 15)));
+        Assert.That(15f, Is.EqualTo(4f.Wrap(5, 15)));
+        Assert.That(14f, Is.EqualTo(3f.Wrap(5, 15)));
+        Assert.That(8f, Is.EqualTo(8f.Wrap(5, 15)));
 
-        Assert.AreEqual(5, 16.Wrap(5, 15));
-        Assert.AreEqual(6, 17.Wrap(5, 15));
-        Assert.AreEqual(15, 4.Wrap(5, 15));
-        Assert.AreEqual(14, 3.Wrap(5, 15));
-        Assert.AreEqual(8, 8.Wrap(5, 15));
+        Assert.That(5, Is.EqualTo(16.Wrap(5, 15)));
+        Assert.That(6, Is.EqualTo(17.Wrap(5, 15)));
+        Assert.That(15, Is.EqualTo(4.Wrap(5, 15)));
+        Assert.That(14, Is.EqualTo(3.Wrap(5, 15)));
+        Assert.That(8, Is.EqualTo(8.Wrap(5, 15)));
     }
 }

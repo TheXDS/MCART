@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,10 +28,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
 
@@ -124,7 +121,7 @@ public static partial class MemberInfoExtensions
     /// </returns>
     public static bool HasAttribute<T>(this MemberInfo member, [NotNullWhen(true)] out T? attribute) where T : notnull, Attribute
     {
-        bool retVal = HasAttributes<T>(member, out IEnumerable<T>? attributes);
+        bool retVal = HasAttributes(member, out IEnumerable<T>? attributes);
         attribute = attributes.FirstOrDefault();
         return retVal;
     }
@@ -156,7 +153,7 @@ public static partial class MemberInfoExtensions
     public static bool HasAttrValue<TAttribute, TValue>(this MemberInfo member, out TValue value)
         where TAttribute : Attribute, IValueAttribute<TValue>
     {
-        bool retVal = HasAttributes<TAttribute>(member, out IEnumerable<TAttribute>? attributes);
+        bool retVal = HasAttributes(member, out IEnumerable<TAttribute>? attributes);
         TAttribute? a = attributes.FirstOrDefault();
         value = a is not null ? a.Value : default!;
         return retVal;
@@ -184,7 +181,7 @@ public static partial class MemberInfoExtensions
     [Sugar]
     public static T? GetAttribute<T>(this MemberInfo member) where T : Attribute
     {
-        HasAttribute<T>(member, out T? attribute);
+        HasAttribute(member, out T? attribute);
         return attribute;
     }
 

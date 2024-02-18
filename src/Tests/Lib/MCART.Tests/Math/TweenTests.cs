@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,10 +28,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Tests.Math;
-using NUnit.Framework;
-using System;
 using static TheXDS.MCART.Math.Tween;
+using M = System.Math;
+
+namespace TheXDS.MCART.Tests.Math;
 
 public class TweenTests
 {
@@ -42,7 +42,7 @@ public class TweenTests
     [TestCase(1.0, 1.0)]
     public void LinearTest(in double input, in double output)
     {
-        Assert.AreEqual(output, Linear(input));
+        Assert.That(output, Is.EqualTo(Linear(input)));
     }
 
     [TestCase(0.0, 0.0)]
@@ -52,7 +52,7 @@ public class TweenTests
     [TestCase(1.0, 1.0)]
     public void QuadraticTest(in double input, in double output)
     {
-        Assert.AreEqual(output, Quadratic(input));
+        Assert.That(output, Is.EqualTo(Quadratic(input)));
     }
 
     [TestCase(0.0, 0.0)]
@@ -62,7 +62,7 @@ public class TweenTests
     [TestCase(1.0, 1.0)]
     public void CubicTest(in double input, in double output)
     {
-        Assert.AreEqual(output, Math.Round(Cubic(input), 12));
+        Assert.That(output, Is.EqualTo(M.Round(Cubic(input), 12)));
     }
 
     [TestCase(0.0, 0.0)]
@@ -72,7 +72,7 @@ public class TweenTests
     [TestCase(1.0, 1.0)]
     public void QuarticTest(in double input, in double output)
     {
-        Assert.AreEqual(output, Math.Round(Quartic(input), 12));
+        Assert.That(output, Is.EqualTo(M.Round(Quartic(input), 12)));
     }
 
     [TestCase(0.0, 0.0)]
@@ -88,7 +88,7 @@ public class TweenTests
     [TestCase(1.0, 1.0)]
     public void ShakyTest(in double input, in double output)
     {
-        Assert.AreEqual(output, Math.Round(Shaky(input), 12));
+        Assert.That(output, Is.EqualTo(M.Round(Shaky(input), 12)));
     }
 
     [TestCase(0.0, 0.0)]
@@ -104,6 +104,6 @@ public class TweenTests
     [TestCase(1.0, 1.0)]
     public void BouncyTest(in double input, in double output)
     {
-        Assert.AreEqual(output, Math.Round(Bouncy(input), 12));
+        Assert.That(output, Is.EqualTo(M.Round(Bouncy(input), 12)));
     }
 }

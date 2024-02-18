@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -39,16 +39,15 @@ public class CopyrightAttributeTests
     public void CopyrightAttributeBasicInstancing_Test()
     {
         CopyrightAttribute? l = new("Copyright (C) Test");
-        Assert.AreEqual("Copyright (C) Test", l.Value);
-        Assert.AreEqual("Copyright (C) Test", ((IValueAttribute<string?>)l).Value);
+        Assert.That("Copyright (C) Test", Is.EqualTo(l.Value));
 
         l = new CopyrightAttribute("Test");
-        Assert.AreEqual("Copyright © Test", l.Value);
+        Assert.That("Copyright © Test", Is.EqualTo(l.Value));
 
         l = new CopyrightAttribute(1985, "Test");
-        Assert.AreEqual("Copyright © 1985 Test", l.Value);
+        Assert.That("Copyright © 1985 Test", Is.EqualTo(l.Value));
 
         l = new CopyrightAttribute(new Range<ushort>(1985, 2001), "Test");
-        Assert.AreEqual("Copyright © 1985-2001 Test", l.Value);
+        Assert.That("Copyright © 1985-2001 Test", Is.EqualTo(l.Value));
     }
 }

@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,8 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Types.Extensions;
@@ -57,7 +55,7 @@ public class SpdxLicense : License, IEquatable<SpdxLicense>
     {
         string n = GetSpdxLicenseName(id);
         if (_licenses.ContainsKey(n)) return _licenses[n];
-        string? d = id.GetAttribute<Attributes.DescriptionAttribute>()?.Value ?? $"{n} License";
+        string? d = id.GetAttribute<DescriptionAttribute>()?.Value ?? $"{n} License";
         Uri? u = id.GetAttribute<LicenseUriAttribute>()?.Uri ?? new Uri($"https://spdx.org/licenses/{n}.html");
         return new SpdxLicense(n, d, u).PushInto(n, _licenses);
     }

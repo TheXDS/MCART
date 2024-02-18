@@ -6,7 +6,7 @@
 //      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 //
 // Released under the MIT License (MIT)
-// Copyright © 2011 - 2023 César Andrés Morgan
+// Copyright © 2011 - 2024 César Andrés Morgan
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of
 // this software and associated documentation files (the “Software”), to deal in
@@ -26,7 +26,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using NUnit.Framework;
 using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
 using TheXDS.MCART.Types.Extensions;
@@ -137,7 +136,7 @@ public partial class ILGeneratorExtensions_Tests : TypeFactoryTestClassBase
         var testCallBack = BuildTest<int[]>(new[] { typeof(int) }, il => il
             .LoadArg1()
             .NewArray<int>(out var arr)
-            .For(new TheXDS.MCART.Types.Range<int>(0, elements, true, false),
+            .For(new MCART.Types.Range<int>(0, elements, true, false),
             (il, j, b, n) => il.LoadLocal(arr).LoadLocal(j).Duplicate().StoreInt32Element())
             .LoadLocal(arr).Return(), $"for_test_{elements}_elements");
 
@@ -152,7 +151,7 @@ public partial class ILGeneratorExtensions_Tests : TypeFactoryTestClassBase
         var testCallBack = BuildTest<int[]>(new[] { typeof(int) }, il => il
             .LoadArg1()
             .NewArray<int>(out var arr)
-            .For(new TheXDS.MCART.Types.Range<int>(0, elements, true, true),
+            .For(new MCART.Types.Range<int>(0, elements, true, true),
             (il, j, b, n) => il.LoadLocal(arr).LoadLocal(j).Duplicate().StoreInt32Element())
             .LoadLocal(arr).Return(), $"for_test_{elements}_elements");
 

@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,21 +28,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Tests.Types.Extensions;
-using NUnit.Framework;
-using System;
 using static TheXDS.MCART.Types.Extensions.NamedObjectExtensions;
+
+namespace TheXDS.MCART.Tests.Types.Extensions;
 
 public class NamedObjectExtensionsTests
 {
     [Test]
     public void AsNamedEnumTest()
     {
-        System.Collections.Generic.IEnumerable<MCART.Types.NamedObject<Enum>>? e = typeof(DayOfWeek).AsNamedEnum();
+        IEnumerable<MCART.Types.NamedObject<Enum>>? e = typeof(DayOfWeek).AsNamedEnum();
 
         foreach (MCART.Types.NamedObject<Enum> j in e)
         {
-            Assert.AreEqual(j.Value.ToString(), j.Name);
+            Assert.That(j.Value.ToString(), Is.EqualTo(j.Name));
         }
     }
 }

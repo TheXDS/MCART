@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,8 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using NUnit.Framework;
-using System;
 using TheXDS.MCART.Types;
 
 namespace TheXDS.MCART.Tests.Types;
@@ -56,15 +54,15 @@ public class RangeTests
     [TestCase("1->5")]
     public void TryParse_Test(string testArg)
     {
-        Assert.True(Range<int>.TryParse(testArg, out Range<int> range));
-        Assert.AreEqual(1, range.Minimum);
-        Assert.AreEqual(5, range.Maximum);
+        Assert.That(Range<int>.TryParse(testArg, out Range<int> range));
+        Assert.That(1, Is.EqualTo(range.Minimum));
+        Assert.That(5, Is.EqualTo(range.Maximum));
     }
 
     [Test]
     public void TryParse_Failing_To_Parse_Test()
     {
-        Assert.False(Range<int>.TryParse("TEST", out _));
+        Assert.That(Range<int>.TryParse("TEST", out _), Is.False);
     }
 
     [Test]
@@ -74,8 +72,8 @@ public class RangeTests
         Range<int> b = new(3, 8);
         Range<int> r = a.Join(b);
 
-        Assert.AreEqual(1, r.Minimum);
-        Assert.AreEqual(8, r.Maximum);
+        Assert.That(1, Is.EqualTo(r.Minimum));
+        Assert.That(8, Is.EqualTo(r.Maximum));
     }
 
     [Test]
@@ -85,8 +83,8 @@ public class RangeTests
         Range<int> b = new(3, 8);
         Range<int> r = a.Intersect(b);
 
-        Assert.AreEqual(3, r.Minimum);
-        Assert.AreEqual(5, r.Maximum);
+        Assert.That(3, Is.EqualTo(r.Minimum));
+        Assert.That(5, Is.EqualTo(r.Maximum));
     }
 
     [TestCase(1, 3, 2, 5, true, false)]
@@ -98,16 +96,16 @@ public class RangeTests
         Range<int> a = new(min1, max1, inclusively);
         Range<int> b = new(min2, max2, inclusively);
 
-        Assert.AreEqual(expected, a.Intersects(b));
+        Assert.That(expected, Is.EqualTo(a.Intersects(b)));
     }
 
     [Test]
     public void Minimum_Test()
     {
         Range<int> x = new(1, 10);
-        Assert.AreEqual(1,x.Minimum);
+        Assert.That(1, Is.EqualTo(x.Minimum));
         x.Minimum = 5;
-        Assert.AreEqual(5,x.Minimum);
+        Assert.That(5, Is.EqualTo(x.Minimum));
         Assert.Throws<ArgumentOutOfRangeException>(() => x.Minimum = 11);
     }
     
@@ -115,9 +113,9 @@ public class RangeTests
     public void Maximum_Test()
     {
         Range<int> x = new(1, 10);
-        Assert.AreEqual(10,x.Maximum);
+        Assert.That(10, Is.EqualTo(x.Maximum));
         x.Maximum = 5;
-        Assert.AreEqual(5,x.Maximum);
+        Assert.That(5, Is.EqualTo(x.Maximum));
         Assert.Throws<ArgumentOutOfRangeException>(() => x.Maximum = -1);
     }
 
@@ -133,65 +131,65 @@ public class RangeTests
         Range<int> r;
 
         r = new(10);
-        Assert.AreEqual(default(int), r.Minimum);
-        Assert.AreEqual(10, r.Maximum);
-        Assert.True(r.MinInclusive);
-        Assert.True(r.MaxInclusive);
+        Assert.That(default(int), Is.EqualTo(r.Minimum));
+        Assert.That(10, Is.EqualTo(r.Maximum));
+        Assert.That(r.MinInclusive);
+        Assert.That(r.MaxInclusive);
         
         r = new(10, true);
-        Assert.AreEqual(default(int), r.Minimum);
-        Assert.AreEqual(10, r.Maximum);
-        Assert.True(r.MinInclusive);
-        Assert.True(r.MaxInclusive);
+        Assert.That(default(int), Is.EqualTo(r.Minimum));
+        Assert.That(10, Is.EqualTo(r.Maximum));
+        Assert.That(r.MinInclusive);
+        Assert.That(r.MaxInclusive);
         
         r = new(10, false);
-        Assert.AreEqual(default(int), r.Minimum);
-        Assert.AreEqual(10, r.Maximum);
-        Assert.False(r.MinInclusive);
-        Assert.False(r.MaxInclusive);
+        Assert.That(default(int), Is.EqualTo(r.Minimum));
+        Assert.That(10, Is.EqualTo(r.Maximum));
+        Assert.That(r.MinInclusive, Is.False);
+        Assert.That(r.MaxInclusive, Is.False);
         
         r = new(5, 10);
-        Assert.AreEqual(5, r.Minimum);
-        Assert.AreEqual(10, r.Maximum);
-        Assert.True(r.MinInclusive);
-        Assert.True(r.MaxInclusive);
+        Assert.That(5, Is.EqualTo(r.Minimum));
+        Assert.That(10, Is.EqualTo(r.Maximum));
+        Assert.That(r.MinInclusive);
+        Assert.That(r.MaxInclusive);
         
         r = new(5, 10, true);
-        Assert.AreEqual(5, r.Minimum);
-        Assert.AreEqual(10, r.Maximum);
-        Assert.True(r.MinInclusive);
-        Assert.True(r.MaxInclusive);
+        Assert.That(5, Is.EqualTo(r.Minimum));
+        Assert.That(10, Is.EqualTo(r.Maximum));
+        Assert.That(r.MinInclusive);
+        Assert.That(r.MaxInclusive);
         
         r = new(5, 10, false);
-        Assert.AreEqual(5, r.Minimum);
-        Assert.AreEqual(10, r.Maximum);
-        Assert.False(r.MinInclusive);
-        Assert.False(r.MaxInclusive);
+        Assert.That(5, Is.EqualTo(r.Minimum));
+        Assert.That(10, Is.EqualTo(r.Maximum));
+        Assert.That(r.MinInclusive, Is.False);
+        Assert.That(r.MaxInclusive, Is.False);
         
         r = new(5, 10, true, false);
-        Assert.AreEqual(5, r.Minimum);
-        Assert.AreEqual(10, r.Maximum);
-        Assert.True(r.MinInclusive);
-        Assert.False(r.MaxInclusive);
+        Assert.That(5, Is.EqualTo(r.Minimum));
+        Assert.That(10, Is.EqualTo(r.Maximum));
+        Assert.That(r.MinInclusive);
+        Assert.That(r.MaxInclusive, Is.False);
         
         r = new(5, 10, false, true);
-        Assert.AreEqual(5, r.Minimum);
-        Assert.AreEqual(10, r.Maximum);
-        Assert.False(r.MinInclusive);
-        Assert.True(r.MaxInclusive);
+        Assert.That(5, Is.EqualTo(r.Minimum));
+        Assert.That(10, Is.EqualTo(r.Maximum));
+        Assert.That(r.MinInclusive, Is.False);
+        Assert.That(r.MaxInclusive);
     }
 
     [Test]
     public void ToString_Test()
     {
         Range<int> r = new(5, 10);
-        Assert.AreEqual("5 - 10", r.ToString());
+        Assert.That("5 - 10", Is.EqualTo(r.ToString()));
     }
 
     [Test]
     public void Parse_Test()
     {
-        Assert.AreEqual(new Range<int>(5, 10), Range<int>.Parse("5..10"));
+        Assert.That(new Range<int>(5, 10), Is.EqualTo(Range<int>.Parse("5..10")));
         Assert.Throws<FormatException>(() => Range<int>.Parse("TEST"));
     }
     
@@ -202,8 +200,8 @@ public class RangeTests
         Range<int> b = new(3, 8);
         Range<int> r = a + b;
 
-        Assert.AreEqual(1, r.Minimum);
-        Assert.AreEqual(8, r.Maximum);
+        Assert.That(1, Is.EqualTo(r.Minimum));
+        Assert.That(8, Is.EqualTo(r.Maximum));
     }
     
     [Test]
@@ -211,16 +209,16 @@ public class RangeTests
     {
         Range<int> a = new(1, 5);
         Range<int> b = a.Clone();
-        Assert.True(a.Equals(b));
-        Assert.True(a.Equals((object)b));
-        Assert.True(a == b);
-        Assert.False(a != b);
+        Assert.That(a.Equals(b));
+        Assert.That(a.Equals((object)b));
+        Assert.That(a == b);
+        Assert.That(a != b, Is.False);
         b.MaxInclusive = false;
-        Assert.False(a.Equals(b));
-        Assert.False(a == b);
-        Assert.True(a != b);
-        Assert.False(a.Equals((object)b));
-        Assert.False(a.Equals(null));
+        Assert.That(a.Equals(b), Is.False);
+        Assert.That(a == b, Is.False);
+        Assert.That(a != b);
+        Assert.That(a.Equals((object)b), Is.False);
+        Assert.That(a.Equals(null), Is.False);
     }
 
     [Test]
@@ -228,8 +226,8 @@ public class RangeTests
     {
         Range<int> a = new(1, 5);
         Range<int> b = a.Clone();
-        Assert.AreEqual(a.GetHashCode(), b.GetHashCode());
+        Assert.That(a.GetHashCode(), Is.EqualTo(b.GetHashCode()));
         b.MaxInclusive = false;
-        Assert.AreNotEqual(a.GetHashCode(), b.GetHashCode());
+        Assert.That(a.GetHashCode(), Is.Not.EqualTo(b.GetHashCode()));
     }
 }

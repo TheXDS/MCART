@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,8 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using NUnit.Framework;
-using System;
 using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Base;
 
@@ -42,8 +40,8 @@ public class SizeTests
     {
         static void Test(Size value, double size)
         {
-            Assert.AreEqual(value.Width, size);
-            Assert.AreEqual(value.Height, size);
+            Assert.That(value.Width, Is.EqualTo(size));
+            Assert.That(value.Height, Is.EqualTo(size));
         }
         Test(Size.Nothing, double.NaN);
         Test(Size.Zero, 0.0);
@@ -63,9 +61,9 @@ public class SizeTests
     [TestCase("15 | 12", 15, 12)]
     public void TryParseNumbers_Test(string value, double x, double y)
     {
-        Assert.True(Size.TryParse(value, out Size p));
-        Assert.AreEqual(x, p.Width);
-        Assert.AreEqual(y, p.Height);
+        Assert.That(Size.TryParse(value, out Size p));
+        Assert.That(x, Is.EqualTo(p.Width));
+        Assert.That(y, Is.EqualTo(p.Height));
     }
 
     [Theory]
@@ -76,8 +74,8 @@ public class SizeTests
     [TestCase(null)]
     public void TryParseNothing_Test(string? data)
     {
-        Assert.True(Size.TryParse(data, out Size p));
-        Assert.True(Size.Nothing.Equals(p));
+        Assert.That(Size.TryParse(data, out Size p));
+        Assert.That(Size.Nothing.Equals(p));
     }
 
     [Theory]
@@ -86,8 +84,8 @@ public class SizeTests
     [TestCase("0;0")]
     public void TryParseZero_Test(string data)
     {
-        Assert.True(Size.TryParse(data, out Size p));
-        Assert.AreEqual(Size.Zero, p);
+        Assert.That(Size.TryParse(data, out Size p));
+        Assert.That(Size.Zero, Is.EqualTo(p));
     }
 
     [Theory]
@@ -97,14 +95,14 @@ public class SizeTests
     [TestCase("∞;∞")]
     public void TryParseInfinity_Test(string data)
     {
-        Assert.True(Size.TryParse(data, out Size p));
-        Assert.AreEqual(Size.Infinity, p);
+        Assert.That(Size.TryParse(data, out Size p));
+        Assert.That(Size.Infinity, Is.EqualTo(p));
     }
 
     [Test]
     public void Parse_Test()
     {
-        Assert.IsAssignableFrom<Size>(Size.Parse("Zero"));
+        Assert.That(Size.Parse("Zero"), Is.AssignableFrom<Size>());
         Assert.Throws<FormatException>(() => Size.Parse("Test"));
     }
 
@@ -113,11 +111,11 @@ public class SizeTests
     {
         Size p = new(3, 5);
 
-        Assert.AreEqual("3, 5", p.ToString());
-        Assert.AreEqual("3, 5", p.ToString("C"));
-        Assert.AreEqual("[3, 5]", p.ToString("B"));
-        Assert.AreEqual("Width: 3, Height: 5", p.ToString("V"));
-        Assert.AreEqual("Width: 3\nHeight: 5", p.ToString("N").Replace("\r\n", "\n"));
+        Assert.That("3, 5", Is.EqualTo(p.ToString()));
+        Assert.That("3, 5", Is.EqualTo(p.ToString("C")));
+        Assert.That("[3, 5]", Is.EqualTo(p.ToString("B")));
+        Assert.That("Width: 3, Height: 5", Is.EqualTo(p.ToString("V")));
+        Assert.That("Width: 3\nHeight: 5", Is.EqualTo(p.ToString("N").Replace("\r\n", "\n")));
         Assert.Throws<FormatException>(() => p.ToString("???"));
     }
 
@@ -128,18 +126,18 @@ public class SizeTests
         Size q = new(3, 5);
         Size r = new(5, 3);
 
-        Assert.True(p.Equals(q));
-        Assert.False(p.Equals(r));
-        Assert.True(p.Equals((ISize)q));
-        Assert.False(p.Equals((ISize)r));
-        Assert.True(p.Equals((IVector)q));
-        Assert.False(p.Equals((IVector)r));
-        Assert.True(p.Equals((object?)q));
-        Assert.False(p.Equals((object?)r));
-        Assert.False(p.Equals(Guid.NewGuid()));
-        Assert.False(p.Equals((object?)null));
-        Assert.False(p.Equals((ISize?)null));
-        Assert.False(p.Equals((IVector?)null));
+        Assert.That(p.Equals(q));
+        Assert.That(p.Equals(r), Is.False);
+        Assert.That(p.Equals((ISize)q));
+        Assert.That(p.Equals((ISize)r), Is.False);
+        Assert.That(p.Equals((IVector)q));
+        Assert.That(p.Equals((IVector)r), Is.False);
+        Assert.That(p.Equals((object?)q));
+        Assert.That(p.Equals((object?)r), Is.False);
+        Assert.That(p.Equals(Guid.NewGuid()), Is.False);
+        Assert.That(p.Equals((object?)null), Is.False);
+        Assert.That(p.Equals((ISize?)null), Is.False);
+        Assert.That(p.Equals((IVector?)null), Is.False);
     }
 
     [Test]
@@ -149,12 +147,12 @@ public class SizeTests
         Size q = new(3, 5);
         Size r = new(5, 3);
 
-        Assert.True(p == q);
-        Assert.False(p == r);
-        Assert.True(p == (ISize)q);
-        Assert.False(p == (ISize)r);
-        Assert.True(p == (IVector)q);
-        Assert.False(p == (IVector)r);
+        Assert.That(p == q);
+        Assert.That(p == r, Is.False);
+        Assert.That(p == (ISize)q);
+        Assert.That(p == (ISize)r, Is.False);
+        Assert.That(p == (IVector)q);
+        Assert.That(p == (IVector)r, Is.False);
     }
 
     [Test]
@@ -164,12 +162,12 @@ public class SizeTests
         Size q = new(3, 5);
         Size r = new(5, 3);
 
-        Assert.True(p != r);
-        Assert.False(p != q);
-        Assert.True(p != (ISize)r);
-        Assert.False(p != (ISize)q);
-        Assert.True(p != (IVector)r);
-        Assert.False(p != (IVector)q);
+        Assert.That(p != r);
+        Assert.That(p != q, Is.False);
+        Assert.That(p != (ISize)r);
+        Assert.That(p != (ISize)q, Is.False);
+        Assert.That(p != (IVector)r);
+        Assert.That(p != (IVector)q, Is.False);
     }
 
     [Test]
@@ -179,19 +177,19 @@ public class SizeTests
         Size q = new(3, 5);
         Size r = new(5, 3);
 
-        Assert.True(p != r);
-        Assert.False(p != q);
-        Assert.True(p != (ISize)r);
-        Assert.False(p != (ISize)q);
-        Assert.True(p != (IVector)r);
-        Assert.False(p != (IVector)q);
+        Assert.That(p != r);
+        Assert.That(p != q, Is.False);
+        Assert.That(p != (ISize)r);
+        Assert.That(p != (ISize)q, Is.False);
+        Assert.That(p != (IVector)r);
+        Assert.That(p != (IVector)q, Is.False);
     }
 
     [Test]
     public void GetHashCode_Test()
     {
-        Assert.AreEqual(new Size(3, 5).GetHashCode(), new Size(3, 5).GetHashCode());
-        Assert.AreNotEqual(new Size(3, 5).GetHashCode(), new Size(1, 1).GetHashCode());
+        Assert.That(new Size(3, 5).GetHashCode(), Is.EqualTo(new Size(3, 5).GetHashCode()));
+        Assert.That(new Size(3, 5).GetHashCode(), Is.Not.EqualTo(new Size(1, 1).GetHashCode()));
     }
 
     [Theory]
@@ -205,19 +203,19 @@ public class SizeTests
         Size q = new(x2, y2);
         Size r = p + q;
 
-        Assert.AreEqual(x3, r.Width);
-        Assert.AreEqual(y3, r.Height);
+        Assert.That(x3, Is.EqualTo(r.Width));
+        Assert.That(y3, Is.EqualTo(r.Height));
 
         Size s = p + (ISize)q;
-        Assert.AreEqual(x3, s.Width);
-        Assert.AreEqual(y3, s.Height);
+        Assert.That(x3, Is.EqualTo(s.Width));
+        Assert.That(y3, Is.EqualTo(s.Height));
 
         Size t = p + (IVector)q;
-        Assert.AreEqual(x3, t.Width);
-        Assert.AreEqual(y3, t.Height);
+        Assert.That(x3, Is.EqualTo(t.Width));
+        Assert.That(y3, Is.EqualTo(t.Height));
 
-        Assert.AreEqual(x3, (p + x2).Width);
-        Assert.AreEqual(y3, (p + y2).Height);
+        Assert.That(x3, Is.EqualTo((p + x2).Width));
+        Assert.That(y3, Is.EqualTo((p + y2).Height));
     }
 
     [Theory]
@@ -231,25 +229,25 @@ public class SizeTests
         Size q = new(x2, y2);
         Size r = p - q;
 
-        Assert.AreEqual(x3, r.Width);
-        Assert.AreEqual(y3, r.Height);
+        Assert.That(x3, Is.EqualTo(r.Width));
+        Assert.That(y3, Is.EqualTo(r.Height));
 
         Size s = p - (ISize)q;
-        Assert.AreEqual(x3, s.Width);
-        Assert.AreEqual(y3, s.Height);
+        Assert.That(x3, Is.EqualTo(s.Width));
+        Assert.That(y3, Is.EqualTo(s.Height));
 
         Size t = p - (IVector)q;
-        Assert.AreEqual(x3, t.Width);
-        Assert.AreEqual(y3, t.Height);
+        Assert.That(x3, Is.EqualTo(t.Width));
+        Assert.That(y3, Is.EqualTo(t.Height));
 
-        Assert.AreEqual(x3, (p - x2).Width);
-        Assert.AreEqual(y3, (p - y2).Height);
+        Assert.That(x3, Is.EqualTo((p - x2).Width));
+        Assert.That(y3, Is.EqualTo((p - y2).Height));
     }
 
     [Theory]
     [TestCase(3, 5, 2, 4, 6, 20)]
     [TestCase(1, 1, 2, 2, 2, 2)]
-    [TestCase(-1, -1, 1, 1,-1, -1)]
+    [TestCase(-1, -1, 1, 1, -1, -1)]
     [TestCase(-3, 5, 2, -4, -6, -20)]
     public void MultiplyOperator_Test(int x1, int y1, int x2, int y2, int x3, int y3)
     {
@@ -257,19 +255,19 @@ public class SizeTests
         Size q = new(x2, y2);
         Size r = p * q;
 
-        Assert.AreEqual(x3, r.Width);
-        Assert.AreEqual(y3, r.Height);
+        Assert.That(x3, Is.EqualTo(r.Width));
+        Assert.That(y3, Is.EqualTo(r.Height));
 
         Size s = p * (ISize)q;
-        Assert.AreEqual(x3, s.Width);
-        Assert.AreEqual(y3, s.Height);
+        Assert.That(x3, Is.EqualTo(s.Width));
+        Assert.That(y3, Is.EqualTo(s.Height));
 
         Size t = p * (IVector)q;
-        Assert.AreEqual(x3, t.Width);
-        Assert.AreEqual(y3, t.Height);
+        Assert.That(x3, Is.EqualTo(t.Width));
+        Assert.That(y3, Is.EqualTo(t.Height));
 
-        Assert.AreEqual(x3, (p * x2).Width);
-        Assert.AreEqual(y3, (p * y2).Height);
+        Assert.That(x3, Is.EqualTo((p * x2).Width));
+        Assert.That(y3, Is.EqualTo((p * y2).Height));
     }
 
     [Theory]
@@ -283,19 +281,19 @@ public class SizeTests
         Size q = new(x2, y2);
         Size r = p / q;
 
-        Assert.AreEqual(x3, r.Width);
-        Assert.AreEqual(y3, r.Height);
+        Assert.That(x3, Is.EqualTo(r.Width));
+        Assert.That(y3, Is.EqualTo(r.Height));
 
         Size s = p / (ISize)q;
-        Assert.AreEqual(x3, s.Width);
-        Assert.AreEqual(y3, s.Height);
+        Assert.That(x3, Is.EqualTo(s.Width));
+        Assert.That(y3, Is.EqualTo(s.Height));
 
         Size t = p / (IVector)q;
-        Assert.AreEqual(x3, t.Width);
-        Assert.AreEqual(y3, t.Height);
+        Assert.That(x3, Is.EqualTo(t.Width));
+        Assert.That(y3, Is.EqualTo(t.Height));
 
-        Assert.AreEqual(x3, (p / x2).Width);
-        Assert.AreEqual(y3, (p / y2).Height);
+        Assert.That(x3, Is.EqualTo((p / x2).Width));
+        Assert.That(y3, Is.EqualTo((p / y2).Height));
     }
 
     [Theory]
@@ -310,19 +308,19 @@ public class SizeTests
         Size q = new(x2, y2);
         Size r = p % q;
 
-        Assert.AreEqual(x3, r.Width);
-        Assert.AreEqual(y3, r.Height);
+        Assert.That(x3, Is.EqualTo(r.Width));
+        Assert.That(y3, Is.EqualTo(r.Height));
 
         Size s = p % (ISize)q;
-        Assert.AreEqual(x3, s.Width);
-        Assert.AreEqual(y3, s.Height);
+        Assert.That(x3, Is.EqualTo(s.Width));
+        Assert.That(y3, Is.EqualTo(s.Height));
 
         Size t = p % (IVector)q;
-        Assert.AreEqual(x3, t.Width);
-        Assert.AreEqual(y3, t.Height);
+        Assert.That(x3, Is.EqualTo(t.Width));
+        Assert.That(y3, Is.EqualTo(t.Height));
 
-        Assert.AreEqual(x3, (p % x2).Width);
-        Assert.AreEqual(y3, (p % y2).Height);
+        Assert.That(x3, Is.EqualTo((p % x2).Width));
+        Assert.That(y3, Is.EqualTo((p % y2).Height));
     }
 
     [Test]
@@ -330,8 +328,8 @@ public class SizeTests
     {
         Size p = new(3, 5);
         p++;
-        Assert.AreEqual(4, p.Width);
-        Assert.AreEqual(6, p.Height);
+        Assert.That(4, Is.EqualTo(p.Width));
+        Assert.That(6, Is.EqualTo(p.Height));
     }
 
     [Test]
@@ -339,32 +337,32 @@ public class SizeTests
     {
         Size p = new(3, 5);
         p--;
-        Assert.AreEqual(2, p.Width);
-        Assert.AreEqual(4, p.Height);
+        Assert.That(2, Is.EqualTo(p.Width));
+        Assert.That(4, Is.EqualTo(p.Height));
     }
 
     [Test]
     public void PlusOperator_Test()
     {
         Size p = +new Size(3, 5);
-        Assert.AreEqual(3, p.Width);
-        Assert.AreEqual(5, p.Height);
+        Assert.That(3, Is.EqualTo(p.Width));
+        Assert.That(5, Is.EqualTo(p.Height));
 
         p = +new Size(-1, -2);
-        Assert.AreEqual(-1, p.Width);
-        Assert.AreEqual(-2, p.Height);
+        Assert.That(-1, Is.EqualTo(p.Width));
+        Assert.That(-2, Is.EqualTo(p.Height));
     }
 
     [Test]
     public void MinusOperator_Test()
     {
         Size p = -new Size(3, 5);
-        Assert.AreEqual(-3, p.Width);
-        Assert.AreEqual(-5, p.Height);
+        Assert.That(-3, Is.EqualTo(p.Width));
+        Assert.That(-5, Is.EqualTo(p.Height));
 
         p = -new Size(-1, -2);
-        Assert.AreEqual(1, p.Width);
-        Assert.AreEqual(2, p.Height);
+        Assert.That(1, Is.EqualTo(p.Width));
+        Assert.That(2, Is.EqualTo(p.Height));
     }
 
     [Theory]
@@ -373,43 +371,43 @@ public class SizeTests
     [TestCase(3, 5, 15)]
     public void CubeVolume_test(int width, int height, double area)
     {
-        Assert.AreEqual(area, new Size(width, height).SquareArea);
+        Assert.That(area, Is.EqualTo(new Size(width, height).SquareArea));
     }
 
     [Test]
     public void IsZero_test()
     {
-        Assert.IsTrue(Size.Zero.IsZero);
-        Assert.IsFalse(new Size(1, 2).IsZero);
-        Assert.IsFalse(new Size(1, -2).IsZero);
-        Assert.IsFalse(new Size(1, double.PositiveInfinity).IsZero);
-        Assert.IsFalse(new Size(1, double.NaN).IsZero);
-        Assert.IsFalse(Size.Nothing.IsZero);
-        Assert.IsFalse(Size.Infinity.IsZero);
+        Assert.That(Size.Zero.IsZero, Is.True);
+        Assert.That(new Size(1, 2).IsZero, Is.False);
+        Assert.That(new Size(1, -2).IsZero, Is.False);
+        Assert.That(new Size(1, double.PositiveInfinity).IsZero, Is.False);
+        Assert.That(new Size(1, double.NaN).IsZero, Is.False);
+        Assert.That(Size.Nothing.IsZero, Is.False);
+        Assert.That(Size.Infinity.IsZero, Is.False);
     }
 
     [Test]
     public void IsReal_test()
     {
-        Assert.IsFalse(Size.Zero.IsReal);
-        Assert.IsTrue(new Size(1, 2).IsReal);
-        Assert.IsFalse(new Size(1, -2).IsReal);
-        Assert.IsFalse(new Size(1, double.PositiveInfinity).IsReal);
-        Assert.IsFalse(new Size(1, double.NaN).IsReal);
-        Assert.IsFalse(Size.Nothing.IsReal);
-        Assert.IsFalse(Size.Infinity.IsReal);
+        Assert.That(Size.Zero.IsReal, Is.False);
+        Assert.That(new Size(1, 2).IsReal);
+        Assert.That(new Size(1, -2).IsReal, Is.False);
+        Assert.That(new Size(1, double.PositiveInfinity).IsReal, Is.False);
+        Assert.That(new Size(1, double.NaN).IsReal, Is.False);
+        Assert.That(Size.Nothing.IsReal, Is.False);
+        Assert.That(Size.Infinity.IsReal, Is.False);
     }
 
     [Test]
     public void IsValid_test()
     {
-        Assert.IsTrue(Size.Zero.IsValid);
-        Assert.IsTrue(new Size(1, 2).IsValid);
-        Assert.IsTrue(new Size(1, -2).IsValid);
-        Assert.IsFalse(new Size(1, double.PositiveInfinity).IsValid);
-        Assert.IsFalse(new Size(1, double.NaN).IsValid);
-        Assert.IsFalse(Size.Nothing.IsValid);
-        Assert.IsFalse(Size.Infinity.IsValid);
+        Assert.That(Size.Zero.IsValid);
+        Assert.That(new Size(1, 2).IsValid);
+        Assert.That(new Size(1, -2).IsValid);
+        Assert.That(new Size(1, double.PositiveInfinity).IsValid, Is.False);
+        Assert.That(new Size(1, double.NaN).IsValid, Is.False);
+        Assert.That(Size.Nothing.IsValid, Is.False);
+        Assert.That(Size.Infinity.IsValid, Is.False);
     }
 
     [Theory]
@@ -423,13 +421,13 @@ public class SizeTests
         var s3 = (System.Drawing.SizeF)s1;
         var s4 = (Size)s2;
         var s5 = (Size)s3;
-        Assert.AreEqual((int)x, s2.Width);
-        Assert.AreEqual((int)y, s2.Height);
-        Assert.IsTrue(s3.Width - x < 0.000001);
-        Assert.IsTrue(s3.Height - y < 0.000001);
-        Assert.AreEqual((int)x, s4.Width);
-        Assert.AreEqual((int)y, s4.Height);
-        Assert.IsTrue(s5.Width - x < 0.000001);
-        Assert.IsTrue(s5.Height - y < 0.000001);
+        Assert.That((int)x, Is.EqualTo(s2.Width));
+        Assert.That((int)y, Is.EqualTo(s2.Height));
+        Assert.That(s3.Width - x < 0.000001);
+        Assert.That(s3.Height - y < 0.000001);
+        Assert.That((int)x, Is.EqualTo(s4.Width));
+        Assert.That((int)y, Is.EqualTo(s4.Height));
+        Assert.That(s5.Width - x < 0.000001);
+        Assert.That(s5.Height - y < 0.000001);
     }
 }

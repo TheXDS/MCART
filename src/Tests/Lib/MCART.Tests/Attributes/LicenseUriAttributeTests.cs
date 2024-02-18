@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -41,34 +41,34 @@ public class LicenseUriAttributeTests
     {
         const string f = @"C:\Test.txt";
         LicenseUriAttribute? l = new(f);
-        Assert.AreEqual(f, l.Value);
-        Assert.AreEqual(f, ((IValueAttribute<string?>)l).Value);
+        Assert.That(f, Is.EqualTo(l.Value));
+        Assert.That(f, Is.EqualTo(l.Value));
     }
 
     [Test]
     public void ReadLicenseFromFile_Test()
     {
         const string LicenseContents = "Test.";
-        string? f = System.IO.Path.GetTempFileName();
-        System.IO.File.WriteAllText(f, LicenseContents);
+        string? f = Path.GetTempFileName();
+        File.WriteAllText(f, LicenseContents);
 
         LicenseUriAttribute? l = new(f);
-        Assert.AreEqual(LicenseContents, l.GetLicense().LicenseContent);
+        Assert.That(LicenseContents, Is.EqualTo(l.GetLicense().LicenseContent));
 
-        try { System.IO.File.Delete(f); }
+        try { File.Delete(f); }
         catch { }
     }
 
     [Test]
     public void ReadLicenseFromNowhere_Test()
     {
-        string? f = System.IO.Path.GetFullPath(System.IO.Path.Combine(
+        string? f = Path.GetFullPath(Path.Combine(
             Guid.NewGuid().ToString(),
             Guid.NewGuid().ToString(),
             Guid.NewGuid().ToString(),
             $"{Guid.NewGuid()}.txt"));
 
         string? l = new LicenseUriAttribute(f).GetLicense().LicenseContent;
-        Assert.AreEqual(St.Composition.Warn(St.Errors.ErrorLoadingLicense), l);
+        Assert.That(St.Composition.Warn(St.Errors.ErrorLoadingLicense), Is.EqualTo(l));
     }
 }

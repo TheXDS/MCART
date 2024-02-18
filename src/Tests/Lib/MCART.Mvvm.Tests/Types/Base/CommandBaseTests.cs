@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using NUnit.Framework;
 using System.Diagnostics.CodeAnalysis;
 using TheXDS.MCART.Types.Base;
 
@@ -58,7 +57,7 @@ public class CommandBaseTests
 
         public override bool CanExecute(object? parameter)
         {
-            Assert.AreSame(CexParameter, parameter);
+            Assert.That(CexParameter, Is.SameAs(parameter));
             return CanExecuteField;
         }
     }
@@ -77,9 +76,9 @@ public class CommandBaseTests
             CexParameter = null,
             CanExecuteField = true
         };
-        Assert.IsTrue(c.CanExecute());
+        Assert.That(c.CanExecute());
         c.CanExecuteField = false;
-        Assert.IsFalse(c.CanExecute());
+        Assert.That(c.CanExecute(), Is.False);
     }
 
     [Test]
@@ -89,18 +88,18 @@ public class CommandBaseTests
         var param = new object();
         var c = new TestClass(p =>
         {
-            Assert.AreSame(p, param);
+            Assert.That(p, Is.SameAs(param));
             actionRan = true;
         })
         {
             CanExecuteField = true
         };
         c.Execute(param);
-        Assert.IsTrue(actionRan);
+        Assert.That(actionRan);
         param = null;
         actionRan = false;
         c.Execute();
-        Assert.IsTrue(actionRan);
+        Assert.That(actionRan);
     }
 
     [Test]
@@ -110,27 +109,27 @@ public class CommandBaseTests
         var param = new object();
         var c = new TestClass(p =>
         {
-            Assert.AreSame(p, param);
+            Assert.That(p, Is.SameAs(param));
             actionRan = true;
         })
         {
             CanExecuteField = false,
             CexParameter = param
         };
-        Assert.IsFalse(c.TryExecute(param));
-        Assert.IsFalse(actionRan);
+        Assert.That(c.TryExecute(param),Is.False);
+        Assert.That(actionRan, Is.False);
         c.CanExecuteField = true;
-        Assert.IsTrue(c.TryExecute(param));
-        Assert.IsTrue(actionRan);
+        Assert.That(c.TryExecute(param));
+        Assert.That(actionRan);
         param = null;
         actionRan = false;
         c.CanExecuteField = false;
         c.CexParameter = null;
-        Assert.IsFalse(c.TryExecute());
-        Assert.IsFalse(actionRan);
+        Assert.That(c.TryExecute(), Is.False);
+        Assert.That(actionRan, Is.False);
         c.CanExecuteField = true;
-        Assert.IsTrue(c.TryExecute());
-        Assert.IsTrue(actionRan);
+        Assert.That(c.TryExecute());
+        Assert.That(actionRan);
     }
 
     [Test]
@@ -142,13 +141,13 @@ public class CommandBaseTests
         void C_CanExecuteChanged(object? sender, EventArgs e)
         {
             eventFired = true;
-            Assert.AreSame(c, sender);
-            Assert.AreEqual(EventArgs.Empty, e);
+            Assert.That(c, Is.SameAs(sender));
+            Assert.That(EventArgs.Empty, Is.EqualTo(e));
         }
 
         c.CanExecuteChanged += C_CanExecuteChanged;
         c.CanExecuteField = true;
-        Assert.IsTrue(eventFired);
+        Assert.That(eventFired);
         c.CanExecuteChanged -= C_CanExecuteChanged;
     }
 

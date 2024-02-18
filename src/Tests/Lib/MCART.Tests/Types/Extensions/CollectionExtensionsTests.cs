@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,11 +28,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using NUnit.Framework;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using TheXDS.MCART.Types.Base;
 using TheXDS.MCART.Types.Extensions;
 
@@ -50,11 +46,11 @@ public class CollectionExtensionsTests
         ICollection<object> c = new[] { e, o, 5, d, e2 }.ToList();
         c.RemoveOf<object, Exception>();
 
-        Assert.True(c.Contains(d));
-        Assert.True(c.Contains(o));
-        Assert.True(c.Contains(5));
-        Assert.False(c.Contains(e));
-        Assert.False(c.Contains(e2));
+        Assert.That(c.Contains(d));
+        Assert.That(c.Contains(o));
+        Assert.That(c.Contains(5));
+        Assert.That(c.Contains(e), Is.False);
+        Assert.That(c.Contains(e2), Is.False);
     }
 
     [Test]
@@ -63,8 +59,8 @@ public class CollectionExtensionsTests
         List<int>? l = Enumerable.Range(1, 10).ToList();
         List<int> r = new();
         l.RemoveAll(p => p % 2 == 1, p => r.Add(p));
-        Assert.AreEqual(new[] { 2, 4, 6, 8, 10 }, l.ToArray());
-        Assert.AreEqual(new[] { 1, 3, 5, 7, 9 }, r.ToArray());
+        Assert.That(new[] { 2, 4, 6, 8, 10 }, Is.EqualTo(l.ToArray()));
+        Assert.That(new[] { 1, 3, 5, 7, 9 }, Is.EqualTo(r.ToArray()));
     }
 
     [Test]
@@ -73,16 +69,16 @@ public class CollectionExtensionsTests
         List<int>? l = Enumerable.Range(1, 10).ToList();
         List<int> r = new();
         l.RemoveAll(p => r.Add(p));
-        Assert.IsEmpty(l);
-        Assert.AreEqual(new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, r.ToArray());
+        Assert.That(l, Is.Empty);
+        Assert.That(r.ToArray(), Is.EquivalentTo(new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }));
     }
 
     [Test]
     public void RemoveAll_With_Predicate_No_Action_Test()
     {
         List<int>? l = Enumerable.Range(1, 10).ToList();
-        TheXDS.MCART.Types.Extensions.CollectionExtensions.RemoveAll(l, p => p % 2 == 1);
-        Assert.AreEqual(new[] { 2, 4, 6, 8, 10 }, l.ToArray());
+        MCART.Types.Extensions.CollectionExtensions.RemoveAll(l, p => p % 2 == 1);
+        Assert.That(l.ToArray(), Is.EquivalentTo(new[] { 2, 4, 6, 8, 10 }));
     }
 
     [Test]
@@ -90,7 +86,7 @@ public class CollectionExtensionsTests
     {
         List<int>? l = Enumerable.Range(1, 10).ToList();
         l.RemoveAll();
-        Assert.IsEmpty(l);
+        Assert.That(l, Is.Empty);
     }
 
     [Test]
@@ -98,7 +94,7 @@ public class CollectionExtensionsTests
     {
         List<Guid> l = new();
         Guid g = l.Push();
-        Assert.Contains(g, l);
+        Assert.That(l, Contains.Item(g));
     }
 
     [Test]
@@ -106,7 +102,7 @@ public class CollectionExtensionsTests
     {
         List<Guid> l = new();
         Guid g = Guid.NewGuid().PushInto(l);
-        Assert.Contains(g, l);
+        Assert.That(l, Contains.Item(g));
     }
 
     [Test]
@@ -114,7 +110,7 @@ public class CollectionExtensionsTests
     {
         List<object> l = new();
         Guid g = l.Push<Guid, object>();
-        Assert.Contains(g, l);
+        Assert.That(l, Contains.Item(g));
     }
 
     [Test]
@@ -122,7 +118,7 @@ public class CollectionExtensionsTests
     {
         Collection<int> c = new();
         c.AddRange(new[] { 1, 2, 3, 4 });
-        Assert.AreEqual(new[] { 1, 2, 3, 4 }, c.ToArray());
+        Assert.That(c, Is.EquivalentTo(new[] { 1, 2, 3, 4 }));
     }
 
     private class CloneableTestClass : ICloneable<CloneableTestClass>
@@ -147,10 +143,10 @@ public class CollectionExtensionsTests
         CloneableTestClass? n = m.Single(p => p.Value == j.Value);
         CloneableTestClass? o = m.Single(p => p.Value == k.Value);
 
-        Assert.NotNull(n);
-        Assert.NotNull(o);
-        Assert.AreNotSame(j, n);
-        Assert.AreNotSame(k, o);
+        Assert.That(n, Is.Not.Null);
+        Assert.That(o, Is.Not.Null);
+        Assert.That(j, Is.Not.SameAs(n));
+        Assert.That(k, Is.Not.SameAs(o));
     }
 
     [Test]
@@ -164,7 +160,7 @@ public class CollectionExtensionsTests
         m.AddClone(j);
         CloneableTestClass? n = m.Single(p => p.Value == j.Value);
 
-        Assert.NotNull(n);
-        Assert.AreNotSame(j, n);
+        Assert.That(n, Is.Not.Null);
+        Assert.That(j, Is.Not.SameAs(n));
     }
 }

@@ -6,4 +6,7 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\..\..\Lib\MCART.Windows\MCART.Windows.csproj" />
 	</ItemGroup>
+	<ItemGroup>
+	  <PackageReference Update="Microsoft.SourceLink.GitHub" Version="8.0.0" />
+	</ItemGroup>
 </Project>

@@ -6,7 +6,7 @@
 //      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 //
 // Released under the MIT License (MIT)
-// Copyright © 2011 - 2023 César Andrés Morgan
+// Copyright © 2011 - 2024 César Andrés Morgan
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of
 // this software and associated documentation files (the “Software”), to deal in
@@ -88,7 +88,7 @@ internal struct ColorRef
         byte Conv(byte c) => (byte)(c + (int)((255f - c) * percent));
     }
 
-    public static implicit operator TheXDS.MCART.Types.Color(ColorRef value) => new(value.R, value.G, value.B, value.A);
+    public static implicit operator Types.Color(ColorRef value) => new(value.R, value.G, value.B, value.A);
 
-    public static implicit operator ColorRef(TheXDS.MCART.Types.Color value) => new(value.R, value.G, value.B) { A = value.A };
+    public static implicit operator ColorRef(Types.Color value) => new(value.R, value.G, value.B) { A = value.A };
 }

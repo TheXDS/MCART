@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -34,7 +34,6 @@ SOFTWARE.
 
 namespace TheXDS.MCART.Tests.Helpers;
 
-using Microsoft.VisualStudio.TestPlatform.ObjectModel;
 using NUnit.Framework;
 using System;
 using System.Diagnostics.CodeAnalysis;
@@ -118,25 +117,25 @@ public class ReflectionHelpersTests
         MethodInfo? m2 = GetMethod<Test2, Action>(t => t.Test);
         MethodInfo? b2 = typeof(Test2).GetMethod("Test")!;
 
-        Assert.NotNull(m1);
-        Assert.NotNull(m2);
-        Assert.AreSame(m1, b1);
-        Assert.AreSame(m2, b2);
-        Assert.AreNotSame(m1, m2);
-        Assert.AreNotSame(b1, b2);
+        Assert.That(m1, Is.Not.Null);
+        Assert.That(m2, Is.Not.Null);
+        Assert.That(m1, Is.SameAs(b1));
+        Assert.That(m2, Is.SameAs(b2));
+        Assert.That(m1, Is.Not.SameAs(m2));
+        Assert.That(b1, Is.Not.SameAs(b2));
 
         Test1? i = new();
         MethodInfo? n = GetMethod<Func<int>>(() => i.TestInt);
-        Assert.IsInstanceOf<MethodInfo>(n);
-        Assert.AreEqual("TestInt", n.Name);
+        Assert.That(n, Is.InstanceOf<MethodInfo>());
+        Assert.That("TestInt", Is.EqualTo(n.Name));
 
         MethodInfo? o = GetMethod<Test1, Func<int>>(t => t.TestInt);
-        Assert.IsInstanceOf<MethodInfo>(o);
-        Assert.AreEqual("TestInt", o.Name);
+        Assert.That(o, Is.InstanceOf<MethodInfo>());
+        Assert.That("TestInt", Is.EqualTo(o.Name));
 
-        MethodInfo? m = GetMethod<Test1>(t => (Func<int>)t.TestInt);
-        Assert.IsInstanceOf<MethodInfo>(m);
-        Assert.AreEqual("TestInt", m.Name);
+        MethodInfo? m = GetMethod<Test1>(t => t.TestInt);
+        Assert.That(m, Is.InstanceOf<MethodInfo>());
+        Assert.That("TestInt", Is.EqualTo(m.Name));
     }
 
     [Test]
@@ -147,8 +146,8 @@ public class ReflectionHelpersTests
             return GetCallingMethod()!;
         }
 
-        Assert.AreEqual(MethodBase.GetCurrentMethod(), TestMethod());
-        Assert.Null(GetCallingMethod(int.MaxValue - 1));
+        Assert.That(MethodBase.GetCurrentMethod(), Is.EqualTo(TestMethod()));
+        Assert.That(GetCallingMethod(int.MaxValue - 1), Is.Null);
         Assert.Throws<OverflowException>(() => GetCallingMethod(int.MaxValue));
         Assert.Throws<ArgumentOutOfRangeException>(() => GetCallingMethod(0));
     }
@@ -162,11 +161,11 @@ public class ReflectionHelpersTests
         MethodInfo? m2 = GetMethod<Test2, Action>(t => t.Test);
         MethodInfo? m3 = GetMethod<Test1, Action>(t => t.TestC<int>);
 
-        Assert.False(m1.IsOverridden(t1));
-        Assert.True(m1.IsOverridden(t2));
-        Assert.False(m2.IsOverridden(t2));
-        Assert.True(m3.IsOverridden(t2));
-        Assert.False(m3.IsOverridden(t1));
+        Assert.That(m1.IsOverridden(t1), Is.False);
+        Assert.That(m1.IsOverridden(t2));
+        Assert.That(m2.IsOverridden(t2), Is.False);
+        Assert.That(m3.IsOverridden(t2));
+        Assert.That(m3.IsOverridden(t1), Is.False);
 
         Assert.Throws<ArgumentNullException>(() => m1.IsOverridden(null!));
         Assert.Throws<ArgumentNullException>(() => MethodBaseExtensions.IsOverridden(null!, null!));
@@ -179,42 +178,42 @@ public class ReflectionHelpersTests
         MethodInfo? m1 = GetMethod<Test1, Action>(t => t.Test);
         MethodInfo? m2 = GetMethod<Test2, Action>(t => t.Test);
 
-        Assert.True(m2.IsOverride());
-        Assert.False(m1.IsOverride());
-        Assert.Throws<ArgumentNullException>(() => TheXDS.MCART.Types.Extensions.MethodInfoExtensions.IsOverride(null!));
+        Assert.That(m2.IsOverride());
+        Assert.That(m1.IsOverride(), Is.False);
+        Assert.Throws<ArgumentNullException>(() => MCART.Types.Extensions.MethodInfoExtensions.IsOverride(null!));
     }
 
     [Test]
     public void GetEntryPoint_Test()
     {
-        Assert.NotNull(GetEntryPoint());
+        Assert.That(GetEntryPoint(), Is.Not.Null);
     }
 
     [Test]
     public void GetEntryAssembly_Test()
     {
-        Assert.NotNull(GetEntryAssembly());
+        Assert.That(GetEntryAssembly(), Is.Not.Null);
     }
 
     [Test]
     public void GetMember_Test()
     {
         MemberInfo? m = GetMember<Test1>(t => t.TestInt());
-        Assert.IsInstanceOf<MethodInfo>(m);
-        Assert.AreEqual("TestInt", m.Name);
+        Assert.That(m, Is.InstanceOf<MethodInfo>());
+        Assert.That("TestInt", Is.EqualTo(m.Name));
 
         Test1? i = new();
         MemberInfo? n = GetMember(() => i.TestInt());
-        Assert.IsInstanceOf<MethodInfo>(n);
-        Assert.AreEqual("TestInt", n.Name);
+        Assert.That(n, Is.InstanceOf<MethodInfo>());
+        Assert.That("TestInt", Is.EqualTo(n.Name));
 
         MemberInfo? p = GetMember((System.Linq.Expressions.Expression<Func<object?>>)(() => i.TestInt()));
-        Assert.IsInstanceOf<MethodInfo>(p);
-        Assert.AreEqual("TestInt", p.Name);
+        Assert.That(p, Is.InstanceOf<MethodInfo>());
+        Assert.That("TestInt", Is.EqualTo(p.Name));
 
         MemberInfo? o = GetMember<Test1, int>(t => t.TestInt());
-        Assert.IsInstanceOf<MethodInfo>(o);
-        Assert.AreEqual("TestInt", o.Name);
+        Assert.That(o, Is.InstanceOf<MethodInfo>());
+        Assert.That("TestInt", Is.EqualTo(o.Name));
     }
 
     [Test]
@@ -227,140 +226,140 @@ public class ReflectionHelpersTests
     public void GetField_Test()
     {
         FieldInfo? m = GetField<Test1, string>(t => t.TestField);
-        Assert.IsInstanceOf<FieldInfo>(m);
-        Assert.AreEqual("TestField", m.Name);
+        Assert.That(m, Is.InstanceOf<FieldInfo>());
+        Assert.That("TestField", Is.EqualTo(m.Name));
 
         Test1? i = new();
         FieldInfo? n = GetField(() => i.TestField);
-        Assert.IsInstanceOf<FieldInfo>(n);
-        Assert.AreEqual("TestField", n.Name);
+        Assert.That(n, Is.InstanceOf<FieldInfo>());
+        Assert.That("TestField", Is.EqualTo(n.Name));
 
         FieldInfo? o = GetField<Test1>(t => t.TestField);
-        Assert.IsInstanceOf<FieldInfo>(o);
-        Assert.AreEqual("TestField", o.Name);
+        Assert.That(o, Is.InstanceOf<FieldInfo>());
+        Assert.That("TestField", Is.EqualTo(o.Name));
     }
 
     [Test]
     public void GetProperty_Test()
     {
         PropertyInfo? m = GetProperty<Test1, float>(t => t.TestProperty);
-        Assert.IsInstanceOf<PropertyInfo>(m);
-        Assert.AreEqual("TestProperty", m.Name);
+        Assert.That(m, Is.InstanceOf<PropertyInfo>());
+        Assert.That("TestProperty", Is.EqualTo(m.Name));
 
         Test1? i = new();
         PropertyInfo? n = GetProperty(() => i.TestProperty);
-        Assert.IsInstanceOf<PropertyInfo>(n);
-        Assert.AreEqual("TestProperty", n.Name);
+        Assert.That(n, Is.InstanceOf<PropertyInfo>());
+        Assert.That("TestProperty", Is.EqualTo(n.Name));
 
         PropertyInfo? o = GetProperty<Test1>(t => t.TestProperty);
-        Assert.IsInstanceOf<PropertyInfo>(o);
-        Assert.AreEqual("TestProperty", o.Name);
+        Assert.That(o, Is.InstanceOf<PropertyInfo>());
+        Assert.That("TestProperty", Is.EqualTo(o.Name));
     }
 
     [Test]
     public void GetPropertiesOf_Test()
     {
         var c = typeof(Test1).GetPropertiesOf<float>().ToArray();
-        Assert.AreEqual(1, c.Length);
-        Assert.IsInstanceOf<PropertyInfo>(c[0]);
-        Assert.AreEqual("TestProperty", c[0].Name);
+        Assert.That(1, Is.EqualTo(c.Length));
+        Assert.That(c[0], Is.InstanceOf<PropertyInfo>());
+        Assert.That("TestProperty", Is.EqualTo(c[0].Name));
     }
 
     [Test]
     public void GetPropertiesOf_with_BindingFlags_Test()
     {
         var c = typeof(Test1).GetPropertiesOf<float>(BindingFlags.Public | BindingFlags.Instance).ToArray();
-        Assert.AreEqual(1, c.Length);
-        Assert.IsInstanceOf<PropertyInfo>(c[0]);
-        Assert.AreEqual("TestProperty", c[0].Name);
+        Assert.That(1, Is.EqualTo(c.Length));
+        Assert.That(c[0], Is.InstanceOf<PropertyInfo>());
+        Assert.That("TestProperty", Is.EqualTo(c[0].Name));
     }
 
     [Test]
     public void FindTypeTest()
     {
-        Assert.AreEqual(typeof(TestClass), FindType<ITestInterface>("ReflectionFindTypeTest"));
-        Assert.AreEqual(typeof(TestClass), FindType("ReflectionFindTypeTest"));
-        Assert.Null(FindType<ITestInterface>("FindTypeTest2"));
-        Assert.Null(FindType("FindTypeTest2"));
+        Assert.That(typeof(TestClass), Is.EqualTo(FindType<ITestInterface>("ReflectionFindTypeTest")));
+        Assert.That(typeof(TestClass), Is.EqualTo(FindType("ReflectionFindTypeTest")));
+        Assert.That(FindType<ITestInterface>("FindTypeTest2"), Is.Null);
+        Assert.That(FindType("FindTypeTest2"), Is.Null);
     }
 
     [Test]
     public void FindAllObjects_Simple_Test()
     {
         var c = FindAllObjects<ITestInterface>().ToArray();
-        Assert.IsNotEmpty(c);
-        Assert.AreEqual(2, c.Length);
+        Assert.That(c, Is.Not.Empty);
+        Assert.That(2, Is.EqualTo(c.Length));
     }
 
     [Test]
     public void FindAllObjects_With_Type_Filter_Test()
     {
         var c = FindAllObjects<ITestInterface>(p => p.Name.EndsWith("3")).ToArray();
-        Assert.IsNotEmpty(c);
-        Assert.AreEqual(1, c.Length);
+        Assert.That(c, Is.Not.Empty);
+        Assert.That(1, Is.EqualTo(c.Length));
     }
 
     [Test]
     public void FindAllObjects_With_Ctor_Args_Test()
     {
         var c = FindAllObjects<ITestInterface>(new object[] { 0 }).ToArray();
-        Assert.IsNotEmpty(c);
-        Assert.AreEqual(1, c.Length);
+        Assert.That(c, Is.Not.Empty);
+        Assert.That(1, Is.EqualTo(c.Length));
     }
 
     [Test]
     public void FindAllObjects_With_Ctor_Args_And_Filter_Test()
     {
         var c = FindAllObjects<ITestInterface>(new object[] { 0 }, p => p.Name.EndsWith("4")).ToArray();
-        Assert.IsNotEmpty(c);
-        Assert.AreEqual(1, c.Length);
+        Assert.That(c, Is.Not.Empty);
+        Assert.That(1, Is.EqualTo(c.Length));
     }
 
     [Test]
     public void FindFirstObject_Simple_Test()
     {
         var c = FindFirstObject<ITestInterface>();
-        Assert.IsNotNull(c);
+        Assert.That(c, Is.Not.Null);
     }
 
     [Test]
     public void FindFirstObject_With_Type_Filter_Test()
     {
         var c = FindFirstObject<ITestInterface>(p => p.Name.EndsWith("3"));
-        Assert.IsNotNull(c);
+        Assert.That(c, Is.Not.Null);
     }
 
     [Test]
     public void FindFirstObject_With_Ctor_Args_Test()
     {
         var c = FindFirstObject<ITestInterface>(new object[] { 0 });
-        Assert.IsNotNull(c);
+        Assert.That(c, Is.Not.Null);
     }
 
     [Test]
     public void FindFirstObject_With_Ctor_Args_And_Filter_Test()
     {
         var c = FindFirstObject<ITestInterface>(new object[] { 0 }, p => p.Name.EndsWith("4"));
-        Assert.IsNotNull(c);
+        Assert.That(c, Is.Not.Null);
     }
 
     [Test]
     public void PublicTypesTest()
     {
         Type[]? t = PublicTypes().ToArray();
-        Assert.False(t.Contains(typeof(TestClass)));
-        Assert.Contains(typeof(Exception), t);
+        Assert.That(t.Contains(typeof(TestClass)), Is.False);
+        Assert.That(t, Contains.Item(typeof(Exception)));
     }
 
     [Test]
     public void GetTypesTest()
     {
-        Assert.True(GetTypes<IComparable>().Count() > 2);
-        Assert.True(GetTypes<Stream>(true).Count() > 2);
-        Assert.True(GetTypes<Stream>(true).Count() < GetTypes<Stream>(false).Count());
-        Assert.Contains(typeof(Enum), GetTypes<Enum>().ToArray());
-        Assert.Contains(typeof(Enum), GetTypes<Enum>(false).ToArray());
-        Assert.False(GetTypes<Enum>(true).Contains(typeof(Enum)));
+        Assert.That(GetTypes<IComparable>().Count() > 2);
+        Assert.That(GetTypes<Stream>(true).Count() > 2);
+        Assert.That(GetTypes<Stream>(true).Count() < GetTypes<Stream>(false).Count());
+        Assert.That(GetTypes<Enum>(), Contains.Item(typeof(Enum)));
+        Assert.That(GetTypes<Enum>(false), Contains.Item(typeof(Enum)));
+        Assert.That(GetTypes<Enum>(true), Does.Not.Contain(typeof(Enum)));
     }
 
     [ExcludeFromCodeCoverage]

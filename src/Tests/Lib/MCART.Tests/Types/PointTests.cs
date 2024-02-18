@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -50,9 +50,9 @@ public class PointTests
     [TestCase("15 | 12", 15, 12)]
     public void TryParseNumbers_Test(string value, double x, double y)
     {
-        Assert.True(Point.TryParse(value, out Point p));
-        Assert.AreEqual(x, p.X);
-        Assert.AreEqual(y, p.Y);
+        Assert.That(Point.TryParse(value, out Point p));
+        Assert.That(x, Is.EqualTo(p.X));
+        Assert.That(y, Is.EqualTo(p.Y));
     }
 
     [Theory]
@@ -62,8 +62,8 @@ public class PointTests
     [TestCase(null)]
     public void TryParseNowhere_Test(string data)
     {
-        Assert.True(Point.TryParse(data, out Point p));
-        Assert.AreEqual(Point.Nowhere, p);
+        Assert.That(Point.TryParse(data, out Point p));
+        Assert.That(Point.Nowhere, Is.EqualTo(p));
     }
 
     [Theory]
@@ -73,14 +73,14 @@ public class PointTests
     [TestCase("0,0")]
     public void TryParseOrigin_Test(string data)
     {
-        Assert.True(Point.TryParse(data, out Point p));
-        Assert.AreEqual(Point.Origin, p);
+        Assert.That(Point.TryParse(data, out Point p));
+        Assert.That(Point.Origin, Is.EqualTo(p));
     }
 
     [Test]
     public void Parse_Test()
     {
-        Assert.IsAssignableFrom<Point>(Point.Parse("Origin"));
+        Assert.That(Point.Parse("Origin"), Is.AssignableFrom<Point>());
         Assert.Throws<FormatException>(() => Point.Parse("Test"));
     }
 
@@ -89,11 +89,11 @@ public class PointTests
     {
         Point p = new(3, 5);
 
-        Assert.AreEqual("3, 5", p.ToString());
-        Assert.AreEqual("3, 5", p.ToString("C"));
-        Assert.AreEqual("[3, 5]", p.ToString("B"));
-        Assert.AreEqual("X: 3, Y: 5", p.ToString("V"));
-        Assert.AreEqual("X: 3\nY: 5", p.ToString("N"));
+        Assert.That("3, 5", Is.EqualTo(p.ToString()));
+        Assert.That("3, 5", Is.EqualTo(p.ToString("C")));
+        Assert.That("[3, 5]", Is.EqualTo(p.ToString("B")));
+        Assert.That("X: 3, Y: 5", Is.EqualTo(p.ToString("V")));
+        Assert.That("X: 3\nY: 5", Is.EqualTo(p.ToString("N")));
 
         Assert.Throws<FormatException>(() => p.ToString("???"));
     }
@@ -105,22 +105,22 @@ public class PointTests
         Point q = new(3, 5);
         Point r = new(5, 3);
 
-        Assert.True(p.Equals(q));
-        Assert.False(p.Equals(r));
-        Assert.True(p.Equals((IVector)q));
-        Assert.False(p.Equals((IVector)r));
-        Assert.True(p.Equals((object?)q));
-        Assert.False(p.Equals((object?)r));
-        Assert.False(p.Equals(Guid.NewGuid()));
-        Assert.False(p.Equals((object?)null));
-        Assert.False(p.Equals((IVector?)null));
+        Assert.That(p.Equals(q));
+        Assert.That(p.Equals(r), Is.False);
+        Assert.That(p.Equals((IVector)q));
+        Assert.That(p.Equals((IVector)r), Is.False);
+        Assert.That(p.Equals((object?)q));
+        Assert.That(p.Equals((object?)r), Is.False);
+        Assert.That(p.Equals(Guid.NewGuid()), Is.False);
+        Assert.That(p.Equals((object?)null), Is.False);
+        Assert.That(p.Equals(null), Is.False);
     }
 
     [Test]
     public void GetHashCode_Test()
     {
-        Assert.AreEqual(new Point(3, 5).GetHashCode(), new Point(3, 5).GetHashCode());
-        Assert.AreNotEqual(new Point(3, 5).GetHashCode(), new Point(1, 1).GetHashCode());
+        Assert.That(new Point(3, 5).GetHashCode(), Is.EqualTo(new Point(3, 5).GetHashCode()));
+        Assert.That(new Point(3, 5).GetHashCode(), Is.Not.EqualTo(new Point(1, 1).GetHashCode()));
     }
 
     [Test]
@@ -128,13 +128,13 @@ public class PointTests
     {
         Point p = new(3, 5);
         System.Drawing.Point q = (System.Drawing.Point)p;
-        Assert.IsAssignableFrom<System.Drawing.Point>(q);
-        Assert.AreEqual(3, q.X);
-        Assert.AreEqual(5, q.Y);
+        Assert.That(q, Is.AssignableFrom<System.Drawing.Point>());
+        Assert.That(3, Is.EqualTo(q.X));
+        Assert.That(5, Is.EqualTo(q.Y));
         Point r = (Point)q;
-        Assert.IsAssignableFrom<Point>(r);
-        Assert.AreEqual(3.0, r.X);
-        Assert.AreEqual(5.0, r.Y);
+        Assert.That(r, Is.AssignableFrom<Point>());
+        Assert.That(3.0, Is.EqualTo(r.X));
+        Assert.That(5.0, Is.EqualTo(r.Y));
     }
 
     [TestCase(3, 5, 2, 4, 5, 9)]
@@ -147,15 +147,15 @@ public class PointTests
         Point q = new(x2, y2);
         Point r = p + q;
 
-        Assert.AreEqual(x3, r.X);
-        Assert.AreEqual(y3, r.Y);
+        Assert.That(x3, Is.EqualTo(r.X));
+        Assert.That(y3, Is.EqualTo(r.Y));
 
         Point s = p + (IVector)q;
-        Assert.AreEqual(x3, s.X);
-        Assert.AreEqual(y3, s.Y);
+        Assert.That(x3, Is.EqualTo(s.X));
+        Assert.That(y3, Is.EqualTo(s.Y));
 
-        Assert.AreEqual(x3, (p + x2).X);
-        Assert.AreEqual(y3, (p + y2).Y);
+        Assert.That(x3, Is.EqualTo((p + x2).X));
+        Assert.That(y3, Is.EqualTo((p + y2).Y));
     }
 
     [TestCase(3, 5, 2, 4, 1, 1)]
@@ -168,15 +168,15 @@ public class PointTests
         Point q = new(x2, y2);
         Point r = p - q;
 
-        Assert.AreEqual(x3, r.X);
-        Assert.AreEqual(y3, r.Y);
+        Assert.That(x3, Is.EqualTo(r.X));
+        Assert.That(y3, Is.EqualTo(r.Y));
 
         Point s = p - (IVector)q;
-        Assert.AreEqual(x3, s.X);
-        Assert.AreEqual(y3, s.Y);
+        Assert.That(x3, Is.EqualTo(s.X));
+        Assert.That(y3, Is.EqualTo(s.Y));
 
-        Assert.AreEqual(x3, (p - x2).X);
-        Assert.AreEqual(y3, (p - y2).Y);
+        Assert.That(x3, Is.EqualTo((p - x2).X));
+        Assert.That(y3, Is.EqualTo((p - y2).Y));
     }
 
     [TestCase(3, 5, 2, 4, 6, 20)]
@@ -189,15 +189,15 @@ public class PointTests
         Point q = new(x2, y2);
         Point r = p * q;
 
-        Assert.AreEqual(x3, r.X);
-        Assert.AreEqual(y3, r.Y);
+        Assert.That(x3, Is.EqualTo(r.X));
+        Assert.That(y3, Is.EqualTo(r.Y));
 
         Point s = p * (IVector)q;
-        Assert.AreEqual(x3, s.X);
-        Assert.AreEqual(y3, s.Y);
+        Assert.That(x3, Is.EqualTo(s.X));
+        Assert.That(y3, Is.EqualTo(s.Y));
 
-        Assert.AreEqual(x3, (p * x2).X);
-        Assert.AreEqual(y3, (p * y2).Y);
+        Assert.That(x3, Is.EqualTo((p * x2).X));
+        Assert.That(y3, Is.EqualTo((p * y2).Y));
     }
 
     [TestCase(3, 5, 2, 4, 1.5, 1.25)]
@@ -210,15 +210,15 @@ public class PointTests
         Point q = new(x2, y2);
         Point r = p / q;
 
-        Assert.AreEqual(x3, r.X);
-        Assert.AreEqual(y3, r.Y);
+        Assert.That(x3, Is.EqualTo(r.X));
+        Assert.That(y3, Is.EqualTo(r.Y));
 
         Point s = p / (IVector)q;
-        Assert.AreEqual(x3, s.X);
-        Assert.AreEqual(y3, s.Y);
+        Assert.That(x3, Is.EqualTo(s.X));
+        Assert.That(y3, Is.EqualTo(s.Y));
 
-        Assert.AreEqual(x3, (p / x2).X);
-        Assert.AreEqual(y3, (p / y2).Y);
+        Assert.That(x3, Is.EqualTo((p / x2).X));
+        Assert.That(y3, Is.EqualTo((p / y2).Y));
     }
 
     [TestCase(3, 5, 2, 4, 1, 1)]
@@ -232,15 +232,15 @@ public class PointTests
         Point q = new(x2, y2);
         Point r = p % q;
 
-        Assert.AreEqual(x3, r.X);
-        Assert.AreEqual(y3, r.Y);
+        Assert.That(x3, Is.EqualTo(r.X));
+        Assert.That(y3, Is.EqualTo(r.Y));
 
         Point s = p % (IVector)q;
-        Assert.AreEqual(x3, s.X);
-        Assert.AreEqual(y3, s.Y);
+        Assert.That(x3, Is.EqualTo(s.X));
+        Assert.That(y3, Is.EqualTo(s.Y));
 
-        Assert.AreEqual(x3, (p % x2).X);
-        Assert.AreEqual(y3, (p % y2).Y);
+        Assert.That(x3, Is.EqualTo((p % x2).X));
+        Assert.That(y3, Is.EqualTo((p % y2).Y));
     }
 
     [Test]
@@ -248,8 +248,8 @@ public class PointTests
     {
         Point p = new(3, 5);
         p++;
-        Assert.AreEqual(4, p.X);
-        Assert.AreEqual(6, p.Y);
+        Assert.That(4, Is.EqualTo(p.X));
+        Assert.That(6, Is.EqualTo(p.Y));
     }
 
     [Test]
@@ -257,32 +257,32 @@ public class PointTests
     {
         Point p = new(3, 5);
         p--;
-        Assert.AreEqual(2, p.X);
-        Assert.AreEqual(4, p.Y);
+        Assert.That(2, Is.EqualTo(p.X));
+        Assert.That(4, Is.EqualTo(p.Y));
     }
 
     [Test]
     public void PlusOperator_Test()
     {
         Point p = +new Point(3, 5);
-        Assert.AreEqual(3, p.X);
-        Assert.AreEqual(5, p.Y);
+        Assert.That(3, Is.EqualTo(p.X));
+        Assert.That(5, Is.EqualTo(p.Y));
 
         p = +new Point(-1, -2);
-        Assert.AreEqual(-1, p.X);
-        Assert.AreEqual(-2, p.Y);
+        Assert.That(-1, Is.EqualTo(p.X));
+        Assert.That(-2, Is.EqualTo(p.Y));
     }
 
     [Test]
     public void MinusOperator_Test()
     {
         Point p = -new Point(3, 5);
-        Assert.AreEqual(-3, p.X);
-        Assert.AreEqual(-5, p.Y);
+        Assert.That(-3, Is.EqualTo(p.X));
+        Assert.That(-5, Is.EqualTo(p.Y));
 
         p = -new Point(-1, -2);
-        Assert.AreEqual(1, p.X);
-        Assert.AreEqual(2, p.Y);
+        Assert.That(1, Is.EqualTo(p.X));
+        Assert.That(2, Is.EqualTo(p.Y));
     }
 
     [Test]
@@ -292,10 +292,10 @@ public class PointTests
         Point q = new(3, 5);
         Point r = new(5, 3);
 
-        Assert.True(p != r);
-        Assert.False(p != q);
-        Assert.True(p != (IVector)r);
-        Assert.False(p != (IVector)q);
+        Assert.That(p != r);
+        Assert.That(p != q, Is.False);
+        Assert.That(p != (IVector)r);
+        Assert.That(p != (IVector)q, Is.False);
     }
 
     [TestCase(1, 0, 0)]
@@ -305,7 +305,7 @@ public class PointTests
     [TestCase(1, -1, Math.Tau - (Math.PI / 4))]
     public void Angle_Test(int x, int y, double angle)
     {
-        Assert.True((new Point(x, y).Angle() - angle).IsBetween(-0.00000001, 0.00000001));
+        Assert.That((new Point(x, y).Angle() - angle).IsBetween(-0.00000001, 0.00000001));
     }
 
     [Test]
@@ -313,28 +313,28 @@ public class PointTests
     {
         Point p = new(-5, -5);
         Point q = new(5, 5);
-        Assert.True(Point.Origin.WithinBox(p, q));
-        Assert.False(new Point(10, 10).WithinBox(p, q));
-        Assert.True(new Point(5, -5).WithinBox(p, q));
-        Assert.True(Point.Origin.WithinBox(new(-1, 1), new Range<double>(-1, 1)));
-        Assert.False(Point.Origin.WithinBox(new(2, 3), new Range<double>(1, 1)));
-        Assert.True(Point.Origin.WithinBox(new Size(10, 10), new(-5, 5)));
-        Assert.False(Point.Origin.WithinBox(new Size(2, 2), new(-5, 5)));
-        Assert.True(Point.Origin.WithinBox(new(10, 10)));
-        Assert.True(Point.Origin.WithinBox(new(2, 2)));
-        Assert.False(new Point(3, 4).WithinBox(new(2, 2)));
-        Assert.True(Point.Origin.WithinBox(-5, 5, 5, -5));
-        Assert.True(Point.Origin.WithinBox(5, -5, -5, 5));
-        Assert.False(Point.Origin.WithinBox(-15, -5, -10, 5));
-        Assert.False(Point.Origin.WithinBox(-15, -5, -10, 5));
+        Assert.That(Point.Origin.WithinBox(p, q));
+        Assert.That(new Point(10, 10).WithinBox(p, q), Is.False);
+        Assert.That(new Point(5, -5).WithinBox(p, q));
+        Assert.That(Point.Origin.WithinBox(new(-1, 1), new Range<double>(-1, 1)));
+        Assert.That(Point.Origin.WithinBox(new(2, 3), new Range<double>(1, 1)), Is.False);
+        Assert.That(Point.Origin.WithinBox(new Size(10, 10), new(-5, 5)));
+        Assert.That(Point.Origin.WithinBox(new Size(2, 2), new(-5, 5)), Is.False);
+        Assert.That(Point.Origin.WithinBox(new(10, 10)));
+        Assert.That(Point.Origin.WithinBox(new(2, 2)));
+        Assert.That(new Point(3, 4).WithinBox(new(2, 2)), Is.False);
+        Assert.That(Point.Origin.WithinBox(-5, 5, 5, -5));
+        Assert.That(Point.Origin.WithinBox(5, -5, -5, 5));
+        Assert.That(Point.Origin.WithinBox(-15, -5, -10, 5), Is.False);
+        Assert.That(Point.Origin.WithinBox(-15, -5, -10, 5), Is.False);
     }
 
     [Test]
     public void Magnitude_Test()
     {
         Point p = new(3, 5);
-        Assert.AreEqual(p.Magnitude(), p.Magnitude(Point.Origin));
-        Assert.AreEqual(p.Magnitude(), p.Magnitude(0, 0));
+        Assert.That(p.Magnitude(), Is.EqualTo(p.Magnitude(Point.Origin)));
+        Assert.That(p.Magnitude(), Is.EqualTo(p.Magnitude(0, 0)));
     }
 
     [TestCase(0, 0, true)]
@@ -351,6 +351,6 @@ public class PointTests
     [TestCase(7, -7, true)]
     public void WithinCircle_Test(int x, int y, bool result)
     {
-        Assert.AreEqual(result, new Point(x, y).WithinCircle(Point.Origin, 10));
+        Assert.That(result, Is.EqualTo(new Point(x, y).WithinCircle(Point.Origin, 10)));
     }
 }

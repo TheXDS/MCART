@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -40,27 +40,27 @@ public class SpdxLicenceTests
     public void SpdxLicenseBasicInstancing_Test()
     {
         SpdxLicenseAttribute? l = new(SpdxLicenseId.GPL_3_0_or_later);
-        Assert.AreEqual(SpdxLicenseId.GPL_3_0_or_later, l.Id);
+        Assert.That(SpdxLicenseId.GPL_3_0_or_later, Is.EqualTo(l.Id));
 
         l = new(SpdxLicenseId.BSD0);
-        Assert.AreEqual(SpdxLicenseId.BSD0, l.Id);
+        Assert.That(SpdxLicenseId.BSD0, Is.EqualTo(l.Id));
     }
 
     [Test]
     public void SpdxInstancingWithStringArgs_Test()
     {
         SpdxLicenseAttribute? l = new("GPL_3_0_or_later");
-        Assert.AreEqual(SpdxLicenseId.GPL_3_0_or_later, l.Id);
+        Assert.That(SpdxLicenseId.GPL_3_0_or_later, Is.EqualTo(l.Id));
     }
 
     [Test]
     public void GetLicense_test()
     {
         SpdxLicenseAttribute? l = new(SpdxLicenseId.GPL_3_0_or_later);
-        Assert.IsNotNull(l.GetLicense(new object()));
+        Assert.That(l.GetLicense(new object()), Is.Not.Null);
 
         l = new("test_1_0");
-        Assert.IsNotNull(l.GetLicense(new object()));
+        Assert.That(l.GetLicense(new object()), Is.Not.Null);
     }
 
     [Test]

@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -39,6 +39,6 @@ public class ExpressionExtensionsTests
     public void Eval_Test()
     {
         BinaryExpression? x = Expression.Multiply(Expression.Constant(5), Expression.Constant(2));
-        Assert.AreEqual(10, x.Eval());
+        Assert.That(10, Is.EqualTo(x.Eval()));
     }
 }

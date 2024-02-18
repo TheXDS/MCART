@@ -8,7 +8,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -29,9 +29,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using NUnit.Framework;
-using System;
-using System.IO;
 using System.Security;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types.Extensions;
@@ -55,8 +52,8 @@ internal class Pbkdf2StorageTests
         SecureString pw1 = "password".ToSecureString();
         SecureString pw2 = "Test@123".ToSecureString();
         byte[] hash = PasswordStorage.CreateHash(pbkdf2, pw1);
-        Assert.IsTrue(PasswordStorage.VerifyPassword(pw1, hash));
-        Assert.IsFalse(PasswordStorage.VerifyPassword(pw2, hash));
+        Assert.That(PasswordStorage.VerifyPassword(pw1, hash), Is.True);
+        Assert.That(PasswordStorage.VerifyPassword(pw2, hash), Is.False);
     }
 
     [Test]
@@ -71,7 +68,7 @@ internal class Pbkdf2StorageTests
             }
         };
         byte[] expected = Convert.FromBase64String("R1WBjyfhVe02qhe7YyY8Wg==");
-        Assert.AreEqual(expected, pbkdf2.Generate("password".ToSecureString()));
+        Assert.That(expected, Is.EqualTo(pbkdf2.Generate("password".ToSecureString())));
     }
 
     [Test]
@@ -88,7 +85,7 @@ internal class Pbkdf2StorageTests
             }
         };
         byte[] expected = Convert.FromBase64String("fqg8ZoPMzmLiOVqZtdlB2g==");
-        Assert.AreEqual(expected, pbkdf2.Generate("password".ToSecureString()));
+        Assert.That(expected, Is.EqualTo(pbkdf2.Generate("password".ToSecureString())));
     }
 
     [Test]
@@ -106,10 +103,10 @@ internal class Pbkdf2StorageTests
         };
         byte[] settings = pbkdf2.DumpSettings();        
         pbkdf2 = new Pbkdf2Storage();
-        Assert.AreNotEqual(settings, pbkdf2.DumpSettings());
+        Assert.That(settings, Is.Not.EqualTo(pbkdf2.DumpSettings()));
         using var ms = new MemoryStream(settings);
         using var br = new BinaryReader(ms);
         pbkdf2.ConfigureFrom(br);
-        Assert.AreEqual(settings, pbkdf2.DumpSettings());
+        Assert.That(settings, Is.EqualTo(pbkdf2.DumpSettings()));
     }
 }

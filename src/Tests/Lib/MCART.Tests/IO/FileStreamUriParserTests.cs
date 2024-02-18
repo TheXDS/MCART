@@ -10,7 +10,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -51,10 +51,10 @@ public class FileStreamUriParserTests
         FileStreamUriParser? fp = new();
         Stream? fu = fp.Open(new Uri(furi))!;
 
-        Assert.NotNull(fu);
-        Assert.IsInstanceOf<Stream>(fu);
+        Assert.That(fu, Is.Not.Null);
+        Assert.That(fu, Is.InstanceOf<Stream>());
         using StreamReader? r = new(fu);
-        Assert.AreEqual("test", r.ReadToEnd());
+        Assert.That("test", Is.EqualTo(r.ReadToEnd()));
         fu.Dispose();
         r.Dispose();
         File.Delete(f);
@@ -69,10 +69,10 @@ public class FileStreamUriParserTests
         FileStreamUriParser? fp = new();
         Stream? fu = fp.Open(new Uri(f))!;
 
-        Assert.NotNull(fu);
-        Assert.IsInstanceOf<FileStream>(fu);
+        Assert.That(fu, Is.Not.Null);
+        Assert.That(fu, Is.InstanceOf<FileStream>());
         using StreamReader? r = new(fu);
-        Assert.AreEqual("test", r.ReadToEnd());
+        Assert.That("test", Is.EqualTo(r.ReadToEnd()));
         fu.Dispose();
         r.Dispose();
         File.Delete(f);

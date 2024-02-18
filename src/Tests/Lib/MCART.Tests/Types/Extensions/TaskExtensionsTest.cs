@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -52,12 +52,12 @@ public class TaskExtensionsTest
         t.Start();
         Assert.ThrowsAsync<TaskCanceledException>(() => Task.Delay(100000).WithCancellation(new CancellationTokenSource(500).Token));
         t.Stop();
-        Assert.True(t.ElapsedMilliseconds < 100000);
+        Assert.That(t.ElapsedMilliseconds < 100000);
 
         t.Start();
         await Task.Delay(500).WithCancellation(new CancellationTokenSource(100000).Token);
         t.Stop();
-        Assert.True(t.ElapsedMilliseconds < 5000);
+        Assert.That(t.ElapsedMilliseconds < 5000);
     }
 
     [Test]
@@ -79,12 +79,12 @@ public class TaskExtensionsTest
         t.Start();
         Assert.ThrowsAsync<TaskCanceledException>(() => Get5Async(100000).WithCancellation(new CancellationTokenSource(500).Token));
         t.Stop();
-        Assert.True(t.ElapsedMilliseconds < 100000);
+        Assert.That(t.ElapsedMilliseconds < 100000);
 
         t.Start();
-        Assert.AreEqual(5, await Get5Async(500).WithCancellation(new CancellationTokenSource(100000).Token));
+        Assert.That(5, Is.EqualTo(await Get5Async(500).WithCancellation(new CancellationTokenSource(100000).Token)));
         t.Stop();
-        Assert.True(t.ElapsedMilliseconds < 5000);
+        Assert.That(t.ElapsedMilliseconds < 5000);
     }
 
     [Test]
@@ -100,8 +100,8 @@ public class TaskExtensionsTest
         int v = GetValueAsync().Yield();
         t.Stop();
 
-        Assert.True(t.ElapsedMilliseconds >= 1000);
-        Assert.AreEqual(1, v);
+        Assert.That(t.ElapsedMilliseconds >= 1000);
+        Assert.That(1, Is.EqualTo(v));
     }
 
     [Test]
@@ -117,15 +117,15 @@ public class TaskExtensionsTest
         Task<int>? task = GetValueAsync();
         _ = task.Yield(1250);
         t.Stop();
-        Assert.True(t.ElapsedMilliseconds.IsBetween(500, 1500));
-        Assert.AreEqual(1, await task);
+        Assert.That(t.ElapsedMilliseconds.IsBetween(500, 1500));
+        Assert.That(1, Is.EqualTo(await task));
 
         t.Restart();
         task = GetValueAsync();
         _ = task.Yield(TimeSpan.FromSeconds(1));
         t.Stop();
-        Assert.True(t.ElapsedMilliseconds.IsBetween(500, 1250));
-        Assert.AreEqual(1, await task);
+        Assert.That(t.ElapsedMilliseconds.IsBetween(500, 1250));
+        Assert.That(1, Is.EqualTo(await task));
     }
 
     [Test]
@@ -140,14 +140,14 @@ public class TaskExtensionsTest
         t.Start();
         int v = GetValueAsync().Yield(new CancellationTokenSource(2000).Token);
         t.Stop();
-        Assert.True(t.ElapsedMilliseconds.IsBetween(1250, 1750));
-        Assert.AreEqual(1, v);
+        Assert.That(t.ElapsedMilliseconds.IsBetween(1250, 1750));
+        Assert.That(1, Is.EqualTo(v));
         t.Restart();
         Task<int>? task = GetValueAsync();
         _ = task.Yield(new CancellationTokenSource(1000).Token);
         t.Stop();
-        Assert.True(t.ElapsedMilliseconds <= 1250);
-        Assert.AreEqual(1, await task);
+        Assert.That(t.ElapsedMilliseconds <= 1250);
+        Assert.That(1, Is.EqualTo(await task));
     }
 
     [Test]
@@ -163,14 +163,14 @@ public class TaskExtensionsTest
         Task<int>? task = GetValueAsync();
         _ = task.Yield(1250, new CancellationTokenSource(3000).Token);
         t.Stop();
-        Assert.True(t.ElapsedMilliseconds.IsBetween(500, 1500));
-        Assert.AreEqual(1, await task);
+        Assert.That(t.ElapsedMilliseconds.IsBetween(500, 1500));
+        Assert.That(1, Is.EqualTo(await task));
 
         t.Restart();
         task = GetValueAsync();
         _ = task.Yield(2000, new CancellationTokenSource(1000).Token);
         t.Stop();
-        Assert.True(t.ElapsedMilliseconds <= 1250);
-        Assert.AreEqual(1, await task);
+        Assert.That(t.ElapsedMilliseconds <= 1250);
+        Assert.That(1, Is.EqualTo(await task));
     }
 }

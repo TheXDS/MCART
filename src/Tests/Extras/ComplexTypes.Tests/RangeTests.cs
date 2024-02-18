@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the “Software”), to deal in
@@ -28,8 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. 
 */
 
-using NUnit.Framework;
-using System;
 using TheXDS.MCART.Types.Entity;
 
 namespace TheXDS.MCART.Ext.ComplexTypes.Tests;
@@ -45,10 +43,10 @@ public class RangeTests
     {
         var r = new Range<int>(min, max, minInc, maxInc);
 
-        Assert.AreEqual(min, r.Minimum);
-        Assert.AreEqual(max, r.Maximum);
-        Assert.AreEqual(minInc, r.MinInclusive);
-        Assert.AreEqual(maxInc, r.MaxInclusive);
+        Assert.That(min, Is.EqualTo(r.Minimum));
+        Assert.That(max, Is.EqualTo(r.Maximum));
+        Assert.That(minInc, Is.EqualTo(r.MinInclusive));
+        Assert.That(maxInc, Is.EqualTo(r.MaxInclusive));
     }
 
     [Test]
@@ -57,34 +55,34 @@ public class RangeTests
         Range<int> r;
 
         r = new();
-        Assert.AreEqual(default(int), r.Minimum);
-        Assert.AreEqual(default(int), r.Maximum);
-        Assert.IsTrue(r.MinInclusive);
-        Assert.IsTrue(r.MaxInclusive);
+        Assert.That(default(int), Is.EqualTo(r.Minimum));
+        Assert.That(default(int), Is.EqualTo(r.Maximum));
+        Assert.That(r.MinInclusive);
+        Assert.That(r.MaxInclusive);
 
         r = new(10);
-        Assert.AreEqual(default(int), r.Minimum);
-        Assert.AreEqual(10, r.Maximum);
-        Assert.IsTrue(r.MinInclusive);
-        Assert.IsTrue(r.MaxInclusive);
+        Assert.That(default(int), Is.EqualTo(r.Minimum));
+        Assert.That(10, Is.EqualTo(r.Maximum));
+        Assert.That(r.MinInclusive);
+        Assert.That(r.MaxInclusive);
 
         r = new(5, 15);
-        Assert.AreEqual(5, r.Minimum);
-        Assert.AreEqual(15, r.Maximum);
-        Assert.IsTrue(r.MinInclusive);
-        Assert.IsTrue(r.MaxInclusive);
+        Assert.That(5, Is.EqualTo(r.Minimum));
+        Assert.That(15, Is.EqualTo(r.Maximum));
+        Assert.That(r.MinInclusive);
+        Assert.That(r.MaxInclusive);
 
         r = new(8, false);
-        Assert.AreEqual(default(int), r.Minimum);
-        Assert.AreEqual(8, r.Maximum);
-        Assert.IsFalse(r.MinInclusive);
-        Assert.IsFalse(r.MaxInclusive);
+        Assert.That(default(int), Is.EqualTo(r.Minimum));
+        Assert.That(8, Is.EqualTo(r.Maximum));
+        Assert.That(r.MinInclusive, Is.False);
+        Assert.That(r.MaxInclusive, Is.False);
 
         r = new(2, 6 , false);
-        Assert.AreEqual(2, r.Minimum);
-        Assert.AreEqual(6, r.Maximum);
-        Assert.IsFalse(r.MinInclusive);
-        Assert.IsFalse(r.MaxInclusive);
+        Assert.That(2, Is.EqualTo(r.Minimum));
+        Assert.That(6, Is.EqualTo(r.Maximum));
+        Assert.That(r.MinInclusive, Is.False);
+        Assert.That(r.MaxInclusive, Is.False);
     }
 
     [Test]
@@ -101,7 +99,7 @@ public class RangeTests
     {
         var r1 = new Range<int>(min1, max1);
         var r2 = new Range<int>(min2, max2);
-        Assert.AreEqual(result, r1.Intersects(r2));
+        Assert.That(result, Is.EqualTo(r1.Intersects(r2)));
     }
 
     [Theory]
@@ -110,7 +108,7 @@ public class RangeTests
     public void IsWithin_test(int min, int max, int value, bool result)
     {
         var r = new Range<int>(min, max);
-        Assert.AreEqual(result, r.IsWithin(value));
+        Assert.That(result, Is.EqualTo(r.IsWithin(value)));
     }
 
     [Test]
@@ -119,13 +117,13 @@ public class RangeTests
         Range<int> r1 = new(5, 10, false, true);
         Types.Range<int> r2 = new(5, 10, false, true);
 
-        Assert.AreEqual(r1.Minimum, ((Range<int>)r2).Minimum);
-        Assert.AreEqual(r1.Maximum, ((Range<int>)r2).Maximum);
-        Assert.AreEqual(r1.MinInclusive, ((Range<int>)r2).MinInclusive);
-        Assert.AreEqual(r1.MaxInclusive, ((Range<int>)r2).MaxInclusive);
-        Assert.AreEqual(r2.Minimum, ((Types.Range<int>)r1).Minimum);
-        Assert.AreEqual(r2.Maximum, ((Types.Range<int>)r1).Maximum);
-        Assert.AreEqual(r2.MinInclusive, ((Types.Range<int>)r1).MinInclusive);
-        Assert.AreEqual(r2.MaxInclusive, ((Types.Range<int>)r1).MaxInclusive);
+        Assert.That(r1.Minimum, Is.EqualTo(((Range<int>)r2).Minimum));
+        Assert.That(r1.Maximum, Is.EqualTo(((Range<int>)r2).Maximum));
+        Assert.That(r1.MinInclusive, Is.EqualTo(((Range<int>)r2).MinInclusive));
+        Assert.That(r1.MaxInclusive, Is.EqualTo(((Range<int>)r2).MaxInclusive));
+        Assert.That(r2.Minimum, Is.EqualTo(((Types.Range<int>)r1).Minimum));
+        Assert.That(r2.Maximum, Is.EqualTo(((Types.Range<int>)r1).Maximum));
+        Assert.That(r2.MinInclusive, Is.EqualTo(((Types.Range<int>)r1).MinInclusive));
+        Assert.That(r2.MaxInclusive, Is.EqualTo(((Types.Range<int>)r1).MaxInclusive));
     }
 }

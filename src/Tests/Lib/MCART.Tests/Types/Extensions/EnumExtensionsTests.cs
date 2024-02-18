@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,39 +28,37 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Tests.Types.Extensions;
-using NUnit.Framework;
-using System;
-using System.Linq;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Types;
 using static TheXDS.MCART.Types.Extensions.EnumExtensions;
+
+namespace TheXDS.MCART.Tests.Types.Extensions;
 
 public class EnumExtensionsTests
 {
     [Test]
     public void ToBytesTest()
     {
-        Assert.AreEqual(new byte[] { 1, 0, 0, 0 }, DayOfWeek.Monday.ToBytes());
-        Assert.AreEqual(new byte[] { 0 }, TestByteEnum.Zero.ToBytes());
-        Assert.AreEqual(new byte[] { 1 }, TestByteEnum.One.ToBytes());
-        Assert.AreEqual(new byte[] { 2 }, TestByteEnum.Two.ToBytes());
+        Assert.That(DayOfWeek.Monday.ToBytes(), Is.EquivalentTo(new byte[] { 1, 0, 0, 0 }));
+        Assert.That(TestByteEnum.Zero.ToBytes(), Is.EquivalentTo(new byte[] { 0 }));
+        Assert.That(TestByteEnum.One.ToBytes(), Is.EquivalentTo(new byte[] { 1 }));
+        Assert.That(TestByteEnum.Two.ToBytes(), Is.EquivalentTo(new byte[] { 2 }));
     }
 
     [Test]
     public void ByteConversionMethodTest()
     {
         System.Reflection.MethodInfo? a = ByteConversionMethod<DayOfWeek>();
-        Assert.NotNull(a);
+        Assert.That(a, Is.Not.Null);
 
         byte[]? b = BitConverter.GetBytes((int)DayOfWeek.Monday);
         byte[]? c = (byte[])a.Invoke(null, new object[] { DayOfWeek.Monday })!;
-        Assert.AreEqual(b, c);
+        Assert.That(b, Is.EqualTo(c));
 
         Assert.Throws<ArgumentException>(() => ByteConversionMethod(typeof(bool)));
 
         System.Reflection.MethodInfo? d = ByteConversionMethod(typeof(DayOfWeek));
-        Assert.AreSame(a, d);
+        Assert.That(a, Is.SameAs(d));
     }
 
     [Test]
@@ -69,7 +67,7 @@ public class EnumExtensionsTests
         byte[]? a = BitConverter.GetBytes((int)DayOfWeek.Monday);
         Func<DayOfWeek, byte[]>? b = ToBytes<DayOfWeek>();
 
-        Assert.AreEqual(a, b(DayOfWeek.Monday));
+        Assert.That(b(DayOfWeek.Monday), Is.EquivalentTo(a));
     }
 
     [Test]
@@ -77,8 +75,8 @@ public class EnumExtensionsTests
     {
         static void TestValue(NamedObject<TestByteEnum> p, string name, TestByteEnum value)
         {
-            Assert.AreEqual(name, p.Name);
-            Assert.AreEqual(value, p.Value);
+            Assert.That(name, Is.EqualTo(p.Name));
+            Assert.That(value, Is.EqualTo(p.Value));
         }
 
         NamedObject<TestByteEnum>[]? l = NamedEnums<TestByteEnum>().ToArray();
@@ -90,17 +88,17 @@ public class EnumExtensionsTests
     [Test]
     public void ToUnderlyingTypeTest()
     {
-        Assert.AreEqual((byte)0, TestByteEnum.Zero.ToUnderlyingType());
-        Assert.IsAssignableFrom<byte>(TestByteEnum.Zero.ToUnderlyingType());
+        Assert.That((byte)0, Is.EqualTo(TestByteEnum.Zero.ToUnderlyingType()));
+        Assert.That(TestByteEnum.Zero.ToUnderlyingType(), Is.AssignableFrom<byte>());
 
-        Assert.AreEqual(1, DayOfWeek.Monday.ToUnderlyingType());
-        Assert.IsAssignableFrom<int>(DayOfWeek.Monday.ToUnderlyingType());
+        Assert.That(1, Is.EqualTo(DayOfWeek.Monday.ToUnderlyingType()));
+        Assert.That(DayOfWeek.Monday.ToUnderlyingType(), Is.AssignableFrom<int>());
 
-        Assert.AreEqual((byte)0, ((Enum)TestByteEnum.Zero).ToUnderlyingType());
-        Assert.IsAssignableFrom<byte>(((Enum)TestByteEnum.Zero).ToUnderlyingType());
+        Assert.That((byte)0, Is.EqualTo(((Enum)TestByteEnum.Zero).ToUnderlyingType()));
+        Assert.That(((Enum)TestByteEnum.Zero).ToUnderlyingType(), Is.AssignableFrom<byte>());
 
-        Assert.AreEqual(1, ((Enum)DayOfWeek.Monday).ToUnderlyingType());
-        Assert.IsAssignableFrom<int>(((Enum)DayOfWeek.Monday).ToUnderlyingType());
+        Assert.That(1, Is.EqualTo(((Enum)DayOfWeek.Monday).ToUnderlyingType()));
+        Assert.That(((Enum)DayOfWeek.Monday).ToUnderlyingType(), Is.AssignableFrom<int>());
     }
 
     private enum TestByteEnum : byte

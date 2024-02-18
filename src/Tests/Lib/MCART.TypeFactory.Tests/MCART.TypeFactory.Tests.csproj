@@ -3,6 +3,6 @@
 		<TargetFramework>net6.0</TargetFramework>
 	</PropertyGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\..\..\Lib\MCART.TypeFactory\MCART.TypeFactory.csproj" />
+		<ProjectReference Include="..\..\..\Lib\MCART.TypeFactory\MCART.TypeFactory.csproj" />
 	</ItemGroup>
 </Project>

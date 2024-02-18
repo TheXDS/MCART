@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -29,8 +29,6 @@ SOFTWARE.
 */
 
 namespace TheXDS.MCART.Tests.Comparison;
-using NUnit.Framework;
-using System.Collections.Generic;
 
 public abstract class ComparerTestBase<TValue, TEq> where TValue : notnull where TEq : IEqualityComparer<TValue>, new()
 {
@@ -39,7 +37,7 @@ public abstract class ComparerTestBase<TValue, TEq> where TValue : notnull where
         TEq? eq = new();
         int xh = eq.GetHashCode(x);
         int yh = eq.GetHashCode(y);
-        Assert.AreEqual(equal, eq.Equals(x, y));
-        Assert.AreEqual(equal, xh == yh);
+        Assert.That(equal, Is.EqualTo(eq.Equals(x, y)));
+        Assert.That(equal, Is.EqualTo(xh == yh));
     }
 }

@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,9 +28,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System;
 using System.Globalization;
-using System.Windows;
 using System.Windows.Data;
 using TheXDS.MCART.Types.Extensions;
 
@@ -42,7 +40,7 @@ namespace TheXDS.MCART.ValueConverters;
 public sealed class NullToBooleanConverter : IValueConverter
 {
     /// <summary>
-    /// Obtiene un <see cref="Visibility" /> a partir del valor.
+    /// Obtiene un <see cref="bool" /> a partir del valor.
     /// </summary>
     /// <param name="value">Objeto a convertir.</param>
     /// <param name="targetType">Tipo del destino.</param>
@@ -53,8 +51,8 @@ public sealed class NullToBooleanConverter : IValueConverter
     /// <see cref="CultureInfo" /> a utilizar para la conversión.
     /// </param>
     /// <returns>
-    /// <see cref="Visibility.Visible" /> si el elemento es
-    /// <see langword="null" />, <see cref="Visibility.Collapsed" /> en caso
+    /// <see langword="true"/> si el elemento es
+    /// <see langword="null" />, <see langword="false"/> en caso
     /// contrario.
     /// </returns>
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

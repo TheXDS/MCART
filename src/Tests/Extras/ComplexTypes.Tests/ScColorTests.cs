@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the “Software”), to deal in
@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. 
 */
 
-using NUnit.Framework;
 using TheXDS.MCART.Types.Entity;
 
 namespace TheXDS.MCART.Ext.ComplexTypes.Tests;
@@ -42,9 +41,9 @@ public class ScColorTests
         ScColor c2 = new() { ScA = 1f, ScB = 0.25f, ScG = 0.5f, ScR = 0.75f };
         ScColor c3 = new() { ScA = 1f, ScB = 0.5f, ScG = 0.5f, ScR = 0.5f };
 
-        Assert.AreNotSame(c1, c2);
-        Assert.AreEqual(c1.GetHashCode(), c2.GetHashCode());
-        Assert.AreNotEqual(c1.GetHashCode(), c3.GetHashCode());
+        Assert.That(c1, Is.Not.SameAs(c2));
+        Assert.That(c1.GetHashCode(), Is.EqualTo(c2.GetHashCode()));
+        Assert.That(c1.GetHashCode(), Is.Not.EqualTo(c3.GetHashCode()));
     }
 
     [Test]
@@ -53,8 +52,8 @@ public class ScColorTests
         ScColor c1 = new() { ScA = 1f, ScB = 0.25f, ScG = 0.5f, ScR = 0.75f };
         Types.Color c2 = new(0.75f, 0.5f, 0.25f, 1f);
 
-        Assert.AreEqual(c2, (Types.Color)c1);
-        Assert.AreEqual(c1, (ScColor)c2);
+        Assert.That(c2, Is.EqualTo((Types.Color)c1));
+        Assert.That(c1, Is.EqualTo((ScColor)c2));
     }
 
     [Test]
@@ -64,11 +63,11 @@ public class ScColorTests
         ScColor c2 = new() { ScA = 1f, ScB = 0.25f, ScG = 0.5f, ScR = 0.75f };
         ScColor c3 = new() { ScA = 1f, ScB = 0.5f, ScG = 0.5f, ScR = 0.5f };
 
-        Assert.IsFalse(c1.Equals((object?)null));
-        Assert.IsFalse(c1!.Equals((object?)c3));
-        Assert.IsFalse(c1.Equals((object?)new object()));
-        Assert.IsTrue(c1.Equals((object?)c1));
-        Assert.IsTrue(c1.Equals((object?)c2));
+        Assert.That(c1.Equals((object?)null), Is.False);
+        Assert.That(c1!.Equals((object?)c3), Is.False);
+        Assert.That(c1.Equals((object?)new object()), Is.False);
+        Assert.That(c1.Equals((object?)c1));
+        Assert.That(c1.Equals((object?)c2));
     }
 
     [Test]
@@ -78,9 +77,9 @@ public class ScColorTests
         ScColor c2 = new() { ScA = 1f, ScB = 0.25f, ScG = 0.5f, ScR = 0.75f };
         ScColor c3 = new() { ScA = 1f, ScB = 0.5f, ScG = 0.5f, ScR = 0.5f };
 
-        Assert.IsFalse(c1.Equals((ScColor?)null));
-        Assert.IsFalse(c1!.Equals((ScColor?)c3));
-        Assert.IsTrue(c1.Equals((ScColor?)c1));
-        Assert.IsTrue(c1.Equals((ScColor?)c2));
+        Assert.That(c1.Equals(null), Is.False);
+        Assert.That(c1!.Equals((ScColor?)c3), Is.False);
+        Assert.That(c1.Equals((ScColor?)c1));
+        Assert.That(c1.Equals((ScColor?)c2));
     }
 }

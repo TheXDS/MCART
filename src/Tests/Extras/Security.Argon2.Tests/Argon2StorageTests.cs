@@ -6,7 +6,7 @@
 //      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 //
 // Released under the MIT License (MIT)
-// Copyright © 2011 - 2023 César Andrés Morgan
+// Copyright © 2011 - 2024 César Andrés Morgan
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of
 // this software and associated documentation files (the “Software”), to deal in
@@ -26,11 +26,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using Konscious.Security.Cryptography;
-using NUnit.Framework;
 using System.Security;
 using TheXDS.MCART.Helpers;
-using TheXDS.MCART.Security;
 using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Security.Argon2.Tests;
@@ -52,8 +49,8 @@ public class Argon2StorageTests
         SecureString pw1 = "password".ToSecureString();
         SecureString pw2 = "Test@123".ToSecureString();
         byte[] hash = PasswordStorage.CreateHash(argon2, pw1);
-        Assert.IsTrue(PasswordStorage.VerifyPassword(pw1, hash));
-        Assert.IsFalse(PasswordStorage.VerifyPassword(pw2, hash));
+        Assert.That(PasswordStorage.VerifyPassword(pw1, hash), Is.True);
+        Assert.That(PasswordStorage.VerifyPassword(pw2, hash), Is.False);
     }
 
     [Test]

@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the “Software”), to deal in
@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. 
 */
 
-using NUnit.Framework;
 using System.Reflection.Emit;
 using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Extensions;
@@ -49,7 +48,7 @@ public class TypeExtensionsTests
             .LoadProperty(nameProp)
             .Call<Func<string?, string?, string>>(string.Concat)
             .Return());
-        Assert.AreEqual(typeof(int), typeof(int).ResolveToDefinedType());
-        Assert.AreEqual(typeof(object), t.New().GetType().ResolveToDefinedType());
+        Assert.That(typeof(int), Is.EqualTo(typeof(int).ResolveToDefinedType()));
+        Assert.That(typeof(object), Is.EqualTo(t.New().GetType().ResolveToDefinedType()));
     }
 }

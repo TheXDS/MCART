@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -225,7 +225,7 @@ public static class MsWindowExtensions
     /// <param name="padding">
     /// Grosor de los márgenes internos de la ventana.
     /// </param>
-    public static void SetClientPadding(this IMsWindow window, TheXDS.MCART.PInvoke.Structs.Margins padding)
+    public static void SetClientPadding(this IMsWindow window, Margins padding)
     {
         window.Padding = padding;
         window.SetFramePadding(padding);
@@ -241,7 +241,7 @@ public static class MsWindowExtensions
     /// <param name="padding">
     /// Grosor de los márgenes internos de la ventana.
     /// </param>
-    public static void SetFramePadding(this IMsWindow window, TheXDS.MCART.PInvoke.Structs.Margins padding)
+    public static void SetFramePadding(this IMsWindow window, Margins padding)
     {
         if (Helpers.Windows.IsCompositionEnabled())
             if (Marshal.GetExceptionForHR(DwmExtendFrameIntoClientArea(window.Handle, ref padding)) is { } ex) throw ex;

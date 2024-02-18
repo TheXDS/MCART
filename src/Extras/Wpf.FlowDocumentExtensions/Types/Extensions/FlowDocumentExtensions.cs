@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -55,7 +55,7 @@ public static partial class FlowDocumentExtensions
     {
         PrintDialog? dialog = new();
         if (!dialog.ShowDialog() ?? true) return;
-        System.Windows.Size sz = new(dialog.PrintableAreaWidth, dialog.PrintableAreaHeight);
+        Size sz = new(dialog.PrintableAreaWidth, dialog.PrintableAreaHeight);
 
         DocumentPaginator? paginator = (fd as IDocumentPaginatorSource).DocumentPaginator;
         paginator.PageSize = sz;
@@ -75,7 +75,7 @@ public static partial class FlowDocumentExtensions
     public static void PrintDirect(this FlowDocument fd, string title)
     {
         PrintDialog? dialog = new();
-        System.Windows.Size sz = new(dialog.PrintableAreaWidth, dialog.PrintableAreaHeight);
+        Size sz = new(dialog.PrintableAreaWidth, dialog.PrintableAreaHeight);
         DocumentPaginator? paginator = (fd as IDocumentPaginatorSource).DocumentPaginator;
         paginator.PageSize = sz;
         dialog.PrintDocument(paginator, title);

@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -29,7 +29,6 @@ SOFTWARE.
 */
 
 using System.Reflection;
-using NUnit.Framework;
 using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Extensions;
 
@@ -51,14 +50,14 @@ public class TypeFactoryTests : TypeFactoryTestClassBase
         object greeterInstance = t.New();
         ((dynamic)greeterInstance).Name = "Jhon";
 
-        Assert.AreEqual("Jhon", (string)((dynamic)greeterInstance).Name);
-        Assert.AreEqual("Hello, Jhon", (string)((dynamic)greeterInstance).Greeting);
+        Assert.That("Jhon", Is.EqualTo((string)((dynamic)greeterInstance).Name));
+        Assert.That("Hello, Jhon", Is.EqualTo((string)((dynamic)greeterInstance).Greeting));
     }
 
     [Test]
     public void Factory_exposes_dynamic_assembly()
     {
-        Assert.IsInstanceOf<Assembly>(Factory.Assembly);
-        Assert.True(Factory.Assembly.IsDynamic);
+        Assert.That(Factory.Assembly, Is.InstanceOf<Assembly>());
+        Assert.That(Factory.Assembly.IsDynamic);
     }
 }

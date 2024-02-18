@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -40,18 +40,18 @@ public class TimeSpanExtensionsTests
     [Test]
     public void VerboseTest()
     {
-        Assert.AreEqual(Composition.Seconds(15), TimeSpan.FromSeconds(15).Verbose());
-        Assert.AreEqual(Composition.Minutes(3), TimeSpan.FromSeconds(180).Verbose());
-        Assert.AreEqual(Composition.Hours(2), TimeSpan.FromSeconds(7200).Verbose());
-        Assert.AreEqual(Composition.Days(5), TimeSpan.FromDays(5).Verbose());
+        Assert.That(Composition.Seconds(15), Is.EqualTo(TimeSpan.FromSeconds(15).Verbose()));
+        Assert.That(Composition.Minutes(3), Is.EqualTo(TimeSpan.FromSeconds(180).Verbose()));
+        Assert.That(Composition.Hours(2), Is.EqualTo(TimeSpan.FromSeconds(7200).Verbose()));
+        Assert.That(Composition.Days(5), Is.EqualTo(TimeSpan.FromDays(5).Verbose()));
 
-        Assert.AreEqual(
+        Assert.That(
             $"{Composition.Minutes(1)}, {Composition.Seconds(5)}",
-            TimeSpan.FromSeconds(65).Verbose());
+            Is.EqualTo(TimeSpan.FromSeconds(65).Verbose()));
 
-        Assert.AreEqual(
+        Assert.That(
             $"{Composition.Days(2)}, {Composition.Hours(5)}, {Composition.Minutes(45)}, {Composition.Seconds(23)}",
-            (TimeSpan.FromDays(2) + TimeSpan.FromHours(5) + TimeSpan.FromMinutes(45) + TimeSpan.FromSeconds(23)).Verbose());
+            Is.EqualTo((TimeSpan.FromDays(2) + TimeSpan.FromHours(5) + TimeSpan.FromMinutes(45) + TimeSpan.FromSeconds(23)).Verbose()));
     }
 
     [Test]
@@ -60,9 +60,7 @@ public class TimeSpanExtensionsTests
         TimeSpan t = TimeSpan.FromSeconds(60015);
         CultureInfo? c = CultureInfo.InvariantCulture;
         string? r = t.AsTime(c);
-        Assert.AreEqual("16:40", r);
-        Assert.AreEqual(
-            string.Format($"{{0:{CultureInfo.CurrentCulture.DateTimeFormat.ShortTimePattern}}}",
-                DateTime.MinValue.Add(t)), t.AsTime());
+        Assert.That("16:40", Is.EqualTo(r));
+        Assert.That(string.Format($"{{0:{CultureInfo.CurrentCulture.DateTimeFormat.ShortTimePattern}}}", DateTime.MinValue.Add(t)), Is.EqualTo(t.AsTime()));
     }
 }

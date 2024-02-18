@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -31,7 +31,6 @@ SOFTWARE.
 #pragma warning disable CA1822
 
 using System.Diagnostics.CodeAnalysis;
-using NUnit.Framework;
 using TheXDS.MCART.Helpers;
 
 namespace TheXDS.MCART.TypeFactory.Tests.Helpers;
@@ -97,22 +96,22 @@ public class TypeFactoryHelpersTests
 
         dynamic merged = TypeFactoryHelpers.Merge(a, b);
 
-        Assert.AreEqual(a.IntProp1, merged.IntProp1);
+        Assert.That(a.IntProp1, Is.EqualTo(merged.IntProp1));
         merged.IntProp1 = 200;
-        Assert.AreEqual(200, merged.IntProp1);
-        Assert.AreEqual(a.IntProp1, merged.IntProp1);
-        Assert.AreEqual(b.IntProp2, merged.IntProp2);
+        Assert.That(200, Is.EqualTo(merged.IntProp1));
+        Assert.That(a.IntProp1, Is.EqualTo(merged.IntProp1));
+        Assert.That(b.IntProp2, Is.EqualTo(merged.IntProp2));
         merged.IntProp2 = 155;
-        Assert.AreEqual(155, merged.IntProp2);
-        Assert.AreEqual(b.IntProp2, merged.IntProp2);
+        Assert.That(155, Is.EqualTo(merged.IntProp2));
+        Assert.That(b.IntProp2, Is.EqualTo(merged.IntProp2));
 
-        Assert.IsTrue(merged.TestBool1(true));
-        Assert.IsFalse(merged.TestBool1(false));
-        Assert.AreEqual(15, merged.Add(5, 10));
-        Assert.AreEqual("Test", merged.TestStr2());
+        Assert.That(merged.TestBool1(true));
+        Assert.That(merged.TestBool1(false), Is.False);
+        Assert.That(15, Is.EqualTo(merged.Add(5, 10)));
+        Assert.That("Test", Is.EqualTo(merged.TestStr2()));
         merged.VoidMethod();
-        Assert.AreEqual(1, merged.IntProp2);
-        Assert.AreEqual(b.IntProp2, merged.IntProp2);
+        Assert.That(1, Is.EqualTo(merged.IntProp2));
+        Assert.That(b.IntProp2, Is.EqualTo(merged.IntProp2));
     }
 
     [Test]

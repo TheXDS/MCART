@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using NUnit.Framework;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using TheXDS.MCART.Component;
@@ -67,9 +66,9 @@ public class ObservingCommandTests
             .SetCanExecute((a, b) => !i.TestString.IsEmpty())
             .RegisterObservedProperty(nameof(TestNpcClass.TestString));
 
-        Assert.False(obs.CanExecute(null));
+        Assert.That(obs.CanExecute(null), Is.False);
         i.TestString = "Test";
-        Assert.True(obs.CanExecute(null));
+        Assert.That(obs.CanExecute(null));
     }
 
     [Test]
@@ -87,7 +86,7 @@ public class ObservingCommandTests
             .RegisterObservedProperty(nameof(TestNpcClass.TestString));
 
         obs.SetCanExecute((Func<INotifyPropertyChanged, object?, bool>?)null);
-        Assert.IsTrue(obs.CanExecute(null));
+        Assert.That(obs.CanExecute(null));
     }
 
     [Test]
@@ -98,9 +97,9 @@ public class ObservingCommandTests
             .SetCanExecute((a, b) => !i.TestString.IsEmpty())
             .RegisterObservedProperty(() => i.TestString);
 
-        Assert.False(obs.CanExecute(null));
+        Assert.That(obs.CanExecute(null), Is.False);
         i.TestString = "Test";
-        Assert.True(obs.CanExecute(null));
+        Assert.That(obs.CanExecute(null));
     }
 
     [Test]
@@ -124,6 +123,7 @@ public class ObservingCommandTests
         Assert.That(obs.CanExecute(null));
     }
 
+    [Test]
     public void UnSetCanExecute_test()
     {
         TestNpcClass i = new();

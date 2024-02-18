@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,8 +28,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using NUnit.Framework;
-using System;
+#pragma warning disable CA1822
+
 using System.Diagnostics.CodeAnalysis;
 using TheXDS.MCART.Helpers;
 using static TheXDS.MCART.Types.Extensions.MethodBaseExtensions;
@@ -38,15 +38,19 @@ namespace TheXDS.MCART.Tests.Types.Extensions;
 
 public class MethodBaseExtensionsTests
 {
-     [ExcludeFromCodeCoverage]
-     private void TestMethod<T>()
-     {
-     }
-     
-     [Test]
-     public void FullName_test()
-     {
-          Assert.AreEqual("TheXDS.MCART.Tests.Types.Extensions.MethodBaseExtensionsTests.FullName_test()", ReflectionHelpers.GetMethod<Action>(() => FullName_test).FullName());
-          Assert.AreEqual("TheXDS.MCART.Tests.Types.Extensions.MethodBaseExtensionsTests.TestMethod<System.Int32>()", ReflectionHelpers.GetMethod<Action>(() => TestMethod<int>).FullName());
-     }
+    [ExcludeFromCodeCoverage]
+    private void TestMethod<T>()
+    {
+    }
+
+    [Test]
+    public void FullName_test()
+    {
+        Assert.That(
+            "TheXDS.MCART.Tests.Types.Extensions.MethodBaseExtensionsTests.FullName_test()",
+            Is.EqualTo(ReflectionHelpers.GetMethod<Action>(() => FullName_test).FullName()));
+        Assert.That(
+            "TheXDS.MCART.Tests.Types.Extensions.MethodBaseExtensionsTests.TestMethod<System.Int32>()",
+            Is.EqualTo(ReflectionHelpers.GetMethod<Action>(() => TestMethod<int>).FullName()));
+    }
 }

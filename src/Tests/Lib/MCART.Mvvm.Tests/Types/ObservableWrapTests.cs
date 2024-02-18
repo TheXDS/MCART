@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,15 +28,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Mvvm.Tests.Types;
-using NUnit.Framework;
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Linq;
 using TheXDS.MCART.Types;
 using static System.Collections.Specialized.NotifyCollectionChangedAction;
+
+namespace TheXDS.MCART.Mvvm.Tests.Types;
 
 public class ObservableWrapTests
 {
@@ -44,13 +41,13 @@ public class ObservableWrapTests
     public void InstanceTest()
     {
         ObservableCollectionWrap<string>? o = new();
-        Assert.IsNull(o.UnderlyingCollection);
+        Assert.That(o.UnderlyingCollection, Is.Null);
         List<string>? c = new() { "1", "2", "3" };
         o = new(c);
-        Assert.AreEqual(c, o.UnderlyingCollection);
-        Assert.AreEqual(3, o.Count);
+        Assert.That(c, Is.EqualTo(o.UnderlyingCollection));
+        Assert.That(3, Is.EqualTo(o.Count));
         o = new ObservableCollectionWrap<string>();
-        Assert.IsEmpty(o);
+        Assert.That(o, Is.Empty);
     }
 
     [Test]
@@ -58,8 +55,8 @@ public class ObservableWrapTests
     {
         ObservableCollectionWrap<string>? c = new(new List<string> { "1", "2", "3" });
         EventTest(c, () => c.Add("4"), Add, out (object? Sender, NotifyCollectionChangedEventArgs Arguments) evt);
-        Assert.AreEqual("4", (string)evt.Arguments.NewItems![0]!);
-        Assert.Contains("4", c.ToArray());
+        Assert.That("4", Is.EqualTo((string)evt.Arguments.NewItems![0]!));
+        Assert.That(c, Contains.Item("4"));
     }
 
     [Test]
@@ -67,7 +64,7 @@ public class ObservableWrapTests
     {
         ObservableCollectionWrap<string>? c = new(new List<string> { "1", "2", "3" });
         EventTest(c, c.Clear, Reset, out _);
-        Assert.IsEmpty(c);
+        Assert.That(c, Is.Empty);
     }
 
     [Test]
@@ -75,8 +72,8 @@ public class ObservableWrapTests
     {
         ObservableCollectionWrap<string>? c = new(new List<string> { "1", "2", "3" });
         EventTest(c, () => c.Remove("2"), Remove, out (object? Sender, NotifyCollectionChangedEventArgs Arguments) evt);
-        Assert.AreEqual("2", (string)evt.Arguments.OldItems![0]!);
-        Assert.False(c.Contains("2"));
+        Assert.That("2", Is.EqualTo((string)evt.Arguments.OldItems![0]!));
+        Assert.That(c, Does.Not.Contain("2"));
     }
 
     [Test]
@@ -85,7 +82,7 @@ public class ObservableWrapTests
         List<string>? l = new() { "1", "2", "3" };
         ObservableCollectionWrap<string>? c = new(l);
         AssertionException? ex = Assert.Throws<AssertionException>(() => EventTest(c, () => l.Add("4"), Add, out _));
-        Assert.Contains("4", c.ToArray());
+        Assert.That(c, Contains.Item("4"));
         EventTest(c, c.Refresh, Add, out _);
     }
 
@@ -104,22 +101,22 @@ public class ObservableWrapTests
     public void IsReadOnlyTest()
     {
         ObservableCollectionWrap<int> c = new();
-        Assert.IsTrue(c.IsReadOnly);
+        Assert.That(c.IsReadOnly);
         c = new(new List<int>());
-        Assert.IsFalse(c.IsReadOnly);
+        Assert.That(c.IsReadOnly, Is.False);
         c = new(Array.Empty<int>());
-        Assert.IsTrue(c.IsReadOnly);
+        Assert.That(c.IsReadOnly);
     }
 
     [Test]
     public void CountTest()
     {
         ObservableCollectionWrap<int> c = new();
-        Assert.Zero(c.Count);
+        Assert.That(c.Count, Is.Zero);
         c = new(Array.Empty<int>());
-        Assert.Zero(c.Count);
+        Assert.That(c.Count, Is.Zero);
         c = new(new int[] { 1, 2, 3, 4, 5 });
-        Assert.NotZero(c.Count);
+        Assert.That(c.Count, Is.Not.Zero);
     }
 
     [Test]
@@ -133,29 +130,29 @@ public class ObservableWrapTests
     public void Remove_returns_false_if_null_underlying_collection()
     {
         ObservableCollectionWrap<string> c = new();
-        Assert.IsFalse(c.Remove("test"));
+        Assert.That(c.Remove("test"), Is.False);
     }
 
     [Test]
     public void Remove_returns_false_if_collection_did_not_contain_item()
     {
         ObservableCollectionWrap<string> c = new(new List<string>());
-        Assert.IsFalse(c.Remove("test"));
+        Assert.That(c.Remove("test"), Is.False);
     }
 
     [Test]
     public void Remove_returns_true_if_collection_contains_item()
     {
         ObservableCollectionWrap<string> c = new(new List<string>(new[] { "test" }));
-        Assert.IsTrue(c.Remove("test"));
+        Assert.That(c.Remove("test"));
     }
 
     [Test]
     public void GetEnumerator_is_not_null()
     {
         ObservableCollectionWrap<string> c = new();
-        Assert.NotNull(((IEnumerable<string>)c).GetEnumerator());
-        Assert.NotNull(((IEnumerable)c).GetEnumerator());
+        Assert.That(((IEnumerable<string>)c).GetEnumerator(),Is.Not.Null);
+        Assert.That(((IEnumerable)c).GetEnumerator(), Is.Not.Null);
     }
 
     private static void EventTest<T>(ObservableCollectionWrap<T> c, Action action, NotifyCollectionChangedAction nAction, out (object? Sender, NotifyCollectionChangedEventArgs Arguments) evt)
@@ -168,8 +165,8 @@ public class ObservableWrapTests
         c.CollectionChanged -= C_CollectionChanged;
         evt = ev ?? default;
 
-        Assert.NotNull(evt);
-        Assert.True(ReferenceEquals(c, evt.Sender));
-        Assert.AreEqual(nAction, evt.Arguments.Action);
+        Assert.That(evt, Is.Not.Null);
+        Assert.That(ReferenceEquals(c, evt.Sender));
+        Assert.That(nAction, Is.EqualTo(evt.Arguments.Action));
     }
 }

@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -72,9 +72,9 @@ public class PropertyInfoExtensionsTests
         {
             j.SetDefault(o);
         }
-        Assert.AreEqual(1, o.Prop1);
-        Assert.AreEqual(2, o.Prop2);
-        Assert.Null(o.Prop3);
+        Assert.That(1, Is.EqualTo(o.Prop1));
+        Assert.That(2, Is.EqualTo(o.Prop2));
+        Assert.That(o.Prop3, Is.Null);
     }
 
     [Test]
@@ -95,14 +95,14 @@ public class PropertyInfoExtensionsTests
         {
             j.SetDefault();
         }
-        Assert.AreEqual(1, Test3.Prop1);
-        Assert.Null(Test3.Prop2);
+        Assert.That(1, Is.EqualTo(Test3.Prop1));
+        Assert.That(Test3.Prop2, Is.Null);
     }
 
     [Test]
     public void IsReadWrite_Test()
     {
-        Assert.True(typeof(Test).GetProperties().All(p => p.IsReadWrite()));
-        Assert.True(typeof(Test2).GetProperties().All(p => !p.IsReadWrite()));
+        Assert.That(typeof(Test).GetProperties().All(p => p.IsReadWrite()));
+        Assert.That(typeof(Test2).GetProperties().All(p => !p.IsReadWrite()));
     }
 }

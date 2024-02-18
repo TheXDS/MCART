@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,10 +28,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Tests.Math;
-using NUnit.Framework;
-using System.Linq;
 using static TheXDS.MCART.Math.Series;
+
+namespace TheXDS.MCART.Tests.Math;
 
 public class SeriesTests
 {
@@ -46,7 +45,7 @@ public class SeriesTests
             21,  34,  55,  89,
             144, 233, 377, 610
         };
-        Assert.AreEqual(b, a);
+        Assert.That(b, Is.EqualTo(a));
     }
 
     [Test]
@@ -60,7 +59,7 @@ public class SeriesTests
             47,  76,  123, 199,
             322, 521, 843, 1364
         };
-        Assert.AreEqual(b, a);
+        Assert.That(b, Is.EqualTo(a));
     }
 
     [Test]
@@ -74,15 +73,15 @@ public class SeriesTests
             21,  34,  55,  89,
             144, 233, 377, 610
         };
-        Assert.AreEqual(b, a);
+        Assert.That(b, Is.EqualTo(a));
     }
 
     [Test]
     public void MakeSeriesAdditive_BreaksOnOverFlow_Test()
     {
         long[]? a = MakeSeriesAdditive(1, long.MaxValue).Take(4).ToArray();
-        Assert.AreEqual(1, a[0]);
-        Assert.AreEqual(long.MaxValue, a[1]);
-        Assert.AreEqual(2, a.Length);
+        Assert.That(1, Is.EqualTo(a[0]));
+        Assert.That(long.MaxValue, Is.EqualTo(a[1]));
+        Assert.That(2, Is.EqualTo(a.Length));
     }
 }

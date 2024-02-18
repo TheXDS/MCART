@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,9 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using NUnit.Framework;
-using System;
-using System.Linq;
 using TheXDS.MCART.Component;
 using TheXDS.MCART.Types.Extensions;
 
@@ -42,16 +39,16 @@ public class AssemblyInfoTests
     public void Get_Information_Test()
     {
         AssemblyInfo? a = new(typeof(AssemblyInfo).Assembly);
-        Assert.AreEqual("MCART", a.Name);
-        Assert.IsTrue(a.Copyright!.StartsWith("Copyright"));
-        Assert.NotNull(a.Description);
-        Assert.IsTrue(a.Authors!.Contains("César Andrés Morgan"));
-        Assert.IsAssignableFrom<Version>(a.Version);
-        Assert.True(a.HasLicense);
-        Assert.NotNull(a.License);
-        Assert.NotNull(a.InformationalVersion);
+        Assert.That("MCART", Is.EqualTo(a.Name));
+        Assert.That(a.Copyright!.StartsWith("Copyright"));
+        Assert.That(a.Description, Is.Not.Null);
+        Assert.That(a.Authors!.Contains("César Andrés Morgan"));
+        Assert.That(a.Version,Is.AssignableFrom<Version>());
+        Assert.That(a.HasLicense);
+        Assert.That(a.License, Is.Not.Null);
+        Assert.That(a.InformationalVersion, Is.Not.Null);
 #if CLSCompliance
-        Assert.True(a.ClsCompliant);
+        Assert.That(a.ClsCompliant);
 #endif
     }
 
@@ -59,25 +56,25 @@ public class AssemblyInfoTests
     public void Get_extended_information_test()
     {
         var a = new AssemblyInfo(typeof(object).Assembly);
-        Assert.IsFalse(a.Beta);
-        Assert.IsNotEmpty(a.Copyright);
-        Assert.IsNotEmpty(a.Description);
-        Assert.IsFalse(a.Has3rdPartyLicense);
-        Assert.IsNotEmpty(a.InformationalVersion);
-        Assert.IsNull(a.License);
-        Assert.IsNotEmpty(a.Name);
-        Assert.IsNotEmpty(a.Product);
-        Assert.IsEmpty(a.ThirdPartyComponents);
-        Assert.IsEmpty(a.ThirdPartyLicenses);
-        Assert.IsNotEmpty(a.Trademark);
-        Assert.IsFalse(a.Unmanaged);
-        Assert.IsNotNull(a.Version);
+        Assert.That(a.Beta, Is.False);
+        Assert.That(a.Copyright, Is.Not.Empty);
+        Assert.That(a.Description, Is.Not.Empty);
+        Assert.That(a.Has3rdPartyLicense, Is.False);
+        Assert.That(a.InformationalVersion, Is.Not.Empty);
+        Assert.That(a.License,Is.Null);
+        Assert.That(a.Name, Is.Not.Empty);
+        Assert.That(a.Product, Is.Not.Empty);
+        Assert.That(a.ThirdPartyComponents, Is.Empty);
+        Assert.That(a.ThirdPartyLicenses, Is.Empty);
+        Assert.That(a.Trademark, Is.Not.Empty);
+        Assert.That(a.Unmanaged, Is.False);
+        Assert.That(a.Version, Is.Not.Null);
     }
 
     [Test]
     public void Self_Information_Test()
     {
         AssemblyInfo? a = new();
-        Assert.AreSame(typeof(AssemblyInfoTests).Assembly, a.Assembly);
+        Assert.That(typeof(AssemblyInfoTests).Assembly, Is.SameAs(a.Assembly));
     }
 }

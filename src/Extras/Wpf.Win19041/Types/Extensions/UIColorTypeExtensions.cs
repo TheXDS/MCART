@@ -6,7 +6,7 @@
 //      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 //
 // Released under the MIT License (MIT)
-// Copyright © 2011 - 2023 César Andrés Morgan
+// Copyright © 2011 - 2024 César Andrés Morgan
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of
 // this software and associated documentation files (the “Software”), to deal in
@@ -54,11 +54,11 @@ public static class UIColorTypeExtensions
     }
 
     /// <summary>
-    /// Convierte un <see cref="UIColorType"/> en un <see cref="Color"/>.
+    /// Convierte un <see cref="UIColorType"/> en un <see cref="MC"/>.
     /// </summary>
     /// <param name="color">Color a convertir.</param>
     /// <returns>
-    /// Un nuevo <see cref="Color"/> equivalente al <see cref="UIColorType"/>
+    /// Un nuevo <see cref="MC"/> equivalente al <see cref="UIColorType"/>
     /// especificado.
     /// </returns>
     public static WC ToMediaColor(this UIColorType color)

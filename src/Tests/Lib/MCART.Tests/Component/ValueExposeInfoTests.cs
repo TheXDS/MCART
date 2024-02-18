@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using NUnit.Framework;
 using TheXDS.MCART.Component;
 using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Base;
@@ -51,15 +50,15 @@ public class ValueExposeInfoTests
             Version = new(1, 0)
         };
 
-        Assert.IsNotEmpty(a.Authors!);
-        Assert.IsNotEmpty(a.Copyright);
-        Assert.IsNotEmpty(a.Description);
-        Assert.IsTrue(a.Has3rdPartyLicense);
-        Assert.IsTrue(a.HasLicense);
-        Assert.IsNotEmpty(a.InformationalVersion);
-        Assert.IsNotNull(a.License);
-        Assert.IsNotEmpty(a.Name);
-        Assert.IsNotEmpty(a.ThirdPartyLicenses!);
-        Assert.IsNotNull(a.Version);
+        Assert.That(a.Authors!, Is.Not.Empty);
+        Assert.That(a.Copyright, Is.Not.Empty);
+        Assert.That(a.Description, Is.Not.Empty);
+        Assert.That(a.Has3rdPartyLicense);
+        Assert.That(a.HasLicense);
+        Assert.That(a.InformationalVersion, Is.Not.Empty);
+        Assert.That(a.License, Is.Not.Null);
+        Assert.That(a.Name, Is.Not.Empty);
+        Assert.That(a.ThirdPartyLicenses!, Is.Not.Empty);
+        Assert.That(a.Version, Is.Not.Null);
     }
 }

@@ -14,6 +14,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)EventTestHelpers.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)EventTriggerTest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExceptionResourceTestClass.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GlobalUsings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IEventTestEntry.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StringResourceTestClass.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StringResourceTestClass_T.cs" />

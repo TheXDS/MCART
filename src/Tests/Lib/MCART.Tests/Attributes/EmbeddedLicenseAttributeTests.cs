@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using NUnit.Framework;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Resources;
@@ -41,18 +40,18 @@ public class EmbeddedLicenseAttributeTests
     public void Ctor_string_string_test()
     {
         var a = new EmbeddedLicenseAttribute("value", "path");
-        Assert.AreEqual("value", a.Value);
-        Assert.AreEqual("path", a.Path);
-        Assert.AreEqual(typeof(NullGetter), a.CompressorType);
+        Assert.That("value", Is.EqualTo(a.Value));
+        Assert.That("path", Is.EqualTo(a.Path));
+        Assert.That(typeof(NullGetter), Is.EqualTo(a.CompressorType));
     }
 
     [Test]
     public void Ctor_string_string_type_test()
     {
         var a = new EmbeddedLicenseAttribute("value", "path", typeof(DeflateGetter));
-        Assert.AreEqual("value", a.Value);
-        Assert.AreEqual("path", a.Path);
-        Assert.AreEqual(typeof(DeflateGetter), a.CompressorType);
+        Assert.That("value", Is.EqualTo(a.Value));
+        Assert.That("path", Is.EqualTo(a.Path));
+        Assert.That(typeof(DeflateGetter), Is.EqualTo(a.CompressorType));
     }
 
     [Test]

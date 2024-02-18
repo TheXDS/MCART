@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -29,10 +29,8 @@ SOFTWARE.
 */
 
 using Avalonia;
-using Avalonia.Controls.Presenters;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
-using Avalonia.Controls.Shapes;
 using Avalonia.Layout;
 using Avalonia.Media;
 using TheXDS.MCART.Controls.Base;
@@ -46,7 +44,7 @@ namespace TheXDS.MCART.Controls;
 /// Control simple que indica al usuario que la aplicación está ocupada.
 /// </summary>
 [TemplatePart($"PART_{nameof(path)}", typeof(Avalonia.Controls.Shapes.Path))]
-[PseudoClasses(new string[] { ":running" })]
+[PseudoClasses([":running"])]
 public class BusyIndicator : RingControlBase
 {
     /// <summary>
@@ -54,8 +52,9 @@ public class BusyIndicator : RingControlBase
     /// </summary>
     public static readonly StyledProperty<double> ArcAngleProperty = AvaloniaProperty.Register<BusyIndicator, double>(nameof(ArcAngle),
         defaultValue: 270.0,
-        validate: ChkAngle,
-        notifying: UpdateLayout);
+        validate: ChkAngle
+        //notifying: UpdateLayout
+        );
 
     /// <summary>
     /// Identifica a la propiedad de dependencia <see cref="Running" />.

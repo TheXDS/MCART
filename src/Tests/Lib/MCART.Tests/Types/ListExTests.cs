@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -41,25 +41,25 @@ public class ListExTests
     public void Ctor_Test()
     {
         ListEx<int> l = new();
-        Assert.NotNull(l);
-        Assert.True(l.TriggerEvents);
+        Assert.That(l, Is.Not.Null);
+        Assert.That(l.TriggerEvents);
         l = new(new[] {1, 2, 3, 4, 5});
-        Assert.AreEqual(new[] {1, 2, 3, 4, 5}, l.ToArray());
-        Assert.True(l.TriggerEvents);
+        Assert.That(l, Is.EquivalentTo(new[] {1, 2, 3, 4, 5}));
+        Assert.That(l.TriggerEvents);
         l = new(3);
-        Assert.NotNull(l);
-        Assert.True(l.TriggerEvents);
+        Assert.That(l, Is.Not.Null);
+        Assert.That(l.TriggerEvents);
         l = new() {TriggerEvents = false};
-        Assert.False(l.TriggerEvents);
+        Assert.That(l.TriggerEvents, Is.False);
     }
 
     [Test]
     public void Indexer_Basic_Access_Test()
     {
         ListEx<int> l = new(new[] {1, 2, 3, 4, 5});
-        Assert.AreEqual(3, l[2]);
+        Assert.That(3, Is.EqualTo(l[2]));
         l[2] = 6;
-        Assert.AreEqual(6, l[2]);
+        Assert.That(6, Is.EqualTo(l[2]));
     }
 
     [Test]
@@ -68,17 +68,17 @@ public class ListExTests
         bool cancelCalled = false;
         void JustCancel(object? sender, ModifyingItemEventArgs<int> e)
         {
-            Assert.AreEqual(3,e.OldValue);
-            Assert.AreEqual(6,e.NewValue);
-            Assert.AreEqual(2,e.Index);
+            Assert.That(3, Is.EqualTo(e.OldValue));
+            Assert.That(6, Is.EqualTo(e.NewValue));
+            Assert.That(2, Is.EqualTo(e.Index));
             e.Cancel = true;
             cancelCalled = true;
         }
         void DoNotCancel(object? sender, ModifyingItemEventArgs<int> e)
         {
-            Assert.AreEqual(3,e.OldValue);
-            Assert.AreEqual(6,e.NewValue);
-            Assert.AreEqual(2,e.Index);
+            Assert.That(3, Is.EqualTo(e.OldValue));
+            Assert.That(6, Is.EqualTo(e.NewValue));
+            Assert.That(2, Is.EqualTo(e.Index));
             e.Cancel = false;
             cancelCalled = true;
         }
@@ -89,15 +89,15 @@ public class ListExTests
         l.ModifyingItem += JustCancel;
         l.ModifiedItem += CheckModified;
         l[2] = 6;
-        Assert.AreEqual(3, l[2]);
-        Assert.True(cancelCalled);
+        Assert.That(3, Is.EqualTo(l[2]));
+        Assert.That(cancelCalled);
         l.ModifiedItem -= CheckModified;
         l.ModifyingItem -= JustCancel;
         l.ModifyingItem += DoNotCancel;
         cancelCalled = false;
         l[2] = 6;
-        Assert.AreEqual(6, l[2]);
-        Assert.True(cancelCalled);
+        Assert.That(6, Is.EqualTo(l[2]));
+        Assert.That(cancelCalled);
         l.ModifyingItem -= DoNotCancel;
     }
 
@@ -107,15 +107,15 @@ public class ListExTests
         bool eventCalled = false;
         void CheckEvent(object? sender, ItemModifiedEventArgs<int> e)
         {
-            Assert.AreEqual(2, e.Index);
-            Assert.AreEqual(6, e.Item);
+            Assert.That(2, Is.EqualTo(e.Index));
+            Assert.That(6, Is.EqualTo(e.Item));
             eventCalled = true;
         }
         ListEx<int> l = new(new[] {1, 2, 3, 4, 5}) { TriggerEvents = true };
         l.ModifiedItem += CheckEvent;
         l[2] = 6;
-        Assert.AreEqual(6, l[2]);
-        Assert.True(eventCalled);
+        Assert.That(6, Is.EqualTo(l[2]));
+        Assert.That(eventCalled);
         l.ModifiedItem -= CheckEvent;
     }
 
@@ -129,7 +129,7 @@ public class ListExTests
         l.ModifyingItem += CheckModifying;
         l.ModifiedItem += CheckModified;
         l[2] = 6;
-        Assert.AreEqual(6, l[2]);
+        Assert.That(6, Is.EqualTo(l[2]));
         l.ModifyingItem -= CheckModifying;
         l.ModifiedItem -= CheckModified;
     }
@@ -137,11 +137,11 @@ public class ListExTests
     [Test]
     public void ItemType_Test()
     {
-        Assert.AreEqual(typeof(int), new ListEx<int>().ItemType);
-        Assert.AreEqual(typeof(string), new ListEx<string>().ItemType);
-        Assert.AreEqual(typeof(DayOfWeek), new ListEx<DayOfWeek>().ItemType);
-        Assert.AreEqual(typeof(IVector), new ListEx<IVector>().ItemType);
-        Assert.AreEqual(typeof(Exception), new ListEx<Exception>().ItemType);
-        Assert.AreEqual(typeof(Guid), new ListEx<Guid>().ItemType);
+        Assert.That(typeof(int), Is.EqualTo(new ListEx<int>().ItemType));
+        Assert.That(typeof(string), Is.EqualTo(new ListEx<string>().ItemType));
+        Assert.That(typeof(DayOfWeek), Is.EqualTo(new ListEx<DayOfWeek>().ItemType));
+        Assert.That(typeof(IVector), Is.EqualTo(new ListEx<IVector>().ItemType));
+        Assert.That(typeof(Exception), Is.EqualTo(new ListEx<Exception>().ItemType));
+        Assert.That(typeof(Guid), Is.EqualTo(new ListEx<Guid>().ItemType));
     }
 }

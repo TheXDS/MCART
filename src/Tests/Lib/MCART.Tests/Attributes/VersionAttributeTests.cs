@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,8 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using NUnit.Framework;
-using System;
 using TheXDS.MCART.Attributes;
 
 namespace TheXDS.MCART.Tests.Attributes;
@@ -40,28 +38,28 @@ public class VersionAttributeTests
     public void Ctor_test()
     {
         var a = new VersionAttribute(1, 2, 3, 4);
-        Assert.AreEqual(1, a.Value.Major);
-        Assert.AreEqual(2, a.Value.Minor);
-        Assert.AreEqual(3, a.Value.Build);
-        Assert.AreEqual(4, a.Value.Revision);
+        Assert.That(1, Is.EqualTo(a.Value.Major));
+        Assert.That(2, Is.EqualTo(a.Value.Minor));
+        Assert.That(3, Is.EqualTo(a.Value.Build));
+        Assert.That(4, Is.EqualTo(a.Value.Revision));
 
         a = new VersionAttribute(5, 6);
-        Assert.AreEqual(5, a.Value.Major);
-        Assert.AreEqual(6, a.Value.Minor);
-        Assert.AreEqual(0, a.Value.Build);
-        Assert.AreEqual(0, a.Value.Revision);
+        Assert.That(5, Is.EqualTo(a.Value.Major));
+        Assert.That(6, Is.EqualTo(a.Value.Minor));
+        Assert.That(0, Is.EqualTo(a.Value.Build));
+        Assert.That(0, Is.EqualTo(a.Value.Revision));
 
         a = new VersionAttribute(7.8);
-        Assert.AreEqual(7, a.Value.Major);
-        Assert.AreEqual(8, a.Value.Minor);
-        Assert.AreEqual(0, a.Value.Build);
-        Assert.AreEqual(0, a.Value.Revision);
+        Assert.That(7, Is.EqualTo(a.Value.Major));
+        Assert.That(8, Is.EqualTo(a.Value.Minor));
+        Assert.That(0, Is.EqualTo(a.Value.Build));
+        Assert.That(0, Is.EqualTo(a.Value.Revision));
 
         a = new VersionAttribute(9);
-        Assert.AreEqual(9, a.Value.Major);
-        Assert.AreEqual(0, a.Value.Minor);
-        Assert.AreEqual(0, a.Value.Build);
-        Assert.AreEqual(0, a.Value.Revision);
+        Assert.That(9, Is.EqualTo(a.Value.Major));
+        Assert.That(0, Is.EqualTo(a.Value.Minor));
+        Assert.That(0, Is.EqualTo(a.Value.Build));
+        Assert.That(0, Is.EqualTo(a.Value.Revision));
     }
 
     [Theory]

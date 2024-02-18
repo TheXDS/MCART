@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -41,56 +41,56 @@ public class DateTimeExtensionsTests
     {
         DateTime e = DateTimeExtensions.Epoch(1970);
 
-        Assert.AreEqual(1, e.Day);
-        Assert.AreEqual(1, e.Month);
-        Assert.AreEqual(1970, e.Year);
+        Assert.That(1, Is.EqualTo(e.Day));
+        Assert.That(1, Is.EqualTo(e.Month));
+        Assert.That(1970, Is.EqualTo(e.Year));
     }
 
     [Test]
     public void Epochs_Test()
     {
-        Assert.AreEqual(1900, DateTimeExtensions.CenturyEpoch.Year);
-        Assert.AreEqual(2000, DateTimeExtensions.Y2KEpoch.Year);
-        Assert.AreEqual(1970, DateTimeExtensions.UnixEpoch.Year);
+        Assert.That(1900, Is.EqualTo(DateTimeExtensions.CenturyEpoch.Year));
+        Assert.That(2000, Is.EqualTo(DateTimeExtensions.Y2KEpoch.Year));
+        Assert.That(1970, Is.EqualTo(DateTimeExtensions.UnixEpoch.Year));
     }
 
     [Test]
     public void ToUnixTimestamp_Test()
     {
         DateTime t = new(2038, 1, 19, 3, 14, 7);
-        Assert.AreEqual(int.MaxValue, t.ToUnixTimestamp());
+        Assert.That(int.MaxValue, Is.EqualTo(t.ToUnixTimestamp()));
     }
 
     [Test]
     public void ToUnixTimestampMs_Test()
     {
         DateTime t = new(2012, 5, 19, 19, 35, 0);
-        Assert.AreEqual(1337456100000, t.ToUnixTimestampMs());
+        Assert.That(1337456100000, Is.EqualTo(t.ToUnixTimestampMs()));
     }
 
     [Test]
     public void FromUnixTimestamp_Test()
     {
         DateTime t = new(2038, 1, 19, 3, 14, 7);
-        Assert.AreEqual(t, DateTimeExtensions.FromUnixTimestamp(int.MaxValue));
+        Assert.That(DateTimeExtensions.FromUnixTimestamp(int.MaxValue), Is.EqualTo(t));
     }
 
     [Test]
     public void FromUnixTimestampMs_Test()
     {
         DateTime t = new(2012, 5, 19, 19, 35, 0);
-        Assert.AreEqual(t, 1337456100000.FromUnixTimestampMs());
+        Assert.That(t, Is.EqualTo(1337456100000.FromUnixTimestampMs()));
     }
 
     [Test]
     public void MonthName_Test()
     {
-        Assert.AreEqual("August", DateTimeExtensions.MonthName(8, CultureInfo.CreateSpecificCulture("en-US")));
-        Assert.AreEqual("agosto", DateTimeExtensions.MonthName(8, CultureInfo.CreateSpecificCulture("es-MX")));
+        Assert.That(DateTimeExtensions.MonthName(8, CultureInfo.CreateSpecificCulture("en-US")),Is.EqualTo("August"));
+        Assert.That(DateTimeExtensions.MonthName(8, CultureInfo.CreateSpecificCulture("es-MX")), Is.EqualTo("agosto"));
         Assert.Throws<ArgumentOutOfRangeException>(() => DateTimeExtensions.MonthName(0, CultureInfo.CurrentCulture));
         Assert.Throws<ArgumentOutOfRangeException>(() => DateTimeExtensions.MonthName(13, CultureInfo.CurrentCulture));
 
         DateTime t = DateTime.Today;
-        Assert.AreEqual(t.ToString("MMMM"), DateTimeExtensions.MonthName(t.Month));
+        Assert.That(t.ToString("MMMM"), Is.EqualTo(DateTimeExtensions.MonthName(t.Month)));
     }
 }

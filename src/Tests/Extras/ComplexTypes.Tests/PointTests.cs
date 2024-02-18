@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the “Software”), to deal in
@@ -28,8 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. 
 */
 
-using NUnit.Framework;
-using System;
 using TheXDS.MCART.Types.Base;
 using TheXDS.MCART.Types.Entity;
 
@@ -42,11 +40,11 @@ public class PointTests
     {
         Point c1 = new() { X = 15, Y = 8 };
         Point c2 = new(15, 8);
-        Assert.AreEqual(15, c1.X);
-        Assert.AreEqual(8, c1.Y);
-        Assert.AreEqual(15, c2.X);
-        Assert.AreEqual(8, c2.Y);
-        Assert.AreEqual(c1, c2);
+        Assert.That(15, Is.EqualTo(c1.X));
+        Assert.That(8, Is.EqualTo(c1.Y));
+        Assert.That(15, Is.EqualTo(c2.X));
+        Assert.That(8, Is.EqualTo(c2.Y));
+        Assert.That(c1, Is.EqualTo(c2));
     }
 
     [Test]
@@ -56,10 +54,10 @@ public class PointTests
         Point c2 = new() { X = 15, Y = 8 };
         Point c3 = new() { X = 12, Y = 5 };
 
-        Assert.AreNotSame(c1, c2);
-        Assert.AreEqual(c1.GetHashCode(), c2.GetHashCode());
-        Assert.AreNotSame(c1, c3);
-        Assert.AreNotEqual(c1.GetHashCode(), c3.GetHashCode());
+        Assert.That(c1, Is.Not.SameAs(c2));
+        Assert.That(c1.GetHashCode(), Is.EqualTo(c2.GetHashCode()));
+        Assert.That(c1, Is.Not.SameAs(c3));
+        Assert.That(c1.GetHashCode(), Is.Not.EqualTo(c3.GetHashCode()));
     }
 
     [Test]
@@ -68,8 +66,8 @@ public class PointTests
         Point c1 = new() { X = 15, Y = 8 };
         Types.Point c2 = new(15, 8);
 
-        Assert.AreEqual(c2, (Types.Point)c1);
-        Assert.AreEqual(c1, (Point)c2);
+        Assert.That(c2, Is.EqualTo((Types.Point)c1));
+        Assert.That(c1, Is.EqualTo((Point)c2));
     }
 
     [Test]
@@ -77,11 +75,11 @@ public class PointTests
     {
         Point p = new(3, 5);
 
-        Assert.AreEqual("3, 5", p.ToString());
-        Assert.AreEqual("3, 5", p.ToString("C"));
-        Assert.AreEqual("[3, 5]", p.ToString("B"));
-        Assert.AreEqual("X: 3, Y: 5", p.ToString("V"));
-        Assert.AreEqual("X: 3\nY: 5", p.ToString("N"));
+        Assert.That("3, 5", Is.EqualTo(p.ToString()));
+        Assert.That("3, 5", Is.EqualTo(p.ToString("C")));
+        Assert.That("[3, 5]", Is.EqualTo(p.ToString("B")));
+        Assert.That("X: 3, Y: 5", Is.EqualTo(p.ToString("V")));
+        Assert.That("X: 3\nY: 5", Is.EqualTo(p.ToString("N")));
 
         Assert.Throws<FormatException>(() => p.ToString("???"));
     }
@@ -96,16 +94,16 @@ public class PointTests
         Point q = new(x, y);
         Point r = new(5, 3);
 
-        Assert.True(p.Equals(q));
-        Assert.False(p.Equals(r));
-        Assert.False(p.Equals(null));
-        Assert.True(p.Equals((IVector)q));
-        Assert.False(p.Equals((IVector)r));
-        Assert.True(p.Equals((object?)q));
-        Assert.False(p.Equals((object?)r));
-        Assert.False(p.Equals(Guid.NewGuid()));
-        Assert.False(p.Equals((object?)null));
-        Assert.False(p!.Equals((IVector?)null));
+        Assert.That(p.Equals(q));
+        Assert.That(p.Equals(r), Is.False);
+        Assert.That(p.Equals(null), Is.False);
+        Assert.That(p!.Equals((IVector)q));
+        Assert.That(p.Equals((IVector)r), Is.False);
+        Assert.That(p.Equals((object?)q));
+        Assert.That(p.Equals((object?)r), Is.False);
+        Assert.That(p.Equals(Guid.NewGuid()), Is.False);
+        Assert.That(p.Equals((object?)null), Is.False);
+        Assert.That(p!.Equals((IVector?)null), Is.False);
     }
 
     [Test]
@@ -115,9 +113,9 @@ public class PointTests
         Point q = new(3, 5);
         Point r = new(5, 3);
 
-        Assert.True(p != r);
-        Assert.False(p != q);
-        Assert.True(p != (IVector)r);
-        Assert.False(p != (IVector)q);
+        Assert.That(p != r);
+        Assert.That(p != q, Is.False);
+        Assert.That(p != (IVector)r);
+        Assert.That(p != (IVector)q, Is.False);
     }
 }

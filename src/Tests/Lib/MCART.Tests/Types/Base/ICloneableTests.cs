@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,11 +28,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Tests.Types.Base;
-using NUnit.Framework;
-using System;
 using System.Diagnostics.CodeAnalysis;
 using TheXDS.MCART.Types.Base;
+
+namespace TheXDS.MCART.Tests.Types.Base;
 
 public class ICloneableTests
 {
@@ -60,15 +59,15 @@ public class ICloneableTests
         };
         
         TestClass copy = ((ICloneable<TestClass>)x).Clone();
-        Assert.AreNotSame(x, copy);
-        Assert.AreEqual(3, copy.Field);
-        Assert.AreEqual(4f, copy.Property);
+        Assert.That(x, Is.Not.SameAs(copy));
+        Assert.That(3, Is.EqualTo(copy.Field));
+        Assert.That(4f, Is.EqualTo(copy.Property));
         
         object copy2 = ((ICloneable)x).Clone();
-        Assert.AreNotSame(x, copy2);
-        Assert.IsAssignableFrom<TestClass>(copy2);
-        Assert.AreEqual(3, ((TestClass)copy2).Field);
-        Assert.AreEqual(4f, ((TestClass)copy2).Property);
+        Assert.That(x, Is.Not.SameAs(copy2));
+        Assert.That(copy2, Is.AssignableFrom<TestClass>());
+        Assert.That(3, Is.EqualTo(((TestClass)copy2).Field));
+        Assert.That(4f, Is.EqualTo(((TestClass)copy2).Property));
     }
 
     [Test]

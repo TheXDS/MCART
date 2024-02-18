@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,11 +28,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Tests.Types.Extensions;
-using NUnit.Framework;
-using System;
 using System.Text;
 using TheXDS.MCART.Types.Extensions;
+
+namespace TheXDS.MCART.Tests.Types.Extensions;
 
 public class StringBuilderExtensionsTests
 {
@@ -41,11 +40,11 @@ public class StringBuilderExtensionsTests
     {
         StringBuilder sb = new();
         sb.AppendLineIfNotNull(null);
-        Assert.True(sb.ToString().IsEmpty());
+        Assert.That(sb.ToString().IsEmpty());
         sb.AppendLineIfNotNull("test");
-        Assert.AreEqual($"test{Environment.NewLine}", sb.ToString());
+        Assert.That($"test{Environment.NewLine}", Is.EqualTo(sb.ToString()));
         sb.AppendLineIfNotNull(null);
-        Assert.AreEqual($"test{Environment.NewLine}", sb.ToString());
+        Assert.That($"test{Environment.NewLine}", Is.EqualTo(sb.ToString()));
     }
 
     [Test]
@@ -55,7 +54,7 @@ public class StringBuilderExtensionsTests
         string s = new('x', 120);
         sb.AppendAndWrap(s, 80);
         string[]? sa = sb.ToString().Split(Environment.NewLine);
-        Assert.AreEqual(80, sa[0].Length);
-        Assert.AreEqual(40, sa[1].Length);
+        Assert.That(80, Is.EqualTo(sa[0].Length));
+        Assert.That(40, Is.EqualTo(sa[1].Length));
     }
 }

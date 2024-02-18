@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -55,7 +55,7 @@ public class ItemCreatingEventArgs<T> : CancelEventArgs where T : notnull
     /// <param name="cancel">
     /// Determina si este evento se cancelará de forma predeterminada.
     /// </param>
-    /// <exception cref="System.ArgumentNullException">
+    /// <exception cref="ArgumentNullException">
     /// Se produce si <paramref name="item"/> es <see langword="null"/>.
     /// </exception>
     public ItemCreatingEventArgs(T item, bool cancel) : base(cancel)

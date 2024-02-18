@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -29,7 +29,6 @@ SOFTWARE.
 */
 
 using System.Globalization;
-using NUnit.Framework;
 using TheXDS.MCART.ValueConverters;
 
 namespace TheXDS.MCART.Wpf.Common.Tests.ValueConverters;
@@ -40,8 +39,8 @@ public class BooleanInverterTests
     public void Inversion_Test()
     {
         BooleanInverter? c = new();
-        Assert.True((bool)c.Convert(false, typeof(bool), null, CultureInfo.CurrentCulture)!);
-        Assert.False((bool)c.Convert(true, typeof(bool), null, CultureInfo.CurrentCulture)!);
-        Assert.Null(c.Convert("Test", typeof(bool), null, CultureInfo.CurrentCulture));
+        Assert.That((bool)c.Convert(false, typeof(bool), null, CultureInfo.CurrentCulture)!, Is.True);
+        Assert.That((bool)c.Convert(true, typeof(bool), null, CultureInfo.CurrentCulture)!, Is.False);
+        Assert.That(c.Convert("Test", typeof(bool), null, CultureInfo.CurrentCulture), Is.Null);
     }
 }

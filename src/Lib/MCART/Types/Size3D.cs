@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System;
 using TheXDS.MCART.Math;
 using TheXDS.MCART.Misc;
 using TheXDS.MCART.Resources;
@@ -503,9 +502,8 @@ public struct Size3D : IFormattable, IEquatable<Size3D>, IEquatable<ISize3D>, IE
     /// Determina si esta instancia representa un tamaño nulo.
     /// </summary>
     /// <returns>
-    /// <see langword="true"/> si el tamaño es nulo,
-    /// <see langword="false"/> si el tamaño no contiene volumen, y
-    /// <see langword="null"/> si alguna magnitud está indefinida.
+    /// <see langword="true"/> si el tamaño es nulo o
+    /// <see langword="false"/> si el tamaño no contiene volumen.
     /// </returns>
     public bool IsZero
     {

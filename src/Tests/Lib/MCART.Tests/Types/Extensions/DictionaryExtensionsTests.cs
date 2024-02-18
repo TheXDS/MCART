@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -45,11 +45,11 @@ public class DictionaryExtensionsTests
             { 'c', new[] { 'd', 'e' } },
         };
 
-        Assert.False(d.CheckCircularRef('a'));
-        Assert.False(((IEnumerable<KeyValuePair<char, IEnumerable<char>>>)d).CheckCircularRef('a'));
+        Assert.That(d.CheckCircularRef('a'), Is.False);
+        Assert.That(((IEnumerable<KeyValuePair<char, IEnumerable<char>>>)d).CheckCircularRef('a'), Is.False);
         d.Add('d', new[] { 'e', 'a' });
-        Assert.True(d.CheckCircularRef('a'));
-        Assert.True(((IEnumerable<KeyValuePair<char, IEnumerable<char>>>)d).CheckCircularRef('a'));
+        Assert.That(d.CheckCircularRef('a'));
+        Assert.That(((IEnumerable<KeyValuePair<char, IEnumerable<char>>>)d).CheckCircularRef('a'));
     }
 
     [Test]
@@ -62,18 +62,18 @@ public class DictionaryExtensionsTests
             { 'c', new[] { 'd', 'e' } },
         };
 
-        Assert.False(d.CheckCircularRef('a'));
-        Assert.False(((IEnumerable<KeyValuePair<char, ICollection<char>>>)d).CheckCircularRef('a'));
+        Assert.That(d.CheckCircularRef('a'), Is.False);
+        Assert.That(((IEnumerable<KeyValuePair<char, ICollection<char>>>)d).CheckCircularRef('a'), Is.False);
         d.Add('d', new[] { 'e', 'a' });
-        Assert.True(((IEnumerable<KeyValuePair<char, ICollection<char>>>)d).CheckCircularRef('a'));
-        Assert.True(d.CheckCircularRef('a'));
+        Assert.That(((IEnumerable<KeyValuePair<char, ICollection<char>>>)d).CheckCircularRef('a'));
+        Assert.That(d.CheckCircularRef('a'));
     }
 
     [Test]
     public void Push_Test()
     {
         Dictionary<int, string>? d = new();
-        Assert.IsAssignableFrom<string>(d.Push(1, "test"));
+        Assert.That(d.Push(1, "test"), Is.AssignableFrom<string>());
     }
 
     [Test]
@@ -85,11 +85,11 @@ public class DictionaryExtensionsTests
             { 2, "test2" }
         };
 
-        Assert.True(d.Pop(1, out string? s));
-        Assert.AreEqual("test", s);
-        Assert.False(d.ContainsKey(1));
-        Assert.False(d.ContainsValue("test"));
-        Assert.False(d.Pop(3, out string? s2));
-        Assert.Null(s2);
+        Assert.That(d.Pop(1, out string? s));
+        Assert.That("test", Is.EqualTo(s));
+        Assert.That(d.ContainsKey(1), Is.False);
+        Assert.That(d.ContainsValue("test"), Is.False);
+        Assert.That(d.Pop(3, out string? s2), Is.False);
+        Assert.That(s2, Is.Null);
     }
 }

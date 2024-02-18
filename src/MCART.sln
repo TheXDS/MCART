@@ -196,7 +196,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wpf.Win19041", "Extras\Wpf.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wpf.Controls.WebCamPane", "Extras\Wpf.Controls.WebCamPane\Wpf.Controls.WebCamPane.csproj", "{156A8029-065A-4B65-8DEB-35CDD340ECCF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wpf.Win19041.Tests", "Tests\Extras\Wpf.Win19041.Tests\Wpf.Win19041.Tests.csproj", "{C67B89F9-444C-4820-8B97-0866577EDE05}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wpf.Win19041.Tests", "Tests\Extras\Wpf.Win19041.Tests\Wpf.Win19041.Tests.csproj", "{C67B89F9-444C-4820-8B97-0866577EDE05}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -394,8 +394,39 @@ Global
 		SolutionGuid = {63BB1063-9448-4D86-ADAF-29683E2E7E73}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Shared\AssemblyInfo\AssemblyInfo.projitems*{156a8029-065a-4b65-8deb-35cdd340eccf}*SharedItemsImports = 5
+		Shared\AssemblyInfo\AssemblyInfo.projitems*{1da29d9f-46d1-402c-b1bc-d6e28f837d5d}*SharedItemsImports = 5
+		Shared\AssemblyInfo\AssemblyInfo.projitems*{295c5a28-c076-477a-b780-ec108c10601f}*SharedItemsImports = 5
+		Shared\AssemblyInfo\AssemblyInfo.projitems*{2adcb3e5-a8a6-4b48-b390-08e6a6bda451}*SharedItemsImports = 5
+		Shared\AssemblyInfo\AssemblyInfo.projitems*{2c265d1a-c458-4287-838e-c680596f165b}*SharedItemsImports = 5
+		Shared\AssemblyInfo\AssemblyInfo.projitems*{2e45833b-a3ce-4d47-877c-150f9ecf173f}*SharedItemsImports = 5
+		Shared\AssemblyInfo\AssemblyInfo.projitems*{2f2633be-b110-41e0-8a68-b5fd723d4f7d}*SharedItemsImports = 5
+		Tests\TestShared\TestShared.projitems*{3701ce27-eb23-409d-9773-d467e12ea13d}*SharedItemsImports = 5
+		Shared\AssemblyInfo\AssemblyInfo.projitems*{454c2b14-cc00-435d-86d1-bb91325c81b3}*SharedItemsImports = 5
+		Shared\AssemblyInfo\AssemblyInfo.projitems*{467c8abb-2104-4cd6-9ff9-ede90e025a3e}*SharedItemsImports = 5
+		Tests\TestShared\TestShared.projitems*{48dde395-2087-4d6d-9028-d6c09455aa15}*SharedItemsImports = 5
+		Shared\AssemblyInfo\AssemblyInfo.projitems*{4aacb963-4f8d-495e-8684-d10da5baee8b}*SharedItemsImports = 5
+		Shared\AssemblyInfo\AssemblyInfo.projitems*{601c6545-e47b-4495-b166-e6f3d38c8fcc}*SharedItemsImports = 5
+		Shared\AssemblyInfo\AssemblyInfo.projitems*{633333c8-463f-4b8a-be0c-54d2b77b5bf5}*SharedItemsImports = 5
+		Shared\AssemblyInfo\AssemblyInfo.projitems*{64d0244d-271d-4b77-910f-66a8448da886}*SharedItemsImports = 5
+		Tests\TestShared\TestShared.projitems*{72721172-e4c8-43fe-9227-de6910e90c57}*SharedItemsImports = 5
+		Shared\AssemblyInfo\AssemblyInfo.projitems*{779c7535-ef1c-488e-a939-fb210d6854ca}*SharedItemsImports = 5
+		Tests\TestShared\TestShared.projitems*{7f4a02d0-5310-49ae-bd8d-d94bdd069671}*SharedItemsImports = 5
 		Shared\AssemblyInfo\AssemblyInfo.projitems*{967afaa3-ded3-4ec0-9401-7193b318fce8}*SharedItemsImports = 13
+		Shared\AssemblyInfo\AssemblyInfo.projitems*{96f6fd64-bbab-4513-821d-6ee518274c78}*SharedItemsImports = 5
+		Shared\AssemblyInfo\AssemblyInfo.projitems*{9ad59451-bcf9-42fb-be09-e6189020131f}*SharedItemsImports = 5
+		Shared\AssemblyInfo\AssemblyInfo.projitems*{b9ecff22-ab39-4380-bfa6-e7c2e42acb8c}*SharedItemsImports = 5
+		Tests\TestShared\TestShared.projitems*{bbdc5dd0-1b85-44e5-af22-cfb11a162195}*SharedItemsImports = 5
+		Shared\AssemblyInfo\AssemblyInfo.projitems*{c0c0202d-a37b-4250-bb42-796136346535}*SharedItemsImports = 5
+		Shared\AssemblyInfo\AssemblyInfo.projitems*{c2d283b4-2f7f-47f1-8477-c69061f9b2ee}*SharedItemsImports = 5
+		Tests\TestShared\TestShared.projitems*{c67b89f9-444c-4820-8b97-0866577ede05}*SharedItemsImports = 5
+		Tests\TestShared\TestShared.projitems*{cde62548-182c-4956-9863-9abf4fd657b2}*SharedItemsImports = 5
+		Tests\TestShared\TestShared.projitems*{dc0def5e-dd18-4f85-a141-bb861cb0f02c}*SharedItemsImports = 5
+		Shared\AssemblyInfo\AssemblyInfo.projitems*{e794621f-f09b-4e0f-af70-d038c5bf81d2}*SharedItemsImports = 5
+		Tests\TestShared\TestShared.projitems*{ee764992-f9e4-4898-8c2b-8466409b0fac}*SharedItemsImports = 5
+		Shared\AssemblyInfo\AssemblyInfo.projitems*{ef235c0b-6983-4bae-9325-99e806de76a7}*SharedItemsImports = 5
 		Tests\TestShared\TestShared.projitems*{f1f6814e-b9a8-495e-a124-198e45577102}*SharedItemsImports = 13
+		Tests\TestShared\TestShared.projitems*{f25ecee8-690b-4717-a334-42bc22ae1fe4}*SharedItemsImports = 5
 		Shared\Internals\Internals.projitems*{f7b14aea-6c0a-4343-81ae-fb06dcd9c69c}*SharedItemsImports = 13
 	EndGlobalSection
 EndGlobal

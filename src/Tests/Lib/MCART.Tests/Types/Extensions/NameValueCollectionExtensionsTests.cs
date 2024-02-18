@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -59,52 +59,52 @@ public class NameValueCollectionExtensionsTests
     public void ToGroup_Test()
     {
         IGrouping<string?, string>[]? g = GetCollection(withNull: true).ToGroup().ToArray();
-        Assert.AreEqual(4, g.Length);
-        Assert.AreEqual("name1", g[0].Key);
-        Assert.AreEqual(new[] { "value1", "value4" }, g[0].ToArray());
-        Assert.AreEqual("name2", g[1].Key);
-        Assert.AreEqual(new[] { "value2", "value5" }, g[1].ToArray());
-        Assert.AreEqual("name3", g[2].Key);
-        Assert.AreEqual(new[] { "value3", "value6" }, g[2].ToArray());
-        Assert.Null(g[3].Key);
-        Assert.AreEqual(new[] { "value7", "value8" }, g[3].ToArray());
+        Assert.That(4, Is.EqualTo(g.Length));
+        Assert.That("name1", Is.EqualTo(g[0].Key));
+        Assert.That(g[0], Is.EquivalentTo(new[] { "value1", "value4" }));
+        Assert.That("name2", Is.EqualTo(g[1].Key));
+        Assert.That(g[1], Is.EquivalentTo(new[] { "value2", "value5" }));
+        Assert.That("name3", Is.EqualTo(g[2].Key));
+        Assert.That(g[2], Is.EquivalentTo(new[] { "value3", "value6" }));
+        Assert.That(g[3].Key, Is.Null);
+        Assert.That(g[3], Is.EquivalentTo(new[] { "value7", "value8" }));
     }
 
     [Test]
     public void ToNamedObjectCollection_Test()
     {
         MCART.Types.NamedObject<string[]>[]? g = GetCollection().ToNamedObjectCollection().ToArray();
-        Assert.AreEqual(3, g.Length);
-        Assert.AreEqual("name1", g[0].Name);
-        Assert.AreEqual(new[] { "value1", "value4" }, g[0].Value);
-        Assert.AreEqual("name2", g[1].Name);
-        Assert.AreEqual(new[] { "value2", "value5" }, g[1].Value);
-        Assert.AreEqual("name3", g[2].Name);
-        Assert.AreEqual(new[] { "value3", "value6" }, g[2].Value);
+        Assert.That(3, Is.EqualTo(g.Length));
+        Assert.That("name1", Is.EqualTo(g[0].Name));
+        Assert.That(g[0].Value, Is.EquivalentTo(new[] { "value1", "value4" }));
+        Assert.That("name2", Is.EqualTo(g[1].Name));
+        Assert.That(g[1].Value, Is.EquivalentTo(new[] { "value2", "value5" }));
+        Assert.That("name3", Is.EqualTo(g[2].Name));
+        Assert.That(g[2].Value, Is.EquivalentTo(new[] { "value3", "value6" }));
     }
 
     [Test]
     public void ToKeyValuePair_Test()
     {
-        System.Collections.Generic.KeyValuePair<string?, string>[]? g = GetCollection(withNull: true).ToKeyValuePair().ToArray();
-        Assert.AreEqual(4, g.Length);
-        Assert.AreEqual("name1", g[0].Key);
-        Assert.AreEqual("value1,value4", g[0].Value);
-        Assert.AreEqual("name2", g[1].Key);
-        Assert.AreEqual("value2,value5", g[1].Value);
-        Assert.AreEqual("name3", g[2].Key);
-        Assert.AreEqual("value3,value6", g[2].Value);
-        Assert.Null(g[3].Key);
-        Assert.AreEqual("value7,value8", g[3].Value);
+        KeyValuePair<string?, string>[]? g = GetCollection(withNull: true).ToKeyValuePair().ToArray();
+        Assert.That(4, Is.EqualTo(g.Length));
+        Assert.That("name1", Is.EqualTo(g[0].Key));
+        Assert.That(g[0].Value, Is.EqualTo("value1,value4"));
+        Assert.That("name2", Is.EqualTo(g[1].Key));
+        Assert.That(g[1].Value, Is.EqualTo("value2,value5"));
+        Assert.That("name3", Is.EqualTo(g[2].Key));
+        Assert.That(g[2].Value, Is.EqualTo("value3,value6"));
+        Assert.That(g[3].Key, Is.Null);
+        Assert.That(g[3].Value, Is.EqualTo("value7,value8"));
     }
 
     [Test]
     public void ToDictionary_Test()
     {
-        System.Collections.Generic.Dictionary<string, string[]>? g = GetCollection().ToDictionary();
-        Assert.AreEqual(3, g.Keys.Count);
-        Assert.AreEqual(new[] { "value1", "value4" }, g["name1"]);
-        Assert.AreEqual(new[] { "value2", "value5" }, g["name2"]);
-        Assert.AreEqual(new[] { "value3", "value6" }, g["name3"]);
+        Dictionary<string, string[]>? g = GetCollection().ToDictionary();
+        Assert.That(3, Is.EqualTo(g.Keys.Count));
+        Assert.That(g["name1"], Is.EquivalentTo(new[] { "value1", "value4" }));
+        Assert.That(g["name2"], Is.EquivalentTo(new[] { "value2", "value5" }));
+        Assert.That(g["name3"], Is.EquivalentTo(new[] { "value3", "value6" }));
     }
 }

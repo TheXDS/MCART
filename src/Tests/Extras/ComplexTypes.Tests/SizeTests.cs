@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the “Software”), to deal in
@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. 
 */
 
-using NUnit.Framework;
 using TheXDS.MCART.Types.Entity;
 
 namespace TheXDS.MCART.Ext.ComplexTypes.Tests;
@@ -40,7 +39,7 @@ public class SizeTests
     {
         Size c1 = new() { Width = 15, Height = 8 };
         Size c2 = new(15, 8);
-        Assert.AreEqual(c1, c2);
+        Assert.That(c1, Is.EqualTo(c2));
     }
 
     [Test]
@@ -49,8 +48,8 @@ public class SizeTests
         Size c1 = new() { Width = 15, Height = 8 };
         Types.Size c2 = new(15, 8);
 
-        Assert.AreEqual(c2, (Types.Size)c1);
-        Assert.AreEqual(c1, (Size)c2);
+        Assert.That(c2, Is.EqualTo((Types.Size)c1));
+        Assert.That(c1, Is.EqualTo((Size)c2));
     }
 
     [Test]
@@ -59,8 +58,8 @@ public class SizeTests
         Size c1 = new() { Width = 15, Height = 8 };
         Size c2 = new() { Width = 15, Height = 8 };
 
-        Assert.AreNotSame(c1, c2);
-        Assert.AreEqual(c1.GetHashCode(), c2.GetHashCode());
+        Assert.That(c1, Is.Not.SameAs(c2));
+        Assert.That(c1.GetHashCode(), Is.EqualTo(c2.GetHashCode()));
     }
 
     [Test]
@@ -70,11 +69,11 @@ public class SizeTests
         Size c2 = new() { Width = 15, Height = 8 };
         Size c3 = new() { Width = 12, Height = 7 };
 
-        Assert.IsFalse(c1.Equals((object?)null));
-        Assert.IsFalse(c1!.Equals((object?)c3));
-        Assert.IsFalse(c1.Equals((object?)new object()));
-        Assert.IsTrue(c1.Equals((object?)c1));
-        Assert.IsTrue(c1.Equals((object?)c2));
+        Assert.That(c1.Equals((object?)null), Is.False);
+        Assert.That(c1!.Equals((object?)c3), Is.False);
+        Assert.That(c1.Equals((object?)new object()), Is.False);
+        Assert.That(c1.Equals((object?)c1));
+        Assert.That(c1.Equals((object?)c2));
     }
 
     [Test]
@@ -84,11 +83,11 @@ public class SizeTests
         Size c2 = new() { Width = 15, Height = 8 };
         Size c3 = new() { Width = 12, Height = 7 };
 
-        Assert.IsFalse(c1.Equals((Size?)null));
-        Assert.IsFalse(c1!.Equals((Size?)c3));
-        Assert.IsTrue(c1.Equals((Size?)c1));
-        Assert.IsTrue(c1.Equals((Size?)c2));
-        Assert.IsTrue(c1 == c2);
-        Assert.IsTrue(c1 != c3);
+        Assert.That(c1.Equals(null), Is.False);
+        Assert.That(c1!.Equals((Size?)c3), Is.False);
+        Assert.That(c1.Equals((Size?)c1));
+        Assert.That(c1.Equals((Size?)c2));
+        Assert.That(c1 == c2);
+        Assert.That(c1 != c3);
     }
 }

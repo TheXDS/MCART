@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using NUnit.Framework;
 using System.Diagnostics.CodeAnalysis;
 using TheXDS.MCART.Types.Base;
 
@@ -99,7 +98,7 @@ public class ViewModelBaseTests
         TestViewModel vm = new();
         vm.WireUpBySelector();
         vm.Prop = 1;
-        Assert.IsTrue(vm.PropChangedExecuted);
+        Assert.That(vm.PropChangedExecuted);
     }
 
     [Test]
@@ -111,17 +110,17 @@ public class ViewModelBaseTests
         vm.WireUpByName();
         vm.WireUpByName(Test);
         vm.Prop = 1;
-        Assert.IsTrue(vm.PropChangedExecuted);
-        Assert.IsTrue(wiredUp);
+        Assert.That(vm.PropChangedExecuted);
+        Assert.That(wiredUp);
     }
 
     [Test]
     public void BusyOp_void_test()
     {
         TestViewModel vm = new();
-        Assert.IsFalse(vm.IsBusy);
-        vm.BusyOpTest(() => Assert.IsTrue(vm.IsBusy));
-        Assert.IsFalse(vm.IsBusy);
+        Assert.That(vm.IsBusy, Is.False);
+        vm.BusyOpTest(() => Assert.That(vm.IsBusy));
+        Assert.That(vm.IsBusy, Is.False);
     }
 
     [Test]
@@ -129,23 +128,23 @@ public class ViewModelBaseTests
     {
         TestViewModel vm = new();
         Task testTask() => Task.CompletedTask;
-        Assert.IsFalse(vm.IsBusy);
+        Assert.That(vm.IsBusy, Is.False);
         vm.BusyOpTest(testTask());
-        Assert.IsFalse(vm.IsBusy);
+        Assert.That(vm.IsBusy, Is.False);
     }
 
     [Test]
     public void BusyOp_T_test()
     {
         TestViewModel vm = new();
-        Assert.IsFalse(vm.IsBusy);
+        Assert.That(vm.IsBusy, Is.False);
         var r = vm.BusyOpTest(() =>
         {
-            Assert.IsTrue(vm.IsBusy);
+            Assert.That(vm.IsBusy);
             return 1;
         });
-        Assert.IsFalse(vm.IsBusy);
-        Assert.AreEqual(1, r);
+        Assert.That(vm.IsBusy, Is.False);
+        Assert.That(1, Is.EqualTo(r));
     }
 
     [Test]
@@ -153,9 +152,9 @@ public class ViewModelBaseTests
     {
         TestViewModel vm = new();
         Task<int> testTask() => Task.FromResult(1);
-        Assert.IsFalse(vm.IsBusy);
+        Assert.That(vm.IsBusy, Is.False);
         var r = await vm.BusyOpTest(testTask());
-        Assert.IsFalse(vm.IsBusy);
-        Assert.AreEqual(1, r);
+        Assert.That(vm.IsBusy, Is.False);
+        Assert.That(1, Is.EqualTo(r));
     }
 }

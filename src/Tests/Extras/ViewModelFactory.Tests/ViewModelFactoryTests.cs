@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using NUnit.Framework;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
@@ -110,9 +109,9 @@ public class ViewModelFactoryTests
         ((INotifyPropertyChanged)npcInstance).PropertyChanged += OnPropertyChanged;
         npcInstance.Name = "Test";
         ((INotifyPropertyChanged)npcInstance).PropertyChanged -= OnPropertyChanged;
-        Assert.NotNull(evt);
-        Assert.AreEqual("Name", evt!.Value.Arguments.PropertyName);
-        Assert.AreEqual("Test", (string)npcInstance.Name);
+        Assert.That(evt, Is.Not.Null);
+        Assert.That("Name", Is.EqualTo(evt!.Value.Arguments.PropertyName));
+        Assert.That("Test", Is.EqualTo((string)npcInstance.Name));
     }
 
     [Test]
@@ -120,15 +119,15 @@ public class ViewModelFactoryTests
     {
         var t = _factory.CreateNpcClass<TestModel>();
         object instance = t.New();
-        Assert.IsInstanceOf<INotifyPropertyChanged>(instance);
+        Assert.That(instance, Is.InstanceOf<INotifyPropertyChanged>());
         ((NotifyPropertyChanged)instance).PropertyChanged += OnPropertyChanged;
         (object? Sender, PropertyChangedEventArgs Arguments)? evt = null;
         void OnPropertyChanged(object? sender, PropertyChangedEventArgs e) => evt = (sender, e);
         foreach (var j in instance.GetType().GetProperties().Where(p => p.CanRead && p.CanWrite))
         {
             j.SetValue(instance, "Test");
-            Assert.AreEqual(j.Name, evt!.Value.Arguments.PropertyName);
-            Assert.AreEqual("Test", j.GetValue(instance));
+            Assert.That(j.Name, Is.EqualTo(evt!.Value.Arguments.PropertyName));
+            Assert.That("Test", Is.EqualTo(j.GetValue(instance)));
         }
         ((NotifyPropertyChanged)instance).PropertyChanged -= OnPropertyChanged;
     }
@@ -141,23 +140,23 @@ public class ViewModelFactoryTests
 
         var t = _factory.CreateEntityViewModelClass<TestModel>();
         var instance = t.New();
-        Assert.IsNotNull(instance);
+        Assert.That(instance, Is.Not.Null);
         TestModel m = new();
         instance.PropertyChanged += OnPropertyChanged;
 
         instance.Entity = m;
-        Assert.AreSame(m, instance.Entity);
-        Assert.AreEqual(nameof(EntityViewModel<TestModel>.Entity), evt!.Value.Arguments.PropertyName);
+        Assert.That(m, Is.SameAs(instance.Entity));
+        Assert.That(nameof(EntityViewModel<TestModel>.Entity), Is.EqualTo(evt!.Value.Arguments.PropertyName));
 
         ((dynamic)instance).Name = "Test";
-        Assert.AreEqual("Name", evt!.Value.Arguments.PropertyName);
-        Assert.AreEqual("Test", ((dynamic)instance).Name);
-        Assert.AreEqual("Test", instance.Entity.Name);
+        Assert.That("Name", Is.EqualTo(evt!.Value.Arguments.PropertyName));
+        Assert.That("Test", Is.EqualTo(((dynamic)instance).Name));
+        Assert.That("Test", Is.EqualTo(instance.Entity.Name));
 
         ((dynamic)instance).Description = "Test";
-        Assert.AreEqual("Description", evt!.Value.Arguments.PropertyName);
-        Assert.AreEqual("Test", ((dynamic)instance).Description);
-        Assert.AreEqual("Test", instance.Entity.Description);
+        Assert.That("Description", Is.EqualTo(evt!.Value.Arguments.PropertyName));
+        Assert.That("Test", Is.EqualTo(((dynamic)instance).Description));
+        Assert.That("Test", Is.EqualTo(instance.Entity.Description));
 
         instance.PropertyChanged -= OnPropertyChanged;
     }
@@ -169,8 +168,8 @@ public class ViewModelFactoryTests
         ((INotifyPropertyChanged)npcInstance).PropertyChanged += OnPropertyChanged;
         npcInstance.Name = "Test";
         ((INotifyPropertyChanged)npcInstance).PropertyChanged -= OnPropertyChanged;
-        Assert.NotNull(evt);
-        Assert.AreEqual("Name", evt!.Value.Arguments.PropertyName);
-        Assert.AreEqual("Test", (string)npcInstance.Name);
+        Assert.That(evt, Is.Not.Null);
+        Assert.That("Name", Is.EqualTo(evt!.Value.Arguments.PropertyName));
+        Assert.That("Test", Is.EqualTo((string)npcInstance.Name));
     }
 }

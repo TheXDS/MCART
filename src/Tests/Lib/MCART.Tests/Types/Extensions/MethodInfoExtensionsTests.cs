@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,11 +28,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Tests.Types.Extensions;
-using NUnit.Framework;
-using System;
 using TheXDS.MCART.Helpers;
 using static TheXDS.MCART.Types.Extensions.MethodInfoExtensions;
+
+namespace TheXDS.MCART.Tests.Types.Extensions;
 
 public class MethodInfoExtensionsTests
 {
@@ -45,13 +44,13 @@ public class MethodInfoExtensionsTests
         Func<string>? ts = ReflectionHelpers.GetMethod<Func<string>>(() => TestStatic).ToDelegate<Func<string>>();
         Func<string>? ti = ReflectionHelpers.GetMethod<Func<string>>(() => TestInstance).ToDelegate<Func<string>>(this);
 
-        Assert.NotNull(ts);
-        Assert.IsAssignableFrom<Func<string>>(ts);
-        Assert.AreEqual("TestStatic", ts!.Invoke());
+        Assert.That(ts, Is.Not.Null);
+        Assert.That(ts, Is.AssignableFrom<Func<string>>());
+        Assert.That("TestStatic", Is.EqualTo(ts!.Invoke()));
 
-        Assert.NotNull(ti);
-        Assert.IsAssignableFrom<Func<string>>(ti);
-        Assert.AreEqual("TestInstance", ti!.Invoke());
+        Assert.That(ti, Is.Not.Null);
+        Assert.That(ti, Is.AssignableFrom<Func<string>>());
+        Assert.That("TestInstance", Is.EqualTo(ti!.Invoke()));
     }
 
     [Test]
@@ -66,7 +65,7 @@ public class MethodInfoExtensionsTests
     [Test]
     public void IsVoidTest()
     {
-        Assert.True(ReflectionHelpers.GetMethod<Action>(() => IsVoidTest).IsVoid());
-        Assert.False(ReflectionHelpers.GetMethod<Func<object, object, bool>>(() => Equals).IsVoid());
+        Assert.That(ReflectionHelpers.GetMethod<Action>(() => IsVoidTest).IsVoid());
+        Assert.That(ReflectionHelpers.GetMethod<Func<object, object, bool>>(() => Equals).IsVoid(), Is.False);
     }
 }

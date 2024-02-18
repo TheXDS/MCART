@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,15 +28,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System;
-using System.ComponentModel;
-using System.Linq;
 using System.Reflection;
-using System.Runtime.CompilerServices;
-using NUnit.Framework;
-using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Types;
-using TheXDS.MCART.Types.Base;
 using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.TypeFactory.Tests;
@@ -64,15 +57,15 @@ public class TypeFactoryTests
         object greeterInstance = t.New();
         ((dynamic)greeterInstance).Name = "Jhon";
 
-        Assert.AreEqual("TheXDS.MCART.TypeFactory.Tests.TypeFactoryTests._Generated", t.Namespace);
-        Assert.AreEqual("Jhon", (string)((dynamic)greeterInstance).Name);
+        Assert.That("TheXDS.MCART.TypeFactory.Tests.TypeFactoryTests._Generated", Is.EqualTo(t.Namespace));
+        Assert.That("Jhon", Is.EqualTo((string)((dynamic)greeterInstance).Name));
         //Assert.AreEqual("Hello, Jhon", (string)((dynamic)greeterInstance).Greeting);
     }
 
     [Test]
     public void Factory_exposes_dynamic_assembly()
     {
-        Assert.IsInstanceOf<Assembly>(_factory.Assembly);
-        Assert.True(_factory.Assembly.IsDynamic);
+        Assert.That(_factory.Assembly, Is.InstanceOf<Assembly>());
+        Assert.That(_factory.Assembly.IsDynamic);
     }
 }

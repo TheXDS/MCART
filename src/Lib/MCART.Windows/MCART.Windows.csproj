@@ -6,8 +6,8 @@
   </PropertyGroup>  
   <ItemGroup>
     <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
-    <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
-    <PackageReference Include="System.Management" Version="7.0.0" />
+    <PackageReference Include="System.Drawing.Common" Version="8.0.2" />
+    <PackageReference Include="System.Management" Version="8.0.0" />
     <PackageReference Include="System.Security.Principal.Windows" Version="5.0.0" />
   </ItemGroup>  
   <ItemGroup>
@@ -37,5 +37,8 @@
       <LastGenOutput>WinErrors.Designer.cs</LastGenOutput>
       <CustomToolNamespace>TheXDS.MCART.Windows.Resources.Strings</CustomToolNamespace>
     </EmbeddedResource>
+  </ItemGroup>  
+  <ItemGroup>
+    <PackageReference Update="Microsoft.SourceLink.GitHub" Version="8.0.0" />
   </ItemGroup>
 </Project>

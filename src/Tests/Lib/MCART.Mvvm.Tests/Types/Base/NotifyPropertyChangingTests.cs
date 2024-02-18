@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -81,11 +81,11 @@ public class NotifyPropertyChangingTests
         x.Value = 1;
         x.PropertyChanging -= OnPropertyChanging;
 
-        Assert.True(risen);
-        Assert.NotNull(evt);
-        Assert.True(ReferenceEquals(x, evt!.Value.Sender));
-        Assert.AreEqual(nameof(TestClass.Value), evt!.Value.Arguments.PropertyName);
-        Assert.AreEqual(1, x.Value);
+        Assert.That(risen);
+        Assert.That(evt, Is.Not.Null);
+        Assert.That(ReferenceEquals(x, evt!.Value.Sender));
+        Assert.That(nameof(TestClass.Value), Is.EqualTo(evt!.Value.Arguments.PropertyName));
+        Assert.That(1, Is.EqualTo(x.Value));
     }
 
     [Test]
@@ -110,22 +110,22 @@ public class NotifyPropertyChangingTests
         void OnPropertyChanging(object? sender, PropertyChangingEventArgs e) => risen = true;
         x.PropertyChanging += OnPropertyChanging;
         x.Obj = null;
-        Assert.False(risen);
-        Assert.IsNull(x.Obj);
+        Assert.That(risen, Is.False);
+        Assert.That(x.Obj, Is.Null);
         object o = new();
         x.Obj = o;
-        Assert.True(risen);
-        Assert.AreSame(o, x.Obj);
+        Assert.That(risen);
+        Assert.That(o, Is.SameAs(x.Obj));
         risen = false;
         x.Obj = o;
-        Assert.False(risen);
-        Assert.AreSame(o, x.Obj);
+        Assert.That(risen, Is.False);
+        Assert.That(o, Is.SameAs(x.Obj));
         x.Value = 0;
-        Assert.False(risen);
-        Assert.AreEqual(0, x.Value);
+        Assert.That(risen, Is.False);
+        Assert.That(0, Is.EqualTo(x.Value));
         x.Value = 1;
-        Assert.True(risen);
-        Assert.AreEqual(1, x.Value);
+        Assert.That(risen);
+        Assert.That(1, Is.EqualTo(x.Value));
         x.PropertyChanging -= OnPropertyChanging;
     }
 
@@ -139,7 +139,7 @@ public class NotifyPropertyChangingTests
         x.ForwardChange(y);
         y.PropertyChanging += OnPropertyChanging;
         x.Value = 1;
-        Assert.True(risen);
+        Assert.That(risen);
         y.PropertyChanging -= OnPropertyChanging;
     }
 }

@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -47,8 +47,9 @@ public abstract class RingControlBase : TemplatedControl
         defaultValue: 24.0,
         defaultBindingMode: Avalonia.Data.BindingMode.TwoWay,
         validate: ChkDblValue,
-        coerce: CoerceRadius,
-        notifying: UpdateFullLayout);
+        coerce: CoerceRadius
+        //notifying: UpdateFullLayout
+        );
 
     /// <summary>
     /// Identifica a la propiedad de dependencia <see cref="Thickness" />.
@@ -57,8 +58,9 @@ public abstract class RingControlBase : TemplatedControl
         defaultValue: 4.0,
         defaultBindingMode: Avalonia.Data.BindingMode.TwoWay,
         validate: ChkDblValue,
-        coerce: CoerceThickness,
-        notifying: UpdateThicknessLayout);
+        coerce: CoerceThickness
+        //notifying: UpdateThicknessLayout
+        );
 
     /// <summary>
     /// Identifica a la propiedad de dependencia <see cref="Stroke" />.
@@ -98,13 +100,13 @@ public abstract class RingControlBase : TemplatedControl
         return value >= 0;
     }
 
-    private static double CoerceRadius(IAvaloniaObject d, double baseValue)
+    private static double CoerceRadius(AvaloniaObject d, double baseValue)
     {
         if (d is not RingControlBase) return baseValue;
         return baseValue.Clamp(0, double.MaxValue);
     }
 
-    private static double CoerceThickness(IAvaloniaObject d, double baseValue)
+    private static double CoerceThickness(AvaloniaObject d, double baseValue)
     {
         if (d is not RingControlBase b) return baseValue;
         return baseValue.Clamp(0, b.Radius * 2);
@@ -119,7 +121,7 @@ public abstract class RingControlBase : TemplatedControl
     /// <param name="e">
     /// Argumentos de cambio de valor de la propiedad de dependencia.
     /// </param>
-    protected static void UpdateLayout(IAvaloniaObject d, bool e)
+    protected static void UpdateLayout(AvaloniaObject d, bool e)
     {
         if (d is not RingControlBase p || !e) return;
         p.OnLayoutUpdate(d.GetValue(RadiusProperty), d.GetValue(ThicknessProperty));
@@ -132,7 +134,7 @@ public abstract class RingControlBase : TemplatedControl
     /// <param name="e">
     /// Argumentos de cambio de valor de la propiedad de dependencia.
     /// </param>
-    protected static void UpdateFullLayout(IAvaloniaObject d, bool e)
+    protected static void UpdateFullLayout(AvaloniaObject d, bool e)
     {
         if (d is not RingControlBase || !e) return;
         d.CoerceValue(RadiusProperty);
@@ -149,7 +151,7 @@ public abstract class RingControlBase : TemplatedControl
     /// <param name="e">
     /// Argumentos de cambio de valor de la propiedad de dependencia.
     /// </param>
-    protected static void UpdateThicknessLayout(IAvaloniaObject d, bool e)
+    protected static void UpdateThicknessLayout(AvaloniaObject d, bool e)
     {
         if (d is null) return;
         d.CoerceValue(ThicknessProperty);

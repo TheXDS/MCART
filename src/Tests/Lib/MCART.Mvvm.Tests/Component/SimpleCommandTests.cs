@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,8 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using NUnit.Framework;
-using System.Threading.Tasks;
 using TheXDS.MCART.Component;
 
 namespace TheXDS.MCART.Mvvm.Tests.Component;
@@ -42,9 +40,9 @@ public class SimpleCommandTests
         bool wiredUp = false;
         void a() => wiredUp = true;
         var c = new SimpleCommand(a);
-        Assert.IsTrue(c.CanExecute());
+        Assert.That(c.CanExecute());
         c.Execute();
-        Assert.IsTrue(wiredUp);
+        Assert.That(wiredUp);
     }
 
     [Test]
@@ -53,11 +51,11 @@ public class SimpleCommandTests
         bool wiredUp = false;
         void a() => wiredUp = true;
         var c = new SimpleCommand(a, false);
-        Assert.IsFalse(c.CanExecute());
+        Assert.That(c.CanExecute(), Is.False);
         c.SetCanExecute(true);
-        Assert.IsTrue(c.CanExecute());
+        Assert.That(c.CanExecute());
         c.Execute();
-        Assert.IsTrue(wiredUp);
+        Assert.That(wiredUp);
     }
 
     [Test]
@@ -68,12 +66,12 @@ public class SimpleCommandTests
         void a(object? o)
         {
             wiredUp = true;
-            Assert.AreSame(o, x);
+            Assert.That(o, Is.SameAs(x));
         }
         var c = new SimpleCommand(a);
-        Assert.IsTrue(c.CanExecute());
+        Assert.That(c.CanExecute());
         c.Execute(x);
-        Assert.IsTrue(wiredUp);
+        Assert.That(wiredUp);
     }
 
     [Test]
@@ -84,14 +82,14 @@ public class SimpleCommandTests
         void a(object? o)
         {
             wiredUp = true;
-            Assert.AreSame(o, x);
+            Assert.That(o, Is.SameAs(x));
         }
         var c = new SimpleCommand(a, false);
-        Assert.IsFalse(c.CanExecute());
+        Assert.That(c.CanExecute(), Is.False);
         c.SetCanExecute(true);
-        Assert.IsTrue(c.CanExecute());
+        Assert.That(c.CanExecute());
         c.Execute(x);
-        Assert.IsTrue(wiredUp);
+        Assert.That(wiredUp);
     }
 
     [Test]
@@ -104,9 +102,9 @@ public class SimpleCommandTests
             return Task.CompletedTask;
         }
         var c = new SimpleCommand(a);
-        Assert.IsTrue(c.CanExecute());
+        Assert.That(c.CanExecute());
         c.Execute();
-        Assert.IsTrue(wiredUp);
+        Assert.That(wiredUp);
     }
 
     [Test]
@@ -119,11 +117,11 @@ public class SimpleCommandTests
             return Task.CompletedTask;
         }
         var c = new SimpleCommand(a, false);
-        Assert.IsFalse(c.CanExecute());
+        Assert.That(c.CanExecute(), Is.False);
         c.SetCanExecute(true);
-        Assert.IsTrue(c.CanExecute());
+        Assert.That(c.CanExecute());
         c.Execute();
-        Assert.IsTrue(wiredUp);
+        Assert.That(wiredUp);
     }
 
     [Test]
@@ -134,13 +132,13 @@ public class SimpleCommandTests
         Task a(object? o)
         {
             wiredUp = true;
-            Assert.AreSame(o, x);
+            Assert.That(o, Is.SameAs(x));
             return Task.CompletedTask;
         }
         var c = new SimpleCommand(a);
-        Assert.IsTrue(c.CanExecute());
+        Assert.That(c.CanExecute());
         c.Execute(x);
-        Assert.IsTrue(wiredUp);
+        Assert.That(wiredUp);
     }
 
     [Test]
@@ -151,14 +149,14 @@ public class SimpleCommandTests
         Task a(object? o)
         {
             wiredUp = true;
-            Assert.AreSame(o, x);
+            Assert.That(o, Is.SameAs(x));
             return Task.CompletedTask;
         }
         var c = new SimpleCommand(a, false);
-        Assert.IsFalse(c.CanExecute());
+        Assert.That(c.CanExecute(), Is.False);
         c.SetCanExecute(true);
-        Assert.IsTrue(c.CanExecute());
+        Assert.That(c.CanExecute());
         c.Execute(x);
-        Assert.IsTrue(wiredUp);
+        Assert.That(wiredUp);
     }
 }

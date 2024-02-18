@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using NUnit.Framework;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using TheXDS.MCART.Types.Extensions;
@@ -69,13 +68,13 @@ public class BinaryWriterExtensionsTests
         }
         ms.Seek(0, SeekOrigin.Begin);
         using BinaryReader? br = new(ms);
-        Assert.AreEqual(1000000, br.ReadInt32());
-        Assert.AreEqual(g, br.ReadGuid());
+        Assert.That(1000000, Is.EqualTo(br.ReadInt32()));
+        Assert.That(g, Is.EqualTo(br.ReadGuid()));
 
         TestStruct v = br.Read<TestStruct>();
-        Assert.AreEqual(1000000, v.Int32Value);
-        Assert.True(v.BoolValue);
-        Assert.AreEqual("test", v.StringValue);
+        Assert.That(1000000, Is.EqualTo(v.Int32Value));
+        Assert.That(v.BoolValue);
+        Assert.That("test", Is.EqualTo(v.StringValue));
     }
 
     [Test]

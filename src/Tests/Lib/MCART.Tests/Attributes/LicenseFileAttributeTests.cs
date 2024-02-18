@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -41,33 +41,33 @@ public class LicenseFileAttributeTests
     public void LicenseFileAttributeBasicInstancing_Test()
     {
         LicenseFileAttribute? l = new(@"C:\Test.txt");
-        Assert.AreEqual(@"C:\Test.txt", l.Value);
-        Assert.AreEqual(@"C:\Test.txt", ((IValueAttribute<string?>)l).Value);
+        Assert.That(@"C:\Test.txt", Is.EqualTo(l.Value));
+        Assert.That(@"C:\Test.txt", Is.EqualTo(l.Value));
     }
 
     [Test]
     public void ReadLicenseFromLicenseFileAttribute_Test()
     {
         const string LicenseContents = "Test.";
-        string? f = System.IO.Path.GetTempFileName();
-        System.IO.File.WriteAllText(f, LicenseContents);
+        string? f = Path.GetTempFileName();
+        File.WriteAllText(f, LicenseContents);
 
         LicenseFileAttribute? l = new(f);
-        Assert.AreEqual(LicenseContents, l.ReadLicense());
+        Assert.That(LicenseContents, Is.EqualTo(l.ReadLicense()));
 
-        try { System.IO.File.Delete(f); }
+        try { File.Delete(f); }
         catch { }
     }
 
     [Test]
     public void LicenseFileWithFileNotFoundDoesntFail_Test()
     {
-        string? f = System.IO.Path.GetFullPath(System.IO.Path.Combine(
+        string? f = Path.GetFullPath(Path.Combine(
             Guid.NewGuid().ToString(),
             Guid.NewGuid().ToString(),
             Guid.NewGuid().ToString(),
             $"{Guid.NewGuid()}.txt"));
         LicenseFileAttribute? l = new(f);
-        Assert.AreEqual(St.Composition.Warn(St.Common.UnspecifiedLicense), l.ReadLicense());
+        Assert.That(St.Composition.Warn(St.Common.UnspecifiedLicense), Is.EqualTo(l.ReadLicense()));
     }
 }

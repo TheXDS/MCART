@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2023 César Andrés Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -130,7 +130,7 @@ public static class ObjectExtensions
     [Sugar]
     public static T? GetAttribute<T>(this object obj) where T : Attribute
     {
-        HasAttribute<T>(obj, out T? attribute);
+        HasAttribute(obj, out T? attribute);
         return attribute;
     }
 
@@ -230,7 +230,7 @@ public static class ObjectExtensions
             Assembly a => a.HasAttribute(out attribute),
             MemberInfo m => m.HasAttribute(out attribute),
             Enum e => e.HasAttribute(out attribute),
-            _ => HasAttributes<T>(obj.GetType(), out IEnumerable<T>? attributes) & (attribute = attributes?.FirstOrDefault()) is not null
+            _ => HasAttributes(obj.GetType(), out IEnumerable<T>? attributes) & (attribute = attributes?.FirstOrDefault()) is not null
         };
     }
 
@@ -270,7 +270,7 @@ public static class ObjectExtensions
             case Enum e:
                 return e.HasAttrValue<TAttribute, TValue>(out value);
             default:
-                bool retVal = HasAttributes<TAttribute>(obj, out IEnumerable<TAttribute>? attributes);
+                bool retVal = HasAttributes(obj, out IEnumerable<TAttribute>? attributes);
                 value = attributes?.FirstOrDefault() is { Value: { } v } ? v : default!;
                 return retVal;
         }
