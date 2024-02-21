@@ -1,13 +1,13 @@
-ï»¿/*
-AddConverterTests.cs
+/*
+SubtractConverterTests.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
 Author(s):
-     CÃ©sar AndrÃ©s Morgan <xds_xps_ivx@hotmail.com>
+     César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright Â© 2011 - 2024 CÃ©sar AndrÃ©s Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -29,52 +29,60 @@ SOFTWARE.
 */
 
 using System.Globalization;
-using TheXDS.MCART.ValueConverters;
 
-namespace TheXDS.MCART.Wpf.Common.Tests.ValueConverters;
+namespace TheXDS.MCART.Common.Tests.ValueConverters.Base;
 
-public class AddConverterTests
+public abstract partial class PrimitiveMathOpConverterBaseTests<T>(int a, int b, int c, decimal bigA, byte bigB, decimal bigC, decimal downA, long downB, byte downC, double opNullC)
 {
-    [Test]
-    public void Integer_Add_Test()
-    {
-        AddConverter? c = new();
+    private readonly int _a = a;
+    private readonly int _b = b;
+    private readonly int _c = c;
+    private readonly decimal _bigA = bigA;
+    private readonly byte _bigB = bigB;
+    private readonly decimal _bigC = bigC;
+    private readonly decimal _downA = downA;
+    private readonly long _downB = downB;
+    private readonly byte _downC = downC;
+    private readonly double _opNullC = opNullC;
 
-        Assert.That(3, Is.EqualTo(c.Convert(1, typeof(int), 2, CultureInfo.CurrentCulture)));
-        Assert.That(1, Is.EqualTo(c.ConvertBack(3, typeof(int), 2, CultureInfo.CurrentCulture)));
+    [Test]
+    public void Integer_operation_Test()
+    {
+        T c = new();
+        Assert.That(c.Convert(_a, typeof(int), _b, CultureInfo.CurrentCulture), Is.EqualTo(_c));
+        Assert.That(c.ConvertBack(_c, typeof(int), _b, CultureInfo.CurrentCulture), Is.EqualTo(_a));
     }
 
     [Test]
     public void Mixed_Types_Test()
     {
-        AddConverter? c = new();
-
-        Assert.That(3, Is.EqualTo(c.Convert(1f, typeof(int), "2", CultureInfo.CurrentCulture)));
-        Assert.That(1, Is.EqualTo(c.ConvertBack(3f, typeof(int), "2", CultureInfo.CurrentCulture)));
+        T c = new();
+        Assert.That(c.Convert((float)_a, typeof(int), _b.ToString(), CultureInfo.CurrentCulture), Is.EqualTo(_c));
+        Assert.That(c.ConvertBack((float)_c, typeof(int), _b.ToString(), CultureInfo.CurrentCulture), Is.EqualTo(_a));
     }
 
     [Test]
-    public void Big_Integer_Add_Test()
+    public void Big_Integer_operation_Test()
     {
-        AddConverter? c = new();
-        Assert.That(9999999999999999m, Is.EqualTo(c.Convert(9999999999999990m, typeof(decimal), (byte)9, CultureInfo.CurrentCulture)));
+        T? c = new();
+        Assert.That(c.Convert(_bigA, typeof(decimal), _bigB, CultureInfo.CurrentCulture), Is.EqualTo(_bigC));
     }
 
     [Test]
     public void Cast_Down_Test()
     {
-        AddConverter? c = new();
-        Assert.That((byte)200, Is.EqualTo(c.Convert(100L, typeof(byte), 100m, CultureInfo.CurrentCulture)));
+        T? c = new();
+        Assert.That(c.Convert(_downA, typeof(byte), _downB, CultureInfo.CurrentCulture), Is.EqualTo(_downC));
     }
 
     [Test]
     public void Sanity_Tests()
     {
-        AddConverter? c = new();
+        T c = new();
         Assert.That(double.NaN, Is.EqualTo(c.Convert(decimal.MaxValue, typeof(double), "Test", CultureInfo.CurrentCulture)));
         Assert.That(float.NaN, Is.EqualTo(c.Convert(double.MaxValue, typeof(float), "Test", CultureInfo.CurrentCulture)));
-        Assert.That(5, Is.EqualTo(c.Convert(5, typeof(int), null, CultureInfo.CurrentCulture)));
-        Assert.Throws<OverflowException>(() => c.Convert(200L, typeof(byte), 200m, CultureInfo.CurrentCulture));
+        Assert.That(_opNullC, Is.EqualTo(c.Convert(5, typeof(double), null, CultureInfo.CurrentCulture)));
+        Assert.Throws<OverflowException>(() => c.Convert(600L, typeof(byte), -300m, CultureInfo.CurrentCulture));
         Assert.Throws<NotSupportedException>(() => c.Convert(200L, typeof(byte), "Test", CultureInfo.CurrentCulture));
         Assert.Throws<ArgumentNullException>(() => c.Convert(null, typeof(byte), "5", CultureInfo.CurrentCulture));
     }

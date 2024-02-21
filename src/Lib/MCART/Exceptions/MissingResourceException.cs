@@ -110,35 +110,4 @@ public class MissingResourceException : OffendingException<string>
     public MissingResourceException(string message, Exception inner, string offendingObject) : base(message, inner, offendingObject)
     {
     }
-
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="MissingResourceException" />.
-    /// </summary>
-    /// <param name="info">
-    /// El objeto que contiene la información de serialización.
-    /// </param>
-    /// <param name="context">
-    /// La información contextual acerca del origen o el destino.
-    /// </param>
-    protected MissingResourceException(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-    }
-
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="MissingResourceException" />.
-    /// </summary>
-    /// <param name="info">
-    /// El objeto que contiene la información de serialización.
-    /// </param>
-    /// <param name="context">
-    /// La información contextual acerca del origen o el destino.
-    /// </param>
-    /// <param name="offendingObject">
-    /// Id del recurso que ha producido la excepción.
-    /// </param>
-    protected MissingResourceException(SerializationInfo info, StreamingContext context, string offendingObject) : base(info, context, offendingObject)
-    {
-    }
 }

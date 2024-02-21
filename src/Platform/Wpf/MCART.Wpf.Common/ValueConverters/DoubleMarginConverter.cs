@@ -56,7 +56,7 @@ public sealed class DoubleMarginConverter : IValueConverter
     /// Un <see cref="Thickness" /> uniforme cuyos valores de grosor son
     /// iguales al valor especificado.
     /// </returns>
-    public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         Func<double, double>? f = parameter as Func<double, double>;
         return value is double v ? (object)new Thickness(f?.Invoke(v) ?? v) : null;
@@ -77,7 +77,7 @@ public sealed class DoubleMarginConverter : IValueConverter
     /// Un <see cref="double" /> cuyo valor es el promedio del grosor
     /// establecido en el <see cref="Thickness" /> especificado.
     /// </returns>
-    public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         return value is Thickness v ? (object)((v.Top + v.Bottom + v.Left + v.Right) / 4.0) : null;
     }

@@ -140,20 +140,6 @@ public class InvalidUriException : OffendingException<Uri>
     {
     }
 
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="InvalidUriException" />.
-    /// </summary>
-    /// <param name="info">
-    /// El objeto que contiene la información de serialización.
-    /// </param>
-    /// <param name="context">
-    /// La información contextual acerca del origen o el destino.
-    /// </param>
-    protected InvalidUriException(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-    }
-
     private static string Msg() => Errors.InvalidUri;
     private static string Msg(Uri uri) => string.Format(Errors.InvalidXUri, uri.ToString());
 }

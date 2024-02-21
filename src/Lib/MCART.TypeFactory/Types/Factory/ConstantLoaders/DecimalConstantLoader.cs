@@ -53,16 +53,15 @@ public class DecimalConstantLoader : ConstantLoader<decimal>
         il.LoadConstant(typeof(decimal).GetProperty("Low", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(value));
         il.LoadConstant(typeof(decimal).GetProperty("Mid", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(value));
         il.LoadConstant(typeof(decimal).GetProperty("High", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(value));
-        il.LoadConstant(typeof(decimal).GetProperty("IsNegative", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(value));
-        il.LoadConstant(typeof(decimal).GetProperty("Scale", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(value));
-        
-        il.Emit(Newobj, typeof(decimal).GetConstructor(new []
-        {
+        il.LoadConstant(value < 0);
+        il.LoadConstant(value.Scale);
+        il.Emit(Newobj, typeof(decimal).GetConstructor(
+        [
             typeof(int),
             typeof(int),
             typeof(int),
             typeof(bool),
             typeof(byte)
-        })!);
+        ])!);
     }
 }

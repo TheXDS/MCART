@@ -29,33 +29,9 @@ SOFTWARE.
 */
 
 using Avalonia.Data.Converters;
-using System.ComponentModel;
-using System.Globalization;
-using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.ValueConverters;
 
-/// <summary>
-/// Implements a valueConverter which gets validation error text for
-/// properties. It requires a <see cref="INotifyDataErrorInfo"/> instance
-/// for value and a <see cref="string"/> as a parameter defining the name
-/// of the property to check.
-/// </summary>
-public class ErrorManager : IValueConverter
+public partial class ErrorManager : IValueConverter
 {
-    /// <inheritdoc/>
-    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
-    {
-        if (value is null) return null;
-        if (value is not INotifyDataErrorInfo vm) throw new ArgumentException(null, nameof(value));
-        if (parameter is not string pn) throw new ArgumentException(null, nameof(parameter));
-        List<string>? e = vm.GetErrors(pn).OfType<string>().ToList();
-        return e.Any() ? string.Join(Environment.NewLine, e) : null;
-    }
-
-    /// <inheritdoc/>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
-    {
-        throw new InvalidOperationException();
-    }
 }

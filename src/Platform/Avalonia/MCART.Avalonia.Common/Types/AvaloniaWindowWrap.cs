@@ -37,18 +37,10 @@ namespace TheXDS.MCART.Types;
 /// Envuelve una ventana de Windows Presentation Framework para brindar
 /// servicios adicionales de gestión de ventana.
 /// </summary>
-public class AvaloniaWindowWrap : IAvaloniaWindow
+/// <param name="window">Ventana a envolver.</param>
+public class AvaloniaWindowWrap(Window window) : IAvaloniaWindow
 {
-    private readonly Window _window;
-
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="AvaloniaWindowWrap"/>.
-    /// </summary>
-    /// <param name="window">Ventana a envolver.</param>
-    public AvaloniaWindowWrap(Window window)
-    {
-        _window = window;
-    }
+    private readonly Window _window = window;
 
     /// <inheritdoc/>
     public WindowState WindowState => _window.WindowState;

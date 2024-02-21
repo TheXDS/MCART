@@ -1,5 +1,5 @@
 ﻿/*
-ThresholdConverterTests.cs
+AddConverterTests.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,25 +28,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.Globalization;
-using System.Windows;
+using TheXDS.MCART.Common.Tests.ValueConverters.Base;
 using TheXDS.MCART.ValueConverters;
 
 namespace TheXDS.MCART.Wpf.Common.Tests.ValueConverters;
 
-public class ThresholdConverterTests
+public class AddConverterTests() : PrimitiveMathOpConverterBaseTests<AddConverter>
+    (1, 2, 3,
+    9999999999999990m, 9, 9999999999999999m,
+    100m, 100L, 200, 5)
 {
-    [Test]
-    public void ThresholdConverterTest()
-    {
-        ThresholdConverter<double, Visibility>? c = new(Visibility.Collapsed, Visibility.Visible, Visibility.Hidden);
-        Assert.Throws<ArgumentNullException>(() => c.Convert(null, typeof(Visibility), 100.0, CultureInfo.InvariantCulture));
-        Assert.Throws<ArgumentException>(() => c.Convert("X", typeof(Visibility), 100.0, CultureInfo.InvariantCulture));
-        Assert.That(Visibility.Visible, Is.EqualTo(c.Convert(105.0, typeof(Visibility), 100.0, CultureInfo.InvariantCulture)));
-        Assert.That(Visibility.Visible, Is.EqualTo(c.Convert(105.0, typeof(Visibility), "100.0", CultureInfo.InvariantCulture)));
-        Assert.That(Visibility.Collapsed, Is.EqualTo(c.Convert(95.0, typeof(Visibility), 100.0, CultureInfo.InvariantCulture)));
-        Assert.That(Visibility.Hidden, Is.EqualTo(c.Convert(100.0, typeof(Visibility), 100.0, CultureInfo.InvariantCulture)));
-        Assert.Throws<ArgumentNullException>(() => c.Convert(150.0, typeof(Visibility), null, CultureInfo.InvariantCulture));
-        Assert.Throws<ArgumentException>(() => c.Convert(150.0, typeof(Visibility), "X", CultureInfo.InvariantCulture));
-    }
 }

@@ -198,6 +198,18 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wpf.Controls.WebCamPane", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wpf.Win19041.Tests", "Tests\Extras\Wpf.Win19041.Tests\Wpf.Win19041.Tests.csproj", "{C67B89F9-444C-4820-8B97-0866577EDE05}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Xaml", "Platform\Shared\Xaml\Xaml.shproj", "{8817FB6F-3FCB-43C9-9054-B47D4DEB0F20}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{9C4EAA79-6771-4CC7-BBD6-89FCBC758B7B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Avalonia", "Avalonia", "{0151F8B9-B358-4654-B5CB-6FB9D02DF004}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{0CB5C43C-E64F-422A-9553-509155AEF294}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Xaml.Tests", "Tests\Platform\Shared\Xaml.Tests\Xaml.Tests.shproj", "{213730AC-B9BC-4728-A7FC-A43E336B4E55}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MCART.Avalonia.Common.Tests", "Tests\Platform\Avalonia\MCART.Avalonia.Common.Tests\MCART.Avalonia.Common.Tests.csproj", "{B2359786-724A-4530-A117-125AFC274C65}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -328,6 +340,10 @@ Global
 		{C67B89F9-444C-4820-8B97-0866577EDE05}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C67B89F9-444C-4820-8B97-0866577EDE05}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C67B89F9-444C-4820-8B97-0866577EDE05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2359786-724A-4530-A117-125AFC274C65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2359786-724A-4530-A117-125AFC274C65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2359786-724A-4530-A117-125AFC274C65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2359786-724A-4530-A117-125AFC274C65}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -389,6 +405,12 @@ Global
 		{295C5A28-C076-477A-B780-EC108C10601F} = {628D40FB-AA87-4DA7-AF16-4F57A9FADD9C}
 		{156A8029-065A-4B65-8DEB-35CDD340ECCF} = {628D40FB-AA87-4DA7-AF16-4F57A9FADD9C}
 		{C67B89F9-444C-4820-8B97-0866577EDE05} = {093CB83A-F278-42FD-A587-397555F1D5DF}
+		{8817FB6F-3FCB-43C9-9054-B47D4DEB0F20} = {9C4EAA79-6771-4CC7-BBD6-89FCBC758B7B}
+		{9C4EAA79-6771-4CC7-BBD6-89FCBC758B7B} = {F8837530-EC64-4679-9384-2C05FD2AC04F}
+		{0151F8B9-B358-4654-B5CB-6FB9D02DF004} = {F386AAC9-3944-4FAE-95D0-770D9C75FD7E}
+		{0CB5C43C-E64F-422A-9553-509155AEF294} = {F386AAC9-3944-4FAE-95D0-770D9C75FD7E}
+		{213730AC-B9BC-4728-A7FC-A43E336B4E55} = {0CB5C43C-E64F-422A-9553-509155AEF294}
+		{B2359786-724A-4530-A117-125AFC274C65} = {0151F8B9-B358-4654-B5CB-6FB9D02DF004}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {63BB1063-9448-4D86-ADAF-29683E2E7E73}
@@ -396,10 +418,12 @@ Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Shared\AssemblyInfo\AssemblyInfo.projitems*{156a8029-065a-4b65-8deb-35cdd340eccf}*SharedItemsImports = 5
 		Shared\AssemblyInfo\AssemblyInfo.projitems*{1da29d9f-46d1-402c-b1bc-d6e28f837d5d}*SharedItemsImports = 5
+		Tests\Platform\Shared\Xaml.Tests\Xaml.Tests.projitems*{213730ac-b9bc-4728-a7fc-a43e336b4e55}*SharedItemsImports = 13
 		Shared\AssemblyInfo\AssemblyInfo.projitems*{295c5a28-c076-477a-b780-ec108c10601f}*SharedItemsImports = 5
 		Shared\AssemblyInfo\AssemblyInfo.projitems*{2adcb3e5-a8a6-4b48-b390-08e6a6bda451}*SharedItemsImports = 5
 		Shared\AssemblyInfo\AssemblyInfo.projitems*{2c265d1a-c458-4287-838e-c680596f165b}*SharedItemsImports = 5
 		Shared\AssemblyInfo\AssemblyInfo.projitems*{2e45833b-a3ce-4d47-877c-150f9ecf173f}*SharedItemsImports = 5
+		Platform\Shared\Xaml\Xaml.projitems*{2f2633be-b110-41e0-8a68-b5fd723d4f7d}*SharedItemsImports = 5
 		Shared\AssemblyInfo\AssemblyInfo.projitems*{2f2633be-b110-41e0-8a68-b5fd723d4f7d}*SharedItemsImports = 5
 		Tests\TestShared\TestShared.projitems*{3701ce27-eb23-409d-9773-d467e12ea13d}*SharedItemsImports = 5
 		Shared\AssemblyInfo\AssemblyInfo.projitems*{454c2b14-cc00-435d-86d1-bb91325c81b3}*SharedItemsImports = 5
@@ -411,10 +435,15 @@ Global
 		Shared\AssemblyInfo\AssemblyInfo.projitems*{64d0244d-271d-4b77-910f-66a8448da886}*SharedItemsImports = 5
 		Tests\TestShared\TestShared.projitems*{72721172-e4c8-43fe-9227-de6910e90c57}*SharedItemsImports = 5
 		Shared\AssemblyInfo\AssemblyInfo.projitems*{779c7535-ef1c-488e-a939-fb210d6854ca}*SharedItemsImports = 5
+		Tests\Platform\Shared\Xaml.Tests\Xaml.Tests.projitems*{7f4a02d0-5310-49ae-bd8d-d94bdd069671}*SharedItemsImports = 5
 		Tests\TestShared\TestShared.projitems*{7f4a02d0-5310-49ae-bd8d-d94bdd069671}*SharedItemsImports = 5
+		Platform\Shared\Xaml\Xaml.projitems*{8817fb6f-3fcb-43c9-9054-b47d4deb0f20}*SharedItemsImports = 13
 		Shared\AssemblyInfo\AssemblyInfo.projitems*{967afaa3-ded3-4ec0-9401-7193b318fce8}*SharedItemsImports = 13
 		Shared\AssemblyInfo\AssemblyInfo.projitems*{96f6fd64-bbab-4513-821d-6ee518274c78}*SharedItemsImports = 5
 		Shared\AssemblyInfo\AssemblyInfo.projitems*{9ad59451-bcf9-42fb-be09-e6189020131f}*SharedItemsImports = 5
+		Tests\Platform\Shared\Xaml.Tests\Xaml.Tests.projitems*{b2359786-724a-4530-a117-125afc274c65}*SharedItemsImports = 5
+		Tests\TestShared\TestShared.projitems*{b2359786-724a-4530-a117-125afc274c65}*SharedItemsImports = 5
+		Platform\Shared\Xaml\Xaml.projitems*{b9ecff22-ab39-4380-bfa6-e7c2e42acb8c}*SharedItemsImports = 5
 		Shared\AssemblyInfo\AssemblyInfo.projitems*{b9ecff22-ab39-4380-bfa6-e7c2e42acb8c}*SharedItemsImports = 5
 		Tests\TestShared\TestShared.projitems*{bbdc5dd0-1b85-44e5-af22-cfb11a162195}*SharedItemsImports = 5
 		Shared\AssemblyInfo\AssemblyInfo.projitems*{c0c0202d-a37b-4250-bb42-796136346535}*SharedItemsImports = 5

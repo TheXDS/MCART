@@ -32,7 +32,7 @@ public class DecimalConstantLoader_Tests : ConstantLoaderTestBase<decimal>
 {
     private static IEnumerable<decimal> GetValues()
     {
-        return new[] { 0m, 1m, decimal.MaxValue, decimal.MinusOne, decimal.MinValue };
+        return [0m, 1m, decimal.MaxValue, decimal.MinusOne, decimal.MinValue, 3.14159265358979m];
     }
     
     public DecimalConstantLoader_Tests() : base(GetValues)

@@ -40,20 +40,6 @@ namespace TheXDS.MCART.Exceptions;
 public class StackUnderflowException : Exception
 {
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="StackUnderflowException" />.
-    /// </summary>
-    /// <param name="info">
-    /// El objeto que contiene la información de serialización.
-    /// </param>
-    /// <param name="context">
-    /// La información contextual acerca del origen o el destino.
-    /// </param>
-    protected StackUnderflowException(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-    }
-
-    /// <summary>
     /// Inicializa una nueva instancia de la clase <see cref="StackUnderflowException" />.
     /// </summary>
     public StackUnderflowException() : base(Errors.StackUnderflow)

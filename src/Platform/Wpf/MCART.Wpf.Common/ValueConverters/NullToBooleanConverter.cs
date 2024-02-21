@@ -28,63 +28,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.Globalization;
 using System.Windows.Data;
-using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.ValueConverters;
 
-/// <summary>
-/// Devuelve <see langword="true" /> si el elemento a convertir es <see langword="null" />
-/// </summary>
-public sealed class NullToBooleanConverter : IValueConverter
+public sealed partial class NullToBooleanConverter : IValueConverter
 {
-    /// <summary>
-    /// Obtiene un <see cref="bool" /> a partir del valor.
-    /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="targetType">Tipo del destino.</param>
-    /// <param name="parameter">
-    /// Parámetros personalizados para este <see cref="IValueConverter" />.
-    /// </param>
-    /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
-    /// </param>
-    /// <returns>
-    /// <see langword="true"/> si el elemento es
-    /// <see langword="null" />, <see langword="false"/> en caso
-    /// contrario.
-    /// </returns>
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        return value is null;
-    }
-
-    /// <summary>
-    /// Implementa <see cref="IValueConverter.ConvertBack" />.
-    /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="targetType">Tipo del destino.</param>
-    /// <param name="parameter">
-    /// Parámetros personalizados para este <see cref="IValueConverter" />.
-    /// </param>
-    /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
-    /// </param>
-    /// <exception cref="InvalidCastException">
-    /// Se produce si <paramref name="value" /> no es un <see cref="bool" />.
-    /// </exception>
-    /// <exception cref="TypeLoadException">
-    /// Se produce si <paramref name="targetType" /> no es una clase o estructura instanciable con un constructor sin
-    /// parámetros.
-    /// </exception>
-    /// <returns>
-    /// Una nueva instancia de tipo <paramref name="targetType" /> si <paramref name="value" /> se evalúa como
-    /// <see langword="true" />, <see langword="null" /> en caso contrario.
-    /// </returns>
-    public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        if (value is bool b) return b ? null : targetType.New();
-        throw new InvalidCastException();
-    }
 }

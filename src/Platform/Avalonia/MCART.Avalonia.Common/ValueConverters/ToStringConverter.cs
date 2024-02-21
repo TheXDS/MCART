@@ -29,59 +29,9 @@ SOFTWARE.
 */
 
 using Avalonia.Data.Converters;
-using System.Globalization;
 
 namespace TheXDS.MCART.ValueConverters;
 
-/// <summary>
-/// Convierte un valor a su representación como un <see cref="string" />.
-/// </summary>
-public sealed class ToStringConverter : IValueConverter
+public sealed partial class ToStringConverter : IValueConverter
 {
-    /// <summary>
-    /// Convierte cualquier objeto en un <see cref="string" />
-    /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="targetType">Tipo del destino.</param>
-    /// <param name="parameter">
-    /// Parámetros personalizados para este <see cref="IValueConverter" />.
-    /// </param>
-    /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
-    /// </param>
-    /// <returns>
-    /// Un <see cref="string" /> que representa al objeto.
-    /// </returns>
-    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
-    {
-        return value?.ToString();
-    }
-
-    /// <summary>
-    /// Intenta una conversión de <see cref="string" /> a un objeto del tipo
-    /// de destino especificado.
-    /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="targetType">Tipo del destino.</param>
-    /// <param name="parameter">
-    /// Parámetros personalizados para este <see cref="IValueConverter" />.
-    /// </param>
-    /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
-    /// </param>
-    /// <returns>
-    /// Si la conversión desde <see cref="string" /> tuvo éxito, se
-    /// devolverá al objeto, se devolverá <see langword="null" /> en caso contrario.
-    /// </returns>
-    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
-    {
-        try
-        {
-            return targetType?.GetMethod("Parse", new[] { typeof(string) })?.Invoke(null, new[] { value });
-        }
-        catch
-        {
-            return null;
-        }
-    }
 }

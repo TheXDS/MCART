@@ -144,45 +144,6 @@ public class OffendingException<T> : Exception
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="OffendingException{T}" /> con datos serializados.
-    /// </summary>
-    /// <param name="context">
-    /// El <see cref="StreamingContext" /> que contiene información
-    /// contextual acerca del origen o el destino.
-    /// </param>
-    /// <param name="info">
-    /// El <see cref="SerializationInfo" /> que contiene la información
-    /// serializada del objeto acerca de la excepción que está siendo
-    /// lanzada.
-    /// </param>
-    protected OffendingException(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-    }
-
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="OffendingException{T}" /> con datos serializados.
-    /// </summary>
-    /// <param name="context">
-    /// El <see cref="StreamingContext" /> que contiene información
-    /// contextual acerca del origen o el destino.
-    /// </param>
-    /// <param name="info">
-    /// El <see cref="SerializationInfo" /> que contiene la información
-    /// serializada del objeto acerca de la excepción que está siendo
-    /// lanzada.
-    /// </param>
-    /// <param name="offendingObject">
-    /// Objeto que es la causa de esta excepción.
-    /// </param>
-    protected OffendingException(SerializationInfo info, StreamingContext context, T offendingObject) : base(info,
-        context)
-    {
-        OffendingObject = offendingObject;
-    }
-
-    /// <summary>
     /// Objeto que ha causado la excepción.
     /// </summary>
     public T OffendingObject { get; } = default!;

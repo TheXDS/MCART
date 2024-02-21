@@ -28,68 +28,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.Globalization;
-using System.Windows;
 using System.Windows.Data;
-using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.ValueConverters;
 
-/// <summary>
-/// Determina si un objeto es una instancia del tipo provisto o de una clase derivada, y devuelve
-/// <see langword="true" /> si lo es.
-/// </summary>
-public sealed class TypeBooleanConverter : IValueConverter
+public sealed partial class TypeBooleanConverter : IValueConverter
 {
-    /// <summary>
-    /// Determina si un objeto es una instancia del tipo provisto o de una clase derivada.
-    /// </summary>
-    /// <param name="value">
-    /// Valor generado por el origen de enlace.
-    /// </param>
-    /// <param name="targetType">
-    /// El tipo de la propiedad del destino de enlace.
-    /// </param>
-    /// <param name="parameter">
-    /// Parámetro de convertidor que se va a usar.
-    /// </param>
-    /// <param name="culture">
-    /// Referencia cultural que se va a usar en el convertidor.
-    /// </param>
-    /// <returns>
-    /// <see langword="true" /> si el objeto es una instancia del
-    /// tipo provisto o de una clase derivada, <see langword="true" /> en caso contrario.
-    /// </returns>
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        if (parameter is not Type t) throw Errors.InvalidValue(nameof(parameter));
-        return t.IsAssignableFrom(value?.GetType());
-    }
-
-    /// <summary>
-    /// Implementa <see cref="IValueConverter.ConvertBack" />.
-    /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="targetType">Tipo del destino.</param>
-    /// <param name="parameter">
-    /// Parámetros personalizados para este <see cref="IValueConverter" />.
-    /// </param>
-    /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
-    /// </param>
-    /// <exception cref="InvalidCastException">
-    /// Se produce si <paramref name="value" /> no es un <see cref="Visibility" />.
-    /// </exception>
-    /// <exception cref="TypeLoadException">
-    /// Se produce si <paramref name="targetType" /> no es una clase o estructura instanciable con un constructor sin
-    /// parámetros.
-    /// </exception>
-    /// <returns>
-    /// Este método siempre genera un <see cref="InvalidOperationException" />.
-    /// </returns>
-    /// <exception cref="InvalidOperationException">Este método siempre genera esta excepción al ser llamado.</exception>
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        throw new InvalidOperationException();
-    }
 }

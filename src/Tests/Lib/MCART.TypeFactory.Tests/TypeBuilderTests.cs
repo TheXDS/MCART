@@ -49,7 +49,7 @@ public class TypeBuilderTests
     {
         TypeBuilder? t = _factory.NewType("RandomTestClass", typeof(Random), Type.EmptyTypes);
         TypeBuilder<Random> tb = new(t);
-        Assert.That((TypeBuilder)tb, Is.AssignableFrom<TypeBuilder>());
+        Assert.That((TypeBuilder)tb, Is.AssignableTo<TypeBuilder>());
     }
 
     [Test]

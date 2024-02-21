@@ -45,23 +45,6 @@ public class InvalidArgumentException : ArgumentException
     /// Inicializa una nueva instancia de la clase
     /// <see cref="InvalidArgumentException" />.
     /// </summary>
-    /// <param name="context">
-    /// El <see cref="StreamingContext" /> que contiene información
-    /// contextual acerca del origen o el destino.
-    /// </param>
-    /// <param name="info">
-    /// El <see cref="SerializationInfo" /> que contiene la información
-    /// serializada del objeto acerca de la excepción que está siendo
-    /// lanzada.
-    /// </param>
-    protected InvalidArgumentException(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-    }
-
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="InvalidArgumentException" />.
-    /// </summary>
     public InvalidArgumentException() : base(Errors.InvalidValue)
     {
     }

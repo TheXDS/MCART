@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>8817fb6f-3fcb-43c9-9054-b47d4deb0f20</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Xaml</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Component\EnumValueProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Component\EnumValueProvider_Contracts.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)component\NamedEnumValueProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\AddConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\Base\FloatConverterBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\Base\Inverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\Base\PrimitiveMathOpConverterBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\BooleanConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\BooleanInverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\BooleanToObjectConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\BoolFlagConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\DivideConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\ErrorManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\FromStringConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\LabeledDoubleConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\MultiplyConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\NotNullToBooleanConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\NullableBoolToBoolConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\NullBoolConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\NullToBooleanConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\NumberToBooleanConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\StrictTypeBooleanConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\SubtractConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\ThresholdConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\ToStringConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\TypeBooleanConverter.cs" />
+  </ItemGroup>
+</Project>

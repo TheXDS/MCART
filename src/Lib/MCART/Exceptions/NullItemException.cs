@@ -139,37 +139,4 @@ public class NullItemException : OffendingException<IList>
     public NullItemException(string message, Exception inner, IList offendingObject) : base(message, inner, offendingObject)
     {
     }
-
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="NullItemException"/>.
-    /// </summary>
-    /// <param name="info">
-    /// Objeto que contiene la información de serialización de esta
-    /// instancia.
-    /// </param>
-    /// <param name="context">
-    /// Información de contexto de serialización.
-    /// </param>
-    protected NullItemException(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-    }
-
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="NullItemException"/>.
-    /// </summary>
-    /// <param name="info">
-    /// Objeto que contiene la información de serialización de esta
-    /// instancia.
-    /// </param>
-    /// <param name="context">
-    /// Información de contexto de serialización.
-    /// </param>
-    /// <param name="offendingObject">
-    /// Lista en la cual se ha encontrado un elemento nulo.
-    /// </param>
-    protected NullItemException(SerializationInfo info, StreamingContext context, IList offendingObject) : base(info, context, offendingObject)
-    {
-    }
 }

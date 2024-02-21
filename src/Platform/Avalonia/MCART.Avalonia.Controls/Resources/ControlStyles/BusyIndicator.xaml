@@ -1,4 +1,7 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<Design.PreviewWith>
+		<BusyIndicator></BusyIndicator>
+	</Design.PreviewWith>
     <Style Selector="BusyIndicator">
         <Setter Property="Template">
             <Setter.Value>

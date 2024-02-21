@@ -28,64 +28,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.Globalization;
 using System.Windows.Data;
 
 namespace TheXDS.MCART.ValueConverters;
 
-/// <summary>
-/// Obtiene un objeto solamente si el valor original a convertir es 
-/// igual a <see langword="true"/>.
-/// </summary>
-public sealed class BooleanToObjectConverter : IValueConverter
+public sealed partial class BooleanToObjectConverter : IValueConverter
 {
-    /// <summary>
-    /// Devuelve un objeto de acuerdo a un valor booleano.
-    /// </summary>
-    /// <param name="value">
-    /// Valor booleano a comprobar.
-    /// </param>
-    /// <param name="targetType">
-    /// Tipo objetivo de la conversión.
-    /// </param>
-    /// <param name="parameter">
-    /// Objeto a devolver si <c><paramref name="value"/> == <see langword="true"/></c>.
-    /// </param>
-    /// <param name="culture">
-    /// Cultura a utilizar durante la conversión.
-    /// </param>
-    /// <returns>
-    /// <paramref name="parameter"/> si <c><paramref name="value"/> == <see langword="true"/></c>,
-    /// <see langword="null"/> en caso contrario.
-    /// </returns>
-    public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        return value is bool b && b && targetType.IsInstanceOfType(parameter) ? parameter : null;
-    }
-
-    /// <summary>
-    /// Devuelve <see langword="true"/> si un objeto no es 
-    /// <see langword="null"/>.
-    /// </summary>
-    /// <param name="value">
-    /// Objeto a comprobar.
-    /// </param>
-    /// <param name="targetType">
-    /// Tipo objetivo.
-    /// </param>
-    /// <param name="parameter">
-    /// Parámetro de conversión.
-    /// </param>
-    /// <param name="culture">
-    /// Cultura a utilizar durante la conversión.
-    /// </param>
-    /// <returns>
-    /// <see langword="true"/> si el objeto no es
-    /// <see langword="null"/>, <see langword="false"/> en caso
-    /// contrario.
-    /// </returns>
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        return value is not null;
-    }
 }

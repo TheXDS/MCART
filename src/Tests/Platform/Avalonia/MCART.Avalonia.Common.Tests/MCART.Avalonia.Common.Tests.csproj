@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+	</PropertyGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\..\Platform\Avalonia\MCART.Avalonia.Common\MCART.Avalonia.Common.csproj" />
+	</ItemGroup>
+	<Import Project="..\..\Shared\Xaml.Tests\Xaml.Tests.projitems" Label="Shared" />
+</Project>

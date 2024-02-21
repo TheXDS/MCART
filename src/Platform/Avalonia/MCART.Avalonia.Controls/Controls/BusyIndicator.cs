@@ -30,13 +30,13 @@ SOFTWARE.
 
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Metadata;
 using Avalonia.Controls.Primitives;
 using Avalonia.Layout;
 using Avalonia.Media;
 using TheXDS.MCART.Controls.Base;
 using TheXDS.MCART.Helpers;
 using static TheXDS.MCART.Misc.PrivateInternals;
-using Avalonia.Controls.Metadata;
 
 namespace TheXDS.MCART.Controls;
 

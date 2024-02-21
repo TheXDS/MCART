@@ -128,19 +128,4 @@ public class ClassNotInstantiableException : OffendingException<Type?>
     /// Tipo que es la causa de esta excepción.
     /// </param>
     public ClassNotInstantiableException(string message, Exception inner, Type? offendingType) : base(message, inner, offendingType) { }
-
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="ClassNotInstantiableException" /> con datos serializados.
-    /// </summary>
-    /// <param name="context">
-    /// El <see cref="StreamingContext" /> que contiene información
-    /// contextual acerca del origen o el destino.
-    /// </param>
-    /// <param name="info">
-    /// El <see cref="SerializationInfo" /> que contiene la información
-    /// serializada del objeto acerca de la excepción que está siendo
-    /// lanzada.
-    /// </param>
-    protected ClassNotInstantiableException(SerializationInfo info, StreamingContext context) : base(info, context) { }
 }

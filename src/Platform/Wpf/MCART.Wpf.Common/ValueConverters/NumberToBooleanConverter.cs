@@ -28,53 +28,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.Globalization;
 using System.Windows.Data;
 
 namespace TheXDS.MCART.ValueConverters;
 
-/// <summary>
-/// Convierte directamente un número a <see cref="bool" />
-/// </summary>
-public sealed class NumberToBooleanConverter : IValueConverter
+public sealed partial class NumberToBooleanConverter : IValueConverter
 {
-    /// <summary>
-    /// Convierte un <see cref="int" /> en un <see cref="bool" />.
-    /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="targetType">Tipo del destino.</param>
-    /// <param name="parameter">
-    /// Parámetros personalizados para este <see cref="IValueConverter" />.
-    /// </param>
-    /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
-    /// </param>
-    /// <returns>
-    /// <see langword="true" /> si <paramref name="value" /> es distinto de cero,
-    /// <see langword="false" /> en caso contrario.
-    /// </returns>
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        return value is int i && i != 0;
-    }
-
-    /// <summary>
-    /// Infiere un valor <see cref="int" />a partir de un <see cref="bool" />.
-    /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="targetType">Tipo del destino.</param>
-    /// <param name="parameter">
-    /// Parámetros personalizados para este <see cref="IValueConverter" />.
-    /// </param>
-    /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
-    /// </param>
-    /// <returns>
-    /// <c>-1</c> si <paramref name="value" /> es <see langword="true" />, <c>0</c> en
-    /// caso contrario.
-    /// </returns>
-    public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        return value is bool b ? (object)(b ? -1 : 0) : null;
-    }
 }

@@ -86,14 +86,9 @@ public abstract class FloatConverterBase
         float Parse(object value);
     }
 
-    private class FloatParser<T> : IFloatParser where T : notnull
+    private class FloatParser<T>(Func<T, float> parser) : IFloatParser where T : notnull
     {
-        private readonly Func<T,float> _parser;
-
-        public FloatParser(Func<T, float> parser)
-        {
-            _parser = parser;
-        }
+        private readonly Func<T,float> _parser = parser;
 
         Type IFloatParser.Type => typeof(T);
 

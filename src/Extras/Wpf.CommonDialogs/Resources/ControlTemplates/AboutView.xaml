@@ -5,7 +5,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="clr-namespace:TheXDS.MCART.Controls;assembly=MCART.Wpf.Controls"
     xmlns:local="clr-namespace:TheXDS.MCART.Wpf.CommonDialogs.Controls"
-    xmlns:resources="clr-namespace:TheXDS.MCART.Wpf.Resources.Strings;assembly=MCART.Wpf"
+    xmlns:resources="clr-namespace:TheXDS.MCART.Wpf.Resources.Strings;assembly=MCART.Wpf.Common"
     mc:Ignorable="d">
     <Style TargetType="{x:Type local:AboutView}">
         <Setter Property="Control.Template">

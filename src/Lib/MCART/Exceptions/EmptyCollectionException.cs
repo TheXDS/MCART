@@ -44,42 +44,6 @@ public class EmptyCollectionException : OffendingException<IEnumerable>
     /// Inicializa una nueva instancia de la clase
     /// <see cref="EmptyCollectionException" />.
     /// </summary>
-    /// <param name="context">
-    /// El <see cref="StreamingContext" /> que contiene información
-    /// contextual acerca del origen o el destino.
-    /// </param>
-    /// <param name="info">
-    /// El <see cref="SerializationInfo" /> que contiene la información
-    /// serializada del objeto acerca de la excepción que está siendo
-    /// lanzada.
-    /// </param>
-    protected EmptyCollectionException(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-    }
-
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="EmptyCollectionException" />.
-    /// </summary>
-    /// <param name="context">
-    /// El <see cref="StreamingContext" /> que contiene información
-    /// contextual acerca del origen o el destino.
-    /// </param>
-    /// <param name="info">
-    /// El <see cref="SerializationInfo" /> que contiene la información
-    /// serializada del objeto acerca de la excepción que está siendo
-    /// lanzada.
-    /// </param>
-    /// <param name="offendingCollection">Colección vacía que ha generado la excepción.</param>
-    protected EmptyCollectionException(SerializationInfo info, StreamingContext context,
-        IEnumerable offendingCollection) : base(info, context, offendingCollection)
-    {
-    }
-
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="EmptyCollectionException" />.
-    /// </summary>
     public EmptyCollectionException() : base(Errors.EmptyCollection)
     {
     }

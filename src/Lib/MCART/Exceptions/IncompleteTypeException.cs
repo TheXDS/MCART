@@ -121,35 +121,4 @@ public class IncompleteTypeException : OffendingException<Type>
     public IncompleteTypeException(string message, Exception inner, Type offendingObject) : base(message, inner, offendingObject)
     {
     }
-
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="IncompleteTypeException" />.
-    /// </summary>
-    /// <param name="info">
-    /// El objeto que contiene la información de serialización.
-    /// </param>
-    /// <param name="context">
-    /// La información contextual acerca del origen o el destino.
-    /// </param>
-    protected IncompleteTypeException(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-    }
-
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="IncompleteTypeException" />.
-    /// </summary>
-    /// <param name="info">
-    /// El objeto que contiene la información de serialización.
-    /// </param>
-    /// <param name="context">
-    /// La información contextual acerca del origen o el destino.
-    /// </param>
-    /// <param name="offendingObject">
-    /// Tipo que ha producido la excepción.
-    /// </param>
-    protected IncompleteTypeException(SerializationInfo info, StreamingContext context, Type offendingObject) : base(info, context, offendingObject)
-    {
-    }
 }

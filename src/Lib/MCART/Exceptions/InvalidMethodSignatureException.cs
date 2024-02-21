@@ -45,42 +45,6 @@ public class InvalidMethodSignatureException : OffendingException<MethodInfo>
     /// Inicializa una nueva instancia de la clase
     /// <see cref="InvalidMethodSignatureException" />.
     /// </summary>
-    /// <param name="context">
-    /// El <see cref="StreamingContext" /> que contiene información
-    /// contextual acerca del origen o el destino.
-    /// </param>
-    /// <param name="info">
-    /// El <see cref="SerializationInfo" /> que contiene la información
-    /// serializada del objeto acerca de la excepción que está siendo
-    /// lanzada.
-    /// </param>
-    protected InvalidMethodSignatureException(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-    }
-
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="InvalidMethodSignatureException" />.
-    /// </summary>
-    /// <param name="context">
-    /// El <see cref="StreamingContext" /> que contiene información
-    /// contextual acerca del origen o el destino.
-    /// </param>
-    /// <param name="info">
-    /// El <see cref="SerializationInfo" /> que contiene la información
-    /// serializada del objeto acerca de la excepción que está siendo
-    /// lanzada.
-    /// </param>
-    /// <param name="offendingMethod">Referencia al método que ha causado la excepción.</param>
-    protected InvalidMethodSignatureException(SerializationInfo info, StreamingContext context,
-        MethodInfo offendingMethod) : base(info, context, offendingMethod)
-    {
-    }
-
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="InvalidMethodSignatureException" />.
-    /// </summary>
     public InvalidMethodSignatureException() : base(Msg())
     {
     }

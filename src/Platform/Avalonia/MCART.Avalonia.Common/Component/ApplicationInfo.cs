@@ -38,7 +38,16 @@ namespace TheXDS.MCART.Component;
 /// <summary>
 /// Expone la información de ensamblado de una aplicación de WPF.
 /// </summary>
-public class ApplicationInfo : AssemblyInfo, IExposeExtendedGuiInfo<Image?>
+/// <remarks>
+/// Inicializa una nueva instancia de la clase
+/// <see cref="ApplicationInfo"/>
+/// </remarks>
+/// <param name="assembly">
+/// Ensamblado del cual se mostrará la información.
+/// </param>
+/// <param name="icon">Ícono a mostrar del ensamblado.</param>
+public class ApplicationInfo(Assembly assembly, Image? icon)
+    : AssemblyInfo(assembly), IExposeExtendedGuiInfo<Image?>
 {
     /// <summary>
     /// Inicializa una nueva instancia de la clase
@@ -61,20 +70,7 @@ public class ApplicationInfo : AssemblyInfo, IExposeExtendedGuiInfo<Image?>
         : this(application.GetType().Assembly, icon) { }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="ApplicationInfo"/>
-    /// </summary>
-    /// <param name="assembly">
-    /// Ensamblado del cual se mostrará la información.
-    /// </param>
-    /// <param name="icon">Ícono a mostrar del ensamblado.</param>
-    public ApplicationInfo(Assembly assembly, Image? icon) : base(assembly)
-    {
-        Icon = icon;
-    }
-
-    /// <summary>
     /// Obtiene un ícono opcional a mostrar que describe al elemento.
     /// </summary>
-    public virtual Image? Icon { get; }
+    public virtual Image? Icon { get; } = icon;
 }

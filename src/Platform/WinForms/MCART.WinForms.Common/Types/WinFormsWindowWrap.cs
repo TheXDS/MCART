@@ -34,18 +34,13 @@ namespace TheXDS.MCART.Types
     /// Envuelve una ventana de Windows Forms para brindar servicios
     /// adicionales de gestión de ventana.
     /// </summary>
-    public class WinFormsWindowWrap : IWinFormsWindow
+    /// <remarks>
+    /// Inicializa una nueva instancia de la clase <see cref="WinFormsWindowWrap"/>.
+    /// </remarks>
+    /// <param name="window">Ventana a envolver.</param>
+    public class WinFormsWindowWrap(Form window) : IWinFormsWindow
     {
-        private readonly Form _window;
-
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="WinFormsWindowWrap"/>.
-        /// </summary>
-        /// <param name="window">Ventana a envolver.</param>
-        public WinFormsWindowWrap(Form window)
-        {
-            _window = window;
-        }
+        private readonly Form _window = window;
 
         /// <inheritdoc/>
         public FormWindowState WindowState => _window.WindowState;

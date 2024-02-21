@@ -28,8 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.Globalization;
-using System.Windows;
 using System.Windows.Data;
 
 namespace TheXDS.MCART.ValueConverters;
@@ -38,57 +36,6 @@ namespace TheXDS.MCART.ValueConverters;
 /// Convierte un <see cref="double" /> en un <see cref="string" />,
 /// opcionalmente mostrando una etiqueta si el valor es inferior a cero.
 /// </summary>
-public sealed class LabeledDoubleConverter : IValueConverter
+public sealed partial class LabeledDoubleConverter : IValueConverter
 {
-    /// <summary>
-    /// Convierte un <see cref="double" /> en un <see cref="string" />,
-    /// opcionalmente mostrando una etiqueta si el valor es inferior a cero.
-    /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="targetType">Tipo del destino.</param>
-    /// <param name="parameter">
-    /// Etiqueta a mostrar en caso que el valor sea inferior a cero.
-    /// </param>
-    /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
-    /// </param>
-    /// <returns>
-    /// Un <see cref="Thickness" /> uniforme cuyos valores de grosor son
-    /// iguales al valor especificado.
-    /// </returns>
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        if (value is double v)
-        {
-            parameter ??= v.ToString(CultureInfo.InvariantCulture);
-            if (parameter is string label)
-                return v > 0 ? v.ToString(CultureInfo.InvariantCulture) : label;
-        }
-        throw new InvalidCastException();
-    }
-
-    /// <summary>
-    /// Revierte la conversión realizada por este objeto.
-    /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="targetType">Tipo del destino.</param>
-    /// <param name="parameter">
-    /// Función opcional de transformación de valor.
-    /// </param>
-    /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
-    /// </param>
-    /// <returns>
-    /// Un <see cref="double" /> cuyo valor es el promedio del grosor
-    /// establecido en el <see cref="Thickness" /> especificado.
-    /// </returns>
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        return value switch
-        {
-            double v => v,
-            string s => double.TryParse(s, out double r) ? r : 0.0,
-            _ => throw new InvalidCastException(),
-        };
-    }
 }

@@ -35,6 +35,6 @@ namespace TheXDS.MCART.Types;
 /// Extiende la clase <see cref="Window"/> para implementar la interfaz
 /// <see cref="IAvaloniaWindow"/>.
 /// </summary>
-internal class AvaloniaWindow : Window, IAvaloniaWindow
+public class AvaloniaWindow : Window, IAvaloniaWindow
 {
 }

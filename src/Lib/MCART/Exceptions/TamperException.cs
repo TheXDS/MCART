@@ -112,21 +112,4 @@ public class TamperException : Exception
     public TamperException(string message, Exception inner) : base(message, inner)
     {
     }
-
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="TamperException" /> con datos serializados.
-    /// </summary>
-    /// <param name="context">
-    /// El <see cref="StreamingContext" /> que contiene información
-    /// contextual acerca del origen o el destino.
-    /// </param>
-    /// <param name="info">
-    /// El <see cref="SerializationInfo" /> que contiene la información
-    /// serializada del objeto acerca de la excepción que está siendo
-    /// lanzada.
-    /// </param>
-    protected TamperException(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-    }
 }

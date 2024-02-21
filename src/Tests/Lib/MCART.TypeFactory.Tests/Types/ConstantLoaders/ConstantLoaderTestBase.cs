@@ -31,15 +31,10 @@ using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.TypeFactory.Tests.Types.ConstantLoaders;
 
-public abstract class ConstantLoaderTestBase<T> : TypeFactoryTestClassBase
+public abstract class ConstantLoaderTestBase<T>(Func<IEnumerable<T>> testValueSource) : TypeFactoryTestClassBase
 {
-    private readonly Func<IEnumerable<T>> _testValueSource;
+    private readonly Func<IEnumerable<T>> _testValueSource = testValueSource;
 
-    public ConstantLoaderTestBase(Func<IEnumerable<T>> testValueSource)
-    {
-        _testValueSource = testValueSource;
-    }
-    
     [Test]
     public void Loader_emits_value_test()
     {

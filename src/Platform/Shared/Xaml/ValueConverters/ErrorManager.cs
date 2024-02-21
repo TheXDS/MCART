@@ -1,5 +1,5 @@
 ﻿/*
-BooleanInverter.cs
+ErrorManager.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,19 +28,33 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using TheXDS.MCART.ValueConverters.Base;
+using System.ComponentModel;
+using System.Globalization;
+using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.ValueConverters;
 
 /// <summary>
-/// Invierte un valor booleano
+/// Implements a valueConverter which gets validation error text for
+/// properties. It requires a <see cref="INotifyDataErrorInfo"/> instance
+/// for value and a <see cref="string"/> as a parameter defining the name
+/// of the property to check.
 /// </summary>
-public sealed class BooleanInverter : Inverter<bool>
+public partial class ErrorManager
 {
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="BooleanInverter" />.
-    /// </summary>
-    public BooleanInverter() : base(true, false)
+    /// <inheritdoc/>
+    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
+        if (value is null) return null;
+        if (value is not INotifyDataErrorInfo vm) throw new ArgumentException(null, nameof(value));
+        if (parameter is not string pn) throw new ArgumentException(null, nameof(parameter));
+        List<string>? e = vm.GetErrors(pn).OfType<string>().ToList();
+        return e.Count != 0 ? string.Join(Environment.NewLine, e) : null;
+    }
+
+    /// <inheritdoc/>
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        throw new InvalidOperationException();
     }
 }

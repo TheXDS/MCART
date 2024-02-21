@@ -1,13 +1,13 @@
-ï»¿/*
-EnumValueProvider_Contracts.cs
+/*
+DivideConverterTests.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
 Author(s):
-     CÃ©sar AndrÃ©s Morgan <xds_xps_ivx@hotmail.com>
+     César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright Â© 2011 - 2024 CÃ©sar AndrÃ©s Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,24 +28,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
-using TheXDS.MCART.Resources;
-using static TheXDS.MCART.Misc.Internals;
+using TheXDS.MCART.Common.Tests.ValueConverters.Base;
+using TheXDS.MCART.ValueConverters;
 
-namespace TheXDS.MCART.Component;
+namespace TheXDS.MCART.Wpf.Common.Tests.ValueConverters;
 
-public partial class EnumValueProvider
+public class DivideConverterTests() : PrimitiveMathOpConverterBaseTests<DivideConverter>
+    (6, 2, 3,
+    9999999999999999m, 10, 999999999999999.9m,
+    200m, 2L, 100,
+    double.PositiveInfinity)
 {
-    [Conditional("EnforceContracts")]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    [DebuggerNonUserCode]
-    private static void EnumValueProvider_Contract(Type enumType)
-    {
-        NullCheck(enumType, nameof(enumType));
-        if (!enumType.IsEnum)
-        {
-            throw Errors.EnumExpected(nameof(enumType), enumType);
-        }
-    }
 }

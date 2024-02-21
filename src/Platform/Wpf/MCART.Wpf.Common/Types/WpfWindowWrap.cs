@@ -37,18 +37,10 @@ namespace TheXDS.MCART.Types;
 /// Envuelve una ventana de Windows Presentation Framework para brindar
 /// servicios adicionales de gestión de ventana.
 /// </summary>
-public class WpfWindowWrap : IWpfWindow
+/// <param name="window">Ventana a envolver.</param>
+public class WpfWindowWrap(Window window) : IWpfWindow
 {
-    private readonly Window _window;
-
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="WpfWindowWrap"/>.
-    /// </summary>
-    /// <param name="window">Ventana a envolver.</param>
-    public WpfWindowWrap(Window window)
-    {
-        _window = window;
-    }
+    private readonly Window _window = window;
 
     /// <inheritdoc/>
     public WindowState WindowState => _window.WindowState;

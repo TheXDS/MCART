@@ -33,29 +33,24 @@ using System.Windows.Data;
 
 namespace TheXDS.MCART.ValueConverters.Base;
 
-/// <summary>
-/// Clase base para crear convertidores de valores que inviertan el valor
-/// de una propiedad de dependencia.
-/// </summary>
-/// <typeparam name="T">Tipo de valor a invertir.</typeparam>
-public abstract class Inverter<T> : IValueConverter where T : struct
+public abstract partial class Inverter<T> : IValueConverter
 {
-    private readonly T _nay;
-    private readonly T _yay;
-
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="Inverter{T}" />.
+    /// Invierte el valor de  un <typeparamref name="T" />.
     /// </summary>
-    /// <param name="yayValue">Valor invertible.</param>
-    /// <param name="nayValue">
-    /// Valor inverso de <paramref name="yayValue" />.
+    /// <param name="value">Objeto a convertir.</param>
+    /// <param name="targetType">Tipo del destino.</param>
+    /// <param name="parameter">
+    /// Parámetros personalizados para este <see cref="IValueConverter" />.
     /// </param>
-    protected Inverter(T yayValue, T nayValue)
-    {
-        _yay = yayValue;
-        _nay = nayValue;
-    }
+    /// <param name="culture">
+    /// <see cref="CultureInfo" /> a utilizar para la conversión.
+    /// </param>
+    /// <returns>
+    /// Un <typeparamref name="T" /> cuyo valor es el inverso de
+    /// <paramref name="value" />.
+    /// </returns>
+    public partial object? Convert(object? value, Type targetType, object? parameter, CultureInfo? culture);
 
     /// <summary>
     /// Invierte el valor de  un <typeparamref name="T" />.
@@ -72,32 +67,5 @@ public abstract class Inverter<T> : IValueConverter where T : struct
     /// Un <typeparamref name="T" /> cuyo valor es el inverso de
     /// <paramref name="value" />.
     /// </returns>
-    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo? culture)
-    {
-        if (value is T v)
-            return v.Equals(_yay) ? _nay : _yay;
-        return null;
-    }
-
-    /// <summary>
-    /// Invierte el valor de  un <typeparamref name="T" />.
-    /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="targetType">Tipo del destino.</param>
-    /// <param name="parameter">
-    /// Parámetros personalizados para este <see cref="IValueConverter" />.
-    /// </param>
-    /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
-    /// </param>
-    /// <returns>
-    /// Un <typeparamref name="T" /> cuyo valor es el inverso de
-    /// <paramref name="value" />.
-    /// </returns>
-    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo? culture)
-    {
-        if (value is T v)
-            return v.Equals(_yay) ? _nay : _yay;
-        return null;
-    }
+    public partial object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo? culture);
 }

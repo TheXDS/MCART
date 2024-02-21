@@ -1,13 +1,13 @@
-ï»¿/*
-AllVisibleConverter.cs
+/*
+BooleanToObjectConverterTests.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
 Author(s):
-     CÃ©sar AndrÃ©s Morgan <xds_xps_ivx@hotmail.com>
+     César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright Â© 2011 - 2024 CÃ©sar AndrÃ©s Morgan
+Copyright © 2011 - 2024 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -29,25 +29,29 @@ SOFTWARE.
 */
 
 using System.Globalization;
-using TheXDS.MCART.ValueConverters.Base;
+using TheXDS.MCART.ValueConverters;
 
-namespace TheXDS.MCART.ValueConverters;
+namespace TheXDS.MCART.Wpf.Common.Tests.ValueConverters;
 
-/// <summary>
-/// Implementa un convertidor de valores que convierte objetos entre los tipos
-/// <c><see cref="bool"/>?</c> y <c><see cref="bool"/></c>.
-/// </summary>
-public class NullableBoolToBoolConverter : IValueConverter<bool?, bool>
+public class BooleanToObjectConverterTests
 {
-    /// <inheritdoc/>
-    public bool Convert(bool? value, object? parameter, CultureInfo? culture)
+    [Test]
+    public void Forward_conversion_test()
     {
-        return value ?? false;
+        BooleanToObjectConverter c = new();
+
+        Assert.That(c.Convert(true, typeof(Random), new Random(), CultureInfo.InvariantCulture), Is.InstanceOf<Random>());
+        Assert.That(c.Convert(false, typeof(Random), new Random(), CultureInfo.InvariantCulture), Is.Null);
+        Assert.That(c.Convert(true, typeof(Random), new Exception(), CultureInfo.InvariantCulture), Is.Null);
+        Assert.That(c.Convert(false, typeof(Random), new Exception(), CultureInfo.InvariantCulture), Is.Null);
     }
 
-    /// <inheritdoc/>
-    public bool? ConvertBack(bool value, object? parameter, CultureInfo culture)
+    [Test]
+    public void Backward_conversion_test()
     {
-        return value;
+        BooleanToObjectConverter c = new();
+
+        Assert.That(c.ConvertBack(new Random(), typeof(bool), true, CultureInfo.InvariantCulture), Is.True);
+        Assert.That(c.ConvertBack(null, typeof(bool), true, CultureInfo.InvariantCulture), Is.False);
     }
 }

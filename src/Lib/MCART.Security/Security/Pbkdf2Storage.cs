@@ -36,8 +36,18 @@ namespace TheXDS.MCART.Security;
 /// <summary>
 /// Deriva claves a partir de contraseñas utilizando el algoritmo PBKDF2.
 /// </summary>
-public class Pbkdf2Storage : IPasswordStorage<Pbkdf2Settings>
+/// <remarks>
+/// Inicializa una nueva instancia de la clase <see cref="Pbkdf2Storage"/>,
+/// especificando la configuración del algoritmo de derivación de claves a
+/// utilizar.
+/// </remarks>
+/// <param name="settings">
+/// Configuración del algoritmo de derivación de claves a utilizar.
+/// </param>
+public class Pbkdf2Storage(Pbkdf2Settings settings) : IPasswordStorage<Pbkdf2Settings>
 {
+    private const string DEFAULT_HASH_ALG = "SHA512";
+
     /// <summary>
     /// Obtiene un <see cref="Pbkdf2Settings"/> que representa la configuración
     /// predeterminada recomendada para derivar claves de almacenamiento.
@@ -52,7 +62,7 @@ public class Pbkdf2Storage : IPasswordStorage<Pbkdf2Settings>
         {
             Salt = RandomNumberGenerator.GetBytes(128),
             Iterations = 1024,
-            HashFunction = "SHA512",
+            HashFunction = DEFAULT_HASH_ALG,
             DerivedKeyLength = 64,
         };
     }
@@ -66,21 +76,8 @@ public class Pbkdf2Storage : IPasswordStorage<Pbkdf2Settings>
     {
     }
 
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="Pbkdf2Storage"/>,
-    /// especificando la configuración del algoritmo de derivación de claves a
-    /// utilizar.
-    /// </summary>
-    /// <param name="settings">
-    /// Configuración del algoritmo de derivación de claves a utilizar.
-    /// </param>
-    public Pbkdf2Storage(Pbkdf2Settings settings)
-    {
-        Settings = settings;
-    }
-
     /// <inheritdoc/>
-    public Pbkdf2Settings Settings { get; set; }
+    public Pbkdf2Settings Settings { get; set; } = settings;
 
     int IPasswordStorage.KeyLength => Settings.DerivedKeyLength;
 
@@ -92,8 +89,6 @@ public class Pbkdf2Storage : IPasswordStorage<Pbkdf2Settings>
 
     private Rfc2898DeriveBytes GetPbkdf2(byte[] input)
     {
-        return Settings.HashFunction.IsEmpty()
-            ? new(input, Settings.Salt, Settings.Iterations)
-            : new(input, Settings.Salt, Settings.Iterations, new HashAlgorithmName(Settings.HashFunction));
+        return new(input, Settings.Salt, Settings.Iterations, new HashAlgorithmName(Settings.HashFunction.IsEmpty() ? DEFAULT_HASH_ALG : Settings.HashFunction));
     }
 }
