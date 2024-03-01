@@ -433,106 +433,106 @@ public static partial class Common
     }
 
     /// <summary>
-    /// Invierte el Endianess de un valor <see cref="char" />.
+    /// Invierte el Endianness de un valor <see cref="char" />.
     /// </summary>
     /// <param name="value">Valor cuyos bytes se invertirán.</param>
     /// <returns>
-    /// Un <see cref="char" /> cuyo Endianess ha sido invertido.
+    /// Un <see cref="char" /> cuyo Endianness ha sido invertido.
     /// </returns>
-    public static char FlipEndianess(this in char value)
+    public static char FlipEndianness(this in char value)
     {
         return BitConverter.ToChar(BitConverter.GetBytes(value).Reverse().ToArray(), 0);
     }
 
     /// <summary>
-    /// Invierte el Endianess de un valor <see cref="double" />.
+    /// Invierte el Endianness de un valor <see cref="double" />.
     /// </summary>
     /// <param name="value">Valor cuyos bytes se invertirán.</param>
     /// <returns>
-    /// Un <see cref="double" /> cuyo Endianess ha sido invertido.
+    /// Un <see cref="double" /> cuyo Endianness ha sido invertido.
     /// </returns>
-    public static double FlipEndianess(this in double value)
+    public static double FlipEndianness(this in double value)
     {
         return BitConverter.ToDouble(BitConverter.GetBytes(value).Reverse().ToArray(), 0);
     }
 
     /// <summary>
-    /// Invierte el Endianess de un valor <see cref="float" />.
+    /// Invierte el Endianness de un valor <see cref="float" />.
     /// </summary>
     /// <param name="value">Valor cuyos bytes se invertirán.</param>
     /// <returns>
-    /// Un <see cref="float" /> cuyo Endianess ha sido invertido.
+    /// Un <see cref="float" /> cuyo Endianness ha sido invertido.
     /// </returns>
-    public static float FlipEndianess(this in float value)
+    public static float FlipEndianness(this in float value)
     {
         return BitConverter.ToSingle(BitConverter.GetBytes(value).Reverse().ToArray(), 0);
     }
 
     /// <summary>
-    /// Invierte el Endianess de un valor <see cref="int" />.
+    /// Invierte el Endianness de un valor <see cref="int" />.
     /// </summary>
     /// <param name="value">Valor cuyos bytes se invertirán.</param>
     /// <returns>
-    /// Un <see cref="int" /> cuyo Endianess ha sido invertido.
+    /// Un <see cref="int" /> cuyo Endianness ha sido invertido.
     /// </returns>
-    public static int FlipEndianess(this in int value)
+    public static int FlipEndianness(this in int value)
     {
         return BitConverter.ToInt32(BitConverter.GetBytes(value).Reverse().ToArray(), 0);
     }
 
     /// <summary>
-    /// Invierte el Endianess de un valor <see cref="long" />.
+    /// Invierte el Endianness de un valor <see cref="long" />.
     /// </summary>
     /// <param name="value">Valor cuyos bytes se invertirán.</param>
     /// <returns>
-    /// Un <see cref="long" /> cuyo Endianess ha sido invertido.
+    /// Un <see cref="long" /> cuyo Endianness ha sido invertido.
     /// </returns>
-    public static long FlipEndianess(this in long value)
+    public static long FlipEndianness(this in long value)
     {
         return BitConverter.ToInt64(BitConverter.GetBytes(value).Reverse().ToArray(), 0);
     }
 
     /// <summary>
-    /// Invierte el Endianess de un valor <see cref="short" />.
+    /// Invierte el Endianness de un valor <see cref="short" />.
     /// </summary>
     /// <param name="value">Valor cuyos bytes se invertirán.</param>
     /// <returns>
-    /// Un <see cref="short" /> cuyo Endianess ha sido invertido.
+    /// Un <see cref="short" /> cuyo Endianness ha sido invertido.
     /// </returns>
-    public static short FlipEndianess(this in short value)
+    public static short FlipEndianness(this in short value)
     {
         return BitConverter.ToInt16(BitConverter.GetBytes(value).Reverse().ToArray(), 0);
     }
 
     /// <summary>
-    /// Invierte el Endianess de un valor <see cref="uint" />.
+    /// Invierte el Endianness de un valor <see cref="uint" />.
     /// </summary>
     /// <param name="value"></param>
-    /// <returns>Un <see cref="uint" /> cuyo Endianess ha sido invertido.</returns>
+    /// <returns>Un <see cref="uint" /> cuyo Endianness ha sido invertido.</returns>
     [CLSCompliant(false)]
-    public static uint FlipEndianess(this in uint value)
+    public static uint FlipEndianness(this in uint value)
     {
         return BitConverter.ToUInt32(BitConverter.GetBytes(value).Reverse().ToArray(), 0);
     }
 
     /// <summary>
-    /// Invierte el Endianess de un valor <see cref="ulong" />.
+    /// Invierte el Endianness de un valor <see cref="ulong" />.
     /// </summary>
     /// <param name="value"></param>
-    /// <returns>Un <see cref="ulong" /> cuyo Endianess ha sido invertido.</returns>
+    /// <returns>Un <see cref="ulong" /> cuyo Endianness ha sido invertido.</returns>
     [CLSCompliant(false)]
-    public static ulong FlipEndianess(this in ulong value)
+    public static ulong FlipEndianness(this in ulong value)
     {
         return BitConverter.ToUInt64(BitConverter.GetBytes(value).Reverse().ToArray(), 0);
     }
 
     /// <summary>
-    /// Invierte el Endianess de un valor <see cref="ushort" />.
+    /// Invierte el Endianness de un valor <see cref="ushort" />.
     /// </summary>
     /// <param name="value"></param>
-    /// <returns>Un <see cref="ushort" /> cuyo Endianess ha sido invertido.</returns>
+    /// <returns>Un <see cref="ushort" /> cuyo Endianness ha sido invertido.</returns>
     [CLSCompliant(false)]
-    public static ushort FlipEndianess(this in ushort value)
+    public static ushort FlipEndianness(this in ushort value)
     {
         return BitConverter.ToUInt16(BitConverter.GetBytes(value).Reverse().ToArray(), 0);
     }

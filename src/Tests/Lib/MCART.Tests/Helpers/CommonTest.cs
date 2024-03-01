@@ -119,57 +119,57 @@ public class CommonTest
     }
 
     [Test]
-    public void FlipEndianessTest_Char()
+    public void FlipEndiannessTest_Char()
     {
-        Assert.That((char)0x0102, Is.EqualTo(((char)0x0201).FlipEndianess()));
+        Assert.That((char)0x0102, Is.EqualTo(((char)0x0201).FlipEndianness()));
     }
 
     [Test]
-    public void FlipEndianessTest_Int16()
+    public void FlipEndiannessTest_Int16()
     {
-        Assert.That((short)0x0102, Is.EqualTo(((short)0x0201).FlipEndianess()));
+        Assert.That((short)0x0102, Is.EqualTo(((short)0x0201).FlipEndianness()));
     }
 
     [Test]
-    public void FlipEndianessTest_Int32()
+    public void FlipEndiannessTest_Int32()
     {
-        Assert.That(0x01020304, Is.EqualTo(0x04030201.FlipEndianess()));
+        Assert.That(0x01020304, Is.EqualTo(0x04030201.FlipEndianness()));
     }
 
     [Test]
-    public void FlipEndianessTest_Int64()
+    public void FlipEndiannessTest_Int64()
     {
-        Assert.That(0x0102030405060708, Is.EqualTo(0x0807060504030201.FlipEndianess()));
+        Assert.That(0x0102030405060708, Is.EqualTo(0x0807060504030201.FlipEndianness()));
     }
 
     [Test]
-    public void FlipEndianessTest_UInt16()
+    public void FlipEndiannessTest_UInt16()
     {
-        Assert.That((short)0x0102, Is.EqualTo(((ushort)0x0201).FlipEndianess()));
+        Assert.That((short)0x0102, Is.EqualTo(((ushort)0x0201).FlipEndianness()));
     }
 
     [Test]
-    public void FlipEndianessTest_UInt32()
+    public void FlipEndiannessTest_UInt32()
     {
-        Assert.That(0x01020304, Is.EqualTo(((uint)0x04030201).FlipEndianess()));
+        Assert.That(0x01020304, Is.EqualTo(((uint)0x04030201).FlipEndianness()));
     }
 
     [Test]
-    public void FlipEndianessTest_UInt64()
+    public void FlipEndiannessTest_UInt64()
     {
-        Assert.That(0x0102030405060708, Is.EqualTo(((ulong)0x0807060504030201).FlipEndianess()));
+        Assert.That(0x0102030405060708, Is.EqualTo(((ulong)0x0807060504030201).FlipEndianness()));
     }
     
     [Test]
-    public void FlipEndianessTest_Single()
+    public void FlipEndiannessTest_Single()
     {
-        Assert.That(3.02529E-39f, Is.EqualTo(123456f.FlipEndianess()));
+        Assert.That(3.02529E-39f, Is.EqualTo(123456f.FlipEndianness()));
     }
 
     [Test]
-    public void FlipEndianessTest_Double()
+    public void FlipEndiannessTest_Double()
     {
-        Assert.That(System.Math.PI.FlipEndianess().IsBetween(3.20737563067636E-192, 3.20737563067638E-192));
+        Assert.That(System.Math.PI.FlipEndianness().IsBetween(3.20737563067636E-192, 3.20737563067638E-192));
     }
 
     [Test]
