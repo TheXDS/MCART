@@ -29,6 +29,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System.Diagnostics;
 using System.Security;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types.Extensions;
@@ -64,7 +65,8 @@ internal class Pbkdf2StorageTests
             Settings = new Pbkdf2Settings() {
                 Salt = Convert.FromBase64String("WFAM4zPKWXHYcalDt4koaw=="),
                 Iterations = 1000,
-                DerivedKeyLength = 128 / 8
+                DerivedKeyLength = 128 / 8,
+                HashFunction = "SHA1"
             }
         };
         byte[] expected = Convert.FromBase64String("R1WBjyfhVe02qhe7YyY8Wg==");
