@@ -28,18 +28,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#pragma warning disable IDE0250 // Convertir estructura en "readonly"
-#pragma warning disable IDE0051 // Quitar miembros privados no utilizados
+#pragma warning disable IDE0250
+#pragma warning disable IDE0051
+#pragma warning disable IDE0290
 
 using System.Diagnostics.CodeAnalysis;
-
-namespace TheXDS.MCART.Tests.Types.Extensions;
-using NUnit.Framework;
-using System;
-using System.IO;
 using System.Text;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types.Extensions;
+
+namespace TheXDS.MCART.Tests.Types.Extensions;
 
 public class BinaryReaderExtensionsTests
 {
@@ -87,7 +85,7 @@ public class BinaryReaderExtensionsTests
     [Test]
     public void ReadArray_Test()
     {
-        int[] a = { 9, 8, 7, 1, 2, 3 };
+        int[] a = [9, 8, 7, 1, 2, 3];
         using MemoryStream ms = new();
         using (BinaryWriter bw = new(ms, Encoding.Default, true))
         {
@@ -141,6 +139,14 @@ public class BinaryReaderExtensionsTests
         ms.Seek(0, SeekOrigin.Begin);
         using BinaryReader br = new(ms);
         Assert.That(g, Is.EqualTo(br.ReadTimeSpan()));
+    }
+
+    [Test]
+    public void ReadNullTerminatedString_test()
+    {
+        using var ms = new MemoryStream("Test\0"u8.ToArray());
+        using var br = new BinaryReader(ms);
+        Assert.That(br.ReadNullTerminatedString(), Is.EqualTo("Test"));
     }
 
     [Test]
@@ -239,7 +245,7 @@ public class BinaryReaderExtensionsTests
         private TestStruct2(int intProp) : this(intProp, "")
         {
         }
-        
+
         public TestStruct2(int intProp, string strProp)
         {
             IntProp = intProp;

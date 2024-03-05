@@ -92,6 +92,17 @@ public class BinaryWriterExtensionsTests
     }
 
     [Test]
+    public void WriteNullTerminatedString_Test()
+    {
+        using var ms = new MemoryStream();
+        using (var bw = new BinaryWriter(ms))
+        {
+            bw.WriteNullTerminatedString("Test");
+        }
+        Assert.That(ms.ToArray(), Is.EquivalentTo("Test\0"u8.ToArray()));
+    }
+
+    [Test]
     public void WriteStruct_Contract_Test()
     {
         using MemoryStream? ms = new();

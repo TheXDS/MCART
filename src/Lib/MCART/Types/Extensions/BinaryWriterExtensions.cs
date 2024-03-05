@@ -31,6 +31,7 @@ SOFTWARE.
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
+using System.Text;
 using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Types.Extensions;
@@ -176,6 +177,34 @@ public static partial class BinaryWriterExtensions
     {
         DynamicWrite_Contract(bw, value);
         DynamicInternalWrite(bw, value, value.GetType());
+    }
+
+    /// <summary>
+    /// Escribe una cadena terminada en un caracter nulo (<c>'\0'</c>),
+    /// utilizando codificación UTF-8.
+    /// </summary>
+    /// <param name="bw">
+    /// Instancia sobre la cual realizar la escritura.
+    /// </param>
+    /// <param name="value">Cadena a escribir.</param>
+    public static void WriteNullTerminatedString(this BinaryWriter bw, string value)
+    {
+        WriteNullTerminatedString(bw, value, Encoding.UTF8);
+    }
+
+    /// <summary>
+    /// Escribe una cadena terminada en un caracter nulo (<c>'\0'</c>).
+    /// </summary>
+    /// <param name="bw">
+    /// Instancia sobre la cual realizar la escritura.
+    /// </param>
+    /// <param name="value">Cadena a escribir.</param>
+    /// <param name="encoding">
+    /// Codificación a utilizar para la ecritura de la cadena.
+    /// </param>
+    public static void WriteNullTerminatedString(this BinaryWriter bw, string value, Encoding encoding)
+    {
+        bw.Write([.. encoding.GetBytes(value), 0]);
     }
 
     /// <summary>

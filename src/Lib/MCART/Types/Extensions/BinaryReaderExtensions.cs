@@ -32,6 +32,7 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
+using System.Text;
 using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Types.Extensions;
@@ -45,11 +46,11 @@ public static partial class BinaryReaderExtensions
     private delegate object BrDelegate(BinaryReader reader, Type type);
     private record struct BrDynCheck(Func<Type, bool> Predicate, BrDelegate ReadDelegate);
     private static readonly BrDynCheck[] DynamicReadSets =
-    {
+    [
         new(t => t.IsArray, ReadArray),
         new(t => t.IsEnum, DynamicReadEnum),
         new(TypeExtensions.Implements<ISerializable>, DynamicReadISerializable)
-    };
+    ];
 
     /// <summary>
     /// Obtiene un método de lectura definido en la clase
@@ -111,7 +112,7 @@ public static partial class BinaryReaderExtensions
     public static Enum ReadEnum(this BinaryReader br, Type enumType)
     {
         Type? t = enumType.GetEnumUnderlyingType();
-        return (Enum)Enum.ToObject(enumType, GetBinaryReadMethod(t)!.Invoke(br, Array.Empty<object>())!);
+        return (Enum)Enum.ToObject(enumType, GetBinaryReadMethod(t)!.Invoke(br, [])!);
     }
 
     /// <summary>
@@ -157,6 +158,49 @@ public static partial class BinaryReaderExtensions
     public static TimeSpan ReadTimeSpan(this BinaryReader br)
     {
         return TimeSpan.FromTicks(br.ReadInt64());
+    }
+
+    /// <summary>
+    /// Lee una cadena terminada en caracter nulo (<c>'\0'</c>), utilizando
+    /// codificación <see cref="Encoding.UTF8"/> de manera predeterminada.
+    /// </summary>
+    /// <param name="br">
+    /// <see cref="BinaryReader"/> desde el cual leer la cadena.
+    /// </param>
+    /// <returns>
+    /// Una cadena terminada en caracter nulo (<c>'\0'</c>) leída desde el
+    /// <see cref="BinaryReader"/>.
+    /// </returns>
+    public static string ReadNullTerminatedString(this BinaryReader br)
+    {
+        return ReadNullTerminatedString(br, Encoding.UTF8);
+    }
+
+    /// <summary>
+    /// Lee una cadena terminada en caracter nulo (<c>'\0'</c>)
+    /// </summary>
+    /// <param name="br">
+    /// <see cref="BinaryReader"/> desde el cual leer la cadena.
+    /// </param>
+    /// <param name="encoding">
+    /// Codificación a utilizar para leer la cadena.
+    /// </param>
+    /// <returns>
+    /// Una cadena terminada en caracter nulo (<c>'\0'</c>) leída desde el
+    /// <see cref="BinaryReader"/>.
+    /// </returns>
+    public static string ReadNullTerminatedString(this BinaryReader br, Encoding encoding)
+    {
+        IEnumerable<byte> GetBytes()
+        {
+            do
+            {
+                var b = br.ReadByte();
+                if (b == 0) yield break;
+                yield return b;
+            } while (true);
+        }
+        return encoding.GetString(GetBytes().ToArray());
     }
 
     /// <summary>
@@ -235,8 +279,8 @@ public static partial class BinaryReaderExtensions
             }
         }
 
-        return GetBinaryReadMethod(type)?.Invoke(reader, Array.Empty<object>())
-            ?? LookupExMethod(type)?.Invoke(null, new object[] { reader })
+        return GetBinaryReadMethod(type)?.Invoke(reader, [])
+            ?? LookupExMethod(type)?.Invoke(null, [reader])
             ?? (type.IsStruct() ? ByFieldReadStructInternal(reader, type) : default)
             ?? throw new InvalidOperationException();
     }
@@ -421,7 +465,7 @@ public static partial class BinaryReaderExtensions
     {
         static bool IsFieldMapped((FieldInfo f, ParameterInfo p) x) =>
             x.f.FieldType == x.p.ParameterType &&
-            x.f.Name.ToLowerInvariant().StartsWith($"<{x.p.Name!.ToLowerInvariant()}>");
+            x.f.Name.StartsWith($"<{x.p.Name!.ToLowerInvariant()}>", StringComparison.InvariantCultureIgnoreCase);
 
         var props = t.GetFields(BindingFlags.Instance | BindingFlags.NonPublic).Where(p => p.IsInitOnly).ToArray();
         foreach (var c in t.GetConstructors())
