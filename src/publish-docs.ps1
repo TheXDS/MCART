@@ -19,4 +19,4 @@ git add . -A
 git commit -m "Actualización de documentación"
 git push origin gh-pages
 Set-Location $SOURCE_DIR
-git -dfX
+git clean -dfx
