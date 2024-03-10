@@ -5,12 +5,11 @@
   <head>
     <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-      <title>Class Pbkdf2Storage
- </title>
+      <title>Class Pbkdf2Storage </title>
       <meta name="viewport" content="width=device-width">
-      <meta name="title" content="Class Pbkdf2Storage
- ">
+      <meta name="title" content="Class Pbkdf2Storage ">
     
+    <meta name="description" content="Deriva claves a partir de contrase&#241;as utilizando el algoritmo PBKDF2.">
       <link rel="shortcut icon" href="../favicon.ico">
       <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
       <link rel="stylesheet" href="../styles/docfx.css">
@@ -71,8 +70,7 @@
 
 
 
-  <h1 id="TheXDS_MCART_Security_Pbkdf2Storage" data-uid="TheXDS.MCART.Security.Pbkdf2Storage" class="text-break">Class Pbkdf2Storage
-</h1>
+  <h1 id="TheXDS_MCART_Security_Pbkdf2Storage" data-uid="TheXDS.MCART.Security.Pbkdf2Storage" class="text-break">Class Pbkdf2Storage</h1>
   <div class="markdown level0 summary"><p>Deriva claves a partir de contraseñas utilizando el algoritmo PBKDF2.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
@@ -83,6 +81,7 @@
   </div>
   <div class="implements">
     <h5>Implements</h5>
+    <div><a class="xref" href="TheXDS.MCART.Security.IPasswordStorage-1.html">IPasswordStorage</a>&lt;<a class="xref" href="TheXDS.MCART.Security.Pbkdf2Settings.html">Pbkdf2Settings</a>&gt;</div>
     <div><a class="xref" href="TheXDS.MCART.Security.IPasswordStorage.html">IPasswordStorage</a></div>
   </div>
   <div class="inheritedMembers">
@@ -113,16 +112,21 @@
   <h6><strong>Assembly</strong>: MCART.Security.dll</h6>
   <h5 id="TheXDS_MCART_Security_Pbkdf2Storage_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class Pbkdf2Storage : IPasswordStorage</code></pre>
+    <pre><code class="lang-csharp hljs">public class Pbkdf2Storage : IPasswordStorage&lt;Pbkdf2Settings&gt;, IPasswordStorage</code></pre>
   </div>
+  <h5 id="TheXDS_MCART_Security_Pbkdf2Storage_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>Inicializa una nueva instancia de la clase <a class="xref" href="TheXDS.MCART.Security.Pbkdf2Storage.html">Pbkdf2Storage</a>,
+especificando la configuración del algoritmo de derivación de claves a
+utilizar.</p>
+</div>
   <h3 id="constructors">Constructors
 </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Security_Pbkdf2Storage__ctor.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Security.Pbkdf2Storage.%23ctor%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Security_Pbkdf2Storage__ctor.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Security.Pbkdf2Storage.%23ctor%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/TheXDS/MCART/blob/master/src/Lib/MCART.Security/Security/Pbkdf2Storage.cs/#L65">View Source</a>
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Lib/MCART.Security/Security/Pbkdf2Storage.cs/#L75">View Source</a>
   </span>
   <a id="TheXDS_MCART_Security_Pbkdf2Storage__ctor_" data-uid="TheXDS.MCART.Security.Pbkdf2Storage.#ctor*"></a>
   <h4 id="TheXDS_MCART_Security_Pbkdf2Storage__ctor" data-uid="TheXDS.MCART.Security.Pbkdf2Storage.#ctor">Pbkdf2Storage()</h4>
@@ -137,16 +141,14 @@ los valores predeterminados.</p>
   </div>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Security_Pbkdf2Storage__ctor_TheXDS_MCART_Security_Pbkdf2Settings_.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Security.Pbkdf2Storage.%23ctor(TheXDS.MCART.Security.Pbkdf2Settings)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Security_Pbkdf2Storage__ctor_TheXDS_MCART_Security_Pbkdf2Settings_.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Security.Pbkdf2Storage.%23ctor(TheXDS.MCART.Security.Pbkdf2Settings)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/TheXDS/MCART/blob/master/src/Lib/MCART.Security/Security/Pbkdf2Storage.cs/#L77">View Source</a>
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Lib/MCART.Security/Security/Pbkdf2Storage.cs/#L47">View Source</a>
   </span>
   <a id="TheXDS_MCART_Security_Pbkdf2Storage__ctor_" data-uid="TheXDS.MCART.Security.Pbkdf2Storage.#ctor*"></a>
   <h4 id="TheXDS_MCART_Security_Pbkdf2Storage__ctor_TheXDS_MCART_Security_Pbkdf2Settings_" data-uid="TheXDS.MCART.Security.Pbkdf2Storage.#ctor(TheXDS.MCART.Security.Pbkdf2Settings)">Pbkdf2Storage(Pbkdf2Settings)</h4>
-  <div class="markdown level1 summary"><p>Inicializa una nueva instancia de la clase <a class="xref" href="TheXDS.MCART.Security.Pbkdf2Storage.html">Pbkdf2Storage</a>,
-especificando la configuración del algoritmo de derivación de claves a
-utilizar.</p>
+  <div class="markdown level1 summary"><p>Deriva claves a partir de contraseñas utilizando el algoritmo PBKDF2.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
@@ -171,14 +173,19 @@ utilizar.</p>
       </tr>
     </tbody>
   </table>
+  <h5 id="TheXDS_MCART_Security_Pbkdf2Storage__ctor_TheXDS_MCART_Security_Pbkdf2Settings__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Inicializa una nueva instancia de la clase <a class="xref" href="TheXDS.MCART.Security.Pbkdf2Storage.html">Pbkdf2Storage</a>,
+especificando la configuración del algoritmo de derivación de claves a
+utilizar.</p>
+</div>
   <h3 id="properties">Properties
 </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Security_Pbkdf2Storage_Settings.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Security.Pbkdf2Storage.Settings%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Security_Pbkdf2Storage_Settings.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Security.Pbkdf2Storage.Settings%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/TheXDS/MCART/blob/master/src/Lib/MCART.Security/Security/Pbkdf2Storage.cs/#L85">View Source</a>
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Lib/MCART.Security/Security/Pbkdf2Storage.cs/#L80">View Source</a>
   </span>
   <a id="TheXDS_MCART_Security_Pbkdf2Storage_Settings_" data-uid="TheXDS.MCART.Security.Pbkdf2Storage.Settings*"></a>
   <h4 id="TheXDS_MCART_Security_Pbkdf2Storage_Settings" data-uid="TheXDS.MCART.Security.Pbkdf2Storage.Settings">Settings</h4>
@@ -208,10 +215,10 @@ utilizar.</p>
 </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Security_Pbkdf2Storage_GetDefaultSettings.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Security.Pbkdf2Storage.GetDefaultSettings%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Security_Pbkdf2Storage_GetDefaultSettings.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Security.Pbkdf2Storage.GetDefaultSettings%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/TheXDS/MCART/blob/master/src/Lib/MCART.Security/Security/Pbkdf2Storage.cs/#L49">View Source</a>
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Lib/MCART.Security/Security/Pbkdf2Storage.cs/#L59">View Source</a>
   </span>
   <a id="TheXDS_MCART_Security_Pbkdf2Storage_GetDefaultSettings_" data-uid="TheXDS.MCART.Security.Pbkdf2Storage.GetDefaultSettings*"></a>
   <h4 id="TheXDS_MCART_Security_Pbkdf2Storage_GetDefaultSettings" data-uid="TheXDS.MCART.Security.Pbkdf2Storage.GetDefaultSettings">GetDefaultSettings()</h4>
@@ -241,6 +248,9 @@ predeterminada recomendada.</p>
     </tbody>
   </table>
   <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="TheXDS.MCART.Security.IPasswordStorage-1.html">IPasswordStorage&lt;T&gt;</a>
+  </div>
   <div>
       <a class="xref" href="TheXDS.MCART.Security.IPasswordStorage.html">IPasswordStorage</a>
   </div>
@@ -320,15 +330,15 @@ predeterminada recomendada.</p>
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Security_Pbkdf2Storage.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Security.Pbkdf2Storage%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Security_Pbkdf2Storage.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Security.Pbkdf2Storage%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Edit this page</a>
                   </li>
                   <li>
-                    <a href="https://github.com/TheXDS/MCART/blob/master/src/Lib/MCART.Security/Security/Pbkdf2Storage.cs/#L39" class="contribution-link">View Source</a>
+                    <a href="https://github.com/TheXDS/MCART/blob/master/src/Lib/MCART.Security/Security/Pbkdf2Storage.cs/#L47" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
-                <h5>In This Article</h5>
+                <h5>In this article</h5>
                 <div></div>
               </nav>
             </div>

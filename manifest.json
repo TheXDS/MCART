@@ -1,6 +1,5 @@
 {
-  "homepages": [],
-  "source_base_path": "//s1-nas1.thexds.local/TheXDS/src/TheXDS/MCART/docs",
+  "source_base_path": "C:/Users/xds_x/source/TheXDS/MCART/docs",
   "xrefmap": "xrefmap.yml",
   "files": [
     {
@@ -1045,6 +1044,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/TheXDS.MCART.Helpers.AvaloniaUtils.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TheXDS.MCART.Helpers.AvaloniaUtils.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/TheXDS.MCART.Helpers.BitmapSourceExtensions.yml",
       "output": {
         ".html": {
@@ -1855,10 +1864,30 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/TheXDS.MCART.Types.AppCloseTrigger.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TheXDS.MCART.Types.AppCloseTrigger.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/TheXDS.MCART.Types.AutoDictionary-2.yml",
       "output": {
         ".html": {
           "relative_path": "api/TheXDS.MCART.Types.AutoDictionary-2.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TheXDS.MCART.Types.AvaloniaWindow.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TheXDS.MCART.Types.AvaloniaWindow.html"
         }
       },
       "version": ""
@@ -2725,6 +2754,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/TheXDS.MCART.Types.EventBuildInfo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TheXDS.MCART.Types.EventBuildInfo.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/TheXDS.MCART.Types.ExposeGuidImplementor.yml",
       "output": {
         ".html": {
@@ -2739,6 +2778,36 @@
       "output": {
         ".html": {
           "relative_path": "api/TheXDS.MCART.Types.Extensions.AssemblyExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TheXDS.MCART.Types.Extensions.AsyncEnumerableExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TheXDS.MCART.Types.Extensions.AsyncEnumerableExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TheXDS.MCART.Types.Extensions.AvaloniaPointExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TheXDS.MCART.Types.Extensions.AvaloniaPointExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TheXDS.MCART.Types.Extensions.AvaloniaSizeExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TheXDS.MCART.Types.Extensions.AvaloniaSizeExtensions.html"
         }
       },
       "version": ""
@@ -3439,6 +3508,16 @@
       "output": {
         ".html": {
           "relative_path": "api/TheXDS.MCART.Types.ListUpdateType.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TheXDS.MCART.Types.ManualObservableCollection-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TheXDS.MCART.Types.ManualObservableCollection-1.html"
         }
       },
       "version": ""
@@ -4165,6 +4244,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/TheXDS.MCART.ValueConverters.NullableBoolToBoolConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TheXDS.MCART.ValueConverters.NullableBoolToBoolConverter.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/TheXDS.MCART.ValueConverters.NumberToBooleanConverter.yml",
       "output": {
         ".html": {
@@ -4319,6 +4408,9 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html"
+        },
+        ".json": {
+          "relative_path": "api/toc.json"
         }
       },
       "version": ""
@@ -4389,6 +4481,9 @@
       "output": {
         ".html": {
           "relative_path": "articles/toc.html"
+        },
+        ".json": {
+          "relative_path": "articles/toc.json"
         }
       },
       "version": ""
@@ -4409,12 +4504,14 @@
       "output": {
         ".html": {
           "relative_path": "toc.html"
+        },
+        ".json": {
+          "relative_path": "toc.json"
         }
       },
       "version": ""
     }
   ],
-  "version_info": {},
   "groups": [
     {
       "xrefmap": "xrefmap.yml"

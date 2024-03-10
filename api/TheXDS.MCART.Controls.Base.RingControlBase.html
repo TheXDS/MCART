@@ -5,12 +5,11 @@
   <head>
     <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-      <title>Class RingControlBase
- </title>
+      <title>Class RingControlBase </title>
       <meta name="viewport" content="width=device-width">
-      <meta name="title" content="Class RingControlBase
- ">
+      <meta name="title" content="Class RingControlBase ">
     
+    <meta name="description" content="Clase base que define una serie de miembros a implementar por un control gr&#225;fico de anillos.">
       <link rel="shortcut icon" href="../favicon.ico">
       <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
       <link rel="stylesheet" href="../styles/docfx.css">
@@ -71,8 +70,7 @@
 
 
 
-  <h1 id="TheXDS_MCART_Controls_Base_RingControlBase" data-uid="TheXDS.MCART.Controls.Base.RingControlBase" class="text-break">Class RingControlBase
-</h1>
+  <h1 id="TheXDS_MCART_Controls_Base_RingControlBase" data-uid="TheXDS.MCART.Controls.Base.RingControlBase" class="text-break">Class RingControlBase</h1>
   <div class="markdown level0 summary"><p>Clase base que define una serie de miembros a implementar por un control gráfico de anillos.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
@@ -94,29 +92,21 @@
   </div>
   <div class="implements">
     <h5>Implements</h5>
-    <div><span class="xref">IAvaloniaObjectDebug</span></div>
     <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.componentmodel.inotifypropertychanged">INotifyPropertyChanged</a></div>
-    <div><span class="xref">ISetLogicalParent</span></div>
-    <div><span class="xref">ISetInheritanceParent</span></div>
-    <div><span class="xref">IControl</span></div>
-    <div><span class="xref">IDataTemplateHost</span></div>
-    <div><span class="xref">ILayoutable</span></div>
-    <div><span class="xref">IInputElement</span></div>
-    <div><span class="xref">IVisual</span></div>
-    <div><span class="xref">IInteractive</span></div>
-    <div><span class="xref">IStyledElement</span></div>
-    <div><span class="xref">IStyleable</span></div>
-    <div><span class="xref">INamed</span></div>
-    <div><span class="xref">IStyleHost</span></div>
+    <div><span class="xref">IDataContextProvider</span></div>
     <div><span class="xref">ILogical</span></div>
+    <div><span class="xref">IThemeVariantHost</span></div>
     <div><span class="xref">IResourceHost</span></div>
     <div><span class="xref">IResourceNode</span></div>
-    <div><span class="xref">IDataContextProvider</span></div>
+    <div><span class="xref">IStyleHost</span></div>
+    <div><span class="xref">ISetLogicalParent</span></div>
+    <div><span class="xref">ISetInheritanceParent</span></div>
     <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.componentmodel.isupportinitialize">ISupportInitialize</a></div>
-    <div><span class="xref">IVisualBrushInitialize</span></div>
+    <div><span class="xref">IStyleable</span></div>
+    <div><span class="xref">IInputElement</span></div>
+    <div><span class="xref">IDataTemplateHost</span></div>
+    <div><span class="xref">INamed</span></div>
     <div><span class="xref">ISetterValue</span></div>
-    <div><span class="xref">ITemplatedControl</span></div>
-    <div><span class="xref">IAvaloniaObject</span></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -143,6 +133,9 @@
     </div>
     <div>
       <span class="xref">TemplatedControl.FontWeightProperty</span>
+    </div>
+    <div>
+      <span class="xref">TemplatedControl.FontStretchProperty</span>
     </div>
     <div>
       <span class="xref">TemplatedControl.ForegroundProperty</span>
@@ -172,9 +165,6 @@
       <span class="xref">TemplatedControl.GetTemplateFocusTarget()</span>
     </div>
     <div>
-      <span class="xref">TemplatedControl.NotifyChildResourcesChanged(ResourcesChangedEventArgs)</span>
-    </div>
-    <div>
       <span class="xref">TemplatedControl.OnAttachedToLogicalTree(LogicalTreeAttachmentEventArgs)</span>
     </div>
     <div>
@@ -182,9 +172,6 @@
     </div>
     <div>
       <span class="xref">TemplatedControl.OnApplyTemplate(TemplateAppliedEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">TemplatedControl.OnTemplateApplied(TemplateAppliedEventArgs)</span>
     </div>
     <div>
       <span class="xref">TemplatedControl.OnTemplateChanged(AvaloniaPropertyChangedEventArgs)</span>
@@ -212,6 +199,9 @@
     </div>
     <div>
       <span class="xref">TemplatedControl.FontWeight</span>
+    </div>
+    <div>
+      <span class="xref">TemplatedControl.FontStretch</span>
     </div>
     <div>
       <span class="xref">TemplatedControl.Foreground</span>
@@ -244,6 +234,24 @@
       <span class="xref">Control.ContextRequestedEvent</span>
     </div>
     <div>
+      <span class="xref">Control.LoadedEvent</span>
+    </div>
+    <div>
+      <span class="xref">Control.UnloadedEvent</span>
+    </div>
+    <div>
+      <span class="xref">Control.SizeChangedEvent</span>
+    </div>
+    <div>
+      <span class="xref">Control.OnLoaded(RoutedEventArgs)</span>
+    </div>
+    <div>
+      <span class="xref">Control.OnUnloaded(RoutedEventArgs)</span>
+    </div>
+    <div>
+      <span class="xref">Control.OnSizeChanged(SizeChangedEventArgs)</span>
+    </div>
+    <div>
       <span class="xref">Control.OnAttachedToVisualTreeCore(VisualTreeAttachmentEventArgs)</span>
     </div>
     <div>
@@ -256,10 +264,16 @@
       <span class="xref">Control.OnLostFocus(RoutedEventArgs)</span>
     </div>
     <div>
+      <span class="xref">Control.OnCreateAutomationPeer()</span>
+    </div>
+    <div>
       <span class="xref">Control.OnPointerReleased(PointerReleasedEventArgs)</span>
     </div>
     <div>
       <span class="xref">Control.OnKeyUp(KeyEventArgs)</span>
+    </div>
+    <div>
+      <span class="xref">Control.OnPropertyChanged(AvaloniaPropertyChangedEventArgs)</span>
     </div>
     <div>
       <span class="xref">Control.FocusAdorner</span>
@@ -274,13 +288,22 @@
       <span class="xref">Control.ContextFlyout</span>
     </div>
     <div>
+      <span class="xref">Control.IsLoaded</span>
+    </div>
+    <div>
       <span class="xref">Control.Tag</span>
     </div>
     <div>
-      <span class="xref">Control.Parent</span>
+      <span class="xref">Control.ContextRequested</span>
     </div>
     <div>
-      <span class="xref">Control.ContextRequested</span>
+      <span class="xref">Control.Loaded</span>
+    </div>
+    <div>
+      <span class="xref">Control.Unloaded</span>
+    </div>
+    <div>
+      <span class="xref">Control.SizeChanged</span>
     </div>
     <div>
       <span class="xref">InputElement.FocusableProperty</span>
@@ -331,13 +354,10 @@
       <span class="xref">InputElement.TextInputMethodClientRequestedEvent</span>
     </div>
     <div>
-      <span class="xref">InputElement.TextInputOptionsQueryEvent</span>
+      <span class="xref">InputElement.PointerEnteredEvent</span>
     </div>
     <div>
-      <span class="xref">InputElement.PointerEnterEvent</span>
-    </div>
-    <div>
-      <span class="xref">InputElement.PointerLeaveEvent</span>
+      <span class="xref">InputElement.PointerExitedEvent</span>
     </div>
     <div>
       <span class="xref">InputElement.PointerMovedEvent</span>
@@ -358,10 +378,13 @@
       <span class="xref">InputElement.TappedEvent</span>
     </div>
     <div>
+      <span class="xref">InputElement.HoldingEvent</span>
+    </div>
+    <div>
       <span class="xref">InputElement.DoubleTappedEvent</span>
     </div>
     <div>
-      <span class="xref">InputElement.Focus()</span>
+      <span class="xref">InputElement.Focus(NavigationMethod, KeyModifiers)</span>
     </div>
     <div>
       <span class="xref">InputElement.OnKeyDown(KeyEventArgs)</span>
@@ -370,10 +393,10 @@
       <span class="xref">InputElement.OnTextInput(TextInputEventArgs)</span>
     </div>
     <div>
-      <span class="xref">InputElement.OnPointerEnter(PointerEventArgs)</span>
+      <span class="xref">InputElement.OnPointerEntered(PointerEventArgs)</span>
     </div>
     <div>
-      <span class="xref">InputElement.OnPointerLeave(PointerEventArgs)</span>
+      <span class="xref">InputElement.OnPointerExited(PointerEventArgs)</span>
     </div>
     <div>
       <span class="xref">InputElement.OnPointerMoved(PointerEventArgs)</span>
@@ -386,9 +409,6 @@
     </div>
     <div>
       <span class="xref">InputElement.OnPointerWheelChanged(PointerWheelEventArgs)</span>
-    </div>
-    <div>
-      <span class="xref">InputElement.OnPropertyChanged&lt;T&gt;(AvaloniaPropertyChangedEventArgs&lt;T&gt;)</span>
     </div>
     <div>
       <span class="xref">InputElement.UpdateIsEffectivelyEnabled()</span>
@@ -451,13 +471,10 @@
       <span class="xref">InputElement.TextInputMethodClientRequested</span>
     </div>
     <div>
-      <span class="xref">InputElement.TextInputOptionsQuery</span>
+      <span class="xref">InputElement.PointerEntered</span>
     </div>
     <div>
-      <span class="xref">InputElement.PointerEnter</span>
-    </div>
-    <div>
-      <span class="xref">InputElement.PointerLeave</span>
+      <span class="xref">InputElement.PointerExited</span>
     </div>
     <div>
       <span class="xref">InputElement.PointerMoved</span>
@@ -476,6 +493,9 @@
     </div>
     <div>
       <span class="xref">InputElement.Tapped</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.Holding</span>
     </div>
     <div>
       <span class="xref">InputElement.DoubleTapped</span>
@@ -532,6 +552,9 @@
       <span class="xref">Layoutable.UseLayoutRoundingProperty</span>
     </div>
     <div>
+      <span class="xref">Layoutable.UpdateLayout()</span>
+    </div>
+    <div>
       <span class="xref">Layoutable.Measure(Size)</span>
     </div>
     <div>
@@ -544,13 +567,7 @@
       <span class="xref">Layoutable.InvalidateArrange()</span>
     </div>
     <div>
-      <span class="xref">Layoutable.AffectsMeasure(params AvaloniaProperty[])</span>
-    </div>
-    <div>
       <span class="xref">Layoutable.AffectsMeasure&lt;T&gt;(params AvaloniaProperty[])</span>
-    </div>
-    <div>
-      <span class="xref">Layoutable.AffectsArrange(params AvaloniaProperty[])</span>
     </div>
     <div>
       <span class="xref">Layoutable.AffectsArrange&lt;T&gt;(params AvaloniaProperty[])</span>
@@ -568,13 +585,10 @@
       <span class="xref">Layoutable.ArrangeOverride(Size)</span>
     </div>
     <div>
-      <span class="xref">Layoutable.InvalidateStyles()</span>
-    </div>
-    <div>
       <span class="xref">Layoutable.OnMeasureInvalidated()</span>
     </div>
     <div>
-      <span class="xref">Layoutable.OnVisualParentChanged(IVisual, IVisual)</span>
+      <span class="xref">Layoutable.OnVisualParentChanged(Visual, Visual)</span>
     </div>
     <div>
       <span class="xref">Layoutable.Width</span>
@@ -625,9 +639,6 @@
       <span class="xref">Visual.BoundsProperty</span>
     </div>
     <div>
-      <span class="xref">Visual.TransformedBoundsProperty</span>
-    </div>
-    <div>
       <span class="xref">Visual.ClipToBoundsProperty</span>
     </div>
     <div>
@@ -643,10 +654,19 @@
       <span class="xref">Visual.OpacityMaskProperty</span>
     </div>
     <div>
+      <span class="xref">Visual.EffectProperty</span>
+    </div>
+    <div>
+      <span class="xref">Visual.HasMirrorTransformProperty</span>
+    </div>
+    <div>
       <span class="xref">Visual.RenderTransformProperty</span>
     </div>
     <div>
       <span class="xref">Visual.RenderTransformOriginProperty</span>
+    </div>
+    <div>
+      <span class="xref">Visual.FlowDirectionProperty</span>
     </div>
     <div>
       <span class="xref">Visual.VisualParentProperty</span>
@@ -655,13 +675,16 @@
       <span class="xref">Visual.ZIndexProperty</span>
     </div>
     <div>
+      <span class="xref">Visual.GetFlowDirection(Visual)</span>
+    </div>
+    <div>
+      <span class="xref">Visual.SetFlowDirection(Visual, FlowDirection)</span>
+    </div>
+    <div>
       <span class="xref">Visual.InvalidateVisual()</span>
     </div>
     <div>
       <span class="xref">Visual.Render(DrawingContext)</span>
-    </div>
-    <div>
-      <span class="xref">Visual.AffectsRender(params AvaloniaProperty[])</span>
     </div>
     <div>
       <span class="xref">Visual.AffectsRender&lt;T&gt;(params AvaloniaProperty[])</span>
@@ -676,13 +699,10 @@
       <span class="xref">Visual.OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs)</span>
     </div>
     <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.exception">Visual.LogBindingError(AvaloniaProperty, Exception)</a>
+      <span class="xref">Visual.InvalidateMirrorTransform()</span>
     </div>
     <div>
       <span class="xref">Visual.Bounds</span>
-    </div>
-    <div>
-      <span class="xref">Visual.TransformedBounds</span>
     </div>
     <div>
       <span class="xref">Visual.ClipToBounds</span>
@@ -703,10 +723,19 @@
       <span class="xref">Visual.OpacityMask</span>
     </div>
     <div>
+      <span class="xref">Visual.Effect</span>
+    </div>
+    <div>
+      <span class="xref">Visual.HasMirrorTransform</span>
+    </div>
+    <div>
       <span class="xref">Visual.RenderTransform</span>
     </div>
     <div>
       <span class="xref">Visual.RenderTransformOrigin</span>
+    </div>
+    <div>
+      <span class="xref">Visual.FlowDirection</span>
     </div>
     <div>
       <span class="xref">Visual.ZIndex</span>
@@ -716,6 +745,9 @@
     </div>
     <div>
       <span class="xref">Visual.VisualRoot</span>
+    </div>
+    <div>
+      <span class="xref">Visual.BypassFlowDirectionPolicies</span>
     </div>
     <div>
       <span class="xref">Visual.AttachedToVisualTree</span>
@@ -736,6 +768,9 @@
       <span class="xref">StyledElement.TemplatedParentProperty</span>
     </div>
     <div>
+      <span class="xref">StyledElement.ThemeProperty</span>
+    </div>
+    <div>
       <span class="xref">StyledElement.BeginInit()</span>
     </div>
     <div>
@@ -743,6 +778,9 @@
     </div>
     <div>
       <span class="xref">StyledElement.InitializeIfNeeded()</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">StyledElement.TryGetResource(object, ThemeVariant, out object)</a>
     </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventargs">StyledElement.OnDataContextChanged(EventArgs)</a>
@@ -772,16 +810,31 @@
       <span class="xref">StyledElement.Styles</span>
     </div>
     <div>
+      <span class="xref">StyledElement.StyleKey</span>
+    </div>
+    <div>
       <span class="xref">StyledElement.Resources</span>
     </div>
     <div>
       <span class="xref">StyledElement.TemplatedParent</span>
     </div>
     <div>
+      <span class="xref">StyledElement.Theme</span>
+    </div>
+    <div>
       <span class="xref">StyledElement.LogicalChildren</span>
     </div>
     <div>
       <span class="xref">StyledElement.PseudoClasses</span>
+    </div>
+    <div>
+      <span class="xref">StyledElement.StyleKeyOverride</span>
+    </div>
+    <div>
+      <span class="xref">StyledElement.Parent</span>
+    </div>
+    <div>
+      <span class="xref">StyledElement.ActualThemeVariant</span>
     </div>
     <div>
       <span class="xref">StyledElement.AttachedToLogicalTree</span>
@@ -799,22 +852,13 @@
       <span class="xref">StyledElement.ResourcesChanged</span>
     </div>
     <div>
-      <span class="xref">Animatable.ClockProperty</span>
+      <span class="xref">StyledElement.ActualThemeVariantChanged</span>
     </div>
     <div>
       <span class="xref">Animatable.TransitionsProperty</span>
     </div>
     <div>
-      <span class="xref">Animatable.EnableTransitions()</span>
-    </div>
-    <div>
-      <span class="xref">Animatable.DisableTransitions()</span>
-    </div>
-    <div>
-      <span class="xref">Animatable.OnPropertyChangedCore&lt;T&gt;(AvaloniaPropertyChangedEventArgs&lt;T&gt;)</span>
-    </div>
-    <div>
-      <span class="xref">Animatable.Clock</span>
+      <span class="xref">Animatable.OnPropertyChangedCore(AvaloniaPropertyChangedEventArgs)</span>
     </div>
     <div>
       <span class="xref">Animatable.Transitions</span>
@@ -832,7 +876,7 @@
       <span class="xref">AvaloniaObject.ClearValue&lt;T&gt;(AvaloniaProperty&lt;T&gt;)</span>
     </div>
     <div>
-      <span class="xref">AvaloniaObject.ClearValue&lt;T&gt;(StyledPropertyBase&lt;T&gt;)</span>
+      <span class="xref">AvaloniaObject.ClearValue&lt;T&gt;(StyledProperty&lt;T&gt;)</span>
     </div>
     <div>
       <span class="xref">AvaloniaObject.ClearValue&lt;T&gt;(DirectPropertyBase&lt;T&gt;)</span>
@@ -847,13 +891,13 @@
       <span class="xref">AvaloniaObject.GetValue(AvaloniaProperty)</span>
     </div>
     <div>
-      <span class="xref">AvaloniaObject.GetValue&lt;T&gt;(StyledPropertyBase&lt;T&gt;)</span>
+      <span class="xref">AvaloniaObject.GetValue&lt;T&gt;(StyledProperty&lt;T&gt;)</span>
     </div>
     <div>
       <span class="xref">AvaloniaObject.GetValue&lt;T&gt;(DirectPropertyBase&lt;T&gt;)</span>
     </div>
     <div>
-      <span class="xref">AvaloniaObject.GetBaseValue&lt;T&gt;(StyledPropertyBase&lt;T&gt;, BindingPriority)</span>
+      <span class="xref">AvaloniaObject.GetBaseValue&lt;T&gt;(StyledProperty&lt;T&gt;)</span>
     </div>
     <div>
       <span class="xref">AvaloniaObject.IsAnimating(AvaloniaProperty)</span>
@@ -865,37 +909,49 @@
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">AvaloniaObject.SetValue(AvaloniaProperty, object, BindingPriority)</a>
     </div>
     <div>
-      <span class="xref">AvaloniaObject.SetValue&lt;T&gt;(StyledPropertyBase&lt;T&gt;, T, BindingPriority)</span>
+      <span class="xref">AvaloniaObject.SetValue&lt;T&gt;(StyledProperty&lt;T&gt;, T, BindingPriority)</span>
     </div>
     <div>
       <span class="xref">AvaloniaObject.SetValue&lt;T&gt;(DirectPropertyBase&lt;T&gt;, T)</span>
     </div>
     <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iobservable-1">AvaloniaObject.Bind&lt;T&gt;(StyledPropertyBase&lt;T&gt;, IObservable&lt;BindingValue&lt;T&gt;&gt;, BindingPriority)</a>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">AvaloniaObject.SetCurrentValue(AvaloniaProperty, object)</a>
+    </div>
+    <div>
+      <span class="xref">AvaloniaObject.SetCurrentValue&lt;T&gt;(StyledProperty&lt;T&gt;, T)</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iobservable-1">AvaloniaObject.Bind(AvaloniaProperty, IObservable&lt;object&gt;, BindingPriority)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iobservable-1">AvaloniaObject.Bind&lt;T&gt;(StyledProperty&lt;T&gt;, IObservable&lt;object&gt;, BindingPriority)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iobservable-1">AvaloniaObject.Bind&lt;T&gt;(StyledProperty&lt;T&gt;, IObservable&lt;T&gt;, BindingPriority)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iobservable-1">AvaloniaObject.Bind&lt;T&gt;(StyledProperty&lt;T&gt;, IObservable&lt;BindingValue&lt;T&gt;&gt;, BindingPriority)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iobservable-1">AvaloniaObject.Bind&lt;T&gt;(DirectPropertyBase&lt;T&gt;, IObservable&lt;object&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iobservable-1">AvaloniaObject.Bind&lt;T&gt;(DirectPropertyBase&lt;T&gt;, IObservable&lt;T&gt;)</a>
     </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iobservable-1">AvaloniaObject.Bind&lt;T&gt;(DirectPropertyBase&lt;T&gt;, IObservable&lt;BindingValue&lt;T&gt;&gt;)</a>
     </div>
     <div>
-      <span class="xref">AvaloniaObject.CoerceValue&lt;T&gt;(StyledPropertyBase&lt;T&gt;)</span>
+      <span class="xref">AvaloniaObject.CoerceValue(AvaloniaProperty)</span>
     </div>
     <div>
-      <span class="xref">AvaloniaObject.BeginBatchUpdate()</span>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.exception">AvaloniaObject.UpdateDataValidation(AvaloniaProperty, BindingValueType, Exception)</a>
     </div>
     <div>
-      <span class="xref">AvaloniaObject.EndBatchUpdate()</span>
+      <span class="xref">AvaloniaObject.RaisePropertyChanged&lt;T&gt;(DirectPropertyBase&lt;T&gt;, T, T)</span>
     </div>
     <div>
-      <span class="xref">AvaloniaObject.UpdateDataValidation&lt;T&gt;(AvaloniaProperty&lt;T&gt;, BindingValue&lt;T&gt;)</span>
-    </div>
-    <div>
-      <span class="xref">AvaloniaObject.RaisePropertyChanged&lt;T&gt;(AvaloniaProperty&lt;T&gt;, Optional&lt;T&gt;, BindingValue&lt;T&gt;, BindingPriority)</span>
-    </div>
-    <div>
-      <span class="xref">AvaloniaObject.SetAndRaise&lt;T&gt;(AvaloniaProperty&lt;T&gt;, ref T, T)</span>
-    </div>
-    <div>
-      <span class="xref">AvaloniaObject.RaisePropertyChanged&lt;T&gt;(AvaloniaPropertyChangedEventArgs&lt;T&gt;)</span>
+      <span class="xref">AvaloniaObject.SetAndRaise&lt;T&gt;(DirectPropertyBase&lt;T&gt;, ref T, T)</span>
     </div>
     <div>
       <span class="xref">AvaloniaObject.InheritanceParent</span>
@@ -929,13 +985,13 @@
   <h6><strong>Assembly</strong>: MCART.Avalonia.Controls.dll</h6>
   <h5 id="TheXDS_MCART_Controls_Base_RingControlBase_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public abstract class RingControlBase : TemplatedControl, IAvaloniaObjectDebug, INotifyPropertyChanged, ISetLogicalParent, ISetInheritanceParent, IControl, IDataTemplateHost, ILayoutable, IInputElement, IVisual, IInteractive, IStyledElement, IStyleable, INamed, IStyleHost, ILogical, IResourceHost, IResourceNode, IDataContextProvider, ISupportInitialize, IVisualBrushInitialize, ISetterValue, ITemplatedControl, IAvaloniaObject</code></pre>
+    <pre><code class="lang-csharp hljs">public abstract class RingControlBase : TemplatedControl, INotifyPropertyChanged, IDataContextProvider, ILogical, IThemeVariantHost, IResourceHost, IResourceNode, IStyleHost, ISetLogicalParent, ISetInheritanceParent, ISupportInitialize, IStyleable, IInputElement, IDataTemplateHost, INamed, ISetterValue</code></pre>
   </div>
   <h3 id="fields">Fields
 </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Controls_Base_RingControlBase_RadiusProperty.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.Base.RingControlBase.RadiusProperty%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Controls_Base_RingControlBase_RadiusProperty.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.Base.RingControlBase.RadiusProperty%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/TheXDS/MCART/blob/master/src/Platform/Avalonia/MCART.Avalonia.Controls/Controls/Base/RingControlBase.cs/#L46">View Source</a>
@@ -965,10 +1021,10 @@
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Controls_Base_RingControlBase_StrokeProperty.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.Base.RingControlBase.StrokeProperty%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Controls_Base_RingControlBase_StrokeProperty.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.Base.RingControlBase.StrokeProperty%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/TheXDS/MCART/blob/master/src/Platform/Avalonia/MCART.Avalonia.Controls/Controls/Base/RingControlBase.cs/#L66">View Source</a>
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Platform/Avalonia/MCART.Avalonia.Controls/Controls/Base/RingControlBase.cs/#L68">View Source</a>
   </span>
   <h4 id="TheXDS_MCART_Controls_Base_RingControlBase_StrokeProperty" data-uid="TheXDS.MCART.Controls.Base.RingControlBase.StrokeProperty">StrokeProperty</h4>
   <div class="markdown level1 summary"><p>Identifica a la propiedad de dependencia <a class="xref" href="TheXDS.MCART.Controls.Base.RingControlBase.html#TheXDS_MCART_Controls_Base_RingControlBase_Stroke">Stroke</a>.</p>
@@ -995,10 +1051,10 @@
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Controls_Base_RingControlBase_ThicknessProperty.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.Base.RingControlBase.ThicknessProperty%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Controls_Base_RingControlBase_ThicknessProperty.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.Base.RingControlBase.ThicknessProperty%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/TheXDS/MCART/blob/master/src/Platform/Avalonia/MCART.Avalonia.Controls/Controls/Base/RingControlBase.cs/#L56">View Source</a>
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Platform/Avalonia/MCART.Avalonia.Controls/Controls/Base/RingControlBase.cs/#L57">View Source</a>
   </span>
   <h4 id="TheXDS_MCART_Controls_Base_RingControlBase_ThicknessProperty" data-uid="TheXDS.MCART.Controls.Base.RingControlBase.ThicknessProperty">ThicknessProperty</h4>
   <div class="markdown level1 summary"><p>Identifica a la propiedad de dependencia <a class="xref" href="TheXDS.MCART.Controls.Base.RingControlBase.html#TheXDS_MCART_Controls_Base_RingControlBase_Thickness">Thickness</a>.</p>
@@ -1027,10 +1083,10 @@
 </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Controls_Base_RingControlBase_Radius.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.Base.RingControlBase.Radius%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Controls_Base_RingControlBase_Radius.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.Base.RingControlBase.Radius%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/TheXDS/MCART/blob/master/src/Platform/Avalonia/MCART.Avalonia.Controls/Controls/Base/RingControlBase.cs/#L72">View Source</a>
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Platform/Avalonia/MCART.Avalonia.Controls/Controls/Base/RingControlBase.cs/#L74">View Source</a>
   </span>
   <a id="TheXDS_MCART_Controls_Base_RingControlBase_Radius_" data-uid="TheXDS.MCART.Controls.Base.RingControlBase.Radius*"></a>
   <h4 id="TheXDS_MCART_Controls_Base_RingControlBase_Radius" data-uid="TheXDS.MCART.Controls.Base.RingControlBase.Radius">Radius</h4>
@@ -1058,10 +1114,10 @@
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Controls_Base_RingControlBase_Stroke.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.Base.RingControlBase.Stroke%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Controls_Base_RingControlBase_Stroke.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.Base.RingControlBase.Stroke%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/TheXDS/MCART/blob/master/src/Platform/Avalonia/MCART.Avalonia.Controls/Controls/Base/RingControlBase.cs/#L90">View Source</a>
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Platform/Avalonia/MCART.Avalonia.Controls/Controls/Base/RingControlBase.cs/#L92">View Source</a>
   </span>
   <a id="TheXDS_MCART_Controls_Base_RingControlBase_Stroke_" data-uid="TheXDS.MCART.Controls.Base.RingControlBase.Stroke*"></a>
   <h4 id="TheXDS_MCART_Controls_Base_RingControlBase_Stroke" data-uid="TheXDS.MCART.Controls.Base.RingControlBase.Stroke">Stroke</h4>
@@ -1089,10 +1145,10 @@
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Controls_Base_RingControlBase_Thickness.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.Base.RingControlBase.Thickness%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Controls_Base_RingControlBase_Thickness.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.Base.RingControlBase.Thickness%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/TheXDS/MCART/blob/master/src/Platform/Avalonia/MCART.Avalonia.Controls/Controls/Base/RingControlBase.cs/#L81">View Source</a>
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Platform/Avalonia/MCART.Avalonia.Controls/Controls/Base/RingControlBase.cs/#L83">View Source</a>
   </span>
   <a id="TheXDS_MCART_Controls_Base_RingControlBase_Thickness_" data-uid="TheXDS.MCART.Controls.Base.RingControlBase.Thickness*"></a>
   <h4 id="TheXDS_MCART_Controls_Base_RingControlBase_Thickness" data-uid="TheXDS.MCART.Controls.Base.RingControlBase.Thickness">Thickness</h4>
@@ -1122,10 +1178,10 @@
 </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Controls_Base_RingControlBase_EndInit.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.Base.RingControlBase.EndInit%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Controls_Base_RingControlBase_EndInit.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.Base.RingControlBase.EndInit%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/TheXDS/MCART/blob/master/src/Platform/Avalonia/MCART.Avalonia.Controls/Controls/Base/RingControlBase.cs/#L176">View Source</a>
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Platform/Avalonia/MCART.Avalonia.Controls/Controls/Base/RingControlBase.cs/#L178">View Source</a>
   </span>
   <a id="TheXDS_MCART_Controls_Base_RingControlBase_EndInit_" data-uid="TheXDS.MCART.Controls.Base.RingControlBase.EndInit*"></a>
   <h4 id="TheXDS_MCART_Controls_Base_RingControlBase_EndInit" data-uid="TheXDS.MCART.Controls.Base.RingControlBase.EndInit">EndInit()</h4>
@@ -1140,10 +1196,46 @@
   <div><span class="xref">Avalonia.StyledElement.EndInit()</span></div>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Controls_Base_RingControlBase_OnLayoutUpdate_System_Double_System_Double_.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.Base.RingControlBase.OnLayoutUpdate(System.Double%2CSystem.Double)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Controls_Base_RingControlBase_OnInitialized_System_EventArgs_.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.Base.RingControlBase.OnInitialized(System.EventArgs)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/TheXDS/MCART/blob/master/src/Platform/Avalonia/MCART.Avalonia.Controls/Controls/Base/RingControlBase.cs/#L173">View Source</a>
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Platform/Wpf/MCART.Wpf.Controls/Controls/Base/RingControlBase.cs/#L170">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Controls_Base_RingControlBase_OnInitialized_" data-uid="TheXDS.MCART.Controls.Base.RingControlBase.OnInitialized*"></a>
+  <h4 id="TheXDS_MCART_Controls_Base_RingControlBase_OnInitialized_System_EventArgs_" data-uid="TheXDS.MCART.Controls.Base.RingControlBase.OnInitialized(System.EventArgs)">OnInitialized(EventArgs)</h4>
+  <div class="markdown level1 summary"><p>Raises the <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.windows.frameworkelement.initialized">Initialized</a> event. This method is invoked whenever <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.windows.frameworkelement.isinitialized">IsInitialized</a> is set to <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> internally.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnInitialized(EventArgs e)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventargs">EventArgs</a></td>
+        <td><span class="parametername">e</span></td>
+        <td><p>The <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.windows.routedeventargs">RoutedEventArgs</a> that contains the event data.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.windows.frameworkelement.oninitialized">FrameworkElement.OnInitialized(EventArgs)</a></div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Controls_Base_RingControlBase_OnLayoutUpdate_System_Double_System_Double_.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.Base.RingControlBase.OnLayoutUpdate(System.Double%2CSystem.Double)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Platform/Avalonia/MCART.Avalonia.Controls/Controls/Base/RingControlBase.cs/#L175">View Source</a>
   </span>
   <a id="TheXDS_MCART_Controls_Base_RingControlBase_OnLayoutUpdate_" data-uid="TheXDS.MCART.Controls.Base.RingControlBase.OnLayoutUpdate*"></a>
   <h4 id="TheXDS_MCART_Controls_Base_RingControlBase_OnLayoutUpdate_System_Double_System_Double_" data-uid="TheXDS.MCART.Controls.Base.RingControlBase.OnLayoutUpdate(System.Double,System.Double)">OnLayoutUpdate(double, double)</h4>
@@ -1181,10 +1273,10 @@ componen al control.</p>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Controls_Base_RingControlBase_SetControlSize.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.Base.RingControlBase.SetControlSize%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Controls_Base_RingControlBase_SetControlSize.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.Base.RingControlBase.SetControlSize%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/TheXDS/MCART/blob/master/src/Platform/Avalonia/MCART.Avalonia.Controls/Controls/Base/RingControlBase.cs/#L162">View Source</a>
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Platform/Avalonia/MCART.Avalonia.Controls/Controls/Base/RingControlBase.cs/#L164">View Source</a>
   </span>
   <a id="TheXDS_MCART_Controls_Base_RingControlBase_SetControlSize_" data-uid="TheXDS.MCART.Controls.Base.RingControlBase.SetControlSize*"></a>
   <h4 id="TheXDS_MCART_Controls_Base_RingControlBase_SetControlSize" data-uid="TheXDS.MCART.Controls.Base.RingControlBase.SetControlSize">SetControlSize()</h4>
@@ -1197,19 +1289,19 @@ componen al control.</p>
   </div>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Controls_Base_RingControlBase_UpdateFullLayout_Avalonia_IAvaloniaObject_System_Boolean_.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.Base.RingControlBase.UpdateFullLayout(Avalonia.IAvaloniaObject%2CSystem.Boolean)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Controls_Base_RingControlBase_UpdateFullLayout_Avalonia_AvaloniaObject_System_Boolean_.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.Base.RingControlBase.UpdateFullLayout(Avalonia.AvaloniaObject%2CSystem.Boolean)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/TheXDS/MCART/blob/master/src/Platform/Avalonia/MCART.Avalonia.Controls/Controls/Base/RingControlBase.cs/#L135">View Source</a>
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Platform/Avalonia/MCART.Avalonia.Controls/Controls/Base/RingControlBase.cs/#L137">View Source</a>
   </span>
   <a id="TheXDS_MCART_Controls_Base_RingControlBase_UpdateFullLayout_" data-uid="TheXDS.MCART.Controls.Base.RingControlBase.UpdateFullLayout*"></a>
-  <h4 id="TheXDS_MCART_Controls_Base_RingControlBase_UpdateFullLayout_Avalonia_IAvaloniaObject_System_Boolean_" data-uid="TheXDS.MCART.Controls.Base.RingControlBase.UpdateFullLayout(Avalonia.IAvaloniaObject,System.Boolean)">UpdateFullLayout(IAvaloniaObject, bool)</h4>
+  <h4 id="TheXDS_MCART_Controls_Base_RingControlBase_UpdateFullLayout_Avalonia_AvaloniaObject_System_Boolean_" data-uid="TheXDS.MCART.Controls.Base.RingControlBase.UpdateFullLayout(Avalonia.AvaloniaObject,System.Boolean)">UpdateFullLayout(AvaloniaObject, bool)</h4>
   <div class="markdown level1 summary"><p>Actualiza el estado visual completo del control.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected static void UpdateFullLayout(IAvaloniaObject d, bool e)</code></pre>
+    <pre><code class="lang-csharp hljs">protected static void UpdateFullLayout(AvaloniaObject d, bool e)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-condensed">
@@ -1222,7 +1314,7 @@ componen al control.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IAvaloniaObject</span></td>
+        <td><span class="xref">AvaloniaObject</span></td>
         <td><span class="parametername">d</span></td>
         <td><p>Objeto que es el origen del evento.</p>
 </td>
@@ -1237,13 +1329,53 @@ componen al control.</p>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Controls_Base_RingControlBase_UpdateLayout_Avalonia_IAvaloniaObject_System_Boolean_.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.Base.RingControlBase.UpdateLayout(Avalonia.IAvaloniaObject%2CSystem.Boolean)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Controls_Base_RingControlBase_UpdateFullLayout_System_Windows_DependencyObject_System_Windows_DependencyPropertyChangedEventArgs_.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.Base.RingControlBase.UpdateFullLayout(System.Windows.DependencyObject%2CSystem.Windows.DependencyPropertyChangedEventArgs)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/TheXDS/MCART/blob/master/src/Platform/Avalonia/MCART.Avalonia.Controls/Controls/Base/RingControlBase.cs/#L122">View Source</a>
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Platform/Wpf/MCART.Wpf.Controls/Controls/Base/RingControlBase.cs/#L129">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Controls_Base_RingControlBase_UpdateFullLayout_" data-uid="TheXDS.MCART.Controls.Base.RingControlBase.UpdateFullLayout*"></a>
+  <h4 id="TheXDS_MCART_Controls_Base_RingControlBase_UpdateFullLayout_System_Windows_DependencyObject_System_Windows_DependencyPropertyChangedEventArgs_" data-uid="TheXDS.MCART.Controls.Base.RingControlBase.UpdateFullLayout(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">UpdateFullLayout(DependencyObject, DependencyPropertyChangedEventArgs)</h4>
+  <div class="markdown level1 summary"><p>Actualiza el estado visual completo del control.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected static void UpdateFullLayout(DependencyObject d, DependencyPropertyChangedEventArgs e)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.windows.dependencyobject">DependencyObject</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Objeto que es el origen del evento.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.windows.dependencypropertychangedeventargs">DependencyPropertyChangedEventArgs</a></td>
+        <td><span class="parametername">e</span></td>
+        <td><p>Argumentos de cambio de valor de la propiedad de dependencia.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Controls_Base_RingControlBase_UpdateLayout_Avalonia_AvaloniaObject_System_Boolean_.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.Base.RingControlBase.UpdateLayout(Avalonia.AvaloniaObject%2CSystem.Boolean)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Platform/Avalonia/MCART.Avalonia.Controls/Controls/Base/RingControlBase.cs/#L124">View Source</a>
   </span>
   <a id="TheXDS_MCART_Controls_Base_RingControlBase_UpdateLayout_" data-uid="TheXDS.MCART.Controls.Base.RingControlBase.UpdateLayout*"></a>
-  <h4 id="TheXDS_MCART_Controls_Base_RingControlBase_UpdateLayout_Avalonia_IAvaloniaObject_System_Boolean_" data-uid="TheXDS.MCART.Controls.Base.RingControlBase.UpdateLayout(Avalonia.IAvaloniaObject,System.Boolean)">UpdateLayout(IAvaloniaObject, bool)</h4>
+  <h4 id="TheXDS_MCART_Controls_Base_RingControlBase_UpdateLayout_Avalonia_AvaloniaObject_System_Boolean_" data-uid="TheXDS.MCART.Controls.Base.RingControlBase.UpdateLayout(Avalonia.AvaloniaObject,System.Boolean)">UpdateLayout(AvaloniaObject, bool)</h4>
   <div class="markdown level1 summary"><p>Define un método que puede agregarse a los metadatos de la propiedad de
 dependencia para llamarse cuando el valor de una propiedad de
 dependencia cambie de valor.</p>
@@ -1251,7 +1383,7 @@ dependencia cambie de valor.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected static void UpdateLayout(IAvaloniaObject d, bool e)</code></pre>
+    <pre><code class="lang-csharp hljs">protected static void UpdateLayout(AvaloniaObject d, bool e)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-condensed">
@@ -1264,7 +1396,7 @@ dependencia cambie de valor.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IAvaloniaObject</span></td>
+        <td><span class="xref">AvaloniaObject</span></td>
         <td><span class="parametername">d</span></td>
         <td><p>Objeto que es el origen del evento.</p>
 </td>
@@ -1279,19 +1411,21 @@ dependencia cambie de valor.</p>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Controls_Base_RingControlBase_UpdateThicknessLayout_Avalonia_IAvaloniaObject_System_Boolean_.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.Base.RingControlBase.UpdateThicknessLayout(Avalonia.IAvaloniaObject%2CSystem.Boolean)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Controls_Base_RingControlBase_UpdateLayout_System_Windows_DependencyObject_System_Windows_DependencyPropertyChangedEventArgs_.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.Base.RingControlBase.UpdateLayout(System.Windows.DependencyObject%2CSystem.Windows.DependencyPropertyChangedEventArgs)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/TheXDS/MCART/blob/master/src/Platform/Avalonia/MCART.Avalonia.Controls/Controls/Base/RingControlBase.cs/#L152">View Source</a>
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Platform/Wpf/MCART.Wpf.Controls/Controls/Base/RingControlBase.cs/#L116">View Source</a>
   </span>
-  <a id="TheXDS_MCART_Controls_Base_RingControlBase_UpdateThicknessLayout_" data-uid="TheXDS.MCART.Controls.Base.RingControlBase.UpdateThicknessLayout*"></a>
-  <h4 id="TheXDS_MCART_Controls_Base_RingControlBase_UpdateThicknessLayout_Avalonia_IAvaloniaObject_System_Boolean_" data-uid="TheXDS.MCART.Controls.Base.RingControlBase.UpdateThicknessLayout(Avalonia.IAvaloniaObject,System.Boolean)">UpdateThicknessLayout(IAvaloniaObject, bool)</h4>
-  <div class="markdown level1 summary"><p>Actualiza el estado de grosor de los anillos del control de anillo.</p>
+  <a id="TheXDS_MCART_Controls_Base_RingControlBase_UpdateLayout_" data-uid="TheXDS.MCART.Controls.Base.RingControlBase.UpdateLayout*"></a>
+  <h4 id="TheXDS_MCART_Controls_Base_RingControlBase_UpdateLayout_System_Windows_DependencyObject_System_Windows_DependencyPropertyChangedEventArgs_" data-uid="TheXDS.MCART.Controls.Base.RingControlBase.UpdateLayout(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">UpdateLayout(DependencyObject, DependencyPropertyChangedEventArgs)</h4>
+  <div class="markdown level1 summary"><p>Define un método que puede agregarse a los metadatos de la propiedad de
+dependencia para llamarse cuando el valor de una propiedad de
+dependencia cambie de valor.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected static void UpdateThicknessLayout(IAvaloniaObject d, bool e)</code></pre>
+    <pre><code class="lang-csharp hljs">protected static void UpdateLayout(DependencyObject d, DependencyPropertyChangedEventArgs _)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-condensed">
@@ -1304,13 +1438,93 @@ dependencia cambie de valor.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IAvaloniaObject</span></td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.windows.dependencyobject">DependencyObject</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Objeto que es el origen del evento.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.windows.dependencypropertychangedeventargs">DependencyPropertyChangedEventArgs</a></td>
+        <td><span class="parametername">_</span></td>
+        <td><p>Argumentos de cambio de valor de la propiedad de dependencia.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Controls_Base_RingControlBase_UpdateThicknessLayout_Avalonia_AvaloniaObject_System_Boolean_.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.Base.RingControlBase.UpdateThicknessLayout(Avalonia.AvaloniaObject%2CSystem.Boolean)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Platform/Avalonia/MCART.Avalonia.Controls/Controls/Base/RingControlBase.cs/#L154">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Controls_Base_RingControlBase_UpdateThicknessLayout_" data-uid="TheXDS.MCART.Controls.Base.RingControlBase.UpdateThicknessLayout*"></a>
+  <h4 id="TheXDS_MCART_Controls_Base_RingControlBase_UpdateThicknessLayout_Avalonia_AvaloniaObject_System_Boolean_" data-uid="TheXDS.MCART.Controls.Base.RingControlBase.UpdateThicknessLayout(Avalonia.AvaloniaObject,System.Boolean)">UpdateThicknessLayout(AvaloniaObject, bool)</h4>
+  <div class="markdown level1 summary"><p>Actualiza el estado de grosor de los anillos del control de anillo.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected static void UpdateThicknessLayout(AvaloniaObject d, bool e)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">AvaloniaObject</span></td>
         <td><span class="parametername">d</span></td>
         <td><p>Objeto que es el origen del evento.</p>
 </td>
       </tr>
       <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">e</span></td>
+        <td><p>Argumentos de cambio de valor de la propiedad de dependencia.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Controls_Base_RingControlBase_UpdateThicknessLayout_System_Windows_DependencyObject_System_Windows_DependencyPropertyChangedEventArgs_.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.Base.RingControlBase.UpdateThicknessLayout(System.Windows.DependencyObject%2CSystem.Windows.DependencyPropertyChangedEventArgs)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/TheXDS/MCART/blob/master/src/Platform/Wpf/MCART.Wpf.Controls/Controls/Base/RingControlBase.cs/#L146">View Source</a>
+  </span>
+  <a id="TheXDS_MCART_Controls_Base_RingControlBase_UpdateThicknessLayout_" data-uid="TheXDS.MCART.Controls.Base.RingControlBase.UpdateThicknessLayout*"></a>
+  <h4 id="TheXDS_MCART_Controls_Base_RingControlBase_UpdateThicknessLayout_System_Windows_DependencyObject_System_Windows_DependencyPropertyChangedEventArgs_" data-uid="TheXDS.MCART.Controls.Base.RingControlBase.UpdateThicknessLayout(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">UpdateThicknessLayout(DependencyObject, DependencyPropertyChangedEventArgs)</h4>
+  <div class="markdown level1 summary"><p>Actualiza el estado de grosor de los anillos del control de anillo.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected static void UpdateThicknessLayout(DependencyObject d, DependencyPropertyChangedEventArgs e)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.windows.dependencyobject">DependencyObject</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Objeto que es el origen del evento.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.windows.dependencypropertychangedeventargs">DependencyPropertyChangedEventArgs</a></td>
         <td><span class="parametername">e</span></td>
         <td><p>Argumentos de cambio de valor de la propiedad de dependencia.</p>
 </td>
@@ -1319,49 +1533,16 @@ dependencia cambie de valor.</p>
   </table>
   <h3 id="implements">Implements</h3>
   <div>
-      <span class="xref">Avalonia.Diagnostics.IAvaloniaObjectDebug</span>
-  </div>
-  <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.componentmodel.inotifypropertychanged">INotifyPropertyChanged</a>
   </div>
   <div>
-      <span class="xref">Avalonia.Controls.ISetLogicalParent</span>
-  </div>
-  <div>
-      <span class="xref">Avalonia.Controls.ISetInheritanceParent</span>
-  </div>
-  <div>
-      <span class="xref">Avalonia.Controls.IControl</span>
-  </div>
-  <div>
-      <span class="xref">Avalonia.Controls.Templates.IDataTemplateHost</span>
-  </div>
-  <div>
-      <span class="xref">Avalonia.Layout.ILayoutable</span>
-  </div>
-  <div>
-      <span class="xref">Avalonia.Input.IInputElement</span>
-  </div>
-  <div>
-      <span class="xref">Avalonia.VisualTree.IVisual</span>
-  </div>
-  <div>
-      <span class="xref">Avalonia.Interactivity.IInteractive</span>
-  </div>
-  <div>
-      <span class="xref">Avalonia.IStyledElement</span>
-  </div>
-  <div>
-      <span class="xref">Avalonia.Styling.IStyleable</span>
-  </div>
-  <div>
-      <span class="xref">Avalonia.INamed</span>
-  </div>
-  <div>
-      <span class="xref">Avalonia.Styling.IStyleHost</span>
+      <span class="xref">Avalonia.IDataContextProvider</span>
   </div>
   <div>
       <span class="xref">Avalonia.LogicalTree.ILogical</span>
+  </div>
+  <div>
+      <span class="xref">Avalonia.Styling.IThemeVariantHost</span>
   </div>
   <div>
       <span class="xref">Avalonia.Controls.IResourceHost</span>
@@ -1370,22 +1551,31 @@ dependencia cambie de valor.</p>
       <span class="xref">Avalonia.Controls.IResourceNode</span>
   </div>
   <div>
-      <span class="xref">Avalonia.IDataContextProvider</span>
+      <span class="xref">Avalonia.Styling.IStyleHost</span>
+  </div>
+  <div>
+      <span class="xref">Avalonia.Controls.ISetLogicalParent</span>
+  </div>
+  <div>
+      <span class="xref">Avalonia.Controls.ISetInheritanceParent</span>
   </div>
   <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.componentmodel.isupportinitialize">ISupportInitialize</a>
   </div>
   <div>
-      <span class="xref">Avalonia.Rendering.IVisualBrushInitialize</span>
+      <span class="xref">Avalonia.Styling.IStyleable</span>
+  </div>
+  <div>
+      <span class="xref">Avalonia.Input.IInputElement</span>
+  </div>
+  <div>
+      <span class="xref">Avalonia.Controls.Templates.IDataTemplateHost</span>
+  </div>
+  <div>
+      <span class="xref">Avalonia.INamed</span>
   </div>
   <div>
       <span class="xref">Avalonia.Styling.ISetterValue</span>
-  </div>
-  <div>
-      <span class="xref">Avalonia.Styling.ITemplatedControl</span>
-  </div>
-  <div>
-      <span class="xref">Avalonia.IAvaloniaObject</span>
   </div>
   <h3 id="extensionmethods">Extension Methods</h3>
   <div>
@@ -1472,7 +1662,7 @@ dependencia cambie de valor.</p>
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Controls_Base_RingControlBase.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.Base.RingControlBase%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/TheXDS/MCART/new/master/apiSpec/new?filename=TheXDS_MCART_Controls_Base_RingControlBase.md&amp;value=---%0Auid%3A%20TheXDS.MCART.Controls.Base.RingControlBase%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Edit this page</a>
                   </li>
                   <li>
                     <a href="https://github.com/TheXDS/MCART/blob/master/src/Platform/Avalonia/MCART.Avalonia.Controls/Controls/Base/RingControlBase.cs/#L41" class="contribution-link">View Source</a>
@@ -1480,7 +1670,7 @@ dependencia cambie de valor.</p>
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
-                <h5>In This Article</h5>
+                <h5>In this article</h5>
                 <div></div>
               </nav>
             </div>
