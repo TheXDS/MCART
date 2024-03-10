@@ -37,33 +37,14 @@ namespace TheXDS.MCART.Component;
 public partial class EnumValueProvider
 {
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="EnumValueProvider"/>.
-    /// </summary>
-    /// <param name="enumType">Tipo de enumeración a exponer.</param>
-    /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="enumType"/> es
-    /// <see langword="null"/>.
-    /// </exception>
-    /// <exception cref="ArgumentException">
-    /// Se produce si <paramref name="enumType"/> no es un tipo válido de
-    /// enumeración.
-    /// </exception>
-    public EnumValueProvider(Type enumType)
-    {
-        EnumValueProvider_Contract(enumType);
-        EnumType = enumType;
-    }
-
-    /// <summary>
     /// Obtiene una referencia al tipo de enumeración desde la cual se
     /// obtendrán los valores.
     /// </summary>
-    public Type EnumType { get; }
+    public Type? EnumType { get; set; }
 
     /// <inheritdoc/>
-    public override object ProvideValue(IServiceProvider serviceProvider)
+    public override object? ProvideValue(IServiceProvider serviceProvider)
     {
-        return Enum.GetValues(EnumType);
+        return EnumType is { IsEnum: true } ? Enum.GetValues(EnumType) : null;
     }
 }

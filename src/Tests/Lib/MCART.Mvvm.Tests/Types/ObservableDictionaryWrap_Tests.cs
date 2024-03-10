@@ -31,7 +31,7 @@ using TheXDS.MCART.Types;
 
 namespace TheXDS.MCART.Mvvm.Tests.Types;
 
-public class ObservableDictionaryWrap_Tests : ObservableCollectionTestsBase<ObservableDictionaryWrap<int, string>>
+public class ObservableDictionaryWrap_Tests : ObservableCollectionTestsBase
 {
     private static (Dictionary<int, string> Dictionary, ObservableDictionaryWrap<int, string> Wrap) GetTestWrap()
     {
@@ -120,6 +120,23 @@ public class ObservableDictionaryWrap_Tests : ObservableCollectionTestsBase<Obse
         var eventArgs = TestCollectionChanged(wrap, p => Assert.That(p.Remove(1)));
         Assert.That(eventArgs.Action, Is.EqualTo(NotifyCollectionChangedAction.Remove));
         Assert.That(eventArgs.OldItems, Is.EquivalentTo(new[] { new KeyValuePair<int, string>(1, "test 1") }));
+    }
+
+    [Test]
+    public void Indexer_edge_case_set_fires_event_test()
+    {
+        var dictionary = new Dictionary<string, byte[]>()
+        {
+            { "A", "aaa"u8.ToArray() },
+            { "B", "bbb"u8.ToArray() },
+        };
+        var wrap = new ObservableDictionaryWrap<string, byte[]>(dictionary);
+
+        var eventArgs = TestCollectionChanged(wrap, p => p["A"] = "test 3"u8.ToArray());
+        Assert.That(wrap["A"], Is.EquivalentTo("test 3"u8.ToArray()));
+        Assert.That(eventArgs.Action, Is.EqualTo(NotifyCollectionChangedAction.Replace));
+        Assert.That(eventArgs.OldItems, Is.EquivalentTo(new[] { new KeyValuePair<string, byte[]>("A", "aaa"u8.ToArray()) }));
+        Assert.That(eventArgs.NewItems, Is.EquivalentTo(new[] { new KeyValuePair<string, byte[]>("A", "test 3"u8.ToArray()) }));
     }
 
     [Test]

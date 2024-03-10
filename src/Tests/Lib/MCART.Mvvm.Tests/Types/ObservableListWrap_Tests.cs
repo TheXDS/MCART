@@ -35,7 +35,7 @@ using static TheXDS.MCART.Tests.EventTestHelpers;
 
 namespace TheXDS.MCART.Mvvm.Tests.Types;
 
-public class ObservableListWrap_Tests : ObservableCollectionTestsBase<ObservableListWrap>
+public class ObservableListWrap_Tests : ObservableCollectionTestsBase
 {
     private class RefreshableTest : IRefreshable
     {

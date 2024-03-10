@@ -32,18 +32,14 @@ using static TheXDS.MCART.Tests.EventTestHelpers;
 
 namespace TheXDS.MCART.Mvvm.Tests.Types;
 
-public class ObservableCollectionTestsBase<T> where T : ObservableWrapBase, new()
+public class ObservableCollectionTestsBase
 {
-    protected static NotifyCollectionChangedEventArgs? TestCollectionChanged(T wrap, Action<T> testDelegate, bool firedExpected)
+    protected static NotifyCollectionChangedEventArgs? TestCollectionChanged<T>(T wrap, Action<T> testDelegate, bool firedExpected) where T : ObservableWrapBase, new()
     {
-        return TestEvent<
-            T,
-            NotifyCollectionChangedEventHandler,
-            NotifyCollectionChangedEventArgs>
-            (wrap, nameof(ObservableWrapBase.CollectionChanged), testDelegate, firedExpected);
+        return TestEvent<T, NotifyCollectionChangedEventHandler, NotifyCollectionChangedEventArgs>(wrap, nameof(ObservableWrapBase.CollectionChanged), testDelegate, firedExpected);
     }
 
-    protected static NotifyCollectionChangedEventArgs TestCollectionChanged(T wrap, Action<T> testDelegate)
+    protected static NotifyCollectionChangedEventArgs TestCollectionChanged<T>(T wrap, Action<T> testDelegate) where T : ObservableWrapBase, new()
     {
         return TestCollectionChanged(wrap, testDelegate, true)!;
     }

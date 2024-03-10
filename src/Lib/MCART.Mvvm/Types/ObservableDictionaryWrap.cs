@@ -30,7 +30,9 @@ SOFTWARE.
 
 using System.Collections.Specialized;
 using System.Diagnostics.CodeAnalysis;
+using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types.Base;
+using TheXDS.MCART.Types.Extensions;
 using NcchEa = System.Collections.Specialized.NotifyCollectionChangedEventArgs;
 
 namespace TheXDS.MCART.Types;
@@ -79,21 +81,25 @@ public class ObservableDictionaryWrap<TKey, TValue> : ObservableWrap<KeyValuePai
         set
         {
             if (UnderlyingCollection is null) throw new InvalidOperationException();
-            TValue? oldValue = UnderlyingCollection[key];
+            int index;
+            var oldKvPair = UnderlyingCollection.AsEnumerable().WithIndex().SingleOrDefault(p => p.element.Key.Equals(key));
+            index = oldKvPair.index;
             UnderlyingCollection[key] = value;
-            RaiseCollectionChanged(new NcchEa(NotifyCollectionChangedAction.Replace, new KeyValuePair<TKey, TValue>(key, value), new KeyValuePair<TKey, TValue>(key, oldValue)));
+            var newKvPair = UnderlyingCollection.AsEnumerable().WithIndex().SingleOrDefault(p => p.element.Key.Equals(key));
+            if (index == -1) index = newKvPair.index;
+            RaiseCollectionChanged(new NcchEa(NotifyCollectionChangedAction.Replace, newKvPair.element, oldKvPair.element, index));
         }
     }
 
     /// <summary>
     /// Obtiene una colección con todas las llaves del diccionario.
     /// </summary>
-    public ICollection<TKey> Keys => UnderlyingCollection?.Keys ?? Array.Empty<TKey>();
+    public ICollection<TKey> Keys => UnderlyingCollection?.Keys ?? [];
 
     /// <summary>
     /// Obtiene una colección con todos los valores del diccionario.
     /// </summary>
-    public ICollection<TValue> Values => UnderlyingCollection?.Values ?? Array.Empty<TValue>();
+    public ICollection<TValue> Values => UnderlyingCollection?.Values ?? [];
 
     /// <summary>
     /// Agrega un valor a este diccionario en el índice especificado.

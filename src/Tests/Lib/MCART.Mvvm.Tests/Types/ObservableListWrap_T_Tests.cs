@@ -31,7 +31,7 @@ using TheXDS.MCART.Types;
 
 namespace TheXDS.MCART.Mvvm.Tests.Types;
 
-public class ObservableListWrap_T_Tests : ObservableCollectionTestsBase<ObservableListWrap<string>>
+public class ObservableListWrap_T_Tests : ObservableCollectionTestsBase
 {
     private static (List<string>, ObservableListWrap<string>) GetTestWrap()
     {
