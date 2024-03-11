@@ -60,6 +60,8 @@ public class ColorParserTests
     [TestCase(typeof(Rgb233ColorParser), (byte)0b_11000000, 0xff, 0xff, 0x00, 0x00)]
     [TestCase(typeof(Rgb233ColorParser), (byte)0b_00111000, 0xff, 0x00, 0xff, 0x00)]
     [TestCase(typeof(Rgb233ColorParser), (byte)0b_00000111, 0xff, 0x00, 0x00, 0xff)]
+    [TestCase(typeof(Rgb565ColorParser), (short)0x7abc, 0xff, 0x7b, 0x55, 0xe6)]
+    [TestCase(typeof(Rgb565ColorParser), (short)0x001f, 0xff, 0x0, 0x0, 0xff)]
     [TestCase(typeof(VgaAttributeByteColorParser), (byte)0x07, 0xff, 0x7f, 0x7f, 0x7f)]
     [TestCase(typeof(VgaAttributeByteColorParser), (byte)0x0f, 0xff, 0xff, 0xff, 0xff)]
     [TestCase(typeof(VgaAttributeByteColorParser), (byte)0x01, 0xff, 0x0, 0x0, 0x7f)]
@@ -78,5 +80,39 @@ public class ColorParserTests
             Assert.That(expected, Is.EqualTo(actual));
             Assert.That(convertBack, Is.EqualTo(sourceValue));
         });
+    }
+
+    [Test]
+    public void Indexed_from_and_to_color_test()
+    {
+        var palette = new Color[]
+        { 
+            new(0, 0, 0),       // Black
+            new(255, 255, 255), // White
+            new(255, 0, 0),     // Red
+            new(0, 255, 0),     // Green
+            new(0, 0, 255),     // Blue
+        };
+
+        Indexed8ColorParser p = new(palette);
+
+        Assert.That(p.From(0), Is.EqualTo(palette[0]));
+        Assert.That(p.From(1), Is.EqualTo(palette[1]));
+        Assert.That(p.From(2), Is.EqualTo(palette[2]));
+        Assert.That(p.From(3), Is.EqualTo(palette[3]));
+        Assert.That(p.From(4), Is.EqualTo(palette[4]));
+
+        Assert.That(p.To(new Color(8, 8, 8)), Is.EqualTo((byte)0));
+        Assert.That(p.To(new Color(192, 192, 192)), Is.EqualTo((byte)1));
+        Assert.That(p.To(new Color(192, 0, 0)), Is.EqualTo((byte)2));
+        Assert.That(p.To(new Color(0, 192, 0)), Is.EqualTo((byte)3));
+        Assert.That(p.To(new Color(0, 0, 192)), Is.EqualTo((byte)4));
+    }
+
+    [Test]
+    public void Indexed8_contract_test()
+    {
+        Assert.That(() => _ = new Indexed8ColorParser(new Color[256]), Throws.Nothing);
+        Assert.That(() => _ = new Indexed8ColorParser(new Color[257]), Throws.InstanceOf<IndexOutOfRangeException>());
     }
 }
