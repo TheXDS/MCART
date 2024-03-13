@@ -114,7 +114,8 @@ public class ObservableDictionaryWrap<TKey, TValue> : ObservableWrap<KeyValuePai
     {
         if (UnderlyingCollection is null) throw new InvalidOperationException();
         UnderlyingCollection.Add(key, value);
-        RaiseCollectionChanged(new NcchEa(NotifyCollectionChangedAction.Add, new KeyValuePair<TKey, TValue>(key, value)));
+        var (index, element) = UnderlyingCollection.AsEnumerable().WithIndex().SingleOrDefault(p => p.element.Key.Equals(key));
+        RaiseCollectionChanged(new NcchEa(NotifyCollectionChangedAction.Add, element, index));
     }
 
     /// <summary>
@@ -144,10 +145,11 @@ public class ObservableDictionaryWrap<TKey, TValue> : ObservableWrap<KeyValuePai
     /// 
     public bool Remove(TKey key)
     {
-        if (!UnderlyingCollection?.ContainsKey(key) ?? true) return false;
-        TValue? oldItem = UnderlyingCollection![key];
+        if (UnderlyingCollection is null) throw new InvalidOperationException();
+        if (!UnderlyingCollection.ContainsKey(key)) return false;
+        var (index, element) = UnderlyingCollection.AsEnumerable().WithIndex().SingleOrDefault(p => p.element.Key.Equals(key));
         UnderlyingCollection.Remove(key);
-        RaiseCollectionChanged(new NcchEa(NotifyCollectionChangedAction.Remove, new KeyValuePair<TKey, TValue>(key, oldItem)));
+        RaiseCollectionChanged(new NcchEa(NotifyCollectionChangedAction.Remove, element, index));
         return true;
     }
 

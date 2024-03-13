@@ -143,7 +143,7 @@ public class ObservableDictionaryWrap_Tests : ObservableCollectionTestsBase
     public void Remove_without_underlying_collection_test()
     {
         var wrap = new ObservableDictionaryWrap<int, string>();
-        var eventArgs = TestCollectionChanged(wrap, p => Assert.That(p.Remove(1), Is.False), false);
+        Assert.Throws<InvalidOperationException>(() => wrap.Remove(1));
     }
 
     [Test]
