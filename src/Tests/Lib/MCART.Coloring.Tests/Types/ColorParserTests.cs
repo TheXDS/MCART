@@ -57,6 +57,8 @@ public class ColorParserTests
     [TestCase(typeof(GrayscaleColorParser), (byte)0, 0xff, 0x00, 0x00, 0x00)]
     [TestCase(typeof(GrayscaleColorParser), (byte)0xff, 0xff, 0xff, 0xff, 0xff)]
     [TestCase(typeof(GrayscaleColorParser), (byte)0x40, 0xff, 0x40, 0x40, 0x40)]
+    [TestCase(typeof(Rgba16ColorParser), unchecked((short)0xfabc), 0xff, 0xf5, 0xab, 0xe6)]
+    [TestCase(typeof(Rgba16ColorParser), unchecked((short)0x801f), 0xff, 0x0, 0x0, 0xff)]
     [TestCase(typeof(Rgb233ColorParser), (byte)0b_11000000, 0xff, 0xff, 0x00, 0x00)]
     [TestCase(typeof(Rgb233ColorParser), (byte)0b_00111000, 0xff, 0x00, 0xff, 0x00)]
     [TestCase(typeof(Rgb233ColorParser), (byte)0b_00000111, 0xff, 0x00, 0x00, 0xff)]

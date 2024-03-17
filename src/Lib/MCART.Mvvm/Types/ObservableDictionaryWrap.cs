@@ -32,7 +32,6 @@ using System.Collections.Specialized;
 using System.Diagnostics.CodeAnalysis;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types.Base;
-using TheXDS.MCART.Types.Extensions;
 using NcchEa = System.Collections.Specialized.NotifyCollectionChangedEventArgs;
 
 namespace TheXDS.MCART.Types;
@@ -83,11 +82,18 @@ public class ObservableDictionaryWrap<TKey, TValue> : ObservableWrap<KeyValuePai
             if (UnderlyingCollection is null) throw new InvalidOperationException();
             int index;
             var oldKvPair = UnderlyingCollection.AsEnumerable().WithIndex().SingleOrDefault(p => p.element.Key.Equals(key));
-            index = oldKvPair.index;
+            index = oldKvPair.element.Key is not null ? oldKvPair.index : -1;
             UnderlyingCollection[key] = value;
             var newKvPair = UnderlyingCollection.AsEnumerable().WithIndex().SingleOrDefault(p => p.element.Key.Equals(key));
-            if (index == -1) index = newKvPair.index;
-            RaiseCollectionChanged(new NcchEa(NotifyCollectionChangedAction.Replace, newKvPair.element, oldKvPair.element, index));
+            if (oldKvPair.element.Key is null)
+            {
+                RaiseCollectionChanged(new NcchEa(NotifyCollectionChangedAction.Add, newKvPair.element, newKvPair.index));
+            }
+            else
+            {
+                if (index == -1) index = newKvPair.index;
+                RaiseCollectionChanged(new NcchEa(NotifyCollectionChangedAction.Replace, newKvPair.element, oldKvPair.element, index));
+            }
         }
     }
 
@@ -114,7 +120,7 @@ public class ObservableDictionaryWrap<TKey, TValue> : ObservableWrap<KeyValuePai
     {
         if (UnderlyingCollection is null) throw new InvalidOperationException();
         UnderlyingCollection.Add(key, value);
-        var (index, element) = UnderlyingCollection.AsEnumerable().WithIndex().SingleOrDefault(p => p.element.Key.Equals(key));
+        var (index, element) = UnderlyingCollection.AsEnumerable().WithIndex().Single(p => p.element.Key.Equals(key));
         RaiseCollectionChanged(new NcchEa(NotifyCollectionChangedAction.Add, element, index));
     }
 
