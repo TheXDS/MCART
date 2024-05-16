@@ -244,7 +244,7 @@ public static class StringExtensions
             }
             else
             {
-                if (!lines.Any()) lines.Add(string.Empty);
+                if (lines.Count == 0) lines.Add(string.Empty);
                 lines[^1] += lines[^1].IsEmpty() && !word.IsEmpty() ? word : $" {word}";
             }
         }
@@ -259,7 +259,7 @@ public static class StringExtensions
             return str.Substring(ch,
                 ch + chunkSize > str.Length ? str.Length - ch : chunkSize);
         }
-        return Enumerable.Range(0, str.Length / chunkSize + 1).Select(Selector);
+        return Enumerable.Range(0, (str.Length / chunkSize) + 1).Select(Selector);
     }
 
     /// <summary>
@@ -834,14 +834,14 @@ public static class StringExtensions
         var ch = new List<char>();
         foreach (char c in name.NotNull())
         {
-            if (char.IsUpper(c) && ch.Any())
+            if (char.IsUpper(c) && ch.Count != 0)
             {
                 yield return new string(ch.ToArray());
                 ch.Clear();
             }
             ch.Add(c);
         }
-        if (ch.Any()) yield return new string(ch.ToArray());
+        if (ch.Count != 0) yield return new string(ch.ToArray());
     }
 
     /// <summary>

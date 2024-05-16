@@ -93,7 +93,7 @@ public abstract class FormViewModelBase : ViewModelBase, INotifyDataErrorInfo
     {
         private record ValidationRule(Func<T, bool> Rule, string Error);
 
-        private readonly List<ValidationRule> _rules = new();
+        private readonly List<ValidationRule> _rules = [];
 
         public PropertyInfo Property { get; }
 
@@ -119,8 +119,8 @@ public abstract class FormViewModelBase : ViewModelBase, INotifyDataErrorInfo
         }
     }
 
-    private readonly IDictionary<string, List<string>> _errors = new Dictionary<string, List<string>>();
-    private readonly List<IValidationEntry> _validationRules = new();
+    private readonly Dictionary<string, List<string>> _errors = [];
+    private readonly List<IValidationEntry> _validationRules = [];
     private SimpleCommand[]? _validationAffectedCommands;
 
     /// <summary>
@@ -137,7 +137,7 @@ public abstract class FormViewModelBase : ViewModelBase, INotifyDataErrorInfo
     /// <summary>
     /// Gets a value indicating whether this instance has any validation errors.
     /// </summary>
-    public bool HasErrors => _errors.Any();
+    public bool HasErrors => _errors.Count != 0;
 
     /// <summary>
     /// Checks for validation errors.
@@ -154,7 +154,7 @@ public abstract class FormViewModelBase : ViewModelBase, INotifyDataErrorInfo
             {
                 AppendErrors(j, j.Property.GetValue(this));
             }
-            var pass = !HasErrors && p.Any();
+            var pass = !HasErrors && p.Count != 0;
             SetAffectedCommands(pass);
             return pass;
         });
@@ -180,9 +180,9 @@ public abstract class FormViewModelBase : ViewModelBase, INotifyDataErrorInfo
         {
             return _errors.SelectMany(p => p.Value);
         }
-        if (_errors.ContainsKey(propertyName) && _errors[propertyName].Any())
+        if (_errors.TryGetValue(propertyName, out List<string>? value) && value.Count != 0)
         {
-            return _errors[propertyName];
+            return value;
         }
         return Array.Empty<string>();
     }
@@ -255,15 +255,15 @@ public abstract class FormViewModelBase : ViewModelBase, INotifyDataErrorInfo
     private void AppendErrors(IValidationEntry entry, object? value)
     {
         _errors.Remove(entry.Property.Name);
-        foreach (string? j in entry?.Check(value) ?? Array.Empty<string>())
+        foreach (string? j in entry?.Check(value) ?? [])
         {
-            if (_errors.ContainsKey(entry!.Property.Name))
+            if (_errors.TryGetValue(entry!.Property.Name, out List<string>? errors))
             {
-                _errors[entry.Property.Name].Add(j);
+                errors.Add(j);
             }
             else
             {
-                _errors.Add(entry.Property.Name, new List<string> { j });
+                _errors.Add(entry.Property.Name, [j]);
             }
         }
         OnPropertyChanged(nameof(HasErrors));
@@ -273,6 +273,6 @@ public abstract class FormViewModelBase : ViewModelBase, INotifyDataErrorInfo
 
     private void SetAffectedCommands(bool canExecute)
     {
-        foreach (SimpleCommand? j in _validationAffectedCommands ?? Array.Empty<SimpleCommand>()) j.SetCanExecute(canExecute);
+        foreach (SimpleCommand? j in _validationAffectedCommands ?? []) j.SetCanExecute(canExecute);
     }
 }

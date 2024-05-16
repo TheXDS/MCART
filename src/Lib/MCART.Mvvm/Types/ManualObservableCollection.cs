@@ -38,18 +38,12 @@ namespace TheXDS.MCART.Types;
 /// manual para cualquier objeto que implemente <see cref="IEnumerable{T}"/>.
 /// </summary>
 /// <typeparam name="T">Tipo de objetos de la colección.</typeparam>
-public class ManualObservableCollection<T> : IEnumerable<T>, INotifyCollectionChanged
+/// <param name="source">
+/// Colección a exponer por medio de esta instancia.
+/// </param>
+public class ManualObservableCollection<T>(IEnumerable<T> source) : IEnumerable<T>, INotifyCollectionChanged
 {
-    private readonly IEnumerable<T> _source;
-
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="ManualObservableCollection{T}"/>.
-    /// </summary>
-    /// <param name="source"></param>
-    public ManualObservableCollection(IEnumerable<T> source)
-    {
-        _source = source;
-    }
+    private readonly IEnumerable<T> _source = source;
 
     /// <inheritdoc/>
     public event NotifyCollectionChangedEventHandler? CollectionChanged;

@@ -50,7 +50,7 @@ public abstract class NotifyPropertyChanging : NotifyPropertyChangeBase, INotify
     /// </summary>
     protected virtual void OnPropertyChanging([CallerMemberName] string? propertyName = null)
     {
-        if (propertyName is null) throw new ArgumentNullException(nameof(propertyName));
+        ArgumentNullException.ThrowIfNull(propertyName);
         PropertyChanging?.Invoke(this, new(propertyName));
         NotifyRegistrar(propertyName);
         foreach (INotifyPropertyChangeBase? j in _forwardingCollection) j.Notify(propertyName);
@@ -73,7 +73,7 @@ public abstract class NotifyPropertyChanging : NotifyPropertyChangeBase, INotify
     /// </returns>
     protected sealed override bool Change<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
     {
-        if (propertyName is null) throw new ArgumentNullException(nameof(propertyName));
+        ArgumentNullException.ThrowIfNull(propertyName);
         if (field?.Equals(value) ?? Objects.AreAllNull(field, value)) return false;
         Notify(propertyName);
         field = value;

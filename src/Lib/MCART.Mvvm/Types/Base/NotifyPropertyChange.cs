@@ -44,7 +44,7 @@ namespace TheXDS.MCART.Types.Base;
 /// </summary>
 public abstract class NotifyPropertyChange : NotifyPropertyChangeBase, INotifyPropertyChanging, INotifyPropertyChanged
 {
-    private readonly HashSet<WeakReference<PropertyChangeObserver>> _observeSubscriptions = new();
+    private readonly HashSet<WeakReference<PropertyChangeObserver>> _observeSubscriptions = [];
 
     /// <summary>
     /// Se produce cuando se cambiará el valor de una propiedad.
@@ -61,7 +61,7 @@ public abstract class NotifyPropertyChange : NotifyPropertyChangeBase, INotifyPr
     /// </summary>
     protected virtual void OnPropertyChanging([CallerMemberName] string propertyName = null!)
     {
-        if (propertyName is null) throw new ArgumentNullException(nameof(propertyName));
+        ArgumentNullException.ThrowIfNull(propertyName);
         PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(propertyName));
     }
 
@@ -71,7 +71,7 @@ public abstract class NotifyPropertyChange : NotifyPropertyChangeBase, INotifyPr
     /// </summary>
     protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null!)
     {
-        if (propertyName is null) throw new ArgumentNullException(nameof(propertyName));
+        ArgumentNullException.ThrowIfNull(propertyName);
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         NotifyRegistrar(propertyName);
         foreach (INotifyPropertyChangeBase? j in _forwardingCollection) j.Notify(propertyName);
@@ -134,7 +134,7 @@ public abstract class NotifyPropertyChange : NotifyPropertyChangeBase, INotifyPr
         OnPropertyChanging(propertyName);
         field = value;
 
-        HashSet<WeakReference<PropertyChangeObserver>>? rm = new();
+        HashSet<WeakReference<PropertyChangeObserver>>? rm = [];
         foreach (WeakReference<PropertyChangeObserver>? j in _observeSubscriptions)
         {
             if (j.TryGetTarget(out PropertyChangeObserver? t)) t.Invoke(this, p);

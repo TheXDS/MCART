@@ -36,27 +36,18 @@ namespace TheXDS.MCART.Types.Base;
 /// Clase base para las implementaciones de la interfaz
 /// <see cref="ICommand"/> en MCART.
 /// </summary>
-public abstract class CommandBase : ICommand
+/// <param name="action">
+/// Acción a asociar a este comando.
+/// </param>
+public abstract class CommandBase(Action<object?> action) : ICommand
 {
-    private readonly Action<object?> _action;
+    private readonly Action<object?> _action = action ?? throw new ArgumentNullException(nameof(action));
 
     /// <summary>
     /// Se produce cuando hay cambios que influyen en si el comando
     /// debería ejecutarse o no.
     /// </summary>
     public event EventHandler? CanExecuteChanged;
-
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="CommandBase"/>.
-    /// </summary>
-    /// <param name="action">
-    /// Acción a asociar a este comando.
-    /// </param>
-    protected CommandBase(Action<object?> action)
-    {
-        _action = action ?? throw new ArgumentNullException(nameof(action));
-    }
 
     /// <summary>
     /// Define el método que determina si el comando puede ejecutarse

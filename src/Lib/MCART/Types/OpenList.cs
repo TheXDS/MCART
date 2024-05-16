@@ -99,7 +99,7 @@ public class OpenList<T> : IList<T>
     /// Obtiene un valor que indica si este <see cref="OpenList{T}"/>
     /// contiene una cola de elementos al final.
     /// </summary>
-    public bool HasTail => _tail.Any();
+    public bool HasTail => _tail.Count != 0;
 
     /// <summary>
     /// Enumera todos los elementos de la cabeza de este

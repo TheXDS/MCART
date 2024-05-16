@@ -42,7 +42,7 @@ namespace TheXDS.MCART.Types.Base;
 public abstract partial class ViewModelBase : NotifyPropertyChanged
 {
     private bool _isBusy;
-    private readonly Dictionary<string, ICollection<Action>> _observeRegistry = new();
+    private readonly Dictionary<string, ICollection<Action>> _observeRegistry = [];
 
     /// <summary>
     /// Inicializa una nueva instancia de la clase 
@@ -109,11 +109,12 @@ public abstract partial class ViewModelBase : NotifyPropertyChanged
     protected void Observe(string propertyName, Action handler)
     {
         Observe_Contract(propertyName, handler);
-        if (!_observeRegistry.ContainsKey(propertyName))
+        if (!_observeRegistry.TryGetValue(propertyName, out ICollection<Action>? value))
         {
-            _observeRegistry.Add(propertyName, new HashSet<Action>());
+            value = ([]);
+            _observeRegistry.Add(propertyName, value);
         }
-        _observeRegistry[propertyName].Add(handler);
+        value.Add(handler);
     }
 
     /// <summary>

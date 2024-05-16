@@ -403,7 +403,7 @@ public static partial class EnumerableExtensions
     public static T Pick<T>(this IEnumerable<T> collection, in Random random)
     {
         List<T> c = collection.ToList();
-        if (!c.Any()) throw Errors.EmptyCollection(c);
+        if (c.Count == 0) throw Errors.EmptyCollection(c);
         return c.ElementAt(random.Next(0, c.Count));
     }
 
@@ -420,7 +420,7 @@ public static partial class EnumerableExtensions
     public static async Task<T> PickAsync<T>(this IEnumerable<T> collection)
     {
         List<T> c = await collection.ToListAsync();
-        if (!c.Any()) throw Errors.EmptyCollection(collection);
+        if (c.Count == 0) throw Errors.EmptyCollection(collection);
         return c.ElementAt(RandomExtensions.Rnd.Next(0, c.Count));
     }
 

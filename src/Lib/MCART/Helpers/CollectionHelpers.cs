@@ -130,7 +130,7 @@ public static partial class CollectionHelpers
             c++;
         }
         index = idx.AsEnumerable();
-        return idx.Any();
+        return idx.Count != 0;
     }
 
     /// <summary>

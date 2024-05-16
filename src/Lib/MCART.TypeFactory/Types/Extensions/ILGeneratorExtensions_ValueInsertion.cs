@@ -254,7 +254,7 @@ public static partial class ILGeneratorExtensions
     /// </exception>
     public static ILGenerator LoadConstant(this ILGenerator ilGen, object? value)
     {
-        if (value is null) throw new ArgumentNullException(nameof(value));
+        ArgumentNullException.ThrowIfNull(value);
         return LoadConstant(ilGen, value.GetType(), value);
     }
 

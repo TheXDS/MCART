@@ -286,7 +286,6 @@ public class ObservableListWrap : ObservableWrapBase, IList, INotifyCollectionCh
     /// </param>
     public void Substitute(IList newList)
     {
-        var oldList = UnderlyingList;
         UnderlyingList = Array.Empty<object>();
         RaiseCollectionChanged(new NcchEa(Reset));
         UnderlyingList = newList;

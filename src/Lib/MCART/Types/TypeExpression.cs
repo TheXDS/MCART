@@ -119,13 +119,13 @@ public class TypeExpression
     /// </exception>
     public Type? Resolve(bool throwOnFail)
     {
-        if (_genericArgs.Any() && SearchTypeByName($"{_fullName}`{_genericArgs.Count}") is Type tg)
+        if (_genericArgs.Count != 0 && SearchTypeByName($"{_fullName}`{_genericArgs.Count}") is Type tg)
         {
             var g = _genericArgs.Select(p => p.Resolve(throwOnFail));
             if (!g.IsAnyNull())
                 return tg.MakeGenericType(g.NotNull().ToArray());
         }
-        else if (!_genericArgs.Any() && SearchTypeByName(_fullName) is Type t)
+        else if (_genericArgs.Count == 0 && SearchTypeByName(_fullName) is Type t)
         {
             return t;
         }

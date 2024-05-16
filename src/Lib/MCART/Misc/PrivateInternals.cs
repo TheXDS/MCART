@@ -69,8 +69,7 @@ internal static class PrivateInternals
             throw new ArgumentNullException(nameof(separators));
         if (string.IsNullOrEmpty(value))
             throw new ArgumentNullException(nameof(value));
-        if (instantiationCallback is null)
-            throw new ArgumentNullException(nameof(instantiationCallback));
+        ArgumentNullException.ThrowIfNull(instantiationCallback);
 #endif
         foreach (TypeConverter t in Common.FindConverters(typeof(string), typeof(TValue)))
         {

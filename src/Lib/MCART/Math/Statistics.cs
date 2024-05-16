@@ -104,7 +104,7 @@ public static partial class Statistics
             c.Add(e.Current - last);
             last = e.Current;
         }
-        return c.Any() ? c.Average() : 0.0;
+        return c.Count != 0 ? c.Average() : 0.0;
     }
 
     /// <summary>
@@ -155,7 +155,7 @@ public static partial class Statistics
     public static double Median(this IEnumerable<double> data)
     {
         List<double> d = data.ToList();
-        if (!d.Any()) return double.NaN;
+        if (d.Count == 0) return double.NaN;
         d.Sort();
         int p = d.Count / 2;
         return d.Count % 2 == 1 ? d[p] : (d[p - 2] + d[p - 1]) / 2;
@@ -334,8 +334,8 @@ public static partial class Statistics
             sigmaX += System.Math.Pow(a - avgA, 2);
         });
         double b = sigmaXY / sigmaX;
-        double a = averageB - b * averageA;
-        return a + b * valueA;
+        double a = averageB - (b * averageA);
+        return a + (b * valueA);
     }
 
     /// <summary>

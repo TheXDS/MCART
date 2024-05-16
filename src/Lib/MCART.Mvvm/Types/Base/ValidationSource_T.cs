@@ -40,18 +40,11 @@ namespace TheXDS.MCART.Types.Base;
 /// <typeparam name="T">
 /// Tipo de ViewModel cuyos datos serán validados con esta instancia.
 /// </typeparam>
-public sealed class ValidationSource<T> : ValidationSource where T : IValidatingViewModel
+/// <param name="npcSource">
+/// Instancia que es el origen de los datos de validación.
+/// </param>
+public sealed class ValidationSource<T>(T npcSource) : ValidationSource(npcSource) where T : IValidatingViewModel
 {
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="ValidationSource{TViewModel}"/>.
-    /// </summary>
-    /// <param name="npcSource">
-    /// Instancia que es el origen de los datos de validación.
-    /// </param>
-    public ValidationSource(T npcSource) : base(npcSource)
-    {
-    }
 
     /// <summary>
     /// Registra un conjunto de reglas en la instancia de validación.

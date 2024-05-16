@@ -49,18 +49,13 @@ public abstract class ValidationSource : INotifyDataErrorInfo
 
     private protected class ValidationEntry<T> : IValidationEntry, IValidationEntry<T>
     {
-        private class ValidationRule
+        private class ValidationRule(Func<T, bool?> rule, string error)
         {
-            public readonly Func<T, bool?> Rule;
-            public readonly string Error;
-            public ValidationRule(Func<T, bool?> rule, string error)
-            {
-                Rule = rule;
-                Error = error;
-            }
+            public readonly Func<T, bool?> Rule = rule;
+            public readonly string Error = error;
         }
 
-        private readonly List<ValidationRule> _rules = new();
+        private readonly List<ValidationRule> _rules = [];
 
         public PropertyInfo Property { get; }
 
@@ -93,14 +88,14 @@ public abstract class ValidationSource : INotifyDataErrorInfo
     }
 
     private readonly IValidatingViewModel _npcSource;
-    private readonly IDictionary<string, List<string>> _errors = new Dictionary<string, List<string>>();
-    private protected readonly List<IValidationEntry> _validationRules = new();
+    private readonly Dictionary<string, List<string>> _errors = [];
+    private protected readonly List<IValidationEntry> _validationRules = [];
 
     /// <inheritdoc/>
     public event EventHandler<DataErrorsChangedEventArgs>? ErrorsChanged;
 
     /// <inheritdoc/>
-    public bool HasErrors => _errors.Any();
+    public bool HasErrors => _errors.Count != 0;
 
     /// <summary>
     /// Indica si el objeto a comprobar ha pasado todas las pruebas de validación.
@@ -120,7 +115,7 @@ public abstract class ValidationSource : INotifyDataErrorInfo
     /// especificada, o una enumeración vacía si la propiedad no contiene
     /// errores.
     /// </returns>
-    public IEnumerable<string> this[string propertyName] => _errors.TryGetValue(propertyName, out List<string>? l) ? l.ToArray() : Array.Empty<string>();
+    public IEnumerable<string> this[string propertyName] => _errors.TryGetValue(propertyName, out List<string>? l) ? l.ToArray() : [];
 
     private protected ValidationSource(IValidatingViewModel npcSource)
     {
@@ -140,7 +135,7 @@ public abstract class ValidationSource : INotifyDataErrorInfo
         {
             AppendErrors(j, j.Property.GetValue(_npcSource));
         }
-        return !_validationRules.Any() || !HasErrors;
+        return _validationRules.Count == 0 || !HasErrors;
     }
 
     /// <summary>
@@ -187,10 +182,12 @@ public abstract class ValidationSource : INotifyDataErrorInfo
         foreach (string? j in entry.Check(value))
         {
             if (_errors.TryGetValue(entry.Property.Name, out List<string>? l))
+            { 
                 l.Add(j);
+            }
             else
             {
-                _errors.Add(entry.Property.Name, new List<string> { j });
+                _errors.Add(entry.Property.Name, [j]);
             }
         }
     }
