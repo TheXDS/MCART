@@ -45,7 +45,6 @@ namespace TheXDS.MCART.Types.Base;
 /// </param>
 public sealed class ValidationSource<T>(T npcSource) : ValidationSource(npcSource) where T : IValidatingViewModel
 {
-
     /// <summary>
     /// Registra un conjunto de reglas en la instancia de validación.
     /// </summary>

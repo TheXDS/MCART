@@ -65,7 +65,7 @@ internal static class PrivateInternals
     public static bool TryParseValues<TValue, TResult>(string[] separators, string value, in byte items, Func<TValue[], TResult> instantiationCallback, out TResult result)
     {
 #if EnforceContracts && DEBUG
-        if (separators is null || !separators.Any())
+        if (separators is null || separators.Length == 0)
             throw new ArgumentNullException(nameof(separators));
         if (string.IsNullOrEmpty(value))
             throw new ArgumentNullException(nameof(value));

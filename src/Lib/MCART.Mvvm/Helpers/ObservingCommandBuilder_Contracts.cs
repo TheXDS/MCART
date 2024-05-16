@@ -53,7 +53,7 @@ public partial class ObservingCommandBuilder<T> where T : INotifyPropertyChanged
     private void ListensToProperty_Contract<TValue>(Expression<Func<T, TValue>>[] properties)
     {
         IsBuilt_Contract();
-        if (!properties.Any()) throw Errors.EmptyCollection(properties);
+        if (properties.Length == 0) throw Errors.EmptyCollection(properties);
     }
 
     [Conditional("EnforceContracts")]

@@ -153,7 +153,7 @@ public static partial class CollectionHelpers
         AnyEmpty_Contract(stringCollection);
         bool r = AnyEmpty(stringCollection, out IEnumerable<int> indexes);
         int[]? a = indexes.ToArray();
-        firstIndex = a.Any() ? a.First() : -1;
+        firstIndex = a.Length != 0 ? a.First() : -1;
         return r;
     }
 

@@ -213,7 +213,7 @@ public static partial class EnumerableExtensions
     public static IEnumerable<T>? OrNull<T>(this IEnumerable<T> collection)
     {
         T[] c = collection.ToArray();
-        return c.Any() ? c : null;
+        return c.Length != 0 ? c : null;
     }
 
     /// <summary>

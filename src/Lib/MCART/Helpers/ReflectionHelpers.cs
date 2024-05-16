@@ -1020,7 +1020,7 @@ public static partial class ReflectionHelpers
             try
             {
                 return typeof(T).IsAssignableFrom(k)
-                    && (!instantiablesOnly || !(k.IsInterface || k.IsAbstract || !k.GetConstructors().Any()))
+                    && (!instantiablesOnly || !(k.IsInterface || k.IsAbstract || k.GetConstructors().Length == 0))
                     ? k : null;
             }
             catch { return null; }

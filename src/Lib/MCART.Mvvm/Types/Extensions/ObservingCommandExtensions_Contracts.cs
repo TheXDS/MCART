@@ -47,7 +47,7 @@ public static partial class ObservingCommandExtensions
     private static void ListensToProperties_Contract<TProperty>(ObservingCommand command, Expression<Func<TProperty>>[] properties)
     {
         NullCheck(command, nameof(command));
-        if (!properties.Any()) throw Errors.EmptyCollection(properties);
+        if (properties.Length == 0) throw Errors.EmptyCollection(properties);
         PropertyInfo[] t = command.ObservedSource.GetType().GetProperties();
         if (properties.Select(GetProperty).FirstOrDefault(p => !t.Contains(p)) is { } missingProp)
         {
@@ -61,7 +61,7 @@ public static partial class ObservingCommandExtensions
     private static void ListensToProperties_Contract<T, TProperty>(ObservingCommand command, Expression<Func<T, TProperty>>[] properties)
     {
         NullCheck(command, nameof(command));
-        if (!properties.Any()) throw Errors.EmptyCollection(properties);
+        if (properties.Length == 0) throw Errors.EmptyCollection(properties);
         PropertyInfo[] t = command.ObservedSource.GetType().GetProperties();
         if (properties.Select(GetProperty).FirstOrDefault(p => !t.Contains(p)) is { } missingProp)
         {

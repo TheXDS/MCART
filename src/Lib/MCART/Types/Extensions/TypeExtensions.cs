@@ -461,7 +461,7 @@ public static partial class TypeExtensions
     {
         if (!baseType.ContainsGenericParameters) return baseType.IsAssignableFrom(type);
 
-        if (!baseType.GenericTypeArguments.Any())
+        if (baseType.GenericTypeArguments.Length == 0)
             return (type.IsConstructedGenericType && type.GetGenericTypeDefinition() == baseType) || type.GetInterfaces().Any(p => p.Implements(baseType));
 
         Type gt = baseType.MakeGenericType(type);

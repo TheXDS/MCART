@@ -286,7 +286,7 @@ public partial class RSACryptoStream : Stream, IDisposable
     {
         Write_Contract(buffer, offset, count);
         byte[]? b = buffer.Range(offset, count).ToArray();
-        if (!b.Any()) return;
+        if (b.Length == 0) return;
         byte[]? eb = _rsa.Encrypt(b, true);
         _stream.Write(eb, 0, eb.Length);
     }
