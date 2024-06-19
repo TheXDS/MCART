@@ -1,2 +1,2 @@
-# Documentación de API de MCART
-En esta página encontrarás documentación sobre la API pública de MCART.
+# DocumentaciÃ³n de API de MCART
+En esta pÃ¡gina encontrarÃ¡s documentaciÃ³n sobre la API pÃºblica de MCART.
