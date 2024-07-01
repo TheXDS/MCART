@@ -48,7 +48,7 @@ public static class AvaloniaSizeExtensions
     /// Un nuevo <see cref="A"/> creado a partir del
     /// <see cref="Size"/> especificado.
     /// </returns>
-    public static A ToWinSize(this Size size)
+    public static A ToSize(this Size size)
     {
         return new A(size.Width, size.Height);
     }
@@ -64,7 +64,7 @@ public static class AvaloniaSizeExtensions
     /// Un nuevo <see cref="Size"/> creado a partir del
     /// <see cref="A"/> especificado.
     /// </returns>
-    public static Size FromWinSize(this A size)
+    public static Size ToMcartSize(this A size)
     {
         return new Size(size.Width, size.Height);
     }

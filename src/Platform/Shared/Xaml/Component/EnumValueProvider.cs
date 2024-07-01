@@ -43,8 +43,8 @@ public partial class EnumValueProvider
     public Type? EnumType { get; set; }
 
     /// <inheritdoc/>
-    public override object? ProvideValue(IServiceProvider serviceProvider)
+    public override object ProvideValue(IServiceProvider serviceProvider)
     {
-        return EnumType is { IsEnum: true } ? Enum.GetValues(EnumType) : null;
+        return EnumType is { IsEnum: true } ? Enum.GetValues(EnumType) : null!;
     }
 }

@@ -48,7 +48,7 @@ public static class WpfSizeExtensions
     /// Un nuevo <see cref="W.Size"/> creado a partir del
     /// <see cref="Size"/> especificado.
     /// </returns>
-    public static W.Size ToWinSize(this Size size)
+    public static W.Size ToSize(this Size size)
     {
         return new W.Size(size.Width, size.Height);
     }
@@ -64,7 +64,7 @@ public static class WpfSizeExtensions
     /// Un nuevo <see cref="Size"/> creado a partir del
     /// <see cref="W.Size"/> especificado.
     /// </returns>
-    public static Size FromWinSize(this W.Size size)
+    public static Size ToMcartSize(this W.Size size)
     {
         return new Size(size.Width, size.Height);
     }
