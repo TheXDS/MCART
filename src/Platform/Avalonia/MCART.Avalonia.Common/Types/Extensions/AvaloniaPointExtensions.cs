@@ -1,5 +1,5 @@
 ﻿/*
-WpfColorExtensions.cs
+AvaloniaPointExtensions.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,34 +28,32 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using C = TheXDS.MCART.Types.Color;
-using D = Avalonia.Media.Color;
+using P = Avalonia.Point;
+using M = TheXDS.MCART.Types.Point;
 
 namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
-/// Extensiones de conversión de colores de MCART en
-/// <see cref="D"/>.
+/// Extensiones de conversión de estructuras <see cref="M"/> en
+/// <see cref="P"/>.
 /// </summary>
-public static class WpfColorExtensions
+public static class AvaloniaPointExtensions
 {
     /// <summary>
-    /// Convierte una estructura <see cref="C"/> en un
-    /// <see cref="D"/>.
+    /// Convierte un <see cref="M"/> en un <see cref="P"/>.
     /// </summary>
-    /// <param name="c"><see cref="C"/> a convertir.</param>
-    public static D Color(this C c)
-    {
-        return new D(c.A, c.R, c.G, c.B);
-    }
+    /// <param name="x"><see cref="M"/> a convertir.</param>
+    /// <returns>
+    /// Un <see cref="P"/> equivalente al <see cref="M"/> especificado.
+    /// </returns>
+    public static P ToPoint(M x) => new(x.X, x.Y);
 
     /// <summary>
-    /// Convierte una estructura <see cref="D"/> en un
-    /// <see cref="C"/>.
+    /// Convierte un <see cref="P"/> en un <see cref="M"/>.
     /// </summary>
-    /// <param name="c"><see cref="D"/> a convertir.</param>
-    public static C ToMcartColor(this D c)
-    {
-        return new C(c.R, c.G, c.B, c.A);
-    }
+    /// <param name="x"><see cref="P"/> a convertir.</param>
+    /// <returns>
+    /// Un <see cref="M"/> equivalente al <see cref="P"/> especificado.
+    /// </returns>
+    public static M ToMcartPoint(P x) => new(x.X, x.Y);
 }

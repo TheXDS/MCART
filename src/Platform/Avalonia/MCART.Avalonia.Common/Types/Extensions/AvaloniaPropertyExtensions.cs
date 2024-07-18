@@ -1,4 +1,4 @@
-﻿// StyledPropertyExtensions.cs
+﻿// AvaloniaPropertyExtensions.cs
 //
 // This file is part of Morgan's CLR Advanced Runtime (MCART)
 //
@@ -32,13 +32,13 @@ namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
 /// Incluye extensiones que simplifican la sintaxis necesaria para trabajar con
-/// objetos de tipo <see cref="StyledProperty{TValue}"/>.
+/// objetos de tipo <see cref="AvaloniaProperty{TValue}"/>.
 /// </summary>
-public static class StyledPropertyExtensions
+public static class AvaloniaPropertyExtensions
 {
     /// <summary>
     /// Define un método a invocar cuando un
-    /// <see cref="StyledProperty{TValue}"/> cambia su valor.
+    /// <see cref="AvaloniaProperty{TValue}"/> cambia su valor.
     /// </summary>
     /// <typeparam name="TValue">Tipo de valor de la propiedad.</typeparam>
     /// <param name="change">
@@ -48,7 +48,7 @@ public static class StyledPropertyExtensions
 
     /// <summary>
     /// Define un método a invocar cuando un
-    /// <see cref="StyledProperty{TValue}"/> cambia su valor.
+    /// <see cref="AvaloniaProperty{TValue}"/> cambia su valor.
     /// </summary>
     /// <typeparam name="TObj">
     /// Tipo donde se ha definido la propiedad.
@@ -82,11 +82,20 @@ public static class StyledPropertyExtensions
     /// <summary>
     /// Registra un método a invocar cuando la propiedad cambie su valor.
     /// </summary>
-    /// <typeparam name="TValue">Property value type.</typeparam>
-    /// <param name="prop">Property to register the change observer into.</param>
-    /// <param name="callback">Callback to be executed.</param>
-    /// <returns>A new object that can be used to dispose of the observer once it's not needed anymore.</returns>
-    public static IDisposable OnChanged<TValue>(this StyledProperty<TValue> prop, ChangeAction<TValue> callback)
+    /// <typeparam name="TValue">Tipo de valor de la propiedad.</typeparam>
+    /// <param name="prop">
+    /// Propiedad en la cual registrar el método a ejecutar cuando la propiedad
+    /// cambie de valor.
+    /// </param>
+    /// <param name="callback">
+    /// Método a ejecutar cuando la propiedad cambie de valor.
+    /// </param>
+    /// <returns>
+    /// Un nuevo objeto que puede ser utilizado para desechar la instancia
+    /// interna de <see cref="IObserver{T}"/> asociado al método que se ejecuta
+    /// cuando la propiedad cambie su valor.
+    /// </returns>
+    public static IDisposable OnChanged<TValue>(this AvaloniaProperty<TValue> prop, ChangeAction<TValue> callback)
     {
         return prop.Changed.Subscribe(new Observer<TValue>(callback));
     }
@@ -99,13 +108,16 @@ public static class StyledPropertyExtensions
     /// </typeparam>
     /// <typeparam name="TValue">Tipo de valor de la propiedad.</typeparam>
     /// <param name="prop">
-    /// Propiedad en la cual registrar el observador de cambio de valor.
+    /// Propiedad en la cual registrar el método a ejecutar cuando la propiedad
+    /// cambie de valor.
     /// </param>
-    /// <param name="callback">Llamada a ejecutar.</param>
+    /// <param name="callback">Método a ejecutar.</param>
     /// <returns>
-    /// Un nuevo objeto que puede ser desechado cuando el observador ya no sea necesario.
+    /// Un nuevo objeto que puede ser utilizado para desechar la instancia
+    /// interna de <see cref="IObserver{T}"/> asociado al método que se ejecuta
+    /// cuando la propiedad cambie su valor.
     /// </returns>
-    public static IDisposable OnChanged<TObj, TValue>(this StyledProperty<TValue> prop, ChangeAction<TObj, TValue> callback)
+    public static IDisposable OnChanged<TObj, TValue>(this AvaloniaProperty<TValue> prop, ChangeAction<TObj, TValue> callback)
         where TObj : AvaloniaObject
     {
         return prop.Changed.Subscribe(new Observer<TValue>(change =>

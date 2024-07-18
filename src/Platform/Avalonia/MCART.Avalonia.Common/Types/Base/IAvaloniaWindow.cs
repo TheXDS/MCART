@@ -62,10 +62,7 @@ public interface IAvaloniaWindow : IWindow
     Point IWindow.Location
     {
         get => new(Itself.Position.X, Itself.Position.Y);
-        set
-        {
-            Itself.Position = new PixelPoint((int)value.X, (int)value.Y);
-        }
+        set => Itself.Position = new PixelPoint((int)value.X, (int)value.Y);
     }
 
     void ICloseable.Close() => Itself.Close();

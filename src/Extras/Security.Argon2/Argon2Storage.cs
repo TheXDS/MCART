@@ -38,7 +38,10 @@ namespace TheXDS.MCART.Security;
 /// <summary>
 /// Deriva claves a partir de contraseñas utilizando el algoritmo Argon2.
 /// </summary>
-public class Argon2Storage : IPasswordStorage<Argon2Settings>
+/// <param name="settings">
+/// Configuración del algoritmo de derivación de claves a utilizar.
+/// </param>
+public class Argon2Storage(Argon2Settings settings) : IPasswordStorage<Argon2Settings>
 {
     /// <summary>
     /// Obtiene un <see cref="Argon2Settings"/> que representa la configuración
@@ -70,21 +73,8 @@ public class Argon2Storage : IPasswordStorage<Argon2Settings>
     {
     }
 
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="Argon2Storage"/>,
-    /// especificando la configuración del algoritmo de derivación de claves a
-    /// utilizar.
-    /// </summary>
-    /// <param name="settings">
-    /// Configuración del algoritmo de derivación de claves a utilizar.
-    /// </param>
-    public Argon2Storage(Argon2Settings settings)
-    {
-        Settings = settings;
-    }
-
     /// <inheritdoc/>
-    public Argon2Settings Settings { get; set; }
+    public Argon2Settings Settings { get; set; } = settings;
 
     int IPasswordStorage.KeyLength => Settings.KeyLength;
 

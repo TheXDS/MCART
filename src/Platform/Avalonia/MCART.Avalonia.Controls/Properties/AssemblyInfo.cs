@@ -28,7 +28,5 @@
 
 using Avalonia.Metadata;
 
-[assembly: XmlnsDefinition("http://schemas.thexds.local/mcart", "TheXDS.MCART.Component")]
-[assembly: XmlnsDefinition("http://schemas.thexds.local/mcart", "TheXDS.MCART.Types")]
-[assembly: XmlnsDefinition("http://schemas.thexds.local/mcart", "TheXDS.MCART.ValueConverters")]
+[assembly: XmlnsDefinition("http://schemas.thexds.local/mcart", "TheXDS.MCART.Controls")]
 [assembly: XmlnsPrefix("http://schemas.thexds.local/mcart", "mcart")]

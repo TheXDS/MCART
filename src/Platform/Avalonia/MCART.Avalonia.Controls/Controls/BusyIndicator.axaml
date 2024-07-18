@@ -1,0 +1,36 @@
+<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mcart="http://schemas.thexds.local/mcart">
+    <Style Selector="mcart|BusyIndicator">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Canvas Width="200" Height="200">
+                    <Canvas.Styles>
+                        <Style Selector="Path.rotatingShape">
+                            <Style.Animations>
+                                <Animation IterationCount="Infinite" Duration="0:0:2">
+                                    <KeyFrame Cue="0%">
+                                        <Setter Property="RotateTransform.Angle" Value="0"/>
+                                    </KeyFrame>
+                                    <KeyFrame Cue="100%">
+                                        <Setter Property="RotateTransform.Angle" Value="360"/>
+                                    </KeyFrame>
+                                </Animation>
+                            </Style.Animations>
+                        </Style>
+                    </Canvas.Styles>
+                    <Path RenderTransformOrigin="100 100" Stroke="{TemplateBinding Foreground}" StrokeThickness="2" Classes="rotatingShape">
+                        <Path.Data>
+                            <PathGeometry>
+                                <PathFigure StartPoint="150,100" IsClosed="False">
+                                    <ArcSegment Size="50,50" RotationAngle="0" IsLargeArc="True" SweepDirection="Clockwise" Point="100,50" />
+                                </PathFigure>
+                            </PathGeometry>
+                        </Path.Data>
+                    </Path>
+                </Canvas>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+</Styles>

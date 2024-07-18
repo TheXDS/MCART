@@ -1,0 +1,32 @@
+<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mcart="http://schemas.thexds.local/mcart">
+    <Style Selector="mcart|BusyContainer">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Panel>
+                    <Panel.Resources>
+                        <mcart:BooleanInverter x:Key="binv"/>
+                    </Panel.Resources>
+                    <ContentPresenter
+                        IsEnabled="{TemplateBinding IsBusy, Converter={StaticResource binv}}"
+                        ContentTemplate="{TemplateBinding ContentTemplate}"
+                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                        Effect="{TemplateBinding CurrentBusyEffect}"
+                        Content="{TemplateBinding Content}"/>
+                    <Rectangle
+                        Opacity="{TemplateBinding BusyOpacity}"
+                        IsVisible="{TemplateBinding IsBusy}"
+                        Fill="{TemplateBinding BusyBackground}"/>
+                    <ContentPresenter
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Content="{TemplateBinding BusyContent}"
+                        IsVisible="{TemplateBinding IsBusy}"/>
+                </Panel>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+</Styles>

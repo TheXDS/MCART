@@ -34,8 +34,8 @@ using TheXDS.MCART.Types.Base;
 namespace TheXDS.MCART.Types;
 
 /// <summary>
-/// Envuelve una ventana de Windows Presentation Framework para brindar
-/// servicios adicionales de gestión de ventana.
+/// Envuelve una ventana de Avalonia para brindar servicios adicionales de
+/// gestión de ventana.
 /// </summary>
 /// <param name="window">Ventana a envolver.</param>
 public class AvaloniaWindowWrap(Window window) : IAvaloniaWindow

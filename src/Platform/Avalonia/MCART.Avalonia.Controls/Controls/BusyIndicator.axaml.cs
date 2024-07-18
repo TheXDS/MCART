@@ -1,4 +1,4 @@
-﻿// AssemblyInfo.cs
+// BusyIndicator.axaml.cs
 //
 // This file is part of Morgan's CLR Advanced Runtime (MCART)
 //
@@ -26,9 +26,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using Avalonia.Metadata;
+using Avalonia.Controls.Primitives;
 
-[assembly: XmlnsDefinition("http://schemas.thexds.local/mcart", "TheXDS.MCART.Component")]
-[assembly: XmlnsDefinition("http://schemas.thexds.local/mcart", "TheXDS.MCART.Types")]
-[assembly: XmlnsDefinition("http://schemas.thexds.local/mcart", "TheXDS.MCART.ValueConverters")]
-[assembly: XmlnsPrefix("http://schemas.thexds.local/mcart", "mcart")]
+namespace TheXDS.MCART.Controls;
+
+/// <summary>
+/// Control simple que indica al usuario que la aplicación está ocupada.
+/// </summary>
+public class BusyIndicator : TemplatedControl
+{
+}

@@ -15,7 +15,7 @@ namespace TheXDS.MCART.Controls;
 /// web, se muestre en vista previa en la interfaz de usuario.
 /// </summary>
 [CLSCompliant(false)]
-public class WebCamPane : Control
+public partial class WebCamPane : Control
 {
     static WebCamPane()
     {
@@ -251,15 +251,13 @@ public class WebCamPane : Control
         {
             try
             {
-                var fps = _fpscalc is null ? double.NaN : (1000.0 / (DateTime.Now - _fpscalc.Value).TotalMilliseconds).Clamp(0, 240);
-                _fpscalc = DateTime.Now;
                 Dispatcher.Invoke(() =>
                 {
                     IntPtr hbitmap = eventArgs.Frame.GetHbitmap();
                     BitmapSource bitmapSource = Imaging.CreateBitmapSourceFromHBitmap(hbitmap, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
                     bitmapSource.Freeze();
                     DeleteObject(hbitmap);
-                    SetValue(CurrentFrameratePropertyKey, fps);
+                    SetValue(CurrentFrameratePropertyKey, CalcFps());
                     SetValue(FrameBufferPropertyKey, bitmapSource);
                 });
             }
@@ -274,7 +272,22 @@ public class WebCamPane : Control
         }
     }
 
-    [DllImport("gdi32.dll")]
+    private double CalcFps()
+    {
+        double fps;
+        if (_fpscalc is not null){
+            var ms = (DateTime.Now - _fpscalc.Value).TotalMilliseconds;
+            fps = ms > 0 ? (1000.0 / ms).Clamp(0, 240) : double.PositiveInfinity;
+        }
+        else
+        {
+            fps = double.NaN;
+        }
+        _fpscalc = DateTime.Now;
+        return fps;
+    }
+
+    [LibraryImport("gdi32.dll")]
     [return: MarshalAs(UnmanagedType.Bool)]
-    private static extern bool DeleteObject(IntPtr value);
+    private static partial bool DeleteObject(IntPtr value);
 }
