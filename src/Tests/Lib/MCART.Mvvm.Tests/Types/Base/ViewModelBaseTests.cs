@@ -56,14 +56,29 @@ public class ViewModelBaseTests
             Observe(() => Prop, OnPropChanged);
         }
 
+        public void WireUpBySelectors()
+        {
+            Observe([() => Prop], OnPropChanged);
+        }
+
         public void WireUpByName()
         {
             Observe(nameof(Prop), OnPropChanged);
         }
 
+        public void WireUpByNames()
+        {
+            Observe([nameof(Prop)], OnPropChanged);
+        }
+
         public void WireUpByName(Action action)
         {
             Observe(nameof(Prop), action);
+        }
+
+        public void WireUpByNames(Action action)
+        {
+            Observe([nameof(Prop)], action);
         }
 
         private void OnPropChanged()
@@ -102,6 +117,15 @@ public class ViewModelBaseTests
     }
 
     [Test]
+    public void Observe_with_prop_selectors_test()
+    {
+        TestViewModel vm = new();
+        vm.WireUpBySelectors();
+        vm.Prop = 1;
+        Assert.That(vm.PropChangedExecuted);
+    }
+
+    [Test]
     public void Observe_with_name_test()
     {
         bool wiredUp = false;
@@ -109,6 +133,19 @@ public class ViewModelBaseTests
         TestViewModel vm = new();
         vm.WireUpByName();
         vm.WireUpByName(Test);
+        vm.Prop = 1;
+        Assert.That(vm.PropChangedExecuted);
+        Assert.That(wiredUp);
+    }
+
+    [Test]
+    public void Observe_with_names_test()
+    {
+        bool wiredUp = false;
+        void Test() => wiredUp = true;
+        TestViewModel vm = new();
+        vm.WireUpByNames();
+        vm.WireUpByNames(Test);
         vm.Prop = 1;
         Assert.That(vm.PropChangedExecuted);
         Assert.That(wiredUp);

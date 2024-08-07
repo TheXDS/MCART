@@ -42,13 +42,13 @@ public static partial class BinaryReaderExtensions
     [DebuggerNonUserCode]
     private static void ReadStruct_Contract(this BinaryReader reader)
     {
-        NullCheck(reader, nameof(reader));
+        NullCheck(reader);
     }
 
     private static void ReadArray_Contract(BinaryReader reader, Type arrayType)
     {
         NullCheck(reader, nameof(reader));
-        if (!NullChecked(arrayType, nameof(arrayType)).IsArray)
+        if (!NullChecked(arrayType).IsArray)
         {
             throw Errors.UnexpectedType(arrayType, typeof(Array));
         }

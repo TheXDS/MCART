@@ -31,17 +31,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Tests.Helpers;
-using NUnit.Framework;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types.Extensions;
+
+namespace TheXDS.MCART.Tests.Helpers;
 
 public class CollectionHelpersTests
 {
@@ -479,6 +475,33 @@ public class CollectionHelpersTests
         Assert.Throws<ArgumentException>(() => new[] { 1f }.ToPercent(0f, float.NaN).ToList());
         Assert.Throws<InvalidOperationException>(() => new[] { 1f, 1f }.ToPercent(1f, 1f).ToList());
         Assert.Throws<EmptyCollectionException>(() => Array.Empty<float>().ToPercent().ToList());
+    }
+
+    [Test]
+    public void IsAnyNull_test()
+    {
+        Assert.That(((object?[])["1", 2]).IsAnyNull(), Is.False);
+        Assert.That(((object?[])["1", null]).IsAnyNull(), Is.True);
+    }
+
+    [Test]
+    public void IsAnyNull_with_int_index_out_test()
+    {
+        int index;
+        Assert.That(((object?[])["1", 2]).IsAnyNull(out index), Is.False);
+        Assert.That(index, Is.EqualTo(-1));
+        Assert.That(((object?[])["1", 2, null]).IsAnyNull(out index), Is.True);
+        Assert.That(index, Is.EqualTo(2));
+    }
+
+    [Test]
+    public void IsAnyNull_with_index_collection_out_test()
+    {
+        IEnumerable<int> index;
+        Assert.That(((object?[])["1", 2]).IsAnyNull(out index), Is.False);
+        Assert.That(index, Is.Empty);
+        Assert.That(((object?[])["1", 2, null, null]).IsAnyNull(out index), Is.True);
+        Assert.That(index, Is.EquivalentTo((int[])[2, 3]));
     }
 
     [Test]

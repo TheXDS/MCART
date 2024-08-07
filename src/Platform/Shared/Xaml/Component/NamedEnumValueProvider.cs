@@ -40,8 +40,8 @@ namespace TheXDS.MCART.Component;
 public class NamedEnumValueProvider : EnumValueProvider
 {
     /// <inheritdoc/>
-    public override object? ProvideValue(IServiceProvider serviceProvider)
+    public override object ProvideValue(IServiceProvider serviceProvider)
     {
-        return EnumType is { IsEnum: true } ? EnumType.ToNamedEnum() : null;
+        return EnumType is { IsEnum: true } ? EnumType.ToNamedEnum() : null!;
     }
 }

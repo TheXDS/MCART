@@ -29,7 +29,6 @@ SOFTWARE.
 */
 
 using System.Collections;
-using System.Runtime.Serialization;
 
 namespace TheXDS.MCART.Exceptions;
 
@@ -41,7 +40,8 @@ namespace TheXDS.MCART.Exceptions;
 public class NullItemException : OffendingException<IList>
 {
     /// <summary>
-    /// Obtiene el índice del elemento que ha producido esta excepción.
+    /// Obtiene o establece el índice del elemento que ha producido esta
+    /// excepción.
     /// </summary>
     /// <value>
     /// El índice del elemento que es <see langword="null"/>.

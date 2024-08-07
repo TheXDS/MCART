@@ -122,7 +122,7 @@ public static partial class CollectionHelpers
     public static bool AnyEmpty(this IEnumerable<string?> stringCollection, out IEnumerable<int> index)
     {
         AnyEmpty_Contract(stringCollection);
-        List<int>? idx = new();
+        List<int>? idx = [];
         int c = 0;
         foreach (string? j in stringCollection)
         {
@@ -189,7 +189,7 @@ public static partial class CollectionHelpers
     /// </exception>
     public static bool AreAllNull(this IEnumerable<object?> collection)
     {
-        NullCheck(collection, nameof(collection));
+        NullCheck(collection);
         return collection.All(p => p is null);
     }
 
@@ -200,10 +200,61 @@ public static partial class CollectionHelpers
     /// <see langword="true" />, si cualquiera de los objetos es <see langword="null" />; de lo
     /// contrario, <see langword="false" />.
     /// </returns>
-    /// <param name="x">Objetos a comprobar.</param>
-    public static bool IsAnyNull(this IEnumerable<object?>? x)
+    /// <param name="collection">Objetos a comprobar.</param>
+    public static bool IsAnyNull(this IEnumerable<object?>? collection)
     {
-        return x?.Any(p => p is null) ?? true;
+        return collection?.Any(p => p is null) ?? true;
+    }
+
+    /// <summary>
+    /// Determina si cualquiera de los objetos es <see langword="null" />.
+    /// </summary>
+    /// <returns>
+    /// <see langword="true" />, si cualquiera de los objetos es <see langword="null" />; de lo
+    /// contrario, <see langword="false" />.
+    /// </returns>
+    /// <param name="collection">Objetos a comprobar.</param>
+    /// <param name="index">
+    /// Argumento de salida. Índices de las cadenas vacías encontradas.
+    /// </param>
+    public static bool IsAnyNull(this IEnumerable<object?> collection, out IEnumerable<int> index)
+    {
+        NullCheck(collection);
+        List<int>? idx = [];
+        int c = 0;
+        foreach (object? j in collection)
+        {
+            if (j is null) idx.Add(c);
+            c++;
+        }
+        index = idx.AsEnumerable();
+        return idx.Count != 0;
+    }
+
+    /// <summary>
+    /// Determina si cualquiera de los objetos es <see langword="null" />.
+    /// </summary>
+    /// <returns>
+    /// <see langword="true" />, si cualquiera de los objetos es <see langword="null" />; de lo
+    /// contrario, <see langword="false" />.
+    /// </returns>
+    /// <param name="collection">Objetos a comprobar.</param>
+    /// <param name="firstIndex">
+    /// Argumento de salida. Índice del primer elemento nulo encontrada.
+    /// </param>
+    public static bool IsAnyNull(this IEnumerable<object?> collection, out int firstIndex)
+    {
+        NullCheck(collection);
+        foreach (var j in collection.WithIndex())
+        {
+            if (j.element is null)
+            {
+                firstIndex = j.index;
+                return true;
+            }
+        }
+        firstIndex = -1;
+        return false;
     }
 
     /// <summary>

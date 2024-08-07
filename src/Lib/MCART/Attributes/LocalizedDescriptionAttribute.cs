@@ -52,8 +52,8 @@ public sealed class LocalizedDescriptionAttribute : System.ComponentModel.Descri
     /// <param name="resourceType">Tipo que contiene la información de localización a utilizar.</param>
     public LocalizedDescriptionAttribute(string stringId, Type resourceType)
     {
-        _stringId = EmptyChecked(stringId, nameof(stringId));
-        _res = new ResourceManager(NullChecked(resourceType, nameof(resourceType)));
+        _stringId = EmptyChecked(stringId);
+        _res = new ResourceManager(NullChecked(resourceType));
     }
 
     /// <inheritdoc/>

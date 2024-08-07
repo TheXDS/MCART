@@ -33,8 +33,10 @@ using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Extensions;
+using Err = TheXDS.MCART.Resources.Errors;
 
 namespace TheXDS.MCART.Misc;
 
@@ -48,20 +50,29 @@ internal static class Internals
 
     [Conditional("EnforceContracts")]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void NullCheck(object? o, string name)
+    internal static void NullCheck(object? obj, [CallerArgumentExpression(nameof(obj))] string name = null!)
     {
-        if (o is null) throw new ArgumentNullException(name);
+        if (obj is null) throw new ArgumentNullException(name);
+    }
+
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static void CheckPopulatedCollection(IEnumerable<object?> collection, [CallerArgumentExpression(nameof(collection))] string name = null!)
+    {
+        NullCheck(collection);
+        if (!collection.Any()) throw Err.EmptyCollection(collection);
+        if (collection.IsAnyNull(out int index)) throw new NullItemException() { NullIndex = index };
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static T NullChecked<T>(T o, string name)
+    internal static T NullChecked<T>(T o, [CallerArgumentExpression(nameof(o))] string name = null!)
     {
         NullCheck(o, name);
         return o;
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static string EmptyChecked(string str, string name)
+    internal static string EmptyChecked(string str, [CallerArgumentExpression(nameof(str))] string name = null!)
     {
         EmptyCheck(str, name);
         return str;
@@ -69,13 +80,13 @@ internal static class Internals
 
     [Conditional("EnforceContracts")]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void EmptyCheck(string? str, string name)
+    internal static void EmptyCheck(string? str, [CallerArgumentExpression(nameof(str))] string name = null!)
     {
         if (NullChecked(str, name).IsEmpty()) throw Errors.InvalidValue(name);
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static T CheckDefinedEnum<T>(T value, string argName)
+    internal static T CheckDefinedEnum<T>(T value, [CallerArgumentExpression(nameof(value))] string argName = null!)
         where T : Enum
     {
         if (!Enum.IsDefined(typeof(T), value)) throw Errors.UndefinedEnum(argName, value);

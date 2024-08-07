@@ -42,7 +42,7 @@ namespace TheXDS.MCART.Types.Base;
 public abstract partial class ViewModelBase : NotifyPropertyChanged
 {
     private bool _isBusy;
-    private readonly Dictionary<string, ICollection<Action>> _observeRegistry = [];
+    private readonly Dictionary<string, HashSet<Action>> _observeRegistry = [];
 
     /// <summary>
     /// Inicializa una nueva instancia de la clase 
@@ -92,6 +92,37 @@ public abstract partial class ViewModelBase : NotifyPropertyChanged
     /// Registra una propiedad con notificación de cambio de valor para ser
     /// observada y manejada por el delegado especificado.
     /// </summary>
+    /// <param name="propertySelectors">
+    /// Funciones selectoras de las propiedades a observar.
+    /// </param>
+    /// <param name="handler">
+    /// Delegado a invocar cuando cualquiera de las propiedades haya cambiado.
+    /// </param>
+    /// <exception cref="InvalidArgumentException">
+    /// Se produce si la función de selección de propiedad no ha
+    /// seleccionado un miembro válido de la instancia a configurar.
+    /// </exception>
+    /// <exception cref="ArgumentNullException">
+    /// Se produce si <paramref name="propertySelectors"/> o
+    /// <paramref name="handler"/> son <see langword="null"/>.
+    /// </exception>
+    /// <exception cref="EmptyCollectionException">
+    /// Se produce si <paramref name="propertySelectors"/> no contiene
+    /// elementos.
+    /// </exception>
+    protected void Observe(Expression<Func<object?>>[] propertySelectors, Action handler)
+    {
+        Observe_Contract(propertySelectors);
+        foreach (var prop in propertySelectors)
+        {
+            ObserveFrom(this, ReflectionHelpers.GetProperty(prop), handler);
+        }
+    }
+
+    /// <summary>
+    /// Registra una propiedad con notificación de cambio de valor para ser
+    /// observada y manejada por el delegado especificado.
+    /// </summary>
     /// <param name="propertyName">
     /// Nombre de la propiedad a observar.
     /// </param>
@@ -109,12 +140,45 @@ public abstract partial class ViewModelBase : NotifyPropertyChanged
     protected void Observe(string propertyName, Action handler)
     {
         Observe_Contract(propertyName, handler);
-        if (!_observeRegistry.TryGetValue(propertyName, out ICollection<Action>? value))
+        if (!_observeRegistry.TryGetValue(propertyName, out HashSet<Action>? value))
         {
-            value = ([]);
+            value = [];
             _observeRegistry.Add(propertyName, value);
         }
         value.Add(handler);
+    }
+
+    /// <summary>
+    /// Registra una propiedad con notificación de cambio de valor para ser
+    /// observada y manejada por el delegado especificado.
+    /// </summary>
+    /// <param name="propertyNames">
+    /// Nombres de las propiedades a observar.
+    /// </param>
+    /// <param name="handler">
+    /// Delegado a invocar cuando cualquiera de las propiedades haya cambiado.
+    /// </param>
+    /// <exception cref="InvalidArgumentException">
+    /// Se produce si cualquiera de los elementos de
+    /// <paramref name="propertyNames"/> es <see langword="null"/>, una cadena
+    /// vacía o una cadena de espacios.
+    /// </exception>
+    /// <exception cref="ArgumentNullException">
+    /// Se produce si <paramref name="propertyNames"/> o 
+    /// <paramref name="handler"/> son <see langword="null"/>.
+    /// </exception>
+    protected void Observe(string[] propertyNames, Action handler)
+    {
+        Observe_Contract(propertyNames, handler);
+        foreach (var prop in propertyNames)
+        {
+            if (!_observeRegistry.TryGetValue(prop, out HashSet<Action>? value))
+            {
+                value = [];
+                _observeRegistry.Add(prop, value);
+            }
+            value.Add(handler);
+        }
     }
 
     /// <summary>
@@ -240,7 +304,7 @@ public abstract partial class ViewModelBase : NotifyPropertyChanged
     private void OnInvokeObservedProps(object? sender, PropertyChangedEventArgs e)
     {
         OnInvokeObservedProps_Contract(sender, e);
-        if (_observeRegistry.TryGetValue(e.PropertyName!, out ICollection<Action>? c))
+        if (_observeRegistry.TryGetValue(e.PropertyName!, out HashSet<Action>? c))
         {
             foreach (Action? j in c!)
             {

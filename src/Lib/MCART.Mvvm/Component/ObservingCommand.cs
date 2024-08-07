@@ -81,7 +81,7 @@ public partial class ObservingCommand : CommandBase
     /// <param name="action">Acción a ejecutar.</param>
     public ObservingCommand(INotifyPropertyChanged observedSource, Action<object?> action) : base(action)
     {
-        ObservedSource = NullChecked(observedSource, nameof(observedSource));
+        ObservedSource = NullChecked(observedSource);
     }
 
     /// <summary>

@@ -46,7 +46,15 @@ public abstract partial class ViewModelBase : NotifyPropertyChanged
     [DebuggerNonUserCode]
     private static void Observe_Contract<T>(Expression<Func<T, object?>> propertySelector)
     {
-        NullCheck(propertySelector, nameof(propertySelector));
+        NullCheck(propertySelector);
+    }
+
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void Observe_Contract(Expression<Func<object?>>[] propertySelectors)
+    {
+        CheckPopulatedCollection(propertySelectors);
     }
 
     [Conditional("EnforceContracts")]
@@ -54,8 +62,8 @@ public abstract partial class ViewModelBase : NotifyPropertyChanged
     [DebuggerNonUserCode]
     private static void Observe_Contract<T>(T source, PropertyInfo property)
     {
-        NullCheck(source, nameof(source));
-        NullCheck(property, nameof(property));
+        NullCheck(source);
+        NullCheck(property);
         if (!source!.GetType().GetProperties().Contains(property)) throw new MissingMemberException(source.GetType().Name, property.Name);
     }
 
@@ -64,7 +72,7 @@ public abstract partial class ViewModelBase : NotifyPropertyChanged
     [DebuggerNonUserCode]
     private static void Observe_Contract<T>(Expression<Func<T>> propertySelector)
     {
-        NullCheck(propertySelector, nameof(propertySelector));
+        NullCheck(propertySelector);
     }
 
     [Conditional("EnforceContracts")]
@@ -72,9 +80,8 @@ public abstract partial class ViewModelBase : NotifyPropertyChanged
     [DebuggerNonUserCode]
     private static void Observe_Contract(string propertyName, Action handler)
     {
-        NullCheck(propertyName, nameof(propertyName));
-        NullCheck(handler, nameof(handler));
-
+        NullCheck(propertyName);
+        NullCheck(handler);
         if (string.IsNullOrWhiteSpace(propertyName))
         {
             throw new InvalidArgumentException(nameof(propertyName));
@@ -84,9 +91,22 @@ public abstract partial class ViewModelBase : NotifyPropertyChanged
     [Conditional("EnforceContracts")]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     [DebuggerNonUserCode]
+    private static void Observe_Contract(string[] propertyNames, Action handler)
+    {
+        CheckPopulatedCollection(propertyNames);
+        NullCheck(handler);
+        if (propertyNames.Any(string.IsNullOrWhiteSpace))
+        {
+            throw new InvalidArgumentException(nameof(propertyNames));
+        }
+    }
+
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
     private static void BusyOp_Contract(Action action)
     {
-        NullCheck(action, nameof(action));
+        NullCheck(action);
     }
 
     [Conditional("EnforceContracts")]
@@ -94,7 +114,7 @@ public abstract partial class ViewModelBase : NotifyPropertyChanged
     [DebuggerNonUserCode]
     private static void BusyOp_Contract(Task task)
     {
-        NullCheck(task, nameof(task));
+        NullCheck(task);
     }
 
     [Conditional("EnforceContracts")]
@@ -102,7 +122,7 @@ public abstract partial class ViewModelBase : NotifyPropertyChanged
     [DebuggerNonUserCode]
     private static void BusyOp_Contract<T>(Func<T> function)
     {
-        NullCheck(function, nameof(function));
+        NullCheck(function);
     }
 
     [Conditional("EnforceContracts")]
@@ -110,7 +130,7 @@ public abstract partial class ViewModelBase : NotifyPropertyChanged
     [DebuggerNonUserCode]
     private static void BusyOp_Contract<T>(Task<T> task)
     {
-        NullCheck(task, nameof(task));
+        NullCheck(task);
     }
 
     [Conditional("EnforceContracts")]
