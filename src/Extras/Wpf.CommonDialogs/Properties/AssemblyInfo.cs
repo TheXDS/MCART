@@ -1,4 +1,4 @@
-﻿// PrivateInternals.cs
+﻿// AssemblyInfo.cs
 //
 // This file is part of Morgan's CLR Advanced Runtime (MCART)
 //
@@ -26,33 +26,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using System.Windows.Media;
-using C = TheXDS.MCART.Math.Geometry;
+using System.Windows;
+using System.Windows.Markup;
 
-namespace TheXDS.MCART.Misc;
-
-internal static class PrivateInternals
-{
-    internal static PathGeometry GetCircleArc(double radius, double angle, double thickness = 0)
-    {
-        double t2 = thickness / 2;
-        double rt = radius - t2;
-        var p = C.GetArcPoint(rt, 0, angle - 180, 1);
-        ArcSegment? arc = new()
-        {
-            IsLargeArc = angle > 180.0,
-            Point = new(p.X + radius, p.Y + radius),
-            Size = new(rt, rt),
-            SweepDirection = SweepDirection.Clockwise
-        };
-        PathFigure? pth = new()
-        {
-            StartPoint = new(radius, t2),
-            IsClosed = false
-        };
-        pth.Segments.Add(arc);
-        PathGeometry? returnValue = new();
-        returnValue.Figures.Add(pth);
-        return returnValue;
-    }
-}
+[assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)]
+[assembly: XmlnsDefinition("http://schemas.thexds.local/mcart", "TheXDS.MCART.Controls", AssemblyName = "MCART.Wpf.CommonDialogs")]
+[assembly: XmlnsPrefix("http://schemas.thexds.local/mcart", "mcart")]
