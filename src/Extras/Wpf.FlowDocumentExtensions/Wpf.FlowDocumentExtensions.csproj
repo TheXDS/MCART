@@ -2,6 +2,7 @@
 	<PropertyGroup>
 		<TargetFramework>net8.0-windows</TargetFramework>
 		<UseWPF>true</UseWPF>
+		<AssemblyName>MCART.Wpf.FlowDocumentExtensions</AssemblyName>
 	</PropertyGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\..\Platform\Wpf\MCART.Wpf.Common\MCART.Wpf.Common.csproj" />

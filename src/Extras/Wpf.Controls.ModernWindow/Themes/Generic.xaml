@@ -1,0 +1,9 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/MCART.Wpf.Controls.ModernWindow;component/Resources/ControlTemplates/AcrylicWindow.xaml"/>
+        <ResourceDictionary Source="/MCART.Wpf.Controls.ModernWindow;component/Resources/ControlTemplates/ModernWindow.xaml"/>
+        <ResourceDictionary Source="/MCART.Wpf.Controls.ModernWindow;component/Resources/ControlTemplates/TitleBarButton.xaml"/>
+        <ResourceDictionary Source="/MCART.Wpf.Controls.ModernWindow;component/Resources/ControlTemplates/TitleBarControl.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

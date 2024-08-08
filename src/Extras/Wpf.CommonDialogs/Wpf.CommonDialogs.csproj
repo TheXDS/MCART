@@ -2,6 +2,7 @@
 	<PropertyGroup>
 		<TargetFramework>net8.0-windows</TargetFramework>
 		<UseWPF>true</UseWPF>
+		<AssemblyName>MCART.Wpf.CommonDialogs</AssemblyName>
 	</PropertyGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\..\Lib\MCART.Mvvm\MCART.Mvvm.csproj" />

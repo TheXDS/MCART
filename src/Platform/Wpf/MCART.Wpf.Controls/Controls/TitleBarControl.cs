@@ -1,4 +1,4 @@
-﻿// AssemblyInfo.cs
+﻿// TitleBarControl.cs
 //
 // This file is part of Morgan's CLR Advanced Runtime (MCART)
 //
@@ -26,9 +26,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using System.Windows;
-using System.Windows.Markup;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-[assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)]
-[assembly: XmlnsDefinition("http://schemas.thexds.local/mcart", "TheXDS.MCART.Controls", AssemblyName = "MCART.Wpf.Controls.WebCamPane")]
-[assembly: XmlnsPrefix("http://schemas.thexds.local/mcart", "mcart")]
+namespace TheXDS.MCART.Controls
+{
+    internal class TitleBarControl
+    {
+    }
+}

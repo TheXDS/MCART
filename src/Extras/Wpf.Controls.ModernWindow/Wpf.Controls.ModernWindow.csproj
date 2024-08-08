@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<UseWPF>true</UseWPF>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<AssemblyName>MCART.Wpf.Controls.ModernWindow</AssemblyName>
+	</PropertyGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\Lib\MCART.Mvvm\MCART.Mvvm.csproj" />
+		<ProjectReference Include="..\..\Platform\Wpf\MCART.Wpf.Common\MCART.Wpf.Common.csproj" />
+		<ProjectReference Include="..\..\Platform\Wpf\MCART.Wpf.Controls\MCART.Wpf.Controls.csproj" />
+		<ProjectReference Include="..\..\Platform\Wpf\MCART.Wpf.Mvvm\MCART.Wpf.Mvvm.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Update="Microsoft.SourceLink.GitHub" Version="8.0.0" />
+	</ItemGroup>
+	<ItemGroup>
+		<Page Update="Themes\Generic.xaml">
+			<XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+		</Page>
+	</ItemGroup>
+</Project>

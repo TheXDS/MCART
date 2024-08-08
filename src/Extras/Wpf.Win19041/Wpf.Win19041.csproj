@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <EnableWindowsTargeting>true</EnableWindowsTargeting>
+	  <AssemblyName>MCART.Wpf.Win19041</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,0 +1,13 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mcart="clr-namespace:TheXDS.MCART.Controls">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/MCART.Wpf.Controls.ModernWindow;component/Resources/ControlTemplates/ModernWindow.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+    <Style BasedOn="{StaticResource {x:Type mcart:ModernWindow}}" TargetType="{x:Type mcart:AcrylicWindow}">
+        <Setter Property="Background" Value="#01000000"/>
+        <Setter Property="AllowsTransparency" Value="True"/>
+        <Setter Property="WindowStyle" Value="None"/>
+    </Style>
+</ResourceDictionary>

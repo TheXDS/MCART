@@ -1,18 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\Lib\MCART.Mvvm\MCART.Mvvm.csproj" />
-    <ProjectReference Include="..\..\Lib\MCART.TypeFactory\MCART.TypeFactory.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Update="Microsoft.SourceLink.GitHub" Version="8.0.0" />
-  </ItemGroup>
-
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<AssemblyName>MCART.ViewModelFactory</AssemblyName>
+	</PropertyGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\Lib\MCART.Mvvm\MCART.Mvvm.csproj" />
+		<ProjectReference Include="..\..\Lib\MCART.TypeFactory\MCART.TypeFactory.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Update="Microsoft.SourceLink.GitHub" Version="8.0.0" />
+	</ItemGroup>
 </Project>

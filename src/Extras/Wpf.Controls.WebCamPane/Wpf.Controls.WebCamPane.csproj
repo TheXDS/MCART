@@ -5,6 +5,7 @@
 		<UseWPF>true</UseWPF>
 		<EnableWindowsTargeting>true</EnableWindowsTargeting>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<AssemblyName>MCART.Wpf.Controls.WebCamPane</AssemblyName>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="AForge" Version="2.2.5">

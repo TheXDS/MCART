@@ -210,6 +210,8 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Xaml.Tests", "Tests\Platfor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MCART.Avalonia.Common.Tests", "Tests\Platform\Avalonia\MCART.Avalonia.Common.Tests\MCART.Avalonia.Common.Tests.csproj", "{B2359786-724A-4530-A117-125AFC274C65}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wpf.Controls.ModernWindow", "Extras\Wpf.Controls.ModernWindow\Wpf.Controls.ModernWindow.csproj", "{CBFF8B7E-1CF8-4AE6-9915-92087AEAA7FA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -344,6 +346,10 @@ Global
 		{B2359786-724A-4530-A117-125AFC274C65}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B2359786-724A-4530-A117-125AFC274C65}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B2359786-724A-4530-A117-125AFC274C65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBFF8B7E-1CF8-4AE6-9915-92087AEAA7FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBFF8B7E-1CF8-4AE6-9915-92087AEAA7FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBFF8B7E-1CF8-4AE6-9915-92087AEAA7FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBFF8B7E-1CF8-4AE6-9915-92087AEAA7FA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -411,6 +417,7 @@ Global
 		{0CB5C43C-E64F-422A-9553-509155AEF294} = {F386AAC9-3944-4FAE-95D0-770D9C75FD7E}
 		{213730AC-B9BC-4728-A7FC-A43E336B4E55} = {0CB5C43C-E64F-422A-9553-509155AEF294}
 		{B2359786-724A-4530-A117-125AFC274C65} = {0151F8B9-B358-4654-B5CB-6FB9D02DF004}
+		{CBFF8B7E-1CF8-4AE6-9915-92087AEAA7FA} = {628D40FB-AA87-4DA7-AF16-4F57A9FADD9C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {63BB1063-9448-4D86-ADAF-29683E2E7E73}
@@ -449,6 +456,7 @@ Global
 		Shared\AssemblyInfo\AssemblyInfo.projitems*{c0c0202d-a37b-4250-bb42-796136346535}*SharedItemsImports = 5
 		Shared\AssemblyInfo\AssemblyInfo.projitems*{c2d283b4-2f7f-47f1-8477-c69061f9b2ee}*SharedItemsImports = 5
 		Tests\TestShared\TestShared.projitems*{c67b89f9-444c-4820-8b97-0866577ede05}*SharedItemsImports = 5
+		Shared\AssemblyInfo\AssemblyInfo.projitems*{cbff8b7e-1cf8-4ae6-9915-92087aeaa7fa}*SharedItemsImports = 5
 		Tests\TestShared\TestShared.projitems*{cde62548-182c-4956-9863-9abf4fd657b2}*SharedItemsImports = 5
 		Tests\TestShared\TestShared.projitems*{dc0def5e-dd18-4f85-a141-bb861cb0f02c}*SharedItemsImports = 5
 		Shared\AssemblyInfo\AssemblyInfo.projitems*{e794621f-f09b-4e0f-af70-d038c5bf81d2}*SharedItemsImports = 5
