@@ -210,7 +210,7 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Xaml.Tests", "Tests\Platfor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MCART.Avalonia.Common.Tests", "Tests\Platform\Avalonia\MCART.Avalonia.Common.Tests\MCART.Avalonia.Common.Tests.csproj", "{B2359786-724A-4530-A117-125AFC274C65}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wpf.Controls.ModernWindow", "C:\Users\xds_x\source\TheXDS\MCART\src\Extras\Wpf.Controls.ModernWindow\Wpf.Controls.ModernWindow.csproj", "{0BDEBC66-2A28-4FC4-A52D-3994F2B0E991}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wpf.Controls.ModernWindow", "Extras\Wpf.Controls.ModernWindow\Wpf.Controls.ModernWindow.csproj", "{0BDEBC66-2A28-4FC4-A52D-3994F2B0E991}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
