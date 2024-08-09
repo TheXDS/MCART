@@ -435,7 +435,7 @@ public static class MsWindowExtensions
     {
         var pinnedValue = GCHandle.Alloc(value, GCHandleType.Pinned);
         var valueAddr = pinnedValue.AddrOfPinnedObject();
-        var result = DwmSetWindowAttribute(window.Handle, attribute, ref valueAddr, sizeOf);
+        var result = DwmSetWindowAttribute(window.Handle, attribute, ref valueAddr, (uint)sizeOf);
         pinnedValue.Free();
         CheckHResult(result);
     }
