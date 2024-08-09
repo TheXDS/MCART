@@ -1,5 +1,5 @@
 ﻿/*
-NullableBoolToBoolConverterTests.cs
+ErrorManagerTests.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,30 +28,38 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System.Globalization;
 using TheXDS.MCART.ValueConverters;
 
 namespace TheXDS.MCART.Wpf.Common.Tests.ValueConverters;
 
-public class NullableBoolToBoolConverterTests
+public class StrictTypeBooleanConverterTests
 {
     [Test]
-    public void Convert_test()
+    public void Convert_returns_true_on_type_match()
     {
-        NullableBoolToBoolConverter c = new();
-        Assert.That(c.Convert(true, null, null), Is.True);
-        Assert.That(c.Convert(true, null, null), Is.TypeOf<bool>());
-        Assert.That(c.Convert(false, null, null), Is.False);
-        Assert.That(c.Convert(false, null, null), Is.TypeOf<bool>());
-        Assert.That(c.Convert(null, null, null), Is.False);
-        Assert.That(c.Convert(null, null, null), Is.TypeOf<bool>());
+        var conv = new StrictTypeBooleanConverter();
+        Assert.That(conv.Convert(new Random(), typeof(bool), typeof(Random), CultureInfo.InvariantCulture), Is.True);
     }
 
-    public void ConvertBack_test()
+    [Test]
+    public void Convert_returns_false_on_type_mismatch()
     {
-        NullableBoolToBoolConverter c = new();
-        Assert.That(c.ConvertBack(true, null, null), Is.True);
-        Assert.That(c.ConvertBack(true, null, null), Is.InstanceOf<bool?>());
-        Assert.That(c.ConvertBack(false, null, null), Is.False);
-        Assert.That(c.ConvertBack(false, null, null), Is.InstanceOf<bool?>());
+        var conv = new StrictTypeBooleanConverter();
+        Assert.That(conv.Convert(new Exception(), typeof(bool), typeof(Random), CultureInfo.InvariantCulture), Is.False);
+    }
+
+    [Test]
+    public void Convert_throws_on_invalid_parameter()
+    {
+        var conv = new StrictTypeBooleanConverter();
+        Assert.That(() => conv.Convert(null, typeof(bool), "Test", CultureInfo.InvariantCulture), Throws.ArgumentException);
+    }
+
+    [Test]
+    public void ConvertBack_throws_InvalidOperationException()
+    {
+        var conv = new StrictTypeBooleanConverter();
+        Assert.That(() => _ = conv.ConvertBack(null, typeof(bool), null, CultureInfo.InvariantCulture), Throws.InvalidOperationException);
     }
 }

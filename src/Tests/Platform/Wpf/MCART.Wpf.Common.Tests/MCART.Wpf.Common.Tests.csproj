@@ -8,13 +8,4 @@
 		<ProjectReference Include="..\..\..\..\Platform\Wpf\MCART.Wpf.Common\MCART.Wpf.Common.csproj" />
 	</ItemGroup>
 	<Import Project="..\..\Shared\Xaml.Tests\Xaml.Tests.projitems" Label="Shared" />
-	<ItemGroup>
-	  <PackageReference Update="coverlet.collector" Version="6.0.2">
-	    <PrivateAssets>all</PrivateAssets>
-	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-	  </PackageReference>
-	</ItemGroup>
-	<ItemGroup>
-	  <PackageReference Update="Microsoft.NET.Test.Sdk" Version="17.10.0" />
-	</ItemGroup>
 </Project>

@@ -46,7 +46,7 @@ public class NullableBoolToBoolConverter : IValueConverter<bool?, bool>
     }
 
     /// <inheritdoc/>
-    public bool? ConvertBack(bool value, object? parameter, CultureInfo culture)
+    public bool? ConvertBack(bool value, object? parameter, CultureInfo? culture)
     {
         return value;
     }

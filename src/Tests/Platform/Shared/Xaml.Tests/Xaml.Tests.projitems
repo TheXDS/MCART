@@ -16,9 +16,17 @@
     <Compile Include="$(MSBuildThisFileDirectory)valueconverters\BooleanToObjectConverterTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)valueconverters\BoolFlagConverterTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)valueconverters\DivideConverterTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\ErrorManagerTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\FromStringConverterTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\LabaledDoubleConverterTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)valueconverters\MultiplyConverterTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\NotNullToBooleanCoverterTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\NullableBoolToBoolConverterTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\NullToBooleanCoverterTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\StrictTypeBooleanConverterTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\SubtractConverterTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\ThresholdConverterTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\ToStringConverterTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\TypeBooleanConverterTests.cs" />
   </ItemGroup>
 </Project>

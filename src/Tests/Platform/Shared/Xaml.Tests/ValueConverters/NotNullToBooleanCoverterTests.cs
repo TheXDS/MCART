@@ -1,5 +1,5 @@
 ﻿/*
-NullableBoolToBoolConverterTests.cs
+ErrorManagerTests.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,30 +28,45 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System.Globalization;
 using TheXDS.MCART.ValueConverters;
 
 namespace TheXDS.MCART.Wpf.Common.Tests.ValueConverters;
 
-public class NullableBoolToBoolConverterTests
+public class NotNullToBooleanCoverterTests
 {
     [Test]
-    public void Convert_test()
+    public void Convert_returns_true_if_not_null()
     {
-        NullableBoolToBoolConverter c = new();
-        Assert.That(c.Convert(true, null, null), Is.True);
-        Assert.That(c.Convert(true, null, null), Is.TypeOf<bool>());
-        Assert.That(c.Convert(false, null, null), Is.False);
-        Assert.That(c.Convert(false, null, null), Is.TypeOf<bool>());
-        Assert.That(c.Convert(null, null, null), Is.False);
-        Assert.That(c.Convert(null, null, null), Is.TypeOf<bool>());
+        var conv = new NotNullToBooleanConverter();
+        Assert.That(conv.Convert(new object(), typeof(bool), null, CultureInfo.InvariantCulture), Is.True);
     }
 
-    public void ConvertBack_test()
+    [Test]
+    public void Convert_returns_false_if_null()
     {
-        NullableBoolToBoolConverter c = new();
-        Assert.That(c.ConvertBack(true, null, null), Is.True);
-        Assert.That(c.ConvertBack(true, null, null), Is.InstanceOf<bool?>());
-        Assert.That(c.ConvertBack(false, null, null), Is.False);
-        Assert.That(c.ConvertBack(false, null, null), Is.InstanceOf<bool?>());
+        var conv = new NotNullToBooleanConverter();
+        Assert.That(conv.Convert(null, typeof(bool), null, CultureInfo.InvariantCulture), Is.False);
+    }
+
+    [Test]
+    public void ConvertBack_returns_instance_on_true()
+    {
+        var conv = new NotNullToBooleanConverter();
+        Assert.That(conv.ConvertBack(true, typeof(Random), null, CultureInfo.InvariantCulture), Is.InstanceOf<Random>());
+    }
+
+    [Test]
+    public void ConvertBack_returns_null_on_false()
+    {
+        var conv = new NotNullToBooleanConverter();
+        Assert.That(conv.ConvertBack(false, typeof(Random), null, CultureInfo.InvariantCulture), Is.Null);
+    }
+
+    [Test]
+    public void ConvertBack_throws_InvalidCastException_on_invalid_value()
+    {
+        var conv = new NotNullToBooleanConverter();
+        Assert.That(() => conv.ConvertBack("Test", typeof(Random), null, CultureInfo.InvariantCulture), Throws.InstanceOf<InvalidCastException>());
     }
 }

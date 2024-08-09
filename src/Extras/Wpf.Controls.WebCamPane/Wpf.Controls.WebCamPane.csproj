@@ -17,7 +17,7 @@
 		<PackageReference Include="AForge.Video.DirectShow" Version="2.2.5">
 			<NoWarn>NU1701</NoWarn>
 		</PackageReference>
-		<PackageReference Include="System.Drawing.Common" Version="8.0.6" />
+		<PackageReference Include="System.Drawing.Common" Version="8.0.7" />
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\..\Lib\MCART\MCART.csproj" />
