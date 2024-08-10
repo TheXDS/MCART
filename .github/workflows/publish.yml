@@ -13,11 +13,11 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
     - name: Install .NET
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v4
       with:
         dotnet-version: |
             6.0.x
-            7.0.x
+            8.0.x
     - name: Create NuGet Packages
       run: dotnet pack $env:Solution_Name --configuration=${{ env.Configuration }} -p:Version=${{ github.ref_name }} -p:RepositoryBranch=${{ github.ref }} -p:ContinuousIntegrationBuild=true
     - name: Push packages to GitHub

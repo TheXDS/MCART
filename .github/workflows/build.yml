@@ -19,22 +19,24 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
     - name: Install .NET
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v4
       with:
         dotnet-version: |
             6.0.x
-            7.0.x
+            8.0.x
     - name: Install Codecov
       run: choco install codecov -y
-    - name: Build and test MCART
-      run: dotnet test $env:Solution_Name --configuration=$env:Configuration --collect:"XPlat Code Coverage" --results-directory .\Build\tests -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
+    - name: Build MCART
+      run: dotnet build $env:Solution_Name --configuration=$env:Configuration
+    - name: Test MCART
+      run: dotnet test $env:Solution_Name --no-build --collect:"XPlat Code Coverage" --results-directory .\Build\tests -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover -- -maxcpucount:1
     - name: Upload code coverage report
       run: foreach ($j in (ls .\Build\tests\ -Directory)) { codecov -f "$($j.FullName)\coverage.opencover.xml" }
       env:
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
     - name: Create NuGet Packages
       run: dotnet pack $env:Solution_Name --configuration=$env:Configuration --version-suffix=$env:GITHUB_SHA --include-source -p:RepositoryBranch=${{ github.ref }} -p:ContinuousIntegrationBuild=true
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v4
       with:
         name: MCART-nuget-packages
         path: Build/Bin/**/*.nupkg
