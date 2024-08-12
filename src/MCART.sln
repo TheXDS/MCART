@@ -61,6 +61,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GitHub", "GitHub", "{A96B3E63-89F2-44D6-8832-CD6F7AE705E8}"
 	ProjectSection(SolutionItems) = preProject
 		..\.github\workflows\build.yml = ..\.github\workflows\build.yml
+		..\.github\workflows\docfx.yml = ..\.github\workflows\docfx.yml
+		..\.github\FUNDING.yml = ..\.github\FUNDING.yml
 		..\.github\workflows\publish.yml = ..\.github\workflows\publish.yml
 	EndProjectSection
 EndProject

@@ -35,7 +35,7 @@ jobs:
       env:
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
     - name: Create NuGet Packages
-      run: dotnet pack $env:Solution_Name --configuration=$env:Configuration --version-suffix=$env:GITHUB_SHA --include-source -p:RepositoryBranch=${{ github.ref }} -p:ContinuousIntegrationBuild=true
+      run: dotnet pack $env:Solution_Name --configuration=$env:Configuration --version-suffix=$env:GITHUB_SHA --include-source -p:RepositoryBranch=${{ github.ref }} -p:RepositoryCommit=${{ github.sha }} -p:ContinuousIntegrationBuild=true
     - uses: actions/upload-artifact@v4
       with:
         name: MCART-nuget-packages
