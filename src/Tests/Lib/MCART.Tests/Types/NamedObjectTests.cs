@@ -149,4 +149,48 @@ public class NamedObjectTests
         Assert.That(v1.GetHashCode() == v2.GetHashCode());
         Assert.That(v1.GetHashCode() == v3.GetHashCode(), Is.False);
     }
+
+    [Test]
+    public void From_string_TValue_tuple_implicit_conversion()
+    {
+        (string, int) tuple = ("1", 1);
+        NamedObject<int> n = tuple;
+        Assert.Multiple(() => {
+            Assert.That(n.Name == "1");
+            Assert.That(n.Value == 1);
+        });
+    }
+
+    [Test]
+    public void From_TValue_string_tuple_implicit_conversion()
+    {
+        (int, string) tuple = (1, "1");
+        NamedObject<int> n = tuple;
+        Assert.Multiple(() => {
+            Assert.That(n.Name == "1");
+            Assert.That(n.Value == 1);
+        });
+    }
+
+    [Test]
+    public void To_string_TValue_tuple_implicit_conversion()
+    {
+        NamedObject<int> n = new(1, "1");
+        (string Name, int Value) tuple = n;
+        Assert.Multiple(() => {
+            Assert.That(tuple.Name == "1");
+            Assert.That(tuple.Value == 1);
+        });
+    }
+
+    [Test]
+    public void To_TValue_string_tuple_implicit_conversion()
+    {
+        NamedObject<int> n = new(1, "1");
+        (int Value, string Name) tuple = n;
+        Assert.Multiple(() => {
+            Assert.That(tuple.Name == "1");
+            Assert.That(tuple.Value == 1);
+        });
+    }
 }

@@ -40,7 +40,9 @@ namespace TheXDS.MCART.Types;
 /// Estructura que permite asignarle una etiqueta a cualquier objeto.
 /// </summary>
 /// <typeparam name="T">Tipo de objeto.</typeparam>
-public readonly struct NamedObject<T> : INameable
+/// <param name="value">Objeto a etiquetar.</param>
+/// <param name="name">Etiqueta del objeto.</param>
+public readonly struct NamedObject<T>(T value, string name) : INameable
 {
     /// <summary>
     /// Inicializa una nueva instancia de la estructura
@@ -54,27 +56,14 @@ public readonly struct NamedObject<T> : INameable
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la estructura
-    /// <see cref="NamedObject{T}" /> estableciendo un valor y una
-    /// etiqueta para el mismo.
-    /// </summary>
-    /// <param name="value">Objeto a etiquetar.</param>
-    /// <param name="name">Etiqueta del objeto.</param>
-    public NamedObject(T value, string name)
-    {
-        Value = value;
-        Name = name;
-    }
-
-    /// <summary>
     /// Valor del objeto.
     /// </summary>
-    public T Value { get; }
+    public T Value { get; } = value;
 
     /// <summary>
     /// Etiqueta del objeto.
     /// </summary>
-    public string Name { get; }
+    public string Name { get; } = name;
 
     /// <summary>
     /// Convierte implícitamente un <typeparamref name="T" /> en un
@@ -125,6 +114,50 @@ public readonly struct NamedObject<T> : INameable
     public static implicit operator NamedObject<T>(KeyValuePair<string, T> keyValuePair)
     {
         return new(keyValuePair.Value, keyValuePair.Key);
+    }
+
+    /// <summary>
+    /// Convierte implícitamente un
+    /// <see cref="ValueTuple{T1, T2}" /> en un
+    /// <see cref="NamedObject{T}" />.
+    /// </summary>
+    /// <param name="tuple">Objeto a convertir.</param>
+    public static implicit operator NamedObject<T>(ValueTuple<string, T> tuple)
+    {
+        return new(tuple.Item2, tuple.Item1);
+    }
+
+    /// <summary>
+    /// Convierte implícitamente un
+    /// <see cref="ValueTuple{T1, T2}" /> en un
+    /// <see cref="NamedObject{T}" />.
+    /// </summary>
+    /// <param name="tuple">Objeto a convertir.</param>
+    public static implicit operator NamedObject<T>(ValueTuple<T, string> tuple)
+    {
+        return new(tuple.Item1, tuple.Item2);
+    }
+
+    /// <summary>
+    /// Convierte implícitamente un
+    /// <see cref="ValueTuple{T1, T2}" /> en un
+    /// <see cref="NamedObject{T}" />.
+    /// </summary>
+    /// <param name="value">Objeto a convertir.</param>
+    public static implicit operator ValueTuple<string, T>(NamedObject<T> value)
+    {
+        return new(value.Name, value.Value);
+    }
+
+    /// <summary>
+    /// Convierte implícitamente un
+    /// <see cref="ValueTuple{T1, T2}" /> en un
+    /// <see cref="NamedObject{T}" />.
+    /// </summary>
+    /// <param name="value">Objeto a convertir.</param>
+    public static implicit operator ValueTuple<T, string>(NamedObject<T> value)
+    {
+        return new(value.Value, value.Name);
     }
 
     /// <summary>
