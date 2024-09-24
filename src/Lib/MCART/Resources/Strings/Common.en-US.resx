@@ -246,4 +246,7 @@
   <data name="ZiBl" xml:space="preserve">
     <value>Zebibytes</value>
   </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
 </root>
