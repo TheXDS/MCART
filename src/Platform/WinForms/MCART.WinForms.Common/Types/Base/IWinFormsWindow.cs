@@ -28,7 +28,7 @@
 
 using TheXDS.MCART.Component;
 using TheXDS.MCART.Exceptions;
-using TheXDS.MCART.PInvoke.Structs;
+using TheXDS.MCART.PInvoke.Models;
 
 namespace TheXDS.MCART.Types.Base;
 

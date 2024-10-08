@@ -28,7 +28,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.PInvoke.Structs;
+namespace TheXDS.MCART.PInvoke.Models;
 
 /// <summary>
 /// Enumera las posibles configuiraciones de dibujado de esquinas en las ventanas.

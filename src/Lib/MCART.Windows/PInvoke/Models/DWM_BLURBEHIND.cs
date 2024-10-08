@@ -1,4 +1,4 @@
-﻿// CredentialDialog.cs
+﻿// COLORREF.cs
 //
 // This file is part of Morgan's CLR Advanced Runtime (MCART)
 //
@@ -26,19 +26,38 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using System.Diagnostics.CodeAnalysis;
-using System.Security;
+using System.Runtime.InteropServices;
 
-namespace TheXDS.MCART.Helpers;
+namespace TheXDS.MCART.PInvoke.Models;
 
-/// <summary>
-/// Contiene información sobre el resultado de un cuadro de diálogo que obtiene
-/// credenciales del usuario.
-/// </summary>
-/// <param name="Username">Nombre de usuario.</param>
-/// <param name="Password">Contraseña.</param>
-/// <param name="Save">
-/// Indica si el usuario desea guardar las credenciales provistas.
-/// </param>
-[ExcludeFromCodeCoverage]
-public readonly record struct CredentialBoxResult(string Username, SecureString Password, bool Save);
+[StructLayout(LayoutKind.Sequential)]
+internal struct DWM_BLURBEHIND
+{
+    public DWM_BLURBEHIND_Mask dwFlags;
+
+    [MarshalAs(UnmanagedType.Bool)]
+    public bool fEnable;
+
+    public nint hRgnBlur;
+
+    [MarshalAs(UnmanagedType.Bool)]
+    public bool fTransitionOnMaximized;
+
+    public DWM_BLURBEHIND(bool enabled)
+    {
+        fEnable = enabled;
+        hRgnBlur = nint.Zero;
+        fTransitionOnMaximized = false;
+        dwFlags = DWM_BLURBEHIND_Mask.DWM_BB_ENABLE;
+    }
+
+    public bool TransitionOnMaximized
+    {
+        readonly get => fTransitionOnMaximized;
+        set
+        {
+            fTransitionOnMaximized = value;
+            dwFlags |= DWM_BLURBEHIND_Mask.DWM_BB_TRANSITIONONMAXIMIZED;
+        }
+    }
+}

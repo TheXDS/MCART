@@ -1,5 +1,5 @@
 ﻿/*
-Point.cs
+CreduiInfo.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,23 +28,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.Runtime.InteropServices;
+namespace TheXDS.MCART.PInvoke.Models;
 
-namespace TheXDS.MCART.PInvoke.Structs;
-
-[StructLayout(LayoutKind.Sequential)]
-internal struct Point
+public enum CredUIReturnCodes
 {
-    public int X;
-    public int Y;
-
-    public static implicit operator Types.Point(Point point)
-    {
-        return new(point.X, point.Y);
-    }
-
-    public static implicit operator System.Drawing.Point(Point point)
-    {
-        return new(point.X, point.Y);
-    }
+    NO_ERROR = 0,
+    ERROR_CANCELLED = 1223,
+    ERROR_NO_SUCH_LOGON_SESSION = 1312,
+    ERROR_NOT_FOUND = 1168,
+    ERROR_INVALID_ACCOUNT_NAME = 1315,
+    ERROR_INSUFFICIENT_BUFFER = 122,
+    ERROR_INVALID_PARAMETER = 87,
+    ERROR_INVALID_FLAGS = 1004,
+    ERROR_BAD_ARGUMENTS = 160
 }

@@ -120,4 +120,7 @@
   <data name="OffsetCountOutsideBuffer" xml:space="preserve">
     <value>The specified values for 'offset' and 'count' make reference to a range outside the buffer.</value>
   </data>
+  <data name="CannotChangeLine3" xml:space="preserve">
+    <value>Cannot set the line 3 of the dialog when it's configured to display the time remaining.</value>
+  </data>
 </root>

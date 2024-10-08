@@ -1,5 +1,5 @@
 ﻿/*
-WindowData.cs
+WindowCompositionAttribute.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,15 +28,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.PInvoke.Structs;
+namespace TheXDS.MCART.PInvoke.Models;
 
-internal enum WindowData
+internal enum WindowCompositionAttribute
 {
-    GWL_WNDPROC = -4,
-    GWL_HINSTANCE = -6,
-    GWL_HWNDPARENT = -8,
-    GWL_ID = -12,
-    GWL_STYLE = -16,
-    GWL_EXSTYLE = -20,
-    GWL_USERDATA = -21
+    // ...
+    WCA_ACCENT_POLICY = 19
+    // ...
 }

@@ -1,5 +1,5 @@
 ﻿/*
-SystemBackdropType.cs
+WindowData.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,37 +28,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.PInvoke.Structs;
+namespace TheXDS.MCART.PInvoke.Models;
 
-/// <summary>
-/// Enumera los distintos tipos de fondo que se pueden aplicar al fondo de una
-/// ventana.
-/// </summary>
-[CLSCompliant(false)]
-public enum SystemBackdropType : uint
+internal enum WindowData
 {
-    /// <summary>
-    /// Fondo automático. Windows determinará el tipo de fondo a dibujar.
-    /// </summary>
-    Auto = 0,
-
-    /// <summary>
-    /// No dibujar fondo.
-    /// </summary>
-    None = 1,
-
-    /// <summary>
-    /// Fondo de ventana principal.
-    /// </summary>
-    MainWindow = 2,
-
-    /// <summary>
-    /// Fondo de ventana secundaria.
-    /// </summary>
-    TransientWindow = 3,
-
-    /// <summary>
-    /// Fondo de ventana con pestañas.
-    /// </summary>
-    TabbedWindow = 4
+    GWL_WNDPROC = -4,
+    GWL_HINSTANCE = -6,
+    GWL_HWNDPARENT = -8,
+    GWL_ID = -12,
+    GWL_STYLE = -16,
+    GWL_EXSTYLE = -20,
+    GWL_USERDATA = -21
 }

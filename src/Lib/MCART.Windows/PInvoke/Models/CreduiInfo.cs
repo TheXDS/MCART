@@ -30,16 +30,16 @@ SOFTWARE.
 
 using System.Runtime.InteropServices;
 
-namespace TheXDS.MCART.PInvoke.Structs;
+namespace TheXDS.MCART.PInvoke.Models;
 
 [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
 internal struct CreduiInfo
 {
     public int cbSize;
-    public IntPtr hwndParent;
+    public nint hwndParent;
     public string pszMessageText;
     public string pszCaptionText;
-    public IntPtr hbmBanner;
+    public nint hbmBanner;
 }
 
 /// <summary>

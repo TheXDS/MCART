@@ -1,4 +1,4 @@
-﻿// CredentialDialog.cs
+﻿// IProgressDialogComInterop.cs
 //
 // This file is part of Morgan's CLR Advanced Runtime (MCART)
 //
@@ -26,19 +26,17 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using System.Diagnostics.CodeAnalysis;
-using System.Security;
+namespace TheXDS.MCART.ComInterop.Models;
 
-namespace TheXDS.MCART.Helpers;
-
-/// <summary>
-/// Contiene información sobre el resultado de un cuadro de diálogo que obtiene
-/// credenciales del usuario.
-/// </summary>
-/// <param name="Username">Nombre de usuario.</param>
-/// <param name="Password">Contraseña.</param>
-/// <param name="Save">
-/// Indica si el usuario desea guardar las credenciales provistas.
-/// </param>
-[ExcludeFromCodeCoverage]
-public readonly record struct CredentialBoxResult(string Username, SecureString Password, bool Save);
+[Flags]
+internal enum ProgressDialogFlags : uint
+{
+    Normal = 0x00000000,
+    Modal = 0x00000001,
+    AutoTime = 0x00000002,
+    NoTime = 0x00000004,
+    NoMinimize = 0x00000008,
+    NoProgressBar = 0x00000010,
+    MarqueeProgress = 0x00000020,
+    NoCancel = 0x00000040
+}

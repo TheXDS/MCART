@@ -28,7 +28,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using TheXDS.MCART.PInvoke.Structs;
+using TheXDS.MCART.PInvoke.Models;
 using TheXDS.MCART.Types.Extensions;
 using static TheXDS.MCART.PInvoke.Kernel32;
 

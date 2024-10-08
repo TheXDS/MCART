@@ -1,5 +1,5 @@
 ﻿/*
-ShowWindowFlags.cs
+MonitorInfoFlags.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,19 +28,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.PInvoke.Structs;
+namespace TheXDS.MCART.PInvoke.Models;
 
-internal enum ShowWindowFlags : int
+/// <summary>
+/// Flags that may be defined on the <see cref="MonitorInfo.Flags"/> field.
+/// </summary>
+[Flags]
+public enum MonitorInfoFlags
 {
-    Hide = 0,
-    ShowNormal = 1,
-    ShowMinimized = 2,
-    ShowMaximized = 3,
-    ShowNoActivate = 4,
-    Show = 5,
-    Minimize = 6,
-    ShowMinNoActive = 7,
-    ShowNA = 8,
-    Restore = 9,
-    ShowDefault = 10
+    /// <summary>
+    /// No flags.
+    /// </summary>
+    None = 0x0,
+
+    /// <summary>
+    /// This is the primary display monitor.
+    /// </summary>
+    PrimaryDisplay = 0x1,
 }

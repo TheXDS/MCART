@@ -61,6 +61,15 @@ namespace TheXDS.MCART.Windows.Resources.Strings {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a No se puede modificar la línea 3 del diálogo de progreso cuando se muestra el tiempo restante..
+        /// </summary>
+        internal static string CannotChangeLine3 {
+            get {
+                return ResourceManager.GetString("CannotChangeLine3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Los valores de &apos;offset&apos; y &apos;count&apos; hacen referencia a un rango fuera del búffer..
         /// </summary>
         internal static string OffsetCountOutsideBuffer {

@@ -33,7 +33,7 @@ using System.Runtime.InteropServices;
 using System.Security.Principal;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Component;
-using TheXDS.MCART.PInvoke.Structs;
+using TheXDS.MCART.PInvoke.Models;
 using TheXDS.MCART.Types.Extensions;
 using static TheXDS.MCART.PInvoke.DwmApi;
 using static TheXDS.MCART.PInvoke.Gdi32;
@@ -220,7 +220,7 @@ public static class Windows
     /// </returns>
     public static Types.Point GetCursorPosition()
     {
-        return GetCursorPos(out PInvoke.Structs.Point p) ? p : Types.Point.Nowhere;
+        return GetCursorPos(out PInvoke.Models.Point p) ? p : Types.Point.Nowhere;
     }
 
     /// <summary>

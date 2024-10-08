@@ -1,11 +1,10 @@
 ﻿/*
-WindowInfo.cs
+WindowCompositionAttributeData.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
-     PInvoke.net Community <http://www.pinvoke.net>
 
 Released under the MIT License (MIT)
 Copyright © 2011 - 2024 César Andrés Morgan
@@ -31,24 +30,12 @@ SOFTWARE.
 
 using System.Runtime.InteropServices;
 
-namespace TheXDS.MCART.PInvoke.Structs;
+namespace TheXDS.MCART.PInvoke.Models;
 
 [StructLayout(LayoutKind.Sequential)]
-internal struct WindowInfo
+internal struct WindowCompositionAttributeData
 {
-    public uint CbSize;
-    public Rect RcWindow;
-    public Rect RcClient;
-    public WindowStyles DwStyle;
-    public WindowStyles DwExtendedStyle;
-    public uint DwWindowStatus;
-    public uint CxWindowBorders;
-    public uint CyWindowBorders;
-    public ushort AtomWindowType;
-    public ushort WCreatorVersion;
-
-    public WindowInfo(bool setCbSize = true) : this()
-    {
-        if (setCbSize) CbSize = (uint)Marshal.SizeOf(typeof(WindowInfo));
-    }
+    public WindowCompositionAttribute Attribute;
+    public nint Data;
+    public int SizeOfData;
 }

@@ -1,4 +1,4 @@
-﻿// CredentialDialog.cs
+﻿// IProgressDialogComInterop.cs
 //
 // This file is part of Morgan's CLR Advanced Runtime (MCART)
 //
@@ -26,19 +26,28 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using System.Diagnostics.CodeAnalysis;
-using System.Security;
+using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.Marshalling;
+using TheXDS.MCART.ComInterop.Models;
 
-namespace TheXDS.MCART.Helpers;
+namespace TheXDS.MCART.ComInterop;
 
-/// <summary>
-/// Contiene información sobre el resultado de un cuadro de diálogo que obtiene
-/// credenciales del usuario.
-/// </summary>
-/// <param name="Username">Nombre de usuario.</param>
-/// <param name="Password">Contraseña.</param>
-/// <param name="Save">
-/// Indica si el usuario desea guardar las credenciales provistas.
-/// </param>
-[ExcludeFromCodeCoverage]
-public readonly record struct CredentialBoxResult(string Username, SecureString Password, bool Save);
+[GeneratedComInterface]
+[Guid("EBBC7C04-315E-11d2-B62F-006097DF5BD4")]
+[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+internal partial interface IProgressDialogComInterop
+{
+    void StartProgressDialog(nint hwndParent, nint punkEnableModless, ProgressDialogFlags dwFlags, nint resevered);
+    void StopProgressDialog();
+    void SetTitle([MarshalAs(UnmanagedType.LPWStr)] string pszTitle);
+    void SetLine(uint dwLineNum, [MarshalAs(UnmanagedType.LPWStr)] string pszLine, [MarshalAs(UnmanagedType.VariantBool)] bool fCompactMode, nint resevered);
+    void SetProgress(uint nCompleted, uint nTotal);
+    void SetProgress64(ulong ullCompleted, ulong ullTotal);
+    [PreserveSig]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    bool HasUserCancelled();
+    void SetCancelMsg([MarshalAs(UnmanagedType.LPWStr)] string pszCancelMsg, nint reserved);
+    void Timer(ProgressDialogTimer uTimerAction, nint reserved);
+    void SetAnimation(nint hInstAnimation, ushort idAnimation);
+    void SetTitleEx([MarshalAs(UnmanagedType.LPWStr)] string pszTitle, ProgressDialogFlags dwFlags);
+}

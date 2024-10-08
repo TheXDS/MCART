@@ -1,5 +1,5 @@
 ﻿/*
-MonitorInfo.cs
+SystemBackdropType.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,18 +28,37 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.Runtime.InteropServices;
+namespace TheXDS.MCART.PInvoke.Models;
 
-namespace TheXDS.MCART.PInvoke.Structs;
-
-[StructLayout(LayoutKind.Sequential, Pack = 4)]
-internal struct MonitorInfo
+/// <summary>
+/// Enumera los distintos tipos de fondo que se pueden aplicar al fondo de una
+/// ventana.
+/// </summary>
+[CLSCompliant(false)]
+public enum SystemBackdropType : uint
 {
-    public int cbSize; // = Marshal.SizeOf(typeof(MonitorInfo));
+    /// <summary>
+    /// Fondo automático. Windows determinará el tipo de fondo a dibujar.
+    /// </summary>
+    Auto = 0,
 
-    public Rect Monitor;
+    /// <summary>
+    /// No dibujar fondo.
+    /// </summary>
+    None = 1,
 
-    public Rect WorkArea;
+    /// <summary>
+    /// Fondo de ventana principal.
+    /// </summary>
+    MainWindow = 2,
 
-    public MonitorInfoFlags Flags;
+    /// <summary>
+    /// Fondo de ventana secundaria.
+    /// </summary>
+    TransientWindow = 3,
+
+    /// <summary>
+    /// Fondo de ventana con pestañas.
+    /// </summary>
+    TabbedWindow = 4
 }

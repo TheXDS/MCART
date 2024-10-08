@@ -120,4 +120,7 @@
   <data name="OffsetCountOutsideBuffer" xml:space="preserve">
     <value>Los valores de 'offset' y 'count' hacen referencia a un rango fuera del búffer.</value>
   </data>
+  <data name="CannotChangeLine3" xml:space="preserve">
+    <value>No se puede modificar la línea 3 del diálogo de progreso cuando se muestra el tiempo restante.</value>
+  </data>
 </root>

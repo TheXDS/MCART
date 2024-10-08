@@ -1,5 +1,5 @@
 ﻿/*
-AccentState.cs
+Margins.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,13 +28,39 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.PInvoke.Structs;
+using System.Runtime.InteropServices;
 
-internal enum AccentState
+namespace TheXDS.MCART.PInvoke.Models;
+
+/// <summary>
+/// Define una serie de márgenes aplicables a ventanas de Microsoft Windows.
+/// </summary>
+[StructLayout(LayoutKind.Sequential)]
+public struct Margins
 {
-    ACCENT_DISABLED = 0,
-    ACCENT_ENABLE_GRADIENT = 1,
-    ACCENT_ENABLE_TRANSPARENTGRADIENT = 2,
-    ACCENT_ENABLE_BLURBEHIND = 3,
-    ACCENT_ENABLE_ACRYLICBLURBEHIND = 4
+    /// <summary>
+    /// Describe el margen izquierdo.
+    /// </summary>
+    public int Left;
+
+    /// <summary>
+    /// Describe el margen derecho.
+    /// </summary>
+    public int Right;
+
+    /// <summary>
+    /// Describe el margen superior.
+    /// </summary>
+    public int Top;
+
+    /// <summary>
+    /// Describe el margen inferior.
+    /// </summary>
+    public int Bottom;
+
+    /// <summary>
+    /// Inicialiiza una nueva instancia de la estructura <see cref="Margins"/>.
+    /// </summary>
+    /// <param name="allMargins"></param>
+    public Margins(int allMargins) => Left = Right = Top = Bottom = allMargins;
 }

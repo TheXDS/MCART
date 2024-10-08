@@ -1,5 +1,5 @@
 ﻿/*
-CreduiInfo.cs
+MonitorInfo.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,17 +28,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.PInvoke.Structs;
+using System.Runtime.InteropServices;
 
-public enum CredUIReturnCodes
+namespace TheXDS.MCART.PInvoke.Models;
+
+[StructLayout(LayoutKind.Sequential, Pack = 4)]
+internal struct MonitorInfo
 {
-    NO_ERROR = 0,
-    ERROR_CANCELLED = 1223,
-    ERROR_NO_SUCH_LOGON_SESSION = 1312,
-    ERROR_NOT_FOUND = 1168,
-    ERROR_INVALID_ACCOUNT_NAME = 1315,
-    ERROR_INSUFFICIENT_BUFFER = 122,
-    ERROR_INVALID_PARAMETER = 87,
-    ERROR_INVALID_FLAGS = 1004,
-    ERROR_BAD_ARGUMENTS = 160
+    public int cbSize; // = Marshal.SizeOf(typeof(MonitorInfo));
+
+    public Rect Monitor;
+
+    public Rect WorkArea;
+
+    public MonitorInfoFlags Flags;
 }

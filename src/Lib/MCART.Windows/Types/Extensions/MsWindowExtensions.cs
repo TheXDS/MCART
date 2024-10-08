@@ -32,7 +32,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using TheXDS.MCART.Component;
-using TheXDS.MCART.PInvoke.Structs;
+using TheXDS.MCART.PInvoke.Models;
 using static TheXDS.MCART.PInvoke.DwmApi;
 using static TheXDS.MCART.PInvoke.User32;
 

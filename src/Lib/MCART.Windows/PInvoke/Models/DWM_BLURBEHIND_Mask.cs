@@ -26,38 +26,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using System.Runtime.InteropServices;
+namespace TheXDS.MCART.PInvoke.Models;
 
-namespace TheXDS.MCART.PInvoke.Structs;
-
-[StructLayout(LayoutKind.Sequential)]
-internal struct DWM_BLURBEHIND
+[Flags]
+internal enum DWM_BLURBEHIND_Mask
 {
-    public DWM_BLURBEHIND_Mask dwFlags;
+    DWM_BB_ENABLE = 0X00000001,
 
-    [MarshalAs(UnmanagedType.Bool)]
-    public bool fEnable;
+    DWM_BB_BLURREGION = 0X00000002,
 
-    public IntPtr hRgnBlur;
-
-    [MarshalAs(UnmanagedType.Bool)]
-    public bool fTransitionOnMaximized;
-
-    public DWM_BLURBEHIND(bool enabled)
-    {
-        fEnable = enabled;
-        hRgnBlur = IntPtr.Zero;
-        fTransitionOnMaximized = false;
-        dwFlags = DWM_BLURBEHIND_Mask.DWM_BB_ENABLE;
-    }
-
-    public bool TransitionOnMaximized
-    {
-        readonly get => fTransitionOnMaximized;
-        set
-        {
-            fTransitionOnMaximized = value;
-            dwFlags |= DWM_BLURBEHIND_Mask.DWM_BB_TRANSITIONONMAXIMIZED;
-        }
-    }
+    DWM_BB_TRANSITIONONMAXIMIZED = 0x00000004
 }

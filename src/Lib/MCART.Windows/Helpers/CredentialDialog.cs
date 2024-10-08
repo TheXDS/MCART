@@ -1,4 +1,4 @@
-﻿// CredentialBox.cs
+﻿// CredentialDialog.cs
 //
 // This file is part of Morgan's CLR Advanced Runtime (MCART)
 //
@@ -31,9 +31,9 @@ using System.Runtime.InteropServices;
 using System.Security;
 using System.Text;
 using TheXDS.MCART.PInvoke;
-using TheXDS.MCART.PInvoke.Structs;
+using TheXDS.MCART.PInvoke.Models;
 using TheXDS.MCART.Types.Extensions;
-using static TheXDS.MCART.PInvoke.Structs.PromptForWindowsCredentialsFlags;
+using static TheXDS.MCART.PInvoke.Models.PromptForWindowsCredentialsFlags;
 using St = TheXDS.MCART.Resources.Strings.Common;
 
 namespace TheXDS.MCART.Helpers;
@@ -43,7 +43,7 @@ namespace TheXDS.MCART.Helpers;
 /// Windows que solicita credenciales genéricas al usuario.
 /// </summary>
 [ExcludeFromCodeCoverage]
-public static class CredentialBox
+public static class CredentialDialog
 {
     private static CreduiInfo GetCredUiInfo(string? title, string message)
     {
@@ -56,12 +56,12 @@ public static class CredentialBox
         return credui;
     }
 
-    private static (IntPtr, uint) GetDefaultCred(string? username)
+    private static (nint, uint) GetDefaultCred(string? username)
     {
-        if (username.IsEmpty()) return (IntPtr.Zero, 0);
+        if (username.IsEmpty()) return (nint.Zero, 0);
         uint inCredSize = 0;
-        try { _ = CredUi.CredPackAuthenticationBuffer(0, username, string.Empty, IntPtr.Zero, ref inCredSize); } catch { }
-        IntPtr inCredBuffer = Marshal.AllocCoTaskMem((int)inCredSize);
+        try { _ = CredUi.CredPackAuthenticationBuffer(0, username, string.Empty, nint.Zero, ref inCredSize); } catch { }
+        nint inCredBuffer = Marshal.AllocCoTaskMem((int)inCredSize);
         CredUi.CredPackAuthenticationBuffer(0, username, string.Empty, inCredBuffer, ref inCredSize);
         return (inCredBuffer, inCredSize);
     }
@@ -94,10 +94,10 @@ public static class CredentialBox
     /// por el usuario, o <see langword="null"/> si el usuario cancela la
     /// operación o no introduce ninguna credencial.
     /// </returns>
-    public static CredentialBoxResult? GetCredentials(CredentialBoxProperties props)
+    public static CredentialBoxResult? GetCredentials(CredentialDialogProperties props)
     {
         CreduiInfo credui = GetCredUiInfo(props.Title, props.Message);
-        (IntPtr defaultCred, uint defaultCredSz) = GetDefaultCred(props.DefaultUser);
+        (nint defaultCred, uint defaultCredSz) = GetDefaultCred(props.DefaultUser);
         uint authPackage = 0;
         bool save = false;
         PromptForWindowsCredentialsFlags dialogFlags = CREDUIWIN_GENERIC | GENERIC_CREDENTIALS;

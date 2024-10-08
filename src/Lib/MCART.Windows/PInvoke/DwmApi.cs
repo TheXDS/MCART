@@ -30,7 +30,7 @@ SOFTWARE.
 
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
-using TheXDS.MCART.PInvoke.Structs;
+using TheXDS.MCART.PInvoke.Models;
 
 namespace TheXDS.MCART.PInvoke;
 

@@ -1,5 +1,5 @@
 ﻿/*
-WindowChanges.cs
+AccentState.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,24 +28,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.PInvoke.Structs;
+namespace TheXDS.MCART.PInvoke.Models;
 
-[Flags]
-internal enum WindowChanges : uint
+internal enum AccentState
 {
-    IgnoreResize = 0x0001,
-    IgnoreMove = 0x0002,
-    IgnoreZOrder = 0x0004,
-    DoNotRedraw = 0x0008,
-    DoNotActivate = 0x0010,
-    DrawFrame = 0x0020,
-    FrameChanged = 0x0020,
-    ShowWindow = 0x0040,
-    HideWindow = 0x0080,
-    DoNotCopyBits = 0x0100,
-    DoNotChangeOwnerZOrder = 0x0200,
-    DoNotReposition = 0x0200,
-    DoNotSendChangingEvent = 0x0400,
-    DeferErase = 0x2000,
-    AsynchronousWindowPosition = 0x4000,
+    ACCENT_DISABLED = 0,
+    ACCENT_ENABLE_GRADIENT = 1,
+    ACCENT_ENABLE_TRANSPARENTGRADIENT = 2,
+    ACCENT_ENABLE_BLURBEHIND = 3,
+    ACCENT_ENABLE_ACRYLICBLURBEHIND = 4
 }

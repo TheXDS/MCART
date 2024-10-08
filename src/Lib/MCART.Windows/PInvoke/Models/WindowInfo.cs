@@ -1,10 +1,11 @@
 ﻿/*
-WindowCompositionAttribute.cs
+WindowInfo.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
+     PInvoke.net Community <http://www.pinvoke.net>
 
 Released under the MIT License (MIT)
 Copyright © 2011 - 2024 César Andrés Morgan
@@ -28,11 +29,26 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.PInvoke.Structs;
+using System.Runtime.InteropServices;
 
-internal enum WindowCompositionAttribute
+namespace TheXDS.MCART.PInvoke.Models;
+
+[StructLayout(LayoutKind.Sequential)]
+internal struct WindowInfo
 {
-    // ...
-    WCA_ACCENT_POLICY = 19
-    // ...
+    public uint CbSize;
+    public Rect RcWindow;
+    public Rect RcClient;
+    public WindowStyles DwStyle;
+    public WindowStyles DwExtendedStyle;
+    public uint DwWindowStatus;
+    public uint CxWindowBorders;
+    public uint CyWindowBorders;
+    public ushort AtomWindowType;
+    public ushort WCreatorVersion;
+
+    public WindowInfo(bool setCbSize = true) : this()
+    {
+        if (setCbSize) CbSize = (uint)Marshal.SizeOf(typeof(WindowInfo));
+    }
 }

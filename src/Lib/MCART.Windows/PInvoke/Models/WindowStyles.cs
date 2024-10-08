@@ -30,7 +30,7 @@ SOFTWARE.
 
 #pragma warning disable CA1069
 
-namespace TheXDS.MCART.PInvoke.Structs;
+namespace TheXDS.MCART.PInvoke.Models;
 
 [Flags]
 internal enum WindowStyles : uint

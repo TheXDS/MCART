@@ -31,7 +31,7 @@ SOFTWARE.
 
 using System.Runtime.InteropServices;
 
-namespace TheXDS.MCART.PInvoke.Structs;
+namespace TheXDS.MCART.PInvoke.Models;
 
 [StructLayout(LayoutKind.Sequential)]
 internal struct Rect

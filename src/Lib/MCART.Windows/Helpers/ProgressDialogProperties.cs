@@ -1,4 +1,4 @@
-﻿// COLORREF.cs
+﻿// ProgressDialogProperties.cs
 //
 // This file is part of Morgan's CLR Advanced Runtime (MCART)
 //
@@ -26,14 +26,34 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace TheXDS.MCART.PInvoke.Structs;
+using System.Diagnostics.CodeAnalysis;
 
-[Flags]
-internal enum DWM_BLURBEHIND_Mask
-{
-    DWM_BB_ENABLE = 0X00000001,
+namespace TheXDS.MCART.Helpers;
 
-    DWM_BB_BLURREGION = 0X00000002,
-
-    DWM_BB_TRANSITIONONMAXIMIZED = 0x00000004
-}
+/// <summary>
+/// Provee de información sobre las propiedades a establecer al inicializar un
+/// nuevo diálogo de progreso nativo de Microsoft Windows.
+/// </summary>
+/// <param name="CancelButton">
+/// Indica si el cuadro de diálogo debe contener un botón para cancelar.
+/// </param>
+/// <param name="Marquee">
+/// Indica si la barra de progreso del diálogo se mostrará en estado de
+/// progreso indeterminado.
+/// </param>
+/// <param name="MinimizeButton">
+/// Indica si el diálogo incluirá un botón para minimizar la ventana del
+/// diálogo.
+/// </param>
+/// <param name="Modal">
+/// Indica si el diálogo será mostrado en modo modal.
+/// </param>
+/// <param name="ProgressBar">
+/// Indica si el diálogo contendrá una barra de progreso.
+/// </param>
+/// <param name="ShowTimeRemaining">
+/// Indica si se mostrará el tiempo restante de la operación en la tercera
+/// línea del diálogo.
+/// </param>
+[ExcludeFromCodeCoverage]
+public readonly record struct ProgressDialogProperties(bool CancelButton, bool Marquee, bool MinimizeButton, bool Modal, bool ProgressBar = true, bool ShowTimeRemaining = true) { }

@@ -1,5 +1,5 @@
 ﻿/*
-WindowCompositionAttributeData.cs
+Point.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -30,12 +30,21 @@ SOFTWARE.
 
 using System.Runtime.InteropServices;
 
-namespace TheXDS.MCART.PInvoke.Structs;
+namespace TheXDS.MCART.PInvoke.Models;
 
 [StructLayout(LayoutKind.Sequential)]
-internal struct WindowCompositionAttributeData
+internal struct Point
 {
-    public WindowCompositionAttribute Attribute;
-    public IntPtr Data;
-    public int SizeOfData;
+    public int X;
+    public int Y;
+
+    public static implicit operator Types.Point(Point point)
+    {
+        return new(point.X, point.Y);
+    }
+
+    public static implicit operator System.Drawing.Point(Point point)
+    {
+        return new(point.X, point.Y);
+    }
 }
