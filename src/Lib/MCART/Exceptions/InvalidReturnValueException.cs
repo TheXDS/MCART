@@ -28,8 +28,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.Runtime.Serialization;
 using TheXDS.MCART.Resources.Strings;
+
 using static TheXDS.MCART.Resources.Strings.Errors;
 
 namespace TheXDS.MCART.Exceptions;

@@ -40,16 +40,6 @@ namespace TheXDS.MCART.Events;
 /// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
 public class ModifyingItemEventArgs<T> : CancelEventArgs
 {
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase 
-    /// <see cref="ModifyingItemEventArgs{T}"/>.
-    /// </summary>
-    /// <param name="index">
-    /// Índice del objeto en el <see cref="ListEx{T}"/> que generó el
-    /// evento.
-    /// </param>
-    /// <param name="oldValue">Valor original del objeto.</param>
-    /// <param name="newValue">Nuevo valor del objeto.</param>
     internal ModifyingItemEventArgs(int index, T oldValue, T newValue)
     {
         OldValue = oldValue;

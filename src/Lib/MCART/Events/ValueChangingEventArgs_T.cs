@@ -39,24 +39,14 @@ namespace TheXDS.MCART.Events;
 /// <typeparam name="T">
 /// Tipo del valor almacenado por esta instancia.
 /// </typeparam>
-public class ValueChangingEventArgs<T> : CancelEventArgs
+/// <param name="oldValue">
+/// Valor original asociado al evento generado.
+/// </param>
+/// <param name="newValue">
+/// Nuevo valor asociado al evento generado.
+/// </param>
+public class ValueChangingEventArgs<T>(T oldValue, T newValue) : CancelEventArgs
 {
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="ValueChangingEventArgs{T}" /> con el valor provisto.
-    /// </summary>
-    /// <param name="oldValue">
-    /// Valor original asociado al evento generado.
-    /// </param>
-    /// <param name="newValue">
-    /// Nuevo valor asociado al evento generado.
-    /// </param>
-    public ValueChangingEventArgs(T oldValue, T newValue)
-    {
-        OldValue = oldValue;
-        NewValue = newValue;
-    }
-
     /// <summary>
     /// Convierte explícitamente este
     /// <see cref="ValueChangingEventArgs{T}" /> en un
@@ -79,7 +69,7 @@ public class ValueChangingEventArgs<T> : CancelEventArgs
     /// Un valor de tipo <typeparamref name="T" /> con el valor asociado al
     /// evento.
     /// </returns>
-    public T OldValue { get; }
+    public T OldValue { get; } = oldValue;
 
     /// <summary>
     /// Devuelve el nuevo valor asociado a este evento.
@@ -88,5 +78,5 @@ public class ValueChangingEventArgs<T> : CancelEventArgs
     /// Un valor de tipo <typeparamref name="T" /> con el valor asociado al
     /// evento.
     /// </returns>
-    public T NewValue { get; }
+    public T NewValue { get; } = newValue;
 }

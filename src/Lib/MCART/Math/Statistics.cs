@@ -94,7 +94,7 @@ public static partial class Statistics
     /// <returns>La tendencia media de un set de datos.</returns>
     public static double MeanTendency(this IEnumerable<double> data)
     {
-        List<double> c = new();
+        List<double> c = [];
         double last;
         using IEnumerator<double> e = data.GetEnumerator();
         if (e.MoveNext()) last = e.Current;
@@ -170,12 +170,12 @@ public static partial class Statistics
     /// <returns>La moda de un set de datos.</returns>
     public static IEnumerable<double> Mode(this IEnumerable<double> data)
     {
-        Dictionary<double, int> d = new();
+        Dictionary<double, int> d = [];
         using IEnumerator<double> e = data.GetEnumerator();
         while (e.MoveNext())
         {
-            if (!d.ContainsKey(e.Current)) d.Add(e.Current, 1);
-            else d[e.Current]++;
+            if (!d.TryGetValue(e.Current, out int value)) d.Add(e.Current, 1);
+            else d[e.Current] = ++value;
         }
         int m = d.Max(p => p.Value);
         return d.Where(p => p.Value == m).Select(p => p.Key);

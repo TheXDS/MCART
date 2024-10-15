@@ -46,13 +46,7 @@ public class FileStreamUriParser : SimpleStreamUriParser, IWebUriParser
     /// Enumera los esquemas soportados por este
     /// <see cref="StreamUriParser"/>.
     /// </summary>
-    protected override IEnumerable<string> SchemeList
-    {
-        get
-        {
-            yield return "file";
-        }
-    }
+    protected override IEnumerable<string> SchemeList { get; } = ["file"];
 
     /// <summary>
     /// Obtiene una respuesta Web a partir del <see cref="Uri"/>

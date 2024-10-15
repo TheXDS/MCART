@@ -58,7 +58,7 @@ public class ProgressionEventArgsTests
     [Test]
     public void Ctor_contract_test()
     {
-        Assert.That(() => new ProgressionEventArgs(double.NaN), Throws.Nothing);
+        Assert.That(() => new ProgressionEventArgs(double.NaN), Throws.InstanceOf<ArgumentOutOfRangeException>());
         Assert.That(() => new ProgressionEventArgs(1.1), Throws.InstanceOf<ArgumentOutOfRangeException>());
         Assert.That(() => new ProgressionEventArgs(-0.1), Throws.InstanceOf<ArgumentOutOfRangeException>());
         Assert.That(() => new ProgressionEventArgs(double.PositiveInfinity), Throws.InstanceOf<ArgumentOutOfRangeException>());

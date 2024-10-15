@@ -41,6 +41,4 @@ namespace TheXDS.MCART.Attributes;
 /// </remarks>
 [AttributeUsage(Method | Class | Module | Assembly)]
 [Serializable]
-public sealed class ThirdPartyAttribute : Attribute
-{
-}
+public sealed class ThirdPartyAttribute : Attribute;

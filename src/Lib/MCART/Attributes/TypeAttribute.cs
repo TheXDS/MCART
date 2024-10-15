@@ -39,21 +39,8 @@ namespace TheXDS.MCART.Attributes;
 /// </summary>
 [AttributeUsage(All)]
 [Serializable]
-public class TypeAttribute : Attribute, IValueAttribute<Type>
+public class TypeAttribute(Type type) : Attribute, IValueAttribute<Type>
 {
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="TypeAttribute" />.
-    /// </summary>
-    /// <param name="type">Valor de este atributo.</param>
-    public TypeAttribute(Type type)
-    {
-        Value = type;
-    }
-
-    /// <summary>
-    /// Obtiene el valor asociado a este atributo.
-    /// </summary>
-    /// <value>El valor de este atributo.</value>
-    public Type Value { get; }
+    /// <inheritdoc/>
+    public Type Value { get; } = type;
 }

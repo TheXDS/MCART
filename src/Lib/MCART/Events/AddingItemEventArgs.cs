@@ -37,23 +37,14 @@ namespace TheXDS.MCART.Events;
 /// Contiene información para el evento <see cref="ListEx{T}.AddingItem"/>.
 /// </summary>
 /// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
-public class AddingItemEventArgs<T> : CancelEventArgs
+/// <param name="newItem">
+/// Objeto a ser agregado al <see cref="ListEx{T}"/> que generó el 
+/// evento.
+/// </param>
+public class AddingItemEventArgs<T>(T newItem) : CancelEventArgs
 {
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase 
-    /// <see cref="AddingItemEventArgs{T}"/>.
-    /// </summary>
-    /// <param name="newItem">
-    /// Objeto a ser agregado al <see cref="ListEx{T}"/> que generó el 
-    /// evento.
-    /// </param>
-    public AddingItemEventArgs(T newItem)
-    { 
-        NewItem = newItem;
-    }
-
     /// <summary>
     /// Obtiene el objeto que se agregará al <see cref="ListEx{T}"/>.
     /// </summary>
-    public T NewItem { get; }
+    public T NewItem { get; } = newItem;
 }

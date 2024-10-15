@@ -29,12 +29,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.Diagnostics;
 using System.Security;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types.Extensions;
 
-namespace TheXDS.MCART.Security.Tests.Helpers;
+namespace TheXDS.MCART.Security.Tests.Security;
 
 internal class Pbkdf2StorageTests
 {
@@ -62,7 +61,8 @@ internal class Pbkdf2StorageTests
     {
         IPasswordStorage pbkdf2 = new Pbkdf2Storage()
         {
-            Settings = new Pbkdf2Settings() {
+            Settings = new Pbkdf2Settings()
+            {
                 Salt = Convert.FromBase64String("WFAM4zPKWXHYcalDt4koaw=="),
                 Iterations = 1000,
                 DerivedKeyLength = 128 / 8,
@@ -103,12 +103,42 @@ internal class Pbkdf2StorageTests
                 HashFunction = "SHA384"
             }
         };
-        byte[] settings = pbkdf2.DumpSettings();        
+        byte[] settings = pbkdf2.DumpSettings();
         pbkdf2 = new Pbkdf2Storage();
         Assert.That(settings, Is.Not.EqualTo(pbkdf2.DumpSettings()));
         using var ms = new MemoryStream(settings);
         using var br = new BinaryReader(ms);
         pbkdf2.ConfigureFrom(br);
         Assert.That(settings, Is.EqualTo(pbkdf2.DumpSettings()));
+    }
+
+    [Test]
+    public void Pbkdf2_default_algorithm_is_SHA512()
+    {
+        IPasswordStorage pbkdf2 = new Pbkdf2Storage()
+        {
+            Settings = new Pbkdf2Settings()
+            {
+                Salt = Convert.FromBase64String("WFAM4zPKWXHYcalDt4koaw=="),
+                Iterations = 1000,
+                DerivedKeyLength = 16,
+                HashFunction = null
+            }
+        };
+        byte[] expected = Convert.FromBase64String("fqg8ZoPMzmLiOVqZtdlB2g==");
+        Assert.That(expected, Is.EqualTo(pbkdf2.Generate("password".ToSecureString())));
+    }
+
+    [Test]
+    public void Pbkdf2_gets_key_length_from_settings()
+    {
+        IPasswordStorage pbkdf2 = new Pbkdf2Storage()
+        {
+            Settings = new Pbkdf2Settings()
+            {
+                DerivedKeyLength = 16
+            }
+        };
+        Assert.That(pbkdf2.KeyLength, Is.EqualTo(16));
     }
 }

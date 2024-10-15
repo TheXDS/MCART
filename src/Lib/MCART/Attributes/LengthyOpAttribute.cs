@@ -37,6 +37,4 @@ namespace TheXDS.MCART.Attributes;
 /// </summary>
 [AttributeUsage(Method | AttributeTargets.Delegate)]
 [Serializable]
-public sealed class LengthyOpAttribute : Attribute
-{
-}
+public sealed class LengthyOpAttribute : Attribute;

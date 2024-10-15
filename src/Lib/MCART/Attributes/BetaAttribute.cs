@@ -37,6 +37,4 @@ namespace TheXDS.MCART.Attributes;
 /// </summary>
 [AttributeUsage(Method | Class | Module | Assembly)]
 [Serializable]
-public sealed class BetaAttribute : Attribute
-{
-}
+public sealed class BetaAttribute : Attribute;

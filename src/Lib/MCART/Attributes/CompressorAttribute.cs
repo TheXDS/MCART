@@ -33,15 +33,6 @@ namespace TheXDS.MCART.Attributes;
 /// <summary>
 /// Atributo que indica el compresor utilizado para este elemento.
 /// </summary>
+/// <param name="compressor">Nombre del compresor utilizado.</param>
 [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
-public sealed class CompressorAttribute : TextAttribute
-{
-    /// <summary>
-    /// Indica el compresor utilizado por este elemento.
-    /// </summary>
-    /// <param name="compressor">Nombre del compresor utilizado.</param>
-    public CompressorAttribute(string compressor) 
-        : base(compressor)
-    {
-    }
-}
+public sealed class CompressorAttribute(string compressor) : TextAttribute(compressor);

@@ -36,20 +36,11 @@ namespace TheXDS.MCART.Attributes;
 /// <summary>
 /// Establece la información de Copyright del elemento.
 /// </summary>
+/// <param name="copyright">Valor del atributo.</param>
 [AttributeUsage(Method | Class | Module | Assembly)]
 [Serializable]
-public sealed class CopyrightAttribute : TextAttribute
+public sealed class CopyrightAttribute(string copyright) : TextAttribute(GetCopyrightString(copyright))
 {
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="DescriptionAttribute" />.
-    /// </summary>
-    /// <param name="copyright">Valor del atributo.</param>
-    public CopyrightAttribute(string copyright) 
-        : base(GetCopyrightString(copyright))
-    {
-    }
-
     /// <summary>
     /// Inicializa una nueva instancia de la clase
     /// <see cref="DescriptionAttribute" />.

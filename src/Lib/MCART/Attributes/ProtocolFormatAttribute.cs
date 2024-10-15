@@ -38,23 +38,15 @@ namespace TheXDS.MCART.Attributes;
 /// Establece un formato de protocolo para abrir un vínculo por medio
 /// del sistema operativo.
 /// </summary>
+/// <param name="format">Máscara a aplicar.</param>
 [AttributeUsage(Property | Field)]
 [Serializable]
-public sealed class ProtocolFormatAttribute : Attribute, IValueAttribute<string>
+public sealed class ProtocolFormatAttribute(string format) : TextAttribute(format), IValueAttribute<string>
 {
-    /// <summary>
-    /// Establece un formato de protocolo para abrir un vínculo por medio del sistema operativo.
-    /// </summary>
-    /// <param name="format">Máscara a aplicar.</param>
-    public ProtocolFormatAttribute(string format)
-    {
-        Format = EmptyChecked(format, nameof(format));
-    }
-
     /// <summary>
     /// Formato de llamada de protocolo.
     /// </summary>
-    public string Format { get; }
+    public string Format { get; } = EmptyChecked(format);
 
     /// <summary>
     /// Obtiene el valor de este atributo.

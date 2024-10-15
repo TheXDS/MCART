@@ -28,16 +28,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Tests.Math;
-using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Math;
 using TheXDS.MCART.Types;
 using static TheXDS.MCART.Math.Algebra;
 using static TheXDS.MCART.Math.Geometry;
+
+namespace TheXDS.MCART.Tests.Math;
 
 public class AlgebraTests
 {

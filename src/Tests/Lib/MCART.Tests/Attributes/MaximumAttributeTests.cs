@@ -38,7 +38,7 @@ public class MaximumAttributeTests
     [TestCase(25)]
     public void Instancing_test(int testValue)
     {
-        MaximumAttribute b = new(testValue);
+        MaximumAttribute<int> b = new(testValue);
         Assert.That(testValue, Is.EqualTo(b.Value));
     }
 }

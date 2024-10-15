@@ -34,17 +34,13 @@ namespace TheXDS.MCART.Attributes;
 /// Establece un valor máximo al cual se deben limitar los campos y
 /// propiedades.
 /// </summary>
+/// <param name="attributeValue">Valor del atributo.</param>
 [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
-public sealed class MaximumAttribute : ObjectAttribute
+#if CLSCompliance
+[CLSCompliant(false)]
+#endif
+public sealed class MaximumAttribute<T>(T attributeValue) : Attribute, IValueAttribute<T> where T : IComparable<T>
 {
-    /// <summary>
-    /// Inicializa una nueva instancia del atributo
-    /// <see cref="MinimumAttribute" /> 
-    /// estableciendo el valor máximo a representar.
-    /// </summary>
-    /// <param name="attributeValue">Valor del atributo.</param>
-    public MaximumAttribute(object? attributeValue) 
-        : base(attributeValue)
-    {
-    }
+    /// <inheritdoc/>
+    public T Value { get; } = attributeValue;
 }

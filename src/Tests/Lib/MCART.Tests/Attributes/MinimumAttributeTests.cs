@@ -38,7 +38,7 @@ public class MinimumAttributeTests
     [TestCase(-10)]
     public void Instancing_test(int testValue)
     {
-        MinimumAttribute b = new(testValue);
+        MinimumAttribute<int> b = new(testValue);
         Assert.That(testValue, Is.EqualTo(b.Value));
     }
 }

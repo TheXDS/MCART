@@ -40,9 +40,11 @@ public static partial class EnumerableExtensions
     /// <summary>
     /// Itera de manera ordenada sobre la colección.
     /// </summary>
-    /// <param name="collection"></param>
-    /// <typeparam name="T"></typeparam>
-    /// <returns></returns>
+    /// <param name="collection">Colección sobre la cual iterar</param>
+    /// <typeparam name="T">Tipo de elementos de la colección.</typeparam>
+    /// <returns>
+    /// Un objeto enumerable ordenado creado a partir de la colección.
+    /// </returns>
     [Sugar]
     public static IOrderedEnumerable<T> Ordered<T>(this IEnumerable<T> collection) where T : IComparable<T>
     {
@@ -182,7 +184,7 @@ public static partial class EnumerableExtensions
     /// </returns>
     public static IEnumerable<T> NotNull<T>(this IEnumerable<T?>? collection) where T : class
     {
-        return collection is null ? Array.Empty<T>() : collection.Where(p => p is not null).Select(p => p!);
+        return collection is null ? [] : collection.Where(p => p is not null).Select(p => p!);
     }
 
     /// <summary>
@@ -197,7 +199,7 @@ public static partial class EnumerableExtensions
     /// </returns>
     public static IEnumerable<T> NotNull<T>(this IEnumerable<T?>? collection) where T : struct
     {
-        return collection is null ? Array.Empty<T>() : collection.Where(p => p is not null).Select(p => p!.Value);
+        return collection is null ? [] : collection.Where(p => p is not null).Select(p => p!.Value);
     }
 
     /// <summary>
@@ -285,8 +287,7 @@ public static partial class EnumerableExtensions
     /// </typeparam>
     public static IEnumerable<T> Copy<T>(this IEnumerable<T> collection)
     {
-        List<T> tmp = new();
-        tmp.AddRange(collection);
+        List<T> tmp = [.. collection];
         return tmp;
     }
 
@@ -479,39 +480,39 @@ public static partial class EnumerableExtensions
         switch (steps)
         {
             case > 0:
+            {
+                using IEnumerator<T> e = collection.GetEnumerator();
+                e.Reset();
+                int j = 0;
+
+                while (j++ < steps) e.MoveNext();
+                while (e.MoveNext()) yield return e.Current;
+                e.Reset();
+                while (--j > 0)
                 {
-                    using IEnumerator<T> e = collection.GetEnumerator();
-                    e.Reset();
-                    int j = 0;
-
-                    while (j++ < steps) e.MoveNext();
-                    while (e.MoveNext()) yield return e.Current;
-                    e.Reset();
-                    while (--j > 0)
-                    {
-                        e.MoveNext();
-                        yield return e.Current;
-                    }
-
-                    break;
+                    e.MoveNext();
+                    yield return e.Current;
                 }
+
+                break;
+            }
             case < 0:
-                {
-                    List<T> c = new();
-                    using IEnumerator<T> e = collection.GetEnumerator();
-                    e.Reset();
+            {
+                List<T> c = [];
+                using IEnumerator<T> e = collection.GetEnumerator();
+                e.Reset();
 
-                    // HACK: La implementación para IList<TValue> es funcional, y no requiere de trucos inusuales para rotar.
-                    while (e.MoveNext()) c.Add(e.Current);
-                    c.ApplyRotate(steps);
-                    foreach (T? i in c) yield return i;
-                    break;
-                }
+                // HACK: La implementación para IList<TValue> es funcional, y no requiere de trucos inusuales para rotar.
+                while (e.MoveNext()) c.Add(e.Current);
+                c.ApplyRotate(steps);
+                foreach (T? i in c) yield return i;
+                break;
+            }
             default:
-                {
-                    foreach (T? i in collection) yield return i;
-                    break;
-                }
+            {
+                foreach (T? i in collection) yield return i;
+                break;
+            }
         }
     }
 
@@ -530,35 +531,35 @@ public static partial class EnumerableExtensions
         switch (steps)
         {
             case > 0:
-                {
-                    using IEnumerator<T> e = collection.GetEnumerator();
-                    e.Reset();
-                    int j = 0;
-                    while (j++ < steps) e.MoveNext();
-                    while (e.MoveNext()) yield return e.Current;
-                    while (--j > 0) yield return default!;
-                    break;
-                }
+            {
+                using IEnumerator<T> e = collection.GetEnumerator();
+                e.Reset();
+                int j = 0;
+                while (j++ < steps) e.MoveNext();
+                while (e.MoveNext()) yield return e.Current;
+                while (--j > 0) yield return default!;
+                break;
+            }
             case < 0:
-                {
-                    using IEnumerator<T> e = collection.GetEnumerator();
-                    e.Reset();
-                    int j = 0;
+            {
+                using IEnumerator<T> e = collection.GetEnumerator();
+                e.Reset();
+                int j = 0;
 
-                    List<T> c = new();
+                List<T> c = [];
 
-                    // HACK: Enumeración manual
-                    while (e.MoveNext()) c.Add(e.Current);
-                    while (j-- > steps) yield return default!;
-                    j += c.Count;
-                    while (j-- >= 0) yield return c.PopFirst();
-                    break;
-                }
+                // HACK: Enumeración manual
+                while (e.MoveNext()) c.Add(e.Current);
+                while (j-- > steps) yield return default!;
+                j += c.Count;
+                while (j-- >= 0) yield return c.PopFirst();
+                break;
+            }
             default:
-                {
-                    foreach (T? i in collection) yield return i;
-                    break;
-                }
+            {
+                foreach (T? i in collection) yield return i;
+                break;
+            }
         }
     }
 

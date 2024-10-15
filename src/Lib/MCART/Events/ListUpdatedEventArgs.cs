@@ -37,24 +37,14 @@ namespace TheXDS.MCART.Events;
 /// <see cref="ListEx{T}.ListUpdated"/>.
 /// </summary>
 /// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
-public class ListUpdatedEventArgs<T> : EventArgs
+/// <param name="updateType">
+/// Tipo de actualización realizada sobre la lista.
+/// </param>
+/// <param name="affectedItems">
+/// Elementos que han sido afectados por la actualización de la lista.
+/// </param>
+public class ListUpdatedEventArgs<T>(ListUpdateType updateType, IEnumerable<T>? affectedItems) : EventArgs
 {
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="ListUpdatingEventArgs{T}"/>.
-    /// </summary>
-    /// <param name="updateType">
-    /// Tipo de actualización realizada sobre la lista.
-    /// </param>
-    /// <param name="affectedItems">
-    /// Elementos que han sido afectados por la actualización de la lista.
-    /// </param>
-    public ListUpdatedEventArgs(ListUpdateType updateType, IEnumerable<T>? affectedItems)
-    {
-        UpdateType = updateType;
-        AffectedItems = affectedItems?.ToList().AsReadOnly();
-    }
-
     /// <summary>
     /// Convierte implícitamente un
     /// <see cref="ListUpdatingEventArgs{T}"/> en un
@@ -69,11 +59,11 @@ public class ListUpdatedEventArgs<T> : EventArgs
     /// Elementos que fueron afectados por la actualización del 
     /// <see cref="ListEx{T}"/> que generó el evento.
     /// </summary>
-    public IReadOnlyCollection<T>? AffectedItems { get; }
+    public IReadOnlyCollection<T>? AffectedItems { get; } = affectedItems?.ToList().AsReadOnly();
 
     /// <summary>
     /// Tipo de actualización ocurrida en el <see cref="ListEx{T}"/>
     /// que generó el evento.
     /// </summary>
-    public ListUpdateType UpdateType { get; }
+    public ListUpdateType UpdateType { get; } = updateType;
 }

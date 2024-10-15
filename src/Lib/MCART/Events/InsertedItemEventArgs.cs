@@ -37,20 +37,10 @@ namespace TheXDS.MCART.Events;
 /// <see cref="ListEx{T}.InsertedItem"/>.
 /// </summary>
 /// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
-public class InsertedItemEventArgs<T> : EventArgs
+/// <param name="index">Índice del elemento insertado.</param>
+/// <param name="insertedItem">Elemento insertado.</param>
+public class InsertedItemEventArgs<T>(int index, T insertedItem) : EventArgs
 {
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="InsertedItemEventArgs{T}"/>.
-    /// </summary>
-    /// <param name="index">Índice del elemento insertado.</param>
-    /// <param name="insertedItem">Elemento insertado.</param>
-    public InsertedItemEventArgs(int index, T insertedItem)
-    {
-        Index = index;
-        InsertedItem = insertedItem;
-    }
-
     /// <summary>
     /// Convierte implícitamente un 
     /// <see cref="InsertingItemEventArgs{T}"/> en un
@@ -65,11 +55,11 @@ public class InsertedItemEventArgs<T> : EventArgs
     /// Elemento que fue insertado en el <see cref="ListEx{T}"/> que
     /// generó el evento.
     /// </summary>
-    public T InsertedItem { get; }
+    public T InsertedItem { get; } = insertedItem;
 
     /// <summary>
     /// Índice del objeto dentro del <see cref="ListEx{T}"/> que generó
     /// el evento.
     /// </summary>
-    public int Index { get; }
+    public int Index { get; } = index;
 }

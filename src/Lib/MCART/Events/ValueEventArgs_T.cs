@@ -37,18 +37,9 @@ namespace TheXDS.MCART.Events;
 /// <typeparam name="T">
 /// Tipo del valor almacenado por esta instancia.
 /// </typeparam>
-public class ValueEventArgs<T> : EventArgs
+/// <param name="value">Valor asociado al evento generado.</param>
+public class ValueEventArgs<T>(T value) : EventArgs
 {
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="ValueEventArgs{T}"/> con el valor provisto.
-    /// </summary>
-    /// <param name="value">Valor asociado al evento generado.</param>
-    public ValueEventArgs(T value)
-    {
-        Value = value;
-    }
-
     /// <summary>
     /// Crea implícitamente un <see cref="ValueEventArgs{T}"/> a partir
     /// de un valor <typeparamref name="T"/>.
@@ -66,5 +57,5 @@ public class ValueEventArgs<T> : EventArgs
     /// Un valor de tipo <typeparamref name="T" /> con el valor asociado a
     /// este evento.
     /// </returns>
-    public T Value { get; }
+    public T Value { get; } = value;
 }

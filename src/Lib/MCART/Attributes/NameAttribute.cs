@@ -35,17 +35,7 @@ namespace TheXDS.MCART.Attributes;
 /// <summary>
 /// Establece un nombre personalizado para describir este elemento.
 /// </summary>
+/// <param name="name">Valor del atributo.</param>
 [AttributeUsage(All)]
 [Serializable]
-public sealed class NameAttribute : TextAttribute
-{
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="NameAttribute" />.
-    /// </summary>
-    /// <param name="name">Valor del atributo.</param>
-    public NameAttribute(string name) 
-        : base(name)
-    {
-    }
-}
+public sealed class NameAttribute(string name) : TextAttribute(name);

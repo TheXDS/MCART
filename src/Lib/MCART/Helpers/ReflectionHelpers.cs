@@ -1033,7 +1033,7 @@ public static partial class ReflectionHelpers
             }
             catch
             {
-                return Array.Empty<Type>();
+                return [];
             }
         }
         return assemblies.SelectMany(TryAssembly).NotNull();
@@ -1088,7 +1088,7 @@ public static partial class ReflectionHelpers
         return
             from j in properties.Where(p => p.CanRead)
             where j.PropertyType.Implements(typeof(T))
-            select (T)j.GetMethod!.Invoke(instance, Array.Empty<object>())!;
+            select (T)j.GetMethod!.Invoke(instance, [])!;
     }
 
     /// <summary>
@@ -1322,15 +1322,13 @@ public static partial class ReflectionHelpers
 
     private static IEnumerable<Type> SafeGetExportedTypes(Assembly arg)
     {
-        Type[] types;
         try
         {
-            types = arg.GetExportedTypes();
+            return arg.GetExportedTypes();
         }
         catch
         {
-            types = Array.Empty<Type>();
-        }
-        return types;
+            return [];
+        }        
     }
 }

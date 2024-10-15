@@ -37,24 +37,18 @@ namespace TheXDS.MCART.Attributes;
 /// <summary>
 /// Establece un nombre personalizado localizado para describir este elemento.
 /// </summary>
+/// <remarks>
+/// Inicializa una nueva instancia de la clase
+/// <see cref="LocalizedDescriptionAttribute" />.
+/// </remarks>
+/// <param name="stringId">Id de la cadena a localizar.</param>
+/// <param name="resourceType">Tipo que contiene la información de localización a utilizar.</param>
 [AttributeUsage(All)]
 [Serializable]
-public sealed class LocalizedDescriptionAttribute : System.ComponentModel.DescriptionAttribute, IValueAttribute<string>
+public sealed class LocalizedDescriptionAttribute(string stringId, Type resourceType) : System.ComponentModel.DescriptionAttribute, IValueAttribute<string>
 {
-    private readonly string _stringId;
-    private readonly ResourceManager _res;
-
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="LocalizedDescriptionAttribute" />.
-    /// </summary>
-    /// <param name="stringId">Id de la cadena a localizar.</param>
-    /// <param name="resourceType">Tipo que contiene la información de localización a utilizar.</param>
-    public LocalizedDescriptionAttribute(string stringId, Type resourceType)
-    {
-        _stringId = EmptyChecked(stringId);
-        _res = new ResourceManager(NullChecked(resourceType));
-    }
+    private readonly string _stringId = EmptyChecked(stringId);
+    private readonly ResourceManager _res = new(NullChecked(resourceType));
 
     /// <inheritdoc/>
     public override string Description => _res.GetString(_stringId) ?? $"[[{_stringId}]]";

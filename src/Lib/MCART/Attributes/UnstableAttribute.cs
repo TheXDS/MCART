@@ -37,6 +37,4 @@ namespace TheXDS.MCART.Attributes;
 /// </summary>
 [AttributeUsage(Method | Class | Module | Assembly)]
 [Serializable]
-public sealed class UnstableAttribute : Attribute
-{
-}
+public sealed class UnstableAttribute : Attribute;

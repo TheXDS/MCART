@@ -38,28 +38,18 @@ namespace TheXDS.MCART.Events;
 /// <see cref="ListEx{T}.InsertingItem"/>.
 /// </summary>
 /// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
-public class InsertingItemEventArgs<T> : CancelEventArgs
+/// <param name="index">Índice del elemento a insertar.</param>
+/// <param name="insertedItem">Elemento a insertar.</param>
+public class InsertingItemEventArgs<T>(int index, T insertedItem) : CancelEventArgs
 {
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="InsertingItemEventArgs{T}"/>.
-    /// </summary>
-    /// <param name="index">Índice del elemento a insertar.</param>
-    /// <param name="insertedItem">Elemento a insertar.</param>
-    public InsertingItemEventArgs(int index, T insertedItem)
-    {
-        Index = index;
-        InsertedItem = insertedItem;
-    }
-
     /// <summary>
     /// Obtiene el objeto que se insertará en el
     /// <see cref="ListEx{T}"/>.
     /// </summary>
-    public T InsertedItem { get; }
+    public T InsertedItem { get; } = insertedItem;
 
     /// <summary>
     /// Obtiene el índice en el cual el objeto será insertado.
     /// </summary>
-    public int Index { get; }
+    public int Index { get; } = index;
 }

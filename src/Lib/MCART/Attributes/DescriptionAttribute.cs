@@ -33,17 +33,7 @@ namespace TheXDS.MCART.Attributes;
 /// <summary>
 /// Establece una descripción larga para este elemento.
 /// </summary>
+/// <param name="description">Valor del atributo.</param>
 [AttributeUsage(AttributeTargets.All)]
 [Serializable]
-public sealed class DescriptionAttribute : TextAttribute
-{
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="DescriptionAttribute" />.
-    /// </summary>
-    /// <param name="description">Valor del atributo.</param>
-    public DescriptionAttribute(string description)
-        : base(description)
-    {
-    }
-}
+public sealed class DescriptionAttribute(string description) : TextAttribute(description);

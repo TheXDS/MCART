@@ -1,5 +1,5 @@
 ﻿/*
-ProtocolFormatAttribute.cs
+PriorityAttribute.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -35,17 +35,10 @@ namespace TheXDS.MCART.Attributes;
 /// <summary>
 /// Marca un elemento con un valor de prioridad.
 /// </summary>
+/// <param name="priority">Valor de prioridad a asociar.</param>
 [AttributeUsage(Assembly | Class | Module | Event | GenericParameter | Interface | Method | Module | Parameter | Property | Struct)]
-[Serializable]
-public sealed class PriorityAttribute : IntAttribute
+public sealed class PriorityAttribute(int priority) : Attribute, IValueAttribute<int>
 {
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="PriorityAttribute"/>.
-    /// </summary>
-    /// <param name="priority">Valor de prioridad a asociar.</param>
-    public PriorityAttribute(int priority) 
-        : base(priority)
-    {
-    }
+    /// <inheritdoc/>
+    public int Value { get; } = priority;
 }

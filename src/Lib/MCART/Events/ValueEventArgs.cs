@@ -34,13 +34,5 @@ namespace TheXDS.MCART.Events;
 /// Incluye información de evento para cualquier clase con eventos que
 /// incluyan tipos de valor.
 /// </summary>
-public class ValueEventArgs : ValueEventArgs<object?>
-{
-    /// <summary>
-    /// Inicializa una nueva instancia de este objeto con el valor provisto.
-    /// </summary>
-    /// <param name="value">Valor asociado al evento generado.</param>
-    public ValueEventArgs(object? value) : base(value)
-    {
-    }
-}
+/// <param name="value">Valor asociado al evento generado.</param>
+public class ValueEventArgs(object? value) : ValueEventArgs<object?>(value);

@@ -264,18 +264,19 @@ public class ListEx<T> : List<T>, ICloneable<ListEx<T>>
     /// <exception cref="IndexOutOfRangeException">
     /// Se produce si esta lista está vacía.
     /// </exception>
-    public new void Remove(T item)
+    public new bool Remove(T item)
     {
-        if (!this.Any()) throw new IndexOutOfRangeException(null, new EmptyCollectionException(this));
+        if (!this.Any()) return false;
         if (TriggerEvents)
         {
             RemovingItemEventArgs<T>? a = new(IndexOf(item), this.Last());
             RemovingItem?.Invoke(this, a);
-            if (a.Cancel) return;
-            base.Remove(item);
+            if (a.Cancel) return false;
+            var result = base.Remove(item);
             RemovedItem?.Invoke(this, a);
+            return result;
         }
-        else base.Remove(item);
+        else return base.Remove(item);
     }
 
     /// <summary>
@@ -289,7 +290,7 @@ public class ListEx<T> : List<T>, ICloneable<ListEx<T>>
     /// </exception>
     public new void RemoveAt(int index)
     {
-        if (!this.Any()) throw new IndexOutOfRangeException(null, new EmptyCollectionException(this));
+        if (!this.Any()) return;
         if (TriggerEvents)
         {
             RemovingItemEventArgs<T>? a = new(index, this[index]);

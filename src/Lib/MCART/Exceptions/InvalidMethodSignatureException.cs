@@ -29,7 +29,6 @@ SOFTWARE.
 */
 
 using System.Reflection;
-using System.Runtime.Serialization;
 using static TheXDS.MCART.Resources.Strings.Errors;
 
 namespace TheXDS.MCART.Exceptions;

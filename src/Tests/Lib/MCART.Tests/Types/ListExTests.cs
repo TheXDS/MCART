@@ -28,12 +28,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Tests.Types;
-using NUnit.Framework;
-using System;
+using System.ComponentModel;
 using TheXDS.MCART.Events;
 using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Base;
+
+namespace TheXDS.MCART.Tests.Types;
 
 public class ListExTests
 {
@@ -43,20 +43,20 @@ public class ListExTests
         ListEx<int> l = new();
         Assert.That(l, Is.Not.Null);
         Assert.That(l.TriggerEvents);
-        l = new(new[] {1, 2, 3, 4, 5});
-        Assert.That(l, Is.EquivalentTo(new[] {1, 2, 3, 4, 5}));
+        l = new([1, 2, 3, 4, 5]);
+        Assert.That(l, Is.EquivalentTo(new[] { 1, 2, 3, 4, 5 }));
         Assert.That(l.TriggerEvents);
         l = new(3);
         Assert.That(l, Is.Not.Null);
         Assert.That(l.TriggerEvents);
-        l = new() {TriggerEvents = false};
+        l = new() { TriggerEvents = false };
         Assert.That(l.TriggerEvents, Is.False);
     }
 
     [Test]
     public void Indexer_Basic_Access_Test()
     {
-        ListEx<int> l = new(new[] {1, 2, 3, 4, 5});
+        ListEx<int> l = new([1, 2, 3, 4, 5]);
         Assert.That(3, Is.EqualTo(l[2]));
         l[2] = 6;
         Assert.That(6, Is.EqualTo(l[2]));
@@ -85,7 +85,7 @@ public class ListExTests
 
         void CheckModified(object? sender, ItemModifiedEventArgs<int> e) => Assert.Fail();
 
-        ListEx<int> l = new(new[] {1, 2, 3, 4, 5}) { TriggerEvents = true };
+        ListEx<int> l = new([1, 2, 3, 4, 5]) { TriggerEvents = true };
         l.ModifyingItem += JustCancel;
         l.ModifiedItem += CheckModified;
         l[2] = 6;
@@ -111,7 +111,7 @@ public class ListExTests
             Assert.That(6, Is.EqualTo(e.Item));
             eventCalled = true;
         }
-        ListEx<int> l = new(new[] {1, 2, 3, 4, 5}) { TriggerEvents = true };
+        ListEx<int> l = new([1, 2, 3, 4, 5]) { TriggerEvents = true };
         l.ModifiedItem += CheckEvent;
         l[2] = 6;
         Assert.That(6, Is.EqualTo(l[2]));
@@ -125,7 +125,7 @@ public class ListExTests
         void CheckModifying(object? sender, ModifyingItemEventArgs<int> e) => Assert.Fail();
         void CheckModified(object? sender, ItemModifiedEventArgs<int> e) => Assert.Fail();
 
-        ListEx<int> l = new(new[] {1, 2, 3, 4, 5}) { TriggerEvents = false };
+        ListEx<int> l = new([1, 2, 3, 4, 5]) { TriggerEvents = false };
         l.ModifyingItem += CheckModifying;
         l.ModifiedItem += CheckModified;
         l[2] = 6;
@@ -143,5 +143,200 @@ public class ListExTests
         Assert.That(typeof(IVector), Is.EqualTo(new ListEx<IVector>().ItemType));
         Assert.That(typeof(Exception), Is.EqualTo(new ListEx<Exception>().ItemType));
         Assert.That(typeof(Guid), Is.EqualTo(new ListEx<Guid>().ItemType));
+    }
+
+    [Test]
+    public void Remove_performs_nothing_on_empty_collection()
+    {
+        ListEx<int> l = [];
+        l.RemovingItem += (s, e) => Assert.Fail();
+        l.RemovedItem += (s, e) => Assert.Fail();
+
+        Assert.That(() => l.Remove(0), Throws.Nothing);
+        Assert.That(l.Remove(0), Is.False);
+    }
+
+    [Test]
+    public void Remove_triggers_events()
+    {
+        bool removingTriggered = false;
+        bool removedTriggered = false;
+        void removingHandler(object? s, RemovingItemEventArgs<char> e)
+        {
+            Assert.That(e.RemovedItem, Is.EqualTo('2'));
+            Assert.That(e.Index, Is.EqualTo(1));
+            removingTriggered = true;
+        }
+        void removedHandler(object? s, RemovedItemEventArgs<char> e)
+        {
+            Assert.That(e.RemovedItem, Is.EqualTo('2'));
+            removedTriggered = true;
+        }
+        ListEx<char> l = ['1', '2', '3'];
+        l.TriggerEvents = true;
+        l.RemovingItem += removingHandler;
+        l.RemovedItem += removedHandler;
+
+        Assert.That(l.Remove('2'), Is.True);
+        Assert.That(l, Is.EquivalentTo((char[])['1', '3']));
+        Assert.That(removingTriggered, Is.True);
+        Assert.That(removedTriggered, Is.True);
+
+        l.RemovingItem -= removingHandler;
+        l.RemovedItem -= removedHandler;
+    }
+
+    [Test]
+    public void Remove_can_be_cancelled()
+    {
+        bool removingTriggered = false;
+        bool removedTriggered = false;
+        void removingHandler(object? s, RemovingItemEventArgs<char> e)
+        {
+            removingTriggered = true;
+            e.Cancel = true;
+        }
+
+        void removedHandler(object? s, RemovedItemEventArgs<char> e) => removedTriggered = true;
+
+        ListEx<char> l = ['1', '2', '3'];
+        l.TriggerEvents = true;
+        l.RemovingItem += removingHandler;
+        l.RemovedItem += removedHandler;
+
+        Assert.That(l.Remove('2'), Is.False);
+        Assert.That(l, Is.EquivalentTo((char[])['1', '2', '3']));
+        Assert.That(removingTriggered, Is.True);
+        Assert.That(removedTriggered, Is.False);
+
+        l.RemovingItem -= removingHandler;
+        l.RemovedItem -= removedHandler;
+    }
+
+    [Test]
+    public void Remove_works_on_disabled_events()
+    {
+        void removingHandler(object? s, RemovingItemEventArgs<char> e) => Assert.Fail();
+        void removedHandler(object? s, RemovedItemEventArgs<char> e) => Assert.Fail();
+
+        ListEx<char> l = ['1', '2', '3'];
+        l.TriggerEvents = false;
+        l.RemovingItem += removingHandler;
+        l.RemovedItem += removedHandler;
+
+        Assert.That(l.Remove('2'), Is.True);
+        Assert.That(l, Is.EquivalentTo((char[])['1', '3']));
+
+        l.RemovingItem -= removingHandler;
+        l.RemovedItem -= removedHandler;
+    }
+
+    [Test]
+    public void Remove_works_on_non_subscribed_events()
+    {
+        ListEx<char> l = ['1', '2', '3'];
+        l.TriggerEvents = true;
+
+        Assert.That(l.Remove('2'), Is.True);
+        Assert.That(l, Is.EquivalentTo((char[])['1', '3']));
+    }
+
+    [Test]
+    public void RemoveAt_performs_nothing_on_empty_collection()
+    {
+        ListEx<int> l = [];
+        l.RemovingItem += (s, e) => Assert.Fail();
+        l.RemovedItem += (s, e) => Assert.Fail();
+
+        Assert.That(() => l.RemoveAt(0), Throws.Nothing);
+    }
+
+    [Test]
+    public void RemoveAt_triggers_events()
+    {
+        bool removingTriggered = false;
+        bool removedTriggered = false;
+        void removingHandler(object? s, RemovingItemEventArgs<char> e)
+        {
+            Assert.That(e.RemovedItem, Is.EqualTo('2'));
+            Assert.That(e.Index, Is.EqualTo(1));
+            removingTriggered = true;
+        }
+        void removedHandler(object? s, RemovedItemEventArgs<char> e)
+        {
+            Assert.That(e.RemovedItem, Is.EqualTo('2'));
+            removedTriggered = true;
+        }
+
+        ListEx<char> l = ['1', '2', '3'];
+        l.TriggerEvents = true;
+        l.RemovingItem += removingHandler;
+        l.RemovedItem += removedHandler;
+
+        l.RemoveAt(1);
+
+        Assert.That(l, Is.EquivalentTo((char[])['1', '3']));
+        Assert.That(removingTriggered, Is.True);
+        Assert.That(removedTriggered, Is.True);
+
+        l.RemovingItem -= removingHandler;
+        l.RemovedItem -= removedHandler;
+    }
+
+    [Test]
+    public void RemoveAt_can_be_cancelled()
+    {
+        bool removingTriggered = false;
+        bool removedTriggered = false;
+        void removingHandler(object? s, RemovingItemEventArgs<char> e)
+        {
+            removingTriggered = true;
+            e.Cancel = true;
+        }
+
+        void removedHandler(object? s, RemovedItemEventArgs<char> e) => removedTriggered = true;
+
+        ListEx<char> l = ['1', '2', '3'];
+        l.TriggerEvents = true;
+        l.RemovingItem += removingHandler;
+        l.RemovedItem += removedHandler;
+
+        l.RemoveAt(1);
+
+        Assert.That(l, Is.EquivalentTo((char[])['1', '2', '3']));
+        Assert.That(removingTriggered, Is.True);
+        Assert.That(removedTriggered, Is.False);
+
+        l.RemovingItem -= removingHandler;
+        l.RemovedItem -= removedHandler;
+    }
+
+    [Test]
+    public void RemoveAt_works_on_disabled_events()
+    {
+        void removingHandler(object? s, RemovingItemEventArgs<char> e) => Assert.Fail();
+        void removedHandler(object? s, RemovedItemEventArgs<char> e) => Assert.Fail();
+
+        ListEx<char> l = ['1', '2', '3'];
+        l.TriggerEvents = false;
+        l.RemovingItem += removingHandler;
+        l.RemovedItem += removedHandler;
+
+        l.RemoveAt(1);
+
+        Assert.That(l, Is.EquivalentTo((char[])['1', '3']));
+
+        l.RemovingItem -= removingHandler;
+        l.RemovedItem -= removedHandler;
+    }
+
+    [Test]
+    public void RemoveAt_works_on_non_subscribed_events()
+    {
+        ListEx<char> l = ['1', '2', '3'];
+        l.TriggerEvents = true;
+
+        l.RemoveAt(1);
+        Assert.That(l, Is.EquivalentTo((char[])['1', '3']));
     }
 }

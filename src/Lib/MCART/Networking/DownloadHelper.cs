@@ -80,7 +80,7 @@ public static class DownloadHelper
     {
         using Stream rStream = r.GetResponseStream();
         using CancellationTokenSource? ct = new();
-        List<Task> tasks = new() { rStream.CopyToAsync(stream) };
+        List<Task> tasks = [rStream.CopyToAsync(stream)];
         if (r.ContentLength > 0 && reportCallback is { } cb)
         {
             var reportTask = Task.Run(() => Report(stream, r.ContentLength, cb, polling, ct.Token));

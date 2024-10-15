@@ -37,6 +37,4 @@ namespace TheXDS.MCART.Attributes;
 /// </summary>
 [AttributeUsage(All)]
 [Serializable]
-public sealed class UnusableAttribute : Attribute
-{
-}
+public sealed class UnusableAttribute : Attribute;

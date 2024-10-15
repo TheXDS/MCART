@@ -65,7 +65,10 @@ public static class Series
     /// se utilizan estas funciones de manera incorrecta, el programa
     /// fallará con un error de sobreflujo o de pila, o bien, el
     /// programa podría dejar de responder durante un período de tiempo
-    /// prolongado.
+    /// prolongado.<br/>
+    /// Todas las funciones de enumeración infinita deben utilizarse junto
+    /// con el método de extensión
+    /// <c>System.Linq.Enumerable.Take&lt;TSource&gt;(IEnumerable&lt;TSource&gt;, int)</c>
     /// </remarks>
     /// <seealso cref="Enumerable.Take{TSource}(IEnumerable{TSource}, int)"/>
     public static IEnumerable<long> Fibonacci() => MakeSeriesAdditive(0, 1);
@@ -84,7 +87,10 @@ public static class Series
     /// se utilizan estas funciones de manera incorrecta, el programa
     /// fallará con un error de sobreflujo o de pila, o bien, el
     /// programa podría dejar de responder durante un período de tiempo
-    /// prolongado.
+    /// prolongado.<br/>
+    /// Todas las funciones de enumeración infinita deben utilizarse junto
+    /// con el método de extensión
+    /// <c>System.Linq.Enumerable.Take&lt;TSource&gt;(IEnumerable&lt;TSource&gt;, int)</c>
     /// </remarks>
     /// <seealso cref="Enumerable.Take{TSource}(IEnumerable{TSource}, int)"/>
     public static IEnumerable<long> Lucas() => MakeSeriesAdditive(2, 1);
@@ -99,6 +105,18 @@ public static class Series
     /// Un enumerador que generará una serie numérica aditiva para cada
     /// iteración.
     /// </returns>
+    /// <remarks>
+    /// Las series utilizan enumeradores para exponer las series
+    /// completas de una manera infinita. Es necesario recalcar que, si
+    /// se utilizan estas funciones de manera incorrecta, el programa
+    /// fallará con un error de sobreflujo o de pila, o bien, el
+    /// programa podría dejar de responder durante un período de tiempo
+    /// prolongado.<br/>
+    /// Todas las funciones de enumeración infinita deben utilizarse junto
+    /// con el método de extensión
+    /// <c>System.Linq.Enumerable.Take&lt;TSource&gt;(IEnumerable&lt;TSource&gt;, int)</c>
+    /// </remarks>
+    /// <seealso cref="Enumerable.Take{TSource}(IEnumerable{TSource}, int)"/>
     public static IEnumerable<long> MakeSeriesAdditive(long a, long b)
     {
         while (a >= 0)

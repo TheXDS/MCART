@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.Runtime.Serialization;
 using TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.Exceptions;
@@ -40,6 +39,11 @@ namespace TheXDS.MCART.Exceptions;
 /// <item>
 ///     <description>
 ///         Valores de retorno alterados inesperadamente.
+///     </description> 
+/// </item>
+/// <item>
+///     <description>
+///         Corrupción interna del estado de un objeto.
 ///     </description> 
 /// </item>
 /// <item>

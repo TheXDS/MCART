@@ -42,6 +42,4 @@ namespace TheXDS.MCART.Attributes;
 /// </remarks>
 [AttributeUsage(Property | Method | Class | Module)]
 [Serializable]
-public sealed class SugarAttribute : Attribute
-{
-}
+public sealed class SugarAttribute : Attribute;

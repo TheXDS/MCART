@@ -35,17 +35,7 @@ namespace TheXDS.MCART.Attributes;
 /// <summary>
 /// Establece el autor del elemento.
 /// </summary>
+/// <param name="attrValue">Valor del atributo.</param>
 [AttributeUsage(Property | Method | Constructor | Class | Module | Assembly, AllowMultiple = true)]
 [Serializable]
-public sealed class AuthorAttribute : TextAttribute
-{
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="DescriptionAttribute" />.
-    /// </summary>
-    /// <param name="attrValue">Valor del atributo.</param>
-    public AuthorAttribute(string attrValue)
-        : base(attrValue)
-    {
-    }
-}
+public sealed class AuthorAttribute(string attrValue) : TextAttribute(attrValue);

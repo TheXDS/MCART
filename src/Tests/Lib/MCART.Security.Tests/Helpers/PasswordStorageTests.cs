@@ -48,7 +48,7 @@ internal class PasswordStorageTests
         public byte[] DumpSettings() => Encoding.UTF8.GetBytes(settings);
         public byte[] Generate(byte[] input) => input.Concat(new byte[16]).ToArray()[0..16];
     }
-    
+
     [ExcludeFromCodeCoverage]
     private class Dummy2PasswordStorage : IPasswordStorage<int>
     {
@@ -56,7 +56,7 @@ internal class PasswordStorageTests
         public int KeyLength { get; set; }
         public int Settings { get; set; }
     }
-    
+
     [Test]
     public void DumpSettings_default_implementation_Test()
     {
@@ -68,7 +68,7 @@ internal class PasswordStorageTests
         var s = p.DumpSettings();
         Assert.That(BitConverter.GetBytes(1234), Is.EqualTo(s));
     }
-    
+
     [Test]
     public void ConfigureFrom_default_implementation_Test()
     {
@@ -86,14 +86,7 @@ internal class PasswordStorageTests
     public void CreateHash_Test()
     {
         SecureString pw = "password".ToSecureString();
-        byte[] expected =
-        {
-            5,
-            (byte)'D', (byte)'U', (byte)'M', (byte)'M', (byte)'Y', (byte)'T', (byte)'E',
-            (byte)'S', (byte)'T', (byte)'t', (byte)'e', (byte)'s', (byte)'t', (byte)'p',
-            (byte)'a', (byte)'s', (byte)'s', (byte)'w', (byte)'o', (byte)'r', (byte)'d',
-            0, 0, 0, 0, 0, 0, 0, 0
-        };
+        byte[] expected = [ 5, ..("DUMMYTESTtestpassword"u8.ToArray()), 0, 0, 0, 0, 0, 0, 0, 0 ];
 
         Assert.That(expected, Is.EqualTo(CreateHash<DummyPasswordStorage>(pw)));
     }
@@ -110,5 +103,12 @@ internal class PasswordStorageTests
 
         hash[0] = (byte)'X';
         Assert.That(VerifyPassword(pw1, hash), Is.Null);
+    }
+
+    [Test]
+    public void VerifyPassword_returns_null_with_no_algorithm()
+    {
+        byte[] testData = [7, .. ("UNKNOWN"u8.ToArray())];
+        Assert.That(VerifyPassword("Test@123".ToSecureString(), testData), Is.Null);
     }
 }

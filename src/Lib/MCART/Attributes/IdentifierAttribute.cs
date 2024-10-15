@@ -33,15 +33,9 @@ namespace TheXDS.MCART.Attributes;
 /// <summary>
 /// Indica una cadena que puede utilizarse para identificar a este elemento.
 /// </summary>
+/// <remarks>
+/// Indica una cadena que puede utilizarse para identificar a este elemento.
+/// </remarks>
+/// <param name="identifier">Identificador a utilizar.</param>
 [AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
-public sealed class IdentifierAttribute : TextAttribute
-{
-    /// <summary>
-    /// Indica una cadena que puede utilizarse para identificar a este elemento.
-    /// </summary>
-    /// <param name="identifier">Identificador a utilizar.</param>
-    public IdentifierAttribute(string identifier) 
-        : base(identifier)
-    {
-    }
-}
+public sealed class IdentifierAttribute(string identifier) : TextAttribute(identifier);

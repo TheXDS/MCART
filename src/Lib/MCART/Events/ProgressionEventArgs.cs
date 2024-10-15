@@ -28,7 +28,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using TheXDS.MCART.Resources;
+using static TheXDS.MCART.Misc.Internals;
 
 namespace TheXDS.MCART.Events;
 
@@ -58,7 +58,7 @@ public class ProgressionEventArgs : ValueEventArgs<double>
     /// </exception>
     public ProgressionEventArgs(double progress, string? helpText) : base(progress)
     {
-        if (progress > 1 || progress < 0) throw Errors.ValueOutOfRange(nameof(progress), 0, 1);
+        RangeCheck(progress, 0, 1);        
         HelpText = helpText;
     }
 

@@ -36,20 +36,11 @@ namespace TheXDS.MCART.Attributes;
 /// Define una serie de miembros a implementar por un tipo que obtenga
 /// licencias a partir del valor de un atributo.
 /// </summary>
-public abstract class LicenseAttributeBase : TextAttribute
+/// <param name="text">
+/// Texto a asociar con el valor de este atributo.
+/// </param>
+public abstract class LicenseAttributeBase(string text) : TextAttribute(text)
 {
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase 
-    /// <see cref="LicenseAttributeBase"/>.
-    /// </summary>
-    /// <param name="text">
-    /// Texto a asociar con el valor de este atributo.
-    /// </param>
-    protected LicenseAttributeBase(string text) 
-        : base(text)
-    {
-    }
-
     /// <summary>
     /// Obtiene una licencia asociada a este atributo.
     /// </summary>

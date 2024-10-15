@@ -69,8 +69,7 @@ public class LoggingEventArgs : ValueEventArgs<string>
     /// </exception>
     public LoggingEventArgs(object subject, string message) : this(message)
     {
-        NullCheck(subject, nameof(subject));
-        Subject = subject;
+        Subject = NullChecked(subject);
     }
 
     /// <summary>

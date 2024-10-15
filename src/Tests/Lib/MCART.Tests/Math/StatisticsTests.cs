@@ -52,38 +52,38 @@ public class StatisticsTests
     [Test]
     public void Average_Contract_Test()
     {
-        Assert.That(() => double.NaN.Average(0,0), Throws.ArgumentException);
-        Assert.That(() => 1.0.Average(-1,0), Throws.InstanceOf<ArgumentOutOfRangeException>());
-        Assert.That(() => 1.0.Average(0,double.NaN), Throws.ArgumentException);
+        Assert.That(() => double.NaN.Average(0, 0), Throws.ArgumentException);
+        Assert.That(() => 1.0.Average(-1, 0), Throws.InstanceOf<ArgumentOutOfRangeException>());
+        Assert.That(() => 1.0.Average(0, double.NaN), Throws.ArgumentException);
     }
-    
+
     [Test]
     public void GeometricMean_Test()
     {
         var d = new double[] { 2, 4, 6, 8, 10 }.GeometricMean();
         Assert.That(d.IsBetween(5.2103421, 5.2103422));
     }
-    
+
     [Test]
     public void HarmonicMean_Test()
     {
         var d = new double[] { 2, 4, 6, 8, 10 }.HarmonicMean();
         Assert.That(d.IsBetween(4.3795, 4.3797));
     }
-    
+
     [Test]
     public void Median_Test()
     {
-        var d = new [] { 2.5, 4.75, 6.11, 9.14 }.Median();
-        Assert.That(3.625 , Is.EqualTo(d));
+        var d = new[] { 2.5, 4.75, 6.11, 9.14 }.Median();
+        Assert.That(3.625, Is.EqualTo(d));
         Assert.That(Array.Empty<double>().Median(), Is.EqualTo(double.NaN));
     }
-    
+
     [Test]
     public void Mode_Test()
     {
-        var d = new [] { 2.5, 4.75, 6.11, 9.14, 2.5, 4.75 }.Mode();
-        Assert.That(new [] { 2.5, 4.75 }, Is.EqualTo(d));
+        var d = new[] { 2.5, 4.75, 6.11, 9.14, 2.5, 4.75 }.Mode();
+        Assert.That(new[] { 2.5, 4.75 }, Is.EqualTo(d));
     }
 
     [Test]
@@ -100,31 +100,31 @@ public class StatisticsTests
     {
         Assert.That(new double[] { 10, 25, 5, 30 }.GeometricMean(), Is.InRange(13.914, 13.916));
     }
-    
+
     [Test]
     public void CorrelationTest()
     {
-        Assert.That(1, Is.EqualTo(Correlation(new double[] { 1, 2, 3 }, new double[] { 2, 4, 6 })));
-        Assert.That(-1, Is.EqualTo(Correlation(new double[] { 1, 2, 3 }, new double[] { 6, 4, 2 })));
-        Assert.That(Correlation(new double[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, new double[] { 3, 6, 3, 6, 3, 6, 3, 6, 3, 6 }) < 0.25);
-        Assert.That(double.NaN, Is.EqualTo(Correlation(new double[] { 1, 2, 3 }, new double[] { 1, 1, 1 })));
-        Assert.Throws<IndexOutOfRangeException>(() => Correlation(new double[] { 1 }, new double[] { 1, 2, 3 }));
-        Assert.Throws<InvalidOperationException>(() => Correlation(Array.Empty<double>(), Array.Empty<double>()));
+        Assert.That(1, Is.EqualTo(Correlation([1, 2, 3], [2, 4, 6])));
+        Assert.That(-1, Is.EqualTo(Correlation([1, 2, 3], [6, 4, 2])));
+        Assert.That(Correlation([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [3, 6, 3, 6, 3, 6, 3, 6, 3, 6]) < 0.25);
+        Assert.That(double.NaN, Is.EqualTo(Correlation([1, 2, 3], [1, 1, 1])));
+        Assert.Throws<IndexOutOfRangeException>(() => Correlation([1], [1, 2, 3]));
+        Assert.Throws<InvalidOperationException>(() => Correlation([], []));
     }
 
     [Test]
     public void Forecast_Test()
     {
-        double[] a = MCART.Helpers.Common.Sequence(0,100).Select(p => (double)p).ToArray();
-        double[] b = MCART.Helpers.Common.Sequence(0,200,2).Select(p => (double)p).ToArray();
+        double[] a = MCART.Helpers.Common.Sequence(0, 100).Select(p => (double)p).ToArray();
+        double[] b = MCART.Helpers.Common.Sequence(0, 200, 2).Select(p => (double)p).ToArray();
         Assert.That(400, Is.EqualTo(Forecast(200, a, b)));
     }
 
     [Test]
     public void Forecast_Contract_Test()
     {
-        double[] a = MCART.Helpers.Common.Sequence(0,10).Select(p => (double)p).ToArray();
-        double[] b = MCART.Helpers.Common.Sequence(0,3).Select(p => (double)p).ToArray();
+        double[] a = MCART.Helpers.Common.Sequence(0, 10).Select(p => (double)p).ToArray();
+        double[] b = MCART.Helpers.Common.Sequence(0, 3).Select(p => (double)p).ToArray();
         Assert.Throws<IndexOutOfRangeException>(() => Forecast(1, a, b));
     }
 
@@ -139,7 +139,7 @@ public class StatisticsTests
     [Test]
     public void Normalize_Test()
     {
-        double[] a = {10, 15, 20};
+        double[] a = [10, 15, 20];
         var b = a.Normalize(2).ToArray();
         Assert.That(8, Is.EqualTo(b[0].Minimum));
         Assert.That(12, Is.EqualTo(b[0].Maximum));
@@ -154,7 +154,7 @@ public class StatisticsTests
     {
         Assert.That(new double[] { 10, 15, 15, 17, 18, 21 }.MeanAbsoluteDeviation(), Is.InRange(2.66, 2.68));
     }
-    
+
     [Test]
     public void MedianAbsoluteDeviation_test()
     {

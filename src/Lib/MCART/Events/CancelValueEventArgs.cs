@@ -38,17 +38,9 @@ namespace TheXDS.MCART.Events;
 /// <typeparam name="T">
 /// Tipo del valor almacenado por esta instancia.
 /// </typeparam>
-public class CancelValueEventArgs<T> : ValueEventArgs<T>
+/// <param name="value">Valor asociado al evento generado.</param>
+public class CancelValueEventArgs<T>(T value) : ValueEventArgs<T>(value)
 {
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="CancelValueEventArgs{T}"/> con el valor provisto.
-    /// </summary>
-    /// <param name="value">Valor asociado al evento generado.</param>
-    public CancelValueEventArgs(T value) : base(value)
-    {
-    }
-
     /// <summary>
     /// Obtiene o establece un valor que indica si este evento debe ser
     /// cancelado o no.

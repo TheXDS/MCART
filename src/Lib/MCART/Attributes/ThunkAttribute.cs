@@ -42,6 +42,4 @@ namespace TheXDS.MCART.Attributes;
 /// </remarks>
 [AttributeUsage(Property | Method | Class | Module | Assembly)]
 [Serializable]
-public sealed class ThunkAttribute : Attribute
-{
-}
+public sealed class ThunkAttribute : Attribute;

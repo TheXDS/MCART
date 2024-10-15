@@ -34,19 +34,10 @@ namespace TheXDS.MCART.Events;
 /// Incluye información para cualquier evento que incluya tipos de valor y
 /// puedan ser cancelados.
 /// </summary>
-public class ValueChangingEventArgs : ValueChangingEventArgs<object?>
-{
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="ValueChangingEventArgs{T}" /> con el valor provisto.
-    /// </summary>
-    /// <param name="oldValue">
-    /// Valor original asociado al evento generado.
-    /// </param>
-    /// <param name="newValue">
-    /// Nuevo valor asociado al evento generado.
-    /// </param>
-    public ValueChangingEventArgs(object? oldValue, object? newValue) : base(oldValue, newValue)
-    {
-    }
-}
+/// <param name="oldValue">
+/// Valor original asociado al evento generado.
+/// </param>
+/// <param name="newValue">
+/// Nuevo valor asociado al evento generado.
+/// </param>
+public class ValueChangingEventArgs(object? oldValue, object? newValue) : ValueChangingEventArgs<object?>(oldValue, newValue);

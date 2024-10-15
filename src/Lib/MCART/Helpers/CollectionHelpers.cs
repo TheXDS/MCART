@@ -245,11 +245,11 @@ public static partial class CollectionHelpers
     public static bool IsAnyNull(this IEnumerable<object?> collection, out int firstIndex)
     {
         NullCheck(collection);
-        foreach (var j in collection.WithIndex())
+        foreach (var (index, element) in collection.WithIndex())
         {
-            if (j.element is null)
+            if (element is null)
             {
-                firstIndex = j.index;
+                firstIndex = index;
                 return true;
             }
         }

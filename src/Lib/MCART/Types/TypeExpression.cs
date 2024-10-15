@@ -1,5 +1,5 @@
 ﻿/*
-TypeExpressionTree.cs
+TypeExpression.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -39,20 +39,11 @@ namespace TheXDS.MCART.Types;
 /// <summary>
 /// Representa una expresión que puede resolverse a un tipo definido.
 /// </summary>
-public class TypeExpression
+/// <param name="fullName">Nombre completo del tipo al que esta expresión hace referencia.</param>
+public class TypeExpression(string fullName)
 {
-    private readonly string _fullName;
-    private readonly List<TypeExpression> _genericArgs = new();
-
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="TypeExpression"/>.
-    /// </summary>
-    /// <param name="fullName">Nombre completo del tipo al que esta expresión hace referencia.</param>
-    public TypeExpression(string fullName)
-    {
-        _fullName = fullName;
-    }
+    private readonly string _fullName = fullName;
+    private readonly List<TypeExpression> _genericArgs = [];
 
     /// <summary>
     /// Inicializa una nueva instancia de la clase

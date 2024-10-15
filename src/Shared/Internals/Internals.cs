@@ -34,7 +34,6 @@ using System.Runtime.CompilerServices;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Helpers;
-using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Extensions;
 using Err = TheXDS.MCART.Resources.Errors;
 
@@ -82,19 +81,33 @@ internal static class Internals
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static void EmptyCheck(string? str, [CallerArgumentExpression(nameof(str))] string name = null!)
     {
-        if (NullChecked(str, name).IsEmpty()) throw Errors.InvalidValue(name);
+        if (NullChecked(str, name).IsEmpty()) throw Err.InvalidValue(name);
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static T CheckDefinedEnum<T>(T value, [CallerArgumentExpression(nameof(value))] string argName = null!)
         where T : Enum
     {
-        if (!Enum.IsDefined(typeof(T), value)) throw Errors.UndefinedEnum(argName, value);
+        if (!Enum.IsDefined(typeof(T), value)) throw Err.UndefinedEnum(argName, value);
         return value;
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static T TamperCast<T>(object? value) where T : notnull
     {
         return value is T v ? v : throw new TamperException();
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static T RangeChecked<T>(T value, T min, T max, [CallerArgumentExpression(nameof(value))] string argName = null!) where T : IComparable<T>
+    {
+        RangeCheck(value, min, max, argName);
+        return value;
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static void RangeCheck<T>(T value, T min, T max, [CallerArgumentExpression(nameof(value))] string argName = null!) where T : IComparable<T>
+    {
+        if (!value.IsBetween(min, max)) throw Err.ValueOutOfRange(argName, min, max);
     }
 }

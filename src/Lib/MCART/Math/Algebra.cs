@@ -48,7 +48,7 @@ public static class Algebra
     /// Comprueba si un número es primo mediante prueba y error.
     /// </summary>
     /// <returns>
-    /// <see langword="true" />si el número es primo,
+    /// <see langword="true" /> si el número es primo,
     /// <see langword="false" /> en caso contrario.
     /// </returns>
     /// <param name="number">Número a comprobar.</param>
@@ -592,7 +592,7 @@ public static class Algebra
 
     private static int[] ReadKnownPrimes()
     {
-        List<int>? l = new();
+        List<int>? l = [];
         Unpacker? a = new(@"TheXDS.MCART.Resources.Data");
         using Stream? s = a.Unpack("primes", new DeflateGetter());
         using BinaryReader? b = new(s);
@@ -601,6 +601,6 @@ public static class Algebra
         {
             l.Add(b.ReadInt32());
         }
-        return l.ToArray();
+        return [.. l];
     }
 }

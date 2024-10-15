@@ -37,6 +37,4 @@ namespace TheXDS.MCART.Attributes;
 /// </summary>
 [AttributeUsage(AttributeTargets.All)]
 [Serializable]
-public sealed class StubAttribute : Attribute
-{
-}
+public sealed class StubAttribute : Attribute;
