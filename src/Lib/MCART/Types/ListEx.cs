@@ -269,7 +269,7 @@ public class ListEx<T> : List<T>, ICloneable<ListEx<T>>
         if (!this.Any()) return false;
         if (TriggerEvents)
         {
-            RemovingItemEventArgs<T>? a = new(IndexOf(item), this.Last());
+            RemovingItemEventArgs<T>? a = new(IndexOf(item), item);
             RemovingItem?.Invoke(this, a);
             if (a.Cancel) return false;
             var result = base.Remove(item);
