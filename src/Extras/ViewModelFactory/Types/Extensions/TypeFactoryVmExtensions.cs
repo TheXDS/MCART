@@ -135,7 +135,7 @@ public static class TypeFactoryVmExtensions
     {
         ITypeBuilder<EntityViewModel<TModel>> t = factory.NewType<EntityViewModel<TModel>>($"{typeof(TModel).Name}ViewModel", interfaces);
         PropertyInfo e = ReflectionHelpers.GetProperty<EntityViewModel<TModel>>(p => p.Entity);
-        MethodInfo nm = typeof(EntityViewModel<TModel>).GetMethod("RaisePropertyChangeEvent", BindingFlags.NonPublic | BindingFlags.Instance, [typeof(string), typeof(PropertyChangeNotificationType)]) ?? throw new MissingMemberException();
+        MethodInfo nm = typeof(EntityViewModel<TModel>).GetMethod("Notify", BindingFlags.NonPublic | BindingFlags.Instance, [typeof(string)]) ?? throw new MissingMemberException();
 
         foreach (var p in typeof(TModel).GetProperties().Where(p => p.CanRead && p.CanWrite))
         {
@@ -158,7 +158,6 @@ public static class TypeFactoryVmExtensions
                     .Call(p.SetMethod!)
                     .LoadArg0()
                     .LoadConstant(p.Name)
-                    .LoadConstant(PropertyChangeNotificationType.PropertyChanged)
                     .Call(nm),
                 p.PropertyType);
         }

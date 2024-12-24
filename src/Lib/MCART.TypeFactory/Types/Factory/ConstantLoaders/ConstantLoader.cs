@@ -39,6 +39,9 @@ namespace TheXDS.MCART.Types.Extensions.ConstantLoaders;
 /// <typeparam name="T">Tipo de constante a cargar.</typeparam>
 public abstract class ConstantLoader<T> : IConstantLoader, IEquatable<IConstantLoader>
 {
+    /// <inheritdoc/>
+    public bool CanLoadConstant(object? value) => value is T;
+
     /// <summary>
     /// Obtiene una referencia al tipo de constante que esta instancia
     /// puede cargar en la secuencia de instrucciones MSIL.

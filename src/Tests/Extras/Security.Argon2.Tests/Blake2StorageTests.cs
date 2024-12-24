@@ -1,4 +1,4 @@
-﻿// Argon2StorageTests.cs
+// Argon2StorageTests.cs
 //
 // This file is part of Morgan's CLR Advanced Runtime (MCART)
 //
@@ -32,38 +32,23 @@ using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Security.Argon2.Tests;
 
-public class Argon2StorageTests
+public class Blake2StorageTests
 {
-    [TestCase(Argon2Type.Argon2i)]
-    [TestCase(Argon2Type.Argon2d)]
-    [TestCase(Argon2Type.Argon2id)]
-    public void Use_Argon2_for_password_storage(Argon2Type type)
+    [Test]
+    public void Use_Blake2_for_password_storage()
     {
-        IPasswordStorage argon2 = new Argon2Storage()
-        {
-            Settings = Argon2Storage.GetDefaultSettings() with
-            {
-                Type = type
-            }
-        };
+        IPasswordStorage blake2 = new Blake2Storage();
         SecureString pw1 = "password".ToSecureString();
         SecureString pw2 = "Test@123".ToSecureString();
-        byte[] hash = PasswordStorage.CreateHash(argon2, pw1);
+        byte[] hash = PasswordStorage.CreateHash(blake2, pw1);
         Assert.That(PasswordStorage.VerifyPassword(pw1, hash), Is.True);
         Assert.That(PasswordStorage.VerifyPassword(pw2, hash), Is.False);
     }
 
     [Test]
-    public void Argon2_fails_if_settings_are_incorrect()
+    public void Blake2_exposes_key_length_property_on_IPasswordStorage_interface()
     {
-        Argon2Settings brokenSettings = Argon2Storage.GetDefaultSettings() with { Type = (Argon2Type)128 };
-        Assert.That(()=> _ = ((IPasswordStorage)new Argon2Storage(brokenSettings)).Generate([]), Throws.TypeOf<InvalidArgon2SettingsException>());
-    }
-
-    [Test]
-    public void Argon2_exposes_key_length_property_on_IPasswordStorage_interface()
-    {
-        var settings = Argon2Storage.GetDefaultSettings();
-        Assert.That(((IPasswordStorage)new Argon2Storage(settings)).KeyLength, Is.EqualTo(settings.KeyLength));
+        var settings = Blake2Storage.GetDefaultSettings();
+        Assert.That(((IPasswordStorage)new Blake2Storage(settings)).KeyLength, Is.EqualTo(settings.HashSize));
     }
 }

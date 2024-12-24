@@ -48,6 +48,7 @@ public abstract class NotifyPropertyChange : NotifyPropertyChangeBase, INotifyPr
     /// <inheritdoc/>
     protected sealed override void RaisePropertyChangeEvent(in string propertyName, in PropertyChangeNotificationType type)
     {
+        ArgumentException.ThrowIfNullOrWhiteSpace(propertyName);
         if (type == PropertyChangeNotificationType.PropertyChanging)
         {
             PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(propertyName));

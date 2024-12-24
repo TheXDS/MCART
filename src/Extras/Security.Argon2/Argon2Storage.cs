@@ -102,13 +102,20 @@ public class Argon2Storage(Argon2Settings settings) : IPasswordStorage<Argon2Set
 
     private Argon2 GetArgon2(byte[] input)
     {
-        return Settings.Type switch
+        try
         {
-            Argon2Type.Argon2d => new Argon2d(input),
-            Argon2Type.Argon2i => new Argon2i(input),
-            Argon2Type.Argon2id => new Argon2id(input),
-            _ => throw Errors.UndefinedEnum(nameof(Settings), Settings.Type)
-        };
+            return Settings.Type switch
+            {
+                Argon2Type.Argon2d => new Argon2d(input),
+                Argon2Type.Argon2i => new Argon2i(input),
+                Argon2Type.Argon2id => new Argon2id(input),
+                _ => throw Errors.UndefinedEnum(nameof(Settings), Settings.Type)
+            };
+        }
+        catch (Exception ex)
+        {
+            throw new InvalidArgon2SettingsException(ex.Message, ex);
+        }
     }
 
     /// <inheritdoc/>

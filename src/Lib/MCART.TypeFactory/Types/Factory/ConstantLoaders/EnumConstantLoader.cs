@@ -1,5 +1,5 @@
-﻿/*
-Argon2Settings.cs
+/*
+Int32ConstantLoader.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,22 +28,29 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#pragma warning disable IDE0130
+using System.Reflection.Emit;
 
-namespace TheXDS.MCART.Security;
+namespace TheXDS.MCART.Types.Extensions.ConstantLoaders;
 
 /// <summary>
-/// Contains configuration values to be used for deriving passwords
-/// using the Argon2 algorithm.
+/// Loads a constant value of type <see cref="Enum"/> into the MSIL instruction sequence.
 /// </summary>
-/// <param name="Key">Key to be used for the hashing algorithm.</param>
-/// <param name="HashSize">Size of the hash to be generated.</param>
-public readonly record struct Blake2Settings(byte[] Key, int HashSize)
+public class EnumConstantLoader : ConstantLoader<Enum>
 {
-    /// <summary>
-    /// Initializes a new instance of the <see cref="Blake2Settings"/> struct
-    /// without specifying a key to be used.
-    /// </summary>
-    /// <param name="hashSize">Size of the hash to be generated.</param>
-    public Blake2Settings(int hashSize) : this([], hashSize) { }
+    /// <inheritdoc/>
+    public override void Emit(ILGenerator il, Enum value)
+    {
+        switch (value.ToUnderlyingType())
+        {
+            case byte b: il.LoadConstant(b); break;
+            case sbyte sb: il.LoadConstant(sb); break;
+            case short s: il.LoadConstant(s); break;
+            case ushort us: il.LoadConstant(us); break;
+            case int i: il.LoadConstant(i); break;
+            case uint ui: il.LoadConstant(ui); break;
+            case long l: il.LoadConstant(l); break;
+            case ulong ul: il.LoadConstant(ul); break;
+            default: throw new NotSupportedException();            
+        }
+    }
 }

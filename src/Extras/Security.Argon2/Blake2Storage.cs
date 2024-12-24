@@ -42,6 +42,13 @@ namespace TheXDS.MCART.Security;
 public class Blake2Storage(Blake2Settings settings) : IPasswordStorage<Blake2Settings>
 {
     /// <summary>
+    /// Initializes a new instance of the <see cref="Blake2Storage"/> class.
+    /// </summary>
+    public Blake2Storage(): this(GetDefaultSettings())
+    {
+    }
+
+    /// <summary>
     /// Gets a <see cref="Blake2Settings"/> that represents the recommended
     /// default configuration for deriving storage keys.
     /// </summary>

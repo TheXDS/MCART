@@ -53,4 +53,14 @@ public interface IConstantLoader
     /// secuencia de instrucciones MSIL.
     /// </summary>
     Type ConstantType { get; }
+
+    /// <summary>
+    /// Indicates if the specified value can be loaded using this instance.
+    /// </summary>
+    /// <param name="value">Value to be loaded.</param>
+    /// <returns>
+    /// <see langword="true"/> if the specified value van be loaded using this
+    /// instance,<see langword="false"/> otherwise.
+    /// </returns>
+    bool CanLoadConstant(object? value);
 }

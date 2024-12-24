@@ -50,7 +50,8 @@ public class HttpStreamUriParser : SimpleStreamUriParser
             yield return "https";
         }
     }
-        /// <summary>
+
+    /// <summary>
     /// Abre un <see cref="Stream"/> desde el <see cref="Uri"/>
     /// especificado.
     /// </summary>

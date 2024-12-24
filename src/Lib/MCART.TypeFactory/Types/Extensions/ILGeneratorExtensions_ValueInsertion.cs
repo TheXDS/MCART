@@ -132,7 +132,7 @@ public static partial class ILGeneratorExtensions
     public static ILGenerator LoadConstant<T>(this ILGenerator ilGen, T value)
     {
         Type t = typeof(T);
-        if (_constantLoaders.FirstOrDefault(p => p.ConstantType == t) is { } cl)
+        if (_constantLoaders.FirstOrDefault(p => p.CanLoadConstant(value)) is { } cl)
         {
             cl.Emit(ilGen, value);
         }
@@ -146,7 +146,7 @@ public static partial class ILGeneratorExtensions
         }
         return ilGen;
     }
-
+    
     /// <summary>
     /// Inserta una serie de instrucciones que aumentarán el valor del valor
     /// actualmente en la pila en 1 en la secuencia del lenguaje intermedio de

@@ -56,6 +56,18 @@ public abstract partial class NotifyPropertyChanged : NotifyPropertyChangeBase, 
         }
     }
 
+    /// <summary>
+    /// Manually raises a <see cref="PropertyChanged"/> event for a single
+    /// property.
+    /// </summary>
+    /// <param name="propertyName">
+    /// Name of the property that changed its value.
+    /// </param>
+    protected void Notify(string propertyName)
+    {
+        Change_Notify(propertyName, PropertyChangeNotificationType.PropertyChanged);
+    }
+    
     /// <inheritdoc/>
     protected sealed override void RaisePropertyChangeEvent(in string propertyName, in PropertyChangeNotificationType _)
     {
