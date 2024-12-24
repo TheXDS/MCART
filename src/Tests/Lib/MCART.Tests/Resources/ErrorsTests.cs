@@ -31,6 +31,7 @@ SOFTWARE.
 #pragma warning disable CS8974
 
 using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Helpers;
@@ -340,6 +341,7 @@ public class ErrorsTests : ExceptionResourceTestClass
     [Test]
     public void InvalidReturnValueException_test()
     {
+        [ExcludeFromCodeCoverage]
         static int BadDelegate() => 0;
         var msg = $"Test message {typeof(InvalidReturnValueException)}";
         var inner = new Exception(msg);
@@ -384,7 +386,7 @@ public class ErrorsTests : ExceptionResourceTestClass
         Assert.That(ex.OffendingReturnValue, Is.EqualTo(0));
         Assert.That(ex.OffendingFunctionName!.Contains(nameof(BadDelegate)));
     } 
-        
+    
     [Test]
     public void BinaryWriteNotSupported_test()
     {
@@ -397,6 +399,12 @@ public class ErrorsTests : ExceptionResourceTestClass
         var ex = TestException(E.EmptyCollection(Array.Empty<int>()));
         Assert.That(ex.InnerException, Is.InstanceOf<EmptyCollectionException>());
         Assert.That(((EmptyCollectionException)ex.InnerException!).OffendingObject, Is.InstanceOf<int[]>());
+    }
+
+    [Test]
+    public void MissingResourceException_Ctor_test()
+    {
+        TestOffendingExceptionCtors<MissingResourceException,string>("testId");
     }
 
     [Test]

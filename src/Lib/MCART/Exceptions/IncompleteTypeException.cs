@@ -31,9 +31,9 @@ SOFTWARE.
 namespace TheXDS.MCART.Exceptions;
 
 /// <summary>
-/// Exception that is thrown whenever a type is incomplete, that is, if it is
-/// missing some required members or if a type generation process wasn't
-/// completed.
+/// Exception that is thrown whenever a type is incomplete; that is, if it is
+/// missing some required members or annotations; or if a type generation
+/// process wasn't completed.
 /// </summary>
 [Serializable]
 public class IncompleteTypeException : OffendingException<Type>

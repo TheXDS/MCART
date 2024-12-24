@@ -1,5 +1,5 @@
-﻿/*
-PrivateInternals.cs
+/*
+IDisposableEx_Tests.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,38 +28,37 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.ComponentModel;
+using Moq;
+using TheXDS.MCART.Types.Base;
 
-namespace TheXDS.MCART.Misc;
+namespace TheXDS.MCART.Tests.Types.Base;
 
-internal static class PrivateInternals
+public class IDisposableEx_Tests
 {
-    public static bool TryParseValues<TValue, TResult>(TypeConverter t, string[] separators, string value, in byte items, Func<TValue[], TResult> instantiationCallback, out TResult result)
+    [Test]
+    public void TryDispose_calls_implementation()
     {
-#if EnforceContracts && DEBUG
-        if (separators is null || separators.Length == 0)
-            throw new ArgumentNullException(nameof(separators));
-        if (string.IsNullOrEmpty(value))
-            throw new ArgumentNullException(nameof(value));
-        ArgumentNullException.ThrowIfNull(t);
-        ArgumentNullException.ThrowIfNull(instantiationCallback);
-#endif
-        foreach (string? j in separators)
-        {
-            string[]? l = value.Split(new[] { j }, StringSplitOptions.RemoveEmptyEntries);
-            if (l.Length != items) continue;
-            try
-            {
-                int c = 0;
-                result = instantiationCallback(l.Select(k => (TValue)t.ConvertTo(l[c++].Trim(), typeof(TValue))!).ToArray());
-                return true;
-            }
-            catch
-            {
-                break;
-            }
-        }
-        result = default!;
-        return false;
+        var tm = new Mock<IDisposableEx>() { CallBase = true };
+        tm.Setup(a => a.Dispose()).Verifiable(Times.Once);
+        Assert.That(tm.Object.TryDispose());
+        tm.Verify();
+    }
+
+    [Test]
+    public void TryDispose_skips_if_disposed()
+    {
+        var tm = new Mock<IDisposableEx>() { CallBase = true };
+        tm.Setup(a => a.IsDisposed).Returns(true);
+        tm.Setup(a => a.Dispose()).Verifiable(Times.Never);
+        Assert.That(tm.Object.TryDispose(), Is.False);
+        tm.Verify();
+    }
+
+    [Test]
+    public void TryDispose_returns_false_on_exception()
+    {
+        var tm = new Mock<IDisposableEx>() { CallBase = true };
+        tm.Setup(a => a.Dispose()).Throws<Exception>();
+        Assert.That(!tm.Object.TryDispose());
     }
 }

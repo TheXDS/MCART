@@ -1,5 +1,5 @@
-﻿/*
-PrivateInternals.cs
+/*
+AsyncDisposable_Tests.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,38 +28,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.ComponentModel;
+using Moq;
+using Moq.Protected;
+using TheXDS.MCART.Types.Base;
 
-namespace TheXDS.MCART.Misc;
+namespace TheXDS.MCART.Tests.Types.Base;
 
-internal static class PrivateInternals
+public class AsyncDisposable_Tests
 {
-    public static bool TryParseValues<TValue, TResult>(TypeConverter t, string[] separators, string value, in byte items, Func<TValue[], TResult> instantiationCallback, out TResult result)
+    [Test]
+    public async Task DisposeAsync_calls_OnDisposeAsync()
     {
-#if EnforceContracts && DEBUG
-        if (separators is null || separators.Length == 0)
-            throw new ArgumentNullException(nameof(separators));
-        if (string.IsNullOrEmpty(value))
-            throw new ArgumentNullException(nameof(value));
-        ArgumentNullException.ThrowIfNull(t);
-        ArgumentNullException.ThrowIfNull(instantiationCallback);
-#endif
-        foreach (string? j in separators)
+        var tm = new Mock<AsyncDisposable>() { CallBase = true };
+        tm.Protected().Setup("OnDisposeAsync").Verifiable(Times.Once);
+        await using (var d = tm.Object)
         {
-            string[]? l = value.Split(new[] { j }, StringSplitOptions.RemoveEmptyEntries);
-            if (l.Length != items) continue;
-            try
-            {
-                int c = 0;
-                result = instantiationCallback(l.Select(k => (TValue)t.ConvertTo(l[c++].Trim(), typeof(TValue))!).ToArray());
-                return true;
-            }
-            catch
-            {
-                break;
-            }
         }
-        result = default!;
-        return false;
+        tm.Verify();
     }
 }

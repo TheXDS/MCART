@@ -51,7 +51,7 @@ public class MissingResourceException : OffendingException<string>
     /// <param name="missingId">
     /// Id of the resource that could not be found.
     /// </param>
-    public MissingResourceException(string missingId) : base(missingId)
+    public MissingResourceException(string missingId) : base(missingId, missingId)
     {
     }
 

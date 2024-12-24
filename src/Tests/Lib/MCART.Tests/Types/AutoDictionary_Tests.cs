@@ -1,5 +1,5 @@
-﻿/*
-Argon2Settings.cs
+/*
+AutoDictionary_Tests.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,22 +28,27 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#pragma warning disable IDE0130
+using TheXDS.MCART.Types;
 
-namespace TheXDS.MCART.Security;
+namespace TheXDS.MCART.Tests.Types;
 
-/// <summary>
-/// Contains configuration values to be used for deriving passwords
-/// using the Argon2 algorithm.
-/// </summary>
-/// <param name="Key">Key to be used for the hashing algorithm.</param>
-/// <param name="HashSize">Size of the hash to be generated.</param>
-public readonly record struct Blake2Settings(byte[] Key, int HashSize)
+public class AutoDictionary_Tests
 {
-    /// <summary>
-    /// Initializes a new instance of the <see cref="Blake2Settings"/> struct
-    /// without specifying a key to be used.
-    /// </summary>
-    /// <param name="hashSize">Size of the hash to be generated.</param>
-    public Blake2Settings(int hashSize) : this([], hashSize) { }
+    [Test]
+    public void Dictionary_creates_new_keys_if_not_found()
+    {
+        var dict = new AutoDictionary<string, Random>();
+        Assert.That(dict.Count, Is.EqualTo(0));
+        var r = dict["test"];
+        Assert.That(dict.Count, Is.EqualTo(1));
+        Assert.That(r, Is.InstanceOf<Random>());
+    }
+
+    [Test]
+    public void Dictionary_forwards_set_to_base_class()
+    {
+        var dict = new AutoDictionary<string, Random>();
+        dict["test"] = new Random();
+        Assert.That(dict.Count, Is.EqualTo(1));
+    }
 }

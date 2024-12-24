@@ -28,13 +28,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Text;
 using TheXDS.MCART.Exceptions;
-using TheXDS.MCART.Helpers;
-using TheXDS.MCART.Misc;
-using TheXDS.MCART.Types.Extensions;
 using St = TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.Resources;

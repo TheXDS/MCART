@@ -1,5 +1,5 @@
-﻿/*
-PrivateInternals.cs
+/*
+IExposeGuid_Tests.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,38 +28,32 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.ComponentModel;
+using System.Runtime.InteropServices;
+using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Types.Base;
 
-namespace TheXDS.MCART.Misc;
+namespace TheXDS.MCART.Tests.Types.Base;
 
-internal static class PrivateInternals
+public class IExposeGuid_Tests
 {
-    public static bool TryParseValues<TValue, TResult>(TypeConverter t, string[] separators, string value, in byte items, Func<TValue[], TResult> instantiationCallback, out TResult result)
+    [Guid("03619fc8-8c9b-41b0-8b06-9152ac0412ff")]
+    private class TestClass : IExposeGuid
     {
-#if EnforceContracts && DEBUG
-        if (separators is null || separators.Length == 0)
-            throw new ArgumentNullException(nameof(separators));
-        if (string.IsNullOrEmpty(value))
-            throw new ArgumentNullException(nameof(value));
-        ArgumentNullException.ThrowIfNull(t);
-        ArgumentNullException.ThrowIfNull(instantiationCallback);
-#endif
-        foreach (string? j in separators)
-        {
-            string[]? l = value.Split(new[] { j }, StringSplitOptions.RemoveEmptyEntries);
-            if (l.Length != items) continue;
-            try
-            {
-                int c = 0;
-                result = instantiationCallback(l.Select(k => (TValue)t.ConvertTo(l[c++].Trim(), typeof(TValue))!).ToArray());
-                return true;
-            }
-            catch
-            {
-                break;
-            }
-        }
-        result = default!;
-        return false;
+    }
+
+    private class NoGuidClass : IExposeGuid
+    {
+    }
+
+    [Test]
+    public void Guid_calls_implementation()
+    {
+        Assert.That(((IExposeGuid)new TestClass()).Guid, Is.EqualTo(new Guid("03619fc8-8c9b-41b0-8b06-9152ac0412ff")));
+    }
+    
+    [Test]
+    public void Guid_implementation_throws_if_no_Guid()
+    {
+        Assert.That(()=>((IExposeGuid)new NoGuidClass()).Guid, Throws.InstanceOf<IncompleteTypeException>());
     }
 }

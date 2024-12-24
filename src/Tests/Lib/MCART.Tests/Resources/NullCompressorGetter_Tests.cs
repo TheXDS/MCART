@@ -1,5 +1,5 @@
-﻿/*
-PrivateInternals.cs
+/*
+NullCompressorGetter_Tests.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,38 +28,26 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.ComponentModel;
+#pragma warning disable CS8974
 
-namespace TheXDS.MCART.Misc;
+using TheXDS.MCART.Resources;
 
-internal static class PrivateInternals
+namespace TheXDS.MCART.Tests.Resources;
+
+public class NullCompressorGetter_Tests
 {
-    public static bool TryParseValues<TValue, TResult>(TypeConverter t, string[] separators, string value, in byte items, Func<TValue[], TResult> instantiationCallback, out TResult result)
+    [Test]
+    public void GetCompressor_Test()
     {
-#if EnforceContracts && DEBUG
-        if (separators is null || separators.Length == 0)
-            throw new ArgumentNullException(nameof(separators));
-        if (string.IsNullOrEmpty(value))
-            throw new ArgumentNullException(nameof(value));
-        ArgumentNullException.ThrowIfNull(t);
-        ArgumentNullException.ThrowIfNull(instantiationCallback);
-#endif
-        foreach (string? j in separators)
-        {
-            string[]? l = value.Split(new[] { j }, StringSplitOptions.RemoveEmptyEntries);
-            if (l.Length != items) continue;
-            try
-            {
-                int c = 0;
-                result = instantiationCallback(l.Select(k => (TValue)t.ConvertTo(l[c++].Trim(), typeof(TValue))!).ToArray());
-                return true;
-            }
-            catch
-            {
-                break;
-            }
-        }
-        result = default!;
-        return false;
+        var getter = new NullCompressorGetter();
+        using var stream = new MemoryStream();
+        using var compressor = getter.GetCompressor(stream);
+        Assert.That(compressor, Is.SameAs(stream));
+    }
+
+    [Test]
+    public void Extension_Test()
+    {
+        Assert.That(new NullCompressorGetter().Extension, Is.Empty);
     }
 }
