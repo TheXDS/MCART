@@ -92,8 +92,8 @@ dotnet test ./src/MCART.sln --collect:"XPlat Code Coverage" --results-directory:
 The coverage results will be stored in `./Build/Coverage`
 
 ## Contribute
-[![Buy Me A Coffee](https://cdn.buymeacoffee.com/buttons/default-orange.png)](https://www.buymeacoffee.com/xdsxpsivx)
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/W7W415UCHY)
 
-If MCART has been useful to you, or if you are interested in donating to support the development of the project, feel free to make a donation via [PayPal](https://paypal.me/thexds) or [BuyMeACoffee](https://www.buymeacoffee.com/xdsxpsivx), or contact me directly.
+If MCART has been useful to you, or if you are interested in donating to support the development of the project, feel free to make a donation via [PayPal](https://paypal.me/thexds), [Ko-fi](https://ko-fi.com/W7W415UCHY), or contact me directly.
 
 Unfortunately, I cannot offer other means of donation at the moment because my country (Honduras) is not supported by any platform.
