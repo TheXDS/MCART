@@ -35,12 +35,11 @@ namespace TheXDS.MCART.Tests.Types.Base;
 
 public class StreamUriParserTests
 {
-    [Test, Obsolete("Estos objetos utilizan métodos deprecados en .Net 6.")]
+    [Test]
     public void InferTest()
     {
         Assert.That(StreamUriParser.Infer("file://test.txt"), Is.AssignableFrom<FileStreamUriParser>());
         Assert.That(StreamUriParser.Infer("http://www.test.com/test.txt"), Is.AssignableFrom<HttpStreamUriParser>());
         Assert.That(StreamUriParser.Infer("https://www.test.com/test.txt"), Is.AssignableFrom<HttpStreamUriParser>());
-        Assert.That(StreamUriParser.Infer("ftp://test.com/test.txt"), Is.AssignableFrom<FtpStreamUriParser>());
     }
 }

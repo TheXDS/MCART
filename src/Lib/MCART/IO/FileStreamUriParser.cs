@@ -28,9 +28,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.Net;
 using TheXDS.MCART.Types.Base;
-using TheXDS.MCART.Misc;
 
 namespace TheXDS.MCART.IO;
 
@@ -38,42 +36,13 @@ namespace TheXDS.MCART.IO;
 /// Obtiene un <see cref="Stream"/> a partir de la ruta de archivo
 /// especificada por un <see cref="Uri"/>.
 /// </summary>
-#if NET6_0_OR_GREATER
-[Obsolete(AttributeErrorMessages.Net6Deprecation)]
-#endif
-public class FileStreamUriParser : SimpleStreamUriParser, IWebUriParser
+public class FileStreamUriParser : SimpleStreamUriParser
 {
     /// <summary>
     /// Enumera los esquemas soportados por este
     /// <see cref="StreamUriParser"/>.
     /// </summary>
     protected override IEnumerable<string> SchemeList { get; } = ["file"];
-
-    /// <summary>
-    /// Obtiene una respuesta Web a partir del <see cref="Uri"/>
-    /// especificado.
-    /// </summary>
-    /// <param name="uri">Dirección web a resolver.</param>
-    /// <returns>
-    /// La respuesta enviada por un servidor web.
-    /// </returns>
-    public WebResponse GetResponse(Uri uri)
-    {
-        return WebRequest.Create(uri).GetResponse();
-    }
-
-    /// <summary>
-    /// Obtiene una respuesta Web a partir del <see cref="Uri"/>
-    /// especificado de forma asíncrona.
-    /// </summary>
-    /// <param name="uri">Dirección web a resolver.</param>
-    /// <returns>
-    /// La respuesta enviada por un servidor web.
-    /// </returns>
-    public Task<WebResponse> GetResponseAsync(Uri uri)
-    {
-        return WebRequest.Create(uri).GetResponseAsync();
-    }
 
     /// <summary>
     /// Abre un <see cref="Stream"/> desde el <see cref="Uri"/>
@@ -110,19 +79,9 @@ public class FileStreamUriParser : SimpleStreamUriParser, IWebUriParser
     {
         if (uri.OriginalString.StartsWith("file://"))
         {
-            try
-            {
-                return GetResponse(uri).GetResponseStream();
-            }
-            catch
-            {
-                return null;
-            }
+            uri = new Uri(uri.OriginalString.Replace("file://", "", StringComparison.OrdinalIgnoreCase));
         }
-        else
-        {
-            if (!File.Exists(uri.OriginalString)) return null;
-            return new FileStream(uri.OriginalString, FileMode.Open);
-        }
+        if (!File.Exists(uri.OriginalString)) return null;
+        return new FileStream(uri.OriginalString, FileMode.Open);
     }
 }

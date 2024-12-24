@@ -47,8 +47,6 @@ public sealed class TextLicense(string name, string? content) : License(name, nu
     /// </summary>
     public override string LicenseContent
     {
-        [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
-        [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
         get
         {
             return _content ?? base.LicenseContent;

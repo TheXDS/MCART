@@ -28,9 +28,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.Diagnostics.CodeAnalysis;
 using TheXDS.MCART.Attributes;
-using TheXDS.MCART.Helpers;
+using TheXDS.MCART.IO;
 using TheXDS.MCART.Misc;
 
 namespace TheXDS.MCART.Types.Base;
@@ -41,6 +40,8 @@ namespace TheXDS.MCART.Types.Base;
 /// </summary>
 public abstract class StreamUriParser : IStreamUriParser
 {
+    private static StreamUriParser[]? _knownParsers;
+
     /// <summary>
     /// Obtiene el <see cref="StreamUriParser"/> apropiado para manejar
     /// al <see cref="Uri"/> especificado.
@@ -56,8 +57,6 @@ public abstract class StreamUriParser : IStreamUriParser
     /// <see cref="StreamUriParser"/> capaz de manejar el 
     /// <see cref="Uri"/>.
     /// </returns>
-    [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
-    [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
     public static StreamUriParser? Infer(Uri uri)
     {
         return Infer<StreamUriParser>(uri);
@@ -78,8 +77,6 @@ public abstract class StreamUriParser : IStreamUriParser
     /// <see cref="StreamUriParser"/> capaz de manejar el 
     /// <see cref="Uri"/>.
     /// </returns>
-    [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
-    [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
     public static StreamUriParser? Infer(string uri)
     {
         return Infer(new Uri(uri));
@@ -95,8 +92,6 @@ public abstract class StreamUriParser : IStreamUriParser
     /// <paramref name="uri"/>.
     /// </returns>
     [Sugar]
-    [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
-    [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
     public static Stream? Get(Uri uri)
     {
         return Infer(uri)?.GetStream(uri);
@@ -112,8 +107,6 @@ public abstract class StreamUriParser : IStreamUriParser
     /// <paramref name="uri"/>.
     /// </returns>
     [Sugar]
-    [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
-    [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
     public static Task<Stream?> GetAsync(Uri uri)
     {
         return Infer(uri)?.GetStreamAsync(uri) ?? Task.FromResult<Stream?>(null);
@@ -137,11 +130,9 @@ public abstract class StreamUriParser : IStreamUriParser
     /// <see cref="StreamUriParser"/> capaz de manejar el 
     /// <see cref="Uri"/>.
     /// </returns>
-    [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
-    [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
     public static T? Infer<T>(Uri uri) where T : class, IStreamUriParser
     {
-        return ReflectionHelpers.FindAllObjects<T>().FirstOrDefault(p => p.Handles(uri));
+        return (_knownParsers ??= [new FileStreamUriParser(), new HttpStreamUriParser()]).OfType<T>().FirstOrDefault(p => p.Handles(uri));
     }
 
     /// <summary>
@@ -162,8 +153,6 @@ public abstract class StreamUriParser : IStreamUriParser
     /// <see cref="StreamUriParser"/> capaz de manejar el 
     /// <see cref="Uri"/>.
     /// </returns>
-    [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
-    [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
     public static T? Infer<T>(string uri) where T : class, IStreamUriParser
     {
         return Infer<T>(new Uri(uri));

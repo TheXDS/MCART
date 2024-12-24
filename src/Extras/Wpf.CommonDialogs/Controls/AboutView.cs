@@ -225,9 +225,10 @@ public class AboutView : Control
             Assembly a => a.GetAttribute<LicenseAttributeBase>()?.GetLicense(a),
             IExposeAssembly e => e.Assembly.GetAttribute<LicenseAttributeBase>()?.GetLicense(e),
             IExposeInfo i => i.License,
+            Type t => t.GetAttribute<LicenseAttributeBase>()?.GetLicense(t),
             string s => new TextLicense(s.Split('\n', 2)[0], s),
-            not null => obj.GetAttribute<LicenseAttributeBase>()?.GetLicense(obj),
             null => License.MissingLicense,
+            not null => obj.GetType().GetAttribute<LicenseAttributeBase>()?.GetLicense(obj)
         } ?? License.Unspecified;
     }
 

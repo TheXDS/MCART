@@ -81,8 +81,6 @@ public class License(string name, Uri? uri) : INameable
     /// </summary>
     public virtual string LicenseContent
     {
-        [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
-        [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
         get
         {
             if (LicenseUri is null) return St.Composition.Warn(St.Common.NoContent);
