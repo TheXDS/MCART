@@ -37,22 +37,15 @@ namespace TheXDS.MCART.Resources;
 /// <summary>
 /// Extrae recursos incrustados Xaml desde el ensamblado especificado.
 /// </summary>
-public class XamlUnpacker : AssemblyUnpacker<object>
+/// <param name="assembly">
+/// <see cref="Assembly" /> de origen de los recursos incrustados.
+/// </param>
+/// <param name="path">
+/// Ruta (como espacio de nombre) donde se ubican los recursos
+/// incrustados.
+/// </param>
+public class XamlUnpacker(Assembly assembly, string path) : AssemblyUnpacker<object>(assembly, path)
 {
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase 
-    /// <see cref="XamlUnpacker"/>.
-    /// </summary>
-    /// <param name="assembly">
-    /// <see cref="Assembly" /> de origen de los recursos incrustados.
-    /// </param>
-    /// <param name="path">
-    /// Ruta (como espacio de nombre) donde se ubican los recursos
-    /// incrustados.
-    /// </param>
-    public XamlUnpacker(Assembly assembly, string path) : base(assembly, path)
-    {
-    }
 
     /// <summary>
     /// Extrae un recurso XAML con el id especificado.
@@ -67,25 +60,6 @@ public class XamlUnpacker : AssemblyUnpacker<object>
     public override object Unpack(string id)
     {
         using System.IO.Stream? sr = UnpackStream(id) ?? throw WpfErrors.ResourceNotFound(id, nameof(id));
-        return XamlReader.Load(XmlReader.Create(sr));
-    }
-
-    /// <summary>
-    /// Extrae un recurso XAML con el id especificado.
-    /// </summary>
-    /// <param name="id">
-    /// Id del recurso XAML a extraer.
-    /// </param>
-    /// <param name="compressorId">
-    /// Id del compresor a utilizar para extraer el recurso XAML.
-    /// </param>
-    /// <returns>
-    /// Un objeto que ha sido descrito a partir del XAML con el id
-    /// especificado.
-    /// </returns>
-    public override object Unpack(string id, string compressorId)
-    {
-        using System.IO.Stream? sr = UnpackStream(id, compressorId);
         return XamlReader.Load(XmlReader.Create(sr));
     }
 

@@ -33,28 +33,27 @@ using static TheXDS.MCART.Misc.Internals;
 namespace TheXDS.MCART.Events;
 
 /// <summary>
-/// Incluye información de evento para cualquier clase con eventos que
-/// reporten el progreso de una operación.
+/// Includes event informatino for any event that includes data on the progress
+/// of an operation.
 /// </summary>
 public class ProgressionEventArgs : ValueEventArgs<double>
 {
     /// <summary>
-    /// Inicializa una nueva instancia de este objeto con los datos
-    /// provistos.
+    /// Initializes a new instance of the <see cref="ProgressionEventArgs"/>
+    /// class.
     /// </summary>
     /// <param name="progress">
-    /// Valor de progreso. Debe ser un <see cref="double" /> entre
-    /// <c>0.0</c> y <c>1.0</c>, o los valores <see cref="double.NaN" />,
-    /// <see cref="double.PositiveInfinity" /> o
+    /// Progress value. It must be either a <see cref="double" /> value between
+    /// <c>0.0</c> and <c>1.0</c>, <see cref="double.NaN" />,
+    /// <see cref="double.PositiveInfinity" /> or
     /// <see cref="double.NegativeInfinity" />.
     /// </param>
     /// <param name="helpText">
-    /// Parámetro opcional. Descripción del estado de progreso que generó el
-    /// evento.
+    /// Optional parameter. Description of the current state of progress.
     /// </param>
     /// <exception cref="ArgumentOutOfRangeException">
-    /// Se produce si <paramref name="progress" /> no en un valor entre <c>0.0</c>
-    /// y <c>1.0</c>.
+    /// Thrown if <paramref name="progress" /> is a real number that is not
+    /// between <c>0.0</c> and <c>1.0</c>.
     /// </exception>
     public ProgressionEventArgs(double progress, string? helpText) : base(progress)
     {
@@ -63,27 +62,29 @@ public class ProgressionEventArgs : ValueEventArgs<double>
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de este objeto con los datos
-    /// provistos.
+    /// Initializes a new instance of the <see cref="ProgressionEventArgs"/>
+    /// class.
     /// </summary>
     /// <param name="progress">
-    /// Valor de progreso. Debe ser un <see cref="double" /> entre
-    /// <c>0.0</c> y <c>1.0</c>, o el valor <see cref="double.NaN"/>.
+    /// Progress value. It must be either a <see cref="double" /> value between
+    /// <c>0.0</c> and <c>1.0</c>, <see cref="double.NaN" />,
+    /// <see cref="double.PositiveInfinity" /> or
+    /// <see cref="double.NegativeInfinity" />.
     /// </param>
     /// <exception cref="ArgumentOutOfRangeException">
-    /// Se produce si <paramref name="progress" /> no en un valor entre <c>0.0</c>
-    /// y <c>1.0</c>.
+    /// Thrown if <paramref name="progress" /> is a real number that is not
+    /// between <c>0.0</c> and <c>1.0</c>.
     /// </exception>
     public ProgressionEventArgs(double progress) : this(progress, null)
     {
     }
 
     /// <summary>
-    /// Devuelve una descripción rápida del estado de progreso.
+    /// Gets the description for the current state of progress.
     /// </summary>
     /// <returns>
-    /// Un <see cref="string" /> con un mensaje que describe el estado de
-    /// progreso del evento.
+    /// A <see cref="string" /> with a message that describes the current state
+    /// of progress.
     /// </returns>
     public string? HelpText { get; }
 }

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>net8.0-windows</TargetFramework>
 		<Nullable>enable</Nullable>
@@ -6,6 +6,8 @@
 		<EnableWindowsTargeting>true</EnableWindowsTargeting>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<AssemblyName>MCART.Wpf.Controls.WebCamPane</AssemblyName>
+		<IsTrimmable>true</IsTrimmable>
+		<IsAotCompatible>true</IsAotCompatible>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="AForge" Version="2.2.5">
@@ -17,7 +19,7 @@
 		<PackageReference Include="AForge.Video.DirectShow" Version="2.2.5">
 			<NoWarn>NU1701</NoWarn>
 		</PackageReference>
-		<PackageReference Include="System.Drawing.Common" Version="8.0.7" />
+		<PackageReference Include="System.Drawing.Common" Version="9.0.0" />
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\..\Lib\MCART\MCART.csproj" />

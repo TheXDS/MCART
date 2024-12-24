@@ -28,17 +28,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using static System.AttributeTargets;
-
 namespace TheXDS.MCART.Attributes;
 
 /// <summary>
-/// Indica que un elemento proviene de origenes de terceros.
+/// Indicates that an element comes from third-party sources.
 /// </summary>
 /// <remarks>
-/// Es recomendable que al aplicar este atributo, también se aplique un
-/// atributo que indique la licencia del mismo.
+/// It is recommended that when applying this attribute, an
+/// attribute indicating its license is also applied.
 /// </remarks>
-[AttributeUsage(Method | Class | Module | Assembly)]
+[AttributeUsage(AttributeTargets.Method | AttributeTargets.Class | AttributeTargets.Module | AttributeTargets.Assembly)]
 [Serializable]
 public sealed class ThirdPartyAttribute : Attribute;

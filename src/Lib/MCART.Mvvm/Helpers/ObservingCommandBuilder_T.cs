@@ -29,6 +29,7 @@ SOFTWARE.
 */
 
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using TheXDS.MCART.Component;
 using TheXDS.MCART.Math;
@@ -42,11 +43,11 @@ namespace TheXDS.MCART.Helpers;
 /// <see cref="ObservingCommand"/>.
 /// </summary>
 /// <typeparam name="T">Tipo de objeto observado.</typeparam>
-public partial class ObservingCommandBuilder<T> where T : INotifyPropertyChanged
+public partial class ObservingCommandBuilder<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] T> where T : INotifyPropertyChanged
 {
     private readonly ObservingCommand command;
     private readonly T observedObject;
-    private readonly List<Func<object?, bool>> canExecuteTree = new();
+    private readonly List<Func<object?, bool>> canExecuteTree = [];
 
     /// <summary>
     /// Obtiene un valor que indica si ya se ha terminado de definir el

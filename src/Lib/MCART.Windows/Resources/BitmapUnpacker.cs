@@ -35,67 +35,51 @@ using TheXDS.MCART.Exceptions;
 namespace TheXDS.MCART.Resources;
 
 /// <summary>
-/// Extrae recursos de mapa de bits desde el ensamblado especificado.
+/// Extracts bitmap resources from an assembly.
 /// </summary>
-public class BitmapUnpacker : AssemblyUnpacker<Bitmap>
+/// <param name="assembly">
+/// Source <see cref="Assembly" />.
+/// </param>
+/// <param name="path">
+/// Path (as a namespace) where the embedded resources will be located at.
+/// </param>
+public class BitmapUnpacker(Assembly assembly, string path) : AssemblyUnpacker<Bitmap>(assembly, path)
 {
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase 
-    /// <see cref="BitmapUnpacker"/>.
-    /// </summary>
-    /// <param name="assembly">
-    /// <see cref="Assembly" /> de origen de los recursos incrustados.
-    /// </param>
-    /// <param name="path">
-    /// Ruta (como espacio de nombre) donde se ubican los recursos
-    /// incrustados.
-    /// </param>
-    public BitmapUnpacker(Assembly assembly, string path) : base(assembly, path) { }
 
     /// <summary>
-    /// Extrae un mapa de bits con el id especificado.
+    /// Extracts a bitmap with the specified id.
     /// </summary>
     /// <param name="id">
-    /// Id del mapa de bits a extraer.
+    /// Id of the bitmap to be extracted.
     /// </param>
     /// <returns>
-    /// Un mapa de bits extraído del recurso con el id especificado.
+    /// A bitmap that has been extracted from the specified embedded resource
+    /// id.
     /// </returns>
+    /// <exception cref="MissingResourceException">
+    /// Thrown if the resource could not be found.
+    /// </exception>
     public override Bitmap Unpack(string id)
     {
         return GetBitmap(UnpackStream(id));
     }
 
     /// <summary>
-    /// Extrae un mapa de bits con el id especificado.
+    /// Extracts a bitmap with the specified id.
     /// </summary>
     /// <param name="id">
-    /// Id del mapa de bits a extraer.
-    /// </param>
-    /// <param name="compressorId">
-    /// Id del compresor a utilizar para extraer el recurso.
-    /// </param>
-    /// <returns>
-    /// Un mapa de bits extraído del recurso con el id especificado.
-    /// </returns>
-    public override Bitmap Unpack(string id, string compressorId)
-    {
-        return GetBitmap(UnpackStream(id, compressorId));
-    }
-
-    /// <summary>
-    /// Extrae un mapa de bits con el id especificado.
-    /// </summary>
-    /// <param name="id">
-    /// Id del mapa de bits a extraer.
+    /// Id of the bitmap to be extracted.
     /// </param>
     /// <param name="compressor">
-    /// <see cref="ICompressorGetter"/> a utilizar para extraer el
-    /// recurso.
+    /// <see cref="ICompressorGetter"/> to use when extracting the resource.
     /// </param>
     /// <returns>
-    /// Un mapa de bits extraído del recurso con el id especificado.
+    /// A bitmap that has been extracted from the specified embedded resource
+    /// id.
     /// </returns>
+    /// <exception cref="MissingResourceException">
+    /// Thrown if the resource could not be found.
+    /// </exception>
     public override Bitmap Unpack(string id, ICompressorGetter compressor)
     {
         return GetBitmap(UnpackStream(id, compressor));

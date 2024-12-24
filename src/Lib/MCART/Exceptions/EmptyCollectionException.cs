@@ -34,95 +34,110 @@ using TheXDS.MCART.Resources.Strings;
 namespace TheXDS.MCART.Exceptions;
 
 /// <summary>
-/// Excepción que se produce cuando una colección está vacía.
+/// Exception that is thrown when a collection is empty when a method required
+/// it to have at lest one element.
 /// </summary>
 [Serializable]
 public class EmptyCollectionException : OffendingException<IEnumerable>
 {
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="EmptyCollectionException" />.
+    /// Initializes a new instance of the
+    /// <see cref="EmptyCollectionException" /> class.
     /// </summary>
     public EmptyCollectionException() : base(Errors.EmptyCollection)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="EmptyCollectionException" />.
+    /// Initializes a new instance of the
+    /// <see cref="EmptyCollectionException" /> class.
     /// </summary>
-    /// <param name="offendingCollection">Colección vacía que ha generado la excepción.</param>
+    /// <param name="offendingCollection">
+    /// Empty collection that produced this exception.
+    /// </param>
     public EmptyCollectionException(IEnumerable offendingCollection) : base(Errors.EmptyCollection, offendingCollection)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException" />.
+    /// Initializes a new instance of the
+    /// <see cref="EmptyCollectionException" /> class.
     /// </summary>
     /// <param name="message">
-    /// Un <see cref="string" /> que describe a la excepción.
+    /// Message that describes the exception.
     /// </param>
     public EmptyCollectionException(string message) : base(message)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException" />.
+    /// Initializes a new instance of the
+    /// <see cref="EmptyCollectionException" /> class.
     /// </summary>
     /// <param name="message">
-    /// Un <see cref="string" /> que describe a la excepción.
+    /// Message that describes the exception.
     /// </param>
-    /// <param name="offendingCollection">Colección vacía que ha generado la excepción.</param>
+    /// <param name="offendingCollection">
+    /// Empty collection that produced this exception.
+    /// </param>
     public EmptyCollectionException(string message, IEnumerable offendingCollection) : base(message,
         offendingCollection)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException" />.
+    /// Initializes a new instance of the
+    /// <see cref="EmptyCollectionException" /> class.
     /// </summary>
     /// <param name="inner">
-    /// <see cref="Exception" /> que es la causa de esta excepción.
+    /// <see cref="Exception" /> that is the cause of this exception.
     /// </param>
     public EmptyCollectionException(Exception inner) : base(Errors.EmptyCollection, inner)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException" />.
+    /// Initializes a new instance of the
+    /// <see cref="EmptyCollectionException" /> class.
     /// </summary>
     /// <param name="inner">
-    /// <see cref="Exception" /> que es la causa de esta excepción.
+    /// <see cref="Exception" /> that is the cause of this exception.
     /// </param>
-    /// <param name="offendingCollection">Colección vacía que ha generado la excepción.</param>
+    /// <param name="offendingCollection">
+    /// Empty collection that produced this exception.
+    /// </param>
     public EmptyCollectionException(Exception inner, IEnumerable offendingCollection) : base(Errors.EmptyCollection, inner,
         offendingCollection)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException" />.
+    /// Initializes a new instance of the
+    /// <see cref="EmptyCollectionException" /> class.
     /// </summary>
     /// <param name="message">
-    /// Un <see cref="string" /> que describe a la excepción.
+    /// Message that describes the exception.
     /// </param>
     /// <param name="inner">
-    /// <see cref="Exception" /> que es la causa de esta excepción.
+    /// <see cref="Exception" /> that is the cause of this exception.
     /// </param>
     public EmptyCollectionException(string message, Exception inner) : base(message, inner)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="EmptyCollectionException" />.
+    /// Initializes a new instance of the
+    /// <see cref="EmptyCollectionException" /> class.
     /// </summary>
     /// <param name="message">
-    /// Un <see cref="string" /> que describe a la excepción.
+    /// Message that describes the exception.
     /// </param>
     /// <param name="inner">
-    /// <see cref="Exception" /> que es la causa de esta excepción.
+    /// <see cref="Exception" /> that is the cause of this exception.
     /// </param>
-    /// <param name="offendingCollection">Colección vacía que ha generado la excepción.</param>
+    /// <param name="offendingCollection">
+    /// Empty collection that produced this exception.
+    /// </param>
     public EmptyCollectionException(string message, Exception inner, IEnumerable offendingCollection) : base(
         message, inner, offendingCollection)
     {

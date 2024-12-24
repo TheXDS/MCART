@@ -31,9 +31,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.IO;
+using TheXDS.MCART.Misc;
 using TheXDS.MCART.Types.Base;
 
 namespace TheXDS.MCART.Networking;
@@ -99,6 +101,8 @@ public static class DownloadHelper
     /// <param name="stream">
     /// <see cref="Stream" /> en el cual se almacenará el archivo.
     /// </param>
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
+    [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
     public static void Download(Uri uri, Stream stream)
     {
         if (!stream.CanWrite) throw new NotSupportedException();
@@ -116,6 +120,8 @@ public static class DownloadHelper
     /// <param name="stream">
     /// <see cref="Stream" /> en el cual se almacenará el archivo.
     /// </param>
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
+    [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
     public static void Download(string url, Stream stream) => Download(new Uri(url), stream);
 
     /// <summary>
@@ -143,6 +149,8 @@ public static class DownloadHelper
     /// <returns>
     /// Un <see cref="Task" /> que representa a la tarea en ejecución.
     /// </returns>
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
+    [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
     public static async Task DownloadAsync(Uri uri, Stream stream, ReportCallBack? reportCallback, int polling)
     {
         if (!stream.CanWrite) throw new NotSupportedException();
@@ -172,6 +180,8 @@ public static class DownloadHelper
     /// <returns>
     /// Un <see cref="Task" /> que representa a la tarea en ejecución.
     /// </returns>
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
+    [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
     public static Task DownloadAsync(Uri uri, Stream stream, ReportCallBack reportCallback)
     {
         return DownloadAsync(uri, stream, reportCallback, 100);
@@ -190,6 +200,8 @@ public static class DownloadHelper
     /// <returns>
     /// Un <see cref="Task" /> que representa a la tarea en ejecución.
     /// </returns>
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
+    [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
     public static Task DownloadAsync(Uri uri, Stream stream)
     {
         return DownloadAsync(uri, stream, null, 0);
@@ -220,6 +232,8 @@ public static class DownloadHelper
     /// <returns>
     /// Un <see cref="Task" /> que representa a la tarea en ejecución.
     /// </returns>
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
+    [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
     public static Task DownloadAsync(string url, Stream stream, ReportCallBack? reportCallback, int polling)
     {
         return DownloadAsync(new Uri(url), stream, reportCallback, polling);
@@ -246,6 +260,8 @@ public static class DownloadHelper
     /// <returns>
     /// Un <see cref="Task" /> que representa a la tarea en ejecución.
     /// </returns>
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
+    [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
     public static Task DownloadAsync(string url, Stream stream, ReportCallBack reportCallback)
     {
         return DownloadAsync(url, stream, reportCallback, 100);
@@ -264,6 +280,8 @@ public static class DownloadHelper
     /// <returns>
     /// Un <see cref="Task" /> que representa a la tarea en ejecución.
     /// </returns>
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
+    [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
     public static Task DownloadAsync(string url, Stream stream)
     {
         return DownloadAsync(url, stream, null, 0);

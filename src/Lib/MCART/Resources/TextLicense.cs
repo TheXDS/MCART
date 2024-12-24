@@ -28,28 +28,30 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System.Diagnostics.CodeAnalysis;
+using TheXDS.MCART.Misc;
+
 namespace TheXDS.MCART.Resources;
 
 /// <summary>
 /// Licencia cuyo contenido se ha especificado directamente.
 /// </summary>
-public sealed class TextLicense : License
+/// <param name="name">Nombre descriptivo de la licencia.</param>
+/// <param name="content">Contenido de la licencia.</param>
+public sealed class TextLicense(string name, string? content) : License(name, null)
 {
-    private readonly string? _content;
-
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="TextLicense"/>.
-    /// </summary>
-    /// <param name="name">Nombre descriptivo de la licencia.</param>
-    /// <param name="content">Contenido de la licencia.</param>
-    public TextLicense(string name, string? content) : base(name, null)
-    {
-        _content = content;
-    }
+    private readonly string? _content = content;
 
     /// <summary>
     /// Obtiene el contenido de la licencia.
     /// </summary>
-    public override string LicenseContent => _content ?? base.LicenseContent;
+    public override string LicenseContent
+    {
+        [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
+        [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
+        get
+        {
+            return _content ?? base.LicenseContent;
+        }
+    }
 }

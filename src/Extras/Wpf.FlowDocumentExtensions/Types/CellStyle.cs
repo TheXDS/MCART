@@ -34,15 +34,15 @@ using System.Windows.Media;
 namespace TheXDS.MCART.FlowDocumentExtensions.Types;
 
 /// <summary>
-/// Estilo de elementos de WPF orientado a objetos
-/// <see cref="System.Windows.Documents.TableCell"/>.
+/// Object-oriented WPF style for
+/// <see cref="System.Windows.Documents.TableCell"/> elements.
 /// </summary>
 public class CellStyle<T> : WpfStyle, ICellStyle
 {
     private Brush? _oddBackground;
 
     /// <summary>
-    /// <see cref="Brush"/> de fondo a aplicar al elemento para elementos impares.
+    /// <see cref="Brush"/> background to apply to the element for odd items.
     /// </summary>
     public Brush? OddBackground
     {
@@ -51,19 +51,19 @@ public class CellStyle<T> : WpfStyle, ICellStyle
     }
 
     /// <summary>
-    /// Ancho de la celda.
+    /// Width of the cell.
     /// </summary>
     public GridLength? Width { get; set; }
 
     /// <summary>
-    /// Alineación de texto a utilizar para colocar la información
-    /// de la celda.
+    /// Text alignment to use for placing the information
+    /// in the cell.
     /// </summary>
     public TextAlignment Alignment { get; set; }
 
     /// <summary>
-    /// Obtiene o establece la función condicional para aplicar este
-    /// estilo.
+    /// Gets or sets the conditional function to apply this
+    /// style.
     /// </summary>
     public Func<T, bool>? StyleApplies { get; set; } = _ => true;
 }

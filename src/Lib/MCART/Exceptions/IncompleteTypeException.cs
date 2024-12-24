@@ -31,92 +31,110 @@ SOFTWARE.
 namespace TheXDS.MCART.Exceptions;
 
 /// <summary>
-/// Excepción que se produce cuando un tipo requerido no está completo.
+/// Exception that is thrown whenever a type is incomplete, that is, if it is
+/// missing some required members or if a type generation process wasn't
+/// completed.
 /// </summary>
 [Serializable]
 public class IncompleteTypeException : OffendingException<Type>
 {
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="IncompleteTypeException" />.
+    /// Initializes a new instance of the
+    /// <see cref="IncompleteTypeException" /> class.
     /// </summary>
     public IncompleteTypeException()
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="IncompleteTypeException" />.
+    /// Initializes a new instance of the
+    /// <see cref="IncompleteTypeException" /> class.
     /// </summary>
-    /// <param name="offendingObject">
-    /// Tipo que ha producido la excepción.
+    /// <param name="offendingType">
+    /// Type that is the cause of this exception.
     /// </param>
-    public IncompleteTypeException(Type offendingObject) : base(offendingObject)
+    public IncompleteTypeException(Type offendingType) : base(offendingType)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="IncompleteTypeException" />.
+    /// Initializes a new instance of the
+    /// <see cref="IncompleteTypeException" /> class.
     /// </summary>
     /// <param name="message">
-    /// Un <see cref="string" /> que describe a la excepción.
+    /// Message that describes the exception.
     /// </param>
     public IncompleteTypeException(string message) : base(message)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="IncompleteTypeException" />.
+    /// Initializes a new instance of the
+    /// <see cref="IncompleteTypeException" /> class.
     /// </summary>
-    /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
+    /// <param name="inner">
+    /// <see cref="Exception" /> that is the cause of this exception.
+    /// </param>
     public IncompleteTypeException(Exception inner) : base(inner)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="IncompleteTypeException" />.
+    /// Initializes a new instance of the
+    /// <see cref="IncompleteTypeException" /> class.
     /// </summary>
     /// <param name="message">
-    /// Un <see cref="string" /> que describe a la excepción.
+    /// Message that describes the exception.
     /// </param>
-    /// <param name="offendingObject">
-    /// Tipo que ha producido la excepción.
+    /// <param name="offendingType">
+    /// Type that is the cause of this exception.
     /// </param>
-    public IncompleteTypeException(string message, Type offendingObject) : base(message, offendingObject)
+    public IncompleteTypeException(string message, Type offendingType) : base(message, offendingType)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="IncompleteTypeException" />.
+    /// Initializes a new instance of the
+    /// <see cref="IncompleteTypeException" /> class.
     /// </summary>
-    /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
-    /// <param name="offendingObject">
-    /// Tipo que ha producido la excepción.
+    /// <param name="inner">
+    /// <see cref="Exception" /> that is the cause of this exception.
     /// </param>
-    public IncompleteTypeException(Exception inner, Type offendingObject) : base(inner, offendingObject)
+    /// <param name="offendingType">
+    /// Type that is the cause of this exception.
+    /// </param>
+    public IncompleteTypeException(Exception inner, Type offendingType) : base(inner, offendingType)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="IncompleteTypeException" />.
+    /// Initializes a new instance of the
+    /// <see cref="IncompleteTypeException" /> class.
     /// </summary>
-    /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
-    /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
+    /// <param name="message">
+    /// Message that describes the exception.
+    /// </param>
+    /// <param name="inner">
+    /// <see cref="Exception" /> that is the cause of this exception.
+    /// </param>
     public IncompleteTypeException(string message, Exception inner) : base(message, inner)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="IncompleteTypeException" />.
+    /// Initializes a new instance of the
+    /// <see cref="IncompleteTypeException" /> class.
     /// </summary>
-    /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
-    /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
-    /// <param name="offendingObject">
-    /// Tipo que ha producido la excepción.
+    /// <param name="message">
+    /// Message that describes the exception.
     /// </param>
-    public IncompleteTypeException(string message, Exception inner, Type offendingObject) : base(message, inner, offendingObject)
+    /// <param name="inner">
+    /// <see cref="Exception" /> that is the cause of this exception.
+    /// </param>
+    /// <param name="offendingType">
+    /// Type that is the cause of this exception.
+    /// </param>
+    public IncompleteTypeException(string message, Exception inner, Type offendingType) : base(message, inner, offendingType)
     {
     }
 }

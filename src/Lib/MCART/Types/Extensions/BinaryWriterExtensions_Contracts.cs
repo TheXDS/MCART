@@ -42,8 +42,8 @@ public static partial class BinaryWriterExtensions
     [DebuggerNonUserCode]
     private static void DynamicWrite_Contract(this BinaryWriter bw, object value)
     {
-        Internals.NullCheck(bw, nameof(bw));
-        Internals.NullCheck(value, nameof(value));
+        ArgumentNullException.ThrowIfNull(bw, nameof(bw));
+        ArgumentNullException.ThrowIfNull(value, nameof(value));
     }
 
     [Conditional("EnforceContracts")]
@@ -51,7 +51,7 @@ public static partial class BinaryWriterExtensions
     [DebuggerNonUserCode]
     private static void WriteStruct_Contract(this BinaryWriter bw, Type t)
     {
-        Internals.NullCheck(bw, nameof(bw));
+        ArgumentNullException.ThrowIfNull(bw, nameof(bw));
         if (typeof(BinaryWriter).GetMethods().FirstOrDefault(p => CanWrite(p, t)) is { } m)
         {
             throw Errors.BinaryWriteNotSupported(t, m);
@@ -67,6 +67,6 @@ public static partial class BinaryWriterExtensions
     [DebuggerNonUserCode]
     private static void WriteStruct_Contract(this BinaryWriter bw)
     {
-        Internals.NullCheck(bw, nameof(bw));
+        ArgumentNullException.ThrowIfNull(bw, nameof(bw));
     }
 }

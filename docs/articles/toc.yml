@@ -1,12 +1,6 @@
-- name: Acerca de MCART (Historia)
+- name: About MCART
   href: intro.md
-- name: Bugs y errores conocidos
-  href: BUGS.md
-- name: Log de cambios
-  href: CHANGELOG.md
-- name: Contribuciones a MCART
+- name: Contribute to MCART
   href: CONTRIBUTING.md
-- name: Roadmap de MCART
-  href: ROADMAP.md
-- name: Información técnica
+- name: Technical information
   href: TECHINFO.md

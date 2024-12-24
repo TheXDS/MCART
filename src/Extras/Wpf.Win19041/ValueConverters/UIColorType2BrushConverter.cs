@@ -39,24 +39,24 @@ using MT = TheXDS.MCART.Types;
 namespace TheXDS.MCART.ValueConverters;
 
 /// <summary>
-/// Convierte valores desde y hacia objetos de tipo
-/// <see cref="MT.Color"/> y <see cref="Brush"/>.
+/// Converts values to and from objects of type
+/// <see cref="MT.Color"/> and <see cref="Brush"/>.
 /// </summary>
 [CLSCompliant(false)]
 public sealed class UIColorType2BrushConverter : IOneWayValueConverter<UIColorType, Brush>
 {
     /// <summary>
-    /// Convierte un <see cref="UIColorType"/> en un <see cref="Brush"/>.
+    /// Converts a <see cref="UIColorType"/> to a <see cref="Brush"/>.
     /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
+    /// <param name="value">Object to convert.</param>
     /// <param name="parameter">
-    /// Parámetros personalizados para este <see cref="IValueConverter" />.
+    /// Custom parameters for this <see cref="IValueConverter"/>.
     /// </param>
     /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
+    /// <see cref="CultureInfo"/> to use for the conversion.
     /// </param>
     /// <returns>
-    /// Un <see cref="Brush"/> equivalente al <see cref="UIColorType"/> original.
+    /// A <see cref="Brush"/> equivalent to the original <see cref="UIColorType"/>.
     /// </returns>
     public Brush Convert(UIColorType value, object? parameter, CultureInfo? culture)
     {

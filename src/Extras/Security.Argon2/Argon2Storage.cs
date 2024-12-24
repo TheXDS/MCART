@@ -28,28 +28,36 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+#pragma warning disable IDE0130
+
 using Konscious.Security.Cryptography;
 using System.Security.Cryptography;
+using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Math;
 using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Security;
 
 /// <summary>
-/// Deriva claves a partir de contraseñas utilizando el algoritmo Argon2.
+/// Derives keys from passwords using the Argon2 algorithm.
 /// </summary>
 /// <param name="settings">
-/// Configuración del algoritmo de derivación de claves a utilizar.
+/// Configuration of the key derivation algorithm to be used.
 /// </param>
 public class Argon2Storage(Argon2Settings settings) : IPasswordStorage<Argon2Settings>
 {
+    static Argon2Storage()
+    {
+        PasswordStorage.RegisterAlgorithm<Argon2Storage>();
+    }
+
     /// <summary>
-    /// Obtiene un <see cref="Argon2Settings"/> que representa la configuración
-    /// predeterminada recomendada para derivar claves de almacenamiento.
+    /// Gets a <see cref="Argon2Settings"/> that represents the recommended
+    /// default configuration for deriving storage keys.
     /// </summary>
     /// <returns>
-    /// Un <see cref="Argon2Settings"/> que representa la configuración
-    /// predeterminada recomendada.
+    /// A <see cref="Argon2Settings"/> that represents the recommended
+    /// default configuration.
     /// </returns>
     public static Argon2Settings GetDefaultSettings()
     {
@@ -65,9 +73,8 @@ public class Argon2Storage(Argon2Settings settings) : IPasswordStorage<Argon2Set
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="Argon2Storage"/>,
-    /// estableciendo la configuración del algoritmo de derivación de claves a
-    /// los valores predeterminados.
+    /// Initializes a new instance of the <see cref="Argon2Storage"/> class,
+    /// setting the key derivation algorithm configuration to the default values.
     /// </summary>
     public Argon2Storage() : this(GetDefaultSettings())
     {
@@ -102,5 +109,35 @@ public class Argon2Storage(Argon2Settings settings) : IPasswordStorage<Argon2Set
             Argon2Type.Argon2id => new Argon2id(input),
             _ => throw Errors.UndefinedEnum(nameof(Settings), Settings.Type)
         };
+    }
+
+    /// <inheritdoc/>
+    public void ConfigureFrom(BinaryReader reader)
+    {
+        Settings = new Argon2Settings
+        {
+            Salt = reader.ReadBytes(reader.ReadInt32()),
+            Iterations = reader.ReadInt32(),
+            KbMemSize = reader.ReadInt32(),
+            Parallelism = reader.ReadInt16(),
+            Type = (Argon2Type)reader.ReadByte(),
+            KeyLength = reader.ReadInt32(),
+        };
+    }
+
+    /// <inheritdoc/>
+    public byte[] DumpSettings()
+    {
+        using var ms = new MemoryStream();
+        using var writer = new BinaryWriter(ms);
+        writer.Write(Settings.Salt.Length);
+        writer.Write(Settings.Salt);
+        writer.Write(Settings.Iterations);
+        writer.Write(Settings.KbMemSize);
+        writer.Write(Settings.Parallelism);
+        writer.Write((byte)Settings.Type);
+        writer.Write(Settings.KeyLength);
+        writer.Flush();
+        return ms.ToArray();
     }
 }

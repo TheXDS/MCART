@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>MCART Simple Command</Title>
+			<Shortcut>scst</Shortcut>
+			<Description>Code snippet to add a new simple command for an MCART ViewModel.</Description>
+			<Author>César Andrés Morgan</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>name</ID>
+					<ToolTip>Command name.</ToolTip>
+					<Default>DoSomething</Default>
+				</Literal>
+				<Literal Editable="false">
+					<ID>SimpleCommand</ID>
+					<Function>SimpleTypeName(global::TheXDS.MCART.ViewModel.SimpleCommand)</Function>
+				</Literal>
+			</Declarations>
+			<Imports>
+				<Import>
+					<Namespace>TheXDS.MCART.ViewModel</Namespace>
+				</Import>
+			</Imports>
+			<Code Language="csharp" Kind="method decl">
+				<![CDATA[
+/// <summary>
+/// Gets the command related to the action $name$.
+/// </summary>
+/// <returns>The $name$ command.</returns>
+public SimpleCommand $name$Command { get; } = new SimpleCommand(On$name$);
+
+private static void On$name$()
+{
+    $end$
+}]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>

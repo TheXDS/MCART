@@ -31,38 +31,37 @@ SOFTWARE.
 namespace TheXDS.MCART.FlowDocumentExtensions.Types;
 
 /// <summary>
-/// Clase que describe a un selector de datos para generar una
-/// columna de datos dentro de una tabla.
+/// Class that describes a data selector for generating a
+/// data column within a table.
 /// </summary>
 /// <typeparam name="TObject">
-/// Tipo de objeto desde el cual se extraerá la información de la
-/// columna.
+/// Type of object from which the information for the
+/// column will be extracted.
 /// </typeparam>
 public interface IColumnBuilder<TObject>
 {
     /// <summary>
-    /// Título de la columna.
+    /// Title of the column.
     /// </summary>
     string Header { get; }
 
     /// <summary>
-    /// Contenido de la fila actual a establecer en esta columna.
+    /// Content of the current row to be set in this column.
     /// </summary>
-    /// <param name="obj">Objeto del cual extraer el contenido.</param>
+    /// <param name="obj">Object from which to extract the content.</param>
     /// <returns>
-    /// El contenido en formato de cadena a colocar dentro de la celda 
-    /// correspondiente a esta columna en la fila actual.
+    /// The content in string format to be placed within the cell 
+    /// corresponding to this column in the current row.
     /// </returns>
     string Content(TObject obj);
 
     /// <summary>
-    /// Obtiene un estilo a utilizar sobre la celda en esta columna de la fila actual.
+    /// Gets a style to be used on the cell in this column of the current row.
     /// </summary>
     /// <param name="item"></param>
     /// <returns>
-    /// Un estilo a aplicar a la celda generada, o
-    /// <see langword="null"/> si no es posible obtener un estilo
-    /// válido.
+    /// A style to apply to the generated cell, or
+    /// <see langword="null"/> if it is not possible to obtain a valid style.
     /// </returns>
     ICellStyle? Style(object? item);
 }

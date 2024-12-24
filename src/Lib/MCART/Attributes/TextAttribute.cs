@@ -28,22 +28,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using static System.AttributeTargets;
-
 namespace TheXDS.MCART.Attributes;
 
 /// <summary>
-/// Agrega un elemento textual genérico a un elemento, además de ser la
-/// clase base para los atributos que describan un valor representable como
-/// <see cref="string" /> para un elemento.
+/// Adds a generic textual element to an element, and also serves as the
+/// base class for attributes that describe a value representable as
+/// <see cref="string" /> for an element.
 /// </summary>
-    /// <param name="text">Valor de este atributo.</param>
-[AttributeUsage(All), Serializable]
-public class TextAttribute(string? text) : Attribute(), IValueAttribute<string?>
+/// <param name="text">Value of this attribute.</param>
+[AttributeUsage(AttributeTargets.All), Serializable]
+public class TextAttribute(string text) : Attribute(), IValueAttribute<string>
 {
     /// <summary>
-    /// Obtiene el valor asociado a este atributo.
+    /// Gets the value associated with this attribute.
     /// </summary>
-    /// <value>El valor de este atributo.</value>
-    public string? Value { get; } = text;
+    /// <value>The value of this attribute.</value>
+    public string Value { get; } = text;
 }

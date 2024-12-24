@@ -43,7 +43,7 @@ namespace TheXDS.MCART.Types;
 public class Grouping<TKey, TElement> : List<TElement>, IGrouping<TKey, TElement>
 {
     /// <summary>
-    /// Inicializa una nueva instancia de la clase 
+    /// Initializes a new instance of the 
     /// <see cref="Grouping{TKey, TElement}"/>, estableciendo la llave a
     /// utilizar.
     /// </summary>
@@ -56,7 +56,7 @@ public class Grouping<TKey, TElement> : List<TElement>, IGrouping<TKey, TElement
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase 
+    /// Initializes a new instance of the 
     /// <see cref="Grouping{TKey, TElement}"/>, estableciendo la llave a
     /// utilizar para identificar a los elementos especificados.
     /// </summary>
@@ -72,7 +72,7 @@ public class Grouping<TKey, TElement> : List<TElement>, IGrouping<TKey, TElement
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase 
+    /// Initializes a new instance of the 
     /// <see cref="Grouping{TKey, TElement}"/>, estableciendo la llave a
     /// utilizar, además de definir la capacidad de la colección.
     /// </summary>

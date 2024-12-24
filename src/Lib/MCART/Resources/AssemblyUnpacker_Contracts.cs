@@ -30,8 +30,6 @@ SOFTWARE.
 
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using static TheXDS.MCART.Misc.Internals;
-using static TheXDS.MCART.Types.Extensions.StringExtensions;
 
 namespace TheXDS.MCART.Resources;
 
@@ -42,7 +40,6 @@ public abstract partial class AssemblyUnpacker<T>
     [DebuggerNonUserCode]
     private static void UnpackStream_Contract(string id)
     {
-        EmptyCheck(id, nameof(id));
-        if (id.IsEmpty()) throw new ArgumentException(null, nameof(id));
+        ArgumentException.ThrowIfNullOrWhiteSpace(id);
     }
 }

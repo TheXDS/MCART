@@ -74,7 +74,7 @@ public static class PropertyBuildInfoExtensions
     /// <param name="valueProvider"></param>
     /// <param name="valueSetter"></param>
     /// <param name="propertyType"></param>
-    public static void BuildNpcPropSetterSkeleton(this PropertyBuildInfo prop, Action<Label, ILGenerator> valueProvider, Action<Label, ILGenerator> valueSetter, Type propertyType)
+    public static void BuildNpcPropSetterSkeleton(this PropertyBuildInfo prop, IlBlockWithExitLabel valueProvider, IlBlockWithExitLabel valueSetter, Type propertyType)
     {
         var setRet = prop.Setter!.DefineLabel();
         valueProvider(setRet, prop.Setter);

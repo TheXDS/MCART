@@ -30,7 +30,7 @@ SOFTWARE.
 
 namespace TheXDS.MCART.PInvoke.Models;
 
-public enum CredUIReturnCodes
+internal enum CredUIReturnCodes
 {
     NO_ERROR = 0,
     ERROR_CANCELLED = 1223,

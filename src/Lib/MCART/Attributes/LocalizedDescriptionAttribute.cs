@@ -29,21 +29,16 @@ SOFTWARE.
 */
 
 using System.Resources;
-using static System.AttributeTargets;
 using static TheXDS.MCART.Misc.Internals;
 
 namespace TheXDS.MCART.Attributes;
 
 /// <summary>
-/// Establece un nombre personalizado localizado para describir este elemento.
+/// Sets a localized custom name to describe this element.
 /// </summary>
-/// <remarks>
-/// Inicializa una nueva instancia de la clase
-/// <see cref="LocalizedDescriptionAttribute" />.
-/// </remarks>
-/// <param name="stringId">Id de la cadena a localizar.</param>
-/// <param name="resourceType">Tipo que contiene la información de localización a utilizar.</param>
-[AttributeUsage(All)]
+/// <param name="stringId">Id of the string to localize.</param>
+/// <param name="resourceType">Type that contains the localization information to use.</param>
+[AttributeUsage(AttributeTargets.All)]
 [Serializable]
 public sealed class LocalizedDescriptionAttribute(string stringId, Type resourceType) : System.ComponentModel.DescriptionAttribute, IValueAttribute<string>
 {

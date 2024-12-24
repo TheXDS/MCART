@@ -34,38 +34,37 @@ using TheXDS.MCART.Types.Base;
 namespace TheXDS.MCART.Types.Entity;
 
 /// <summary>
-/// Estructura universal que describe un color en sus componentes alfa,
-/// rojo, verde y azul.
+/// Universal structure that describes a color given its ARGB channels.
 /// </summary>
 [ComplexType]
 public class Color : IColor, IEquatable<Color>
 {
     /// <summary>
-    /// Componente Alfa del color.
+    /// Gets or sets the alpha channel for the color.
     /// </summary>
     public byte A { get; set; }
 
     /// <summary>
-    ///  Componente Azul del color.
+    /// Gets or sets the blue channel for the color
     /// </summary>
     public byte B { get; set; }
 
     /// <summary>
-    ///  Componente Verde del color.
+    /// Gets or sets the green channel for the color.
     /// </summary>
     public byte G { get; set; }
 
     /// <summary>
-    ///  Componente Rojo del color.
+    /// Gets or sets the red channel for the color.
     /// </summary>
     public byte R { get; set; }
 
     /// <summary>
-    /// Convierte implícitamente un <see cref="Types.Color"/> en un
+    /// Implicitly converts a <see cref="Types.Color"/> into a
     /// <see cref="Color"/>.
     /// </summary>
     /// <param name="color">
-    /// <see cref="Types.Color"/> a convertir.
+    /// <see cref="Types.Color"/> to be converted.
     /// </param>
     public static implicit operator Color(Types.Color color)
     {
@@ -79,11 +78,11 @@ public class Color : IColor, IEquatable<Color>
     }
 
     /// <summary>
-    /// Convierte implícitamente un <see cref="Color"/> en un
+    /// Implicitly converts a <see cref="Color"/> into a
     /// <see cref="Types.Color"/>.
     /// </summary>
     /// <param name="color">
-    /// <see cref="Color"/> a convertir.
+    /// <see cref="Color"/> to be converted.
     /// </param>
     public static implicit operator Types.Color(Color color)
     {

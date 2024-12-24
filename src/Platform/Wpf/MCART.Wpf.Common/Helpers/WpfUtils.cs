@@ -48,13 +48,13 @@ public static class WpfUtils
     private static readonly IEnumerable<StreamUriParser> _uriParsers = ReflectionHelpers.FindAllObjects<StreamUriParser>();
 
     /// <summary>
-    /// Obtiene una imagen a partir de un <see cref="Stream" />.
+    /// Creates a new <see cref="BitmapImage"/> from a <see cref="Stream" />.
     /// </summary>
     /// <param name="stream">
-    /// <see cref="Stream" /> con el contenido de la imagen.
+    /// <see cref="Stream" /> with the image content.
     /// </param>
     /// <returns>
-    /// La imagen que ha sido leída desde el <see cref="Stream" />.
+    /// A new <see cref="BitmapImage"/> created from the <see cref="Stream" />.
     /// </returns>
     public static BitmapImage? GetBitmap(Stream? stream)
     {

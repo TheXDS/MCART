@@ -1,4 +1,4 @@
-﻿// PasswordStorage_Contracts.cs
+﻿// TagAttribute.cs
 //
 // This file is part of Morgan's CLR Advanced Runtime (MCART)
 //
@@ -26,20 +26,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
-using TheXDS.MCART.Resources;
+namespace TheXDS.MCART.Attributes;
 
-namespace TheXDS.MCART.Helpers;
-
-public static partial class PasswordStorage
-{
-    [Conditional("EnforceContracts")]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    [DebuggerNonUserCode]
-    private static void CheckSettings(Type? settingsType)
-    {
-        if (settingsType == null) return;
-        if (settingsType.GetConstructors().Length == 1 && settingsType.GetProperties().All(p => !p.CanWrite)) throw SecurityErrors.CannotConfigurePwStorage(settingsType);
-    }
-}
+/// <summary>
+/// Indicates a string that can be used to identify this element.
+/// </summary>
+/// <param name="identifier">Identifier to use.</param>
+[AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
+public sealed class TagAttribute(string identifier) : TextAttribute(identifier);

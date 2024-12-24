@@ -34,6 +34,6 @@ public static partial class MvvmCollectionExtensions
 {
     private static void ToObservable_Contract<T>(this ICollection<T> collection)
     {
-        NullCheck(collection, nameof(collection));
+        ArgumentNullException.ThrowIfNull(collection, nameof(collection));
     }
 }

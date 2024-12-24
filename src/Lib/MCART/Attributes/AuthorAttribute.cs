@@ -33,9 +33,9 @@ using static System.AttributeTargets;
 namespace TheXDS.MCART.Attributes;
 
 /// <summary>
-/// Establece el autor del elemento.
+/// Sets the author of the element.
 /// </summary>
-/// <param name="attrValue">Valor del atributo.</param>
+/// <param name="attrValue">Value of the attribute.</param>
 [AttributeUsage(Property | Method | Constructor | Class | Module | Assembly, AllowMultiple = true)]
 [Serializable]
 public sealed class AuthorAttribute(string attrValue) : TextAttribute(attrValue);

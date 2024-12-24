@@ -1,5 +1,5 @@
 ﻿/*
-MaximumAttributeTests.cs
+Argon2Settings.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,17 +28,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using TheXDS.MCART.Attributes;
+#pragma warning disable IDE0130
 
-namespace TheXDS.MCART.Tests.Attributes;
+namespace TheXDS.MCART.Security;
 
-public class MaximumAttributeTests
+/// <summary>
+/// Contains configuration values to be used for deriving passwords
+/// using the Argon2 algorithm.
+/// </summary>
+/// <param name="Key">Key to be used for the hashing algorithm.</param>
+/// <param name="HashSize">Size of the hash to be generated.</param>
+public readonly record struct Blake2Settings(byte[] Key, int HashSize)
 {
-    [TestCase(99)]
-    [TestCase(25)]
-    public void Instancing_test(int testValue)
-    {
-        MaximumAttribute<int> b = new(testValue);
-        Assert.That(testValue, Is.EqualTo(b.Value));
-    }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Blake2Settings"/> struct
+    /// without specifying a key to be used.
+    /// </summary>
+    /// <param name="hashSize"></param>
+    public Blake2Settings(int hashSize) : this([], hashSize) { }
 }

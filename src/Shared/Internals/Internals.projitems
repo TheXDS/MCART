@@ -9,6 +9,7 @@
     <Import_RootNamespace>Internals</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)AttributeErrorMessages.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Internals.cs" />
   </ItemGroup>
 </Project>

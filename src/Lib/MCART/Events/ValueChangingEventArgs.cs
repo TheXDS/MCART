@@ -31,13 +31,13 @@ SOFTWARE.
 namespace TheXDS.MCART.Events;
 
 /// <summary>
-/// Incluye información para cualquier evento que incluya tipos de valor y
-/// puedan ser cancelados.
+/// Includes event information for any event where the value of an element
+/// changes.
 /// </summary>
 /// <param name="oldValue">
-/// Valor original asociado al evento generado.
+/// Old value.
 /// </param>
 /// <param name="newValue">
-/// Nuevo valor asociado al evento generado.
+/// New value.
 /// </param>
 public class ValueChangingEventArgs(object? oldValue, object? newValue) : ValueChangingEventArgs<object?>(oldValue, newValue);

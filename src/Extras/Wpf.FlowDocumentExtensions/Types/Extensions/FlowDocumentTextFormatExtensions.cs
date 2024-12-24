@@ -35,20 +35,20 @@ using System.Windows.Media;
 namespace TheXDS.MCART.FlowDocumentExtensions.Types.Extensions;
 
 /// <summary>
-/// Extensiones de tipo Fluent para manipular objetos
-/// <see cref="FlowDocument" /> centradas en el formato de elementos de texto.
+/// Fluent type extensions for manipulating <see cref="FlowDocument" />
+/// objects focused on text element formatting.
 /// </summary>
 public static class FlowDocumentTextFormatExtensions
 {
     /// <summary>
-    /// Establece un color de fondo para un <see cref="TextElement" />.
+    /// Sets a background color for a <see cref="TextElement" />.
     /// </summary>
-    /// <typeparam name="TElement">Tipo de <see cref="TextElement" /> al cual aplicarle el color de fondo.</typeparam>
-    /// <param name="element"><see cref="TextElement" /> al cual aplicarle el color de fondo.</param>
-    /// <param name="value">Fondo a aplicar.</param>
+    /// <typeparam name="TElement">Type of <see cref="TextElement" /> to which the background color will be applied.</typeparam>
+    /// <param name="element"><see cref="TextElement" /> to which the background color will be applied.</param>
+    /// <param name="value">Background to apply.</param>
     /// <returns>
-    /// <paramref name="element" />, lo que permite utilizar esta función
-    /// con sintaxis Fluent.
+    /// <paramref name="element" />, allowing this function to be used
+    /// with Fluent syntax.
     /// </returns>
     public static TElement Background<TElement>(this TElement element, Brush value) where TElement : TextElement
     {
@@ -57,13 +57,13 @@ public static class FlowDocumentTextFormatExtensions
     }
 
     /// <summary>
-    /// Establece el formato de texto en negrita.
+    /// Sets the text format to bold.
     /// </summary>
-    /// <typeparam name="TElement">Tipo de <see cref="TextElement" /> a manipular.</typeparam>
-    /// <param name="element"><see cref="TextElement" /> a manipular.</param>
+    /// <typeparam name="TElement">Type of <see cref="TextElement" /> to manipulate.</typeparam>
+    /// <param name="element"><see cref="TextElement" /> to manipulate.</param>
     /// <returns>
-    /// <paramref name="element" />, lo que permite utilizar esta función
-    /// con sintaxis Fluent.
+    /// <paramref name="element" />, allowing this function to be used
+    /// with Fluent syntax.
     /// </returns>
     public static TElement Bold<TElement>(this TElement element) where TElement : TextElement
     {
@@ -72,13 +72,13 @@ public static class FlowDocumentTextFormatExtensions
     }
 
     /// <summary>
-    /// Establece la alineación de texto en central.
+    /// Sets the text alignment to center.
     /// </summary>
-    /// <typeparam name="TElement">Tipo de <see cref="TextElement" /> a manipular.</typeparam>
-    /// <param name="element"><see cref="TextElement" /> a manipular.</param>
+    /// <typeparam name="TElement">Type of <see cref="TextElement" /> to manipulate.</typeparam>
+    /// <param name="element"><see cref="TextElement" /> to manipulate.</param>
     /// <returns>
-    /// <paramref name="element" />, lo que permite utilizar esta función
-    /// con sintaxis Fluent.
+    /// <paramref name="element" />, allowing this function to be used
+    /// with Fluent syntax.
     /// </returns>
     public static TElement Center<TElement>(this TElement element) where TElement : Block
     {
@@ -87,14 +87,14 @@ public static class FlowDocumentTextFormatExtensions
     }
 
     /// <summary>
-    /// Establece un efecto de texto sobre un <see cref="TextElement" />.
+    /// Sets a text effect on a <see cref="TextElement" />.
     /// </summary>
-    /// <typeparam name="TElement">Tipo de <see cref="TextElement" /> a manipular.</typeparam>
-    /// <param name="element"><see cref="TextElement" /> a manipular.</param>
-    /// <param name="effect">Efecto a aplicar al texto.</param>
+    /// <typeparam name="TElement">Type of <see cref="TextElement" /> to manipulate.</typeparam>
+    /// <param name="element"><see cref="TextElement" /> to manipulate.</param>
+    /// <param name="effect">Effect to apply to the text.</param>
     /// <returns>
-    /// <paramref name="element" />, lo que permite utilizar esta función
-    /// con sintaxis Fluent.
+    /// <paramref name="element" />, allowing this function to be used
+    /// with Fluent syntax.
     /// </returns>
     public static TElement Effect<TElement>(this TElement element, TextEffect effect) where TElement : TextElement
     {
@@ -103,14 +103,14 @@ public static class FlowDocumentTextFormatExtensions
     }
 
     /// <summary>
-    /// Establece un color principal para un <see cref="TextElement" />.
+    /// Sets a foreground color for a <see cref="TextElement" />.
     /// </summary>
-    /// <typeparam name="TElement">Tipo de <see cref="TextElement" /> al cual aplicarle el color principal.</typeparam>
-    /// <param name="element"><see cref="TextElement" /> al cual aplicarle el color principal.</param>
-    /// <param name="value">Color principal a aplicar.</param>
+    /// <typeparam name="TElement">Type of <see cref="TextElement" /> to which the foreground color will be applied.</typeparam>
+    /// <param name="element"><see cref="TextElement" /> to which the foreground color will be applied.</param>
+    /// <param name="value">Foreground color to apply.</param>
     /// <returns>
-    /// <paramref name="element" />, lo que permite utilizar esta función
-    /// con sintaxis Fluent.
+    /// <paramref name="element" />, allowing this function to be used
+    /// with Fluent syntax.
     /// </returns>
     public static TElement Foreground<TElement>(this TElement element, Brush value) where TElement : TextElement
     {
@@ -119,16 +119,16 @@ public static class FlowDocumentTextFormatExtensions
     }
 
     /// <summary>
-    /// Establece el formato de un <see cref="TextElement" />.
+    /// Sets the format of a <see cref="TextElement" />.
     /// </summary>
-    /// <typeparam name="TElement">Tipo de <see cref="TextElement" /> a manipular.</typeparam>
-    /// <param name="element"><see cref="TextElement" /> a manipular.</param>
+    /// <typeparam name="TElement">Type of <see cref="TextElement" /> to manipulate.</typeparam>
+    /// <param name="element"><see cref="TextElement" /> to manipulate.</param>
     /// <param name="fontFamily">
-    /// Familia de fuentes a utilizar.
+    /// Font family to use.
     /// </param>
     /// <returns>
-    /// <paramref name="element" />, lo que permite utilizar esta función
-    /// con sintaxis Fluent.
+    /// <paramref name="element" />, allowing this function to be used
+    /// with Fluent syntax.
     /// </returns>
     public static TElement Format<TElement>(this TElement element, FontFamily fontFamily)
         where TElement : TextElement
@@ -138,16 +138,16 @@ public static class FlowDocumentTextFormatExtensions
     }
 
     /// <summary>
-    /// Establece el formato de un <see cref="TextElement" />.
+    /// Sets the format of a <see cref="TextElement" />.
     /// </summary>
-    /// <typeparam name="TElement">Tipo de <see cref="TextElement" /> a manipular.</typeparam>
-    /// <param name="element"><see cref="TextElement" /> a manipular.</param>
+    /// <typeparam name="TElement">Type of <see cref="TextElement" /> to manipulate.</typeparam>
+    /// <param name="element"><see cref="TextElement" /> to manipulate.</param>
     /// <param name="fontWeight">
-    /// Densidad de la fuente.
+    /// Font weight.
     /// </param>
     /// <returns>
-    /// <paramref name="element" />, lo que permite utilizar esta función
-    /// con sintaxis Fluent.
+    /// <paramref name="element" />, allowing this function to be used
+    /// with Fluent syntax.
     /// </returns>
     public static TElement Format<TElement>(this TElement element, FontWeight fontWeight)
         where TElement : TextElement
@@ -157,14 +157,14 @@ public static class FlowDocumentTextFormatExtensions
     }
 
     /// <summary>
-    /// Establece el formato de un <see cref="TextElement" />.
+    /// Sets the format of a <see cref="TextElement" />.
     /// </summary>
-    /// <typeparam name="TElement">Tipo de <see cref="TextElement" /> a manipular.</typeparam>
-    /// <param name="element"><see cref="TextElement" /> a manipular.</param>
-    /// <param name="fontSize">Tamaño de la fuente.</param>
+    /// <typeparam name="TElement">Type of <see cref="TextElement" /> to manipulate.</typeparam>
+    /// <param name="element"><see cref="TextElement" /> to manipulate.</param>
+    /// <param name="fontSize">Font size.</param>
     /// <returns>
-    /// <paramref name="element" />, lo que permite utilizar esta función
-    /// con sintaxis Fluent.
+    /// <paramref name="element" />, allowing this function to be used
+    /// with Fluent syntax.
     /// </returns>
     public static TElement Format<TElement>(this TElement element, double fontSize) where TElement : TextElement
     {
@@ -173,16 +173,16 @@ public static class FlowDocumentTextFormatExtensions
     }
 
     /// <summary>
-    /// Establece el formato de un <see cref="TextElement" />.
+    /// Sets the format of a <see cref="TextElement" />.
     /// </summary>
-    /// <typeparam name="TElement">Tipo de <see cref="TextElement" /> a manipular.</typeparam>
-    /// <param name="element"><see cref="TextElement" /> a manipular.</param>
+    /// <typeparam name="TElement">Type of <see cref="TextElement" /> to manipulate.</typeparam>
+    /// <param name="element"><see cref="TextElement" /> to manipulate.</param>
     /// <param name="fontStretch">
-    /// Estiramiento de la fuente.
+    /// Font stretch.
     /// </param>
     /// <returns>
-    /// <paramref name="element" />, lo que permite utilizar esta función
-    /// con sintaxis Fluent.
+    /// <paramref name="element" />, allowing this function to be used
+    /// with Fluent syntax.
     /// </returns>
     public static TElement Format<TElement>(this TElement element, FontStretch fontStretch)
         where TElement : TextElement
@@ -192,14 +192,14 @@ public static class FlowDocumentTextFormatExtensions
     }
 
     /// <summary>
-    /// Establece el formato de un <see cref="TextElement" />.
+    /// Sets the format of a <see cref="TextElement" />.
     /// </summary>
-    /// <typeparam name="TElement">Tipo de <see cref="TextElement" /> a manipular.</typeparam>
-    /// <param name="element"><see cref="TextElement" /> a manipular.</param>
-    /// <param name="fontStyle">Estilo de la fuente.</param>
+    /// <typeparam name="TElement">Type of <see cref="TextElement" /> to manipulate.</typeparam>
+    /// <param name="element"><see cref="TextElement" /> to manipulate.</param>
+    /// <param name="fontStyle">Font style.</param>
     /// <returns>
-    /// <paramref name="element" />, lo que permite utilizar esta función
-    /// con sintaxis Fluent.
+    /// <paramref name="element" />, allowing this function to be used
+    /// with Fluent syntax.
     /// </returns>
     public static TElement Format<TElement>(this TElement element, FontStyle fontStyle) where TElement : TextElement
     {
@@ -208,14 +208,14 @@ public static class FlowDocumentTextFormatExtensions
     }
 
     /// <summary>
-    /// Establece el formato de un <see cref="TextElement" />.
+    /// Sets the format of a <see cref="TextElement" />.
     /// </summary>
-    /// <typeparam name="TElement">Tipo de <see cref="TextElement" /> a manipular.</typeparam>
-    /// <param name="element"><see cref="TextElement" /> a manipular.</param>
-    /// <param name="alignment">Alineación de texto.</param>
+    /// <typeparam name="TElement">Type of <see cref="TextElement" /> to manipulate.</typeparam>
+    /// <param name="element"><see cref="TextElement" /> to manipulate.</param>
+    /// <param name="alignment">Text alignment.</param>
     /// <returns>
-    /// <paramref name="element" />, lo que permite utilizar esta función
-    /// con sintaxis Fluent.
+    /// <paramref name="element" />, allowing this function to be used
+    /// with Fluent syntax.
     /// </returns>
     public static TElement Format<TElement>(this TElement element, TextAlignment alignment) where TElement : Block
     {
@@ -224,13 +224,13 @@ public static class FlowDocumentTextFormatExtensions
     }
 
     /// <summary>
-    /// Establece la alineación del texto en justificada.
+    /// Sets the text alignment to justified.
     /// </summary>
-    /// <typeparam name="TElement">Tipo de <see cref="TextElement" /> a manipular.</typeparam>
-    /// <param name="element"><see cref="TextElement" /> a manipular.</param>
+    /// <typeparam name="TElement">Type of <see cref="TextElement" /> to manipulate.</typeparam>
+    /// <param name="element"><see cref="TextElement" /> to manipulate.</param>
     /// <returns>
-    /// <paramref name="element" />, lo que permite utilizar esta función
-    /// con sintaxis Fluent.
+    /// <paramref name="element" />, allowing this function to be used
+    /// with Fluent syntax.
     /// </returns>
     public static TElement Justify<TElement>(this TElement element) where TElement : Block
     {
@@ -239,13 +239,13 @@ public static class FlowDocumentTextFormatExtensions
     }
 
     /// <summary>
-    /// Establece la alineación del texto en izquierda.
+    /// Sets the text alignment to left.
     /// </summary>
-    /// <typeparam name="TElement">Tipo de <see cref="TextElement" /> a manipular.</typeparam>
-    /// <param name="element"><see cref="TextElement" /> a manipular.</param>
+    /// <typeparam name="TElement">Type of <see cref="TextElement" /> to manipulate.</typeparam>
+    /// <param name="element"><see cref="TextElement" /> to manipulate.</param>
     /// <returns>
-    /// <paramref name="element" />, lo que permite utilizar esta función
-    /// con sintaxis Fluent.
+    /// <paramref name="element" />, allowing this function to be used
+    /// with Fluent syntax.
     /// </returns>
     public static TElement Left<TElement>(this TElement element) where TElement : Block
     {
@@ -254,13 +254,13 @@ public static class FlowDocumentTextFormatExtensions
     }
 
     /// <summary>
-    /// Establece la alineación del texto en derecha.
+    /// Sets the text alignment to right.
     /// </summary>
-    /// <typeparam name="TElement">Tipo de <see cref="TextElement" /> a manipular.</typeparam>
-    /// <param name="element"><see cref="TextElement" /> a manipular.</param>
+    /// <typeparam name="TElement">Type of <see cref="TextElement" /> to manipulate.</typeparam>
+    /// <param name="element"><see cref="TextElement" /> to manipulate.</param>
     /// <returns>
-    /// <paramref name="element" />, lo que permite utilizar esta función
-    /// con sintaxis Fluent.
+    /// <paramref name="element" />, allowing this function to be used
+    /// with Fluent syntax.
     /// </returns>
     public static TElement Right<TElement>(this TElement element) where TElement : Block
     {

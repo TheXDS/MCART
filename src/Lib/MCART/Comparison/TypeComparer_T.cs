@@ -33,19 +33,19 @@ using System.Diagnostics.CodeAnalysis;
 namespace TheXDS.MCART.Comparison;
 
 /// <summary>
-/// Compara el tipo de dos objetos que comparten un tipo base común.
+/// Compares the type of two objects that share a common base type.
 /// </summary>
 public class TypeComparer<T> : IEqualityComparer<T>
     where T : notnull
 {
     /// <summary>
-    /// Determina si los objetos especificados son iguales.
+    /// Determines whether the specified objects are equal.
     /// </summary>
-    /// <param name="x">Primer objeto a comparar.</param>
-    /// <param name="y">Segundo objeto a comparar.</param>
+    /// <param name="x">The first object to compare.</param>
+    /// <param name="y">The second object to compare.</param>
     /// <returns>
-    /// <see langword="true"/> si el tipo de ambos objetos es el mismo,
-    /// <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if the types of both objects are the same; 
+    /// <see langword="false"/> otherwise.
     /// </returns>
     public bool Equals([AllowNull] T x, [AllowNull] T y)
     {
@@ -53,13 +53,13 @@ public class TypeComparer<T> : IEqualityComparer<T>
     }
 
     /// <summary>
-    /// Obtiene el código Hash para el tipo del objeto especificado.
+    /// Gets the hash code for the type of the specified object.
     /// </summary>
     /// <param name="obj">
-    /// Objeto para el cual obtener un código Hash.
+    /// The object for which to obtain a hash code.
     /// </param>
     /// <returns>
-    /// El código hash para el tipo del objeto especificado.
+    /// The hash code for the type of the specified object.
     /// </returns>
     public int GetHashCode([DisallowNull] T obj)
     {

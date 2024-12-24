@@ -85,10 +85,11 @@ namespace TheXDS.MCART.Mvvm.Tests.Helpers
 
             public bool IsStringLengthEven => (StringProperty?.Length ?? 0) % 2 == 0;
 
-            public ObservableTestClass()
+            protected override void OnInitialize(IPropertyBroadcastSetup broadcastSetup)
             {
-                RegisterPropertyChangeBroadcast(nameof(IntProperty), nameof(IsIntEven));
-                RegisterPropertyChangeBroadcast(nameof(StringProperty), nameof(IsStringLengthEven));
+                broadcastSetup
+                    .RegisterPropertyChangeBroadcast(() => IntProperty, () => IsIntEven)
+                    .RegisterPropertyChangeBroadcast(() => StringProperty, () => IsStringLengthEven);
             }
         }
 

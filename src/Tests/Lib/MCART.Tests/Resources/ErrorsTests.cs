@@ -402,7 +402,7 @@ public class ErrorsTests : ExceptionResourceTestClass
     [Test]
     public void StackUnderflowException_Ctor_Test()
     {
-        TestExceptionType<StackUnderflowException>();
+        TestExceptionType<EmptyStackException>();
     }
 
     [Test]

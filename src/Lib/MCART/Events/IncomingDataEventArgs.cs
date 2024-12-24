@@ -31,30 +31,29 @@ SOFTWARE.
 namespace TheXDS.MCART.Events;
 
 /// <summary>
-/// Incluye información de evento para cualquier clase con eventos de
-/// recepción de datos.
+/// Includes event information for any data reception event.
 /// </summary>
 public class IncomingDataEventArgs : ValueEventArgs<byte[]>
 {
     /// <summary>
-    /// Inicializa una nueva instancia de este objeto con los datos
-    /// recibidos.
+    /// Initializes a new instance of the <see cref="IncomingDataEventArgs"/>
+    /// class, including the entire buffer of data that has been received.
     /// </summary>
     /// <param name="data">
-    /// Colección de <see cref="byte" /> con los datos recibidos.
+    /// Buffer that contains the data that has been received.
     /// </param>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="data"/> es <see langword="null"/>.
+    /// Thrown if <paramref name="data"/> is <see langword="null"/>.
     /// </exception>
     public IncomingDataEventArgs(byte[] data) : base(data)
     {
-        Misc.Internals.NullCheck(data, nameof(data));
+        ArgumentNullException.ThrowIfNull(data, nameof(data));
     }
 
     /// <summary>
-    /// Convierte implícitamente un arreglo de <see cref="byte"/> en un
+    /// Implicitly converts a <see cref="byte"/> array into an object of type
     /// <see cref="IncomingDataEventArgs"/>.
     /// </summary>
-    /// <param name="value"></param>
+    /// <param name="value">Value to be converted.</param>
     public static implicit operator IncomingDataEventArgs(byte[] value) => new(value);
 }

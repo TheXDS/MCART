@@ -28,8 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using TheXDS.MCART.Types.Extensions;
-
 namespace TheXDS.MCART.Security;
 
 /// <summary>
@@ -47,11 +45,8 @@ public interface IPasswordStorage<T> : IPasswordStorage where T : struct
     /// Obtiene una referencia a la configuración activa de esta instancia.
     /// </summary>
     new T Settings { get; set; }
-    
-    void IPasswordStorage.ConfigureFrom(BinaryReader reader)
-    {
-        Settings = (T)reader.Read(typeof(T));
-    }
+
+    object IPasswordStorage.Settings => Settings;
 
     /// <summary>
     /// Obtiene la configuración a partir del bloque especificado.
@@ -65,15 +60,4 @@ public interface IPasswordStorage<T> : IPasswordStorage where T : struct
         using var reader = new BinaryReader(ms);
         ConfigureFrom(reader);
     }
-
-    byte[] IPasswordStorage.DumpSettings()
-    {
-        using var ms = new MemoryStream();
-        using var writer = new BinaryWriter(ms);
-        writer.DynamicWrite(Settings);
-        writer.Flush();
-        return ms.ToArray();
-    }
-
-    object IPasswordStorage.Settings => Settings;
 }

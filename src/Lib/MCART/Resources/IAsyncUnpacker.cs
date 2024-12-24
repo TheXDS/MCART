@@ -49,19 +49,6 @@ public interface IAsyncUnpacker<T>
     /// identificador especificado de forma asíncrona.
     /// </summary>
     /// <param name="id">Identificador del recurso.</param>
-    /// <param name="compressorId">
-    /// Identificador del compresor a utilizar para extraer al recurso.
-    /// </param>
-    /// <returns>
-    /// Un recurso sin comprimir de tipo <typeparamref name="T"/>.
-    /// </returns>
-    Task<T> UnpackAsync(string id, string compressorId);
-
-    /// <summary>
-    /// Extrae un recurso comprimido utilizando el compresor con el
-    /// identificador especificado de forma asíncrona.
-    /// </summary>
-    /// <param name="id">Identificador del recurso.</param>
     /// <param name="compressor">
     /// <see cref="ICompressorGetter"/> a utilizar para extraer al recurso.
     /// </param>
@@ -69,4 +56,29 @@ public interface IAsyncUnpacker<T>
     /// Un recurso sin comprimir de tipo <typeparamref name="T"/>.
     /// </returns>
     Task<T> UnpackAsync(string id, ICompressorGetter compressor);
+
+    /// <summary>
+    /// Tries to unpack a resource asyncronously, and returns a value that
+    /// indicates either success or failure to unpack the requested resource.
+    /// </summary>
+    /// <param name="id">Resource id to be unpacked.</param>
+    /// <returns>
+    /// A new <see cref="UnpackResult{T}"/> that indicates either success or
+    /// failure to unpack the requested resource, as well as a reference to the
+    /// unpacked resource if the extraction was successful.
+    /// </returns>
+    Task<UnpackResult<T>> TryUnpackAsync(string id);
+
+    /// <summary>
+    /// Tries to unpack a resource asyncronously, and returns a value that
+    /// indicates either success or failure to unpack the requested resource.
+    /// </summary>
+    /// <param name="id">Resource id to be unpacked.</param>
+    /// <param name="compressor">Compressor getter intance to use.</param>
+    /// <returns>
+    /// A new <see cref="UnpackResult{T}"/> that indicates either success or
+    /// failure to unpack the requested resource, as well as a reference to the
+    /// unpacked resource if the extraction was successful.
+    /// </returns>
+    Task<UnpackResult<T>> TryUnpackAsync(string id, ICompressorGetter compressor);
 }

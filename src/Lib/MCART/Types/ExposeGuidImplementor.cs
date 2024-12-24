@@ -43,7 +43,7 @@ public class ExposeGuidImplementor : IExposeGuid
     private readonly Type _t;
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
+    /// Initializes a new instance of the
     /// <see cref="ExposeGuidImplementor"/>.
     /// </summary>
     /// <param name="o">

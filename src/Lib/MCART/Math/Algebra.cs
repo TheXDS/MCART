@@ -29,8 +29,13 @@ SOFTWARE.
 */
 
 using System.Collections.Concurrent;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.IO.Compression;
+using System.Reflection;
+using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Helpers;
+using TheXDS.MCART.Misc;
 using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Math;
@@ -42,7 +47,13 @@ public static class Algebra
 {
     private static int[]? _primes;
 
-    private static int[] KnownPrimes => _primes ??= ReadKnownPrimes();
+    private static int[] KnownPrimes
+    {
+        get
+        {
+            return _primes ??= ReadKnownPrimes().ToArray();
+        }
+    }
 
     /// <summary>
     /// Comprueba si un número es primo mediante prueba y error.
@@ -590,17 +601,15 @@ public static class Algebra
         return x.All(j => j.CompareTo(default) != 0);
     }
 
-    private static int[] ReadKnownPrimes()
+    private static IEnumerable<int> ReadKnownPrimes()
     {
-        List<int>? l = [];
-        Unpacker? a = new(@"TheXDS.MCART.Resources.Data");
-        using Stream? s = a.Unpack("primes", new DeflateGetter());
-        using BinaryReader? b = new(s);
+        using var resourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(@"TheXDS.MCART.Resources.Data.primes.deflate") ?? throw new TamperException();
+        using var deflate = new DeflateStream(resourceStream, CompressionMode.Decompress);
+        using BinaryReader? b = new(deflate);
         int c = b.ReadInt32();
-        while (l.Count < c)
+        while (c-- > 0)
         {
-            l.Add(b.ReadInt32());
+            yield return b.ReadInt32();
         }
-        return [.. l];
     }
 }

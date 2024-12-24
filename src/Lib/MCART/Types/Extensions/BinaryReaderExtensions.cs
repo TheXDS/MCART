@@ -29,10 +29,12 @@ SOFTWARE.
 */
 
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Text;
+using TheXDS.MCART.Misc;
 using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Types.Extensions;
@@ -41,6 +43,8 @@ namespace TheXDS.MCART.Types.Extensions;
 /// Contiene extensiones útiles para la clase
 /// <see cref="BinaryReader"/>.
 /// </summary>
+[RequiresDynamicCode(AttributeErrorMessages.ClassCallsDynamicCode)]
+[RequiresUnreferencedCode(AttributeErrorMessages.ClassHeavilyUsesReflection)]
 public static partial class BinaryReaderExtensions
 {
     private delegate object BrDelegate(BinaryReader reader, Type type);

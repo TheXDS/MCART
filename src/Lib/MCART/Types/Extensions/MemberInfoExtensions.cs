@@ -181,8 +181,7 @@ public static partial class MemberInfoExtensions
     [Sugar]
     public static T? GetAttribute<T>(this MemberInfo member) where T : Attribute
     {
-        HasAttribute(member, out T? attribute);
-        return attribute;
+        return Attribute.GetCustomAttribute(member, typeof(T)) as T;
     }
 
     /// <summary>
@@ -207,7 +206,6 @@ public static partial class MemberInfoExtensions
     [Sugar]
     public static IEnumerable<T> GetAttributes<T>(this MemberInfo member) where T : Attribute
     {
-        HasAttributes(member, out IEnumerable<T> attributes);
-        return attributes;
+        return Attribute.GetCustomAttributes(member, typeof(T)).Cast<T>();
     }
 }

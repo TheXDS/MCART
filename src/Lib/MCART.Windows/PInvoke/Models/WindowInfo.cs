@@ -29,7 +29,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
+using TheXDS.MCART.Misc;
 
 namespace TheXDS.MCART.PInvoke.Models;
 
@@ -47,6 +49,7 @@ internal struct WindowInfo
     public ushort AtomWindowType;
     public ushort WCreatorVersion;
 
+    [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
     public WindowInfo(bool setCbSize = true) : this()
     {
         if (setCbSize) CbSize = (uint)Marshal.SizeOf(typeof(WindowInfo));

@@ -34,8 +34,8 @@ using TheXDS.MCART.Types.Base;
 namespace TheXDS.MCART.Component;
 
 /// <summary>
-/// Expone los valores de información de la interfaz
-/// <see cref="IExposeInfo"/> para valores especificados por el usuario.
+/// Implements the <see cref="IExposeInfo"/> interface to expose information
+/// values provided by the user.
 /// </summary>
 public struct ValueExposeInfo : IExposeInfo
 {

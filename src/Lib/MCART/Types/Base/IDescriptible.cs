@@ -37,7 +37,7 @@ namespace TheXDS.MCART.Types.Base;
 public interface IDescriptible
 {
     /// <summary>
-    /// Obtiene la descripción del elemento.
+    /// Gets the description for this element.
     /// </summary>
     string? Description { get; }
 }

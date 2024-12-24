@@ -30,10 +30,13 @@ SOFTWARE.
 
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using TheXDS.MCART.Misc;
 using TheXDS.MCART.Resources;
+using static System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes;
 
 namespace TheXDS.MCART.Helpers;
 
@@ -59,7 +62,7 @@ public partial class ObservingCommandBuilder<T> where T : INotifyPropertyChanged
     [Conditional("EnforceContracts")]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     [DebuggerNonUserCode]
-    private void ListensToCanExecute_Contract(MemberInfo member, Type t)
+    private void ListensToCanExecute_Contract(MemberInfo member, [DynamicallyAccessedMembers(All)] Type t)
     {
         IsBuilt_Contract();
         if (!GetAll<MemberInfo>(t).Contains(member))
@@ -68,9 +71,12 @@ public partial class ObservingCommandBuilder<T> where T : INotifyPropertyChanged
         }
     }
 
-    private static IEnumerable<TMember> GetAll<TMember>(Type? t) where TMember : MemberInfo
+    private static IEnumerable<TMember> GetAll<TMember>([DynamicallyAccessedMembers(All)]Type? t) where TMember : MemberInfo
     {
-        if (t is null || t == typeof(object)) return Array.Empty<TMember>();
-        return t.GetMembers().Concat(GetAll<TMember>(t.BaseType)).Concat(t.GetInterfaces().SelectMany(p => p.GetMembers())).OfType<TMember>();
+        if (t is null || t == typeof(object)) return [];
+        return t.GetMembers()
+            .Concat(GetAll<TMember>(t.BaseType))
+            .Concat(t.GetInterfaces().SelectMany(([DynamicallyAccessedMembers(PublicConstructors | PublicFields | PublicMethods | PublicNestedTypes | PublicProperties | PublicEvents)] p) => p.GetMembers()))
+            .OfType<TMember>();
     }
 }

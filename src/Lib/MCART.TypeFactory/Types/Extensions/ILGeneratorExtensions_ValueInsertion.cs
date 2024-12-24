@@ -29,9 +29,11 @@ SOFTWARE.
 */
 
 using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection.Emit;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Helpers;
+using TheXDS.MCART.Misc;
 using TheXDS.MCART.Types.Extensions.ConstantLoaders;
 using static System.Reflection.Emit.OpCodes;
 using static TheXDS.MCART.Resources.Errors;
@@ -295,6 +297,7 @@ public static partial class ILGeneratorExtensions
     /// <br/><br/>
     /// Uso de pila neto: -1
     /// </remarks>
+    [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
     public static ILGenerator NewArray<T>(this ILGenerator ilGen, out LocalBuilder local) => NewArray(ilGen, typeof(T), out local);
 
     /// <summary>
@@ -334,6 +337,7 @@ public static partial class ILGeneratorExtensions
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
     /// de sintaxis Fluent.
     /// </returns>
+    [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
     public static ILGenerator NewArray(this ILGenerator ilGen, Type arrayType, out LocalBuilder local)
     {
         return ilGen.NewArray(arrayType).StoreNewLocal(arrayType.MakeArrayType(), out local);

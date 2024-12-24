@@ -28,9 +28,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Text;
 using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Misc;
 
 namespace TheXDS.MCART.Types.Extensions;
 
@@ -87,6 +89,8 @@ public static partial class MethodBaseExtensions
     /// Se produce si la definición de <paramref name="method"/> no existe
     /// en el tipo de <paramref name="instance"/>.
     /// </exception>
+    [RequiresDynamicCode(AttributeErrorMessages.MethodCreatesNewTypes)]
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
     public static bool IsOverridden(this MethodBase method, object instance)
     {
         IsOverridden_Contract(method, instance);

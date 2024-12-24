@@ -157,7 +157,7 @@ public static partial class EnumerableExtensions
     /// </returns>
     public static int NullCount(this IEnumerable collection)
     {
-        NullCheck(collection, nameof(collection));
+        ArgumentNullException.ThrowIfNull(collection, nameof(collection));
         int count = 0;
         foreach (object? j in collection)
         {

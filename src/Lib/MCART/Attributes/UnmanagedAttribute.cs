@@ -33,7 +33,7 @@ using static System.AttributeTargets;
 namespace TheXDS.MCART.Attributes;
 
 /// <summary>
-/// Indica que un elemento contiene código no administrado.
+/// Indicates that an element contains unmanaged code.
 /// </summary>
 [AttributeUsage(Property | Method | Constructor | Class | Module | Assembly)]
 [Serializable]

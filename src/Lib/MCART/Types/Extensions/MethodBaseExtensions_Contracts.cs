@@ -29,9 +29,11 @@ SOFTWARE.
 */
 
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Misc;
 
 namespace TheXDS.MCART.Types.Extensions;
 
@@ -40,9 +42,10 @@ public static partial class MethodBaseExtensions
     [Conditional("EnforceContracts")]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     [DebuggerNonUserCode]
+    [RequiresDynamicCode(AttributeErrorMessages.MethodCreatesNewTypes)]
     private static void IsOverridden_Contract(MethodBase method, object thisInstance)
     {
         if (method?.DeclaringType is null) throw new ArgumentNullException(nameof(method));
-        if (!(thisInstance?.GetType() ?? throw new ArgumentNullException(nameof(thisInstance))).Implements(method.DeclaringType)) throw new InvalidTypeException(thisInstance.GetType());
+        if (!(thisInstance?.GetType() ?? throw new ArgumentNullException(nameof(thisInstance))).IsAssignableTo(method.DeclaringType)) throw new InvalidTypeException(thisInstance.GetType());
     }
 }

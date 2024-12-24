@@ -36,19 +36,19 @@ using TheXDS.MCART.Types.Extensions;
 namespace TheXDS.MCART.FlowDocumentExtensions.Types.Extensions;
 
 /// <summary>
-/// Extensiones de tipo Fluent para manipular objetos
-/// <see cref="FlowDocument" /> centradas en la creación de tablas.
+/// Fluent type extensions for manipulating
+/// <see cref="FlowDocument" /> objects focused on table creation.
 /// </summary>
 public static class FlowDocumentTableExtensions
 {
     /// <summary>
-    /// Agrega una celda vacía de tabla a la fila actual.
+    /// Adds an empty table cell to the current row.
     /// </summary>
     /// <param name="row">
-    /// Fila de tabla en la cual se agregará la celda.
+    /// Table row to which the cell will be added.
     /// </param>
     /// <returns>
-    /// La celda que ha sido agregada.
+    /// The cell that has been added.
     /// </returns>
     public static TableCell AddCell(this TableRow row)
     {
@@ -58,16 +58,16 @@ public static class FlowDocumentTableExtensions
     }
 
     /// <summary>
-    /// Agrega una celda vacía de tabla a la fila actual.
+    /// Adds an empty table cell to the current row.
     /// </summary>
     /// <param name="row">
-    /// Fila de tabla en la cual se agregará la celda.
+    /// Table row to which the cell will be added.
     /// </param>
     /// <param name="columnSpan">
-    /// Cantidad de columnas que la nueva celda podrá ocupar.
+    /// Number of columns that the new cell can occupy.
     /// </param>
     /// <returns>
-    /// La celda que ha sido agregada.
+    /// The cell that has been added.
     /// </returns>
     public static TableCell AddCell(this TableRow row, int columnSpan)
     {
@@ -77,19 +77,19 @@ public static class FlowDocumentTableExtensions
     }
 
     /// <summary>
-    /// Agrega una celda vacía de tabla a la fila actual.
+    /// Adds an empty table cell to the current row.
     /// </summary>
     /// <param name="row">
-    /// Fila de tabla en la cual se agregará la celda.
+    /// Table row to which the cell will be added.
     /// </param>
     /// <param name="rowSpan">
-    /// Cantidad de filas que la nueva celda podrá ocupar.
+    /// Number of rows that the new cell can occupy.
     /// </param>
     /// <param name="columnSpan">
-    /// Cantidad de columnas que la nueva celda podrá ocupar.
+    /// Number of columns that the new cell can occupy.
     /// </param>
     /// <returns>
-    /// La celda que ha sido agregada.
+    /// The cell that has been added.
     /// </returns>
     public static TableCell AddCell(this TableRow row, int rowSpan, int columnSpan)
     {
@@ -99,13 +99,12 @@ public static class FlowDocumentTableExtensions
     }
 
     /// <summary>
-    /// Agrega una celda simple con texto a una fila.
+    /// Adds a simple cell with text to a row.
     /// </summary>
-    /// <param name="row">Fila a la cual agregar la nueva celda.</param>
-    /// <param name="text">Texto de la celda.</param>
+    /// <param name="row">Row to which to add the new cell.</param>
+    /// <param name="text">Text of the cell.</param>
     /// <returns>
-    /// <paramref name="row" />, lo que permite utilizar esta función
-    /// con sintaxis Fluent.
+    /// <paramref name="row"/>, allowing the use of Fluent syntax.
     /// </returns>
     public static TableCell AddCell(this TableRow row, string text)
     {
@@ -113,16 +112,15 @@ public static class FlowDocumentTableExtensions
     }
 
     /// <summary>
-    /// Agrega una celda simple con texto a una fila.
+    /// Adds a simple cell with text to a row.
     /// </summary>
-    /// <param name="row">Fila a la cual agregar la nueva celda.</param>
-    /// <param name="text">Texto de la celda.</param>
+    /// <param name="row">Row to which to add the new cell.</param>
+    /// <param name="text">Text of the cell.</param>
     /// <param name="alignment">
-    /// Alineación horizontal de texto dentro de la celda.
+    /// Horizontal text alignment within the cell.
     /// </param>
     /// <returns>
-    /// <paramref name="row" />, lo que permite utilizar esta función
-    /// con sintaxis Fluent.
+    /// <paramref name="row"/>, allowing the use of Fluent syntax.
     /// </returns>
     public static TableCell AddCell(this TableRow row, string text, TextAlignment alignment)
     {
@@ -130,16 +128,15 @@ public static class FlowDocumentTableExtensions
     }
 
     /// <summary>
-    /// Agrega una celda simple con texto a una fila.
+    /// Adds a simple cell with text to a row.
     /// </summary>
-    /// <param name="row">Fila a la cual agregar la nueva celda.</param>
-    /// <param name="text">Texto de la celda.</param>
+    /// <param name="row">Row to which to add the new cell.</param>
+    /// <param name="text">Text of the cell.</param>
     /// <param name="weight">
-    /// Densidad de la fuente a utilizar dentro de la celda.
+    /// Font weight to use within the cell.
     /// </param>
     /// <returns>
-    /// <paramref name="row" />, lo que permite utilizar esta función
-    /// con sintaxis Fluent.
+    /// <paramref name="row"/>, allowing the use of Fluent syntax.
     /// </returns>
     public static TableCell AddCell(this TableRow row, string text, FontWeight weight)
     {
@@ -147,19 +144,18 @@ public static class FlowDocumentTableExtensions
     }
 
     /// <summary>
-    /// Agrega una celda simple con texto a una fila.
+    /// Adds a simple cell with text to a row.
     /// </summary>
-    /// <param name="row">Fila a la cual agregar la nueva celda.</param>
-    /// <param name="text">Texto de la celda.</param>
+    /// <param name="row">Row to which to add the new cell.</param>
+    /// <param name="text">Text of the cell.</param>
     /// <param name="alignment">
-    /// Alineación horizontal de texto dentro de la celda.
+    /// Horizontal text alignment within the cell.
     /// </param>
     /// <param name="weight">
-    /// Densidad de la fuente a utilizar dentro de la celda.
+    /// Font weight to use within the cell.
     /// </param>
     /// <returns>
-    /// <paramref name="row" />, lo que permite utilizar esta función
-    /// con sintaxis Fluent.
+    /// <paramref name="row"/>, allowing the use of Fluent syntax.
     /// </returns>
     public static TableCell AddCell(this TableRow row, string text, TextAlignment alignment, FontWeight weight)
     {
@@ -167,13 +163,13 @@ public static class FlowDocumentTableExtensions
     }
 
     /// <summary>
-    /// Agrega un nuevo grupo de filas a la tabla.
+    /// Adds a new row group to the table.
     /// </summary>
     /// <param name="table">
-    /// Tabla a la cual agregar el nuevo grupo de filas.
+    /// Table to which to add the new row group.
     /// </param>
     /// <returns>
-    /// El nuevo grupo de filas que ha sido añadido a la tabla.
+    /// The new row group that has been added to the table.
     /// </returns>
     public static TableRowGroup AddGroup(this Table table)
     {
@@ -183,17 +179,16 @@ public static class FlowDocumentTableExtensions
     }
 
     /// <summary>
-    /// Agrega un nuevo grupo de filas a la tabla.
+    /// Adds a new row group to the table.
     /// </summary>
     /// <param name="table">
-    /// Tabla a la cual agregar el nuevo grupo de filas.
+    /// Table to which to add the new row group.
     /// </param>
     /// <param name="newGroup">
-    /// Nueva instancia del grupo de filas a agregar a la tabla.
+    /// New instance of the row group to add to the table.
     /// </param>
     /// <returns>
-    /// <paramref name="newGroup" />, lo que permite utilizar esta
-    /// función con sintaxis Fluent.
+    /// <paramref name="newGroup"/>, allowing the use of Fluent syntax.
     /// </returns>
     public static TableRowGroup AddGroup(this Table table, TableRowGroup newGroup)
     {
@@ -202,14 +197,14 @@ public static class FlowDocumentTableExtensions
     }
 
     /// <summary>
-    /// Agrega una nueva fila al grupo de filas.
+    /// Adds a new row to the row group.
     /// </summary>
     /// <param name="group">
-    /// Grupo de filas al cual agregar la nueva fila.
+    /// Row group to which to add the new row.
     /// </param>
     /// <returns>
-    /// Una referencia a la nueva fila creada dentro del grupo de filas
-    /// de la tabla.
+    /// A reference to the new row created within the row group
+    /// of the table.
     /// </returns>
     public static TableRow AddRow(this TableRowGroup group)
     {
@@ -219,15 +214,15 @@ public static class FlowDocumentTableExtensions
     }
 
     /// <summary>
-    /// Agrega una nueva fila al grupo de filas.
+    /// Adds a new row to the row group.
     /// </summary>
     /// <param name="rg">
-    /// Grupo de filas al cual agregar la nueva fila.
+    /// Row group to which to add the new row.
     /// </param>
-    /// <param name="values">Valores a agregar a la fila.</param>
+    /// <param name="values">Values to add to the row.</param>
     /// <returns>
-    /// Una referencia a la nueva fila creada dentro del grupo de filas
-    /// de la tabla.
+    /// A reference to the new row created within the row group
+    /// of the table.
     /// </returns>
     public static TableRowGroup AddRow(this TableRowGroup rg, IEnumerable<string> values)
     {
@@ -240,15 +235,15 @@ public static class FlowDocumentTableExtensions
     }
 
     /// <summary>
-    /// Agrega una nueva fila a la tabla.
+    /// Adds a new row to the table.
     /// </summary>
     /// <param name="tbl">
-    /// Tabla a la cual agregar la nueva fila.
+    /// The table to which the new row will be added.
     /// </param>
-    /// <param name="values">Valores a agregar a la fila.</param>
+    /// <param name="values">Values to add to the row.</param>
     /// <returns>
-    /// Una referencia a la nueva fila creada dentro de un nuevo grupo
-    /// de filas de la tabla.
+    /// A reference to the newly created row within a new group
+    /// of rows in the table.
     /// </returns>
     public static TableRow AddRow(this Table tbl, IEnumerable<string> values)
     {
@@ -267,15 +262,15 @@ public static class FlowDocumentTableExtensions
     }
 
     /// <summary>
-    /// Agrega una nueva fila al grupo de filas.
+    /// Adds a new row to the row group.
     /// </summary>
     /// <param name="rg">
-    /// Grupo de filas al cual agregar la nueva fila.
+    /// The row group to which the new row will be added.
     /// </param>
-    /// <param name="values">Valores a agregar a la fila.</param>
+    /// <param name="values">Values to add to the row.</param>
     /// <returns>
-    /// Una referencia a la nueva fila creada dentro del grupo de filas
-    /// de la tabla.
+    /// A reference to the newly created row within the row group
+    /// of the table.
     /// </returns>
     public static TableRowGroup AddRow(this TableRowGroup rg, params string[] values)
     {
@@ -283,15 +278,15 @@ public static class FlowDocumentTableExtensions
     }
 
     /// <summary>
-    /// Agrega una nueva fila al grupo de filas.
+    /// Adds a new row to the row group.
     /// </summary>
     /// <param name="rg">
-    /// Grupo de filas al cual agregar la nueva fila.
+    /// The row group to which the new row will be added.
     /// </param>
-    /// <param name="cells">Celdas a agregar a la fila.</param>
+    /// <param name="cells">Cells to add to the row.</param>
     /// <returns>
-    /// Una referencia a la nueva fila creada dentro del grupo de filas
-    /// de la tabla.
+    /// A reference to the newly created row within the row group
+    /// of the table.
     /// </returns>
     public static TableRowGroup AddRow(this TableRowGroup rg, IEnumerable<TableCell> cells)
     {
@@ -303,15 +298,15 @@ public static class FlowDocumentTableExtensions
     }
 
     /// <summary>
-    /// Agrega una nueva fila al grupo de filas.
+    /// Adds a new row to the row group.
     /// </summary>
     /// <param name="rg">
-    /// Grupo de filas al cual agregar la nueva fila.
+    /// The row group to which the new row will be added.
     /// </param>
-    /// <param name="cells">Celdas a agregar a la fila.</param>
+    /// <param name="cells">Cells to add to the row.</param>
     /// <returns>
-    /// Una referencia a la nueva fila creada dentro del grupo de filas
-    /// de la tabla.
+    /// A reference to the newly created row within the row group
+    /// of the table.
     /// </returns>
     public static TableRowGroup AddRow(this TableRowGroup rg, params TableCell[] cells)
     {
@@ -319,15 +314,15 @@ public static class FlowDocumentTableExtensions
     }
 
     /// <summary>
-    /// Agrega una nueva fila al grupo de filas.
+    /// Adds a new row to the row group.
     /// </summary>
     /// <param name="rg">
-    /// Grupo de filas al cual agregar la nueva fila.
+    /// The row group to which the new row will be added.
     /// </param>
-    /// <param name="values">Valores a agregar a la fila.</param>
+    /// <param name="values">Values to add to the row.</param>
     /// <returns>
-    /// Una referencia a la nueva fila creada dentro del grupo de filas
-    /// de la tabla.
+    /// A reference to the newly created row within the row group
+    /// of the table.
     /// </returns>
     public static TableRowGroup AddRow(this TableRowGroup rg, IEnumerable<Block> values)
     {
@@ -340,15 +335,15 @@ public static class FlowDocumentTableExtensions
     }
 
     /// <summary>
-    /// Agrega una nueva fila al grupo de filas.
+    /// Adds a new row to the row group.
     /// </summary>
     /// <param name="rg">
-    /// Grupo de filas al cual agregar la nueva fila.
+    /// The row group to which the new row will be added.
     /// </param>
-    /// <param name="values">Valores a agregar a la fila.</param>
+    /// <param name="values">Values to add to the row.</param>
     /// <returns>
-    /// Una referencia a la nueva fila creada dentro del grupo de filas
-    /// de la tabla.
+    /// A reference to the newly created row within the row group
+    /// of the table.
     /// </returns>
     public static TableRowGroup AddRow(this TableRowGroup rg, params Block[] values)
     {
@@ -356,14 +351,14 @@ public static class FlowDocumentTableExtensions
     }
 
     /// <summary>
-    /// Establece un borde para una celda de una tabla.
+    /// Sets a border for a table cell.
     /// </summary>
-    /// <param name="element">Celda a procesar.</param>
-    /// <param name="brush"><see cref="Brush" /> a utilizar para dibujar el borde.</param>
-    /// <param name="thickness">Grosor del borde.</param>
+    /// <param name="element">Cell to process.</param>
+    /// <param name="brush"><see cref="Brush" /> to use for drawing the border.</param>
+    /// <param name="thickness">Thickness of the border.</param>
     /// <returns>
-    /// <paramref name="element" />, lo que permite utilizar esta función
-    /// con sintaxis Fluent.
+    /// <paramref name="element" />, allowing this function to be used
+    /// with Fluent syntax.
     /// </returns>
     public static TableCell Border(this TableCell element, Brush brush, Thickness thickness)
     {
@@ -373,14 +368,14 @@ public static class FlowDocumentTableExtensions
     }
 
     /// <summary>
-    /// Establece un borde para todas las celdas de un <see cref="TableRow" />.
+    /// Sets a border for all cells in a <see cref="TableRow" />.
     /// </summary>
-    /// <param name="element"><see cref="TableRow" /> a procesar.</param>
-    /// <param name="brush"><see cref="Brush" /> a utilizar para dibujar el borde.</param>
-    /// <param name="thickness">Grosor del borde.</param>
+    /// <param name="element"><see cref="TableRow" /> to process.</param>
+    /// <param name="brush"><see cref="Brush" /> to use for drawing the border.</param>
+    /// <param name="thickness">Thickness of the border.</param>
     /// <returns>
-    /// <paramref name="element" />, lo que permite utilizar esta función
-    /// con sintaxis Fluent.
+    /// <paramref name="element" />, allowing this function to be used
+    /// with Fluent syntax.
     /// </returns>
     public static TableRow Borders(this TableRow element, Brush brush, Thickness thickness)
     {
@@ -390,14 +385,14 @@ public static class FlowDocumentTableExtensions
     }
 
     /// <summary>
-    /// Establece un borde para todas las celdas de un <see cref="TableRowGroup" />.
+    /// Sets a border for all cells in a <see cref="TableRowGroup" />.
     /// </summary>
-    /// <param name="element"><see cref="TableRowGroup" /> a procesar.</param>
-    /// <param name="brush"><see cref="Brush" /> a utilizar para dibujar el borde.</param>
-    /// <param name="thickness">Grosor del borde.</param>
+    /// <param name="element"><see cref="TableRowGroup" /> to process.</param>
+    /// <param name="brush"><see cref="Brush" /> to use for drawing the border.</param>
+    /// <param name="thickness">Thickness of the border.</param>
     /// <returns>
-    /// <paramref name="element" />, lo que permite utilizar esta función
-    /// con sintaxis Fluent.
+    /// <paramref name="element" />, allowing this function to be used
+    /// with Fluent syntax.
     /// </returns>
     public static TableRowGroup Borders(this TableRowGroup element, Brush brush, Thickness thickness)
     {
@@ -407,14 +402,14 @@ public static class FlowDocumentTableExtensions
     }
 
     /// <summary>
-    /// Centra todos los bloques de contenido de una fila.
+    /// Centers all content blocks in a row.
     /// </summary>
     /// <param name="row">
-    /// Fila a la cual se debe aplicar la operación.
+    /// The row to which the operation should be applied.
     /// </param>
     /// <returns>
-    /// <paramref name="row" />, lo que permite utilizar esta función
-    /// con sintaxis Fluent.
+    /// <paramref name="row" />, allowing this function to be used
+    /// with Fluent syntax.
     /// </returns>
     public static TableRow CenterAll(this TableRow row)
     {
@@ -423,14 +418,14 @@ public static class FlowDocumentTableExtensions
     }
 
     /// <summary>
-    /// Centra todos los bloques de contenido de un grupo de filas.
+    /// Centers all content blocks in a row group.
     /// </summary>
     /// <param name="rowGroup">
-    /// Grupo de filas a la cual se debe aplicar la operación.
+    /// The row group to which the operation should be applied.
     /// </param>
     /// <returns>
-    /// <paramref name="rowGroup" />, lo que permite utilizar esta
-    /// función con sintaxis Fluent.
+    /// <paramref name="rowGroup" />, allowing this function to be used
+    /// with Fluent syntax.
     /// </returns>
     public static TableRowGroup CenterAll(this TableRowGroup rowGroup)
     {
@@ -439,14 +434,14 @@ public static class FlowDocumentTableExtensions
     }
 
     /// <summary>
-    /// Establece un color de fondo para la columna especificada de la tabla.
+    /// Sets a background color for the specified column of the table.
     /// </summary>
-    /// <param name="table"><see cref="Table" /> a procesar.</param>
-    /// <param name="column">Índice de la columna.</param>
-    /// <param name="brush"><see cref="Brush" /> a aplicar al dibujar la tabla.</param>
+    /// <param name="table"><see cref="Table" /> to process.</param>
+    /// <param name="column">Index of the column.</param>
+    /// <param name="brush"><see cref="Brush" /> to apply when drawing the table.</param>
     /// <returns>
-    /// <paramref name="table" />, lo que permite utilizar esta función
-    /// con sintaxis Fluent.
+    /// <paramref name="table" />, allowing this function to be used
+    /// with Fluent syntax.
     /// </returns>
     public static Table ColumnBackground(this Table table, int column, Brush brush)
     {
@@ -455,18 +450,17 @@ public static class FlowDocumentTableExtensions
     }
 
     /// <summary>
-    /// Establece un valor de combinación de columnas a la celda
-    /// especificada.
+    /// Sets a column span value for the specified cell.
     /// </summary>
     /// <param name="cell">
-    /// Celda a combinar.
+    /// Cell to span.
     /// </param>
     /// <param name="span">
-    /// Cantidad de columnas que la celda abarca.
+    /// Number of columns that the cell spans.
     /// </param>
     /// <returns>
-    /// <paramref name="cell" />, lo que permite utilizar esta función
-    /// con sintaxis Fluent.
+    /// <paramref name="cell" />, allowing this function to be used
+    /// with Fluent syntax.
     /// </returns>
     public static TableCell ColumnSpan(this TableCell cell, int span)
     {
@@ -475,14 +469,14 @@ public static class FlowDocumentTableExtensions
     }
 
     /// <summary>
-    /// Establece el ancho de una columna para un <see cref="Table" />.
+    /// Sets the width of a column for a <see cref="Table" />.
     /// </summary>
-    /// <param name="table"><see cref="Table" /> a procesar.</param>
-    /// <param name="column">Índice de la columna.</param>
-    /// <param name="width">Ancho de columna a aplicar.</param>
+    /// <param name="table"><see cref="Table" /> to process.</param>
+    /// <param name="column">Index of the column.</param>
+    /// <param name="width">Column width to apply.</param>
     /// <returns>
-    /// <paramref name="table" />, lo que permite utilizar esta función
-    /// con sintaxis Fluent.
+    /// <paramref name="table" />, allowing this function to be used
+    /// with Fluent syntax.
     /// </returns>
     public static Table ColumnWidth(this Table table, int column, GridLength width)
     {
@@ -491,13 +485,13 @@ public static class FlowDocumentTableExtensions
     }
 
     /// <summary>
-    /// Establece los anchos de columna para un <see cref="Table" />.
+    /// Sets the column widths for a <see cref="Table" />.
     /// </summary>
-    /// <param name="table"><see cref="Table" /> a procesar.</param>
-    /// <param name="lengths">Anchos de columna a aplicar.</param>
+    /// <param name="table"><see cref="Table" /> to process.</param>
+    /// <param name="lengths">Column widths to apply.</param>
     /// <returns>
-    /// <paramref name="table" />, lo que permite utilizar esta función
-    /// con sintaxis Fluent.
+    /// <paramref name="table" />, allowing this function to be used
+    /// with Fluent syntax.
     /// </returns>
     public static Table ColumnWidths(this Table table, IEnumerable<double> lengths)
     {
@@ -505,13 +499,13 @@ public static class FlowDocumentTableExtensions
     }
 
     /// <summary>
-    /// Establece los anchos de columna para un <see cref="Table" />.
+    /// Sets the column widths for a <see cref="Table" />.
     /// </summary>
-    /// <param name="table"><see cref="Table" /> a procesar.</param>
-    /// <param name="lengths">Anchos de columna a aplicar.</param>
+    /// <param name="table"><see cref="Table" /> to process.</param>
+    /// <param name="lengths">Column widths to apply.</param>
     /// <returns>
-    /// <paramref name="table" />, lo que permite utilizar esta función
-    /// con sintaxis Fluent.
+    /// <paramref name="table" />, allowing this function to be used
+    /// with Fluent syntax.
     /// </returns>
     public static Table ColumnWidths(this Table table, IEnumerable<GridLength> lengths)
     {
@@ -527,14 +521,14 @@ public static class FlowDocumentTableExtensions
     }
 
     /// <summary>
-    /// Marca el final del contexto de una fila de tabla, devolviendo a
-    /// su grupo padre de forma compatible con la sintaxis Fluent.
+    /// Marks the end of the context of a table row, returning to
+    /// its parent group in a way that is compatible with Fluent syntax.
     /// </summary>
     /// <param name="row">
-    /// Fila para la cual finalizar el contexto de la sintaxis Fluent.
+    /// Row for which to end the Fluent syntax context.
     /// </param>
     /// <returns>
-    /// El grupo de filas al que esta fila pertenece.
+    /// The row group to which this row belongs.
     /// </returns>
     public static TableRowGroup Done(this TableRow row)
     {
@@ -542,16 +536,15 @@ public static class FlowDocumentTableExtensions
     }
 
     /// <summary>
-    /// Marca el final del contexto de un grupo de filas de tabla,
-    /// devolviendo a su tabla padre de forma compatible con la
-    /// sintaxis Fluent.
+    /// Marks the end of the context of a table row group,
+    /// returning to its parent table in a way that is compatible
+    /// with Fluent syntax.
     /// </summary>
     /// <param name="rowGroup">
-    /// Grupo de filas para el cual finalizar el contexto de la
-    /// sintaxis Fluent.
+    /// Row group for which to end the Fluent syntax context.
     /// </param>
     /// <returns>
-    /// La tabla a las que este grupo de filas pertenece.
+    /// The table to which this row group belongs.
     /// </returns>
     public static Table Done(this TableRowGroup rowGroup)
     {
@@ -559,14 +552,14 @@ public static class FlowDocumentTableExtensions
     }
 
     /// <summary>
-    /// Marca el final del contexto de una celda, devolviendo a su fila
-    /// padre de forma compatible con la sintaxis Fluent.
+    /// Marks the end of the context of a cell, returning to its parent row
+    /// in a way that is compatible with Fluent syntax.
     /// </summary>
     /// <param name="cell">
-    /// Celda para la cual finalizar el contexto de la sintaxis Fluent.
+    /// Cell for which to end the Fluent syntax context.
     /// </param>
     /// <returns>
-    /// La fila a la que esta celda pertenece.
+    /// The row to which this cell belongs.
     /// </returns>
     public static TableRow Done(this TableCell cell)
     {
@@ -574,13 +567,13 @@ public static class FlowDocumentTableExtensions
     }
 
     /// <summary>
-    /// Aplica un estilo a una celda.
+    /// Applies a style to a cell.
     /// </summary>
-    /// <param name="cell">Celda a estilizar.</param>
-    /// <param name="style">Estilo a aplicar a la celda.</param>
+    /// <param name="cell">Cell to style.</param>
+    /// <param name="style">Style to apply to the cell.</param>
     /// <returns>
-    /// <paramref name="cell" />, lo que permite utilizar esta función
-    /// con sintaxis Fluent.
+    /// <paramref name="cell" />, allowing this function to be used
+    /// with Fluent syntax.
     /// </returns>
     public static TableCell ApplyStyle(this TableCell cell, ICellStyle? style)
     {
@@ -588,47 +581,47 @@ public static class FlowDocumentTableExtensions
     }
 
     /// <summary>
-    /// Aplica un estilo a una celda.
+    /// Applies a style to a cell.
     /// </summary>
-    /// <param name="cell">Celda a estilizar.</param>
-    /// <param name="style">Estilo a aplicar a la celda.</param>
+    /// <param name="cell">Cell to style.</param>
+    /// <param name="style">Style to apply to the cell.</param>
     /// <param name="odd">
-    /// Bandera que indica si se trata de una fila impar o no.
+    /// Flag indicating whether it is an odd row or not.
     /// </param>
     /// <returns>
-    /// <paramref name="cell" />, lo que permite utilizar esta función
-    /// con sintaxis Fluent.
+    /// <paramref name="cell" />, allowing this function to be used
+    /// with Fluent syntax.
     /// </returns>
     public static TableCell ApplyStyle(this TableCell cell, ICellStyle? style, bool odd)
     {
-        if (style != null)
+        static void DoIf<T>(T? value, Action<T> op)
         {
-            if (style.Background != null)
-                cell.Background = (odd ? style.OddBackground : null) ?? style.Background;
-            if (style.Foreground != null)
-                cell.Foreground = style.Foreground;
-            if (style.BorderBrush != null)
-                cell.BorderBrush = style.BorderBrush;
-            if (style.BorderThickness != null)
-                cell.BorderThickness = style.BorderThickness.Value;
+            if (value is not null) op.Invoke(value);
+        }
 
+        if (style is not null)
+        {
+            DoIf(style.Background, p => cell.Background = (odd ? style.OddBackground : null) ?? p);
+            DoIf(style.Foreground, p => cell.Foreground = p);
+            DoIf(style.BorderBrush, p => cell.BorderBrush = p);
+            DoIf(style.BorderThickness, p => cell.BorderThickness = p!.Value);
             cell.TextAlignment = style.Alignment;
         }
         return cell;
     }
 
     /// <summary>
-    /// Agrega una nueva celda con el contenido textual especificado.
+    /// Adds a new cell with the specified textual content.
     /// </summary>
     /// <param name="cells">
-    /// Colección de celdas en la cual agregar una nueva celda con el
-    /// contenido especificado.
+    /// Collection of cells in which to add a new cell with the
+    /// specified content.
     /// </param>
     /// <param name="content">
-    /// Contenido textual a incluir en la celda.
+    /// Textual content to include in the cell.
     /// </param>
     /// <returns>
-    /// Una referencia a la nueva celda creada.
+    /// A reference to the newly created cell.
     /// </returns>
     public static TableCell Add(this TableCellCollection cells, string content)
     {
@@ -636,17 +629,17 @@ public static class FlowDocumentTableExtensions
     }
 
     /// <summary>
-    /// Agrega una nueva celda con el contenido especificado.
+    /// Adds a new cell with the specified content.
     /// </summary>
     /// <param name="cells">
-    /// Colección de celdas en la cual agregar una nueva celda con el
-    /// contenido especificado.
+    /// Collection of cells in which to add a new cell with the
+    /// specified content.
     /// </param>
     /// <param name="content">
-    /// Contenido a incluir en la celda.
+    /// Content to include in the cell.
     /// </param>
     /// <returns>
-    /// Una referencia a la nueva celda creada.
+    /// A reference to the newly created cell.
     /// </returns>
     public static TableCell Add(this TableCellCollection cells, Inline content)
     {
@@ -656,13 +649,13 @@ public static class FlowDocumentTableExtensions
     }
 
     /// <summary>
-    /// Indica que una celda ocupa un determinado número de filas.
+    /// Indicates that a cell occupies a specified number of rows.
     /// </summary>
-    /// <param name="cell">Celda a procesar.</param>
-    /// <param name="span">Número de filas que esta celda debe ocupar.</param>
+    /// <param name="cell">Cell to process.</param>
+    /// <param name="span">Number of rows that this cell should occupy.</param>
     /// <returns>
-    /// <paramref name="cell" />, lo que permite utilizar esta función
-    /// con sintaxis Fluent.
+    /// <paramref name="cell" />, allowing this function to be used
+    /// with Fluent syntax.
     /// </returns>
     public static TableCell RowSpan(this TableCell cell, int span)
     {
@@ -671,13 +664,13 @@ public static class FlowDocumentTableExtensions
     }
 
     /// <summary>
-    /// Establece el contenido de la celda al texto especificado.
+    /// Sets the content of the cell to the specified text.
     /// </summary>
-    /// <param name="cell">Celda a procesar.</param>
-    /// <param name="text">Texo de la celda.</param>
+    /// <param name="cell">Cell to process.</param>
+    /// <param name="text">Text of the cell.</param>
     /// <returns>
-    /// Un elemento <see cref="Paragraph"/> que representa el contenido textual
-    /// de la celda.
+    /// A <see cref="Paragraph"/> element that represents the textual
+    /// content of the cell.
     /// </returns>
     public static Paragraph Text(this TableCell cell, string text)
     {

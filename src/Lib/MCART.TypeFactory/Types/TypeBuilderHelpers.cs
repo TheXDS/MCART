@@ -42,7 +42,7 @@ public static class TypeBuilderHelpers
 {
     internal static string UndName(string name)
     {
-        NullCheck(name, nameof(name));
+        ArgumentNullException.ThrowIfNull(name, nameof(name));
         return name.Length > 1
             ? $"_{name[..1].ToLower()}{name[1..]}"
             : $"_{name.ToLower()}";
@@ -50,7 +50,7 @@ public static class TypeBuilderHelpers
 
     internal static string NoIfaceName(string name)
     {
-        NullCheck(name, nameof(name));
+        ArgumentNullException.ThrowIfNull(name, nameof(name));
         return name[0] != 'I' ? $"{name}Implementation" : name[1..];
     }
 

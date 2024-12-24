@@ -33,33 +33,34 @@ using TheXDS.MCART.Types;
 namespace TheXDS.MCART.Events;
 
 /// <summary>
-/// Contiene información para el evento <see cref="ListEx{T}.AddedItem"/>.
+/// Contains information for the <see cref="ListEx{T}.AddedItem"/> event.
 /// </summary>
-/// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
-/// <param name="newItem">Nuevo elemento que ha sido agregado.</param>
+/// <typeparam name="T">Type of elements on the list.</typeparam>
+/// <param name="newItem">Element that has been added to the list.</param>
 public class AddedItemEventArgs<T>(T newItem) : EventArgs
 {
     /// <summary>
-    /// Elemento que fue agregado al <see cref="ListEx{T}"/> que generó el
-    /// evento.
+    /// Element that has been added to the <see cref="ListEx{T}"/>.
     /// </summary>
     public T NewItem { get; } = newItem;
 
     /// <summary>
-    /// Convierte implícitamente un <see cref="AddingItemEventArgs{T}"/> en
-    /// un <see cref="AddedItemEventArgs{T}"/>.
+    /// Implicitly converts an object of type
+    /// <see cref="AddingItemEventArgs{T}"/> to an object of type
+    /// <see cref="AddedItemEventArgs{T}"/>.
     /// </summary>
     /// <param name="from">
-    /// <see cref="AddingItemEventArgs{T}"/> a convertir.
+    /// <see cref="AddingItemEventArgs{T}"/> to be converted.
     /// </param>
     public static implicit operator AddedItemEventArgs<T>(AddingItemEventArgs<T> from) => new(from.NewItem);
 
     /// <summary>
-    /// Converte implícitamente un <see cref="AddedItemEventArgs{T}"/> en un
-    /// objeto de tipo <typeparamref name="T"/>.
+    /// Implicitly converts an object of type
+    /// <see cref="AddedItemEventArgs{T}"/> to an object of type
+    /// <typeparamref name="T"/>.
     /// </summary>
     /// <param name="from">
-    /// <see cref="AddedItemEventArgs{T}"/> a convertir.
+    /// <see cref="AddedItemEventArgs{T}"/> to be converted.
     /// </param>
     public static implicit operator T(AddedItemEventArgs<T> from) => from.NewItem;
 }

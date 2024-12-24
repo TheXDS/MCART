@@ -28,6 +28,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System.Diagnostics.CodeAnalysis;
+
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
@@ -41,7 +43,7 @@ namespace TheXDS.MCART.Types.Base;
 /// Si el tipo no es el mismo que implementa la interfaz, el tipo debe
 /// implementar el tipo especificado.
 /// </typeparam>
-public interface ICloneable<out T> : ICloneable where T : notnull, new()
+public interface ICloneable<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)]out T> : ICloneable where T : notnull, new()
 {
     /// <summary>
     /// Crea una copia de esta instancia.

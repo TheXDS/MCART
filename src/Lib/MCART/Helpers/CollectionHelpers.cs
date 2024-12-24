@@ -3,8 +3,6 @@ CollectionHelpers.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
-Este archivo contiene funciones de manipulación de objetos, 
-
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
@@ -33,30 +31,34 @@ SOFTWARE.
 using System.Collections;
 using TheXDS.MCART.Math;
 using TheXDS.MCART.Types.Extensions;
-using static TheXDS.MCART.Misc.Internals;
 
 namespace TheXDS.MCART.Helpers;
 
 /// <summary>
-/// Funciones auxiliares para trabajar con colecciones y enumeraciones.
+/// Includes useful extension methods for common collections and enumerations.
 /// </summary>
 public static partial class CollectionHelpers
 {
     /// <summary>
-    /// Determina si un conjunto de cadenas están vacías.
+    /// Determines if all the specified strings are either
+    /// <see langword="null"/>, <see cref="string.Empty"/> or a string
+    /// consisting only of whitespaces.
     /// </summary>
+    /// <param name="stringCollection">
+    /// Async enumeration of strings to be checked.
+    /// </param>
     /// <returns>
-    /// <see langword="true" /> si las cadenas están vacías o son
-    /// <see langword="null" />; de lo contrario, <see langword="false" />.
+    /// <see langword="true" /> all of the strings are either
+    /// <see langword="null" />, <see cref="string.Empty"/> or a string
+    /// consisting only of whitespaces; or <see langword="false" /> otherwise.
     /// </returns>
-    /// <param name="stringCollection">Cadenas a comprobar.</param>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="stringCollection"/> es
+    /// Thrown if <paramref name="stringCollection"/> is
     /// <see langword="null"/>.
     /// </exception>
     public static async Task<bool> AllEmpty(this IAsyncEnumerable<string?> stringCollection)
     {
-        AllEmpty_Contract(stringCollection);
+        ArgumentNullException.ThrowIfNull(stringCollection);
         await foreach (string? j in stringCollection.ConfigureAwait(false))
         {
             if (!j.IsEmpty()) return false;
@@ -65,38 +67,48 @@ public static partial class CollectionHelpers
     }
 
     /// <summary>
-    /// Determina si un conjunto de cadenas están vacías.
+    /// Determines if all the specified strings are either
+    /// <see langword="null"/>, <see cref="string.Empty"/> or a string
+    /// consisting only of whitespaces.
     /// </summary>
+    /// <param name="stringCollection">
+    /// Enumeration of strings to be checked.
+    /// </param>
     /// <returns>
-    /// <see langword="true" /> si las cadenas están vacías o son
-    /// <see langword="null" />; de lo contrario, <see langword="false" />.
+    /// <see langword="true" /> all of the strings are either
+    /// <see langword="null" />, <see cref="string.Empty"/> or a string
+    /// consisting only of whitespaces; or <see langword="false" /> otherwise.
     /// </returns>
-    /// <param name="stringCollection">Cadenas a comprobar.</param>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="stringCollection"/> es
+    /// Thrown if <paramref name="stringCollection"/> is
     /// <see langword="null"/>.
     /// </exception>
     public static bool AllEmpty(this IEnumerable<string?> stringCollection)
     {
-        AllEmpty_Contract(stringCollection);
+        ArgumentNullException.ThrowIfNull(stringCollection);
         return stringCollection.All(j => j.IsEmpty());
     }
 
     /// <summary>
-    /// Determina si alguna cadena está vacía.
+    /// Determines if any the specified strings are either
+    /// <see langword="null"/>, <see cref="string.Empty"/> or a string
+    /// consisting only of whitespaces.
     /// </summary>
+    /// <param name="stringCollection">
+    /// Async enumeration of strings to be checked.
+    /// </param>
     /// <returns>
-    /// <see langword="true" /> si alguna cadena está vacía o es
-    /// <see langword="null" />; de lo contrario, <see langword="false" />.
+    /// <see langword="true" /> any of the strings are either
+    /// <see langword="null" />, <see cref="string.Empty"/> or a string
+    /// consisting only of whitespaces; or <see langword="false" /> otherwise.
     /// </returns>
-    /// <param name="stringCollection">Cadenas a comprobar.</param>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="stringCollection"/> es
+    /// Thrown if <paramref name="stringCollection"/> is
     /// <see langword="null"/>.
     /// </exception>
     public static async Task<bool> AnyEmpty(this IAsyncEnumerable<string?> stringCollection)
     {
-        AnyEmpty_Contract(stringCollection);
+        ArgumentNullException.ThrowIfNull(stringCollection);
         await foreach (string? j in stringCollection.ConfigureAwait(false))
         {
             if (j.IsEmpty()) return true;
@@ -105,24 +117,30 @@ public static partial class CollectionHelpers
     }
 
     /// <summary>
-    /// Determina si alguna cadena está vacía.
+    /// Determines if any the specified strings are either
+    /// <see langword="null"/>, <see cref="string.Empty"/> or a string
+    /// consisting only of whitespaces.
     /// </summary>
-    /// <returns>
-    /// <see langword="true" /> si alguna cadena está vacía o es 
-    /// <see langword="null" />; de lo contrario, <see langword="false" />.
-    /// </returns>
-    /// <param name="stringCollection">Cadenas a comprobar.</param>
-    /// <param name="index">
-    /// Argumento de salida. Índices de las cadenas vacías encontradas.
+    /// <param name="stringCollection">
+    /// Enumeration of strings to be checked.
     /// </param>
+    /// <param name="index">
+    /// Out parameter. Indices of the items that were <see langword="null"/>,
+    /// empty or a string consisting only of whitespaces.
+    /// </param>
+    /// <returns>
+    /// <see langword="true" /> any of the strings are either
+    /// <see langword="null" />, <see cref="string.Empty"/> or a string
+    /// consisting only of whitespaces; or <see langword="false" /> otherwise.
+    /// </returns>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="stringCollection"/> es 
+    /// Thrown if <paramref name="stringCollection"/> is
     /// <see langword="null"/>.
     /// </exception>
     public static bool AnyEmpty(this IEnumerable<string?> stringCollection, out IEnumerable<int> index)
     {
-        AnyEmpty_Contract(stringCollection);
-        List<int>? idx = [];
+        ArgumentNullException.ThrowIfNull(stringCollection);
+        List<int> idx = [];
         int c = 0;
         foreach (string? j in stringCollection)
         {
@@ -134,93 +152,109 @@ public static partial class CollectionHelpers
     }
 
     /// <summary>
-    /// Determina si alguna cadena está vacía.
+    /// Determines if any the specified strings are either
+    /// <see langword="null"/>, <see cref="string.Empty"/> or a string
+    /// consisting only of whitespaces.
     /// </summary>
-    /// <returns>
-    /// <see langword="true" /> si alguna cadena está vacía o es
-    /// <see langword="null" />; de lo contrario, <see langword="false" />.
-    /// </returns>
-    /// <param name="stringCollection">Cadenas a comprobar.</param>
-    /// <param name="firstIndex">
-    /// Argumento de salida. Índice de la primera cadena vacía encontrada.
+    /// <param name="stringCollection">
+    /// Enumeration of strings to be checked.
     /// </param>
+    /// <param name="firstIndex">
+    /// Out parameter. Index of the first item that was <see langword="null"/>,
+    /// empty or a string consisting only of whitespaces.
+    /// </param>
+    /// <returns>
+    /// <see langword="true" /> any of the strings are either
+    /// <see langword="null" />, <see cref="string.Empty"/> or a string
+    /// consisting only of whitespaces; or <see langword="false" /> otherwise.
+    /// </returns>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="stringCollection"/> es
+    /// Thrown if <paramref name="stringCollection"/> is
     /// <see langword="null"/>.
     /// </exception>
     public static bool AnyEmpty(this IEnumerable<string?> stringCollection, out int firstIndex)
     {
-        AnyEmpty_Contract(stringCollection);
+        ArgumentNullException.ThrowIfNull(stringCollection);
         bool r = AnyEmpty(stringCollection, out IEnumerable<int> indexes);
-        int[]? a = indexes.ToArray();
+        int[] a = indexes.ToArray();
         firstIndex = a.Length != 0 ? a.First() : -1;
         return r;
     }
 
     /// <summary>
-    /// Determina si alguna cadena está vacía.
+    /// Determines if any the specified strings are either
+    /// <see langword="null"/>, <see cref="string.Empty"/> or a string
+    /// consisting only of whitespaces.
     /// </summary>
+    /// <param name="stringCollection">
+    /// Enumeration of strings to be checked.
+    /// </param>
     /// <returns>
-    /// <see langword="true" /> si alguna cadena está vacía o es
-    /// <see langword="null" />; de lo contrario, <see langword="false" />.
+    /// <see langword="true" /> any of the strings are either
+    /// <see langword="null" />, <see cref="string.Empty"/> or a string
+    /// consisting only of whitespaces; or <see langword="false" /> otherwise.
     /// </returns>
-    /// <param name="stringCollection">Cadenas a comprobar.</param>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="stringCollection"/> es
+    /// Thrown if <paramref name="stringCollection"/> is
     /// <see langword="null"/>.
     /// </exception>
     public static bool AnyEmpty(this IEnumerable<string?> stringCollection)
     {
-        AnyEmpty_Contract(stringCollection);
+        ArgumentNullException.ThrowIfNull(stringCollection);
         return stringCollection.Any(j => j.IsEmpty());
     }
 
     /// <summary>
-    /// Determina si todos los objetos son <see langword="null" />.
+    /// Determines if all the specified strings are either
+    /// <see langword="null"/>, <see cref="string.Empty"/> or a string
+    /// consisting only of whitespaces.
     /// </summary>
+    /// <param name="collection">
+    /// Enumeration of strings to be checked.
+    /// </param>
     /// <returns>
-    /// <see langword="true" />, si todos los objetos son <see langword="null" />; de lo contrario,
-    /// <see langword="false" />.
+    /// <see langword="true" /> any of the strings are either
+    /// <see langword="null" />, <see cref="string.Empty"/> or a string
+    /// consisting only of whitespaces; or <see langword="false" /> otherwise.
     /// </returns>
-    /// <param name="collection">Objetos a comprobar.</param>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="collection"/> es
+    /// Thrown if <paramref name="collection"/> is
     /// <see langword="null"/>.
     /// </exception>
     public static bool AreAllNull(this IEnumerable<object?> collection)
     {
-        NullCheck(collection);
+        ArgumentNullException.ThrowIfNull(collection);
         return collection.All(p => p is null);
     }
 
     /// <summary>
-    /// Determina si cualquiera de los objetos es <see langword="null" />.
+    /// Determines if any of the specified objects is <see langword="null" />.
     /// </summary>
+    /// <param name="collection">Collection of objects to be checked.</param>
     /// <returns>
-    /// <see langword="true" />, si cualquiera de los objetos es <see langword="null" />; de lo
-    /// contrario, <see langword="false" />.
+    /// <see langword="true" /> if any of the specified objects is
+    /// <see langword="null" />, <see langword="false" /> otherwise.
     /// </returns>
-    /// <param name="collection">Objetos a comprobar.</param>
     public static bool IsAnyNull(this IEnumerable<object?>? collection)
     {
         return collection?.Any(p => p is null) ?? true;
     }
 
     /// <summary>
-    /// Determina si cualquiera de los objetos es <see langword="null" />.
+    /// Determines if any of the specified objects is <see langword="null" />.
     /// </summary>
-    /// <returns>
-    /// <see langword="true" />, si cualquiera de los objetos es <see langword="null" />; de lo
-    /// contrario, <see langword="false" />.
-    /// </returns>
-    /// <param name="collection">Objetos a comprobar.</param>
+    /// <param name="collection">Collection of objects to be checked.</param>
     /// <param name="index">
-    /// Argumento de salida. Índices de las cadenas vacías encontradas.
+    /// Out parameter. Indices of the objects that were <see langword="null"/>.
     /// </param>
+    /// <returns>
+    /// <see langword="true" /> if any of the specified objects is
+    /// <see langword="null" />, <see langword="false" /> otherwise.
+    /// </returns>
     public static bool IsAnyNull(this IEnumerable<object?> collection, out IEnumerable<int> index)
     {
-        NullCheck(collection);
-        List<int>? idx = [];
+        ArgumentNullException.ThrowIfNull(collection);
+        List<int> idx = [];
         int c = 0;
         foreach (object? j in collection)
         {
@@ -232,19 +266,20 @@ public static partial class CollectionHelpers
     }
 
     /// <summary>
-    /// Determina si cualquiera de los objetos es <see langword="null" />.
+    /// Determines if any of the specified objects is <see langword="null" />.
     /// </summary>
-    /// <returns>
-    /// <see langword="true" />, si cualquiera de los objetos es <see langword="null" />; de lo
-    /// contrario, <see langword="false" />.
-    /// </returns>
-    /// <param name="collection">Objetos a comprobar.</param>
+    /// <param name="collection">Collection of objects to be checked.</param>
     /// <param name="firstIndex">
-    /// Argumento de salida. Índice del primer elemento nulo encontrada.
+    /// Out parameter. Index of the first object that was
+    /// <see langword="null"/>.
     /// </param>
+    /// <returns>
+    /// <see langword="true" /> if any of the specified objects is
+    /// <see langword="null" />, <see langword="false" /> otherwise.
+    /// </returns>
     public static bool IsAnyNull(this IEnumerable<object?> collection, out int firstIndex)
     {
-        NullCheck(collection);
+        ArgumentNullException.ThrowIfNull(collection);
         foreach (var (index, element) in collection.WithIndex())
         {
             if (element is null)
@@ -258,17 +293,17 @@ public static partial class CollectionHelpers
     }
 
     /// <summary>
-    /// Enumera todas las cadenas no nulas ni vacías de una colección.
+    /// Enumerates all non-empty strings in a collection.
     /// </summary>
     /// <param name="stringCollection">
-    /// Colección desde la cual obtener las cadenas.
+    /// String collection to filter.
     /// </param>
     /// <returns>
-    /// Una enumeración de las cadenas no nulas ni vacías de la colección.
+    /// An enumeration of all non-empty strings in the collection.
     /// </returns>
     public static IEnumerable<string> NotEmpty(this IEnumerable<string?> stringCollection)
     {
-        NotEmpty_Contract(stringCollection);
+        ArgumentNullException.ThrowIfNull(stringCollection);
         foreach (string? j in stringCollection)
         {
             if (!j.IsEmpty()) yield return j;
@@ -276,51 +311,64 @@ public static partial class CollectionHelpers
     }
 
     /// <summary>
-    /// Convierte los valores de una colección de elementos
-    /// <see cref="double" /> a porcentajes.
+    /// Enumerates all non-empty strings in a collection.
     /// </summary>
+    /// <param name="stringCollection">
+    /// String collection to filter.
+    /// </param>
     /// <returns>
-    /// Una colección de <see cref="double" /> con sus valores
-    /// expresados en porcentaje.
+    /// An enumeration of all non-empty strings in the collection.
     /// </returns>
-    /// <param name="collection">Colección a procesar.</param>
-    /// <param name="min">Valor que representará 0%.</param>
-    /// <param name="max">Valor que representará 100%.</param>
+    public static async IAsyncEnumerable<string> NotEmpty(this IAsyncEnumerable<string?> stringCollection)
+    {
+        ArgumentNullException.ThrowIfNull(stringCollection);
+        await foreach (string? j in stringCollection)
+        {
+            if (!j.IsEmpty()) yield return j;
+        }
+    }
+
+    /// <summary>
+    /// Converts the values in a numerical collection to their respective values
+    /// as percentages.
+    /// </summary>
+    /// <param name="collection">Collection to be converted.</param>
+    /// <param name="min">Value that represents 0%.</param>
+    /// <param name="max">Value that represents 100%.</param>
+    /// <returns>
+    /// A <see cref="double" /> collection of values as percentages.
+    /// </returns>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="collection"/> es
-    /// <see langword="null"/>.
+    /// Thrown <paramref name="collection"/> is <see langword="null"/>.
     /// </exception>
     /// <exception cref="InvalidOperationException">
-    /// Se produce si <paramref name="min"/> y <paramref name="max"/> son
-    /// iguales.
+    /// Thrown if <paramref name="min"/> and <paramref name="max"/> are equal.
     /// </exception>
     public static async IAsyncEnumerable<double> ToPercent(this IAsyncEnumerable<double> collection, double min, double max)
     {
         ToPercent_Contract(collection, min, max);
         await foreach (double j in collection)
-            if (j.IsValid())
-                yield return (j - min) / (max - min).Clamp(1, double.NaN);
-            else
-                yield return double.NaN;
+        {
+            yield return j.IsValid()
+                ? (j - min) / (max - min).Clamp(1, double.NaN)
+                : double.NaN;
+        }
     }
 
     /// <summary>
-    /// Convierte los valores de una colección de elementos
-    /// <see cref="double" /> a porcentajes.
+    /// Converts the values in a numerical collection to their respective values
+    /// as percentages.
     /// </summary>
+    /// <param name="collection">Collection to be converted.</param>
+    /// <param name="max">Value that represents 100%.</param>
     /// <returns>
-    /// Una colección de <see cref="double" /> con sus valores
-    /// expresados en porcentaje.
+    /// A <see cref="double" /> collection of values as percentages.
     /// </returns>
-    /// <param name="collection">Colección a procesar.</param>
-    /// <param name="max">Valor que representará 100%.</param>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="collection"/> es
-    /// <see langword="null"/>.
+    /// Thrown <paramref name="collection"/> is <see langword="null"/>.
     /// </exception>
     /// <exception cref="InvalidOperationException">
-    /// Se produce si el valor mínimo de la colección y
-    /// <paramref name="max"/> son iguales.
+    /// Thrown if <paramref name="max"/> is equal to zero.
     /// </exception>
     public static IAsyncEnumerable<double> ToPercent(this IAsyncEnumerable<double> collection, in double max)
     {
@@ -328,23 +376,20 @@ public static partial class CollectionHelpers
     }
 
     /// <summary>
-    /// Convierte los valores de una colección de elementos
-    /// <see cref="float" /> a porcentajes.
+    /// Converts the values in a numerical collection to their respective values
+    /// as percentages.
     /// </summary>
+    /// <param name="collection">Collection to be converted.</param>
+    /// <param name="min">Value that represents 0%.</param>
+    /// <param name="max">Value that represents 100%.</param>
     /// <returns>
-    /// Una colección de <see cref="float" /> con sus valores
-    /// expresados en porcentaje.
+    /// A <see cref="double" /> collection of values as percentages.
     /// </returns>
-    /// <param name="collection">Colección a procesar.</param>
-    /// <param name="min">Valor que representará 0%.</param>
-    /// <param name="max">Valor que representará 100%.</param>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="collection"/> es
-    /// <see langword="null"/>.
+    /// Thrown <paramref name="collection"/> is <see langword="null"/>.
     /// </exception>
     /// <exception cref="InvalidOperationException">
-    /// Se produce si <paramref name="min"/> y <paramref name="max"/> son
-    /// iguales.
+    /// Thrown if <paramref name="min"/> and <paramref name="max"/> are equal.
     /// </exception>
     public static async IAsyncEnumerable<float> ToPercent(this IAsyncEnumerable<float> collection, float min, float max)
     {
@@ -357,22 +402,19 @@ public static partial class CollectionHelpers
     }
 
     /// <summary>
-    /// Convierte los valores de una colección de elementos
-    /// <see cref="float" /> a porcentajes.
+    /// Converts the values in a numerical collection to their respective values
+    /// as percentages.
     /// </summary>
+    /// <param name="collection">Collection to be converted.</param>
+    /// <param name="max">Value that represents 100%.</param>
     /// <returns>
-    /// Una colección de <see cref="float" /> con sus valores
-    /// expresados en porcentaje.
+    /// A <see cref="double" /> collection of values as percentages.
     /// </returns>
-    /// <param name="collection">Colección a procesar.</param>
-    /// <param name="max">Valor que representará 100%.</param>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="collection"/> es
-    /// <see langword="null"/>.
+    /// Thrown <paramref name="collection"/> is <see langword="null"/>.
     /// </exception>
     /// <exception cref="InvalidOperationException">
-    /// Se produce si el valor mínimo de la colección y
-    /// <paramref name="max"/> son iguales.
+    /// Thrown if <paramref name="max"/> is equal to zero.
     /// </exception>
     public static IAsyncEnumerable<float> ToPercent(this IAsyncEnumerable<float> collection, in float max)
     {
@@ -380,23 +422,20 @@ public static partial class CollectionHelpers
     }
 
     /// <summary>
-    /// Convierte los valores de una colección de elementos
-    /// <see cref="double" /> a porcentajes.
+    /// Converts the values in a numerical collection to their respective values
+    /// as percentages.
     /// </summary>
+    /// <param name="collection">Collection to be converted.</param>
+    /// <param name="min">Value that represents 0%.</param>
+    /// <param name="max">Value that represents 100%.</param>
     /// <returns>
-    /// Una colección de <see cref="double" /> con sus valores
-    /// expresados en porcentaje.
+    /// A <see cref="double" /> collection of values as percentages.
     /// </returns>
-    /// <param name="collection">Colección a procesar.</param>
-    /// <param name="min">Valor que representará 0%.</param>
-    /// <param name="max">Valor que representará 100%.</param>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="collection"/> es
-    /// <see langword="null"/>.
+    /// Thrown <paramref name="collection"/> is <see langword="null"/>.
     /// </exception>
     /// <exception cref="InvalidOperationException">
-    /// Se produce si <paramref name="min"/> y <paramref name="max"/> son
-    /// iguales.
+    /// Thrown if <paramref name="min"/> and <paramref name="max"/> are equal.
     /// </exception>
     public static IEnumerable<double> ToPercent(this IEnumerable<double> collection, double min, double max)
     {
@@ -409,50 +448,43 @@ public static partial class CollectionHelpers
     }
 
     /// <summary>
-    /// Convierte los valores de una colección de elementos
-    /// <see cref="double" /> a porcentajes.
+    /// Converts the values in a numerical collection to their respective values
+    /// as percentages.
     /// </summary>
+    /// <param name="collection">Collection to be converted.</param>
     /// <returns>
-    /// Una colección de <see cref="double" /> con sus valores
-    /// expresados en porcentaje.
+    /// A <see cref="double" /> collection of values as percentages.
     /// </returns>
-    /// <param name="collection">Colección a procesar.</param>
-    /// <param name="baseZero">
-    /// Si es <see langword="true" />, la base de
-    /// porcentaje es cero; de lo contrario, se utilizará el valor mínimo
-    /// dentro de la colección.
-    /// </param>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="collection"/> es
-    /// <see langword="null"/>.
+    /// Thrown <paramref name="collection"/> is <see langword="null"/>.
     /// </exception>
     /// <exception cref="InvalidOperationException">
-    /// Se produce si el valor mínimo y máximo de la colección son iguales.
+    /// Thrown if the maximum value in the collection is equal to zero.
     /// </exception>
-    public static IEnumerable<double> ToPercent(this IEnumerable<double> collection, in bool baseZero)
+    public static IEnumerable<double> ToPercentAbsolute(this IEnumerable<double> collection)
     {
-        ToPercent_Contract(collection);
-        List<double>? enumerable = collection.ToList();
-        return ToPercent(enumerable, baseZero ? 0 : enumerable.Min(), enumerable.Max());
+        ArgumentNullException.ThrowIfNull(collection);
+        List<double> enumerable = collection.ToList();
+        return ToPercent(enumerable, 0, enumerable.Max());
     }
 
     /// <summary>
-    /// Convierte los valores de una colección de elementos
-    /// <see cref="double" /> a porcentajes.
+    /// Converts the values of a collection of elements
+    /// <see cref="double" /> to percentages.
     /// </summary>
     /// <returns>
-    /// Una colección de <see cref="double" /> con sus valores
-    /// expresados en porcentaje.
+    /// A collection of <see cref="double" /> with its values
+    /// expressed as percentages.
     /// </returns>
-    /// <param name="collection">Colección a procesar.</param>
-    /// <param name="max">Valor que representará 100%.</param>
+    /// <param name="collection">Collection to process.</param>
+    /// <param name="max">Value that will represent 100%.</param>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="collection"/> es
+    /// Thrown if <paramref name="collection"/> is
     /// <see langword="null"/>.
     /// </exception>
     /// <exception cref="InvalidOperationException">
-    /// Se produce si el valor mínimo de la colección y
-    /// <paramref name="max"/> son iguales.
+    /// Thrown if the minimum value of the collection and
+    /// <paramref name="max"/> are equal.
     /// </exception>
     public static IEnumerable<double> ToPercent(this IEnumerable<double> collection, in double max)
     {
@@ -460,102 +492,108 @@ public static partial class CollectionHelpers
     }
 
     /// <summary>
-    /// Convierte los valores de una colección de elementos
-    /// <see cref="double" /> a porcentajes.
+    /// Converts the values of a collection of elements
+    /// <see cref="double" /> to percentages.
     /// </summary>
     /// <returns>
-    /// Una colección de <see cref="double" /> con sus valores
-    /// expresados en porcentaje.
+    /// A collection of <see cref="double" /> with its values
+    /// expressed as percentages.
     /// </returns>
-    /// <param name="collection">Colección a procesar.</param>
+    /// <param name="collection">Collection to process.</param>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="collection"/> es
+    /// Thrown if <paramref name="collection"/> is
     /// <see langword="null"/>.
     /// </exception>
     /// <exception cref="InvalidOperationException">
-    /// Se produce si el valor mínimo y máximo de la colección son iguales.
+    /// Thrown if the minimum and maximum values of the collection are equal.
     /// </exception>
     public static IEnumerable<double> ToPercent(this IEnumerable<double> collection)
     {
-        ToPercent_Contract(collection);
-        List<double>? enumerable = collection.ToList();
+        ArgumentNullException.ThrowIfNull(collection);
+        List<double> enumerable = collection.ToList();
         return ToPercent(enumerable, enumerable.Min(), enumerable.Max());
     }
 
     /// <summary>
-    /// Convierte los valores de una colección de elementos
-    /// <see cref="float" /> a porcentajes.
+    /// Converts the values of a collection of elements
+    /// <see cref="float" /> to percentages.
     /// </summary>
     /// <returns>
-    /// Una colección de <see cref="float" /> con sus valores
-    /// expresados en porcentaje.
+    /// A collection of <see cref="float" /> with its values
+    /// expressed as percentages.
     /// </returns>
-    /// <param name="collection">Colección a procesar.</param>
-    /// <param name="min">Valor que representará 0%.</param>
-    /// <param name="max">Valor que representará 100%.</param>
+    /// <param name="collection">Collection to process.</param>
+    /// <param name="min">Value that will represent 0%.</param>
+    /// <param name="max">Value that will represent 100%.</param>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="collection"/> es
+    /// Thrown if <paramref name="collection"/> is
     /// <see langword="null"/>.
     /// </exception>
     /// <exception cref="InvalidOperationException">
-    /// Se produce si <paramref name="min"/> y <paramref name="max"/> son
-    /// iguales.
+    /// Thrown if <paramref name="min"/> and <paramref name="max"/> are
+    /// equal.
     /// </exception>
     public static IEnumerable<float> ToPercent(this IEnumerable<float> collection, float min, float max)
     {
         ToPercent_Contract(collection, min, max);
         foreach (float j in collection)
+        {
             if (j.IsValid())
+            {
                 yield return (j - min) / (max - min).Clamp(1, float.NaN);
+            }
             else
+            {
                 yield return float.NaN;
+            }
+        }
     }
 
     /// <summary>
-    /// Convierte los valores de una colección de elementos
-    /// <see cref="float" /> a porcentajes.
+    /// Converts the values of a collection of elements
+    /// <see cref="float" /> to percentages.
     /// </summary>
     /// <returns>
-    /// Una colección de <see cref="float" /> con sus valores
-    /// expresados en porcentaje.
+    /// A collection of <see cref="float" /> with its values
+    /// expressed as percentages.
     /// </returns>
-    /// <param name="collection">Colección a procesar.</param>
+    /// <param name="collection">Collection to process.</param>
     /// <param name="baseZero">
-    /// Si es <see langword="true" />, la base de
-    /// porcentaje es cero; de lo contrario, se utilizará el valor mínimo
-    /// dentro de la colección.
+    /// If <see langword="true" />, the base of
+    /// percentage is zero; otherwise, the minimum value
+    /// within the collection will be used.
     /// </param>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="collection"/> es
+    /// Thrown if <paramref name="collection"/> is
     /// <see langword="null"/>.
     /// </exception>
     /// <exception cref="InvalidOperationException">
-    /// Se produce si el valor mínimo y máximo de la colección son iguales.
+    /// Thrown if the minimum and maximum values of the collection are equal.
     /// </exception>
     public static IEnumerable<float> ToPercent(this IEnumerable<float> collection, in bool baseZero)
     {
-        ToPercent_Contract(collection);
-        List<float>? enumerable = collection.ToList();
+        ArgumentNullException.ThrowIfNull(collection);
+        List<float> enumerable = collection.ToList();
         return ToPercent(enumerable, baseZero ? 0 : enumerable.Min(), enumerable.Max());
     }
 
     /// <summary>
-    /// Convierte los valores de una colección de elementos
-    /// <see cref="float" /> a porcentajes.
+    /// Converts the values of a collection of elements
+    /// <see cref="float" /> to percentages.
     /// </summary>
     /// <returns>
-    /// Una colección de <see cref="float" /> con sus valores
-    /// expresados en porcentaje.
+    /// A collection of <see cref="float" /> with its values
+    /// expressed as percentages.
     /// </returns>
-    /// <param name="collection">Colección a procesar.</param>
-    /// <param name="max">Valor que representará 100%.</param>
+    /// <param name="collection">Collection to process.</param>
+    /// <param name="max">Value that will represent 100%.</param>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="collection"/> es
+    /// Thrown if <paramref name="collection"/> is
     /// <see langword="null"/>.
     /// </exception>
     /// <exception cref="InvalidOperationException">
-    /// Se produce si el valor mínimo de la colección y
-    /// <paramref name="max"/> son iguales.
+    /// Thrown if the minimum value of the collection and
+    /// <paramref name="max"/> are equal.
     /// </exception>
     public static IEnumerable<float> ToPercent(this IEnumerable<float> collection, in float max)
     {
@@ -563,45 +601,45 @@ public static partial class CollectionHelpers
     }
 
     /// <summary>
-    /// Convierte los valores de una colección de elementos
-    /// <see cref="float" /> a porcentajes.
+    /// Converts the values of a collection of elements
+    /// <see cref="float" /> to percentages.
     /// </summary>
     /// <returns>
-    /// Una colección de <see cref="float" /> con sus valores
-    /// expresados en porcentaje.
+    /// A collection of <see cref="float" /> with its values
+    /// expressed as percentages.
     /// </returns>
-    /// <param name="collection">Colección a procesar.</param>
+    /// <param name="collection">Collection to process.</param>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="collection"/> es
+    /// Thrown if <paramref name="collection"/> is
     /// <see langword="null"/>.
     /// </exception>
     /// <exception cref="InvalidOperationException">
-    /// Se produce si el valor mínimo y máximo de la colección son iguales.
+    /// Thrown if the minimum and maximum values of the collection are equal.
     /// </exception>
     public static IEnumerable<float> ToPercent(this IEnumerable<float> collection)
     {
-        ToPercent_Contract(collection);
-        List<float>? enumerable = collection.ToList();
+        ArgumentNullException.ThrowIfNull(collection);
+        List<float> enumerable = collection.ToList();
         return ToPercent(enumerable, enumerable.Min(), enumerable.Max());
     }
 
     /// <summary>
-    /// Convierte los valores de una colección de elementos
-    /// <see cref="int" /> a porcentajes.
+    /// Converts the values of a collection of elements
+    /// <see cref="int" /> to percentages.
     /// </summary>
     /// <returns>
-    /// Una colección de <see cref="double" /> con sus valores
-    /// expresados en porcentaje.
+    /// A collection of <see cref="double" /> with its values
+    /// expressed as percentages.
     /// </returns>
-    /// <param name="collection">Colección a procesar.</param>
-    /// <param name="max">Valor que representará 100%.</param>
+    /// <param name="collection">Collection to process.</param>
+    /// <param name="max">Value that will represent 100%.</param>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="collection"/> es
+    /// Thrown if <paramref name="collection"/> is
     /// <see langword="null"/>.
     /// </exception>
     /// <exception cref="InvalidOperationException">
-    /// Se produce si el valor mínimo de la colección y
-    /// <paramref name="max"/> son iguales.
+    /// Thrown if the minimum value of the collection and
+    /// <paramref name="max"/> are equal.
     /// </exception>
     public static IAsyncEnumerable<double> ToPercentDouble(this IAsyncEnumerable<int> collection, in int max)
     {
@@ -609,23 +647,23 @@ public static partial class CollectionHelpers
     }
 
     /// <summary>
-    /// Convierte los valores de una colección de elementos
-    /// <see cref="int" /> a porcentajes.
+    /// Converts the values of a collection of elements
+    /// <see cref="int" /> to percentages.
     /// </summary>
     /// <returns>
-    /// Una colección de <see cref="double" /> con sus valores
-    /// expresados en porcentaje.
+    /// A collection of <see cref="double" /> with its values
+    /// expressed as percentages.
     /// </returns>
-    /// <param name="collection">Colección a procesar.</param>
-    /// <param name="min">Valor que representará 0%.</param>
-    /// <param name="max">Valor que representará 100%.</param>
+    /// <param name="collection">Collection to process.</param>
+    /// <param name="min">Value that will represent 0%.</param>
+    /// <param name="max">Value that will represent 100%.</param>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="collection"/> es
+    /// Thrown if <paramref name="collection"/> is
     /// <see langword="null"/>.
     /// </exception>
     /// <exception cref="InvalidOperationException">
-    /// Se produce si <paramref name="min"/> y <paramref name="max"/> son
-    /// iguales.
+    /// Thrown if <paramref name="min"/> and <paramref name="max"/> are
+    /// equal.
     /// </exception>
     public static async IAsyncEnumerable<double> ToPercentDouble(this IAsyncEnumerable<int> collection, int min, int max)
     {
@@ -634,50 +672,50 @@ public static partial class CollectionHelpers
     }
 
     /// <summary>
-    /// Convierte los valores de una colección de elementos
-    /// <see cref="int" /> a porcentajes.
+    /// Converts the values of a collection of elements
+    /// <see cref="int" /> to percentages.
     /// </summary>
     /// <returns>
-    /// Una colección de <see cref="double" /> con sus valores
-    /// expresados en porcentaje.
+    /// A collection of <see cref="double" /> with its values
+    /// expressed as percentages.
     /// </returns>
-    /// <param name="collection">Colección a procesar.</param>
+    /// <param name="collection">Collection to process.</param>
     /// <param name="baseZero">
-    /// Opcional. si es <see langword="true" />, la base de
-    /// porcentaje es cero; de lo contrario, se utilizará el valor mínimo
-    /// dentro de la colección.
+    /// Optional. If <see langword="true" />, the base of
+    /// percentage is zero; otherwise, the minimum value
+    /// within the collection will be used.
     /// </param>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="collection"/> es
+    /// Thrown if <paramref name="collection"/> is
     /// <see langword="null"/>.
     /// </exception>
     /// <exception cref="InvalidOperationException">
-    /// Se produce si el valor mínimo y máximo de la colección son iguales.
+    /// Thrown if the minimum and maximum values of the collection are equal.
     /// </exception>
     public static IEnumerable<double> ToPercentDouble(this IEnumerable<int> collection, in bool baseZero)
     {
-        ToPercentDouble_Contract(collection);
-        List<int>? enumerable = collection.ToList();
+        ArgumentNullException.ThrowIfNull(collection);
+        List<int> enumerable = collection.ToList();
         return ToPercentDouble(enumerable, baseZero ? 0 : enumerable.Min(), enumerable.Max());
     }
 
     /// <summary>
-    /// Convierte los valores de una colección de elementos
-    /// <see cref="int" /> a porcentajes.
+    /// Converts the values of a collection of elements
+    /// <see cref="int" /> to percentages.
     /// </summary>
     /// <returns>
-    /// Una colección de <see cref="double" /> con sus valores
-    /// expresados en porcentaje.
+    /// A collection of <see cref="double" /> with its values
+    /// expressed as percentages.
     /// </returns>
-    /// <param name="collection">Colección a procesar.</param>
-    /// <param name="max">Valor que representará 100%.</param>
+    /// <param name="collection">Collection to process.</param>
+    /// <param name="max">Value that will represent 100%.</param>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="collection"/> es
+    /// Thrown if <paramref name="collection"/> is
     /// <see langword="null"/>.
     /// </exception>
     /// <exception cref="InvalidOperationException">
-    /// Se produce si el valor mínimo de la colección y
-    /// <paramref name="max"/> son iguales.
+    /// Thrown if the minimum value of the collection and
+    /// <paramref name="max"/> are equal.
     /// </exception>
     public static IEnumerable<double> ToPercentDouble(this IEnumerable<int> collection, in int max)
     {
@@ -685,14 +723,14 @@ public static partial class CollectionHelpers
     }
 
     /// <summary>
-    /// Enumera los elementos de la colección, incluyendo el índice de cada
-    /// elemento devuelto.
+    /// Enumerates the elements of the collection, including the index of each
+    /// returned element.
     /// </summary>
-    /// <typeparam name="T">Tipo de elementos de la colección.</typeparam>
+    /// <typeparam name="T">Type of elements in the collection.</typeparam>
     /// <param name="collection">
-    /// Colección para la cual enumerar los elementos junto con su índice.
+    /// Collection for which to enumerate the elements along with their index.
     /// </param>
-    /// <returns>Una enumeración de cada elemento junto a su índice.</returns>
+    /// <returns>An enumeration of each element along with its index.</returns>
     public static IEnumerable<(int index, T element)> WithIndex<T>(this IEnumerable<T> collection)
     {
         int i = 0;
@@ -703,23 +741,23 @@ public static partial class CollectionHelpers
     }
 
     /// <summary>
-    /// Convierte los valores de una colección de elementos
-    /// <see cref="int" /> a porcentajes.
+    /// Converts the values of a collection of elements
+    /// <see cref="int" /> to percentages.
     /// </summary>
     /// <returns>
-    /// Una colección de <see cref="double" /> con sus valores
-    /// expresados en porcentaje.
+    /// A collection of <see cref="double" /> with its values
+    /// expressed as percentages.
     /// </returns>
-    /// <param name="collection">Colección a procesar.</param>
-    /// <param name="min">Valor que representará 0%.</param>
-    /// <param name="max">Valor que representará 100%.</param>
+    /// <param name="collection">Collection to process.</param>
+    /// <param name="min">Value that will represent 0%.</param>
+    /// <param name="max">Value that will represent 100%.</param>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="collection"/> es
+    /// Thrown if <paramref name="collection"/> is
     /// <see langword="null"/>.
     /// </exception>
     /// <exception cref="InvalidOperationException">
-    /// Se produce si <paramref name="min"/> y <paramref name="max"/> son
-    /// iguales.
+    /// Thrown if <paramref name="min"/> and <paramref name="max"/> are
+    /// equal.
     /// </exception>
     public static IEnumerable<double> ToPercentDouble(this IEnumerable<int> collection, int min, int max)
     {
@@ -728,45 +766,45 @@ public static partial class CollectionHelpers
     }
 
     /// <summary>
-    /// Convierte los valores de una colección de elementos
-    /// <see cref="int" /> a porcentajes.
+    /// Converts the values of a collection of elements
+    /// <see cref="int" /> to percentages.
     /// </summary>
     /// <returns>
-    /// Una colección de <see cref="double" /> con sus valores
-    /// expresados en porcentaje.
+    /// A collection of <see cref="double" /> with its values
+    /// expressed as percentages.
     /// </returns>
-    /// <param name="collection">Colección a procesar.</param>
+    /// <param name="collection">Collection to process.</param>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="collection"/> es
+    /// Thrown if <paramref name="collection"/> is
     /// <see langword="null"/>.
     /// </exception>
     /// <exception cref="InvalidOperationException">
-    /// Se produce si el valor mínimo y máximo de la colección son iguales.
+    /// Thrown if the minimum and maximum values of the collection are equal.
     /// </exception>
     public static IEnumerable<double> ToPercentDouble(this IEnumerable<int> collection)
     {
-        ToPercentDouble_Contract(collection);
-        List<int>? enumerable = collection.ToList();
+        ArgumentNullException.ThrowIfNull(collection);
+        List<int> enumerable = collection.ToList();
         return ToPercentDouble(enumerable, 0, enumerable.Max());
     }
 
     /// <summary>
-    /// Convierte los valores de una colección de elementos
-    /// <see cref="int" /> a porcentajes de precisión simple.
+    /// Converts the values of a collection of elements
+    /// <see cref="int" /> to single-precision percentages.
     /// </summary>
     /// <returns>
-    /// Una colección de <see cref="float" /> con sus valores
-    /// expresados en porcentaje.
+    /// A collection of <see cref="float" /> with its values
+    /// expressed as percentages.
     /// </returns>
-    /// <param name="collection">Colección a procesar.</param>
-    /// <param name="max">Valor que representará 100%.</param>
+    /// <param name="collection">Collection to process.</param>
+    /// <param name="max">Value that will represent 100%.</param>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="collection"/> es
+    /// Thrown if <paramref name="collection"/> is
     /// <see langword="null"/>.
     /// </exception>
     /// <exception cref="InvalidOperationException">
-    /// Se produce si el valor mínimo de la colección y
-    /// <paramref name="max"/> son iguales.
+    /// Thrown if the minimum value of the collection and
+    /// <paramref name="max"/> are equal.
     /// </exception>
     public static IAsyncEnumerable<float> ToPercentSingle(this IAsyncEnumerable<int> collection, in int max)
     {
@@ -774,23 +812,23 @@ public static partial class CollectionHelpers
     }
 
     /// <summary>
-    /// Convierte los valores de una colección de elementos
-    /// <see cref="int" /> a porcentajes de precisión simple.
+    /// Converts the values of a collection of elements
+    /// <see cref="int" /> to single-precision percentages.
     /// </summary>
     /// <returns>
-    /// Una colección de <see cref="float" /> con sus valores
-    /// expresados en porcentaje.
+    /// A collection of <see cref="float" /> with its values
+    /// expressed as percentages.
     /// </returns>
-    /// <param name="collection">Colección a procesar.</param>
-    /// <param name="min">Valor que representará 0%.</param>
-    /// <param name="max">Valor que representará 100%.</param>
+    /// <param name="collection">Collection to process.</param>
+    /// <param name="min">Value that will represent 0%.</param>
+    /// <param name="max">Value that will represent 100%.</param>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="collection"/> es
+    /// Thrown if <paramref name="collection"/> is
     /// <see langword="null"/>.
     /// </exception>
     /// <exception cref="InvalidOperationException">
-    /// Se produce si <paramref name="min"/> y <paramref name="max"/> son
-    /// iguales.
+    /// Thrown if <paramref name="min"/> and <paramref name="max"/> are
+    /// equal.
     /// </exception>
     public static async IAsyncEnumerable<float> ToPercentSingle(this IAsyncEnumerable<int> collection, int min, int max)
     {
@@ -799,50 +837,50 @@ public static partial class CollectionHelpers
     }
 
     /// <summary>
-    /// Convierte los valores de una colección de elementos
-    /// <see cref="int" /> a porcentajes de precisión simple.
+    /// Converts the values of a collection of elements
+    /// <see cref="int" /> to single-precision percentages.
     /// </summary>
     /// <returns>
-    /// Una colección de <see cref="float" /> con sus valores
-    /// expresados en porcentaje.
+    /// A collection of <see cref="float" /> with its values
+    /// expressed as percentages.
     /// </returns>
-    /// <param name="collection">Colección a procesar.</param>
+    /// <param name="collection">Collection to process.</param>
     /// <param name="baseZero">
-    /// Opcional. si es <see langword="true" />, la base de
-    /// porcentaje es cero; de lo contrario, se utilizará el valor mínimo
-    /// dentro de la colección.
+    /// Optional. If <see langword="true" />, the base of
+    /// percentage is zero; otherwise, the minimum value
+    /// within the collection will be used.
     /// </param>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="collection"/> es
+    /// Thrown if <paramref name="collection"/> is
     /// <see langword="null"/>.
     /// </exception>
     /// <exception cref="InvalidOperationException">
-    /// Se produce si el valor mínimo y máximo de la colección son iguales.
+    /// Thrown if the minimum and maximum values of the collection are equal.
     /// </exception>
     public static IEnumerable<float> ToPercentSingle(this IEnumerable<int> collection, in bool baseZero)
     {
-        ToPercentSingle_Contract(collection);
-        List<int>? enumerable = collection.ToList();
+        ArgumentNullException.ThrowIfNull(collection);
+        List<int> enumerable = collection.ToList();
         return ToPercentSingle(enumerable, baseZero ? 0 : enumerable.Min(), enumerable.Max());
     }
 
     /// <summary>
-    /// Convierte los valores de una colección de elementos
-    /// <see cref="int" /> a porcentajes de precisión simple.
+    /// Converts the values of a collection of elements
+    /// <see cref="int" /> to single-precision percentages.
     /// </summary>
     /// <returns>
-    /// Una colección de <see cref="float" /> con sus valores
-    /// expresados en porcentaje.
+    /// A collection of <see cref="float" /> with its values
+    /// expressed as percentages.
     /// </returns>
-    /// <param name="collection">Colección a procesar.</param>
-    /// <param name="max">Valor que representará 100%.</param>
+    /// <param name="collection">Collection to process.</param>
+    /// <param name="max">Value that will represent 100%.</param>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="collection"/> es
+    /// Thrown if <paramref name="collection"/> is
     /// <see langword="null"/>.
     /// </exception>
     /// <exception cref="InvalidOperationException">
-    /// Se produce si el valor mínimo de la colección y
-    /// <paramref name="max"/> son iguales.
+    /// Thrown if the minimum value of the collection and
+    /// <paramref name="max"/> are equal.
     /// </exception>
     public static IEnumerable<float> ToPercentSingle(this IEnumerable<int> collection, in int max)
     {
@@ -850,23 +888,23 @@ public static partial class CollectionHelpers
     }
 
     /// <summary>
-    /// Convierte los valores de una colección de elementos
-    /// <see cref="int" /> a porcentajes de precisión simple.
+    /// Converts the values of a collection of elements
+    /// <see cref="int" /> to single-precision percentages.
     /// </summary>
     /// <returns>
-    /// Una colección de <see cref="float" /> con sus valores
-    /// expresados en porcentaje.
+    /// A collection of <see cref="float" /> with its values
+    /// expressed as percentages.
     /// </returns>
-    /// <param name="collection">Colección a procesar.</param>
-    /// <param name="min">Valor que representará 0%.</param>
-    /// <param name="max">Valor que representará 100%.</param>
+    /// <param name="collection">Collection to process.</param>
+    /// <param name="min">Value that will represent 0%.</param>
+    /// <param name="max">Value that will represent 100%.</param>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="collection"/> es
+    /// Thrown if <paramref name="collection"/> is
     /// <see langword="null"/>.
     /// </exception>
     /// <exception cref="InvalidOperationException">
-    /// Se produce si <paramref name="min"/> y <paramref name="max"/> son
-    /// iguales.
+    /// Thrown if <paramref name="min"/> and <paramref name="max"/> are
+    /// equal.
     /// </exception>
     public static IEnumerable<float> ToPercentSingle(this IEnumerable<int> collection, int min, int max)
     {
@@ -875,36 +913,36 @@ public static partial class CollectionHelpers
     }
 
     /// <summary>
-    /// Convierte los valores de una colección de elementos
-    /// <see cref="int" /> a porcentajes de precisión simple.
+    /// Converts the values of a collection of elements
+    /// <see cref="int" /> to single-precision percentages.
     /// </summary>
     /// <returns>
-    /// Una colección de <see cref="float" /> con sus valores
-    /// expresados en porcentaje.
+    /// A collection of <see cref="float" /> with its values
+    /// expressed as percentages.
     /// </returns>
-    /// <param name="collection">Colección a procesar.</param>
+    /// <param name="collection">Collection to process.</param>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="collection"/> es
+    /// Thrown if <paramref name="collection"/> is
     /// <see langword="null"/>.
     /// </exception>
     /// <exception cref="InvalidOperationException">
-    /// Se produce si el valor mínimo y máximo de la colección son iguales.
+    /// Thrown if the minimum and maximum values of the collection are equal.
     /// </exception>
     public static IEnumerable<float> ToPercentSingle(this IEnumerable<int> collection)
     {
-        ToPercentSingle_Contract(collection);
-        List<int>? enumerable = collection.ToList();
+        ArgumentNullException.ThrowIfNull(collection);
+        List<int> enumerable = collection.ToList();
         return ToPercentSingle(enumerable, 0, enumerable.Max());
     }
 
     /// <summary>
-    /// Obtiene una lista de los tipos de los objetos especificados.
+    /// Gets a list of the types of the specified objects.
     /// </summary>
     /// <param name="objects">
-    /// Objetos a partir de los cuales generar la colección de tipos.
+    /// Objects from which to generate the collection of types.
     /// </param>
     /// <returns>
-    /// Una lista compuesta por los tipos de los objetos provistos.
+    /// A list composed of the types of the provided objects.
     /// </returns>
     public static IEnumerable<Type> ToTypes(this IEnumerable objects)
     {
@@ -912,15 +950,15 @@ public static partial class CollectionHelpers
     }
 
     /// <summary>
-    /// Determina si cualquiera de los objetos es <see langword="null" />.
+    /// Determines if any of the objects are <see langword="null" />.
     /// </summary>
     /// <returns>
-    /// Un enumerador con los índices de los objetos que son <see langword="null" />.
+    /// An enumerator with the indices of the objects that are <see langword="null" />.
     /// </returns>
-    /// <param name="collection">Colección de objetos a comprobar.</param>
+    /// <param name="collection">Collection of objects to check.</param>
     public static IEnumerable<int> WhichAreNull(this IEnumerable<object?> collection)
     {
-        WhichAreNull_Contract(collection);
+        ArgumentNullException.ThrowIfNull(collection);
         int c = 0;
         foreach (object? j in collection)
         {

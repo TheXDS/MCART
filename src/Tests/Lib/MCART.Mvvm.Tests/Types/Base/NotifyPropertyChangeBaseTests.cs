@@ -54,10 +54,11 @@ public class NotifyPropertyChangeBaseTests
 
         public string IdAsString => $"{Prefix} {Id}";
 
-        public NpcTestClass()
+        protected override void OnInitialize(IPropertyBroadcastSetup broadcastSetup)
         {
-            RegisterPropertyChangeBroadcast(nameof(Id), new[] { nameof(IdAsString) }.AsEnumerable());
-            RegisterPropertyChangeTrigger(nameof(IdAsString), nameof(Prefix));
+            broadcastSetup
+                .RegisterPropertyChangeBroadcast(() => Id, () => IdAsString)
+                .RegisterPropertyChangeTrigger(() => IdAsString, () => Prefix);
         }
     }
 

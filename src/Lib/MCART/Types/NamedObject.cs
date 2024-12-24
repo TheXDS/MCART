@@ -28,9 +28,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Misc;
 using TheXDS.MCART.Types.Base;
 using TheXDS.MCART.Types.Extensions;
 
@@ -51,6 +53,7 @@ public readonly struct NamedObject<T>(T value, string name) : INameable
     /// <see cref="object.ToString()" />.
     /// </summary>
     /// <param name="value">Objeto a etiquetar.</param>
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodGetsTypeMembersByName)]
     public NamedObject(T value) : this(value, Infer(value))
     {
     }
@@ -70,6 +73,7 @@ public readonly struct NamedObject<T>(T value, string name) : INameable
     /// <see cref="NamedObject{T}" />.
     /// </summary>
     /// <param name="obj">Objeto a convertir.</param>
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodGetsTypeMembersByName)]
     public static implicit operator NamedObject<T>(T obj)
     {
         return new(obj);
@@ -206,6 +210,8 @@ public readonly struct NamedObject<T>(T value, string name) : INameable
     /// Una enumeración de <see cref="NamedObject{T}"/> de todos los
     /// valores de enumeración.
     /// </returns>
+    [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodGetsTypeMembersByName)]
     public static IEnumerable<NamedObject<T>> FromEnum()
     {
         if (!typeof(T).IsEnum) throw new InvalidTypeException(typeof(T));
@@ -221,6 +227,7 @@ public readonly struct NamedObject<T>(T value, string name) : INameable
     /// <see cref="object.ToString()" /> de no poderse inferir una
     /// etiqueta adecuada.
     /// </returns>
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodGetsTypeMembersByName)]
     public static string Infer(T obj)
     {
         return obj switch

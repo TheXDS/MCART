@@ -30,38 +30,14 @@ SOFTWARE.
 
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
 using TheXDS.MCART.Helpers;
-using TheXDS.MCART.Types;
-using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Misc;
 
-[ExcludeFromCodeCoverage]
 internal static class PrivateInternals
 {
-    public static IEnumerable<NamedObject<TField>> List<TField>(Type source)
-    {
-        return List<TField>(source, BindingFlags.Static | BindingFlags.Public, null);
-    }
-
-    public static IEnumerable<NamedObject<TField>> List<TField>(Type source, object instance)
-    {
-        return List<TField>(source, BindingFlags.Public, instance);
-    }
-
-    public static IEnumerable<Type> SafeGetTypes(this Assembly asm)
-    {
-        try
-        {
-            return asm.GetTypes();
-        }
-        catch
-        {
-            return Type.EmptyTypes;
-        }
-    }
-
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
+    [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
     public static bool TryParseValues<TValue, TResult>(string[] separators, string value, in byte items, Func<TValue[], TResult> instantiationCallback, out TResult result)
     {
 #if EnforceContracts && DEBUG
@@ -93,9 +69,32 @@ internal static class PrivateInternals
         return false;
     }
 
-    private static IEnumerable<NamedObject<TField>> List<TField>(IReflect source, BindingFlags flags, object? instance)
+    public static bool TryParseValues<TValue, TResult>(TypeConverter t, string[] separators, string value, in byte items, Func<TValue[], TResult> instantiationCallback, out TResult result)
     {
-        return source.GetFields(flags).Where(f => f.FieldType.Implements<TField>())
-            .Select(p => new NamedObject<TField>((TField)p.GetValue(instance)!));
+#if EnforceContracts && DEBUG
+        if (separators is null || separators.Length == 0)
+            throw new ArgumentNullException(nameof(separators));
+        if (string.IsNullOrEmpty(value))
+            throw new ArgumentNullException(nameof(value));
+        ArgumentNullException.ThrowIfNull(t);
+        ArgumentNullException.ThrowIfNull(instantiationCallback);
+#endif
+        foreach (string? j in separators)
+        {
+            string[]? l = value.Split(new[] { j }, StringSplitOptions.RemoveEmptyEntries);
+            if (l.Length != items) continue;
+            try
+            {
+                int c = 0;
+                result = instantiationCallback(l.Select(k => (TValue)t.ConvertTo(l[c++].Trim(), typeof(TValue))!).ToArray());
+                return true;
+            }
+            catch
+            {
+                break;
+            }
+        }
+        result = default!;
+        return false;
     }
 }

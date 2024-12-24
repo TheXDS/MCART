@@ -28,9 +28,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
+using TheXDS.MCART.Misc;
 using TheXDS.MCART.Types.Base;
 using TheXDS.MCART.Types.Extensions;
 
@@ -41,8 +43,8 @@ namespace TheXDS.MCART.Types;
 /// </summary>
 public class TypeFactory : IExposeAssembly
 {
-    private static readonly Dictionary<string, ModuleBuilder> _builtModules = new();
-    private static readonly Dictionary<string, AssemblyBuilder> _builtAssemblies = new();
+    private static readonly Dictionary<string, ModuleBuilder> _builtModules = [];
+    private static readonly Dictionary<string, AssemblyBuilder> _builtAssemblies = [];
 
     private readonly string _namespace;
     private readonly bool _useGuid;
@@ -60,6 +62,7 @@ public class TypeFactory : IExposeAssembly
     /// Inicializa una nueva instancia de la clase 
     /// <see cref="TypeFactory"/>.
     /// </summary>
+    [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
     public TypeFactory() : this("TheXDS.MCART.Types._Generated") { }
 
     /// <summary>
@@ -67,6 +70,7 @@ public class TypeFactory : IExposeAssembly
     /// <see cref="TypeFactory"/>.
     /// </summary>
     /// <param name="namespace"></param>
+    [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
     public TypeFactory(string @namespace) : this(@namespace, true) { }
 
     /// <summary>
@@ -77,6 +81,7 @@ public class TypeFactory : IExposeAssembly
     /// <see langword="true"/> para adjuntar un Guid al final del nombre de
     /// los tipos generados por medio de este <see cref="TypeFactory"/>.
     /// </param>
+    [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
     public TypeFactory(bool useGuid) : this()
     {
         _useGuid = useGuid;
@@ -93,13 +98,14 @@ public class TypeFactory : IExposeAssembly
     /// <see langword="true"/> para adjuntar un Guid al final del nombre de
     /// los tipos generados por medio de este <see cref="TypeFactory"/>.
     /// </param>
+    [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
     public TypeFactory(string @namespace, bool useGuid)
     {
         _namespace = @namespace;
         _useGuid = useGuid;
-        if (_builtModules.ContainsKey(@namespace))
+        if (_builtModules.TryGetValue(@namespace, out ModuleBuilder? value))
         {
-            _mBuilder = _builtModules[@namespace];
+            _mBuilder = value;
             _assembly = _builtAssemblies[@namespace];
         }
         else
@@ -201,7 +207,7 @@ public class TypeFactory : IExposeAssembly
     {
         var typeAttr = (typeof(T).Attributes & ~TypeAttributes.VisibilityMask & ~TypeAttributes.Abstract & ~TypeAttributes.ClassSemanticsMask) | TypeAttributes.Public;
         return typeof(T).IsInterface
-            ? new TypeBuilder<T>(_mBuilder.DefineType(GetName(name), typeAttr, typeof(object), new[] { typeof(T) }), false)
+            ? new TypeBuilder<T>(_mBuilder.DefineType(GetName(name), typeAttr, typeof(object), [typeof(T)]), false)
             : new TypeBuilder<T>(_mBuilder.DefineType(GetName(name), typeAttr, typeof(T), Type.EmptyTypes), true);
     }
 

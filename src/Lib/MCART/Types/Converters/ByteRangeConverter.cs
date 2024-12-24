@@ -28,6 +28,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System.ComponentModel;
+
 namespace TheXDS.MCART.Types.Converters;
 
 /// <summary>
@@ -36,6 +38,6 @@ namespace TheXDS.MCART.Types.Converters;
 /// <see cref="Range{T}" /> para rangos de tipo
 /// <see cref="byte" />.
 /// </summary>
-public class ByteRangeConverter : RangeConverter<byte>
+public class ByteRangeConverter : RangeConverter<byte, ByteConverter>
 {
 }

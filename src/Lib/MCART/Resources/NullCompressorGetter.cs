@@ -1,5 +1,5 @@
 ﻿/*
-CompressorAttributeTests.cs
+NullCompressorGetter.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,17 +28,35 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using TheXDS.MCART.Attributes;
+namespace TheXDS.MCART.Resources;
 
-namespace TheXDS.MCART.Tests.Attributes;
-
-public class CompressorAttributeTests
+/// <summary>
+/// <see cref="ICompressorGetter"/> que expone directamente un 
+/// <see cref="Stream"/> cuando el mismo no ha sido escrito utilizando
+/// un compresor.
+/// </summary>
+public sealed class NullCompressorGetter : ICompressorGetter
 {
-    [TestCase("test")]
-    [TestCase("ABCD")]
-    public void Instancing_test(string testValue)
-{
-        CompressorAttribute b = new(testValue);
-        Assert.That(testValue, Is.EqualTo(b.Value));
+    /// <summary>
+    /// Obtiene un <see cref="Stream"/>  que expone a 
+    /// <paramref name="inputStream"/> directamente.
+    /// </summary>
+    /// <param name="inputStream">
+    /// <see cref="Stream"/> que contiene la información a extraer.
+    /// </param>
+    /// <returns>
+    /// El mismo <see cref="Stream"/> que
+    /// <paramref name="inputStream"/>.
+    /// </returns>
+    public Stream GetCompressor(Stream inputStream)
+    {
+        return inputStream;
     }
+
+    /// <summary>
+    /// Obtiene la extensión utilizada de forma predeterminada para un
+    /// recurso comprimido utilizando este
+    /// <see cref="ICompressorGetter"/>.
+    /// </summary>
+    public string Extension => string.Empty;
 }

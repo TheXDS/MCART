@@ -1,5 +1,5 @@
 ﻿/*
-ThunkAttribute.cs
+IAsyncUnpacker.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,18 +28,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using static System.AttributeTargets;
+using System.Diagnostics.CodeAnalysis;
 
-namespace TheXDS.MCART.Attributes;
+namespace TheXDS.MCART.Resources;
 
 /// <summary>
-/// Indica que un elemento es un proveedor de Thunking (facilita la
-/// llamada a otros entornos o Frameworks).
+/// Contains the result of the async operation to unpack a resource.
 /// </summary>
-/// <remarks>
-/// Este atributo no debería aplicarse a sobrecargas de un método que
-/// no sea en sí mismo un método de Thunking.
-/// </remarks>
-[AttributeUsage(Property | Method | Class | Module | Assembly)]
-[Serializable]
-public sealed class ThunkAttribute : Attribute;
+/// <param name="Success"> Indicates whether the unpack operation succeeded. </param>
+/// <param name="Value"> Gets the result of the async unpack operation. </param>
+/// <typeparam name="T">Type of resource to be unpacked.</typeparam>
+public sealed record UnpackResult<T>([property: MemberNotNullWhen(true, "Value")] bool Success, T? Value)
+{
+    /// <summary>
+    /// Implicitly converts an object of type <see cref="UnpackResult{T}"/>
+    /// into a value tuple of <see cref="bool"/> and <typeparamref name="T"/>.
+    /// </summary>
+    /// <param name="result">Object converted to a tuple.</param>
+    public static implicit operator (bool success, T? value)(UnpackResult<T> result) => (result.Success, result.Value);
+}

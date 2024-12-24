@@ -32,6 +32,7 @@ SOFTWARE.
 
 using System.Collections;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -39,6 +40,8 @@ using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Extensions;
+using static System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes;
+using static TheXDS.MCART.Misc.AttributeErrorMessages;
 
 namespace TheXDS.MCART.Helpers;
 
@@ -127,9 +130,9 @@ public static partial class ReflectionHelpers
     /// Se produce si <paramref name="type"/> es
     /// <see langword="null"/>.
     /// </exception>
-    public static IEnumerable<T> FieldsOf<T>(this Type type)
+    public static IEnumerable<T> FieldsOf<T>([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicFields)]this Type type)
     {
-        FieldsOf_Contract(type);
+        ArgumentNullException.ThrowIfNull(type);
         return FieldsOf<T>(type.GetFields(BindingFlags.Static | BindingFlags.Public), null);
     }
 
@@ -142,6 +145,7 @@ public static partial class ReflectionHelpers
     /// Una enumeración de todas las instancias de objeto de tipo
     /// <typeparamref name="T"/> encontradas.
     /// </returns>
+    [RequiresUnreferencedCode(MethodScansForTypes)]
     public static IEnumerable<T> FindAllObjects<T>() where T : notnull
     {
         return FindAllObjects<T>((IEnumerable?)null);
@@ -163,6 +167,7 @@ public static partial class ReflectionHelpers
     /// Se produce si <paramref name="typeFilter"/> es
     /// <see langword="null"/>.
     /// </exception>
+    [RequiresUnreferencedCode(MethodScansForTypes)]
     public static IEnumerable<T> FindAllObjects<T>(Func<Type, bool> typeFilter) where T : notnull
     {
         return FindAllObjects<T>(null, typeFilter);
@@ -187,9 +192,10 @@ public static partial class ReflectionHelpers
     /// Se produce si <paramref name="typeFilter"/> es
     /// <see langword="null"/>.
     /// </exception>
+    [RequiresUnreferencedCode(MethodScansForTypes)]
     public static IEnumerable<T> FindAllObjects<T>(IEnumerable? ctorArgs, Func<Type, bool> typeFilter) where T : notnull
     {
-        FindAllObjects_Contract(ctorArgs, typeFilter);
+        ArgumentNullException.ThrowIfNull(typeFilter);
         return GetTypes<T>(true).NotNull().Where(typeFilter).Select(p => p.New<T>(false, ctorArgs)).Where(p => p is not null)!;
     }
 
@@ -205,6 +211,7 @@ public static partial class ReflectionHelpers
     /// Una enumeración de todas las instancias de objeto de tipo
     /// <typeparamref name="T"/> encontradas.
     /// </returns>
+    [RequiresUnreferencedCode(MethodScansForTypes)]
     public static IEnumerable<T> FindAllObjects<T>(IEnumerable? ctorArgs) where T : notnull
     {
         return GetTypes<T>(true).NotNull().Select(p => p.New<T>(false, ctorArgs)).Where(p => p is not null)!;
@@ -220,6 +227,7 @@ public static partial class ReflectionHelpers
     /// <see langword="null"/> si no se encuentra ningún tipo
     /// coincidente.
     /// </returns>
+    [RequiresUnreferencedCode(MethodScansForTypes)]
     public static T? FindFirstObject<T>() where T : notnull
     {
         return FindFirstObject<T>((IEnumerable?)null);
@@ -242,6 +250,7 @@ public static partial class ReflectionHelpers
     /// Se produce si <paramref name="typeFilter"/> es
     /// <see langword="null"/>.
     /// </exception>
+    [RequiresUnreferencedCode(MethodScansForTypes)]
     public static T? FindFirstObject<T>(Func<Type, bool> typeFilter) where T : notnull
     {
         return FindFirstObject<T>(null, typeFilter);
@@ -267,9 +276,10 @@ public static partial class ReflectionHelpers
     /// Se produce si <paramref name="typeFilter"/> es
     /// <see langword="null"/>.
     /// </exception>
+    [RequiresUnreferencedCode(MethodScansForTypes)]
     public static T? FindFirstObject<T>(IEnumerable? ctorArgs, Func<Type, bool> typeFilter) where T : notnull
     {
-        FindFirstObject_Contract(ctorArgs, typeFilter);
+        ArgumentNullException.ThrowIfNull(typeFilter);
         Type? t = GetTypes<T>(true).NotNull().FirstOrDefault(typeFilter);
         return t is not null ? t.New<T>(false, ctorArgs) : default;
     }
@@ -287,6 +297,7 @@ public static partial class ReflectionHelpers
     /// <see langword="null"/> si no se encuentra ningún tipo
     /// coincidente.
     /// </returns>
+    [RequiresUnreferencedCode(MethodScansForTypes)]
     public static T? FindFirstObject<T>(IEnumerable? ctorArgs) where T : notnull
     {
         Type? t = GetTypes<T>().FirstOrDefault(p => p.IsInstantiable(ctorArgs?.ToTypes().ToArray() ?? Type.EmptyTypes));
@@ -303,6 +314,7 @@ public static partial class ReflectionHelpers
     /// <see langword="null"/> si no se encuentra ningún tipo
     /// coincidente.
     /// </returns>
+    [RequiresUnreferencedCode(MethodScansForTypes)]
     public static T? FindSingleObject<T>() where T : notnull
     {
         return FindSingleObject<T>((IEnumerable?)null);
@@ -325,6 +337,7 @@ public static partial class ReflectionHelpers
     /// Se produce si <paramref name="typeFilter"/> es
     /// <see langword="null"/>.
     /// </exception>
+    [RequiresUnreferencedCode(MethodScansForTypes)]
     public static T? FindSingleObject<T>(Func<Type, bool> typeFilter) where T : notnull
     {
         return FindSingleObject<T>(null, typeFilter);
@@ -350,9 +363,10 @@ public static partial class ReflectionHelpers
     /// Se produce si <paramref name="typeFilter"/> es
     /// <see langword="null"/>.
     /// </exception>
+    [RequiresUnreferencedCode(MethodScansForTypes)]
     public static T? FindSingleObject<T>(IEnumerable? ctorArgs, Func<Type, bool> typeFilter) where T : notnull
     {
-        FindSingleObject_Contract(ctorArgs, typeFilter);
+        ArgumentNullException.ThrowIfNull(typeFilter);
         Type? t = GetTypes<T>(true).NotNull().SingleOrDefault(typeFilter);
         return t is not null ? t.New<T>(false, ctorArgs) : default;
     }
@@ -370,6 +384,7 @@ public static partial class ReflectionHelpers
     /// <see langword="null"/> si no se encuentra ningún tipo
     /// coincidente.
     /// </returns>
+    [RequiresUnreferencedCode(MethodScansForTypes)]
     public static T? FindSingleObject<T>(IEnumerable? ctorArgs) where T : notnull
     {
         Type? t = GetTypes<T>(true).NotNull().SingleOrDefault();
@@ -378,7 +393,7 @@ public static partial class ReflectionHelpers
 
     /// <summary>
     /// Busca en el <see cref="AppDomain" /> especificado un tipo que
-    /// contenga el <see cref="IdentifierAttribute" /> especificado.
+    /// contenga el <see cref="TagAttribute" /> especificado.
     /// </summary>
     /// <param name="identifier">Identificador a buscar.</param>
     /// <param name="domain">Dominio en el cual buscar.</param>
@@ -391,6 +406,7 @@ public static partial class ReflectionHelpers
     /// <paramref name="domain"/> son <see langword="null"/>.
     /// </exception>
     [Sugar]
+    [RequiresUnreferencedCode(MethodScansForTypes)]
     public static Type? FindType(string identifier, AppDomain domain)
     {
         return FindType<object>(identifier, domain);
@@ -398,7 +414,7 @@ public static partial class ReflectionHelpers
 
     /// <summary>
     /// Busca en el <see cref="AppDomain" /> actual un tipo que contenga el
-    /// <see cref="IdentifierAttribute" /> especificado.
+    /// <see cref="TagAttribute" /> especificado.
     /// </summary>
     /// <param name="identifier">Identificador a buscar.</param>
     /// <returns>
@@ -410,6 +426,7 @@ public static partial class ReflectionHelpers
     /// <see langword="null"/>.
     /// </exception>
     [Sugar]
+    [RequiresUnreferencedCode(MethodScansForTypes)]
     public static Type? FindType(string identifier)
     {
         return FindType<object>(identifier);
@@ -417,7 +434,7 @@ public static partial class ReflectionHelpers
 
     /// <summary>
     /// Busca en el <see cref="AppDomain" /> especificado un tipo que
-    /// contenga el <see cref="IdentifierAttribute" /> especificado.
+    /// contenga el <see cref="TagAttribute" /> especificado.
     /// </summary>
     /// <typeparam name="T">Restringir búsqueda a estos tipos.</typeparam>
     /// <param name="identifier">Identificador a buscar.</param>
@@ -430,18 +447,19 @@ public static partial class ReflectionHelpers
     /// Se produce si <paramref name="identifier"/> o
     /// <paramref name="domain"/> son <see langword="null"/>.
     /// </exception>
+    [RequiresUnreferencedCode(MethodScansForTypes)]
     public static Type? FindType<T>(string identifier, AppDomain domain)
     {
         FindType_Contract(identifier, domain);
         return GetTypes<T>(domain)
-            .FirstOrDefault(j => j.GetCustomAttributes(typeof(IdentifierAttribute), false)
-                .Cast<IdentifierAttribute>()
+            .FirstOrDefault(j => j.GetCustomAttributes(typeof(TagAttribute), false)
+                .Cast<TagAttribute>()
                 .Any(k => k.Value == identifier));
     }
 
     /// <summary>
     /// Busca en el <see cref="AppDomain" /> actual un tipo que contenga el
-    /// <see cref="IdentifierAttribute" /> especificado.
+    /// <see cref="TagAttribute" /> especificado.
     /// </summary>
     /// <typeparam name="T">Restringir búsqueda a estos tipos.</typeparam>
     /// <param name="identifier">Identificador a buscar.</param>
@@ -454,6 +472,7 @@ public static partial class ReflectionHelpers
     /// <see langword="null"/>.
     /// </exception>
     [Sugar]
+    [RequiresUnreferencedCode(MethodScansForTypes)]
     public static Type? FindType<T>(string identifier)
     {
         return FindType<T>(identifier, AppDomain.CurrentDomain);
@@ -475,6 +494,7 @@ public static partial class ReflectionHelpers
     /// <see cref="MethodImplAttribute"/> con el valor
     /// <see cref="MethodImplOptions.NoInlining"/>.
     /// </remarks>
+    [RequiresUnreferencedCode(MethodScansForTypes)]
     public static MethodBase? GetCallingMethod()
     {
         return GetCallingMethod(3);
@@ -506,6 +526,7 @@ public static partial class ReflectionHelpers
     /// <see cref="MethodImplAttribute"/> con el valor
     /// <see cref="MethodImplOptions.NoInlining"/>.
     /// </remarks>
+    [RequiresUnreferencedCode(MethodScansForTypes)]
     public static MethodBase? GetCallingMethod(int nCaller)
     {
         GetCallingMethod_Contract(nCaller);
@@ -522,6 +543,7 @@ public static partial class ReflectionHelpers
     /// actual.
     /// </returns>
     [Sugar]
+    [RequiresUnreferencedCode(MethodScansForTypes)]
     public static Assembly? GetEntryAssembly()
     {
         return GetEntryPoint()?.DeclaringType?.Assembly;
@@ -534,6 +556,7 @@ public static partial class ReflectionHelpers
     /// El método del punto de entrada de la aplicación actual.
     /// </returns>
     [Sugar]
+    [RequiresUnreferencedCode(MethodScansForTypes)]
     public static MethodInfo? GetEntryPoint()
     {
         return new StackTrace().GetFrames().Last().GetMethod() as MethodInfo;
@@ -736,7 +759,7 @@ public static partial class ReflectionHelpers
     /// Un <see cref="MethodInfo"/> que representa al método
     /// seleccionado en la expresión.
     /// </returns>
-    public static MethodInfo GetMethod<T, TMethod>(Expression<Func<T, TMethod>> methodSelector) where TMethod : Delegate
+    public static MethodInfo GetMethod<[DynamicallyAccessedMembers(PublicMethods | NonPublicMethods)]T, TMethod>(Expression<Func<T, TMethod>> methodSelector) where TMethod : Delegate
     {
         MethodInfo? m = GetMember<MethodInfo, T, TMethod>(methodSelector);
 
@@ -800,9 +823,9 @@ public static partial class ReflectionHelpers
     /// Una enumeración de las propiedades del tipo deseado contenidas dentro
     /// del tipo especificado.
     /// </returns>
-    public static IEnumerable<PropertyInfo> GetPropertiesOf<T>(this Type t, BindingFlags flags)
+    public static IEnumerable<PropertyInfo> GetPropertiesOf<T>([DynamicallyAccessedMembers(PublicProperties | NonPublicProperties)] this Type t, BindingFlags flags)
     {
-        return t.GetProperties(flags).Where(p => p.PropertyType.Implements<T>());
+        return t.GetProperties(flags).Where(p => p.PropertyType.IsAssignableTo(typeof(T)));
     }
 
     /// <summary>
@@ -815,9 +838,9 @@ public static partial class ReflectionHelpers
     /// Una enumeración de las propiedades del tipo deseado contenidas dentro
     /// del tipo especificado.
     /// </returns>
-    public static IEnumerable<PropertyInfo> GetPropertiesOf<T>(this Type t)
+    public static IEnumerable<PropertyInfo> GetPropertiesOf<T>([DynamicallyAccessedMembers(PublicProperties)] this Type t)
     {
-        return t.GetProperties().Where(p => p.PropertyType.Implements<T>());
+        return t.GetProperties().Where(p => p.PropertyType.IsAssignableTo(typeof(T)));
     }
 
     /// <summary>
@@ -898,6 +921,7 @@ public static partial class ReflectionHelpers
     /// <see cref="PublicTypes{T}()"/> o
     /// <see cref="PublicTypes{T}(AppDomain)"/>.
     /// </remarks>
+    [RequiresUnreferencedCode(MethodScansForTypes)]
     public static IEnumerable<Type> GetTypes<T>()
     {
         return typeof(T).Derivates();
@@ -928,6 +952,7 @@ public static partial class ReflectionHelpers
     /// <see cref="PublicTypes{T}()"/> o
     /// <see cref="PublicTypes{T}(AppDomain)"/>.
     /// </remarks>
+    [RequiresUnreferencedCode(MethodScansForTypes)]
     public static IEnumerable<Type> GetTypes<T>(AppDomain domain, in bool instantiablesOnly)
     {
         return domain.GetAssemblies().GetTypes<T>(instantiablesOnly);
@@ -955,6 +980,7 @@ public static partial class ReflectionHelpers
     /// <see cref="PublicTypes{T}(AppDomain)"/>.
     /// </remarks>
     [Sugar]
+    [RequiresUnreferencedCode(MethodScansForTypes)]
     public static IEnumerable<Type> GetTypes<T>(AppDomain domain)
     {
         return typeof(T).Derivates(domain);
@@ -982,6 +1008,7 @@ public static partial class ReflectionHelpers
     /// <see cref="PublicTypes{T}()"/> o
     /// <see cref="PublicTypes{T}(AppDomain)"/>.
     /// </remarks>
+    [RequiresUnreferencedCode(MethodScansForTypes)]
     public static IEnumerable<Type> GetTypes<T>(bool instantiablesOnly)
     {
         return GetTypes<T>(AppDomain.CurrentDomain, instantiablesOnly);
@@ -1013,6 +1040,7 @@ public static partial class ReflectionHelpers
     /// <see cref="PublicTypes{T}()"/> o
     /// <see cref="PublicTypes{T}(AppDomain)"/>.
     /// </remarks>
+    [RequiresUnreferencedCode(MethodScansForTypes)]
     public static IEnumerable<Type> GetTypes<T>(this IEnumerable<Assembly> assemblies, bool instantiablesOnly)
     {
         Type? TryType(Type k)
@@ -1063,6 +1091,7 @@ public static partial class ReflectionHelpers
     /// <see cref="PublicTypes{T}(AppDomain)"/>.
     /// </remarks>
     [Sugar]
+    [RequiresUnreferencedCode(MethodScansForTypes)]
     public static IEnumerable<Type> GetTypes<T>(this IEnumerable<Assembly> assemblies)
     {
         return typeof(T).Derivates(assemblies);
@@ -1085,10 +1114,9 @@ public static partial class ReflectionHelpers
     /// </returns>
     public static IEnumerable<T> PropertiesOf<T>(this IEnumerable<PropertyInfo> properties, object? instance)
     {
-        return
-            from j in properties.Where(p => p.CanRead)
-            where j.PropertyType.Implements(typeof(T))
-            select (T)j.GetMethod!.Invoke(instance, [])!;
+        return properties
+            .Where(p => p.CanRead && p.PropertyType.IsAssignableTo(typeof(T)))
+            .Select(j => (T)j.GetMethod!.Invoke(instance, [])!);
     }
 
     /// <summary>
@@ -1123,6 +1151,7 @@ public static partial class ReflectionHelpers
     /// <see cref="System.Reflection.Emit"/>). Para obtener una lista
     /// indiscriminada de tipos, utilice <see cref="GetTypes{T}()"/>.
     /// </remarks>
+    [RequiresUnreferencedCode(MethodScansForTypes)]
     public static IEnumerable<Type> PublicTypes()
     {
         return PublicTypes(AppDomain.CurrentDomain);
@@ -1150,9 +1179,10 @@ public static partial class ReflectionHelpers
     /// Se produce si <paramref name="domain"/> es
     /// <see langword="null"/>.
     /// </exception>
+    [RequiresUnreferencedCode(MethodScansForTypes)]
     public static IEnumerable<Type> PublicTypes(AppDomain domain)
     {
-        PublicTypes_Contract(domain);
+        ArgumentNullException.ThrowIfNull(domain);
         return domain.GetAssemblies()
             .Where(p => !p.IsDynamic)
             .SelectMany(SafeGetExportedTypes);
@@ -1178,6 +1208,7 @@ public static partial class ReflectionHelpers
     /// Se produce si <paramref name="domain"/> es
     /// <see langword="null"/>.
     /// </exception>
+    [RequiresUnreferencedCode(MethodScansForTypes)]
     public static IEnumerable<Type> PublicTypes(Type type, AppDomain domain)
     {
         PublicTypes_Contract(type, domain);
@@ -1199,6 +1230,7 @@ public static partial class ReflectionHelpers
     /// <see cref="System.Reflection.Emit"/>). Para obtener una lista
     /// indiscriminada de tipos, utilice <see cref="GetTypes{T}()"/>.
     /// </remarks>
+    [RequiresUnreferencedCode(MethodScansForTypes)]
     public static IEnumerable<Type> PublicTypes(Type type)
     {
         return PublicTypes(type, AppDomain.CurrentDomain);
@@ -1221,6 +1253,7 @@ public static partial class ReflectionHelpers
     /// <see cref="System.Reflection.Emit"/>). Para obtener una lista
     /// indiscriminada de tipos, utilice <see cref="GetTypes{T}()"/>.
     /// </remarks>
+    [RequiresUnreferencedCode(MethodScansForTypes)]
     public static IEnumerable<Type> PublicTypes<T>()
     {
         return PublicTypes(typeof(T));
@@ -1248,6 +1281,7 @@ public static partial class ReflectionHelpers
     /// Se produce si <paramref name="domain"/> es
     /// <see langword="null"/>.
     /// </exception>
+    [RequiresUnreferencedCode(MethodScansForTypes)]
     public static IEnumerable<Type> PublicTypes<T>(AppDomain domain)
     {
         return PublicTypes(typeof(T), domain);
@@ -1270,6 +1304,7 @@ public static partial class ReflectionHelpers
     /// Una enumeración de todos los métodos que tienen una firma
     /// compatible con <typeparamref name="T" />.
     /// </returns>
+    [RequiresUnreferencedCode(MethodCreatesDelegates)]
     public static IEnumerable<T> WithSignature<T>(this IEnumerable<MethodInfo> methods, object instance) where T : Delegate
     {
         foreach (MethodInfo? j in methods)
@@ -1320,6 +1355,7 @@ public static partial class ReflectionHelpers
         };
     }
 
+    [RequiresUnreferencedCode(MethodScansForTypes)]
     private static IEnumerable<Type> SafeGetExportedTypes(Assembly arg)
     {
         try
@@ -1329,6 +1365,6 @@ public static partial class ReflectionHelpers
         catch
         {
             return [];
-        }        
+        }
     }
 }

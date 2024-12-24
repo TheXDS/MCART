@@ -29,6 +29,9 @@ SOFTWARE.
 */
 
 using System.Reflection;
+using System.Runtime.CompilerServices;
+using TheXDS.MCART.Attributes;
+using System.Linq.Expressions;
 
 namespace TheXDS.MCART.Types.Base;
 
@@ -36,56 +39,64 @@ namespace TheXDS.MCART.Types.Base;
 /// Define una serie de miembros a implementar por un tipo que permita
 /// notificar cambios en los valores de propiedades.
 /// </summary>
-public interface INotifyPropertyChangeBase
+public interface INotifyPropertyChangeBase : IRefreshable
 {
     /// <summary>
-    /// Agrega un objeto al cual reenviar los eventos de cambio de
-    /// valor de propiedad.
+    /// Subscribes a delegate to be executed when a specific property changes its value.
     /// </summary>
-    /// <param name="source">
-    /// Objeto a registrar para el reenvío de eventos de cambio de
-    /// valor de propiedad.
-    /// </param>
-    void ForwardChange(INotifyPropertyChangeBase source);
+    /// <param name="property">Property to subscribe the action for.</param>
+    /// <param name="callback">Action to execute when the property changes its value.</param>
+    public void Subscribe(PropertyInfo? property, PropertyChangeObserver callback);
 
     /// <summary>
-    /// Notifica desde un punto externo el cambio en el valor de una propiedad.
+    /// Subscribes a delegate to be executed when any property changes its value.
     /// </summary>
-    /// <param name="properties">
-    /// Colección con los nombres de las propiedades a notificar.
-    /// </param>
-    void Notify(IEnumerable<PropertyInfo> properties);
+    /// <param name="callback">Action to execute when the property changes its value.</param>
+    public void Subscribe(PropertyChangeObserver callback);
 
     /// <summary>
-    /// Notifica desde un punto externo el cambio en el valor de una propiedad.
+    /// Subscribes a delegate to be executed when a specific property changes its value.
     /// </summary>
-    /// <param name="properties">
-    /// Colección con los nombres de las propiedades a notificar.
-    /// </param>
-    void Notify(IEnumerable<string> properties);
+    /// <param name="propertySelector">Expression that selects the property to subscribe the action for.</param>
+    /// <param name="callback">Action to execute when the property changes its value.</param>
+    public void Subscribe(Expression<Func<object?>> propertySelector, PropertyChangeObserver callback);
 
     /// <summary>
-    /// Notifica desde un punto externo el cambio en el valor de una propiedad.
+    /// Removes the previously subscribed property change observer.
     /// </summary>
-    /// <param name="properties">
-    /// Colección con los nombres de las propiedades a notificar.
-    /// </param>
-    void Notify(params string[] properties);
+    /// <param name="callback">Delegeta to unsubscribe.</param>
+    public void Unsubscribe(PropertyChangeObserver callback);
 
     /// <summary>
-    /// Notifica el cambio en el valor de una propiedad.
+    /// Removes all previously subscribed actions for the specified property.
     /// </summary>
     /// <param name="property">
-    /// Propiedad a notificar.
+    /// Property for which to remove all subscribed observers. If
+    /// <see langword="null"/> is passed, all global subcribers for this
+    /// instance will be removed.
     /// </param>
-    void Notify(string property);
+    /// <returns>
+    /// <see langword="true"/> if there was a previously registered callback to
+    /// invoke when the specified property changed its value and has beed
+    /// removed successfully, <see langword="false"/> otherwise.
+    /// </returns>
+    public bool Unsubscribe(PropertyInfo? property);
 
     /// <summary>
-    /// Quita un objeto de la lista de reenvíos de eventos de cambio de
-    /// valor de propiedad.
+    /// Removes all previously subscribed actions for the specified property.
     /// </summary>
-    /// <param name="source">
-    /// Elemento a quitar de la lista de reenvío.
+    /// <param name="propertySelector">
+    /// Expression that selects the property to unsubscribe the previously
+    /// subscribed actions for.
     /// </param>
-    void RemoveForwardChange(INotifyPropertyChangeBase source);
+    public bool Unsubscribe(Expression<Func<object?>> propertySelector);
 }
+
+/// <summary>
+/// Defines the signature of a method that executes an action when a property
+/// changes its value.
+/// </summary>
+/// <param name="instance">Instance where the property has changed its value.</param>
+/// <param name="property">Property that has changed its value.</param>
+/// <param name="notificationType">Indicates the type of notification that the observer is receiving.</param>
+public delegate void PropertyChangeObserver(object instance, PropertyInfo property, PropertyChangeNotificationType notificationType);

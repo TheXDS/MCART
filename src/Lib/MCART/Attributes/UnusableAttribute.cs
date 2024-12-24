@@ -33,8 +33,12 @@ using static System.AttributeTargets;
 namespace TheXDS.MCART.Attributes;
 
 /// <summary>
-/// Marca un elemento como no utilizable.
+/// Marks an element as unusable.
 /// </summary>
+/// <remarks>
+/// Code that checks for the presence of this attribute must refuse to run the
+/// annotated code and throw a new <see cref="InvalidOperationException"/>.
+/// </remarks>
 [AttributeUsage(All)]
 [Serializable]
 public sealed class UnusableAttribute : Attribute;

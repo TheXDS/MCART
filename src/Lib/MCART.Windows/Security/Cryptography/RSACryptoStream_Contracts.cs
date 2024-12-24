@@ -44,7 +44,7 @@ public partial class RSACryptoStream
     [DebuggerNonUserCode]
     private void Write_Contract(byte[] buffer, int offset, int count)
     {
-        NullCheck(buffer, nameof(buffer));
+        ArgumentNullException.ThrowIfNull(buffer, nameof(buffer));
         if (offset + count > buffer.Length) throw WindowsErrors.OffsetCountOutsideBuffer();
         if (offset < 0) throw new ArgumentOutOfRangeException(nameof(offset));
         if (count < 0) throw new ArgumentOutOfRangeException(nameof(count));

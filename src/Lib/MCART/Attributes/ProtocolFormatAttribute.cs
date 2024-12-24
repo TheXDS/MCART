@@ -29,41 +29,40 @@ SOFTWARE.
 */
 
 using System.Diagnostics;
-using static System.AttributeTargets;
 using static TheXDS.MCART.Misc.Internals;
 
 namespace TheXDS.MCART.Attributes;
 
 /// <summary>
-/// Establece un formato de protocolo para abrir un vínculo por medio
-/// del sistema operativo.
+/// Sets a protocol format to open a link through
+/// the operating system.
 /// </summary>
-/// <param name="format">Máscara a aplicar.</param>
-[AttributeUsage(Property | Field)]
+/// <param name="format">Mask to apply.</param>
+[AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
 [Serializable]
 public sealed class ProtocolFormatAttribute(string format) : TextAttribute(format), IValueAttribute<string>
 {
     /// <summary>
-    /// Formato de llamada de protocolo.
+    /// Protocol call format.
     /// </summary>
     public string Format { get; } = EmptyChecked(format);
 
     /// <summary>
-    /// Obtiene el valor de este atributo.
+    /// Gets the value of this attribute.
     /// </summary>
     string IValueAttribute<string>.Value => Format;
 
     /// <summary>
-    /// Abre un url con este protocolo formateado.
+    /// Opens a URL with this formatted protocol.
     /// </summary>
     /// <param name="url">
-    /// URL del recurso a abrir por medio del protocolo definido por
-    /// este atributo.
+    /// URL of the resource to open using the protocol defined by
+    /// this attribute.
     /// </param>
     /// <returns>
-    /// Una instancia de la clas <see cref="Process"/> que representa al
-    /// proceso del sistema operativo que ha sido cargado al abrir el 
-    /// <paramref name="url"/> especificado.
+    /// An instance of the class <see cref="Process"/> that represents the
+    /// operating system process that was loaded when opening the 
+    /// specified <paramref name="url"/>.
     /// </returns>
     public Process? Open(string url)
     {

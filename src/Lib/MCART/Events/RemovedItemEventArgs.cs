@@ -33,37 +33,36 @@ using TheXDS.MCART.Types;
 namespace TheXDS.MCART.Events;
 
 /// <summary>
-/// Contiene información para el evento
-/// <see cref="ListEx{T}.RemovedItem"/>.
+/// Contains information for the <see cref="ListEx{T}.RemovedItem"/> event.
 /// </summary>
-/// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
+/// <typeparam name="T">Type of elements on the list.</typeparam>
 /// <param name="removedItem">
-/// Elemento que ha sido eliminado de la colección.
+/// Element that has been removed from the list.
 /// </param>
 public class RemovedItemEventArgs<T>(T removedItem) : EventArgs
 {
     /// <summary>
-    /// Objeto que fue quitado del <see cref="ListEx{T}"/> que generó
-    /// el evento.
+    /// Gets the item that has been removed from the list.
     /// </summary>
     public T RemovedItem { get; } = removedItem;
 
     /// <summary>
-    /// Convierte implícitamente un
-    /// <see cref="RemovingItemEventArgs{T}"/> en un
+    /// Implicitly converts an object of type
+    /// <see cref="RemovingItemEventArgs{T}"/> to an object of type
     /// <see cref="RemovedItemEventArgs{T}"/>.
     /// </summary>
     /// <param name="from">
-    /// <see cref="RemovingItemEventArgs{T}"/> a convertir.
+    /// <see cref="RemovingItemEventArgs{T}"/> to be converted.
     /// </param>
     public static implicit operator RemovedItemEventArgs<T>(RemovingItemEventArgs<T> from) => new(from.RemovedItem);
 
     /// <summary>
-    /// Convierte implícitamente un <see cref="RemovedItemEventArgs{T}"/> en un
-    /// objeto de tipo <typeparamref name="T"/>.
+    /// Implicitly converts an object of type
+    /// <see cref="RemovedItemEventArgs{T}"/> to an object of type
+    /// <typeparamref name="T"/>.
     /// </summary>
     /// <param name="from">
-    /// <see cref="RemovedItemEventArgs{T}"/> a convertir.
+    /// <see cref="RemovedItemEventArgs{T}"/> to be converted.
     /// </param>
     public static implicit operator T(RemovedItemEventArgs<T> from) => from.RemovedItem;
 }

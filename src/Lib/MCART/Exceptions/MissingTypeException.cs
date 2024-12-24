@@ -31,92 +31,104 @@ SOFTWARE.
 namespace TheXDS.MCART.Exceptions;
 
 /// <summary>
-/// Excepción que se produce cuando un tipo requerido no ha sido encontrado.
+/// Exception that is thrown when a required type is not found.
 /// </summary>
 [Serializable]
 public class MissingTypeException : OffendingException<Type>
 {
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="MissingTypeException" />.
+    /// Initializes a new instance of the <see cref="MissingTypeException" />
+    /// class.
     /// </summary>
     public MissingTypeException()
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="MissingTypeException" />.
+    /// Initializes a new instance of the <see cref="MissingTypeException" />
+    /// class.
     /// </summary>
-    /// <param name="offendingObject">
-    /// Tipo que ha producido la excepción.
+    /// <param name="missingType">
+    /// Definition for the missing type that caused the exception.
     /// </param>
-    public MissingTypeException(Type offendingObject) : base(offendingObject)
+    public MissingTypeException(Type missingType) : base(missingType)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="MissingTypeException" />.
+    /// Initializes a new instance of the
+    /// <see cref="MissingTypeException" /> class.
     /// </summary>
     /// <param name="message">
-    /// Un <see cref="string" /> que describe a la excepción.
+    /// Message that describes the exception.
     /// </param>
     public MissingTypeException(string message) : base(message)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="MissingTypeException" />.
+    /// Initializes a new instance of the <see cref="MissingTypeException" />
+    /// class.
     /// </summary>
-    /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
+    /// <param name="inner">
+    /// <see cref="Exception" /> that is the cause of this exception.
+    /// </param>
     public MissingTypeException(Exception inner) : base(inner)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="MissingTypeException" />.
+    /// Initializes a new instance of the
+    /// <see cref="MissingTypeException" /> class.
     /// </summary>
     /// <param name="message">
-    /// Un <see cref="string" /> que describe a la excepción.
+    /// Message that describes the exception.
     /// </param>
-    /// <param name="offendingObject">
-    /// Tipo que ha producido la excepción.
+    /// <param name="missingType">
+    /// Definition for the missing type that caused the exception.
     /// </param>
-    public MissingTypeException(string message, Type offendingObject) : base(message, offendingObject)
+    public MissingTypeException(string message, Type missingType) : base(message, missingType)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="MissingTypeException" />.
+    /// Initializes a new instance of the <see cref="MissingTypeException" />
+    /// class.
     /// </summary>
-    /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
-    /// <param name="offendingObject">
-    /// Tipo que ha producido la excepción.
+    /// <param name="inner">
+    /// <see cref="Exception" /> that is the cause of this exception.
     /// </param>
-    public MissingTypeException(Exception inner, Type offendingObject) : base(inner, offendingObject)
+    /// <param name="missingType">
+    /// Definition for the missing type that caused the exception.
+    /// </param>
+    public MissingTypeException(Exception inner, Type missingType) : base(inner, missingType)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="MissingTypeException" />.
+    /// Initializes a new instance of the <see cref="MissingTypeException" />.
+    /// class.
     /// </summary>
-    /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
-    /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
+    /// <param name="message">Message that describes the exception.</param>
+    /// <param name="inner">
+    /// <see cref="Exception" /> that is the cause of this exception.
+    /// </param>
     public MissingTypeException(string message, Exception inner) : base(message, inner)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="MissingTypeException" />.
+    /// Initializes a new instance of the <see cref="MissingTypeException" />.
+    /// class.
     /// </summary>
-    /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
-    /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
-    /// <param name="offendingObject">
-    /// Tipo que ha producido la excepción.
+    /// <param name="message">Message that describes the exception.</param>
+    /// <param name="inner">
+    /// <see cref="Exception" /> that is the cause of this exception.
     /// </param>
-    public MissingTypeException(string message, Exception inner, Type offendingObject) : base(message, inner, offendingObject)
+    /// <param name="missingType">
+    /// Definition for the missing type that caused the exception.
+    /// </param>
+    public MissingTypeException(string message, Exception inner, Type missingType) : base(message, inner, missingType)
     {
     }
 }

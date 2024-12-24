@@ -33,51 +33,51 @@ using TheXDS.MCART.Resources;
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
-/// Define una serie de miembros a implementar para un tipo que exponga
-/// diversa información de identificación.
+/// Defines a set of members to be implemented by a type that exposes general
+/// identification information about an element.
 /// </summary>
 public interface IExposeInfo : INameable, IDescriptible
 {
     /// <summary>
-    /// Obtiene el autor del <see cref="IExposeInfo"/>.
+    /// Returns the author of the <see cref="IExposeInfo" />.
     /// </summary>
     IEnumerable<string>? Authors { get; }
 
     /// <summary>
-    /// Obtiene el Copyright del <see cref="IExposeInfo"/>
+    /// Gets the Copyright information from the <see cref="IExposeInfo"/>.
     /// </summary>
     string? Copyright { get; }
 
     /// <summary>
-    /// Obtiene un valor que indica si este <see cref="IExposeInfo"/>
-    /// contiene información de licencias de terceros.
+    /// Gets a value that indicates whether this <see cref="IExposeInfo"/>
+    /// contains third party licences.
     /// </summary>
     bool Has3rdPartyLicense => ThirdPartyLicenses?.Any() ?? false;
 
     /// <summary>
-    /// Obtiene un valor que indica si este <see cref="IExposeInfo"/>
-    /// contiene información de licencia.
+    /// Gets a value that indicates whether this <see cref="IExposeInfo"/>
+    /// contains license information.
     /// </summary>
     bool HasLicense => License is { };
 
     /// <summary>
-    /// Obtiene la versión informacional del <see cref="IExposeInfo"/>.
+    /// Gets the informational version of the <see cref="IExposeInfo"/>.
     /// </summary>
     string? InformationalVersion => Version?.ToString();
 
     /// <summary>
-    /// Obtiene la licencia del <see cref="IExposeInfo"/>
+    /// Gets the license for the <see cref="IExposeInfo" />.
     /// </summary>
     License? License { get; }
 
     /// <summary>
-    /// Obtiene una colección con el contenido de licencias de terceros
-    /// para el objeto.
+    /// Gets a collection that enumerates all the included components that are
+    /// marked as third-party on the <see cref="IExposeInfo"/>.
     /// </summary>
     IEnumerable<License>? ThirdPartyLicenses { get; }
 
     /// <summary>
-    /// Obtiene la versión del <see cref="IExposeInfo"/>
+    /// Gets the <see cref="IExposeInfo" /> version information.
     /// </summary>
     Version? Version { get; }
 }

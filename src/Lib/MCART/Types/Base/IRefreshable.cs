@@ -31,13 +31,13 @@ SOFTWARE.
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
-/// Describe una serie de miembros a implementar por una clase o
-/// estructura que permite refrescarse.
+/// Describes a set of members implemented by a type that can refresh its own
+/// state.
 /// </summary>
 public interface IRefreshable
 {
     /// <summary>
-    /// Refresca el estado de este objeto.
+    /// Refreshes the state of this object.
     /// </summary>
     void Refresh();
 }

@@ -1,29 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup Condition="'$(MSBuildProjectExtension)'=='.csproj'">
-    <Company>TheXDS! non-Corp.</Company>
-    <Product>Morgan's CLR Advanced Runtime</Product>
-    <AssemblyTitle>$(Description)</AssemblyTitle>
-    <Authors>César Andrés Morgan</Authors>
-    <Copyright>Copyright © 2011 - $([System.DateTime]::Today.Year) $(Authors)</Copyright>
-    <PackageProjectUrl>https://thexds.github.io/MCART</PackageProjectUrl>
-    <PackageIcon>MCART.png</PackageIcon>
-    <PackageTags>mcart runtime extension helper async network security</PackageTags>
-    <RepositoryUrl>https://github.com/TheXDS/MCART</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <Description>$(Product) es un conjunto de funciones, extensiones y módulos que he encontrado útiles a lo largo de mis años de experiencia con lenguajes .Net, particularmente con Visual Basic. Trata de añadir características que no se encuentran fácilmente disponibles en .Net Framework, y además añade controles, ventanas, recursos y otros objetos de utilidad.</Description>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageDescription>$(Description)</PackageDescription>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(VersionSuffix)'=='' OR '$(Configuration)'=='Release'">
-    <ActualPkgVersion>$(VersionPrefix)</ActualPkgVersion>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(VersionSuffix)'!='' AND '$(Configuration)'!='Release'">
-    <ActualPkgVersion>$(VersionPrefix)-$(VersionSuffix)</ActualPkgVersion>
-    <PackageReleaseNotes>Este paquete es una versión Pre-Release de $(Product), por lo que se recomienda que su uso se limite a pruebas y demostraciones de la API, ya que no se puede garantizar la estabilidad de la misma. Para más detalles, vea la documentación que acompaña a $(Product).</PackageReleaseNotes>
-  </PropertyGroup>
-  <ItemGroup>
-    <None Include="$(Root)Art\MCART.png" Pack="true" PackagePath="\"/>
-  </ItemGroup>
+	<PropertyGroup Condition="'$(MSBuildProjectExtension)'=='.csproj'">
+		<Company>TheXDS! non-Corp.</Company>
+		<Product>Morgan's CLR Advanced Runtime</Product>
+		<AssemblyTitle>$(Description)</AssemblyTitle>
+		<Authors>César Andrés Morgan</Authors>
+		<Copyright>Copyright © 2011 - $([System.DateTime]::Today.Year) $(Authors)</Copyright>
+		<PackageProjectUrl>https://thexds.github.io/MCART</PackageProjectUrl>
+		<PackageIcon>MCART.png</PackageIcon>
+		<PackageTags>mcart runtime extension helper async network security</PackageTags>
+		<RepositoryUrl>https://github.com/TheXDS/MCART</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<Description>$(Product) is a set of functions, extensions, and modules that I have found useful throughout my years of experience with .Net languages, particularly with Visual Basic. It aims to add features that are not easily available in .Net Framework, and also adds controls, windows, resources, and other utility objects.</Description>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageDescription>$(Description)</PackageDescription>
+		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(VersionSuffix)'=='' OR '$(Configuration)'=='Release'">
+		<ActualPkgVersion>$(VersionPrefix)</ActualPkgVersion>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(VersionSuffix)'!='' AND '$(Configuration)'!='Release'">
+		<ActualPkgVersion>$(VersionPrefix)-$(VersionSuffix)</ActualPkgVersion>
+		<PackageReleaseNotes>This package is a Pre-Release version of $(Product), so it is recommended that its use be limited to testing and demonstrations of the API, as stability cannot be guaranteed. For more details, see the documentation accompanying $(Product).</PackageReleaseNotes>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Include="$(Root)Art\MCART.png" Pack="true" PackagePath="\"/>
+	</ItemGroup>
 </Project>

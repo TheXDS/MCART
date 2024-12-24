@@ -28,8 +28,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Misc;
 
 namespace TheXDS.MCART.Resources;
 
@@ -37,23 +39,18 @@ namespace TheXDS.MCART.Resources;
 /// <see cref="AssemblyUnpacker{T}" /> que
 /// extrae recursos de texto.
 /// </summary>
-public class TextUnpacker : AssemblyUnpacker<string>
+/// <param name="assembly">
+/// <see cref="Assembly" /> desde donde se extraerán los recursos
+/// incrustados.
+/// </param>
+/// <param name="path">
+/// Ruta (en formato de espacio de nombre) donde se ubicarán los
+/// recursos incrustados.
+/// </param>
+[RequiresUnreferencedCode(AttributeErrorMessages.ClassScansForTypes)]
+[RequiresDynamicCode(AttributeErrorMessages.ClassCallsDynamicCode)]
+public class TextUnpacker(Assembly assembly, string path) : AssemblyUnpacker<string>(assembly, path)
 {
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase 
-    /// <see cref="AssemblyUnpacker{T}" />.
-    /// </summary>
-    /// <param name="assembly">
-    /// <see cref="Assembly" /> desde donde se extraerán los recursos
-    /// incrustados.
-    /// </param>
-    /// <param name="path">
-    /// Ruta (en formato de espacio de nombre) donde se ubicarán los
-    /// recursos incrustados.
-    /// </param>
-    public TextUnpacker(Assembly assembly, string path) : base(assembly, path)
-    {
-    }
 
     /// <summary>
     /// Obtiene un recurso identificable.
@@ -65,23 +62,6 @@ public class TextUnpacker : AssemblyUnpacker<string>
     public override string Unpack(string id)
     {
         using StreamReader? sr = new(UnpackStream(id) ?? throw new MissingResourceException(id));
-        return sr.ReadToEnd();
-    }
-
-    /// <summary>
-    /// Extrae un recurso comprimido utilizando el compresor con el
-    /// identificador especificado.
-    /// </summary>
-    /// <param name="id">Identificador del recurso.</param>
-    /// <param name="compressorId">
-    /// Identificador del compresor a utilizar para extraer al recurso.
-    /// </param>
-    /// <returns>
-    /// Un recurso sin comprimir como una cadena.
-    /// </returns>
-    public override string Unpack(string id, string compressorId)
-    {
-        using StreamReader? sr = new(UnpackStream(id, compressorId));
         return sr.ReadToEnd();
     }
 

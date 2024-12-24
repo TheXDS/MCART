@@ -31,31 +31,27 @@ SOFTWARE.
 namespace TheXDS.MCART.Events;
 
 /// <summary>
-/// Incluye información de evento para cualquier clase con eventos que
-/// incluyan tipos de valor.
+/// Includes event information for any event that includes some value
+/// associated with it, as well as being a base class for any such event args.
 /// </summary>
 /// <typeparam name="T">
-/// Tipo del valor almacenado por esta instancia.
+/// Type of value.
 /// </typeparam>
 /// <param name="value">Valor asociado al evento generado.</param>
 public class ValueEventArgs<T>(T value) : EventArgs
 {
     /// <summary>
-    /// Crea implícitamente un <see cref="ValueEventArgs{T}"/> a partir
-    /// de un valor <typeparamref name="T"/>.
+    /// Implicitly converts a value ot type <typeparamref name="T"/> into a
+    /// value of type <see cref="ValueEventArgs{T}"/>.
     /// </summary>
-    /// <param name="value">
-    /// Valor a partir del cual crear el nuevo
-    /// <see cref="ValueEventArgs{T}"/>.
-    /// </param>
+    /// <param name="value">Value to be converted.</param>
     public static implicit operator ValueEventArgs<T>(T value) => new(value);
 
     /// <summary>
-    /// Devuelve el valor asociado a este evento.
+    /// Gets the value associated with an event.
     /// </summary>
     /// <returns>
-    /// Un valor de tipo <typeparamref name="T" /> con el valor asociado a
-    /// este evento.
+    /// A value of type <typeparamref name="T" /> associated with the event.
     /// </returns>
     public T Value { get; } = value;
 }

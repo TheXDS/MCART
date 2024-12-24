@@ -35,27 +35,26 @@ using static TheXDS.MCART.Resources.Strings.Errors;
 namespace TheXDS.MCART.Exceptions;
 
 /// <summary>
-/// Excepción que se produce cuando se detecta que una función ha devuelto
-/// un valor inválido sin generar una excepción.
+/// Exception that is thrown when it's detected that a function returned an
+/// incorrect value without generating an exception itself.
 /// </summary>
 [Serializable]
 public class InvalidReturnValueException : Exception
 {
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="InvalidReturnValueException" />.
+    /// Initializes a new instance of the
+    /// <see cref="InvalidReturnValueException" /> class.
     /// </summary>
     public InvalidReturnValueException() : base(InvalidReturnValue)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="InvalidReturnValueException" /> especificando el delegado
-    /// que causó esta excepción.
+    /// Initializes a new instance of the
+    /// <see cref="InvalidReturnValueException" /> class.
     /// </summary>
     /// <param name="call">
-    /// <see cref="Delegate" /> cuyo resultado causó la excepción.
+    /// <see cref="Delegate" /> whose result produced the exception.
     /// </param>
     public InvalidReturnValueException(Delegate call) : this(call.Method.Name)
     {
@@ -63,12 +62,11 @@ public class InvalidReturnValueException : Exception
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="InvalidReturnValueException" /> especificando el delegado
-    /// que causó esta excepción.
+    /// Initializes a new instance of the
+    /// <see cref="InvalidReturnValueException" /> class.
     /// </summary>
     /// <param name="methodName">
-    /// Nombre del método cuyo resultado ha causado la excepción.
+    /// Name of the method whose result produced this exception.
     /// </param>
     public InvalidReturnValueException(string methodName) : base(string.Format(InvalidFuncReturnValue, methodName))
     {
@@ -76,15 +74,14 @@ public class InvalidReturnValueException : Exception
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="InvalidReturnValueException" /> especificando el delegado
-    /// que causó esta excepción.
+    /// Initializes a new instance of the
+    /// <see cref="InvalidReturnValueException" /> class.
     /// </summary>
     /// <param name="call">
-    /// <see cref="Delegate" /> cuyo resultado causó la excepción.
+    /// <see cref="Delegate" /> whose result produced the exception.
     /// </param>
     /// <param name="returnValue">
-    /// Valor inválido devuelto por <paramref name="call" />.
+    /// Invalid value returned by <paramref name="call" />.
     /// </param>
     public InvalidReturnValueException(Delegate call, object? returnValue) : this(call.Method.Name, returnValue)
     {
@@ -92,15 +89,14 @@ public class InvalidReturnValueException : Exception
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="InvalidReturnValueException" /> especificando el delegado
-    /// que causó esta excepción.
+    /// Initializes a new instance of the
+    /// <see cref="InvalidReturnValueException" /> class.
     /// </summary>
     /// <param name="methodName">
-    /// Nombre del método cuyo resultado ha causado la excepción.
+    /// Name of the method whose result produced this exception.
     /// </param>
     /// <param name="returnValue">
-    /// Valor inválido devuelto por el método.
+    /// Invalid value returned by the method.
     /// </param>
     public InvalidReturnValueException(string methodName, object? returnValue) : this(methodName, returnValue, null)
     {
@@ -109,32 +105,31 @@ public class InvalidReturnValueException : Exception
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="InvalidReturnValueException" />.
+    /// Initializes a new instance of the
+    /// <see cref="InvalidReturnValueException" /> class.
     /// </summary>
     /// <param name="message">
-    /// Un <see cref="string" /> que describe a la excepción.
+    /// Message that describes the exception.
     /// </param>
     /// <param name="inner">
-    /// <see cref="Exception" /> que es la causa de esta excepción.
+    /// <see cref="Exception" /> that is the cause of this exception.
     /// </param>
     public InvalidReturnValueException(string message, Exception? inner) : base(message, inner)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="InvalidReturnValueException" /> especificando el delegado
-    /// que causó esta excepción.
+    /// Initializes a new instance of the
+    /// <see cref="InvalidReturnValueException" /> class.
     /// </summary>
     /// <param name="call">
-    /// <see cref="Delegate" /> cuyo resultado causó la excepción.
+    /// <see cref="Delegate" /> whose result produced the exception.
     /// </param>
     /// <param name="returnValue">
-    /// Valor inválido devuelto por <paramref name="call" />.
+    /// Invalid value returned by <paramref name="call" />.
     /// </param>
     /// <param name="inner">
-    /// <see cref="Exception" /> que es la causa de esta excepción.
+    /// <see cref="Exception" /> that is the cause of this exception.
     /// </param>
     public InvalidReturnValueException(Delegate call, object? returnValue, Exception? inner) : this(call.Method.Name, returnValue, inner)
     {
@@ -142,18 +137,17 @@ public class InvalidReturnValueException : Exception
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="InvalidReturnValueException" /> especificando el delegado
-    /// que causó esta excepción.
+    /// Initializes a new instance of the
+    /// <see cref="InvalidReturnValueException" /> class.
     /// </summary>
     /// <param name="methodName">
-    /// Nombre del método cuyo resultado ha causado la excepción.
+    /// Name of the method whose result produced this exception.
     /// </param>
     /// <param name="returnValue">
-    /// Valor inválido devuelto por el método.
+    /// Invalid value returned by the method.
     /// </param>
     /// <param name="inner">
-    /// <see cref="Exception" /> que es la causa de esta excepción.
+    /// <see cref="Exception" /> that is the cause of this exception.
     /// </param>
     public InvalidReturnValueException(string methodName, object? returnValue, Exception? inner) : base(string.Format(InvalidFuncXReturnValue, methodName, returnValue ?? Common.Null), inner)
     {
@@ -162,27 +156,17 @@ public class InvalidReturnValueException : Exception
     }
 
     /// <summary>
-    /// Obtiene uan referencia al método que ha causado la excepción.
+    /// Gets a reference to the delegate that is the cause of the exception.
     /// </summary>
-    /// <returns>
-    /// Un <see cref="Delegate" /> que representa un método cuyo valor
-    /// devuelto causó la excepción.
-    /// </returns>
     public Delegate? OffendingFunction { get; }
 
     /// <summary>
-    /// Obtiene el nombre del método que ha causado la excepción.
+    /// Gets the name of the method that is the cause of the exception.
     /// </summary>
-    /// <returns>
-    /// El nombre de la función cuyo resultado causó la excepción.
-    /// </returns>
     public string? OffendingFunctionName { get; }
 
     /// <summary>
-    /// Obtiene el valor devuelto que ha causado la excepción.
+    /// Gets the value returned by the method that is the cause of the exception.
     /// </summary>
-    /// <returns>
-    /// El valor inválido devuelto por método, causante de la excepción.
-    /// </returns>
     public object? OffendingReturnValue { get; }
 }

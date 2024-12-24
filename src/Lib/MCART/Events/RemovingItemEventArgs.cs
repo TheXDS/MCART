@@ -34,23 +34,20 @@ using TheXDS.MCART.Types;
 namespace TheXDS.MCART.Events;
 
 /// <summary>
-/// Contiene información para el evento 
-/// <see cref="ListEx{T}.RemovingItem"/>.
+/// Contains information for the <see cref="ListEx{T}.AddingItem"/> event.
 /// </summary>
-/// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
-/// <param name="index">Índice del elemento que será removido.</param>
-/// <param name="removedItem">Elemento que será removido.</param>
+/// <typeparam name="T">Type of elements on the list.</typeparam>
+/// <param name="index">Index of the element that will be removed.</param>
+/// <param name="removedItem">Element that will be removed.</param>
 public class RemovingItemEventArgs<T>(int index, T removedItem) : CancelEventArgs
 {
     /// <summary>
-    /// Objeto que será removido del <see cref="ListEx{T}"/> que generó
-    /// el evento.
+    /// Gets the item that will be removed.
     /// </summary>
     public T RemovedItem { get; } = removedItem;
 
     /// <summary>
-    /// Índice del elemento que será removido del
-    /// <see cref="ListEx{T}"/> que generó el evento.
+    /// Gets the index of the item that will be removed.
     /// </summary>
     public int Index { get; } = index;
 }

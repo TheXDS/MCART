@@ -42,6 +42,6 @@ public static partial class MemberInfoExtensions
     [DebuggerNonUserCode]
     private static void HasAttrs_Contract(MemberInfo member)
     {
-        NullCheck(member, nameof(member));
+        ArgumentNullException.ThrowIfNull(member, nameof(member));
     }
 }

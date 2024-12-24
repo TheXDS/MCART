@@ -4,6 +4,8 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<AssemblyName>MCART.ViewModelFactory</AssemblyName>
+		<IsTrimmable>true</IsTrimmable>
+		<IsAotCompatible>true</IsAotCompatible>
 	</PropertyGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\..\Lib\MCART.Mvvm\MCART.Mvvm.csproj" />

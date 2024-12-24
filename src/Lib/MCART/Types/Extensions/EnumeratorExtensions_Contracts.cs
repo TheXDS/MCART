@@ -42,7 +42,7 @@ public static partial class EnumeratorExtensions
     [DebuggerNonUserCode]
     private static void Skip_Contract(IEnumerator enumerator, int steps)
     {
-        NullCheck(enumerator, nameof(enumerator));
+        ArgumentNullException.ThrowIfNull(enumerator, nameof(enumerator));
         if (steps < 0) throw new ArgumentOutOfRangeException(nameof(steps));
     }
 }

@@ -42,7 +42,7 @@ public static partial class MethodInfoExtensions
     [DebuggerNonUserCode]
     private static void ToDelegate_Contract(MethodInfo m, object? targetInstance)
     {
-        NullCheck(m, nameof(m));
+        ArgumentNullException.ThrowIfNull(m, nameof(m));
         if ((targetInstance is null && !m.IsStatic) || (targetInstance is not null && m.IsStatic)) throw new MemberAccessException();
     }
 
@@ -51,7 +51,7 @@ public static partial class MethodInfoExtensions
     [DebuggerNonUserCode]
     private static void IsVoid_Contract(MethodInfo m)
     {
-        NullCheck(m, nameof(m));
+        ArgumentNullException.ThrowIfNull(m, nameof(m));
     }
 
     [Conditional("EnforceContracts")]
@@ -59,6 +59,6 @@ public static partial class MethodInfoExtensions
     [DebuggerNonUserCode]
     private static void IsOverride_Contract(MethodInfo method)
     {
-        NullCheck(method, nameof(method));
+        ArgumentNullException.ThrowIfNull(method, nameof(method));
     }
 }

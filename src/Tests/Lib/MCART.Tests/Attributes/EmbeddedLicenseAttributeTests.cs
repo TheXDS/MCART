@@ -29,8 +29,6 @@ SOFTWARE.
 */
 
 using TheXDS.MCART.Attributes;
-using TheXDS.MCART.Exceptions;
-using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Tests.Attributes;
 
@@ -42,21 +40,5 @@ public class EmbeddedLicenseAttributeTests
         var a = new EmbeddedLicenseAttribute("value", "path");
         Assert.That("value", Is.EqualTo(a.Value));
         Assert.That("path", Is.EqualTo(a.Path));
-        Assert.That(typeof(NullGetter), Is.EqualTo(a.CompressorType));
-    }
-
-    [Test]
-    public void Ctor_string_string_type_test()
-    {
-        var a = new EmbeddedLicenseAttribute("value", "path", typeof(DeflateGetter));
-        Assert.That("value", Is.EqualTo(a.Value));
-        Assert.That("path", Is.EqualTo(a.Path));
-        Assert.That(typeof(DeflateGetter), Is.EqualTo(a.CompressorType));
-    }
-
-    [Test]
-    public void Ctor_string_string_type_contract_test()
-    {
-        Assert.Throws<InvalidTypeException>(()=> _ = new EmbeddedLicenseAttribute("value", "path", typeof(int)));
     }
 }

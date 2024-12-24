@@ -28,6 +28,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System.Diagnostics.CodeAnalysis;
+using TheXDS.MCART.Misc;
 using TheXDS.MCART.Types.Base;
 using St = TheXDS.MCART.Resources.Strings;
 
@@ -36,7 +38,14 @@ namespace TheXDS.MCART.Resources;
 /// <summary>
 /// Describe una licencia.
 /// </summary>
-public class License : INameable
+/// <remarks>
+/// Initializes a new instance of the <see cref="License"/>.
+/// </remarks>
+/// <param name="name">Nombre de la licencia.</param>
+/// <param name="uri">
+/// Uri que obtiene la ubicación del contenido de la licencia.
+/// </param>
+public class License(string name, Uri? uri) : INameable
 {
     private static License? _missing;
     private static License? _noLicense;
@@ -60,18 +69,20 @@ public class License : INameable
     /// <summary>
     /// Obtiene el nombre descriptivo de la licencia.
     /// </summary>
-    public string Name { get; }
+    public string Name { get; } = name;
 
     /// <summary>
     /// Obtiene la URL de la licencia.
     /// </summary>
-    public Uri? LicenseUri { get; }
+    public Uri? LicenseUri { get; } = uri;
 
     /// <summary>
     /// Obtiene el contenido de la licencia.
     /// </summary>
     public virtual string LicenseContent
     {
+        [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
+        [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
         get
         {
             if (LicenseUri is null) return St.Composition.Warn(St.Common.NoContent);
@@ -85,16 +96,5 @@ public class License : INameable
                 return St.Composition.Warn(St.Errors.ErrorLoadingLicense);
             }
         }
-    }
-
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="License"/>.
-    /// </summary>
-    /// <param name="name"></param>
-    /// <param name="uri"></param>
-    public License(string name, Uri? uri)
-    {
-        Name = name;
-        LicenseUri = uri;
     }
 }

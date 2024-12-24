@@ -51,12 +51,9 @@ public class NotifyPropertyChangingTests
 
         public int BrokenProperty
         {
-            set => Change(ref _value, value, null);
+            set => Change(ref _value, value, null!);
         }
-        public int BrokenProperty2
-        {
-            set => OnPropertyChanging(null);
-        }
+
         public object? Obj
         {
             get => _obj;
@@ -96,13 +93,6 @@ public class NotifyPropertyChangingTests
     }
 
     [Test]
-    public void OnPropertyChanging_Contract_Test()
-    {
-        TestClass x = new();
-        Assert.Throws<ArgumentNullException>(() => x.BrokenProperty2 = 2);
-    }
-
-    [Test]
     public void Change_With_Unchanging_Values_Test()
     {
         TestClass x = new() { Obj = null, Value = 0 };
@@ -127,19 +117,5 @@ public class NotifyPropertyChangingTests
         Assert.That(risen);
         Assert.That(1, Is.EqualTo(x.Value));
         x.PropertyChanging -= OnPropertyChanging;
-    }
-
-    [Test]
-    public void OnPropertyChanging_Forwards_Notifications_Test()
-    {
-        bool risen = false;
-        void OnPropertyChanging(object? sender, PropertyChangingEventArgs e) => risen = true;
-        TestClass x = new();
-        TestClass y = new();
-        x.ForwardChange(y);
-        y.PropertyChanging += OnPropertyChanging;
-        x.Value = 1;
-        Assert.That(risen);
-        y.PropertyChanging -= OnPropertyChanging;
     }
 }

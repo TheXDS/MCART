@@ -42,6 +42,6 @@ public static partial class AssemblyExtensions
     [DebuggerNonUserCode]
     private static void HasAttrs_Contract(Assembly assembly)
     {
-        NullCheck(assembly, nameof(assembly));
+        ArgumentNullException.ThrowIfNull(assembly, nameof(assembly));
     }
 }

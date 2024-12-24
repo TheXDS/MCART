@@ -28,6 +28,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Text;
 using TheXDS.MCART.Types.Extensions;
@@ -42,7 +44,7 @@ public static class Composition
 {
     private record class ExDumpSection(ExDumpOptions Flag, Func<Exception, IEnumerable<string>> StringCallback)
     {
-        public ExDumpSection(ExDumpOptions flag, Func<Exception, string> stringCallback) : this(flag, ex => new[] { stringCallback(ex) })
+        public ExDumpSection(ExDumpOptions flag, Func<Exception, string> stringCallback) : this(flag, ex => [stringCallback(ex)])
         {
         }
 
@@ -151,8 +153,8 @@ public static class Composition
 
     private static IEnumerable<string> ExDumpLines(Exception ex, ExDumpOptions options, int fixedTextWidth, int padding, bool isInner)
     {
-        IEnumerable<ExDumpSection?> exDumpOptionRegistry = new ExDumpSection?[]
-        {
+        IEnumerable<ExDumpSection?> exDumpOptionRegistry =
+        [
             isInner ? NewLine(padding, ExDumpOptions.TextWidthFormatted) : null,
             options.HasFlag(ExDumpOptions.TextWidthFormatted) ? null : Padding(padding),
             new(ExDumpOptions.Name, DumpName),
@@ -174,7 +176,7 @@ public static class Composition
             Separator(options, padding, fixedTextWidth, ExDumpOptions.LoadedAssemblies | ExDumpOptions.TextWidthFormatted),
             NewLine(padding, ExDumpOptions.LoadedAssemblies | ExDumpOptions.TextWidthFormatted),
             new(ExDumpOptions.LoadedAssemblies, DumpLoadedAssemblies),
-        };
+        ];
 
         Func<string, string> textTransform = options.HasFlag(ExDumpOptions.TextWidthFormatted)
             ? str => string.Join('\n', str.TextWrap(fixedTextWidth))
@@ -206,23 +208,20 @@ public static class Composition
     private static string DumpStackTrace(Exception e) => e.StackTrace ?? Errors.NoStackInfo;
     
     private static IEnumerable<string> DumpLoadedAssemblies() => AppDomain.CurrentDomain.GetAssemblies().Select(GetAsmInfo);
-    
+
     private static IEnumerable<string> DumpInner(ExDumpOptions options, int padding, int fixedTextWidth, Exception e)
     {
-        foreach (PropertyInfo j in e.GetType().GetProperties())
+        IEnumerable<string> DumpCollection(IEnumerable<Exception> exs) => exs.NotNull().SelectMany(ex => DumpSingleInner(options, padding, fixedTextWidth, ex));
+        return e switch
         {
-            switch (j.GetValue(e))
-            {
-                case IEnumerable<Exception?> exceptions:
-                    return exceptions.NotNull().SelectMany(ex => DumpSingleInner(options, padding, fixedTextWidth, ex));
-                case Exception inner:
-                    return DumpSingleInner(options, padding, fixedTextWidth, inner);
-            }
-        }
-        return Array.Empty<string>();
+            AggregateException { InnerExceptions: { } innerExs } when innerExs.Count > 0 => DumpCollection(innerExs),
+            ReflectionTypeLoadException { LoaderExceptions: { } exs } when exs.Length > 0 => DumpCollection(exs.NotNull()),
+            { InnerException: { } inner } => DumpSingleInner(options, padding, fixedTextWidth, inner),
+            _ => []
+        };
     }
     
     private static IEnumerable<string> DumpSingleInner(ExDumpOptions options, int padding, int fixedTextWidth, Exception e) => (!options.HasFlag(ExDumpOptions.TextWidthFormatted)
-        ? new[] { Environment.NewLine }
+        ? [Environment.NewLine]
         : Array.Empty<string>()).Concat(ExDumpLines(e, options & ~ExDumpOptions.LoadedAssemblies, fixedTextWidth, padding + 2, true));
 }

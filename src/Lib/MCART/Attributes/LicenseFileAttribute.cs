@@ -28,43 +28,43 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using static System.AttributeTargets;
+using TheXDS.MCART.Misc;
 using St = TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.Attributes;
 
 /// <summary>
-/// Establece un archivo de licencia externo a asociar con el elemento.
+/// Sets an external license file to associate with the element.
 /// </summary>
-[AttributeUsage(Class | Module | Assembly)]
-[Obsolete("Utilice LicenseUriAttribute en su lugar.")]
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Module | AttributeTargets.Assembly)]
+[Obsolete(AttributeErrorMessages.UseLicenseUriAttributeInstead)]
 public sealed class LicenseFileAttribute : TextAttribute
 {
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
+    /// Initializes a new instance of the class
     /// <see cref="LicenseFileAttribute" />.
     /// </summary>
     /// <param name="licenseFile">
-    /// Ruta del archivo de licencia adjunto.
+    /// Path of the attached license file.
     /// </param>
     public LicenseFileAttribute(string licenseFile) : base(licenseFile)
     {
-        // HACK: forma simple y efectiva de validad una ruta de archivo.
+        // HACK: simple and effective way to validate a file path.
         _ = new FileInfo(licenseFile);
     }
 
     /// <summary>
-    /// Lee el archivo de licencia especificado por este atributo.
+    /// Reads the license file specified by this attribute.
     /// </summary>
     /// <returns>
-    /// El contenido del archivo de licencia especificado.
+    /// The content of the specified license file.
     /// </returns>
     public string ReadLicense()
     {
         try
         {
-            using FileStream? fs = new(Value!, FileMode.Open);
-            using StreamReader? sr = new(fs);
+            using FileStream fs = new(Value, FileMode.Open);
+            using StreamReader sr = new(fs);
             return sr.ReadToEnd();
         }
         catch

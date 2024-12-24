@@ -34,8 +34,7 @@ using TheXDS.MCART.Types;
 namespace TheXDS.MCART.Events;
 
 /// <summary>
-/// Contiene información para el evento
-/// <see cref="ListEx{T}.InsertingItem"/>.
+/// Contains information for the <see cref="ListEx{T}.InsertingItem"/> event.
 /// </summary>
 /// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
 /// <param name="index">Índice del elemento a insertar.</param>
@@ -43,13 +42,12 @@ namespace TheXDS.MCART.Events;
 public class InsertingItemEventArgs<T>(int index, T insertedItem) : CancelEventArgs
 {
     /// <summary>
-    /// Obtiene el objeto que se insertará en el
-    /// <see cref="ListEx{T}"/>.
+    /// Element that will be inserted into the <see cref="ListEx{T}"/>.
     /// </summary>
     public T InsertedItem { get; } = insertedItem;
 
     /// <summary>
-    /// Obtiene el índice en el cual el objeto será insertado.
+    /// Index where the item will be inserted.
     /// </summary>
     public int Index { get; } = index;
 }

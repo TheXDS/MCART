@@ -43,8 +43,8 @@ public static partial class ListExtensions
     [DebuggerNonUserCode]
     private static void Shuffle_Contract<T>(IList<T> toShuffle, in int firstIdx, in int lastIdx, in int deepness, Random random)
     {
-        NullCheck(toShuffle, nameof(toShuffle));
-        NullCheck(random, nameof(random));
+        ArgumentNullException.ThrowIfNull(toShuffle, nameof(toShuffle));
+        ArgumentNullException.ThrowIfNull(random, nameof(random));
         if (!toShuffle.Any()) throw Errors.EmptyCollection(toShuffle);
         if (!firstIdx.IsBetween(0, toShuffle.Count - 1)) throw new IndexOutOfRangeException();
         if (!lastIdx.IsBetween(0, toShuffle.Count - 1)) throw new IndexOutOfRangeException();

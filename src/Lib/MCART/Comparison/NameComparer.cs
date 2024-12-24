@@ -34,18 +34,18 @@ using TheXDS.MCART.Types.Base;
 namespace TheXDS.MCART.Comparison;
 
 /// <summary>
-/// Compara el nombre de dos objetos.
+/// Compares the names of two objects.
 /// </summary>
 public class NameComparer : IEqualityComparer<INameable>
 {
     /// <summary>
-    /// Determina si los objetos especificados son iguales.
+    /// Determines whether the specified objects are equal.
     /// </summary>
-    /// <param name="x">Primer objeto a comparar.</param>
-    /// <param name="y">Segundo objeto a comparar.</param>
+    /// <param name="x">The first object to compare.</param>
+    /// <param name="y">The second object to compare.</param>
     /// <returns>
-    /// <see langword="true"/> si el nombre de ambos objetos es el
-    /// mismo, <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if the names of both objects are the same; 
+    /// <see langword="false"/> otherwise.
     /// </returns>
     public bool Equals([AllowNull] INameable x, [AllowNull] INameable y)
     {
@@ -53,13 +53,13 @@ public class NameComparer : IEqualityComparer<INameable>
     }
 
     /// <summary>
-    /// Obtiene el código Hash para el nombre del objeto especificado.
+    /// Gets the hash code for the name of the specified object.
     /// </summary>
     /// <param name="obj">
-    /// Objeto para el cual obtener un código Hash.
+    /// The object for which to obtain a hash code.
     /// </param>
     /// <returns>
-    /// El código hash para el nombre del objeto especificado.
+    /// The hash code for the name of the specified object.
     /// </returns>
     public int GetHashCode([DisallowNull] INameable obj)
     {

@@ -28,12 +28,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Windows.Data;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types.Extensions;
 using TheXDS.MCART.ValueConverters.Base;
 using MT = TheXDS.MCART.Types;
+using static TheXDS.MCART.Misc.AttributeErrorMessages;
 
 namespace TheXDS.MCART.ValueConverters;
 
@@ -41,54 +43,24 @@ namespace TheXDS.MCART.ValueConverters;
 /// Convierte valores desde y hacia objetos de tipo
 /// <see cref="MT.Color"/>.
 /// </summary>
+[RequiresUnreferencedCode(ClassScansForTypes)]
 public sealed class McartColorConverter : IValueConverter
 {
     private static readonly Dictionary<Type, IInValueConverter<MT.Color>> _converters = ReflectionHelpers.FindAllObjects<IInValueConverter<MT.Color>>().ToDictionary(p => p.TargetType);
 
-    /// <summary>
-    /// Convierte un <see cref="MT.Color"/> en un valor
-    /// compatible con el campo de destino.
-    /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="targetType">Tipo del destino.</param>
-    /// <param name="parameter">
-    /// Parámetros personalizados para este <see cref="IValueConverter" />.
-    /// </param>
-    /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
-    /// </param>
-    /// <returns>
-    /// Un valor compatible con el campo de destino, o
-    /// <see langword="null"/> si no es posible realizar la conversión.
-    /// </returns>
+    /// <inheritdoc/>
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo? culture)
     {
         if (value is not MT.Color c) return targetType.Default();
         if (targetType.IsAssignableFrom(value?.GetType())) return value;
-        return _converters.ContainsKey(targetType) ? _converters[targetType].Convert(c, targetType, parameter, culture) : targetType.Default();
+        return _converters.TryGetValue(targetType, out var converter) ? converter.Convert(c, targetType, parameter, culture) : targetType.Default();
     }
 
-    /// <summary>
-    /// Convierte un objeto en un 
-    /// <see cref="MT.Color"/>.
-    /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="targetType">Tipo del destino.</param>
-    /// <param name="parameter">
-    /// Parámetros personalizados para este <see cref="IValueConverter" />.
-    /// </param>
-    /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
-    /// </param>
-    /// <returns>
-    /// Un <see cref="MT.Color"/> creado a partir del
-    /// valor del objeto, o <see langword="null"/> si no es posible
-    /// realizar la conversión.
-    /// </returns>
+    /// <inheritdoc/>
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo? culture)
     {
         if (targetType != typeof(MT.Color)) return null;
         if (targetType.IsAssignableFrom(value?.GetType())) return value;
-        return _converters.ContainsKey(targetType) ? _converters[targetType].ConvertBack(value, targetType, parameter, culture) : targetType.Default();
+        return _converters.TryGetValue(targetType, out var converter) ? converter.ConvertBack(value, targetType, parameter, culture) : targetType.Default();
     }
 }

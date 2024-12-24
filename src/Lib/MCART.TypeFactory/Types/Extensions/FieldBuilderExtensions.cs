@@ -93,6 +93,6 @@ public static class FieldBuilderExtensions
     public static void InitField<T>(this FieldBuilder field, ILGenerator ilGen) where T : new()
     {
         if (typeof(T).IsValueType) InitField(field, ilGen, default(T)!);
-        else InitField(field, ilGen, typeof(T), Array.Empty<object>());
+        else InitField(field, ilGen, typeof(T), []);
     }
 }

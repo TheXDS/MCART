@@ -28,120 +28,119 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Misc;
 using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Base;
 using TheXDS.MCART.Types.Extensions;
-using static TheXDS.MCART.Misc.Internals;
 
 namespace TheXDS.MCART.Component;
 
 /// <summary>
-/// Expone la información de identificación de un ensamblado.
+/// Exposes information for an assembly.
 /// </summary>
+[RequiresUnreferencedCode(AttributeErrorMessages.ClassHeavilyUsesReflection)]
 public class AssemblyInfo : IExposeExtendedInfo, IExposeAssembly
 {
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="AssemblyInfo"/>
+    /// Initializes a new instance of the <see cref="AssemblyInfo"/> class.
     /// </summary>
+    [RequiresAssemblyFiles]
     public AssemblyInfo()
     {
         Assembly = Assembly.GetCallingAssembly();
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="AssemblyInfo"/>
+    /// Initializes a new instance of the <see cref="AssemblyInfo"/> class.
     /// </summary>
     /// <param name="assembly">
-    /// Ensamblado del cual se mostrará la información.
+    /// Assembly from which to extract the information.
     /// </param>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="assembly"/> es <see langword="null"/>.
+    /// Thrown if <paramref name="assembly"/> is <see langword="null"/>.
     /// </exception>
     public AssemblyInfo(Assembly assembly)
     {
-        NullCheck(assembly, nameof(assembly));
+        ArgumentNullException.ThrowIfNull(assembly);
         Assembly = assembly;
     }
 
     /// <summary>
-    /// Obtiene una referencia al ensamblado del cual se expone la información.
+    /// Gets a reference to the assembly for which information is being exposed.
     /// </summary>
     public Assembly Assembly { get; }
 
     /// <summary>
-    /// Devuelve el autor del <see cref="IExposeInfo" />
+    /// Returns the author of the <see cref="Assembly" />.
     /// </summary>
-    public IEnumerable<string>? Authors => Assembly.GetAttributes<AuthorAttribute>().Select(p => p.Value!).OrNull() ?? (Assembly.GetAttribute<AssemblyCompanyAttribute>()?.Company.OrNull() is { } company ? new[] { company } : null);
+    public IEnumerable<string>? Authors => Assembly.GetAttributes<AuthorAttribute>().Select(p => p.Value).OrNull() ?? (Assembly.GetAttribute<AssemblyCompanyAttribute>()?.Company.OrNull() is { } company ? new[] { company } : null);
 
     /// <summary>
-    /// Obtiene un valor que indica si este 
-    /// <see cref="IExposeExtendedInfo"/> es considerado una versión
-    /// beta.
+    /// Gets a value that indicates if the <see cref="Assembly"/> is considered
+    /// a Beta version.
     /// </summary>
     public bool Beta => Assembly.HasAttribute<BetaAttribute>();
 
     /// <summary>
-    /// Obtiene un valor que indica si este <see cref="IExposeInfo" />
-    /// cumple con el Common Language Standard (CLS)
+    /// Gets a value that indicates if this <see cref="Assembly"/> is Common
+    /// Language Specification (CLS) compliant.
     /// </summary>
     public bool ClsCompliant => Assembly.HasAttribute<CLSCompliantAttribute>();
 
     /// <summary>
-    /// Devuelve el Copyright del <see cref="IExposeInfo" />
+    /// Gets the Copyright information from the <see cref="Assembly" />.
     /// </summary>
     public string? Copyright => Assembly.GetAttribute<CopyrightAttribute>()?.Value ?? Assembly.GetAttribute<AssemblyCopyrightAttribute>()?.Copyright;
 
     /// <summary>
-    /// Devuelve una descripción del <see cref="IExposeInfo" />
+    /// Gets the description for the <see cref="Assembly" />.
     /// </summary>
     public string? Description => Assembly.GetAttribute<DescriptionAttribute>()?.Value ?? Assembly.GetAttribute<AssemblyDescriptionAttribute>()?.Description;
 
     /// <summary>
-    /// Obtiene un valor que indica si este <see cref="IExposeInfo"/>
-    /// contiene información de licencias de terceros.
+    /// Gets a value that indicates whether this <see cref="Assembly"/>
+    /// contains third party licences.
     /// </summary>
     public bool Has3rdPartyLicense => ThirdPartyLicenses.Any();
 
     /// <summary>
-    /// Obtiene un valor que determina si este <see cref="IExposeInfo" />
-    /// contiene información de licencia.
+    /// Gets a value that indicates whether this <see cref="Assembly"/>
+    /// contains license information.
     /// </summary>
-    public bool HasLicense => Internals.HasLicense(Assembly);
+    public bool HasLicense => Assembly.HasAttribute<LicenseAttributeBase>();
 
     /// <summary>
-    /// Obtiene la versión informacional del <see cref="IExposeInfo"/>.
+    /// Gets the informational version of the <see cref="Assembly"/>.
     /// </summary>
     public string? InformationalVersion => Assembly.GetAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? Version?.ToString();
 
     /// <summary>
-    /// Devuelve la licencia del <see cref="IExposeInfo" />
+    /// Gets the license for the <see cref="Assembly" />.
     /// </summary>
     public License? License => Assembly.GetAttributes<LicenseAttributeBase>().FirstOrDefault()?.GetLicense(Assembly);
 
     /// <summary>
-    /// Devuelve el nombre del <see cref="IExposeInfo" />
+    /// Gets the common name for the <see cref="Assembly" />.
     /// </summary>
     public string Name => Assembly.GetAttribute<NameAttribute>()?.Value ?? Assembly.GetAttribute<AssemblyTitleAttribute>()?.Title ?? Assembly.GetName().Name.OrNull() ?? Assembly.GetName().FullName;
 
     /// <summary>
-    /// Devuelve el autor del <see cref="Assembly" />
+    /// Gets the product name for the <see cref="Assembly" />.
     /// </summary>
     public string? Product => Assembly.GetAttribute<AssemblyProductAttribute>()?.Product;
 
     /// <summary>
-    /// Obtiene una colección con todos los componentes marcados como de
-    /// terceros en el ensamblado.
+    /// Gets a collection that enumerates all the included components that are
+    /// marked as third-party on the <see cref="Assembly"/>.
     /// </summary>
-    public IEnumerable<Type> ThirdPartyComponents => Assembly.SafeGetTypes().Where(Types.Extensions.MemberInfoExtensions.HasAttribute<ThirdPartyAttribute>);
+    public IEnumerable<Type> ThirdPartyComponents => Assembly.GetTypes().Where(Types.Extensions.MemberInfoExtensions.HasAttribute<ThirdPartyAttribute>);
 
     /// <summary>
-    /// Obtiene una colección con el contenido de licencias de terceros
-    /// para el objeto.
+    /// Gets a collection of all licenses from third-party components in the
+    /// <see cref="Assembly"/>.
     /// </summary>
     public IEnumerable<License> ThirdPartyLicenses
     {
@@ -155,19 +154,18 @@ public class AssemblyInfo : IExposeExtendedInfo, IExposeAssembly
     }
 
     /// <summary>
-    /// Devuelve la marca comercial del <see cref="Assembly" />
+    /// Gets the trademark of the <see cref="Assembly" />
     /// </summary>
     public string? Trademark => Assembly.GetAttribute<AssemblyTrademarkAttribute>()?.Trademark;
 
     /// <summary>
-    /// Obtiene un valor que indica si este
-    /// <see cref="IExposeExtendedInfo"/> podría contener código
-    /// utilizado en contexto inseguro.
+    /// Gets a value that indicates whether this <see cref="Assembly"/>
+    /// includes unmanaged code.
     /// </summary>
     public bool Unmanaged => Assembly.HasAttribute<UnmanagedAttribute>();
 
     /// <summary>
-    /// Devuelve la versión del <see cref="IExposeInfo" />
+    /// Gets the <see cref="Assembly" /> version information.
     /// </summary>
     public Version? Version => Assembly.GetName().Version;
 }

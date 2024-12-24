@@ -117,13 +117,13 @@ public class ListEx<T> : List<T>, ICloneable<ListEx<T>>
     public event EventHandler<ListUpdatedEventArgs<T>>? ListUpdated;
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase 
+    /// Initializes a new instance of the 
     /// <see cref="ListEx{T}" />.
     /// </summary>
     public ListEx() { }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
+    /// Initializes a new instance of the
     /// <see cref="ListEx{T}" />.
     /// </summary>
     /// <param name="collection">
@@ -132,7 +132,7 @@ public class ListEx<T> : List<T>, ICloneable<ListEx<T>>
     public ListEx(IEnumerable<T> collection) : base(collection) { }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
+    /// Initializes a new instance of the
     /// <see cref="ListEx{T}"/>.
     /// </summary>
     /// <param name="initialSize">Tamaño inicial de la lista.</param>

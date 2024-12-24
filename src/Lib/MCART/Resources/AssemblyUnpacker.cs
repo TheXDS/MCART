@@ -29,11 +29,7 @@ SOFTWARE.
 */
 
 using System.Reflection;
-using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
-using TheXDS.MCART.Helpers;
-using TheXDS.MCART.Types.Extensions;
-using static TheXDS.MCART.Types.Extensions.StringExtensions;
 
 namespace TheXDS.MCART.Resources;
 
@@ -42,30 +38,18 @@ namespace TheXDS.MCART.Resources;
 /// recursos incrustados desde un <see cref="Assembly"/>.
 /// </summary>
 /// <typeparam name="T">Tipo de recursos a extraer.</typeparam>
-public abstract partial class AssemblyUnpacker<T> : IUnpacker<T>
+/// <param name="assembly">
+/// <see cref="Assembly"/> desde donde se extraerán los recursos
+/// incrustados.
+/// </param>
+/// <param name="path">
+/// Ruta (en formato de espacio de nombre) donde se ubicarán los
+/// recursos incrustados.
+/// </param>
+public abstract partial class AssemblyUnpacker<T>(Assembly assembly, string path) : IUnpacker<T>
 {
-    readonly string _path;
-    readonly Assembly _assembly;
-
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase 
-    /// <see cref="AssemblyUnpacker{T}"/>.
-    /// </summary>
-    /// <param name="assembly">
-    /// <see cref="Assembly"/> desde donde se extraerán los recursos
-    /// incrustados.
-    /// </param>
-    /// <param name="path">
-    /// Ruta (en formato de espacio de nombre) donde se ubicarán los
-    /// recursos incrustados.
-    /// </param>
-    protected AssemblyUnpacker(Assembly assembly, string path)
-    {
-        _assembly = assembly ?? throw new ArgumentNullException(nameof(assembly));
-
-        // TODO: verificar validez de path
-        _path = path ?? throw new ArgumentNullException(nameof(path));
-    }
+    private readonly string _path = path ?? throw new ArgumentNullException(nameof(path));
+    private readonly Assembly _assembly = assembly ?? throw new ArgumentNullException(nameof(assembly));
 
     /// <summary>
     /// Obtiene un <see cref="Stream"/> desde el cual leer un recurso
@@ -82,38 +66,7 @@ public abstract partial class AssemblyUnpacker<T> : IUnpacker<T>
     protected Stream? UnpackStream(string id)
     {
         UnpackStream_Contract(id);
-        string[]? p = id.Split('.');
-        if (p.Length > 1)
-        {
-            string? c = p[^1];
-            return UnpackStream(id.ChopEnd(c), c);
-        }
         return _assembly.GetManifestResourceStream($"{_path}.{id}");
-    }
-
-    /// <summary>
-    /// Obtiene un <see cref="Stream"/> desde el cual extraer un recurso
-    /// incrustado comprimido.
-    /// </summary>
-    /// <param name="id">Identificador del recurso incrustado.</param>
-    /// <param name="compressorId">
-    /// Identificador del compresor a utilizar para extraer al recurso.
-    /// </param>
-    /// <returns>
-    /// Un <see cref="Stream"/> desde el cual leer un recurso incrustado
-    /// sin comprimir.
-    /// </returns>
-    /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="id"/> es una cadena vacía o
-    /// <see langword="null"/>, o si no se ha encontrado un 
-    /// <see cref="ICompressorGetter"/> con el identificador especificado o
-    /// si este es una cadena vacía.
-    /// </exception>
-    /// 
-    [Sugar]
-    protected Stream UnpackStream(string id, string compressorId)
-    {
-        return UnpackStream(id, ReflectionHelpers.FindType<ICompressorGetter>(compressorId)?.New<ICompressorGetter>() ?? new NullGetter());
     }
 
     /// <summary>
@@ -140,8 +93,8 @@ public abstract partial class AssemblyUnpacker<T> : IUnpacker<T>
     /// </exception>
     protected Stream UnpackStream(string id, ICompressorGetter? compressor)
     {
-        ICompressorGetter? c = compressor ?? new NullGetter();
-        if (id.IsEmpty()) throw new ArgumentNullException(nameof(id));
+        UnpackStream_Contract(id);
+        ICompressorGetter? c = compressor ?? new NullCompressorGetter();
         return c.GetCompressor(_assembly?.GetManifestResourceStream($"{_path}.{id}{c.Extension}") ?? throw new MissingResourceException(id));
     }
 
@@ -151,19 +104,6 @@ public abstract partial class AssemblyUnpacker<T> : IUnpacker<T>
     /// <param name="id">Identificador del recurso.</param>
     /// <returns>Un recurso de tipo <typeparamref name="T" />.</returns>
     public abstract T Unpack(string id);
-
-    /// <summary>
-    /// Extrae un recurso comprimido utilizando el compresor con el
-    /// identificador especificado.
-    /// </summary>
-    /// <param name="id">Identificador del recurso.</param>
-    /// <param name="compressorId">
-    /// Identificador del compresor a utilizar para extraer al recurso.
-    /// </param>
-    /// <returns>
-    /// Un recurso sin comprimir de tipo <typeparamref name="T" />.
-    /// </returns>
-    public abstract T Unpack(string id, string compressorId);
 
     /// <summary>
     /// Extrae un recurso comprimido utilizando el compresor con el
@@ -193,26 +133,6 @@ public abstract partial class AssemblyUnpacker<T> : IUnpacker<T>
     public virtual bool TryUnpack(string id, out T result)
     {
         return AssemblyUnpacker<T>.InternalTryUnpack(() => Unpack(id), out result);
-    }
-
-    /// <summary>
-    /// Intenta obtener un recurso identificable.
-    /// </summary>
-    /// <param name="id">Identificador del recurso.</param>
-    /// <param name="result">
-    /// Parámetro de salida. Un recurso de tipo 
-    /// <typeparamref name="T"/>.
-    /// </param>
-    /// <returns>
-    /// <see langword="true"/> si el recurso se extrajo 
-    /// satisfactoriamente, <see langword="false"/> en caso contrario.
-    /// </returns>
-    /// <param name="compressorId">
-    /// Identificador del compresor a utilizar para extraer el recurso.
-    /// </param>
-    public virtual bool TryUnpack(string id, string compressorId, out T result)
-    {
-        return AssemblyUnpacker<T>.InternalTryUnpack(() => Unpack(id, compressorId), out result);
     }
 
     /// <summary>

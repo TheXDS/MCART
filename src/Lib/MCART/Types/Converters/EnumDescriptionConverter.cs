@@ -29,8 +29,10 @@ SOFTWARE.
 */
 
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Misc;
 using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Types.Converters;
@@ -38,16 +40,10 @@ namespace TheXDS.MCART.Types.Converters;
 /// <summary>
 /// Convierte un valor de enumeración a su presentación amigable como una cadena.
 /// </summary>
-public class EnumDescriptionConverter : EnumConverter
+/// <param name="type">Tipo de enumeración a describir</param>
+[RequiresUnreferencedCode(AttributeErrorMessages.MethodGetsTypeMembersByName)]
+public class EnumDescriptionConverter([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)] Type type) : EnumConverter(type)
 {
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase 
-    /// <see cref="EnumDescriptionConverter"/>.
-    /// </summary>
-    /// <param name="type">Tipo de enumeración a describir</param>
-    public EnumDescriptionConverter(Type type) : base(type)
-    {
-    }
 
     /// <inheritdoc/>
     public override object? ConvertTo(ITypeDescriptorContext? context, CultureInfo? culture, object? value, Type destinationType)
@@ -61,12 +57,12 @@ public class EnumDescriptionConverter : EnumConverter
 
     static EnumDescriptionConverter()
     {
-        _converters = new Func<Enum, string?>[]
-        {
+        _converters =
+        [
             e => e.GetAttribute<LocalizedDescriptionAttribute>()?.Description,
             e => e.GetAttribute<System.ComponentModel.DescriptionAttribute>()?.Description,
             e => e.GetAttribute<Attributes.DescriptionAttribute>()?.Value,
             e => e.NameOf()
-        };
+        ];
     }
 }

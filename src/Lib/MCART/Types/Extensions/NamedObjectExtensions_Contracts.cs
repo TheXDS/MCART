@@ -37,7 +37,7 @@ public static partial class NamedObjectExtensions
 {
     private static Type AsNamedEnum_Contract(Type t)
     {
-        Internals.NullCheck(t, nameof(t));
+        ArgumentNullException.ThrowIfNull(t, nameof(t));
         Type? q = t.IsEnum ? t : Nullable.GetUnderlyingType(t)!;
         if (q is null || !q.IsEnum) throw new InvalidTypeException(t);
         return q;

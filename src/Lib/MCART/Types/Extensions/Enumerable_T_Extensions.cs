@@ -68,7 +68,7 @@ public static partial class EnumerableExtensions
     /// </returns>
     public static async IAsyncEnumerable<T> YieldAsync<T>(this IEnumerable<T> input, Func<T, Task> processor)
     {
-        NullCheck(input, nameof(input));
+        ArgumentNullException.ThrowIfNull(input, nameof(input));
         foreach (T? j in input)
         {
             await processor(j);
@@ -96,7 +96,7 @@ public static partial class EnumerableExtensions
     /// </returns>
     public static async IAsyncEnumerable<TOut> SelectAsync<TIn, TOut>(this IEnumerable<TIn> input, Func<TIn, Task<TOut>> selector)
     {
-        NullCheck(input, nameof(input));
+        ArgumentNullException.ThrowIfNull(input, nameof(input));
         foreach (TIn? j in input)
         {
             yield return await selector(j);
@@ -120,10 +120,11 @@ public static partial class EnumerableExtensions
     /// encuentra ningún elemento del tipo especificado.
     /// </returns>
     [return: MaybeNull]
+    [RequiresDynamicCode(Misc.AttributeErrorMessages.MethodCreatesNewTypes)]
     public static T FirstOf<T>(this IEnumerable<T> collection, Type type)
     {
         FirstOf_OfType_Contract<T>(type);
-        return collection.FirstOrDefault(p => p?.GetType().Implements(type) ?? false);
+        return collection.FirstOrDefault(p => p?.GetType().IsAssignableTo(type) ?? false);
     }
 
     /// <summary>
@@ -561,66 +562,6 @@ public static partial class EnumerableExtensions
                 break;
             }
         }
-    }
-
-    /// <summary>
-    /// Ordena una secuencia de elementos de acuerdo a su prioridad
-    /// indicada por el atributo <see cref="PriorityAttribute"/>.
-    /// </summary>
-    /// <typeparam name="T">
-    /// Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
-    /// </typeparam>
-    /// <param name="c"></param>
-    /// <returns></returns>
-    [Sugar]
-    public static IOrderedEnumerable<T> Prioritized<T>(this IEnumerable<T> c)
-    {
-        return Ordered<T, PriorityAttribute>(c);
-    }
-
-    /// <summary>
-    /// Ordena una secuencia de elementos de acuerdo a un valor de
-    /// atributo especificado.
-    /// </summary>
-    /// <typeparam name="T">
-    /// Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
-    /// </typeparam>
-    /// <typeparam name="TAttr">
-    /// Tipo de atributo del cual obtener el valor de orden.
-    /// </typeparam>
-    /// <typeparam name="TAttrValue">Tipo de valor de orden.</typeparam>
-    /// <param name="c">Colección a ordenar.</param>
-    /// <returns>
-    /// Una enumeración con los elementos de la secuencia especificada
-    /// ordenados de acuerdo al valor del atributo especificado.
-    /// </returns>
-    public static IOrderedEnumerable<T> Ordered<T, TAttr, TAttrValue>(this IEnumerable<T> c)
-        where TAttrValue : struct
-        where TAttr : Attribute, IValueAttribute<TAttrValue>
-    {
-        Type t = typeof(TAttrValue);
-        TAttrValue d = t.GetField(@"MaxValue", BindingFlags.Public | BindingFlags.Static) is { } f ? (TAttrValue)f.GetValue(null)! : default;
-        return c.OrderBy(p => p?.GetAttribute<TAttr>()?.Value ?? d);
-    }
-
-    /// <summary>
-    /// Ordena una secuencia de elementos de acuerdo a un valor de
-    /// atributo especificado.
-    /// </summary>
-    /// <typeparam name="T">
-    /// Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
-    /// </typeparam>
-    /// <typeparam name="TAttr">
-    /// Tipo de atributo del cual obtener el valor de orden.
-    /// </typeparam>
-    /// <param name="c">Colección a ordenar.</param>
-    /// <returns>
-    /// Una enumeración con los elementos de la secuencia especificada
-    /// ordenados de acuerdo al valor del atributo especificado.
-    /// </returns>
-    public static IOrderedEnumerable<T> Ordered<T, TAttr>(this IEnumerable<T> c) where TAttr : Attribute, IValueAttribute<int>
-    {
-        return c.OrderBy(p => p?.GetAttribute<TAttr>()?.Value ?? int.MaxValue);
     }
 
     /// <summary>

@@ -55,5 +55,5 @@ public interface ICompressorGetter
     /// recurso comprimido utilizando este
     /// <see cref="ICompressorGetter"/>.
     /// </summary>
-    string? Extension { get; }
+    string Extension { get; }
 }

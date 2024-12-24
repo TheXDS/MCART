@@ -42,8 +42,6 @@ namespace TheXDS.MCART.Types.Base;
 [DebuggerStepThrough]
 public abstract class ObservableWrapBase : NotifyPropertyChanged, INotifyCollectionChanged, IEnumerable
 {
-    private readonly IDictionary<NotifyPropertyChangeBase, HashSet<string>> _notifyRegistrar = new Dictionary<NotifyPropertyChangeBase, HashSet<string>>();
-
     /// <summary>
     /// Se produce al ocurrir un cambio en la colección.
     /// </summary>
@@ -56,10 +54,6 @@ public abstract class ObservableWrapBase : NotifyPropertyChanged, INotifyCollect
     protected void RaiseCollectionChanged(NcchEa eventArgs)
     {
         CollectionChanged?.Invoke(this, eventArgs);
-        foreach (KeyValuePair<NotifyPropertyChangeBase, HashSet<string>> j in _notifyRegistrar)
-        {
-            j.Key.Notify(j.Value);
-        }
     }
 
     /// <inheritdoc/>
@@ -129,28 +123,5 @@ public abstract class ObservableWrapBase : NotifyPropertyChanged, INotifyCollect
     public virtual bool Contains(object item)
     {
         return IndexOf(item) != -1;
-    }
-
-    /// <summary>
-    /// Envía notificaciones adicionales de cambio de propiedad al
-    /// ocurrir un cambio en esta colección.
-    /// </summary>
-    /// <param name="target">
-    /// Objetivo de notificación.
-    /// </param>
-    /// <param name="properties">
-    /// Propiedades a notificar.
-    /// </param>
-    public void ForwardNotify(NotifyPropertyChangeBase target, params string[] properties)
-    {
-        if (!_notifyRegistrar.ContainsKey(target))
-            _notifyRegistrar.Add(target, new HashSet<string>(properties));
-        else
-        {
-            foreach (string? j in properties)
-            {
-                _notifyRegistrar[target].Add(j);
-            }
-        }
     }
 }

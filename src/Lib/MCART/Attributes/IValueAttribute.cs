@@ -31,16 +31,16 @@ SOFTWARE.
 namespace TheXDS.MCART.Attributes;
 
 /// <summary>
-/// Define una interfaz para los atributos que expongan valores por
-/// medio de la propiedad <see cref="Value"/>.
+/// Defines an interface for attributes that expose values through
+/// the <see cref="Value"/> property.
 /// </summary>
 /// <typeparam name="T">
-/// Tipo del valor expuesto por este atributo.
+/// Type of the value exposed by this attribute.
 /// </typeparam>
 public interface IValueAttribute<out T>
 {
     /// <summary>
-    /// Obtiene el valor de este atributo.
+    /// Gets the value of this attribute.
     /// </summary>
     T Value { get; }
 }

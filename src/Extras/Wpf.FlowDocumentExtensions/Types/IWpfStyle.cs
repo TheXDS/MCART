@@ -34,32 +34,32 @@ using System.Windows.Media;
 namespace TheXDS.MCART.FlowDocumentExtensions.Types;
 
 /// <summary>
-/// Define una serie de miembros a implementar por una clase que
-/// describa estilos de elementos para Wpf.
+/// Defines a series of members to be implemented by a class that
+/// describes styles for WPF elements.
 /// </summary>
 public interface IWpfStyle
 {
     /// <summary>
-    /// Obtiene o establece un <see cref="Brush"/> a utilizar para
-    /// rellenar el fondo de un elemento de Wpf.
+    /// Gets or sets a <see cref="Brush"/> to be used for
+    /// filling the background of a WPF element.
     /// </summary>
     Brush? Background { get; set; }
 
     /// <summary>
-    /// Obtiene o establece un <see cref="Brush"/> a utilizar para
-    /// rellenar el frente de un elemento de Wpf.
+    /// Gets or sets a <see cref="Brush"/> to be used for
+    /// filling the foreground of a WPF element.
     /// </summary>
     Brush? Foreground { get; set; }
 
     /// <summary>
-    /// Obtiene o establece un <see cref="Brush"/> a utilizar para
-    /// dibujar los bordes de un elemento de Wpf.
+    /// Gets or sets a <see cref="Brush"/> to be used for
+    /// drawing the borders of a WPF element.
     /// </summary>
     Brush? BorderBrush { get; set; }
 
     /// <summary>
-    /// Obtiene o establece el grosor de los bordes a dibujar en el
-    /// elemento de Wpf.
+    /// Gets or sets the thickness of the borders to be drawn on the
+    /// WPF element.
     /// </summary>
     Thickness? BorderThickness { get; set; }
 }

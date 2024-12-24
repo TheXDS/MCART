@@ -31,19 +31,22 @@ SOFTWARE.
 namespace TheXDS.MCART.Events;
 
 /// <summary>
-/// Incluye información de evento para cualquier clase con eventos que
-/// incluyan tipos de valor e información sobre si dicho evento debe ser
-/// cancelado.
+/// Includes event information for any class that includes cancellable events
+/// with related event values, as well as being a balse class for any
+/// <see cref="EventArgs"/> that can support setting a cancellation flag with a
+/// relared event value.
 /// </summary>
 /// <typeparam name="T">
-/// Tipo del valor almacenado por esta instancia.
+/// Typeof value associated with the event being generated.
 /// </typeparam>
-/// <param name="value">Valor asociado al evento generado.</param>
+/// <param name="value">
+/// Value associated with thte event being generated.
+/// </param>
 public class CancelValueEventArgs<T>(T value) : ValueEventArgs<T>(value)
 {
     /// <summary>
-    /// Obtiene o establece un valor que indica si este evento debe ser
-    /// cancelado o no.
+    /// Gets or sets a value indicating whether the operation should be
+    /// cancelled or not.
     /// </summary>
     public bool Cancel { get; set; }
 }

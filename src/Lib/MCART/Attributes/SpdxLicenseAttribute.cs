@@ -29,53 +29,51 @@ SOFTWARE.
 */
 
 using TheXDS.MCART.Resources;
-using TheXDS.MCART.Types.Extensions;
-using static System.AttributeTargets;
 using static TheXDS.MCART.Misc.Internals;
 
 namespace TheXDS.MCART.Attributes;
 
 /// <summary>
-/// Marca un elemento con la licencia Open-Source correspondiente.
+/// Marks an element with the corresponding SPDX license.
 /// </summary>
-[AttributeUsage(Class | Module | Assembly)]
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Module | AttributeTargets.Assembly)]
 public sealed class SpdxLicenseAttribute : LicenseAttributeBase
 {
     /// <summary>
-    /// Marca al elemento con una licencia SPDX específica.
+    /// Marks the element with a specific SPDX license.
     /// </summary>
     /// <param name="license">
-    /// Licencia con la cual marcar al elemento.
+    /// License with which to mark the element.
     /// </param>
-    public SpdxLicenseAttribute(SpdxLicenseId license) : base(license.GetAttribute<NameAttribute>()?.Value ?? license.ToString())
+    public SpdxLicenseAttribute(SpdxLicenseId license) : base(license.ToString())
     {
         Id = CheckDefinedEnum(license, nameof(license));
     }
 
     /// <summary>
-    /// Marca al elemento con una expresión SPDX de licencia personalizada.
+    /// Marks the element with a custom SPDX license expression.
     /// </summary>
     /// <param name="spdxShortIdentifier">
-    /// Identificador de licencia según el estándar SPDX.
+    /// License identifier according to the SPDX standard.
     /// </param>
     public SpdxLicenseAttribute(string spdxShortIdentifier) : base(spdxShortIdentifier)
     {
-        if (System.Enum.TryParse(spdxShortIdentifier, false, out SpdxLicenseId id)) Id = id;
+        if (Enum.TryParse(spdxShortIdentifier, false, out SpdxLicenseId id)) Id = id;
     }
 
     /// <summary>
-    /// Obtiene el nombre corto de la licencia.
+    /// Gets the short name of the license.
     /// </summary>
     public SpdxLicenseId? Id { get; }
 
     /// <summary>
-    /// Obtiene una licencia asociada a este atributo.
+    /// Gets a license associated with this attribute.
     /// </summary>
     /// <param name="context">
-    /// Objeto del cual se ha extraído este atributo.
+    /// Object from which this attribute was extracted.
     /// </param>
     /// <returns>
-    /// Una licencia asociada a este atributo.
+    /// A license associated with this attribute.
     /// </returns>
     public override License GetLicense(object context)
     {

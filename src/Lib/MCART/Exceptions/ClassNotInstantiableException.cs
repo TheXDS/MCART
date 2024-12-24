@@ -33,7 +33,8 @@ using TheXDS.MCART.Resources.Strings;
 namespace TheXDS.MCART.Exceptions;
 
 /// <summary>
-/// Excepción que se produce cuando no es posible instanciar un tipo.
+/// Exception that is thrown when it's not possible to create an instance of a
+/// class.
 /// </summary>
 [Serializable]
 public class ClassNotInstantiableException : OffendingException<Type?>
@@ -45,86 +46,86 @@ public class ClassNotInstantiableException : OffendingException<Type?>
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="ClassNotInstantiableException" />.
+    /// Initializes a new instance of the
+    /// <see cref="ClassNotInstantiableException" /> class.
     /// </summary>
     public ClassNotInstantiableException() : base(DefaultMessage()) { }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="ClassNotInstantiableException" />.
+    /// Initializes a new instance of the
+    /// <see cref="ClassNotInstantiableException" /> class.
     /// </summary>
     /// <param name="offendingType">
-    /// Tipo que es la causa de esta excepción.
+    /// Type that is the cause of this exception.
     /// </param>
     public ClassNotInstantiableException(Type? offendingType) : base(DefaultMessage(offendingType), offendingType) { }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="ClassNotInstantiableException" />.
+    /// Initializes a new instance of the
+    /// <see cref="ClassNotInstantiableException" /> class.
     /// </summary>
     /// <param name="message">
-    /// Un <see cref="string" /> que describe a la excepción.
+    /// Message that describes the exception.
     /// </param>
     public ClassNotInstantiableException(string message) : base(message) { }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="ClassNotInstantiableException" />.
+    /// Initializes a new instance of the
+    /// <see cref="ClassNotInstantiableException" /> class.
     /// </summary>
     /// <param name="message">
-    /// Un <see cref="string" /> que describe a la excepción.
+    /// Message that describes the exception.
     /// </param>
     /// <param name="offendingType">
-    /// Tipo que es la causa de esta excepción.
+    /// Type that is the cause of this exception.
     /// </param>
     public ClassNotInstantiableException(string message, Type? offendingType) : base(message, offendingType) { }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="ClassNotInstantiableException" />.
+    /// Initializes a new instance of the
+    /// <see cref="ClassNotInstantiableException" /> class.
     /// </summary>
     /// <param name="inner">
-    /// <see cref="Exception" /> secundaria producida por esta excepción.
+    /// <see cref="Exception" /> that is the cause of this exception.
     /// </param>
     public ClassNotInstantiableException(Exception inner) : base(DefaultMessage(), inner) { }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="ClassNotInstantiableException" />.
+    /// Initializes a new instance of the
+    /// <see cref="ClassNotInstantiableException" /> class.
     /// </summary>
     /// <param name="inner">
-    /// <see cref="Exception" /> secundaria producida por esta excepción.
+    /// <see cref="Exception" /> that is the cause of this exception.
     /// </param>
     /// <param name="offendingType">
-    /// Tipo que es la causa de esta excepción.
+    /// Type that is the cause of this exception.
     /// </param>
     public ClassNotInstantiableException(Exception inner, Type? offendingType) : base(DefaultMessage(offendingType), inner, offendingType) { }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="ClassNotInstantiableException" />.
+    /// Initializes a new instance of the
+    /// <see cref="ClassNotInstantiableException" /> class.
     /// </summary>
     /// <param name="message">
-    /// Un <see cref="string" /> que describe a la excepción.
+    /// Message that describes the exception.
     /// </param>
     /// <param name="inner">
-    /// <see cref="Exception" /> secundaria producida por esta excepción.
+    /// <see cref="Exception" /> that is the cause of this exception.
     /// </param>
     public ClassNotInstantiableException(string message, Exception inner) : base(message, inner) { }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="ClassNotInstantiableException" />.
+    /// Initializes a new instance of the
+    /// <see cref="ClassNotInstantiableException" /> class.
     /// </summary>
     /// <param name="message">
-    /// Un <see cref="string" /> que describe a la excepción.
+    /// Message that describes the exception.
     /// </param>
     /// <param name="inner">
-    /// <see cref="Exception" /> secundaria producida por esta excepción.
+    /// <see cref="Exception" /> that is the cause of this exception.
     /// </param>
     /// <param name="offendingType">
-    /// Tipo que es la causa de esta excepción.
+    /// Type that is the cause of this exception.
     /// </param>
     public ClassNotInstantiableException(string message, Exception inner, Type? offendingType) : base(message, inner, offendingType) { }
 }

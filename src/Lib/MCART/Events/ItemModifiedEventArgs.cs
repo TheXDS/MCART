@@ -28,36 +28,31 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using TheXDS.MCART.Types;
-
 namespace TheXDS.MCART.Events;
 
 /// <summary>
-/// Contiene información para el evento
-/// <see cref="ListEx{T}.ModifiedItem"/>.
+/// Contains event information for an event that includes information on an
+/// item that has been Modified.
 /// </summary>
-/// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
+/// <typeparam name="T">Element type.</typeparam>
 public class ItemModifiedEventArgs<T> : EventArgs
 {
     /// <summary>
-    /// Convierte implícitamente un 
-    /// <see cref="ModifyingItemEventArgs{T}"/> en un
+    /// Implicitly converts an object of type
+    /// <see cref="ModifyingItemEventArgs{T}"/> into an object of type
     /// <see cref="ItemModifiedEventArgs{T}"/>.
     /// </summary>
-    /// <param name="from">
-    /// <see cref="ModifyingItemEventArgs{T}"/> a convertir.
+    /// <param name="from">Value to be converted.
     /// </param>
     public static implicit operator ItemModifiedEventArgs<T>(ModifyingItemEventArgs<T> from) => new(from.Index, from.NewValue);
 
     /// <summary>
-    /// Objeto que ha sido modificado dentro del
-    /// <see cref="ListEx{T}"/> que generó el evento.
+    /// Gets a reference to the item that has been modified.
     /// </summary>
     public T Item { get; }
 
     /// <summary>
-    /// Índice del objeto modificado dentro del <see cref="ListEx{T}"/>
-    /// que generó el evento.
+    /// Gets the index of the item that has been modified.
     /// </summary>
     public int Index { get; }
 

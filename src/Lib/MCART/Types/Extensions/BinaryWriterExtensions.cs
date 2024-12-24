@@ -28,10 +28,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Text;
+using TheXDS.MCART.Misc;
 using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Types.Extensions;
@@ -40,6 +44,8 @@ namespace TheXDS.MCART.Types.Extensions;
 /// Contiene extensiones útiles para la clase
 /// <see cref="BinaryWriter"/>.
 /// </summary>
+[RequiresUnreferencedCode(AttributeErrorMessages.ClassScansForTypes)]
+[RequiresDynamicCode(AttributeErrorMessages.ClassCallsDynamicCode)]
 public static partial class BinaryWriterExtensions
 {
     private readonly record struct BwDynCheck(bool CanWrite, object? PredicateContext)
@@ -67,15 +73,15 @@ public static partial class BinaryWriterExtensions
 
     private delegate BwDynCheck DynCheck(Type type);
     private delegate void DynWrite(object? predicateContext, BinaryWriter writer, object value);
-    
+
     private static readonly DynWriteSet[] DynamicWriteSets =
-    {
+    [
         new(t => t.IsArray, DynamicWriteArray),
         new(CanUseBinaryWriter, DynamicWriteBinaryWriter),
         new(CanUseBinaryWriterEx, DynamicWriteBinaryWriterEx),
         new(TypeExtensions.Implements<ISerializable>, DynamicWriteISerializable),
         new(TypeExtensions.IsStruct, ByFieldWriteStructInternal),
-    };
+    ];
 
     /// <summary>
     /// Escribe un <see cref="Guid"/> en el <see cref="BinaryWriter"/>
@@ -147,6 +153,8 @@ public static partial class BinaryWriterExtensions
     /// <param name="value">
     /// Objeto serializable a escribir.
     /// </param>
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
+    [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
     public static void Write(this BinaryWriter bw, ISerializable value)
     {
         DataContractSerializer? d = new(value.GetType());
@@ -295,6 +303,7 @@ public static partial class BinaryWriterExtensions
             : new (false);
     }
 
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
     private static BwDynCheck CanUseBinaryWriterEx(Type t)
     {
         return typeof(BinaryWriterExtensions).GetMethods().FirstOrDefault(p => CanExWrite(p, t)) is { } m
@@ -317,14 +326,16 @@ public static partial class BinaryWriterExtensions
 
     private static void DynamicWriteBinaryWriter(object? m, BinaryWriter bw, object value)
     {
-        ((MethodInfo)m!).Invoke(bw, new[] { value });
+        ((MethodInfo)m!).Invoke(bw, [value]);
     }
 
     private static void DynamicWriteBinaryWriterEx(object? m, BinaryWriter bw, object value)
     {
-        ((MethodInfo)m!).Invoke(null, new[] { bw, value });
+        ((MethodInfo)m!).Invoke(null, [bw, value]);
     }
 
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
+    [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
     private static void DynamicWriteISerializable(BinaryWriter bw, object value)
     {
         Write(bw, (ISerializable)value);

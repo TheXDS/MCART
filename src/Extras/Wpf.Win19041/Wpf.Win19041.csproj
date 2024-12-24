@@ -1,21 +1,23 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <UseWPF>true</UseWPF>
-    <EnableWindowsTargeting>true</EnableWindowsTargeting>
-	  <AssemblyName>MCART.Wpf.Win19041</AssemblyName>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<UseWPF>true</UseWPF>
+		<EnableWindowsTargeting>true</EnableWindowsTargeting>
+		<AssemblyName>MCART.Wpf.Win19041</AssemblyName>
+		<IsTrimmable>true</IsTrimmable>
+		<IsAotCompatible>true</IsAotCompatible>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\Lib\MCART.Windows\MCART.Windows.csproj" />
-    <ProjectReference Include="..\..\Lib\MCART\MCART.csproj" />
-    <ProjectReference Include="..\..\Platform\Wpf\MCART.Wpf.Common\MCART.Wpf.Common.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\Lib\MCART.Windows\MCART.Windows.csproj" />
+		<ProjectReference Include="..\..\Lib\MCART\MCART.csproj" />
+		<ProjectReference Include="..\..\Platform\Wpf\MCART.Wpf.Common\MCART.Wpf.Common.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Update="Microsoft.SourceLink.GitHub" Version="8.0.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Update="Microsoft.SourceLink.GitHub" Version="8.0.0" />
+	</ItemGroup>
 
 </Project>

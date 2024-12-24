@@ -38,7 +38,7 @@ namespace TheXDS.MCART.Resources;
 /// <see cref="DeflateStream"/> que puede ser utilizado para extraer
 /// información comprimida desde un <see cref="Stream"/>.
 /// </summary>
-[Identifier("deflate")]
+[Tag("deflate")]
 public sealed class DeflateGetter : ICompressorGetter
 {
     /// <summary>

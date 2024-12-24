@@ -42,7 +42,7 @@ public static partial class EnumerableExtensions
     [DebuggerNonUserCode]
     private static void FirstOf_OfType_Contract<T>(Type? type)
     {
-        NullCheck(type, nameof(type));
+        ArgumentNullException.ThrowIfNull(type, nameof(type));
         if (!typeof(T).IsAssignableFrom(type)) throw new InvalidTypeException(type!);
     }
 
@@ -51,6 +51,6 @@ public static partial class EnumerableExtensions
     [DebuggerNonUserCode]
     private static void Count_Contract(System.Collections.IEnumerable e)
     {
-        NullCheck(e, nameof(e));
+        ArgumentNullException.ThrowIfNull(e, nameof(e));
     }
 }

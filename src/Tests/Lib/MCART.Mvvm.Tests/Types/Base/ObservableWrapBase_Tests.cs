@@ -30,10 +30,7 @@ SOFTWARE.
 
 using System.Collections;
 using System.Collections.Specialized;
-using System.ComponentModel;
-using TheXDS.MCART.Tests;
 using TheXDS.MCART.Types.Base;
-using static TheXDS.MCART.Tests.EventTestHelpers;
 
 namespace TheXDS.MCART.Mvvm.Tests.Types.Base;
 
@@ -77,36 +74,5 @@ public class ObservableWrapBase_Tests
     {
         var c = new TestClass();
         Assert.That(c.IndexOf(item), Is.EqualTo(expectedIndex));
-    }
-
-    [Test]
-    public void ForwardNotify_test()
-    {
-        var intPropNotified = false;
-        var stringPropNotified = false;
-        var c = new TestClass();
-        var npc = new NpcTest();
-        c.ForwardNotify(npc, nameof(NpcTest.IntProperty));
-        c.ForwardNotify(npc, nameof(NpcTest.StringProperty));
-        TestEvents(npc, _ => c.ChangeCollection(),
-            new EventTestEntry<NpcTest, PropertyChangedEventHandler, PropertyChangedEventArgs>(nameof(NpcTest.PropertyChanged),
-                e =>
-                {
-                    switch (e.PropertyName)
-                    {
-                        case nameof(NpcTest.IntProperty):
-                            intPropNotified = true;
-                            break;
-                        case nameof(NpcTest.StringProperty):
-                            stringPropNotified = true;
-                            break;
-                        default:
-                            Assert.Fail();
-                            break;
-                    }
-                })
-        );
-        Assert.That(intPropNotified);
-        Assert.That(stringPropNotified);
     }
 }

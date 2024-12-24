@@ -42,7 +42,36 @@ namespace TheXDS.MCART.Helpers;
 /// </summary>
 public static partial class PasswordStorage
 {
-    private static IEnumerable<IPasswordStorage>? _algorithms;
+    private static readonly Dictionary<string, IPasswordStorage> _algorithms = [];
+
+    static PasswordStorage()
+    {
+        RegisterAlgorithm<Pbkdf2Storage>();
+    }
+
+    /// <summary>
+    /// Registers an algorithm to provide password hashing and verification
+    /// services.
+    /// </summary>
+    /// <typeparam name="T">
+    /// Type of algorithm to be registered. It must have a public parameterless
+    /// constructor.
+    /// </typeparam>
+    public static void RegisterAlgorithm<T>() where T : IPasswordStorage, new()
+    {
+        RegisterAlgorithm(new T());
+    }
+
+    /// <summary>
+    /// Registers an algorithm instance to provide password hashing and
+    /// verification services.
+    /// </summary>
+    /// <param name="alg">Algorithm instance to register.</param>
+    public static void RegisterAlgorithm(IPasswordStorage alg)
+    {
+        ArgumentNullException.ThrowIfNull(alg);
+        _algorithms.Add(alg.AlgId, alg);
+    }
 
     /// <summary>
     /// Crea un Hash seguro para almacenar la contraseña.
@@ -108,9 +137,7 @@ public static partial class PasswordStorage
             using var ms = new MemoryStream(hash);
             using var reader = new BinaryReader(ms);
             var id = reader.ReadString();
-            var algorithm = (_algorithms ??= ReflectionHelpers.FindAllObjects<IPasswordStorage>().ToArray()).SingleOrDefault(p => p.AlgId == id);
-            if (algorithm is null) return null;
-            CheckSettings(algorithm.Settings?.GetType());
+            if (!_algorithms.TryGetValue(id, out var algorithm)) return null;
             algorithm.ConfigureFrom(reader);
             return algorithm.Generate(password).SequenceEqual(reader.ReadBytes((int)ms.RemainingBytes()));
         }

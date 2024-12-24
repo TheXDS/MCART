@@ -36,13 +36,14 @@ SOFTWARE.
 */
 
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Math;
+using TheXDS.MCART.Misc;
 using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Extensions;
-using static TheXDS.MCART.Misc.Internals;
 using St = TheXDS.MCART.Resources.Strings.Common;
 
 namespace TheXDS.MCART.Helpers;
@@ -318,6 +319,8 @@ public static partial class Common
     /// Se produce si <paramref name="source"/> o <paramref name="target"/>
     /// son <see langword="null"/>.
     /// </exception>
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
+    [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
     public static TypeConverter? FindConverter(Type source, Type target)
     {
         /* BUG:
@@ -363,9 +366,11 @@ public static partial class Common
     /// <exception cref="ArgumentNullException">
     /// Se produce si <paramref name="target"/> es <see langword="null"/>.
     /// </exception>
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
+    [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
     public static TypeConverter? FindConverter(Type target)
     {
-        NullCheck(target, nameof(target));
+        ArgumentNullException.ThrowIfNull(target);
         return FindConverter(typeof(string), target);
     }
 
@@ -381,6 +386,8 @@ public static partial class Common
     /// <see langword="null" /> si no se ha encontrado un convertidor
     /// adecuado.
     /// </returns>
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
+    [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
     public static TypeConverter? FindConverter<T>()
     {
         return FindConverter(typeof(T));
@@ -397,6 +404,8 @@ public static partial class Common
     /// entre los tipos requeridos, o <see langword="null" /> si no se
     /// ha encontrado un convertidor adecuado.
     /// </returns>
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
+    [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
     public static TypeConverter? FindConverter<TSource, TTarget>()
     {
         return FindConverter(typeof(TSource), typeof(TTarget));
@@ -417,10 +426,12 @@ public static partial class Common
     /// Se produce si <paramref name="source"/> o <paramref name="target"/>
     /// son <see langword="null"/>.
     /// </exception>
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
+    [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
     public static IEnumerable<TypeConverter> FindConverters(Type source, Type target)
     {
-        NullCheck(source, nameof(source));
-        NullCheck(target, nameof(target));
+        ArgumentNullException.ThrowIfNull(source);
+        ArgumentNullException.ThrowIfNull(target);
         try
         {
             return ReflectionHelpers.PublicTypes<TypeConverter>()
@@ -549,7 +560,7 @@ public static partial class Common
     /// </param>
     public static void IfNotNull<T>(this T? value, Action<T> operation) where T : class
     {
-        IfNotNull_Contract(operation);
+        ArgumentNullException.ThrowIfNull(operation);
         if (value is not null) operation(value);
     }
 
@@ -565,7 +576,7 @@ public static partial class Common
     /// </param>
     public static void IfNotNull<T>(this T? value, Action<T> operation) where T : struct
     {
-        IfNotNull_Contract(operation);
+        ArgumentNullException.ThrowIfNull(operation);
         if (value is not null) operation(value.Value);
     }
 
@@ -722,7 +733,7 @@ public static partial class Common
     /// </exception>
     public static string Listed(this IEnumerable<string> collection)
     {
-        NullCheck(collection, nameof(collection));
+        ArgumentNullException.ThrowIfNull(collection, nameof(collection));
         return string.Join(Environment.NewLine, collection);
     }
 
@@ -877,7 +888,7 @@ public static partial class Common
     [Sugar]
     public static string ToHex(this byte[] arr)
     {
-        NullCheck(arr, nameof(arr));
+        ArgumentNullException.ThrowIfNull(arr, nameof(arr));
         return BitConverter.ToString(arr).Replace("-", "");
     }
 

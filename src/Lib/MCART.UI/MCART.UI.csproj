@@ -2,6 +2,8 @@
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
 		<Description>MCART UI Core</Description>
+		<IsTrimmable>true</IsTrimmable>
+		<IsAotCompatible>true</IsAotCompatible>
 	</PropertyGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\MCART\MCART.csproj" />

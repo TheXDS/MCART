@@ -28,16 +28,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using static System.AttributeTargets;
-
 namespace TheXDS.MCART.Attributes;
 
 /// <summary>
-/// Agrega un elemento de tipo a un elemento, además de ser la
-/// clase base para los atributos que describan un valor representable como
-/// <see cref="Type" /> para un elemento.
+/// Annotates an element with a type, and also serves as the
+/// base class for attributes that describe a value representable as
+/// a <see cref="Type" /> for an element.
 /// </summary>
-[AttributeUsage(All)]
+/// <param name="type">Type to associate to this element.</param>
+[AttributeUsage(AttributeTargets.All)]
 [Serializable]
 public class TypeAttribute(Type type) : Attribute, IValueAttribute<Type>
 {

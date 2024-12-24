@@ -30,8 +30,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System.Diagnostics.CodeAnalysis;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Helpers;
+using TheXDS.MCART.Misc;
 using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Types;
@@ -46,7 +48,7 @@ public class TypeExpression(string fullName)
     private readonly List<TypeExpression> _genericArgs = [];
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
+    /// Initializes a new instance of the
     /// <see cref="TypeExpression"/>, utilizando el tipo especificado como
     /// base.
     /// </summary>
@@ -64,6 +66,8 @@ public class TypeExpression(string fullName)
     /// <see cref="Type"/>.
     /// </summary>
     /// <param name="expression">Objeto a convertir.</param>
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
+    [RequiresDynamicCode(AttributeErrorMessages.MethodCreatesNewTypes)]
     public static implicit operator Type(TypeExpression expression) => expression.Resolve();
 
     /// <summary>
@@ -108,6 +112,8 @@ public class TypeExpression(string fullName)
     /// expresión representada por esta instancia si
     /// <paramref name="throwOnFail"/> se establece en <see langword="true"/>.
     /// </exception>
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
+    [RequiresDynamicCode(AttributeErrorMessages.MethodCreatesNewTypes)]
     public Type? Resolve(bool throwOnFail)
     {
         if (_genericArgs.Count != 0 && SearchTypeByName($"{_fullName}`{_genericArgs.Count}") is Type tg)
@@ -131,11 +137,15 @@ public class TypeExpression(string fullName)
     /// Se produce si no ha sido posible resolver el tipo a partir de la
     /// expresión representada por esta instancia.
     /// </exception>
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
+    [RequiresDynamicCode(AttributeErrorMessages.MethodCreatesNewTypes)]
     public Type Resolve()
     {
         return Resolve(true)!;
     }
 
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
+    [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
     private static Type? SearchTypeByName(string name)
     {
         return ReflectionHelpers.GetTypes<object>().NotNull().FirstOrDefault(p => p.FullName == name);

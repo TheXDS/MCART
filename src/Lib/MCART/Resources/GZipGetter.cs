@@ -38,8 +38,8 @@ namespace TheXDS.MCART.Resources;
 /// <see cref="GZipStream"/> que puede ser utilizado para extraer
 /// información comprimida desde un <see cref="Stream"/>.
 /// </summary>
-[Identifier("gzip")]
-[Identifier("gz")]
+[Tag("gzip")]
+[Tag("gz")]
 public sealed class GZipGetter : ICompressorGetter
 {
     /// <summary>

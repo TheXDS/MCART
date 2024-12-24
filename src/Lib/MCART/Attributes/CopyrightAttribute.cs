@@ -28,45 +28,68 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System.Reflection;
 using TheXDS.MCART.Types;
-using static System.AttributeTargets;
 
 namespace TheXDS.MCART.Attributes;
 
 /// <summary>
-/// Establece la información de Copyright del elemento.
+/// Sets the Copyright information of the element.
 /// </summary>
-/// <param name="copyright">Valor del atributo.</param>
-[AttributeUsage(Method | Class | Module | Assembly)]
+/// <param name="copyright">Value of the attribute.</param>
+[AttributeUsage(AttributeTargets.Method | AttributeTargets.Class | AttributeTargets.Module | AttributeTargets.Assembly)]
 [Serializable]
 public sealed class CopyrightAttribute(string copyright) : TextAttribute(GetCopyrightString(copyright))
 {
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="DescriptionAttribute" />.
+    /// Initializes a new instance of the
+    /// <see cref="DescriptionAttribute" /> class.
     /// </summary>
-    /// <param name="year">Año de registro del Copyright.</param>
-    /// <param name="holder">Poseedor del Copyright.</param>
-#if CLSCompliance
-    [CLSCompliant(false)]
-#endif
-    public CopyrightAttribute(ushort year, string holder) 
+    /// <param name="year">Year of Copyright registration.</param>
+    /// <param name="holder">Copyright holder.</param>
+    public CopyrightAttribute(int year, string holder)
         : this($"{year:0000} {holder}")
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="DescriptionAttribute" />.
+    /// Initializes a new instance of the
+    /// <see cref="DescriptionAttribute" /> class.
     /// </summary>
-    /// <param name="years">Años de registro del Copyright.</param>
-    /// <param name="holder">Poseedor del Copyright.</param>
-#if CLSCompliance
-    [CLSCompliant(false)]
-#endif
-    public CopyrightAttribute(Range<ushort> years, string holder) 
-        : this($"{years.Minimum:0000}-{years.Maximum:0000} {holder}") 
+    /// <param name="years">Years of Copyright registration.</param>
+    /// <param name="holder">Copyright holder.</param>
+    public CopyrightAttribute(Range<int> years, string holder)
+        : this($"{years.Minimum:0000}-{years.Maximum:0000} {holder}")
     {
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the
+    /// <see cref="DescriptionAttribute" /> class.
+    /// </summary>
+    /// <param name="startYear">Initial year of the Copyright</param>
+    /// <param name="endYear">Final year of the Copyright</param>
+    /// <param name="holder">Copyright holder.</param>
+    public CopyrightAttribute(int startYear, int endYear, string holder) : this(new Range<int>(startYear, endYear), holder)
+    {
+    }
+
+    /// <summary>
+    /// Implicitly converts a <see cref="CopyrightAttribute"/> object to an <see cref="AssemblyCopyrightAttribute"/>
+    /// </summary>
+    /// <param name="attribute">Object to convert</param>
+    public static implicit operator AssemblyCopyrightAttribute(CopyrightAttribute attribute)
+    {
+        return new AssemblyCopyrightAttribute(attribute.Value);
+    }
+
+    /// <summary>
+    /// Implicitly converts an <see cref="AssemblyCopyrightAttribute"/> object to a <see cref="CopyrightAttribute"/>
+    /// </summary>
+    /// <param name="attribute">Object to convert</param>
+    public static implicit operator CopyrightAttribute(AssemblyCopyrightAttribute attribute)
+    {
+        return new CopyrightAttribute(attribute.Copyright);
     }
 
     private static string GetCopyrightString(string input)

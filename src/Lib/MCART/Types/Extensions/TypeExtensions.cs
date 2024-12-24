@@ -42,6 +42,9 @@ using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Resources;
+using static TheXDS.MCART.Misc.AttributeErrorMessages;
+using static System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes;
+using TheXDS.MCART.Misc;
 
 namespace TheXDS.MCART.Types.Extensions;
 
@@ -137,6 +140,11 @@ public static partial class TypeExtensions
     /// Una cadena que representa la declaración del tipo utilizando 
     /// sintaxis de C#.
     /// </returns>
+    /// <remarks>
+    /// The types will use their full name, including their namespace. Types
+    /// with reserved keyword aliases (like <see langword="int"/> or
+    /// <see langword="string"/>) will use their type name instead.
+    /// </remarks>
     public static string CSharpName(this Type type)
     {
         return new StringBuilder()
@@ -157,7 +165,7 @@ public static partial class TypeExtensions
     /// <see langword="struct" />, o <see langword="null" /> si es una
     /// <see langword="class" />.
     /// </returns>
-    public static object? Default(this Type t)
+    public static object? Default([DynamicallyAccessedMembers(PublicParameterlessConstructor)] this Type t)
     {
         return t.IsValueType ? Activator.CreateInstance(t) : null;
     }
@@ -176,6 +184,7 @@ public static partial class TypeExtensions
     /// Una secuencia con todos los tipos descendientes del tipo
     /// especificado.
     /// </returns>
+    [RequiresUnreferencedCode(MethodScansForTypes)]
     public static IEnumerable<Type> Derivates(this Type type, AppDomain domain)
     {
         Derivates_Contract(domain);
@@ -197,10 +206,11 @@ public static partial class TypeExtensions
     /// Una secuencia con todos los tipos descendientes del tipo
     /// especificado.
     /// </returns>
+    [RequiresUnreferencedCode(MethodScansForTypes)]
     public static IEnumerable<Type> Derivates(this Type type, IEnumerable<Assembly> assemblies)
     {
         Derivates_Contract(assemblies);
-        List<Type> returnValue = new();
+        List<Type> returnValue = [];
         foreach (Assembly? j in assemblies)
         {
             IEnumerable<Type> types;
@@ -256,6 +266,7 @@ public static partial class TypeExtensions
     /// Una secuencia con todos los tipos descendientes del tipo
     /// especificado.
     /// </returns>
+    [RequiresUnreferencedCode(MethodScansForTypes)]
     public static IEnumerable<Type> Derivates(this Type type, params Assembly[] assemblies)
     {
         return Derivates(type, assemblies.AsEnumerable());
@@ -271,6 +282,7 @@ public static partial class TypeExtensions
     /// Una secuencia con todos los tipos descendientes del tipo
     /// especificado.
     /// </returns>
+    [RequiresUnreferencedCode(MethodScansForTypes)]
     public static IEnumerable<Type> Derivates(this Type type)
     {
         return Derivates(type, AppDomain.CurrentDomain);
@@ -311,9 +323,15 @@ public static partial class TypeExtensions
     /// definición del tipo, utilizando una convención común de colocar el
     /// tipo de elementos al final de los argumentos de tipo.
     /// </remarks>
-    public static Type GetCollectionType(this Type collectionType)
+#if EnforceContracts
+    [RequiresDynamicCode(MethodCallsDynamicCode)]
+    public static Type GetCollectionType([DynamicallyAccessedMembers(Interfaces)] this Type collectionType)
     {
         GetCollectionType_Contract(collectionType);
+#else
+    public static Type GetCollectionType(this Type collectionType)
+    {
+#endif
         if (collectionType.IsArray) return collectionType.GetElementType()!;
         return collectionType.GenericTypeArguments.Count() switch
         {
@@ -333,7 +351,7 @@ public static partial class TypeExtensions
     /// <returns>
     /// Una enumeración de los métodos definidos directamente en el tipo.
     /// </returns>
-    public static IEnumerable<MethodInfo> GetDefinedMethods(this Type type, BindingFlags flags)
+    public static IEnumerable<MethodInfo> GetDefinedMethods([DynamicallyAccessedMembers(PublicMethods | NonPublicMethods)] this Type type, BindingFlags flags)
     {
         return type.GetMethods(flags).Where(p => p.DeclaringType == type && p.IsSpecialName == false);
     }
@@ -346,7 +364,7 @@ public static partial class TypeExtensions
     /// <returns>
     /// Una enumeración de los métodos definidos directamente en el tipo.
     /// </returns>
-    public static IEnumerable<MethodInfo> GetDefinedMethods(this Type type)
+    public static IEnumerable<MethodInfo> GetDefinedMethods([DynamicallyAccessedMembers(PublicMethods | NonPublicMethods)] this Type type)
     {
         GetDefinedMethods_Contract(type);
         return GetDefinedMethods(type, BindingFlags.Public | BindingFlags.Instance);
@@ -363,7 +381,7 @@ public static partial class TypeExtensions
     /// tipo.
     /// </returns>
     [Sugar]
-    public static IEnumerable<PropertyInfo> GetPublicProperties(this Type type)
+    public static IEnumerable<PropertyInfo> GetPublicProperties([DynamicallyAccessedMembers(PublicProperties)] this Type type)
     {
         GetPublicProperties_Contract(type);
         return type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
@@ -426,6 +444,8 @@ public static partial class TypeExtensions
     /// a todos los tipos especificados, <see langword="false" /> en
     /// caso contrario.
     /// </returns>
+    [RequiresDynamicCode(MethodCreatesNewTypes)]
+    [RequiresUnreferencedCode(MethodCreatesNewTypes)]
     public static bool Implements(this Type type, IEnumerable<Type> baseTypes)
     {
         return baseTypes.Select(type.Implements).All(p => p);
@@ -441,6 +461,8 @@ public static partial class TypeExtensions
     /// <see langword="true" /> si <paramref name="type"/> implementa a <paramref name="baseType" />,
     /// <see langword="false" /> en caso contrario.
     /// </returns>
+    [RequiresDynamicCode(MethodCreatesNewTypes)]
+    [RequiresUnreferencedCode(MethodCreatesNewTypes)]
     public static bool Implements(this Type type, Type baseType, params Type[] typeArgs)
     {
         if (!baseType.ContainsGenericParameters) return baseType.IsAssignableFrom(type);
@@ -457,13 +479,14 @@ public static partial class TypeExtensions
     /// <see langword="true" /> si <paramref name="type" /> implementa a <paramref name="baseType" />,
     /// <see langword="false" /> en caso contrario.
     /// </returns>
-    public static bool Implements(this Type type, Type baseType)
+    [RequiresDynamicCode(MethodCreatesNewTypes)]
+    [RequiresUnreferencedCode(MethodCreatesNewTypes)]
+    public static bool Implements([DynamicallyAccessedMembers(Interfaces)] this Type type, Type baseType)
     {
         if (!baseType.ContainsGenericParameters) return baseType.IsAssignableFrom(type);
 
         if (baseType.GenericTypeArguments.Length == 0)
-            return (type.IsConstructedGenericType && type.GetGenericTypeDefinition() == baseType) || type.GetInterfaces().Any(p => p.Implements(baseType));
-
+            return (type.IsConstructedGenericType && type.GetGenericTypeDefinition() == baseType) || type.GetInterfaces().Any(([DynamicallyAccessedMembers(Interfaces)] p) => p.Implements(baseType));
         Type gt = baseType.MakeGenericType(type);
         return !gt.ContainsGenericParameters && gt.IsAssignableFrom(type);
     }
@@ -479,7 +502,7 @@ public static partial class TypeExtensions
     /// </returns>
     public static bool Implements<T>(this Type type)
     {
-        return Implements(type, typeof(T));
+        return type.IsAssignableTo(typeof(T));
     }
 
     /// <summary>
@@ -492,7 +515,7 @@ public static partial class TypeExtensions
     /// <see langword="true"/> si el operador existe en el tipo,
     /// <see langword="false"/> en caso contrario.
     /// </returns>
-    public static bool ImplementsOperator(this Type type, Func<Expression, Expression, BinaryExpression> @operator)
+    public static bool ImplementsOperator([DynamicallyAccessedMembers(PublicParameterlessConstructor)] this Type type, Func<Expression, Expression, BinaryExpression> @operator)
     {
         ConstantExpression c = Expression.Constant((Nullable.GetUnderlyingType(type) is { } t ? t : type).Default(), type);
         try
@@ -549,7 +572,8 @@ public static partial class TypeExtensions
     /// <see langword="false"/> en caso contrario.
     /// </returns>
     [Sugar]
-    public static bool IsCollectionType(this Type type) => type.Implements<IEnumerable>();
+    [RequiresDynamicCode(MethodCreatesNewTypes)]
+    public static bool IsCollectionType([DynamicallyAccessedMembers(Interfaces)] this Type type) => type.Implements<IEnumerable>();
 
     /// <summary>
     /// Obtiene un valor que determina si el tipo es instanciable.
@@ -564,7 +588,7 @@ public static partial class TypeExtensions
     /// un constructor con los parámetros del tipo especificado,
     /// <see langword="false" /> en caso contrario.
     /// </returns>
-    public static bool IsInstantiable(this Type type, IEnumerable<Type>? constructorArgs)
+    public static bool IsInstantiable([DynamicallyAccessedMembers(PublicConstructors)] this Type type, IEnumerable<Type>? constructorArgs)
     {
         return !(type.IsAbstract || type.IsInterface) && type.GetConstructor(constructorArgs?.ToArray() ?? Type.EmptyTypes) is not null;
     }
@@ -586,7 +610,7 @@ public static partial class TypeExtensions
     /// </returns>
     [DebuggerStepThrough]
     [Sugar]
-    public static bool IsInstantiable(this Type type, params Type[]? constructorArgs)
+    public static bool IsInstantiable([DynamicallyAccessedMembers(PublicConstructors)] this Type type, params Type[]? constructorArgs)
     {
         return IsInstantiable(type, constructorArgs?.AsEnumerable());
     }
@@ -600,9 +624,9 @@ public static partial class TypeExtensions
     /// un constructor sin parámetros, <see langword="false" /> en caso
     /// contrario.
     /// </returns>
-    public static bool IsInstantiable(this Type type)
+    public static bool IsInstantiable([DynamicallyAccessedMembers(PublicConstructors)] this Type type)
     {
-        return IsInstantiable(type, Array.Empty<Type>());
+        return IsInstantiable(type, []);
     }
 
     /// <summary>
@@ -660,7 +684,7 @@ public static partial class TypeExtensions
     /// </param>
     [DebuggerStepThrough]
     [Sugar]
-    public static object New(this Type type, params object?[] parameters)
+    public static object New([DynamicallyAccessedMembers(PublicConstructors)] this Type type, params object?[] parameters)
     {
         return type.New<object>(parameters);
     }
@@ -672,9 +696,9 @@ public static partial class TypeExtensions
     /// <param name="type">Tipo a instanciar.</param>
     [DebuggerStepThrough]
     [Sugar]
-    public static object New(this Type type)
+    public static object New([DynamicallyAccessedMembers(PublicConstructors)] this Type type)
     {
-        return type.New<object>(Array.Empty<object>());
+        return type.New<object>([]);
     }
 
     /// <summary>
@@ -717,9 +741,9 @@ public static partial class TypeExtensions
     /// <paramref name="throwOnFail"/> es <see langword="true"/>.
     /// </exception>
     [DebuggerStepThrough]
-    public static T? New<T>(this Type type, bool throwOnFail, IEnumerable? parameters)
+    public static T? New<T>([DynamicallyAccessedMembers(PublicConstructors)] this Type type, bool throwOnFail, IEnumerable? parameters)
     {
-        object?[] p = parameters?.ToGeneric().ToArray() ?? Array.Empty<object?>();
+        object?[] p = parameters?.ToGeneric().ToArray() ?? [];
         try
         {
             New_Contract(type, throwOnFail, p);
@@ -751,7 +775,7 @@ public static partial class TypeExtensions
     /// solicitado.
     /// </exception>
     [DebuggerStepThrough]
-    public static T New<T>(this Type type, params object?[] parameters)
+    public static T New<T>([DynamicallyAccessedMembers(PublicConstructors)] this Type type, params object?[] parameters)
     {
         return New<T>(type, true, parameters)!;
     }
@@ -768,9 +792,9 @@ public static partial class TypeExtensions
     /// <typeparam name="T">Tipo de instancia a devolver.</typeparam>
     [DebuggerStepThrough]
     [Sugar]
-    public static T New<T>(this Type type)
+    public static T New<T>([DynamicallyAccessedMembers(PublicConstructors)] this Type type)
     {
-        return type.New<T>(Array.Empty<object>());
+        return type.New<T>([]);
     }
 
     /// <summary>
@@ -818,9 +842,9 @@ public static partial class TypeExtensions
     /// <see langword="true"/>.
     /// </exception>
     [DebuggerStepThrough]
-    public static async Task<object?> NewAsync(this Type type, bool throwOnFail, IEnumerable? parameters)
+    public static async Task<object?> NewAsync([DynamicallyAccessedMembers(PublicConstructors)] this Type type, bool throwOnFail, IEnumerable? parameters)
     {
-        object?[] p = parameters?.ToGeneric().ToArray() ?? Array.Empty<object?>();
+        object?[] p = parameters?.ToGeneric().ToArray() ?? [];
         New_Contract(type, throwOnFail, p);
         try
         {
@@ -872,7 +896,7 @@ public static partial class TypeExtensions
     /// <paramref name="throwOnFail"/> se establece en
     /// <see langword="true"/>.
     /// </exception>
-    public static Task<object?> NewAsync(this Type type, bool throwOnFail)
+    public static Task<object?> NewAsync([DynamicallyAccessedMembers(PublicConstructors)] this Type type, bool throwOnFail)
     {
         return NewAsync(type, throwOnFail, null);
     }
@@ -909,7 +933,7 @@ public static partial class TypeExtensions
     /// instanciado utilizando un constructor público que acepte los
     /// parámetros especificados en <paramref name="parameters"/>.
     /// </exception>
-    public static Task<object?> NewAsync(this Type type, IEnumerable? parameters)
+    public static Task<object?> NewAsync([DynamicallyAccessedMembers(PublicConstructors)] this Type type, IEnumerable? parameters)
     {
         return NewAsync(type, true, parameters);
     }
@@ -941,7 +965,7 @@ public static partial class TypeExtensions
     /// Se produce si el tipo <paramref name="type"/> no puede ser
     /// instanciado utilizando un constructor público sin parámetros.
     /// </exception>
-    public static Task<object?> NewAsync(this Type type)
+    public static Task<object?> NewAsync([DynamicallyAccessedMembers(PublicConstructors)] this Type type)
     {
         return NewAsync(type, true);
     }
@@ -995,7 +1019,7 @@ public static partial class TypeExtensions
     /// <see langword="true"/>.
     /// </exception>
     [DebuggerStepThrough]
-    public static async Task<T> NewAsync<T>(this Type type, bool throwOnFail, IEnumerable? parameters)
+    public static async Task<T> NewAsync<T>([DynamicallyAccessedMembers(PublicConstructors)] this Type type, bool throwOnFail, IEnumerable? parameters)
     {
         object? r = await NewAsync(type, throwOnFail, parameters);
         if (r is T v) return v;
@@ -1039,7 +1063,7 @@ public static partial class TypeExtensions
     /// <paramref name="throwOnFail"/> se establece en
     /// <see langword="true"/>.
     /// </exception>
-    public static Task<T> NewAsync<T>(this Type type, bool throwOnFail)
+    public static Task<T> NewAsync<T>([DynamicallyAccessedMembers(PublicConstructors)] this Type type, bool throwOnFail)
     {
         return NewAsync<T>(type, throwOnFail, Array.Empty<object?>());
     }
@@ -1074,7 +1098,7 @@ public static partial class TypeExtensions
     /// instanciado utilizando un constructor público que acepte los
     /// parámetros especificados en <paramref name="parameters"/>.
     /// </exception>
-    public static Task<T> NewAsync<T>(this Type type, IEnumerable? parameters)
+    public static Task<T> NewAsync<T>([DynamicallyAccessedMembers(PublicConstructors)] this Type type, IEnumerable? parameters)
     {
         return NewAsync<T>(type, true, parameters);
     }
@@ -1102,7 +1126,7 @@ public static partial class TypeExtensions
     /// Se produce si el tipo <paramref name="type"/> no puede ser
     /// instanciado utilizando un constructor público sin parámetros.
     /// </exception>
-    public static Task<T> NewAsync<T>(this Type type)
+    public static Task<T> NewAsync<T>([DynamicallyAccessedMembers(PublicConstructors)] this Type type)
     {
         return NewAsync<T>(type, true);
     }
@@ -1134,7 +1158,8 @@ public static partial class TypeExtensions
     /// no es un tipo de colección.
     /// </returns>
     [Sugar]
-    public static Type ResolveCollectionType(this Type type) => type.IsCollectionType() ? type.GetCollectionType() : type;
+    [RequiresDynamicCode(MethodCreatesNewTypes)]
+    public static Type ResolveCollectionType([DynamicallyAccessedMembers(Interfaces)] this Type type) => type.IsCollectionType() ? type.GetCollectionType() : type;
 
     /// <summary>
     /// Se asegura de devolver un tipo definido en tiempo de
@@ -1169,6 +1194,8 @@ public static partial class TypeExtensions
     /// <exception cref="InvalidTypeException">
     /// Se produce si <paramref name="type"/> no es un tipo de enumeración.
     /// </exception>
+    [RequiresDynamicCode(MethodCallsDynamicCode)]
+    [RequiresUnreferencedCode(MethodGetsTypeMembersByName)]
     public static IEnumerable<NamedObject<Enum>> ToNamedEnum(this Type type)
     {
         ToNamedEnum_Contract(type);
@@ -1195,7 +1222,7 @@ public static partial class TypeExtensions
     /// en caso contrario.
     /// </returns>
     [Sugar]
-    public static bool TryInstance(this Type t, [MaybeNullWhen(false)] out object instance, params object[]? args)
+    public static bool TryInstance([DynamicallyAccessedMembers(PublicConstructors)] this Type t, [MaybeNullWhen(false)] out object instance, params object[]? args)
     {
         return TryInstance<object>(t, out instance, args);
     }
@@ -1221,7 +1248,7 @@ public static partial class TypeExtensions
     /// mismo se ha instanciado de forma correcta, <see langword="false"/>
     /// en caso contrario.
     /// </returns>
-    public static bool TryInstance<T>(this Type t, [MaybeNullWhen(false)] out T instance, params object[]? args)
+    public static bool TryInstance<T>([DynamicallyAccessedMembers(PublicConstructors)] this Type t, [MaybeNullWhen(false)] out T instance, params object[]? args)
     {
         TryInstance_Contract(t, args);
         if (!t.IsAbstract && !t.IsInterface && typeof(T).IsAssignableFrom(t) && t.GetConstructor(args?.ToTypes().ToArray() ?? Type.EmptyTypes) is { } ctor)

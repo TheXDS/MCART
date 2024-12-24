@@ -29,7 +29,6 @@ SOFTWARE.
 */
 
 using System.Globalization;
-using System.Windows.Data;
 using System.Windows.Media;
 using TheXDS.MCART.Types.Extensions;
 using TheXDS.MCART.ValueConverters.Base;
@@ -38,45 +37,18 @@ using MT = TheXDS.MCART.Types;
 namespace TheXDS.MCART.ValueConverters;
 
 /// <summary>
-/// Convierte valores desde y hacia objetos de tipo
-/// <see cref="MT.Color"/> y <see cref="Brush"/>.
+/// Converts values between the <see cref="MT.Color"/> and <see cref="Brush"/>
+/// types.
 /// </summary>
 public sealed class McartColor2BrushConverter : IValueConverter<MT.Color, Brush>
 {
-    /// <summary>
-    /// Convierte un <see cref="MT.Color"/> en un <see cref="Brush"/>.
-    /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="parameter">
-    /// Parámetros personalizados para este <see cref="IValueConverter" />.
-    /// </param>
-    /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
-    /// </param>
-    /// <returns>
-    /// Un <see cref="Brush"/> equivalente al <see cref="MT.Color"/> original.
-    /// </returns>
+    /// <inheritdoc/>
     public Brush Convert(MT.Color value, object? parameter, CultureInfo? culture)
     {
         return WpfColorExtensions.Brush(value);
     }
 
-    /// <summary>
-    /// Convierte un <see cref="Brush"/> en un 
-    /// <see cref="MT.Color"/>.
-    /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="parameter">
-    /// Parámetros personalizados para este <see cref="IValueConverter" />.
-    /// </param>
-    /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
-    /// </param>
-    /// <returns>
-    /// Un <see cref="MT.Color"/> creado a partir del
-    /// valor del objeto, o <see langword="null"/> si no es posible
-    /// realizar la conversión.
-    /// </returns>
+    /// <inheritdoc/>
     public MT.Color ConvertBack(Brush value, object? parameter, CultureInfo culture)
     {
         return value switch

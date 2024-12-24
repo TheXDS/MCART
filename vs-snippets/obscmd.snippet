@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
-  <CodeSnippet Format="1.0.0">
-    <Header>
-      <Title>Comando observante de MCART</Title>
-      <Shortcut>obscmd</Shortcut>
-      <Description>Fragmento de código para agregar un nuevo comando observante para un ViewModel de MCART.</Description>
-      <Author>César Andrés Morgan</Author>
-      <SnippetTypes>
-        <SnippetType>Expansion</SnippetType>
-      </SnippetTypes>
-    </Header>
-    <Snippet>			
-      <Declarations>
-        <Literal>
-          <ID>name</ID>
-          <ToolTip>Nombre del comando.</ToolTip>
-          <Default>DoSomething</Default>
-        </Literal>
-        <Literal>
-          <ID>prop</ID>
-          <ToolTip>Propiedad observada.</ToolTip>
-          <Default>SomeProperty</Default>
-        </Literal>
-        <Literal Editable="false">
-          <ID>ObservingCommand</ID> 
-          <Function>SimpleTypeName(global::TheXDS.MCART.ViewModel.ObservingCommand)</Function> 
-        </Literal>
-      </Declarations>
-      <Imports>
-        <Import>
-          <Namespace>TheXDS.MCART.ViewModel</Namespace>
-        </Import>
-      </Imports>
-      <Code Language="csharp" Kind="method decl">
-        <![CDATA[
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>MCART Observing Command</Title>
+			<Shortcut>obscmd</Shortcut>
+			<Description>Code snippet to add a new observing command for an MCART ViewModel.</Description>
+			<Author>César Andrés Morgan</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>name</ID>
+					<ToolTip>Command name.</ToolTip>
+					<Default>DoSomething</Default>
+				</Literal>
+				<Literal>
+					<ID>prop</ID>
+					<ToolTip>Observed property.</ToolTip>
+					<Default>SomeProperty</Default>
+				</Literal>
+				<Literal Editable="false">
+					<ID>ObservingCommand</ID>
+					<Function>SimpleTypeName(global::TheXDS.MCART.ViewModel.ObservingCommand)</Function>
+				</Literal>
+			</Declarations>
+			<Imports>
+				<Import>
+					<Namespace>TheXDS.MCART.ViewModel</Namespace>
+				</Import>
+			</Imports>
+			<Code Language="csharp" Kind="method decl">
+				<![CDATA[
 /// <summary>
-/// Obtiene el comando relacionado a la acción $name$.
+/// Gets the command related to the action $name$.
 /// </summary>
-/// <returns>El comando $name$.</returns>
+/// <returns>The $name$ command.</returns>
 public ICommand $name$Command { get; }
-// Inserte en el constructor del tipo:
+// Insert in the constructor:
 // $name$Command = new ObservingCommand(this, On$name$)
 //     .SetCanExecute(Can$name$)
 //     .RegisterObservedProperty(() => $prop$);
@@ -53,7 +53,7 @@ private bool Can$name$()
 {
     return $prop$ is { };
 }]]>
-      </Code>
-    </Snippet>
-  </CodeSnippet>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
 </CodeSnippets>

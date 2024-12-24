@@ -33,7 +33,7 @@ using static System.AttributeTargets;
 namespace TheXDS.MCART.Attributes;
 
 /// <summary>
-/// Indica que un elemento contiene código que podría ser inestable.
+/// Indicates that an element might contain unstable code.
 /// </summary>
 [AttributeUsage(Method | Class | Module | Assembly)]
 [Serializable]

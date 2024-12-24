@@ -29,44 +29,33 @@ SOFTWARE.
 */
 
 using TheXDS.MCART.Resources;
-using static System.AttributeTargets;
 
 namespace TheXDS.MCART.Attributes;
 
 /// <summary>
-/// Establece un archivo de licencia externo a asociar con el elemento.
+/// Sets an external license file to associate with the element.
 /// </summary>
-[AttributeUsage(Class | Module | Assembly | Field)]
-public sealed class LicenseUriAttribute : LicenseAttributeBase
+/// <param name="licenseUri">
+/// Uri path of the license.
+/// </param>
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Module | AttributeTargets.Assembly | AttributeTargets.Field)]
+public sealed class LicenseUriAttribute(string licenseUri) : LicenseAttributeBase(licenseUri)
 {
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="LicenseFileAttribute" />.
+    /// Gets the storage path of the license.
     /// </summary>
-    /// <param name="licenseUri">
-    /// Ruta Uri de la licencia.
-    /// </param>
-    public LicenseUriAttribute(string licenseUri)
-        : base(licenseUri)
-    {
-        Uri = new Uri(licenseUri);
-    }
+    public Uri Uri { get; } = new Uri(licenseUri);
 
     /// <summary>
-    /// Obtiene la ruta de almacenamiento de la licencia.
-    /// </summary>
-    public Uri Uri { get; }
-
-    /// <summary>
-    /// Obtiene una licencia a partir del <see cref="Uri"/>
-    /// especificado para este atributo.
+    /// Gets a license from the specified <see cref="Uri"/>
+    /// for this attribute.
     /// </summary>
     /// <param name="context">
-    /// Objeto del cual se ha extraído este atributo.
+    /// Object from which this attribute was extracted.
     /// </param>
     /// <returns>
-    /// Una licencia a partir del <see cref="Uri"/> especificado para
-    /// este atributo.
+    /// A license from the specified <see cref="Uri"/> for
+    /// this attribute.
     /// </returns>
     public override License GetLicense(object context)
     {
@@ -74,12 +63,12 @@ public sealed class LicenseUriAttribute : LicenseAttributeBase
     }
 
     /// <summary>
-    /// Obtiene una licencia a partir del <see cref="Uri"/>
-    /// especificado para este atributo.
+    /// Gets a license from the specified <see cref="Uri"/>
+    /// for this attribute.
     /// </summary>
     /// <returns>
-    /// Una licencia a partir del <see cref="Uri"/> especificado para
-    /// este atributo.
+    /// A license from the specified <see cref="Uri"/> for
+    /// this attribute.
     /// </returns>
     public License GetLicense() => GetLicense(null!);
 }

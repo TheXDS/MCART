@@ -34,26 +34,25 @@ using System.Windows.Media;
 namespace TheXDS.MCART.FlowDocumentExtensions.Types;
 
 /// <summary>
-/// Define una serie de miembros a implementar por una clase que
-/// describa estilos de objetos
-/// <see cref="System.Windows.Documents.TableCell"/>.
+/// Defines a set of members to be implemented by a class that
+/// describes styles for
+/// <see cref="System.Windows.Documents.TableCell"/> objects.
 /// </summary>
 public interface ICellStyle : IWpfStyle
 {
     /// <summary>
-    /// Obtiene o establece la alineación de texto a utilizar en la
-    /// celda.
+    /// Gets or sets the text alignment to be used in the
+    /// cell.
     /// </summary>
     TextAlignment Alignment { get; set; }
 
     /// <summary>
-    /// Obtiene o establece un color de fondo para filas de número
-    /// impar.
+    /// Gets or sets a background color for odd-numbered rows.
     /// </summary>
     Brush? OddBackground { get; set; }
 
     /// <summary>
-    /// Obtiene o establece el ancho de la celda.
+    /// Gets or sets the width of the cell.
     /// </summary>
     GridLength? Width { get; set; }
 }

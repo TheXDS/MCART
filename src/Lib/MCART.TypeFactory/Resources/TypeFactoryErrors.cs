@@ -42,14 +42,17 @@ internal static class TypeFactoryErrors
     {
         return new InvalidOperationException(string.Format(St.ErrIfaceNotImpl, t.Name));
     }
+
     internal static InvalidOperationException PropGetterAlreadyDefined()
     {
         return new InvalidOperationException(St.ErrPropGetterAlreadyDefined);
     }
+
     internal static InvalidOperationException PropFieldAlreadyDefined()
     {
         return new InvalidOperationException(St.ErrPropFieldAlreadyDefined);
     }
+
     internal static InvalidOperationException PropCannotBeRead()
     {
         return new InvalidOperationException(St.ErrPropCannotBeRead);

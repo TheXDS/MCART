@@ -28,24 +28,26 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+#pragma warning disable IDE0130
+
 namespace TheXDS.MCART.Security;
 
 /// <summary>
-/// Contiene valores de configuración a utilizar para derivar contraseñas
-/// utilizando el algoritmo Argon2.
+/// Contains configuration values to be used for deriving passwords
+/// using the Argon2 algorithm.
 /// </summary>
-/// <param name="Salt">Bloque de sal a utilizar para derivar la clave.</param>
+/// <param name="Salt">Block of salt to be used for deriving the key.</param>
 /// <param name="Iterations">
-/// Iteraciones de Argon2 a ejecutar al derivar la clave.
+/// Argon2 iterations to be executed when deriving the key.
 /// </param>
 /// <param name="KbMemSize">
-/// Cantidad de memoria (en KB) a utilizar para derivar la clave.
+/// Amount of memory (in KB) to be used for deriving the key.
 /// </param>
 /// <param name="Parallelism">
-/// Cantidad de hilos a utilizar al derivar una clave.
+/// Number of threads to be used when deriving a key.
 /// </param>
-/// <param name="Type">Variante del algoritmo Argon2 a utilizar.</param>
-/// <param name="KeyLength">Cantidad de bytes a derivar.</param>
+/// <param name="Type">Variant of the Argon2 algorithm to be used.</param>
+/// <param name="KeyLength">Number of bytes to derive.</param>
 public readonly record struct Argon2Settings(
     byte[] Salt,
     int Iterations,

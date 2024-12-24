@@ -31,6 +31,6 @@ SOFTWARE.
 namespace TheXDS.MCART.Comparison;
 
 /// <summary>
-/// Compara el tipo de dos objetos.
+/// Compares the type of two objects.
 /// </summary>
 public class TypeComparer : TypeComparer<object>;

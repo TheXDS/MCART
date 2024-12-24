@@ -524,4 +524,20 @@ public static class Errors
     {
         return new InvalidOperationException(Ers.EmptyCollection, new EmptyCollectionException(collection));
     }
+
+    /// <summary>
+    /// Creates a new exception of type <see cref="NullItemException"/> that
+    /// can be thrown whenever an item inside a collection is
+    /// <see langword="null"/>.
+    /// </summary>
+    /// <param name="index">
+    /// Index of the item that is <see langword="null"/>.
+    /// </param>
+    /// <returns>
+    /// A new instance of the <see cref="NullItemException"/> class.
+    /// </returns>
+    public static NullItemException NullItem(int index)
+    {
+        return new NullItemException() { NullIndex = index };
+    }
 }

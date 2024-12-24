@@ -36,42 +36,31 @@ namespace TheXDS.MCART.Events;
 /// Contiene información de evento para cualquier clase con eventos donde
 /// se guardará información.
 /// </summary>
-public class ItemCreatingEventArgs<T> : CancelEventArgs where T : notnull
+/// <param name="item">Object that will be created.</param>
+/// <param name="cancel">Initial cancellation value.</param>
+/// <exception cref="ArgumentNullException">
+/// Se produce si <paramref name="item"/> es <see langword="null"/>.
+/// </exception>
+public class ItemCreatingEventArgs<T>(T item, bool cancel) : CancelEventArgs(cancel) where T : notnull
 {
     /// <summary>
-    /// Inicializa una nueva instancia de esta clase con la información de
-    /// evento provista.
+    /// Initializes a new instance of the <see cref="ItemCreatingEventArgs{T}"/>.
     /// </summary>
-    /// <param name="item">Objeto que ha sido guardado.</param>
+    /// <param name="item">Object that will be created.</param>
     public ItemCreatingEventArgs(T item) : this(item, false)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de esta clase con la información de
-    /// evento provista.
-    /// </summary>
-    /// <param name="item">Objeto que ha sido guardado.</param>
-    /// <param name="cancel">
-    /// Determina si este evento se cancelará de forma predeterminada.
-    /// </param>
-    /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="item"/> es <see langword="null"/>.
-    /// </exception>
-    public ItemCreatingEventArgs(T item, bool cancel) : base(cancel)
-    {
-        Misc.Internals.NullCheck(item, nameof(item));
-        Item = item;
-    }
-
-    /// <summary>
-    /// Convierte implícitamente un <see cref="ItemCreatingEventArgs{T}" /> en un
+    /// Implicitly converts an object of type
+    /// <see cref="ItemCreatingEventArgs{T}" /> to anobject of type
     /// <see cref="ItemCreatedEventArgs{T}" />.
     /// </summary>
-    /// <param name="fromValue">Objeto a convertir.</param>
+    /// <param name="fromValue">Object to be converted.</param>
     /// <returns>
-    /// Un <see cref="ItemCreatedEventArgs{T}" /> con la misma información de
-    /// evento que el <see cref="ItemCreatingEventArgs{T}" /> especificado.
+    /// A new <see cref="ItemCreatedEventArgs{T}" /> with the same event
+    /// information as the original <see cref="ItemCreatingEventArgs{T}" />
+    /// value.
     /// </returns>
     public static implicit operator ItemCreatedEventArgs<T>(ItemCreatingEventArgs<T> fromValue)
     {
@@ -79,10 +68,7 @@ public class ItemCreatingEventArgs<T> : CancelEventArgs where T : notnull
     }
 
     /// <summary>
-    /// Obtiene el elemento que ha sido creado/editado.
+    /// Gets a reference to the item that will be created.
     /// </summary>
-    /// <returns>
-    /// Una referencia de instancia al objeto creado/editado.
-    /// </returns>
-    public T Item { get; }
+    public T Item { get; } = Misc.Internals.NullChecked(item, nameof(item));
 }

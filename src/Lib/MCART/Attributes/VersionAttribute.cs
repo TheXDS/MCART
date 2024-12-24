@@ -28,45 +28,43 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using static System.AttributeTargets;
-
 namespace TheXDS.MCART.Attributes;
 
 /// <summary>
-/// Especifica la versión del elemento.
+/// Specifies the version of the element.
 /// </summary>
-[AttributeUsage(Method | Class | Module | Assembly)]
+[AttributeUsage(AttributeTargets.Method | AttributeTargets.Class | AttributeTargets.Module | AttributeTargets.Assembly)]
 [Serializable]
 public sealed class VersionAttribute : VersionAttributeBase
 {
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="VersionAttribute" />.
+    /// Initializes a new instance of the
+    /// <see cref="VersionAttribute" /> class.
     /// </summary>
-    /// <param name="version">Número de versión en formato <c>0.0</c>.</param>
+    /// <param name="version">Version number in <c>0.0</c> format.</param>
     public VersionAttribute(double version) : base(version)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="VersionAttribute" />.
+    /// Initializes a new instance of the
+    /// <see cref="VersionAttribute" /> class.
     /// </summary>
-    /// <param name="major">Número de versión mayor.</param>
-    /// <param name="minor">Número de versión menor.</param>
+    /// <param name="major">Major version number.</param>
+    /// <param name="minor">Minor version number.</param>
     public VersionAttribute(int major, int minor)
         : base(major, minor)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="VersionAttribute" />.
+    /// Initializes a new instance of the
+    /// <see cref="VersionAttribute" /> class.
     /// </summary>
-    /// <param name="major">Número de versión mayor.</param>
-    /// <param name="minor">Número de versión menor.</param>
-    /// <param name="build">Número de compilación.</param>
-    /// <param name="rev">Número de revisión.</param>
+    /// <param name="major">Major version number.</param>
+    /// <param name="minor">Minor version number.</param>
+    /// <param name="build">Build number.</param>
+    /// <param name="rev">Revision number.</param>
     public VersionAttribute(int major, int minor, int build, int rev)
         : base(major, minor, build, rev)
     {

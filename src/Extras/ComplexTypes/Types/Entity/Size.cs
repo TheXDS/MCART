@@ -34,40 +34,40 @@ using TheXDS.MCART.Types.Base;
 namespace TheXDS.MCART.Types.Entity;
 
 /// <summary>
-/// Clase universal que describe el tamaño de un objeto en ancho y
-/// alto en un espacio de dos dimensiones.
+/// Universal class that describes the size of an object in width and
+/// height in a two-dimensional space.
 /// </summary>
 [ComplexType]
 public class Size : IEquatable<Size>, ISize
 {
     /// <summary>
-    /// Obtiene el componente de altura del tamaño.
+    /// Gets the height component of the size.
     /// </summary>
     public double Height { get; set; }
 
     /// <summary>
-    /// Obtiene el componente de ancho del tamaño.
+    /// Gets the width component of the size.
     /// </summary>
     public double Width { get; set; }
 
     /// <summary>
-    /// Determina si esta instancia de <see cref="Size"/> es igual a
-    /// otra.
+    /// Determines if this instance of <see cref="Size"/> is equal to
+    /// another.
     /// </summary>
     /// <param name="other">
-    /// Instancia de <see cref="Size"/> contra la cual comparar.
+    /// Instance of <see cref="Size"/> to compare against.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si los tamaños representados en ambos
-    /// objetos son iguales, <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if the sizes represented in both
+    /// objects are equal, <see langword="false"/> otherwise.
     /// </returns>
     public bool Equals(Size? other) => other is { } o && this == o;
 
     /// <summary>
-    /// Devuelve el código hash generado para esta instancia.
+    /// Returns the hash code generated for this instance.
     /// </summary>
     /// <returns>
-    /// Un código hash que representa a esta instancia.
+    /// A hash code that represents this instance.
     /// </returns>
     public override int GetHashCode()
     {
@@ -75,17 +75,17 @@ public class Size : IEquatable<Size>, ISize
     }
 
     /// <summary>
-    /// Compara la igualdad entre dos instancias de <see cref="Size"/>.
+    /// Compares the equality between two instances of <see cref="Size"/>.
     /// </summary>
     /// <param name="size1">
-    /// Primer elemento a comparar.
+    /// First element to compare.
     /// </param>
     /// <param name="size2">
-    /// Segundo elemento a comparar.
+    /// Second element to compare.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si los tamaños representados en ambos
-    /// objetos son iguales, <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if the sizes represented in both
+    /// objects are equal, <see langword="false"/> otherwise.
     /// </returns>
     public static bool operator ==(Size size1, Size size2)
     {
@@ -93,19 +93,18 @@ public class Size : IEquatable<Size>, ISize
     }
 
     /// <summary>
-    /// Compara la desigualdad entre dos instancias de 
+    /// Compares the inequality between two instances of 
     /// <see cref="Size"/>.
     /// </summary>
     /// <param name="size1">
-    /// Primer elemento a comparar.
+    /// First element to compare.
     /// </param>
     /// <param name="size2">
-    /// Segundo elemento a comparar.
+    /// Second element to compare.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si los tamaños representados en ambos
-    /// objetos son distintos, <see langword="false"/> en caso
-    /// contrario.
+    /// <see langword="true"/> if the sizes represented in both
+    /// objects are different, <see langword="false"/> otherwise.
     /// </returns>
     public static bool operator !=(Size size1, Size size2)
     {
@@ -113,19 +112,17 @@ public class Size : IEquatable<Size>, ISize
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="Size"/>.
+    /// Initializes a new instance of the <see cref="Size"/> class.
     /// </summary>
     public Size()
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="Size"/>.
+    /// Initializes a new instance of the <see cref="Size"/> class.
     /// </summary>
-    /// <param name="width">Valor de ancho.</param>
-    /// <param name="height">Valor de alto.</param>
+    /// <param name="width">Width value.</param>
+    /// <param name="height">Height value.</param>
     public Size(double width, double height)
     {
         Width = width;
@@ -133,15 +130,15 @@ public class Size : IEquatable<Size>, ISize
     }
 
     /// <summary>
-    /// Indica si esta instancia y un objeto especificado son iguales.
+    /// Indicates whether this instance and a specified object are equal.
     /// </summary>
     /// <param name="obj">
-    /// Objeto que se va a compara con la instancia actual.
+    /// The object to compare with the current instance.
     /// </param>
     /// <returns>
-    /// <see langword="true" /> si esta instancia y
-    /// <paramref name="obj" /> son iguales; de lo contrario,
-    /// <see langword="false" />.
+    /// <see langword="true"/> if this instance and
+    /// <paramref name="obj"/> are equal; otherwise,
+    /// <see langword="false"/>.
     /// </returns>
     public override bool Equals(object? obj)
     {
@@ -152,11 +149,11 @@ public class Size : IEquatable<Size>, ISize
     }
 
     /// <summary>
-    /// Convierte implícitamente un <see cref="Size"/> en un
+    /// Implicitly converts a <see cref="Size"/> to a
     /// <see cref="Types.Size"/>.
     /// </summary>
     /// <param name="p">
-    /// <see cref="Size"/> a convertir.
+    /// <see cref="Size"/> to convert.
     /// </param>
     public static implicit operator Types.Size(Size p)
     {
@@ -164,11 +161,11 @@ public class Size : IEquatable<Size>, ISize
     }
 
     /// <summary>
-    /// Convierte implícitamente un <see cref="Types.Size"/> en un
+    /// Implicitly converts a <see cref="Types.Size"/> to a
     /// <see cref="Size"/>.
     /// </summary>
     /// <param name="p">
-    /// <see cref="Types.Size"/> a convertir.
+    /// <see cref="Types.Size"/> to convert.
     /// </param>
     public static implicit operator Size(Types.Size p)
     {

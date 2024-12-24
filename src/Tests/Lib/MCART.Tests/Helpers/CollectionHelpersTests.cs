@@ -358,7 +358,7 @@ public class CollectionHelpersTests
     [Test]
     public void ToPercent_Test_Double()
     {
-        int[]? c = new[] { 1, 2, 3, 4, 5 };
+        int[]? c = [1, 2, 3, 4, 5];
 
         Assert.That(new[] { 0.2, 0.4, 0.6, 0.8, 1.0 }, Is.EqualTo(c.ToPercentDouble()));
         Assert.That(new[] { 0.2, 0.4, 0.6, 0.8, 1.0 }, Is.EqualTo(c.ToPercentDouble(true)));
@@ -373,12 +373,8 @@ public class CollectionHelpersTests
             Is.EqualTo(new[] { 1.0, 2.0, 3.0, 4.0, 5.0 }.ToPercent()));
 
         Assert.That(
-            new[] { 0, 0.25, 0.5, 0.75, 1.0 },
-            Is.EqualTo(new[] { 1.0, 2.0, 3.0, 4.0, 5.0 }.ToPercent(false)));
-
-        Assert.That(
             new[] { 0.25, 0.5, 0.75, 1.0 },
-            Is.EqualTo(new[] { 1.0, 2.0, 3.0, 4.0 }.ToPercent(true)));
+            Is.EqualTo(new[] { 1.0, 2.0, 3.0, 4.0 }.ToPercentAbsolute()));
 
         Assert.That(
             new[] { 0.1, 0.2, 0.3, 0.4 },

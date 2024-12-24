@@ -33,29 +33,30 @@ using System.ComponentModel;
 namespace TheXDS.MCART.Events;
 
 /// <summary>
-/// Incluye información para cualquier evento que incluya tipos de valor y
-/// puedan ser cancelados.
+/// Includes event information for any event where the value of an element
+/// changes.
 /// </summary>
 /// <typeparam name="T">
-/// Tipo del valor almacenado por esta instancia.
+/// Type of value that will be changed.
 /// </typeparam>
 /// <param name="oldValue">
-/// Valor original asociado al evento generado.
+/// Old value.
 /// </param>
 /// <param name="newValue">
-/// Nuevo valor asociado al evento generado.
+/// New value.
 /// </param>
 public class ValueChangingEventArgs<T>(T oldValue, T newValue) : CancelEventArgs
 {
     /// <summary>
-    /// Convierte explícitamente este
-    /// <see cref="ValueChangingEventArgs{T}" /> en un
+    /// Implicitly converts an object of type
+    /// <see cref="ValueChangingEventArgs{T}" /> to anobject of type
     /// <see cref="ValueEventArgs{T}" />.
     /// </summary>
-    /// <param name="fromValue">Objeto a convertir.</param>
+    /// <param name="fromValue">Object to be converted.</param>
     /// <returns>
-    /// Un <see cref="ValueEventArgs{T}" /> con la información pertinente
-    /// del <see cref="ValueChangingEventArgs{T}" /> especificado.
+    /// A new <see cref="ValueChangingEventArgs{T}" /> with the same event
+    /// information as the original <see cref="ValueChangingEventArgs{T}" />
+    /// value.
     /// </returns>
     public static explicit operator ValueEventArgs<T>(ValueChangingEventArgs<T> fromValue)
     {
@@ -63,20 +64,20 @@ public class ValueChangingEventArgs<T>(T oldValue, T newValue) : CancelEventArgs
     }
 
     /// <summary>
-    /// Devuelve el valor original asociado a este evento.
+    /// Gets the original value.
     /// </summary>
     /// <returns>
-    /// Un valor de tipo <typeparamref name="T" /> con el valor asociado al
-    /// evento.
+    /// The original value of type <typeparamref name="T" /> associated with
+    /// the value change.
     /// </returns>
     public T OldValue { get; } = oldValue;
 
     /// <summary>
-    /// Devuelve el nuevo valor asociado a este evento.
+    /// Gets the new value.
     /// </summary>
     /// <returns>
-    /// Un valor de tipo <typeparamref name="T" /> con el valor asociado al
-    /// evento.
+    /// The new value of type <typeparamref name="T" /> associated with the
+    /// value change.
     /// </returns>
     public T NewValue { get; } = newValue;
 }

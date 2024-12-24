@@ -33,7 +33,7 @@ using static System.AttributeTargets;
 namespace TheXDS.MCART.Attributes;
 
 /// <summary>
-/// Marca un elemento como versión Beta.
+/// Marks an element as beta.
 /// </summary>
 [AttributeUsage(Method | Class | Module | Assembly)]
 [Serializable]

@@ -32,7 +32,6 @@ using System.Collections;
 using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using TheXDS.MCART.Component;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types.Extensions;
@@ -189,7 +188,7 @@ public abstract class FormViewModelBase : ViewModelBase, INotifyDataErrorInfo
 
     /// <summary>
     /// Reemplaza el método 
-    /// <see cref="NotifyPropertyChanged.Change{T}(ref T, T, string)"/>,
+    /// <see cref="NotifyPropertyChangeBase.Change{T}(ref T, T, string)"/>,
     /// permitiendo la ejecución de validaciones sobre una propiedad.
     /// </summary>
     /// <typeparam name="T">Type of backing field.</typeparam>
@@ -205,9 +204,9 @@ public abstract class FormViewModelBase : ViewModelBase, INotifyDataErrorInfo
     /// <see langword="true"/> if the property did change its value,
     /// <see langword="false"/> otherwise.
     /// </returns>
-    protected override bool Change<T>(ref T backingStore, T value, [CallerMemberName] string propertyName = "")
+    protected override void OnDoChange<T>(ref T backingStore, T value, string propertyName)
     {
-        if (!base.Change(ref backingStore, value, propertyName)) return false;
+        backingStore = value;
         PropertyInfo? prop = GetType().GetProperty(propertyName);
         IValidationEntry? vr = _validationRules.FirstOrDefault(p => p.Property == prop);
         if (vr is not null)
@@ -216,7 +215,6 @@ public abstract class FormViewModelBase : ViewModelBase, INotifyDataErrorInfo
             bool act = GetErrors(propertyName).ToGeneric().Any();
             SetAffectedCommands(act);
         }
-        return true;
     }
 
     /// <summary>
@@ -266,8 +264,8 @@ public abstract class FormViewModelBase : ViewModelBase, INotifyDataErrorInfo
                 _errors.Add(entry.Property.Name, [j]);
             }
         }
-        OnPropertyChanged(nameof(HasErrors));
-        OnPropertyChanged(nameof(ErrorSource));
+        RaisePropertyChangeEvent(nameof(HasErrors), PropertyChangeNotificationType.PropertyChanged);
+        RaisePropertyChangeEvent(nameof(ErrorSource), PropertyChangeNotificationType.PropertyChanged);
         ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(entry?.Property.Name));
     }
 

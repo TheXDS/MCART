@@ -37,19 +37,18 @@ using TheXDS.MCART.Math;
 namespace TheXDS.MCART.FlowDocumentExtensions.Types.Extensions;
 
 /// <summary>
-/// Extensiones de tipo Fluent para manipular objetos <see cref="FlowDocument" />
+/// Fluent type extensions for manipulating <see cref="FlowDocument" /> objects.
 /// </summary>
 public static partial class FlowDocumentExtensions
 {
     /// <summary>
-    /// Imprime un <see cref="FlowDocument"/> por medio del cuadro de
-    /// diálogo de impresión del sistema operativo.
+    /// Prints a <see cref="FlowDocument"/> using the operating system's print dialog.
     /// </summary>
     /// <param name="fd">
-    /// <see cref="FlowDocument"/> a imprimir.
+    /// <see cref="FlowDocument"/> to print.
     /// </param>
-        /// <param name="title">
-    /// Título del documento a imprimir.
+    /// <param name="title">
+    /// Title of the document to print.
     /// </param>
     public static void Print(this FlowDocument fd, string title)
     {
@@ -63,14 +62,14 @@ public static partial class FlowDocumentExtensions
     }
 
     /// <summary>
-    /// Imprime directamente un <see cref="FlowDocument"/> sin pasar
-    /// por el cuadro de diálogo de impresión del sistema operativo.
+    /// Directly prints a <see cref="FlowDocument"/> without going through
+    /// the operating system's print dialog.
     /// </summary>
     /// <param name="fd">
-    /// <see cref="FlowDocument"/> a imprimir.
+    /// <see cref="FlowDocument"/> to print.
     /// </param>
     /// <param name="title">
-    /// Título del documento a imprimir.
+    /// Title of the document to print.
     /// </param>
     public static void PrintDirect(this FlowDocument fd, string title)
     {
@@ -82,16 +81,16 @@ public static partial class FlowDocumentExtensions
     }
 
     /// <summary>
-    /// Agrega una nueva tabla al <see cref="FlowDocument"/> especificado.
+    /// Adds a new table to the specified <see cref="FlowDocument"/>.
     /// </summary>
     /// <param name="document">
-    /// Documento al cual agregar la nueva tabla.
+    /// Document to which the new table will be added.
     /// </param>
     /// <param name="columnWidths">
-    /// Anchos de columna a establecer.
+    /// Column widths to set.
     /// </param>
     /// <returns>
-    /// Una referencia a la nueva tabla creada.
+    /// A reference to the newly created table.
     /// </returns>
     public static Table AddTable(this FlowDocument document, params GridLength[] columnWidths)
     {
@@ -103,16 +102,16 @@ public static partial class FlowDocumentExtensions
     }
 
     /// <summary>
-    /// Agrega una nueva tabla al <see cref="FlowDocument"/> especificado.
+    /// Adds a new table to the specified <see cref="FlowDocument"/>.
     /// </summary>
     /// <param name="document">
-    /// Documento al cual agregar la nueva tabla.
+    /// Document to which the new table will be added.
     /// </param>
     /// <param name="columns">
-    /// Columnas a agregar.
+    /// Columns to add.
     /// </param>
     /// <returns>
-    /// Una referencia a la nueva tabla creada.
+    /// A reference to the newly created table.
     /// </returns>
     public static Table AddTable(this FlowDocument document, IEnumerable<KeyValuePair<string, GridLength>> columns)
     {
@@ -127,18 +126,18 @@ public static partial class FlowDocumentExtensions
     }
 
     /// <summary>
-    /// marca el final del contexto de un elemento, devolviendo a su
-    /// padre.
+    /// Marks the end of the context of an element, returning to its
+    /// parent.
     /// </summary>
-    /// <typeparam name="T">Tipo de padre a devolver.</typeparam>
+    /// <typeparam name="T">Type of the parent to return.</typeparam>
     /// <param name="block">
-    /// bloque del cual obtener al padre.
+    /// Block from which to obtain the parent.
     /// </param>
     /// <returns>
-    /// El padre del elemento especificado.
+    /// The parent of the specified element.
     /// </returns>
     /// <exception cref="InvalidCastException">
-    /// Se produce si el padre del elemento no es del tipo
+    /// Thrown if the parent of the element is not of type
     /// <typeparamref name="T"/>.
     /// </exception>
     public static T Done<T>(this FrameworkContentElement block) where T : class
@@ -147,47 +146,47 @@ public static partial class FlowDocumentExtensions
     }
 
     /// <summary>
-    /// Construye una tabla a partir de una enumeración de datos y una colección de descriptores de columnas.
+    /// Constructs a table from a data enumeration and a collection of column descriptors.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de elementos a incluir en la tabla.
+    /// Type of elements to include in the table.
     /// </typeparam>
     /// <param name="fd">
-    /// <see cref="FlowDocument"/> en el cual se agregará la tabla creada.
+    /// <see cref="FlowDocument"/> in which the created table will be added.
     /// </param>
     /// <param name="columns">
-    /// Colección de columnas a incluir en la tabla.
+    /// Collection of columns to include in the table.
     /// </param>
     /// <param name="data">
-    /// Enumeración de datos a incluir en la tabla.
+    /// Enumeration of data to include in the table.
     /// </param>
     /// <returns>
-    /// <paramref name="fd"/>, lo que permite utilizar esta función
-    /// con sintaxis Fluent.
+    /// <paramref name="fd"/>, allowing this function to be used
+    /// with Fluent syntax.
     /// </returns>
     public static Table MakeTable<T>(this FlowDocument fd, IEnumerable<IColumnBuilder<T>> columns, IEnumerable<T> data) => fd.MakeTable(columns, data, null);
 
     /// <summary>
-    /// Construye una tabla a partir de una enumeración de datos y una colección de descriptores de columnas.
+    /// Constructs a table from a data enumeration and a collection of column descriptors.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de elementos a incluir en la tabla.
+    /// Type of elements to include in the table.
     /// </typeparam>
     /// <param name="fd">
-    /// <see cref="FlowDocument"/> en el cual se agregará la tabla creada.
+    /// <see cref="FlowDocument"/> in which the created table will be added.
     /// </param>
     /// <param name="columns">
-    /// Colección de columnas a incluir en la tabla.
+    /// Collection of columns to include in the table.
     /// </param>
     /// <param name="data">
-    /// Enumeración de datos a incluir en la tabla.
+    /// Enumeration of data to include in the table.
     /// </param>
     /// <param name="headersStyle">
-    /// Estilo opcional a aplicar a los encabezados de la tabla.
+    /// Optional style to apply to the table headers.
     /// </param>
     /// <returns>
-    /// <paramref name="fd"/>, lo que permite utilizar esta función
-    /// con sintaxis Fluent.
+    /// <paramref name="fd"/>, allowing this function to be used
+    /// with Fluent syntax.
     /// </returns>
     public static Table MakeTable<T>(this FlowDocument fd, IEnumerable<IColumnBuilder<T>> columns, IEnumerable<T> data, ICellStyle? headersStyle)
     {
@@ -221,35 +220,35 @@ public static partial class FlowDocumentExtensions
     }
 
     /// <summary>
-    /// Construye una nueva tabla con los encabezados especificados.
+    /// Constructs a new table with the specified headers.
     /// </summary>
     /// <param name="fd">
-    /// <see cref="FlowDocument"/> en el cual se agregará la tabla creada.
+    /// <see cref="FlowDocument"/> in which the created table will be added.
     /// </param>
     /// <param name="headers">
-    /// Encabezados a agregar a la tabla.
+    /// Headers to add to the table.
     /// </param>
     /// <returns>
-    /// Una referencia a un nuevo <see cref="TableRowGroup"/> dentro de
-    /// la tabla creada.
+    /// A reference to a new <see cref="TableRowGroup"/> within
+    /// the created table.
     /// </returns>
     public static TableRowGroup MakeTable(this FlowDocument fd, IEnumerable<string> headers) => fd.MakeTable(headers, null);
 
     /// <summary>
-    /// Construye una nueva tabla con los encabezados especificados.
+    /// Constructs a new table with the specified headers.
     /// </summary>
     /// <param name="fd">
-    /// <see cref="FlowDocument"/> en el cual se agregará la tabla creada.
+    /// <see cref="FlowDocument"/> in which the created table will be added.
     /// </param>
     /// <param name="headers">
-    /// Encabezados a agregar a la tabla.
+    /// Headers to add to the table.
     /// </param>
     /// <param name="headersStyle">
-    /// Estilo opcional a aplicar a los encabezados de la tabla.
+    /// Optional style to apply to the table headers.
     /// </param>
     /// <returns>
-    /// Una referencia a un nuevo <see cref="TableRowGroup"/> dentro de
-    /// la tabla creada.
+    /// A reference to a new <see cref="TableRowGroup"/> within
+    /// the created table.
     /// </returns>
     public static TableRowGroup MakeTable(this FlowDocument fd, IEnumerable<string> headers, ICellStyle? headersStyle)
     {
@@ -270,15 +269,15 @@ public static partial class FlowDocumentExtensions
     }
 
     /// <summary>
-    /// Crea un nuevo párrafo.
+    /// Creates a new paragraph.
     /// </summary>
     /// <param name="fd">
-    /// <see cref="FlowDocument"/> en el cual se agregará el nuevo párrafo.
+    /// <see cref="FlowDocument"/> in which the new paragraph will be added.
     /// </param>
     /// <returns>
-    /// Una referencia al nuevo
-    /// <see cref="System.Windows.Documents.Paragraph"/> que ha sido agregado
-    /// al documento.
+    /// A reference to the new
+    /// <see cref="System.Windows.Documents.Paragraph"/> that has been added
+    /// to the document.
     /// </returns>
     public static Paragraph Paragraph(this FlowDocument fd)
     {
@@ -288,14 +287,14 @@ public static partial class FlowDocumentExtensions
     }
 
     /// <summary>
-    /// Crea un nuevo párrafo.
+    /// Creates a new paragraph.
     /// </summary>
     /// <param name="fd">
-    /// <see cref="FlowDocument"/> en el cual se agregará el nuevo párrafo.
+    /// <see cref="FlowDocument"/> in which the new paragraph will be added.
     /// </param>
-    /// <param name="content">Contenido del nuevo párrafo</param>
+    /// <param name="content">Content of the new paragraph.</param>
     /// <returns>
-    /// <paramref name="fd"/>, lo que permite el uso de sintaxis Fluent.
+    /// <paramref name="fd"/>, allowing the use of Fluent syntax.
     /// </returns>
     public static FlowDocument Paragraph(this FlowDocument fd, string content)
     {
@@ -303,15 +302,15 @@ public static partial class FlowDocumentExtensions
     }
 
     /// <summary>
-    /// Crea un nuevo párrafo.
+    /// Creates a new paragraph.
     /// </summary>
     /// <param name="fd">
-    /// <see cref="FlowDocument"/> en el cual se agregará el nuevo párrafo.
+    /// <see cref="FlowDocument"/> in which the new paragraph will be added.
     /// </param>
-    /// <param name="content">Contenido del nuevo párrafo</param>
-    /// <param name="alignment">Alineación de texto del nuevo párrafo.</param>
+    /// <param name="content">Content of the new paragraph.</param>
+    /// <param name="alignment">Text alignment of the new paragraph.</param>
     /// <returns>
-    /// <paramref name="fd"/>, lo que permite el uso de sintaxis Fluent.
+    /// <paramref name="fd"/>, allowing the use of Fluent syntax.
     /// </returns>
     public static FlowDocument Paragraph(this FlowDocument fd, string content, TextAlignment alignment)
     {
@@ -321,12 +320,12 @@ public static partial class FlowDocumentExtensions
     }
 
     /// <summary>
-    /// Agrega un bloque de texto al párrafo.
+    /// Adds a text block to the paragraph.
     /// </summary>
-    /// <param name="paragraph">Párrafo en el cual agregar el nuevo texto.</param>
-    /// <param name="text">Texto a agregar.</param>
+    /// <param name="paragraph">Paragraph to which to add the new text.</param>
+    /// <param name="text">Text to add.</param>
     /// <returns>
-    /// <paramref name="paragraph"/>, lo que permite el uso de sintaxis Fluent.
+    /// <paramref name="paragraph"/>, allowing the use of Fluent syntax.
     /// </returns>
     public static Paragraph Run(this Paragraph paragraph, string text)
     {
@@ -335,12 +334,12 @@ public static partial class FlowDocumentExtensions
     }
 
     /// <summary>
-    /// Establece la alineación del párrafo.
+    /// Sets the alignment of the paragraph.
     /// </summary>
-    /// <param name="paragraph">Párrafo al cual establecerle la alineación de texto.</param>
-    /// <param name="alignment">Alineación de texto a utilizar en el párrafo.</param>
+    /// <param name="paragraph">Paragraph to set the text alignment for.</param>
+    /// <param name="alignment">Text alignment to use in the paragraph.</param>
     /// <returns>
-    /// <paramref name="paragraph"/>, lo que permite el uso de sintaxis Fluent.
+    /// <paramref name="paragraph"/>, allowing the use of Fluent syntax.
     /// </returns>
     public static Paragraph Style(this Paragraph paragraph, TextAlignment alignment)
     {
@@ -349,12 +348,12 @@ public static partial class FlowDocumentExtensions
     }
 
     /// <summary>
-    /// Establece el peso de la fuente del párrafo.
+    /// Sets the font weight of the paragraph.
     /// </summary>
-    /// <param name="paragraph">Párrafo al cual establecerle el peso de la fuente.</param>
-    /// <param name="weight">Peso de la fuente en el párrafo.</param>
+    /// <param name="paragraph">Paragraph to set the font weight for.</param>
+    /// <param name="weight">Font weight in the paragraph.</param>
     /// <returns>
-    /// <paramref name="paragraph"/>, lo que permite el uso de sintaxis Fluent.
+    /// <paramref name="paragraph"/>, allowing the use of Fluent syntax.
     /// </returns>
     public static Paragraph Style(this Paragraph paragraph, FontWeight weight)
     {
@@ -363,13 +362,13 @@ public static partial class FlowDocumentExtensions
     }
 
     /// <summary>
-    /// Establece los valores de alineación y peso de la fuente al párrafo.
+    /// Sets the alignment and font weight values for the paragraph.
     /// </summary>
-    /// <param name="paragraph">Párrafo al cual aplicar los parámetros de estilo.</param>
-    /// <param name="alignment">Alineación de texto a utilizar en el párrafo.</param>
-    /// <param name="weight">Peso de la fuente en el párrafo.</param>
+    /// <param name="paragraph">Paragraph to apply the style parameters to.</param>
+    /// <param name="alignment">Text alignment to use in the paragraph.</param>
+    /// <param name="weight">Font weight in the paragraph.</param>
     /// <returns>
-    /// <paramref name="paragraph"/>, lo que permite el uso de sintaxis Fluent.
+    /// <paramref name="paragraph"/>, allowing the use of Fluent syntax.
     /// </returns>
     public static Paragraph Style(this Paragraph paragraph, TextAlignment alignment, FontWeight weight)
     {
@@ -379,14 +378,14 @@ public static partial class FlowDocumentExtensions
     }
 
     /// <summary>
-    /// Agrega un bloque de texto al conjunto de bloques de texto especificados.
+    /// Adds a text block to the specified collection of text blocks.
     /// </summary>
-    /// <param name="blocks">Colección de bloques de texto en el cual agregar un nuevo bloque de texto.</param>
-    /// <param name="text">Texto a agregar.</param>
+    /// <param name="blocks">Collection of text blocks to which to add a new text block.</param>
+    /// <param name="text">Text to add.</param>
     /// <returns>
-    /// Una referencia al nuevo
-    /// <see cref="System.Windows.Documents.Paragraph"/> que ha sido agregado
-    /// a la colección de bloques de texto.
+    /// A reference to the new
+    /// <see cref="System.Windows.Documents.Paragraph"/> that has been added
+    /// to the collection of text blocks.
     /// </returns>
     public static Paragraph Text(this BlockCollection blocks, string text)
     {
@@ -396,12 +395,12 @@ public static partial class FlowDocumentExtensions
     }
 
     /// <summary>
-    /// Agrega un bloque de texto simple al documento.
+    /// Adds a simple text block to the document.
     /// </summary>
-    /// <param name="fd">Documento en el cual agregar el nuevo bloque de texto.</param>
-    /// <param name="text">Texto a agregar.</param>
+    /// <param name="fd">Document in which to add the new text block.</param>
+    /// <param name="text">Text to add.</param>
     /// <returns>
-    /// <paramref name="fd"/>, lo que permite el uso de sintaxis Fluent.
+    /// <paramref name="fd"/>, allowing the use of Fluent syntax.
     /// </returns>
     public static FlowDocument Text(this FlowDocument fd, string text)
     {
@@ -409,13 +408,13 @@ public static partial class FlowDocumentExtensions
     }
 
     /// <summary>
-    /// Agrega un bloque de texto simple al documento.
+    /// Adds a simple text block to the document.
     /// </summary>
-    /// <param name="fd">Documento en el cual agregar el nuevo bloque de texto.</param>
-    /// <param name="text">Texto a agregar.</param>
-    /// <param name="alignment">Alineación del texto a utilizar.</param>
+    /// <param name="fd">Document in which to add the new text block.</param>
+    /// <param name="text">Text to add.</param>
+    /// <param name="alignment">Text alignment to use.</param>
     /// <returns>
-    /// <paramref name="fd"/>, lo que permite el uso de sintaxis Fluent.
+    /// <paramref name="fd"/>, allowing the use of Fluent syntax.
     /// </returns>
     public static FlowDocument Text(this FlowDocument fd, string text, TextAlignment alignment)
     {
@@ -424,12 +423,12 @@ public static partial class FlowDocumentExtensions
     }
 
     /// <summary>
-    /// Agrega un texto con formato de título al documento.
+    /// Adds a title-formatted text to the document.
     /// </summary>
-    /// <param name="fd">Documento en el cual agregar el nuevo bloque de texto.</param>
-    /// <param name="text">Texto de título a agregar.</param>
+    /// <param name="fd">Document in which to add the new text block.</param>
+    /// <param name="text">Title text to add.</param>
     /// <returns>
-    /// <paramref name="fd"/>, lo que permite el uso de sintaxis Fluent.
+    /// <paramref name="fd"/>, allowing the use of Fluent syntax.
     /// </returns>
     public static FlowDocument Title(this FlowDocument fd, string text)
     {
@@ -437,13 +436,13 @@ public static partial class FlowDocumentExtensions
     }
 
     /// <summary>
-    /// Agrega un texto con formato de título al documento.
+    /// Adds a title-formatted text to the document.
     /// </summary>
-    /// <param name="fd">Documento en el cual agregar el nuevo bloque de texto.</param>
-    /// <param name="text">Texto de título a agregar.</param>
-    /// <param name="level">Nivel de título a agregar.</param>
+    /// <param name="fd">Document in which to add the new text block.</param>
+    /// <param name="text">Title text to add.</param>
+    /// <param name="level">Title level to add.</param>
     /// <returns>
-    /// <paramref name="fd"/>, lo que permite el uso de sintaxis Fluent.
+    /// <paramref name="fd"/>, allowing the use of Fluent syntax.
     /// </returns>
     public static FlowDocument Title(this FlowDocument fd, string text, byte level)
     {
@@ -451,13 +450,13 @@ public static partial class FlowDocumentExtensions
     }
 
     /// <summary>
-    /// Agrega un texto con formato de título al documento.
+    /// Adds a title-formatted text to the document.
     /// </summary>
-    /// <param name="fd">Documento en el cual agregar el nuevo bloque de texto.</param>
-    /// <param name="text">Texto de título a agregar.</param>
-    /// <param name="alignment">Alineación de texto a utilizar</param>
+    /// <param name="fd">Document in which to add the new text block.</param>
+    /// <param name="text">Title text to add.</param>
+    /// <param name="alignment">Text alignment to use.</param>
     /// <returns>
-    /// <paramref name="fd"/>, lo que permite el uso de sintaxis Fluent.
+    /// <paramref name="fd"/>, allowing the use of Fluent syntax.
     /// </returns>
     public static FlowDocument Title(this FlowDocument fd, string text, TextAlignment alignment)
     {
@@ -465,14 +464,14 @@ public static partial class FlowDocumentExtensions
     }
 
     /// <summary>
-    /// Agrega un texto con formato de título al documento.
+    /// Adds a title-formatted text to the document.
     /// </summary>
-    /// <param name="fd">Documento en el cual agregar el nuevo bloque de texto.</param>
-    /// <param name="text">Texto de título a agregar.</param>
-    /// <param name="level">Nivel de título a agregar.</param>
-    /// <param name="alignment">Alineación de texto a utilizar</param>
+    /// <param name="fd">Document in which to add the new text block.</param>
+    /// <param name="text">Title text to add.</param>
+    /// <param name="level">Title level to add.</param>
+    /// <param name="alignment">Text alignment to use.</param>
     /// <returns>
-    /// <paramref name="fd"/>, lo que permite el uso de sintaxis Fluent.
+    /// <paramref name="fd"/>, allowing the use of Fluent syntax.
     /// </returns>
     public static FlowDocument Title(this FlowDocument fd, string text, byte level, TextAlignment alignment)
     {
@@ -492,12 +491,12 @@ public static partial class FlowDocumentExtensions
     }
 
     /// <summary>
-    /// Genera un objeto <see cref="Table" /> a partir de la vista actual de un
+    /// Generates a <see cref="Table" /> object from the current view of a
     /// <see cref="ListView" />.
     /// </summary>
-    /// <param name="listView"><see cref="ListView" /> a procesar.</param>
+    /// <param name="listView"><see cref="ListView" /> to process.</param>
     /// <returns>
-    /// Un <see cref="Table" /> con el contenido de la vista activa del <see cref="ListView" />.
+    /// A <see cref="Table" /> with the content of the active view of the <see cref="ListView" />.
     /// </returns>
     public static Table ToDocumentTable(this ListView listView)
     {

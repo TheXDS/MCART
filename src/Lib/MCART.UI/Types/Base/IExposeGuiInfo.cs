@@ -31,14 +31,14 @@ SOFTWARE.
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
-/// Extensión de la interfaz <see cref="IExposeInfo" /> que permite
-/// establecer un ícono.
+/// Extension of the <see cref="IExposeInfo" /> interface that allows
+/// for setting an icon.
 /// </summary>
-/// <typeparam name="TIcon">Tipo del ícono a exponer.</typeparam>
+/// <typeparam name="TIcon">Type of the icon to be exposed.</typeparam>
 public interface IExposeGuiInfo<out TIcon> : IExposeInfo
 {
     /// <summary>
-    /// Obtiene el ícono establecido del elemento.
+    /// Gets the established icon of the element.
     /// </summary>
     TIcon Icon { get; }
 }

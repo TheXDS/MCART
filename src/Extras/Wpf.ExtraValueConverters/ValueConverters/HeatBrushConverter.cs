@@ -37,48 +37,18 @@ using static TheXDS.MCART.Math.Common;
 namespace TheXDS.MCART.ValueConverters;
 
 /// <summary>
-/// Obtiene un <see cref="System.Windows.Media.Brush" /> correspondiente a la salud expresada
-/// com porcentaje.
+/// Gets a <see cref="System.Windows.Media.Brush" /> that corresponds to a
+/// temperature expressed as a percentage.
 /// </summary>
 public sealed class HeatBrushConverter : FloatConverterBase, IValueConverter
 {
-    /// <summary>Convierte un valor.</summary>
-    /// <param name="value">
-    ///   Valor generado por el origen de enlace.
-    /// </param>
-    /// <param name="targetType">
-    ///   El tipo de la propiedad del destino de enlace.
-    /// </param>
-    /// <param name="parameter">
-    ///   Parámetro de convertidor que se va a usar.
-    /// </param>
-    /// <param name="culture">
-    ///   Referencia cultural que se va a usar en el convertidor.
-    /// </param>
-    /// <returns>
-    ///   Valor convertido.
-    ///    Si el método devuelve <see langword="null" />, se usa el valor nulo válido.
-    /// </returns>
+    /// <inheritdoc/>
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         return Types.Color.BlendHeat(GetFloat(value).Clamp(0f, 1f)).Brush();
     }
 
-    /// <summary>Convierte un valor.</summary>
-    /// <param name="value">
-    ///   Valor generado por el destino de enlace.
-    /// </param>
-    /// <param name="targetType">Tipo al que se va a convertir.</param>
-    /// <param name="parameter">
-    ///   Parámetro de convertidor que se va a usar.
-    /// </param>
-    /// <param name="culture">
-    ///   Referencia cultural que se va a usar en el convertidor.
-    /// </param>
-    /// <returns>
-    ///   Valor convertido.
-    ///    Si el método devuelve <see langword="null" />, se usa el valor nulo válido.
-    /// </returns>
+    /// <inheritdoc/>
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
         throw new InvalidOperationException();

@@ -28,14 +28,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using static System.AttributeTargets;
-
 namespace TheXDS.MCART.Attributes;
 
 /// <summary>
-/// Establece un nombre personalizado para describir este elemento.
+/// Sets a custom name to describe this element.
 /// </summary>
-/// <param name="name">Valor del atributo.</param>
-[AttributeUsage(All)]
+/// <param name="name">Value of the attribute.</param>
+[AttributeUsage(AttributeTargets.All)]
 [Serializable]
 public sealed class NameAttribute(string name) : TextAttribute(name);

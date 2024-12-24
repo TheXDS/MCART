@@ -28,13 +28,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using static System.AttributeTargets;
-
 namespace TheXDS.MCART.Attributes;
 
 /// <summary>
-/// Indica que un elemento podría tardar en ejecutarse.
+/// Indicates that an element may take a long time to execute.
 /// </summary>
-[AttributeUsage(Method | AttributeTargets.Delegate)]
+[AttributeUsage(AttributeTargets.Method | AttributeTargets.Delegate)]
 [Serializable]
 public sealed class LengthyOpAttribute : Attribute;

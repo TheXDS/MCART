@@ -31,13 +31,13 @@ SOFTWARE.
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
-/// Describe una serie de miembros a implementar por una clase o
-/// estructura que expone un nombre para su identificación.
+/// Defines a set of members to be implemented by a type that exposes a name
+/// property.
 /// </summary>
 public interface INameable
 {
     /// <summary>
-    /// Obtiene el nombre del elemento.
+    /// Gets the name of this element.
     /// </summary>
     string Name { get; }
 }

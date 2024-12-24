@@ -31,9 +31,9 @@ SOFTWARE.
 namespace TheXDS.MCART.Attributes;
 
 /// <summary>
-/// Indica un elemento cuyo propósito es simplemente el de reservar
-/// espacio para una posible expansión, y por lo tanto, actualmente no
-/// tiene ninguna funcionalidad.
+/// Indicates an element whose purpose is simply to reserve
+/// space for possible expansion, and therefore currently has
+/// no functionality.
 /// </summary>
 [AttributeUsage(AttributeTargets.All)]
 [Serializable]

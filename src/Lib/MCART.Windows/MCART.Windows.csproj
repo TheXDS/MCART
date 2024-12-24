@@ -1,44 +1,47 @@
-﻿<Project Sdk="Microsoft.NET.Sdk" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">  
-  <PropertyGroup>
-    <TargetFramework>net8.0-windows</TargetFramework>
-    <Description>MCART for Windows</Description>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>  
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
-    <PackageReference Include="System.Drawing.Common" Version="8.0.7" />
-    <PackageReference Include="System.Management" Version="8.0.0" />
-    <PackageReference Include="System.Security.Principal.Windows" Version="5.0.0" />
-  </ItemGroup>  
-  <ItemGroup>
-    <ProjectReference Include="..\MCART.Coloring\MCART.Coloring.csproj" />
-    <ProjectReference Include="..\MCART.UI\MCART.UI.csproj" />
-  </ItemGroup>  
-  <ItemGroup>
-    <Compile Update="Resources\Strings\WinErrors.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>WinErrors.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Resources\Strings\WinErrors.en-US.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>WinErrors.en-US.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>  
-  <ItemGroup>
-    <EmbeddedResource Update="Resources\Strings\WinErrors.en-US.resx">
-      <CustomToolNamespace>TheXDS.MCART.Windows.Resources.Strings</CustomToolNamespace>
-      <LastGenOutput>WinErrors.en-US.Designer.cs</LastGenOutput>
-      <Generator>ResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Strings\WinErrors.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>WinErrors.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>TheXDS.MCART.Windows.Resources.Strings</CustomToolNamespace>
-    </EmbeddedResource>
-  </ItemGroup>  
-  <ItemGroup>
-    <PackageReference Update="Microsoft.SourceLink.GitHub" Version="8.0.0" />
-  </ItemGroup>
+﻿<Project Sdk="Microsoft.NET.Sdk" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<Description>MCART for Windows</Description>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<NoWarn>CS3016</NoWarn>
+		<IsTrimmable>true</IsTrimmable>
+		<IsAotCompatible>true</IsAotCompatible>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
+		<PackageReference Include="System.Drawing.Common" Version="9.0.0" />
+		<PackageReference Include="System.Management" Version="9.0.0" />
+		<PackageReference Include="System.Security.Principal.Windows" Version="5.0.0" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\MCART.Coloring\MCART.Coloring.csproj" />
+		<ProjectReference Include="..\MCART.UI\MCART.UI.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<Compile Update="Resources\Strings\WinErrors.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>WinErrors.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Resources\Strings\WinErrors.en-US.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>WinErrors.en-US.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Update="Resources\Strings\WinErrors.en-US.resx">
+			<CustomToolNamespace>TheXDS.MCART.Windows.Resources.Strings</CustomToolNamespace>
+			<LastGenOutput>WinErrors.en-US.Designer.cs</LastGenOutput>
+			<Generator>ResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Resources\Strings\WinErrors.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>WinErrors.Designer.cs</LastGenOutput>
+			<CustomToolNamespace>TheXDS.MCART.Windows.Resources.Strings</CustomToolNamespace>
+		</EmbeddedResource>
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Update="Microsoft.SourceLink.GitHub" Version="8.0.0" />
+	</ItemGroup>
 </Project>

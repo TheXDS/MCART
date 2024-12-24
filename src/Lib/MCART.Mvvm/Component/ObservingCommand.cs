@@ -160,7 +160,7 @@ public partial class ObservingCommand : CommandBase
     /// </returns>
     public ObservingCommand SetCanExecute(Func<bool> canExecute)
     {
-        NullCheck(canExecute, nameof(canExecute));
+        ArgumentNullException.ThrowIfNull(canExecute, nameof(canExecute));
         return SetCanExecute((_, _) => canExecute());
     }
 
@@ -178,7 +178,7 @@ public partial class ObservingCommand : CommandBase
     /// </returns>
     public ObservingCommand SetCanExecute(Func<object?, bool> canExecute)
     {
-        NullCheck(canExecute, nameof(canExecute));
+        ArgumentNullException.ThrowIfNull(canExecute, nameof(canExecute));
         return SetCanExecute((_, o) => canExecute(o));
     }
 

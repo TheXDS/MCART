@@ -41,8 +41,8 @@ public static partial class CollectionExtensions
     [DebuggerNonUserCode]
     private static void AddClone_Contract<T>(ICollection<T> collection, T item) where T : ICloneable
     {
-        NullCheck(collection, nameof(collection));
-        NullCheck(item, nameof(item));
+        ArgumentNullException.ThrowIfNull(collection, nameof(collection));
+        ArgumentNullException.ThrowIfNull(item, nameof(item));
     }
 
     [Conditional("EnforceContracts")]
@@ -50,8 +50,8 @@ public static partial class CollectionExtensions
     [DebuggerNonUserCode]
     private static void AddClones_Contract<T>(this ICollection<T> collection, IEnumerable<T> source)
     {
-        NullCheck(collection, nameof(collection));
-        NullCheck(source, nameof(source));
+        ArgumentNullException.ThrowIfNull(collection, nameof(collection));
+        ArgumentNullException.ThrowIfNull(source, nameof(source));
     }
 
     [Conditional("EnforceContracts")]
@@ -59,12 +59,12 @@ public static partial class CollectionExtensions
     [DebuggerNonUserCode]
     private static void AddRange_Contract<T>(this ICollection<T> collection, IEnumerable<T> items)
     {
-        NullCheck(collection, nameof(collection));
-        NullCheck(items, nameof(items));
+        ArgumentNullException.ThrowIfNull(collection, nameof(collection));
+        ArgumentNullException.ThrowIfNull(items, nameof(items));
     }
 
     private static void Push_Contract<TCollection>(this ICollection<TCollection> collection)
     {
-        NullCheck(collection, nameof(collection));
+        ArgumentNullException.ThrowIfNull(collection, nameof(collection));
     }
 }

@@ -33,7 +33,6 @@ SOFTWARE.
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using TheXDS.MCART.Resources;
-using static TheXDS.MCART.Misc.Internals;
 
 namespace TheXDS.MCART.Helpers;
 
@@ -53,13 +52,5 @@ public static partial class Common
     private static void Sequence_Contract(in int top, in int stepping)
     {
         if (stepping == 0) throw Errors.ValueOutOfRange(nameof(stepping), 1, top);
-    }
-
-    [Conditional("EnforceContracts")]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    [DebuggerNonUserCode]
-    private static void IfNotNull_Contract<T>(Action<T> operation)
-    {
-        NullCheck(operation, nameof(operation));
     }
 }

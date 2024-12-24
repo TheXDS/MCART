@@ -28,8 +28,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Misc;
 using TheXDS.MCART.Networking;
 using TheXDS.MCART.Types.Base;
 
@@ -40,8 +42,10 @@ namespace TheXDS.MCART.IO;
 /// que apunta a un recurso web.
 /// </summary>
 #if NET6_0_OR_GREATER
-[Obsolete("Esta clase utiliza métodos web deprecados en .Net 6.")]
+[Obsolete(AttributeErrorMessages.Net6Deprecation)]
 #endif
+[RequiresUnreferencedCode(AttributeErrorMessages.ClassScansForTypes)]
+[RequiresDynamicCode(AttributeErrorMessages.ClassCallsDynamicCode)]
 public abstract class WebStreamUriParser<T> : SimpleStreamUriParser, IWebUriParser where T : WebResponse
 {
     /// <summary>

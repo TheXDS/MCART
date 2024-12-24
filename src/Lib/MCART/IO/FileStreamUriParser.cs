@@ -30,6 +30,7 @@ SOFTWARE.
 
 using System.Net;
 using TheXDS.MCART.Types.Base;
+using TheXDS.MCART.Misc;
 
 namespace TheXDS.MCART.IO;
 
@@ -38,7 +39,7 @@ namespace TheXDS.MCART.IO;
 /// especificada por un <see cref="Uri"/>.
 /// </summary>
 #if NET6_0_OR_GREATER
-[Obsolete("Esta clase utiliza métodos web deprecados en .Net 6.")]
+[Obsolete(AttributeErrorMessages.Net6Deprecation)]
 #endif
 public class FileStreamUriParser : SimpleStreamUriParser, IWebUriParser
 {
