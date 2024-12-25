@@ -52,3 +52,131 @@ public class AutoDictionary_Tests
         Assert.That(dict.Count, Is.EqualTo(1));
     }
 }
+
+public class OpenList_Tests
+{
+    [Test]
+    public void OpenList_adds_items()
+    {
+        var list = new OpenList<string>();
+        Assert.That(list.Count, Is.EqualTo(0));
+        list.Add("test");
+        Assert.That(list.Count, Is.EqualTo(1));
+    }
+
+    [Test]
+    public void OpenList_removes_items()
+    {
+        var list = new OpenList<string>
+        {
+            "test"
+        };
+        Assert.That(list.Count, Is.EqualTo(1));
+        list.Remove("test");
+        Assert.That(list.Count, Is.EqualTo(0));
+    }
+
+    [Test]
+    public void OpenList_clears_items()
+    {
+        var list = new OpenList<string>
+        {
+            "test"
+        };
+        Assert.That(list.Count, Is.EqualTo(1));
+        list.Clear();
+        Assert.That(list.Count, Is.EqualTo(0));
+    }
+
+    [Test]
+    public void OpenList_enumerates_items()
+    {
+        var list = new OpenList<string>
+        {
+            "test"
+        };
+        Assert.That(list.Count, Is.EqualTo(1));
+        foreach (var i in list)
+        {
+            Assert.That(i, Is.EqualTo("test"));
+        }
+    }
+
+    [Test]
+    public void OpenList_contains_items()
+    {
+        var list = new OpenList<string>
+        {
+            "test"
+        };
+        Assert.That(list.Count, Is.EqualTo(1));
+        Assert.That(list.Contains("test"), Is.True);
+    }
+    
+    [Test]
+    public void OpenList_indexer()
+    {
+        var list = new OpenList<string>
+        {
+            "test"
+        };
+        Assert.That(list.Count, Is.EqualTo(1));
+        Assert.That(list[0], Is.EqualTo("test"));
+    }
+
+    [Test]
+    public void OpenList_indexer_set()
+    {
+        var list = new OpenList<string>
+        {
+            "test"
+        };
+        Assert.That(list.Count, Is.EqualTo(1));
+        list[0] = "test2";
+        Assert.That(list[0], Is.EqualTo("test2"));
+    }
+
+    [Test]
+    public void OpenList_indexer_out_of_range()
+    {
+        var list = new OpenList<string>
+        {
+            "test"
+        };
+        Assert.That(list.Count, Is.EqualTo(1));
+        Assert.Throws<ArgumentOutOfRangeException>(() => _ = list[1]);
+    }
+
+    [Test]
+    public void OpenList_indexer_set_out_of_range()
+    {
+        var list = new OpenList<string>
+        {
+            "test"
+        };
+        Assert.That(list.Count, Is.EqualTo(1));
+        Assert.Throws<ArgumentOutOfRangeException>(() => list[1] = "test2");
+    }
+
+    [Test]
+    public void OpenList_indexer_negative()
+    {
+        var list = new OpenList<string>
+        {
+            "test"
+        };
+        Assert.That(list.Count, Is.EqualTo(1));
+        Assert.Throws<ArgumentOutOfRangeException>(() => _ = list[-1]);
+    }
+
+    [Test]
+    public void OpenList_indexer_set_negative()
+    {
+        var list = new OpenList<string>
+        {
+            "test"
+        };
+        Assert.That(list.Count, Is.EqualTo(1));
+        Assert.Throws<ArgumentOutOfRangeException>(() => list[-1] = "test2");
+    }
+}

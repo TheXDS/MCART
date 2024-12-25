@@ -46,7 +46,7 @@ internal static class PrivateInternals
 #endif
         foreach (string? j in separators)
         {
-            string[]? l = value.Split(new[] { j }, StringSplitOptions.RemoveEmptyEntries);
+            string[]? l = value.Split([j], StringSplitOptions.RemoveEmptyEntries);
             if (l.Length != items) continue;
             try
             {

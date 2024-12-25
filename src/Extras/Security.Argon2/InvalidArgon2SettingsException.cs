@@ -54,11 +54,4 @@ public class InvalidArgon2SettingsException : Exception
     /// <param name="message">The error message that explains the reason for the exception.</param>
     /// <param name="innerException">The exception that is the cause of the current exception.</param>
     public InvalidArgon2SettingsException(string message, Exception innerException) : base(message, innerException) { }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="InvalidArgon2SettingsException"/> class with serialized data.
-    /// </summary>
-    /// <param name="info">The object that holds the serialized object data.</param>
-    /// <param name="context">The contextual information about the source or destination.</param>
-    protected InvalidArgon2SettingsException(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
 }
