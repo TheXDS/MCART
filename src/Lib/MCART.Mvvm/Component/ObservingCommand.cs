@@ -47,7 +47,7 @@ namespace TheXDS.MCART.Component;
 public partial class ObservingCommand : CommandBase
 {
     private Func<INotifyPropertyChanged, object?, bool>? _canExecute;
-    private readonly HashSet<string> _properties = new();
+    private readonly HashSet<string> _properties = [];
 
     /// <summary>
     /// Inicializa una nueva instancia de la clase

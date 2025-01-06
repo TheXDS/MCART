@@ -62,21 +62,12 @@ public partial class ObservingCommandBuilder<T> where T : INotifyPropertyChanged
     [Conditional("EnforceContracts")]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     [DebuggerNonUserCode]
-    private void ListensToCanExecute_Contract(MemberInfo member, [DynamicallyAccessedMembers(All)] Type t)
+    private void ListensToCanExecute_Contract(MemberInfo member, Type t)
     {
         IsBuilt_Contract();
-        if (!GetAll<MemberInfo>(t).Contains(member))
+        if (!(member.DeclaringType?.IsAssignableFrom(t) ?? false))
         {
             throw Errors.MissingMember(t, member);
         }
-    }
-
-    private static IEnumerable<TMember> GetAll<TMember>([DynamicallyAccessedMembers(All)]Type? t) where TMember : MemberInfo
-    {
-        if (t is null || t == typeof(object)) return [];
-        return t.GetMembers()
-            .Concat(GetAll<TMember>(t.BaseType))
-            .Concat(t.GetInterfaces().SelectMany(([DynamicallyAccessedMembers(PublicConstructors | PublicFields | PublicMethods | PublicNestedTypes | PublicProperties | PublicEvents)] p) => p.GetMembers()))
-            .OfType<TMember>();
     }
 }

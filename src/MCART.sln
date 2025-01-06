@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# 17
+# Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution items", "Solution items", "{B3DE9472-6772-4DDB-AA67-038A59C7AE8D}"
@@ -217,8 +217,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "old", "old", "{0ED0A9C1-004
 		..\docs\articles\old\ROADMAP.md = ..\docs\articles\old\ROADMAP.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "temp\ConsoleApp1\ConsoleApp1.csproj", "{87C00AD7-126E-4A23-AFF7-8DA6975511C6}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -357,10 +355,6 @@ Global
 		{0BDEBC66-2A28-4FC4-A52D-3994F2B0E991}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0BDEBC66-2A28-4FC4-A52D-3994F2B0E991}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0BDEBC66-2A28-4FC4-A52D-3994F2B0E991}.Release|Any CPU.Build.0 = Release|Any CPU
-		{87C00AD7-126E-4A23-AFF7-8DA6975511C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{87C00AD7-126E-4A23-AFF7-8DA6975511C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{87C00AD7-126E-4A23-AFF7-8DA6975511C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{87C00AD7-126E-4A23-AFF7-8DA6975511C6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -430,7 +424,6 @@ Global
 		{B2359786-724A-4530-A117-125AFC274C65} = {0151F8B9-B358-4654-B5CB-6FB9D02DF004}
 		{0BDEBC66-2A28-4FC4-A52D-3994F2B0E991} = {628D40FB-AA87-4DA7-AF16-4F57A9FADD9C}
 		{0ED0A9C1-004C-4D10-9226-6240ED23B7BB} = {8D205061-EEC6-4A1F-9F9F-E3AB164446B0}
-		{87C00AD7-126E-4A23-AFF7-8DA6975511C6} = {9F25E152-37CC-4376-9C87-7A7497748F81}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {63BB1063-9448-4D86-ADAF-29683E2E7E73}
@@ -458,7 +451,6 @@ Global
 		Shared\AssemblyInfo\AssemblyInfo.projitems*{779c7535-ef1c-488e-a939-fb210d6854ca}*SharedItemsImports = 5
 		Tests\Platform\Shared\Xaml.Tests\Xaml.Tests.projitems*{7f4a02d0-5310-49ae-bd8d-d94bdd069671}*SharedItemsImports = 5
 		Tests\TestShared\TestShared.projitems*{7f4a02d0-5310-49ae-bd8d-d94bdd069671}*SharedItemsImports = 5
-		Shared\AssemblyInfo\AssemblyInfo.projitems*{87c00ad7-126e-4a23-aff7-8da6975511c6}*SharedItemsImports = 5
 		Platform\Shared\Xaml\Xaml.projitems*{8817fb6f-3fcb-43c9-9054-b47d4deb0f20}*SharedItemsImports = 13
 		Shared\AssemblyInfo\AssemblyInfo.projitems*{967afaa3-ded3-4ec0-9401-7193b318fce8}*SharedItemsImports = 13
 		Shared\AssemblyInfo\AssemblyInfo.projitems*{96f6fd64-bbab-4513-821d-6ee518274c78}*SharedItemsImports = 5

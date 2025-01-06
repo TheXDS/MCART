@@ -7,21 +7,6 @@
 		<EnableWindowsTargeting>true</EnableWindowsTargeting>
 	</PropertyGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\..\..\Extras\Wpf.Win19041\Wpf.Win19041.csproj" />
-	</ItemGroup>
-	<ItemGroup>
-	  <PackageReference Update="coverlet.collector" Version="6.0.2">
-	    <PrivateAssets>all</PrivateAssets>
-	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-	  </PackageReference>
-	</ItemGroup>
-	<ItemGroup>
-	  <PackageReference Update="Microsoft.NET.Test.Sdk" Version="17.12.0" />
-	</ItemGroup>
-	<ItemGroup>
-	  <PackageReference Update="Moq" Version="4.20.72" />
-	</ItemGroup>
-	<ItemGroup>
-	  <PackageReference Update="NUnit" Version="4.2.2" />
+	  <ProjectReference Include="..\..\..\Extras\Wpf.Win19041\Wpf.Win19041.csproj" />
 	</ItemGroup>
 </Project>

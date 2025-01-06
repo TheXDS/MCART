@@ -298,6 +298,6 @@ public abstract partial class NotifyPropertyChangeBase : INotifyPropertyChangeBa
 
     private static void ValidateProperty(PropertyInfo property, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)]Type ownerType)
     {
-        if (!ownerType.GetProperties().Contains(property)) throw Errors.MissingMember(ownerType, property);
+        if (!(property.DeclaringType?.IsAssignableFrom(ownerType) ?? false)) throw Errors.MissingMember(ownerType, property);
     }
 }
