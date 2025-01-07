@@ -29,7 +29,6 @@ SOFTWARE.
 */
 
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
 using TheXDS.MCART.Component;
 
 namespace TheXDS.MCART.Helpers;
@@ -52,7 +51,7 @@ public static class ObservingCommandBuilder
     /// utilizarse para configurar y crear un
     /// <see cref="ObservingCommand"/>.
     /// </returns>
-    public static ObservingCommandBuilder<T> Create<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] T>(this T observedObject, Action action) where T : INotifyPropertyChanged
+    public static ObservingCommandBuilder<T> Create<T>(this T observedObject, Action action) where T : INotifyPropertyChanged
     {
         return new ObservingCommandBuilder<T>(observedObject, action);
     }
@@ -68,7 +67,7 @@ public static class ObservingCommandBuilder
     /// utilizarse para configurar y crear un
     /// <see cref="ObservingCommand"/>.
     /// </returns>
-    public static ObservingCommandBuilder<T> Create<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] T>(this T observedObject, Action<object?> action) where T : INotifyPropertyChanged
+    public static ObservingCommandBuilder<T> Create<T>(this T observedObject, Action<object?> action) where T : INotifyPropertyChanged
     {
         return new ObservingCommandBuilder<T>(observedObject, action);
     }
@@ -84,7 +83,7 @@ public static class ObservingCommandBuilder
     /// utilizarse para configurar y crear un
     /// <see cref="ObservingCommand"/>.
     /// </returns>
-    public static ObservingCommandBuilder<T> Create<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] T>(this T observedObject, Func<Task> action) where T : INotifyPropertyChanged
+    public static ObservingCommandBuilder<T> Create<T>(this T observedObject, Func<Task> action) where T : INotifyPropertyChanged
     {
         return new ObservingCommandBuilder<T>(observedObject, action);
     }
@@ -100,7 +99,7 @@ public static class ObservingCommandBuilder
     /// utilizarse para configurar y crear un
     /// <see cref="ObservingCommand"/>.
     /// </returns>
-    public static ObservingCommandBuilder<T> Create<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] T>(this T observedObject, Func<object?, Task> action) where T : INotifyPropertyChanged
+    public static ObservingCommandBuilder<T> Create<T>(this T observedObject, Func<object?, Task> action) where T : INotifyPropertyChanged
     {
         return new ObservingCommandBuilder<T>(observedObject, action);
     }
