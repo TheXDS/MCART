@@ -141,7 +141,6 @@ public static class EnumExtensions
     /// nombre amigable por medio del atributo
     /// <see cref="NameAttribute"/>.
     /// </returns>
-    [RequiresUnreferencedCode(AttributeErrorMessages.MethodGetsTypeMembersByName)]
     public static string NameOf(this Enum value)
     {
         return value.GetAttribute<NameAttribute>()?.Value ??
@@ -240,7 +239,6 @@ public static class EnumExtensions
 /// </exception>
     [CLSCompliant(false)]
 #endif
-    [RequiresUnreferencedCode(AttributeErrorMessages.MethodGetsTypeMembersByName)]
     public static bool HasAttribute<T>(this Enum enumValue, [NotNullWhen(true)] out T? attribute) where T : notnull, Attribute
     {
         Type? type = enumValue.GetType();
@@ -335,7 +333,6 @@ public static class EnumExtensions
     /// Un atributo del tipo <typeparamref name="T" /> con los datos
     /// asociados en la declaración del valor de enumeración.
     /// </returns>
-    [RequiresUnreferencedCode(AttributeErrorMessages.MethodGetsTypeMembersByName)]
     public static T? GetAttribute<T>(this Enum enumValue) where T : Attribute
     {
         HasAttribute(enumValue, out T? attribute);

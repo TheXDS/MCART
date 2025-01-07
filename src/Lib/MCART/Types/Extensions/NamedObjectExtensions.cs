@@ -56,9 +56,9 @@ public static partial class NamedObjectExtensions
     [Sugar]
     [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
     [RequiresUnreferencedCode(AttributeErrorMessages.MethodGetsTypeMembersByName)]
-    public static IEnumerable<NamedObject<T>> AsNamedObject<T>() where T : Enum
+    public static IEnumerable<NamedObject<T>> AsNamedObject<T>() where T : struct, Enum
     {
-        return NamedObject<T>.FromEnum();
+        return NamedObject.FromEnum<T>();
     }
 
     /// <summary>

@@ -1195,7 +1195,6 @@ public static partial class TypeExtensions
     /// Se produce si <paramref name="type"/> no es un tipo de enumeración.
     /// </exception>
     [RequiresDynamicCode(MethodCallsDynamicCode)]
-    [RequiresUnreferencedCode(MethodGetsTypeMembersByName)]
     public static IEnumerable<NamedObject<Enum>> ToNamedEnum(this Type type)
     {
         ToNamedEnum_Contract(type);
