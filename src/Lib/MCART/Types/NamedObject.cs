@@ -32,8 +32,22 @@ using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Types;
 
+/// <summary>
+/// Defines some useful methods that can be used to create objects of type
+/// <see cref="NamedObject{T}"/>.
+/// </summary>
 public static class NamedObject
 {
+    /// <summary>
+    /// Enumerates all enum values as named objects.
+    /// </summary>
+    /// <typeparam name="T">
+    /// Type of Enum to get a collection of named objects for.
+    /// </typeparam>
+    /// <returns>
+    /// An enumeration of <see cref="NamedObject{T}"/> from the values of the
+    /// specified <see cref="Enum"/> type.
+    /// </returns>
     public static IEnumerable<NamedObject<T>> FromEnum<T>() where T : struct, Enum
     {
         return Enum.GetValues<T>().Select(j => new NamedObject<T>(j, j.NameOf()));
