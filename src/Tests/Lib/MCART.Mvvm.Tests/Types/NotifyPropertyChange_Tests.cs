@@ -124,6 +124,21 @@ public class NotifyPropertyChange_Tests
     }
 
     [Test]
+    public void PropertyChangeObserver_for_specific_prop_gets_called_test()
+    {
+        bool pcoWasCalled = false;
+        var obj = new TestNpcClass();
+        obj.Subscribe(() => obj.IntProperty, (o, p, t) =>
+        {
+            pcoWasCalled = true;
+            Assert.That(o, Is.SameAs(obj));
+            Assert.That(p.Name, Is.EqualTo(nameof(TestNpcClass.IntProperty)));
+        });
+        obj.IntProperty = 1;
+        Assert.That(pcoWasCalled);
+    }
+
+    [Test]
     public void OnPropertyChanging_contract_test()
     {
         var obj = new TestNpcClass();
