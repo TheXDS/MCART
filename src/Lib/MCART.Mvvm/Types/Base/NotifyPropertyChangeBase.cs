@@ -36,7 +36,6 @@ using System.Runtime.CompilerServices;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Resources;
-using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Types.Base;
 
@@ -149,7 +148,7 @@ public abstract partial class NotifyPropertyChangeBase : INotifyPropertyChangeBa
         }
     }
 
-    private record SubscriptionEntry(PropertyInfo? Property, WeakReference<PropertyChangeObserver> Observer);
+    private record SubscriptionEntry(PropertyInfo? Property, PropertyChangeObserver Observer);
 
     private readonly HashSet<SubscriptionEntry> _observeSubscriptions = [];
 
@@ -199,7 +198,7 @@ public abstract partial class NotifyPropertyChangeBase : INotifyPropertyChangeBa
     public void Subscribe(PropertyInfo? property, PropertyChangeObserver callback)
     {
         if (property is not null) ValidateProperty(property, GetType());
-        _observeSubscriptions.Add(new(property, new WeakReference<PropertyChangeObserver>(callback)));
+        _observeSubscriptions.Add(new(property, callback));
     }
 
     /// <inheritdoc/>
@@ -217,7 +216,7 @@ public abstract partial class NotifyPropertyChangeBase : INotifyPropertyChangeBa
     /// <inheritdoc/>
     public void Unsubscribe(PropertyChangeObserver callback)
     {
-        SubscriptionEntry[] entries = _observeSubscriptions.Where(p => (!p.Observer.TryGetTarget(out var t)) || t == callback).ToArray();
+        SubscriptionEntry[] entries = _observeSubscriptions.Where(p => p.Observer == callback).ToArray();
         foreach (var j in entries) _observeSubscriptions.Remove(j);
     }
 
@@ -286,8 +285,7 @@ public abstract partial class NotifyPropertyChangeBase : INotifyPropertyChangeBa
         SubscriptionEntry[] entries = _observeSubscriptions.Where(p => p.Property is null || p.Property == prop).ToArray();
         foreach (var entry in entries)
         {
-            if (entry.Observer.TryGetTarget(out PropertyChangeObserver? t)) t.Invoke(this, prop, notificationType);
-            else _observeSubscriptions.Remove(entry);
+            entry.Observer.Invoke(this, prop, notificationType);
         }
         RaisePropertyChangeEvent(propertyName, notificationType);
         if (_notifyTree.TryGetValue(propertyName, out var broadcast))
