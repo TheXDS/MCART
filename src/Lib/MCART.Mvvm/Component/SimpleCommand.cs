@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -34,30 +34,31 @@ using TheXDS.MCART.Types.Base;
 namespace TheXDS.MCART.Component;
 
 /// <summary>
-/// Describe un comando simple que puede ser declarado dentro de un
+/// Describes a simplified command that can be used in a
 /// <see cref="ViewModelBase" />.
 /// </summary>
-public class SimpleCommand : CommandBase, ICommand
+/// <param name="action">Action to execute.</param>
+/// <param name="canExecute">
+/// Indicates if the command will be executable by default.
+/// </param>
+public class SimpleCommand(Action<object?> action, bool canExecute) : CommandBase(action), ICommand
 {
-    private bool _canExecute;
+    private bool _canExecute = canExecute;
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="SimpleCommand" />.
+    /// Initializes a new instance of the <see cref="SimpleCommand" /> class.
     /// </summary>
-    /// <param name="action">Acción a ejecutar.</param>
+    /// <param name="action">Action to be executed.</param>
     public SimpleCommand(Action action) : this(action, true)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="SimpleCommand"/>.
+    /// Initializes a new instance of the <see cref="SimpleCommand" /> class.
     /// </summary>
-    /// <param name="action">Acción a ejecutar.</param>
+    /// <param name="action">Action to be executed.</param>
     /// <param name="canExecute">
-    /// Valor que indica si el comando puede ser ejecutado
-    /// inmediatamente después de instanciar esta clase.
+    /// Indicates if the command will be executable by default.
     /// </param>
     public SimpleCommand(Action action, bool canExecute) : this(_ => action())
     {
@@ -65,54 +66,35 @@ public class SimpleCommand : CommandBase, ICommand
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="SimpleCommand" />.
+    /// Initializes a new instance of the <see cref="SimpleCommand" /> class.
     /// </summary>
-    /// <param name="action">Acción a ejecutar.</param>
+    /// <param name="action">Action to be executed.</param>
     public SimpleCommand(Action<object?> action) : this(action, true)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="SimpleCommand"/>.
+    /// Initializes a new instance of the <see cref="SimpleCommand" /> class.
     /// </summary>
-    /// <param name="action">Acción a ejecutar.</param>
-    /// <param name="canExecute">
-    /// Valor que indica si el comando puede ser ejecutado
-    /// inmediatamente después de instanciar esta clase.
-    /// </param>
-    public SimpleCommand(Action<object?> action, bool canExecute) : base(action)
-    {
-        _canExecute = canExecute;
-    }
-
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="SimpleCommand" />.
-    /// </summary>
-    /// <param name="task">Tarea a ejecutar.</param>
+    /// <param name="task">Task to be executed.</param>
     public SimpleCommand(Func<Task> task) : this((Action)(async () => await task()))
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="SimpleCommand" />.
+    /// Initializes a new instance of the <see cref="SimpleCommand" /> class.
     /// </summary>
-    /// <param name="task">Tarea a ejecutar.</param>
+    /// <param name="task">Task to be executed.</param>
     public SimpleCommand(Func<object?, Task> task) : this((Action<object?>)(async o => await task(o)))
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="SimpleCommand"/>.
+    /// Initializes a new instance of the <see cref="SimpleCommand" /> class.
     /// </summary>
-    /// <param name="task">Tarea a ejecutar.</param>
+    /// <param name="task">Task to be executed.</param>
     /// <param name="canExecute">
-    /// Valor que indica si el comando puede ser ejecutado
-    /// inmediatamente después de instanciar esta clase.
+    /// Indicates if the command will be executable by default.
     /// </param>
     public SimpleCommand(Func<Task> task, bool canExecute) : this((Action)(async () => await task()))
     {
@@ -120,13 +102,11 @@ public class SimpleCommand : CommandBase, ICommand
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="SimpleCommand"/>.
+    /// Initializes a new instance of the <see cref="SimpleCommand" /> class.
     /// </summary>
-    /// <param name="task">Tarea a ejecutar.</param>
+    /// <param name="task">Task to be executed.</param>
     /// <param name="canExecute">
-    /// Valor que indica si el comando puede ser ejecutado
-    /// inmediatamente después de instanciar esta clase.
+    /// Indicates if the command will be executable by default.
     /// </param>
     public SimpleCommand(Func<object?, Task> task, bool canExecute) : this((Action<object?>)(async o => await task(o)))
     {
@@ -134,17 +114,15 @@ public class SimpleCommand : CommandBase, ICommand
     }
 
     /// <summary>
-    /// Define el método que determina si el comando puede ejecutarse
-    /// en su estado actual.
+    /// Checks if the current command can be executed.
     /// </summary>
     /// <param name="parameter">
-    /// Datos que usa el comando. Si el comando no exige pasar los
-    /// datos, se puede establecer este objeto en
-    /// <see langword="null" />.
+    /// DCommand parameters. If the command does not require parameters, this
+    /// value can be set to <see langword="null" />.
     /// </param>
     /// <returns>
-    /// <see langword="true" /> si se puede ejecutar este comando; de
-    /// lo contrario, <see langword="false" />.
+    /// <see langword="true" /> if the command can be executed,
+    /// <see langword="false" /> otherwise.
     /// </returns>
     public override bool CanExecute(object? parameter)
     {
@@ -152,9 +130,11 @@ public class SimpleCommand : CommandBase, ICommand
     }
 
     /// <summary>
-    /// Establece manualmente si este comando puede ser ejecutado.
+    /// Manually sets a value that determines if this command can be executed.
     /// </summary>
-    /// <param name="canExecute"></param>
+    /// <param name="canExecute">
+    /// Value that indicates if the command can be executed.
+    /// </param>
     public void SetCanExecute(bool canExecute)
     {
         _canExecute = canExecute;
