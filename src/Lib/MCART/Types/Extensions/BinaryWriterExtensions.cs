@@ -28,9 +28,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
@@ -232,10 +230,37 @@ public static partial class BinaryWriterExtensions
         int sze = Marshal.SizeOf(value);
         byte[]? arr = new byte[sze];
         IntPtr ptr = Marshal.AllocHGlobal(sze);
-        Marshal.StructureToPtr(value, ptr, true);
+        Marshal.StructureToPtr(value, ptr, false);
         Marshal.Copy(ptr, arr, 0, sze);
         Marshal.FreeHGlobal(ptr);
         bw.Write(arr);
+    }
+
+    /// <summary>
+    /// Writes an array of structures to the underlying stream using
+    /// Marshaling.
+    /// </summary>
+    /// <typeparam name="T">Type of structure array to write.</typeparam>
+    /// <param name="bw">Binary writer to use when writing the array.</param>
+    /// <param name="array">Array of values to write.</param>
+    /// <returns>
+    /// The number of bytes written to the stream.
+    /// </returns>
+    public static int MarshalWriteStructArray<T>(this BinaryWriter bw, T[] array) where T : struct
+    {
+        WriteStruct_Contract(bw);
+        int sizeOf = Marshal.SizeOf<T>();
+        int dataSize = sizeOf * array.Length;
+        nint ptr = Marshal.AllocHGlobal(dataSize);
+        for (int i = 0; i < array.Length; i++)
+        {
+            Marshal.StructureToPtr(array[i], ptr + (i * sizeOf), false);
+        }
+        byte[] data = new byte[dataSize];
+        Marshal.Copy(ptr, data, 0, dataSize);
+        Marshal.FreeHGlobal(ptr);
+        bw.Write(data);
+        return data.Length;
     }
 
     /// <summary>

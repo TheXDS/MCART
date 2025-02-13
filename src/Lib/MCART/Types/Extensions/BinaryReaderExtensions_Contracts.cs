@@ -30,6 +30,7 @@ SOFTWARE.
 
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Resources;
 using static TheXDS.MCART.Misc.Internals;
 
@@ -45,6 +46,9 @@ public static partial class BinaryReaderExtensions
         ArgumentNullException.ThrowIfNull(reader);
     }
 
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
     private static void ReadArray_Contract(BinaryReader reader, Type arrayType)
     {
         ArgumentNullException.ThrowIfNull(reader, nameof(reader));
@@ -52,5 +56,34 @@ public static partial class BinaryReaderExtensions
         {
             throw Errors.UnexpectedType(arrayType, typeof(Array));
         }
+    }
+
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void ReadBytesAt_Contract(this BinaryReader reader, long offset, int count)
+    {
+        ReadStruct_Contract(reader);
+        if (!offset.IsBetween(0, reader.BaseStream.Length)) throw Errors.ValueOutOfRange(nameof(offset), 0, reader.BaseStream.Length);
+        if (!count.IsBetween(0, (int)(reader.BaseStream.Length - offset))) throw Errors.ValueOutOfRange(nameof(count), 0, reader.BaseStream.Length - offset);
+    }
+
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void MarshalReadArray_Contract(BinaryReader br, int count)
+    {
+        ReadStruct_Contract(br);
+        if (!count.IsBetween(0, int.MaxValue)) throw Errors.ValueOutOfRange(nameof(count), 0, int.MaxValue);
+    }
+
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void MarshalReadArray_Contract(BinaryReader br, long offset, int count)
+    {
+        ReadStruct_Contract(br);
+        if (!offset.IsBetween(0, br.BaseStream.Length)) throw Errors.ValueOutOfRange(nameof(offset), 0, br.BaseStream.Length);
+        if (!count.IsBetween(0, int.MaxValue)) throw Errors.ValueOutOfRange(nameof(count), 0, int.MaxValue);
     }
 }

@@ -81,7 +81,6 @@ public class BinaryWriterExtensionsTests
     public void DynamicWrite_Contract_Test()
     {
         BinaryWriter? bw = null;
-
         Assert.Throws<ArgumentNullException>(() => bw!.DynamicWrite(1));
         using MemoryStream? ms = new();
         using (bw = new BinaryWriter(ms))
@@ -89,6 +88,17 @@ public class BinaryWriterExtensionsTests
             Assert.Throws<ArgumentNullException>(() => bw.DynamicWrite(null!));
             Assert.Throws<InvalidOperationException>(() => bw.DynamicWrite(new Random()));
         }
+    }
+
+    [Test]
+    public void MarshalWriteStructArray_Test()
+    {
+        using var ms = new MemoryStream();
+        using (var bw = new BinaryWriter(ms))
+        {
+            Assert.That(bw.MarshalWriteStructArray([1, 2, 3, 4]), Is.EqualTo(16));
+        }
+        Assert.That(ms.ToArray(), Is.EquivalentTo(new byte[] { 1, 0, 0, 0, 2, 0, 0, 0, 3, 0, 0, 0, 4, 0, 0, 0 }));
     }
 
     [Test]

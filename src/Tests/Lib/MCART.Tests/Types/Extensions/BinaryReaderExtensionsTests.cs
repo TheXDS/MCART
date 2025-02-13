@@ -182,6 +182,63 @@ public class BinaryReaderExtensionsTests
     }
 
     [Test]
+    public void ReadBytesAt_Test()
+    {
+        byte[] a = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        using MemoryStream ms = new(a);
+        ms.Seek(0, SeekOrigin.Begin);
+        using BinaryReader br = new(ms);
+        Assert.That(br.ReadBytesAt(4, 4), Is.EquivalentTo([5, 6, 7, 8]));
+    }
+
+    [Test]
+    public void ReadBytesAt_contract_test()
+    {
+        byte[] a = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        using MemoryStream ms = new(a);
+        ms.Seek(0, SeekOrigin.Begin);
+        using BinaryReader br = new(ms);
+        Assert.That(() => br.ReadBytesAt(-1, 4), Throws.InstanceOf<ArgumentOutOfRangeException>());
+        Assert.That(() => br.ReadBytesAt(4, -1), Throws.InstanceOf<ArgumentOutOfRangeException>());
+        Assert.That(() => br.ReadBytesAt(4, 11), Throws.InstanceOf<ArgumentOutOfRangeException>());
+    }
+
+    [Test]
+    public void MarshalReadArray_Test()
+    {
+        using MemoryStream ms = new([1, 0, 0, 0, 2, 0, 0, 0, 3, 0, 0, 0, 4, 0, 0, 0]);
+        using BinaryReader br = new(ms);
+        Assert.That(br.MarshalReadArray<int>(4), Is.EquivalentTo([1, 2, 3, 4]));
+    }
+
+    [Test]
+    public void MarshalReadArray_with_offset_Test()
+    {
+        using MemoryStream ms = new([1, 0, 0, 0, 2, 0, 0, 0, 3, 0, 0, 0, 4, 0, 0, 0]);
+        using BinaryReader br = new(ms);
+        Assert.That(br.MarshalReadArray<int>(4, 2), Is.EquivalentTo([2, 3]));
+    }
+
+    [Test]
+    public void MarshalReadArray_contract_Test()
+    {
+        using MemoryStream ms = new([1, 0, 0, 0, 2, 0, 0, 0, 3, 0, 0, 0, 4, 0, 0, 0]);
+        using BinaryReader br = new(ms);
+        Assert.That(() => br.MarshalReadArray<int>(-4), Throws.InstanceOf<ArgumentOutOfRangeException>());
+        Assert.That(() => br.MarshalReadArray<int>(100), Throws.InstanceOf<ArgumentOutOfRangeException>());
+    }
+
+    [Test]
+    public void MarshalReadArray_with_offset_Contract_Test()
+    {
+        using MemoryStream ms = new([1, 0, 0, 0, 2, 0, 0, 0, 3, 0, 0, 0, 4, 0, 0, 0]);
+        using BinaryReader br = new(ms);
+        Assert.That(() => br.MarshalReadArray<int>(4, -1), Throws.InstanceOf<ArgumentOutOfRangeException>());
+        Assert.That(() => br.MarshalReadArray<int>(-1, 2), Throws.InstanceOf<ArgumentOutOfRangeException>());
+        Assert.That(() => br.MarshalReadArray<int>(4, 100), Throws.InstanceOf<ArgumentOutOfRangeException>());
+    }
+
+    [Test]
     public void FieldReadStruct_Test()
     {
         using MemoryStream ms = new();
