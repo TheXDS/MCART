@@ -118,9 +118,24 @@ public class CollectionExtensionsTests
     {
         Collection<int> c = new();
         c.AddRange(new[] { 1, 2, 3, 4 });
-        Assert.That(c, Is.EquivalentTo(new[] { 1, 2, 3, 4 }));
+        Assert.That(c, Is.EquivalentTo([1, 2, 3, 4]));
     }
 
+    [Test]
+    public async Task AddRangeAsync_Test()
+    {
+        static async IAsyncEnumerable<int> Enumerate()
+        {
+            foreach (var j in (int[])[1, 2, 3, 4])
+            {
+                await Task.CompletedTask;
+                yield return j;
+            }
+        }
+        Collection<int> c = new();
+        await c.AddRangeAsync(Enumerate());
+        Assert.That(c, Is.EquivalentTo([1, 2, 3, 4]));
+    }
     private class CloneableTestClass : ICloneable<CloneableTestClass>
     {
         public int Value { get; set; }

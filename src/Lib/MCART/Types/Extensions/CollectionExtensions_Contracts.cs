@@ -63,6 +63,15 @@ public static partial class CollectionExtensions
         ArgumentNullException.ThrowIfNull(items, nameof(items));
     }
 
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void AddRange_Contract<T>(this ICollection<T> collection, IAsyncEnumerable<T> items)
+    {
+        ArgumentNullException.ThrowIfNull(collection, nameof(collection));
+        ArgumentNullException.ThrowIfNull(items, nameof(items));
+    }
+
     private static void Push_Contract<TCollection>(this ICollection<TCollection> collection)
     {
         ArgumentNullException.ThrowIfNull(collection, nameof(collection));

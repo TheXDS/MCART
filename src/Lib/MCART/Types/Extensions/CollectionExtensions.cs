@@ -205,19 +205,39 @@ public static partial class CollectionExtensions
     public static TItem Push<TItem, TCollection>(this ICollection<TCollection> collection) where TItem : TCollection, new() => Push(collection, new TItem());
 
     /// <summary>
-    /// Añade un conjunto de elementos al <see cref="ICollection{T}"/>.
+    /// Adds a set of elements to the specified <see cref="ICollection{T}"/>.
     /// </summary>
-    /// <typeparam name="T">Tipo de elementos de la colección.</typeparam>
+    /// <typeparam name="T">
+    /// Type of elements contained in the collection.
+    /// </typeparam>
     /// <param name="collection">
-    /// Colección a la cual agregar los elementos.
+    /// Collection onto which to add the elements.
     /// </param>
     /// <param name="items">
-    /// Elementos a agregar a la colección.
+    /// Enumeration of elements to be added to the collection.
     /// </param>
     public static void AddRange<T>(this ICollection<T> collection, IEnumerable<T> items)
     {
         AddRange_Contract(collection, items);
         foreach (T? j in items) collection.Add(j);
+    }
+
+    /// <summary>
+    /// Adds a set of elements to the specified <see cref="ICollection{T}"/>.
+    /// </summary>
+    /// <typeparam name="T">
+    /// Type of elements contained in the collection.
+    /// </typeparam>
+    /// <param name="collection">
+    /// Collection onto which to add the elements.
+    /// </param>
+    /// <param name="items">
+    /// Async enumeration of elements to be added to the collection.
+    /// </param>
+    public static async Task AddRangeAsync<T>(this ICollection<T> collection, IAsyncEnumerable<T> items)
+    {
+        AddRange_Contract(collection, items);
+        await foreach (T? j in items) collection.Add(j);
     }
 
     /// <summary>
