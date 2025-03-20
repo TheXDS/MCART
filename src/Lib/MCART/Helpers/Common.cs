@@ -49,28 +49,28 @@ using St = TheXDS.MCART.Resources.Strings.Common;
 namespace TheXDS.MCART.Helpers;
 
 /// <summary>
-/// Contiene operaciones comunes de transformación de datos en los
-/// programas, y de algunas comparaciones especiales.
+/// Defines operations for common data transformation in programs, and some
+/// special comparison functions.
 /// </summary>
 /// <remarks>
-/// Algunas de estas funciones también se implementan como extensiones, por
-/// lo que para ser llamadas únicamente es necesario importar el espacio de
-/// nombres <see cref="MCART" /> y utilizar sintaxis de instancia.
+/// Some of these functions are also implemented as extensions, so to be
+/// called they only need to import the namespace <see cref="MCART" /> and
+/// use instance syntax.
 /// </remarks>
 public static partial class Common
 {
     private static Dictionary<Type, Type>? KnownConverters;
 
     /// <summary>
-    /// Determina si un conjunto de cadenas están vacías.
+    /// Determines if a set of strings are all empty.
     /// </summary>
     /// <returns>
-    /// <see langword="true" /> si las cadenas están vacías o son 
-    /// <see langword="null" />; de lo contrario, <see langword="false" />.
+    /// <see langword="true" /> if the strings are empty or
+    /// <see langword="null" />; <see langword="false" /> otherwise.
     /// </returns>
-    /// <param name="stringArray">Cadenas a comprobar.</param>
+    /// <param name="stringArray">Strings to check.</param>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="stringArray"/> es
+    /// Thrown if <paramref name="stringArray"/> is
     /// <see langword="null"/>.
     /// </exception>
     public static bool AllEmpty(params string?[] stringArray)
@@ -79,18 +79,18 @@ public static partial class Common
     }
 
     /// <summary>
-    /// Determina si alguna cadena está vacía.
+    /// Determines if any of the strings are empty.
     /// </summary>
     /// <returns>
-    /// <see langword="true" /> si alguna cadena está vacía o es 
-    /// <see langword="null" />; de lo contrario, <see langword="false" />.
+    /// <see langword="true" /> if any string is empty or
+    /// <see langword="null" />; <see langword="false" /> otherwise.
     /// </returns>
-    /// <param name="stringArray">Cadenas a comprobar.</param>
+    /// <param name="stringArray">Strings to check.</param>
     /// <param name="index">
-    /// Argumento de salida. Índices de las cadenas vacías encontradas.
+    /// Output argument. Indexes of the empty strings found.
     /// </param>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="stringArray"/> es 
+    /// Thrown if <paramref name="stringArray"/> is
     /// <see langword="null"/>.
     /// </exception>
     public static bool AnyEmpty(out IEnumerable<int> index, params string?[] stringArray)
@@ -99,18 +99,18 @@ public static partial class Common
     }
 
     /// <summary>
-    /// Determina si alguna cadena está vacía.
+    /// Determines if any of the strings are empty.
     /// </summary>
     /// <returns>
-    /// <see langword="true" /> si alguna cadena está vacía o es 
-    /// <see langword="null" />; de lo contrario, <see langword="false" />.
+    /// <see langword="true" /> if any string is empty or
+    /// <see langword="null" />; <see langword="false" /> otherwise.
     /// </returns>
-    /// <param name="stringArray">Cadenas a comprobar.</param>
+    /// <param name="stringArray">Strings to check.</param>
     /// <param name="firstIndex">
-    /// Argumento de salida. Índice de la primera cadena vacía encontrada.
+    /// Output argument. Index of the first empty string found.
     /// </param>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="stringArray"/> es 
+    /// Thrown if <paramref name="stringArray"/> is
     /// <see langword="null"/>.
     /// </exception>
     public static bool AnyEmpty(out int firstIndex, params string?[] stringArray)
@@ -119,15 +119,15 @@ public static partial class Common
     }
 
     /// <summary>
-    /// Determina si alguna cadena está vacía.
+    /// Determines if any of the strings are empty.
     /// </summary>
     /// <returns>
-    /// <see langword="true" /> si alguna cadena está vacía o es
-    /// <see langword="null" />; de lo contrario, <see langword="false" />.
+    /// <see langword="true" /> if any string is empty or
+    /// <see langword="null" />; <see langword="false" /> otherwise.
     /// </returns>
-    /// <param name="stringArray">Cadenas a comprobar.</param>
+    /// <param name="stringArray">Strings to check.</param>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="stringArray"/> es 
+    /// Thrown if <paramref name="stringArray"/> is
     /// <see langword="null"/>.
     /// </exception>
     public static bool AnyEmpty(params string?[] stringArray)
@@ -136,115 +136,164 @@ public static partial class Common
     }
 
     /// <summary>
-    /// Obtiene la cuenta de bits que conforman el valor.
+    /// Gets the bit count of the value.
     /// </summary>
     /// <param name="value">
-    /// Valor a procesar.
+    /// Value to process.
     /// </param>
     /// <returns>
-    /// La cantidad de bits establecidos en 1 del valor.
+    /// The number of bits set to 1 in the value.
     /// </returns>
     public static byte BitCount(this in byte value) => BitCount(value, 8);
 
     /// <summary>
-    /// Obtiene la cuenta de bits que conforman el valor.
+    /// Gets the bit count of the value.
     /// </summary>
     /// <param name="value">
-    /// Valor a procesar.
+    /// Value to process.
     /// </param>
     /// <returns>
-    /// La cantidad de bits establecidos en 1 del valor.
+    /// The number of bits set to 1 in the value.
     /// </returns>
     public static byte BitCount(this in int value) => BitCount((ulong)value, 32);
 
     /// <summary>
-    /// Obtiene la cuenta de bits que conforman el valor.
+    /// Gets the bit count of the value.
     /// </summary>
     /// <param name="value">
-    /// Valor a procesar.
+    /// Value to process.
     /// </param>
     /// <returns>
-    /// La cantidad de bits establecidos en 1 del valor.
+    /// The number of bits set to 1 in the value.
     /// </returns>
     public static byte BitCount(this in long value) => BitCount((ulong)value, 64);
 
     /// <summary>
-    /// Obtiene la cuenta de bits que conforman el valor.
+    /// Gets the bit count of the value.
     /// </summary>
     /// <param name="value">
-    /// Valor a procesar.
+    /// Value to process.
     /// </param>
     /// <returns>
-    /// La cantidad de bits establecidos en 1 del valor.
+    /// The number of bits set to 1 in the value.
     /// </returns>
     [CLSCompliant(false)]
     public static byte BitCount(this in sbyte value) => BitCount((ulong)value, 8);
 
     /// <summary>
-    /// Obtiene la cuenta de bits que conforman el valor.
+    /// Gets the bit count of the value.
     /// </summary>
     /// <param name="value">
-    /// Valor a procesar.
+    /// Value to process.
     /// </param>
     /// <returns>
-    /// La cantidad de bits establecidos en 1 del valor.
+    /// The number of bits set to 1 in the value.
     /// </returns>
     public static byte BitCount(this in short value) => BitCount((ulong)value, 16);
 
     /// <summary>
-    /// Obtiene la cuenta de bits que conforman el valor.
+    /// Gets the bit count of the value.
     /// </summary>
     /// <param name="value">
-    /// Valor a procesar.
+    /// Value to process.
     /// </param>
     /// <returns>
-    /// La cantidad de bits establecidos en 1 del valor.
+    /// The number of bits set to 1 in the value.
     /// </returns>
     [CLSCompliant(false)]
     public static byte BitCount(this in uint value) => BitCount(value, 32);
 
     /// <summary>
-    /// Obtiene la cuenta de bits que conforman el valor.
+    /// Gets the bit count of the value.
     /// </summary>
     /// <param name="value">
-    /// Valor a procesar.
+    /// Value to process.
     /// </param>
     /// <returns>
-    /// La cantidad de bits establecidos en 1 del valor.
+    /// The number of bits set to 1 in the value.
     /// </returns>
     [CLSCompliant(false)]
     public static byte BitCount(this in ulong value) => BitCount(value, 64);
 
     /// <summary>
-    /// Obtiene la cuenta de bits que conforman el valor.
+    /// Gets the bit count of the value.
     /// </summary>
     /// <param name="value">
-    /// Valor a procesar.
+    /// Value to process.
     /// </param>
     /// <returns>
-    /// La cantidad de bits establecidos en 1 del valor.
+    /// The number of bits set to 1 in the value.
     /// </returns>
     [CLSCompliant(false)] 
     public static byte BitCount(this in ushort value) => BitCount(value, 16);
 
     /// <summary>
-    /// Convierte un valor <see cref="long"/> que representa una cuenta de
-    /// bytes en la unidad de magnitud más fácil de leer.
+    /// Converts a <see cref="int"/> value representing a byte count to the
+    /// easiest-to-read magnitude unit.
     /// </summary>
-    /// <param name="bytes">Cantidad de bytes a representar.</param>
-    /// <param name="unit">Tipo de unidad a utilizar.</param>
+    /// <param name="bytes">Amount of bytes to represent.</param>
+    /// <param name="unit">Type of units to use.</param>
     /// <param name="magnitude">
-    /// Magnitud inicial de bytes. <c>0</c> indica que el valor de 
-    /// <paramref name="bytes"/> debe tratarse directamente como el valor
-    /// en bytes de la operación. El valor máximo permitido es <c>8</c>
-    /// para indicar Yottabytes.
+    /// Initial magnitude of bytes. <c>0</c> indicates that the value of
+    /// <paramref name="bytes"/> should be treated directly as the value
+    /// in bytes of the operation. The maximum allowed value is <c>8</c>
+    /// to indicate Yottabytes.
     /// </param>
-    /// <param name="format">Formato de cadena a utilizar.</param>
+    /// <param name="format">String format to utilize.</param>
     /// <returns>
-    /// Una cadena con la cantidad de bytes utilizando la unidad de
-    /// magnitud adecuada.
+    /// A string with the byte count using the appropriate magnitude unit.
     /// </returns>
     public static string ByteUnits(in this int bytes, in ByteUnitType unit, byte magnitude, IFormatProvider? format = null)
+    {
+        return ByteUnits((long)bytes, unit, magnitude, format);
+    }
+
+    /// <summary>
+    /// Converts a <see cref="int"/> value representing a byte count to the
+    /// easiest-to-read magnitude unit.
+    /// </summary>
+    /// <param name="bytes">Amount of bytes to represent.</param>
+    /// <param name="format">String format to utilize.</param>
+    /// <returns>
+    /// A string with the byte count using the appropriate magnitude unit.
+    /// </returns>
+    public static string ByteUnits(in this int bytes, IFormatProvider? format = null)
+    {
+        return ByteUnits((long)bytes, format);
+    }
+
+    /// <summary>
+    /// Converts a <see cref="int"/> value representing a byte count to the
+    /// easiest-to-read magnitude unit.
+    /// </summary>
+    /// <param name="bytes">Amount of bytes to represent.</param>
+    /// <param name="unit">Type of units to use.</param>
+    /// <param name="format">String format to utilize.</param>
+    /// <returns>
+    /// A string with the byte count using the appropriate magnitude unit.
+    /// </returns>
+    public static string ByteUnits(in this int bytes, in ByteUnitType unit, IFormatProvider? format = null)
+    {
+        return ByteUnits((long)bytes, unit, format);
+    }
+
+    /// <summary>
+    /// Converts a <see cref="long"/> value representing a byte count to the
+    /// easiest-to-read magnitude unit.
+    /// </summary>
+    /// <param name="bytes">Amount of bytes to represent.</param>
+    /// <param name="unit">Type of units to use.</param>
+    /// <param name="magnitude">
+    /// Initial magnitude of bytes. <c>0</c> indicates that the value of
+    /// <paramref name="bytes"/> should be treated directly as the value
+    /// in bytes of the operation. The maximum allowed value is <c>8</c>
+    /// to indicate Yottabytes.
+    /// </param>
+    /// <param name="format">String format to utilize.</param>
+    /// <returns>
+    /// A string with the byte count using the appropriate magnitude unit.
+    /// </returns>
+    public static string ByteUnits(in this long bytes, in ByteUnitType unit, byte magnitude, IFormatProvider? format = null)
     {
         ByteUnits_Contract(bytes, unit, magnitude);
         return ByteUnits((long)(bytes * System.Math.Pow(unit switch
@@ -256,14 +305,13 @@ public static partial class Common
     }
 
     /// <summary>
-    /// Convierte un valor <see cref="long"/> que representa una cuenta de
-    /// bytes en la unidad de magnitud más fácil de leer.
+    /// Converts a <see cref="long"/> value representing a byte count to the
+    /// easiest-to-read magnitude unit.
     /// </summary>
-    /// <param name="bytes">Cantidad de bytes a representar.</param>
-    /// <param name="format">Formato de cadena a utilizar.</param>
+    /// <param name="bytes">Amount of bytes to represent.</param>
+    /// <param name="format">String format to utilize.</param>
     /// <returns>
-    /// Una cadena con la cantidad de bytes utilizando la unidad de
-    /// magnitud adecuada.
+    /// A string with the byte count using the appropriate magnitude unit.
     /// </returns>
     public static string ByteUnits(in this long bytes, IFormatProvider? format = null)
     {
@@ -271,15 +319,14 @@ public static partial class Common
     }
 
     /// <summary>
-    /// Convierte un valor <see cref="long"/> que representa una cuenta de
-    /// bytes en la unidad de magnitud más fácil de leer.
+    /// Converts a <see cref="long"/> value representing a byte count to the
+    /// easiest-to-read magnitude unit.
     /// </summary>
-    /// <param name="bytes">Cantidad de bytes a representar.</param>
-    /// <param name="unit">Tipo de unidad a utilizar.</param>
-    /// <param name="format">Formato de cadena a utilizar.</param>
+    /// <param name="bytes">Amount of bytes to represent.</param>
+    /// <param name="unit">Type of units to use.</param>
+    /// <param name="format">String format to utilize.</param>
     /// <returns>
-    /// Una cadena con la cantidad de bytes utilizando la unidad de
-    /// magnitud adecuada.
+    /// A string with the byte count using the appropriate magnitude unit.
     /// </returns>
     public static string ByteUnits(in this long bytes, in ByteUnitType unit, IFormatProvider? format = null)
     {
@@ -305,19 +352,19 @@ public static partial class Common
     }
 
     /// <summary>
-    /// Busca y obtiene un <see cref="TypeConverter" /> apropiado para
-    /// realizar la conversión entre tipos solicitada.
+    /// Searches and retrieves an appropriate <see cref="TypeConverter" /> to
+    /// perform the conversion between the requested types.
     /// </summary>
-    /// <param name="source">Tipo de datos de origen.</param>
-    /// <param name="target">Tipo de datos de destino.</param>
+    /// <param name="source">Source type.</param>
+    /// <param name="target">Destination type.</param>
     /// <returns>
-    /// Un <see cref="TypeConverter" /> capaz de realizar la conversión
-    /// entre los tipos requeridos, o <see langword="null" /> si no se
-    /// ha encontrado un convertidor adecuado.
+    /// A <see cref="TypeConverter" /> capable of performing the conversion
+    /// between the required types, or <see langword="null" /> if no suitable
+    /// converter has been found.
     /// </returns>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="source"/> o <paramref name="target"/>
-    /// son <see langword="null"/>.
+    /// Thrown if <paramref name="source"/> or <paramref name="target"/>
+    /// are <see langword="null"/>.
     /// </exception>
     [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
     [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
@@ -325,10 +372,10 @@ public static partial class Common
     {
         /* BUG:
          * ====
-         * En .Net, los convertidores de tipo primitivos tienden a no filtrar
-         * correctamente los tipos que pueden convertir, por ejemplo,
-         * System.ComponentModel.ByteConverter reporta que puede convertir a 
-         * System.Double, a pesar de que la documentación lo prohíbe.
+         * In .Net, primitive type converters tend to not filter
+         * correctly the types they can convert, for example,
+         * System.ComponentModel.ByteConverter reports that it can convert to
+         * System.Double, despite the documentation forbidding it.
          */
 
         if (source == typeof(string) && (KnownConverters ??= new Dictionary<Type, Type>
@@ -352,19 +399,18 @@ public static partial class Common
     }
 
     /// <summary>
-    /// Busca y obtiene un <see cref="TypeConverter" /> apropiado para
-    /// realizar la conversión entre <see cref="string" /> y el tipo
-    /// especificado.
+    /// Searches and retrieves an appropriate <see cref="TypeConverter" /> to
+    /// perform the conversion between <see cref="string" /> and the specified
+    /// type.
     /// </summary>
-    /// <param name="target">Tipo de datos de destino.</param>
+    /// <param name="target">Destination type.</param>
     /// <returns>
-    /// Un <see cref="TypeConverter" /> capaz de realizar la conversión
-    /// entre <see cref="string" /> y el tipo especificado, o
-    /// <see langword="null" /> si no se ha encontrado un convertidor
-    /// adecuado.
+    /// A <see cref="TypeConverter" /> capable of performing the conversion
+    /// between <see cref="string" /> and the specified type, or
+    /// <see langword="null" /> if no suitable converter has been found.
     /// </returns>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="target"/> es <see langword="null"/>.
+    /// Thrown if <paramref name="target"/> is <see langword="null"/>.
     /// </exception>
     [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
     [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
@@ -375,16 +421,15 @@ public static partial class Common
     }
 
     /// <summary>
-    /// Busca y obtiene un <see cref="TypeConverter" /> apropiado para
-    /// realizar la conversión entre <see cref="string" /> y el tipo
-    /// especificado.
+    /// Searches and retrieves an appropriate <see cref="TypeConverter" /> to
+    /// perform the conversion between <see cref="string" /> and the specified
+    /// type.
     /// </summary>
-    /// <typeparam name="T">Tipo de datos de destino.</typeparam>
+    /// <typeparam name="T">Destiation type.</typeparam>
     /// <returns>
-    /// Un <see cref="TypeConverter" /> capaz de realizar la conversión
-    /// entre <see cref="string" /> y el tipo especificado, o
-    /// <see langword="null" /> si no se ha encontrado un convertidor
-    /// adecuado.
+    /// A <see cref="TypeConverter" /> capable of performing the conversion
+    /// between <see cref="string" /> and the specified type, or
+    /// <see langword="null" /> if no suitable converter has been found.
     /// </returns>
     [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
     [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
@@ -394,15 +439,15 @@ public static partial class Common
     }
 
     /// <summary>
-    /// Busca y obtiene un <see cref="TypeConverter" /> apropiado para
-    /// realizar la conversión entre tipos solicitada.
+    /// Searches and retrieves an appropriate <see cref="TypeConverter" /> to
+    /// perform the conversion between the requested types.
     /// </summary>
-    /// <typeparam name="TSource">Tipo de datos de origen.</typeparam>
-    /// <typeparam name="TTarget">Tipo de datos de destino.</typeparam>
+    /// <typeparam name="TSource">Source type.</typeparam>
+    /// <typeparam name="TTarget">Destination typt.</typeparam>
     /// <returns>
-    /// Un <see cref="TypeConverter" /> capaz de realizar la conversión
-    /// entre los tipos requeridos, o <see langword="null" /> si no se
-    /// ha encontrado un convertidor adecuado.
+    /// A <see cref="TypeConverter" /> capable of performing the conversion
+    /// between the required types, or <see langword="null" /> if no suitable
+    /// converter has been found.
     /// </returns>
     [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
     [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
@@ -412,19 +457,19 @@ public static partial class Common
     }
 
     /// <summary>
-    /// Busca y obtiene un <see cref="TypeConverter" /> apropiado para
-    /// realizar la conversión entre tipos solicitada.
+    /// Searches and retrieves an appropriate <see cref="TypeConverter" /> to
+    /// perform the conversion between the requested types.
     /// </summary>
-    /// <param name="source">Tipo de datos de origen.</param>
-    /// <param name="target">Tipo de datos de destino.</param>
+    /// <param name="source">Source type.</param>
+    /// <param name="target">Destination type.</param>
     /// <returns>
-    /// Un <see cref="TypeConverter" /> capaz de realizar la conversión
-    /// entre los tipos requeridos, o <see langword="null" /> si no se
-    /// ha encontrado un convertidor adecuado.
+    /// A <see cref="TypeConverter" /> capable of performing the conversion
+    /// between the required types, or <see langword="null" /> if no suitable
+    /// converter has been found.
     /// </returns>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="source"/> o <paramref name="target"/>
-    /// son <see langword="null"/>.
+    /// Thrown if <paramref name="source"/> or <paramref name="target"/>
+    /// are <see langword="null"/>.
     /// </exception>
     [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
     [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
@@ -444,11 +489,11 @@ public static partial class Common
     }
 
     /// <summary>
-    /// Invierte el Endianness de un valor <see cref="char" />.
+    /// Inverts the Endianness of a <see cref="char" /> value.
     /// </summary>
-    /// <param name="value">Valor cuyos bytes se invertirán.</param>
+    /// <param name="value">Value whose endianness will be inverted.</param>
     /// <returns>
-    /// Un <see cref="char" /> cuyo Endianness ha sido invertido.
+    /// A <see cref="char" /> whose endianness has been inverted.
     /// </returns>
     public static char FlipEndianness(this in char value)
     {
@@ -456,11 +501,11 @@ public static partial class Common
     }
 
     /// <summary>
-    /// Invierte el Endianness de un valor <see cref="double" />.
+    /// Inverts the Endianness of a <see cref="double" /> value.
     /// </summary>
-    /// <param name="value">Valor cuyos bytes se invertirán.</param>
+    /// <param name="value">Value whose endianness will be inverted.</param>
     /// <returns>
-    /// Un <see cref="double" /> cuyo Endianness ha sido invertido.
+    /// A <see cref="double" /> whose endianness has been inverted.
     /// </returns>
     public static double FlipEndianness(this in double value)
     {
@@ -468,11 +513,11 @@ public static partial class Common
     }
 
     /// <summary>
-    /// Invierte el Endianness de un valor <see cref="float" />.
+    /// Inverts the Endianness of a <see cref="float" /> value.
     /// </summary>
-    /// <param name="value">Valor cuyos bytes se invertirán.</param>
+    /// <param name="value">Value whose endianness will be inverted.</param>
     /// <returns>
-    /// Un <see cref="float" /> cuyo Endianness ha sido invertido.
+    /// A <see cref="float" /> whose endianness has been inverted.
     /// </returns>
     public static float FlipEndianness(this in float value)
     {
@@ -480,11 +525,11 @@ public static partial class Common
     }
 
     /// <summary>
-    /// Invierte el Endianness de un valor <see cref="int" />.
+    /// Inverts the Endianness of a <see cref="int" /> value.
     /// </summary>
-    /// <param name="value">Valor cuyos bytes se invertirán.</param>
+    /// <param name="value">Value whose endianness will be inverted.</param>
     /// <returns>
-    /// Un <see cref="int" /> cuyo Endianness ha sido invertido.
+    /// An <see cref="int" /> whose endianness has been inverted.
     /// </returns>
     public static int FlipEndianness(this in int value)
     {
@@ -492,11 +537,11 @@ public static partial class Common
     }
 
     /// <summary>
-    /// Invierte el Endianness de un valor <see cref="long" />.
+    /// Inverts the Endianness of a <see cref="long" /> value.
     /// </summary>
-    /// <param name="value">Valor cuyos bytes se invertirán.</param>
+    /// <param name="value">Value whose endianness will be inverted.</param>
     /// <returns>
-    /// Un <see cref="long" /> cuyo Endianness ha sido invertido.
+    /// A <see cref="long" /> whose endianness has been inverted.
     /// </returns>
     public static long FlipEndianness(this in long value)
     {
@@ -504,11 +549,11 @@ public static partial class Common
     }
 
     /// <summary>
-    /// Invierte el Endianness de un valor <see cref="short" />.
+    /// Inverts the Endianness of a <see cref="short" /> value.
     /// </summary>
-    /// <param name="value">Valor cuyos bytes se invertirán.</param>
+    /// <param name="value">Value whose endianness will be inverted.</param>
     /// <returns>
-    /// Un <see cref="short" /> cuyo Endianness ha sido invertido.
+    /// A <see cref="short" /> whose endianness has been inverted.
     /// </returns>
     public static short FlipEndianness(this in short value)
     {
@@ -516,10 +561,12 @@ public static partial class Common
     }
 
     /// <summary>
-    /// Invierte el Endianness de un valor <see cref="uint" />.
+    /// Inverts the Endianness of a <see cref="uint" /> value.
     /// </summary>
-    /// <param name="value"></param>
-    /// <returns>Un <see cref="uint" /> cuyo Endianness ha sido invertido.</returns>
+    /// <param name="value">Value whose endianness will be inverted.</param>
+    /// <returns>
+    /// A <see cref="uint" /> whose endianness has been inverted.
+    /// </returns>
     [CLSCompliant(false)]
     public static uint FlipEndianness(this in uint value)
     {
@@ -527,10 +574,12 @@ public static partial class Common
     }
 
     /// <summary>
-    /// Invierte el Endianness de un valor <see cref="ulong" />.
+    /// Inverts the Endianness of a <see cref="ulong" /> value.
     /// </summary>
-    /// <param name="value"></param>
-    /// <returns>Un <see cref="ulong" /> cuyo Endianness ha sido invertido.</returns>
+    /// <param name="value">Value whose endianness will be inverted.</param>
+    /// <returns>
+    /// A <see cref="ulong" /> whose endianness has been inverted.
+    /// </returns>
     [CLSCompliant(false)]
     public static ulong FlipEndianness(this in ulong value)
     {
@@ -538,10 +587,12 @@ public static partial class Common
     }
 
     /// <summary>
-    /// Invierte el Endianness de un valor <see cref="ushort" />.
+    /// Inverts the Endianness of a <see cref="ushort" /> value.
     /// </summary>
-    /// <param name="value"></param>
-    /// <returns>Un <see cref="ushort" /> cuyo Endianness ha sido invertido.</returns>
+    /// <param name="value">Value whose endianness will be inverted.</param>
+    /// <returns>
+    /// A <see cref="ushort" /> whose endianness has been inverted.
+    /// </returns>
     [CLSCompliant(false)]
     public static ushort FlipEndianness(this in ushort value)
     {
@@ -549,14 +600,13 @@ public static partial class Common
     }
 
     /// <summary>
-    /// Ejecuta una operación si un valor es distinto de
-    /// <see langword="null"/>.
+    /// Executes an operation if a value is not <see langword="null" />.
     /// </summary>
-    /// <typeparam name="T">Tipo de valor a comprobar.</typeparam>
-    /// <param name="value">Valor a comprobar.</param>
+    /// <typeparam name="T">Type of value to check.</typeparam>
+    /// <param name="value">Value to check.</param>
     /// <param name="operation">
-    /// Operación a ejecutar si <paramref name="value"/> es distinto de
-    /// <see langword="null"/>.
+    /// Operation to execute if <paramref name="value" /> is not
+    /// <see langword="null" />.
     /// </param>
     public static void IfNotNull<T>(this T? value, Action<T> operation) where T : class
     {
@@ -565,14 +615,15 @@ public static partial class Common
     }
 
     /// <summary>
-    /// Ejecuta una operación si un valor es distinto de
-    /// <see langword="null"/>.
+    /// Executes an operation if a value is not <see langword="null" />.
     /// </summary>
-    /// <typeparam name="T">Tipo de valor a comprobar.</typeparam>
-    /// <param name="value">Valor a comprobar.</param>
+    /// <typeparam name="T">
+    /// Type of value to check.
+    /// </typeparam>
+    /// <param name="value">Value to check.</param>
     /// <param name="operation">
-    /// Operación a ejecutar si <paramref name="value"/> es distinto de
-    /// <see langword="null"/>.
+    /// Operation to execute if <paramref name="value" /> is not
+    /// <see langword="null" />.
     /// </param>
     public static void IfNotNull<T>(this T? value, Action<T> operation) where T : struct
     {
@@ -581,14 +632,14 @@ public static partial class Common
     }
 
     /// <summary>
-    /// Comprueba que el valor se encuentre en el rango especificado.
+    /// Checks that the value is within the specified range.
     /// </summary>
-    /// <typeparam name="T">Tipo de objeto a comprobar.</typeparam>
-    /// <param name="value">Valor a comprobar.</param>
-    /// <param name="range">Rango de valores inclusivos a comprobar.</param>
+    /// <typeparam name="T">Type of value to check.</typeparam>
+    /// <param name="value">Value to check.</param>
+    /// <param name="range">Range of values to check.</param>
     /// <returns>
-    /// <see langword="true" /> si el valor se encuentra entre los
-    /// especificados; de lo contrario, <see langword="false" />.
+    /// <see langword="true" /> if the value is inside the specified range,
+    /// <see langword="false" /> otherwise.
     /// </returns>
     public static bool IsBetween<T>(this T value, in Range<T> range) where T : IComparable<T>
     {
@@ -596,51 +647,59 @@ public static partial class Common
     }
 
     /// <summary>
-    /// Comprueba que el valor se encuentre en el rango especificado.
+    /// Checks that the value is within the specified range.
     /// </summary>
+    /// <typeparam name="T">Type of value to check.</typeparam>
+    /// <param name="value">Value to check.</param>
+    /// <param name="min">Minimum range value, inclusive.</param>
+    /// <param name="max">Maximum range value, inclusive.</param>
     /// <returns>
-    /// <see langword="true" /> si el valor se encuentra entre los
-    /// especificados; de lo contrario, <see langword="false" />.
+    /// <see langword="true" /> if the value is inside the specified range,
+    /// <see langword="false" /> otherwise.
     /// </returns>
-    /// <param name="value">Valor a comprobar.</param>
-    /// <param name="min">Mínimo del rango de valores, inclusive.</param>
-    /// <param name="max">Máximo del rango de valores, inclusive.</param>
-    /// <typeparam name="T">Tipo de objeto a comprobar.</typeparam>
     public static bool IsBetween<T>(this T value, in T min, in T max) where T : IComparable<T>
     {
         return IsBetween(value, min, max, true);
     }
 
     /// <summary>
-    /// Comprueba que el valor se encuentre en el rango especificado.
+    /// Checks that the value is within the specified range.
     /// </summary>
+    /// <typeparam name="T">Type of value to check.</typeparam>
+    /// <param name="value">Value to check.</param>
+    /// <param name="min">Minimum range value.</param>
+    /// <param name="max">Maximum range value.</param>
+    /// <param name="inclusive">
+    /// If set to <see langword="true"/>, the minimum and maximum values will be inclusive.
+    /// </param>
     /// <returns>
-    /// <see langword="true" /> si el valor se encuentra entre los
-    /// especificados; de lo contrario, <see langword="false" />.
+    /// <see langword="true" /> if the value is inside the specified range,
+    /// <see langword="false" /> otherwise.
     /// </returns>
-    /// <param name="value">Valor a comprobar.</param>
-    /// <param name="min">Mínimo del rango de valores.</param>
-    /// <param name="max">Máximo del rango de valores.</param>
-    /// <param name="inclusive">Inclusividad. de forma predeterminada, la comprobación es inclusive.</param>
-    /// <typeparam name="T">Tipo de objeto a comprobar.</typeparam>
     public static bool IsBetween<T>(this T value, in T min, in T max, in bool inclusive) where T : IComparable<T>
     {
         return IsBetween(value, min, max, inclusive, inclusive);
     }
 
     /// <summary>
-    /// Comprueba que el valor se encuentre en el rango especificado.
+    /// Checks that the value is within the specified range.
     /// </summary>
+    /// <typeparam name="T">Type of value to check.</typeparam>
+    /// <param name="value">Value to check.</param>
+    /// <param name="min">Minimum range value.</param>
+    /// <param name="max">Maximum range value.</param>
+    /// <param name="minInclusive">
+    /// If set to <see langword="true"/>, the minimum value will be inclusive
+    /// in the range.
+    /// </param>
+    /// <param name="maxInclusive">
+    /// If set to <see langword="true"/>, the maximum value will be inclusive 
+    /// in the range.
+    /// </param>
     /// <returns>
-    /// <see langword="true" /> si el valor se encuentra entre los
-    /// especificados; de lo contrario, <see langword="false" />.
+    /// <see langword="true" /> if the value is inside the specified range,
+    /// <see langword="false" /> otherwise.
     /// </returns>
-    /// <param name="value">Valor a comprobar.</param>
-    /// <param name="min">Mínimo del rango de valores.</param>
-    /// <param name="max">Máximo del rango de valores.</param>
-    /// <param name="minInclusive">Inclusividad del valor mínimo. de forma predeterminada, la comprobación es inclusive.</param>
-    /// <param name="maxInclusive">Inclusividad del valor máximo. de forma predeterminada, la comprobación es inclusive.</param>
-    /// <typeparam name="T">Tipo de objeto a comprobar.</typeparam>
     public static bool IsBetween<T>(this T value, in T min, in T max, in bool minInclusive, in bool maxInclusive) where T : IComparable<T>
     {
         return (minInclusive ? value.CompareTo(min) >= 0 : value.CompareTo(min) > 0)
@@ -648,14 +707,14 @@ public static partial class Common
     }
 
     /// <summary>
-    /// Comprueba que el valor se encuentre en el rango especificado.
+    /// Checks that the value is within the specified range.
     /// </summary>
-    /// <typeparam name="T">Tipo de objeto a comprobar.</typeparam>
-    /// <param name="value">Valor a comprobar.</param>
-    /// <param name="range">Rango de valores inclusivos a comprobar.</param>
+    /// <typeparam name="T">Type of value to check.</typeparam>
+    /// <param name="value">Value to check.</param>
+    /// <param name="range">Range of values to check.</param>
     /// <returns>
-    /// <see langword="true" /> si el valor se encuentra entre los
-    /// especificados; de lo contrario, <see langword="false" />.
+    /// <see langword="true" /> if the value is inside the specified range,
+    /// <see langword="false" /> otherwise.
     /// </returns>
     public static bool IsBetween<T>(this T? value, in Range<T> range) where T : struct, IComparable<T>
     {
@@ -663,51 +722,59 @@ public static partial class Common
     }
 
     /// <summary>
-    /// Comprueba que el valor se encuentre en el rango especificado.
+    /// Checks that the value is within the specified range.
     /// </summary>
+    /// <typeparam name="T">Type of value to check.</typeparam>
+    /// <param name="value">Value to check.</param>
+    /// <param name="min">Minimum range value, inclusive.</param>
+    /// <param name="max">Maximum range value, inclusive.</param>
     /// <returns>
-    /// <see langword="true" /> si el valor se encuentra entre los
-    /// especificados; de lo contrario, <see langword="false" />.
+    /// <see langword="true" /> if the value is inside the specified range,
+    /// <see langword="false" /> otherwise.
     /// </returns>
-    /// <param name="value">Valor a comprobar.</param>
-    /// <param name="min">Mínimo del rango de valores, inclusive.</param>
-    /// <param name="max">Máximo del rango de valores, inclusive.</param>
-    /// <typeparam name="T">Tipo de objeto a comprobar.</typeparam>
     public static bool IsBetween<T>(this T? value, in T min, in T max) where T : struct, IComparable<T>
     {
         return value.IsBetween(min, max, true, true);
     }
 
     /// <summary>
-    /// Comprueba que el valor se encuentre en el rango especificado.
+    /// Checks that the value is within the specified range.
     /// </summary>
+    /// <typeparam name="T">Type of value to check.</typeparam>
+    /// <param name="value">Value to check.</param>
+    /// <param name="min">Minimum range value.</param>
+    /// <param name="max">Maximum range value.</param>
+    /// <param name="inclusive">
+    /// If set to <see langword="true"/>, the minimum and maximum values will be inclusive.
+    /// </param>
     /// <returns>
-    /// <see langword="true" /> si el valor se encuentra entre los
-    /// especificados; de lo contrario, <see langword="false" />.
+    /// <see langword="true" /> if the value is inside the specified range,
+    /// <see langword="false" /> otherwise.
     /// </returns>
-    /// <param name="value">Valor a comprobar.</param>
-    /// <param name="min">Mínimo del rango de valores.</param>
-    /// <param name="max">Máximo del rango de valores.</param>
-    /// <param name="inclusive">Inclusividad. de forma predeterminada, la comprobación es inclusive.</param>
-    /// <typeparam name="T">Tipo de objeto a comprobar.</typeparam>
     public static bool IsBetween<T>(this T? value, in T min, in T max, in bool inclusive) where T : struct, IComparable<T>
     {
         return IsBetween(value, min, max, inclusive, inclusive);
     }
 
     /// <summary>
-    /// Comprueba que el valor se encuentre en el rango especificado.
+    /// Checks that the value is within the specified range.
     /// </summary>
+    /// <typeparam name="T">Type of value to check.</typeparam>
+    /// <param name="value">Value to check.</param>
+    /// <param name="min">Minimum range value.</param>
+    /// <param name="max">Maximum range value.</param>
+    /// <param name="minInclusive">
+    /// If set to <see langword="true"/>, the minimum value will be inclusive
+    /// in the range.
+    /// </param>
+    /// <param name="maxInclusive">
+    /// If set to <see langword="true"/>, the maximum value will be inclusive 
+    /// in the range.
+    /// </param>
     /// <returns>
-    /// <see langword="true" /> si el valor se encuentra entre los
-    /// especificados; de lo contrario, <see langword="false" />.
+    /// <see langword="true" /> if the value is inside the specified range,
+    /// <see langword="false" /> otherwise.
     /// </returns>
-    /// <param name="value">Valor a comprobar.</param>
-    /// <param name="min">Mínimo del rango de valores.</param>
-    /// <param name="max">Máximo del rango de valores.</param>
-    /// <param name="minInclusive">Inclusividad del valor mínimo. de forma predeterminada, la comprobación es inclusive.</param>
-    /// <param name="maxInclusive">Inclusividad del valor máximo. de forma predeterminada, la comprobación es inclusive.</param>
-    /// <typeparam name="T">Tipo de objeto a comprobar.</typeparam>
     public static bool IsBetween<T>(this T? value, in T min, in T max, in bool minInclusive, in bool maxInclusive) where T : struct, IComparable<T>
     {
         if (!value.HasValue) return false;
@@ -717,19 +784,18 @@ public static partial class Common
     }
 
     /// <summary>
-    /// Condensa una lista en una <see cref="string" />
+    /// Condenses a list into a string where each element is separated by a new
+    ///  line.
     /// </summary>
     /// <returns>
-    /// Una cadena en formato de lista cuyos miembros están separados por
-    /// el separador de línea predeterminado del sistema.
+    /// A string where each element of the collection is separated by the
+    /// operating system's line separator string.
     /// </returns>
     /// <param name="collection">
-    /// Lista a condensar. Sus elementos deben ser del
-    /// tipo <see cref="string" />.
+    /// Collection of strings to be condensed.
     /// </param>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="collection"/> es
-    /// <see langword="null"/>.
+    /// Thrown if <paramref name="collection"/> is <see langword="null"/>.
     /// </exception>
     public static string Listed(this IEnumerable<string> collection)
     {
@@ -902,7 +968,7 @@ public static partial class Common
     [Sugar]
     public static string ToHex(this in byte @byte)
     {
-        return @byte.ToString("X");
+        return @byte.ToString("X2");
     }
 
     private static IEnumerable<bool> ToBits(this in ulong value, in byte maxBits)

@@ -28,6 +28,8 @@ The file `./src/Targets/GlobalDirectives.targets` contains a set of build consta
 
 The following table includes the existing constants and the effect they produce when activated:
 
+>Note: some of these constants are either deprecated or out of date.
+
 Constant              | Effect
 ---                   | ---
 AntiFreeze            | Enables functions that allow it to eventually stop a potentially infinite enumeration when it has been misused.

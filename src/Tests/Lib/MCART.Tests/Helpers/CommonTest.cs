@@ -511,10 +511,13 @@ public class CommonTest
         Assert.That(bitCount, Is.EqualTo(value.BitCount()));
     }
     
-    [Test]
-    public void ToHexTest1()
+    [TestCase("FF", (byte)255)]
+    [TestCase("F0", (byte)240)]
+    [TestCase("0F", (byte)15)]
+    [TestCase("00", (byte)0)]
+    public void ToHexTest1(string expected, byte value)
     {
-        Assert.That("F0", Is.EqualTo(((byte)240).ToHex()));
+        Assert.That(value.ToHex(), Is.EqualTo(expected));
     }
 
     [Test]
@@ -526,8 +529,8 @@ public class CommonTest
     [TestCase(1000, ByteUnitType.Binary, "1000 Bytes")]
     [TestCase(1000, ByteUnitType.Decimal, "1.0 KB")]
     [TestCase(100000, (ByteUnitType)255, "100000 Bytes")]
-    [TestCase(1100000, ByteUnitType.BinaryLong, "1.1 Mebibytes")]
-    [TestCase(1048576, ByteUnitType.DecimalLong, "1.0 Megabytes")]
+    [TestCase(1100000, ByteUnitType.DecimalLong, "1.1 Megabytes")]
+    [TestCase(1048576, ByteUnitType.BinaryLong, "1.0 Mebibytes")]
     public void ByteUnitsTest_Long_ByteUnitType(long bytes, ByteUnitType unit, string result)
     {
         Assert.That(result, Is.EqualTo(Common.ByteUnits(bytes, unit, CultureInfo.InvariantCulture)));
@@ -536,8 +539,8 @@ public class CommonTest
     [TestCase(1000, ByteUnitType.Binary, "1000 Bytes")]
     [TestCase(1000, ByteUnitType.Decimal, "1.0 KB")]
     [TestCase(100000, (ByteUnitType)255, "100000 Bytes")]
-    [TestCase(1100000, ByteUnitType.BinaryLong, "1.1 Mebibytes")]
-    [TestCase(1048576, ByteUnitType.DecimalLong, "1.0 Megabytes")]
+    [TestCase(1100000, ByteUnitType.DecimalLong, "1.1 Megabytes")]
+    [TestCase(1048576, ByteUnitType.BinaryLong, "1.0 Mebibytes")]
     public void ByteUnitsTest_custom_culture_Long_ByteUnitType(long bytes, ByteUnitType unit, string result)
     {
         Assert.That(result, Is.EqualTo(Common.ByteUnits(bytes, unit, CultureInfo.InvariantCulture)));
