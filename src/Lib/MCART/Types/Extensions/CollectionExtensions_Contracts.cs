@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -58,6 +58,15 @@ public static partial class CollectionExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     [DebuggerNonUserCode]
     private static void AddRange_Contract<T>(this ICollection<T> collection, IEnumerable<T> items)
+    {
+        ArgumentNullException.ThrowIfNull(collection, nameof(collection));
+        ArgumentNullException.ThrowIfNull(items, nameof(items));
+    }
+
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void AddRange_Contract<T>(this ICollection<T> collection, IAsyncEnumerable<T> items)
     {
         ArgumentNullException.ThrowIfNull(collection, nameof(collection));
         ArgumentNullException.ThrowIfNull(items, nameof(items));
