@@ -27,11 +27,10 @@
 // SOFTWARE.
 
 using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Misc;
 using TheXDS.MCART.Resources;
-using static TheXDS.MCART.Misc.Internals;
 
 namespace TheXDS.MCART.Types.Extensions;
 
@@ -169,7 +168,6 @@ public static partial class EnumerableExtensions
                 ? value.IsNeither(exclusions.AsEnumerable())
                 : !exclusions.Contains(value);
         }
-
         return collection.Where(Compare);
     }
 
@@ -215,7 +213,7 @@ public static partial class EnumerableExtensions
     /// </returns>
     public static IEnumerable<T>? OrNull<T>(this IEnumerable<T> collection)
     {
-        T[] c = collection.ToArray();
+        T[] c = [.. collection];
         return c.Length != 0 ? c : null;
     }
 
@@ -324,7 +322,7 @@ public static partial class EnumerableExtensions
     /// </returns>
     public static IEnumerable<T> Shuffled<T>(this IEnumerable<T> collection, in int deepness)
     {
-        List<T> enumerable = collection.ToList();
+        List<T> enumerable = [.. collection];
         return Shuffled(enumerable, 0, enumerable.Count - 1, deepness, RandomExtensions.Rnd);
     }
 
@@ -369,7 +367,7 @@ public static partial class EnumerableExtensions
     /// </returns>
     public static IEnumerable<T> Shuffled<T>(this IEnumerable<T> collection, in int firstIdx, in int lastIdx, in int deepness, in Random random)
     {
-        List<T> tmp = new(collection);
+        List<T> tmp = [.. collection];
         tmp.Shuffle(firstIdx, lastIdx, deepness, random);
         return tmp;
     }
@@ -404,9 +402,9 @@ public static partial class EnumerableExtensions
     /// </returns>
     public static T Pick<T>(this IEnumerable<T> collection, in Random random)
     {
-        List<T> c = collection.ToList();
-        if (c.Count == 0) throw Errors.EmptyCollection(c);
-        return c.ElementAt(random.Next(0, c.Count));
+       T[] c = [.. collection];
+        if (c.Length == 0) throw Errors.EmptyCollection(c);
+        return c[random.Next(0, c.Length)];
     }
 
     /// <summary>
@@ -435,9 +433,10 @@ public static partial class EnumerableExtensions
     /// Un <see cref="ListEx{T}" /> extendido del espacio de nombres
     /// <see cref="Extensions" />.
     /// </returns>
+    [Obsolete(AttributeErrorMessages.UnsuportedClass)]
     public static ListEx<T> ToExtendedList<T>(this IEnumerable<T> collection)
     {
-        return new(collection);
+        return [.. collection];
     }
 
     /// <summary>
@@ -461,6 +460,7 @@ public static partial class EnumerableExtensions
     /// <returns>
     /// Una tarea que puede utilizarse para monitorear la operación.
     /// </returns>
+    [Obsolete(AttributeErrorMessages.UnsuportedClass)]
     public static async Task<ListEx<T>> ToExtendedListAsync<T>(this IEnumerable<T> enumerable)
     {
         return await Task.Run(enumerable.ToExtendedList);

@@ -109,10 +109,10 @@ public static class StreamExtensions
     [DebuggerStepThrough]
     public static string ReadString(this Stream fs, int count, Encoding encoding)
     {
-        ListEx<char>? retVal = new();
+        List<char>? retVal = [];
         using BinaryReader? br = new(fs, encoding, true);
         while (retVal.Count < count) retVal.Add(br.ReadChar());
-        return new string(retVal.ToArray());
+        return new string([.. retVal]);
     }
 
     /// <summary>

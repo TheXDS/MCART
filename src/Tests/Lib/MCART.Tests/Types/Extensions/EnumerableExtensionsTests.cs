@@ -39,11 +39,15 @@ namespace TheXDS.MCART.Tests.Types.Extensions;
 
 public class EnumerableExtensionsTests
 {
+    private static readonly string[] SelectAsyncInputArray = ["a", "B", "c"];
+    private static readonly int[] ArrayFrom101To103 = [101, 102, 103];
+    private static readonly int[] ArrayFrom121To123 = [121, 122, 123];
+
     [Test]
     public void Pick_Test()
     {
-        int[] c = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-        List<int> l = new();
+        int[] c = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        List<int> l = [];
         do
         {
             l.Add(c.Pick());
@@ -60,9 +64,9 @@ public class EnumerableExtensionsTests
     [Test]
     public void ItemsEqual_Test()
     {
-        int[] c1 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-        int[] c2 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-        int[] c3 = { 1, 2, 3, 11, 5, 6, 7, 8, 9, 10 };
+        int[] c1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        int[] c2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        int[] c3 = [1, 2, 3, 11, 5, 6, 7, 8, 9, 10];
         Assert.That(c1.ItemsEqual(c2));
         Assert.That(c1.ItemsEqual(c3), Is.False);
     }
@@ -70,7 +74,7 @@ public class EnumerableExtensionsTests
     [Test]
     public void IsAnyOf_Test()
     {
-        object?[] objSet = { "Test", 1, new Exception(), Guid.NewGuid(), new bool[2] };
+        object?[] objSet = ["Test", 1, new Exception(), Guid.NewGuid(), new bool[2]];
         Assert.That(objSet.IsAnyOf<string>());
         Assert.That(objSet.IsAnyOf<DayOfWeek>(), Is.False);
         Assert.That(objSet.IsAnyOf(typeof(int)));
@@ -99,7 +103,7 @@ public class EnumerableExtensionsTests
     [Test]
     public async Task Locked_Test()
     {
-        int[] l = { 1, 2, 3, 4 };
+        int[] l = [1, 2, 3, 4];
         bool f1 = false;
 
         Task t1 = Task.Run(() => l.Locked(i =>
@@ -167,11 +171,11 @@ public class EnumerableExtensionsTests
         });
         Assert.That(3, Is.EqualTo(c.Locked(p => p.Count())));
     }
-    
+
     [Test]
     public async Task SelectAsync_Test()
     {
-        await foreach (int j in new[] { "a", "B", "c" }.SelectAsync(p => Task.FromResult(p.Length)))
+        await foreach (int j in SelectAsyncInputArray.SelectAsync(p => Task.FromResult(p.Length)))
         {
             Assert.That(1, Is.EqualTo(j));
         }
@@ -180,8 +184,8 @@ public class EnumerableExtensionsTests
     [Test]
     public void Shuffled_Test()
     {
-        int[] a = MCART.Helpers.Common.Sequence(1, 100).ToArray();
-        int[] b = a.Shuffled().ToArray();
+        int[] a = [.. MCART.Helpers.Common.Sequence(1, 100)];
+        int[] b = [.. a.Shuffled()];
         Assert.That(a.Length, Is.EqualTo(b.Length));
         foreach (int j in b)
         {
@@ -194,8 +198,8 @@ public class EnumerableExtensionsTests
     [Test]
     public void Shuffled_WithRange_Test()
     {
-        int[] a = MCART.Helpers.Common.Sequence(1, 60).ToArray();
-        int[] b = a.Shuffled(20, 39).ToArray();
+        int[] a = [.. MCART.Helpers.Common.Sequence(1, 60)];
+        int[] b = [.. a.Shuffled(20, 39)];
         Assert.That(a.Take(20).All(p => a.FindIndexOf(p) == b.FindIndexOf(p)));
         Assert.That(a.Skip(20).Take(20).All(p => a.FindIndexOf(p) == b.FindIndexOf(p)), Is.False);
         Assert.That(a.Skip(40).Take(20).All(p => a.FindIndexOf(p) == b.FindIndexOf(p)));
@@ -215,12 +219,12 @@ public class EnumerableExtensionsTests
     public void GroupByType_Test()
     {
         object?[] c =
-        {
+        [
             1, 2,
             "Test", "Test2",
             null, null
-        };
-        List<IGrouping<Type, object>> g = c.GroupByType().ToList();
+        ];
+        List<IGrouping<Type, object>> g = [.. c.GroupByType()];
 
         Assert.That(typeof(int), Is.EqualTo(g[0].Key));
         Assert.That(g[0].Contains(1));
@@ -243,13 +247,13 @@ public class EnumerableExtensionsTests
     [Test]
     public void FirstOf_Test()
     {
-        object?[] c = {
+        object?[] c = [
                 "test",
                 1.0,
                 DayOfWeek.Monday,
                 new Exception(),
                 Guid.NewGuid()
-            };
+            ];
         Assert.That(1.0, Is.EqualTo(c.FirstOf<double>()));
         Assert.That(c.FirstOf<Stream>(), Is.Null);
     }
@@ -257,37 +261,37 @@ public class EnumerableExtensionsTests
     [Test]
     public void ContainsAll_Test()
     {
-        int[] a = MCART.Helpers.Common.Sequence(1, 100).ToArray();
-        int[] b = MCART.Helpers.Common.Sequence(50, 60).ToArray();
+        int[] a = [.. MCART.Helpers.Common.Sequence(1, 100)];
+        int[] b = [.. MCART.Helpers.Common.Sequence(50, 60)];
         Assert.That(a.ContainsAll(b));
-        Assert.That(new[] { 101, 102, 103 }.ContainsAll(b), Is.False);
+        Assert.That(ArrayFrom101To103.ContainsAll(b), Is.False);
 
         Assert.That(a.ContainsAll(50, 51, 52));
-        Assert.That(new[] { 101, 102, 103 }.ContainsAll(50, 51, 52), Is.False);
+        Assert.That(ArrayFrom101To103.ContainsAll(50, 51, 52), Is.False);
     }
 
     [Test]
     public void ContainsAny_Test()
     {
-        int[] a = MCART.Helpers.Common.Sequence(1, 100).ToArray();
-        int[] b = MCART.Helpers.Common.Sequence(95, 110).ToArray();
+        int[] a = [.. MCART.Helpers.Common.Sequence(1, 100)];
+        int[] b = [.. MCART.Helpers.Common.Sequence(95, 110)];
         Assert.That(a.ContainsAny(b));
-        Assert.That(new[] { 101, 102, 103 }.ContainsAny(b));
-        Assert.That(new[] { 121, 122, 123 }.ContainsAny(b), Is.False);
+        Assert.That(ArrayFrom101To103.ContainsAny(b));
+        Assert.That(ArrayFrom121To123.ContainsAny(b), Is.False);
 
-        Assert.That(new[] { 101, 102, 103 }.ContainsAny(95, 101, 110));
-        Assert.That(new[] { 121, 122, 123 }.ContainsAny(95, 96, 110), Is.False);
+        Assert.That(ArrayFrom101To103.ContainsAny(95, 101, 110));
+        Assert.That(ArrayFrom121To123.ContainsAny(95, 96, 110), Is.False);
     }
 
     [Test]
     public void FirstOf_WithType_Test()
     {
         Exception[] c =
-        {
+        [
             new IndexOutOfRangeException(),
             new ArgumentNullException(),
             new StackOverflowException()
-        };
+        ];
         Exception? e = c.FirstOf(typeof(ArgumentException));
         Assert.That(e, Is.Not.Null);
         Assert.That(e, Is.InstanceOf<ArgumentException>());
@@ -299,12 +303,12 @@ public class EnumerableExtensionsTests
     [Test]
     public void OfType_Test()
     {
-        object?[] c = {
+        object?[] c = [
                 "test",
                 1.0,
                 DayOfWeek.Monday,
                 2.0
-            };
+            ];
         Assert.That(c.OfType(typeof(double)), Is.EquivalentTo(new object[] { 1.0, 2.0 }));
     }
 
@@ -314,8 +318,8 @@ public class EnumerableExtensionsTests
         Assert.That(((IEnumerable?)null).NotNull().ToGeneric().ToArray(), Is.Not.Null);
         Assert.That(((IEnumerable<int?>?)null).NotNull().ToGeneric().ToArray(), Is.Not.Null);
         Assert.That(((IEnumerable<Exception?>?)null).NotNull().ToGeneric().ToArray(), Is.Not.Null);
-        Assert.That(new int?[] { 1, 2, null, 4 }.NotNull(), Is.EquivalentTo(new[] { 1, 2, 4 }));
-        Assert.That(((IEnumerable)new int?[] { 1, 2, null, 4 }).NotNull(), Is.EquivalentTo(new[] { 1, 2, 4 }));
+        Assert.That(new int?[] { 1, 2, null, 4 }.NotNull(), Is.EquivalentTo([1, 2, 4]));
+        Assert.That(((IEnumerable)new int?[] { 1, 2, null, 4 }).NotNull(), Is.EquivalentTo([1, 2, 4]));
     }
 
     [Test]
@@ -328,9 +332,9 @@ public class EnumerableExtensionsTests
     [Test]
     public void NonDefaults_Test()
     {
-        Assert.That(new[] { 1, 2, 3 }.NonDefaults(), Is.EquivalentTo(new[] { 1, 2, 3 }));
-        Assert.That(new[] { 0, 1, 0, 2, 3 }.NonDefaults(), Is.EquivalentTo(new[] { 1, 2, 3 }));
-        Assert.That(new[] { "test", null }.NonDefaults(), Is.EquivalentTo(new[] { "test" }));
+        Assert.That(new[] { 1, 2, 3 }.NonDefaults(), Is.EquivalentTo([1, 2, 3]));
+        Assert.That(new[] { 0, 1, 0, 2, 3 }.NonDefaults(), Is.EquivalentTo([1, 2, 3]));
+        Assert.That(new[] { "test", null }.NonDefaults(), Is.EquivalentTo(["test"]));
     }
 
     [Test]
@@ -340,8 +344,8 @@ public class EnumerableExtensionsTests
         object o2 = new();
         Assert.That(o1, Is.Not.SameAs(o2));
 
-        object[] a = { o1, o2 };
-        object[] b = a.Copy().ToArray();
+        object[] a = [o1, o2];
+        object[] b = [.. a.Copy()];
         Assert.That(a, Is.Not.SameAs(b));
 
         Assert.That(a[0], Is.SameAs(b.First()));
@@ -351,15 +355,16 @@ public class EnumerableExtensionsTests
     [Test]
     public void Range_Test()
     {
-        int[] c = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        int[] c = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-        Assert.That(c.Range(0, 3), Is.EquivalentTo(new[] { 1, 2, 3 }));
-        Assert.That(c.Range(3, 3), Is.EquivalentTo(new[] { 4, 5, 6 }));
-        Assert.That(c.Range(6, 3), Is.EquivalentTo(new[] { 7, 8, 9 }));
-        Assert.That(c.Range(8, 3), Is.EquivalentTo(new[] { 9, 10 }));
+        Assert.That(c.Range(0, 3), Is.EquivalentTo([1, 2, 3]));
+        Assert.That(c.Range(3, 3), Is.EquivalentTo([4, 5, 6]));
+        Assert.That(c.Range(6, 3), Is.EquivalentTo([7, 8, 9]));
+        Assert.That(c.Range(8, 3), Is.EquivalentTo([9, 10]));
         Assert.Throws<IndexOutOfRangeException>(() => _ = c.Range(99, 5).ToArray());
     }
 
+    [Obsolete]
     [Test]
     public void ToExtendedList_Test()
     {
@@ -390,20 +395,20 @@ public class EnumerableExtensionsTests
     [Test]
     public void Shift_Test()
     {
-        int[] c = { 1, 2, 3, 4, 5 };
+        int[] c = [1, 2, 3, 4, 5];
 
-        Assert.That(c.Shift(0), Is.EquivalentTo(new[] { 1, 2, 3, 4, 5 }));
-        Assert.That(c.Shift(1), Is.EquivalentTo(new[] { 2, 3, 4, 5, 0 }));
-        Assert.That(c.Shift(2), Is.EquivalentTo(new[] { 3, 4, 5, 0, 0 }));
-        Assert.That(c.Shift(-1), Is.EquivalentTo(new[] { 0, 1, 2, 3, 4 }));
-        Assert.That(c.Shift(-2), Is.EquivalentTo(new[] { 0, 0, 1, 2, 3 }));
+        Assert.That(c.Shift(0), Is.EquivalentTo([1, 2, 3, 4, 5]));
+        Assert.That(c.Shift(1), Is.EquivalentTo([2, 3, 4, 5, 0]));
+        Assert.That(c.Shift(2), Is.EquivalentTo([3, 4, 5, 0, 0]));
+        Assert.That(c.Shift(-1), Is.EquivalentTo([0, 1, 2, 3, 4]));
+        Assert.That(c.Shift(-2), Is.EquivalentTo([0, 0, 1, 2, 3]));
     }
 
     [Test]
     public async Task PickAsync_Test()
     {
-        int[] c = { 1, 2, 3, 4, 5 };
-        HashSet<int> l = new();
+        int[] c = [1, 2, 3, 4, 5];
+        HashSet<int> l = [];
         for (int j = 0; j < 100; j++)
         {
             int i = await c.PickAsync();
@@ -437,10 +442,10 @@ public class EnumerableExtensionsTests
         string s = new('x', arrSize);
         Assert.That(arrSize, Is.EqualTo(((IEnumerable)s).Count()));
 
-        List<int> l = new(a);
+        List<int> l = [.. a];
         Assert.That(arrSize, Is.EqualTo(((IEnumerable)l).Count()));
         
-        Collection<int> c = new(a);
+        Collection<int> c = [.. a];
         Assert.That(arrSize, Is.EqualTo(((IEnumerable)c).Count()));
 
         Assert.That(arrSize, Is.EqualTo(((IEnumerable)Enumerate()).Count()));
@@ -455,7 +460,7 @@ public class EnumerableExtensionsTests
         Assert.That(a.AreAllEqual());
         a[4] = 1;
         Assert.That(a.AreAllEqual(), Is.False);
-        a = Array.Empty<int>();
+        a = [];
         Assert.That(Assert.Throws<EmptyCollectionException>(() => a.AreAllEqual())!.OffendingObject, Is.SameAs(a));
         Assert.That(new[] { "test", "1234", "abcd" }.AreAllEqual(p => p.Length));
     }
@@ -463,21 +468,21 @@ public class EnumerableExtensionsTests
     [Test]
     public void Rotate_Test()
     {
-        int[] c = { 1, 2, 3, 4, 5 };
+        int[] c = [1, 2, 3, 4, 5];
 
-        Assert.That(c.Rotate(0), Is.EquivalentTo(new[] { 1, 2, 3, 4, 5 }));
-        Assert.That(c.Rotate(1), Is.EquivalentTo(new[] { 2, 3, 4, 5, 1 }));
-        Assert.That(c.Rotate(2), Is.EquivalentTo(new[] { 3, 4, 5, 1, 2 }));
-        Assert.That(c.Rotate(-1), Is.EquivalentTo(new[] { 5, 1, 2, 3, 4 }));
-        Assert.That(c.Rotate(-2), Is.EquivalentTo(new[] { 4, 5, 1, 2, 3 }));
+        Assert.That(c.Rotate(0), Is.EquivalentTo([1, 2, 3, 4, 5]));
+        Assert.That(c.Rotate(1), Is.EquivalentTo([2, 3, 4, 5, 1]));
+        Assert.That(c.Rotate(2), Is.EquivalentTo([3, 4, 5, 1, 2]));
+        Assert.That(c.Rotate(-1), Is.EquivalentTo([5, 1, 2, 3, 4]));
+        Assert.That(c.Rotate(-2), Is.EquivalentTo([4, 5, 1, 2, 3]));
     }
 
     [Test]
     public void ExceptForTest_WithValues()
     {
-        int[] array = { 1, 2, 3, 4, 5 };
-        int[] exclusions = { 2, 4 };
-        int[] result = { 1, 3, 5 };
+        int[] array = [1, 2, 3, 4, 5];
+        int[] exclusions = [2, 4];
+        int[] result = [1, 3, 5];
 
         Assert.That(result, Is.EqualTo(array.ExceptFor(exclusions)));
     }
@@ -487,8 +492,8 @@ public class EnumerableExtensionsTests
     {
         object[] array = new object[5];
         for (int j = 0; j < 5; j++) array[j] = new object();
-        object[] exclusions = array.Range(3, 2).ToArray();
-        object[] result = array.Range(0, 3).ToArray();
+        object[] exclusions = [.. array.Range(3, 2)];
+        object[] result = [.. array.Range(0, 3)];
 
         Assert.That(result, Is.EqualTo(array.ExceptFor(exclusions).ToArray()));
     }
