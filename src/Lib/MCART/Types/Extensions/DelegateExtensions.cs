@@ -53,7 +53,6 @@ public static class DelegateExtensions
     /// nombre del método representado por el delegado si este no 
     /// contiene un atributo <see cref="NameAttribute"/>.
     /// </returns>
-    
     public static string NameOf(this Delegate d)
     {
         return d.Method.NameOf();

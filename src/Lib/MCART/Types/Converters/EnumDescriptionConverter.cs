@@ -44,7 +44,6 @@ namespace TheXDS.MCART.Types.Converters;
 [RequiresUnreferencedCode(AttributeErrorMessages.MethodGetsTypeMembersByName)]
 public class EnumDescriptionConverter([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)] Type type) : EnumConverter(type)
 {
-
     /// <inheritdoc/>
     public override object? ConvertTo(ITypeDescriptorContext? context, CultureInfo? culture, object? value, Type destinationType)
     {

@@ -51,7 +51,6 @@ namespace TheXDS.MCART.Resources;
 [RequiresDynamicCode(AttributeErrorMessages.ClassCallsDynamicCode)]
 public class TextUnpacker(Assembly assembly, string path) : AssemblyUnpacker<string>(assembly, path)
 {
-
     /// <summary>
     /// Obtiene un recurso identificable.
     /// </summary>

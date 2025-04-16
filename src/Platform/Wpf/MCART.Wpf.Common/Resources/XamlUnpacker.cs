@@ -46,7 +46,6 @@ namespace TheXDS.MCART.Resources;
 /// </param>
 public class XamlUnpacker(Assembly assembly, string path) : AssemblyUnpacker<object>(assembly, path)
 {
-
     /// <summary>
     /// Extrae un recurso XAML con el id especificado.
     /// </summary>

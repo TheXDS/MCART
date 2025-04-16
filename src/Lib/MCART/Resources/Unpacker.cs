@@ -51,7 +51,6 @@ namespace TheXDS.MCART.Resources;
 [RequiresDynamicCode(AttributeErrorMessages.ClassCallsDynamicCode)]
 public class Unpacker(Assembly assembly, string path) : AssemblyUnpacker<Stream>(assembly, path)
 {
-
     /// <summary>
     /// Initializes a new instance of the <see cref="Unpacker"/>,
     /// buscando los recursos a extraer en el ensamblado que declara al tipo

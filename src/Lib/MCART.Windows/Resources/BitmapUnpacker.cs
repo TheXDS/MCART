@@ -45,7 +45,6 @@ namespace TheXDS.MCART.Resources;
 /// </param>
 public class BitmapUnpacker(Assembly assembly, string path) : AssemblyUnpacker<Bitmap>(assembly, path)
 {
-
     /// <summary>
     /// Extracts a bitmap with the specified id.
     /// </summary>
