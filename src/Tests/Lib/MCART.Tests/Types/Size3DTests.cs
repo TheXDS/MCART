@@ -28,6 +28,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System.Numerics;
 using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Base;
 
@@ -418,5 +419,23 @@ public class Size3DTests
     public void CubePerimeter_test(int width, int height, int depth, double expected)
     {
         Assert.That(new Size3D(width, height, depth).CubePerimeter, Is.EqualTo(expected));
+    }
+
+    [Test]
+    public void Point3D_can_be_implicitly_converted_to_Vector3()
+    {
+        Vector3 p = new Size3D(3, 5, 8);
+        Assert.That(p.X, Is.EqualTo(3));
+        Assert.That(p.Y, Is.EqualTo(5));
+        Assert.That(p.Z, Is.EqualTo(8));
+    }
+
+    [Test]
+    public void Point3D_can_be_implicitly_converted_from_Vector3()
+    {
+        Size3D p = new Vector3(3, 5, 8);
+        Assert.That(p.Width, Is.EqualTo(3));
+        Assert.That(p.Height, Is.EqualTo(5));
+        Assert.That(p.Depth, Is.EqualTo(8));
     }
 }

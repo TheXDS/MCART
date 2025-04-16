@@ -1,5 +1,5 @@
 ﻿/*
-IVector.cs
+Endianness.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,37 +28,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.Numerics;
-
-namespace TheXDS.MCART.Types.Base;
+namespace TheXDS.MCART.Attributes;
 
 /// <summary>
-/// Interfaz que define propiedades comunes para estructuras de datos
-/// que describen coordenadas, vectores, magnitudes y tamaños en un
-/// espacio de dos dimensiones.
+/// Indicates the endianess of a numeric field
 /// </summary>
-public interface IVector : IEquatable<IVector>
+public enum Endianness
 {
     /// <summary>
-    /// Obtiene el componente horizontal (eje X) representado por este
-    /// <see cref="IVector"/>.
+    /// Indicates that the field is stored in little-endian.
     /// </summary>
-    double X { get; }
+    LittleEndian,
 
     /// <summary>
-    /// Obtiene el componente vertical (eje Y) representado por este
-    /// <see cref="IVector"/>.
+    /// Indicates that the field is stored in big-endian.
     /// </summary>
-    double Y { get; }
-
-    /// <summary>
-    /// Converts the current <see cref="IVector"/> to a <see cref="Vector2"/>.
-    /// </summary>
-    /// <returns>
-    /// A new <see cref="Vector2"/> instance with the same X and Y values as this <see cref="IVector"/>.
-    /// </returns>
-    Vector2 ToVector2()
-    {
-        return new Vector2((float)X, (float)Y);
-    }
+    BigEndian
 }

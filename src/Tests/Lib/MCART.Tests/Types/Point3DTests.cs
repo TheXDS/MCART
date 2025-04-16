@@ -28,11 +28,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Tests.Types;
-using NUnit.Framework;
-using System;
+using System.Numerics;
 using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Base;
+
+namespace TheXDS.MCART.Tests.Types;
 
 public class Point3DTests
 {
@@ -377,5 +377,23 @@ public class Point3DTests
         Point3D p = new(3, 5, 8);
         Assert.That(p.Magnitude(), Is.EqualTo(p.Magnitude(Point3D.Origin)));
         Assert.That(p.Magnitude(), Is.EqualTo(p.Magnitude(0, 0, 0)));
+    }
+
+    [Test]
+    public void Point3D_can_be_implicitly_converted_to_Vector3()
+    {
+        Vector3 p = new Point3D(3, 5, 8);
+        Assert.That(p.X, Is.EqualTo(3));
+        Assert.That(p.Y, Is.EqualTo(5));
+        Assert.That(p.Z, Is.EqualTo(8));
+    }
+
+    [Test]
+    public void Point3D_can_be_implicitly_converted_from_Vector3()
+    {
+        Point3D p = new Vector3(3, 5, 8);
+        Assert.That(p.X, Is.EqualTo(3));
+        Assert.That(p.Y, Is.EqualTo(5));
+        Assert.That(p.Z, Is.EqualTo(8));
     }
 }

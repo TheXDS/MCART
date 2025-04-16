@@ -29,6 +29,7 @@ SOFTWARE.
 */
 
 using System.ComponentModel;
+using System.Numerics;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Math;
 using TheXDS.MCART.Misc;
@@ -711,4 +712,16 @@ public struct Point(double x, double y) : IVector, IFormattable, IEquatable<Poin
     {
         return other is { } o && this == o;
     }
+
+    /// <summary>
+    /// Implicitly converts a <see cref="Point"/> to a <see cref="Vector2"/>.
+    /// </summary>
+    /// <param name="p"><see cref="Point"/> value to be converted.</param>
+    public static implicit operator Vector2(Point p) => new((float)p.X, (float)p.Y);
+
+    /// <summary>
+    /// Implicitly converts a <see cref="Vector2"/> to a <see cref="Point"/>.
+    /// </summary>
+    /// <param name="p"><see cref="Vector2"/> value to be converted.</param>
+    public static implicit operator Point(Vector2 p) => new(p.X, p.Y);
 }

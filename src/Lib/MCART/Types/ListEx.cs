@@ -30,9 +30,10 @@ SOFTWARE.
 
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Events;
-using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Misc;
 using TheXDS.MCART.Types.Base;
 using TheXDS.MCART.Types.Extensions;
 
@@ -52,6 +53,7 @@ namespace TheXDS.MCART.Types;
 /// <see cref="ObservableCollection{T}" /> con numerosos eventos
 /// adicionales y otras extensiones.
 /// </remarks>
+[Obsolete(AttributeErrorMessages.UnsuportedClass), ExcludeFromCodeCoverage]
 public class ListEx<T> : List<T>, ICloneable<ListEx<T>>
 {
     /// <summary>
@@ -205,7 +207,7 @@ public class ListEx<T> : List<T>, ICloneable<ListEx<T>>
     {
         if (TriggerEvents)
         {
-            List<T>? affectedItems = collection.ToList();
+            List<T>? affectedItems = [.. collection];
             ListUpdatingEventArgs<T>? a = new(ListUpdateType.ItemsAdded, affectedItems);
             ListUpdating?.Invoke(this, a);
             if (a.Cancel) return;
@@ -243,7 +245,7 @@ public class ListEx<T> : List<T>, ICloneable<ListEx<T>>
     {
         if (TriggerEvents)
         {
-            List<T>? affectedItems = collection.ToList();
+            List<T>? affectedItems = [.. collection];
             ListUpdatingEventArgs<T>? a = new(ListUpdateType.ItemsInserted, affectedItems);
             ListUpdating?.Invoke(this, a);
             if (a.Cancel) return;
@@ -520,5 +522,5 @@ public class ListEx<T> : List<T>, ICloneable<ListEx<T>>
     /// Implementa la interfaz <see cref="ICloneable{T}"/>.
     /// </summary>
     /// <returns>Una copia de esta instancia.</returns>
-    public ListEx<T> Clone() => new(this.Copy());
+    public ListEx<T> Clone() => [.. this.Copy()];
 }

@@ -45,4 +45,5 @@ internal static class AttributeErrorMessages
     public const string MethodLoadsAssemblyResources = "The method dynamically loads resources from the assembly, so it is not compatible with trimming.";
     public const string Net6Deprecation = "This class uses deprecated methods in .Net 6.";
     public const string UseLicenseUriAttributeInstead = "Use LicenseUriAttribute instead.";
+    public const string UnsuportedClass = "The class is not supported by MCART anymore.";
 }

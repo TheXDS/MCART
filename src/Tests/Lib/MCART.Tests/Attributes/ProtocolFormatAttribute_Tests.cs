@@ -51,4 +51,24 @@ public class ProtocolFormatAttribute_Tests
         Assert.That(attr.Format, Is.EqualTo(format));
         Assert.That(iattr.Value, Is.EqualTo(format));
     }
+
+    [Test]
+    public void Open_test()
+    {
+        var tmpFile = Path.Combine(Path.GetTempPath(), $"{Guid.NewGuid()}.txt");
+        File.CreateText(tmpFile).Dispose();
+        ProtocolFormatAttribute attr = new("{0}");
+        var proc = attr.Open(tmpFile);
+        Assert.That(proc, Is.Not.Null);
+        proc!.Kill();
+        File.Delete(tmpFile);
+    }
+
+    [Test]
+    public void Open_returns_null_on_empty_url()
+    {
+        ProtocolFormatAttribute attr = new("{0}");
+        var proc = attr.Open("");
+        Assert.That(proc, Is.Null);
+    }
 }

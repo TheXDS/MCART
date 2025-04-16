@@ -29,6 +29,7 @@ SOFTWARE.
 */
 
 using System.ComponentModel;
+using System.Numerics;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Math;
 using TheXDS.MCART.Misc;
@@ -663,4 +664,16 @@ public partial struct Point3D(double x, double y, double z) : IFormattable, IEqu
     /// de lo contrario, <see langword="false" />.
     /// </returns>
     public readonly bool Equals(IVector3D? other) => other is not null && X.Equals(other.X) && Y.Equals(other.Y) && Z.Equals(other.Z);
+
+    /// <summary>
+    /// Implicitly converts a <see cref="Point3D"/> to a <see cref="Vector3"/>.
+    /// </summary>
+    /// <param name="p"><see cref="Point3D"/> value to be converted.</param>
+    public static implicit operator Vector3(Point3D p) => new((float)p.X, (float)p.Y, (float)p.Z);
+
+    /// <summary>
+    /// Implicitly converts a <see cref="Vector3"/> to a <see cref="Point3D"/>.
+    /// </summary>
+    /// <param name="p"><see cref="Vector3"/> value to be converted.</param>
+    public static implicit operator Point3D(Vector3 p) => new(p.X, p.Y, p.Z);
 }

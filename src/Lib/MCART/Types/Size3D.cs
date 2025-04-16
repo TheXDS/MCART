@@ -29,6 +29,7 @@ SOFTWARE.
 */
 
 using System.ComponentModel;
+using System.Numerics;
 using TheXDS.MCART.Math;
 using TheXDS.MCART.Misc;
 using TheXDS.MCART.Resources;
@@ -712,6 +713,18 @@ public struct Size3D(double width, double height, double depth) : IFormattable, 
         }
         return true;
     }
+
+    /// <summary>
+    /// Implicitly converts a <see cref="Size3D"/> to a <see cref="Vector3"/>.
+    /// </summary>
+    /// <param name="p"><see cref="Size3D"/> value to be converted.</param>
+    public static implicit operator Vector3(Size3D p) => new((float)p.Width, (float)p.Height, (float)p.Depth);
+
+    /// <summary>
+    /// Implicitly converts a <see cref="Vector3"/> to a <see cref="Size3D"/>.
+    /// </summary>
+    /// <param name="p"><see cref="Vector3"/> value to be converted.</param>
+    public static implicit operator Size3D(Vector3 p) => new(p.X, p.Y, p.Z);
 
     readonly bool IEquatable<IVector>.Equals(IVector? other) => other is not null && Width == other.X && Height == other.Y;
 }

@@ -66,6 +66,16 @@ public sealed class ProtocolFormatAttribute(string format) : TextAttribute(forma
     /// </returns>
     public Process? Open(string url)
     {
-        return string.IsNullOrWhiteSpace(url) ? null : Process.Start(string.Format(Format, url));
+        return string.IsNullOrWhiteSpace(url) ? null : InvokeProcess(string.Format(Format, url));
+    }
+
+    private static Process? InvokeProcess(string url)
+    {
+        var processStartInfo = new ProcessStartInfo
+        {
+            FileName = url,
+            UseShellExecute = true,
+        };
+        return Process.Start(processStartInfo);
     }
 }

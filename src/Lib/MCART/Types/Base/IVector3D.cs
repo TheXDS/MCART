@@ -28,6 +28,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System.Numerics;
+
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
@@ -42,4 +44,12 @@ public interface IVector3D : IVector
     /// <see cref="IVector3D"/>.
     /// </summary>
     double Z { get; }
+
+    /// <summary>
+    /// Converts the current <see cref="IVector3D"/> to a <see cref="Vector3"/>.
+    /// </summary>
+    /// <returns>
+    /// A new <see cref="Vector2"/> instance with the same X and Y values as this <see cref="IVector"/>.
+    /// </returns>
+    Vector3 ToVector3() => new((float)X, (float)Y, (float)Z);
 }

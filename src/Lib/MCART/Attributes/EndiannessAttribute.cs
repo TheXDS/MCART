@@ -1,5 +1,5 @@
 ﻿/*
-IVector.cs
+EndiannessAttribute.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,37 +28,23 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.Numerics;
+using TheXDS.MCART.Types.Extensions;
+using static System.AttributeTargets;
 
-namespace TheXDS.MCART.Types.Base;
+namespace TheXDS.MCART.Attributes;
 
 /// <summary>
-/// Interfaz que define propiedades comunes para estructuras de datos
-/// que describen coordenadas, vectores, magnitudes y tamaños en un
-/// espacio de dos dimensiones.
+/// Indicates the endianness of a single field in a struct that is read or written through marshaling.
 /// </summary>
-public interface IVector : IEquatable<IVector>
+/// <param name="endianness">Value that indicates the field's endianness.</param>
+/// <seealso cref="BinaryReaderExtensions.MarshalReadStruct{T}(BinaryReader)"/>
+/// <seealso cref="BinaryReaderExtensions.MarshalReadArray{T}(BinaryReader, in int)"/>
+/// <seealso cref="BinaryReaderExtensions.MarshalReadArray{T}(BinaryReader, in long, in int)"/>
+/// <seealso cref="BinaryWriterExtensions.MarshalWriteStruct{T}(BinaryWriter, T)"/>
+/// <seealso cref="BinaryWriterExtensions.MarshalWriteStructArray{T}(BinaryWriter, T[])"/>
+[AttributeUsage(Field)]
+public class EndiannessAttribute(Endianness endianness) : Attribute, IValueAttribute<Endianness>
 {
-    /// <summary>
-    /// Obtiene el componente horizontal (eje X) representado por este
-    /// <see cref="IVector"/>.
-    /// </summary>
-    double X { get; }
-
-    /// <summary>
-    /// Obtiene el componente vertical (eje Y) representado por este
-    /// <see cref="IVector"/>.
-    /// </summary>
-    double Y { get; }
-
-    /// <summary>
-    /// Converts the current <see cref="IVector"/> to a <see cref="Vector2"/>.
-    /// </summary>
-    /// <returns>
-    /// A new <see cref="Vector2"/> instance with the same X and Y values as this <see cref="IVector"/>.
-    /// </returns>
-    Vector2 ToVector2()
-    {
-        return new Vector2((float)X, (float)Y);
-    }
+    /// <inheritdoc/>
+    public Endianness Value { get; } = endianness;
 }

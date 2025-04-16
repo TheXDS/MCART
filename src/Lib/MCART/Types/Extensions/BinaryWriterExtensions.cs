@@ -33,6 +33,8 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Text;
+using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Misc;
 using TheXDS.MCART.Resources;
 
@@ -224,16 +226,30 @@ public static partial class BinaryWriterExtensions
     /// <param name="value">
     /// Objeto a escribir.
     /// </param>
-    public static void MarshalWriteStruct<T>(this BinaryWriter bw, T value) where T : struct
+    public static int MarshalWriteStruct<T>(this BinaryWriter bw, T value) where T : struct
     {
         WriteStruct_Contract(bw);
         int sze = Marshal.SizeOf(value);
-        byte[]? arr = new byte[sze];
+        byte[]? data = new byte[sze];
         IntPtr ptr = Marshal.AllocHGlobal(sze);
         Marshal.StructureToPtr(value, ptr, false);
-        Marshal.Copy(ptr, arr, 0, sze);
+        Marshal.Copy(ptr, data, 0, sze);
         Marshal.FreeHGlobal(ptr);
-        bw.Write(arr);
+        foreach (var j in typeof(T).GetFields())
+        {
+            if (j.GetAttribute<EndiannessAttribute>() is { Value: var e })
+            {
+                switch (e)
+                {
+                    case Endianness.BigEndian when BitConverter.IsLittleEndian:
+                    case Endianness.LittleEndian when !BitConverter.IsLittleEndian:
+                        Array.Reverse(data, (int)Marshal.OffsetOf<T>(j.Name), Marshal.SizeOf(j.FieldType));
+                        break;
+                }
+            }
+        }
+        bw.Write(data);
+        return sze;
     }
 
     /// <summary>
@@ -259,6 +275,24 @@ public static partial class BinaryWriterExtensions
         byte[] data = new byte[dataSize];
         Marshal.Copy(ptr, data, 0, dataSize);
         Marshal.FreeHGlobal(ptr);
+        foreach (var j in typeof(T).GetFields())
+        {
+            if (j.GetAttribute<EndiannessAttribute>() is { Value: var e })
+            {
+                switch (e)
+                {
+                    case Endianness.BigEndian when BitConverter.IsLittleEndian:
+                    case Endianness.LittleEndian when !BitConverter.IsLittleEndian:
+                        var fieldOffset = (int)Marshal.OffsetOf<T>(j.Name);
+                        var sizeOfField = Marshal.SizeOf(j.FieldType);
+                        foreach (var (index, _) in array.WithIndex())
+                        {
+                            Array.Reverse(data, fieldOffset + (sizeOf * index), sizeOfField);
+                        }
+                        break;
+                }
+            }
+        }
         bw.Write(data);
         return data.Length;
     }

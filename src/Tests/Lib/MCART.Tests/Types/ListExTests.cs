@@ -28,23 +28,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using TheXDS.MCART.Events;
 using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Base;
 
 namespace TheXDS.MCART.Tests.Types;
 
+[Obsolete, ExcludeFromCodeCoverage]
 public class ListExTests
 {
     [Test]
     public void Ctor_Test()
     {
-        ListEx<int> l = new();
+        ListEx<int> l = [];
         Assert.That(l, Is.Not.Null);
         Assert.That(l.TriggerEvents);
         l = new([1, 2, 3, 4, 5]);
-        Assert.That(l, Is.EquivalentTo(new[] { 1, 2, 3, 4, 5 }));
+        Assert.That(l, Is.EquivalentTo([1, 2, 3, 4, 5]));
         Assert.That(l.TriggerEvents);
         l = new(3);
         Assert.That(l, Is.Not.Null);
