@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,23 +28,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using TheXDS.MCART.Events;
 using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Base;
 
 namespace TheXDS.MCART.Tests.Types;
 
+[Obsolete, ExcludeFromCodeCoverage]
 public class ListExTests
 {
     [Test]
     public void Ctor_Test()
     {
-        ListEx<int> l = new();
+        ListEx<int> l = [];
         Assert.That(l, Is.Not.Null);
         Assert.That(l.TriggerEvents);
         l = new([1, 2, 3, 4, 5]);
-        Assert.That(l, Is.EquivalentTo(new[] { 1, 2, 3, 4, 5 }));
+        Assert.That(l, Is.EquivalentTo([1, 2, 3, 4, 5]));
         Assert.That(l.TriggerEvents);
         l = new(3);
         Assert.That(l, Is.Not.Null);

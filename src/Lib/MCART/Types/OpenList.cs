@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -41,8 +41,8 @@ namespace TheXDS.MCART.Types;
 /// </typeparam>
 public class OpenList<T> : IList<T>
 {
-    private readonly List<T> _head = new();
-    private readonly List<T> _tail = new();
+    private readonly List<T> _head = [];
+    private readonly List<T> _tail = [];
 
     /// <summary>
     /// Obtiene o establece el elemento en el índice especificado.
@@ -65,7 +65,6 @@ public class OpenList<T> : IList<T>
         {
             return index < _head.Count ? _head[index] : _tail[index - _head.Count];
         }
-
         set
         {
             if (index < _head.Count)

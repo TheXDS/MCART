@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -523,5 +523,21 @@ public static class Errors
     public static InvalidOperationException EmptyCollection(IEnumerable collection)
     {
         return new InvalidOperationException(Ers.EmptyCollection, new EmptyCollectionException(collection));
+    }
+
+    /// <summary>
+    /// Creates a new exception of type <see cref="NullItemException"/> that
+    /// can be thrown whenever an item inside a collection is
+    /// <see langword="null"/>.
+    /// </summary>
+    /// <param name="index">
+    /// Index of the item that is <see langword="null"/>.
+    /// </param>
+    /// <returns>
+    /// A new instance of the <see cref="NullItemException"/> class.
+    /// </returns>
+    public static NullItemException NullItem(int index)
+    {
+        return new NullItemException() { NullIndex = index };
     }
 }

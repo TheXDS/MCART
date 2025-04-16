@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -181,8 +181,7 @@ public static partial class MemberInfoExtensions
     [Sugar]
     public static T? GetAttribute<T>(this MemberInfo member) where T : Attribute
     {
-        HasAttribute(member, out T? attribute);
-        return attribute;
+        return Attribute.GetCustomAttribute(member, typeof(T)) as T;
     }
 
     /// <summary>
@@ -207,7 +206,6 @@ public static partial class MemberInfoExtensions
     [Sugar]
     public static IEnumerable<T> GetAttributes<T>(this MemberInfo member) where T : Attribute
     {
-        HasAttributes(member, out IEnumerable<T> attributes);
-        return attributes;
+        return Attribute.GetCustomAttributes(member, typeof(T)).Cast<T>();
     }
 }

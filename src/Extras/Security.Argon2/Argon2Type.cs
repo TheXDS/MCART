@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,27 +28,29 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+#pragma warning disable IDE0130
+
 namespace TheXDS.MCART.Security;
 
 /// <summary>
-/// Enumera las variantes del algoritmo Argon2 que pueden ser utilizadas para
-/// derivar claves.
+/// Enumerates the variants of the Argon2 algorithm that can be used to
+/// derive keys.
 /// </summary>
 public enum Argon2Type : byte
 {
     /// <summary>
-    /// Algoritmo Argon2d. Ofrece resistencia frente a ataques de GPU.
+    /// Argon2d algorithm. Provides resistance against GPU attacks.
     /// </summary>
     Argon2d,
 
     /// <summary>
-    /// Algoritmo Argon2i. Ofrece resistencia frente a ataques Side-Channel.
+    /// Argon2i algorithm. Provides resistance against Side-Channel attacks.
     /// </summary>
     Argon2i,
 
     /// <summary>
-    /// Algoritmo Argon2id. Ofrece las ventajas de Argon2d y Argon2i de forma
-    /// simultánea, en detrimento del rendimiento de cómputo.
+    /// Argon2id algorithm. Offers the advantages of both Argon2d and Argon2i
+    /// simultaneously, at the cost of computational performance.
     /// </summary>
     Argon2id
 }

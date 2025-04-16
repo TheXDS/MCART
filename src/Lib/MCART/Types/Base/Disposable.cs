@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,9 +28,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.Runtime.CompilerServices;
+using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types.Extensions;
-using static System.Reflection.BindingFlags;
 
 namespace TheXDS.MCART.Types.Base;
 
@@ -57,7 +56,10 @@ public abstract class Disposable : IDisposableEx
     /// </summary>
     public bool IsDisposed { get; private set; } = false;
 
-    private bool ShouldFinalize() => GetType().GetMethod(nameof(OnFinalize), Instance | NonPublic)!.IsOverride();
+    private bool ShouldFinalize()
+    {
+        return ReflectionHelpers.GetMethod<Action>(() => OnFinalize).IsOverride();
+    }
 
     /// <summary>
     /// Libera los recursos utilizados por esta instancia.
@@ -80,7 +82,6 @@ public abstract class Disposable : IDisposableEx
     /// <summary>
     /// Realiza operaciones de limpieza para objetos no administrados.
     /// </summary>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     protected virtual void OnFinalize() { }
 
     /// <summary>

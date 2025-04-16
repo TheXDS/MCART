@@ -7,7 +7,7 @@ Author(s):
  César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -31,14 +31,14 @@ SOFTWARE.
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
-/// Extensión de la interfaz <see cref="IExposeInfo" /> que permite
-/// establecer un ícono.
+/// Extension of the <see cref="IExposeInfo" /> interface that allows
+/// for setting an icon.
 /// </summary>
-/// <typeparam name="TIcon">Tipo del ícono a exponer.</typeparam>
+/// <typeparam name="TIcon">Type of the icon to be exposed.</typeparam>
 public interface IExposeGuiInfo<out TIcon> : IExposeInfo
 {
     /// <summary>
-    /// Obtiene el ícono establecido del elemento.
+    /// Gets the established icon of the element.
     /// </summary>
     TIcon Icon { get; }
 }

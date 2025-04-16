@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -31,13 +31,13 @@ SOFTWARE.
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
-/// Describe una serie de miembros a implementar por una clase o
-/// estructura que permite refrescarse.
+/// Describes a set of members implemented by a type that can refresh its own
+/// state.
 /// </summary>
 public interface IRefreshable
 {
     /// <summary>
-    /// Refresca el estado de este objeto.
+    /// Refreshes the state of this object.
     /// </summary>
     void Refresh();
 }

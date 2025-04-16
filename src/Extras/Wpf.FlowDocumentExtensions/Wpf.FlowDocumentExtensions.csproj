@@ -3,6 +3,8 @@
 		<TargetFramework>net8.0-windows</TargetFramework>
 		<UseWPF>true</UseWPF>
 		<AssemblyName>MCART.Wpf.FlowDocumentExtensions</AssemblyName>
+		<IsTrimmable>true</IsTrimmable>
+		<IsAotCompatible>true</IsAotCompatible>
 	</PropertyGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\..\Platform\Wpf\MCART.Wpf.Common\MCART.Wpf.Common.csproj" />

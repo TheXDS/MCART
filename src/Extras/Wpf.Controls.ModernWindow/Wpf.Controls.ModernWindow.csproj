@@ -5,6 +5,8 @@
 		<UseWPF>true</UseWPF>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<AssemblyName>MCART.Wpf.Controls.ModernWindow</AssemblyName>
+		<IsTrimmable>true</IsTrimmable>
+		<IsAotCompatible>true</IsAotCompatible>
 	</PropertyGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\..\Lib\MCART.Mvvm\MCART.Mvvm.csproj" />

@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -29,9 +29,11 @@ SOFTWARE.
 */
 
 using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection.Emit;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Helpers;
+using TheXDS.MCART.Misc;
 using TheXDS.MCART.Types.Extensions.ConstantLoaders;
 using static System.Reflection.Emit.OpCodes;
 using static TheXDS.MCART.Resources.Errors;
@@ -130,7 +132,7 @@ public static partial class ILGeneratorExtensions
     public static ILGenerator LoadConstant<T>(this ILGenerator ilGen, T value)
     {
         Type t = typeof(T);
-        if (_constantLoaders.FirstOrDefault(p => p.ConstantType == t) is { } cl)
+        if (_constantLoaders.FirstOrDefault(p => p.CanLoadConstant(value)) is { } cl)
         {
             cl.Emit(ilGen, value);
         }
@@ -144,7 +146,7 @@ public static partial class ILGeneratorExtensions
         }
         return ilGen;
     }
-
+    
     /// <summary>
     /// Inserta una serie de instrucciones que aumentarán el valor del valor
     /// actualmente en la pila en 1 en la secuencia del lenguaje intermedio de
@@ -295,6 +297,7 @@ public static partial class ILGeneratorExtensions
     /// <br/><br/>
     /// Uso de pila neto: -1
     /// </remarks>
+    [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
     public static ILGenerator NewArray<T>(this ILGenerator ilGen, out LocalBuilder local) => NewArray(ilGen, typeof(T), out local);
 
     /// <summary>
@@ -334,6 +337,7 @@ public static partial class ILGeneratorExtensions
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
     /// de sintaxis Fluent.
     /// </returns>
+    [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
     public static ILGenerator NewArray(this ILGenerator ilGen, Type arrayType, out LocalBuilder local)
     {
         return ilGen.NewArray(arrayType).StoreNewLocal(arrayType.MakeArrayType(), out local);

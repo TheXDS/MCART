@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,6 +28,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System.ComponentModel;
+using System.Numerics;
 using TheXDS.MCART.Math;
 using TheXDS.MCART.Misc;
 using TheXDS.MCART.Resources;
@@ -41,7 +43,10 @@ namespace TheXDS.MCART.Types;
 /// Estructura universal que describe el tamaño de un objeto en ancho y
 /// alto en un espacio de dos dimensiones.
 /// </summary>
-public struct Size3D : IFormattable, IEquatable<Size3D>, IEquatable<ISize3D>, IEquatable<IVector3D>, ISize3D, IVector3D
+/// <param name="width">Valor de ancho.</param>
+/// <param name="height">Valor de alto.</param>
+/// <param name="depth">Valor de profundidad.</param>
+public struct Size3D(double width, double height, double depth) : IFormattable, IEquatable<Size3D>, IEquatable<ISize3D>, IEquatable<IVector3D>, ISize3D, IVector3D
 {
     /// <summary>
     /// Obtiene un valor que no representa ningún tamaño. Este campo es
@@ -60,20 +65,6 @@ public struct Size3D : IFormattable, IEquatable<Size3D>, IEquatable<ISize3D>, IE
     /// es de solo lectura.
     /// </summary>
     public static readonly Size3D Infinity = new(double.PositiveInfinity, double.PositiveInfinity, double.PositiveInfinity);
-
-    /// <summary>
-    /// Inicializa una nueva instancia de la estructura
-    /// <see cref="Size"/>.
-    /// </summary>
-    /// <param name="width">Valor de ancho.</param>
-    /// <param name="height">Valor de alto.</param>
-    /// <param name="depth">Valor de profundidad.</param>
-    public Size3D(double width, double height, double depth)
-    {
-        Width = width;
-        Height = height;
-        Depth = depth;
-    }
 
     /// <summary>
     /// Realiza una operación de suma sobre los puntos.
@@ -476,27 +467,27 @@ public struct Size3D : IFormattable, IEquatable<Size3D>, IEquatable<ISize3D>, IE
     /// <summary>
     /// Obtiene el componente de altura del tamaño.
     /// </summary>
-    public double Height { get; set; }
+    public double Height { get; set; } = height;
 
     /// <summary>
     /// Obtiene el componente de ancho del tamaño.
     /// </summary>
-    public double Width { get; set; }
-    
+    public double Width { get; set; } = width;
+
     /// <summary>
     /// Obtiene el componente de profundidad del tamaño.
     /// </summary>
-    public double Depth { get; set; }
+    public double Depth { get; set; } = depth;
 
     /// <summary>
     /// Calcula el área cuadrada representada por este tamaño.
     /// </summary>
-    public double CubeVolume => Height * Width * Depth;
+    public readonly double CubeVolume => Height * Width * Depth;
 
     /// <summary>
     /// Calcula el perímetro cuadrado representado por este tamaño.
     /// </summary>
-    public double CubePerimeter => (Height * 2) + (Width * 2) + (Depth * 2);
+    public readonly double CubePerimeter => (Height * 2) + (Width * 2) + (Depth * 2);
 
     /// <summary>
     /// Determina si esta instancia representa un tamaño nulo.
@@ -505,47 +496,25 @@ public struct Size3D : IFormattable, IEquatable<Size3D>, IEquatable<ISize3D>, IE
     /// <see langword="true"/> si el tamaño es nulo o
     /// <see langword="false"/> si el tamaño no contiene volumen.
     /// </returns>
-    public bool IsZero
-    {
-        get
-        {
-            return Height.IsValid() && Height == 0
-                && Width.IsValid() && Width == 0
-                && Depth.IsValid() && Depth == 0;
-        }
-    }
+    public readonly bool IsZero => Height.IsValid() && Height == 0 && Width.IsValid() && Width == 0 && Depth.IsValid() && Depth == 0;
 
     /// <summary>
     /// Obtiene un valor que indica si el tamaño es válido en un contexto
     /// físico real.
     /// </summary>
-    public bool IsReal
-    {
-        get
-        {
-            return Height.IsValid() && Height > 0
-                && Width.IsValid() && Width > 0
-                && Depth.IsValid() && Depth > 0;
-        }
-    }
+    public readonly bool IsReal => Height.IsValid() && Height > 0 && Width.IsValid() && Width > 0 && Depth.IsValid() && Depth > 0;
 
     /// <summary>
     /// Obtiene un valor que indica si todas las magnitudes de tamaño de esta
     /// instancia son válidas.
     /// </summary>
-    public bool IsValid
-    {
-        get
-        {
-            return Height.IsValid() && Width.IsValid() && Depth.IsValid();
-        }
-    }
+    public readonly bool IsValid => Height.IsValid() && Width.IsValid() && Depth.IsValid();
 
-    double IVector3D.Z => Depth;
+    readonly double IVector3D.Z => Depth;
 
-    double IVector.X => Width;
+    readonly double IVector.X => Width;
 
-    double IVector.Y => Height;
+    readonly double IVector.Y => Height;
 
     /// <summary>
     /// Determina si esta instancia de <see cref="Size"/> es igual a
@@ -558,7 +527,7 @@ public struct Size3D : IFormattable, IEquatable<Size3D>, IEquatable<ISize3D>, IE
     /// <see langword="true"/> si los tamaños representados en ambos
     /// objetos son iguales, <see langword="false"/> en caso contrario.
     /// </returns>
-    public bool Equals(Size3D other)
+    public readonly bool Equals(Size3D other)
     {
         return (Height == other.Height || (!Height.IsValid() && !other.Height.IsValid()))
             && (Width == other.Width || (!Width.IsValid() && !other.Width.IsValid()))
@@ -576,7 +545,7 @@ public struct Size3D : IFormattable, IEquatable<Size3D>, IEquatable<ISize3D>, IE
     /// <see langword="true"/> si los tamaños representados en ambos
     /// objetos son iguales, <see langword="false"/> en caso contrario.
     /// </returns>
-    public bool Equals(ISize3D? other)
+    public readonly bool Equals(ISize3D? other)
     {
         return other is not null
             && (Height == other.Height || (!Height.IsValid() && !other.Height.IsValid()))
@@ -595,7 +564,7 @@ public struct Size3D : IFormattable, IEquatable<Size3D>, IEquatable<ISize3D>, IE
     /// <see langword="true"/> si los tamaños representados en ambos
     /// objetos son iguales, <see langword="false"/> en caso contrario.
     /// </returns>
-    public bool Equals(IVector3D? other)
+    public readonly bool Equals(IVector3D? other)
     {
         return other is not null
             && (Height == other.Y || (!Height.IsValid() && !other.Y.IsValid()))
@@ -613,7 +582,7 @@ public struct Size3D : IFormattable, IEquatable<Size3D>, IEquatable<ISize3D>, IE
     /// <see langword="true" /> si esta instancia y <paramref name="obj" /> son iguales;
     /// de lo contrario, <see langword="false" />.
     /// </returns>
-    public override bool Equals(object? obj)
+    public override readonly bool Equals(object? obj)
     {
         if (obj is not ISize3D p) return false;
         return Equals(p);
@@ -625,7 +594,7 @@ public struct Size3D : IFormattable, IEquatable<Size3D>, IEquatable<ISize3D>, IE
     /// <returns>
     /// Un código hash que representa a esta instancia.
     /// </returns>
-    public override int GetHashCode()
+    public override readonly int GetHashCode()
     {
         return HashCode.Combine(Height, Width, Depth);
     }
@@ -652,7 +621,7 @@ public struct Size3D : IFormattable, IEquatable<Size3D>, IEquatable<ISize3D>, IE
     /// <returns>
     /// Una representación en forma de <see cref="string" /> de este objeto.
     /// </returns>
-    public override string ToString()
+    public override readonly string ToString()
     {
         return ToString(null);
     }
@@ -664,7 +633,7 @@ public struct Size3D : IFormattable, IEquatable<Size3D>, IEquatable<ISize3D>, IE
     /// <returns>
     /// Una representación en forma de <see cref="string" /> de este objeto.
     /// </returns>
-    public string ToString(string? format)
+    public readonly string ToString(string? format)
     {
         return ToString(format, CI.CurrentCulture);
     }
@@ -682,7 +651,7 @@ public struct Size3D : IFormattable, IEquatable<Size3D>, IEquatable<ISize3D>, IE
     /// <returns>
     /// Una representación en forma de <see cref="string" /> de este objeto.
     /// </returns>
-    public string ToString(string? format, IFormatProvider? formatProvider)
+    public readonly string ToString(string? format, IFormatProvider? formatProvider)
     {
         if (format.IsEmpty()) format = "C";
         return format.ToUpperInvariant()[0] switch
@@ -727,8 +696,8 @@ public struct Size3D : IFormattable, IEquatable<Size3D>, IEquatable<ISize3D>, IE
                 size = Infinity;
                 break;
             default:
-                string[]? separators = new[]
-                {
+                string[]? separators =
+                [
                     ", ",
                     "; ",
                     " - ",
@@ -739,11 +708,23 @@ public struct Size3D : IFormattable, IEquatable<Size3D>, IEquatable<ISize3D>, IE
                     ";",
                     ":",
                     "|",
-                };
-                return PrivateInternals.TryParseValues<double, Size3D>(separators, value.Without("()[]{}".ToCharArray()), 3, l => new(l[0], l[1], l[2]), out size);
+                ];
+                return PrivateInternals.TryParseValues<double, Size3D>(new DoubleConverter(), separators, value.Without("()[]{}".ToCharArray()), 3, l => new(l[0], l[1], l[2]), out size);
         }
         return true;
     }
 
-    bool IEquatable<IVector>.Equals(IVector? other) => other is not null && Width == other.X && Height == other.Y;
+    /// <summary>
+    /// Implicitly converts a <see cref="Size3D"/> to a <see cref="Vector3"/>.
+    /// </summary>
+    /// <param name="p"><see cref="Size3D"/> value to be converted.</param>
+    public static implicit operator Vector3(Size3D p) => new((float)p.Width, (float)p.Height, (float)p.Depth);
+
+    /// <summary>
+    /// Implicitly converts a <see cref="Vector3"/> to a <see cref="Size3D"/>.
+    /// </summary>
+    /// <param name="p"><see cref="Vector3"/> value to be converted.</param>
+    public static implicit operator Size3D(Vector3 p) => new(p.X, p.Y, p.Z);
+
+    readonly bool IEquatable<IVector>.Equals(IVector? other) => other is not null && Width == other.X && Height == other.Y;
 }

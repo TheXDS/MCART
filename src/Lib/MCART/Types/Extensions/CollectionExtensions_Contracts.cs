@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -41,8 +41,8 @@ public static partial class CollectionExtensions
     [DebuggerNonUserCode]
     private static void AddClone_Contract<T>(ICollection<T> collection, T item) where T : ICloneable
     {
-        NullCheck(collection, nameof(collection));
-        NullCheck(item, nameof(item));
+        ArgumentNullException.ThrowIfNull(collection, nameof(collection));
+        ArgumentNullException.ThrowIfNull(item, nameof(item));
     }
 
     [Conditional("EnforceContracts")]
@@ -50,8 +50,8 @@ public static partial class CollectionExtensions
     [DebuggerNonUserCode]
     private static void AddClones_Contract<T>(this ICollection<T> collection, IEnumerable<T> source)
     {
-        NullCheck(collection, nameof(collection));
-        NullCheck(source, nameof(source));
+        ArgumentNullException.ThrowIfNull(collection, nameof(collection));
+        ArgumentNullException.ThrowIfNull(source, nameof(source));
     }
 
     [Conditional("EnforceContracts")]
@@ -59,12 +59,21 @@ public static partial class CollectionExtensions
     [DebuggerNonUserCode]
     private static void AddRange_Contract<T>(this ICollection<T> collection, IEnumerable<T> items)
     {
-        NullCheck(collection, nameof(collection));
-        NullCheck(items, nameof(items));
+        ArgumentNullException.ThrowIfNull(collection, nameof(collection));
+        ArgumentNullException.ThrowIfNull(items, nameof(items));
+    }
+
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void AddRange_Contract<T>(this ICollection<T> collection, IAsyncEnumerable<T> items)
+    {
+        ArgumentNullException.ThrowIfNull(collection, nameof(collection));
+        ArgumentNullException.ThrowIfNull(items, nameof(items));
     }
 
     private static void Push_Contract<TCollection>(this ICollection<TCollection> collection)
     {
-        NullCheck(collection, nameof(collection));
+        ArgumentNullException.ThrowIfNull(collection, nameof(collection));
     }
 }

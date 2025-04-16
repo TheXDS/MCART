@@ -3,18 +3,11 @@ ByteUnitType.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
-Este archivo contiene operaciones comunes de transformación de datos en los
-programas, y de algunas comparaciones especiales.
-
-Algunas de estas funciones también se implementan como extensiones, por lo que
-para ser llamadas únicamente es necesario importar el espacio de nombres
-"TheXDS.MCART" y utilizar sintaxis de instancia.
-
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -40,26 +33,26 @@ namespace TheXDS.MCART.Helpers;
 public static partial class Common
 {
     /// <summary>
-    /// Enumera los tipos de unidades que se pueden utilizar para
-    /// representar grandes cantidades de bytes.
+    /// Enumerates the types of units that can be used to
+    /// represent large amounts of bytes.
     /// </summary>
     [Flags]
     public enum ByteUnitType : byte
     {
         /// <summary>
-        /// Numeración binaria. Cada orden de magnitud equivale a 1024 de su inferior.
+        /// Binary numbering. Each order of magnitude is equivalent to 1024 of the lower one.
         /// </summary>
         Binary,
         /// <summary>
-        /// Numeración decimal. Cada orden de magnitud equivale a 1000 de su inferior. 
+        /// Decimal numbering. Each order of magnitude is equivalent to 1000 of the lower one. 
         /// </summary>
         Decimal,
         /// <summary>
-        /// Numeración binaria con nombre largo. Cada orden de magnitud equivale a 1024 de su inferior.
+        /// Binary numbering with long name. Each order of magnitude is equivalent to 1024 of the lower one.
         /// </summary>
         BinaryLong,
         /// <summary>
-        /// Numeración decimal con nombre largo. Cada orden de magnitud equivale a 1000 de su inferior. 
+        /// Decimal numbering with long name. Each order of magnitude is equivalent to 1000 of the lower one. 
         /// </summary>
         DecimalLong
     }

@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,10 +28,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Text;
+using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Helpers;
+using TheXDS.MCART.Misc;
 using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Types.Extensions;
@@ -40,6 +44,8 @@ namespace TheXDS.MCART.Types.Extensions;
 /// Contiene extensiones útiles para la clase
 /// <see cref="BinaryWriter"/>.
 /// </summary>
+[RequiresUnreferencedCode(AttributeErrorMessages.ClassScansForTypes)]
+[RequiresDynamicCode(AttributeErrorMessages.ClassCallsDynamicCode)]
 public static partial class BinaryWriterExtensions
 {
     private readonly record struct BwDynCheck(bool CanWrite, object? PredicateContext)
@@ -67,15 +73,15 @@ public static partial class BinaryWriterExtensions
 
     private delegate BwDynCheck DynCheck(Type type);
     private delegate void DynWrite(object? predicateContext, BinaryWriter writer, object value);
-    
+
     private static readonly DynWriteSet[] DynamicWriteSets =
-    {
+    [
         new(t => t.IsArray, DynamicWriteArray),
         new(CanUseBinaryWriter, DynamicWriteBinaryWriter),
         new(CanUseBinaryWriterEx, DynamicWriteBinaryWriterEx),
         new(TypeExtensions.Implements<ISerializable>, DynamicWriteISerializable),
         new(TypeExtensions.IsStruct, ByFieldWriteStructInternal),
-    };
+    ];
 
     /// <summary>
     /// Escribe un <see cref="Guid"/> en el <see cref="BinaryWriter"/>
@@ -147,6 +153,8 @@ public static partial class BinaryWriterExtensions
     /// <param name="value">
     /// Objeto serializable a escribir.
     /// </param>
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
+    [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
     public static void Write(this BinaryWriter bw, ISerializable value)
     {
         DataContractSerializer? d = new(value.GetType());
@@ -218,16 +226,75 @@ public static partial class BinaryWriterExtensions
     /// <param name="value">
     /// Objeto a escribir.
     /// </param>
-    public static void MarshalWriteStruct<T>(this BinaryWriter bw, T value) where T : struct
+    public static int MarshalWriteStruct<T>(this BinaryWriter bw, T value) where T : struct
     {
         WriteStruct_Contract(bw);
         int sze = Marshal.SizeOf(value);
-        byte[]? arr = new byte[sze];
+        byte[]? data = new byte[sze];
         IntPtr ptr = Marshal.AllocHGlobal(sze);
-        Marshal.StructureToPtr(value, ptr, true);
-        Marshal.Copy(ptr, arr, 0, sze);
+        Marshal.StructureToPtr(value, ptr, false);
+        Marshal.Copy(ptr, data, 0, sze);
         Marshal.FreeHGlobal(ptr);
-        bw.Write(arr);
+        foreach (var j in typeof(T).GetFields())
+        {
+            if (j.GetAttribute<EndiannessAttribute>() is { Value: var e })
+            {
+                switch (e)
+                {
+                    case Endianness.BigEndian when BitConverter.IsLittleEndian:
+                    case Endianness.LittleEndian when !BitConverter.IsLittleEndian:
+                        Array.Reverse(data, (int)Marshal.OffsetOf<T>(j.Name), Marshal.SizeOf(j.FieldType));
+                        break;
+                }
+            }
+        }
+        bw.Write(data);
+        return sze;
+    }
+
+    /// <summary>
+    /// Writes an array of structures to the underlying stream using
+    /// Marshaling.
+    /// </summary>
+    /// <typeparam name="T">Type of structure array to write.</typeparam>
+    /// <param name="bw">Binary writer to use when writing the array.</param>
+    /// <param name="array">Array of values to write.</param>
+    /// <returns>
+    /// The number of bytes written to the stream.
+    /// </returns>
+    public static int MarshalWriteStructArray<T>(this BinaryWriter bw, T[] array) where T : struct
+    {
+        WriteStruct_Contract(bw);
+        int sizeOf = Marshal.SizeOf<T>();
+        int dataSize = sizeOf * array.Length;
+        nint ptr = Marshal.AllocHGlobal(dataSize);
+        for (int i = 0; i < array.Length; i++)
+        {
+            Marshal.StructureToPtr(array[i], ptr + (i * sizeOf), false);
+        }
+        byte[] data = new byte[dataSize];
+        Marshal.Copy(ptr, data, 0, dataSize);
+        Marshal.FreeHGlobal(ptr);
+        foreach (var j in typeof(T).GetFields())
+        {
+            if (j.GetAttribute<EndiannessAttribute>() is { Value: var e })
+            {
+                switch (e)
+                {
+                    case Endianness.BigEndian when BitConverter.IsLittleEndian:
+                    case Endianness.LittleEndian when !BitConverter.IsLittleEndian:
+                        var fieldOffset = (int)Marshal.OffsetOf<T>(j.Name);
+                        var sizeOfField = Marshal.SizeOf(j.FieldType);
+                        foreach (var (index, _) in array.WithIndex())
+                        {
+                            Array.Reverse(data, fieldOffset + (sizeOf * index), sizeOfField);
+                        }
+                        break;
+                }
+            }
+        }
+        bw.Write(data);
+        return data.Length;
     }
 
     /// <summary>
@@ -295,6 +362,7 @@ public static partial class BinaryWriterExtensions
             : new (false);
     }
 
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
     private static BwDynCheck CanUseBinaryWriterEx(Type t)
     {
         return typeof(BinaryWriterExtensions).GetMethods().FirstOrDefault(p => CanExWrite(p, t)) is { } m
@@ -317,14 +385,16 @@ public static partial class BinaryWriterExtensions
 
     private static void DynamicWriteBinaryWriter(object? m, BinaryWriter bw, object value)
     {
-        ((MethodInfo)m!).Invoke(bw, new[] { value });
+        ((MethodInfo)m!).Invoke(bw, [value]);
     }
 
     private static void DynamicWriteBinaryWriterEx(object? m, BinaryWriter bw, object value)
     {
-        ((MethodInfo)m!).Invoke(null, new[] { bw, value });
+        ((MethodInfo)m!).Invoke(null, [bw, value]);
     }
 
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
+    [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
     private static void DynamicWriteISerializable(BinaryWriter bw, object value)
     {
         Write(bw, (ISerializable)value);

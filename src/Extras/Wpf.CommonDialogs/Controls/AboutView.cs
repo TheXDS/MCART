@@ -4,11 +4,10 @@ AboutView.cs
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
 Author(s):
-     "Surfin Bird" (Original implementation) <https://stackoverflow.com/users/4267982/surfin-bird>
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -44,49 +43,49 @@ using TheXDS.MCART.Types.Extensions;
 namespace TheXDS.MCART.Wpf.CommonDialogs.Controls;
 
 /// <summary>
-/// Control que permite mostrar un cuadro de información de un ensamblado,
-/// aplicación, programa u otro elemento similar.
+/// Control that allows displaying an information box for an assembly,
+/// application, program, or other similar item.
 /// </summary>
 public class AboutView : Control
 {
     /// <summary>
-    /// Identifica a la propiedad de dependencia <see cref="Icon"/>.
+    /// Identifies the dependency property <see cref="Icon"/>.
     /// </summary>
     public static readonly DependencyProperty IconProperty = DependencyProperty.Register(
         nameof(Icon), typeof(ImageSource), typeof(AboutView), new PropertyMetadata(null));
 
     /// <summary>
-    /// Identifica a la propiedad de dependencia <see cref="Title"/>.
+    /// Identifies the dependency property <see cref="Title"/>.
     /// </summary>
     public static readonly DependencyProperty TitleProperty = DependencyProperty.Register(
         nameof(Title), typeof(string), typeof(AboutView), new PropertyMetadata(null));
 
     /// <summary>
-    /// Identifica a la propiedad de dependencia <see cref="Version"/>.
+    /// Identifies the dependency property <see cref="Version"/>.
     /// </summary>
     public static readonly DependencyProperty VersionProperty = DependencyProperty.Register(
         nameof(Version), typeof(string), typeof(AboutView), new PropertyMetadata(null));
 
     /// <summary>
-    /// Identifica a la propiedad de dependencia <see cref="Description"/>.
+    /// Identifies the dependency property <see cref="Description"/>.
     /// </summary>
     public static readonly DependencyProperty DescriptionProperty = DependencyProperty.Register(
         nameof(Description), typeof(string), typeof(AboutView), new PropertyMetadata(null));
 
     /// <summary>
-    /// Identifica a la propiedad de dependencia <see cref="Copyright"/>.
+    /// Identifies the dependency property <see cref="Copyright"/>.
     /// </summary>
     public static readonly DependencyProperty CopyrightProperty = DependencyProperty.Register(
         nameof(Copyright), typeof(string), typeof(AboutView), new PropertyMetadata(null));
 
     /// <summary>
-    /// Identifica a la propiedad de dependencia <see cref="LicenseSource"/>.
+    /// Identifies the dependency property <see cref="LicenseSource"/>.
     /// </summary>
     public static readonly DependencyProperty LicenseSourceProperty = DependencyProperty.Register(
         nameof(LicenseSource), typeof(object), typeof(AboutView), new PropertyMetadata(null));
 
     /// <summary>
-    /// Identifica a la propiedad de dependencia <see cref="ThirdPartyLicenseSource"/>.
+    /// Identifies the dependency property <see cref="ThirdPartyLicenseSource"/>.
     /// </summary>
     public static readonly DependencyProperty ThirdPartyLicenseSourceProperty = DependencyProperty.Register(
         nameof(ThirdPartyLicenseSource), typeof(IEnumerable<object>), typeof(AboutView), new PropertyMetadata(null));
@@ -97,7 +96,7 @@ public class AboutView : Control
     }
 
     /// <summary>
-    /// Obtiene o establece el ícono a mostrar en el cuadro de información.
+    /// Gets or sets the icon to be displayed in the information box.
     /// </summary>
     public ImageSource? Icon
     {
@@ -106,8 +105,7 @@ public class AboutView : Control
     }
 
     /// <summary>
-    /// Obtiene o establece el título del elemento del cual se muestra la
-    /// información.
+    /// Gets or sets the title of the item for which information is displayed.
     /// </summary>
     public string? Title
     {
@@ -116,8 +114,8 @@ public class AboutView : Control
     }
 
     /// <summary>
-    /// Obtiene o establece una cadena que representa la versión del elemento
-    /// del cual se muestra la información.
+    /// Gets or sets a string that represents the version of the item
+    /// for which information is displayed.
     /// </summary>
     public string? Version
     {
@@ -126,8 +124,7 @@ public class AboutView : Control
     }
 
     /// <summary>
-    /// Obtiene o establece la descripción del elemento del cual se muestra la
-    /// información.
+    /// Gets or sets the description of the item for which information is displayed.
     /// </summary>
     public string? Description
     {
@@ -136,8 +133,8 @@ public class AboutView : Control
     }
 
     /// <summary>
-    /// Obtiene o establece la cadena de Copyright del elemento del cual se 
-    /// muestra la información.
+    /// Gets or sets the copyright string of the item for which information is 
+    /// displayed.
     /// </summary>
     public string? Copyright
     {
@@ -146,8 +143,8 @@ public class AboutView : Control
     }
 
     /// <summary>
-    /// Obtiene o establece un objeto a utilizar como el origen de información
-    /// de licencia a mostrar en este cuadro de información.
+    /// Gets or sets an object to be used as the source of license information
+    /// to be displayed in this information box.
     /// </summary>
     public object? LicenseSource
     {
@@ -156,9 +153,8 @@ public class AboutView : Control
     }
 
     /// <summary>
-    /// Obtiene o establece una colección de objetos a utilizar como origen de
-    /// información de licencias de terceros a mostrar en este cuadro de
-    /// información.
+    /// Gets or sets a collection of objects to be used as the source of
+    /// third-party license information to be displayed in this information box.
     /// </summary>
     public IEnumerable<object>? ThirdPartyLicenseSource
     {
@@ -229,9 +225,10 @@ public class AboutView : Control
             Assembly a => a.GetAttribute<LicenseAttributeBase>()?.GetLicense(a),
             IExposeAssembly e => e.Assembly.GetAttribute<LicenseAttributeBase>()?.GetLicense(e),
             IExposeInfo i => i.License,
+            Type t => t.GetAttribute<LicenseAttributeBase>()?.GetLicense(t),
             string s => new TextLicense(s.Split('\n', 2)[0], s),
-            not null => obj.GetAttribute<LicenseAttributeBase>()?.GetLicense(obj),
             null => License.MissingLicense,
+            not null => obj.GetType().GetAttribute<LicenseAttributeBase>()?.GetLicense(obj)
         } ?? License.Unspecified;
     }
 

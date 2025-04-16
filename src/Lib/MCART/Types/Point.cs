@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,6 +28,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System.ComponentModel;
+using System.Numerics;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Math;
 using TheXDS.MCART.Misc;
@@ -42,7 +44,9 @@ namespace TheXDS.MCART.Types;
 /// <summary>
 /// Tipo universal para un conjunto de coordenadas bidimensionales.
 /// </summary>
-public struct Point : IVector, IFormattable, IEquatable<Point>
+/// <param name="x">The x coordinate.</param>
+/// <param name="y">The y coordinate.</param>
+public struct Point(double x, double y) : IVector, IFormattable, IEquatable<Point>
 {
     /// <summary>
     /// Obtiene un punto que no representa ninguna posición. Este campo es
@@ -67,17 +71,6 @@ public struct Point : IVector, IFormattable, IEquatable<Point>
     /// </summary>
     public Point() : this(0,0)
     {
-    }
-
-    /// <summary>
-    /// Inicializa una nueva instancia de la estructura <see cref="Point" />.
-    /// </summary>
-    /// <param name="x">The x coordinate.</param>
-    /// <param name="y">The y coordinate.</param>
-    public Point(double x, double y)
-    {
-        X = x;
-        Y = y;
     }
 
     /// <summary>
@@ -381,12 +374,12 @@ public struct Point : IVector, IFormattable, IEquatable<Point>
     /// <summary>
     /// Coordenada X.
     /// </summary>
-    public double X { get; set; }
+    public double X { get; set; } = x;
 
     /// <summary>
     /// Coordenada Y.
     /// </summary>
-    public double Y { get; set; }
+    public double Y { get; set; } = y;
 
     /// <summary>
     /// Intenta crear un <see cref="Point"/> a partir de una cadena.
@@ -416,21 +409,21 @@ public struct Point : IVector, IFormattable, IEquatable<Point>
                 point = Origin;
                 break;
             default:
-                string[]? separators = new[]
-                {
-                        ", ",
-                        "; ",
-                        " - ",
-                        " : ",
-                        " | ",
-                        " ",
-                        ",",
-                        ";",
-                        ":",
-                        "|",
-                        "-"
-                    };
-                return PrivateInternals.TryParseValues<double, Point>(separators, value.Without("()[]{}".ToCharArray()), 2, l => new Point(l[0], l[1]), out point);
+                string[]? separators =
+                [
+                    ", ",
+                    "; ",
+                    " - ",
+                    " : ",
+                    " | ",
+                    " ",
+                    ",",
+                    ";",
+                    ":",
+                    "|",
+                    "-"
+                ];
+                return PrivateInternals.TryParseValues<double, Point>(new DoubleConverter(), separators, value.Without("()[]{}".ToCharArray()), 2, l => new Point(l[0], l[1]), out point);
         }
         return true;
     }
@@ -456,7 +449,7 @@ public struct Point : IVector, IFormattable, IEquatable<Point>
     /// este <see cref="Point" /> contra el eje horizontal X.
     /// </summary>
     /// <returns>El ángulo calculado.</returns>
-    public double Angle()
+    public readonly double Angle()
     {
         double ang = Acos(X / Magnitude());
         if (Y < 0) ang = Tau - ang;
@@ -473,7 +466,7 @@ public struct Point : IVector, IFormattable, IEquatable<Point>
     /// <see langword="true" /> si todos los vectores de ambos puntos son iguales;
     /// de lo contrario, <see langword="false" />.
     /// </returns>
-    public bool Equals(Point other)
+    public readonly bool Equals(Point other)
     {
         return this == other;
     }
@@ -546,7 +539,7 @@ public struct Point : IVector, IFormattable, IEquatable<Point>
     /// <see langword="true" /> si el punto se encuentra dentro del círculo,
     /// <see langword="false" /> en caso contrario.
     /// </returns>
-    public bool WithinCircle(in Point center, in double radius)
+    public readonly bool WithinCircle(in Point center, in double radius)
     {
         return Magnitude(center) <= radius;
     }
@@ -595,7 +588,7 @@ public struct Point : IVector, IFormattable, IEquatable<Point>
     /// <returns>
     /// La magnitud resultante entre el punto y el origen.
     /// </returns>
-    public double Magnitude()
+    public readonly double Magnitude()
     {
         return Sqrt((X * X) + (Y * Y));
     }
@@ -609,7 +602,7 @@ public struct Point : IVector, IFormattable, IEquatable<Point>
     /// Punto de referencia para calcular la
     /// magnitud.
     /// </param>
-    public double Magnitude(Point fromPoint)
+    public readonly double Magnitude(Point fromPoint)
     {
         double x = X - fromPoint.X, y = Y - fromPoint.Y;
         return Sqrt((x * x) + (y * y));
@@ -625,7 +618,7 @@ public struct Point : IVector, IFormattable, IEquatable<Point>
     /// </returns>
     /// <param name="fromX">Coordenada X de origen.</param>
     /// <param name="fromY">Coordenada Y de origen.</param>
-    public double Magnitude(double fromX, double fromY)
+    public readonly double Magnitude(double fromX, double fromY)
     {
         double x = X - fromX, y = Y - fromY;
         return Sqrt((x * x) + (y * y));
@@ -644,7 +637,7 @@ public struct Point : IVector, IFormattable, IEquatable<Point>
     /// <returns>
     /// Una representación en forma de <see cref="string" /> de este objeto.
     /// </returns>
-    public string ToString(string? format, IFormatProvider? formatProvider)
+    public readonly string ToString(string? format, IFormatProvider? formatProvider)
     {
         if (format.IsEmpty()) format = "C";
         return format.ToUpperInvariant()[0] switch
@@ -664,7 +657,7 @@ public struct Point : IVector, IFormattable, IEquatable<Point>
     /// <returns>
     /// Una representación en forma de <see cref="string" /> de este objeto.
     /// </returns>
-    public string ToString(string? format)
+    public readonly string ToString(string? format)
     {
         return ToString(format, CI.CurrentCulture);
     }
@@ -680,7 +673,7 @@ public struct Point : IVector, IFormattable, IEquatable<Point>
     /// <paramref name="obj" /> son iguales, <see langword="false" />
     /// en caso contrario.
     /// </returns>
-    public override bool Equals(object? obj)
+    public override readonly bool Equals(object? obj)
     {
         return obj is IVector p && this == p;
     }
@@ -689,7 +682,7 @@ public struct Point : IVector, IFormattable, IEquatable<Point>
     /// Devuelve el código Hash de esta instancia.
     /// </summary>
     /// <returns>El código Hash de esta instancia.</returns>
-    public override int GetHashCode()
+    public override readonly int GetHashCode()
     {
         return HashCode.Combine(X, Y);
     }
@@ -700,7 +693,7 @@ public struct Point : IVector, IFormattable, IEquatable<Point>
     /// <returns>
     /// Una representación en forma de <see cref="string" /> de este objeto.
     /// </returns>
-    public override string ToString()
+    public override readonly string ToString()
     {
         return ToString(null);
     }
@@ -715,8 +708,20 @@ public struct Point : IVector, IFormattable, IEquatable<Point>
     /// <see langword="true" /> si todos los vectores de ambos objetos
     /// son iguales, <see langword="false" /> en caso contrario.
     /// </returns>
-    public bool Equals(IVector? other)
+    public readonly bool Equals(IVector? other)
     {
         return other is { } o && this == o;
     }
+
+    /// <summary>
+    /// Implicitly converts a <see cref="Point"/> to a <see cref="Vector2"/>.
+    /// </summary>
+    /// <param name="p"><see cref="Point"/> value to be converted.</param>
+    public static implicit operator Vector2(Point p) => new((float)p.X, (float)p.Y);
+
+    /// <summary>
+    /// Implicitly converts a <see cref="Vector2"/> to a <see cref="Point"/>.
+    /// </summary>
+    /// <param name="p"><see cref="Vector2"/> value to be converted.</param>
+    public static implicit operator Point(Vector2 p) => new(p.X, p.Y);
 }

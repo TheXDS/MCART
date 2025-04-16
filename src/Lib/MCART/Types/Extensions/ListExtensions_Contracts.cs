@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -43,8 +43,8 @@ public static partial class ListExtensions
     [DebuggerNonUserCode]
     private static void Shuffle_Contract<T>(IList<T> toShuffle, in int firstIdx, in int lastIdx, in int deepness, Random random)
     {
-        NullCheck(toShuffle, nameof(toShuffle));
-        NullCheck(random, nameof(random));
+        ArgumentNullException.ThrowIfNull(toShuffle, nameof(toShuffle));
+        ArgumentNullException.ThrowIfNull(random, nameof(random));
         if (!toShuffle.Any()) throw Errors.EmptyCollection(toShuffle);
         if (!firstIdx.IsBetween(0, toShuffle.Count - 1)) throw new IndexOutOfRangeException();
         if (!lastIdx.IsBetween(0, toShuffle.Count - 1)) throw new IndexOutOfRangeException();

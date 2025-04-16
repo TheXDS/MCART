@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,6 +28,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System.Numerics;
 using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Base;
 
@@ -429,5 +430,21 @@ public class SizeTests
         Assert.That((int)y, Is.EqualTo(s4.Height));
         Assert.That(s5.Width - x < 0.000001);
         Assert.That(s5.Height - y < 0.000001);
+    }
+
+    [Test]
+    public void Size_can_be_implicitly_converted_to_Vector2()
+    {
+        Vector2 p = new Size(3, 5);
+        Assert.That(p.X, Is.EqualTo(3));
+        Assert.That(p.Y, Is.EqualTo(5));
+    }
+
+    [Test]
+    public void Size_can_be_implicitly_converted_from_Vector2()
+    {
+        Size p = new Vector2(3, 5);
+        Assert.That(p.Width, Is.EqualTo(3));
+        Assert.That(p.Height, Is.EqualTo(5));
     }
 }

@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -30,38 +30,45 @@ SOFTWARE.
 
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Reflection.Emit;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Helpers;
+using TheXDS.MCART.Misc;
 using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Base;
 
 namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
-/// Contiene extensiones para la clase <see cref="TypeFactory"/>.
+/// Includes a set of extensions for the <see cref="TypeFactory"/> class.
 /// </summary>
+[RequiresDynamicCode(AttributeErrorMessages.ClassHeavilyUsesReflection), RequiresUnreferencedCode(AttributeErrorMessages.ClassHeavilyUsesReflection)]
 public static class TypeFactoryVmExtensions
 {
     /// <summary>
-    /// Crea una nueva clase pública que implementa el patrón ViewModel por
-    /// medio de una clase base <see cref="NotifyPropertyChanged"/>, y que
-    /// incluirá todas las propiedades del tipo <typeparamref name="TModel"/>
-    /// como propiedades con notificación de cambio de valor.
+    /// Generates a new public class that implements the ViewModel pattern
+    /// through the <see cref="NotifyPropertyChanged"/> base class, and
+    /// includes all public properties from the specified
+    /// <typeparamref name="TModel"/> type as properties with change
+    /// notification support.
     /// </summary>
     /// <typeparam name="TModel">
-    /// Modelo para el cual crear la clase con patrón ViewModel.
+    /// Model template type to create a ViewModel for.
     /// </typeparam>
     /// <param name="factory">
-    /// Fábrica de tipos a utilizar para crear la nueva clase.
+    /// Type factory to use when creating the new type.
     /// </param>
     /// <param name="interfaces">
-    /// Colección de interfaces adicionales a implementar por el tipo final.
+    /// Collection of additional interfaces to be implemented by the new type.
+    /// Can be set to <see langword="null"/> or an empty collection to denote
+    /// that the new type does not require to implement any additional
+    /// interfaces.
     /// </param>
     /// <returns>
-    /// Un <see cref="TypeBuilder"/> por medio del cual se podrá definir a
-    /// los miembros de la nueva clase.
+    /// A new <see cref="TypeBuilder"/> that can be used to define any
+    /// additional members of the newly created type.
     /// </returns>
     public static ITypeBuilder<INotifyPropertyChanged> CreateNpcClass<TModel>(this TypeFactory factory, IEnumerable<Type>? interfaces)
         where TModel : notnull, new()
@@ -75,20 +82,21 @@ public static class TypeFactoryVmExtensions
     }
 
     /// <summary>
-    /// Crea una nueva clase pública que implementa el patrón ViewModel por
-    /// medio de una clase base <see cref="NotifyPropertyChanged"/>, y que
-    /// incluirá todas las propiedades del tipo <typeparamref name="TModel"/>
-    /// como propiedades con notificación de cambio de valor.
+    /// Generates a new public class that implements the ViewModel pattern
+    /// through the <see cref="NotifyPropertyChanged"/> base class, and
+    /// includes all public properties from the specified
+    /// <typeparamref name="TModel"/> type as properties with change
+    /// notification support.
     /// </summary>
     /// <typeparam name="TModel">
-    /// Modelo para el cual crear la clase con patrón ViewModel.
+    /// Model template type to create a ViewModel for.
     /// </typeparam>
     /// <param name="factory">
-    /// Fábrica de tipos a utilizar para crear la nueva clase.
+    /// Type factory to use when creating the new type.
     /// </param>
     /// <returns>
-    /// Un <see cref="TypeBuilder"/> por medio del cual se podrá definir a
-    /// los miembros de la nueva clase.
+    /// A new <see cref="TypeBuilder"/> that can be used to define any
+    /// additional members of the newly created type.
     /// </returns>
     public static ITypeBuilder<INotifyPropertyChanged> CreateNpcClass<TModel>(this TypeFactory factory)
         where TModel : notnull, new()
@@ -97,35 +105,37 @@ public static class TypeFactoryVmExtensions
     }
 
     /// <summary>
-    /// Compila un nuevo <see cref="EntityViewModel{T}"/> definiendo un campo de
-    /// entidad de tipo <typeparamref name="TModel"/>.
+    /// Generates a new <see cref="EntityViewModel{T}"/> implementation
+    /// defining the entity property type as <typeparamref name="TModel"/>.
     /// </summary>
     /// <typeparam name="TModel">
-    /// Tipo de entidad para la cual compilar un nuevo
-    /// <see cref="EntityViewModel{T}"/>.
+    /// Type of the <see cref="EntityViewModel{T}.Entity"/> property.
     /// </typeparam>
     /// <param name="factory">
-    /// Fábrica de tipos a utilizar para crear el nuevo tipo.
+    /// Type factory to use when creating the new type.
     /// </param>
     /// <param name="interfaces">
-    /// Interfaces opcionales a incluir en la implementación del tipo. Puede
-    /// establecerse en <see langword="null"/> si no se necesitan implementar
-    /// interfaces adicionales.
+    /// Collection of additional interfaces to be implemented by the new type.
+    /// Can be set to <see langword="null"/> or an empty collection to denote
+    /// that the new type does not require to implement any additional
+    /// interfaces.
     /// </param>
     /// <returns>
-    /// Un objeto que puede utilizarse para construir un nuevo tipo.
+    /// A new <see cref="ITypeBuilder{T}"/> that can be used to define any
+    /// additional members of the newly created type.
     /// </returns>
     /// <remarks>
-    /// El nuevo tipo generado contendrá propiedades con notificación de cambio
-    /// de valor que utilizarán como campo de almacenamiento a la entidad en
-    /// cuestión.
+    /// The exposed properties will write back their values to the entity
+    /// directly, and then trigger the
+    /// <see cref="INotifyPropertyChanged.PropertyChanged"/> event with the
+    /// appropriate event args.
     /// </remarks>
     public static ITypeBuilder<EntityViewModel<TModel>> CreateEntityViewModelClass<TModel>(this TypeFactory factory, IEnumerable<Type>? interfaces)
         where TModel : notnull, new()
     {
         ITypeBuilder<EntityViewModel<TModel>> t = factory.NewType<EntityViewModel<TModel>>($"{typeof(TModel).Name}ViewModel", interfaces);
         PropertyInfo e = ReflectionHelpers.GetProperty<EntityViewModel<TModel>>(p => p.Entity);
-        MethodInfo nm = ReflectionHelpers.GetMethod<EntityViewModel<TModel>, Action<string>>(p => p.Notify);
+        MethodInfo nm = typeof(EntityViewModel<TModel>).GetMethod("Notify", BindingFlags.NonPublic | BindingFlags.Instance, [typeof(string)]) ?? throw new MissingMemberException();
 
         foreach (var p in typeof(TModel).GetProperties().Where(p => p.CanRead && p.CanWrite))
         {
@@ -155,19 +165,25 @@ public static class TypeFactoryVmExtensions
     }
 
     /// <summary>
-    /// Compila un nuevo <see cref="EntityViewModel{T}"/> definiendo un campo de
-    /// entidad de tipo <typeparamref name="TModel"/>.
+    /// Generates a new <see cref="EntityViewModel{T}"/> implementation
+    /// defining the entity property type as <typeparamref name="TModel"/>.
     /// </summary>
     /// <typeparam name="TModel">
-    /// Tipo de entidad para la cual compilar un nuevo
-    /// <see cref="EntityViewModel{T}"/>.
+    /// Type of the <see cref="EntityViewModel{T}.Entity"/> property.
     /// </typeparam>
     /// <param name="factory">
-    /// Fábrica de tipos a utilizar para crear el nuevo tipo.
+    /// Type factory to use when creating the new type.
     /// </param>
     /// <returns>
-    /// Un objeto que puede utilizarse para construir un nuevo tipo.
+    /// A new <see cref="ITypeBuilder{T}"/> that can be used to define any
+    /// additional members of the newly created type.
     /// </returns>
+    /// <remarks>
+    /// The exposed properties will write back their values to the entity
+    /// directly, and then trigger the
+    /// <see cref="INotifyPropertyChanged.PropertyChanged"/> event with the
+    /// appropriate event args.
+    /// </remarks>
     public static ITypeBuilder<EntityViewModel<TModel>> CreateEntityViewModelClass<TModel>(this TypeFactory factory)
         where TModel : notnull, new()
     {
@@ -175,38 +191,48 @@ public static class TypeFactoryVmExtensions
     }
 
     /// <summary>
-    /// Agrega una propiedad pública con soporte para notificación de
-    /// cambios de valor.
+    /// Adds a new public property with change notification support to the
+    /// type.
     /// </summary>
-    /// <typeparam name="T">Tipo de la nueva propiedad.</typeparam>
+    /// <typeparam name="T">
+    /// Type of value stored/exposed by the new property.
+    /// </typeparam>
     /// <param name="tb">
-    /// Constructor del tipo en el cual crear la nueva propiedad con
-    /// soporte para notificación de cambios de valor.
+    /// Type builder onto which to create the new property.
     /// </param>
-    /// <param name="name">Nombre de la nueva propiedad.</param>
+    /// <param name="name">Name of the new property.</param>
     /// <returns>
-    /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
-    /// la propiedad que ha sido construida.
+    /// A new <see cref="PropertyBuildInfo"/> that includes information on the
+    /// newly created property.
     /// </returns>
+    /// <remarks>
+    /// The properties generated by this method will include a public getter
+    /// and setter.
+    /// </remarks>
     public static PropertyBuildInfo AddNpcProperty<T>(this ITypeBuilder<NotifyPropertyChangeBase> tb, string name)
     {
         return AddNpcProperty(tb, name, typeof(T));
     }
 
     /// <summary>
-    /// Agrega una propiedad pública con soporte para notificación de
-    /// cambios de valor.
+    /// Adds a new public property with change notification support to the
+    /// type.
     /// </summary>
-    /// <typeparam name="T">Tipo de la nueva propiedad.</typeparam>
+    /// <typeparam name="T">
+    /// Type of value stored/exposed by the new property.
+    /// </typeparam>
     /// <param name="tb">
-    /// Constructor del tipo en el cual crear la nueva propiedad con
-    /// soporte para notificación de cambios de valor.
+    /// Type builder onto which to create the new property.
     /// </param>
-    /// <param name="name">Nombre de la nueva propiedad.</param>
+    /// <param name="name">Name of the new property.</param>
     /// <returns>
-    /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
-    /// la propiedad que ha sido construida.
+    /// A new <see cref="PropertyBuildInfo"/> that includes information on the
+    /// newly created property.
     /// </returns>
+    /// <remarks>
+    /// The properties generated by this method will include a public getter
+    /// and setter.
+    /// </remarks>
     [Sugar]
     public static PropertyBuildInfo AddNpcProperty<T>(this ITypeBuilder<NotifyPropertyChanged> tb, string name)
     {
@@ -214,63 +240,73 @@ public static class TypeFactoryVmExtensions
     }
 
     /// <summary>
-    /// Agrega una propiedad pública con soporte para notificación de
-    /// cambios de valor.
+    /// Adds a new public property with change notification support to the
+    /// type.
     /// </summary>
     /// <param name="tb">
-    /// Constructor del tipo en el cual crear la nueva propiedad con
-    /// soporte para notificación de cambios de valor.
+    /// Type builder onto which to create the new property.
     /// </param>
-    /// <param name="name">Nombre de la nueva propiedad.</param>
-    /// <param name="type">Tipo de la nueva propiedad.</param>
+    /// <param name="name">Name of the new property.</param>
+    /// <param name="type">
+    /// Type of value stored/exposed by the new property.
+    /// </param>
     /// <returns>
-    /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
-    /// la propiedad que ha sido construida.
+    /// A new <see cref="PropertyBuildInfo"/> that includes information on the
+    /// newly created property.
     /// </returns>
+    /// <remarks>
+    /// The properties generated by this method will include a public getter
+    /// and setter.
+    /// </remarks>
     public static PropertyBuildInfo AddNpcProperty(this ITypeBuilder<NotifyPropertyChangeBase> tb, string name, Type type)
     {
         return AddNpcProperty(tb, name, type, MemberAccess.Public);
     }
 
     /// <summary>
-    /// Agrega una propiedad con soporte para notificación de cambios de
-    /// valor.
+    /// Adds a new public property with change notification support to the
+    /// type.
     /// </summary>
     /// <param name="tb">
-    /// Constructor del tipo en el cual crear la nueva propiedad con
-    /// soporte para notificación de cambios de valor.
+    /// Type builder onto which to create the new property.
     /// </param>
-    /// <param name="name">Nombre de la nueva propiedad.</param>
-    /// <param name="type">Tipo de la nueva propiedad.</param>
-    /// <param name="access">Nivel de acceso de la nueva propiedad.</param>
+    /// <param name="name">Name of the new property.</param>
+    /// <param name="type">
+    /// Type of value stored/exposed by the new property.
+    /// </param>
+    /// <param name="access">Level of access for the getter and setter of the property.</param>
     /// <returns>
-    /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
-    /// la propiedad que ha sido construida.
+    /// A new <see cref="PropertyBuildInfo"/> that includes information on the
+    /// newly created property.
     /// </returns>
+    /// <remarks>
+    /// The properties generated by this method will include a public getter
+    /// and setter.
+    /// </remarks>
     public static PropertyBuildInfo AddNpcProperty(this ITypeBuilder<NotifyPropertyChangeBase> tb, string name, Type type, MemberAccess access)
     {
         return AddNpcProperty(tb, name, type, access, false);
     }
 
     /// <summary>
-    /// Agrega una propiedad con soporte para notificación de cambios de
-    /// valor.
+    /// Adds a property with support for change notification of
+    /// value.
     /// </summary>
     /// <param name="tb">
-    /// Constructor del tipo en el cual crear la nueva propiedad con
-    /// soporte para notificación de cambios de valor.
+    /// The type builder in which to create the new property with
+    /// support for change notification of value.
     /// </param>
-    /// <param name="name">Nombre de la nueva propiedad.</param>
-    /// <param name="type">Tipo de la nueva propiedad.</param>
-    /// <param name="access">Nivel de acceso de la nueva propiedad.</param>
+    /// <param name="name">Name of the new property.</param>
+    /// <param name="type">Type of the new property.</param>
+    /// <param name="access">Access level of the new property.</param>
     /// <param name="virtual">
-    /// Si se establece en <see langword="true"/>, la propiedad será
-    /// definida como virtual, por lo que podrá ser reemplazada en una
-    /// clase derivada. 
+    /// If set to <see langword="true"/>, the property will be
+    /// defined as virtual, allowing it to be overridden in a
+    /// derived class.
     /// </param>
     /// <returns>
-    /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
-    /// la propiedad que ha sido construida.
+    /// A <see cref="PropertyBuildInfo"/> that contains information about
+    /// the property that has been built.
     /// </returns>
     public static PropertyBuildInfo AddNpcProperty(this ITypeBuilder<NotifyPropertyChangeBase> tb, string name, Type type, MemberAccess access, bool @virtual)
     {
@@ -288,18 +324,18 @@ public static class TypeFactoryVmExtensions
     }
 
     /// <summary>
-    /// Agrega una propiedad pública con soporte para notificación de
-    /// cambios de valor.
+    /// Adds a public property with support for change notification of
+    /// value.
     /// </summary>
-    /// <typeparam name="T">Tipo de la nueva propiedad.</typeparam>
+    /// <typeparam name="T">Type of the new property.</typeparam>
     /// <param name="tb">
-    /// Constructor del tipo en el cual crear la nueva propiedad con
-    /// soporte para notificación de cambios de valor.
+    /// The type builder in which to create the new property with
+    /// support for change notification of value.
     /// </param>
-    /// <param name="name">Nombre de la nueva propiedad.</param>
+    /// <param name="name">Name of the new property.</param>
     /// <returns>
-    /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
-    /// la propiedad que ha sido construida.
+    /// A <see cref="PropertyBuildInfo"/> that contains information about
+    /// the property that has been built.
     /// </returns>
     public static PropertyBuildInfo AddNpcProperty<T>(this ITypeBuilder<INotifyPropertyChanged> tb, string name)
     {
@@ -307,18 +343,18 @@ public static class TypeFactoryVmExtensions
     }
 
     /// <summary>
-    /// Agrega una propiedad pública con soporte para notificación de
-    /// cambios de valor.
+    /// Adds a public property with support for change notification of
+    /// value.
     /// </summary>
     /// <param name="tb">
-    /// Constructor del tipo en el cual crear la nueva propiedad con
-    /// soporte para notificación de cambios de valor.
+    /// The type builder in which to create the new property with
+    /// support for change notification of value.
     /// </param>
-    /// <param name="name">Nombre de la nueva propiedad.</param>
-    /// <param name="type">Tipo de la nueva propiedad.</param>
+    /// <param name="name">Name of the new property.</param>
+    /// <param name="type">Type of the new property.</param>
     /// <returns>
-    /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
-    /// la propiedad que ha sido construida.
+    /// A <see cref="PropertyBuildInfo"/> that contains information about
+    /// the property that has been built.
     /// </returns>
     public static PropertyBuildInfo AddNpcProperty(this ITypeBuilder<INotifyPropertyChanged> tb, string name, Type type)
     {
@@ -326,19 +362,19 @@ public static class TypeFactoryVmExtensions
     }
 
     /// <summary>
-    /// Agrega una propiedad con soporte para notificación de cambios de
-    /// valor.
+    /// Adds a property with support for change notification of
+    /// value.
     /// </summary>
     /// <param name="tb">
-    /// Constructor del tipo en el cual crear la nueva propiedad con
-    /// soporte para notificación de cambios de valor.
+    /// The type builder in which to create the new property with
+    /// support for change notification of value.
     /// </param>
-    /// <param name="name">Nombre de la nueva propiedad.</param>
-    /// <param name="type">Tipo de la nueva propiedad.</param>
-    /// <param name="access">Nivel de acceso de la nueva propiedad.</param>
+    /// <param name="name">Name of the new property.</param>
+    /// <param name="type">Type of the new property.</param>
+    /// <param name="access">Access level of the new property.</param>
     /// <returns>
-    /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
-    /// la propiedad que ha sido construida.
+    /// A <see cref="PropertyBuildInfo"/> that contains information about
+    /// the property that has been built.
     /// </returns>
     public static PropertyBuildInfo AddNpcProperty(this ITypeBuilder<INotifyPropertyChanged> tb, string name, Type type, MemberAccess access)
     {
@@ -346,24 +382,24 @@ public static class TypeFactoryVmExtensions
     }
 
     /// <summary>
-    /// Agrega una propiedad con soporte para notificación de cambios de
-    /// valor.
+    /// Adds a property with support for change notification of
+    /// value.
     /// </summary>
     /// <param name="tb">
-    /// Constructor del tipo en el cual crear la nueva propiedad con
-    /// soporte para notificación de cambios de valor.
+    /// The type builder in which to create the new property with
+    /// support for change notification of value.
     /// </param>
-    /// <param name="name">Nombre de la nueva propiedad.</param>
-    /// <param name="type">Tipo de la nueva propiedad.</param>
-    /// <param name="access">Nivel de acceso de la nueva propiedad.</param>
+    /// <param name="name">Name of the new property.</param>
+    /// <param name="type">Type of the new property.</param>
+    /// <param name="access">Access level of the new property.</param>
     /// <param name="virtual">
-    /// Si se establece en <see langword="true"/>, la propiedad será
-    /// definida como virtual, por lo que podrá ser reemplazada en una
-    /// clase derivada. 
+    /// If set to <see langword="true"/>, the property will be
+    /// defined as virtual, allowing it to be overridden in a
+    /// derived class.
     /// </param>
     /// <returns>
-    /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
-    /// la propiedad que ha sido construida.
+    /// A <see cref="PropertyBuildInfo"/> that contains information about
+    /// the property that has been built.
     /// </returns>
     public static PropertyBuildInfo AddNpcProperty(this ITypeBuilder<INotifyPropertyChanged> tb, string name, Type type, MemberAccess access, bool @virtual)
     {
@@ -371,33 +407,34 @@ public static class TypeFactoryVmExtensions
     }
 
     /// <summary>
-    /// Agrega una propiedad con soporte para notificación de cambios de
-    /// valor.
+    /// Adds a property with support for change notification of
+    /// value.
     /// </summary>
     /// <param name="tb">
-    /// Constructor del tipo en el cual crear la nueva propiedad con
-    /// soporte para notificación de cambios de valor.
+    /// The type builder in which to create the new property with
+    /// support for change notification of value.
     /// </param>
-    /// <param name="name">Nombre de la nueva propiedad.</param>
-    /// <param name="type">Tipo de la nueva propiedad.</param>
-    /// <param name="access">Nivel de acceso de la nueva propiedad.</param>
+    /// <param name="name">Name of the new property.</param>
+    /// <param name="type">Type of the new property.</param>
+    /// <param name="access">Access level of the new property.</param>
     /// <param name="virtual">
-    /// Si se establece en <see langword="true"/>, la propiedad será
-    /// definida como virtual, por lo que podrá ser reemplazada en una
-    /// clase derivada. 
+    /// If set to <see langword="true"/>, the property will be
+    /// defined as virtual, allowing it to be overridden in a
+    /// derived class.
     /// </param>
     /// <param name="npcInvocator">
-    /// Método que invoca al manejador de eventos para los tipos construidos
-    /// que implementan directamente <see cref="INotifyPropertyChanged"/>.
-    /// Si se omite o se establece en <see langword="null"/>
-    /// (<see langword="Nothing"/> en Visual Basic), se buscará un campo
-    /// que contenga una referencia a un
-    /// <see cref="PropertyChangedEventHandler"/> en el tipo base del tipo
-    /// construido por medio de  <paramref name="tb"/>.
+    /// Method that invokes the event handler for types built
+    /// that directly implement <see cref="INotifyPropertyChanged"/>.
+    /// If omitted or set to <see langword="null"/>
+    /// (<see langword="Nothing"/> in Visual Basic), a field
+    /// containing a reference to a
+    /// <see cref="PropertyChangedEventHandler"/> will be searched
+    /// for in the base type of the type
+    /// constructed through <paramref name="tb"/>.
     /// </param>
     /// <returns>
-    /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
-    /// la propiedad que ha sido construida.
+    /// A <see cref="PropertyBuildInfo"/> that contains information about
+    /// the property that has been built.
     /// </returns>
     public static PropertyBuildInfo AddNpcProperty(this ITypeBuilder<INotifyPropertyChanged> tb, string name, Type type, MemberAccess access, bool @virtual, MethodInfo? npcInvocator)
     {
@@ -406,28 +443,29 @@ public static class TypeFactoryVmExtensions
     }
 
     /// <summary>
-    /// Agrega una propiedad con soporte para notificación de cambios de
-    /// valor.
+    /// Adds a property with support for change notification of
+    /// value.
     /// </summary>
     /// <param name="tb">
-    /// Constructor del tipo en el cual crear la nueva propiedad con
-    /// soporte para notificación de cambios de valor.
+    /// The type builder in which to create the new property with
+    /// support for change notification of value.
     /// </param>
-    /// <param name="name">Nombre de la nueva propiedad.</param>
-    /// <param name="type">Tipo de la nueva propiedad.</param>
-    /// <param name="access">Nivel de acceso de la nueva propiedad.</param>
+    /// <param name="name">Name of the new property.</param>
+    /// <param name="type">Type of the new property.</param>
+    /// <param name="access">Access level of the new property.</param>
     /// <param name="npcInvocator">
-    /// Método que invoca al manejador de eventos para los tipos construidos
-    /// que implementan directamente <see cref="INotifyPropertyChanged"/>.
-    /// Si se omite o se establece en <see langword="null"/>
-    /// (<see langword="Nothing"/> en Visual Basic), se buscará un campo
-    /// que contenga una referencia a un
-    /// <see cref="PropertyChangedEventHandler"/> en el tipo base del tipo
-    /// construido por medio de  <paramref name="tb"/>.
+    /// Method that invokes the event handler for types built
+    /// that directly implement <see cref="INotifyPropertyChanged"/>.
+    /// If omitted or set to <see langword="null"/>
+    /// (<see langword="Nothing"/> in Visual Basic), a field
+    /// containing a reference to a
+    /// <see cref="PropertyChangedEventHandler"/> will be searched
+    /// for in the base type of the type
+    /// constructed through <paramref name="tb"/>.
     /// </param>
     /// <returns>
-    /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
-    /// la propiedad que ha sido construida.
+    /// A <see cref="PropertyBuildInfo"/> that contains information about
+    /// the property that has been built.
     /// </returns>
     public static PropertyBuildInfo AddNpcProperty(this ITypeBuilder<INotifyPropertyChanged> tb, string name, Type type, MemberAccess access, MethodInfo? npcInvocator)
     {
@@ -435,27 +473,28 @@ public static class TypeFactoryVmExtensions
     }
 
     /// <summary>
-    /// Agrega una propiedad con soporte para notificación de cambios de
-    /// valor.
+    /// Adds a property with support for change notification of
+    /// value.
     /// </summary>
     /// <param name="tb">
-    /// Constructor del tipo en el cual crear la nueva propiedad con
-    /// soporte para notificación de cambios de valor.
+    /// The type builder in which to create the new property with
+    /// support for change notification of value.
     /// </param>
-    /// <param name="name">Nombre de la nueva propiedad.</param>
-    /// <param name="type">Tipo de la nueva propiedad.</param>
+    /// <param name="name">Name of the new property.</param>
+    /// <param name="type">Type of the new property.</param>
     /// <param name="npcInvocator">
-    /// Método que invoca al manejador de eventos para los tipos construidos
-    /// que implementan directamente <see cref="INotifyPropertyChanged"/>.
-    /// Si se omite o se establece en <see langword="null"/>
-    /// (<see langword="Nothing"/> en Visual Basic), se buscará un campo
-    /// que contenga una referencia a un
-    /// <see cref="PropertyChangedEventHandler"/> en el tipo base del tipo
-    /// construido por medio de  <paramref name="tb"/>.
+    /// Method that invokes the event handler for types built
+    /// that directly implement <see cref="INotifyPropertyChanged"/>.
+    /// If omitted or set to <see langword="null"/>
+    /// (<see langword="Nothing"/> in Visual Basic), a field
+    /// containing a reference to a
+    /// <see cref="PropertyChangedEventHandler"/> will be searched
+    /// for in the base type of the type
+    /// constructed through <paramref name="tb"/>.
     /// </param>
     /// <returns>
-    /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
-    /// la propiedad que ha sido construida.
+    /// A <see cref="PropertyBuildInfo"/> that contains information about
+    /// the property that has been built.
     /// </returns>
     public static PropertyBuildInfo AddNpcProperty(this ITypeBuilder<INotifyPropertyChanged> tb, string name, Type type, MethodInfo? npcInvocator)
     {
@@ -463,26 +502,27 @@ public static class TypeFactoryVmExtensions
     }
 
     /// <summary>
-    /// Agrega una propiedad con soporte para notificación de cambios de
-    /// valor.
+    /// Adds a property with support for change notification of
+    /// value.
     /// </summary>
     /// <param name="tb">
-    /// Constructor del tipo en el cual crear la nueva propiedad con
-    /// soporte para notificación de cambios de valor.
+    /// The type builder in which to create the new property with
+    /// support for change notification of value.
     /// </param>
-    /// <param name="name">Nombre de la nueva propiedad.</param>
+    /// <param name="name">Name of the new property.</param>
     /// <param name="npcInvocator">
-    /// Método que invoca al manejador de eventos para los tipos construidos
-    /// que implementan directamente <see cref="INotifyPropertyChanged"/>.
-    /// Si se omite o se establece en <see langword="null"/>
-    /// (<see langword="Nothing"/> en Visual Basic), se buscará un campo
-    /// que contenga una referencia a un
-    /// <see cref="PropertyChangedEventHandler"/> en el tipo base del tipo
-    /// construido por medio de  <paramref name="tb"/>.
+    /// Method that invokes the event handler for types built
+    /// that directly implement <see cref="INotifyPropertyChanged"/>.
+    /// If omitted or set to <see langword="null"/>
+    /// (<see langword="Nothing"/> in Visual Basic), a field
+    /// containing a reference to a
+    /// <see cref="PropertyChangedEventHandler"/> will be searched
+    /// for in the base type of the type
+    /// constructed through <paramref name="tb"/>.
     /// </param>
     /// <returns>
-    /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
-    /// la propiedad que ha sido construida.
+    /// A <see cref="PropertyBuildInfo"/> that contains information about
+    /// the property that has been built.
     /// </returns>
     public static PropertyBuildInfo AddNpcProperty<T>(this ITypeBuilder<INotifyPropertyChanged> tb, string name, MethodInfo? npcInvocator)
     {
@@ -490,10 +530,10 @@ public static class TypeFactoryVmExtensions
     }
 
     private static readonly Func<Type, TypeBuilder, bool>[] CheckImplementsConditions =
-    {
+    [
         (t, tb) => tb.BaseType?.Implements(t)?? false,
         (t, tb) => tb.GetInterfaces().Any(i => i == t || i.Implements(t)),
-    };
+    ];
 
     private static PropertyBuildInfo BuildNpcProp(TypeBuilder tb, string name, Type t, MemberAccess access, bool @virtual, Action<Label, ILGenerator> evtHandler, MethodInfo method)
     {
@@ -524,6 +564,6 @@ public static class TypeFactoryVmExtensions
 
     private static MethodInfo GetNpcChangeMethod(ITypeBuilder<NotifyPropertyChangeBase> tb, Type t)
     {
-        return tb.ActualBaseType.GetMethods(BindingFlags.NonPublic | BindingFlags.Instance).FirstOrDefault(MemberInfoExtensions.HasAttribute<NpcChangeInvocatorAttribute>)?.MakeGenericMethod(new[] { t }) ?? throw new MissingMethodException();
+        return tb.ActualBaseType.GetMethods(BindingFlags.NonPublic | BindingFlags.Instance).FirstOrDefault(MemberInfoExtensions.HasAttribute<NpcChangeInvocatorAttribute>)?.MakeGenericMethod([t]) ?? throw new MissingMethodException();
     }
 }

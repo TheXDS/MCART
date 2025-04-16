@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,6 +28,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using System.Reflection;
 using TheXDS.MCART.Component;
@@ -88,7 +89,7 @@ public static partial class ObservingCommandExtensions
     /// Se produce si el elemento seleccionado por medio de
     /// <paramref name="propertySelector"/> no es una propiedad.
     /// </exception>
-    public static ObservingCommand ListensToProperty<T>(this ObservingCommand command, Expression<Func<T, object?>> propertySelector)
+    public static ObservingCommand ListensToProperty<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] T>(this ObservingCommand command, Expression<Func<T, object?>> propertySelector)
     {
         ListensToProperty_Contract(command, propertySelector);
         return command.RegisterObservedProperty(GetProperty(propertySelector).Name);
@@ -216,7 +217,7 @@ public static partial class ObservingCommandExtensions
     /// <paramref name="selector"/> no es una propiedad o un método con
     /// un tipo de retorno <see cref="bool"/>.
     /// </exception>
-    public static ObservingCommand ListensToCanExecute<T>(this ObservingCommand command, Expression<Func<T, bool>> selector)
+    public static ObservingCommand ListensToCanExecute<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] T>(this ObservingCommand command, Expression<Func<T, bool>> selector)
     {
         ListensToCanExecute_Contract(command, selector);
         return RegisterCanExecute(command, GetMember(selector));

@@ -6,7 +6,7 @@
 //      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 //
 // Released under the MIT License (MIT)
-// Copyright © 2011 - 2024 César Andrés Morgan
+// Copyright © 2011 - 2025 César Andrés Morgan
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of
 // this software and associated documentation files (the “Software”), to deal in
@@ -26,8 +26,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Reflection;
+using TheXDS.MCART.Misc;
 using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Base;
 
@@ -39,9 +41,19 @@ namespace TheXDS.MCART.Component;
 /// <typeparam name="TApplication">
 /// Tipo de aplicación de Windows para el cual exponer información.
 /// </typeparam>
-public abstract class ApplicationInfoBase<TApplication> : IExposeExtendedGuiInfo<Icon?> where TApplication : notnull
+/// <remarks>
+/// Inicializa una nueva instancia de la clase
+/// <see cref="ApplicationInfoBase{TApplication}"/>.
+/// </remarks>
+/// <param name="assembly">
+/// Ensamblado del cual se mostrará la información.
+/// </param>
+/// <param name="icon">Ícono a mostrar del ensamblado.</param>
+[method: RequiresAssemblyFiles]
+[method: RequiresUnreferencedCode(AttributeErrorMessages.MethodLoadsAssemblyResources)]
+public abstract class ApplicationInfoBase<TApplication>(Assembly assembly, Icon? icon) : IExposeExtendedGuiInfo<Icon?> where TApplication : notnull
 {
-    private readonly AssemblyInfo _infoExposer;
+    private readonly AssemblyInfo _infoExposer = new(assembly);
 
     /// <summary>
     /// Obtiene el ícono provisto por Windows para el ensamblado especificado.
@@ -53,6 +65,7 @@ public abstract class ApplicationInfoBase<TApplication> : IExposeExtendedGuiInfo
     /// o <see langword="null"/> si el sistema operativo no ha provisto de un
     /// ícono válido.
     /// </returns>
+    [RequiresAssemblyFiles]
     protected static Icon? GetIconFromOS(Assembly asm)
     {
         UriBuilder? uri = new(asm.Location ?? string.Empty);
@@ -67,6 +80,8 @@ public abstract class ApplicationInfoBase<TApplication> : IExposeExtendedGuiInfo
     /// <param name="application">
     /// Aplicación de la cual se mostrará la información.
     /// </param>
+    [RequiresAssemblyFiles]
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodLoadsAssemblyResources)]
     protected ApplicationInfoBase(TApplication application) : this(application, null) { }
 
     /// <summary>
@@ -77,6 +92,8 @@ public abstract class ApplicationInfoBase<TApplication> : IExposeExtendedGuiInfo
     /// Aplicación de la cual se mostrará la información.
     /// </param>
     /// <param name="icon">Ícono a mostrar de la aplicación.</param>
+    [RequiresAssemblyFiles]
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodLoadsAssemblyResources)]
     protected ApplicationInfoBase(TApplication application, Icon? icon)
         : this(application.GetType().Assembly, icon) { }
 
@@ -91,6 +108,8 @@ public abstract class ApplicationInfoBase<TApplication> : IExposeExtendedGuiInfo
     /// <see langword="true"/> para intentar determinar el ícono de la
     /// aplicación, <see langword="false"/> para no mostrar un ícono.
     /// </param>
+    [RequiresAssemblyFiles]
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodLoadsAssemblyResources)]
     protected ApplicationInfoBase(TApplication application, bool inferIcon) : this(application, inferIcon ? GetIconFromOS(application.GetType().Assembly) : null) { }
 
     /// <summary>
@@ -104,21 +123,9 @@ public abstract class ApplicationInfoBase<TApplication> : IExposeExtendedGuiInfo
     /// <see langword="true"/> para intentar determinar el ícono del
     /// ensamblado, <see langword="false"/> para no mostrar un ícono.
     /// </param>
+    [RequiresAssemblyFiles]
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodLoadsAssemblyResources)]
     protected ApplicationInfoBase(Assembly assembly, bool inferIcon) : this(assembly, inferIcon ? GetIconFromOS(assembly) : null) { }
-
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="ApplicationInfoBase{TApplication}"/>.
-    /// </summary>
-    /// <param name="assembly">
-    /// Ensamblado del cual se mostrará la información.
-    /// </param>
-    /// <param name="icon">Ícono a mostrar del ensamblado.</param>
-    protected ApplicationInfoBase(Assembly assembly, Icon? icon)
-    {
-        _infoExposer = new AssemblyInfo(assembly);
-        Icon = icon;
-    }
 
     /// <summary>
     /// Obtiene el nombre del elemento.
@@ -133,7 +140,7 @@ public abstract class ApplicationInfoBase<TApplication> : IExposeExtendedGuiInfo
     /// <summary>
     /// Obtiene un ícono opcional a mostrar que describe al elemento.
     /// </summary>
-    public virtual Icon? Icon { get; }
+    public virtual Icon? Icon { get; } = icon;
 
     /// <summary>
     /// Devuelve el autor del <see cref="IExposeInfo" />

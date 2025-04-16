@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -48,13 +48,13 @@ public static class WpfUtils
     private static readonly IEnumerable<StreamUriParser> _uriParsers = ReflectionHelpers.FindAllObjects<StreamUriParser>();
 
     /// <summary>
-    /// Obtiene una imagen a partir de un <see cref="Stream" />.
+    /// Creates a new <see cref="BitmapImage"/> from a <see cref="Stream" />.
     /// </summary>
     /// <param name="stream">
-    /// <see cref="Stream" /> con el contenido de la imagen.
+    /// <see cref="Stream" /> with the image content.
     /// </param>
     /// <returns>
-    /// La imagen que ha sido leída desde el <see cref="Stream" />.
+    /// A new <see cref="BitmapImage"/> created from the <see cref="Stream" />.
     /// </returns>
     public static BitmapImage? GetBitmap(Stream? stream)
     {

@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -31,10 +31,8 @@ SOFTWARE.
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
-using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Helpers;
-using TheXDS.MCART.Types.Extensions;
 using Err = TheXDS.MCART.Resources.Errors;
 
 namespace TheXDS.MCART.Misc;
@@ -42,38 +40,34 @@ namespace TheXDS.MCART.Misc;
 [ExcludeFromCodeCoverage]
 internal static class Internals
 {
-    internal static bool HasLicense(object obj)
-    {
-        return obj.HasAttribute<LicenseAttributeBase>();
-    }
-
-    [Conditional("EnforceContracts")]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void NullCheck(object? obj, [CallerArgumentExpression(nameof(obj))] string name = null!)
-    {
-        if (obj is null) throw new ArgumentNullException(name);
-    }
-
     [Conditional("EnforceContracts")]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static void CheckPopulatedCollection(IEnumerable<object?> collection, [CallerArgumentExpression(nameof(collection))] string name = null!)
     {
-        NullCheck(collection);
+        ArgumentNullException.ThrowIfNull(collection, name);
         if (!collection.Any()) throw Err.EmptyCollection(collection);
-        if (collection.IsAnyNull(out int index)) throw new NullItemException() { NullIndex = index };
+        if (collection.IsAnyNull(out int index)) throw Err.NullItem(index);
     }
-
+    
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static void CheckPopulatedCollection<T>(IEnumerable<T> collection, [CallerArgumentExpression(nameof(collection))] string name = null!)
+    {
+        ArgumentNullException.ThrowIfNull(collection, name);
+        if (!collection.Any()) throw Err.EmptyCollection(collection);
+    }
+    
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static T NullChecked<T>(T o, [CallerArgumentExpression(nameof(o))] string name = null!)
     {
-        NullCheck(o, name);
+        ArgumentNullException.ThrowIfNull(o, name);
         return o;
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static string EmptyChecked(string str, [CallerArgumentExpression(nameof(str))] string name = null!)
     {
-        EmptyCheck(str, name);
+        ArgumentException.ThrowIfNullOrWhiteSpace(str, name);
         return str;
     }
 
@@ -81,7 +75,7 @@ internal static class Internals
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static void EmptyCheck(string? str, [CallerArgumentExpression(nameof(str))] string name = null!)
     {
-        if (NullChecked(str, name).IsEmpty()) throw Err.InvalidValue(name);
+        ArgumentException.ThrowIfNullOrWhiteSpace(str, name);        
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -105,6 +99,7 @@ internal static class Internals
         return value;
     }
 
+    [Conditional("EnforceContracts")]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static void RangeCheck<T>(T value, T min, T max, [CallerArgumentExpression(nameof(value))] string argName = null!) where T : IComparable<T>
     {

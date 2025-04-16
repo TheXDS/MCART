@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,6 +28,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System.ComponentModel;
+
 namespace TheXDS.MCART.Types.Converters;
 
 /// <summary>
@@ -37,8 +39,15 @@ namespace TheXDS.MCART.Types.Converters;
 /// <typeparam name="T">
 /// Tipo del rango a obtener.
 /// </typeparam>
-public abstract class RangeConverter<T> : BasicParseConverter<Range<T>> where T : IComparable<T>
+/// <typeparam name="TConverter">
+/// Tipo de convertidor a utilizar para cargar los valores de tipo
+/// <typeparamref name="T"/> que luego se utilizarán para crear una nueva
+/// instancia de la estructura <see cref="Range{T}"/>.
+/// </typeparam>
+public abstract class RangeConverter<T, TConverter> : BasicParseConverter<Range<T>> where T : IComparable<T> where TConverter : TypeConverter, new()
 {
+    private static readonly TypeConverter Converter = new TConverter();
+
     /// <summary>
     /// Ejecuta la conversión de la cadena al tipo de este
     /// <see cref="BasicParseConverter{T}" />.
@@ -50,6 +59,6 @@ public abstract class RangeConverter<T> : BasicParseConverter<Range<T>> where T 
     /// </returns>
     protected override Range<T> ConvertFrom(string? value)
     {
-        return Range<T>.Parse(value ?? throw new ArgumentNullException(nameof(value)));
+        return Range<T>.Parse(Converter, value ?? throw new ArgumentNullException(nameof(value)));
     }
 }

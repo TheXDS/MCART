@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,28 +28,28 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System.Diagnostics.CodeAnalysis;
+using TheXDS.MCART.Misc;
+
 namespace TheXDS.MCART.Resources;
 
 /// <summary>
 /// Licencia cuyo contenido se ha especificado directamente.
 /// </summary>
-public sealed class TextLicense : License
+/// <param name="name">Nombre descriptivo de la licencia.</param>
+/// <param name="content">Contenido de la licencia.</param>
+public sealed class TextLicense(string name, string? content) : License(name, null)
 {
-    private readonly string? _content;
-
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="TextLicense"/>.
-    /// </summary>
-    /// <param name="name">Nombre descriptivo de la licencia.</param>
-    /// <param name="content">Contenido de la licencia.</param>
-    public TextLicense(string name, string? content) : base(name, null)
-    {
-        _content = content;
-    }
+    private readonly string? _content = content;
 
     /// <summary>
     /// Obtiene el contenido de la licencia.
     /// </summary>
-    public override string LicenseContent => _content ?? base.LicenseContent;
+    public override string LicenseContent
+    {
+        get
+        {
+            return _content ?? base.LicenseContent;
+        }
+    }
 }

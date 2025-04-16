@@ -6,7 +6,7 @@
 //      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 //
 // Released under the MIT License (MIT)
-// Copyright © 2011 - 2024 César Andrés Morgan
+// Copyright © 2011 - 2025 César Andrés Morgan
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of
 // this software and associated documentation files (the “Software”), to deal in
@@ -27,11 +27,10 @@
 // SOFTWARE.
 
 using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Misc;
 using TheXDS.MCART.Resources;
-using static TheXDS.MCART.Misc.Internals;
 
 namespace TheXDS.MCART.Types.Extensions;
 
@@ -68,7 +67,7 @@ public static partial class EnumerableExtensions
     /// </returns>
     public static async IAsyncEnumerable<T> YieldAsync<T>(this IEnumerable<T> input, Func<T, Task> processor)
     {
-        NullCheck(input, nameof(input));
+        ArgumentNullException.ThrowIfNull(input, nameof(input));
         foreach (T? j in input)
         {
             await processor(j);
@@ -96,7 +95,7 @@ public static partial class EnumerableExtensions
     /// </returns>
     public static async IAsyncEnumerable<TOut> SelectAsync<TIn, TOut>(this IEnumerable<TIn> input, Func<TIn, Task<TOut>> selector)
     {
-        NullCheck(input, nameof(input));
+        ArgumentNullException.ThrowIfNull(input, nameof(input));
         foreach (TIn? j in input)
         {
             yield return await selector(j);
@@ -120,10 +119,11 @@ public static partial class EnumerableExtensions
     /// encuentra ningún elemento del tipo especificado.
     /// </returns>
     [return: MaybeNull]
+    [RequiresDynamicCode(Misc.AttributeErrorMessages.MethodCreatesNewTypes)]
     public static T FirstOf<T>(this IEnumerable<T> collection, Type type)
     {
         FirstOf_OfType_Contract<T>(type);
-        return collection.FirstOrDefault(p => p?.GetType().Implements(type) ?? false);
+        return collection.FirstOrDefault(p => p?.GetType().IsAssignableTo(type) ?? false);
     }
 
     /// <summary>
@@ -168,7 +168,6 @@ public static partial class EnumerableExtensions
                 ? value.IsNeither(exclusions.AsEnumerable())
                 : !exclusions.Contains(value);
         }
-
         return collection.Where(Compare);
     }
 
@@ -214,7 +213,7 @@ public static partial class EnumerableExtensions
     /// </returns>
     public static IEnumerable<T>? OrNull<T>(this IEnumerable<T> collection)
     {
-        T[] c = collection.ToArray();
+        T[] c = [.. collection];
         return c.Length != 0 ? c : null;
     }
 
@@ -323,7 +322,7 @@ public static partial class EnumerableExtensions
     /// </returns>
     public static IEnumerable<T> Shuffled<T>(this IEnumerable<T> collection, in int deepness)
     {
-        List<T> enumerable = collection.ToList();
+        List<T> enumerable = [.. collection];
         return Shuffled(enumerable, 0, enumerable.Count - 1, deepness, RandomExtensions.Rnd);
     }
 
@@ -368,7 +367,7 @@ public static partial class EnumerableExtensions
     /// </returns>
     public static IEnumerable<T> Shuffled<T>(this IEnumerable<T> collection, in int firstIdx, in int lastIdx, in int deepness, in Random random)
     {
-        List<T> tmp = new(collection);
+        List<T> tmp = [.. collection];
         tmp.Shuffle(firstIdx, lastIdx, deepness, random);
         return tmp;
     }
@@ -403,9 +402,9 @@ public static partial class EnumerableExtensions
     /// </returns>
     public static T Pick<T>(this IEnumerable<T> collection, in Random random)
     {
-        List<T> c = collection.ToList();
-        if (c.Count == 0) throw Errors.EmptyCollection(c);
-        return c.ElementAt(random.Next(0, c.Count));
+       T[] c = [.. collection];
+        if (c.Length == 0) throw Errors.EmptyCollection(c);
+        return c[random.Next(0, c.Length)];
     }
 
     /// <summary>
@@ -434,9 +433,10 @@ public static partial class EnumerableExtensions
     /// Un <see cref="ListEx{T}" /> extendido del espacio de nombres
     /// <see cref="Extensions" />.
     /// </returns>
+    [Obsolete(AttributeErrorMessages.UnsuportedClass)]
     public static ListEx<T> ToExtendedList<T>(this IEnumerable<T> collection)
     {
-        return new(collection);
+        return [.. collection];
     }
 
     /// <summary>
@@ -460,6 +460,7 @@ public static partial class EnumerableExtensions
     /// <returns>
     /// Una tarea que puede utilizarse para monitorear la operación.
     /// </returns>
+    [Obsolete(AttributeErrorMessages.UnsuportedClass)]
     public static async Task<ListEx<T>> ToExtendedListAsync<T>(this IEnumerable<T> enumerable)
     {
         return await Task.Run(enumerable.ToExtendedList);
@@ -561,66 +562,6 @@ public static partial class EnumerableExtensions
                 break;
             }
         }
-    }
-
-    /// <summary>
-    /// Ordena una secuencia de elementos de acuerdo a su prioridad
-    /// indicada por el atributo <see cref="PriorityAttribute"/>.
-    /// </summary>
-    /// <typeparam name="T">
-    /// Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
-    /// </typeparam>
-    /// <param name="c"></param>
-    /// <returns></returns>
-    [Sugar]
-    public static IOrderedEnumerable<T> Prioritized<T>(this IEnumerable<T> c)
-    {
-        return Ordered<T, PriorityAttribute>(c);
-    }
-
-    /// <summary>
-    /// Ordena una secuencia de elementos de acuerdo a un valor de
-    /// atributo especificado.
-    /// </summary>
-    /// <typeparam name="T">
-    /// Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
-    /// </typeparam>
-    /// <typeparam name="TAttr">
-    /// Tipo de atributo del cual obtener el valor de orden.
-    /// </typeparam>
-    /// <typeparam name="TAttrValue">Tipo de valor de orden.</typeparam>
-    /// <param name="c">Colección a ordenar.</param>
-    /// <returns>
-    /// Una enumeración con los elementos de la secuencia especificada
-    /// ordenados de acuerdo al valor del atributo especificado.
-    /// </returns>
-    public static IOrderedEnumerable<T> Ordered<T, TAttr, TAttrValue>(this IEnumerable<T> c)
-        where TAttrValue : struct
-        where TAttr : Attribute, IValueAttribute<TAttrValue>
-    {
-        Type t = typeof(TAttrValue);
-        TAttrValue d = t.GetField(@"MaxValue", BindingFlags.Public | BindingFlags.Static) is { } f ? (TAttrValue)f.GetValue(null)! : default;
-        return c.OrderBy(p => p?.GetAttribute<TAttr>()?.Value ?? d);
-    }
-
-    /// <summary>
-    /// Ordena una secuencia de elementos de acuerdo a un valor de
-    /// atributo especificado.
-    /// </summary>
-    /// <typeparam name="T">
-    /// Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
-    /// </typeparam>
-    /// <typeparam name="TAttr">
-    /// Tipo de atributo del cual obtener el valor de orden.
-    /// </typeparam>
-    /// <param name="c">Colección a ordenar.</param>
-    /// <returns>
-    /// Una enumeración con los elementos de la secuencia especificada
-    /// ordenados de acuerdo al valor del atributo especificado.
-    /// </returns>
-    public static IOrderedEnumerable<T> Ordered<T, TAttr>(this IEnumerable<T> c) where TAttr : Attribute, IValueAttribute<int>
-    {
-        return c.OrderBy(p => p?.GetAttribute<TAttr>()?.Value ?? int.MaxValue);
     }
 
     /// <summary>

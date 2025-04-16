@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -246,21 +246,21 @@ public class TypeExtensionsTests
         Assert.That(typeof(float[]).Implements(typeof(IEnumerable<>), typeof(int)), Is.False);
         Assert.That(typeof(Exception).Implements(typeof(IEnumerable<>)), Is.False);
         Assert.That(typeof(ValueTask<string>).Implements(typeof(IEnumerable<>)), Is.False);
-        Assert.That(typeof(List<string>).Implements(new[] {
+        Assert.That(typeof(List<string>).Implements([
             typeof(IEnumerable),
             typeof(ICollection<string>),
             typeof(IList)
-        }));
-        Assert.That(typeof(List<int>).Implements(new[] {
+        ]));
+        Assert.That(typeof(List<int>).Implements([
             typeof(IEnumerable),
             typeof(ICollection<>),
             typeof(IList)
-        }));
-        Assert.That(typeof(List<string>).Implements(new[] {
+        ]));
+        Assert.That(typeof(List<string>).Implements([
             typeof(IEnumerable),
             typeof(ICollection<string>),
             typeof(IList)
-        }));
+        ]));
         Assert.That(typeof(List<>).Implements(typeof(IEnumerable)));
         Assert.That(typeof(List<>).Implements(typeof(IEnumerable<>)));
         Assert.That(typeof(List<int>).Implements(typeof(IEnumerable<>)));
@@ -311,8 +311,9 @@ public class TypeExtensionsTests
     [Test]
     public void CSharpName_Test()
     {
-        Assert.That("System.Collections.Generic.List<System.String>", Is.EqualTo(typeof(List<string>).CSharpName()));
-        Assert.That("System.Collections.Generic.Dictionary<System.Int32, System.String>", Is.EqualTo(typeof(Dictionary<int, string>).CSharpName()));
+        Assert.That(typeof(List<string>).CSharpName(), Is.EqualTo("System.Collections.Generic.List<System.String>"));
+        Assert.That(typeof(Dictionary<int, string>).CSharpName(), Is.EqualTo("System.Collections.Generic.Dictionary<System.Int32, System.String>"));
+        Assert.That(typeof(List<KeyValuePair<DayOfWeek, Func<int, bool>>>).CSharpName(), Is.EqualTo("System.Collections.Generic.List<System.Collections.Generic.KeyValuePair<System.DayOfWeek, System.Func<System.Int32, System.Boolean>>>"));
     }
 
     [TestCase(typeof(List<>), "System.Collections.Generic.List")]

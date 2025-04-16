@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -42,7 +42,7 @@ namespace TheXDS.MCART.Types;
 public class TimerEx : S.Timer, IDisposableEx
 {
     /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="TimerEx" />.
+    /// Initializes a new instance of the <see cref="TimerEx" />.
     /// </summary>
     public TimerEx()
     {
@@ -51,7 +51,7 @@ public class TimerEx : S.Timer, IDisposableEx
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="TimerEx" /> y 
+    /// Initializes a new instance of the <see cref="TimerEx" /> y 
     /// establece la propiedad <see cref="S.Timer.Interval" />
     /// en el número de milisegundos especificado.
     /// </summary>

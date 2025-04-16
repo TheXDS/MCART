@@ -6,7 +6,7 @@
 //      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 //
 // Released under the MIT License (MIT)
-// Copyright © 2011 - 2024 César Andrés Morgan
+// Copyright © 2011 - 2025 César Andrés Morgan
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of
 // this software and associated documentation files (the “Software”), to deal in
@@ -61,19 +61,14 @@ public class NotifyPropertyChange_Tests
             set => Change(ref _StringProperty, value);
         }
 
-        public void InvalidChangeCall()
+        public void CallOnPropertyChanging(string propertyName)
         {
-            Change(ref _IntProperty, int.MaxValue);
+            RaisePropertyChangeEvent(propertyName, PropertyChangeNotificationType.PropertyChanging);
         }
 
-        public void CallOnPropertyChanging(string? propertyName)
+        public void CallOnPropertyChanged(string propertyName)
         {
-            OnPropertyChanging(propertyName!);
-        }
-
-        public void CallOnPropertyChanged(string? propertyName)
-        {
-            OnPropertyChanged(propertyName!);
+            RaisePropertyChangeEvent(propertyName, PropertyChangeNotificationType.PropertyChanging);
         }
     }
 
@@ -118,7 +113,22 @@ public class NotifyPropertyChange_Tests
     {
         bool pcoWasCalled = false;
         var obj = new TestNpcClass();
-        obj.Subscribe((o, p) =>
+        obj.Subscribe((o, p, t) =>
+        {
+            pcoWasCalled = true;
+            Assert.That(o, Is.SameAs(obj));
+            Assert.That(p.Name, Is.EqualTo(nameof(TestNpcClass.IntProperty)));
+        });
+        obj.IntProperty = 1;
+        Assert.That(pcoWasCalled);
+    }
+
+    [Test]
+    public void PropertyChangeObserver_for_specific_prop_gets_called_test()
+    {
+        bool pcoWasCalled = false;
+        var obj = new TestNpcClass();
+        obj.Subscribe(() => obj.IntProperty, (o, p, t) =>
         {
             pcoWasCalled = true;
             Assert.That(o, Is.SameAs(obj));
@@ -132,26 +142,14 @@ public class NotifyPropertyChange_Tests
     public void OnPropertyChanging_contract_test()
     {
         var obj = new TestNpcClass();
-        Assert.That(() => obj.CallOnPropertyChanging(null), Throws.ArgumentNullException);
+        Assert.That(() => obj.CallOnPropertyChanging(null!), Throws.ArgumentNullException);
     }
 
     [Test]
     public void OnPropertyChanged_contract_test()
     {
         var obj = new TestNpcClass();
-        Assert.That(() => obj.CallOnPropertyChanged(null), Throws.ArgumentNullException);
-    }
-
-    [Test]
-    public void PropertyChange_forwards_changes_test()
-    {
-        var source = new TestNpcClass();
-        var target = new TestNpcClass();
-        source.ForwardChange(target);
-        TestEvents(target, _ => source.IntProperty = 3,
-            new EventTestEntry<TestNpcClass, PropertyChangedEventHandler, PropertyChangedEventArgs>(nameof(TestNpcClass.PropertyChanged),
-                e => Assert.That(e.PropertyName, Is.EqualTo(nameof(TestNpcClass.IntProperty))))
-            );
+        Assert.That(() => obj.CallOnPropertyChanged(null!), Throws.ArgumentNullException);
     }
 
     [Test]
@@ -159,7 +157,7 @@ public class NotifyPropertyChange_Tests
     {
         bool observerCalled = false;
         var source = new TestNpcClass();
-        source.Subscribe((o, e) => {
+        source.Subscribe((o, e, t) => {
             observerCalled = true;
             Assert.That(o, Is.SameAs(source));
             Assert.That(e.Name, Is.EqualTo(nameof(TestNpcClass.IntProperty)));
@@ -171,20 +169,10 @@ public class NotifyPropertyChange_Tests
     [Test]
     public void Subscriptions_can_be_removed_test()
     {
-        static void TestDelegate(object instance, PropertyInfo property) => Assert.Fail();
+        static void TestDelegate(object instance, PropertyInfo property, PropertyChangeNotificationType notificationType) => Assert.Fail();
         var source = new TestNpcClass();
         source.Subscribe(TestDelegate);
         source.Unsubscribe(TestDelegate);
         source.IntProperty = 5;
     }
-
-#if EnforceContracts
-    [Test]
-    public void Change_throws_if_called_incorrectly_test()
-    {
-        var obj = new TestNpcClass();
-        Assert.That(obj.InvalidChangeCall, Throws.InvalidOperationException);
-        Assert.That((TestDelegate)(() => obj.BrokenIntProperty = default), Throws.InvalidOperationException);
-    }
-#endif
 }

@@ -1,29 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
-  <CodeSnippet Format="1.0.0">
-    <Header>
-      <Title>Comprobación de null a-la-MCART</Title>
-      <Shortcut>nchk</Shortcut>
-      <Description>Fragmento de código para generar una llamada al método de comprobación de null de MCART.</Description>
-      <Author>César Andrés Morgan</Author>
-      <SnippetTypes>
-        <SnippetType>Expansion</SnippetType>
-      </SnippetTypes>
-    </Header>
-    <Snippet>
-      <Declarations>
-        <Literal>
-          <ID>argument</ID>
-          <ToolTip>argumento a comprobar.</ToolTip>
-          <Default>arg</Default>
-        </Literal>
-      </Declarations>
-      <Imports>
-        <Import>
-          <Namespace>static TheXDS.MCART.Misc.Internals</Namespace>
-        </Import>
-      </Imports>
-      <Code Language="csharp"><![CDATA[NullCheck($argument$, nameof($argument$));]]></Code>
-    </Snippet>
-  </CodeSnippet>
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>MCART-style Null Check</Title>
+			<Shortcut>nchk</Shortcut>
+			<Description>Code snippet to generate a call to the MCART null check method. For internal use only.</Description>
+			<Author>César Andrés Morgan</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>argument</ID>
+					<ToolTip>argument to check.</ToolTip>
+					<Default>arg</Default>
+				</Literal>
+			</Declarations>
+			<Imports>
+				<Import>
+					<Namespace>static TheXDS.MCART.Misc.Internals</Namespace>
+				</Import>
+			</Imports>
+			<Code Language="csharp"><![CDATA[NullChecked($argument$);]]></Code>
+		</Snippet>
+	</CodeSnippet>
 </CodeSnippets>

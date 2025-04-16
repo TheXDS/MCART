@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -31,14 +31,14 @@ SOFTWARE.
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
-/// Define una serie de miembros a implementar por un tipo que represente a
-/// un elemento de UI que puede ser cerrado, como ser las ventanas de una
-/// aplicación.
+/// Defines a series of members to be implemented by a type that represents
+/// a UI element that can be closed, such as the windows of an
+/// application.
 /// </summary>
 public interface ICloseable
 {
     /// <summary>
-    /// Cierra esta instancia.
+    /// Closes this instance.
     /// </summary>
     void Close();
 }

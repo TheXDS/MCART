@@ -1,5 +1,5 @@
-﻿/*
-ThunkAttribute.cs
+/*
+Int32ConstantLoader.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,18 +28,29 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using static System.AttributeTargets;
+using System.Reflection.Emit;
 
-namespace TheXDS.MCART.Attributes;
+namespace TheXDS.MCART.Types.Extensions.ConstantLoaders;
 
 /// <summary>
-/// Indica que un elemento es un proveedor de Thunking (facilita la
-/// llamada a otros entornos o Frameworks).
+/// Loads a constant value of type <see cref="Enum"/> into the MSIL instruction sequence.
 /// </summary>
-/// <remarks>
-/// Este atributo no debería aplicarse a sobrecargas de un método que
-/// no sea en sí mismo un método de Thunking.
-/// </remarks>
-[AttributeUsage(Property | Method | Class | Module | Assembly)]
-[Serializable]
-public sealed class ThunkAttribute : Attribute;
+public class EnumConstantLoader : ConstantLoader<Enum>
+{
+    /// <inheritdoc/>
+    public override void Emit(ILGenerator il, Enum value)
+    {
+        switch (value.ToUnderlyingType())
+        {
+            case byte b: il.LoadConstant(b); break;
+            case sbyte sb: il.LoadConstant(sb); break;
+            case short s: il.LoadConstant(s); break;
+            case ushort us: il.LoadConstant(us); break;
+            case int i: il.LoadConstant(i); break;
+            case uint ui: il.LoadConstant(ui); break;
+            case long l: il.LoadConstant(l); break;
+            case ulong ul: il.LoadConstant(ul); break;
+            default: throw new NotSupportedException();            
+        }
+    }
+}

@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -39,6 +39,9 @@ namespace TheXDS.MCART.Types.Extensions.ConstantLoaders;
 /// <typeparam name="T">Tipo de constante a cargar.</typeparam>
 public abstract class ConstantLoader<T> : IConstantLoader, IEquatable<IConstantLoader>
 {
+    /// <inheritdoc/>
+    public bool CanLoadConstant(object? value) => value is T;
+
     /// <summary>
     /// Obtiene una referencia al tipo de constante que esta instancia
     /// puede cargar en la secuencia de instrucciones MSIL.

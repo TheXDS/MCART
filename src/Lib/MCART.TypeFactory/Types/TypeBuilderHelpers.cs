@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -42,7 +42,7 @@ public static class TypeBuilderHelpers
 {
     internal static string UndName(string name)
     {
-        NullCheck(name, nameof(name));
+        ArgumentNullException.ThrowIfNull(name, nameof(name));
         return name.Length > 1
             ? $"_{name[..1].ToLower()}{name[1..]}"
             : $"_{name.ToLower()}";
@@ -50,7 +50,7 @@ public static class TypeBuilderHelpers
 
     internal static string NoIfaceName(string name)
     {
-        NullCheck(name, nameof(name));
+        ArgumentNullException.ThrowIfNull(name, nameof(name));
         return name[0] != 'I' ? $"{name}Implementation" : name[1..];
     }
 

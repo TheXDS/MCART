@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -33,37 +33,36 @@ using TheXDS.MCART.Types;
 namespace TheXDS.MCART.Events;
 
 /// <summary>
-/// Contiene información para el evento
-/// <see cref="ListEx{T}.ListUpdated"/>.
+/// Contains information for the <see cref="ListEx{T}.ListUpdated"/> event.
 /// </summary>
-/// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
+/// <typeparam name="T">Type of elements on the list.</typeparam>
 /// <param name="updateType">
-/// Tipo de actualización realizada sobre la lista.
+/// Type of update that has been made on the list.
 /// </param>
 /// <param name="affectedItems">
-/// Elementos que han sido afectados por la actualización de la lista.
+/// Elements that have been affected by the update on the list.
 /// </param>
 public class ListUpdatedEventArgs<T>(ListUpdateType updateType, IEnumerable<T>? affectedItems) : EventArgs
 {
     /// <summary>
-    /// Convierte implícitamente un
-    /// <see cref="ListUpdatingEventArgs{T}"/> en un
-    /// <see cref="ListUpdatedEventArgs{T}"/>
+    /// Implicitly converts an object of type
+    /// <see cref="ListUpdatingEventArgs{T}"/> to an object of type
+    /// <see cref="ListUpdatedEventArgs{T}"/>.
     /// </summary>
     /// <param name="from">
-    /// <see cref="ListUpdatingEventArgs{T}"/> a convertir.
+    /// <see cref="ListUpdatingEventArgs{T}"/> to be converted.
     /// </param>
     public static implicit operator ListUpdatedEventArgs<T>(ListUpdatingEventArgs<T> from) => new(from.UpdateType, from.AffectedItems);
 
     /// <summary>
-    /// Elementos que fueron afectados por la actualización del 
-    /// <see cref="ListEx{T}"/> que generó el evento.
+    /// Elements that have been affected by the update on the
+    /// <see cref="ListEx{T}"/> that produced this event.
     /// </summary>
     public IReadOnlyCollection<T>? AffectedItems { get; } = affectedItems?.ToList().AsReadOnly();
 
     /// <summary>
-    /// Tipo de actualización ocurrida en el <see cref="ListEx{T}"/>
-    /// que generó el evento.
+    /// Type of update that has been made on the <see cref="ListEx{T}"/> that
+    /// produced the event.
     /// </summary>
     public ListUpdateType UpdateType { get; } = updateType;
 }

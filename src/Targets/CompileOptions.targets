@@ -9,7 +9,7 @@
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
-		<NeutralLanguage>es-419</NeutralLanguage>
+		<NeutralLanguage>en</NeutralLanguage>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(OS)' != 'Windows_NT'">
 		<EnableWindowsTargeting>true</EnableWindowsTargeting>

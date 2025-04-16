@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,7 +28,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.Net;
+using TheXDS.MCART.Types.Base;
 
 namespace TheXDS.MCART.IO;
 
@@ -36,10 +36,7 @@ namespace TheXDS.MCART.IO;
 /// Obtiene un <see cref="Stream"/> a partir de un <see cref="Uri"/>
 /// que apunta a un recurso web.
 /// </summary>
-#if NET6_0_OR_GREATER
-[Obsolete("Esta clase utiliza métodos web deprecados en .Net 6.")]
-#endif
-public class HttpStreamUriParser : WebStreamUriParser<HttpWebResponse>
+public class HttpStreamUriParser : SimpleStreamUriParser
 {
     /// <summary>
     /// Enumera los protocolos soportados por este
@@ -51,6 +48,53 @@ public class HttpStreamUriParser : WebStreamUriParser<HttpWebResponse>
         {
             yield return "http";
             yield return "https";
+        }
+    }
+
+    /// <summary>
+    /// Abre un <see cref="Stream"/> desde el <see cref="Uri"/>
+    /// especificado.
+    /// </summary>
+    /// <param name="uri">Dirección web a resolver.</param>
+    /// <returns>
+    /// Un <see cref="Stream"/> que permite obtener el recurso apuntado
+    /// por el <see cref="Uri"/> especificado.
+    /// </returns>
+    public sealed override Stream Open(Uri uri)
+    {
+        using var c = new HttpClient();
+        return c.GetStreamAsync(uri).GetAwaiter().GetResult();
+    }
+
+    /// <summary>
+    /// Obtiene un valor que indica si este objeto prefiere
+    /// transferencias completas a la hora de exponer un 
+    /// <see cref="Stream"/>.
+    /// </summary>
+    public override bool PreferFullTransfer => true;
+
+    /// <summary>
+    /// Abre un <see cref="Stream"/> desde el <see cref="Uri"/>
+    /// especificado, haciendo una transferencia completa a la memoria
+    /// del equipo.
+    /// </summary>
+    /// <param name="uri">Dirección web a resolver.</param>
+    /// <returns>
+    /// Un <see cref="Stream"/> que permite obtener el recurso apuntado
+    /// por el <see cref="Uri"/> especificado.
+    /// </returns>
+    public override async Task<Stream?> OpenFullTransferAsync(Uri uri)
+    {
+        try
+        {
+            MemoryStream? ms = new();
+            using var c = new HttpClient();
+            (await c.GetStreamAsync(uri)).CopyTo(ms);
+            return ms;
+        }
+        catch
+        {
+            return null;
         }
     }
 }

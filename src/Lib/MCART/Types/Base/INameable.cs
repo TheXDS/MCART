@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -31,13 +31,13 @@ SOFTWARE.
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
-/// Describe una serie de miembros a implementar por una clase o
-/// estructura que expone un nombre para su identificación.
+/// Defines a set of members to be implemented by a type that exposes a name
+/// property.
 /// </summary>
 public interface INameable
 {
     /// <summary>
-    /// Obtiene el nombre del elemento.
+    /// Gets the name of this element.
     /// </summary>
     string Name { get; }
 }

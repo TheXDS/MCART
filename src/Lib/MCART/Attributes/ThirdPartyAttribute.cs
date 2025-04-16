@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,17 +28,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using static System.AttributeTargets;
-
 namespace TheXDS.MCART.Attributes;
 
 /// <summary>
-/// Indica que un elemento proviene de origenes de terceros.
+/// Indicates that an element comes from third-party sources.
 /// </summary>
 /// <remarks>
-/// Es recomendable que al aplicar este atributo, también se aplique un
-/// atributo que indique la licencia del mismo.
+/// It is recommended that when applying this attribute, an
+/// attribute indicating its license is also applied.
 /// </remarks>
-[AttributeUsage(Method | Class | Module | Assembly)]
+[AttributeUsage(AttributeTargets.Method | AttributeTargets.Class | AttributeTargets.Module | AttributeTargets.Assembly)]
 [Serializable]
 public sealed class ThirdPartyAttribute : Attribute;

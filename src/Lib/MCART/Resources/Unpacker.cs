@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,8 +28,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Misc;
 
 namespace TheXDS.MCART.Resources;
 
@@ -37,23 +39,20 @@ namespace TheXDS.MCART.Resources;
 /// <see cref="AssemblyUnpacker{T}"/> que expone directamente los
 /// <see cref="Stream"/> de los recursos incrustados de un ensamblado.
 /// </summary>
-public class Unpacker : AssemblyUnpacker<Stream>
+/// <param name="assembly">
+/// <see cref="Assembly"/> desde donde se extraerán los recursos
+/// incrustados.
+/// </param>
+/// <param name="path">
+/// Ruta (en formato de espacio de nombre) donde se ubicarán los
+/// recursos incrustados.
+/// </param>
+[RequiresUnreferencedCode(AttributeErrorMessages.ClassScansForTypes)]
+[RequiresDynamicCode(AttributeErrorMessages.ClassCallsDynamicCode)]
+public class Unpacker(Assembly assembly, string path) : AssemblyUnpacker<Stream>(assembly, path)
 {
     /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="Unpacker"/>.
-    /// </summary>
-    /// <param name="assembly">
-    /// <see cref="Assembly"/> desde donde se extraerán los recursos
-    /// incrustados.
-    /// </param>
-    /// <param name="path">
-    /// Ruta (en formato de espacio de nombre) donde se ubicarán los
-    /// recursos incrustados.
-    /// </param>
-    public Unpacker(Assembly assembly, string path) : base(assembly, path) { }
-
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="Unpacker"/>,
+    /// Initializes a new instance of the <see cref="Unpacker"/>,
     /// buscando los recursos a extraer en el ensamblado que declara al tipo
     /// especificado, además usando el mismo como la referencia de ruta (en
     /// formato de espacio de nombre) para buscar los recursos incrustados.
@@ -64,7 +63,7 @@ public class Unpacker : AssemblyUnpacker<Stream>
     public Unpacker(Type resReference) : this(resReference.Assembly, resReference.FullName ?? resReference.ToString()) { }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="Unpacker"/>,
+    /// Initializes a new instance of the <see cref="Unpacker"/>,
     /// buscando los recursos a extraer en el ensamblado desde el cual se crea
     /// esta instancia.
     /// </summary>
@@ -83,20 +82,6 @@ public class Unpacker : AssemblyUnpacker<Stream>
     /// incrustado.
     /// </returns>
     public override Stream Unpack(string id) => UnpackStream(id) ?? throw new MissingResourceException(id);
-
-    /// <summary>
-    /// Extrae un recurso comprimido utilizando el compresor con el
-    /// identificador especificado.
-    /// </summary>
-    /// <param name="id">Identificador del recurso.</param>
-    /// <param name="compressorId">
-    /// Identificador del compresor a utilizar para extraer al recurso.
-    /// </param>
-    /// <returns>
-    /// Un <see cref="Stream"/> desde donde se podrá leer el recurso
-    /// incrustado sin comprimir.
-    /// </returns>
-    public override Stream Unpack(string id, string compressorId) => UnpackStream(id, compressorId);
 
     /// <summary>
     /// Extrae un recurso comprimido utilizando el compresor con el

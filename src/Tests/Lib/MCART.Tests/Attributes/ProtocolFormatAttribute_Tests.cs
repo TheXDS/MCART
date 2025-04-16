@@ -6,7 +6,7 @@
 //      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 // 
 // Released under the MIT License (MIT)
-// Copyright © 2011 - 2024 César Andrés Morgan
+// Copyright © 2011 - 2025 César Andrés Morgan
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of
 // this software and associated documentation files (the “Software”), to deal in
@@ -50,5 +50,25 @@ public class ProtocolFormatAttribute_Tests
         IValueAttribute<string> iattr = attr;
         Assert.That(attr.Format, Is.EqualTo(format));
         Assert.That(iattr.Value, Is.EqualTo(format));
+    }
+
+    [Test]
+    public void Open_test()
+    {
+        var tmpFile = Path.Combine(Path.GetTempPath(), $"{Guid.NewGuid()}.txt");
+        File.CreateText(tmpFile).Dispose();
+        ProtocolFormatAttribute attr = new("{0}");
+        var proc = attr.Open(tmpFile);
+        Assert.That(proc, Is.Not.Null);
+        proc!.Kill();
+        File.Delete(tmpFile);
+    }
+
+    [Test]
+    public void Open_returns_null_on_empty_url()
+    {
+        ProtocolFormatAttribute attr = new("{0}");
+        var proc = attr.Open("");
+        Assert.That(proc, Is.Null);
     }
 }

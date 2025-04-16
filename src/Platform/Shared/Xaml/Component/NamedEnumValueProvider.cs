@@ -4,10 +4,10 @@ NamedEnumValueProvider.cs
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
 Author(s):
-     César Andrés Morgan <xds_xps_ivx@hotmail.com>
+     CÃ©sar AndrÃ©s Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright Â© 2011 - 2025 CÃ©sar AndrÃ©s Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -34,14 +34,14 @@ using TheXDS.MCART.Types.Extensions;
 namespace TheXDS.MCART.Component;
 
 /// <summary>
-/// Define una extensión de Markup XAML que permite obtener valores de
-/// enumeración como una colección de <see cref="NamedObject{T}"/>.
+/// Define una extensiÃ³n de Markup XAML que permite obtener valores de
+/// enumeraciÃ³n como una colecciÃ³n de <see cref="NamedObject{T}"/>.
 /// </summary>
 public class NamedEnumValueProvider : EnumValueProvider
 {
     /// <inheritdoc/>
     public override object ProvideValue(IServiceProvider serviceProvider)
     {
-        return EnumType is { IsEnum: true } ? EnumType.ToNamedEnum() : null!;
+        return EnumType is { IsEnum: true } ? EnumType.ToNamedEnum() : Array.Empty<Enum>();
     }
 }

@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,6 +28,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System.ComponentModel;
+using System.Numerics;
 using TheXDS.MCART.Math;
 using TheXDS.MCART.Misc;
 using TheXDS.MCART.Resources;
@@ -41,7 +43,9 @@ namespace TheXDS.MCART.Types;
 /// Estructura universal que describe el tamaño de un objeto en ancho y
 /// alto en un espacio de dos dimensiones.
 /// </summary>
-public struct Size : IFormattable, IEquatable<Size>, IEquatable<ISize>, IEquatable<IVector>, ISize, IVector
+/// <param name="width">Valor de ancho.</param>
+/// <param name="height">Valor de alto.</param>
+public struct Size(double width, double height) : IFormattable, IEquatable<Size>, IEquatable<ISize>, IEquatable<IVector>, ISize, IVector
 {
     /// <summary>
     /// Obtiene un valor que no representa ningún tamaño. Este campo es
@@ -60,18 +64,6 @@ public struct Size : IFormattable, IEquatable<Size>, IEquatable<ISize>, IEquatab
     /// es de solo lectura.
     /// </summary>
     public static readonly Size Infinity = new(double.PositiveInfinity, double.PositiveInfinity);
-
-    /// <summary>
-    /// Inicializa una nueva instancia de la estructura
-    /// <see cref="Size"/>.
-    /// </summary>
-    /// <param name="width">Valor de ancho.</param>
-    /// <param name="height">Valor de alto.</param>
-    public Size(double width, double height)
-    {
-        Width = width;
-        Height = height;
-    }
 
     /// <summary>
     /// Realiza una operación de suma sobre los puntos.
@@ -520,22 +512,22 @@ public struct Size : IFormattable, IEquatable<Size>, IEquatable<ISize>, IEquatab
     /// <summary>
     /// Obtiene el componente de altura del tamaño.
     /// </summary>
-    public double Height { get; set; }
+    public double Height { get; set; } = height;
 
     /// <summary>
     /// Obtiene el componente de ancho del tamaño.
     /// </summary>
-    public double Width { get; set; }
+    public double Width { get; set; } = width;
 
     /// <summary>
     /// Calcula el área cuadrada representada por este tamaño.
     /// </summary>
-    public double SquareArea => Height * Width;
+    public readonly double SquareArea => Height * Width;
 
     /// <summary>
     /// Calcula el perímetro cuadrado representado por este tamaño.
     /// </summary>
-    public double SquarePerimeter => (Height * 2) + (Width * 2);
+    public readonly double SquarePerimeter => (Height * 2) + (Width * 2);
 
     /// <summary>
     /// Determina si esta instancia representa un tamaño nulo.
@@ -545,43 +537,23 @@ public struct Size : IFormattable, IEquatable<Size>, IEquatable<ISize>, IEquatab
     /// <see langword="false"/> si el tamaño contiene área, y
     /// <see langword="null"/> si alguna magnitud está indefinida.
     /// </returns>
-    public bool? IsZero
-    {
-        get
-        {
-            return Height.IsValid() && Height == 0
-                && Width.IsValid() && Width == 0;
-        }
-    }
+    public readonly bool? IsZero => Height.IsValid() && Height == 0 && Width.IsValid() && Width == 0;
 
     /// <summary>
     /// Obtiene un valor que indica si el tamaño es válido en un contexto
     /// físico real.
     /// </summary>
-    public bool IsReal
-    {
-        get
-        {
-            return Height.IsValid() && Height > 0
-                && Width.IsValid() && Width > 0;
-        }
-    }
+    public readonly bool IsReal => Height.IsValid() && Height > 0 && Width.IsValid() && Width > 0;
 
     /// <summary>
     /// Obtiene un valor que indica si todas las magnitudes de tamaño de esta
     /// instancia son válidas.
     /// </summary>
-    public bool IsValid
-    {
-        get
-        {
-            return Height.IsValid() && Width.IsValid();
-        }
-    }
+    public readonly bool IsValid => Height.IsValid() && Width.IsValid();
 
-    double IVector.X => Width;
+    readonly double IVector.X => Width;
 
-    double IVector.Y => Height;
+    readonly double IVector.Y => Height;
 
     /// <summary>
     /// Determina si esta instancia de <see cref="Size"/> es igual a
@@ -594,7 +566,7 @@ public struct Size : IFormattable, IEquatable<Size>, IEquatable<ISize>, IEquatab
     /// <see langword="true"/> si los tamaños representados en ambos
     /// objetos son iguales, <see langword="false"/> en caso contrario.
     /// </returns>
-    public bool Equals(Size other)
+    public readonly bool Equals(Size other)
     {
         return (Height == other.Height || (!Height.IsValid() && !other.Height.IsValid()))
             && (Width == other.Width || (!Width.IsValid() && !other.Width.IsValid()));
@@ -611,7 +583,7 @@ public struct Size : IFormattable, IEquatable<Size>, IEquatable<ISize>, IEquatab
     /// <see langword="true"/> si los tamaños representados en ambos
     /// objetos son iguales, <see langword="false"/> en caso contrario.
     /// </returns>
-    public bool Equals(ISize? other)
+    public readonly bool Equals(ISize? other)
     {
         return other is not null
             && (Height == other.Height || (!Height.IsValid() && !other.Height.IsValid()))
@@ -629,7 +601,7 @@ public struct Size : IFormattable, IEquatable<Size>, IEquatable<ISize>, IEquatab
     /// <see langword="true"/> si los tamaños representados en ambos
     /// objetos son iguales, <see langword="false"/> en caso contrario.
     /// </returns>
-    public bool Equals(IVector? other)
+    public readonly bool Equals(IVector? other)
     {
         return other is not null
             && (Height == other.Y || (!Height.IsValid() && !other.Y.IsValid()))
@@ -646,7 +618,7 @@ public struct Size : IFormattable, IEquatable<Size>, IEquatable<ISize>, IEquatab
     /// <see langword="true" /> si esta instancia y <paramref name="obj" /> son iguales;
     /// de lo contrario, <see langword="false" />.
     /// </returns>
-    public override bool Equals(object? obj)
+    public override readonly bool Equals(object? obj)
     {
         if (obj is not ISize p) return false;
         return Equals(p);
@@ -658,7 +630,7 @@ public struct Size : IFormattable, IEquatable<Size>, IEquatable<ISize>, IEquatab
     /// <returns>
     /// Un código hash que representa a esta instancia.
     /// </returns>
-    public override int GetHashCode()
+    public override readonly int GetHashCode()
     {
         return HashCode.Combine(Height, Width);
     }
@@ -685,7 +657,7 @@ public struct Size : IFormattable, IEquatable<Size>, IEquatable<ISize>, IEquatab
     /// <returns>
     /// Una representación en forma de <see cref="string" /> de este objeto.
     /// </returns>
-    public override string ToString()
+    public override readonly string ToString()
     {
         return ToString(null);
     }
@@ -697,7 +669,7 @@ public struct Size : IFormattable, IEquatable<Size>, IEquatable<ISize>, IEquatab
     /// <returns>
     /// Una representación en forma de <see cref="string" /> de este objeto.
     /// </returns>
-    public string ToString(string? format)
+    public readonly string ToString(string? format)
     {
         return ToString(format, CI.CurrentCulture);
     }
@@ -715,7 +687,7 @@ public struct Size : IFormattable, IEquatable<Size>, IEquatable<ISize>, IEquatab
     /// <returns>
     /// Una representación en forma de <see cref="string" /> de este objeto.
     /// </returns>
-    public string ToString(string? format, IFormatProvider? formatProvider)
+    public readonly string ToString(string? format, IFormatProvider? formatProvider)
     {
         if (format.IsEmpty()) format = "C";
         return format.ToUpperInvariant()[0] switch
@@ -760,8 +732,8 @@ public struct Size : IFormattable, IEquatable<Size>, IEquatable<ISize>, IEquatab
                 size = Infinity;
                 break;
             default:
-                string[]? separators = new[]
-                {
+                string[]? separators =
+                [
                     ", ",
                     "; ",
                     " - ",
@@ -772,9 +744,21 @@ public struct Size : IFormattable, IEquatable<Size>, IEquatable<ISize>, IEquatab
                     ";",
                     ":",
                     "|",
-                };
-                return PrivateInternals.TryParseValues<double, Size>(separators, value.Without("()[]{}".ToCharArray()), 2, l => new(l[0], l[1]), out size);
+                ];
+                return PrivateInternals.TryParseValues<double, Size>(new DoubleConverter(), separators, value.Without("()[]{}".ToCharArray()), 2, l => new(l[0], l[1]), out size);
         }
         return true;
     }
+
+    /// <summary>
+    /// Implicitly converts a <see cref="Size"/> to a <see cref="Vector2"/>.
+    /// </summary>
+    /// <param name="p"><see cref="Size"/> value to be converted.</param>
+    public static implicit operator Vector2(Size p) => new((float)p.Width, (float)p.Height);
+
+    /// <summary>
+    /// Implicitly converts a <see cref="Vector2"/> to a <see cref="Size"/>.
+    /// </summary>
+    /// <param name="p"><see cref="Vector2"/> value to be converted.</param>
+    public static implicit operator Size(Vector2 p) => new(p.X, p.Y);
 }

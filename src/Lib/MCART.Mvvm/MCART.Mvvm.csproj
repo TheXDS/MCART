@@ -1,32 +1,34 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<IsTrimmable>true</IsTrimmable>
+		<IsAotCompatible>true</IsAotCompatible>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\MCART\MCART.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\MCART\MCART.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="Resources\Strings\MvvmErrors.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>MvvmErrors.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Update="Resources\Strings\MvvmErrors.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>MvvmErrors.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Update="Resources\Strings\MvvmErrors.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>MvvmErrors.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Update="Resources\Strings\MvvmErrors.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>MvvmErrors.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Update="Microsoft.SourceLink.GitHub" Version="8.0.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Update="Microsoft.SourceLink.GitHub" Version="8.0.0" />
+	</ItemGroup>
 
 </Project>

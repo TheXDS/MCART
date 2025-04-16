@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -34,8 +34,8 @@ using TheXDS.MCART.Types.Base;
 namespace TheXDS.MCART.Component;
 
 /// <summary>
-/// Expone los valores de información de la interfaz
-/// <see cref="IExposeInfo"/> para valores especificados por el usuario.
+/// Implements the <see cref="IExposeInfo"/> interface to expose information
+/// values provided by the user.
 /// </summary>
 public struct ValueExposeInfo : IExposeInfo
 {

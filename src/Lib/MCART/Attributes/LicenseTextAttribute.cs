@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -29,26 +29,25 @@ SOFTWARE.
 */
 
 using TheXDS.MCART.Resources;
-using static System.AttributeTargets;
 using static TheXDS.MCART.Misc.Internals;
 
 namespace TheXDS.MCART.Attributes;
 
 /// <summary>
-/// Establece el texto de licencia a asociar con el elemento.
+/// Sets the license text to associate with the element.
 /// </summary>
-[AttributeUsage(Class | Module | Assembly)]
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Module | AttributeTargets.Assembly)]
 public sealed class LicenseTextAttribute : LicenseAttributeBase
 {
     private readonly string _title;
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
+    /// Initializes a new instance of the class
     /// <see cref="LicenseTextAttribute" />.
     /// </summary>
-    /// <param name="title">Título de la licencia</param>
-    /// <param name="licenseText">Texto de la licencia.</param>
-    public LicenseTextAttribute(string title, string licenseText) 
+    /// <param name="title">Title of the license</param>
+    /// <param name="licenseText">Text of the license.</param>
+    public LicenseTextAttribute(string title, string licenseText)
         : base(licenseText)
     {
         _title = EmptyChecked(title, nameof(title));
@@ -56,23 +55,23 @@ public sealed class LicenseTextAttribute : LicenseAttributeBase
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
+    /// Initializes a new instance of the class
     /// <see cref="LicenseTextAttribute" />.
     /// </summary>
-    /// <param name="licenseText">Texto de la licencia.</param>
+    /// <param name="licenseText">Text of the license.</param>
     public LicenseTextAttribute(string licenseText)
         : this(EmptyChecked(licenseText, nameof(licenseText)).Split('\n', 2)[0].Trim(), licenseText)
     {
     }
 
     /// <summary>
-    /// Obtiene una licencia asociada a este atributo.
+    /// Gets a license associated with this attribute.
     /// </summary>
     /// <param name="context">
-    /// Objeto del cual se ha extraído este atributo.
+    /// Object from which this attribute was extracted.
     /// </param>
     /// <returns>
-    /// Una licencia asociada a este atributo.
+    /// A license associated with this attribute.
     /// </returns>
     public override License GetLicense(object context)
     {

@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -33,110 +33,107 @@ using System.Collections;
 namespace TheXDS.MCART.Exceptions;
 
 /// <summary>
-/// Se produce cuando un elemento de una colección es
-/// <see langword="null"/> de manera inesperada.
+/// Exception that is thrown when an element in a collection is unexpectedly
+/// equal to <see langword="null"/>.
 /// </summary>
 [Serializable]
 public class NullItemException : OffendingException<IList>
 {
     /// <summary>
-    /// Obtiene o establece el índice del elemento que ha producido esta
-    /// excepción.
+    /// Gets the index at which an element was unexpectedly
+    /// <see langword="null"/> inside of the collection.
     /// </summary>
-    /// <value>
-    /// El índice del elemento que es <see langword="null"/>.
-    /// </value>
     public int NullIndex { get; set; }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="NullItemException"/>.
+    /// Initializes a new instance of the <see cref="NullItemException"/>
+    /// class.
     /// </summary>
     public NullItemException()
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="NullItemException"/>.
+    /// Initializes a new instance of the <see cref="NullItemException"/>
+    /// class.
     /// </summary>
-    /// <param name="offendingObject">
-    /// Lista en la cual se ha encontrado un elemento nulo.
+    /// <param name="offendingCollection">
+    /// Collection in which a <see langword="null"/> element has been found.
     /// </param>
-    public NullItemException(IList offendingObject) : base(offendingObject)
+    public NullItemException(IList offendingCollection) : base(offendingCollection)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
+    /// Initializes a new instance of the
     /// <see cref="NullItemException"/>.
     /// </summary>
-    /// <param name="message">Mensaje descriptivo de la excepción.</param>
+    /// <param name="message">Message that describes the exception.</param>
     public NullItemException(string message) : base(message)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
+    /// Initializes a new instance of the
     /// <see cref="NullItemException"/>.
     /// </summary>
-    /// <param name="message">Mensaje descriptivo de la excepción.</param>
-    /// <param name="offendingObject">
-    /// Lista en la cual se ha encontrado un elemento nulo.
+    /// <param name="message">Message that describes the exception.</param>
+    /// <param name="offendingCollection">
+    /// Collection in which a <see langword="null"/> element has been found.
     /// </param>
-    public NullItemException(string message, IList offendingObject) : base(message, offendingObject)
+    public NullItemException(string message, IList offendingCollection) : base(message, offendingCollection)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
+    /// Initializes a new instance of the
     /// <see cref="NullItemException"/>.
     /// </summary>
     /// <param name="inner">
-    /// Excepción que es la causa de esta excepción.
+    /// <see cref="Exception" /> that is the cause of this exception.
     /// </param>
     public NullItemException(Exception inner) : base(inner)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
+    /// Initializes a new instance of the
     /// <see cref="NullItemException"/>.
     /// </summary>
     /// <param name="inner">
-    /// Excepción que es la causa de esta excepción.
+    /// <see cref="Exception" /> that is the cause of this exception.
     /// </param>
-    /// <param name="offendingObject">
-    /// Lista en la cual se ha encontrado un elemento nulo.
+    /// <param name="offendingCollection">
+    /// Collection in which a <see langword="null"/> element has been found.
     /// </param>
-    public NullItemException(Exception inner, IList offendingObject) : base(inner, offendingObject)
+    public NullItemException(Exception inner, IList offendingCollection) : base(inner, offendingCollection)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
+    /// Initializes a new instance of the
     /// <see cref="NullItemException"/>.
     /// </summary>
-    /// <param name="message">Mensaje descriptivo de la excepción.</param>
+    /// <param name="message">Message that describes the exception.</param>
     /// <param name="inner">
-    /// Excepción que es la causa de esta excepción.
+    /// <see cref="Exception" /> that is the cause of this exception.
     /// </param>
     public NullItemException(string message, Exception inner) : base(message, inner)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
+    /// Initializes a new instance of the
     /// <see cref="NullItemException"/>.
     /// </summary>
-    /// <param name="message">Mensaje descriptivo de la excepción.</param>
+    /// <param name="message">Message that describes the exception.</param>
     /// <param name="inner">
-    /// Excepción que es la causa de esta excepción.
+    /// <see cref="Exception" /> that is the cause of this exception.
     /// </param>
-    /// <param name="offendingObject">
-    /// Lista en la cual se ha encontrado un elemento nulo.
+    /// <param name="offendingCollection">
+    /// Collection in which a <see langword="null"/> element has been found.
     /// </param>
-    public NullItemException(string message, Exception inner, IList offendingObject) : base(message, inner, offendingObject)
+    public NullItemException(string message, Exception inner, IList offendingCollection) : base(message, inner, offendingCollection)
     {
     }
 }

@@ -6,7 +6,7 @@
 //      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 //
 // Released under the MIT License (MIT)
-// Copyright © 2011 - 2024 César Andrés Morgan
+// Copyright © 2011 - 2025 César Andrés Morgan
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of
 // this software and associated documentation files (the “Software”), to deal in
@@ -35,18 +35,17 @@ using WC = System.Windows.Media.Color;
 namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
-/// Contiene extensiones para el tipo <see cref="UIColorType"/>.
+/// Contains extensions for the <see cref="UIColorType"/> type.
 /// </summary>
 [CLSCompliant(false)]
 public static class UIColorTypeExtensions
 {
     /// <summary>
-    /// Convierte un <see cref="UIColorType"/> en un <see cref="Brush"/>.
+    /// Converts a <see cref="UIColorType"/> to a <see cref="Brush"/>.
     /// </summary>
-    /// <param name="color">Color a convertir.</param>
+    /// <param name="color">Color to convert.</param>
     /// <returns>
-    /// Un nuevo <see cref="Brush"/> equivalente al <see cref="UIColorType"/>
-    /// especificado.
+    /// A new <see cref="Brush"/> equivalent to the specified <see cref="UIColorType"/>.
     /// </returns>
     public static Brush ToMediaBrush(this UIColorType color)
     {
@@ -54,12 +53,11 @@ public static class UIColorTypeExtensions
     }
 
     /// <summary>
-    /// Convierte un <see cref="UIColorType"/> en un <see cref="MC"/>.
+    /// Converts a <see cref="UIColorType"/> to a <see cref="MC"/>.
     /// </summary>
-    /// <param name="color">Color a convertir.</param>
+    /// <param name="color">Color to convert.</param>
     /// <returns>
-    /// Un nuevo <see cref="MC"/> equivalente al <see cref="UIColorType"/>
-    /// especificado.
+    /// A new <see cref="MC"/> equivalent to the specified <see cref="UIColorType"/>.
     /// </returns>
     public static WC ToMediaColor(this UIColorType color)
     {
@@ -68,12 +66,11 @@ public static class UIColorTypeExtensions
     }
 
     /// <summary>
-    /// Convierte un <see cref="UIColorType"/> en un <see cref="DC"/>.
+    /// Converts a <see cref="UIColorType"/> to a <see cref="DC"/>.
     /// </summary>
-    /// <param name="color">Color a convertir.</param>
+    /// <param name="color">Color to convert.</param>
     /// <returns>
-    /// Un nuevo <see cref="DC"/> equivalente al <see cref="UIColorType"/>
-    /// especificado.
+    /// A new <see cref="DC"/> equivalent to the specified <see cref="UIColorType"/>.
     /// </returns>
     public static DC ToDrawingColor(this UIColorType color)
     {
@@ -82,12 +79,11 @@ public static class UIColorTypeExtensions
     }
 
     /// <summary>
-    /// Convierte un <see cref="UIColorType"/> en un <see cref="MC"/>.
+    /// Converts a <see cref="UIColorType"/> to a <see cref="MC"/>.
     /// </summary>
-    /// <param name="color">Color a convertir.</param>
+    /// <param name="color">Color to convert.</param>
     /// <returns>
-    /// Un nuevo <see cref="MC"/> equivalente al <see cref="UIColorType"/>
-    /// especificado.
+    /// A new <see cref="MC"/> equivalent to the specified <see cref="UIColorType"/>.
     /// </returns>
     public static MC ToColor(this UIColorType color)
     {

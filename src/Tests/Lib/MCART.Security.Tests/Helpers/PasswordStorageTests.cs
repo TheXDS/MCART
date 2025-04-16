@@ -8,7 +8,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -42,6 +42,11 @@ internal class PasswordStorageTests
     [ExcludeFromCodeCoverage]
     private class DummyPasswordStorage : IPasswordStorage
     {
+        static DummyPasswordStorage()
+        {
+            RegisterAlgorithm<DummyPasswordStorage>();
+        }
+
         private string settings = "TESTtest";
         public int KeyLength => 16;
         public void ConfigureFrom(BinaryReader reader) => settings = Encoding.UTF8.GetString(reader.ReadBytes(8));
@@ -53,6 +58,9 @@ internal class PasswordStorageTests
     private class Dummy2PasswordStorage : IPasswordStorage<int>
     {
         public byte[] Generate(byte[] input) => input.Concat(new byte[KeyLength]).ToArray()[0..KeyLength];
+        public void ConfigureFrom(BinaryReader reader) => Settings = reader.ReadInt32();
+        public byte[] DumpSettings() => BitConverter.GetBytes(Settings);
+
         public int KeyLength { get; set; }
         public int Settings { get; set; }
     }

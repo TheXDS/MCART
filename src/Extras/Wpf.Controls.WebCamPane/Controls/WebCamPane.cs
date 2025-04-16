@@ -11,9 +11,14 @@ using TheXDS.MCART.Math;
 namespace TheXDS.MCART.Controls;
 
 /// <summary>
-/// Control que permite que un stream de video, generalmente de una cámara
-/// web, se muestre en vista previa en la interfaz de usuario.
+/// Control that allows a video stream (usually from a web camera) to be
+/// previewed by the user, as well as allowing for video stream configuration.
 /// </summary>
+/// <remarks>
+/// The video stream will be opened in exclusive mode, so this control is not
+/// suitable to be used by multiple preview panels, or concurrently with video
+/// transmission.
+/// </remarks>
 [CLSCompliant(false)]
 public partial class WebCamPane : Control
 {

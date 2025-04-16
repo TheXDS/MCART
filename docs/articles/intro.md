@@ -1,109 +1,44 @@
-# Acerca de MCART
+# About MCART
 
-## (Pre-)historia
-Hace mucho tiempo, cuando comencé a aprender programación *circa* 1999~2000,
-tuve la experiencia de iniciarme en la programación en lenguajes como GWBASIC y
-QuickBASIC. Estos son lenguajes que no ofrecían muchas herramientas ni
-funcionalidad incorporada de forma predeterminada, lo cual era relativamente
-común para los lenguajes legacy de la época.
+## (Pre-)history
+A long time ago, when I started learning programming *circa* 1999~2000, I had the experience of starting out in programming languages like GWBASIC and QuickBASIC. These are languages that did not offer many tools or built-in functionality by default, which was relatively common for legacy languages of the time.
 
-Con el tiempo, empecé a desarrollar pequeńos programas o pequeńos juegos con
-una interactividad bastante limitada, todo esto en QuickBASIC. Debido a que QB
-era un entorno tan limitado, tuve que crear distintas funciones que realizaban
-pequeńas tareas útiles en mis programas. Desde funciones sencillas de centrado
-de texto en pantalla, hasta funciones algo complejas que dibujaban cuadros de
-texto para la entrada de datos, con todo y soporte para tabulacion,
-desplazamiento y caracteres de contraseńa.
+Over time, I began to develop small programs or small games with quite limited interactivity, all in QuickBASIC. Because QB was such a limited environment, I had to create various functions that performed small useful tasks in my programs. From simple functions for centering text on the screen to somewhat complex functions that drew text boxes for data input, complete with support for tabbing, scrolling, and password characters.
 
-Originalmente llamado XDS!SUBS, ese proyecto se convirtió en mi repositorio de
-funciones utilitarias de propósito general, y aunque no pudo ver la luz
-pública, consideré ese proyecto como un gran logro personal. Todo esto en 2004,
-a la edad de 11 ańos.
+Originally called XDS!SUBS, that project became my repository of general-purpose utility functions, and although it could not see the public light, I considered that project a great personal achievement. All this in 2004, at the age of 11.
 
-Hice algunos programas utilizando funcionalidad de XDS!SUBS. Uno de los más
-impresionantes fue Basic Shell 3, el cual simplemente era una capa gráfica
-entre MS-DOS y el usuario. simplemente agregaba soporte para ratón y algunos
-botones con comandos de MS-DOS listos para ejecutar, además de correr en modo
-gráfico (modo de pantalla 12) y ofrecer algunos comandos especiales para el
-cambio de colores o para cambiar el modo de dibujo de BS3.
+I made some programs using functionality from XDS!SUBS. One of the most impressive was Basic Shell 3, which was simply a graphical layer between MS-DOS and the user. It simply added mouse support and some buttons with ready-to-execute MS-DOS commands, in addition to running in graphical mode (screen mode 12) and offering some special commands for color changes or to change the drawing mode of BS3.
 
-Eventualmente, aprendí Visual Basic. En aquel entonces, inicié con VBA en
-Microsoft Office 2003 y luego pase a VB6. Intenté *portear* mis funciones de
-XDS!SUBS a Visual Basic, y obviamente, la gran mayoría de ellas no podrian
-funcionar, ya que eran funciones graficas que lidiaban con el modo texto u
-otros modos directos de dibujo para entornos MS-DOS.
+Eventually, I learned Visual Basic. At that time, I started with VBA in Microsoft Office 2003 and then moved on to VB6. I tried to port my functions from XDS!SUBS to Visual Basic, and obviously, the vast majority of them could not work, as they were graphical functions dealing with text mode or other direct drawing modes for MS-DOS environments.
 
-Algunos de mis experimentos en Visual Basic se beneficiaron de mis funciones,
-como ser pequeńas calculadoras, y herramientas que lidiaban con números
-binarios. Incluso, intenté inventar un formato de almacén de contraseńas
-llamado DUF, el cual era irrisoriamente inseguro.
+Some of my experiments in Visual Basic benefited from my functions, such as small calculators and tools that dealt with binary numbers. I even tried to invent a password storage format called DUF, which was ridiculously insecure.
 
-## Empezando a tomar forma
-Es importante resaltar que, en este punto, XDS!SUBS dejó de tener ese nombre.
-Utilicé los archivos de lo que fue XDS!SUBS como un lugar de experimentacion,
-en donde intentaba ideas alocadas o implementaba retos autoimpuestos para
-asegurarme de entender bien ciertos conceptos. Estaba migrando mis habilidades
-de VB6 al relativamente nuevo VB.Net (la version de 2002, en el ańo 2006).
 
-El proyecto aún no tenía un nombre como tal. Sin embargo, siendo un fan del
-automovilismo, tuve la idea de llamar a este gran lugar para todo tipo de
-funciones con el nombre de mi circuito de carreras favorito: Nürburgring.
+## Starting to Take Shape
+It is important to highlight that, at this point, XDS!SUBS stopped having that name. I used the files from what was XDS!SUBS as a place for experimentation, where I tried crazy ideas or implemented self-imposed challenges to ensure I understood certain concepts well. I was migrating my skills from VB6 to the relatively new VB.Net (the 2002 version, in 2006).
 
-Nürburgring no tenía un objetivo en particular. Simplemente era un lugar donde
-guardar código e intentar ideas interesantes. Incluía una app de pruebas en
-donde simplemente se demostraba el uso de las funciones incorporadas,
-permitiendo a un nuevo desarrollador tomarlas como ejemplo y utilizarlas dentro
-de sus programas.
+The project still did not have a name as such. However, being a fan of motorsport, I had the idea to name this great place for all kinds of functions after my favorite racetrack: Nürburgring.
 
-Entre las funciones disponibles en Nürburgring se incluía un intérprete del
-lenguaje de programación esotérico [BrainFuck](https://en.wikipedia.org/wiki/Brainfuck),
-una clase adaptador para realizar encriptado con AES, funciones de Checksum,
-*parsers* de binario a tipos numéricos, una clase para lectura/escritura del
-anteriormente mencionado formato de archivo DUF (database of users file), un
-motor de base de datos extremadamente rudimentario basado en archivos XML,
-entre otra funcionalidad, alguna de la cual estaba incompleta/rota o existía
-en .Net Framework.
+Nürburgring did not have a particular goal. It was simply a place to store code and try interesting ideas. It included a test app where the use of the built-in functions was simply demonstrated, allowing a new developer to take them as examples and use them within their programs.
 
-Luego de varias revisiones y versiones, eliminación de los experimentos
-extrańos e inusuales y de toda la funcionalidad para la cual existía una
-alternativa nativa en el BCL de .Net Framework, lo que sería finalmente MCART
-empezó a tomar forma, alrededor del ańo 2010 mientras finalizaba el colegio.
+Among the functions available in Nürburgring was an interpreter for the esoteric programming language [BrainFuck](https://en.wikipedia.org/wiki/Brainfuck), an adapter class for performing AES encryption, checksum functions, binary to numeric type parsers, a class for reading/writing the previously mentioned DUF file format (database of users file), an extremely rudimentary database engine based on XML files, among other functionalities, some of which were incomplete/broken or existed in the .Net Framework.
 
-Hoy en día, tengo un repositorio para experimentos extrańos e inusuales,
-[Vulcanium](https://github.com/TheXDS/Vulcanium/).
+After several revisions and versions, removing strange and unusual experiments and all the functionality for which there was a native alternative in the BCL of .Net Framework, what would eventually become MCART began to take shape, around the year 2010 while I was finishing school.
 
-## Enfocando el proyecto
-La ultima versión repleta de funcionalidad de dudosa utilidad fue la
-[0.3.3.80](https://github.com/TheXDS/MCART-Classic). En este punto finalmente
-decidí lo que mi proyecto debía ser. Finalmente, decidí que podría crear una
-librería de propósito general que realmente pudiera proveer a los
-desarrolladores de algo útil. La version 0.4 finalmente llevaria el nombre de
-MCART (Morgan's CLR Advanced Runtime), aunque aún era referenciada por el
-nombre Nürburgring.
+Today, I have a repository for strange and unusual experiments, [Vulcanium](https://github.com/TheXDS/Vulcanium/).
 
-MCART 0.4 se reescribió por completo, quitando una gran cantidad de
-funcionalidad que no era útil, o para la cual existía una alternativa viable en
-.Net Framework. Con el pasar de nuevas versiones, se fueron agregando funciones
-verdaderamente útiles, además de quitar las que no lo eran.
+## Focusing the Project
+The last version packed with dubious utility functionality was [0.3.3.80](https://github.com/TheXDS/MCART-Classic). At this point, I finally decided what my project should be. I ultimately decided that I could create a general-purpose library that could truly provide developers with something useful. Version 0.4 would finally carry the name MCART (Morgan's CLR Advanced Runtime), although it was still referred to by the name Nürburgring.
 
-En 0.6 hubo un salto importante: MCART se reescribió en C#. En 0.7 hubo otra
-reescritura que trajo consigo una reestructuración del código. Luego, en 0.8
-finalmente decidí publicar MCART como un paquete de [NuGet](https://www.nuget.org/packages/TheXDS.MCART/).
+MCART 0.4 was completely rewritten, removing a large amount of functionality that was not useful or for which there was a viable alternative in .Net Framework. As new versions were released, truly useful functions were added, in addition to removing those that were not.
 
-Durante el enfoque, proyectos para soportar y extender frameworks de UI fueron
-creados y luego deprecados. Esto se debió a que MCART ha sido siempre un
-proyecto de pasión, no tanto uno que se comercialize o con el cual se hubiesen
-creado apps para el mercado o el consumo público (aunque, en espíritu esa era
-la idea).
+In 0.6 there was a significant leap: MCART was rewritten in C#. In 0.7 there was another rewrite that brought about a restructuring of the code. Then, in 0.8 I finally decided to publish MCART as a [NuGet](https://www.nuget.org/packages/TheXDS.MCART/) package.
 
-## Hoy en día
-MCART sigue en desarrollo activo. Mi trabajo como desarrollador me impiden tal
-vez hacer el progreso que me gustaría, pero siempre procuro ocasionalmente
-abrir el proyecto, revisar el código, implementar alguna funcionalidad nueva,
-escribir más pruebas unitarias, o simplemente apreciar la evolución del
-proyecto desde su génesis.
+During the focus, projects to support and extend UI frameworks were created and then deprecated. This was because MCART has always been a passion project, not so much one that is commercialized or with which apps for the market or public consumption were created (although, in spirit, that was the idea).
 
-Espero que algún día pueda ver MCART en el punto en que lo envisiono: como una
-librería de propósito general que los desarrolladores puedan utilizar para
-agilizar sus flujos de trabajo, y proveerles de las herramientas que necesiten
-para crear todo tipo de aplicaciones, sin importar el tamańo.
+There is a [document](https://github.com/TheXDS/MCART/blob/master/docs/articles/old/CHANGELOG.md) that summarizes some of the changes that occurred in the pre-GIT era of MCART.
+
+## Today
+MCART is still under active development. My work as a developer may prevent me from making the progress I would like, but I always try to occasionally open the project, review the code, implement some new functionality, write more unit tests, or simply appreciate the evolution of the project from its genesis.
+
+I hope that one day I can see MCART at the point where I envision it: as a general-purpose library that developers can use to streamline their workflows and provide them with the tools they need to create all kinds of applications, regardless of size.

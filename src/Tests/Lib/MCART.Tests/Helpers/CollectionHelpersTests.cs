@@ -10,7 +10,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -144,7 +144,7 @@ public class CollectionHelpersTests
         for (int j = 0; j < 10; j++) data[j] = true;
         Assert.That(data.And());
         Assert.Throws<ArgumentNullException>(() => ((IEnumerable<bool>)null!).And());
-        Assert.Throws<EmptyCollectionException>(() => Array.Empty<bool>().And());
+        Assert.Throws<InvalidOperationException>(() => Array.Empty<bool>().And());
     }
 
     [TestCase(new byte[] { 1, 2, 4, 8, 16, 32, 64, 128 }, 0)]
@@ -153,7 +153,7 @@ public class CollectionHelpersTests
     {
         Assert.That(orValue, Is.EqualTo(array.And()));
         Assert.Throws<ArgumentNullException>(() => ((IEnumerable<byte>)null!).And());
-        Assert.Throws<EmptyCollectionException>(() => Array.Empty<byte>().And());
+        Assert.Throws<InvalidOperationException>(() => Array.Empty<byte>().And());
     }
 
     [TestCase(new sbyte[] { 1, 2, 4, 8, 16, 32, 64 }, 0)]
@@ -162,7 +162,7 @@ public class CollectionHelpersTests
     {
         Assert.That(orValue, Is.EqualTo(array.And()));
         Assert.Throws<ArgumentNullException>(() => ((IEnumerable<sbyte>)null!).And());
-        Assert.Throws<EmptyCollectionException>(() => Array.Empty<sbyte>().And());
+        Assert.Throws<InvalidOperationException>(() => Array.Empty<sbyte>().And());
     }
         
     [TestCase(new ushort[] { 1, 2, 4 }, (ushort)0)]
@@ -171,7 +171,7 @@ public class CollectionHelpersTests
     {
         Assert.That(orValue, Is.EqualTo(array.And()));
         Assert.Throws<ArgumentNullException>(() => ((IEnumerable<ushort>)null!).And());
-        Assert.Throws<EmptyCollectionException>(() => Array.Empty<ushort>().And());
+        Assert.Throws<InvalidOperationException>(() => Array.Empty<ushort>().And());
     }
     
     [TestCase(new short[] { 1, 2, 4 }, 0)]
@@ -181,7 +181,7 @@ public class CollectionHelpersTests
     {
         Assert.That(orValue, Is.EqualTo(array.And()));
         Assert.Throws<ArgumentNullException>(() => ((IEnumerable<short>)null!).And());
-        Assert.Throws<EmptyCollectionException>(() => Array.Empty<short>().And());
+        Assert.Throws<InvalidOperationException>(() => Array.Empty<short>().And());
     }
 
     [TestCase(new[] { '\x1001', '\x1002', '\x1004' }, '\x1000')]
@@ -190,7 +190,7 @@ public class CollectionHelpersTests
     {
         Assert.That(orValue, Is.EqualTo(array.And()));
         Assert.Throws<ArgumentNullException>(() => ((IEnumerable<char>)null!).And());
-        Assert.Throws<EmptyCollectionException>(() => Array.Empty<char>().And());
+        Assert.Throws<InvalidOperationException>(() => Array.Empty<char>().And());
     }
 
     [TestCase(new uint[] { 1, 2, 4 }, (uint)0)]
@@ -199,7 +199,7 @@ public class CollectionHelpersTests
     {
         Assert.That(orValue, Is.EqualTo(array.And()));
         Assert.Throws<ArgumentNullException>(() => ((IEnumerable<uint>)null!).And());
-        Assert.Throws<EmptyCollectionException>(() => Array.Empty<uint>().And());
+        Assert.Throws<InvalidOperationException>(() => Array.Empty<uint>().And());
     }
     
     [TestCase(new[] { 1, 2, 4 }, 0)]
@@ -209,7 +209,7 @@ public class CollectionHelpersTests
     {
         Assert.That(orValue, Is.EqualTo(array.And()));
         Assert.Throws<ArgumentNullException>(() => ((IEnumerable<int>)null!).And());
-        Assert.Throws<EmptyCollectionException>(() => Array.Empty<int>().And());
+        Assert.Throws<InvalidOperationException>(() => Array.Empty<int>().And());
     }
     
     [TestCase(new ulong[] { 1, 2, 4 }, (ulong)0)]
@@ -218,7 +218,7 @@ public class CollectionHelpersTests
     {
         Assert.That(orValue, Is.EqualTo(array.And()));
         Assert.Throws<ArgumentNullException>(() => ((IEnumerable<ulong>)null!).And());
-        Assert.Throws<EmptyCollectionException>(() => Array.Empty<ulong>().And());
+        Assert.Throws<InvalidOperationException>(() => Array.Empty<ulong>().And());
     }
 
     [TestCase(new long[] { 1, 2, 4 }, 0)]
@@ -228,7 +228,7 @@ public class CollectionHelpersTests
     {
         Assert.That(orValue, Is.EqualTo(array.And()));
         Assert.Throws<ArgumentNullException>(() => ((IEnumerable<long>)null!).And());
-        Assert.Throws<EmptyCollectionException>(() => Array.Empty<long>().And());
+        Assert.Throws<InvalidOperationException>(() => Array.Empty<long>().And());
     }
 
     [Test]
@@ -358,7 +358,7 @@ public class CollectionHelpersTests
     [Test]
     public void ToPercent_Test_Double()
     {
-        int[]? c = new[] { 1, 2, 3, 4, 5 };
+        int[]? c = [1, 2, 3, 4, 5];
 
         Assert.That(new[] { 0.2, 0.4, 0.6, 0.8, 1.0 }, Is.EqualTo(c.ToPercentDouble()));
         Assert.That(new[] { 0.2, 0.4, 0.6, 0.8, 1.0 }, Is.EqualTo(c.ToPercentDouble(true)));
@@ -366,19 +366,15 @@ public class CollectionHelpersTests
         Assert.That(new[] { 0.1, 0.2, 0.3, 0.4, 0.5 }, Is.EqualTo(c.ToPercentDouble(10)));
         Assert.That(new[] { 0.0, 0.25, 0.5, 0.75, 1.0 }, Is.EqualTo(c.ToPercentDouble(1, 5)));
         Assert.Throws<InvalidOperationException>(() => c.ToPercentDouble(1, 1).ToList());
-        Assert.Throws<EmptyCollectionException>(() => Array.Empty<int>().ToPercentDouble().ToList());
-        Assert.Throws<EmptyCollectionException>(() => Array.Empty<double>().ToPercent().ToList());
+        Assert.Throws<InvalidOperationException>(() => Array.Empty<int>().ToPercentDouble().ToList());
+        Assert.Throws<InvalidOperationException>(() => Array.Empty<double>().ToPercent().ToList());
         Assert.That(
             new[] { 0, 0.25, 0.5, 0.75, 1.0 },
             Is.EqualTo(new[] { 1.0, 2.0, 3.0, 4.0, 5.0 }.ToPercent()));
 
         Assert.That(
-            new[] { 0, 0.25, 0.5, 0.75, 1.0 },
-            Is.EqualTo(new[] { 1.0, 2.0, 3.0, 4.0, 5.0 }.ToPercent(false)));
-
-        Assert.That(
             new[] { 0.25, 0.5, 0.75, 1.0 },
-            Is.EqualTo(new[] { 1.0, 2.0, 3.0, 4.0 }.ToPercent(true)));
+            Is.EqualTo(new[] { 1.0, 2.0, 3.0, 4.0 }.ToPercentAbsolute()));
 
         Assert.That(
             new[] { 0.1, 0.2, 0.3, 0.4 },
@@ -450,7 +446,7 @@ public class CollectionHelpersTests
         Assert.That(new[] { 0.1f, 0.2f, 0.3f, 0.4f, 0.5f }, Is.EqualTo(c.ToPercentSingle(10)));
         Assert.That(new[] { 0.0f, 0.25f, 0.5f, 0.75f, 1.0f }, Is.EqualTo(c.ToPercentSingle(1, 5)));
         Assert.Throws<InvalidOperationException>(() => c.ToPercentSingle(1, 1).ToList());
-        Assert.Throws<EmptyCollectionException>(() => Array.Empty<int>().ToPercentSingle().ToList());
+        Assert.Throws<InvalidOperationException>(() => Array.Empty<int>().ToPercentSingle().ToList());
         Assert.That(
             new[] { 0f, 0.25f, 0.5f, 0.75f, 1.0f },
             Is.EqualTo(new[] { 1f, 2f, 3f, 4f, 5f }.ToPercent()));
@@ -474,7 +470,7 @@ public class CollectionHelpersTests
         Assert.Throws<ArgumentException>(() => new[] { 1f }.ToPercent(float.NaN, float.NaN).ToList());
         Assert.Throws<ArgumentException>(() => new[] { 1f }.ToPercent(0f, float.NaN).ToList());
         Assert.Throws<InvalidOperationException>(() => new[] { 1f, 1f }.ToPercent(1f, 1f).ToList());
-        Assert.Throws<EmptyCollectionException>(() => Array.Empty<float>().ToPercent().ToList());
+        Assert.Throws<InvalidOperationException>(() => Array.Empty<float>().ToPercent().ToList());
     }
 
     [Test]

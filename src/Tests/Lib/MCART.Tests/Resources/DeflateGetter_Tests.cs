@@ -1,5 +1,5 @@
-﻿/*
-IdentifierAttribute.cs
+/*
+DeflateGetter_Tests.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,14 +28,27 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Attributes;
+#pragma warning disable CS8974
 
-/// <summary>
-/// Indica una cadena que puede utilizarse para identificar a este elemento.
-/// </summary>
-/// <remarks>
-/// Indica una cadena que puede utilizarse para identificar a este elemento.
-/// </remarks>
-/// <param name="identifier">Identificador a utilizar.</param>
-[AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
-public sealed class IdentifierAttribute(string identifier) : TextAttribute(identifier);
+using System.IO.Compression;
+using TheXDS.MCART.Resources;
+
+namespace TheXDS.MCART.Tests.Resources;
+
+public class DeflateGetter_Tests()
+{
+    [Test]
+    public void GetCompressor_Test()
+    {
+        var getter = new DeflateGetter();
+        using var stream = new MemoryStream();
+        using var compressor = getter.GetCompressor(stream);
+        Assert.That(compressor, Is.InstanceOf<DeflateStream>());
+    }
+
+    [Test]
+    public void Extension_Test()
+    {
+        Assert.That(new DeflateGetter().Extension, Is.EqualTo(".deflate"));
+    }
+}

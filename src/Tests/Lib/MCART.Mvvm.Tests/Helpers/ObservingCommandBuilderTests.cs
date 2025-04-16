@@ -6,7 +6,7 @@
 //      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 //
 // Released under the MIT License (MIT)
-// Copyright © 2011 - 2024 César Andrés Morgan
+// Copyright © 2011 - 2025 César Andrés Morgan
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of
 // this software and associated documentation files (the “Software”), to deal in
@@ -26,6 +26,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using Moq;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using TheXDS.MCART.Component;
 using TheXDS.MCART.Helpers;
@@ -35,6 +37,18 @@ namespace TheXDS.MCART.Mvvm.Tests.Helpers
 {
     public class ObservingCommandBuilderTests
     {
+        [ExcludeFromCodeCoverage]
+        private class TestClassWithBoolProp
+        {
+            public bool BoolProp { get; set; }
+        }
+
+        [ExcludeFromCodeCoverage]
+        private class ObservableDerivedTestClass : ObservableTestClass
+        {
+            public bool BoolProp { get; set; }
+        }
+
         [ExcludeFromCodeCoverage]
         private class ObservableTestClass : NotifyPropertyChanged
         {
@@ -85,10 +99,11 @@ namespace TheXDS.MCART.Mvvm.Tests.Helpers
 
             public bool IsStringLengthEven => (StringProperty?.Length ?? 0) % 2 == 0;
 
-            public ObservableTestClass()
+            protected override void OnInitialize(IPropertyBroadcastSetup broadcastSetup)
             {
-                RegisterPropertyChangeBroadcast(nameof(IntProperty), nameof(IsIntEven));
-                RegisterPropertyChangeBroadcast(nameof(StringProperty), nameof(IsStringLengthEven));
+                broadcastSetup
+                    .RegisterPropertyChangeBroadcast(() => IntProperty, () => IsIntEven)
+                    .RegisterPropertyChangeBroadcast(() => StringProperty, () => IsStringLengthEven);
             }
         }
 
@@ -131,6 +146,31 @@ namespace TheXDS.MCART.Mvvm.Tests.Helpers
         public void ListensToCanExecute_configures_command_test()
         {
             var observed = new ObservableTestClass();
+            var command = ObservingCommandBuilder
+                .Create(observed, () => { })
+                .ListensToCanExecute(p => p.IsIntEven)
+                .Build();
+
+            observed.IntProperty = 1;
+            Assert.That(command.CanExecute(null), Is.False);
+            observed.IntProperty = 2;
+            Assert.That(command.CanExecute(null), Is.True);
+        }
+
+        [Conditional("EnforceContracts")]
+        [Test]
+        public void ListensToCanExecute_throws_if_member_is_not_declared_inside_type()
+        {
+            var m = new TestClassWithBoolProp();
+            var observed = new ObservableTestClass();
+            var cb = ObservingCommandBuilder.Create(observed, () => { });
+            Assert.That(()=> cb.ListensToCanExecute(p => m.BoolProp), Throws.InstanceOf<MissingMemberException>());
+        }
+
+        [Test]
+        public void ListensToCanExecute_configures_command_for_derived_types_test()
+        {
+            var observed = new ObservableDerivedTestClass();
             var command = ObservingCommandBuilder
                 .Create(observed, () => { })
                 .ListensToCanExecute(p => p.IsIntEven)

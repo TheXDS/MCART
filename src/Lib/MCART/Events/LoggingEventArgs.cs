@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -33,43 +33,36 @@ using static TheXDS.MCART.Misc.Internals;
 namespace TheXDS.MCART.Events;
 
 /// <summary>
-/// Incluye información de evento para cualquier clase con eventos de
-/// logging (bitácora).
+/// Contains event information for any event that includes logging data.
 /// </summary>
 public class LoggingEventArgs : ValueEventArgs<string>
 {
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="LoggingEventArgs" />, sin definir un objeto relacionado.
+    /// Initializes a new instance of the <see cref="LoggingEventArgs"/> without specifying the subject.
     /// </summary>
-    /// <param name="message">Mensaje de esta entrada de log.</param>
+    /// <param name="message">Log entry message.</param>
     /// <exception cref="ArgumentException">
-    /// Se produce si <paramref name="message"/> es <see langword="null"/> o
-    /// una cadena vacía.
+    /// Thrown if <paramref name="message"/> is <see langword="null"/> or
+    /// an empty string.
     /// </exception>
     public LoggingEventArgs(string message) : base(message)
     {
-        EmptyCheck(message, nameof(message));
+        EmptyCheck(message);
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="LoggingEventArgs" />, definiendo un objeto relacionado.
+    /// Initializes a new instance of the <see cref="LoggingEventArgs"/> class.
     /// </summary>
     /// <param name="subject">
-    /// Objeto relacionado a esta entrada de log.</param>
-    /// <param name="message">Mensaje de esta entrada de log.
-    /// </param>
-    /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="subject"/> es <see langword="null"/>.
-    /// </exception>
+    /// Object that is related to the log entry message.</param>
+    /// <param name="message">Log entry message.</param>
     /// <exception cref="ArgumentException">
-    /// Se produce si <paramref name="message"/> es <see langword="null"/> o
-    /// una cadena vacía.
+    /// Thrown if <paramref name="message"/> is <see langword="null"/> or
+    /// an empty string.
     /// </exception>
-    public LoggingEventArgs(object subject, string message) : this(message)
+    public LoggingEventArgs(object? subject, string message) : this(message)
     {
-        Subject = NullChecked(subject);
+        Subject = subject;
     }
 
     /// <summary>

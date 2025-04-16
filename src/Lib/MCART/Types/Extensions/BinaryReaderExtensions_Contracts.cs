@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -30,6 +30,7 @@ SOFTWARE.
 
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Resources;
 using static TheXDS.MCART.Misc.Internals;
 
@@ -42,15 +43,47 @@ public static partial class BinaryReaderExtensions
     [DebuggerNonUserCode]
     private static void ReadStruct_Contract(this BinaryReader reader)
     {
-        NullCheck(reader);
+        ArgumentNullException.ThrowIfNull(reader);
     }
 
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
     private static void ReadArray_Contract(BinaryReader reader, Type arrayType)
     {
-        NullCheck(reader, nameof(reader));
+        ArgumentNullException.ThrowIfNull(reader, nameof(reader));
         if (!NullChecked(arrayType).IsArray)
         {
             throw Errors.UnexpectedType(arrayType, typeof(Array));
         }
+    }
+
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void ReadBytesAt_Contract(this BinaryReader reader, long offset, int count)
+    {
+        ReadStruct_Contract(reader);
+        if (!offset.IsBetween(0, reader.BaseStream.Length)) throw Errors.ValueOutOfRange(nameof(offset), 0, reader.BaseStream.Length);
+        if (!count.IsBetween(0, (int)(reader.BaseStream.Length - offset))) throw Errors.ValueOutOfRange(nameof(count), 0, reader.BaseStream.Length - offset);
+    }
+
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void MarshalReadArray_Contract(BinaryReader br, int count)
+    {
+        ReadStruct_Contract(br);
+        if (!count.IsBetween(0, int.MaxValue)) throw Errors.ValueOutOfRange(nameof(count), 0, int.MaxValue);
+    }
+
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void MarshalReadArray_Contract(BinaryReader br, long offset, int count)
+    {
+        ReadStruct_Contract(br);
+        if (!offset.IsBetween(0, br.BaseStream.Length)) throw Errors.ValueOutOfRange(nameof(offset), 0, br.BaseStream.Length);
+        if (!count.IsBetween(0, int.MaxValue)) throw Errors.ValueOutOfRange(nameof(count), 0, int.MaxValue);
     }
 }

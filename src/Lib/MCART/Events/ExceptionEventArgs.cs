@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -31,37 +31,34 @@ SOFTWARE.
 namespace TheXDS.MCART.Events;
 
 /// <summary>
-/// Incluye información de evento para cualquier clase con eventos de
-/// excepción.
+/// Includes event information for any event that includes exception
+/// information.
 /// </summary>
 public class ExceptionEventArgs : ValueEventArgs<Exception?>
 {
     /// <summary>
-    /// Inicializa una nueva instancia de este objeto sin especificar
-    /// una excepción producida.
+    /// Initializes a new instance of the <see cref="ExceptionEventArgs"/>
+    /// class without specifying the exception that has been produced.
     /// </summary>
     public ExceptionEventArgs() : base(null)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de este objeto con la excepción
-    /// especificada.
+    /// Initializes a new instance of the <see cref="ExceptionEventArgs"/>
+    /// class specifying the exception that has been produced.
     /// </summary>
     /// <param name="ex">
-    /// <see cref="Exception" /> que se ha producido en el código.
+    /// <see cref="Exception" /> to associate with this instance.
     /// </param>
     public ExceptionEventArgs(Exception? ex) : base(ex)
     {
     }
 
     /// <summary>
-    /// Convierte implícitamente un <see cref="Exception"/> en un
-    /// <see cref="ExceptionEventArgs"/>.
+    /// Implicitly converts an object of type <see cref="Exception"/> into an
+    /// object of type <see cref="ExceptionEventArgs"/>.
     /// </summary>
-    /// <param name="ex">
-    /// <see cref="Exception"/> a partir de la cual crear el nuevo
-    /// <see cref="ExceptionEventArgs"/>.
-    /// </param>
+    /// <param name="ex">Value to be converted.</param>
     public static implicit operator ExceptionEventArgs(Exception ex) => new(ex);
 }

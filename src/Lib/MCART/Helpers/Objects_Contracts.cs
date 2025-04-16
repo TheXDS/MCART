@@ -9,7 +9,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -36,25 +36,14 @@ using static TheXDS.MCART.Misc.Internals;
 
 namespace TheXDS.MCART.Helpers;
 
-/// <summary>
-/// Funciones de manipulación de objetos.
-/// </summary>
 public static partial class Objects
 {
     [Conditional("EnforceContracts")]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     [DebuggerNonUserCode]
-    private static void FromBytes_Contract(byte[] rawBytes)
-    {
-        NullCheck(rawBytes, nameof(rawBytes));
-    }
-
-    [Conditional("EnforceContracts")]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    [DebuggerNonUserCode]
     private static void ShallowCopyTo_Contract<T>(T source, T destination)
     {
-        NullCheck(source, nameof(source));
-        NullCheck(destination, nameof(destination));
+        ArgumentNullException.ThrowIfNull(source, nameof(source));
+        ArgumentNullException.ThrowIfNull(destination, nameof(destination));
     }
 }

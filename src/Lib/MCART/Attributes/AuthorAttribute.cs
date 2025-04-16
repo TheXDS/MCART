@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -33,9 +33,9 @@ using static System.AttributeTargets;
 namespace TheXDS.MCART.Attributes;
 
 /// <summary>
-/// Establece el autor del elemento.
+/// Sets the author of the element.
 /// </summary>
-/// <param name="attrValue">Valor del atributo.</param>
+/// <param name="attrValue">Value of the attribute.</param>
 [AttributeUsage(Property | Method | Constructor | Class | Module | Assembly, AllowMultiple = true)]
 [Serializable]
 public sealed class AuthorAttribute(string attrValue) : TextAttribute(attrValue);

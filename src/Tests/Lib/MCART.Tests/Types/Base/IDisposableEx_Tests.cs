@@ -1,5 +1,5 @@
-﻿/*
-NetworkingTest.cs
+/*
+IDisposableEx_Tests.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,30 +28,37 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using TheXDS.MCART.Networking;
+using Moq;
+using TheXDS.MCART.Types.Base;
 
-namespace TheXDS.MCART.Tests.Networking;
+namespace TheXDS.MCART.Tests.Types.Base;
 
-[Obsolete("Estos objetos utilizan clases deprecadas en .Net 6.")]
-public class NetworkingTest
+public class IDisposableEx_Tests
 {
-    //[Test]
-    public void DownloadTest()
+    [Test]
+    public void TryDispose_calls_implementation()
     {
-        /*
-         * Este Test tiene un problema...
-         * El método DownloadHttp se prueba realizando una descarga desde
-         * cualquier servidor, y dependiendo del servicio de host, es
-         * probable que consideren en uso continuo de los mismos para
-         * realizar las pruebas como abusivo. A este fin, se espera que en
-         * el futuro se implemente un servidor contenido dentro del mismo
-         * equipo para realizar pruebas de descarga.
-         * Mientras tanto, estos son los servicios desde los cuales no se
-         * recomienda probar para evitar caer en situaciones de abuso:
-         * - https://www.thinkbroadband.com/download
-         */
-        using MemoryStream? ms = new();
-        DownloadHelper.DownloadHttp("http://speedtest.ftp.otenet.gr/files/test100k.db", ms);
-        Assert.That(102400, Is.EqualTo(ms.Length));
+        var tm = new Mock<IDisposableEx>() { CallBase = true };
+        tm.Setup(a => a.Dispose()).Verifiable(Times.Once);
+        Assert.That(tm.Object.TryDispose());
+        tm.Verify();
+    }
+
+    [Test]
+    public void TryDispose_skips_if_disposed()
+    {
+        var tm = new Mock<IDisposableEx>() { CallBase = true };
+        tm.Setup(a => a.IsDisposed).Returns(true);
+        tm.Setup(a => a.Dispose()).Verifiable(Times.Never);
+        Assert.That(tm.Object.TryDispose(), Is.False);
+        tm.Verify();
+    }
+
+    [Test]
+    public void TryDispose_returns_false_on_exception()
+    {
+        var tm = new Mock<IDisposableEx>() { CallBase = true };
+        tm.Setup(a => a.Dispose()).Throws<Exception>();
+        Assert.That(!tm.Object.TryDispose());
     }
 }

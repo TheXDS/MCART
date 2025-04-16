@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -31,6 +31,7 @@ SOFTWARE.
 #pragma warning disable CS8974
 
 using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Helpers;
@@ -340,6 +341,7 @@ public class ErrorsTests : ExceptionResourceTestClass
     [Test]
     public void InvalidReturnValueException_test()
     {
+        [ExcludeFromCodeCoverage]
         static int BadDelegate() => 0;
         var msg = $"Test message {typeof(InvalidReturnValueException)}";
         var inner = new Exception(msg);
@@ -384,7 +386,7 @@ public class ErrorsTests : ExceptionResourceTestClass
         Assert.That(ex.OffendingReturnValue, Is.EqualTo(0));
         Assert.That(ex.OffendingFunctionName!.Contains(nameof(BadDelegate)));
     } 
-        
+    
     [Test]
     public void BinaryWriteNotSupported_test()
     {
@@ -400,9 +402,15 @@ public class ErrorsTests : ExceptionResourceTestClass
     }
 
     [Test]
+    public void MissingResourceException_Ctor_test()
+    {
+        TestOffendingExceptionCtors<MissingResourceException,string>("testId");
+    }
+
+    [Test]
     public void StackUnderflowException_Ctor_Test()
     {
-        TestExceptionType<StackUnderflowException>();
+        TestExceptionType<EmptyStackException>();
     }
 
     [Test]

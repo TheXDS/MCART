@@ -1,5 +1,5 @@
-﻿/*
-IWebUriParser.cs
+/*
+INotifyPropertyChangeBase.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,38 +28,27 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.Net;
-using TheXDS.MCART.Types.Base;
-
-namespace TheXDS.MCART.IO;
+namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
-/// Define una serie de miembros a implementar por un tipo que permita
-/// interpretar un <see cref="Uri"/> y obtener una respuesta desde un
-/// servicio web.
+/// Enumerates the different types of notifications that can be received by a
+/// property change observer method.
 /// </summary>
-#if NET6_0_OR_GREATER
-[Obsolete("Esta clase utiliza métodos web deprecados en .Net 6.")]
-#endif
-public interface IWebUriParser : IStreamUriParser
+public enum PropertyChangeNotificationType : byte
 {
     /// <summary>
-    /// Obtiene una respuesta Web a partir del <see cref="Uri"/>
-    /// especificado.
+    /// The property has not changed, but a request for refreshing it has been
+    /// made.
     /// </summary>
-    /// <param name="uri">Dirección web a resolver.</param>
-    /// <returns>
-    /// La respuesta enviada por un servidor web.
-    /// </returns>
-    WebResponse GetResponse(Uri uri);
-
+    NoChange,
+    
     /// <summary>
-    /// Obtiene una respuesta Web a partir del <see cref="Uri"/>
-    /// especificado de forma asíncrona.
+    /// The notification indicates that a property will change.
     /// </summary>
-    /// <param name="uri">Dirección web a resolver.</param>
-    /// <returns>
-    /// La respuesta enviada por un servidor web.
-    /// </returns>
-    Task<WebResponse> GetResponseAsync(Uri uri);
+    PropertyChanging, 
+    
+    /// <summary>
+    /// The notification indicates that a property has changed.
+    /// </summary>
+    PropertyChanged
 }

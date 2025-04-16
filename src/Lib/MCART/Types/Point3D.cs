@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,6 +28,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System.ComponentModel;
+using System.Numerics;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Math;
 using TheXDS.MCART.Misc;
@@ -46,7 +48,10 @@ namespace TheXDS.MCART.Types;
 /// implementación de MCART definir métodos para convertir a la clase
 /// correspondiente para los diferentes tipos de UI disponibles.
 /// </remarks>
-public partial struct Point3D : IFormattable, IEquatable<Point3D>, IVector3D
+/// <param name="x">Coordenada X.</param>
+/// <param name="y">Coordenada Y.</param>
+/// <param name="z">Coordenada Z.</param>
+public partial struct Point3D(double x, double y, double z) : IFormattable, IEquatable<Point3D>, IVector3D
 {
     /// <summary>
     /// Obtiene un punto que no representa ninguna posición. Este campo es
@@ -75,20 +80,6 @@ public partial struct Point3D : IFormattable, IEquatable<Point3D>, IVector3D
     /// bidimensional.
     /// </value>
     public static readonly Point3D Origin2D = new(0, 0, double.NaN);
-
-    /// <summary>
-    /// Inicializa una nueva instancia de la estructura
-    /// <see cref="Point3D" />.
-    /// </summary>
-    /// <param name="x">Coordenada X.</param>
-    /// <param name="y">Coordenada Y.</param>
-    /// <param name="z">Coordenada Z.</param>
-    public Point3D(double x, double y, double z)
-    {
-        X = x;
-        Y = y;
-        Z = z;
-    }
 
     /// <summary>
     /// Inicializa una nueva instancia de la estructura
@@ -337,17 +328,17 @@ public partial struct Point3D : IFormattable, IEquatable<Point3D>, IVector3D
     /// <summary>
     /// Coordenada X.
     /// </summary>
-    public double X { get; set; }
+    public double X { get; set; } = x;
 
     /// <summary>
     /// Coordenada Y.
     /// </summary>
-    public double Y { get; set; }
+    public double Y { get; set; } = y;
 
     /// <summary>
     /// Coordenada Z.
     /// </summary>
-    public double Z { get; set; }
+    public double Z { get; set; } = z;
 
     /// <summary>
     /// Intenta crear un <see cref="Point3D"/> a partir de una cadena.
@@ -381,19 +372,20 @@ public partial struct Point3D : IFormattable, IEquatable<Point3D>, IVector3D
                 break;
             default:
                 string[] separators =
-                {
-                        ", ",
-                        "; ",
-                        " - ",
-                        " : ",
-                        " | ",
-                        " ",
-                        ",",
-                        ";",
-                        ":",
-                        "|",
-                    };
+                [
+                    ", ",
+                    "; ",
+                    " - ",
+                    " : ",
+                    " | ",
+                    " ",
+                    ",",
+                    ";",
+                    ":",
+                    "|",
+                ];
                 return PrivateInternals.TryParseValues<double, Point3D>(
+                    new DoubleConverter(),
                     separators,
                     value.Without("()[]{}".ToCharArray()),
                     3,
@@ -429,7 +421,7 @@ public partial struct Point3D : IFormattable, IEquatable<Point3D>, IVector3D
     /// <see langword="true" /> si todos los vectores de ambos puntos son iguales;
     /// de lo contrario, <see langword="false" />.
     /// </returns>
-    public bool Equals(Point3D other)
+    public readonly bool Equals(Point3D other)
     {
         return this == other;
     }
@@ -444,7 +436,7 @@ public partial struct Point3D : IFormattable, IEquatable<Point3D>, IVector3D
     /// </returns>
     /// <param name="p1">Punto 1.</param>
     /// <param name="p2">Punto 2.</param>
-    public bool WithinCube(Point3D p1, Point3D p2)
+    public readonly bool WithinCube(Point3D p1, Point3D p2)
     {
         return X.IsBetween(p1.X, p2.X) && Y.IsBetween(p1.Y, p2.Y) && Z.IsBetween(p1.Z, p2.Z);
     }
@@ -465,9 +457,9 @@ public partial struct Point3D : IFormattable, IEquatable<Point3D>, IVector3D
     /// <param name="z2">La segunda coordenada z.</param>
     public readonly bool WithinCube(in double x1, in double y1, in double z1, in double x2, in double y2, in double z2)
     {
-        double[] x = new[] { x1, x2 }.Ordered().ToArray();
-        double[] y = new[] { y1, y2 }.Ordered().ToArray();
-        double[] z = new[] { z1, z2 }.Ordered().ToArray();
+        double[] x = [.. new[] { x1, x2 }.Ordered()];
+        double[] y = [.. new[] { y1, y2 }.Ordered()];
+        double[] z = [.. new[] { z1, z2 }.Ordered()];
         return X.IsBetween(x[0], x[1]) && Y.IsBetween(y[0], y[1]) && Z.IsBetween(z[0], z[1]);
     }
 
@@ -482,7 +474,7 @@ public partial struct Point3D : IFormattable, IEquatable<Point3D>, IVector3D
     /// <param name="x">Rango de valores para el eje X.</param>
     /// <param name="y">Rango de valores para el eje Y.</param>
     /// <param name="z">Rango de valores para el eje Z.</param>
-    public bool WithinCube(Range<double> x, Range<double> y, Range<double> z)
+    public readonly bool WithinCube(Range<double> x, Range<double> y, Range<double> z)
     {
         return x.IsWithin(X) && y.IsWithin(Y) && z.IsWithin(Z);
     }
@@ -499,9 +491,9 @@ public partial struct Point3D : IFormattable, IEquatable<Point3D>, IVector3D
     /// <param name="topLeftFront">Coordenadas de esquina superior izquierda frontal</param>
     public readonly bool WithinCube(in Size3D size, in Point3D topLeftFront)
     {
-        double[] x = new[] { topLeftFront.X, topLeftFront.X + size.Width }.Ordered().ToArray();
-        double[] y = new[] { topLeftFront.Y, topLeftFront.Y - size.Height }.Ordered().ToArray();
-        double[] z = new[] { topLeftFront.Z, topLeftFront.Z - size.Depth }.Ordered().ToArray();
+        double[] x = [.. new[] { topLeftFront.X, topLeftFront.X + size.Width }.Ordered()];
+        double[] y = [.. new[] { topLeftFront.Y, topLeftFront.Y - size.Height }.Ordered()];
+        double[] z = [.. new[] { topLeftFront.Z, topLeftFront.Z - size.Depth }.Ordered()];
         return WithinCube(x[0], y[0], z[0], x[1], y[1], z[1]);
     }
 
@@ -528,7 +520,7 @@ public partial struct Point3D : IFormattable, IEquatable<Point3D>, IVector3D
     /// <see langword="true" /> si el punto se encuentra dentro de la esfera,
     /// <see langword="false" /> en caso contrario.
     /// </returns>
-    public bool WithinSphere(Point3D center, double radius)
+    public readonly bool WithinSphere(Point3D center, double radius)
     {
         return Magnitude(center) <= radius;
     }
@@ -539,7 +531,7 @@ public partial struct Point3D : IFormattable, IEquatable<Point3D>, IVector3D
     /// <returns>
     /// La magnitud resultante entre el punto y el origen.
     /// </returns>
-    public double Magnitude()
+    public readonly double Magnitude()
     {
         return System.Math.Sqrt((X * X) + (Y * Y) + (Z * Z));
     }
@@ -553,7 +545,7 @@ public partial struct Point3D : IFormattable, IEquatable<Point3D>, IVector3D
     /// Punto de referencia para calcular la
     /// magnitud.
     /// </param>
-    public double Magnitude(Point3D fromPoint)
+    public readonly double Magnitude(Point3D fromPoint)
     {
         double x = X - fromPoint.X, y = Y - fromPoint.Y, z = Z - fromPoint.Z;
         return System.Math.Sqrt((x * x) + (y * y) + (z * z));
@@ -570,7 +562,7 @@ public partial struct Point3D : IFormattable, IEquatable<Point3D>, IVector3D
     /// <param name="fromX">Coordenada X de origen.</param>
     /// <param name="fromY">Coordenada Y de origen.</param>
     /// <param name="fromZ">Coordenada Z de origen.</param>
-    public double Magnitude(double fromX, double fromY, double fromZ)
+    public readonly double Magnitude(double fromX, double fromY, double fromZ)
     {
         double x = X - fromX, y = Y - fromY, z = Z - fromZ;
         return System.Math.Sqrt((x * x) + (y * y) + (z * z));
@@ -586,7 +578,7 @@ public partial struct Point3D : IFormattable, IEquatable<Point3D>, IVector3D
     /// <see langword="true" /> si esta instancia y <paramref name="obj" /> son iguales;
     /// de lo contrario, <see langword="false" />.
     /// </returns>
-    public override bool Equals(object? obj)
+    public override readonly bool Equals(object? obj)
     {
         return obj is Point3D p && this == p;
     }
@@ -595,7 +587,7 @@ public partial struct Point3D : IFormattable, IEquatable<Point3D>, IVector3D
     /// Devuelve el código Hash de esta instancia.
     /// </summary>
     /// <returns>El código Hash de esta instancia.</returns>
-    public override int GetHashCode()
+    public override readonly int GetHashCode()
     {
         return HashCode.Combine(X, Y, Z);
     }
@@ -606,7 +598,7 @@ public partial struct Point3D : IFormattable, IEquatable<Point3D>, IVector3D
     /// <returns>
     /// Una representación en forma de <see cref="string" /> de este objeto.
     /// </returns>
-    public override string ToString()
+    public override readonly string ToString()
     {
         return ToString(null);
     }
@@ -618,7 +610,7 @@ public partial struct Point3D : IFormattable, IEquatable<Point3D>, IVector3D
     /// <returns>
     /// Una representación en forma de <see cref="string" /> de este objeto.
     /// </returns>
-    public string ToString(string? format)
+    public readonly string ToString(string? format)
     {
         return ToString(format, CI.CurrentCulture);
     }
@@ -636,7 +628,7 @@ public partial struct Point3D : IFormattable, IEquatable<Point3D>, IVector3D
     /// <returns>
     /// Una representación en forma de <see cref="string" /> de este objeto.
     /// </returns>
-    public string ToString(string? format, IFormatProvider? formatProvider)
+    public readonly string ToString(string? format, IFormatProvider? formatProvider)
     {
         if (format.IsEmpty()) format = "C";
         return format.ToUpperInvariant()[0] switch
@@ -659,7 +651,7 @@ public partial struct Point3D : IFormattable, IEquatable<Point3D>, IVector3D
     /// <see langword="true" /> si esta instancia y <paramref name="other" /> son iguales;
     /// de lo contrario, <see langword="false" />.
     /// </returns>
-    public bool Equals(IVector? other) => other is not null && X.Equals(other.X) && Y.Equals(other.Y) && !Z.IsValid();
+    public readonly bool Equals(IVector? other) => other is not null && X.Equals(other.X) && Y.Equals(other.Y) && !Z.IsValid();
 
     /// <summary>
     /// Indica si esta instancia y un objeto especificado son iguales.
@@ -671,5 +663,17 @@ public partial struct Point3D : IFormattable, IEquatable<Point3D>, IVector3D
     /// <see langword="true" /> si esta instancia y <paramref name="other" /> son iguales;
     /// de lo contrario, <see langword="false" />.
     /// </returns>
-    public bool Equals(IVector3D? other) => other is not null && X.Equals(other.X) && Y.Equals(other.Y) && Z.Equals(other.Z);
+    public readonly bool Equals(IVector3D? other) => other is not null && X.Equals(other.X) && Y.Equals(other.Y) && Z.Equals(other.Z);
+
+    /// <summary>
+    /// Implicitly converts a <see cref="Point3D"/> to a <see cref="Vector3"/>.
+    /// </summary>
+    /// <param name="p"><see cref="Point3D"/> value to be converted.</param>
+    public static implicit operator Vector3(Point3D p) => new((float)p.X, (float)p.Y, (float)p.Z);
+
+    /// <summary>
+    /// Implicitly converts a <see cref="Vector3"/> to a <see cref="Point3D"/>.
+    /// </summary>
+    /// <param name="p"><see cref="Vector3"/> value to be converted.</param>
+    public static implicit operator Point3D(Vector3 p) => new(p.X, p.Y, p.Z);
 }

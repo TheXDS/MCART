@@ -10,7 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Component\EnumValueProvider.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)component\NamedEnumValueProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Component\NamedEnumValueProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\AddConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\Base\FloatConverterBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\Base\Inverter.cs" />

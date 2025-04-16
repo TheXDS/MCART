@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -31,44 +31,43 @@ SOFTWARE.
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
-/// Define una serie de miembros a implementar por un tipo que represente
-/// una ventana en cualquier sistema operativo con interfaz gráfica.
+/// Defines a set of members to be implemented by a type that represents
+/// a window in any graphical user interface operating system.
 /// </summary>
 public interface IWindow : ICloseable
 {
     /// <summary>
-    /// Obtiene o establece el tamaño de la ventana.
+    /// Gets or sets the size of the window.
     /// </summary>
     Size Size { get; set; }
 
     /// <summary>
-    /// Obtiene o establece la posición de la ventana en coordenadas
-    /// absolutas de pantalla.
+    /// Gets or sets the position of the window in absolute screen coordinates.
     /// </summary>
     Point Location { get; set; }
 
     /// <summary>
-    /// Oculta la ventana sin cerrarla.
+    /// Hides the window without closing it.
     /// </summary>
     void Hide();
 
     /// <summary>
-    /// Maximiza la ventana.
+    /// Maximizes the window.
     /// </summary>
     void Maximize();
 
     /// <summary>
-    /// Minimiza la ventana.
+    /// Minimizes the window.
     /// </summary>
     void Minimize();
 
     /// <summary>
-    /// Restaura el tamaño de la ventana.
+    /// Restores the size of the window.
     /// </summary>
     void Restore();
 
     /// <summary>
-    /// Cambia el estado de la ventana entre Maximizar y Restaurar.
+    /// Toggles the state of the window between Maximized and Restored.
     /// </summary>
     void ToggleMaximize();
 }

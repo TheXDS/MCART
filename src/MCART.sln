@@ -6,7 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution items", "Solution items", "{B3DE9472-6772-4DDB-AA67-038A59C7AE8D}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
-		publish-docs.ps1 = publish-docs.ps1
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Targets", "Targets", "{AE57F09B-53E2-4227-9312-2A76156F446E}"
@@ -34,11 +33,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{58730E0E-A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "articles", "articles", "{8D205061-EEC6-4A1F-9F9F-E3AB164446B0}"
 	ProjectSection(SolutionItems) = preProject
-		..\docs\articles\BUGS.md = ..\docs\articles\BUGS.md
-		..\docs\articles\CHANGELOG.md = ..\docs\articles\CHANGELOG.md
 		..\docs\articles\CONTRIBUTING.md = ..\docs\articles\CONTRIBUTING.md
 		..\docs\articles\intro.md = ..\docs\articles\intro.md
-		..\docs\articles\ROADMAP.md = ..\docs\articles\ROADMAP.md
 		..\docs\articles\TECHINFO.md = ..\docs\articles\TECHINFO.md
 		..\docs\articles\toc.yml = ..\docs\articles\toc.yml
 	EndProjectSection
@@ -74,8 +70,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "vs-snippets", "vs-snippets"
 		..\vs-snippets\offendex.snippet = ..\vs-snippets\offendex.snippet
 		..\vs-snippets\pnpc.snippet = ..\vs-snippets\pnpc.snippet
 		..\vs-snippets\pnpcf.snippet = ..\vs-snippets\pnpcf.snippet
-		..\vs-snippets\scstatic.snippet = ..\vs-snippets\scstatic.snippet
-		..\vs-snippets\simplecommand.snippet = ..\vs-snippets\simplecommand.snippet
+		..\vs-snippets\scmd.snippet = ..\vs-snippets\scmd.snippet
+		..\vs-snippets\scst.snippet = ..\vs-snippets\scst.snippet
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Targets-src", "Targets-src", "{58F0B4D1-47BE-49EF-8B97-CDD2154CA983}"
@@ -213,6 +209,13 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MCART.Avalonia.Common.Tests", "Tests\Platform\Avalonia\MCART.Avalonia.Common.Tests\MCART.Avalonia.Common.Tests.csproj", "{B2359786-724A-4530-A117-125AFC274C65}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wpf.Controls.ModernWindow", "Extras\Wpf.Controls.ModernWindow\Wpf.Controls.ModernWindow.csproj", "{0BDEBC66-2A28-4FC4-A52D-3994F2B0E991}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "old", "old", "{0ED0A9C1-004C-4D10-9226-6240ED23B7BB}"
+	ProjectSection(SolutionItems) = preProject
+		..\docs\articles\old\CHANGELOG.md = ..\docs\articles\old\CHANGELOG.md
+		..\docs\articles\old\readme.md = ..\docs\articles\old\readme.md
+		..\docs\articles\old\ROADMAP.md = ..\docs\articles\old\ROADMAP.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -420,6 +423,7 @@ Global
 		{213730AC-B9BC-4728-A7FC-A43E336B4E55} = {0CB5C43C-E64F-422A-9553-509155AEF294}
 		{B2359786-724A-4530-A117-125AFC274C65} = {0151F8B9-B358-4654-B5CB-6FB9D02DF004}
 		{0BDEBC66-2A28-4FC4-A52D-3994F2B0E991} = {628D40FB-AA87-4DA7-AF16-4F57A9FADD9C}
+		{0ED0A9C1-004C-4D10-9226-6240ED23B7BB} = {8D205061-EEC6-4A1F-9F9F-E3AB164446B0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {63BB1063-9448-4D86-ADAF-29683E2E7E73}

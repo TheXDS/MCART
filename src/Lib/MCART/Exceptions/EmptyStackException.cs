@@ -1,5 +1,5 @@
 ﻿/*
-StackUnderflowException.cs
+StackEmptyException.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -33,40 +33,49 @@ using TheXDS.MCART.Resources.Strings;
 namespace TheXDS.MCART.Exceptions;
 
 /// <summary>
-/// Excepción que se produce al intentar remover un objeto de una pila vacía
+/// Exception that is thrown when an attempt to remove an item from an empty
+/// stack is performed.
 /// </summary>
 [Serializable]
-public class StackUnderflowException : Exception
+public class EmptyStackException : Exception
 {
     /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="StackUnderflowException" />.
+    /// Initializes a new instance of the <see cref="EmptyStackException" />
+    /// class.
     /// </summary>
-    public StackUnderflowException() : base(Errors.StackUnderflow)
+    public EmptyStackException() : base(Errors.StackUnderflow)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="StackUnderflowException" />.
+    /// Initializes a new instance of the <see cref="EmptyStackException" />
+    /// class.
     /// </summary>
-    /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
-    public StackUnderflowException(string message) : base(message)
+    /// <param name="message">Message that describes the exception.</param>
+    public EmptyStackException(string message) : base(message)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="StackUnderflowException" />.
+    /// Initializes a new instance of the <see cref="EmptyStackException" />
+    /// class.
     /// </summary>
-    /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
-    public StackUnderflowException(Exception inner) : base(Errors.StackUnderflow, inner)
+    /// <param name="inner">
+    /// <see cref="Exception" /> that is the cause of this exception.
+    /// </param>
+    public EmptyStackException(Exception inner) : base(Errors.StackUnderflow, inner)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="StackUnderflowException" />.
+    /// Initializes a new instance of the <see cref="EmptyStackException" />
+    /// class.
     /// </summary>
-    /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
-    /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
-    public StackUnderflowException(string message, Exception inner) : base(message, inner)
+    /// <param name="message">Message that describes the exception.</param>
+    /// <param name="inner">
+    /// <see cref="Exception" /> that is the cause of this exception.
+    /// </param>
+    public EmptyStackException(string message, Exception inner) : base(message, inner)
     {
     }
 }

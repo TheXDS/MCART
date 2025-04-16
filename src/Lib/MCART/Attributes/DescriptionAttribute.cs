@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -31,9 +31,9 @@ SOFTWARE.
 namespace TheXDS.MCART.Attributes;
 
 /// <summary>
-/// Establece una descripción larga para este elemento.
+/// Sets a long description for this element.
 /// </summary>
-/// <param name="description">Valor del atributo.</param>
+/// <param name="description">Value of the attribute.</param>
 [AttributeUsage(AttributeTargets.All)]
 [Serializable]
 public sealed class DescriptionAttribute(string description) : TextAttribute(description);

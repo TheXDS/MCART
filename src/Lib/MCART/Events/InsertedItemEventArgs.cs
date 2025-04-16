@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -33,33 +33,30 @@ using TheXDS.MCART.Types;
 namespace TheXDS.MCART.Events;
 
 /// <summary>
-/// Contiene información para el evento 
-/// <see cref="ListEx{T}.InsertedItem"/>.
+/// Contains information for the <see cref="ListEx{T}.InsertedItem"/> event.
 /// </summary>
-/// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
-/// <param name="index">Índice del elemento insertado.</param>
-/// <param name="insertedItem">Elemento insertado.</param>
+/// <typeparam name="T">Type of elements on the list.</typeparam>
+/// <param name="index">Index of the newly inserted element.</param>
+/// <param name="insertedItem">Inserted element.</param>
 public class InsertedItemEventArgs<T>(int index, T insertedItem) : EventArgs
 {
     /// <summary>
-    /// Convierte implícitamente un 
-    /// <see cref="InsertingItemEventArgs{T}"/> en un
+    /// Implicitly converts an object of type
+    /// <see cref="InsertingItemEventArgs{T}"/> to an object of type
     /// <see cref="InsertedItemEventArgs{T}"/>.
     /// </summary>
     /// <param name="from">
-    /// <see cref="InsertingItemEventArgs{T}"/> a convertir.
+    /// <see cref="InsertingItemEventArgs{T}"/> to be converted.
     /// </param>
     public static implicit operator InsertedItemEventArgs<T>(InsertingItemEventArgs<T> from) => new(from.Index, from.InsertedItem);
 
     /// <summary>
-    /// Elemento que fue insertado en el <see cref="ListEx{T}"/> que
-    /// generó el evento.
+    /// Element that has been inserted to the <see cref="ListEx{T}"/>.
     /// </summary>
     public T InsertedItem { get; } = insertedItem;
 
     /// <summary>
-    /// Índice del objeto dentro del <see cref="ListEx{T}"/> que generó
-    /// el evento.
+    /// index for the newly inserted element.
     /// </summary>
     public int Index { get; } = index;
 }

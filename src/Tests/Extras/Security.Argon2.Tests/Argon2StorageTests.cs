@@ -6,7 +6,7 @@
 //      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 //
 // Released under the MIT License (MIT)
-// Copyright © 2011 - 2024 César Andrés Morgan
+// Copyright © 2011 - 2025 César Andrés Morgan
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of
 // this software and associated documentation files (the “Software”), to deal in
@@ -57,7 +57,7 @@ public class Argon2StorageTests
     public void Argon2_fails_if_settings_are_incorrect()
     {
         Argon2Settings brokenSettings = Argon2Storage.GetDefaultSettings() with { Type = (Argon2Type)128 };
-        Assert.That(()=> _ = ((IPasswordStorage)new Argon2Storage(brokenSettings)).Generate(Array.Empty<byte>()), Throws.TypeOf<ArgumentOutOfRangeException>());
+        Assert.That(()=> _ = ((IPasswordStorage)new Argon2Storage(brokenSettings)).Generate([]), Throws.TypeOf<InvalidArgon2SettingsException>());
     }
 
     [Test]

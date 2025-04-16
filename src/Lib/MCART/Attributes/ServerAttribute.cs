@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,76 +28,59 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using TheXDS.MCART.Helpers;
-using TheXDS.MCART.Resources;
 using static TheXDS.MCART.Misc.Internals;
-using static System.AttributeTargets;
 
 namespace TheXDS.MCART.Attributes;
 
 /// <summary>
-/// Atributo que define la ruta de un servidor.
+/// Attribute that defines the path to a server.
 /// </summary>
+/// <param name="server">Server name / IP address.</param>
+/// <param name="port">Server port number.</param>
 /// <remarks>
-/// Es posible establecer este atributo más de una vez en un mismo elemento.
+/// This attribute can be set more than once on the same element.<br/>
+/// If a port number is defined in <paramref name="server" />, the
+/// value of the <paramref name="port" /> parameter will take precedence.
 /// </remarks>
-[AttributeUsage(All, AllowMultiple = true)]
+/// <exception cref="ArgumentException">
+/// Thrown if the server is a malformed path.
+/// </exception>
+/// <exception cref="ArgumentOutOfRangeException">
+/// Thrown if <paramref name="port" /> is less than 1 or greater
+/// than 65535.
+/// </exception>
+[AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
 [Serializable]
-public sealed class ServerAttribute : Attribute, IValueAttribute<string>
+public sealed class ServerAttribute(string server, int port) : Attribute, IValueAttribute<string>
 {
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="ServerAttribute" /> estableciendo el servidor y el puerto
-    /// al cual este atributo hará referencia.
-    /// </summary>
-    /// <param name="server">Nombre del servidor / Dirección IP.</param>
-    /// <param name="port">Número de puerto del servidor.</param>
-    /// <remarks>
-    /// Si se define un número de puerto en <paramref name="server" />, el
-    /// valor del parámetro <paramref name="port" /> tomará precedencia.
-    /// </remarks>
-    /// <exception cref="ArgumentException">
-    /// Se produce si el servidor es una ruta malformada.
-    /// </exception>
-    /// <exception cref="ArgumentOutOfRangeException">
-    /// Se produce si <paramref name="port" /> es inferior a 1, o superior
-    /// a 65535.
-    /// </exception>
-    public ServerAttribute(string server, int port)
-    {
-        if (!port.IsBetween(1, 65535)) throw Errors.ValueOutOfRange(nameof(port), 1, 65535);
-        Server = EmptyChecked(server, nameof(server));
-        Port = port;
-    }
-
-    /// <summary>
-    /// Obtiene el servidor.
+    /// Gets the server.
     /// </summary>
     /// <value>
-    /// La ruta del servidor a la cual este atributo apunta.
+    /// The path of the server to which this attribute points.
     /// </value>
-    public string Server { get; }
+    public string Server { get; } = EmptyChecked(server, nameof(server));
 
     /// <summary>
-    /// Obtiene o establece el puerto de conexión del servidor.
+    /// Gets or sets the connection port of the server.
     /// </summary>
     /// <value>
-    /// Un valor entre 1 y 65535 que establece el número de puerto a
-    /// apuntar.
+    /// A value between 1 and 65535 that sets the port number to
+    /// point to.
     /// </value>
-    public int Port { get; }
+    public int Port { get; } = RangeChecked(port, 1, 65535);
 
     /// <summary>
-    /// Devuelve una cadena que representa al objeto actual.
+    /// Returns a string that represents the current object.
     /// </summary>
-    /// <returns>Una cadena que representa al objeto actual.</returns>
+    /// <returns>A string that represents the current object.</returns>
     public override string ToString()
     {
         return $"{Server}:{Port}";
     }
 
     /// <summary>
-    /// Obtiene el valor de este atributo.
+    /// Gets the value of this attribute.
     /// </summary>
     public string Value => ToString();
 }

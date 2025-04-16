@@ -9,7 +9,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -33,7 +33,6 @@ SOFTWARE.
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using TheXDS.MCART.Resources;
-using static TheXDS.MCART.Misc.Internals;
 
 namespace TheXDS.MCART.Helpers;
 
@@ -42,7 +41,7 @@ public static partial class Common
     [Conditional("EnforceContracts")]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     [DebuggerNonUserCode]
-    private static void ByteUnits_Contract(in int bytes, in ByteUnitType unit, byte magnitude)
+    private static void ByteUnits_Contract(in long bytes, in ByteUnitType unit, byte magnitude)
     {
         if (magnitude > 8) throw Errors.ValueOutOfRange(nameof(magnitude), 0, 8);
     }
@@ -53,13 +52,5 @@ public static partial class Common
     private static void Sequence_Contract(in int top, in int stepping)
     {
         if (stepping == 0) throw Errors.ValueOutOfRange(nameof(stepping), 1, top);
-    }
-
-    [Conditional("EnforceContracts")]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    [DebuggerNonUserCode]
-    private static void IfNotNull_Contract<T>(Action<T> operation)
-    {
-        NullCheck(operation, nameof(operation));
     }
 }

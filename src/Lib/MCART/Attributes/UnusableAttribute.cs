@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -33,8 +33,12 @@ using static System.AttributeTargets;
 namespace TheXDS.MCART.Attributes;
 
 /// <summary>
-/// Marca un elemento como no utilizable.
+/// Marks an element as unusable.
 /// </summary>
+/// <remarks>
+/// Code that checks for the presence of this attribute must refuse to run the
+/// annotated code and throw a new <see cref="InvalidOperationException"/>.
+/// </remarks>
 [AttributeUsage(All)]
 [Serializable]
 public sealed class UnusableAttribute : Attribute;

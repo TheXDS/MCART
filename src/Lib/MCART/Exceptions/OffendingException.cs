@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -33,25 +33,27 @@ using TheXDS.MCART.Resources.Strings;
 namespace TheXDS.MCART.Exceptions;
 
 /// <summary>
-/// Excepción estándar producida al encontrarse un problema con un objeto.
+/// Describes an <see cref="Exception"/> that is thrown when a problem has been
+/// found with an object, as well as being a base class for exceptions that
+/// include information on the object or value that caused them.
 /// </summary>
 [Serializable]
 public class OffendingException<T> : Exception
 {
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="OffendingException{T}" />.
+    /// Initializes a new instance of the <see cref="OffendingException{T}" />
+    /// class.
     /// </summary>
     public OffendingException() : base(Errors.InvalidValue)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="OffendingException{T}" />.
+    /// Initializes a new instance of the <see cref="OffendingException{T}" />
+    /// class.
     /// </summary>
     /// <param name="offendingObject">
-    /// Objeto que es la causa de esta excepción.
+    /// Object/value that is the cause of the exception.
     /// </param>
     public OffendingException(T offendingObject) : this()
     {
@@ -59,25 +61,25 @@ public class OffendingException<T> : Exception
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="OffendingException{T}" />.
+    /// Initializes a new instance of the <see cref="OffendingException{T}" />
+    /// class.
     /// </summary>
     /// <param name="message">
-    /// Un <see cref="string" /> que describe a la excepción.
+    /// Message that describes the exception.
     /// </param>
     public OffendingException(string message) : base(message)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="OffendingException{T}" />.
+    /// Initializes a new instance of the <see cref="OffendingException{T}" />
+    /// class.
     /// </summary>
     /// <param name="message">
-    /// Un <see cref="string" /> que describe a la excepción.
+    /// Message that describes the exception.
     /// </param>
     /// <param name="offendingObject">
-    /// Objeto que es la causa de esta excepción.
+    /// Object/value that is the cause of the exception.
     /// </param>
     public OffendingException(string message, T offendingObject) : base(message)
     {
@@ -85,25 +87,25 @@ public class OffendingException<T> : Exception
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="OffendingException{T}" />.
+    /// Initializes a new instance of the <see cref="OffendingException{T}" />
+    /// class.
     /// </summary>
     /// <param name="inner">
-    /// <see cref="Exception" /> que es la causa de esta excepción.
+    /// <see cref="Exception" /> that is the cause of this exception.
     /// </param>
     public OffendingException(Exception inner) : base(Errors.InvalidValue, inner)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="OffendingException{T}" />.
+    /// Initializes a new instance of the <see cref="OffendingException{T}" />
+    /// class.
     /// </summary>
     /// <param name="inner">
-    /// <see cref="Exception" /> que es la causa de esta excepción.
+    /// <see cref="Exception" /> that is the cause of this exception.
     /// </param>
     /// <param name="offendingObject">
-    /// Objeto que es la causa de esta excepción.
+    /// Object/value that is the cause of the exception.
     /// </param>
     public OffendingException(Exception inner, T offendingObject) : this(inner)
     {
@@ -111,31 +113,31 @@ public class OffendingException<T> : Exception
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="OffendingException{T}" />.
+    /// Initializes a new instance of the <see cref="OffendingException{T}" />
+    /// class.
     /// </summary>
     /// <param name="message">
-    /// Un <see cref="string" /> que describe a la excepción.
+    /// Message that describes the exception.
     /// </param>
     /// <param name="inner">
-    /// <see cref="Exception" /> que es la causa de esta excepción.
+    /// <see cref="Exception" /> that is the cause of this exception.
     /// </param>
     public OffendingException(string message, Exception inner) : base(message, inner)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="OffendingException{T}" />.
+    /// Initializes a new instance of the <see cref="OffendingException{T}" />
+    /// class.
     /// </summary>
     /// <param name="message">
-    /// Un <see cref="string" /> que describe a la excepción.
+    /// Message that describes the exception.
     /// </param>
     /// <param name="inner">
-    /// <see cref="Exception" /> que es la causa de esta excepción.
+    /// <see cref="Exception" /> that is the cause of this exception.
     /// </param>
     /// <param name="offendingObject">
-    /// Objeto que es la causa de esta excepción.
+    /// Object/value that is the cause of the exception.
     /// </param>
     public OffendingException(string message, Exception inner, T offendingObject) : base(message, inner)
     {
@@ -143,7 +145,7 @@ public class OffendingException<T> : Exception
     }
 
     /// <summary>
-    /// Objeto que ha causado la excepción.
+    /// Gets the object/value that is the cause of the exception.
     /// </summary>
     public T OffendingObject { get; } = default!;
 }

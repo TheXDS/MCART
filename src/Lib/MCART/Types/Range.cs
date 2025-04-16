@@ -10,7 +10,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -31,13 +31,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Types;
-using System;
-using System.Linq;
+using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Misc;
-using TheXDS.MCART.Types.Base;
 using TheXDS.MCART.Resources;
+using TheXDS.MCART.Types.Base;
+
+namespace TheXDS.MCART.Types;
 
 /// <summary>
 /// Define un rango de valores.
@@ -146,7 +147,7 @@ public struct Range<T> : IRange<T>, IEquatable<IRange<T>>, ICloneable<Range<T>> 
     /// </summary>
     public T Minimum
     {
-        get => _minimum;
+        readonly get => _minimum;
         set
         {
             if (value.CompareTo(Maximum) > 0) throw new ArgumentOutOfRangeException(nameof(value));
@@ -159,7 +160,7 @@ public struct Range<T> : IRange<T>, IEquatable<IRange<T>>, ICloneable<Range<T>> 
     /// </summary>
     public T Maximum
     {
-        get => _maximum;
+        readonly get => _maximum;
         set
         {
             if (value.CompareTo(Minimum) < 0) throw new ArgumentOutOfRangeException(nameof(value));
@@ -185,7 +186,7 @@ public struct Range<T> : IRange<T>, IEquatable<IRange<T>>, ICloneable<Range<T>> 
     /// <returns>
     /// Una representación de este <see cref="Range{T}"/> como una cadena.
     /// </returns>
-    public override string ToString()
+    public override readonly string ToString()
     {
         return $"{Minimum} - {Maximum}";
     }
@@ -198,7 +199,7 @@ public struct Range<T> : IRange<T>, IEquatable<IRange<T>>, ICloneable<Range<T>> 
     /// <see langword="true"/> si el valor se encuentra dentro de este <see cref="Range{T}"/>,
     /// <see langword="false"/> en caso contrario.
     /// </returns>
-    public bool IsWithin(T value)
+    public readonly bool IsWithin(T value)
     {
         return value.IsBetween(Minimum, Maximum, MinInclusive, MaxInclusive);
     }
@@ -213,6 +214,8 @@ public struct Range<T> : IRange<T>, IEquatable<IRange<T>>, ICloneable<Range<T>> 
     /// Se produce si la conversión ha fallado.
     /// </exception>
     /// <returns><see cref="Range{T}"/> que ha sido creado.</returns>
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
+    [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
     public static Range<T> Parse(string value)
     {
         if (TryParse(value, out Range<T> returnValue)) return returnValue;
@@ -232,31 +235,11 @@ public struct Range<T> : IRange<T>, IEquatable<IRange<T>>, ICloneable<Range<T>> 
     /// <see langword="true"/> si la conversión ha tenido éxito,
     /// <see langword="false"/> en caso contrario.
     /// </returns>
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
+    [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
     public static bool TryParse(string value, out Range<T> range)
     {
-        string[] separators =
-        {
-                ", ",
-                "...",
-                " - ",
-                "; ",
-                " : ",
-                " | ",
-                " ",
-                ",",
-                ";",
-                ":",
-                "|",
-                " .. ",
-                "..",
-                " => ",
-                " -> ",
-                "=>",
-                "->",
-                "-"
-            };
-
-        return PrivateInternals.TryParseValues<T, Range<T>>(separators, value, 2, l => new Range<T>(l[0], l[1]), out range);
+        return TryParse(Common.FindConverter<T>() ?? throw new InvalidCastException(), value, out range);
     }
 
     /// <summary>
@@ -264,7 +247,7 @@ public struct Range<T> : IRange<T>, IEquatable<IRange<T>>, ICloneable<Range<T>> 
     /// </summary>
     /// <param name="other"></param>
     /// <returns></returns>
-    public Range<T> Join(IRange<T> other)
+    public readonly Range<T> Join(IRange<T> other)
     {
         return new(new[] { Minimum, other.Minimum }.Min()!, new[] { Maximum, other.Maximum }.Max()!);
     }
@@ -276,7 +259,7 @@ public struct Range<T> : IRange<T>, IEquatable<IRange<T>>, ICloneable<Range<T>> 
     /// <returns>
     /// La intersección entre este rango y <paramref name="other"/>.
     /// </returns>
-    public Range<T> Intersect(IRange<T> other)
+    public readonly Range<T> Intersect(IRange<T> other)
     {
         return new(new[] { Minimum, other.Minimum }.Max()!, new[] { Maximum, other.Maximum }.Min()!);
     }
@@ -290,7 +273,7 @@ public struct Range<T> : IRange<T>, IEquatable<IRange<T>>, ICloneable<Range<T>> 
     /// este <see cref="Range{T}"/>, <see langword="false"/> en caso
     /// contrario.
     /// </returns>
-    public bool Intersects(IRange<T> other)
+    public readonly bool Intersects(IRange<T> other)
     {
         return IsWithin(other.Maximum) || IsWithin(other.Minimum);
     }
@@ -320,7 +303,7 @@ public struct Range<T> : IRange<T>, IEquatable<IRange<T>>, ICloneable<Range<T>> 
     /// <paramref name="obj" /> son iguales, <see langword="false" />
     /// en caso contrario.
     /// </returns>
-    public override bool Equals(object? obj)
+    public override readonly bool Equals(object? obj)
     {
         return Equals(obj as IRange<T>);
     }
@@ -329,7 +312,7 @@ public struct Range<T> : IRange<T>, IEquatable<IRange<T>>, ICloneable<Range<T>> 
     /// Devuelve el código Hash de esta instancia.
     /// </summary>
     /// <returns>El código Hash de esta instancia.</returns>
-    public override int GetHashCode()
+    public override readonly int GetHashCode()
     {
         return HashCode.Combine(Minimum, Maximum, MinInclusive, MaxInclusive);
     }
@@ -345,7 +328,7 @@ public struct Range<T> : IRange<T>, IEquatable<IRange<T>>, ICloneable<Range<T>> 
     /// <paramref name="other" /> son iguales, <see langword="false" />
     /// en caso contrario.
     /// </returns>
-    public bool Equals(IRange<T>? other)
+    public readonly bool Equals(IRange<T>? other)
     {
         if (other is null) return false;
         return
@@ -356,8 +339,40 @@ public struct Range<T> : IRange<T>, IEquatable<IRange<T>>, ICloneable<Range<T>> 
     }
 
     /// <inheritdoc/>
-    public Range<T> Clone()
+    public readonly Range<T> Clone()
     {
         return new(_minimum, _maximum, MinInclusive, MaxInclusive);
+    }
+
+    internal static Range<T> Parse(TypeConverter converter, string value)
+    {
+        if (TryParse(converter, value, out Range<T> returnValue)) return returnValue;
+        throw new FormatException();
+    }
+
+    internal static bool TryParse(TypeConverter converter, string value, out Range<T> range)
+    {
+        string[] separators =
+        [
+            ", ",
+            "...",
+            " - ",
+            "; ",
+            " : ",
+            " | ",
+            " ",
+            ",",
+            ";",
+            ":",
+            "|",
+            " .. ",
+            "..",
+            " => ",
+            " -> ",
+            "=>",
+            "->",
+            "-"
+        ];
+        return PrivateInternals.TryParseValues<T, Range<T>>(converter, separators, value, 2, l => new Range<T>(l[0], l[1]), out range);
     }
 }

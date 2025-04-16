@@ -9,7 +9,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -34,7 +34,9 @@ using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Misc;
 using TheXDS.MCART.Types.Extensions;
+using static System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes;
 
 namespace TheXDS.MCART.Helpers;
 
@@ -82,9 +84,9 @@ public static partial class Objects
     /// </code>
     /// </remarks>
     /// <seealso cref="GetBytes{T}(T)"/>
-    public static T FromBytes<T>(byte[] rawBytes) where T : struct
+    public static T FromBytes<[DynamicallyAccessedMembers(PublicConstructors | NonPublicConstructors)] T>(byte[] rawBytes) where T : struct
     {
-        FromBytes_Contract(rawBytes);
+        ArgumentNullException.ThrowIfNull(rawBytes);
         int sze = rawBytes.Length;
         IntPtr ptr = IntPtr.Zero;
         try
@@ -197,7 +199,7 @@ public static partial class Objects
     /// los mismos valores que <paramref name="source"/> en sus campos
     /// públicos y propiedades de lectura/escritura.
     /// </returns>
-    public static T ShallowClone<T>(this T source) where T : notnull, new()
+    public static T ShallowClone<[DynamicallyAccessedMembers(PublicFields | PublicProperties)] T>(this T source) where T : notnull, new()
     {
         T copy = new();
         ShallowCopyTo(source, copy);
@@ -212,7 +214,7 @@ public static partial class Objects
     /// </typeparam>
     /// <param name="source">Objeto de origen.</param>
     /// <param name="destination">Objeto de destino.</param>
-    public static void ShallowCopyTo<T>(this T source, T destination) where T : notnull
+    public static void ShallowCopyTo<[DynamicallyAccessedMembers(PublicFields | PublicProperties)] T>(this T source, T destination) where T : notnull
     {
         ShallowCopyTo_Contract(source, destination);
         foreach (FieldInfo j in typeof(T).GetFields().Where(p => p.IsPublic && !p.IsInitOnly && !p.IsLiteral))
@@ -263,6 +265,7 @@ public static partial class Objects
     /// es posible enlazar un método a un delegado si el método
     /// contiene parámetros genéricos.
     /// </remarks>
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodCreatesDelegates)]
     public static bool TryCreateDelegate<T>(MethodInfo method, object instance, [NotNullWhen(true)] out T? @delegate) where T : notnull, Delegate
     {
         try

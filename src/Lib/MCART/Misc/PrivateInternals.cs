@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -29,73 +29,37 @@ SOFTWARE.
 */
 
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
-using TheXDS.MCART.Helpers;
-using TheXDS.MCART.Types;
-using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.Misc;
 
-[ExcludeFromCodeCoverage]
 internal static class PrivateInternals
 {
-    public static IEnumerable<NamedObject<TField>> List<TField>(Type source)
-    {
-        return List<TField>(source, BindingFlags.Static | BindingFlags.Public, null);
-    }
-
-    public static IEnumerable<NamedObject<TField>> List<TField>(Type source, object instance)
-    {
-        return List<TField>(source, BindingFlags.Public, instance);
-    }
-
-    public static IEnumerable<Type> SafeGetTypes(this Assembly asm)
-    {
-        try
-        {
-            return asm.GetTypes();
-        }
-        catch
-        {
-            return Type.EmptyTypes;
-        }
-    }
-
-    public static bool TryParseValues<TValue, TResult>(string[] separators, string value, in byte items, Func<TValue[], TResult> instantiationCallback, out TResult result)
+    public static bool TryParseValues<TValue, TResult>(TypeConverter t, string[] separators, string value, in byte items, Func<TValue[], TResult> instantiationCallback, out TResult result)
     {
 #if EnforceContracts && DEBUG
         if (separators is null || separators.Length == 0)
             throw new ArgumentNullException(nameof(separators));
         if (string.IsNullOrEmpty(value))
             throw new ArgumentNullException(nameof(value));
+        ArgumentNullException.ThrowIfNull(t);
         ArgumentNullException.ThrowIfNull(instantiationCallback);
 #endif
-        foreach (TypeConverter t in Common.FindConverters(typeof(string), typeof(TValue)))
+        foreach (string? j in separators)
         {
-            foreach (string? j in separators)
+            string[]? l = value.Split([j], StringSplitOptions.RemoveEmptyEntries);
+            if (l.Length != items) continue;
+            try
             {
-                string[]? l = value.Split(new[] { j }, StringSplitOptions.RemoveEmptyEntries);
-                if (l.Length != items) continue;
-                try
-                {
-                    int c = 0;
-                    result = instantiationCallback(l.Select(k => (TValue)t.ConvertTo(l[c++].Trim(), typeof(TValue))!).ToArray());
-                    return true;
-                }
-                catch
-                {
-                    break;
-                }
+                int c = 0;
+                result = instantiationCallback(l.Select(k => (TValue)t.ConvertTo(l[c++].Trim(), typeof(TValue))!).ToArray());
+                return true;
+            }
+            catch
+            {
+                break;
             }
         }
         result = default!;
         return false;
-    }
-
-    private static IEnumerable<NamedObject<TField>> List<TField>(IReflect source, BindingFlags flags, object? instance)
-    {
-        return source.GetFields(flags).Where(f => f.FieldType.Implements<TField>())
-            .Select(p => new NamedObject<TField>((TField)p.GetValue(instance)!));
     }
 }

@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.Net;
 using TheXDS.MCART.Types.Base;
 
 namespace TheXDS.MCART.IO;
@@ -37,42 +36,13 @@ namespace TheXDS.MCART.IO;
 /// Obtiene un <see cref="Stream"/> a partir de la ruta de archivo
 /// especificada por un <see cref="Uri"/>.
 /// </summary>
-#if NET6_0_OR_GREATER
-[Obsolete("Esta clase utiliza métodos web deprecados en .Net 6.")]
-#endif
-public class FileStreamUriParser : SimpleStreamUriParser, IWebUriParser
+public class FileStreamUriParser : SimpleStreamUriParser
 {
     /// <summary>
     /// Enumera los esquemas soportados por este
     /// <see cref="StreamUriParser"/>.
     /// </summary>
     protected override IEnumerable<string> SchemeList { get; } = ["file"];
-
-    /// <summary>
-    /// Obtiene una respuesta Web a partir del <see cref="Uri"/>
-    /// especificado.
-    /// </summary>
-    /// <param name="uri">Dirección web a resolver.</param>
-    /// <returns>
-    /// La respuesta enviada por un servidor web.
-    /// </returns>
-    public WebResponse GetResponse(Uri uri)
-    {
-        return WebRequest.Create(uri).GetResponse();
-    }
-
-    /// <summary>
-    /// Obtiene una respuesta Web a partir del <see cref="Uri"/>
-    /// especificado de forma asíncrona.
-    /// </summary>
-    /// <param name="uri">Dirección web a resolver.</param>
-    /// <returns>
-    /// La respuesta enviada por un servidor web.
-    /// </returns>
-    public Task<WebResponse> GetResponseAsync(Uri uri)
-    {
-        return WebRequest.Create(uri).GetResponseAsync();
-    }
 
     /// <summary>
     /// Abre un <see cref="Stream"/> desde el <see cref="Uri"/>
@@ -109,19 +79,9 @@ public class FileStreamUriParser : SimpleStreamUriParser, IWebUriParser
     {
         if (uri.OriginalString.StartsWith("file://"))
         {
-            try
-            {
-                return GetResponse(uri).GetResponseStream();
-            }
-            catch
-            {
-                return null;
-            }
+            uri = new Uri(uri.OriginalString.Replace("file://", "", StringComparison.OrdinalIgnoreCase));
         }
-        else
-        {
-            if (!File.Exists(uri.OriginalString)) return null;
-            return new FileStream(uri.OriginalString, FileMode.Open);
-        }
+        if (!File.Exists(uri.OriginalString)) return null;
+        return new FileStream(uri.OriginalString, FileMode.Open);
     }
 }

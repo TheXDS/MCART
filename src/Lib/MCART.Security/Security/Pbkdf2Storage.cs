@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -90,5 +90,31 @@ public class Pbkdf2Storage(Pbkdf2Settings settings) : IPasswordStorage<Pbkdf2Set
     private Rfc2898DeriveBytes GetPbkdf2(byte[] input)
     {
         return new(input, Settings.Salt, Settings.Iterations, new HashAlgorithmName(Settings.HashFunction.IsEmpty() ? DEFAULT_HASH_ALG : Settings.HashFunction));
+    }
+
+    /// <inheritdoc/>
+    public void ConfigureFrom(BinaryReader reader)
+    {
+        Settings = new Pbkdf2Settings
+        {
+            Salt = reader.ReadBytes(reader.ReadInt32()),
+            Iterations = reader.ReadInt32(),
+            HashFunction = reader.ReadString(),
+            DerivedKeyLength = reader.ReadInt32(),
+        };
+    }
+
+    /// <inheritdoc/>
+    public byte[] DumpSettings()
+    {
+        using var ms = new MemoryStream();
+        using var writer = new BinaryWriter(ms);
+        writer.Write(Settings.Salt.Length);
+        writer.Write(Settings.Salt);
+        writer.Write(Settings.Iterations);
+        writer.Write(Settings.HashFunction ?? string.Empty);
+        writer.Write(Settings.DerivedKeyLength);
+        writer.Flush();
+        return ms.ToArray();
     }
 }

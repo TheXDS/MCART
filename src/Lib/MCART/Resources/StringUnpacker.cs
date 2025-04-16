@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -30,8 +30,7 @@ SOFTWARE.
 
 using System.Reflection;
 using System.Text;
-using TheXDS.MCART.Helpers;
-using TheXDS.MCART.Types.Extensions;
+using TheXDS.MCART.Exceptions;
 using St = TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.Resources;
@@ -40,7 +39,15 @@ namespace TheXDS.MCART.Resources;
 /// <see cref="AssemblyUnpacker{T}" /> que permite extraer archivos de
 /// texto incrustados en un ensamblado como una cadena.
 /// </summary>
-public class StringUnpacker : AssemblyUnpacker<string>, IAsyncUnpacker<string>
+/// <param name="assembly">
+/// <see cref="Assembly"/> desde donde se extraerán los recursos
+/// incrustados.
+/// </param>
+/// <param name="path">
+/// Ruta (en formato de espacio de nombre) donde se ubicarán los
+/// recursos incrustados.
+/// </param>
+public class StringUnpacker(Assembly assembly, string path) : AssemblyUnpacker<string>(assembly, path), IAsyncUnpacker<string>
 {
     private static Task<string> ReadAsync(TextReader r)
     {
@@ -95,7 +102,7 @@ public class StringUnpacker : AssemblyUnpacker<string>, IAsyncUnpacker<string>
     /// </returns>
     protected StreamReader GetStream(string id)
     {
-        return new(UnpackStream(id) ?? throw new InvalidDataException());
+        return new(UnpackStream(id) ?? throw new MissingResourceException());
     }
 
     /// <summary>
@@ -162,125 +169,13 @@ public class StringUnpacker : AssemblyUnpacker<string>, IAsyncUnpacker<string>
         }
     }
 
-    /// <summary>
-    /// Obtiene un <see cref="StreamReader"/> a partir del
-    /// <paramref name="id"/> y del <paramref name="compressorId"/>
-    /// especificados.
-    /// </summary>
-    /// <param name="id">
-    /// Id del <see cref="Stream"/> del recurso incrustado a obtener.
-    /// </param>
-    /// <param name="compressorId">
-    /// Id del compresor específico a utilizar para leer el recurso.
-    /// </param>
-    /// <returns>
-    /// Un <see cref="StreamReader"/> que permite leer la secuencia 
-    /// subyacente del recurso incrustado.
-    /// </returns>
-    protected StreamReader GetStream(string id, string compressorId)
-    {
-        return GetStream(id, ReflectionHelpers.FindType<ICompressorGetter>(compressorId)?.New<ICompressorGetter>() ?? new NullGetter());
-    }
-
-    /// <summary>
-    /// Intenta obtener un <see cref="StreamReader"/> a partir del
-    /// <paramref name="id"/> y del <paramref name="compressorId"/>
-    /// especificados.
-    /// </summary>
-    /// <param name="id">
-    /// Id del <see cref="Stream"/> del recurso incrustado a obtener.
-    /// </param>
-    /// <param name="compressorId">
-    /// Id del compresor específico a utilizar para leer el recurso.
-    /// </param>
-    /// <param name="reader">
-    /// Parámetro de salida. Un <see cref="StreamReader"/> que permite
-    /// leer la secuencia subyacente del recurso incrustado.
-    /// </param>
-    /// <returns>
-    /// <see langword="true"/> si se ha creado un
-    /// <see cref="StreamReader"/> de forma satisfactoria para el
-    /// recurso, <see langword="false"/> en caso contrario.
-    /// </returns>
-    protected bool TryGetStream(string id, string compressorId, out StreamReader reader)
-    {
-        try
-        {
-            reader = GetStream(id, compressorId);
-            return true;
-        }
-        catch (Exception ex)
-        {
-            reader = GetFailure(id, ex);
-            return false;
-        }
-    }
-
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase 
-    /// <see cref="StringUnpacker"/>.
-    /// </summary>
-    /// <param name="assembly">
-    /// <see cref="Assembly"/> desde donde se extraerán los recursos
-    /// incrustados.
-    /// </param>
-    /// <param name="path">
-    /// Ruta (en formato de espacio de nombre) donde se ubicarán los
-    /// recursos incrustados.
-    /// </param>
-    public StringUnpacker(Assembly assembly, string path) : base(assembly, path) { }
-
-    /// <summary>
-    /// Obtiene un recurso identificable.
-    /// </summary>
-    /// <param name="id">Identificador del recurso.</param>
-    /// <returns>
-    /// Un <see cref="string" /> con el contenido del archivo de texto
-    /// incrustado en el ensamblado.
-    /// </returns>
+    /// <inheritdoc/>
     public override string Unpack(string id) => Read(GetStream(id));
 
-    /// <summary>
-    /// Extrae un recurso comprimido utilizando el compresor con el
-    /// identificador especificado.
-    /// </summary>
-    /// <param name="id">Identificador del recurso.</param>
-    /// <param name="compressorId">
-    /// Identificador del compresor a utilizar para extraer el recurso.
-    /// </param>
-    /// <returns>
-    /// Un <see cref="string" /> con el contenido del archivo de texto
-    /// incrustado en el ensamblado.
-    /// </returns>
-    public override string Unpack(string id, string compressorId) => Read(GetStream(id, compressorId));
-
-    /// <summary>
-    /// Extrae un recurso comprimido utilizando el compresor con el
-    /// identificador especificado.
-    /// </summary>
-    /// <param name="id">Identificador del recurso.</param>
-    /// <param name="compressor">
-    /// <see cref="ICompressorGetter" /> a utilizar para extraer el
-    /// recurso.
-    /// </param>
-    /// <returns>
-    /// Un <see cref="string" /> con el contenido del archivo de texto
-    /// incrustado en el ensamblado.
-    /// </returns>
+    /// <inheritdoc/>
     public override string Unpack(string id, ICompressorGetter compressor) => Read(GetStream(id, compressor));
 
-    /// <summary>
-    /// Intenta obtener un recurso identificable.
-    /// </summary>
-    /// <param name="id">Identificador del recurso.</param>
-    /// <param name="data">
-    /// Parámetro de salida. Cadena que ha sido devuelta por la
-    /// operación de lectura del recurso.
-    /// </param>
-    /// <returns>
-    /// Un <see cref="string" /> con el contenido del archivo de texto
-    /// incrustado en el ensamblado.
-    /// </returns>
+    /// <inheritdoc/>
     public override bool TryUnpack(string id, out string data)
     {
         bool r = TryGetStream(id, out StreamReader? reader);
@@ -288,46 +183,7 @@ public class StringUnpacker : AssemblyUnpacker<string>, IAsyncUnpacker<string>
         return r;
     }
 
-    /// <summary>
-    /// Extrae un recurso comprimido utilizando el compresor con el
-    /// identificador especificado.
-    /// </summary>
-    /// <param name="id">Identificador del recurso.</param>
-    /// <param name="compressorId">
-    /// Identificador del compresor a utilizar para extraer el recurso.
-    /// </param>
-    /// <param name="data">
-    /// Parámetro de salida. Cadena que ha sido devuelta por la
-    /// operación de lectura del recurso.
-    /// </param>
-    /// <returns>
-    /// Un <see cref="string" /> con el contenido del archivo de texto
-    /// incrustado en el ensamblado.
-    /// </returns>
-    public override bool TryUnpack(string id, string compressorId, out string data)
-    {
-        bool r = TryGetStream(id, compressorId, out StreamReader? reader);
-        data = Read(reader);
-        return r;
-    }
-
-    /// <summary>
-    /// Extrae un recurso comprimido utilizando el compresor con el
-    /// identificador especificado.
-    /// </summary>
-    /// <param name="id">Identificador del recurso.</param>
-    /// <param name="compressor">
-    /// <see cref="ICompressorGetter" /> a utilizar para extraer el
-    /// recurso.
-    /// </param>
-    /// <param name="data">
-    /// Parámetro de salida. Cadena que ha sido devuelta por la
-    /// operación de lectura del recurso.
-    /// </param>
-    /// <returns>
-    /// Un <see cref="string" /> con el contenido del archivo de texto
-    /// incrustado en el ensamblado.
-    /// </returns>
+    /// <inheritdoc/>
     public override bool TryUnpack(string id, ICompressorGetter compressor, out string data)
     {
         bool r = TryGetStream(id, compressor, out StreamReader? reader);
@@ -335,42 +191,21 @@ public class StringUnpacker : AssemblyUnpacker<string>, IAsyncUnpacker<string>
         return r;
     }
 
-    /// <summary>
-    /// Obtiene un recurso identificable de forma asíncrona.
-    /// </summary>
-    /// <param name="id">Identificador del recurso.</param>
-    /// <returns>
-    /// Un <see cref="string" /> con el contenido del archivo de texto
-    /// incrustado en el ensamblado.
-    /// </returns>
+    /// <inheritdoc/>
     public Task<string> UnpackAsync(string id) => ReadAsync(new StreamReader(UnpackStream(id) ?? throw new InvalidDataException()));
 
-    /// <summary>
-    /// Extrae un recurso comprimido utilizando el compresor con el
-    /// identificador especificado de forma asíncrona.
-    /// </summary>
-    /// <param name="id">Identificador del recurso.</param>
-    /// <param name="compressorId">
-    /// Identificador del compresor a utilizar para extraer el recurso.
-    /// </param>
-    /// <returns>
-    /// Un <see cref="string" /> con el contenido del archivo de texto
-    /// incrustado en el ensamblado.
-    /// </returns>
-    public Task<string> UnpackAsync(string id, string compressorId) => ReadAsync(GetStream(id, compressorId));
-
-    /// <summary>
-    /// Extrae un recurso comprimido utilizando el compresor con el
-    /// identificador especificado de forma asíncrona.
-    /// </summary>
-    /// <param name="id">Identificador del recurso.</param>
-    /// <param name="compressor">
-    /// <see cref="ICompressorGetter" /> a utilizar para extraer el
-    /// recurso.
-    /// </param>
-    /// <returns>
-    /// Un <see cref="string" /> con el contenido del archivo de texto
-    /// incrustado en el ensamblado.
-    /// </returns>
+    /// <inheritdoc/>
     public Task<string> UnpackAsync(string id, ICompressorGetter compressor) => ReadAsync(GetStream(id, compressor));
+    
+    /// <inheritdoc/>
+    public async Task<UnpackResult<string>> TryUnpackAsync(string id)
+    {
+        return TryGetStream(id, out StreamReader? reader) ? new(true, await ReadAsync(reader)) : new(false, null);
+    }
+
+    /// <inheritdoc/>
+    public async Task<UnpackResult<string>> TryUnpackAsync(string id, ICompressorGetter compressor)
+    {
+        return TryGetStream(id, compressor, out StreamReader? reader) ? new(true, await ReadAsync(reader)) : new(false, null);
+    }
 }

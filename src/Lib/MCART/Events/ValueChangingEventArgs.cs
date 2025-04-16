@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -31,13 +31,13 @@ SOFTWARE.
 namespace TheXDS.MCART.Events;
 
 /// <summary>
-/// Incluye información para cualquier evento que incluya tipos de valor y
-/// puedan ser cancelados.
+/// Includes event information for any event where the value of an element
+/// changes.
 /// </summary>
 /// <param name="oldValue">
-/// Valor original asociado al evento generado.
+/// Old value.
 /// </param>
 /// <param name="newValue">
-/// Nuevo valor asociado al evento generado.
+/// New value.
 /// </param>
 public class ValueChangingEventArgs(object? oldValue, object? newValue) : ValueChangingEventArgs<object?>(oldValue, newValue);

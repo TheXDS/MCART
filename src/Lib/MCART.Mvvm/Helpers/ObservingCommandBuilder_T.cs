@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -38,20 +38,20 @@ using static TheXDS.MCART.Helpers.ReflectionHelpers;
 namespace TheXDS.MCART.Helpers;
 
 /// <summary>
-/// Clase envolvente que permite configurar y generar un 
+/// Wrapper class that allows for the configuration and generation of an 
 /// <see cref="ObservingCommand"/>.
 /// </summary>
-/// <typeparam name="T">Tipo de objeto observado.</typeparam>
+/// <typeparam name="T">Type of the observed object.</typeparam>
 public partial class ObservingCommandBuilder<T> where T : INotifyPropertyChanged
 {
     private readonly ObservingCommand command;
     private readonly T observedObject;
-    private readonly List<Func<object?, bool>> canExecuteTree = new();
+    private readonly List<Func<object?, bool>> canExecuteTree = [];
 
     /// <summary>
-    /// Obtiene un valor que indica si ya se ha terminado de definir el
-    /// <see cref="ObservingCommand"/> a obtener por medio de esta
-    /// instancia.
+    /// Gets a value indicating whether the 
+    /// <see cref="ObservingCommand"/> has been fully defined 
+    /// through this instance.
     /// </summary>
     public bool IsBuilt { get; private set; }
 
@@ -76,17 +76,15 @@ public partial class ObservingCommandBuilder<T> where T : INotifyPropertyChanged
     }
 
     /// <summary>
-    /// Indica que el <see cref="ObservingCommand"/> a configurar escuchará
-    /// los cambios de las propiedades especificadas.
+    /// Indicates that the <see cref="ObservingCommand"/> being configured will listen 
+    /// for changes to the specified properties.
     /// </summary>
     /// <param name="properties">
-    /// Colección de expresiones selectoras que permiten especificar las
-    /// propiedades a escuchar.
+    /// A collection of selector expressions that specify the properties to listen to.
     /// </param>
     /// <returns>
-    /// Esta instancia de la clase
-    /// <see cref="ObservingCommandBuilder{T}"/>, permitiendo el uso de
-    /// sintaxis Fluent.
+    /// This instance of the 
+    /// <see cref="ObservingCommandBuilder{T}"/>, allowing for Fluent syntax.
     /// </returns>
     public ObservingCommandBuilder<T> ListensTo(params Expression<Func<T, object?>>[] properties)
     {
@@ -95,17 +93,15 @@ public partial class ObservingCommandBuilder<T> where T : INotifyPropertyChanged
     }
 
     /// <summary>
-    /// Indica que el <see cref="ObservingCommand"/> a configurar escuchará
-    /// los cambios de las propiedades especificadas.
+    /// Indicates that the <see cref="ObservingCommand"/> being configured will listen 
+    /// for changes to the specified properties.
     /// </summary>
     /// <param name="properties">
-    /// Colección de expresiones selectoras que permiten especificar las
-    /// propiedades a escuchar.
+    /// A collection of selector expressions that specify the properties to listen to.
     /// </param>
     /// <returns>
-    /// Esta instancia de la clase
-    /// <see cref="ObservingCommandBuilder{T}"/>, permitiendo el uso de
-    /// sintaxis Fluent.
+    /// This instance of the 
+    /// <see cref="ObservingCommandBuilder{T}"/>, allowing for Fluent syntax.
     /// </returns>
     public ObservingCommandBuilder<T> ListensTo<TValue>(params Expression<Func<T, TValue>>[] properties)
     {
@@ -115,18 +111,16 @@ public partial class ObservingCommandBuilder<T> where T : INotifyPropertyChanged
     }
 
     /// <summary>
-    /// Indica que el <see cref="ObservingCommand"/> a configurar deberá
-    /// escuchar a una propiedad de tipo <see cref="bool"/> y establecer la
-    /// misma como el determinante de si el comando puede o no ser
-    /// ejecutado.
+    /// Indicates that the <see cref="ObservingCommand"/> being configured will 
+    /// listen to a property of type <see cref="bool"/> and use it as the 
+    /// determinant of whether the command can be executed.
     /// </summary>
     /// <param name="selector">
-    /// Función selectora de la propiedad a utilizar.
+    /// Selector function for the property to be used.
     /// </param>
     /// <returns>
-    /// Esta instancia de la clase
-    /// <see cref="ObservingCommandBuilder{T}"/>, permitiendo el uso de
-    /// sintaxis Fluent.
+    /// This instance of the 
+    /// <see cref="ObservingCommandBuilder{T}"/>, allowing for Fluent syntax.
     /// </returns>
     public ObservingCommandBuilder<T> ListensToCanExecute(Expression<Func<T, bool>> selector)
     {
@@ -139,18 +133,16 @@ public partial class ObservingCommandBuilder<T> where T : INotifyPropertyChanged
     }
 
     /// <summary>
-    /// Establece explícitamente la función de comprobación que determina
-    /// si el <see cref="ObservingCommand"/> a configurar puede ser 
-    /// ejecutada.
+    /// Explicitly sets the check function that determines whether the 
+    /// <see cref="ObservingCommand"/> being configured can be executed.
     /// </summary>
     /// <param name="canExecute">
-    /// Función que determina so el comando puede ser ejecutado. La función
-    /// admitirá un parámetro proporcionado por el enlace de datos.
+    /// A function that determines if the command can be executed. The function 
+    /// will accept a parameter provided by the data binding.
     /// </param>
     /// <returns>
-    /// Esta instancia de la clase
-    /// <see cref="ObservingCommandBuilder{T}"/>, permitiendo el uso de
-    /// sintaxis Fluent.
+    /// This instance of the 
+    /// <see cref="ObservingCommandBuilder{T}"/>, allowing for Fluent syntax.
     /// </returns>
     public ObservingCommandBuilder<T> CanExecute(Func<object?, bool> canExecute)
     {
@@ -160,17 +152,15 @@ public partial class ObservingCommandBuilder<T> where T : INotifyPropertyChanged
     }
 
     /// <summary>
-    /// Establece explícitamente la función de comprobación que determina
-    /// si el <see cref="ObservingCommand"/> a configurar puede ser 
-    /// ejecutada.
+    /// Explicitly sets the check function that determines whether the 
+    /// <see cref="ObservingCommand"/> being configured can be executed.
     /// </summary>
     /// <param name="canExecute">
-    /// Función que determina so el comando puede ser ejecutado.
+    /// A function that determines if the command can be executed.
     /// </param>
     /// <returns>
-    /// Esta instancia de la clase
-    /// <see cref="ObservingCommandBuilder{T}"/>, permitiendo el uso de
-    /// sintaxis Fluent.
+    /// This instance of the 
+    /// <see cref="ObservingCommandBuilder{T}"/>, allowing for Fluent syntax.
     /// </returns>
     public ObservingCommandBuilder<T> CanExecute(Func<bool> canExecute)
     {
@@ -180,18 +170,16 @@ public partial class ObservingCommandBuilder<T> where T : INotifyPropertyChanged
     }
 
     /// <summary>
-    /// Configura el <see cref="ObservingCommand"/> para poder ejecutarse
-    /// cuando las propiedades especificadas no sean igual a
+    /// Configures the <see cref="ObservingCommand"/> to be executable 
+    /// when the specified properties are not equal to 
     /// <see langword="null"/>.
     /// </summary>
     /// <param name="properties">
-    /// Colección de expresiones selectoras que permiten especificar las
-    /// propiedades a escuchar.
+    /// A collection of selector expressions that specify the properties to listen to.
     /// </param>
     /// <returns>
-    /// Esta instancia de la clase
-    /// <see cref="ObservingCommandBuilder{T}"/>, permitiendo el uso de
-    /// sintaxis Fluent.
+    /// This instance of the 
+    /// <see cref="ObservingCommandBuilder{T}"/>, allowing for Fluent syntax.
     /// </returns>
     public ObservingCommandBuilder<T> CanExecuteIfNotNull(params Expression<Func<T, object?>>[] properties)
     {
@@ -199,19 +187,17 @@ public partial class ObservingCommandBuilder<T> where T : INotifyPropertyChanged
     }
 
     /// <summary>
-    /// Configura el <see cref="ObservingCommand"/> para poder ejecutarse
-    /// cuando las propiedades especificadas no sean igual a
-    /// <see langword="null"/> o a su valor predeterminado en caso de ser
-    /// estructuras.
+    /// Configures the <see cref="ObservingCommand"/> to be executable 
+    /// when the specified properties are not equal to 
+    /// <see langword="null"/> or their default value if they are 
+    /// value types.
     /// </summary>
     /// <param name="properties">
-    /// Colección de expresiones selectoras que permiten especificar las
-    /// propiedades a escuchar.
+    /// A collection of selector expressions that specify the properties to listen to.
     /// </param>
     /// <returns>
-    /// Esta instancia de la clase
-    /// <see cref="ObservingCommandBuilder{T}"/>, permitiendo el uso de
-    /// sintaxis Fluent.
+    /// This instance of the 
+    /// <see cref="ObservingCommandBuilder{T}"/>, allowing for Fluent syntax.
     /// </returns>
     public ObservingCommandBuilder<T> CanExecuteIfNotDefault(params Expression<Func<T, object?>>[] properties)
     {
@@ -219,18 +205,16 @@ public partial class ObservingCommandBuilder<T> where T : INotifyPropertyChanged
     }
 
     /// <summary>
-    /// Configura el <see cref="ObservingCommand"/> para poder ejecutarse
-    /// cuando las propiedades especificadas contengan valores distintos
-    /// del valor predeterminado para el tipo de cada una.
+    /// Configures the <see cref="ObservingCommand"/> to be executable 
+    /// when the specified properties contain values different from 
+    /// the default value for their respective types.
     /// </summary>
     /// <param name="properties">
-    /// Colección de expresiones selectoras que permiten especificar las
-    /// propiedades a escuchar.
+    /// A collection of selector expressions that specify the properties to listen to.
     /// </param>
     /// <returns>
-    /// Esta instancia de la clase
-    /// <see cref="ObservingCommandBuilder{T}"/>, permitiendo el uso de
-    /// sintaxis Fluent.
+    /// This instance of the 
+    /// <see cref="ObservingCommandBuilder{T}"/>, allowing for Fluent syntax.
     /// </returns>
     public ObservingCommandBuilder<T> CanExecuteIfFilled(params Expression<Func<T, string?>>[] properties)
     {
@@ -238,20 +222,18 @@ public partial class ObservingCommandBuilder<T> where T : INotifyPropertyChanged
     }
 
     /// <summary>
-    /// Configura el <see cref="ObservingCommand"/> para poder ejecutarse
-    /// cuando las propiedades especificadas tengan valores de punto
-    /// flotante válidos, es decir, que no sean 
-    /// <see cref="float.NegativeInfinity"/>,
-    /// <see cref="float.PositiveInfinity"/> o <see cref="float.NaN"/>.
+    /// Configures the <see cref="ObservingCommand"/> to be executable 
+    /// when the specified properties have valid floating-point values, 
+    /// meaning they are not 
+    /// <see cref="float.NegativeInfinity"/>, 
+    /// <see cref="float.PositiveInfinity"/> or <see cref="float.NaN"/>.
     /// </summary>
     /// <param name="properties">
-    /// Colección de expresiones selectoras que permiten especificar las
-    /// propiedades a escuchar.
+    /// A collection of selector expressions that specify the properties to listen to.
     /// </param>
     /// <returns>
-    /// Esta instancia de la clase
-    /// <see cref="ObservingCommandBuilder{T}"/>, permitiendo el uso de
-    /// sintaxis Fluent.
+    /// This instance of the 
+    /// <see cref="ObservingCommandBuilder{T}"/>, allowing for Fluent syntax.
     /// </returns>
     public ObservingCommandBuilder<T> CanExecuteIfValid(params Expression<Func<T, float>>[] properties)
     {
@@ -259,21 +241,19 @@ public partial class ObservingCommandBuilder<T> where T : INotifyPropertyChanged
     }
 
     /// <summary>
-    /// Configura el <see cref="ObservingCommand"/> para poder ejecutarse
-    /// cuando las propiedades especificadas tengan valores de punto
-    /// flotante válidos, es decir, que no sean 
-    /// <see cref="float.NegativeInfinity"/>,
-    /// <see cref="float.PositiveInfinity"/>, <see cref="float.NaN"/> o
+    /// Configures the <see cref="ObservingCommand"/> to be executable 
+    /// when the specified properties have valid floating-point values, 
+    /// meaning they are not 
+    /// <see cref="float.NegativeInfinity"/>, 
+    /// <see cref="float.PositiveInfinity"/>, <see cref="float.NaN"/> or 
     /// <see langword="null"/>.
     /// </summary>
     /// <param name="properties">
-    /// Colección de expresiones selectoras que permiten especificar las
-    /// propiedades a escuchar.
+    /// A collection of selector expressions that specify the properties to listen to.
     /// </param>
     /// <returns>
-    /// Esta instancia de la clase
-    /// <see cref="ObservingCommandBuilder{T}"/>, permitiendo el uso de
-    /// sintaxis Fluent.
+    /// This instance of the 
+    /// <see cref="ObservingCommandBuilder{T}"/>, allowing for Fluent syntax.
     /// </returns>
     public ObservingCommandBuilder<T> CanExecuteIfValid(params Expression<Func<T, float?>>[] properties)
     {
@@ -281,20 +261,18 @@ public partial class ObservingCommandBuilder<T> where T : INotifyPropertyChanged
     }
 
     /// <summary>
-    /// Configura el <see cref="ObservingCommand"/> para poder ejecutarse
-    /// cuando las propiedades especificadas tengan valores de punto
-    /// flotante válidos, es decir, que no sean 
-    /// <see cref="double.NegativeInfinity"/>,
-    /// <see cref="double.PositiveInfinity"/> o <see cref="double.NaN"/>.
+    /// Configures the <see cref="ObservingCommand"/> to be executable 
+    /// when the specified properties have valid floating-point values, 
+    /// meaning they are not 
+    /// <see cref="double.NegativeInfinity"/>, 
+    /// <see cref="double.PositiveInfinity"/> or <see cref="double.NaN"/>.
     /// </summary>
     /// <param name="properties">
-    /// Colección de expresiones selectoras que permiten especificar las
-    /// propiedades a escuchar.
+    /// A collection of selector expressions that specify the properties to listen to.
     /// </param>
     /// <returns>
-    /// Esta instancia de la clase
-    /// <see cref="ObservingCommandBuilder{T}"/>, permitiendo el uso de
-    /// sintaxis Fluent.
+    /// This instance of the 
+    /// <see cref="ObservingCommandBuilder{T}"/>, allowing for Fluent syntax.
     /// </returns>
     public ObservingCommandBuilder<T> CanExecuteIfValid(params Expression<Func<T, double>>[] properties)
     {
@@ -302,21 +280,19 @@ public partial class ObservingCommandBuilder<T> where T : INotifyPropertyChanged
     }
 
     /// <summary>
-    /// Configura el <see cref="ObservingCommand"/> para poder ejecutarse
-    /// cuando las propiedades especificadas tengan valores de punto
-    /// flotante válidos, es decir, que no sean 
-    /// <see cref="double.NegativeInfinity"/>,
-    /// <see cref="double.PositiveInfinity"/>, <see cref="double.NaN"/> o
+    /// Configures the <see cref="ObservingCommand"/> to be executable 
+    /// when the specified properties have valid floating-point values, 
+    /// meaning they are not 
+    /// <see cref="double.NegativeInfinity"/>, 
+    /// <see cref="double.PositiveInfinity"/>, <see cref="double.NaN"/> or 
     /// <see langword="null"/>.
     /// </summary>
     /// <param name="properties">
-    /// Colección de expresiones selectoras que permiten especificar las
-    /// propiedades a escuchar.
+    /// A collection of selector expressions that specify the properties to listen to.
     /// </param>
     /// <returns>
-    /// Esta instancia de la clase
-    /// <see cref="ObservingCommandBuilder{T}"/>, permitiendo el uso de
-    /// sintaxis Fluent.
+    /// This instance of the 
+    /// <see cref="ObservingCommandBuilder{T}"/>, allowing for Fluent syntax.
     /// </returns>
     public ObservingCommandBuilder<T> CanExecuteIfValid(params Expression<Func<T, double?>>[] properties)
     {
@@ -324,19 +300,17 @@ public partial class ObservingCommandBuilder<T> where T : INotifyPropertyChanged
     }
 
     /// <summary>
-    /// Configura el <see cref="ObservingCommand"/> para poder ejecutarse
-    /// cuando las propiedades especificadas tengan valores distintos de su
-    /// valor predeterminado ordinal.
+    /// Configures the <see cref="ObservingCommand"/> to be executable 
+    /// when the specified properties have values different from their 
+    /// default ordinal value.
     /// </summary>
-    /// <typeparam name="TValue">Tipo de valores.</typeparam>
+    /// <typeparam name="TValue">Type of the values.</typeparam>
     /// <param name="properties">
-    /// Colección de expresiones selectoras que permiten especificar las
-    /// propiedades a escuchar.
+    /// A collection of selector expressions that specify the properties to listen to.
     /// </param>
     /// <returns>
-    /// Esta instancia de la clase
-    /// <see cref="ObservingCommandBuilder{T}"/>, permitiendo el uso de
-    /// sintaxis Fluent.
+    /// This instance of the 
+    /// <see cref="ObservingCommandBuilder{T}"/>, allowing for Fluent syntax.
     /// </returns>
     public ObservingCommandBuilder<T> CanExecuteIfNotZero<TValue>(params Expression<Func<T, TValue>>[] properties) where TValue : notnull, IComparable<TValue>
     {
@@ -344,15 +318,13 @@ public partial class ObservingCommandBuilder<T> where T : INotifyPropertyChanged
     }
 
     /// <summary>
-    /// Configura el <see cref="ObservingCommand"/> para poder ejecutarse
-    /// cuando todas las propiedades que admiten lectura y escritura del
-    /// objeto observado tengan valores distintos a su respectivo valor
-    /// predeterminado.
+    /// Configures the <see cref="ObservingCommand"/> to be executable 
+    /// when all readable and writable properties of the observed object 
+    /// have values different from their respective default values.
     /// </summary>
     /// <returns>
-    /// Esta instancia de la clase
-    /// <see cref="ObservingCommandBuilder{T}"/>, permitiendo el uso de
-    /// sintaxis Fluent.
+    /// This instance of the 
+    /// <see cref="ObservingCommandBuilder{T}"/>, allowing for Fluent syntax.
     /// </returns>
     public ObservingCommandBuilder<T> CanExecuteIfObservedIsFilled()
     {
@@ -374,23 +346,28 @@ public partial class ObservingCommandBuilder<T> where T : INotifyPropertyChanged
     }
 
     /// <summary>
-    /// Configura el <see cref="ObservingCommand"/> para poder ejecutarse
-    /// cuando las colecciones especificadas tengan al menos un elemento.
+    /// Configures the <see cref="ObservingCommand"/> to be executable 
+    /// when the specified collections contain at least one element.
     /// </summary>
-    /// <param name="properties"></param>
-    /// <returns></returns>
-    public ObservingCommandBuilder<T> CanexecuteIfNotEmpty(params Expression<Func<T, IEnumerable<object?>?>>[] properties)
+    /// <param name="properties">
+    /// A collection of selector expressions that specify the properties to listen to.
+    /// </param>
+    /// <returns>
+    /// This instance of the 
+    /// <see cref="ObservingCommandBuilder{T}"/>, allowing for Fluent syntax.
+    /// </returns>
+    public ObservingCommandBuilder<T> CanExecuteIfNotEmpty(params Expression<Func<T, IEnumerable<object?>?>>[] properties)
     {
         return CanExecuteIf(p => p?.Any() ?? false, properties);
     }
 
     /// <summary>
-    /// Finaliza la configuración del <see cref="ObservingCommand"/>
-    /// subyacente, devolviéndolo.
+    /// Finalizes the configuration of the underlying <see cref="ObservingCommand"/> 
+    /// and returns it.
     /// </summary>
     /// <returns>
-    /// El <see cref="ObservingCommand"/> que ha sido configurado por medio
-    /// de esta instancia.
+    /// The <see cref="ObservingCommand"/> that has been configured through 
+    /// this instance.
     /// </returns>
     public ObservingCommand Build()
     {
@@ -408,9 +385,9 @@ public partial class ObservingCommandBuilder<T> where T : INotifyPropertyChanged
     }
 
     /// <summary>
-    /// Convierte implícitamente esta instancia en un
+    /// Implicitly converts this instance to a 
     /// <see cref="ObservingCommand"/>.
     /// </summary>
-    /// <param name="command">Objeto a convertir.</param>
+    /// <param name="command">The object to convert.</param>
     public static implicit operator ObservingCommand(ObservingCommandBuilder<T> command) => command.Build();
 }

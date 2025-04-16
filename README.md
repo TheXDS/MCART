@@ -19,99 +19,81 @@ MCART
 </tr>
 </table>
 
-## Introducción
-MCART es un conjunto de funciones, extensiones y módulos que he encontrado
-útiles a lo largo de mis años de experiencia con lenguajes .Net,
-particularmente con Visual Basic. Trata de añadir características que no se
-encuentran fácilmente disponibles en .Net Framework, y además añade controles,
-ventanas, recursos y otros objetos de utilidad.
+## Introduction
+MCART is a set of functions, extensions, and modules that I have found
+useful throughout my years of experience with .Net languages,
+particularly with Visual Basic. It aims to add features that are not
+easily available in the .Net Framework, and also adds controls,
+windows, resources, and other utility objects.
 
-Actualmente, se encuentra en una muy temprana fase Alpha, por lo que podría
-tener bugs o problemas serios de rendimiento. He puesto mucho esfuerzo en
-mantener un código funcional y, espero, libre de errores obvios. Sin embargo,
-no puedo asegurar que MCART pueda ser utilizado en un paquete de software en su
-estado actual.
+Currently, it is in a very early Alpha phase, so it may
+have bugs or serious performance issues. I have put a lot of effort into
+maintaining functional code and, hopefully, free of obvious errors. However,
+I cannot guarantee that MCART can be used in a software package in its
+current state.
 
-## Composición del proyecto
-MCART se compone de varios proyectos, y distintos proyectos de código
-compartido entre las plataformas. En ellos reside la raíz de la mayoría de
-características que pueden funcionar en diferentes entornos CIL. La
-funcionalidad está comprobada con .Net 6.0; lo que debería ser suficiente
-para crear aplicaciones basadas en Win32, WPF, Gtk#, consola e incluso sitios
-web desarrollados en ASP .Net.
+## Project Composition
+MCART consists of several projects, and different shared code
+projects across platforms. Here lies the root of most
+features that can work in different CIL environments. The
+functionality has been tested with .Net 6.0; which should be sufficient
+to create applications based on Win32, WPF, Gtk#, console, and even
+websites developed in ASP .Net.
 
 ## Releases
-MCART se encuentra disponible en NuGet y en mi repositorio privado de GitHub.
+MCART is available on NuGet.
 
 Release | Link
 --- | ---
-Última versión estable: | [![Versión estable](https://buildstats.info/nuget/TheXDS.MCART)](https://www.nuget.org/packages/TheXDS.MCART/)
-Última versión de desarrollo: | [![Versión de desarrollo](https://buildstats.info/nuget/TheXDS.MCART?includePreReleases=true)](https://www.nuget.org/packages/TheXDS.MCART/)
+Latest stable version: | [![Stable version](https://buildstats.info/nuget/TheXDS.MCART)](https://www.nuget.org/packages/TheXDS.MCART/)
+Latest development version: | [![Development version](https://buildstats.info/nuget/TheXDS.MCART?includePreReleases=true)](https://www.nuget.org/packages/TheXDS.MCART/)
 
 **Package Manager**  
 ```sh
 Install-Package TheXDS.MCART
 ```
-
 **.NET CLI**  
 ```sh
 dotnet add package TheXDS.MCART
 ```
-
 **Paket CLI**  
 ```sh
 paket add TheXDS.MCART
 ```
-
-**Referencia de paquete**  
-```xml
-<PackageReference Include="TheXDS.MCART" Version="0.17.3" />
-```
-
-#### Repositorio de GitHub
-Para obtener los paquetes de MCART directamente desde GitHub, es necesario
-agregar mi repositorio privado. Para lograr esto, solo es necesario
-ejecutar en una terminal:
+**Package reference**  
 ```sh
-nuget sources add -Name "TheXDS GitHub Repo" -Source https://nuget.pkg.github.com/TheXDS/index.json
+<PackageReference Include="TheXDS.MCART" Version="0.18.0" />
 ```
 
-## Compilación
-Para compilar MCART, se requiere que el [SDK de .NET 8.0](https://dotnet.microsoft.com/)
-o una version posterior con un targeting Pack para .NET 8.0 esté instalado en
-el sistema.
+## Compilation
+To compile MCART, the [SDK for .NET 8.0](https://dotnet.microsoft.com/) or a later version with a targeting pack for .NET 8.0 must be installed on the system.
 
-### Compilando MCART
+### Compiling MCART
 ```sh
 dotnet build ./src/MCART.sln
 ```
-Los binarios se encontrarán en la carpeta `Build` en la raíz del repositorio.
+The binaries will be found in the `Build` folder at the root of the repository.
 
-### Ejecutando pruebas
+### Executing tests
 ```sh
 dotnet test ./src/MCART.sln
 ```
-#### Reporte de cobertura
-Es posible obtener un reporte de la cobertura de código de manera local. Para ello, es necesario instalar 
-[`ReportGenerator`](https://github.com/danielpalme/ReportGenerator) , que leerá los resultados de la ejecución de las pruebas, y generará una página web con el resultado de la cobertura.
+#### Coverage Report
+It is possible to obtain a local code coverage report. To do this, it is necessary to install [`ReportGenerator`](https://github.com/danielpalme/ReportGenerator), which will read the results of the test execution and generate a web page with the coverage results.
 
-Para instalar `ReportGenerator` ejecuta:
+To install `ReportGenerator`, run:
 ```sh
 dotnet tool install -g dotnet-reportgenerator-globaltool
 ```
-Luego de haber instalado `ReportGenerator`, será posible ejecutar el siguiente comando:
+After installing `ReportGenerator`, it will be possible to run the following command:
 ```sh
 dotnet test ./src/MCART.sln --collect:"XPlat Code Coverage" --results-directory:./Build/Tests ; reportgenerator.exe -reports:./Build/Tests/*/coverage.cobertura.xml -targetdir:./Build/Coverage/
 ```
-Los resultados de la cobertura se almacenarán en `./Build/Coverage`
+The coverage results will be stored in `./Build/Coverage`
 
-## Contribuir
+## Contribute
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/W7W415UCHY)
 
-Si MCART te ha sido de utilidad, o te interesa donar para fomentar el
-desarrollo del proyecto, siéntete libre de hacer una donación por medio de
-[PayPal](https://paypal.me/thexds), [Ko-fi](https://ko-fi.com/W7W415UCHY)
-o ponte en contacto directamente conmigo.
+If MCART has been useful to you, or if you are interested in donating to support the development of the project, feel free to make a donation via [PayPal](https://paypal.me/thexds), [Ko-fi](https://ko-fi.com/W7W415UCHY), or contact me directly.
 
-Lamentablemente, no puedo ofrecer otros medios de donación por el momento
-debido a que mi país (Honduras) no es soportado por ninguna plataforma.
+Unfortunately, I cannot offer other means of donation at the moment because my country (Honduras) is not supported by any platform.

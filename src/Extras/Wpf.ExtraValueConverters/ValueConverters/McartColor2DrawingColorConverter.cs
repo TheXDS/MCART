@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -29,48 +29,20 @@ SOFTWARE.
 */
 
 using System.Globalization;
-using System.Windows.Data;
 using TheXDS.MCART.ValueConverters.Base;
 using MT = TheXDS.MCART.Types;
 
 namespace TheXDS.MCART.ValueConverters;
 
 /// <summary>
-/// Convierte valores desde y hacia objetos de tipo
-/// <see cref="MT.Color"/> y <see cref="int"/>.
+/// Converts values between the <see cref="MT.Color"/> and <see cref="int"/>
+/// types.
 /// </summary>
 public class McartColor2DrawingColorConverter : IValueConverter<MT.Color, System.Drawing.Color>
 {
-    /// <summary>
-    /// Convierte un <see cref="MT.Color"/> en un <see cref="System.Drawing.Color"/>.
-    /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="parameter">
-    /// Parámetros personalizados para este <see cref="IValueConverter" />.
-    /// </param>
-    /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
-    /// </param>
-    /// <returns>
-    /// Un <see cref="System.Drawing.Color"/> equivalente al <see cref="MT.Color"/> original.
-    /// </returns>
+    /// <inheritdoc/>
     public System.Drawing.Color Convert(MT.Color value, object? parameter, CultureInfo? culture) => value;
 
-    /// <summary>
-    /// Convierte un <see cref="System.Drawing.Color"/> en un 
-    /// <see cref="MT.Color"/>.
-    /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="parameter">
-    /// Parámetros personalizados para este <see cref="IValueConverter" />.
-    /// </param>
-    /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
-    /// </param>
-    /// <returns>
-    /// Un <see cref="MT.Color"/> creado a partir del
-    /// valor del objeto, o <see langword="null"/> si no es posible
-    /// realizar la conversión.
-    /// </returns>
+    /// <inheritdoc/>
     public MT.Color ConvertBack(System.Drawing.Color value, object? parameter, CultureInfo culture) => value;
 }

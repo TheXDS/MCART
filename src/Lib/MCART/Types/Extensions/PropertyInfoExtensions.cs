@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -29,8 +29,11 @@ SOFTWARE.
 */
 
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq.Expressions;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Misc;
 using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Types.Extensions;
@@ -48,6 +51,7 @@ public static class PropertyInfoExtensions
     /// <param name="instance">
     /// Instancia del objeto que contiene la propiedad.
     /// </param>
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
     public static void SetDefault(this PropertyInfo property, object? instance)
     {
         if (instance is null || instance.GetType().GetProperties().Any(p => p.Is(property)))
@@ -65,6 +69,7 @@ public static class PropertyInfoExtensions
     /// predeterminado.
     /// </summary>
     /// <param name="property">Propiedad a restablecer.</param>
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
     public static void SetDefault(this PropertyInfo property)
     {
         SetDefault(property, null);
@@ -87,6 +92,7 @@ public static class PropertyInfoExtensions
         return property.CanRead && property.CanWrite;
     }
 
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
     private static object? GetDefaultFromInstance(object? instance, PropertyInfo property)
     {
         object? d = null;
@@ -100,17 +106,18 @@ public static class PropertyInfoExtensions
         }
     }
 
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]    
     private static void SetDefaultValueInternal(object? instance, PropertyInfo property)
     {
         if (property.SetMethod is null)
         {
             throw Errors.PropIsReadOnly(property);
         }
-        property.SetMethod.Invoke(instance, new[]
-        {
+        property.SetMethod.Invoke(instance,
+        [
             property.GetAttribute<DefaultValueAttribute>()?.Value ??
             GetDefaultFromInstance(instance, property) ??
             property.PropertyType.Default()
-        });
+        ]);
     }
 }

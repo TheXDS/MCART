@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,23 +28,40 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using TheXDS.MCART.Resources;
+
 namespace TheXDS.MCART.Component;
 
 /// <summary>
-/// Define una extensión de Markup XAML que permite obtener valores de
-/// enumeración como una colección.
+/// Markup extension that allows an <see cref="Enum"/> type to be specified on
+/// XAML.
 /// </summary>
 public partial class EnumValueProvider
 {
+    private Type? enumType;
+
     /// <summary>
-    /// Obtiene una referencia al tipo de enumeración desde la cual se
-    /// obtendrán los valores.
+    /// Gets or sets the <see cref="Enum"/> type to enumerate.
     /// </summary>
-    public Type? EnumType { get; set; }
+    public Type? EnumType
+    {
+        get => enumType;
+        set
+        {
+            if (value is null || value.IsEnum)
+            {
+                enumType = value;
+            }
+            else
+            {
+                throw Errors.EnumExpected(nameof(value), value);
+            }
+        }
+    }
 
     /// <inheritdoc/>
     public override object ProvideValue(IServiceProvider serviceProvider)
     {
-        return EnumType is { IsEnum: true } ? Enum.GetValues(EnumType) : null!;
+        return EnumType is { IsEnum: true } ? Enum.GetValues(EnumType) : Array.Empty<Enum>();
     }
 }

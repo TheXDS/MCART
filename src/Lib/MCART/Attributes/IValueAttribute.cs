@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -31,16 +31,16 @@ SOFTWARE.
 namespace TheXDS.MCART.Attributes;
 
 /// <summary>
-/// Define una interfaz para los atributos que expongan valores por
-/// medio de la propiedad <see cref="Value"/>.
+/// Defines an interface for attributes that expose values through
+/// the <see cref="Value"/> property.
 /// </summary>
 /// <typeparam name="T">
-/// Tipo del valor expuesto por este atributo.
+/// Type of the value exposed by this attribute.
 /// </typeparam>
 public interface IValueAttribute<out T>
 {
     /// <summary>
-    /// Obtiene el valor de este atributo.
+    /// Gets the value of this attribute.
     /// </summary>
     T Value { get; }
 }

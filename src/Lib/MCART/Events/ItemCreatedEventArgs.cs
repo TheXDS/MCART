@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -31,30 +31,29 @@ SOFTWARE.
 namespace TheXDS.MCART.Events;
 
 /// <summary>
-/// Contiene información de evento para cualquier clase con eventos donde
-/// se guardó información.
+/// Contains event information for an event that includes information on an
+/// item that has been created.
 /// </summary>
+/// <typeparam name="T">Element type.</typeparam>
 public class ItemCreatedEventArgs<T> : ValueEventArgs<T> where T : notnull
 {
     /// <summary>
-    /// Inicializa una nueva instancia de esta clase con la información de
-    /// evento provista.
+    /// Initializes a new instance of the <see cref="ItemCreatedEventArgs{T}"/>.
     /// </summary>
-    /// <param name="item">Objeto que ha sido guardado.</param>
+    /// <param name="item">Object that has been created.</param>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="item"/> es <see langword="null"/>.
+    /// Thrown if <paramref name="item"/> is <see langword="null"/>.
     /// </exception>
     public ItemCreatedEventArgs(T item) : base(item)
     {
-        Misc.Internals.NullCheck(item, nameof(item));
+        ArgumentNullException.ThrowIfNull(item, nameof(item));
     }
 
     /// <summary>
-    /// Converte implícitamente un <see cref="AddedItemEventArgs{T}"/> en un
-    /// objeto de tipo <typeparamref name="T"/>.
+    /// Implicitly converts an object of type
+    /// <see cref="AddedItemEventArgs{T}"/> into an object of type
+    /// <typeparamref name="T"/>.
     /// </summary>
-    /// <param name="from">
-    /// <see cref="AddedItemEventArgs{T}"/> a convertir.
-    /// </param>
+    /// <param name="from">Value to be converted.</param>
     public static implicit operator T(ItemCreatedEventArgs<T> from) => from.Value;
 }

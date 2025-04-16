@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -34,32 +34,26 @@ using TheXDS.MCART.Types;
 namespace TheXDS.MCART.Events;
 
 /// <summary>
-/// Contiene información para el evento
-/// <see cref="ListEx{T}.ModifyingItem"/>.
+/// Contains information for the <see cref="ListEx{T}.AddingItem"/> event.
 /// </summary>
-/// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
-public class ModifyingItemEventArgs<T> : CancelEventArgs
+/// <typeparam name="T">Type of elements on the list.</typeparam>
+/// <param name="index">Index at which the item will be modified.</param>
+/// <param name="oldValue">Old value.</param>
+/// <param name="newValue">New value.</param>
+public class ModifyingItemEventArgs<T>(int index, T oldValue, T newValue) : CancelEventArgs
 {
-    internal ModifyingItemEventArgs(int index, T oldValue, T newValue)
-    {
-        OldValue = oldValue;
-        NewValue = newValue;
-        Index = index;
-    }
+    /// <summary>
+    /// Gets the new value to be set at the specified index on the list.
+    /// </summary>
+    public T NewValue { get; } = newValue;
 
     /// <summary>
-    /// Obtiene el nuevo valor del objeto.
+    /// Gets the current value at the specified index on the list.
     /// </summary>
-    public T NewValue { get; }
+    public T OldValue { get; } = oldValue;
 
     /// <summary>
-    /// Obtiene el valor actual del objeto.
+    /// Gets the index on the list at which the value will be modified.
     /// </summary>
-    public T OldValue { get; }
-
-    /// <summary>
-    /// Obtiene el índice del objeto dentro del <see cref="ListEx{T}"/>
-    /// que generó el evento.
-    /// </summary>
-    public int Index { get; }
+    public int Index { get; } = index;
 }

@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,26 +28,60 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Tests.Attributes;
-using NUnit.Framework;
+using System.Reflection;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Types;
+
+namespace TheXDS.MCART.Tests.Attributes;
 
 public class CopyrightAttributeTests
 {
     [Test]
-    public void CopyrightAttributeBasicInstancing_Test()
+    public void Ctor_with_full_copyright_string_passes_string_through()
     {
         CopyrightAttribute? l = new("Copyright (C) Test");
-        Assert.That("Copyright (C) Test", Is.EqualTo(l.Value));
+        Assert.That(l.Value, Is.EqualTo("Copyright (C) Test"));
+    }
 
-        l = new CopyrightAttribute("Test");
-        Assert.That("Copyright © Test", Is.EqualTo(l.Value));
+    [Test]
+    public void Ctor_with_simple_string_creates_copyright_formatted_string()
+    {
+        CopyrightAttribute l = new("Test");
+        Assert.That(l.Value, Is.EqualTo("Copyright © Test"));
+    }
 
-        l = new CopyrightAttribute(1985, "Test");
-        Assert.That("Copyright © 1985 Test", Is.EqualTo(l.Value));
+    [Test]
+    public void Ctor_with_year_and_simple_string_creates_copyright_formatted_string()
+    {
+        CopyrightAttribute l = new(1985, "Test");
+        Assert.That(l.Value, Is.EqualTo("Copyright © 1985 Test"));
+    }
 
-        l = new CopyrightAttribute(new Range<ushort>(1985, 2001), "Test");
-        Assert.That("Copyright © 1985-2001 Test", Is.EqualTo(l.Value));
+    [Test]
+    public void Ctor_with_years_range_and_simple_string_creates_copyright_formatted_string()
+    {
+        CopyrightAttribute l = new(new Range<int>(1985, 2001), "Test");
+        Assert.That(l.Value, Is.EqualTo("Copyright © 1985-2001 Test"));
+    }
+
+    [Test]
+    public void Ctor_with_years_and_simple_string_creates_copyright_formatted_string()
+    {
+        CopyrightAttribute l = new(1985, 2001, "Test");
+        Assert.That(l.Value, Is.EqualTo("Copyright © 1985-2001 Test"));
+    }
+
+    [Test]
+    public void Attribute_can_be_cast_to_AssemblyCopyrightAttribute()
+    {
+        AssemblyCopyrightAttribute l = new CopyrightAttribute("Test");
+        Assert.That(l.Copyright, Is.EqualTo("Copyright © Test"));
+    }
+
+    [Test]
+    public void Attribute_can_be_cast_from_AssemblyCopyrightAttribute()
+    {
+        CopyrightAttribute l = new AssemblyCopyrightAttribute("Test");
+        Assert.That(l.Value, Is.EqualTo("Copyright © Test"));
     }
 }

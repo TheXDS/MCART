@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -34,19 +34,11 @@ using static System.Reflection.Emit.OpCodes;
 namespace TheXDS.MCART.Types.Extensions.ConstantLoaders;
 
 /// <summary>
-/// Carga un valor constante <see cref="int"/> en la secuencia de
-/// instrucciones MSIL.
+/// Loads a constant value of type <see cref="int"/> into the MSIL instruction sequence.
 /// </summary>
 public class Int32ConstantLoader : ConstantLoader<int>
 {
-    /// <summary>
-    /// Carga un valor constante <see cref="int"/> en la secuencia de
-    /// instrucciones MSIL.
-    /// </summary>
-    /// <param name="il">Generador de IL a utilizar.</param>
-    /// <param name="value">
-    /// Valor constante a cargar en la secuencia de instrucciones.
-    /// </param>
+    /// <inheritdoc/>
     public override void Emit(ILGenerator il, int value)
     {
         switch (value)

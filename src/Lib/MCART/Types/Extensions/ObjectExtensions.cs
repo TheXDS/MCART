@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -33,6 +33,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Helpers;
+using TheXDS.MCART.Misc;
 using static TheXDS.MCART.Misc.Internals;
 using static TheXDS.MCART.Types.Extensions.EnumerableExtensions;
 
@@ -128,6 +129,7 @@ public static class ObjectExtensions
     /// encontrarse el atributo especificado.
     /// </returns>
     [Sugar]
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodGetsTypeMembersByName)]
     public static T? GetAttribute<T>(this object obj) where T : Attribute
     {
         HasAttribute(obj, out T? attribute);
@@ -198,6 +200,8 @@ public static class ObjectExtensions
     /// <typeparamref name="T" /> del objeto.
     /// </returns>
     [Sugar]
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
+    [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
     public static IEnumerable<T> PropertiesOf<T>(this object instance)
     {
         return instance.GetType().GetProperties().PropertiesOf<T>(instance);
@@ -222,6 +226,7 @@ public static class ObjectExtensions
     /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
     /// en caso contrario.
     /// </returns>
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodGetsTypeMembersByName)]
     public static bool HasAttribute<T>(this object obj, [NotNullWhen(true)] out T? attribute) where T : notnull, Attribute
     {
         return obj switch
@@ -230,7 +235,7 @@ public static class ObjectExtensions
             Assembly a => a.HasAttribute(out attribute),
             MemberInfo m => m.HasAttribute(out attribute),
             Enum e => e.HasAttribute(out attribute),
-            _ => HasAttributes(obj.GetType(), out IEnumerable<T>? attributes) & (attribute = attributes?.FirstOrDefault()) is not null
+            _ => HasAttributes(obj, out IEnumerable<T>? attributes) & (attribute = attributes?.FirstOrDefault()) is not null
         };
     }
 
@@ -258,6 +263,7 @@ public static class ObjectExtensions
     /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
     /// en caso contrario.
     /// </returns>
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodGetsTypeMembersByName)]
     public static bool HasAttrValue<TAttribute, TValue>(this object obj, [MaybeNullWhen(false)] out TValue value)
         where TAttribute : Attribute, IValueAttribute<TValue>
     {
@@ -289,6 +295,7 @@ public static class ObjectExtensions
     /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
     /// en caso contrario.
     /// </returns>
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodGetsTypeMembersByName)]
     public static bool HasAttribute<T>(this object obj) where T : Attribute
     {
         return HasAttribute<T>(obj, out _);
@@ -315,18 +322,8 @@ public static class ObjectExtensions
     /// </returns>
     public static bool HasAttributes<T>(this object obj, [NotNullWhen(true)] out IEnumerable<T>? attribute) where T : Attribute
     {
-        switch (obj)
-        {
-            case Assembly a:
-                return a.HasAttributes(out attribute);
-            case MemberInfo m:
-                return m.HasAttributes(out attribute);
-            case Enum e:
-                return e.HasAttributes(out attribute);
-            default:
-                attribute = Attribute.GetCustomAttributes(obj.GetType(), typeof(T)).OfType<T>();
-                return attribute.Any();
-        }
+        attribute = Attribute.GetCustomAttributes(obj.GetType(), typeof(T)).OfType<T>();
+        return attribute.Any();
     }
 
     /// <summary>
@@ -367,9 +364,11 @@ public static class ObjectExtensions
     /// Se produce si <paramref name="instance"/> es
     /// <see langword="null"/>.
     /// </exception>
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
+    [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
     public static IEnumerable<T> FieldsOf<T>(this object instance)
     {
-        NullCheck(instance, nameof(instance));
+        ArgumentNullException.ThrowIfNull(instance, nameof(instance));
         return ReflectionHelpers.FieldsOf<T>(instance.GetType().GetFields(), instance);
     }
 

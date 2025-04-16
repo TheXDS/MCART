@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -43,7 +43,7 @@ namespace TheXDS.MCART.Types;
 public class Grouping<TKey, TElement> : List<TElement>, IGrouping<TKey, TElement>
 {
     /// <summary>
-    /// Inicializa una nueva instancia de la clase 
+    /// Initializes a new instance of the 
     /// <see cref="Grouping{TKey, TElement}"/>, estableciendo la llave a
     /// utilizar.
     /// </summary>
@@ -56,7 +56,7 @@ public class Grouping<TKey, TElement> : List<TElement>, IGrouping<TKey, TElement
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase 
+    /// Initializes a new instance of the 
     /// <see cref="Grouping{TKey, TElement}"/>, estableciendo la llave a
     /// utilizar para identificar a los elementos especificados.
     /// </summary>
@@ -72,7 +72,7 @@ public class Grouping<TKey, TElement> : List<TElement>, IGrouping<TKey, TElement
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase 
+    /// Initializes a new instance of the 
     /// <see cref="Grouping{TKey, TElement}"/>, estableciendo la llave a
     /// utilizar, además de definir la capacidad de la colección.
     /// </summary>

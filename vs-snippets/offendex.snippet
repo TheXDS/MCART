@@ -1,46 +1,47 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
-  <CodeSnippet Format="1.0.0">
-    <Header>
-      <Title>offendex</Title>
-      <Shortcut>offendex</Shortcut>
-      <Description>Fragmento de código para agregar una excepción que hereda de OffendingException.</Description>
-      <Author>César Andrés Morgan</Author>
-      <SnippetTypes>
-        <SnippetType>Expansion</SnippetType>
-      </SnippetTypes>
-    </Header>
-    <Snippet>
-      <Declarations>
-        <Literal>
-          <ID>exname</ID>
-          <ToolTip>Nombre de excepción</ToolTip>
-          <Default>MyOffending</Default>
-        </Literal>
-        <Literal>
-          <ID>exdesc</ID>
-          <ToolTip>Descripción de la excepción</ToolTip>
-          <Default>un valor no es válido.</Default>
-        </Literal>
-        <Literal>
-          <ID>extype</ID>
-          <ToolTip>Tipo de la excepción</ToolTip>
-          <Default>object</Default>
-        </Literal>        
-        <Literal>
-          <ID>exparam</ID>
-          <ToolTip>Nombre del parámetro de la excepción</ToolTip>
-          <Default>offendingValue</Default>
-        </Literal>
-        <Literal>
-          <ID>exparamdesc</ID>
-          <ToolTip>Descripción del parámetro de la excepción</ToolTip>
-          <Default>Valor que ha causado la excepción</Default>
-        </Literal>
-      </Declarations>
-      <Code Language="csharp"><![CDATA[
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>offendex</Title>
+			<Shortcut>offendex</Shortcut>
+			<Description>Code snippet to add an exception that inherits from OffendingException.</Description>
+			<Author>César Andrés Morgan</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>exname</ID>
+					<ToolTip>Exception name</ToolTip>
+					<Default>MyOffending</Default>
+				</Literal>
+				<Literal>
+					<ID>exdesc</ID>
+					<ToolTip>Exception description</ToolTip>
+					<Default>an invalid value.</Default>
+				</Literal>
+				<Literal>
+					<ID>extype</ID>
+					<ToolTip>Type of the exception</ToolTip>
+					<Default>object</Default>
+				</Literal>
+				<Literal>
+					<ID>exparam</ID>
+					<ToolTip>Name of the exception parameter</ToolTip>
+					<Default>offendingValue</Default>
+				</Literal>
+				<Literal>
+					<ID>exparamdesc</ID>
+					<ToolTip>Description of the exception parameter</ToolTip>
+					<Default>Value that caused the exception</Default>
+				</Literal>
+			</Declarations>
+			<Code Language="csharp">
+				<![CDATA[
     /// <summary>
-    /// Excepción que se produce cuando $exdesc$.
+    /// Exception that occurs when $exdesc$.
     /// </summary>
     [Serializable]
     public class $exname$Exception : OffendingException<$extype$>
@@ -49,32 +50,32 @@
         static string Msg($extype$ $exparam$) => "";
 
         /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="$exname$Exception"/>.
+        /// Initializes a new instance of the 
+        /// <see cref="$exname$Exception"/> class.
         /// </summary>
         /// <param name="context">
-        /// El <see cref="StreamingContext"/> que contiene información
-        /// contextual acerca del orígen o el destino.
+        /// The <see cref="StreamingContext"/> that contains contextual
+        /// information about the source or destination.
         /// </param>
         /// <param name="info">
-        /// El <see cref="SerializationInfo"/> que contiene la información
-        /// serializada del objeto acerca de la excepción que está siendo
-        /// lanzada.
+        /// The <see cref="SerializationInfo"/> that contains the serialized
+        /// information about the object regarding the exception being
+        /// thrown.
         /// </param>
         protected $exname$Exception(SerializationInfo info, StreamingContext context) : base(info, context) { }
 
         /// <summary>
-        /// Inicializa una nueva instancia de la clase 
-        /// <see cref="$exname$Exception"/>.
+        /// Initializes a new instance of the 
+        /// <see cref="$exname$Exception"/> class.
         /// </summary>
         /// <param name="context">
-        /// El <see cref="StreamingContext"/> que contiene información
-        /// contextual acerca del orígen o el destino.
+        /// The <see cref="StreamingContext"/> that contains contextual
+        /// information about the source or destination.
         /// </param>
         /// <param name="info">
-        /// El <see cref="SerializationInfo"/> que contiene la información
-        /// serializada del objeto acerca de la excepción que está siendo
-        /// lanzada.
+        /// The <see cref="SerializationInfo"/> that contains the serialized
+        /// information about the object regarding the exception being
+        /// thrown.
         /// </param>
         /// <param name="$exparam$">
         /// $exparamdesc$.
@@ -82,14 +83,14 @@
         protected $exname$Exception(SerializationInfo info, StreamingContext context, $extype$ $exparam$) : base(info, context, $exparam$) { }
 
         /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="$exname$Exception"/>.
+        /// Initializes a new instance of the
+        /// <see cref="$exname$Exception"/> class.
         /// </summary>
         public $exname$Exception() : base(Msg()) { }
 
         /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="$exname$Exception"/>.
+        /// Initializes a new instance of the
+        /// <see cref="$exname$Exception"/> class.
         /// </summary>
         /// <param name="$exparam$">
         /// $exparamdesc$.
@@ -97,20 +98,20 @@
         public $exname$Exception($extype$ $exparam$) : base(Msg($exparam$), $exparam$) { }
 
         /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="$exname$Exception"/>.
+        /// Initializes a new instance of the
+        /// <see cref="$exname$Exception"/> class.
         /// </summary>
         /// <param name="message">
-        /// Un <see cref="string"/> que describe a la excepción.
+        /// A <see cref="string"/> that describes the exception.
         /// </param>
         public $exname$Exception(string message) : base(message) { }
 
         /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="$exname$Exception"/>.
+        /// Initializes a new instance of the
+        /// <see cref="$exname$Exception"/> class.
         /// </summary>
         /// <param name="message">
-        /// Un <see cref="string"/> que describe a la excepción.
+        /// A <see cref="string"/> that describes the exception.
         /// </param>
         /// <param name="$exparam$">
         /// $exparamdesc$.
@@ -118,20 +119,20 @@
         public $exname$Exception(string message, $extype$ $exparam$) : base(message, $exparam$) { }
 
         /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="$exname$Exception"/>.
+        /// Initializes a new instance of the
+        /// <see cref="$exname$Exception"/> class.
         /// </summary>
         /// <param name="inner">
-        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// <see cref="Exception"/> that is the cause of this exception.
         /// </param>
         public $exname$Exception(Exception inner) : base(Msg(), inner) { }
 
         /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="$exname$Exception"/>.
+        /// Initializes a new instance of the
+        /// <see cref="$exname$Exception"/> class.
         /// </summary>
         /// <param name="inner">
-        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// <see cref="Exception"/> that is the cause of this exception.
         /// </param>
         /// <param name="$exparam$">
         /// $exparamdesc$.
@@ -139,26 +140,26 @@
         public $exname$Exception(Exception inner, $extype$ $exparam$) : base(Msg($exparam$), inner, $exparam$) { }
 
         /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="$exname$Exception"/>.
+        /// Initializes a new instance of the
+        /// <see cref="$exname$Exception"/> class.
         /// </summary>
         /// <param name="message">
-        /// Un <see cref="string"/> que describe a la excepción.
+        /// A <see cref="string"/> that describes the exception.
         /// </param>
         /// <param name="inner">
-        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// <see cref="Exception"/> that is the cause of this exception.
         /// </param>
         public $exname$Exception(string message, Exception inner) : base(message, inner) { }
 
         /// <summary>
-        /// Inicializa una nueva instancia de la clase
-        /// <see cref="$exname$Exception"/>.
+        /// Initializes a new instance of the
+        /// <see cref="$exname$Exception"/> class.
         /// </summary>
         /// <param name="message">
-        /// Un <see cref="string"/> que describe a la excepción.
+        /// A <see cref="string"/> that describes the exception.
         /// </param>
         /// <param name="inner">
-        /// <see cref="Exception"/> que es la causa de esta excepción.
+        /// <see cref="Exception"/> that is the cause of this exception.
         /// </param>
         /// <param name="$exparam$">
         /// $exparamdesc$.
@@ -166,7 +167,7 @@
         public $exname$Exception(string message, Exception inner, $extype$ $exparam$) : base(message, inner, $exparam$) { }
     }
 ]]>
-      </Code>
-    </Snippet>
-  </CodeSnippet>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
 </CodeSnippets>

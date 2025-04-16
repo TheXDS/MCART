@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,8 +28,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Reflection.Emit;
+using TheXDS.MCART.Misc;
 using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Extensions;
@@ -39,8 +41,9 @@ namespace TheXDS.MCART.Helpers;
 /// <summary>
 /// Contiene métodos auxiliares útiles para la construcción de tipos.
 /// </summary>
+[RequiresDynamicCode(AttributeErrorMessages.ClassCallsDynamicCode)]
 public static class TypeFactoryHelpers
-{
+{    
     private static readonly TypeFactory _factory = new(true);
 
     /// <summary>

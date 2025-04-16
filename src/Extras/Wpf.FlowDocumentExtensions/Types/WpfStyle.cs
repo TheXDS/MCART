@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -34,27 +34,27 @@ using System.Windows.Media;
 namespace TheXDS.MCART.FlowDocumentExtensions.Types;
 
 /// <summary>
-/// Referencia común de estilos para WPF.
+/// Common style reference for WPF.
 /// </summary>
 public class WpfStyle : IWpfStyle
 {
     /// <summary>
-    /// <see cref="Brush"/> de fondo a aplicar al elemento.
+    /// <see cref="Brush"/> for the background to be applied to the element.
     /// </summary>
     public Brush? Background { get; set; }
 
     /// <summary>
-    /// <see cref="Brush"/> de frente a aplicar al elemento.
+    /// <see cref="Brush"/> for the foreground to be applied to the element.
     /// </summary>
     public Brush? Foreground { get; set; }
 
     /// <summary>
-    /// <see cref="Brush"/> a aplicar a los bordes del elemento.
+    /// <see cref="Brush"/> to be applied to the borders of the element.
     /// </summary>
     public Brush? BorderBrush { get; set; }
 
     /// <summary>
-    /// Definición de bordes a aplicar al elemento.
+    /// Definition of borders to be applied to the element.
     /// </summary>
     public Thickness? BorderThickness { get; set; }
 }

@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -118,9 +118,24 @@ public class CollectionExtensionsTests
     {
         Collection<int> c = new();
         c.AddRange(new[] { 1, 2, 3, 4 });
-        Assert.That(c, Is.EquivalentTo(new[] { 1, 2, 3, 4 }));
+        Assert.That(c, Is.EquivalentTo([1, 2, 3, 4]));
     }
 
+    [Test]
+    public async Task AddRangeAsync_Test()
+    {
+        static async IAsyncEnumerable<int> Enumerate()
+        {
+            foreach (var j in (int[])[1, 2, 3, 4])
+            {
+                await Task.CompletedTask;
+                yield return j;
+            }
+        }
+        Collection<int> c = new();
+        await c.AddRangeAsync(Enumerate());
+        Assert.That(c, Is.EquivalentTo([1, 2, 3, 4]));
+    }
     private class CloneableTestClass : ICloneable<CloneableTestClass>
     {
         public int Value { get; set; }

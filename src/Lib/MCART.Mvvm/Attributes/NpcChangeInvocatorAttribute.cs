@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -36,7 +36,7 @@ namespace TheXDS.MCART.Attributes;
 /// Marca un método como la invocación de cambio de valor de propiedad en
 /// una clase que herede de <see cref="NotifyPropertyChangeBase"/>.
 /// </summary>
-[AttributeUsage(AttributeTargets.Method)]
+[AttributeUsage(AttributeTargets.Method, Inherited = true)]
 public sealed class NpcChangeInvocatorAttribute : Attribute
 {
 }

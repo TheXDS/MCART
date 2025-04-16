@@ -11,7 +11,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -33,10 +33,12 @@ SOFTWARE.
 */
 
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Helpers;
+using TheXDS.MCART.Misc;
 using TheXDS.MCART.Resources;
 using static TheXDS.MCART.Misc.Internals;
 
@@ -52,7 +54,7 @@ public static partial class TypeExtensions
     [DebuggerNonUserCode]
     private static void Derivates_Contract(AppDomain domain)
     {
-        NullCheck(domain, nameof(domain));
+        ArgumentNullException.ThrowIfNull(domain, nameof(domain));
     }
 
     [Conditional("EnforceContracts")]
@@ -60,7 +62,7 @@ public static partial class TypeExtensions
     [DebuggerNonUserCode]
     private static void Derivates_Contract(IEnumerable<Assembly> assemblies)
     {
-        NullCheck(assemblies, nameof(assemblies));
+        ArgumentNullException.ThrowIfNull(assemblies, nameof(assemblies));
     }
 
     [Conditional("EnforceContracts")]
@@ -68,16 +70,17 @@ public static partial class TypeExtensions
     [DebuggerNonUserCode]
     private static void Derivates_Contract(Type type, IEnumerable<Type> types)
     {
-        NullCheck(type, nameof(type));
-        NullCheck(types, nameof(types));
+        ArgumentNullException.ThrowIfNull(type, nameof(type));
+        ArgumentNullException.ThrowIfNull(types, nameof(types));
     }
 
     [Conditional("EnforceContracts")]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     [DebuggerNonUserCode]
-    private static void GetCollectionType_Contract(Type collectionType)
+    [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
+    private static void GetCollectionType_Contract([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.Interfaces)]Type collectionType)
     {
-        NullCheck(collectionType, nameof(collectionType));
+        ArgumentNullException.ThrowIfNull(collectionType, nameof(collectionType));
         if (!collectionType.IsCollectionType()) throw Errors.EnumerableTypeExpected(collectionType);
     }
 
@@ -86,7 +89,7 @@ public static partial class TypeExtensions
     [DebuggerNonUserCode]
     private static void GetDefinedMethods_Contract(Type type)
     {
-        NullCheck(type, nameof(type));
+        ArgumentNullException.ThrowIfNull(type, nameof(type));
     }
 
     [Conditional("EnforceContracts")]
@@ -94,15 +97,15 @@ public static partial class TypeExtensions
     [DebuggerNonUserCode]
     private static void GetPublicProperties_Contract(Type type)
     {
-        NullCheck(type, nameof(type));
+        ArgumentNullException.ThrowIfNull(type, nameof(type));
     }
 
     [Conditional("EnforceContracts")]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     [DebuggerNonUserCode]
-    private static void New_Contract(Type type, bool throwOnFail, IEnumerable<object?>? parameters)
+    private static void New_Contract([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)]Type type, bool throwOnFail, IEnumerable<object?>? parameters)
     {
-        NullCheck(type, nameof(type));
+        ArgumentNullException.ThrowIfNull(type, nameof(type));
         if (throwOnFail && !type.IsInstantiable(parameters?.ToTypes()))
         {
             throw Errors.ClassNotInstantiable(type);
@@ -114,7 +117,7 @@ public static partial class TypeExtensions
     [DebuggerNonUserCode]
     private static void NotNullable_Contract(Type t)
     {
-        NullCheck(t, nameof(t));
+        ArgumentNullException.ThrowIfNull(t, nameof(t));
     }
 
     [Conditional("EnforceContracts")]
@@ -122,7 +125,7 @@ public static partial class TypeExtensions
     [DebuggerNonUserCode]
     private static void ToNamedEnum_Contract(Type type)
     {
-        NullCheck(type, nameof(type));
+        ArgumentNullException.ThrowIfNull(type, nameof(type));
         if (!type.IsEnum) throw Errors.EnumExpected(nameof(type), type);
     }
 
@@ -131,7 +134,7 @@ public static partial class TypeExtensions
     [DebuggerNonUserCode]
     private static void TryInstance_Contract(Type t, object[]? args)
     {
-        NullCheck(t, nameof(t));
+        ArgumentNullException.ThrowIfNull(t, nameof(t));
         if (args?.IsAnyNull() ?? false) throw new NullItemException(args);
     }
 }

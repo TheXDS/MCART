@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -33,75 +33,97 @@ using TheXDS.MCART.Resources.Strings;
 namespace TheXDS.MCART.Exceptions;
 
 /// <summary>
-/// Excepción que se produce al hacer referencia a un tipo inválido.
+/// Exception that is thrown when referencing an invalid type.
 /// </summary>
 [Serializable]
 public class InvalidTypeException : OffendingException<Type>
 {
     /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException" />.
+    /// Initializes a new instance of the <see cref="InvalidTypeException" />
+    /// class.
     /// </summary>
     public InvalidTypeException() : base(Msg())
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException" />.
+    /// Initializes a new instance of the <see cref="InvalidTypeException" />
+    /// class.
     /// </summary>
-    /// <param name="offendingType">Tipo que ha causado la excepción.</param>
+    /// <param name="offendingType">
+    /// Type that is the cause of the exception.
+    /// </param>
     public InvalidTypeException(Type offendingType) : base(Msg(offendingType), offendingType)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException" />.
+    /// Initializes a new instance of the <see cref="InvalidTypeException" />
+    /// class.
     /// </summary>
-    /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
+    /// <param name="message">Message that describes the exception.</param>
     public InvalidTypeException(string message) : base(message)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException" />.
+    /// Initializes a new instance of the <see cref="InvalidTypeException" />
+    /// class.
     /// </summary>
-    /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
-    /// <param name="offendingType">Tipo que ha causado la excepción.</param>
+    /// <param name="message">Message that describes the exception.</param>
+    /// <param name="offendingType">
+    /// Type that is the cause of the exception.
+    /// </param>
     public InvalidTypeException(string message, Type offendingType) : base(message, offendingType)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException" />.
+    /// Initializes a new instance of the <see cref="InvalidTypeException" />
+    /// class.
     /// </summary>
-    /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
+    /// <param name="inner">
+    /// <see cref="Exception" /> that is the cause of this exception.
+    /// </param>
     public InvalidTypeException(Exception inner) : base(Msg(), inner)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException" />.
+    /// Initializes a new instance of the <see cref="InvalidTypeException" />
+    /// class.
     /// </summary>
-    /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
-    /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
+    /// <param name="message">Message that describes the exception.</param>
+    /// <param name="inner">
+    /// <see cref="Exception" /> that is the cause of this exception.
+    /// </param>
     public InvalidTypeException(string message, Exception inner) : base(message, inner)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException" />.
+    /// Initializes a new instance of the <see cref="InvalidTypeException" />
+    /// class.
     /// </summary>
-    /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
+    /// <param name="inner">
+    /// <see cref="Exception" /> that is the cause of this exception.
+    /// </param>
     /// <param name="offendingType">Tipo que ha causado la excepción.</param>
     public InvalidTypeException(Exception inner, Type offendingType) : base(Msg(offendingType), inner, offendingType)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="InvalidTypeException" />.
+    /// Initializes a new instance of the <see cref="InvalidTypeException" />
+    /// class.
     /// </summary>
-    /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
-    /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
-    /// <param name="offendingType">Tipo que ha causado la excepción.</param>
+    /// <param name="message">Message that describes the exception.</param>
+    /// <param name="inner">
+    /// <see cref="Exception" /> that is the cause of this exception.
+    /// </param>
+    /// <param name="offendingType">
+    /// Type that is the cause of the exception.
+    /// </param>
     public InvalidTypeException(string message, Exception inner, Type offendingType) : base(message, inner, offendingType)
     {
     }

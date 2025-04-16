@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -42,7 +42,7 @@ public static partial class MethodInfoExtensions
     [DebuggerNonUserCode]
     private static void ToDelegate_Contract(MethodInfo m, object? targetInstance)
     {
-        NullCheck(m, nameof(m));
+        ArgumentNullException.ThrowIfNull(m, nameof(m));
         if ((targetInstance is null && !m.IsStatic) || (targetInstance is not null && m.IsStatic)) throw new MemberAccessException();
     }
 
@@ -51,7 +51,7 @@ public static partial class MethodInfoExtensions
     [DebuggerNonUserCode]
     private static void IsVoid_Contract(MethodInfo m)
     {
-        NullCheck(m, nameof(m));
+        ArgumentNullException.ThrowIfNull(m, nameof(m));
     }
 
     [Conditional("EnforceContracts")]
@@ -59,6 +59,6 @@ public static partial class MethodInfoExtensions
     [DebuggerNonUserCode]
     private static void IsOverride_Contract(MethodInfo method)
     {
-        NullCheck(method, nameof(method));
+        ArgumentNullException.ThrowIfNull(method, nameof(method));
     }
 }

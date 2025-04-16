@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -30,10 +30,13 @@ SOFTWARE.
 
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using TheXDS.MCART.Misc;
 using TheXDS.MCART.Resources;
+using static System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes;
 
 namespace TheXDS.MCART.Helpers;
 
@@ -62,15 +65,9 @@ public partial class ObservingCommandBuilder<T> where T : INotifyPropertyChanged
     private void ListensToCanExecute_Contract(MemberInfo member, Type t)
     {
         IsBuilt_Contract();
-        if (!GetAll<MemberInfo>(t).Contains(member))
+        if (!(member.DeclaringType?.IsAssignableFrom(t) ?? false))
         {
             throw Errors.MissingMember(t, member);
         }
-    }
-
-    private static IEnumerable<TMember> GetAll<TMember>(Type? t) where TMember : MemberInfo
-    {
-        if (t is null || t == typeof(object)) return Array.Empty<TMember>();
-        return t.GetMembers().Concat(GetAll<TMember>(t.BaseType)).Concat(t.GetInterfaces().SelectMany(p => p.GetMembers())).OfType<TMember>();
     }
 }

@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -35,41 +35,41 @@ using TheXDS.MCART.Resources;
 namespace TheXDS.MCART.Attributes;
 
 /// <summary>
-/// Especifica la versión de un elemento, además de ser la clase base para
-/// los atributos que describan un valor <see cref="Version" /> para un
-/// elemento.
+/// Specifies the version of an element, and also serves as the base class for
+/// attributes that describe a <see cref="Version" /> value for an
+/// element.
 /// </summary>
 public abstract class VersionAttributeBase : Attribute, IValueAttribute<Version>
 {
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="VersionAttributeBase" />.
+    /// Initializes a new instance of the
+    /// <see cref="VersionAttributeBase" /> class.
     /// </summary>
-    /// <param name="major">Número de versión mayor.</param>
-    /// <param name="minor">Número de versión menor.</param>
-    /// <param name="build">Número de compilación.</param>
-    /// <param name="rev">Número de revisión.</param>
+    /// <param name="major">Major version number.</param>
+    /// <param name="minor">Minor version number.</param>
+    /// <param name="build">Build number.</param>
+    /// <param name="rev">Revision number.</param>
     protected VersionAttributeBase(int major, int minor, int build, int rev)
     {
         Value = new(major, minor, build, rev);
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="VersionAttributeBase" />.
+    /// Initializes a new instance of the
+    /// <see cref="VersionAttributeBase" /> class.
     /// </summary>
-    /// <param name="major">Número de versión mayor.</param>
-    /// <param name="minor">Número de versión menor.</param>
+    /// <param name="major">Major version number.</param>
+    /// <param name="minor">Minor version number.</param>
     protected VersionAttributeBase(int major, int minor)
         : this(major, minor, 0, 0)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="VersionAttributeBase" />.
+    /// Initializes a new instance of the
+    /// <see cref="VersionAttributeBase" /> class.
     /// </summary>
-    /// <param name="version">Número de versión en formato <c>0.0</c>.</param>
+    /// <param name="version">Version number in <c>0.0</c> format.</param>
     protected VersionAttributeBase(double version)
     {
         if (!version.IsValid()) throw Errors.InvalidValue(nameof(version));
@@ -78,8 +78,8 @@ public abstract class VersionAttributeBase : Attribute, IValueAttribute<Version>
     }
 
     /// <summary>
-    /// Obtiene el valor asociado a este atributo.
+    /// Gets the value associated with this attribute.
     /// </summary>
-    /// <value>El valor de este atributo.</value>
+    /// <value>The value of this attribute.</value>
     public Version Value { get; }
 }

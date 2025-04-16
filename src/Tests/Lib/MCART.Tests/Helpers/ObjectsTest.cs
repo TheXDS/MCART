@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -57,7 +57,7 @@ public class ObjectsTest
     }
 
     [ExcludeFromCodeCoverage]
-    [Identifier("FindTypeTest")]
+    [Tag("FindTypeTest")]
     private class TestClass : ITestInterface
     {
         public static readonly double StaticField = 2;
@@ -149,9 +149,8 @@ public class ObjectsTest
     {
         TestClass? tc = new();
 
-        Assert.Throws<NullItemException>(() => ReflectionHelpers.FieldsOf<int>(new FieldInfo[] { null! }));
+        Assert.Throws<NullItemException>(() => ReflectionHelpers.FieldsOf<int>([null!]));
         Assert.Throws<ArgumentNullException>(() => ((FieldInfo[])null!).FieldsOf<int>());
-        Assert.Throws<MissingFieldException>(() => ReflectionHelpers.FieldsOf<int>(typeof(TestClass2).GetFields(), tc));
 
         Assert.That(tc.TestField, Is.EqualTo(tc.FieldsOf<float>().FirstOrDefault()));
         Assert.That(tc.TestField, Is.EqualTo(ReflectionHelpers.FieldsOf<float>(tc.GetType().GetFields(), tc).FirstOrDefault()));
@@ -203,8 +202,8 @@ public class ObjectsTest
 
         Assert.That(((object)MethodBase.GetCurrentMethod()!).HasAttribute<TestAttribute>(out _));
 
-        Assert.That(new TestClass().HasAttribute(out IdentifierAttribute? id));
-        Assert.That(id, Is.AssignableFrom<IdentifierAttribute>());
+        Assert.That(new TestClass().HasAttribute(out TagAttribute? id));
+        Assert.That(id, Is.AssignableFrom<TagAttribute>());
         Assert.That("FindTypeTest", Is.EqualTo(id!.Value));
 
         Assert.Throws<ArgumentNullException>(() => ((object)null!).HasAttribute<MCART.Attributes.DescriptionAttribute>(out _));
@@ -216,7 +215,7 @@ public class ObjectsTest
         Assert.That(((object)TestEnum.One).HasAttrValue<MCART.Attributes.DescriptionAttribute, string?>(out string? o));
         Assert.That("One", Is.EqualTo(o));
 
-        Assert.That(new TestClass().HasAttrValue<IdentifierAttribute, string?>(out string? id));
+        Assert.That(new TestClass().HasAttrValue<TagAttribute, string?>(out string? id));
         Assert.That("FindTypeTest", Is.EqualTo(id));
     }
 

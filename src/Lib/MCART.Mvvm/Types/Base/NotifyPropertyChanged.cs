@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -29,66 +29,55 @@ SOFTWARE.
 */
 
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using TheXDS.MCART.Helpers;
 
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
-/// Clase base para los objetos que puedan notificar sobre el cambio
-/// del valor de una de sus propiedades.
+/// Base class for any object that can generate notifications and events when
+/// the value of a property has changed.
 /// </summary>
 public abstract partial class NotifyPropertyChanged : NotifyPropertyChangeBase, INotifyPropertyChanged
 {
-    /// <summary>
-    /// Ocurre cuando el valor de una propiedad ha cambiado.
-    /// </summary>
+    /// <inheritdoc/>
     public event PropertyChangedEventHandler? PropertyChanged;
 
     /// <summary>
-    /// Notifica a los clientes que el valor de una propiedad ha
-    /// cambiado.
+    /// Manually raises a <see cref="PropertyChanged"/> event for a set of
+    /// properties.
     /// </summary>
-    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null!)
+    /// <param name="propertyNames">
+    /// Name of the properties that changed their value.
+    /// </param>
+    protected void Notify(params string[] propertyNames)
     {
-        PropertyName_Contract(propertyName);
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        NotifyRegistrar(propertyName);
-        foreach (INotifyPropertyChangeBase? j in _forwardingCollection) j.Notify(propertyName);
+        foreach (var j in propertyNames)
+        {
+            Change_Notify(j, PropertyChangeNotificationType.PropertyChanged);
+        }
     }
 
     /// <summary>
-    /// Cambia el valor de un campo, y genera los eventos de
-    /// notificación correspondientes.
+    /// Manually raises a <see cref="PropertyChanged"/> event for a single
+    /// property.
     /// </summary>
-    /// <typeparam name="T">Tipo de valores a procesar.</typeparam>
-    /// <param name="field">Campo a actualizar.</param>
-    /// <param name="value">Nuevo valor del campo.</param>
     /// <param name="propertyName">
-    /// Nombre de la propiedad. Por lo general, este valor debe
-    /// omitirse.
+    /// Name of the property that changed its value.
     /// </param>
-    /// <returns>
-    /// <see langword="true"/> si el valor de la propiedad ha
-    /// cambiado, <see langword="false"/> en caso contrario.
-    /// </returns>
-    protected override bool Change<T>(ref T field, T value, [CallerMemberName] string propertyName = null!)
+    protected void Notify(string propertyName)
     {
-        PropertyName_Contract(propertyName);
-        if (field?.Equals(value) ?? Objects.AreAllNull(field, value)) return false;
-        field = value;
-        OnPropertyChanged(propertyName);
-        return true;
+        Change_Notify(propertyName, PropertyChangeNotificationType.PropertyChanged);
     }
-
-    /// <summary>
-    /// Notifica el cambio en el valor de una propiedad.
-    /// </summary>
-    /// <param name="property">
-    /// Propiedad a notificar.
-    /// </param>
-    public override void Notify(string property)
+    
+    /// <inheritdoc/>
+    protected sealed override void RaisePropertyChangeEvent(in string propertyName, in PropertyChangeNotificationType _)
     {
-        OnPropertyChanged(property);
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+    
+    /// <inheritdoc/>
+    protected override void OnDoChange<T>(ref T field, T value, string propertyName)
+    {
+        field = value;
+        Change_Notify(propertyName, PropertyChangeNotificationType.PropertyChanged);
     }
 }

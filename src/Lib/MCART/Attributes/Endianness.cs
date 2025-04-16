@@ -1,5 +1,5 @@
 ﻿/*
-PriorityAttribute.cs
+Endianness.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,17 +28,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using static System.AttributeTargets;
-
 namespace TheXDS.MCART.Attributes;
 
 /// <summary>
-/// Marca un elemento con un valor de prioridad.
+/// Indicates the endianess of a numeric field
 /// </summary>
-/// <param name="priority">Valor de prioridad a asociar.</param>
-[AttributeUsage(Assembly | Class | Module | Event | GenericParameter | Interface | Method | Module | Parameter | Property | Struct)]
-public sealed class PriorityAttribute(int priority) : Attribute, IValueAttribute<int>
+public enum Endianness
 {
-    /// <inheritdoc/>
-    public int Value { get; } = priority;
+    /// <summary>
+    /// Indicates that the field is stored in little-endian.
+    /// </summary>
+    LittleEndian,
+
+    /// <summary>
+    /// Indicates that the field is stored in big-endian.
+    /// </summary>
+    BigEndian
 }

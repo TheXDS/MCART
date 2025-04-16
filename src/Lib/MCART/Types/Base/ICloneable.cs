@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,6 +28,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System.Diagnostics.CodeAnalysis;
+
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
@@ -41,7 +43,7 @@ namespace TheXDS.MCART.Types.Base;
 /// Si el tipo no es el mismo que implementa la interfaz, el tipo debe
 /// implementar el tipo especificado.
 /// </typeparam>
-public interface ICloneable<out T> : ICloneable where T : notnull, new()
+public interface ICloneable<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)]out T> : ICloneable where T : notnull, new()
 {
     /// <summary>
     /// Crea una copia de esta instancia.

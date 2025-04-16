@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -33,39 +33,48 @@ using TheXDS.MCART.Resources.Strings;
 namespace TheXDS.MCART.Exceptions;
 
 /// <summary>
-/// Se produce cuando una función soportada detecta una de las 
-/// siguientes situaciones:
+/// Exception that is thrown by a supported method under one of the following
+/// circumstances:
 /// <list type="bullet">
 /// <item>
 ///     <description>
-///         Valores de retorno alterados inesperadamente.
+///         Return values being altered unexpectedly.
 ///     </description> 
 /// </item>
 /// <item>
 ///     <description>
-///         Corrupción interna del estado de un objeto.
+///         Internal object state corruption.
 ///     </description> 
 /// </item>
 /// <item>
 ///     <description>
-///         Valor de retorno fuera del rango conocido esperado de
-///         una función.
+///         Function return value outside the expected/possible range.
 ///     </description>
 /// </item>
 /// <item>
 ///     <description>
-///         Corrupción de memoria no capturada por CLR.
+///         Memory corruption not captured by the CLR.
 ///     </description>
 /// </item>
 /// <item>
 ///     <description>
-///         Modificación externa de valores internos protegidos de
-///         la aplicación.
+///         External modification of internal values in a type.
 ///     </description>
 /// </item>
 /// <item>
 ///     <description>
-///         Acceso inesperado a métodos internos.
+///         Unexpected access to private methods in a type.
+///     </description>
+/// </item>
+/// <item>
+///     <description>
+///         Dereference of <see langword="null"/> in places known to not have a
+///         possible reference to <see langword="null"/>.
+///     </description>
+/// </item>
+/// <item>
+///     <description>
+///         Escapes in parameter validation.
 ///     </description>
 /// </item>
 /// </list>
@@ -74,44 +83,40 @@ namespace TheXDS.MCART.Exceptions;
 public class TamperException : Exception
 {
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="TamperException" />.
+    /// Initializes a new instance of the <see cref="TamperException" /> class.
     /// </summary>
     public TamperException() : base(Errors.TamperDetected)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="TamperException" />.
+    /// Initializes a new instance of the <see cref="TamperException" /> class.
     /// </summary>
     /// <param name="message">
-    /// Un <see cref="string" /> que describe a la excepción.
+    /// Message that describes the exception.
     /// </param>
     public TamperException(string message) : base(message)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="TamperException" />.
+    /// Initializes a new instance of the <see cref="TamperException" /> class.
     /// </summary>
     /// <param name="inner">
-    /// <see cref="Exception" /> que es la causa de esta excepción.
+    /// <see cref="Exception" /> that is the cause of this exception.
     /// </param>
     public TamperException(Exception inner) : this(Errors.TamperDetected, inner)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="TamperException" />.
+    /// Initializes a new instance of the <see cref="TamperException" /> class.
     /// </summary>
     /// <param name="message">
-    /// Un <see cref="string" /> que describe a la excepción.
+    /// Message that describes the exception.
     /// </param>
     /// <param name="inner">
-    /// <see cref="Exception" /> que es la causa de esta excepción.
+    /// <see cref="Exception" /> that is the cause of this exception.
     /// </param>
     public TamperException(string message, Exception inner) : base(message, inner)
     {

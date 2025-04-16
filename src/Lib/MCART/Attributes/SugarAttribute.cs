@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,18 +28,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using static System.AttributeTargets;
-
 namespace TheXDS.MCART.Attributes;
 
 /// <summary>
-/// Indica que un elemento facilita la llamada a otros elementos o
-/// miembros.
+/// Indicates that an element facilitates the calling of other elements or
+/// members.
 /// </summary>
-/// <remarks>
-/// Este atributo no debería aplicarse a sobrecargas de un método que
-/// no sea en sí mismo un método de "Code Sugar".
-/// </remarks>
-[AttributeUsage(Property | Method | Class | Module)]
+[AttributeUsage(AttributeTargets.Property | AttributeTargets.Method | AttributeTargets.Class | AttributeTargets.Module)]
 [Serializable]
 public sealed class SugarAttribute : Attribute;

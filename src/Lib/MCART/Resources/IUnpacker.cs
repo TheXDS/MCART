@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -49,19 +49,6 @@ public interface IUnpacker<T>
     /// identificador especificado.
     /// </summary>
     /// <param name="id">Identificador del recurso.</param>
-    /// <param name="compressorId">
-    /// Identificador del compresor a utilizar para extraer el recurso.
-    /// </param>
-    /// <returns>
-    /// Un recurso sin comprimir de tipo <typeparamref name="T"/>.
-    /// </returns>
-    T Unpack(string id, string compressorId);
-
-    /// <summary>
-    /// Extrae un recurso comprimido utilizando el compresor con el
-    /// identificador especificado.
-    /// </summary>
-    /// <param name="id">Identificador del recurso.</param>
     /// <param name="compressor">
     /// <see cref="ICompressorGetter"/> a utilizar para extraer el
     /// recurso.
@@ -84,23 +71,6 @@ public interface IUnpacker<T>
     /// satisfactoriamente, <see langword="false"/> en caso contrario.
     /// </returns>
     bool TryUnpack(string id, out T result);
-
-    /// <summary>
-    /// Intenta obtener un recurso identificable.
-    /// </summary>
-    /// <param name="id">Identificador del recurso.</param>
-    /// <param name="result">
-    /// Parámetro de salida. Un recurso de tipo 
-    /// <typeparamref name="T"/>.
-    /// </param>
-    /// <returns>
-    /// <see langword="true"/> si el recurso se extrajo 
-    /// satisfactoriamente, <see langword="false"/> en caso contrario.
-    /// </returns>
-    /// <param name="compressorId">
-    /// Identificador del compresor a utilizar para extraer el recurso.
-    /// </param>
-    bool TryUnpack(string id, string compressorId, out T result);
 
     /// <summary>
     /// Intenta obtener un recurso identificable.

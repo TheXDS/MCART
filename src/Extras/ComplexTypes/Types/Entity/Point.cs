@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -38,32 +38,33 @@ using CI = System.Globalization.CultureInfo;
 namespace TheXDS.MCART.Types.Entity;
 
 /// <summary>
-/// Tipo universal para un conjunto de coordenadas bidimensionales.
+/// Universal type that describes a set of coordinated in a two dimensional
+/// plane.
 /// </summary>
 [ComplexType]
 public class Point : IVector, IFormattable, IEquatable<Point>
 {
     /// <summary>
-    /// Coordenada X.
+    /// Gets or sets the X coordinates.
     /// </summary>
     public double X { get; set; }
 
     /// <summary>
-    /// Coordenada Y.
+    /// Gets or sets the Y coordinates.
     /// </summary>
     public double Y { get; set; }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="Point" />.
+    /// Initializes a new instance of the
+    /// <see cref="Point" /> class.
     /// </summary>
     public Point()
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="Point" />.
+    /// Initializes a new instance of the
+    /// <see cref="Point" /> class.
     /// </summary>
     /// <param name="x">The x coordinate.</param>
     /// <param name="y">The y coordinate.</param>
@@ -74,14 +75,14 @@ public class Point : IVector, IFormattable, IEquatable<Point>
     }
 
     /// <summary>
-    /// Compara la igualdad de los vectores.
+    /// Compares the equality between two vectors.
     /// </summary>
     /// <param name="other">
-    /// <see cref="IVector" /> contra el cual comparar.
+    /// <see cref="IVector" /> to compare this instance against.
     /// </param>
     /// <returns>
-    /// <see langword="true" /> si todos los vectores de ambos objetos
-    /// son iguales, <see langword="false" /> en caso contrario.
+    /// <see langword="true" /> if the vectors in both this and the other
+    /// vector are equal, <see langword="false" /> otherwise.
     /// </returns>
     public bool Equals(IVector? other)
     {
@@ -89,58 +90,42 @@ public class Point : IVector, IFormattable, IEquatable<Point>
     }
 
     /// <summary>
-    /// Compara la igualdad de los vectores de los puntos.
+    /// Compares the equality of two points.
     /// </summary>
     /// <param name="other">
-    /// <see cref="Point" /> contra el cual comparar.
+    /// <see cref="Point" /> to compare this intance against.
     /// </param>
     /// <returns>
-    /// <see langword="true" /> si todos los vectores de ambos puntos son iguales;
-    /// de lo contrario, <see langword="false" />.
+    /// <see langword="true" /> if the vectors in both this and the other point
+    /// are equal, <see langword="false" /> otherwise.
     /// </returns>
     public bool Equals(Point? other)
     {
         return other is { } o && this == o;
     }
 
-    /// <summary>
-    /// Indica si esta instancia y un objeto especificado son iguales.
-    /// </summary>
-    /// <param name="obj">
-    /// Objeto que se va a compara con la instancia actual.
-    /// </param>
-    /// <returns>
-    /// <see langword="true" /> si esta instancia y <paramref name="obj" /> son iguales;
-    /// de lo contrario, <see langword="false" />.
-    /// </returns>
+    /// <inheritdoc/>
     public override bool Equals(object? obj)
     {
         return obj is IVector p && this == p;
     }
 
-    /// <summary>
-    /// Convierte este objeto en su representación como una cadena.
-    /// </summary>
-    /// <returns>
-    /// Una representación en forma de <see cref="string" /> de este objeto.
-    /// </returns>
+    /// <inheritdoc/>
     public override string ToString()
     {
         return ToString(null);
     }
 
     /// <summary>
-    /// Convierte este objeto en su representación como una cadena.
+    /// Converts this object to its string representation.
     /// </summary>
-    /// <param name="format">Formato a utilizar.</param>
+    /// <param name="format">Format to be used.</param>
     /// <param name="formatProvider">
-    /// Parámetro opcional.
-    /// Proveedor de formato de la cultura a utilizar para dar formato a
-    /// la representación como una cadena de este objeto. Si se omite,
-    /// se utilizará <see cref="CI.CurrentCulture" />.
+    /// Format provider to use to get the culture to be used during the
+    /// conversion. If ommitted, <see cref="CI.CurrentCulture" /> will be used.
     /// </param>
     /// <returns>
-    /// Una representación en forma de <see cref="string" /> de este objeto.
+    /// A string representation of the current object.
     /// </returns>
     public string ToString(string? format, IFormatProvider? formatProvider)
     {
@@ -156,11 +141,11 @@ public class Point : IVector, IFormattable, IEquatable<Point>
     }
 
     /// <summary>
-    /// Convierte este objeto en su representación como una cadena.
+    /// Converts this object to its string representation.
     /// </summary>
-    /// <param name="format">Formato a utilizar.</param>
+    /// <param name="format">Format to be used.</param>
     /// <returns>
-    /// Una representación en forma de <see cref="string" /> de este objeto.
+    /// A string representation of the current object.
     /// </returns>
     public string ToString(string? format)
     {
@@ -168,22 +153,22 @@ public class Point : IVector, IFormattable, IEquatable<Point>
     }
 
     /// <summary>
-    /// Devuelve el código Hash de esta instancia.
+    /// Gets a hash code that uniquely identifies this instance.
     /// </summary>
-    /// <returns>El código Hash de esta instancia.</returns>
+    /// <returns>A hash code that uniquely identifies this instance.</returns>
     public override int GetHashCode()
     {
         return HashCode.Combine(X, Y);
     }
 
     /// <summary>
-    /// Compara la igualdad de los vectores de los puntos.
+    /// Compares the equality of two points.
     /// </summary>
-    /// <param name="l">Punto 1.</param>
-    /// <param name="r">Punto 2.</param>
+    /// <param name="l">First point.</param>
+    /// <param name="r">Second point.</param>
     /// <returns>
-    /// <see langword="true" /> si todos los vectores de ambos puntos son iguales;
-    /// de lo contrario, <see langword="false" />.
+    /// <see langword="true" /> if all the coordinates in both points are
+    /// equal, <see langword="false" /> otherwise.
     /// </returns>
     public static bool operator ==(Point l, Point r)
     {
@@ -191,13 +176,13 @@ public class Point : IVector, IFormattable, IEquatable<Point>
     }
 
     /// <summary>
-    /// Compara la igualdad de los vectores de los puntos.
+    /// Compares the equality of two vectors.
     /// </summary>
-    /// <param name="l">Punto a comparar.</param>
-    /// <param name="r">Vector bidimensional contra el cual comparar.</param>
+    /// <param name="l">Point to compare.</param>
+    /// <param name="r">Two-dimensional vector to compare against.</param>
     /// <returns>
-    /// <see langword="true" /> si todos los vectores de ambos puntos son iguales;
-    /// de lo contrario, <see langword="false" />.
+    /// <see langword="true" /> if all the coordinates in both objects are
+    /// equal, <see langword="false" /> otherwise.
     /// </returns>
     public static bool operator ==(Point l, IVector r)
     {
@@ -205,13 +190,13 @@ public class Point : IVector, IFormattable, IEquatable<Point>
     }
 
     /// <summary>
-    /// Compara la diferencia de los vectores de los puntos.
+    /// Compares the inequality of two points.
     /// </summary>
-    /// <param name="l">Punto 1.</param>
-    /// <param name="r">Punto 2.</param>
+    /// <param name="l">First point.</param>
+    /// <param name="r">Second point.</param>
     /// <returns>
-    /// <see langword="true" /> si los vectores de ambos puntos son diferentes;  de lo
-    /// contrario, <see langword="false" />.
+    /// <see langword="true" /> if any of the coordinates in the points are not
+    /// equal between them, <see langword="false" /> otherwise.
     /// </returns>
     public static bool operator !=(Point l, Point r)
     {
@@ -219,13 +204,13 @@ public class Point : IVector, IFormattable, IEquatable<Point>
     }
 
     /// <summary>
-    /// Compara la diferencia de los vectores de los puntos.
+    /// Compares the inequality of two vectors.
     /// </summary>
-    /// <param name="l">Punto a comparar.</param>
-    /// <param name="r">Vector bidimensional contra el cual comparar.</param>
+    /// <param name="l">Point to compare.</param>
+    /// <param name="r">Two-dimensional vector to compare against.</param>
     /// <returns>
-    /// <see langword="true" /> si los vectores de ambos puntos son diferentes;  de lo
-    /// contrario, <see langword="false" />.
+    /// <see langword="true" /> if any of the coordinates in the objects are
+    /// not equal between them, <see langword="false" /> otherwise.
     /// </returns>
     public static bool operator !=(Point l, IVector r)
     {
@@ -233,11 +218,11 @@ public class Point : IVector, IFormattable, IEquatable<Point>
     }
 
     /// <summary>
-    /// Convierte implícitamente un <see cref="Point"/> en un
+    /// Implicitly converts a <see cref="Point"/> into a
     /// <see cref="Types.Point"/>.
     /// </summary>
     /// <param name="p">
-    /// <see cref="Point"/> a convertir.
+    /// <see cref="Point"/> to be converted.
     /// </param>
     public static implicit operator Types.Point(Point p)
     {
@@ -245,11 +230,11 @@ public class Point : IVector, IFormattable, IEquatable<Point>
     }
 
     /// <summary>
-    /// Convierte implícitamente un <see cref="Types.Point"/> en un
+    /// Implicitly converts <see cref="Types.Point"/> into a
     /// <see cref="Point"/>.
     /// </summary>
     /// <param name="p">
-    /// <see cref="Types.Point"/> a convertir.
+    /// <see cref="Types.Point"/> to be converted.
     /// </param>
     public static implicit operator Point(Types.Point p)
     {

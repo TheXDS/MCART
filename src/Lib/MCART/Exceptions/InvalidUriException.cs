@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -33,107 +33,107 @@ using TheXDS.MCART.Resources.Strings;
 namespace TheXDS.MCART.Exceptions;
 
 /// <summary>
-/// Excepción que se produce cuando un <see cref="Uri"/> no hace
-/// referencia a un recurso válido.
+/// Exception that is thrown when an <see cref="Uri"/> does not point to a
+/// valid resource.
 /// </summary>
 [Serializable]
 public class InvalidUriException : OffendingException<Uri>
 {
     /// <summary>
-    /// Inicializa una nueva instancia de la clase 
-    /// <see cref="InvalidUriException"/>.
+    /// Initializes a new instance of the <see cref="InvalidUriException"/>
+    /// class.
     /// </summary>
     public InvalidUriException() : base(Msg())
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase 
-    /// <see cref="InvalidUriException"/>.
+    /// Initializes a new instance of the <see cref="InvalidUriException"/>
+    /// class.
     /// </summary>
     /// <param name="offendingUri">
-    /// <see cref="Uri"/> que apunta a un recurso inválido.
+    /// <see cref="Uri"/> that pointed to an invalid resource.
     /// </param>
     public InvalidUriException(Uri offendingUri) : base(Msg(offendingUri), offendingUri)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase 
-    /// <see cref="InvalidUriException"/>.
+    /// Initializes a new instance of the <see cref="InvalidUriException"/>
+    /// class.
     /// </summary>
     /// <param name="message">
-    /// Un <see cref="string" /> que describe a la excepción.
+    /// Message that describes the exception.
     /// </param>
     public InvalidUriException(string message) : base(message)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase 
-    /// <see cref="InvalidUriException"/>.
+    /// Initializes a new instance of the <see cref="InvalidUriException"/>
+    /// class.
     /// </summary>
     /// <param name="message">
-    /// Un <see cref="string" /> que describe a la excepción.
+    /// Message that describes the exception.
     /// </param>
     /// <param name="offendingUri">
-    /// <see cref="Uri"/> que apunta a un recurso inválido.
+    /// <see cref="Uri"/> that pointed to an invalid resource.
     /// </param>
     public InvalidUriException(string message, Uri offendingUri) : base(message, offendingUri)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase 
-    /// <see cref="InvalidUriException"/>.
+    /// Initializes a new instance of the <see cref="InvalidUriException"/>
+    /// class.
     /// </summary>
     /// <param name="inner">
-    /// <see cref="Exception" /> que es la causa de esta excepción.
+    /// <see cref="Exception" /> that is the cause of this exception.
     /// </param>
     public InvalidUriException(Exception inner) : base(inner)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase 
-    /// <see cref="InvalidUriException"/>.
+    /// Initializes a new instance of the <see cref="InvalidUriException"/>
+    /// class.
     /// </summary>
     /// <param name="message">
-    /// Un <see cref="string" /> que describe a la excepción.
+    /// Message that describes the exception.
     /// </param>
     /// <param name="inner">
-    /// <see cref="Exception" /> que es la causa de esta excepción.
+    /// <see cref="Exception" /> that is the cause of this exception.
     /// </param>
     public InvalidUriException(string message, Exception inner) : base(message, inner)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase 
-    /// <see cref="InvalidUriException"/>.
+    /// Initializes a new instance of the <see cref="InvalidUriException"/>
+    /// class.
     /// </summary>
     /// <param name="inner">
-    /// <see cref="Exception" /> que es la causa de esta excepción.
+    /// <see cref="Exception" /> that is the cause of this exception.
     /// </param>
     /// <param name="offendingUri">
-    /// <see cref="Uri"/> que apunta a un recurso inválido.
+    /// <see cref="Uri"/> that pointed to an invalid resource.
     /// </param>
     public InvalidUriException(Exception inner, Uri offendingUri) : base(inner, offendingUri)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase 
-    /// <see cref="InvalidUriException"/>.
+    /// Initializes a new instance of the <see cref="InvalidUriException"/>
+    /// class.
     /// </summary>
     /// <param name="message">
-    /// Un <see cref="string" /> que describe a la excepción.
+    /// Message that describes the exception.
     /// </param>
     /// <param name="inner">
-    /// <see cref="Exception" /> que es la causa de esta excepción.
+    /// <see cref="Exception" /> that is the cause of this exception.
     /// </param>
     /// <param name="offendingUri">
-    /// <see cref="Uri"/> que apunta a un recurso inválido.
+    /// <see cref="Uri"/> that pointed to an invalid resource.
     /// </param>
     public InvalidUriException(string message, Exception inner, Uri offendingUri) : base(message, inner, offendingUri)
     {

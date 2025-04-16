@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -31,7 +31,9 @@ SOFTWARE.
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Misc;
 using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Types.Extensions;
@@ -41,7 +43,7 @@ namespace TheXDS.MCART.Types.Extensions;
 /// </summary>
 public static class EnumExtensions
 {
-    private static byte[] BypassByte(byte b) => new[] { b };
+    private static byte[] BypassByte(byte b) => [b];
 
     /// <summary>
     /// Obtiene un <see cref="MethodInfo" /> para un método que permita
@@ -108,7 +110,7 @@ public static class EnumExtensions
     public static byte[] ToBytes(this Enum value)
     {
         return (byte[])ByteConversionMethodInternal(value.GetType())
-            .Invoke(null, new object[] { value })!;
+            .Invoke(null, [value])!;
     }
 
     /// <summary>
@@ -156,9 +158,10 @@ public static class EnumExtensions
     /// Un enumerador que expone los valores del <see cref="Enum"/>
     /// como una colección de <see cref="NamedObject{T}"/>.
     /// </returns>
-    public static IEnumerable<NamedObject<T>> NamedEnums<T>() where T : Enum
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodGetsTypeMembersByName)]
+    public static IEnumerable<NamedObject<T>> NamedEnums<T>() where T : struct, Enum
     {
-        return typeof(T).GetEnumValues().OfType<T>()
+        return Enum.GetValues<T>().OfType<T>()
             .Select(j => new NamedObject<T>(j, j.NameOf()));
     }
 
@@ -207,6 +210,7 @@ public static class EnumExtensions
 /// </exception>
     [CLSCompliant(false)]
 #endif
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodGetsTypeMembersByName)]
     public static bool HasAttribute<T>(this Enum enumValue) where T : Attribute => HasAttribute<T>(enumValue, out _);
 
     /// <summary>
@@ -246,7 +250,7 @@ public static class EnumExtensions
             return false;
 #endif
         string? n = type.GetEnumName(enumValue)!;
-        attribute = type.GetMember(n)[0].GetCustomAttributes(typeof(T), false).FirstOrDefault() as T;
+        attribute = type.GetField(n)?.GetCustomAttributes(typeof(T), false).FirstOrDefault() as T;
         return attribute is not null;
     }
 
@@ -274,6 +278,7 @@ public static class EnumExtensions
     /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
     /// en caso contrario.
     /// </returns>
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodGetsTypeMembersByName)]
     public static bool HasAttrValue<TAttribute, TValue>(this Enum enumValue, out TValue value)
         where TAttribute : Attribute, IValueAttribute<TValue>
     {
@@ -301,17 +306,18 @@ public static class EnumExtensions
     /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
     /// en caso contrario.
     /// </returns>
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodGetsTypeMembersByName)]
     public static bool HasAttributes<T>(this Enum enumValue, out IEnumerable<T> attribute) where T : Attribute
     {
         string? n;
         Type? type = enumValue.GetType();
         if (!type.IsEnumDefined(enumValue) || (n = type.GetEnumName(enumValue)) is null)
         {
-            attribute = Array.Empty<T>();
+            attribute = [];
             return false;
         }
 
-        attribute = type.GetMember(n)[0].GetCustomAttributes(typeof(T), false).OfType<T>();
+        attribute = type.GetField(n)!.GetCustomAttributes(typeof(T), false).OfType<T>();
         return attribute.Any();
     }
 
@@ -349,6 +355,7 @@ public static class EnumExtensions
     /// de no encontrarse el atributo especificado.
     /// </returns>
     [Sugar]
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodGetsTypeMembersByName)]
     public static IEnumerable<T>? GetAttributes<T>(this Enum enumValue) where T : Attribute
     {
         HasAttributes(enumValue, out IEnumerable<T>? attributes);

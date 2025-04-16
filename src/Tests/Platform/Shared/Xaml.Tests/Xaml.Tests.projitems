@@ -13,13 +13,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\Base\PrimitiveMathOpConverterBaseTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\BooleanConverterTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\BooleanInverterTests.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)valueconverters\BooleanToObjectConverterTests.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)valueconverters\BoolFlagConverterTests.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)valueconverters\DivideConverterTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\BooleanToObjectConverterTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\BoolFlagConverterTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\DivideConverterTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\ErrorManagerTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\FromStringConverterTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\LabaledDoubleConverterTests.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)valueconverters\MultiplyConverterTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\MultiplyConverterTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\NotNullToBooleanCoverterTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\NullableBoolToBoolConverterTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\NullToBooleanCoverterTests.cs" />

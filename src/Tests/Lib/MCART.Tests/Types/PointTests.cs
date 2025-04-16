@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,12 +28,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.Tests.Types;
-using System;
+using System.Numerics;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Base;
-using NUnit.Framework;
+
+namespace TheXDS.MCART.Tests.Types;
 
 public class PointTests
 {
@@ -299,10 +299,10 @@ public class PointTests
     }
 
     [TestCase(1, 0, 0)]
-    [TestCase(1, 1, Math.PI / 4)]
-    [TestCase(0, 1, Math.PI / 2)]
-    [TestCase(0, -1, Math.Tau - (Math.PI / 2))]
-    [TestCase(1, -1, Math.Tau - (Math.PI / 4))]
+    [TestCase(1, 1, System.Math.PI / 4)]
+    [TestCase(0, 1, System.Math.PI / 2)]
+    [TestCase(0, -1, System.Math.Tau - (System.Math.PI / 2))]
+    [TestCase(1, -1, System.Math.Tau - (System.Math.PI / 4))]
     public void Angle_Test(int x, int y, double angle)
     {
         Assert.That((new Point(x, y).Angle() - angle).IsBetween(-0.00000001, 0.00000001));
@@ -352,5 +352,21 @@ public class PointTests
     public void WithinCircle_Test(int x, int y, bool result)
     {
         Assert.That(result, Is.EqualTo(new Point(x, y).WithinCircle(Point.Origin, 10)));
+    }
+
+    [Test]
+    public void Point_can_be_implicitly_converted_to_Vector2()
+    {
+        Vector2 p = new Point(3, 5);
+        Assert.That(p.X, Is.EqualTo(3));
+        Assert.That(p.Y, Is.EqualTo(5));
+    }
+
+    [Test]
+    public void Point_can_be_implicitly_converted_from_Vector2()
+    {
+        Point p = new Vector2(3, 5);
+        Assert.That(p.X, Is.EqualTo(3));
+        Assert.That(p.Y, Is.EqualTo(5));
     }
 }

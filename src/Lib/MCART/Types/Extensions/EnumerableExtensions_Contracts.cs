@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -42,7 +42,7 @@ public static partial class EnumerableExtensions
     [DebuggerNonUserCode]
     private static void FirstOf_OfType_Contract<T>(Type? type)
     {
-        NullCheck(type, nameof(type));
+        ArgumentNullException.ThrowIfNull(type, nameof(type));
         if (!typeof(T).IsAssignableFrom(type)) throw new InvalidTypeException(type!);
     }
 
@@ -51,6 +51,6 @@ public static partial class EnumerableExtensions
     [DebuggerNonUserCode]
     private static void Count_Contract(System.Collections.IEnumerable e)
     {
-        NullCheck(e, nameof(e));
+        ArgumentNullException.ThrowIfNull(e, nameof(e));
     }
 }

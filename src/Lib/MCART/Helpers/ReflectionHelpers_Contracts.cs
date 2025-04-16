@@ -9,7 +9,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -49,57 +49,17 @@ public static partial class ReflectionHelpers
     [DebuggerNonUserCode]
     private static void FieldsOf_Contract(IEnumerable<FieldInfo> fields, object? instance)
     {
-        NullCheck(fields, nameof(fields));
+        ArgumentNullException.ThrowIfNull(fields, nameof(fields));
         if (fields.IsAnyNull()) throw new NullItemException();
-        if (instance is { } obj)
-        {
-            FieldInfo[]? f = obj.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public);
-            foreach (FieldInfo? j in fields.Where(p => !p.IsStatic))
-            {
-                if (!f.Contains(j)) throw new MissingFieldException(obj.GetType().Name, j.Name);
-            }
-        }
     }
     
-    [Conditional("EnforceContracts")]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    [DebuggerNonUserCode]
-    private static void FieldsOf_Contract(Type type)
-    {
-        NullCheck(type, nameof(type));
-    }
-
-    [Conditional("EnforceContracts")]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    [DebuggerNonUserCode]
-    private static void FindAllObjects_Contract(IEnumerable? ctorArgs, Func<Type, bool> typeFilter)
-    {
-        NullCheck(typeFilter, nameof(typeFilter));
-    }
-
-    [Conditional("EnforceContracts")]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    [DebuggerNonUserCode]
-    private static void FindFirstObject_Contract(IEnumerable? ctorArgs, Func<Type, bool> typeFilter)
-    {
-        NullCheck(typeFilter, nameof(typeFilter));
-    }
-
-    [Conditional("EnforceContracts")]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    [DebuggerNonUserCode]
-    private static void FindSingleObject_Contract(IEnumerable? ctorArgs, Func<Type, bool> typeFilter)
-    {
-        NullCheck(typeFilter, nameof(typeFilter));
-    }
-
     [Conditional("EnforceContracts")]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     [DebuggerNonUserCode]
     private static void FindType_Contract(string identifier, AppDomain domain)
     {
         EmptyCheck(identifier, nameof(identifier));
-        NullCheck(domain, nameof(domain));
+        ArgumentNullException.ThrowIfNull(domain, nameof(domain));
     }
 
     [Conditional("EnforceContracts")]
@@ -113,17 +73,9 @@ public static partial class ReflectionHelpers
     [Conditional("EnforceContracts")]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     [DebuggerNonUserCode]
-    private static void PublicTypes_Contract(AppDomain domain)
-    {
-        NullCheck(domain, nameof(domain));
-    }
- 
-    [Conditional("EnforceContracts")]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    [DebuggerNonUserCode]
     private static void PublicTypes_Contract(Type type, AppDomain domain)
     {
-        NullCheck(type, nameof(type));
-        NullCheck(domain, nameof(domain));
+        ArgumentNullException.ThrowIfNull(type, nameof(type));
+        ArgumentNullException.ThrowIfNull(domain, nameof(domain));
     }
 }

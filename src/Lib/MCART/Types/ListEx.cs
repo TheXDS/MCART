@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -30,9 +30,10 @@ SOFTWARE.
 
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Events;
-using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Misc;
 using TheXDS.MCART.Types.Base;
 using TheXDS.MCART.Types.Extensions;
 
@@ -52,6 +53,7 @@ namespace TheXDS.MCART.Types;
 /// <see cref="ObservableCollection{T}" /> con numerosos eventos
 /// adicionales y otras extensiones.
 /// </remarks>
+[Obsolete(AttributeErrorMessages.UnsuportedClass), ExcludeFromCodeCoverage]
 public class ListEx<T> : List<T>, ICloneable<ListEx<T>>
 {
     /// <summary>
@@ -117,13 +119,13 @@ public class ListEx<T> : List<T>, ICloneable<ListEx<T>>
     public event EventHandler<ListUpdatedEventArgs<T>>? ListUpdated;
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase 
+    /// Initializes a new instance of the 
     /// <see cref="ListEx{T}" />.
     /// </summary>
     public ListEx() { }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
+    /// Initializes a new instance of the
     /// <see cref="ListEx{T}" />.
     /// </summary>
     /// <param name="collection">
@@ -132,7 +134,7 @@ public class ListEx<T> : List<T>, ICloneable<ListEx<T>>
     public ListEx(IEnumerable<T> collection) : base(collection) { }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
+    /// Initializes a new instance of the
     /// <see cref="ListEx{T}"/>.
     /// </summary>
     /// <param name="initialSize">Tamaño inicial de la lista.</param>
@@ -205,7 +207,7 @@ public class ListEx<T> : List<T>, ICloneable<ListEx<T>>
     {
         if (TriggerEvents)
         {
-            List<T>? affectedItems = collection.ToList();
+            List<T>? affectedItems = [.. collection];
             ListUpdatingEventArgs<T>? a = new(ListUpdateType.ItemsAdded, affectedItems);
             ListUpdating?.Invoke(this, a);
             if (a.Cancel) return;
@@ -243,7 +245,7 @@ public class ListEx<T> : List<T>, ICloneable<ListEx<T>>
     {
         if (TriggerEvents)
         {
-            List<T>? affectedItems = collection.ToList();
+            List<T>? affectedItems = [.. collection];
             ListUpdatingEventArgs<T>? a = new(ListUpdateType.ItemsInserted, affectedItems);
             ListUpdating?.Invoke(this, a);
             if (a.Cancel) return;
@@ -520,5 +522,5 @@ public class ListEx<T> : List<T>, ICloneable<ListEx<T>>
     /// Implementa la interfaz <see cref="ICloneable{T}"/>.
     /// </summary>
     /// <returns>Una copia de esta instancia.</returns>
-    public ListEx<T> Clone() => new(this.Copy());
+    public ListEx<T> Clone() => [.. this.Copy()];
 }

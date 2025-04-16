@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -31,81 +31,91 @@ SOFTWARE.
 namespace TheXDS.MCART.Exceptions;
 
 /// <summary>
-/// Excepción que se produce cuando se hace referencia a un recurso que no existe.
+/// Exception that is thrown when a required resource could not be found.
 /// </summary>
 [Serializable]
 public class MissingResourceException : OffendingException<string>
 {
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="MissingResourceException" />.
+    /// Initializes a new instance of the
+    /// <see cref="MissingResourceException" /> class.
     /// </summary>
     public MissingResourceException()
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="MissingResourceException" />.
+    /// Initializes a new instance of the
+    /// <see cref="MissingResourceException" /> class.
     /// </summary>
-    /// <param name="offendingObject">
-    /// Id del recurso que ha producido la excepción.
+    /// <param name="missingId">
+    /// Id of the resource that could not be found.
     /// </param>
-    public MissingResourceException(string offendingObject) : base(offendingObject)
+    public MissingResourceException(string missingId) : base(missingId, missingId)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="MissingResourceException" />.
+    /// Initializes a new instance of the
+    /// <see cref="MissingResourceException" /> class.
     /// </summary>
-    /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
+    /// <param name="inner">
+    /// <see cref="Exception" /> that is the cause of this exception.
+    /// </param>
     public MissingResourceException(Exception inner) : base(inner)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="MissingResourceException" />.
+    /// Initializes a new instance of the
+    /// <see cref="MissingResourceException" /> class.
     /// </summary>
     /// <param name="message">
-    /// Un <see cref="string" /> que describe a la excepción.
+    /// Message that describes the exception.
     /// </param>
-    /// <param name="offendingObject">
+    /// <param name="missingId">
     /// Id del recurso que ha producido la excepción.
     /// </param>
-    public MissingResourceException(string message, string offendingObject) : base(message, offendingObject)
+    public MissingResourceException(string message, string missingId) : base(message, missingId)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="MissingResourceException" />.
+    /// Initializes a new instance of the
+    /// <see cref="MissingResourceException" /> class.
     /// </summary>
-    /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
-    /// <param name="offendingObject">
-    /// Id del recurso que ha producido la excepción.
+    /// <param name="inner">
+    /// <see cref="Exception" /> that is the cause of this exception.
     /// </param>
-    public MissingResourceException(Exception inner, string offendingObject) : base(inner, offendingObject)
+    /// <param name="missingId">
+    /// Id of the resource that could not be found.
+    /// </param>
+    public MissingResourceException(Exception inner, string missingId) : base(inner, missingId)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="MissingResourceException" />.
+    /// Initializes a new instance of the
+    /// <see cref="MissingResourceException" /> class.
     /// </summary>
-    /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
-    /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
+    /// <param name="message">Message that describes the exception.</param>
+    /// <param name="inner"><see cref="Exception" /> that is the cause of this exception.</param>
     public MissingResourceException(string message, Exception inner) : base(message, inner)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="MissingResourceException" />.
+    /// Initializes a new instance of the
+    /// <see cref="MissingResourceException" /> class.
     /// </summary>
-    /// <param name="message">Un <see cref="string" /> que describe a la excepción.</param>
-    /// <param name="inner"><see cref="Exception" /> que es la causa de esta excepción.</param>
-    /// <param name="offendingObject">
-    /// Id del recurso que ha producido la excepción.
+    /// <param name="message">Message that describes the exception.</param>
+    /// <param name="inner">
+    /// <see cref="Exception" /> that is the cause of this exception.
     /// </param>
-    public MissingResourceException(string message, Exception inner, string offendingObject) : base(message, inner, offendingObject)
+    /// <param name="missingId">
+    /// Id of the resource that could not be found.
+    /// </param>
+    public MissingResourceException(string message, Exception inner, string missingId) : base(message, inner, missingId)
     {
     }
 }

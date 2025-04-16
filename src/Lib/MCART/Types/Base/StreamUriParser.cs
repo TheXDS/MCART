@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -29,7 +29,8 @@ SOFTWARE.
 */
 
 using TheXDS.MCART.Attributes;
-using TheXDS.MCART.Helpers;
+using TheXDS.MCART.IO;
+using TheXDS.MCART.Misc;
 
 namespace TheXDS.MCART.Types.Base;
 
@@ -39,6 +40,8 @@ namespace TheXDS.MCART.Types.Base;
 /// </summary>
 public abstract class StreamUriParser : IStreamUriParser
 {
+    private static StreamUriParser[]? _knownParsers;
+
     /// <summary>
     /// Obtiene el <see cref="StreamUriParser"/> apropiado para manejar
     /// al <see cref="Uri"/> especificado.
@@ -129,7 +132,7 @@ public abstract class StreamUriParser : IStreamUriParser
     /// </returns>
     public static T? Infer<T>(Uri uri) where T : class, IStreamUriParser
     {
-        return ReflectionHelpers.FindAllObjects<T>().FirstOrDefault(p => p.Handles(uri));
+        return (_knownParsers ??= [new FileStreamUriParser(), new HttpStreamUriParser()]).OfType<T>().FirstOrDefault(p => p.Handles(uri));
     }
 
     /// <summary>

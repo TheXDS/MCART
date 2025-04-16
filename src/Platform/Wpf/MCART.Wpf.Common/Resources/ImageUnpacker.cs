@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -35,62 +35,40 @@ using TheXDS.MCART.Helpers;
 namespace TheXDS.MCART.Resources;
 
 /// <summary>
-/// <see cref="AssemblyUnpacker{T}" /> que
-/// extrae recursos de imagen como un
-/// <see cref="BitmapImage" />.
+/// Extracts <see cref="BitmapImage"/> resources from an assembly.
 /// </summary>
-public class ImageUnpacker : AssemblyUnpacker<BitmapImage?>
+/// <param name="assembly">
+/// Source <see cref="Assembly" />.
+/// </param>
+/// <param name="path">
+/// Path (as a namespace) where the embedded resources will be located at.
+/// </param>
+public class ImageUnpacker(Assembly assembly, string path) : AssemblyUnpacker<BitmapImage?>(assembly, path)
 {
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="ImageUnpacker" />.
+    /// Extracts a <see cref="BitmapImage"/> resource with the specified id.
     /// </summary>
-    /// <param name="assembly">
-    /// <see cref="Assembly" /> de origen de los recursos incrustados.
+    /// <param name="id">
+    /// Id of the <see cref="BitmapImage"/> to be extracted.
     /// </param>
-    /// <param name="path">
-    /// Ruta (como espacio de nombre) donde se ubican los recursos
-    /// incrustados.
-    /// </param>
-    public ImageUnpacker(Assembly assembly, string path) : base(assembly, path) { }
-
-    /// <summary>
-    /// Obtiene un <see cref="BitmapImage" /> desde los recursos incrustados
-    /// del ensamblado.
-    /// </summary>
-    /// <param name="id">Nombre del recurso a extraer.</param>
     /// <returns>
-    /// Un <see cref="BitmapImage" /> extraído desde los recursos
-    /// incrustados del ensamblado.
+    /// A <see cref="BitmapImage"/> that has been extracted from the specified
+    /// embedded resource id.
     /// </returns>
     public override BitmapImage? Unpack(string id) => WpfUtils.GetBitmap(UnpackStream(id));
 
     /// <summary>
-    /// Obtiene un <see cref="BitmapImage" /> desde los recursos incrustados
-    /// comprimidos del ensamblado.
+    /// Extracts a <see cref="BitmapImage"/> resource with the specified id.
     /// </summary>
-    /// <param name="id">Nombre del recurso a extraer.</param>
-    /// <param name="compressorId">
-    /// Nombre del compresor a utilizar para extraer el recurso.
+    /// <param name="id">
+    /// Id of the <see cref="BitmapImage"/> to be extracted.
     /// </param>
-    /// <returns>
-    /// Un <see cref="BitmapImage" /> extraído desde los recursos
-    /// incrustados comprimidos del ensamblado.
-    /// </returns>
-    public override BitmapImage? Unpack(string id, string compressorId) => WpfUtils.GetBitmap(UnpackStream(id, compressorId));
-
-    /// <summary>
-    /// Obtiene un <see cref="BitmapImage" /> desde los recursos incrustados
-    /// comprimidos del ensamblado.
-    /// </summary>
-    /// <param name="id">Nombre del recurso a extraer.</param>
     /// <param name="compressor">
-    /// <see cref="ICompressorGetter" /> desde el cual se obtendrá el
-    /// compresor a utilizar para extraer el recurso.
+    /// <see cref="ICompressorGetter"/> to use when extracting the resource.
     /// </param>
     /// <returns>
-    /// Un <see cref="BitmapImage" /> extraído desde los recursos
-    /// incrustados comprimidos del ensamblado.
+    /// A <see cref="BitmapImage"/> that has been extracted from the specified
+    /// embedded resource id.
     /// </returns>
     public override BitmapImage? Unpack(string id, ICompressorGetter compressor) => WpfUtils.GetBitmap(UnpackStream(id, compressor));
 }

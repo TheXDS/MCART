@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -57,7 +57,7 @@ public class ReflectionHelpersTests
     }
 
     [ExcludeFromCodeCoverage]
-    [Identifier("ReflectionFindTypeTest")]
+    [Tag("ReflectionFindTypeTest")]
     private class TestClass : ITestInterface
     {
         public static readonly double StaticField = 2;
@@ -110,32 +110,43 @@ public class ReflectionHelpersTests
     public void TestEventHandler(object sender, EventArgs e) { }
 
     [Test]
-    public void GetMethod_Test()
+    public void GetMethod_gets_method_overrides()
     {
         MethodInfo? m1 = GetMethod<Test1, Action>(t => t.Test);
         MethodInfo? b1 = typeof(Test1).GetMethod("Test")!;
         MethodInfo? m2 = GetMethod<Test2, Action>(t => t.Test);
         MethodInfo? b2 = typeof(Test2).GetMethod("Test")!;
-
         Assert.That(m1, Is.Not.Null);
         Assert.That(m2, Is.Not.Null);
         Assert.That(m1, Is.SameAs(b1));
         Assert.That(m2, Is.SameAs(b2));
         Assert.That(m1, Is.Not.SameAs(m2));
         Assert.That(b1, Is.Not.SameAs(b2));
+    }
 
+    [Test]
+    public void GetMethod_with_direct_method_expression()
+    {
         Test1? i = new();
-        MethodInfo? n = GetMethod<Func<int>>(() => i.TestInt);
-        Assert.That(n, Is.InstanceOf<MethodInfo>());
-        Assert.That("TestInt", Is.EqualTo(n.Name));
+        MethodInfo? m = GetMethod<Func<int>>(() => i.TestInt);
+        Assert.That(m, Is.InstanceOf<MethodInfo>());
+        Assert.That(m.Name, Is.EqualTo("TestInt"));
+    }
 
-        MethodInfo? o = GetMethod<Test1, Func<int>>(t => t.TestInt);
-        Assert.That(o, Is.InstanceOf<MethodInfo>());
-        Assert.That("TestInt", Is.EqualTo(o.Name));
+    [Test]
+    public void GetMethod_with_type_reference_and_method_type()
+    {
+        MethodInfo? m = GetMethod<Test1, Func<int>>(t => t.TestInt);
+        Assert.That(m, Is.InstanceOf<MethodInfo>());
+        Assert.That(m.Name, Is.EqualTo("TestInt"));
+    }
 
+    [Test]
+    public void GetMethod_with_type_reference()
+    {
         MethodInfo? m = GetMethod<Test1>(t => t.TestInt);
         Assert.That(m, Is.InstanceOf<MethodInfo>());
-        Assert.That("TestInt", Is.EqualTo(m.Name));
+        Assert.That(m.Name, Is.EqualTo("TestInt"));
     }
 
     [Test]
@@ -294,7 +305,7 @@ public class ReflectionHelpersTests
     [Test]
     public void FindAllObjects_With_Type_Filter_Test()
     {
-        var c = FindAllObjects<ITestInterface>(p => p.Name.EndsWith("3")).ToArray();
+        var c = FindAllObjects<ITestInterface>(p => p.Name.EndsWith('3')).ToArray();
         Assert.That(c, Is.Not.Empty);
         Assert.That(1, Is.EqualTo(c.Length));
     }
@@ -310,7 +321,7 @@ public class ReflectionHelpersTests
     [Test]
     public void FindAllObjects_With_Ctor_Args_And_Filter_Test()
     {
-        var c = FindAllObjects<ITestInterface>(new object[] { 0 }, p => p.Name.EndsWith("4")).ToArray();
+        var c = FindAllObjects<ITestInterface>(new object[] { 0 }, p => p.Name.EndsWith('4')).ToArray();
         Assert.That(c, Is.Not.Empty);
         Assert.That(1, Is.EqualTo(c.Length));
     }
@@ -325,7 +336,7 @@ public class ReflectionHelpersTests
     [Test]
     public void FindFirstObject_With_Type_Filter_Test()
     {
-        var c = FindFirstObject<ITestInterface>(p => p.Name.EndsWith("3"));
+        var c = FindFirstObject<ITestInterface>(p => p.Name.EndsWith('3'));
         Assert.That(c, Is.Not.Null);
     }
 
@@ -339,7 +350,7 @@ public class ReflectionHelpersTests
     [Test]
     public void FindFirstObject_With_Ctor_Args_And_Filter_Test()
     {
-        var c = FindFirstObject<ITestInterface>(new object[] { 0 }, p => p.Name.EndsWith("4"));
+        var c = FindFirstObject<ITestInterface>(new object[] { 0 }, p => p.Name.EndsWith('4'));
         Assert.That(c, Is.Not.Null);
     }
 

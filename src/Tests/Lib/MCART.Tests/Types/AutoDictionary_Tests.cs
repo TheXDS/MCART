@@ -1,5 +1,5 @@
-﻿/*
-MaximumAttributeTests.cs
+/*
+AutoDictionary_Tests.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,17 +28,27 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using TheXDS.MCART.Attributes;
+using TheXDS.MCART.Types;
 
-namespace TheXDS.MCART.Tests.Attributes;
+namespace TheXDS.MCART.Tests.Types;
 
-public class MaximumAttributeTests
+public class AutoDictionary_Tests
 {
-    [TestCase(99)]
-    [TestCase(25)]
-    public void Instancing_test(int testValue)
+    [Test]
+    public void Dictionary_creates_new_keys_if_not_found()
     {
-        MaximumAttribute<int> b = new(testValue);
-        Assert.That(testValue, Is.EqualTo(b.Value));
+        var dict = new AutoDictionary<string, Random>();
+        Assert.That(dict.Count, Is.EqualTo(0));
+        var r = dict["test"];
+        Assert.That(dict.Count, Is.EqualTo(1));
+        Assert.That(r, Is.InstanceOf<Random>());
+    }
+
+    [Test]
+    public void Dictionary_forwards_set_to_base_class()
+    {
+        var dict = new AutoDictionary<string, Random>();
+        dict["test"] = new Random();
+        Assert.That(dict.Count, Is.EqualTo(1));
     }
 }

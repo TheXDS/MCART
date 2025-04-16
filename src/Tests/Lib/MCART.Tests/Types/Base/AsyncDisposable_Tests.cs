@@ -1,5 +1,5 @@
-﻿/*
-CompressorAttributeTests.cs
+/*
+AsyncDisposable_Tests.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,17 +28,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using TheXDS.MCART.Attributes;
+using Moq;
+using Moq.Protected;
+using TheXDS.MCART.Types.Base;
 
-namespace TheXDS.MCART.Tests.Attributes;
+namespace TheXDS.MCART.Tests.Types.Base;
 
-public class CompressorAttributeTests
+public class AsyncDisposable_Tests
 {
-    [TestCase("test")]
-    [TestCase("ABCD")]
-    public void Instancing_test(string testValue)
-{
-        CompressorAttribute b = new(testValue);
-        Assert.That(testValue, Is.EqualTo(b.Value));
+    [Test]
+    public async Task DisposeAsync_calls_OnDisposeAsync()
+    {
+        var tm = new Mock<AsyncDisposable>() { CallBase = true };
+        tm.Protected().Setup("OnDisposeAsync").Verifiable(Times.Once);
+        await using (var d = tm.Object)
+        {
+        }
+        tm.Verify();
     }
 }

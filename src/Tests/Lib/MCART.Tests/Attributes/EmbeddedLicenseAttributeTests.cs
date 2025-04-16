@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2024 César Andrés Morgan
+Copyright © 2011 - 2025 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,35 +28,68 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System.Reflection;
 using TheXDS.MCART.Attributes;
-using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Tests.Attributes;
 
 public class EmbeddedLicenseAttributeTests
 {
+    private static readonly EmbeddedLicenseAttribute attribute = new("LICENSE", "TheXDS.MCART.Resources.Data");
+
     [Test]
     public void Ctor_string_string_test()
     {
         var a = new EmbeddedLicenseAttribute("value", "path");
         Assert.That("value", Is.EqualTo(a.Value));
         Assert.That("path", Is.EqualTo(a.Path));
-        Assert.That(typeof(NullGetter), Is.EqualTo(a.CompressorType));
     }
 
     [Test]
-    public void Ctor_string_string_type_test()
+    public void GetLicense_returns_expected_license_from_Assembly()
     {
-        var a = new EmbeddedLicenseAttribute("value", "path", typeof(DeflateGetter));
-        Assert.That("value", Is.EqualTo(a.Value));
-        Assert.That("path", Is.EqualTo(a.Path));
-        Assert.That(typeof(DeflateGetter), Is.EqualTo(a.CompressorType));
+        VerifyLicense(attribute.GetLicense(typeof(EmbeddedLicenseAttribute).Assembly));
     }
 
     [Test]
-    public void Ctor_string_string_type_contract_test()
+    public void GetLicense_returns_expected_license_from_Type()
     {
-        Assert.Throws<InvalidTypeException>(()=> _ = new EmbeddedLicenseAttribute("value", "path", typeof(int)));
+        VerifyLicense(attribute.GetLicense(typeof(EmbeddedLicenseAttribute)));
+    }
+
+    [Test]
+    public void GetLicense_returns_expected_license_from_MemberInfo()
+    {
+        VerifyLicense(attribute.GetLicense(typeof(EmbeddedLicenseAttribute).GetMethods().First()));
+    }
+
+    [Test]
+    public void GetLicense_returns_expected_license_from_object()
+    {
+        VerifyLicense(attribute.GetLicense(attribute));
+    }
+
+    [Test]
+    public void GetLicense_returns_unspecified_when_path_is_empty()
+    {
+        EmbeddedLicenseAttribute attribute = new("", "TheXDS.MCART.Resources.Data");
+        var license = attribute.GetLicense(Assembly.GetExecutingAssembly());
+        Assert.That(license.Name, Is.EqualTo(License.Unspecified.Name));
+        Assert.That(license.LicenseContent, Is.EqualTo(License.Unspecified.LicenseContent));
+    }
+
+    [Test]
+    public void GetLicense_throws_when_context_is_null()
+    {
+        Assert.Throws<ArgumentNullException>(() => attribute.GetLicense(null!));
+    }
+
+    private static void VerifyLicense(License license)
+    {
+        Assert.That(license, Is.Not.Null);
+        Assert.That(license.Name, Is.Not.Null.Or.Empty.Or.WhiteSpace);
+        Assert.That(license.LicenseContent, Is.Not.Null.Or.Empty.Or.WhiteSpace);
+        Assert.That(license.Name.Contains("MIT License"));
     }
 }
