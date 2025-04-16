@@ -41,7 +41,7 @@ public static partial class Common
     [Conditional("EnforceContracts")]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     [DebuggerNonUserCode]
-    private static void ByteUnits_Contract(in int bytes, in ByteUnitType unit, byte magnitude)
+    private static void ByteUnits_Contract(in long bytes, in ByteUnitType unit, byte magnitude)
     {
         if (magnitude > 8) throw Errors.ValueOutOfRange(nameof(magnitude), 0, 8);
     }
