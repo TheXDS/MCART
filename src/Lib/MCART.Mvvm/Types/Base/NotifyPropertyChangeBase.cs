@@ -216,7 +216,7 @@ public abstract partial class NotifyPropertyChangeBase : INotifyPropertyChangeBa
     /// <inheritdoc/>
     public void Unsubscribe(PropertyChangeObserver callback)
     {
-        SubscriptionEntry[] entries = _observeSubscriptions.Where(p => p.Observer == callback).ToArray();
+        SubscriptionEntry[] entries = [.. _observeSubscriptions.Where(p => p.Observer == callback)];
         foreach (var j in entries) _observeSubscriptions.Remove(j);
     }
 
@@ -224,7 +224,7 @@ public abstract partial class NotifyPropertyChangeBase : INotifyPropertyChangeBa
     public bool Unsubscribe(PropertyInfo? property)
     {
         if (property is not null) ValidateProperty(property, GetType());
-        SubscriptionEntry[] entries = _observeSubscriptions.Where(p => p.Property == property).ToArray();
+        SubscriptionEntry[] entries = [.. _observeSubscriptions.Where(p => p.Property == property)];
         foreach (var j in entries) _observeSubscriptions.Remove(j);
         return entries.Length > 0;
     }
@@ -282,8 +282,7 @@ public abstract partial class NotifyPropertyChangeBase : INotifyPropertyChangeBa
     private protected void Change_Notify(in string propertyName, PropertyChangeNotificationType notificationType)
     {
         PropertyInfo prop = GetType().GetProperty(propertyName)!;
-        SubscriptionEntry[] entries = _observeSubscriptions.Where(p => p.Property is null || p.Property == prop).ToArray();
-        foreach (var entry in entries)
+        foreach (var entry in _observeSubscriptions.Where(p => p.Property is null || p.Property.DeclaringType == prop.DeclaringType))
         {
             entry.Observer.Invoke(this, prop, notificationType);
         }
