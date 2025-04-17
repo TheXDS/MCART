@@ -224,7 +224,7 @@ public abstract partial class NotifyPropertyChangeBase : INotifyPropertyChangeBa
     public bool Unsubscribe(PropertyInfo? property)
     {
         if (property is not null) ValidateProperty(property, GetType());
-        SubscriptionEntry[] entries = [.. _observeSubscriptions.Where(p => p.Property == property)];
+        SubscriptionEntry[] entries = [.. _observeSubscriptions.Where(p => p.Property.DeclaringType == property.DeclaringType)];
         foreach (var j in entries) _observeSubscriptions.Remove(j);
         return entries.Length > 0;
     }

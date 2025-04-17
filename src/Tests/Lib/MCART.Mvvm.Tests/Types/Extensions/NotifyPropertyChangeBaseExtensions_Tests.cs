@@ -67,4 +67,14 @@ public class NotifyPropertyChangeBaseExtensions_Tests
         Assert.That(triggered, Is.True);
         Assert.That(test.TestProperty, Is.EqualTo(1));
     }
+
+    [Test]
+    public void Unsubscribe_removes_subscription()
+    {
+        var test = new Test2Class();
+        test.Subscribe(x => x.TestProperty, (i, p, n) => Assert.Fail());
+        test.Unsubscribe(x => x.TestProperty);
+        test.TestProperty = 1;
+        Assert.That(test.TestProperty, Is.EqualTo(1));
+    }
 }

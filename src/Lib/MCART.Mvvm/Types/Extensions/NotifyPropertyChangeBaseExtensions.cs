@@ -59,4 +59,20 @@ public static class NotifyPropertyChangeBaseExtensions
     {
         instance.Subscribe(ReflectionHelpers.GetProperty(propertySelector), callback);
     }
+
+    /// <summary>
+    /// Removes all previously subscribed actions for the specified property.
+    /// </summary>
+    /// <param name="instance">
+    /// Instance from which to remove the subscription.
+    /// </param>
+    /// <param name="propertySelector">
+    /// Expression that selects the property to unsubscribe the previously
+    /// subscribed actions for.
+    /// </param>
+    public static bool Unsubscribe<T>(this T instance, Expression<Func<T, object?>> propertySelector)
+        where T : NotifyPropertyChangeBase
+    {
+        return instance.Unsubscribe(ReflectionHelpers.GetProperty(propertySelector));
+    }
 }
