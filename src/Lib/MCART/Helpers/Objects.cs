@@ -228,6 +228,29 @@ public static partial class Objects
     }
 
     /// <summary>
+    /// Copies the propety values from one object to another.
+    /// </summary>
+    /// <param name="source">Source object.</param>
+    /// <param name="destination">Destination object.</param>
+    /// <param name="objectType">
+    /// Type of objects to be copied. It will also scope the copy to the
+    /// properties and fields that are directly accessible within the specified
+    /// type.
+    /// </param>
+    public static void ShallowCopyTo(this object source, object destination, [DynamicallyAccessedMembers(PublicFields | PublicProperties)] Type objectType)
+    {
+        ShallowCopyTo_Contract(source, destination, objectType);
+        foreach (FieldInfo j in objectType.GetFields().Where(p => p.IsPublic && !p.IsInitOnly && !p.IsLiteral))
+        {
+            j.SetValue(destination, j.GetValue(source));
+        }
+        foreach (PropertyInfo j in objectType.GetProperties().Where(p => p.CanRead && p.CanWrite))
+        {
+            j.SetValue(destination, j.GetValue(source));
+        }
+    }
+
+    /// <summary>
     /// Obtiene una lista de los tipos de los objetos especificados.
     /// </summary>
     /// <param name="objects">

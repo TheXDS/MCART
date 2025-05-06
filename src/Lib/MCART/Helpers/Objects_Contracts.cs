@@ -32,8 +32,7 @@ SOFTWARE.
 
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using static TheXDS.MCART.Misc.Internals;
-
+using St = TheXDS.MCART.Resources.Strings.Errors;
 namespace TheXDS.MCART.Helpers;
 
 public static partial class Objects
@@ -45,5 +44,25 @@ public static partial class Objects
     {
         ArgumentNullException.ThrowIfNull(source, nameof(source));
         ArgumentNullException.ThrowIfNull(destination, nameof(destination));
+    }
+
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void ShallowCopyTo_Contract(object source, object destination, Type objectType)
+    {
+        ShallowCopyTo_Contract(source, destination);
+        if (!source.GetType().IsAssignableTo(objectType))
+        {
+            throw new ArgumentException(
+                string.Format(St.ShallowCopyTo_Contract_OriginTypeMismatch, source.GetType().FullName, objectType.FullName),
+                nameof(source));
+        }
+        if (!destination.GetType().IsAssignableTo(objectType))
+        {
+            throw new ArgumentException(
+                string.Format(St.ShallowCopyTo_Contract_DestinationTypeMismatch, destination.GetType().FullName, objectType.FullName),
+                nameof(destination));
+        }
     }
 }

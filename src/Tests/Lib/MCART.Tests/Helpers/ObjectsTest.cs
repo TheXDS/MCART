@@ -28,6 +28,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+#pragma warning disable IDE0079
 #pragma warning disable CA1822
 #pragma warning disable IDE0044
 #pragma warning disable IDE0051
@@ -320,6 +321,38 @@ public class ObjectsTest
     }
 
     [Test]
+    public void ShallowCopyTo_copies_with_specified_type()
+    {
+        TestClass5 obj1 = new()
+        {
+            TestIntField = 99,
+            ShortProperty = 9000,
+        };
+        TestClass5 obj2 = new();
+        Assert.That(obj1.TestIntField, Is.Not.EqualTo(obj2.TestIntField));
+        Assert.That(obj1.ShortProperty, Is.Not.EqualTo(obj2.ShortProperty));
+        obj1.ShallowCopyTo(obj2, typeof(TestClass5));
+        Assert.That(obj1, Is.Not.SameAs(obj2));
+        Assert.That(obj1.TestIntField, Is.EqualTo(obj2.TestIntField));
+        Assert.That(obj1.ShortProperty, Is.EqualTo(obj2.ShortProperty));
+    }
+
+    [Test]
+    public void ShallowCopyTo_with_specific_type_throws_if_origin_type_does_not_match_copy_type()
+    {
+        Random obj1 = new();
+        TestClass5 obj2 = new();
+        Assert.That(() => obj1.ShallowCopyTo(obj2, typeof(TestClass5)), Throws.ArgumentException);
+    }
+    [Test]
+    public void ShallowCopyTo_with_specific_type_throws_if_Destination_type_does_not_match_copy_type()
+    {
+        TestClass5 obj1 = new();
+        Random obj2 = new();
+        Assert.That(() => obj1.ShallowCopyTo(obj2, typeof(TestClass5)), Throws.ArgumentException);
+    }
+
+    [Test]
     public void ShallowCopyTo_throws_on_null_parameters()
     {
         Assert.That(() => Objects.ShallowCopyTo(null!, new TestClass5()), Throws.ArgumentNullException);
@@ -329,7 +362,7 @@ public class ObjectsTest
     [Test]
     public void ToTypesTest()
     {
-        Type[]? x = ToTypes(1, "Test", 2.5f).ToArray();
+        Type[]? x = [.. ToTypes(1, "Test", 2.5f)];
         System.Collections.IEnumerator? y = x.GetEnumerator();
         y.Reset();
         y.MoveNext();
@@ -347,8 +380,8 @@ public class ObjectsTest
         Assert.That(Array.Empty<object>().WhichAreNull(), Is.Empty);
         Assert.That(WhichAreNull(new object(), new object()), Is.Not.Null);
         Assert.That(WhichAreNull(new object(), new object()), Is.Empty);
-        Assert.That(WhichAreNull(new object(), null, new object(), new object()), Is.EquivalentTo(new[] { 1 }));
-        Assert.That(WhichAreNull(new object(), new object(), null, null), Is.EquivalentTo(new[] { 2, 3 }));
+        Assert.That(WhichAreNull(new object(), null, new object(), new object()), Is.EquivalentTo([1]));
+        Assert.That(WhichAreNull(new object(), new object(), null, null), Is.EquivalentTo([2, 3]));
         Assert.Throws<ArgumentNullException>(() => ((IEnumerable<object?>)null!).WhichAreNull().ToArray());
     }
 
@@ -357,8 +390,8 @@ public class ObjectsTest
     {
         object? x = new();
         Assert.That(x.WhichAre(new object(), 1, 0.0f), Is.Empty);
-        Assert.That(x.WhichAre(new object(), 1, x), Is.EquivalentTo(new[] { 2 }));
-        Assert.That(x.WhichAre(new object(), x, 0, x), Is.EquivalentTo(new[] { 1, 3 }));
+        Assert.That(x.WhichAre(new object(), 1, x), Is.EquivalentTo([2]));
+        Assert.That(x.WhichAre(new object(), x, 0, x), Is.EquivalentTo([1, 3]));
     }
 
     [Test]
@@ -397,8 +430,8 @@ public class ObjectsTest
     [Test]
     public void FromBytes_Test()
     {
-        Assert.That(1000000, Is.EqualTo(FromBytes<int>(new byte[] { 64, 66, 15, 0 })));
-        Assert.That(123456.789m, Is.EqualTo(FromBytes<decimal>(new byte[] { 0, 0, 3, 0, 0, 0, 0, 0, 21, 205, 91, 7, 0, 0, 0, 0 })));
+        Assert.That(1000000, Is.EqualTo(FromBytes<int>([64, 66, 15, 0])));
+        Assert.That(123456.789m, Is.EqualTo(FromBytes<decimal>([0, 0, 3, 0, 0, 0, 0, 0, 21, 205, 91, 7, 0, 0, 0, 0])));
     }
 
     [Test]

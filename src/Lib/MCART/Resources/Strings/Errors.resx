@@ -249,4 +249,10 @@
   <data name="InterfaceExpected" xml:space="preserve">
     <value>Se esperaba un tipo de interfaz.</value>
   </data>
+  <data name="ShallowCopyTo_Contract_OriginTypeMismatch" xml:space="preserve">
+    <value>El tipo de origen ({0}) no coincide con el tipo de destino ({1}).</value>
+  </data>
+  <data name="ShallowCopyTo_Contract_DestinationTypeMismatch" xml:space="preserve">
+    <value>El tipo de destino ({0}) no coincide con el tipo de origen ({1}).</value>
+  </data>
 </root>

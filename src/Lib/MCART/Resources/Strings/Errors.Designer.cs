@@ -412,6 +412,24 @@ namespace TheXDS.MCART.Resources.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to El tipo de destino ({0}) no coincide con el tipo de origen ({1})..
+        /// </summary>
+        public static string ShallowCopyTo_Contract_DestinationTypeMismatch {
+            get {
+                return ResourceManager.GetString("ShallowCopyTo_Contract_DestinationTypeMismatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to El tipo de origen ({0}) no coincide con el tipo de destino ({1})..
+        /// </summary>
+        public static string ShallowCopyTo_Contract_OriginTypeMismatch {
+            get {
+                return ResourceManager.GetString("ShallowCopyTo_Contract_OriginTypeMismatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to La pila está vacía..
         /// </summary>
         public static string StackUnderflow {
