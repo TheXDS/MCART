@@ -34,21 +34,23 @@ namespace TheXDS.MCART.PInvoke;
 
 internal partial class Gdi32
 {
+    private const string Gdi32Dll = "gdi32.dll";
+
 #if NET7_0_OR_GREATER
 
-    [LibraryImport("gdi32.dll")]
+    [LibraryImport(Gdi32Dll)]
     internal static partial int GetDeviceCaps(IntPtr hdc, int nIndex);
     
-    [LibraryImport("gdi32.dll")] 
+    [LibraryImport(Gdi32Dll)] 
     [return: MarshalAs(UnmanagedType.Bool)]
     internal static partial bool DeleteObject(IntPtr value);
 
 #else
 
-    [DllImport("gdi32.dll")]
+    [DllImport(Gdi32Dll)]
     internal static extern int GetDeviceCaps(IntPtr hdc, int nIndex);
 
-    [DllImport("gdi32.dll")]
+    [DllImport(Gdi32Dll)]
     [return: MarshalAs(UnmanagedType.Bool)]
     internal static extern bool DeleteObject(IntPtr value);
 

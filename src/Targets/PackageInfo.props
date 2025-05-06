@@ -15,6 +15,7 @@
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageDescription>$(Description)</PackageDescription>
 		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+		<PackageReadmeFile Condition="Exists('README.md')">README.md</PackageReadmeFile>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(VersionSuffix)'=='' OR '$(Configuration)'=='Release'">
 		<ActualPkgVersion>$(VersionPrefix)</ActualPkgVersion>
@@ -25,5 +26,6 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<None Include="$(Root)Art\MCART.png" Pack="true" PackagePath="\"/>
+		<None Condition="Exists('README.md')" Include="README.md" Pack="true" PackagePath="\"/>
 	</ItemGroup>
 </Project>

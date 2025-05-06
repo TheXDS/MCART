@@ -35,39 +35,41 @@ namespace TheXDS.MCART.PInvoke;
 
 internal partial class Kernel32
 {
+    private const string Kernel32Dll = "kernel32.dll";
+
 #if NET7_0_OR_GREATER
 
-    [LibraryImport("kernel32.dll")]
+    [LibraryImport(Kernel32Dll)]
     [return: MarshalAs(UnmanagedType.Bool)]
     internal static partial bool AllocConsole();
 
-    [LibraryImport("kernel32.dll")]
+    [LibraryImport(Kernel32Dll)]
     [return: MarshalAs(UnmanagedType.Bool)]
     internal static partial bool FreeConsole();
 
-    [LibraryImport("kernel32.dll")]
+    [LibraryImport(Kernel32Dll)]
     internal static partial IntPtr GetConsoleWindow();
 
-    [LibraryImport("kernel32.dll")]
+    [LibraryImport(Kernel32Dll)]
     [return: MarshalAs(UnmanagedType.Bool)]
     internal static partial bool GetFirmwareType(ref uint FirmwareType);
 
 #else
 
-    [DllImport("kernel32.dll")]
+    [DllImport(Kernel32Dll)]
     internal static extern bool AllocConsole();
 
-    [DllImport("kernel32.dll")]
+    [DllImport(Kernel32Dll)]
     internal static extern bool FreeConsole();
 
-    [DllImport("kernel32.dll")]
+    [DllImport(Kernel32Dll)]
     internal static extern IntPtr GetConsoleWindow();
 
-    [DllImport("kernel32.dll")]
+    [DllImport(Kernel32Dll)]
     internal static extern bool GetFirmwareType(ref uint FirmwareType);
 
 #endif
 
-    [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+    [DllImport(Kernel32Dll, CharSet = CharSet.Unicode, SetLastError = true)]
     internal static extern int GetCurrentPackageFullName(ref int packageFullNameLength, StringBuilder? packageFullName);
 }

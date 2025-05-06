@@ -38,7 +38,9 @@ namespace TheXDS.MCART.PInvoke;
 [ExcludeFromCodeCoverage]
 internal partial class CredUi
 {
-    [DllImport("credui.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+    private const string CredUiDll = "credui.dll";
+
+    [DllImport(CredUiDll, CharSet = CharSet.Unicode, SetLastError = true)]
     internal static extern bool CredUnPackAuthenticationBuffer(
         int dwFlags,
         IntPtr pAuthBuffer,
@@ -50,7 +52,7 @@ internal partial class CredUi
         StringBuilder pszPassword,
         ref int pcchMaxPassword);
 
-    [DllImport("credui.dll", CharSet = CharSet.Unicode, EntryPoint = "CredUIPromptForWindowsCredentialsW")]
+    [DllImport(CredUiDll, CharSet = CharSet.Unicode, EntryPoint = "CredUIPromptForWindowsCredentialsW")]
     internal static extern CredUIReturnCodes CredUIPromptForWindowsCredentials(
         ref CreduiInfo credui,
         int authError,
@@ -62,7 +64,7 @@ internal partial class CredUi
         [MarshalAs(UnmanagedType.Bool)] ref bool fSave,
         PromptForWindowsCredentialsFlags flags);
 
-    [LibraryImport("credui.dll", EntryPoint = "CredPackAuthenticationBufferW", SetLastError = true, StringMarshalling = StringMarshalling.Utf16)]
+    [LibraryImport(CredUiDll, EntryPoint = "CredPackAuthenticationBufferW", SetLastError = true, StringMarshalling = StringMarshalling.Utf16)]
     [return: MarshalAs(UnmanagedType.Bool)]
     internal static partial bool CredPackAuthenticationBuffer(
       uint dwFlags,

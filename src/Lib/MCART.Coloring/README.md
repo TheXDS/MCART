@@ -1,0 +1,2 @@
+# MCART.Coloring
+This library includes a set of color palettes and functions to generate colors for various purposes, such as data visualization, UI design, and more. The library is designed to be easy to use and flexible, allowing users to customize colors according to their needs.

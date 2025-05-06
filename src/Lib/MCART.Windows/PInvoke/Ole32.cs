@@ -36,6 +36,8 @@ namespace TheXDS.MCART.PInvoke;
 [ExcludeFromCodeCoverage]
 internal partial class Ole32
 {
-    [LibraryImport("ole32.dll")]
+    private const string Ole32Dll = "ole32.dll";
+
+    [LibraryImport(Ole32Dll)]
     internal static partial void CoTaskMemFree(IntPtr ptr);
 }

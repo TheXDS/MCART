@@ -28,6 +28,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+#pragma warning disable IDE0079
+
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using TheXDS.MCART.PInvoke.Models;
@@ -37,44 +39,46 @@ namespace TheXDS.MCART.PInvoke;
 [ExcludeFromCodeCoverage]
 internal partial class DwmApi
 {
+    private const string DwmApiDll = "dwmapi.dll";
+
 #pragma warning disable SYSLIB1054
-    [DllImport("dwmapi.dll", SetLastError = false, ExactSpelling = true)]
+    [DllImport(DwmApiDll, SetLastError = false, ExactSpelling = true)]
     internal static extern int DwmEnableBlurBehindWindow(IntPtr hWnd, in DWM_BLURBEHIND pDwmBlurbehind);
 #pragma warning restore SYSLIB1054
 
 #if NET7_0_OR_GREATER
 
-    [LibraryImport("dwmapi.dll")]
+    [LibraryImport(DwmApiDll)]
     internal static partial int DwmExtendFrameIntoClientArea(IntPtr hWnd, ref Margins pMargins);
 
-    [LibraryImport("dwmapi.dll")]
+    [LibraryImport(DwmApiDll)]
     [return: MarshalAs(UnmanagedType.Bool)]
     internal static partial bool DwmIsCompositionEnabled();
 
-    [LibraryImport("dwmapi.dll")]
+    [LibraryImport(DwmApiDll)]
     internal static partial int DwmGetWindowAttribute(IntPtr hwnd, DwmWindowAttribute dwAttribute, [MarshalAs(UnmanagedType.Bool)] out bool pvAttribute, int cbAttribute);
 
-    [LibraryImport("dwmapi.dll")] 
+    [LibraryImport(DwmApiDll)] 
     internal static partial int DwmSetWindowAttribute(IntPtr hwnd, DwmWindowAttribute dwAttribute, ref IntPtr pvAttribute, uint cbAttribute);
 
-    [LibraryImport("dwmapi.dll")]
+    [LibraryImport(DwmApiDll)]
     internal static partial int DwmGetColorizationColor(out uint pcrColorization, [MarshalAs(UnmanagedType.Bool)] out bool pfOpaqueBlend);
 
 #else
 
-    [DllImport("dwmapi.dll")]
+    [DllImport(DwmApiDll)]
     internal static extern int DwmExtendFrameIntoClientArea(IntPtr hWnd, ref Margins pMargins);
 
-    [DllImport("dwmapi.dll", PreserveSig = false)]
+    [DllImport(DwmApiDll, PreserveSig = false)]
     internal static extern bool DwmIsCompositionEnabled();
 
-    [DllImport("dwmapi.dll")]
+    [DllImport(DwmApiDll)]
     internal static extern int DwmGetWindowAttribute(IntPtr hwnd, DwmWindowAttribute dwAttribute, out bool pvAttribute, int cbAttribute);
 
-    [DllImport("dwmapi.dll")]
+    [DllImport(DwmApiDll)]
     internal static extern int DwmSetWindowAttribute(IntPtr hwnd, DwmWindowAttribute dwAttribute, ref uint pvAttribute, int cbAttribute);
 
-    [DllImport("dwmapi.dll")]
+    [DllImport(DwmApiDll)]
     internal static extern int DwmGetColorizationColor(out uint pcrColorization, [MarshalAs(UnmanagedType.Bool)] out bool pfOpaqueBlend);
 
 #endif
