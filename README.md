@@ -46,7 +46,7 @@ MCART is available on NuGet.
 Release | Link
 --- | ---
 Latest stable version: | [![Stable Version](https://img.shields.io/nuget/v/TheXDS.MCART)](https://www.nuget.org/packages/TheXDS.MCART/)
-Latest development version: | [![Development version]([https://buildstats.info/nuget/TheXDS.MCART?includePreReleases=true](https://img.shields.io/nuget/vpre/TheXDS.MCART))](https://www.nuget.org/packages/TheXDS.MCART/)
+Latest development version: | [![Development version](https://img.shields.io/nuget/vpre/TheXDS.MCART)](https://www.nuget.org/stats/packages/TheXDS.MCART?groupby=Version)
 
 **Package Manager**  
 ```sh
