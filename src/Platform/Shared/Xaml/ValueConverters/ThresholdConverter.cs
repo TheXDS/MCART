@@ -92,9 +92,6 @@ public partial class ThresholdConverter<TIn, TOut>(TOut belowValue, TOut aboveVa
     /// especificado como el umbral.
     /// </summary>
     /// <param name="value">Valor actual a comparar.</param>
-    /// <param name="targetType">
-    /// Tipo de campo objetivo. debe ser de tipo <typeparamref name="TOut" />.
-    /// </param>
     /// <param name="parameter">
     /// Valor de umbral. debe ser del mismo tipo que <paramref name="value" />.
     /// </param>
@@ -103,19 +100,18 @@ public partial class ThresholdConverter<TIn, TOut>(TOut belowValue, TOut aboveVa
     /// Referencia cultural que se va a usar en el convertidor.
     /// </param>
     /// <returns></returns>
-    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+    public TOut Convert(TIn value, object? parameter, CultureInfo? culture)
     {
         return value switch
         {
-            TIn v => v.CompareTo(GetCurrentValue(parameter, culture)) switch
+            TIn v => v.CompareTo(GetCurrentValue(parameter, culture ?? CultureInfo.InvariantCulture)) switch
             {
                 -1 => BelowValue,
                 0 => AtValue ?? BelowValue,
                 1 => AboveValue,
                 _ => throw new InvalidReturnValueException(nameof(IComparable<TIn>.CompareTo)),
             },
-            null => throw new ArgumentNullException(nameof(value)),
-            _ => throw Errors.InvalidValue(nameof(value), value)
+            null => throw new ArgumentNullException(nameof(value))
         };
     }
 
@@ -154,27 +150,5 @@ public partial class ThresholdConverter<TIn, TOut>(TOut belowValue, TOut aboveVa
         {
             return Common.FindConverter<string, TIn>();
         }
-    }
-
-    /// <summary>
-    /// Ejecuta la conversión inversa..
-    /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="targetType">Tipo del destino.</param>
-    /// <param name="parameter">
-    /// Parámetros personalizados a utilizar para realizar la conversión.
-    /// </param>
-    /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
-    /// </param>
-    /// <returns>
-    /// Este método siempre genera un <see cref="InvalidOperationException" />.
-    /// </returns>
-    /// <exception cref="InvalidOperationException">
-    /// Este método siempre genera esta excepción al ser llamado.
-    /// </exception>
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
-    {
-        throw new InvalidOperationException();
     }
 }

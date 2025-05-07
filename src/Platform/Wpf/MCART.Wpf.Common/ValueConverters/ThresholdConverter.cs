@@ -28,10 +28,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.Windows.Data;
+using TheXDS.MCART.ValueConverters.Base;
 
 namespace TheXDS.MCART.ValueConverters;
 
-public partial class ThresholdConverter<TIn, TOut> : IValueConverter
-{
-}
+public partial class ThresholdConverter<TIn, TOut> : IOneWayValueConverter<TIn, TOut>
+    where TIn : IComparable<TIn>
+    where TOut : struct;

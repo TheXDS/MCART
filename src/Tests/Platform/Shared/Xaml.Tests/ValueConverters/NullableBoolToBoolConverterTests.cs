@@ -46,6 +46,7 @@ public class NullableBoolToBoolConverterTests
         Assert.That(c.Convert(null, null, null), Is.TypeOf<bool>());
     }
 
+    [Test]
     public void ConvertBack_test()
     {
         NullableBoolToBoolConverter c = new();

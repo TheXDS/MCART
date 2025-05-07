@@ -87,7 +87,7 @@ public partial class BoolFlagConverter<T>(T trueValue) where T : Enum
     /// </returns>
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        if (value is T v) return True?.Equals(default) ?? true ? !v.Equals(True) : v.Equals(True);
+        if (value is T v) return True.Equals(default(T)) ? !v.Equals(True) : v.Equals(True);
         return null;
     }
 

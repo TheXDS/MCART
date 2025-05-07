@@ -54,4 +54,46 @@ public class BoolFlagConverterTests
         Assert.That(c.ConvertBack(true, typeof(BindingFlags), null, CultureInfo.InvariantCulture), Is.EqualTo(BindingFlags.IgnoreCase));
         Assert.That(c.ConvertBack(false, typeof(BindingFlags), null, CultureInfo.InvariantCulture), Is.EqualTo(default(BindingFlags)));
     }
+
+    [Test]
+    public void Default_ctor_Test()
+    {
+        BoolFlagConverter<DayOfWeek> c = new();
+        Assert.That(c.True, Is.EqualTo(default(DayOfWeek)));
+    }
+
+    [Test]
+    public void Convert_returns_null_on_invalid_value()
+    {
+        BoolFlagConverter<DayOfWeek> c = new(DayOfWeek.Monday);
+        Assert.That(c.Convert(new Random(), typeof(bool), null!, CultureInfo.CurrentCulture), Is.EqualTo(null));
+    }
+
+    [Test]
+    public void Convert_returns_false_on_not_true_value()
+    {
+        BoolFlagConverter<DayOfWeek> c = new(DayOfWeek.Monday);
+        Assert.That(c.Convert(DayOfWeek.Tuesday, typeof(bool), null!, CultureInfo.CurrentCulture), Is.EqualTo(false));
+    }
+
+    [Test]
+    public void Convert_returns_true_on_true_value()
+    {
+        BoolFlagConverter<DayOfWeek> c = new(DayOfWeek.Monday);
+        Assert.That(c.Convert(DayOfWeek.Monday, typeof(bool), null!, CultureInfo.CurrentCulture), Is.EqualTo(true));
+    }
+
+    [Test]
+    public void Convert_returns_true_on_any_flag()
+    {
+        BoolFlagConverter<ConsoleModifiers> c = new();
+        Assert.That(c.Convert(ConsoleModifiers.Alt, typeof(bool), null!, CultureInfo.CurrentCulture), Is.EqualTo(true));
+    }
+
+    [Test]
+    public void Convert_returns_false_on_no_flag()
+    {
+        BoolFlagConverter<ConsoleModifiers> c = new();
+        Assert.That(c.Convert(ConsoleModifiers.None, typeof(bool), null!, CultureInfo.CurrentCulture), Is.EqualTo(false));
+    }
 }

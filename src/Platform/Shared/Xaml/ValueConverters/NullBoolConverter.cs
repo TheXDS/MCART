@@ -137,6 +137,7 @@ public sealed partial class NullBoolConverter<T>
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value is null) return null;
+        if (value is not T) return default(T);
         if (value.Equals(Null) && !ReferenceEquals(Null, False)) return null;
         return ((T)value).Equals(True);
     }

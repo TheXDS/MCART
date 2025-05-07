@@ -1,5 +1,5 @@
 ﻿/*
-ThresholdConverter.cs
+NumberToBooleanConverterTests.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,10 +28,36 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using TheXDS.MCART.ValueConverters.Base;
+using System.Globalization;
+using TheXDS.MCART.ValueConverters;
 
-namespace TheXDS.MCART.ValueConverters;
+namespace TheXDS.MCART.Wpf.Common.Tests.ValueConverters;
 
-public partial class ThresholdConverter<TIn, TOut> : IOneWayValueConverter<TIn, TOut>
-    where TIn : IComparable<TIn>
-    where TOut : struct;
+public class NumberToBooleanConverterTests
+{
+    [TestCase(1)]
+    [TestCase(-1)]
+    [TestCase(42)]
+    public void Convert_returns_true_for_non_zero_values(int value)
+    {
+        NumberToBooleanConverter c = new();
+        Assert.That(c.Convert(value, typeof(bool), null, CultureInfo.InvariantCulture), Is.True);
+    }
+
+    [Test]
+    public void Convert_returns_false()
+    {
+        NumberToBooleanConverter c = new();
+        Assert.That(c.Convert(0, typeof(bool), null, CultureInfo.InvariantCulture), Is.False);
+    }
+
+    [Test]
+    public void ConvertBack_test()
+    {
+        NumberToBooleanConverter c = new();
+        Assert.That(c.ConvertBack(true, typeof(int), null, CultureInfo.InvariantCulture), Is.EqualTo(-1));
+        Assert.That(c.ConvertBack(false, typeof(int), null, CultureInfo.InvariantCulture), Is.EqualTo(0));
+        Assert.That(c.ConvertBack(null, typeof(int), null, CultureInfo.InvariantCulture), Is.Null);
+        Assert.That(c.ConvertBack("TEST", typeof(int), null, CultureInfo.InvariantCulture), Is.Null);
+    }
+}

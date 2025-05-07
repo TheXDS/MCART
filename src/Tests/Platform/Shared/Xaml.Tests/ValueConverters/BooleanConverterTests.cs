@@ -70,4 +70,11 @@ public class BooleanConverterTests
         Assert.That((bool)c.ConvertBack(-5, typeof(int), null, CultureInfo.CurrentCulture)!, Is.False);
         Assert.That(c.ConvertBack(2, typeof(int), null, CultureInfo.CurrentCulture), Is.Null);
     }
+
+    [Test]
+    public void ConvertBack_returns_null_if_null()
+    {
+        BooleanConverter<int>? c = new(5, -5);
+        Assert.That(c.ConvertBack(null, typeof(int), null, CultureInfo.CurrentCulture), Is.Null);
+    }
 }
