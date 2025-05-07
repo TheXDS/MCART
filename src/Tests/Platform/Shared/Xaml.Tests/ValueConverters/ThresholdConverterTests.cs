@@ -39,13 +39,11 @@ public class ThresholdConverterTests
     public void ThresholdConverterTest()
     {
         ThresholdConverter<double, char>? c = new('c', 'v', 'h');
-        Assert.Throws<ArgumentNullException>(() => c.Convert(null, typeof(char), 100.0, CultureInfo.InvariantCulture));
-        Assert.Throws<ArgumentException>(() => c.Convert("X", typeof(char), 100.0, CultureInfo.InvariantCulture));
-        Assert.That('v', Is.EqualTo(c.Convert(105.0, typeof(char), 100.0, CultureInfo.InvariantCulture)));
-        Assert.That('v', Is.EqualTo(c.Convert(105.0, typeof(char), "100.0", CultureInfo.InvariantCulture)));
-        Assert.That('c', Is.EqualTo(c.Convert(95.0, typeof(char), 100.0, CultureInfo.InvariantCulture)));
-        Assert.That('h', Is.EqualTo(c.Convert(100.0, typeof(char), 100.0, CultureInfo.InvariantCulture)));
-        Assert.Throws<ArgumentNullException>(() => c.Convert(150.0, typeof(char), null, CultureInfo.InvariantCulture));
-        Assert.Throws<ArgumentException>(() => c.Convert(150.0, typeof(char), "X", CultureInfo.InvariantCulture));
+        Assert.That('v', Is.EqualTo(c.Convert(105.0, 100.0, CultureInfo.InvariantCulture)));
+        Assert.That('v', Is.EqualTo(c.Convert(105.0, "100.0", CultureInfo.InvariantCulture)));
+        Assert.That('c', Is.EqualTo(c.Convert(95.0, 100.0, CultureInfo.InvariantCulture)));
+        Assert.That('h', Is.EqualTo(c.Convert(100.0, 100.0, CultureInfo.InvariantCulture)));
+        Assert.Throws<ArgumentNullException>(() => c.Convert(150.0, null, CultureInfo.InvariantCulture));
+        Assert.Throws<ArgumentException>(() => c.Convert(150.0, "X", CultureInfo.InvariantCulture));
     }
 }
