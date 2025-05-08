@@ -29,6 +29,7 @@ SOFTWARE.
 */
 
 using System.Globalization;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Data;
 using TheXDS.MCART.Types.Extensions;
