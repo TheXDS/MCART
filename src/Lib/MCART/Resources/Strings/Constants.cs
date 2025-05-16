@@ -31,49 +31,49 @@ SOFTWARE.
 namespace TheXDS.MCART.Resources.Strings;
 
 /// <summary>
-/// Contiene una colección de constantes de cadena.
+/// Contains a collection of string constants.
 /// </summary>
 public static class Constants
 {
     /// <summary>
-    /// Obtiene una cadena con todos los caracteres alfabéticos en minúscula.
+    /// Gets a string containing all lowercase alphabetic characters.
     /// </summary>
     public const string AlphaLc = "abcdefghijklmnopqrstuvwxyz";
 
     /// <summary>
-    /// Obtiene una cadena con todos los caracteres alfabéticos en mayúscula.
+    /// Gets a string containing all uppercase alphabetic characters.
     /// </summary>
-    public const string AlphaUc = "abcdefghijklmnopqrstuvwxyz";
+    public const string AlphaUc = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     /// <summary>
-    /// Obtiene una cadena con todos los dígitos numéricos.
+    /// Gets a string containing all numeric digits.
     /// </summary>
     public const string Numbers = "0123456789";
 
     /// <summary>
-    /// Obtiene una cadena con todos los signos de puntuación comunes.
+    /// Gets a string containing common punctuation symbols.
     /// </summary>
     public const string Symbols = "`~!@#$%^&*()-_=+\\|]}[{'\";:/?.>,<";
 
     /// <summary>
-    /// Obtiene una cadena con todos los caracteres alfanuméricos y signos
-    /// de puntuación comunes.
+    /// Gets a string containing all alphanumeric characters and common
+    /// punctuation symbols.
     /// </summary>
     public const string Chars = AlphaLc + AlphaUc + Numbers + Symbols;
 
     /// <summary>
-    /// Obtiene un cadena con distintos caracteres utilizados en distintos
-    /// alfabetos latinos.
+    /// Gets a string containing distinct characters used in various
+    /// Latin alphabets.
     /// </summary>
     public const string LatinChars = "áéíóúüñäåöàèìòùâêîôûç";
 
     /// <summary>
-    /// Obtiene una cadena con distintos caracteres misceláneos.
+    /// Gets a string containing various miscellaneous characters.
     /// </summary>
     public const string MoreChars = @"ẁèỳùìòàǜǹẀÈỲÙÌÒÀǛǸẽẼỹỸũŨĩĨõÕãÃṽṼñÑ`~1!¡¹2@²űŰőŐ˝3#ĒǕŌĀ¯4$¤£5%€şḑģḩķļçņȩŗţ¸6ŵêŷûîôâŝĝĥĵẑĉŴÊŶÛÎÔÂŜĜĤĴẐĈ¼^7&ươƯƠ̛8*¾ęųįǫąĘŲĮǪĄ˛9(‘ĕŭĭŏăĔŬĬŎĂ˘0)’ẘẙůŮåÅ-_¥ẉẹṛṭỵụịọạṣḍḥḳḷṿḅṇṃ̣=+×÷qQwWeErR®tTþÞyYuUiIoOpP[{«“]}»”\|¬¦aAsSß§dDðÐfFgGhHjJkKœŒlLøØ;:¶°ẃéŕýúíóṕáśǵḱĺźćǘńḿ'ẅëẗÿüïöäḧẍẄËŸÜÏÖÄḦẌ""zZæÆxXcC©¢vVbBnNmMµ,<çÇ.>ˇěřťǔǐǒǎšďǧȟǰǩǩľžčǚň/?¿ʠⱳẻƭỷủỈỏƥảʂɗƒɠɦƙȥƈʋɓɲɱ̉";
-
+    
     /// <summary>
-    /// Obtiene una cadena con símbolos misceláneos.
+    /// Gets a string containing various miscellaneous symbols.
     /// </summary>
     public const string MoreSymbols = "¡²³¤€¼½¾‘’¥×»«¬´¶¿Ç®ÞßÐØÆ©µ¹£÷¦¨°çþ§";
 }

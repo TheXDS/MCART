@@ -34,17 +34,17 @@ using TheXDS.MCART.Exceptions;
 namespace TheXDS.MCART.Resources;
 
 /// <summary>
-/// Clase base que permite definir un <see cref="IUnpacker{T}"/> que extrae
-/// recursos incrustados desde un <see cref="Assembly"/>.
+/// Base class for defining an <see cref="IUnpacker{T}"/> that extracts
+/// embedded resources from an <see cref="Assembly"/>.
 /// </summary>
-/// <typeparam name="T">Tipo de recursos a extraer.</typeparam>
+/// <typeparam name="T">Type of resources to extract.</typeparam>
 /// <param name="assembly">
-/// <see cref="Assembly"/> desde donde se extraerán los recursos
-/// incrustados.
+/// <see cref="Assembly"/> from which embedded resources will be
+/// extracted.
 /// </param>
 /// <param name="path">
-/// Ruta (en formato de espacio de nombre) donde se ubicarán los
-/// recursos incrustados.
+/// Path (in namespace format) where the embedded resources will be
+/// located.
 /// </param>
 public abstract partial class AssemblyUnpacker<T>(Assembly assembly, string path) : IUnpacker<T>
 {
@@ -52,16 +52,14 @@ public abstract partial class AssemblyUnpacker<T>(Assembly assembly, string path
     private readonly Assembly _assembly = assembly ?? throw new ArgumentNullException(nameof(assembly));
 
     /// <summary>
-    /// Obtiene un <see cref="Stream"/> desde el cual leer un recurso
-    /// incrustado.
+    /// Gets a <see cref="Stream"/> from which to read an embedded resource.
     /// </summary>
-    /// <param name="id">Identificador del recurso incrustado.</param>
+    /// <param name="id">Identifier of the embedded resource.</param>
     /// <returns>
-    /// Un <see cref="Stream"/> desde el cual leer un recurso incrustado.
+    /// A <see cref="Stream"/> from which to read an embedded resource.
     /// </returns>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="id"/> es una cadena vacía o
-    /// <see langword="null"/>.
+    /// Thrown if <paramref name="id"/> is an empty string or null.
     /// </exception>
     protected Stream? UnpackStream(string id)
     {
@@ -70,26 +68,24 @@ public abstract partial class AssemblyUnpacker<T>(Assembly assembly, string path
     }
 
     /// <summary>
-    /// Obtiene un <see cref="Stream"/> desde el cual extraer un recurso
-    /// incrustado comprimido.
+    /// Gets a <see cref="Stream"/> from which to extract a compressed
+    /// embedded resource.
     /// </summary>
-    /// <param name="id">Identificador del recurso incrustado.</param>
+    /// <param name="id">Identifier of the embedded resource.</param>
     /// <param name="compressor">
-    /// <see cref="ICompressorGetter"/> a utilizar para extraer al recurso,
-    /// o <see langword="null"/> para no utilizar un extractor de 
-    /// descompresión.
+    /// <see cref="ICompressorGetter"/> to use to extract the resource,
+    /// or null to not use a decompression extractor.
     /// </param>
     /// <returns>
-    /// Un <see cref="Stream"/> desde el cual leer un recurso incrustado
-    /// sin comprimir.
+    /// A <see cref="Stream"/> from which to read an uncompressed
+    /// embedded resource.
     /// </returns>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="id"/> es una cadena vacía o
-    /// <see langword="null"/>.
+    /// Thrown if <paramref name="id"/> is an empty string or null.
     /// </exception>
     /// <exception cref="MissingResourceException">
-    /// Se produce si no se ha encontrado un recurso incrustado con el ID
-    /// especificado en la ruta definida para este extractor de recursos.
+    /// Thrown if an embedded resource with the specified ID is not found
+    /// in the path defined for this resource extractor.
     /// </exception>
     protected Stream UnpackStream(string id, ICompressorGetter? compressor)
     {
@@ -99,36 +95,35 @@ public abstract partial class AssemblyUnpacker<T>(Assembly assembly, string path
     }
 
     /// <summary>
-    /// Obtiene un recurso identificable.
+    /// Gets an identifiable resource.
     /// </summary>
-    /// <param name="id">Identificador del recurso.</param>
-    /// <returns>Un recurso de tipo <typeparamref name="T" />.</returns>
+    /// <param name="id">Identifier of the resource.</param>
+    /// <returns>A resource of type <typeparamref name="T"/>.</returns>
     public abstract T Unpack(string id);
 
     /// <summary>
-    /// Extrae un recurso comprimido utilizando el compresor con el
-    /// identificador especificado.
+    /// Extracts a compressed resource using the specified compressor.
     /// </summary>
-    /// <param name="id">Identificador del recurso.</param>
+    /// <param name="id">Identifier of the resource.</param>
     /// <param name="compressor">
-    /// <see cref="ICompressorGetter" /> a utilizar para extraer al recurso.
+    /// <see cref="ICompressorGetter"/> to use to extract the resource.
     /// </param>
     /// <returns>
-    /// Un recurso sin comprimir de tipo <typeparamref name="T" />.
+    /// An uncompressed resource of type <typeparamref name="T"/>.
     /// </returns>
     public abstract T Unpack(string id, ICompressorGetter compressor);
 
     /// <summary>
-    /// Intenta obtener un recurso identificable.
+    /// Attempts to get an identifiable resource.
     /// </summary>
-    /// <param name="id">Identificador del recurso.</param>
+    /// <param name="id">Identifier of the resource.</param>
     /// <param name="result">
-    /// Parámetro de salida. Un recurso de tipo 
+    /// Output parameter. A resource of type
     /// <typeparamref name="T"/>.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si el recurso se extrajo 
-    /// satisfactoriamente, <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if the resource was successfully
+    /// extracted, <see langword="false"/> otherwise.
     /// </returns>
     public virtual bool TryUnpack(string id, out T result)
     {
@@ -136,21 +131,20 @@ public abstract partial class AssemblyUnpacker<T>(Assembly assembly, string path
     }
 
     /// <summary>
-    /// Intenta obtener un recurso identificable.
+    /// Attempts to get an identifiable resource.
     /// </summary>
-    /// <param name="id">Identificador del recurso.</param>
+    /// <param name="id">Identifier of the resource.</param>
     /// <param name="result">
-    /// Parámetro de salida. Un recurso de tipo 
+    /// Output parameter. A resource of type
     /// <typeparamref name="T"/>.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si el recurso se extrajo 
-    /// satisfactoriamente, <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if the resource was successfully
+    /// extracted, <see langword="false"/> otherwise.
     /// </returns>
     /// <param name="compressor">
-    /// <see cref="ICompressorGetter"/> a utilizar para extraer el
-    /// recurso.
-    /// </param>        
+    /// <see cref="ICompressorGetter"/> to use to extract the resource.
+    /// </param>
     public virtual bool TryUnpack(string id, ICompressorGetter compressor, out T result)
     {
         return AssemblyUnpacker<T>.InternalTryUnpack(() => Unpack(id, compressor), out result);

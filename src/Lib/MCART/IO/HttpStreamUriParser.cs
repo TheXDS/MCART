@@ -33,13 +33,13 @@ using TheXDS.MCART.Types.Base;
 namespace TheXDS.MCART.IO;
 
 /// <summary>
-/// Obtiene un <see cref="Stream"/> a partir de un <see cref="Uri"/>
-/// que apunta a un recurso web.
+/// Retrieves a <see cref="Stream"/> from a <see cref="Uri"/> that 
+/// points to a web resource.
 /// </summary>
 public class HttpStreamUriParser : SimpleStreamUriParser
 {
     /// <summary>
-    /// Enumera los protocolos soportados por este
+    /// Enumerates the protocols supported by this 
     /// <see cref="HttpStreamUriParser"/>.
     /// </summary>
     protected override IEnumerable<string> SchemeList
@@ -52,13 +52,13 @@ public class HttpStreamUriParser : SimpleStreamUriParser
     }
 
     /// <summary>
-    /// Abre un <see cref="Stream"/> desde el <see cref="Uri"/>
-    /// especificado.
+    /// Opens a <see cref="Stream"/> from the specified 
+    /// <see cref="Uri"/>.
     /// </summary>
-    /// <param name="uri">Dirección web a resolver.</param>
+    /// <param name="uri">The web address to resolve.</param>
     /// <returns>
-    /// Un <see cref="Stream"/> que permite obtener el recurso apuntado
-    /// por el <see cref="Uri"/> especificado.
+    /// A <see cref="Stream"/> that allows obtaining the resource 
+    /// pointed to by the specified <see cref="Uri"/>.
     /// </returns>
     public sealed override Stream Open(Uri uri)
     {
@@ -67,21 +67,20 @@ public class HttpStreamUriParser : SimpleStreamUriParser
     }
 
     /// <summary>
-    /// Obtiene un valor que indica si este objeto prefiere
-    /// transferencias completas a la hora de exponer un 
-    /// <see cref="Stream"/>.
+    /// Gets a value indicating whether this object prefers full 
+    /// transfers when exposing a <see cref="Stream"/>.
     /// </summary>
     public override bool PreferFullTransfer => true;
 
     /// <summary>
-    /// Abre un <see cref="Stream"/> desde el <see cref="Uri"/>
-    /// especificado, haciendo una transferencia completa a la memoria
-    /// del equipo.
+    /// Opens a <see cref="Stream"/> from the specified 
+    /// <see cref="Uri"/>, making a full transfer to the computer's 
+    /// memory.
     /// </summary>
-    /// <param name="uri">Dirección web a resolver.</param>
+    /// <param name="uri">The web address to resolve.</param>
     /// <returns>
-    /// Un <see cref="Stream"/> que permite obtener el recurso apuntado
-    /// por el <see cref="Uri"/> especificado.
+    /// A <see cref="Stream"/> that allows obtaining the resource 
+    /// pointed to by the specified <see cref="Uri"/>.
     /// </returns>
     public override async Task<Stream?> OpenFullTransferAsync(Uri uri)
     {
@@ -90,6 +89,7 @@ public class HttpStreamUriParser : SimpleStreamUriParser
             MemoryStream? ms = new();
             using var c = new HttpClient();
             (await c.GetStreamAsync(uri)).CopyTo(ms);
+            ms.Position = 0;
             return ms;
         }
         catch

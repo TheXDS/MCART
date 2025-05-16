@@ -31,64 +31,62 @@ SOFTWARE.
 namespace TheXDS.MCART.Resources.Strings;
 
 /// <summary>
-/// Especifica distintas opciones de formato de texto a generar para
-/// describir una excepción.
+/// Specifies different text formatting options for generating a
+/// description of an exception.
 /// </summary>
 [Flags]
 public enum ExDumpOptions : byte
 {
     /// <summary>
-    /// Incluye el nombre de la excepción.
+    /// Includes the exception name.
     /// </summary>
     Name = 1,
 
     /// <summary>
-    /// Incluye la descripción de la ubicación donde se ha producido la
-    /// excepción.
+    /// Includes the description of the location where the exception
+    /// occurred.
     /// </summary>
     Source = 2,
 
     /// <summary>
-    /// Incluye el mensaje de error de la excepción.
+    /// Includes the exception error message.
     /// </summary>
     Message = 4,
 
     /// <summary>
-    /// Incluye el HRESULT de la excepción.
+    /// Includes the exception HResult.
     /// </summary>
     HResult = 8,
 
     /// <summary>
-    /// Incluye un volcado de pila de la excepción.
+    /// Includes an exception stack trace.
     /// </summary>
     StackTrace = 16,
 
     /// <summary>
-    /// Incluye cualquier propiedad que contenga excepciones internas.
+    /// Includes any property containing inner exceptions.
     /// </summary>
     Inner = 32,
 
     /// <summary>
-    /// Incluye un listado de los ensamblados cargados en el AppDomain
-    /// donde se produjo la excepción.
+    /// Includes a list of assemblies loaded in the AppDomain where the
+    /// exception occurred.
     /// </summary>
     LoadedAssemblies = 64,
 
     /// <summary>
-    /// Formatea el texto para presentarlo en un ancho predefinido.
+    /// Formats the text to a predefined width.
     /// </summary>
     TextWidthFormatted = 128,
 
     /// <summary>
-    /// Muestra toda la información de la excepción y cualquier excepción
-    /// interna producida.
+    /// Shows all exception information and any inner exceptions.
     /// </summary>
     All = 127,
 
     /// <summary>
-    /// Muestra toda la información de la excepción y cualquier excepción
-    /// interna producida, formateando el texto para presentarlo en un
-    /// ancho predefinido.
+    /// Shows all exception information and any inner exceptions,
+    /// formatting the text to a predefined width.
     /// </summary>
     AllFormatted = 255,
 }

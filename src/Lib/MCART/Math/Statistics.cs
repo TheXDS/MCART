@@ -3,8 +3,6 @@ Statistics.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
-Este archivo contiene diversas fórmulas de suavizado.
-
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
@@ -37,17 +35,17 @@ using TheXDS.MCART.Types.Extensions;
 namespace TheXDS.MCART.Math;
 
 /// <summary>
-/// Contiene diversas funciones estadísticas.
+/// Contains a number of statistic functions.
 /// </summary>
 public static partial class Statistics
 {
     /// <summary>
-    /// Varía un valor de acuerdo a un porcentaje de su delta.
+    /// Varies a value according to a percentage of its delta.
     /// </summary>
-    /// <param name="value">Valor a variar.</param>
-    /// <param name="delta">Delta de varianza.</param>
+    /// <param name="value">Value to vary.</param>
+    /// <param name="delta">Variance delta.</param>
     /// <returns>
-    /// Un valor variado aleatoriamente de acuerdo a un delta.
+    /// A value randomly varied according to a delta.
     /// </returns>
     public static double Variate(this in double value, in double delta)
     {
@@ -55,14 +53,13 @@ public static partial class Statistics
     }
 
     /// <summary>
-    /// Obtiene un rango normalizado para un set de datos dado un margen de
-    /// error.
+    /// Gets a normalized range for a given data set, given an error margin.
     /// </summary>
-    /// <param name="data">Set de datos a normalizar.</param>
-    /// <param name="errorMargin">Margen de error tolerado.</param>
+    /// <param name="data">Data set to normalize.</param>
+    /// <param name="errorMargin">Error margin tolerated.</param>
     /// <returns>
-    /// Una enumeración con los valores normalizados del set de datos de 
-    /// acuerdo a un valor de margen de error.
+    /// An enumeration with the normalized values of the data set according
+    /// to an error margin value.
     /// </returns>
     public static IEnumerable<Range<double>> Normalize(this IEnumerable<double> data, double errorMargin)
     {
@@ -70,14 +67,13 @@ public static partial class Statistics
     }
 
     /// <summary>
-    /// Obtiene un nuevo valor de promedio a partir de los parámetros
-    /// especificados.
+    /// Gets a new average value from the specified parameters.
     /// </summary>
-    /// <param name="value">Nuevo valor a agregar al promedio.</param>
-    /// <param name="samples">Número de muestras del promedio anterior.</param>
-    /// <param name="oldAverage">Promedio anterior.</param>
+    /// <param name="value">New value to add to the average.</param>
+    /// <param name="samples">Number of samples of the previous average.</param>
+    /// <param name="oldAverage">Previous average.</param>
     /// <returns>
-    /// Un nuevo promedio que incluye a <paramref name="value"/>.
+    /// A new average that includes <paramref name="value"/>.
     /// </returns>
     public static double Average(this in double value, in int samples, in double oldAverage)
     {
@@ -86,12 +82,12 @@ public static partial class Statistics
     }
 
     /// <summary>
-    /// Calcula la tendencia media de un set de datos.
+    /// Calculates the mean tendency of a data set.
     /// </summary>
     /// <param name="data">
-    /// Set de datos para el cual calcular la tendencia media.
+    /// Data set for which to calculate the mean tendency.
     /// </param>
-    /// <returns>La tendencia media de un set de datos.</returns>
+    /// <returns>The mean tendency of a data set.</returns>
     public static double MeanTendency(this IEnumerable<double> data)
     {
         List<double> c = [];
@@ -108,12 +104,12 @@ public static partial class Statistics
     }
 
     /// <summary>
-    /// Calcula la tendencia geométrica de un set de datos.
+    /// Calculates the geometric tendency of a data set.
     /// </summary>
     /// <param name="data">
-    /// Set de datos para el cual calcular la tendencia geométrica.
+    /// Data set for which to calculate the geometric tendency.
     /// </param>
-    /// <returns>La tendencia geométrica de un set de datos.</returns>
+    /// <returns>The geometric tendency of a data set.</returns>
     public static double GeometricMean(this IEnumerable<double> data)
     {
         double c = 1.0;
@@ -127,12 +123,12 @@ public static partial class Statistics
     }
 
     /// <summary>
-    /// Calcula la tendencia harmónica de un set de datos.
+    /// Calculates the harmonic tendency of a data set.
     /// </summary>
     /// <param name="data">
-    /// Set de datos para el cual calcular la tendencia harmónica.
+    /// Data set for which to calculate the harmonic tendency.
     /// </param>
-    /// <returns>La tendencia harmónica de un set de datos.</returns>
+    /// <returns>The harmonic tendency of a data set.</returns>
     public static double HarmonicMean(this IEnumerable<double> data)
     {
         double c = 0.0;
@@ -146,15 +142,15 @@ public static partial class Statistics
     }
 
     /// <summary>
-    /// Calcula la media de un set de datos.
+    /// Calculates the median of a data set.
     /// </summary>
     /// <param name="data">
-    /// Set de datos para el cual calcular la media.
+    /// Data set for which to calculate the median.
     /// </param>
-    /// <returns>La media de un set de datos.</returns>
+    /// <returns>The median of a data set.</returns>
     public static double Median(this IEnumerable<double> data)
     {
-        List<double> d = data.ToList();
+        List<double> d = [.. data];
         if (d.Count == 0) return double.NaN;
         d.Sort();
         int p = d.Count / 2;
@@ -162,12 +158,12 @@ public static partial class Statistics
     }
 
     /// <summary>
-    /// Calcula la moda de un set de datos.
+    /// Calculates the mode of a data set.
     /// </summary>
     /// <param name="data">
-    /// Set de datos para el cual calcular la moda.
+    /// Data set for which to calculate the mode.
     /// </param>
-    /// <returns>La moda de un set de datos.</returns>
+    /// <returns>The mode of a data set.</returns>
     public static IEnumerable<double> Mode(this IEnumerable<double> data)
     {
         Dictionary<double, int> d = [];
@@ -182,44 +178,44 @@ public static partial class Statistics
     }
 
     /// <summary>
-    /// Calcula la desviación promedio absoluta de un set de datos.
+    /// Calculates the mean absolute deviation of a data set.
     /// </summary>
     /// <param name="data">
-    /// Set de datos para el cual calcular la desviación promedio absoluta.
+    /// Data set for which to calculate the mean absolute deviation.
     /// </param>
     /// <returns>
-    /// La desviación promedio absoluta de un set de datos.
+    /// The mean absolute deviation of a data set.
     /// </returns>
     public static double MeanAbsoluteDeviation(this IEnumerable<double> data)
     {
-        List<double> d = data.ToList();
+        List<double> d = [.. data];
         return AbsoluteDeviation(d, d.Average());
     }
 
     /// <summary>
-    /// Calcula la desviación media absoluta de un set de datos.
+    /// Calculates the median absolute deviation of a data set.
     /// </summary>
     /// <param name="data">
-    /// Set de datos para el cual calcular la desviación media absoluta.
+    /// Data set for which to calculate the median absolute deviation.
     /// </param>
-    /// <returns>La desviación media absoluta de un set de datos.</returns>
+    /// <returns>The median absolute deviation of a data set.</returns>
     public static double MedianAbsoluteDeviation(this IEnumerable<double> data)
     {
-        List<double> d = data.ToList();
+        List<double> d = [.. data];
         return AbsoluteDeviation(d, d.Median());
     }
 
     /// <summary>
-    /// Calcula la desviación absoluta de un punto en un set de datos.
+    /// Calculates the absolute deviation of a point in a data set.
     /// </summary>
     /// <param name="data">
-    /// Set de datos para el cual calcular la absoluta.
+    /// Data set for which to calculate the absolute deviation.
     /// </param>
     /// <param name="point">
-    /// Punto para el cual calcular la desviación absoluta.
+    /// Point for which to calculate the absolute deviation.
     /// </param>
     /// <returns>
-    /// La desviación absoluta del punto en un set de datos.
+    /// The absolute deviation of the point in a data set.
     /// </returns>
     public static double AbsoluteDeviation(this IEnumerable<double> data, in double point)
     {
@@ -235,17 +231,15 @@ public static partial class Statistics
     }
 
     /// <summary>
-    /// Calcula el nivel de correlación entre dos sets de datos.
+    /// Calculates the level of correlation between two data sets.
     /// </summary>
-    /// <param name="dataA">Primer set de datos.</param>
-    /// <param name="dataB">Segundo set de datos.</param>
+    /// <param name="dataA">First data set.</param>
+    /// <param name="dataB">Second data set.</param>
     /// <returns>
-    /// <c>1.0</c> para correlación máxima, <c>0.0</c> para correlación
-    /// mínima.
+    /// <c>1.0</c> for maximum correlation, <c>0.0</c> for minimum correlation.
     /// </returns>
     /// <exception cref="IndexOutOfRangeException">
-    /// Se produce si cualquiera de los sets tiene una cantidad distinta de
-    /// elementos con respecto al otro.
+    /// Thrown if either set has a different quantity of elements with respect to the other.
     /// </exception>
     public static double Correlation(IEnumerable<double> dataA, IEnumerable<double> dataB)
     {
@@ -259,47 +253,45 @@ public static partial class Statistics
     }
 
     /// <summary>
-    /// Calcula el nivel de covarianza entre dos sets de datos.
+    /// Calculates the covariance between two data sets.
     /// </summary>
-    /// <param name="dataA">Primer set de datos.</param>
-    /// <param name="dataB">Segundo set de datos.</param>
+    /// <param name="dataA">First data set.</param>
+    /// <param name="dataB">Second data set.</param>
     /// <returns>
-    /// <c>1.0</c> para covarianza máxima, <c>0.0</c> para covarianza
-    /// mínima.
+    /// <c>1.0</c> for maximum covariance, <c>0.0</c> for minimum covariance.
     /// </returns>
     /// <exception cref="IndexOutOfRangeException">
-    /// Se produce si cualquiera de los sets tiene una cantidad distinta de
-    /// elementos con respecto al otro.
+    /// Thrown if either set has a different quantity of elements with respect to the other.
     /// </exception>
     public static double Covariance(IEnumerable<double> dataA, IEnumerable<double> dataB)
     {
-        double sigmaXY = 0.0;        
+        double sigmaXY = 0.0;
         (_, _, int countA) = DataSetComputation(dataA, dataB, (in double a, in double b, in double avgA, in double avgB) => sigmaXY += (a - avgA) * (b - avgB));
         return sigmaXY / countA;
     }
 
     /// <summary>
-    /// Calcula la desviación cuadrada de un set de datos.
+    /// Calculates the squared deviation of a data set.
     /// </summary>
     /// <param name="data">
-    /// Set de datos para el cual calcular la desviación cuadrada.
+    /// Data set for which to calculate the squared deviation.
     /// </param>
-    /// <returns>La desviación cuadrada de un set de datos.</returns>
+    /// <returns>The squared deviation of a data set.</returns>
     public static double DeviationSquared(this IEnumerable<double> data)
     {
-        List<double> d = data.ToList();
+        List<double> d = [.. data];
         double avg = d.Average();
         return d.Sum(p => System.Math.Pow(p - avg, 2));
     }
 
     /// <summary>
-    /// Aplica la transformación de Fisher a un valor discreto.
+    /// Applies the Fisher transformation to a discrete value.
     /// </summary>
     /// <param name="value">
-    /// Valor al cual aplicar la transformación de Fisher.
+    /// Value to which to apply the Fisher transformation.
     /// </param>
     /// <returns>
-    /// El resultado de la transformación de Fisher del valor especificado.
+    /// The result of the Fisher transformation of the specified value.
     /// </returns>
     public static double Fisher(this in double value)
     {
@@ -308,27 +300,27 @@ public static partial class Statistics
     }
 
     /// <summary>
-    /// Dado el valor <paramref name="valueA"/> en el set
-    /// <paramref name="dataA"/>, predice el valor resultante con el set 
+    /// Given the value <paramref name="valueA"/> in the set
+    /// <paramref name="dataA"/>, predicts the resulting value with the set
     /// <paramref name="dataB"/>.
     /// </summary>
     /// <param name="valueA">
-    /// Valor de salida del set <paramref name="dataA"/>.
+    /// Output value of the set <paramref name="dataA"/>.
     /// </param>
     /// <param name="dataA">
-    /// Set de datos que produjo a <paramref name="valueA"/>.
+    /// Data set that produced <paramref name="valueA"/>.
     /// </param>
     /// <param name="dataB">
-    /// Set de datos con el cual realizar la predicción.
+    /// Data set with which to perform the prediction.
     /// </param>
     /// <returns>
-    /// La predicción del valor de salida dado el set
+    /// The prediction of the output value given the set
     /// <paramref name="dataB"/>.
     /// </returns>
     public static double Forecast(in double valueA, IEnumerable<double> dataA, IEnumerable<double> dataB)
     {
         double sigmaXY = 0.0, sigmaX = 0.0;
-        (double averageA, double averageB, _) = DataSetComputation(dataA, dataB, (in double a, in double b, in double avgA, in double avgB) => 
+        (double averageA, double averageB, _) = DataSetComputation(dataA, dataB, (in double a, in double b, in double avgA, in double avgB) =>
         {
             sigmaXY += (a - avgA) * (b - avgB);
             sigmaX += System.Math.Pow(a - avgA, 2);
@@ -339,15 +331,15 @@ public static partial class Statistics
     }
 
     /// <summary>
-    /// Obtiene la desviación estándar de un set de datos.
+    /// Gets the standard deviation of a data set.
     /// </summary>
     /// <param name="data">
-    /// Set de datos para le cual calcular la desviación estándar.
+    /// Data set for which to calculate the standard deviation.
     /// </param>
-    /// <returns>La desviación estándar de un set de datos.</returns>
+    /// <returns>The standard deviation of a data set.</returns>
     public static double StandardDeviation(this IEnumerable<double> data)
     {
-        List<double> d = data.ToList();
+        List<double> d = [.. data];
         double avg = d.Average();
         return System.Math.Sqrt(d.Sum(p => System.Math.Pow(p - avg, 2)) / d.Count);
     }
@@ -356,8 +348,8 @@ public static partial class Statistics
 
     private static (double averageA, double averageB, int count) DataSetComputation(IEnumerable<double> dataA, IEnumerable<double> dataB, DataSetAction action)
     {
-        List<double> dA = dataA.ToList();
-        List<double> dB = dataB.ToList();
+        List<double> dA = [.. dataA];
+        List<double> dB = [.. dataB];
         double avgA = dA.Average();
         double avgB = dB.Average();
         using List<double>.Enumerator eA = dA.GetEnumerator();

@@ -3,8 +3,6 @@ Geometry_Contracts.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
-Este archivo contiene funciones de manipulación de objetos, 
-
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 

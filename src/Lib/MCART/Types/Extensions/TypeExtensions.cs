@@ -185,7 +185,7 @@ public static partial class TypeExtensions
     /// especificado.
     /// </returns>
     [RequiresUnreferencedCode(MethodScansForTypes)]
-    public static IEnumerable<Type> Derivates(this Type type, AppDomain domain)
+    public static IEnumerable<Type> GetDerivedTypes(this Type type, AppDomain domain)
     {
         Derivates_Contract(domain);
         return Derivates(type, domain.GetAssemblies());
@@ -283,9 +283,9 @@ public static partial class TypeExtensions
     /// especificado.
     /// </returns>
     [RequiresUnreferencedCode(MethodScansForTypes)]
-    public static IEnumerable<Type> Derivates(this Type type)
+    public static IEnumerable<Type> GetDerivedTypes(this Type type)
     {
-        return Derivates(type, AppDomain.CurrentDomain);
+        return GetDerivedTypes(type, AppDomain.CurrentDomain);
     }
 
     /// <summary>

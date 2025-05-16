@@ -3,8 +3,6 @@ ReflectionHelpers.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
-Este archivo contiene funciones de manipulación de objetos, 
-
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
@@ -46,42 +44,43 @@ using static TheXDS.MCART.Misc.AttributeErrorMessages;
 namespace TheXDS.MCART.Helpers;
 
 /// <summary>
-/// Funciones auxiliares de reflexión.
+/// Auxiliary functions for reflection.
 /// </summary>
 public static partial class ReflectionHelpers
 {
     /// <summary>
-    /// Enumera el valor de todas los campos que devuelvan valores de tipo
+    /// Enumerates the values of all fields that return values of type
     /// <typeparamref name="T" />.
     /// </summary>
-    /// <typeparam name="T">Tipo de campos a obtener.</typeparam>
+    /// <typeparam name="T">Type of fields to retrieve.</typeparam>
     /// <param name="fields">
-    /// Colección de campos a analizar.
+    /// Collection of fields to analyze.
     /// </param>
     /// <param name="instance">
-    /// Instancia desde la cual obtener los campos.
+    /// Instance from which to retrieve fields.
     /// </param>
     /// <returns>
-    /// Una enumeración de todos los valores de tipo
-    /// <typeparamref name="T" /> de la instancia.
+    /// An enumeration of all values of type
+    /// <typeparamref name="T" /> from the instance.
     /// </returns>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="fields"/> es
+    /// Thrown if <paramref name="fields"/> is
     /// <see langword="null"/>.
     /// </exception>
     /// <exception cref="NullItemException">
-    /// Se produce si cualquier elemento de <paramref name="fields"/> es
+    /// Thrown if any element of <paramref name="fields"/> is
     /// <see langword="null"/>.
     /// </exception>
     /// <exception cref="MissingFieldException">
-    /// Cuando <paramref name="instance"/> no es <see langword="null"/>, se
-    /// produce si cualquier elemento de <paramref name="fields"/> no forma
-    /// parte del tipo de <paramref name="instance"/>.
+    /// Thrown when <paramref name="instance"/> is not
+    /// <see langword="null"/> and any element of 
+    /// <paramref name="fields"/> is not part of 
+    /// <paramref name="instance"/> type.
     /// </exception>
     /// <exception cref="MemberAccessException">
-    /// Cuando <paramref name="instance"/> es <see langword="null"/>, se
-    /// produce si cualquier elemento de <paramref name="fields"/> no es un
-    /// campo estático.
+    /// Thrown when <paramref name="instance"/> is
+    /// <see langword="null"/> and any element of 
+    /// <paramref name="fields"/> is not a static field.
     /// </exception>
     public static IEnumerable<T> FieldsOf<T>(IEnumerable<FieldInfo> fields, object? instance)
     {
@@ -94,19 +93,19 @@ public static partial class ReflectionHelpers
     }
 
     /// <summary>
-    /// Enumera el valor de todas los campos estáticos que devuelvan
-    /// valores de tipo <typeparamref name="T" />.
+    /// Enumerates the values of all static fields that return
+    /// values of type <typeparamref name="T" />.
     /// </summary>
-    /// <typeparam name="T">Tipo de campos a obtener.</typeparam>
+    /// <typeparam name="T">Type of fields to retrieve.</typeparam>
     /// <param name="fields">
-    /// Colección de campos a analizar.
+    /// Collection of fields to analyze.
     /// </param>
     /// <returns>
-    /// Una enumeración de todos los valores de tipo
+    /// An enumeration of all values of type
     /// <typeparamref name="T" />.
     /// </returns>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="fields"/> es
+    /// Thrown if <paramref name="fields"/> is
     /// <see langword="null"/>.
     /// </exception>
     public static IEnumerable<T> FieldsOf<T>(IEnumerable<FieldInfo> fields)
@@ -115,35 +114,35 @@ public static partial class ReflectionHelpers
     }
 
     /// <summary>
-    /// Enumera el valor de todas los campos estáticos que devuelvan
-    /// valores de tipo <typeparamref name="T" /> en el tipo especificado.
+    /// Enumerates the values of all static fields that return
+    /// values of type <typeparamref name="T" /> in the specified type.
     /// </summary>
-    /// <typeparam name="T">Tipo de campos a obtener.</typeparam>
+    /// <typeparam name="T">Type of fields to retrieve.</typeparam>
     /// <param name="type">
-    /// Tipo desde el cual obtener los campos.
+    /// Type from which to retrieve fields.
     /// </param>
     /// <returns>
-    /// Una enumeración de todos los valores de tipo
-    /// <typeparamref name="T" /> del tipo.
+    /// An enumeration of all values of type
+    /// <typeparamref name="T" /> from the type.
     /// </returns>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="type"/> es
+    /// Thrown if <paramref name="type"/> is
     /// <see langword="null"/>.
     /// </exception>
-    public static IEnumerable<T> FieldsOf<T>([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicFields)]this Type type)
+    public static IEnumerable<T> FieldsOf<T>([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicFields)] this Type type)
     {
         ArgumentNullException.ThrowIfNull(type);
         return FieldsOf<T>(type.GetFields(BindingFlags.Static | BindingFlags.Public), null);
     }
 
     /// <summary>
-    /// Instancia todos los objetos del tipo especificado,
-    /// devolviéndolos en una enumeración.
+    /// Instantiates all objects of the specified type,
+    /// returning them in an enumeration.
     /// </summary>
-    /// <typeparam name="T">Tipo de objetos a buscar.</typeparam>
+    /// <typeparam name="T">Type of objects to find.</typeparam>
     /// <returns>
-    /// Una enumeración de todas las instancias de objeto de tipo
-    /// <typeparamref name="T"/> encontradas.
+    /// An enumeration of all object instances of type
+    /// <typeparamref name="T"/> found.
     /// </returns>
     [RequiresUnreferencedCode(MethodScansForTypes)]
     public static IEnumerable<T> FindAllObjects<T>() where T : notnull
@@ -152,19 +151,19 @@ public static partial class ReflectionHelpers
     }
 
     /// <summary>
-    /// Instancia todos los objetos del tipo especificado,
-    /// devolviéndolos en una enumeración.
+    /// Instantiates all objects of the specified type,
+    /// returning them in an enumeration.
     /// </summary>
-    /// <typeparam name="T">Tipo de objetos a buscar.</typeparam>
+    /// <typeparam name="T">Type of objects to find.</typeparam>
     /// <param name="typeFilter">
-    /// Función de filtro a aplicar a los tipos coincidentes.
+    /// Filter function to apply to matching types.
     /// </param>
     /// <returns>
-    /// Una enumeración de todas las instancias de objeto de tipo
-    /// <typeparamref name="T"/> encontradas.
+    /// An enumeration of all object instances of type
+    /// <typeparamref name="T"/> found.
     /// </returns>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="typeFilter"/> es
+    /// Thrown if <paramref name="typeFilter"/> is
     /// <see langword="null"/>.
     /// </exception>
     [RequiresUnreferencedCode(MethodScansForTypes)]
@@ -174,22 +173,22 @@ public static partial class ReflectionHelpers
     }
 
     /// <summary>
-    /// Instancia todos los objetos del tipo especificado,
-    /// devolviéndolos en una enumeración.
+    /// Instantiates all objects of the specified type,
+    /// returning them in an enumeration.
     /// </summary>
-    /// <typeparam name="T">Tipo de objetos a buscar.</typeparam>
+    /// <typeparam name="T">Type of objects to find.</typeparam>
     /// <param name="ctorArgs">
-    /// Argumentos a pasar al constructor de instancia de la clase.
+    /// Arguments to pass to the class instance constructor.
     /// </param>
     /// <param name="typeFilter">
-    /// Función de filtro a aplicar a los tipos coincidentes.
+    /// Filter function to apply to matching types.
     /// </param>
     /// <returns>
-    /// Una enumeración de todas las instancias de objeto de tipo
-    /// <typeparamref name="T"/> encontradas.
+    /// An enumeration of all object instances of type
+    /// <typeparamref name="T"/> found.
     /// </returns>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="typeFilter"/> es
+    /// Thrown if <paramref name="typeFilter"/> is
     /// <see langword="null"/>.
     /// </exception>
     [RequiresUnreferencedCode(MethodScansForTypes)]
@@ -200,16 +199,16 @@ public static partial class ReflectionHelpers
     }
 
     /// <summary>
-    /// Instancia todos los objetos del tipo especificado,
-    /// devolviéndolos en una enumeración.
+    /// Instantiates all objects of the specified type,
+    /// returning them in an enumeration.
     /// </summary>
-    /// <typeparam name="T">Tipo de objetos a buscar.</typeparam>
+    /// <typeparam name="T">Type of objects to find.</typeparam>
     /// <param name="ctorArgs">
-    /// Argumentos a pasar al constructor de instancia de la clase.
+    /// Arguments to pass to the class instance constructor.
     /// </param>
     /// <returns>
-    /// Una enumeración de todas las instancias de objeto de tipo
-    /// <typeparamref name="T"/> encontradas.
+    /// An enumeration of all object instances of type
+    /// <typeparamref name="T"/> found.
     /// </returns>
     [RequiresUnreferencedCode(MethodScansForTypes)]
     public static IEnumerable<T> FindAllObjects<T>(IEnumerable? ctorArgs) where T : notnull
@@ -218,14 +217,12 @@ public static partial class ReflectionHelpers
     }
 
     /// <summary>
-    /// Obtiene al primer objeto que coincida con el tipo base
-    /// especificado.
+    /// Retrieves the first object that matches the specified base type.
     /// </summary>
-    /// <typeparam name="T">Tipo de objeto a buscar.</typeparam>
+    /// <typeparam name="T">Type of object to find.</typeparam>
     /// <returns>
-    /// Una nueva instancia del objeto solicitado, o
-    /// <see langword="null"/> si no se encuentra ningún tipo
-    /// coincidente.
+    /// A new instance of the requested object, or
+    /// <see langword="null"/> if no matching type is found.
     /// </returns>
     [RequiresUnreferencedCode(MethodScansForTypes)]
     public static T? FindFirstObject<T>() where T : notnull
@@ -234,20 +231,18 @@ public static partial class ReflectionHelpers
     }
 
     /// <summary>
-    /// Obtiene al primer objeto que coincida con el tipo base
-    /// especificado.
+    /// Retrieves the first object that matches the specified base type.
     /// </summary>
-    /// <typeparam name="T">Tipo de objeto a buscar.</typeparam>
+    /// <typeparam name="T">Type of object to find.</typeparam>
     /// <param name="typeFilter">
-    /// Función de filtro a aplicar a los tipos coincidentes.
+    /// Filter function to apply to matching types.
     /// </param>
     /// <returns>
-    /// Una nueva instancia del objeto solicitado, o
-    /// <see langword="null"/> si no se encuentra ningún tipo
-    /// coincidente.
+    /// A new instance of the requested object, or
+    /// <see langword="null"/> if no matching type is found.
     /// </returns>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="typeFilter"/> es
+    /// Thrown if <paramref name="typeFilter"/> is
     /// <see langword="null"/>.
     /// </exception>
     [RequiresUnreferencedCode(MethodScansForTypes)]
@@ -257,23 +252,21 @@ public static partial class ReflectionHelpers
     }
 
     /// <summary>
-    /// Obtiene al primer objeto que coincida con el tipo base
-    /// especificado.
+    /// Retrieves the first object that matches the specified base type.
     /// </summary>
-    /// <typeparam name="T">Tipo de objeto a buscar.</typeparam>
+    /// <typeparam name="T">Type of object to find.</typeparam>
     /// <param name="ctorArgs">
-    /// Argumentos a pasar al constructor de instancia de la clase.
+    /// Arguments to pass to the class instance constructor.
     /// </param>
     /// <param name="typeFilter">
-    /// Función de filtro a aplicar a los tipos coincidentes.
+    /// Filter function to apply to matching types.
     /// </param>
     /// <returns>
-    /// Una nueva instancia del objeto solicitado, o
-    /// <see langword="null"/> si no se encuentra ningún tipo
-    /// coincidente.
+    /// A new instance of the requested object, or
+    /// <see langword="null"/> if no matching type is found.
     /// </returns>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="typeFilter"/> es
+    /// Thrown if <paramref name="typeFilter"/> is
     /// <see langword="null"/>.
     /// </exception>
     [RequiresUnreferencedCode(MethodScansForTypes)]
@@ -285,17 +278,15 @@ public static partial class ReflectionHelpers
     }
 
     /// <summary>
-    /// Obtiene al primer objeto que coincida con el tipo base
-    /// especificado.
+    /// Retrieves the first object that matches the specified base type.
     /// </summary>
-    /// <typeparam name="T">Tipo de objeto a buscar.</typeparam>
+    /// <typeparam name="T">Type of object to find.</typeparam>
     /// <param name="ctorArgs">
-    /// Argumentos a pasar al constructor de instancia de la clase.
+    /// Arguments to pass to the class instance constructor.
     /// </param>
     /// <returns>
-    /// Una nueva instancia del objeto solicitado, o
-    /// <see langword="null"/> si no se encuentra ningún tipo
-    /// coincidente.
+    /// A new instance of the requested object, or
+    /// <see langword="null"/> if no matching type is found.
     /// </returns>
     [RequiresUnreferencedCode(MethodScansForTypes)]
     public static T? FindFirstObject<T>(IEnumerable? ctorArgs) where T : notnull
@@ -305,14 +296,12 @@ public static partial class ReflectionHelpers
     }
 
     /// <summary>
-    /// Obtiene un único objeto que coincida con el tipo base
-    /// especificado.
+    /// Retrieves a single object that matches the specified base type.
     /// </summary>
-    /// <typeparam name="T">Tipo de objeto a buscar.</typeparam>
+    /// <typeparam name="T">Type of object to find.</typeparam>
     /// <returns>
-    /// Una nueva instancia del objeto solicitado, o
-    /// <see langword="null"/> si no se encuentra ningún tipo
-    /// coincidente.
+    /// A new instance of the requested object, or
+    /// <see langword="null"/> if no matching type is found.
     /// </returns>
     [RequiresUnreferencedCode(MethodScansForTypes)]
     public static T? FindSingleObject<T>() where T : notnull
@@ -321,20 +310,18 @@ public static partial class ReflectionHelpers
     }
 
     /// <summary>
-    /// Obtiene un único objeto que coincida con el tipo base
-    /// especificado.
+    /// Retrieves a single object that matches the specified base type.
     /// </summary>
-    /// <typeparam name="T">Tipo de objeto a buscar.</typeparam>
+    /// <typeparam name="T">Type of object to find.</typeparam>
     /// <param name="typeFilter">
-    /// Función de filtro a aplicar a los tipos coincidentes.
+    /// Filter function to apply to matching types.
     /// </param>
     /// <returns>
-    /// Una nueva instancia del objeto solicitado, o
-    /// <see langword="null"/> si no se encuentra ningún tipo
-    /// coincidente.
+    /// A new instance of the requested object, or
+    /// <see langword="null"/> if no matching type is found.
     /// </returns>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="typeFilter"/> es
+    /// Thrown if <paramref name="typeFilter"/> is
     /// <see langword="null"/>.
     /// </exception>
     [RequiresUnreferencedCode(MethodScansForTypes)]
@@ -344,23 +331,21 @@ public static partial class ReflectionHelpers
     }
 
     /// <summary>
-    /// Obtiene un único objeto que coincida con el tipo base
-    /// especificado.
+    /// Retrieves a single object that matches the specified base type.
     /// </summary>
-    /// <typeparam name="T">Tipo de objeto a buscar.</typeparam>
+    /// <typeparam name="T">Type of object to find.</typeparam>
     /// <param name="ctorArgs">
-    /// Argumentos a pasar al constructor de instancia de la clase.
+    /// Arguments to pass to the class instance constructor.
     /// </param>
     /// <param name="typeFilter">
-    /// Función de filtro a aplicar a los tipos coincidentes.
+    /// Filter function to apply to matching types.
     /// </param>
     /// <returns>
-    /// Una nueva instancia del objeto solicitado, o
-    /// <see langword="null"/> si no se encuentra ningún tipo
-    /// coincidente.
+    /// A new instance of the requested object, or
+    /// <see langword="null"/> if no matching type is found.
     /// </returns>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="typeFilter"/> es
+    /// Thrown if <paramref name="typeFilter"/> is
     /// <see langword="null"/>.
     /// </exception>
     [RequiresUnreferencedCode(MethodScansForTypes)]
@@ -372,17 +357,15 @@ public static partial class ReflectionHelpers
     }
 
     /// <summary>
-    /// Obtiene un único objeto que coincida con el tipo base
-    /// especificado.
+    /// Retrieves a single object that matches the specified base type.
     /// </summary>
-    /// <typeparam name="T">Tipo de objeto a buscar.</typeparam>
+    /// <typeparam name="T">Type of object to find.</typeparam>
     /// <param name="ctorArgs">
-    /// Argumentos a pasar al constructor de instancia de la clase.
+    /// Arguments to pass to the class instance constructor.
     /// </param>
     /// <returns>
-    /// Una nueva instancia del objeto solicitado, o
-    /// <see langword="null"/> si no se encuentra ningún tipo
-    /// coincidente.
+    /// A new instance of the requested object, or
+    /// <see langword="null"/> if no matching type is found.
     /// </returns>
     [RequiresUnreferencedCode(MethodScansForTypes)]
     public static T? FindSingleObject<T>(IEnumerable? ctorArgs) where T : notnull
@@ -392,18 +375,18 @@ public static partial class ReflectionHelpers
     }
 
     /// <summary>
-    /// Busca en el <see cref="AppDomain" /> especificado un tipo que
-    /// contenga el <see cref="TagAttribute" /> especificado.
+    /// Searches the specified <see cref="AppDomain"/> for a type that
+    /// contains the specified <see cref="TagAttribute"/>.
     /// </summary>
-    /// <param name="identifier">Identificador a buscar.</param>
-    /// <param name="domain">Dominio en el cual buscar.</param>
+    /// <param name="identifier">Identifier to search for.</param>
+    /// <param name="domain">Domain in which to search.</param>
     /// <returns>
-    /// Un tipo que ha sido etiquetado con el identificador especificado,
-    /// o <see langword="null" /> si ningún tipo contiene el identificador.
+    /// A type that has been tagged with the specified identifier, or
+    /// <see langword="null"/> if no type contains the identifier.
     /// </returns>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="identifier"/> o
-    /// <paramref name="domain"/> son <see langword="null"/>.
+    /// Thrown if <paramref name="identifier"/> or
+    /// <paramref name="domain"/> is <see langword="null"/>.
     /// </exception>
     [Sugar]
     [RequiresUnreferencedCode(MethodScansForTypes)]
@@ -413,16 +396,16 @@ public static partial class ReflectionHelpers
     }
 
     /// <summary>
-    /// Busca en el <see cref="AppDomain" /> actual un tipo que contenga el
-    /// <see cref="TagAttribute" /> especificado.
+    /// Searches the current <see cref="AppDomain"/> for a type that
+    /// contains the specified <see cref="TagAttribute"/>.
     /// </summary>
-    /// <param name="identifier">Identificador a buscar.</param>
+    /// <param name="identifier">Identifier to search for.</param>
     /// <returns>
-    /// Un tipo que ha sido etiquetado con el identificador especificado,
-    /// o <see langword="null" /> si ningún tipo contiene el identificador.
+    /// A type that has been tagged with the specified identifier, or
+    /// <see langword="null"/> if no type contains the identifier.
     /// </returns>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="identifier"/> es
+    /// Thrown if <paramref name="identifier"/> is
     /// <see langword="null"/>.
     /// </exception>
     [Sugar]
@@ -433,19 +416,19 @@ public static partial class ReflectionHelpers
     }
 
     /// <summary>
-    /// Busca en el <see cref="AppDomain" /> especificado un tipo que
-    /// contenga el <see cref="TagAttribute" /> especificado.
+    /// Searches the specified <see cref="AppDomain"/> for a type that
+    /// contains the specified <see cref="TagAttribute"/>.
     /// </summary>
-    /// <typeparam name="T">Restringir búsqueda a estos tipos.</typeparam>
-    /// <param name="identifier">Identificador a buscar.</param>
-    /// <param name="domain">Dominio en el cual buscar.</param>
+    /// <typeparam name="T">Restrict search to these types.</typeparam>
+    /// <param name="identifier">Identifier to search for.</param>
+    /// <param name="domain">Domain in which to search.</param>
     /// <returns>
-    /// Un tipo que ha sido etiquetado con el identificador especificado,
-    /// o <see langword="null" /> si ningún tipo contiene el identificador.
+    /// A type that has been tagged with the specified identifier, or
+    /// <see langword="null"/> if no type contains the identifier.
     /// </returns>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="identifier"/> o
-    /// <paramref name="domain"/> son <see langword="null"/>.
+    /// Thrown if <paramref name="identifier"/> or
+    /// <paramref name="domain"/> is <see langword="null"/>.
     /// </exception>
     [RequiresUnreferencedCode(MethodScansForTypes)]
     public static Type? FindType<T>(string identifier, AppDomain domain)
@@ -458,17 +441,17 @@ public static partial class ReflectionHelpers
     }
 
     /// <summary>
-    /// Busca en el <see cref="AppDomain" /> actual un tipo que contenga el
-    /// <see cref="TagAttribute" /> especificado.
+    /// Searches the current <see cref="AppDomain"/> for a type that
+    /// contains the specified <see cref="TagAttribute"/>.
     /// </summary>
-    /// <typeparam name="T">Restringir búsqueda a estos tipos.</typeparam>
-    /// <param name="identifier">Identificador a buscar.</param>
+    /// <typeparam name="T">Restrict search to these types.</typeparam>
+    /// <param name="identifier">Identifier to search for.</param>
     /// <returns>
-    /// Un tipo que ha sido etiquetado con el identificador especificado,
-    /// o <see langword="null" /> si ningún tipo contiene el identificador.
+    /// A type that has been tagged with the specified identifier, or
+    /// <see langword="null"/> if no type contains the identifier.
     /// </returns>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="identifier"/> es
+    /// Thrown if <paramref name="identifier"/> is
     /// <see langword="null"/>.
     /// </exception>
     [Sugar]
@@ -479,19 +462,17 @@ public static partial class ReflectionHelpers
     }
 
     /// <summary>
-    /// Obtiene una referencia al método que ha llamado al método
-    /// actualmente en ejecución.
+    /// Gets a reference to the method that called the currently executing
+    /// method.
     /// </summary>
     /// <returns>
-    /// El método que ha llamado al método actual en donde se usa esta
-    /// función. Se devolverá <see langword="null"/> si se llama a este
-    /// método desde el punto de entrada de la aplicación (generalmente
-    /// la función <c>Main()</c>).
+    /// The method that called the current method where this function is
+    /// used. Will return <see langword="null"/> if called from the
+    /// application entry point (generally the <c>Main()</c> function).
     /// </returns>
-    /// <remarks>Debido a algunas optimizaciones realizadas por el compilador,
-    /// es recomendable que en los métodos donde se llame a
-    /// <see cref="GetCallingMethod()"/> sean anotados con el atributo
-    /// <see cref="MethodImplAttribute"/> con el valor
+    /// <remarks>Due to some compiler optimizations, it is recommended
+    /// that methods calling <see cref="GetCallingMethod()"/> be annotated
+    /// with the <see cref="MethodImplAttribute"/> with the value
     /// <see cref="MethodImplOptions.NoInlining"/>.
     /// </remarks>
     [RequiresUnreferencedCode(MethodScansForTypes)]
@@ -501,30 +482,28 @@ public static partial class ReflectionHelpers
     }
 
     /// <summary>
-    /// Obtiene una referencia al método que ha llamado al método actual.
+    /// Gets a reference to the method that called the current method.
     /// </summary>
     /// <param name="nCaller">
-    /// Número de iteraciones padre del método a devolver. Debe ser un
-    /// valor mayor o igual a 1.
+    /// Number of parent method iterations to return. Must be a value
+    /// greater than or equal to 1.
     /// </param>
     /// <returns>
-    /// El método que ha llamado al método actual en donde se usa esta
-    /// función. Se devolverá <see langword="null"/> si al analizar la
-    /// pila de llamadas se alcanza el punto de entrada de la
-    /// aplicación (generalmente la función <c>Main()</c>).
+    /// The method that called the current method where this function is
+    /// used. Will return <see langword="null"/> if the call stack is
+    /// analyzed and the application entry point is reached (generally the
+    /// <c>Main()</c> function).
     /// </returns>
     /// <exception cref="ArgumentOutOfRangeException">
-    /// Se produce si <paramref name="nCaller"/> es menor a 1.
+    /// Thrown if <paramref name="nCaller"/> is less than 1.
     /// </exception>
     /// <exception cref="OverflowException">
-    /// Se produce si <paramref name="nCaller"/> + 1 produce un error
-    /// de sobreflujo.
+    /// Thrown if <paramref name="nCaller"/> + 1 causes an overflow.
     /// </exception>
-    /// <remarks>Debido a algunas optimizaciones realizadas por el compilador,
-    /// es recomendable que en los métodos donde se llame a
-    /// <see cref="GetCallingMethod(int)"/> sean anotados con el atributo
-    /// <see cref="MethodImplAttribute"/> con el valor
-    /// <see cref="MethodImplOptions.NoInlining"/>.
+    /// <remarks>Due to some compiler optimizations, it is recommended
+    /// that methods calling <see cref="GetCallingMethod(int)"/> be
+    /// annotated with the <see cref="MethodImplAttribute"/> with the
+    /// value <see cref="MethodImplOptions.NoInlining"/>.
     /// </remarks>
     [RequiresUnreferencedCode(MethodScansForTypes)]
     public static MethodBase? GetCallingMethod(int nCaller)
@@ -535,12 +514,12 @@ public static partial class ReflectionHelpers
     }
 
     /// <summary>
-    /// Obtiene el ensamblado que contiene el punto de entrada de la
-    /// aplicación en ejecución.
+    /// Gets the assembly that contains the entry point of the currently
+    /// executing application.
     /// </summary>
     /// <returns>
-    /// El ensamblado donde se define el punto de entrada de la aplicación
-    /// actual.
+    /// The assembly where the entry point of the current application is
+    /// defined.
     /// </returns>
     [Sugar]
     [RequiresUnreferencedCode(MethodScansForTypes)]
@@ -550,10 +529,10 @@ public static partial class ReflectionHelpers
     }
 
     /// <summary>
-    /// Obtiene el punto de entrada de la aplicación en ejecución.
+    /// Gets the entry point of the currently executing application.
     /// </summary>
     /// <returns>
-    /// El método del punto de entrada de la aplicación actual.
+    /// The method that is the entry point of the current application.
     /// </returns>
     [Sugar]
     [RequiresUnreferencedCode(MethodScansForTypes)]
@@ -563,21 +542,20 @@ public static partial class ReflectionHelpers
     }
 
     /// <summary>
-    /// Obtiene una referencia al campo seleccionado por medio de una
-    /// expresión.
+    /// Gets a reference to the field selected by an expression.
     /// </summary>
     /// <param name="fieldSelector">
-    /// Expresión que indica qué campo del tipo debe devolverse.
+    /// Expression that indicates which field of the type to return.
     /// </param>
     /// <typeparam name="T">
-    /// Tipo desde el cual seleccionar al campo a obtener.
+    /// Type from which to select the field to retrieve.
     /// </typeparam>
     /// <typeparam name="TValue">
-    /// Tipo devuelto por el campo a obtener.
+    /// Type returned by the field to retrieve.
     /// </typeparam>
     /// <returns>
-    /// Un <see cref="FieldInfo"/> que representa al campo seleccionado en
-    /// la expresión.
+    /// A <see cref="FieldInfo"/> that represents the field selected in
+    /// the expression.
     /// </returns>
     public static FieldInfo GetField<T, TValue>(Expression<Func<T, TValue>> fieldSelector)
     {
@@ -585,18 +563,17 @@ public static partial class ReflectionHelpers
     }
 
     /// <summary>
-    /// Obtiene una referencia al campo seleccionado por medio de una
-    /// expresión.
+    /// Gets a reference to the field selected by an expression.
     /// </summary>
     /// <param name="fieldSelector">
-    /// Expresión que indica qué campo del tipo debe devolverse.
+    /// Expression that indicates which field of the type to return.
     /// </param>
     /// <typeparam name="T">
-    /// Tipo desde el cual seleccionar al campo a obtener.
+    /// Type from which to select the field to retrieve.
     /// </typeparam>
     /// <returns>
-    /// Un <see cref="FieldInfo"/> que representa al campo seleccionado en
-    /// la expresión.
+    /// A <see cref="FieldInfo"/> that represents the field selected in
+    /// the expression.
     /// </returns>
     public static FieldInfo GetField<T>(Expression<Func<T, object?>> fieldSelector)
     {
@@ -604,18 +581,16 @@ public static partial class ReflectionHelpers
     }
 
     /// <summary>
-    /// Obtiene una referencia al campo seleccionado por medio de una
-    /// expresión.
+    /// Gets a reference to the selected field via an expression.
     /// </summary>
     /// <param name="fieldSelector">
-    /// Expresión que indica qué campo del tipo debe devolverse.
+    /// Expression indicating which field to return.
     /// </param>
     /// <typeparam name="TValue">
-    /// Tipo devuelto por el campo a obtener.
+    /// Type returned by the field to get.
     /// </typeparam>
     /// <returns>
-    /// Un <see cref="FieldInfo"/> que representa al campo seleccionado en
-    /// la expresión.
+    /// A <see cref="FieldInfo"/> representing the selected field.
     /// </returns>
     public static FieldInfo GetField<TValue>(Expression<Func<TValue>> fieldSelector)
     {
@@ -623,14 +598,13 @@ public static partial class ReflectionHelpers
     }
 
     /// <summary>
-    /// Obtiene un miembro a partir de una expresión.
+    /// Gets a member from an expression.
     /// </summary>
     /// <param name="memberSelector">
-    /// Expresión que indica qué miembro debe devolverse.
+    /// Expression indicating which member to return.
     /// </param>
     /// <returns>
-    /// Un <see cref="MemberInfo"/> que representa al miembro
-    /// seleccionado en la expresión.
+    /// A <see cref="MemberInfo"/> representing the selected member.
     /// </returns>
     public static MemberInfo GetMember(Expression<Func<object?>> memberSelector)
     {
@@ -638,21 +612,19 @@ public static partial class ReflectionHelpers
     }
 
     /// <summary>
-    /// Obtiene un miembro de instancia de una clase a partir de una
-    /// expresión.
+    /// Gets an instance member of a class from an expression.
     /// </summary>
     /// <typeparam name="T">
-    /// Clase desde la cual obtener al miembro.
+    /// Class from which to get the member.
     /// </typeparam>
     /// <typeparam name="TValue">
-    /// Tipo del miembro obtenido.
+    /// Type of the member to get.
     /// </typeparam>
     /// <param name="memberSelector">
-    /// Expresión que indica qué miembro de la clase debe devolverse.
+    /// Expression indicating which member to return.
     /// </param>
     /// <returns>
-    /// Un <see cref="MemberInfo"/> que representa al miembro
-    /// seleccionado en la expresión.
+    /// A <see cref="MemberInfo"/> representing the selected member.
     /// </returns>
     public static MemberInfo GetMember<T, TValue>(Expression<Func<T, TValue>> memberSelector)
     {
@@ -660,17 +632,16 @@ public static partial class ReflectionHelpers
     }
 
     /// <summary>
-    /// Obtiene un miembro de una clase a partir de una expresión.
+    /// Gets a member of a class from an expression.
     /// </summary>
     /// <typeparam name="T">
-    /// Clase desde la cual obtener al miembro.
+    /// Class from which to get the member.
     /// </typeparam>
     /// <param name="memberSelector">
-    /// Expresión que indica qué miembro de la clase debe devolverse.
+    /// Expression indicating which member to return.
     /// </param>
     /// <returns>
-    /// Un <see cref="MemberInfo"/> que representa al miembro
-    /// seleccionado en la expresión.
+    /// A <see cref="MemberInfo"/> representing the selected member.
     /// </returns>
     public static MemberInfo GetMember<T>(Expression<Func<T, object?>> memberSelector)
     {
@@ -678,24 +649,22 @@ public static partial class ReflectionHelpers
     }
 
     /// <summary>
-    /// Obtiene una referencia al miembro seleccionado por medio de una
-    /// expresión.
+    /// Gets a reference to the selected member via an expression.
     /// </summary>
     /// <typeparam name="TMember">
-    /// Tipo del miembro a obtener.
+    /// Type of the member to get.
     /// </typeparam>
     /// <typeparam name="TValue">
-    /// Tipo devuelto por el miembro a obtener.
+    /// Type returned by the member to get.
     /// </typeparam>
     /// <typeparam name="T">
-    /// Tipo a partir del cual obtener al miembro.
+    /// Type from which to get the member.
     /// </typeparam>
     /// <param name="memberSelector">
-    /// Expresión que indica qué miembro de la clase debe devolverse.
+    /// Expression indicating which member to return.
     /// </param>
     /// <returns>
-    /// Un <see cref="MemberInfo"/> que representa al miembro
-    /// seleccionado en la expresión.
+    /// A <see cref="MemberInfo"/> representing the selected member.
     /// </returns>
     public static TMember GetMember<TMember, T, TValue>(Expression<Func<T, TValue>> memberSelector) where TMember : MemberInfo
     {
@@ -703,21 +672,19 @@ public static partial class ReflectionHelpers
     }
 
     /// <summary>
-    /// Obtiene una referencia al miembro seleccionado por medio de una
-    /// expresión.
+    /// Gets a reference to the selected member via an expression.
     /// </summary>
     /// <typeparam name="TMember">
-    /// Tipo del miembro a obtener.
+    /// Type of the member to get.
     /// </typeparam>
     /// <typeparam name="TValue">
-    /// Tipo a partir del cual obtener al miembro.
+    /// Type from which to get the member.
     /// </typeparam>
     /// <param name="memberSelector">
-    /// Expresión que indica qué miembro de la clase debe devolverse.
+    /// Expression indicating which member to return.
     /// </param>
     /// <returns>
-    /// Un <see cref="MemberInfo"/> que representa al miembro
-    /// seleccionado en la expresión.
+    /// A <see cref="MemberInfo"/> representing the selected member.
     /// </returns>
     public static TMember GetMember<TMember, TValue>(Expression<Func<TValue>> memberSelector) where TMember : MemberInfo
     {
@@ -725,17 +692,16 @@ public static partial class ReflectionHelpers
     }
 
     /// <summary>
-    /// Obtiene un miembro de clase a partir de una expresión.
+    /// Gets a member from an expression.
     /// </summary>
     /// <typeparam name="TValue">
-    /// Tipo del miembro obtenido.
+    /// Type of the member to get.
     /// </typeparam>
     /// <param name="memberSelector">
-    /// Expresión que indica qué miembro de la clase debe devolverse.
+    /// Expression indicating which member to return.
     /// </param>
     /// <returns>
-    /// Un <see cref="MemberInfo"/> que representa al miembro
-    /// seleccionado en la expresión.
+    /// A <see cref="MemberInfo"/> representing the selected member.
     /// </returns>
     public static MemberInfo GetMember<TValue>(Expression<Func<TValue>> memberSelector)
     {
@@ -743,48 +709,43 @@ public static partial class ReflectionHelpers
     }
 
     /// <summary>
-    /// Obtiene una referencia al método seleccionado por medio de una
-    /// expresión.
+    /// Gets a reference to the selected method via an expression.
     /// </summary>
     /// <param name="methodSelector">
-    /// Expresión que indica qué método del tipo debe devolverse.
+    /// Expression indicating which method to return.
     /// </param>
     /// <typeparam name="T">
-    /// Tipo desde el cual seleccionar al método a obtener.
+    /// Type from which to select the method.
     /// </typeparam>
     /// <typeparam name="TMethod">
-    /// Tipo delegado del método a obtener.
+    /// Delegate type of the method to get.
     /// </typeparam>
     /// <returns>
-    /// Un <see cref="MethodInfo"/> que representa al método
-    /// seleccionado en la expresión.
+    /// A <see cref="MethodInfo"/> representing the selected method.
     /// </returns>
-    public static MethodInfo GetMethod<[DynamicallyAccessedMembers(PublicMethods | NonPublicMethods)]T, TMethod>(Expression<Func<T, TMethod>> methodSelector) where TMethod : Delegate
+    public static MethodInfo GetMethod<[DynamicallyAccessedMembers(PublicMethods | NonPublicMethods)] T, TMethod>(Expression<Func<T, TMethod>> methodSelector) where TMethod : Delegate
     {
         MethodInfo? m = GetMember<MethodInfo, T, TMethod>(methodSelector);
 
         /* HACK
-         * Las expresiones de Linq podrían no detectar correctamente el
-         * tipo de origen de un método que es una sobrecarga en una clase
-         * derivada.
+         * Linq expressions may not correctly detect the source type of a 
+         * method that is an overload in a derived class.
          */
         return m.DeclaringType == typeof(T) ? m
-            : typeof(T).GetMethod(m.Name, m.GetBindingFlags(), null, m.GetParameters().Select(p => p.ParameterType).ToArray(), null) ?? throw new TamperException();
+            : typeof(T).GetMethod(m.Name, m.GetBindingFlags(), null, [.. m.GetParameters().Select(p => p.ParameterType)], null) ?? throw new TamperException();
     }
 
     /// <summary>
-    /// Obtiene una referencia al método seleccionado por medio de una
-    /// expresión.
+    /// Gets a reference to the selected method via an expression.
     /// </summary>
     /// <param name="methodSelector">
-    /// Expresión que indica qué método del tipo debe devolverse.
+    /// Expression indicating which method to return.
     /// </param>
     /// <typeparam name="T">
-    /// Tipo desde el cual seleccionar al método a obtener.
+    /// Type from which to select the method.
     /// </typeparam>
     /// <returns>
-    /// Un <see cref="MethodInfo"/> que representa al método
-    /// seleccionado en la expresión.
+    /// A <see cref="MethodInfo"/> representing the selected method.
     /// </returns>
     public static MethodInfo GetMethod<T>(Expression<Func<T, Delegate>> methodSelector)
     {
@@ -792,18 +753,16 @@ public static partial class ReflectionHelpers
     }
 
     /// <summary>
-    /// Obtiene una referencia al método seleccionado por medio de una
-    /// expresión.
+    /// Gets a reference to the selected method via an expression.
     /// </summary>
     /// <param name="methodSelector">
-    /// Expresión que indica qué método del tipo debe devolverse.
+    /// Expression indicating which method to return.
     /// </param>
     /// <typeparam name="TMethod">
-    /// Tipo delegado del método a obtener.
+    /// Delegate type of the method to get.
     /// </typeparam>
     /// <returns>
-    /// Un <see cref="MethodInfo"/> que representa al método
-    /// seleccionado en la expresión.
+    /// A <see cref="MethodInfo"/> representing the selected method.
     /// </returns>
     public static MethodInfo GetMethod<TMethod>(Expression<Func<TMethod>> methodSelector) where TMethod : Delegate
     {
@@ -811,17 +770,17 @@ public static partial class ReflectionHelpers
     }
 
     /// <summary>
-    /// Enumera las propiedades del tipo especificado cuyo tipo de valor sea
+    /// Enumerates the properties of the specified type whose value type is
     /// <typeparamref name="T"/>.
     /// </summary>
-    /// <typeparam name="T">Tipo de las propiedades a obtener.</typeparam>
-    /// <param name="t">Tipo del cual enumerar las propiedades.</param>
+    /// <typeparam name="T">Type of the properties to get.</typeparam>
+    /// <param name="t">Type from which to enumerate the properties.</param>
     /// <param name="flags">
-    /// Banderas de declaración a utilizar para filtrar los miembros a obtener.
+    /// Declaration flags to use for filtering the members to get.
     /// </param>
     /// <returns>
-    /// Una enumeración de las propiedades del tipo deseado contenidas dentro
-    /// del tipo especificado.
+    /// An enumeration of the properties of the desired type contained within
+    /// the specified type.
     /// </returns>
     public static IEnumerable<PropertyInfo> GetPropertiesOf<T>([DynamicallyAccessedMembers(PublicProperties | NonPublicProperties)] this Type t, BindingFlags flags)
     {
@@ -829,14 +788,14 @@ public static partial class ReflectionHelpers
     }
 
     /// <summary>
-    /// Enumera las propiedades del tipo especificado cuyo tipo de valor sea
+    /// Enumerates the properties of the specified type whose value type is
     /// <typeparamref name="T"/>.
     /// </summary>
-    /// <typeparam name="T">Tipo de las propiedades a obtener.</typeparam>
-    /// <param name="t">Tipo del cual enumerar las propiedades.</param>
+    /// <typeparam name="T">Type of the properties to get.</typeparam>
+    /// <param name="t">Type from which to enumerate the properties.</param>
     /// <returns>
-    /// Una enumeración de las propiedades del tipo deseado contenidas dentro
-    /// del tipo especificado.
+    /// An enumeration of the properties of the desired type contained within
+    /// the specified type.
     /// </returns>
     public static IEnumerable<PropertyInfo> GetPropertiesOf<T>([DynamicallyAccessedMembers(PublicProperties)] this Type t)
     {
@@ -844,21 +803,19 @@ public static partial class ReflectionHelpers
     }
 
     /// <summary>
-    /// Obtiene una referencia a la propiedad seleccionada por medio de una
-    /// expresión.
+    /// Gets a reference to the property selected via an expression.
     /// </summary>
     /// <param name="propertySelector">
-    /// Expresión que indica qué propiedad del tipo debe devolverse.
+    /// Expression indicating which property to return.
     /// </param>
     /// <typeparam name="T">
-    /// Tipo desde el cual seleccionar a la propiedad a obtener.
+    /// Type from which to select the property.
     /// </typeparam>
     /// <typeparam name="TValue">
-    /// Tipo devuelto por la propiedad a obtener.
+    /// Type returned by the property.
     /// </typeparam>
     /// <returns>
-    /// Un <see cref="PropertyInfo"/> que representa a la propiedad
-    /// seleccionada en la expresión.
+    /// A <see cref="PropertyInfo"/> representing the selected property.
     /// </returns>
     public static PropertyInfo GetProperty<T, TValue>(Expression<Func<T, TValue>> propertySelector)
     {
@@ -866,18 +823,16 @@ public static partial class ReflectionHelpers
     }
 
     /// <summary>
-    /// Obtiene una referencia a la propiedad seleccionada por medio de una
-    /// expresión.
+    /// Gets a reference to the property selected via an expression.
     /// </summary>
     /// <param name="propertySelector">
-    /// Expresión que indica qué propiedad del tipo debe devolverse.
+    /// Expression indicating which property to return.
     /// </param>
     /// <typeparam name="T">
-    /// Tipo desde el cual seleccionar a la propiedad a obtener.
+    /// Type from which to select the property.
     /// </typeparam>
     /// <returns>
-    /// Un <see cref="PropertyInfo"/> que representa a la propiedad
-    /// seleccionada en la expresión.
+    /// A <see cref="PropertyInfo"/> representing the selected property.
     /// </returns>
     public static PropertyInfo GetProperty<T>(Expression<Func<T, object?>> propertySelector)
     {
@@ -885,18 +840,16 @@ public static partial class ReflectionHelpers
     }
 
     /// <summary>
-    /// Obtiene una referencia a la propiedad seleccionada por medio de una
-    /// expresión.
+    /// Gets a reference to the property selected via an expression.
     /// </summary>
     /// <param name="propertySelector">
-    /// Expresión que indica qué propiedad del tipo debe devolverse.
+    /// Expression indicating which property to return.
     /// </param>
     /// <typeparam name="TValue">
-    /// Tipo devuelto por la propiedad a obtener.
+    /// Type returned by the property.
     /// </typeparam>
     /// <returns>
-    /// Un <see cref="PropertyInfo"/> que representa a la propiedad
-    /// seleccionada en la expresión.
+    /// A <see cref="PropertyInfo"/> representing the selected property.
     /// </returns>
     public static PropertyInfo GetProperty<TValue>(Expression<Func<TValue>> propertySelector)
     {
@@ -904,53 +857,46 @@ public static partial class ReflectionHelpers
     }
 
     /// <summary>
-    /// Obtiene una lista de tipos asignables a partir de la interfaz o clase base
-    /// especificada.
+    /// Gets a list of types assignable from the specified interface or base class.
     /// </summary>
-    /// <typeparam name="T">Interfaz o clase base a buscar.</typeparam>
+    /// <typeparam name="T">Interface or base class to search for.</typeparam>
     /// <returns>
-    /// Una lista de tipos de las clases que implementan a la interfaz o que heredan a la clase base
-    /// <typeparamref name="T" /> dentro de <see cref="AppDomain.CurrentDomain" />.
+    /// A list of types of classes that implement the interface or inherit from the base class
+    /// <typeparamref name="T" /> within the current <see cref="AppDomain"/>.
     /// </returns>
     /// <remarks>
-    /// Esta función obtiene todos los tipos (privados y públicos)
-    /// definidos dentro de todos ls ensamblados dentro del dominio
-    /// actual. Para obtener únicamente aquellos tipos exportados
-    /// públicamente, utilice <see cref="PublicTypes(Type)"/>,
-    /// <see cref="PublicTypes(Type, AppDomain)"/>,
-    /// <see cref="PublicTypes{T}()"/> o
-    /// <see cref="PublicTypes{T}(AppDomain)"/>.
+    /// This function gets all types (private and public) defined within all assemblies
+    /// in the current domain. To get only publicly exported types, use
+    /// <see cref="PublicTypes(Type)"/>, <see cref="PublicTypes(Type, AppDomain)"/>,
+    /// <see cref="PublicTypes{T}()"/> or <see cref="PublicTypes{T}(AppDomain)"/>.
     /// </remarks>
     [RequiresUnreferencedCode(MethodScansForTypes)]
     public static IEnumerable<Type> GetTypes<T>()
     {
-        return typeof(T).Derivates();
+        return typeof(T).GetDerivedTypes();
     }
 
     /// <summary>
-    /// Obtiene una lista de tipos asignables a partir de la interfaz o clase base
-    /// especificada dentro del <see cref="AppDomain" /> especificado.
+    /// Gets a list of types assignable from the specified interface or base class
+    /// within the specified <see cref="AppDomain"/>.
     /// </summary>
-    /// <typeparam name="T">Interfaz o clase base a buscar.</typeparam>
+    /// <typeparam name="T">Interface or base class to search for.</typeparam>
     /// <param name="domain">
-    /// <see cref="AppDomain" /> en el cual realizar la búsqueda.
+    /// <see cref="AppDomain"/> in which to perform the search.
     /// </param>
     /// <param name="instantiablesOnly">
-    /// Si se establece en <see langword="true" />, únicamente se incluirán aquellos tipos instanciables.
-    /// <see langword="false" /> hará que se devuelvan todos los tipos coincidentes.
+    /// If set to <see langword="true"/>, only instantiable types will be included.
+    /// <see langword="false"/> will return all matching types.
     /// </param>
     /// <returns>
-    /// Una lista de tipos de las clases que implementan a la interfaz o que heredan a la clase base
-    /// <typeparamref name="T" /> dentro del <paramref name="domain" />.
+    /// A list of types of classes that implement the interface or inherit from the base class
+    /// <typeparamref name="T"/> within the <paramref name="domain"/>.
     /// </returns>
     /// <remarks>
-    /// Esta función obtiene todos los tipos (privados y públicos)
-    /// definidos dentro de todos los ensamblados dentro del dominio
-    /// especificado. Para obtener únicamente aquellos tipos exportados
-    /// públicamente, utilice <see cref="PublicTypes(Type)"/>,
-    /// <see cref="PublicTypes(Type, AppDomain)"/>,
-    /// <see cref="PublicTypes{T}()"/> o
-    /// <see cref="PublicTypes{T}(AppDomain)"/>.
+    /// This function gets all types (private and public) defined within all assemblies
+    /// in the specified domain. To get only publicly exported types, use
+    /// <see cref="PublicTypes(Type)"/>, <see cref="PublicTypes(Type, AppDomain)"/>,
+    /// <see cref="PublicTypes{T}()"/> or <see cref="PublicTypes{T}(AppDomain)"/>.
     /// </remarks>
     [RequiresUnreferencedCode(MethodScansForTypes)]
     public static IEnumerable<Type> GetTypes<T>(AppDomain domain, in bool instantiablesOnly)
@@ -959,54 +905,47 @@ public static partial class ReflectionHelpers
     }
 
     /// <summary>
-    /// Obtiene una lista de tipos asignables a partir de la interfaz o clase base
-    /// especificada dentro del <see cref="AppDomain" /> especificado.
+    /// Gets a list of types assignable from the specified interface or base class
+    /// within the specified <see cref="AppDomain"/>.
     /// </summary>
-    /// <typeparam name="T">Interfaz o clase base a buscar.</typeparam>
+    /// <typeparam name="T">Interface or base class to search for.</typeparam>
     /// <param name="domain">
-    /// <see cref="AppDomain" /> en el cual realizar la búsqueda.
+    /// <see cref="AppDomain"/> in which to perform the search.
     /// </param>
     /// <returns>
-    /// Una lista de tipos de las clases que implementan a la interfaz o que heredan a la clase base
-    /// <typeparamref name="T" /> dentro del <paramref name="domain" />.
+    /// A list of types of classes that implement the interface or inherit from the base class
+    /// <typeparamref name="T"/> within the <paramref name="domain"/>.
     /// </returns>
     /// <remarks>
-    /// Esta función obtiene todos los tipos (privados y públicos)
-    /// definidos dentro de todos ls ensamblados dentro del dominio
-    /// especificado. Para obtener únicamente aquellos tipos exportados
-    /// públicamente, utilice <see cref="PublicTypes(Type)"/>,
-    /// <see cref="PublicTypes(Type, AppDomain)"/>,
-    /// <see cref="PublicTypes{T}()"/> o
-    /// <see cref="PublicTypes{T}(AppDomain)"/>.
+    /// This function gets all types (private and public) defined within all assemblies
+    /// in the specified domain. To get only publicly exported types, use
+    /// <see cref="PublicTypes(Type)"/>, <see cref="PublicTypes(Type, AppDomain)"/>,
+    /// <see cref="PublicTypes{T}()"/> or <see cref="PublicTypes{T}(AppDomain)"/>.
     /// </remarks>
     [Sugar]
     [RequiresUnreferencedCode(MethodScansForTypes)]
     public static IEnumerable<Type> GetTypes<T>(AppDomain domain)
     {
-        return typeof(T).Derivates(domain);
+        return typeof(T).GetDerivedTypes(domain);
     }
 
     /// <summary>
-    /// Obtiene una lista de tipos asignables a partir de la interfaz o clase base
-    /// especificada.
+    /// Gets a list of types assignable from the specified interface or base class.
     /// </summary>
-    /// <typeparam name="T">Interfaz o clase base a buscar.</typeparam>
+    /// <typeparam name="T">Interface or base class to search for.</typeparam>
     /// <param name="instantiablesOnly">
-    /// Si se establece en <see langword="true" />, únicamente se incluirán aquellos tipos instanciables.
-    /// <see langword="false" /> hará que se devuelvan todos los tipos coincidentes.
+    /// If set to <see langword="true"/>, only instantiable types will be included.
+    /// <see langword="false"/> will return all matching types.
     /// </param>
     /// <returns>
-    /// Una lista de tipos de las clases que implementan a la interfaz o que heredan a la clase base
-    /// <typeparamref name="T" /> dentro de <see cref="AppDomain.CurrentDomain" />.
+    /// A list of types of classes that implement the interface or inherit from the base class
+    /// <typeparamref name="T"/> within the current <see cref="AppDomain"/>.
     /// </returns>
     /// <remarks>
-    /// Esta función obtiene todos los tipos (privados y públicos)
-    /// definidos dentro de todos ls ensamblados dentro del dominio
-    /// actual. Para obtener únicamente aquellos tipos exportados
-    /// públicamente, utilice <see cref="PublicTypes(Type)"/>,
-    /// <see cref="PublicTypes(Type, AppDomain)"/>,
-    /// <see cref="PublicTypes{T}()"/> o
-    /// <see cref="PublicTypes{T}(AppDomain)"/>.
+    /// This function gets all types (private and public) defined within all assemblies
+    /// in the current domain. To get only publicly exported types, use
+    /// <see cref="PublicTypes(Type)"/>, <see cref="PublicTypes(Type, AppDomain)"/>,
+    /// <see cref="PublicTypes{T}()"/> or <see cref="PublicTypes{T}(AppDomain)"/>.
     /// </remarks>
     [RequiresUnreferencedCode(MethodScansForTypes)]
     public static IEnumerable<Type> GetTypes<T>(bool instantiablesOnly)
@@ -1015,29 +954,27 @@ public static partial class ReflectionHelpers
     }
 
     /// <summary>
-    /// Obtiene una lista de tipos asignables a partir de la interfaz o clase base
-    /// especificada dentro del <see cref="AppDomain" /> especificado.
+    /// Gets a list of assignable types from the specified interface or base class
+    /// within the specified <see cref="AppDomain" />.
     /// </summary>
-    /// <typeparam name="T">Interfaz o clase base a buscar.</typeparam>
+    /// <typeparam name="T">Interface or base class to search for.</typeparam>
     /// <param name="assemblies">
-    /// Colección de ensamblados en la cual realizar la búsqueda.
+    /// Collection of assemblies to search in.
     /// </param>
     /// <param name="instantiablesOnly">
-    /// Si se establece en <see langword="true" />, únicamente se incluirán aquellos tipos instanciables.
-    /// <see langword="false" /> hará que se devuelvan todos los tipos coincidentes.
+    /// If set to <see langword="true" />, only instantiable types are included.
+    /// <see langword="false" /> returns all matching types.
     /// </param>
     /// <returns>
-    /// Una lista de tipos de las clases que implementan a la interfaz o que heredan a la clase base
-    /// <typeparamref name="T" /> dentro del dominio predeterminado.
+    /// A list of types of classes that implement the interface or inherit from
+    /// the base class <typeparamref name="T" /> within the default domain.
     /// </returns>
     /// <remarks>
-    /// Esta función obtiene todos los tipos (privados y públicos)
-    /// definidos dentro de todos los ensamblados dentro de la
-    /// colección especificada. Para obtener únicamente aquellos tipos
-    /// exportados públicamente, utilice
-    /// <see cref="PublicTypes(Type)"/>,
-    /// <see cref="PublicTypes(Type, AppDomain)"/>,
-    /// <see cref="PublicTypes{T}()"/> o
+    /// This function gets all types (private and public) defined within all
+    /// assemblies in the specified collection. To get only publicly exported
+    /// types, use <see cref="PublicTypes(Type)"/>, 
+    /// <see cref="PublicTypes(Type, AppDomain)"/>, 
+    /// <see cref="PublicTypes{T}()"/> or 
     /// <see cref="PublicTypes{T}(AppDomain)"/>.
     /// </remarks>
     [RequiresUnreferencedCode(MethodScansForTypes)]
@@ -1068,26 +1005,24 @@ public static partial class ReflectionHelpers
     }
 
     /// <summary>
-    /// Obtiene una lista de tipos asignables a partir de la interfaz o clase base
-    /// especificada dentro del <see cref="AppDomain" /> especificado.
+    /// Gets a list of assignable types from the specified interface or base class
+    /// within the specified <see cref="AppDomain" />.
     /// </summary>
-    /// <typeparam name="T">Interfaz o clase base a buscar.</typeparam>
+    /// <typeparam name="T">Interface or base class to search for.</typeparam>
     /// <param name="assemblies">
-    /// Colección de ensamblados en la cual realizar la búsqueda.
+    /// Collection of assemblies to search in.
     /// </param>
     /// <returns>
-    /// Una lista de tipos de las clases que implementan a la interfaz
-    /// o que heredan a la clase base <typeparamref name="T" /> dentro
-    /// de <paramref name="assemblies" />.
+    /// A list of types of classes that implement the interface or inherit from
+    /// the base class <typeparamref name="T" /> within 
+    /// <paramref name="assemblies" />.
     /// </returns>
     /// <remarks>
-    /// Esta función obtiene todos los tipos (privados y públicos)
-    /// definidos dentro de todos los ensamblados dentro de la
-    /// colección especificada. Para obtener únicamente aquellos tipos
-    /// exportados públicamente, utilice
-    /// <see cref="PublicTypes(Type)"/>,
-    /// <see cref="PublicTypes(Type, AppDomain)"/>,
-    /// <see cref="PublicTypes{T}()"/> o
+    /// This function gets all types (private and public) defined within all
+    /// assemblies in the specified collection. To get only publicly exported
+    /// types, use <see cref="PublicTypes(Type)"/>, 
+    /// <see cref="PublicTypes(Type, AppDomain)"/>, 
+    /// <see cref="PublicTypes{T}()"/> or 
     /// <see cref="PublicTypes{T}(AppDomain)"/>.
     /// </remarks>
     [Sugar]
@@ -1098,19 +1033,19 @@ public static partial class ReflectionHelpers
     }
 
     /// <summary>
-    /// Enumera el valor de todas las propiedades que devuelvan valores de
-    /// tipo <typeparamref name="T" />.
+    /// Enumerates the value of all properties that return values of type
+    /// <typeparamref name="T" />.
     /// </summary>
-    /// <typeparam name="T">Tipo de propiedades a obtener.</typeparam>
+    /// <typeparam name="T">Type of properties to get.</typeparam>
     /// <param name="properties">
-    /// Colección de propiedades a analizar.
+    /// Collection of properties to analyze.
     /// </param>
     /// <param name="instance">
-    /// Instancia desde la cual obtener las propiedades.
+    /// Instance from which to get the properties.
     /// </param>
     /// <returns>
-    /// Una enumeración de todos los valores de tipo
-    /// <typeparamref name="T" /> de la instancia.
+    /// An enumeration of all values of type <typeparamref name="T" /> from the
+    /// instance.
     /// </returns>
     public static IEnumerable<T> PropertiesOf<T>(this IEnumerable<PropertyInfo> properties, object? instance)
     {
@@ -1120,16 +1055,15 @@ public static partial class ReflectionHelpers
     }
 
     /// <summary>
-    /// Enumera el valor de todas las propiedades estáticas que devuelvan
-    /// valores de tipo <typeparamref name="T" />.
+    /// Enumerates the value of all static properties that return values of type
+    /// <typeparamref name="T" />.
     /// </summary>
-    /// <typeparam name="T">Tipo de propiedades a obtener.</typeparam>
+    /// <typeparam name="T">Type of properties to get.</typeparam>
     /// <param name="properties">
-    /// Colección de propiedades a analizar.
+    /// Collection of properties to analyze.
     /// </param>
     /// <returns>
-    /// Una enumeración de todos los valores de tipo
-    /// <typeparamref name="T" />.
+    /// An enumeration of all values of type <typeparamref name="T" />.
     /// </returns>
     public static IEnumerable<T> PropertiesOf<T>(this IEnumerable<PropertyInfo> properties)
     {
@@ -1137,19 +1071,16 @@ public static partial class ReflectionHelpers
     }
 
     /// <summary>
-    /// Obtiene todos los tipos públicos que estén dentro del
-    /// <see cref="AppDomain"/> actual.
+    /// Gets all public types within the current <see cref="AppDomain"/>.
     /// </summary>
     /// <returns>
-    /// Una enumeración con todos los tipos públicos encontrados en el
-    /// dominio actual.
+    /// An enumeration of all public types found in the current domain.
     /// </returns>
     /// <remarks>
-    /// Esta función obtiene todos los tipos públicos exportados del
-    /// dominio actual, obviando los ensamblados dinámicos (generados
-    /// por medio del espacio de nombres
-    /// <see cref="System.Reflection.Emit"/>). Para obtener una lista
-    /// indiscriminada de tipos, utilice <see cref="GetTypes{T}()"/>.
+    /// This function gets all public types exported from the current domain,
+    /// excluding dynamic assemblies (generated using the 
+    /// <see cref="System.Reflection.Emit"/> namespace). To get an 
+    /// indiscriminate list of types, use <see cref="GetTypes{T}()"/>.
     /// </remarks>
     [RequiresUnreferencedCode(MethodScansForTypes)]
     public static IEnumerable<Type> PublicTypes()
@@ -1158,26 +1089,22 @@ public static partial class ReflectionHelpers
     }
 
     /// <summary>
-    /// Obtiene todos los tipos públicos que estén dentro del
-    /// <see cref="AppDomain"/> especificado.
+    /// Gets all public types within the specified <see cref="AppDomain"/>.
     /// </summary>
     /// <param name="domain">
-    /// Dominio de aplicación dentro del cual buscar tipos.
+    /// Application domain within which to search for types.
     /// </param>
     /// <returns>
-    /// Una enumeración con todos los tipos públicos encontrados en el
-    /// dominio especificado.
+    /// An enumeration of all public types found in the specified domain.
     /// </returns>
     /// <remarks>
-    /// Esta función obtiene todos los tipos públicos exportados del
-    /// dominio especificado, obviando los ensamblados dinámicos
-    /// (generados por medio del espacio de nombres
-    /// <see cref="System.Reflection.Emit"/>). Para obtener una lista
-    /// indiscriminada de tipos, utilice <see cref="GetTypes{T}()"/>.
+    /// This function gets all public types exported from the specified domain,
+    /// excluding dynamic assemblies (generated using the 
+    /// <see cref="System.Reflection.Emit"/> namespace). To get an 
+    /// indiscriminate list of types, use <see cref="GetTypes{T}()"/>.
     /// </remarks>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="domain"/> es
-    /// <see langword="null"/>.
+    /// Thrown if <paramref name="domain"/> is <see langword="null"/>.
     /// </exception>
     [RequiresUnreferencedCode(MethodScansForTypes)]
     public static IEnumerable<Type> PublicTypes(AppDomain domain)
@@ -1189,24 +1116,21 @@ public static partial class ReflectionHelpers
     }
 
     /// <summary>
-    /// Obtiene todos los tipos públicos que implementan al tipo especificado.
+    /// Gets all public types that implement the specified type.
     /// </summary>
-    /// <param name="type">Tipo a obtener.</param>
-    /// <param name="domain">Dominio de aplicación dentro del cual buscar tipos.</param>
+    /// <param name="type">Type to get.</param>
+    /// <param name="domain">Application domain within which to search for types.</param>
     /// <returns>
-    /// Una enumeración con todos los tipos que heredan o implementan el
-    /// tipo especificado.
+    /// An enumeration of all types that inherit from or implement the specified type.
     /// </returns>
     /// <remarks>
-    /// Esta función obtiene todos los tipos públicos exportados del
-    /// dominio especificado, obviando los ensamblados dinámicos
-    /// (generados por medio del espacio de nombres
-    /// <see cref="System.Reflection.Emit"/>). Para obtener una lista
-    /// indiscriminada de tipos, utilice <see cref="GetTypes{T}()"/>.
+    /// This function gets all public types exported from the specified domain,
+    /// excluding dynamic assemblies (generated using the 
+    /// <see cref="System.Reflection.Emit"/> namespace). To get an 
+    /// indiscriminate list of types, use <see cref="GetTypes{T}()"/>.
     /// </remarks>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="domain"/> es
-    /// <see langword="null"/>.
+    /// Thrown if <paramref name="domain"/> is <see langword="null"/>.
     /// </exception>
     [RequiresUnreferencedCode(MethodScansForTypes)]
     public static IEnumerable<Type> PublicTypes(Type type, AppDomain domain)
@@ -1216,19 +1140,17 @@ public static partial class ReflectionHelpers
     }
 
     /// <summary>
-    /// Obtiene todos los tipos públicos que implementan al tipo especificado.
+    /// Gets all public types that implement the specified type.
     /// </summary>
-    /// <param name="type">Tipo a obtener.</param>
+    /// <param name="type">Type to get.</param>
     /// <returns>
-    /// Una enumeración con todos los tipos que heredan o implementan el
-    /// tipo especificado.
+    /// An enumeration of all types that inherit from or implement the specified type.
     /// </returns>
     /// <remarks>
-    /// Esta función obtiene todos los tipos públicos exportados del
-    /// dominio actual, obviando los ensamblados dinámicos (generados
-    /// por medio del espacio de nombres
-    /// <see cref="System.Reflection.Emit"/>). Para obtener una lista
-    /// indiscriminada de tipos, utilice <see cref="GetTypes{T}()"/>.
+    /// This function gets all public types exported from the current domain,
+    /// excluding dynamic assemblies (generated using the 
+    /// <see cref="System.Reflection.Emit"/> namespace). To get an 
+    /// indiscriminate list of types, use <see cref="GetTypes{T}()"/>.
     /// </remarks>
     [RequiresUnreferencedCode(MethodScansForTypes)]
     public static IEnumerable<Type> PublicTypes(Type type)
@@ -1237,21 +1159,19 @@ public static partial class ReflectionHelpers
     }
 
     /// <summary>
-    /// Obtiene todos los tipos públicos que implementan al tipo especificado.
+    /// Gets all public types that implement the specified type.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de objetos a obtener.
+    /// Type of objects to get.
     /// </typeparam>
     /// <returns>
-    /// Una enumeración con todos los tipos que heredan o implementan el
-    /// tipo especificado.
+    /// An enumeration of all types that inherit from or implement the specified type.
     /// </returns>
     /// <remarks>
-    /// Esta función obtiene todos los tipos públicos exportados del
-    /// dominio especificado, obviando los ensamblados dinámicos
-    /// (generados por medio del espacio de nombres
-    /// <see cref="System.Reflection.Emit"/>). Para obtener una lista
-    /// indiscriminada de tipos, utilice <see cref="GetTypes{T}()"/>.
+    /// This function gets all public types exported from the current domain,
+    /// excluding dynamic assemblies (generated using the 
+    /// <see cref="System.Reflection.Emit"/> namespace). To get an 
+    /// indiscriminate list of types, use <see cref="GetTypes{T}()"/>.
     /// </remarks>
     [RequiresUnreferencedCode(MethodScansForTypes)]
     public static IEnumerable<Type> PublicTypes<T>()
@@ -1260,26 +1180,23 @@ public static partial class ReflectionHelpers
     }
 
     /// <summary>
-    /// Obtiene todos los tipos públicos que implementan al tipo especificado.
+    /// Gets all public types that implement the specified type.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de objetos a obtener.
+    /// Type of objects to get.
     /// </typeparam>
-    /// <param name="domain">Dominio de aplicación dentro del cual buscar tipos.</param>
+    /// <param name="domain">Application domain within which to search for types.</param>
     /// <returns>
-    /// Una enumeración con todos los tipos que heredan o implementan el
-    /// tipo especificado.
+    /// An enumeration of all types that inherit from or implement the specified type.
     /// </returns>
     /// <remarks>
-    /// Esta función obtiene todos los tipos públicos exportados del
-    /// dominio especificado, obviando los ensamblados dinámicos
-    /// (generados por medio del espacio de nombres
-    /// <see cref="System.Reflection.Emit"/>). Para obtener una lista
-    /// indiscriminada de tipos, utilice <see cref="GetTypes{T}()"/>.
+    /// This function gets all public types exported from the specified domain,
+    /// excluding dynamic assemblies (generated using the 
+    /// <see cref="System.Reflection.Emit"/> namespace). To get an 
+    /// indiscriminate list of types, use <see cref="GetTypes{T}()"/>.
     /// </remarks>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="domain"/> es
-    /// <see langword="null"/>.
+    /// Thrown if <paramref name="domain"/> is <see langword="null"/>.
     /// </exception>
     [RequiresUnreferencedCode(MethodScansForTypes)]
     public static IEnumerable<Type> PublicTypes<T>(AppDomain domain)
@@ -1288,21 +1205,19 @@ public static partial class ReflectionHelpers
     }
 
     /// <summary>
-    /// Obtiene todos los métodos de instancia con firma compatible con el
-    /// delegado especificado.
+    /// Gets all instance methods with a signature compatible with the specified delegate.
     /// </summary>
     /// <typeparam name="T">
-    /// Delegado a utilizar como firma a comprobar.
+    /// Delegate to use as the signature to check.
     /// </typeparam>
     /// <param name="methods">
-    /// Colección de métodos en la cual realizar la búsqueda.
+    /// Collection of methods in which to search.
     /// </param>
     /// <param name="instance">
-    /// Instancia del objeto sobre el cual construir los delegados.
+    /// Instance of the object on which to construct the delegates.
     /// </param>
     /// <returns>
-    /// Una enumeración de todos los métodos que tienen una firma
-    /// compatible con <typeparamref name="T" />.
+    /// An enumeration of all methods that have a signature compatible with <typeparamref name="T" />.
     /// </returns>
     [RequiresUnreferencedCode(MethodCreatesDelegates)]
     public static IEnumerable<T> WithSignature<T>(this IEnumerable<MethodInfo> methods, object instance) where T : Delegate
@@ -1317,18 +1232,16 @@ public static partial class ReflectionHelpers
     }
 
     /// <summary>
-    /// Obtiene todos los métodos estáticos con firma compatible con el
-    /// delegado especificado.
+    /// Gets all static methods with a signature compatible with the specified delegate.
     /// </summary>
     /// <typeparam name="T">
-    /// Delegado a utilizar como firma a comprobar.
+    /// Delegate to use as the signature to check.
     /// </typeparam>
     /// <param name="methods">
-    /// Colección de métodos en la cual realizar la búsqueda.
+    /// Collection of methods in which to search.
     /// </param>
     /// <returns>
-    /// Una enumeración de todos los métodos que tienen una firma
-    /// compatible con <typeparamref name="T" />.
+    /// An enumeration of all methods that have a signature compatible with <typeparamref name="T" />.
     /// </returns>
     public static IEnumerable<T> WithSignature<T>(this IEnumerable<MethodInfo> methods) where T : Delegate
     {

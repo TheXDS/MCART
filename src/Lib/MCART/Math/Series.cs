@@ -3,8 +3,6 @@ Series.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
-Este archivo contiene funciones de enumeración de series matemáticas.
-
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
@@ -33,87 +31,79 @@ SOFTWARE.
 namespace TheXDS.MCART.Math;
 
 /// <summary>
-/// Esta clase contiene funciones de enumeración de series matemáticas.
+/// Contains functions for enumerating mathematical series.
 /// </summary>
 public static class Series
 {
-    /* -= NOTA =-
-     * Las series utilizan enumeradores para exponer las series 
-     * completas de una manera infinita.
-     *  
-     * Es necesario recalcar que, si se utilizan estas funciones de
-     * manera incorrecta, el programa fallará con un error de
-     * sobreflujo o de pila, o bien, el programa podría dejar de
-     * responder.
+    /* NOTE:
+     * These functions utilize enumerators to expose complete series in an
+     * infinite manner.
      *
-     * Todas las funciones de enumeración infinita deben utilizarse junto
-     * con el método de extensión
+     * It is important to note that improper use of these functions 
+     * can lead to overflow or stack errors, or the program may become
+     * unresponsive.
+     *
+     * All infinite enumeration functions should be used in conjunction
+     * with the extension method
      * System.Linq.Enumerable.Take<TSource>(IEnumerable<TSource>, int)
      */
 
     /// <summary>
-    /// Expone un enumerador que contiene la secuencia completa de
-    /// Fibonacci.
+    /// Exposes an enumerator that contains the complete Fibonacci 
+    /// sequence.
     /// </summary>
     /// <returns>
-    /// Un <see cref="IEnumerable{T}" /> con la secuencia infinita de
-    /// Fibonacci.
+    /// An <see cref="IEnumerable{T}" /> with the infinite Fibonacci 
+    /// sequence.
     /// </returns>
     /// <remarks>
-    /// Las series utilizan enumeradores para exponer las series
-    /// completas de una manera infinita. Es necesario recalcar que, si
-    /// se utilizan estas funciones de manera incorrecta, el programa
-    /// fallará con un error de sobreflujo o de pila, o bien, el
-    /// programa podría dejar de responder durante un período de tiempo
-    /// prolongado.<br/>
-    /// Todas las funciones de enumeración infinita deben utilizarse junto
-    /// con el método de extensión
+    /// Series utilize enumerators to expose complete series in an 
+    /// infinite manner. It is important to note that improper use of 
+    /// these functions can lead to overflow or stack errors, or the 
+    /// program may become unresponsive for an extended period.
+    /// All infinite enumeration functions should be used in conjunction
+    /// with the extension method
     /// <c>System.Linq.Enumerable.Take&lt;TSource&gt;(IEnumerable&lt;TSource&gt;, int)</c>
     /// </remarks>
     /// <seealso cref="Enumerable.Take{TSource}(IEnumerable{TSource}, int)"/>
     public static IEnumerable<long> Fibonacci() => MakeSeriesAdditive(0, 1);
 
     /// <summary>
-    /// Expone un enumerador que contiene la secuencia completa de
-    /// Lucas.
+    /// Exposes an enumerator that contains the complete Lucas sequence.
     /// </summary>
     /// <returns>
-    /// Un <see cref="IEnumerable{T}" /> con la secuencia infinita de
-    /// Lucas.
+    /// An <see cref="IEnumerable{T}" /> with the infinite Lucas 
+    /// sequence.
     /// </returns>
     /// <remarks>
-    /// Las series utilizan enumeradores para exponer las series
-    /// completas de una manera infinita. Es necesario recalcar que, si
-    /// se utilizan estas funciones de manera incorrecta, el programa
-    /// fallará con un error de sobreflujo o de pila, o bien, el
-    /// programa podría dejar de responder durante un período de tiempo
-    /// prolongado.<br/>
-    /// Todas las funciones de enumeración infinita deben utilizarse junto
-    /// con el método de extensión
+    /// Series utilize enumerators to expose complete series in an 
+    /// infinite manner. It is important to note that improper use of 
+    /// these functions can lead to overflow or stack errors, or the 
+    /// program may become unresponsive for an extended period.
+    /// All infinite enumeration functions should be used in conjunction
+    /// with the extension method
     /// <c>System.Linq.Enumerable.Take&lt;TSource&gt;(IEnumerable&lt;TSource&gt;, int)</c>
     /// </remarks>
     /// <seealso cref="Enumerable.Take{TSource}(IEnumerable{TSource}, int)"/>
     public static IEnumerable<long> Lucas() => MakeSeriesAdditive(2, 1);
 
     /// <summary>
-    /// Crea un enumerador que genera una serie numérica aditiva
-    /// proporcionando los dos elementos iniciales de la serie.
+    /// Creates an enumerator that generates an additive numerical series
+    /// by providing the two initial elements of the series.
     /// </summary>
-    /// <param name="a">Primer elemento inicial.</param>
-    /// <param name="b">Segundo elemento inicial.</param>
+    /// <param name="a">First initial element.</param>
+    /// <param name="b">Second initial element.</param>
     /// <returns>
-    /// Un enumerador que generará una serie numérica aditiva para cada
-    /// iteración.
+    /// An enumerator that will generate an additive numerical series 
+    /// for each iteration.
     /// </returns>
     /// <remarks>
-    /// Las series utilizan enumeradores para exponer las series
-    /// completas de una manera infinita. Es necesario recalcar que, si
-    /// se utilizan estas funciones de manera incorrecta, el programa
-    /// fallará con un error de sobreflujo o de pila, o bien, el
-    /// programa podría dejar de responder durante un período de tiempo
-    /// prolongado.<br/>
-    /// Todas las funciones de enumeración infinita deben utilizarse junto
-    /// con el método de extensión
+    /// Series utilize enumerators to expose complete series in an 
+    /// infinite manner. It is important to note that improper use of 
+    /// these functions can lead to overflow or stack errors, or the 
+    /// program may become unresponsive for an extended period.
+    /// All infinite enumeration functions should be used in conjunction
+    /// with the extension method
     /// <c>System.Linq.Enumerable.Take&lt;TSource&gt;(IEnumerable&lt;TSource&gt;, int)</c>
     /// </remarks>
     /// <seealso cref="Enumerable.Take{TSource}(IEnumerable{TSource}, int)"/>

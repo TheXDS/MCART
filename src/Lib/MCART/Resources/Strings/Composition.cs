@@ -28,8 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Text;
 using TheXDS.MCART.Types.Extensions;
@@ -37,8 +35,8 @@ using TheXDS.MCART.Types.Extensions;
 namespace TheXDS.MCART.Resources.Strings;
 
 /// <summary>
-/// Contiene cadenas de texto genéricas, además de funciones de
-/// composición de texto.
+/// Contains generic string literals, as well as text
+/// composition functions.
 /// </summary>
 public static class Composition
 {
@@ -54,58 +52,58 @@ public static class Composition
     }
 
     /// <summary>
-    /// Devuelve una cadena con el texto "{<paramref name="days"/>} días".
+    /// Returns a string with the text "{<paramref name="days"/>} days".
     /// </summary>
-    /// <param name="days">Texto a formatear.</param>
+    /// <param name="days">Text to format.</param>
     /// <returns>
-    /// Una cadena con el texto "{<paramref name="days"/>} días".
+    /// A string with the text "{<paramref name="days"/>} days".
     /// </returns>
     public static string Days(int days) => string.Format(Common.XDays, days);
 
     /// <summary>
-    /// Devuelve una cadena con el texto "{<paramref name="hours"/>} horas".
+    /// Returns a string with the text "{<paramref name="hours"/>} hours".
     /// </summary>
-    /// <param name="hours">Texto a formatear.</param>
+    /// <param name="hours">Text to format.</param>
     /// <returns>
-    /// Una cadena con el texto "{<paramref name="hours"/>} horas".
+    /// A string with the text "{<paramref name="hours"/>} hours".
     /// </returns>
     public static string Hours(int hours) => string.Format(Common.XHours, hours);
 
     /// <summary>
-    /// Devuelve una cadena con el texto "{<paramref name="minutes"/>} minutos".
+    /// Returns a string with the text "{<paramref name="minutes"/>} minutes".
     /// </summary>
-    /// <param name="minutes">Texto a formatear.</param>
+    /// <param name="minutes">Text to format.</param>
     /// <returns>
-    /// Una cadena con el texto "{<paramref name="minutes"/>} minutos".
+    /// A string with the text "{<paramref name="minutes"/>} minutes".
     /// </returns>
     public static string Minutes(int minutes) => string.Format(Common.XMinutes, minutes);
 
     /// <summary>
-    /// Devuelve una cadena con el texto "{<paramref name="seconds"/>} segundos".
+    /// Returns a string with the text "{<paramref name="seconds"/>} seconds".
     /// </summary>
-    /// <param name="seconds">Texto a formatear.</param>
+    /// <param name="seconds">Text to format.</param>
     /// <returns>
-    /// Una cadena con el texto "{<paramref name="seconds"/>} segundos".
+    /// A string with the text "{<paramref name="seconds"/>} seconds".
     /// </returns>
     public static string Seconds(int seconds) => string.Format(Common.XSeconds, seconds);
 
     /// <summary>
-    /// Vuelca toda la información pertinente de una excepción como un
+    /// Dumps all relevant information from an exception as a
     /// <see cref="string"/>.
     /// </summary>
     /// <param name="ex">
-    /// Excepción de la cual obtener la información.
+    /// Exception from which to obtain information.
     /// </param>
     /// <param name="options">
-    /// Opciones de presentación de la información.
+    /// Presentation options for the information.
     /// </param>
     /// <param name="fixedTextWidth">
-    /// Cuando el parámetro <paramref name="options"/> incluye la bandera
-    /// <see cref="ExDumpOptions.TextWidthFormatted"/>, permite especificar el
-    /// ancho a utilizar para aplicar formato al volcado de la excepción.
+    /// When the <paramref name="options"/> parameter includes the
+    /// <see cref="ExDumpOptions.TextWidthFormatted"/> flag, it allows specifying the
+    /// width to use to format the exception dump.
     /// </param>
     /// <returns>
-    /// Una cadena con toda la información de la excepción.
+    /// A string with all the exception information.
     /// </returns>
     public static string ExDump(Exception ex, ExDumpOptions options, int fixedTextWidth = 80)
     {
@@ -117,22 +115,22 @@ public static class Composition
     }
 
     /// <summary>
-    /// Vuelca toda la información pertinente de una excepción por medio de
-    /// un <see cref="TextWriter"/>.
+    /// Dumps all relevant information from an exception via a
+    /// <see cref="TextWriter"/>.
     /// </summary>
     /// <param name="writer">
-    /// Objeto en el cual escribir la información de la excepción.
+    /// Object on which to write the exception information.
     /// </param>
     /// <param name="ex">
-    /// Excepción de la cual obtener la información.
+    /// Exception from which to obtain information.
     /// </param>
     /// <param name="options">
-    /// Opciones de presentación de la información.
+    /// Presentation options for the information.
     /// </param>
     /// <param name="fixedTextWidth">
-    /// Cuando el parámetro <paramref name="options"/> incluye la bandera
-    /// <see cref="ExDumpOptions.TextWidthFormatted"/>, permite especificar el
-    /// ancho a utilizar para aplicar formato al volcado de la excepción.
+    /// When the <paramref name="options"/> parameter includes the
+    /// <see cref="ExDumpOptions.TextWidthFormatted"/> flag, it allows specifying the
+    /// width to use to format the exception dump.
     /// </param>
     public static void ExDump(TextWriter writer, Exception ex, ExDumpOptions options, int fixedTextWidth = 80)
     {
@@ -143,11 +141,11 @@ public static class Composition
     }
 
     /// <summary>
-    /// Devuelve una cadena con el texto "⚠ {<paramref name="text"/>}".
+    /// Returns a string with the text "⚠ {<paramref name="text"/>}".
     /// </summary>
-    /// <param name="text">Texto a formatear.</param>
+    /// <param name="text">Text to format.</param>
     /// <returns>
-    /// Una cadena con el texto "⚠ {<paramref name="text"/>}".
+    /// A string with the text "⚠ {<paramref name="text"/>}".
     /// </returns>
     public static string Warn(string text) => $"⚠ {text}";
 

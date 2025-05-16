@@ -36,19 +36,17 @@ namespace TheXDS.MCART.Math;
 public static partial class Common
 {
     /// <summary>
-    /// Comprueba que un valor sea un número real operable válido; en
-    /// caso de serlo lo devuelve, caso contrario devolverá un valor
-    /// <see cref="float"/> alternativo.
+    /// Checks if a value is a valid, operable floating-point number.
+    /// Returns the value if valid; otherwise, returns an alternate value.
     /// </summary>
-    /// <param name="value">Valor a comprobar.</param>
+    /// <param name="value">Value to check.</param>
     /// <param name="alternateFunc">
-    /// Función que obtiene el valor a devolver si <paramref name="value"/>
-    /// no es válido.
+    /// Function that returns the value to return if <paramref name="value"/>
+    /// is invalid.
     /// </param>
     /// <returns>
-    /// <paramref name="value"/> si el mismo es un número real operable
-    /// válido, o el resultado de <paramref name="alternateFunc"/> en caso
-    /// contrario.
+    /// <paramref name="value"/> if it's a valid, operable float, or the
+    /// result of <paramref name="alternateFunc"/> otherwise.
     /// </returns>
     public static float OrIfInvalid(this in float value, Func<float> alternateFunc)
     {
@@ -56,19 +54,17 @@ public static partial class Common
     }
 
     /// <summary>
-    /// Comprueba que un valor sea un número real operable válido; en
-    /// caso de serlo lo devuelve, caso contrario devolverá un valor
-    /// <see cref="double"/> alternativo.
+    /// Checks if a value is a valid, operable double-precision number.
+    /// Returns the value if valid; otherwise, returns an alternate value.
     /// </summary>
-    /// <param name="value">Valor a comprobar.</param>
+    /// <param name="value">Value to check.</param>
     /// <param name="alternateFunc">
-    /// Función que obtiene el valor a devolver si <paramref name="value"/>
-    /// no es válido.
+    /// Function that returns the value to return if <paramref name="value"/>
+    /// is invalid.
     /// </param>
     /// <returns>
-    /// <paramref name="value"/> si el mismo es un número real operable
-    /// válido, o el resultado de <paramref name="alternateFunc"/> en caso
-    /// contrario.
+    /// <paramref name="value"/> if it's a valid, operable double, or the
+    /// result of <paramref name="alternateFunc"/> otherwise.
     /// </returns>
     public static double OrIfInvalid(this in double value, Func<double> alternateFunc)
     {
@@ -76,17 +72,16 @@ public static partial class Common
     }
 
     /// <summary>
-    /// Comprueba que un valor sea un número real operable válido; en
-    /// caso de serlo lo devuelve, caso contrario devolverá un valor
-    /// <see cref="float"/> alternativo.
+    /// Checks if a value is a valid, operable floating-point number.
+    /// Returns the value if valid; otherwise, returns an alternate value.
     /// </summary>
-    /// <param name="value">Valor a comprobar.</param>
+    /// <param name="value">Value to check.</param>
     /// <param name="alternateValue">
-    /// Valor a devolver si <paramref name="value"/> no es válido.
+    /// Value to return if <paramref name="value"/> is invalid.
     /// </param>
     /// <returns>
-    /// <paramref name="value"/> si el mismo es un número real operable
-    /// válido, <paramref name="alternateValue"/> en caso contrario.
+    /// <paramref name="value"/> if it's a valid, operable float,
+    /// <paramref name="alternateValue"/> otherwise.
     /// </returns>
     public static float OrIfInvalid(this in float value, in float alternateValue)
     {
@@ -94,17 +89,16 @@ public static partial class Common
     }
 
     /// <summary>
-    /// Comprueba que un valor sea un número real operable válido; en
-    /// caso de serlo lo devuelve, caso contrario devolverá un valor
-    /// <see cref="double"/> alternativo.
+    /// Checks if a value is a valid, operable double-precision number.
+    /// Returns the value if valid; otherwise, returns an alternate value.
     /// </summary>
-    /// <param name="value">Valor a comprobar.</param>
+    /// <param name="value">Value to check.</param>
     /// <param name="alternateValue">
-    /// Valor a devolver si <paramref name="value"/> no es válido.
+    /// Value to return if <paramref name="value"/> is invalid.
     /// </param>
     /// <returns>
-    /// <paramref name="value"/> si el mismo es un número real operable
-    /// válido, <paramref name="alternateValue"/> en caso contrario.
+    /// <paramref name="value"/> if it's a valid, operable double,
+    /// <paramref name="alternateValue"/> otherwise.
     /// </returns>
     public static double OrIfInvalid(this in double value, in double alternateValue)
     {
@@ -112,14 +106,14 @@ public static partial class Common
     }
 
     /// <summary>
-    /// Establece límites de sobreflujo para evaluar una expresión.
+    /// Limits the range of an expression to prevent overflow.
     /// </summary>
-    /// <typeparam name="T"> Tipo de expresión a limitar. </typeparam>
-    /// <param name="expression">Expresión a evaluar.</param>
-    /// <param name="max">Límite superior de salida, inclusive.</param>
-    /// <param name="min">Límite inferior de salida, inclusive.</param>
+    /// <typeparam name="T">The type of expression to limit.</typeparam>
+    /// <param name="expression">The expression to evaluate.</param>
+    /// <param name="min">The lower bound of the output range, inclusive.</param>
+    /// <param name="max">The upper bound of the output range, inclusive.</param>
     /// <returns>
-    /// El valor evaluado que se encuentra dentro del rango especificado.
+    /// The evaluated value that falls within the specified range.
     /// </returns>
     public static T Clamp<T>(this T expression, in T min, in T max) where T : IComparable<T>
     {
@@ -129,14 +123,13 @@ public static partial class Common
     }
 
     /// <summary>
-    /// Establece límites de sobreflujo para evaluar una expresión.
+    /// Limits the range of an expression to prevent overflow.
     /// </summary>
-    /// <typeparam name="T"> Tipo de expresión a limitar. </typeparam>
-    /// <param name="expression">Expresión a evaluar.</param>
-    /// <param name="max">Límite superior de salida, inclusive.</param>
+    /// <typeparam name="T">The type of expression to limit.</typeparam>
+    /// <param name="expression">The expression to evaluate.</param>
+    /// <param name="max">The upper bound of the output range, inclusive.</param>
     /// <returns>
-    /// El valor evaluado que se encuentra entre 0 y
-    /// <paramref name="max" />.
+    /// The evaluated value between 0 and <paramref name="max" />.
     /// </returns>
     public static T Clamp<T>(this T expression, in T max) where T : struct, IComparable<T>
     {
@@ -144,18 +137,18 @@ public static partial class Common
     }
 
     /// <summary>
-    /// Establece límites de sobreflujo para evaluar una expresión.
+    /// Limits the range of an expression to prevent overflow.
     /// </summary>
-    /// <param name="expression">Expresión a evaluar.</param>
-    /// <param name="min">Límite inferior de salida, inclusive.</param>
-    /// <param name="max">Límite superior de salida, inclusive.</param>
+    /// <param name="expression">The expression to evaluate.</param>
+    /// <param name="min">The lower bound of the output range, inclusive.</param>
+    /// <param name="max">The upper bound of the output range, inclusive.</param>
     /// <returns>
-    /// El valor evaluado que se encuentra dentro del rango especificado.
+    /// The evaluated value within the specified range.
     /// </returns>
     /// <remarks>
-    /// Esta implementación se incluye para permitir parámetros de tipo
-    /// <see cref="double.NaN" />, <see cref="double.NegativeInfinity" /> y
-    /// <see cref="double.PositiveInfinity" />.
+    /// This implementation is included to allow parameters of type
+    /// <see cref="double.NaN" />, <see cref="double.NegativeInfinity" />,
+    /// and <see cref="double.PositiveInfinity" />.
     /// </remarks>
     public static double Clamp(this in double expression, in double min, in double max)
     {
@@ -166,17 +159,17 @@ public static partial class Common
     }
 
     /// <summary>
-    /// Establece límites de sobreflujo para evaluar una expresión.
+    /// Limits the range of an expression to prevent overflow.
     /// </summary>
-    /// <param name="expression">Expresión a evaluar.</param>
-    /// <param name="max">Límite superior de salida, inclusive.</param>
+    /// <param name="expression">The expression to evaluate.</param>
+    /// <param name="max">The upper bound of the output range, inclusive.</param>
     /// <returns>
-    /// El valor evaluado que se encuentra dentro del rango especificado.
+    /// The evaluated value within the specified range.
     /// </returns>
     /// <remarks>
-    /// Esta implementación se incluye para permitir parámetros de tipo
-    /// <see cref="double.NaN" />, <see cref="double.NegativeInfinity" /> y
-    /// <see cref="double.PositiveInfinity" />.
+    /// This implementation is included to allow parameters of type
+    /// <see cref="double.NaN" />, <see cref="double.NegativeInfinity" />,
+    /// and <see cref="double.PositiveInfinity" />.
     /// </remarks>
     public static double Clamp(this in double expression, in double max)
     {
@@ -184,17 +177,17 @@ public static partial class Common
     }
 
     /// <summary>
-    /// Establece límites de sobreflujo para evaluar una expresión.
+    /// Limits the range of an expression to prevent overflow.
     /// </summary>
-    /// <param name="expression">Expresión a evaluar.</param>
-    /// <param name="max">Límite superior de salida, inclusive.</param>
+    /// <param name="expression">The expression to evaluate.</param>
+    /// <param name="max">The upper bound of the output range, inclusive.</param>
     /// <returns>
-    /// El valor evaluado que se encuentra dentro del rango especificado.
+    /// The evaluated value within the specified range.
     /// </returns>
     /// <remarks>
-    /// Esta implementación se incluye para permitir parámetros de tipo
-    /// <see cref="float.NaN" />, <see cref="float.NegativeInfinity" /> y
-    /// <see cref="float.PositiveInfinity" />.
+    /// This implementation is included to allow parameters of type
+    /// <see cref="float.NaN" />, <see cref="float.NegativeInfinity" />,
+    /// and <see cref="float.PositiveInfinity" />.
     /// </remarks>
     public static float Clamp(this in float expression, in float max)
     {
@@ -202,18 +195,18 @@ public static partial class Common
     }
 
     /// <summary>
-    /// Establece límites de sobreflujo para evaluar una expresión.
+    /// Limits the range of an expression to prevent overflow.
     /// </summary>
-    /// <param name="expression">Expresión a evaluar.</param>
-    /// <param name="min">Límite inferior de salida, inclusive.</param>
-    /// <param name="max">Límite superior de salida, inclusive.</param>
+    /// <param name="expression">The expression to evaluate.</param>
+    /// <param name="min">The lower bound of the output range, inclusive.</param>
+    /// <param name="max">The upper bound of the output range, inclusive.</param>
     /// <returns>
-    /// El valor evaluado que se encuentra dentro del rango especificado.
+    /// The evaluated value within the specified range.
     /// </returns>
     /// <remarks>
-    /// Esta implementación se incluye para permitir parámetros de tipo
-    /// <see cref="float.NaN" />, <see cref="float.NegativeInfinity" /> y
-    /// <see cref="float.PositiveInfinity" />.
+    /// This implementation is included to allow parameters of type
+    /// <see cref="float.NaN" />, <see cref="float.NegativeInfinity" />,
+    /// and <see cref="float.PositiveInfinity" />.
     /// </remarks>
     public static float Clamp(this in float expression, in float min, in float max)
     {
@@ -228,13 +221,13 @@ public static partial class Common
     }
 
     /// <summary>
-    /// Establece puntos de sobreflujo intencional para evaluar una expresión.
+    /// Intentionally sets overflow points to evaluate an expression.
     /// </summary>
-    /// <param name="expression">Expresión a evaluar.</param>
-    /// <param name="max">Límite superior de salida, inclusive.</param>
-    /// <param name="min">Límite inferior de salida, inclusive.</param>
+    /// <param name="expression">Expression to evaluate.</param>
+    /// <param name="max">Upper bound of the output range, inclusive.</param>
+    /// <param name="min">Lower bound of the output range, inclusive.</param>
     /// <returns>
-    /// El valor evaluado que se encuentra dentro del rango especificado.
+    /// The evaluated value that is within the specified range.
     /// </returns>
     public static byte Wrap(this in byte expression, in byte min, in byte max)
     {
@@ -247,13 +240,13 @@ public static partial class Common
     }
 
     /// <summary>
-    /// Establece puntos de sobreflujo intencional para evaluar una expresión.
+    /// Intentionally sets overflow points to evaluate an expression.
     /// </summary>
-    /// <param name="expression">Expresión a evaluar.</param>
-    /// <param name="max">Límite superior de salida, inclusive.</param>
-    /// <param name="min">Límite inferior de salida, inclusive.</param>
+    /// <param name="expression">Expression to evaluate.</param>
+    /// <param name="max">Upper bound of the output range, inclusive.</param>
+    /// <param name="min">Lower bound of the output range, inclusive.</param>
     /// <returns>
-    /// El valor evaluado que se encuentra dentro del rango especificado.
+    /// The evaluated value that is within the specified range.
     /// </returns>
     public static int Wrap(this in short expression, in short min, in short max)
     {
@@ -263,13 +256,13 @@ public static partial class Common
     }
 
     /// <summary>
-    /// Establece puntos de sobreflujo intencional para evaluar una expresión.
+    /// Intentionally sets overflow points to evaluate an expression.
     /// </summary>
-    /// <param name="expression">Expresión a evaluar.</param>
-    /// <param name="max">Límite superior de salida, inclusive.</param>
-    /// <param name="min">Límite inferior de salida, inclusive.</param>
+    /// <param name="expression">Expression to evaluate.</param>
+    /// <param name="max">Upper bound of the output range, inclusive.</param>
+    /// <param name="min">Lower bound of the output range, inclusive.</param>
     /// <returns>
-    /// El valor evaluado que se encuentra dentro del rango especificado.
+    /// The evaluated value that is within the specified range.
     /// </returns>
     public static int Wrap(this in char expression, in char min, in char max)
     {
@@ -279,13 +272,13 @@ public static partial class Common
     }
 
     /// <summary>
-    /// Establece puntos de sobreflujo intencional para evaluar una expresión.
+    /// Intentionally sets overflow points to evaluate an expression.
     /// </summary>
-    /// <param name="expression">Expresión a evaluar.</param>
-    /// <param name="max">Límite superior de salida, inclusive.</param>
-    /// <param name="min">Límite inferior de salida, inclusive.</param>
+    /// <param name="expression">Expression to evaluate.</param>
+    /// <param name="max">Upper bound of the output range, inclusive.</param>
+    /// <param name="min">Lower bound of the output range, inclusive.</param>
     /// <returns>
-    /// El valor evaluado que se encuentra dentro del rango especificado.
+    /// The evaluated value that is within the specified range.
     /// </returns>
     public static int Wrap(this in int expression, in int min, in int max)
     {
@@ -295,13 +288,13 @@ public static partial class Common
     }
 
     /// <summary>
-    /// Establece puntos de sobreflujo intencional para evaluar una expresión.
+    /// Intentionally sets overflow points to evaluate an expression.
     /// </summary>
-    /// <param name="expression">Expresión a evaluar.</param>
-    /// <param name="max">Límite superior de salida, inclusive.</param>
-    /// <param name="min">Límite inferior de salida, inclusive.</param>
+    /// <param name="expression">Expression to evaluate.</param>
+    /// <param name="max">Upper bound of the output range, inclusive.</param>
+    /// <param name="min">Lower bound of the output range, inclusive.</param>
     /// <returns>
-    /// El valor evaluado que se encuentra dentro del rango especificado.
+    /// The evaluated value that is within the specified range.
     /// </returns>
     public static long Wrap(this in long expression, in long min, in long max)
     {
@@ -311,13 +304,13 @@ public static partial class Common
     }
 
     /// <summary>
-    /// Establece puntos de sobreflujo intencional para evaluar una expresión.
+    /// Intentionally sets overflow points to evaluate an expression.
     /// </summary>
-    /// <param name="expression">Expresión a evaluar.</param>
-    /// <param name="max">Límite superior de salida, inclusive.</param>
-    /// <param name="min">Límite inferior de salida, inclusive.</param>
+    /// <param name="expression">Expression to evaluate.</param>
+    /// <param name="max">Upper bound of the output range, inclusive.</param>
+    /// <param name="min">Lower bound of the output range, inclusive.</param>
     /// <returns>
-    /// El valor evaluado que se encuentra dentro del rango especificado.
+    /// The evaluated value that is within the specified range.
     /// </returns>
     public static decimal Wrap(this in decimal expression, in decimal min, in decimal max)
     {
@@ -327,13 +320,13 @@ public static partial class Common
     }
 
     /// <summary>
-    /// Establece puntos de sobreflujo intencional para evaluar una expresión.
+    /// Intentionally sets overflow points to evaluate an expression.
     /// </summary>
-    /// <param name="expression">Expresión a evaluar.</param>
-    /// <param name="max">Límite superior de salida, inclusive.</param>
-    /// <param name="min">Límite inferior de salida, inclusive.</param>
+    /// <param name="expression">Expression to evaluate.</param>
+    /// <param name="max">Upper bound of the output range, inclusive.</param>
+    /// <param name="min">Lower bound of the output range, inclusive.</param>
     /// <returns>
-    /// El valor evaluado que se encuentra dentro del rango especificado.
+    /// The evaluated value that is within the specified range.
     /// </returns>
     public static double Wrap(this in double expression, in double min, in double max)
     {
@@ -344,13 +337,13 @@ public static partial class Common
     }
 
     /// <summary>
-    /// Establece puntos de sobreflujo intencional para evaluar una expresión.
+    /// Intentionally sets overflow points to evaluate an expression.
     /// </summary>
-    /// <param name="expression">Expresión a evaluar.</param>
-    /// <param name="max">Límite superior de salida, inclusive.</param>
-    /// <param name="min">Límite inferior de salida, inclusive.</param>
+    /// <param name="expression">Expression to evaluate.</param>
+    /// <param name="max">Upper bound of the output range, inclusive.</param>
+    /// <param name="min">Lower bound of the output range, inclusive.</param>
     /// <returns>
-    /// El valor evaluado que se encuentra dentro del rango especificado.
+    /// The evaluated value that is within the specified range.
     /// </returns>
     public static float Wrap(this in float expression, in float min, in float max)
     {
@@ -361,13 +354,13 @@ public static partial class Common
     }
 
     /// <summary>
-    /// Establece puntos de sobreflujo intencional para evaluar una expresión.
+    /// Intentionally sets overflow points to evaluate an expression.
     /// </summary>
-    /// <param name="expression">Expresión a evaluar.</param>
-    /// <param name="max">Límite superior de salida, inclusive.</param>
-    /// <param name="min">Límite inferior de salida, inclusive.</param>
+    /// <param name="expression">Expression to evaluate.</param>
+    /// <param name="max">Upper bound of the output range, inclusive.</param>
+    /// <param name="min">Lower bound of the output range, inclusive.</param>
     /// <returns>
-    /// El valor evaluado que se encuentra dentro del rango especificado.
+    /// The evaluated value that is within the specified range.
     /// </returns>
     [CLSCompliant(false)]
     public static int Wrap(this in sbyte expression, in sbyte min, in sbyte max)
@@ -378,13 +371,13 @@ public static partial class Common
     }
 
     /// <summary>
-    /// Establece puntos de sobreflujo intencional para evaluar una expresión.
+    /// Intentionally sets overflow points to evaluate an expression.
     /// </summary>
-    /// <param name="expression">Expresión a evaluar.</param>
-    /// <param name="max">Límite superior de salida, inclusive.</param>
-    /// <param name="min">Límite inferior de salida, inclusive.</param>
+    /// <param name="expression">Expression to evaluate.</param>
+    /// <param name="max">Upper bound of the output range, inclusive.</param>
+    /// <param name="min">Lower bound of the output range, inclusive.</param>
     /// <returns>
-    /// El valor evaluado que se encuentra dentro del rango especificado.
+    /// The evaluated value that is within the specified range.
     /// </returns>
     [CLSCompliant(false)]
     public static int Wrap(this in ushort expression, in ushort min, in ushort max)
@@ -395,13 +388,13 @@ public static partial class Common
     }
 
     /// <summary>
-    /// Establece puntos de sobreflujo intencional para evaluar una expresión.
+    /// Intentionally sets overflow points to evaluate an expression.
     /// </summary>
-    /// <param name="expression">Expresión a evaluar.</param>
-    /// <param name="max">Límite superior de salida, inclusive.</param>
-    /// <param name="min">Límite inferior de salida, inclusive.</param>
+    /// <param name="expression">Expression to evaluate.</param>
+    /// <param name="max">Upper bound of the output range, inclusive.</param>
+    /// <param name="min">Lower bound of the output range, inclusive.</param>
     /// <returns>
-    /// El valor evaluado que se encuentra dentro del rango especificado.
+    /// The evaluated value that is within the specified range.
     /// </returns>
     [CLSCompliant(false)]
     public static uint Wrap(this in uint expression, in uint min, in uint max)
@@ -412,13 +405,13 @@ public static partial class Common
     }
 
     /// <summary>
-    /// Establece puntos de sobreflujo intencional para evaluar una expresión.
+    /// Intentionally sets overflow points to evaluate an expression.
     /// </summary>
-    /// <param name="expression">Expresión a evaluar.</param>
-    /// <param name="max">Límite superior de salida, inclusive.</param>
-    /// <param name="min">Límite inferior de salida, inclusive.</param>
+    /// <param name="expression">Expression to evaluate.</param>
+    /// <param name="max">Upper bound of the output range, inclusive.</param>
+    /// <param name="min">Lower bound of the output range, inclusive.</param>
     /// <returns>
-    /// El valor evaluado que se encuentra dentro del rango especificado.
+    /// The evaluated value that is within the specified range.
     /// </returns>
     [CLSCompliant(false)]
     public static ulong Wrap(this in ulong expression, in ulong min, in ulong max)

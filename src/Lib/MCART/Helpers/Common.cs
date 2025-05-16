@@ -497,7 +497,7 @@ public static partial class Common
     /// </returns>
     public static char FlipEndianness(this in char value)
     {
-        return BitConverter.ToChar(BitConverter.GetBytes(value).Reverse().ToArray(), 0);
+        return BitConverter.ToChar([.. BitConverter.GetBytes(value).Reverse()], 0);
     }
 
     /// <summary>
@@ -509,7 +509,7 @@ public static partial class Common
     /// </returns>
     public static double FlipEndianness(this in double value)
     {
-        return BitConverter.ToDouble(BitConverter.GetBytes(value).Reverse().ToArray(), 0);
+        return BitConverter.ToDouble([.. BitConverter.GetBytes(value).Reverse()], 0);
     }
 
     /// <summary>
@@ -521,7 +521,7 @@ public static partial class Common
     /// </returns>
     public static float FlipEndianness(this in float value)
     {
-        return BitConverter.ToSingle(BitConverter.GetBytes(value).Reverse().ToArray(), 0);
+        return BitConverter.ToSingle([.. BitConverter.GetBytes(value).Reverse()], 0);
     }
 
     /// <summary>
@@ -533,7 +533,7 @@ public static partial class Common
     /// </returns>
     public static int FlipEndianness(this in int value)
     {
-        return BitConverter.ToInt32(BitConverter.GetBytes(value).Reverse().ToArray(), 0);
+        return BitConverter.ToInt32([.. BitConverter.GetBytes(value).Reverse()], 0);
     }
 
     /// <summary>
@@ -545,7 +545,7 @@ public static partial class Common
     /// </returns>
     public static long FlipEndianness(this in long value)
     {
-        return BitConverter.ToInt64(BitConverter.GetBytes(value).Reverse().ToArray(), 0);
+        return BitConverter.ToInt64([.. BitConverter.GetBytes(value).Reverse()], 0);
     }
 
     /// <summary>
@@ -557,7 +557,7 @@ public static partial class Common
     /// </returns>
     public static short FlipEndianness(this in short value)
     {
-        return BitConverter.ToInt16(BitConverter.GetBytes(value).Reverse().ToArray(), 0);
+        return BitConverter.ToInt16([.. BitConverter.GetBytes(value).Reverse()], 0);
     }
 
     /// <summary>
@@ -570,7 +570,7 @@ public static partial class Common
     [CLSCompliant(false)]
     public static uint FlipEndianness(this in uint value)
     {
-        return BitConverter.ToUInt32(BitConverter.GetBytes(value).Reverse().ToArray(), 0);
+        return BitConverter.ToUInt32([.. BitConverter.GetBytes(value).Reverse()], 0);
     }
 
     /// <summary>
@@ -583,7 +583,7 @@ public static partial class Common
     [CLSCompliant(false)]
     public static ulong FlipEndianness(this in ulong value)
     {
-        return BitConverter.ToUInt64(BitConverter.GetBytes(value).Reverse().ToArray(), 0);
+        return BitConverter.ToUInt64([.. BitConverter.GetBytes(value).Reverse()], 0);
     }
 
     /// <summary>
@@ -596,7 +596,7 @@ public static partial class Common
     [CLSCompliant(false)]
     public static ushort FlipEndianness(this in ushort value)
     {
-        return BitConverter.ToUInt16(BitConverter.GetBytes(value).Reverse().ToArray(), 0);
+        return BitConverter.ToUInt16([.. BitConverter.GetBytes(value).Reverse()], 0);
     }
 
     /// <summary>
@@ -804,152 +804,156 @@ public static partial class Common
     }
 
     /// <summary>
-    /// Genera una secuencia de números en el rango especificado.
+    /// Generates a sequence of number in the specified range.
     /// </summary>
     /// <returns>
-    /// Una lista de enteros con la secuencia generada.
+    /// A sequence of integer numbers starting on the specified
+    /// <paramref name="floor"/> value and ending on the specified
+    /// <paramref name="top"/> value.
     /// </returns>
-    /// <param name="floor">Valor más bajo.</param>
-    /// <param name="top">Valor más alto.</param>
+    /// <param name="floor">Starting value of the sequence.</param>
+    /// <param name="top">End value of the sequence.</param>
     public static IEnumerable<int> Sequence(in int floor, in int top)
     {
         return Sequence(floor, top, 1);
     }
 
     /// <summary>
-    /// Genera una secuencia de números en el rango especificado.
+    /// Generates a sequence of number in the specified range.
     /// </summary>
     /// <returns>
-    /// Una lista de enteros con la secuencia generada.
+    /// A sequence of integer numbers starting on 0 and ending on the specified
+    /// <paramref name="top"/> value.
     /// </returns>
-    /// <param name="top">Valor más alto.</param>
+    /// <param name="top">End value of the sequence.</param>
     public static IEnumerable<int> Sequence(in int top)
     {
         return Sequence(0, top, 1);
     }
 
     /// <summary>
-    /// Genera una secuencia de números en el rango especificado.
+    /// Generates a sequence of number in the specified range.
     /// </summary>
     /// <returns>
-    /// Una lista de enteros con la secuencia generada.
+    /// A sequence of integer numbers starting on the specified
+    /// <paramref name="floor"/> value and ending on the specified
+    /// <paramref name="top"/> value.
     /// </returns>
-    /// <param name="floor">Valor más bajo.</param>
-    /// <param name="top">Valor más alto.</param>
-    /// <param name="stepping">Saltos del secuenciador.</param>
+    /// <param name="floor">Starting value of the sequence.</param>
+    /// <param name="top">End value of the sequence.</param>
+    /// <param name="stepping">Sequence stepping.</param>
     /// <exception cref="ArgumentOutOfRangeException">
-    /// Se produce si <paramref name="stepping"/> es igual a <c>0</c>.
+    /// Thrown if <paramref name="stepping"/> is <c>0</c>.
     /// </exception>
     public static IEnumerable<int> Sequence(int floor, int top, int stepping)
     {
         Sequence_Contract(top, stepping);
-        if (floor > top) stepping *= -1;
+        if (floor > top && stepping > 0) stepping *= -1;
         for (int b = floor; stepping > 0 ? b <= top : b >= top; b += stepping)
             yield return b;
     }
 
     /// <summary>
-    /// Convierte un <see cref="byte"/> en una colección de bits.
+    /// Converts a <see cref="byte"/> into a collection of bits.
     /// </summary>
     /// <param name="value">
-    /// Valor a convertir.
+    /// Value to be converted.
     /// </param>
     /// <returns>
-    /// Una colección de los bits que componen al valor.
+    /// A collection of the bits conforming the value.
     /// </returns>
     public static IEnumerable<bool> ToBits(this in byte value) => ToBits(value, 8);
 
     /// <summary>
-    /// Convierte un <see cref="int"/> en una colección de bits.
+    /// Converts a <see cref="int"/> into a collection of bits.
     /// </summary>
     /// <param name="value">
-    /// Valor a convertir.
+    /// Value to be converted.
     /// </param>
     /// <returns>
-    /// Una colección de los bits que componen al valor.
+    /// A collection of the bits conforming the value.
     /// </returns>
     public static IEnumerable<bool> ToBits(this in int value) => ToBits((ulong)value, 32);
 
     /// <summary>
-    /// Convierte un <see cref="long"/> en una colección de bits.
+    /// Converts a <see cref="long"/> into a collection of bits.
     /// </summary>
     /// <param name="value">
-    /// Valor a convertir.
+    /// Value to be converted.
     /// </param>
     /// <returns>
-    /// Una colección de los bits que componen al valor.
+    /// A collection of the bits conforming the value.
     /// </returns>
     public static IEnumerable<bool> ToBits(this in long value) => ToBits((ulong)value, 64);
 
     /// <summary>
-    /// Convierte un <see cref="sbyte"/> en una colección de bits.
+    /// Converts a <see cref="sbyte"/> into a collection of bits.
     /// </summary>
     /// <param name="value">
-    /// Valor a convertir.
+    /// Value to be converted.
     /// </param>
     /// <returns>
-    /// Una colección de los bits que componen al valor.
+    /// A collection of the bits conforming the value.
     /// </returns>
     [CLSCompliant(false)]
     public static IEnumerable<bool> ToBits(this in sbyte value) => ToBits((ulong)value, 8);
 
     /// <summary>
-    /// Convierte un <see cref="short"/> en una colección de bits.
+    /// Converts a <see cref="short"/> into a collection of bits.
     /// </summary>
     /// <param name="value">
-    /// Valor a convertir.
+    /// Value to be converted.
     /// </param>
     /// <returns>
-    /// Una colección de los bits que componen al valor.
+    /// A collection of the bits conforming the value.
     /// </returns>
     public static IEnumerable<bool> ToBits(this in short value) => ToBits((ulong)value, 16);
 
     /// <summary>
-    /// Convierte un <see cref="uint"/> en una colección de bits.
+    /// Converts a <see cref="uint"/> into a collection of bits.
     /// </summary>
     /// <param name="value">
-    /// Valor a convertir.
+    /// Value to be converted.
     /// </param>
     /// <returns>
-    /// Una colección de los bits que componen al valor.
+    /// A collection of the bits conforming the value.
     /// </returns>
     [CLSCompliant(false)]
     public static IEnumerable<bool> ToBits(this in uint value) => ToBits(value, 32);
 
     /// <summary>
-    /// Convierte un <see cref="ulong"/> en una colección de bits.
+    /// Converts a <see cref="ulong"/> into a collection of bits.
     /// </summary>
     /// <param name="value">
-    /// Valor a convertir.
+    /// Value to be converted.
     /// </param>
     /// <returns>
-    /// Una colección de los bits que componen al valor.
+    /// A collection of the bits conforming the value.
     /// </returns>
     [CLSCompliant(false)]
     public static IEnumerable<bool> ToBits(this in ulong value) => ToBits(value, 64);
 
     /// <summary>
-    /// Convierte un <see cref="ushort"/> en una colección de bits.
+    /// Converts a <see cref="ushort"/> into a collection of bits.
     /// </summary>
     /// <param name="value">
-    /// Valor a convertir.
+    /// Value to be converted.
     /// </param>
     /// <returns>
-    /// Una colección de los bits que componen al valor.
+    /// A collection of the bits conforming the value.
     /// </returns>
     [CLSCompliant(false)]
     public static IEnumerable<bool> ToBits(this in ushort value) => ToBits(value, 16);
 
     /// <summary>
-    /// Atajo de <see cref="BitConverter.ToString(byte[])" /> que no
-    /// incluye guiones.
+    /// Shortcut of <see cref="BitConverter.ToString(byte[])" /> that does not include hyphens.
     /// </summary>
     /// <returns>
-    /// La representación hexadecimal del arreglo de <see cref="byte" />.
+    /// The hex representation of the <see cref="byte" /> array.
     /// </returns>
-    /// <param name="arr">Arreglo de bytes a convertir.</param>
+    /// <param name="arr">Byte array to convert.</param>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="arr"/> es <see langword="null"/>.
+    /// Thrown if <paramref name="arr"/> is <see langword="null"/>.
     /// </exception>
     [Sugar]
     public static string ToHex(this byte[] arr)
@@ -959,12 +963,12 @@ public static partial class Common
     }
 
     /// <summary>
-    /// Convierte un <see cref="byte" /> en su representación hexadecimal.
+    /// Converts a <see cref="byte" /> into its hex representation.
     /// </summary>
     /// <returns>
-    /// La representación hexadecimal de <paramref name="byte" />.
+    /// the hex representaiton of the <paramref name="byte" /> value.
     /// </returns>
-    /// <param name="byte">El <see cref="byte" /> a convertir.</param>
+    /// <param name="byte">The <see cref="byte" /> value to convert.</param>
     [Sugar]
     public static string ToHex(this in byte @byte)
     {

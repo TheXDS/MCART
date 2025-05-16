@@ -3,8 +3,6 @@ ReflectionHelpers_Contracts.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
-Este archivo contiene funciones de manipulación de objetos, 
-
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
@@ -30,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.Collections;
 using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -39,9 +36,6 @@ using static TheXDS.MCART.Misc.Internals;
 
 namespace TheXDS.MCART.Helpers;
 
-/// <summary>
-/// Funciones auxiliares de reflexión.
-/// </summary>
 public static partial class ReflectionHelpers
 {
     [Conditional("EnforceContracts")]

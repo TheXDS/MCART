@@ -3,8 +3,6 @@ Tween.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
-Este archivo contiene diversas fórmulas de suavizado.
-
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
@@ -33,40 +31,40 @@ SOFTWARE.
 namespace TheXDS.MCART.Math;
 
 /// <summary>
-/// Contiene diversas fórmulas de suavizado.
+/// Contains a series of motion tween functions.
 /// </summary>
 public static class Tween
 {
     /// <summary>
-    /// Describe una función que aplica una transformación de suavizado.
+    /// Describes a function that applies a smoothing transformation.
     /// </summary>
     /// <returns>
-    /// Un valor correspondiente al suavizado aplicado.
+    /// A value corresponding to the applied smoothing.
     /// </returns>
     /// <param name="position">
-    /// Valor entre <c>0.0</c> y <c>1.0</c> que indica la posición en la línea de tiempo.
+    /// Value between <c>0.0</c> and <c>1.0</c> indicating the position in the timeline.
     /// </param>
     public delegate double TweenFunction(in double position);
 
     /// <summary>
-    /// Realiza un suavizado lineal de un valor.
+    /// Performs a linear smoothing of a value.
     /// </summary>
     /// <returns>
-    /// Un valor correspondiente al suavizado aplicado.
+    /// A value corresponding to the applied smoothing.
     /// </returns>
     /// <param name="position">
-    /// Valor entre <c>0.0</c> y <c>1.0</c> que indica la posición en la línea de tiempo.
+    /// Value between <c>0.0</c> and <c>1.0</c> indicating the position in the timeline.
     /// </param>
     public static double Linear(in double position) => position;
 
     /// <summary>
-    /// Realiza un suavizado cuadrático de un valor.
+    /// Performs a quadratic smoothing of a value.
     /// </summary>
     /// <returns>
-    /// Un valor correspondiente al suavizado aplicado.
+    /// A value corresponding to the applied smoothing.
     /// </returns>
     /// <param name="position">
-    /// Valor entre <c>0.0</c> y <c>1.0</c> que indica la posición en la línea de tiempo.
+    /// Value between <c>0.0</c> and <c>1.0</c> indicating the position in the timeline.
     /// </param>
     public static double Quadratic(in double position)
     {
@@ -75,13 +73,13 @@ public static class Tween
     }
 
     /// <summary>
-    /// Realiza un suavizado cúbico de un valor.
+    /// Performs a cubic smoothing of a value.
     /// </summary>
     /// <returns>
-    /// Un valor correspondiente al suavizado aplicado.
+    /// A value corresponding to the applied smoothing.
     /// </returns>
     /// <param name="position">
-    /// Valor entre <c>0.0</c> y <c>1.0</c> que indica la posición en la línea de tiempo.
+    /// Value between <c>0.0</c> and <c>1.0</c> indicating the position in the timeline.
     /// </param>
     public static double Cubic(in double position)
     {
@@ -89,13 +87,13 @@ public static class Tween
     }
 
     /// <summary>
-    /// Realiza un suavizado cuártico de un valor.
+    /// Performs a quartic smoothing of a value.
     /// </summary>
     /// <returns>
-    /// Un valor correspondiente al suavizado aplicado.
+    /// A value corresponding to the applied smoothing.
     /// </returns>
     /// <param name="position">
-    /// Valor entre <c>0.0</c> y <c>1.0</c> que indica la posición en la línea de tiempo.
+    /// Value between <c>0.0</c> and <c>1.0</c> indicating the position in the timeline.
     /// </param>
     public static double Quartic(in double position)
     {
@@ -103,67 +101,67 @@ public static class Tween
     }
 
     /// <summary>
-    /// Realiza un suavizado con sacudida de un valor.
+    /// Performs a shaky smoothing of a value.
     /// </summary>
     /// <returns>
-    /// Un valor correspondiente al suavizado aplicado.
+    /// A value corresponding to the applied smoothing.
     /// </returns>
     /// <param name="position">
-    /// Valor entre <c>0.0</c> y <c>1.0</c> que indica la posición en la línea de tiempo.
+    /// Value between <c>0.0</c> and <c>1.0</c> indicating the position in the timeline.
     /// </param>
     public static double Shaky(in double position) => Shaky(position, 10);
 
     /// <summary>
-    /// Realiza un suavizado con sacudida de un valor.
+    /// Performs a shaky smoothing of a value.
     /// </summary>
     /// <returns>
-    /// Un valor correspondiente al suavizado aplicado.
+    /// A value corresponding to the applied smoothing.
     /// </returns>
     /// <param name="position">
-    /// Valor entre <c>0.0</c> y <c>1.0</c> que indica la posición en la línea de tiempo.
+    /// Value between <c>0.0</c> and <c>1.0</c> indicating the position in the timeline.
     /// </param>
-    /// <param name="shakes">Cantidad de sacudidas a realizar.</param>
+    /// <param name="shakes">Number of shakes to perform.</param>
     public static double Shaky(in double position, in int shakes)
     {
         return 1 - (System.Math.Cos(shakes * System.Math.PI * position) * System.Math.Cos(System.Math.PI / 2 * position));
     }
 
     /// <summary>
-    /// Realiza un suavizado con rebote de un valor.
+    /// Performs a bouncy smoothing of a value.
     /// </summary>
     /// <returns>
-    /// Un valor correspondiente al suavizado aplicado.
+    /// A value corresponding to the applied smoothing.
     /// </returns>
     /// <param name="position">
-    /// Valor entre <c>0.0</c> y <c>1.0</c> que indica la posición en la línea de tiempo.
+    /// Value between <c>0.0</c> and <c>1.0</c> indicating the position in the timeline.
     /// </param>
     public static double Bouncy(in double position) => Bouncy(position, 10);
 
     /// <summary>
-    /// Realiza un suavizado con rebote de un valor.
+    /// Performs a bouncy smoothing of a value.
     /// </summary>
     /// <returns>
-    /// Un valor correspondiente al suavizado aplicado.
+    /// A value corresponding to the applied smoothing.
     /// </returns>
     /// <param name="position">
-    /// Valor entre <c>0.0</c> y <c>1.0</c> que indica la posición en la línea de tiempo.
+    /// Value between <c>0.0</c> and <c>1.0</c> indicating the position in the timeline.
     /// </param>
-    /// <param name="bounces">Cantidad de rebotes a calcular.</param>
+    /// <param name="bounces">Number of bounces to calculate.</param>
     public static double Bouncy(in double position, in int bounces) => Bouncy(position, bounces, 8);
 
     /// <summary>
-    /// Realiza un suavizado con rebote de un valor.
+    /// Performs a bouncy smoothing of a value.
     /// </summary>
     /// <returns>
-    /// Un valor correspondiente al suavizado aplicado.
+    /// A value corresponding to the applied smoothing.
     /// </returns>
     /// <param name="position">
-    /// Valor entre <c>0.0</c> y <c>1.0</c> que indica la posición en la línea de tiempo.
+    /// Value between <c>0.0</c> and <c>1.0</c> indicating the position in the timeline.
     /// </param>
-    /// <param name="bounces">Cantidad de rebotes a calcular.</param>
-    /// <param name="damping">Amortiguación a calcular.</param>
+    /// <param name="bounces">Number of bounces to calculate.</param>
+    /// <param name="damping">Damping to calculate.</param>
     public static double Bouncy(in double position, in int bounces, in int damping)
     {
-        return 1 - (System.Math.Cos(bounces * System.Math.PI * position) * (1 - System.Math.Pow(position, 1 / (double)damping)));
+        return 1 - (System.Math.Cos(bounces * System.Math.PI * position) * (1 - System.Math.Pow(position, 1.0 / damping)));
     }
 }

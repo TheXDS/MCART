@@ -34,30 +34,29 @@ using TheXDS.MCART.Attributes;
 namespace TheXDS.MCART.Resources;
 
 /// <summary>
-/// <see cref="ICompressorGetter"/> que construye un
-/// <see cref="DeflateStream"/> que puede ser utilizado para extraer
-/// información comprimida desde un <see cref="Stream"/>.
+/// <see cref="ICompressorGetter"/> that constructs a
+/// <see cref="DeflateStream"/> that can be used to extract
+/// compressed information from a <see cref="Stream"/>.
 /// </summary>
 [Tag("deflate")]
 public sealed class DeflateGetter : ICompressorGetter
 {
     /// <summary>
-    /// Obtiene un <see cref="DeflateStream"/> para extraer información
-    /// comprimida desde <paramref name="inputStream"/>.
+    /// Gets a <see cref="DeflateStream"/> to extract compressed
+    /// information from <paramref name="inputStream"/>.
     /// </summary>
     /// <param name="inputStream">
-    /// <see cref="Stream"/> que contiene la información a extraer.
+    /// <see cref="Stream"/> containing the information to extract.
     /// </param>
     /// <returns>
-    /// Un <see cref="DeflateStream"/> que puede utilizarse para extraer
-    /// información comprimida desde <paramref name="inputStream"/>.
+    /// A <see cref="DeflateStream"/> that can be used to extract
+    /// compressed information from <paramref name="inputStream"/>.
     /// </returns>
     public Stream GetCompressor(Stream inputStream) => new DeflateStream(inputStream, CompressionMode.Decompress);
 
     /// <summary>
-    /// Obtiene la extensión utilizada de forma predeterminada para un
-    /// recurso comprimido utilizando este
-    /// <see cref="ICompressorGetter"/>.
+    /// Gets the extension used by default for a compressed resource
+    /// using this <see cref="ICompressorGetter"/>.
     /// </summary>
     public string Extension => ".deflate";
 }

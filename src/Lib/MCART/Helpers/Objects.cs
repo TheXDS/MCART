@@ -3,8 +3,6 @@ Objects.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
-Este archivo contiene funciones de manipulación de objetos, 
-
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
@@ -41,21 +39,20 @@ using static System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes;
 namespace TheXDS.MCART.Helpers;
 
 /// <summary>
-/// Funciones de manipulación de objetos.
+/// Object manipulation functions.
 /// </summary>
 public static partial class Objects
 {
     /// <summary>
-    /// Determina si todos los objetos son <see langword="null" />.
+    /// Determines if all objects are <see langword="null" />.
     /// </summary>
     /// <returns>
-    /// <see langword="true" />, si todos los objetos son <see langword="null" />; de lo contrario,
-    /// <see langword="false" />.
+    /// <see langword="true" /> if all objects are <see langword="null" />;
+    /// otherwise, <see langword="false" />.
     /// </returns>
-    /// <param name="collection">Objetos a comprobar.</param>
+    /// <param name="collection">Objects to check.</param>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="collection"/> es
-    /// <see langword="null"/>.
+    /// Thrown if <paramref name="collection"/> is <see langword="null"/>.
     /// </exception>
     public static bool AreAllNull(params object?[] collection)
     {
@@ -63,24 +60,21 @@ public static partial class Objects
     }
 
     /// <summary>
-    /// Obtiene un valor de tipo <typeparamref name="T"/> a partir de un
-    /// arreglo de bytes utilizando Marshaling.
+    /// Gets a value of type <typeparamref name="T"/> from a byte array
+    /// using marshaling.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de valor a obtener. Debe ser una estructura.
+    /// Type of value to retrieve. Must be a structure.
     /// </typeparam>
-    /// <param name="rawBytes">
-    /// Bytes desde los cuales obtener el valor.
-    /// </param>
+    /// <param name="rawBytes">Bytes to convert into the value.</param>
     /// <returns>
-    /// Un valor de tipo <typeparamref name="T"/> creado a partir del
-    /// arreglo de bytes.
+    /// A value of type <typeparamref name="T"/> created from the byte array.
     /// </returns>
     /// <remarks>
-    /// Será necesario decorar los campos de tipo <see cref="string"/> de
-    /// la estructura con el siguiente snippet de código:
+    /// Fields of type <see cref="string"/> in the structure must be
+    /// decorated with:
     /// <code>
-    /// [MarshalAs(UnmanagedType.ByValTStr, SizeConst = &lt;tamaño máximo&gt;)]
+    /// [MarshalAs(UnmanagedType.ByValTStr, SizeConst = &lt;max size&gt;)]
     /// </code>
     /// </remarks>
     /// <seealso cref="GetBytes{T}(T)"/>
@@ -102,19 +96,15 @@ public static partial class Objects
     }
 
     /// <summary>
-    /// Devuelve el atributo asociado a la declaración del tipo
-    /// especificado.
+    /// Returns the attribute associated with the specified type declaration.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de atributo a devolver. Debe heredar
-    /// <see cref="Attribute" />.
+    /// Type of attribute to return. Must inherit from <see cref="Attribute" />.
     /// </typeparam>
-    /// <typeparam name="TIt">
-    /// Tipo del cual se extraerá el atributo.
-    /// </typeparam>
+    /// <typeparam name="TIt">Type from which to extract the attribute.</typeparam>
     /// <returns>
-    /// Un atributo del tipo <typeparamref name="T" /> con los datos
-    /// asociados en la declaración del tipo.
+    /// An attribute of type <typeparamref name="T" /> with the data
+    /// associated with the type declaration.
     /// </returns>
     [Sugar]
     public static T? GetAttribute<T, TIt>() where T : Attribute
@@ -124,21 +114,19 @@ public static partial class Objects
     }
 
     /// <summary>
-    /// Obtiene un arreglo de bytes a partir de un valor de tipo
-    /// <typeparamref name="T"/> utilizando Marshaling.
+    /// Gets a byte array from a value of type <typeparamref name="T"/>
+    /// using marshaling.
     /// </summary>
-    /// <typeparam name="T">
-    /// Tipo de valor desde el cual obtener el arreglo de bytes.
-    /// </typeparam>
-    /// <param name="value">Valor desde el cual obtener los bytes.</param>
+    /// <typeparam name="T">Type of value to convert to bytes.</typeparam>
+    /// <param name="value">Value to convert to bytes.</param>
     /// <returns>
-    /// Un arreglo de bytes con el cual es posible reconstruir el valor.
+    /// A byte array that can be used to reconstruct the value.
     /// </returns>
     /// <remarks>
-    /// Será necesario decorar los campos de tipo <see cref="string"/> de
-    /// la estructura con el siguiente snippet de código:
+    /// Fields of type <see cref="string"/> in the structure must be
+    /// decorated with:
     /// <code>
-    /// [MarshalAs(UnmanagedType.ByValTStr, SizeConst = &lt;tamaño máximo&gt;)]
+    /// [MarshalAs(UnmanagedType.ByValTStr, SizeConst = &lt;max size&gt;)]
     /// </code>
     /// </remarks>
     /// <seealso cref="FromBytes{T}(byte[])"/>
@@ -161,27 +149,27 @@ public static partial class Objects
     }
 
     /// <summary>
-    /// Determina si cualquiera de los objetos es <see langword="null" />.
+    /// Determines if any of the objects is <see langword="null" />.
     /// </summary>
     /// <returns>
-    /// <see langword="true" />, si cualquiera de los objetos es <see langword="null" />; de lo
-    /// contrario, <see langword="false" />.
+    /// <see langword="true" /> if any object is <see langword="null" />;
+    /// otherwise, <see langword="false" />.
     /// </returns>
-    /// <param name="x">Objetos a comprobar.</param>
+    /// <param name="x">Objects to check.</param>
     public static bool IsAnyNull(params object?[] x)
     {
         return x.IsAnyNull();
     }
 
     /// <summary>
-    /// Devuelve una referencia circular a este mismo objeto.
+    /// Returns a circular reference to this object.
     /// </summary>
-    /// <returns>Este objeto.</returns>
-    /// <param name="obj">Objeto.</param>
-    /// <typeparam name="T">Tipo de este objeto.</typeparam>
+    /// <returns>This object.</returns>
+    /// <param name="obj">Object.</param>
+    /// <typeparam name="T">Type of this object.</typeparam>
     /// <remarks>
-    /// Esta función es únicamente útil al utilizar Visual
-    /// Basic en conjunto con la estructura <c lang="VB">With</c>.
+    /// This function is only useful when using Visual Basic with the
+    /// <c lang="VB">With</c> structure.
     /// </remarks>
     [Sugar]
     public static T Itself<T>(this T obj)
@@ -190,14 +178,14 @@ public static partial class Objects
     }
 
     /// <summary>
-    /// Crea una nueva copia del objeto.
+    /// Creates a new copy of the object.
     /// </summary>
-    /// <typeparam name="T">Tipo de objeto a clonar.</typeparam>
-    /// <param name="source">Objeto de origen.</param>
+    /// <typeparam name="T">Type of object to clone.</typeparam>
+    /// <param name="source">Source object.</param>
     /// <returns>
-    /// Una nueva instancia de tipo <typeparamref name="T"/>, que contiene
-    /// los mismos valores que <paramref name="source"/> en sus campos
-    /// públicos y propiedades de lectura/escritura.
+    /// A new instance of type <typeparamref name="T"/> with the same
+    /// values as <paramref name="source"/> in its public fields and
+    /// read/write properties.
     /// </returns>
     public static T ShallowClone<[DynamicallyAccessedMembers(PublicFields | PublicProperties)] T>(this T source) where T : notnull, new()
     {
@@ -207,13 +195,11 @@ public static partial class Objects
     }
 
     /// <summary>
-    /// Copia el valor de las propiedades de un objeto a otro.
+    /// Copies the property values from one object to another.
     /// </summary>
-    /// <typeparam name="T">
-    /// Tipo de objetos sobre los cuales ejecutar la operación.
-    /// </typeparam>
-    /// <param name="source">Objeto de origen.</param>
-    /// <param name="destination">Objeto de destino.</param>
+    /// <typeparam name="T">Type of objects to operate on.</typeparam>
+    /// <param name="source">Source object.</param>
+    /// <param name="destination">Destination object.</param>
     public static void ShallowCopyTo<[DynamicallyAccessedMembers(PublicFields | PublicProperties)] T>(this T source, T destination) where T : notnull
     {
         ShallowCopyTo_Contract(source, destination);
@@ -228,14 +214,13 @@ public static partial class Objects
     }
 
     /// <summary>
-    /// Copies the propety values from one object to another.
+    /// Copies the property values from one object to another.
     /// </summary>
     /// <param name="source">Source object.</param>
     /// <param name="destination">Destination object.</param>
     /// <param name="objectType">
-    /// Type of objects to be copied. It will also scope the copy to the
-    /// properties and fields that are directly accessible within the specified
-    /// type.
+    /// Type of objects to copy. Limits the copy to properties and fields
+    /// accessible within the specified type.
     /// </param>
     public static void ShallowCopyTo(this object source, object destination, [DynamicallyAccessedMembers(PublicFields | PublicProperties)] Type objectType)
     {
@@ -251,13 +236,11 @@ public static partial class Objects
     }
 
     /// <summary>
-    /// Obtiene una lista de los tipos de los objetos especificados.
+    /// Gets a list of the types of the specified objects.
     /// </summary>
-    /// <param name="objects">
-    /// Objetos a partir de los cuales generar la colección de tipos.
-    /// </param>
+    /// <param name="objects">Objects to generate the type collection from.</param>
     /// <returns>
-    /// Una lista compuesta por los tipos de los objetos provistos.
+    /// A list of the types of the provided objects.
     /// </returns>
     public static IEnumerable<Type> ToTypes(params object[] objects)
     {
@@ -265,28 +248,25 @@ public static partial class Objects
     }
 
     /// <summary>
-    /// Encapsula <see cref="Delegate.CreateDelegate(Type, object, string, bool, bool)"/>
-    /// para garantizar la captura de todas las excepciones posibles.
+    /// Encapsulates <see cref="Delegate.CreateDelegate(Type, object, string, bool, bool)"/>
+    /// to ensure all possible exceptions are caught.
     /// </summary>
-    /// <typeparam name="T">
-    /// Tipo del delegado a crear.
-    /// </typeparam>
-    /// <param name="method">
-    /// Método desde el cual se creará el delegado.
+    /// <typeparam name="T">Type of delegate to create.</typeparam>
+    /// <param name="method">Method to create the delegate from.</param>
+    /// <param name="instance">Instance to bind the delegate to.</param>
+    /// <param name="delegate">
+    /// Created delegate. <see langword="null"/> if the delegate could not
+    /// be created.
     /// </param>
-    /// <param name="instance">Instancia hacia la cual enlazar el delegado a crear.</param>
-    /// <param name="delegate">Delegado que ha sido creado. <see langword="null"/> si no fue posible crear el delegado especificado.</param>
     /// <returns>
-    /// <see langword="true"/> si se ha creado el delegado de forma
-    /// satisfactoria, <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if the delegate was successfully created;
+    /// otherwise, <see langword="false"/>.
     /// </returns>
     /// <remarks>
-    /// Este método se creó debido a un Quirk de funcionamiento del
-    /// método
+    /// This method was created due to a quirk in
     /// <see cref="Delegate.CreateDelegate(Type, object, string, bool, bool)"/>,
-    /// en el cual el mismo aún podría arrojar una excepción cuando no
-    /// es posible enlazar un método a un delegado si el método
-    /// contiene parámetros genéricos.
+    /// where it may still throw an exception if the method contains
+    /// generic parameters.
     /// </remarks>
     [RequiresUnreferencedCode(AttributeErrorMessages.MethodCreatesDelegates)]
     public static bool TryCreateDelegate<T>(MethodInfo method, object instance, [NotNullWhen(true)] out T? @delegate) where T : notnull, Delegate
@@ -304,29 +284,23 @@ public static partial class Objects
     }
 
     /// <summary>
-    /// Versión segura de <see cref="Delegate.CreateDelegate(Type, MethodInfo, bool)"/>
+    /// Safe version of <see cref="Delegate.CreateDelegate(Type, MethodInfo, bool)"/>.
     /// </summary>
-    /// <typeparam name="T">
-    /// Tipo del delegado a crear.
-    /// </typeparam>
-    /// <param name="method">
-    /// Método desde el cual se creará el delegado.
-    /// </param>
+    /// <typeparam name="T">Type of delegate to create.</typeparam>
+    /// <param name="method">Method to create the delegate from.</param>
     /// <param name="delegate">
-    /// Delegado que ha sido creado. <see langword="null"/> si no fue
-    /// posible crear el delegado especificado.
+    /// Created delegate. <see langword="null"/> if the delegate could not
+    /// be created.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si se ha creado el delegado de forma
-    /// satisfactoria, <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if the delegate was successfully created;
+    /// otherwise, <see langword="false"/>.
     /// </returns>
     /// <remarks>
-    /// Este método se creó debido a un Quirk de funcionamiento del
-    /// método
+    /// This method was created due to a quirk in
     /// <see cref="Delegate.CreateDelegate(Type, MethodInfo, bool)"/>,
-    /// en el cual el mismo aún podría arrojar una excepción cuando no
-    /// es posible enlazar un método a un delegado si el método
-    /// contiene parámetros genéricos.
+    /// where it may still throw an exception if the method contains
+    /// generic parameters.
     /// </remarks>
     public static bool TryCreateDelegate<T>(MethodInfo method, [NotNullWhen(true)] out T? @delegate) where T : notnull, Delegate
     {
@@ -343,12 +317,12 @@ public static partial class Objects
     }
 
     /// <summary>
-    /// Determina si cualquiera de los objetos es <see langword="null" />.
+    /// Determines which objects are <see langword="null" />.
     /// </summary>
     /// <returns>
-    /// Un enumerador con los índices de los objetos que son <see langword="null" />.
+    /// An enumerator with the indices of objects that are <see langword="null" />.
     /// </returns>
-    /// <param name="collection">Colección de objetos a comprobar.</param>
+    /// <param name="collection">Collection of objects to check.</param>
     public static IEnumerable<int> WhichAreNull(params object?[] collection)
     {
         return collection.WhichAreNull();

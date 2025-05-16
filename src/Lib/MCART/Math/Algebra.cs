@@ -29,19 +29,16 @@ SOFTWARE.
 */
 
 using System.Collections.Concurrent;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO.Compression;
 using System.Reflection;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Helpers;
-using TheXDS.MCART.Misc;
-using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Math;
 
 /// <summary>
-/// Contiene series, operaciones, ecuaciones y constantes matemáticas adicionales.
+/// Contains algebraic and general-purpose mathematical functions.
 /// </summary>
 public static class Algebra
 {
@@ -51,68 +48,62 @@ public static class Algebra
     {
         get
         {
-            return _primes ??= ReadKnownPrimes().ToArray();
+            return _primes ??= [.. ReadKnownPrimes()];
         }
     }
 
     /// <summary>
-    /// Comprueba si un número es primo mediante prueba y error.
+    /// Checks if a number is prime using trial division.
     /// </summary>
     /// <returns>
-    /// <see langword="true" /> si el número es primo,
-    /// <see langword="false" /> en caso contrario.
+    /// <see langword="true" /> if the number is prime,
+    /// <see langword="false" /> otherwise.
     /// </returns>
-    /// <param name="number">Número a comprobar.</param>
+    /// <param name="number">Number to check.</param>
     public static bool IsPrime(this in long number)
     {
         if (number == 1) return false;
-        if (number < KnownPrimes[^1] && KnownPrimes.Contains((int)number)) return true;
-
+        if (number < KnownPrimes[^1] && KnownPrimes.Contains((int)number))
+            return true;
         foreach (int prime in KnownPrimes)
         {
             if (number % prime == 0) return false;
         }
-
         long l = number / 2;
         for (long k = KnownPrimes[^1] + 2; k <= l; k += 2)
         {
             if (number % k == 0) return false;
         }
-
         return true;
     }
 
     /// <summary>
-    /// Comprueba si un número es primo mediante prueba y error, ejecutando
-    /// la operación en todos los procesadores del sistema.
+    /// Checks if a number is prime using trial division, executing the
+    /// operation on all processors in the system.
     /// </summary>
-    /// <param name="number">Número a comprobar.</param>
+    /// <param name="number">Number to check.</param>
     /// <returns>
-    /// <see langword="true" />si el número es primo,
-    /// <see langword="false" /> en caso contrario.
+    /// <see langword="true" /> if the number is prime,
+    /// <see langword="false" /> otherwise.
     /// </returns>
     public static bool IsPrimeMp(this long number)
     {
         if (number == 1) return false;
         if (number < KnownPrimes[^1] && KnownPrimes.Contains((int)number)) return true;
-
         OrderablePartitioner<int>? part = Partitioner.Create(KnownPrimes);
         bool prime = true;
-
         void TestIfPrime(int j, ParallelLoopState loop)
         {
             if (number % j != 0) return;
             loop.Break();
             prime = false;
         }
-
         void TestIfPrime2(int j, ParallelLoopState loop)
         {
             if (number % ((j * 2) + 1) != 0) return;
             loop.Break();
             prime = false;
         }
-
         Parallel.ForEach(part, TestIfPrime);
         if (!prime) return prime;
         int l = (int)System.Math.Sqrt(number);
@@ -121,98 +112,111 @@ public static class Algebra
     }
 
     /// <summary>
-    /// Comprueba si un número es primo.
+    /// Checks if a number is prime.
     /// </summary>
     /// <returns>
-    /// <see langword="true" />si el número es primo, <see langword="false" /> en caso contrario.
+    /// <see langword="true" /> if the number is prime,
+    /// <see langword="false" /> otherwise.
     /// </returns>
-    /// <param name="number">Número a comprobar.</param>
+    /// <param name="number">Number to check.</param>
     public static bool IsPrime(this in int number)
     {
         return ((long)number).IsPrime();
     }
 
     /// <summary>
-    /// Comprueba si un número es primo.
+    /// Checks if a number is prime.
     /// </summary>
     /// <returns>
-    /// <see langword="true" />si el número es primo, <see langword="false" /> en caso contrario.
+    /// <see langword="true" /> if the number is prime,
+    /// <see langword="false" /> otherwise.
     /// </returns>
-    /// <param name="number">Número a comprobar.</param>
+    /// <param name="number">Number to check.</param>
     public static bool IsPrime(this in short number)
     {
         return ((long)number).IsPrime();
     }
 
     /// <summary>
-    /// Comprueba si un número es primo.
+    /// Checks if a number is prime.
     /// </summary>
     /// <returns>
-    /// <see langword="true" />si el número es primo, <see langword="false" /> en caso contrario.
+    /// <see langword="true" /> if the number is prime,
+    /// <see langword="false" /> otherwise.
     /// </returns>
-    /// <param name="number">Número a comprobar.</param>
+    /// <param name="number">Number to check.</param>
     public static bool IsPrime(this in byte number)
     {
         return ((long)number).IsPrime();
     }
 
     /// <summary>
-    /// Comprueba si un número es primo.
+    /// Checks if a number is prime using trial division, executing the
+    /// operation on all processors in the system.
     /// </summary>
+    /// <param name="number">Number to check.</param>
     /// <returns>
-    /// <see langword="true" />si el número es primo, <see langword="false" /> en caso contrario.
+    /// <see langword="true" /> if the number is prime,
+    /// <see langword="false" /> otherwise.
     /// </returns>
-    /// <param name="number">Número a comprobar.</param>
     public static bool IsPrimeMp(this in int number)
     {
         return ((long)number).IsPrimeMp();
     }
 
     /// <summary>
-    /// Comprueba si un número es primo.
+    /// Checks if a number is prime using trial division, executing the
+    /// operation on all processors in the system.
     /// </summary>
+    /// <param name="number">Number to check.</param>
     /// <returns>
-    /// <see langword="true" />si el número es primo, <see langword="false" /> en caso contrario.
+    /// <see langword="true" /> if the number is prime,
+    /// <see langword="false" /> otherwise.
     /// </returns>
-    /// <param name="number">Número a comprobar.</param>
     public static bool IsPrimeMp(this in short number)
     {
         return ((long)number).IsPrimeMp();
     }
-    
+
     /// <summary>
-    /// Comprueba si un número es primo.
+    /// Checks if a number is prime using trial division, executing the
+    /// operation on all processors in the system.
     /// </summary>
+    /// <param name="number">Number to check.</param>
     /// <returns>
-    /// <see langword="true" />si el número es primo, <see langword="false" /> en caso contrario.
+    /// <see langword="true" /> if the number is prime,
+    /// <see langword="false" /> otherwise.
     /// </returns>
-    /// <param name="number">Número a comprobar.</param>
     [CLSCompliant(false)]
     public static bool IsPrimeMp(this in sbyte number)
     {
         return ((long)number).IsPrimeMp();
     }
-    
+
     /// <summary>
-    /// Comprueba si un número es primo.
+    /// Checks if a number is prime using trial division, executing the
+    /// operation on all processors in the system.
     /// </summary>
+    /// <param name="number">Number to check.</param>
     /// <returns>
-    /// <see langword="true" />si el número es primo, <see langword="false" /> en caso contrario.
+    /// <see langword="true" /> if the number is prime,
+    /// <see langword="false" /> otherwise.
     /// </returns>
-    /// <param name="number">Número a comprobar.</param>
     [CLSCompliant(false)]
     public static bool IsPrimeMp(this in ushort number)
     {
         return ((long)number).IsPrimeMp();
     }
-    
+
     /// <summary>
-    /// Comprueba si un número es primo.
+    /// Checks if a number is prime using trial division, executing the
+    /// operation on all processors in the system.
     /// </summary>
+    /// <param name="number">Number to check.</param>
     /// <returns>
-    /// <see langword="true" />si el número es primo, <see langword="false" /> en caso contrario.
+    /// <see langword="true" /> if the number is prime,
+    /// <see langword="false" /> otherwise.
     /// </returns>
-    /// <param name="number">Número a comprobar.</param>
     [CLSCompliant(false)]
     public static bool IsPrimeMp(this in uint number)
     {
@@ -220,52 +224,53 @@ public static class Algebra
     }
 
     /// <summary>
-    /// Comprueba si un número es primo.
+    /// Checks if a number is prime using trial division, executing the
+    /// operation on all processors in the system.
     /// </summary>
+    /// <param name="number">Number to check.</param>
     /// <returns>
-    /// <see langword="true" />si el número es primo, <see langword="false" /> en caso contrario.
+    /// <see langword="true"/>if the number is prime, <see langword="false"/> otherwise.
     /// </returns>
-    /// <param name="number">Número a comprobar.</param>
     public static bool IsPrimeMp(this in byte number)
     {
         return ((long)number).IsPrimeMp();
     }
 
     /// <summary>
-    /// Comprueba si un número es primo.
+    /// Checks if a number is prime.
     /// </summary>
     /// <returns>
-    /// <see langword="true"/>si el número es primo, <see langword="false"/> en caso contrario.
+    /// <see langword="true"/>if the number is prime, <see langword="false"/> otherwise.
     /// </returns>
-    /// <param name="number">Número a comprobar.</param>
+    /// <param name="number">Number to check.</param>
     [CLSCompliant(false)]
     public static bool IsPrime(this in uint number) => ((long)number).IsPrime();
 
     /// <summary>
-    /// Comprueba si un número es primo.
+    /// Checks if a number is prime.
     /// </summary>
     /// <returns>
-    /// <see langword="true"/>si el número es primo, <see langword="false"/> en caso contrario.
+    /// <see langword="true"/>if the number is prime, <see langword="false"/> otherwise.
     /// </returns>
-    /// <param name="number">Número a comprobar.</param>
+    /// <param name="number">Number to check.</param>
     [CLSCompliant(false)]
     public static bool IsPrime(this in ushort number) => ((long)number).IsPrime();
-    
+
     /// <summary>
-    /// Comprueba si un número es primo.
+    /// Checks if a number is prime.
     /// </summary>
     /// <returns>
-    /// <see langword="true"/>si el número es primo, <see langword="false"/> en caso contrario.
+    /// <see langword="true"/>if the number is prime, <see langword="false"/> otherwise.
     /// </returns>
-    /// <param name="number">Número a comprobar.</param>
+    /// <param name="number">Number to check.</param>
     [CLSCompliant(false)]
     public static bool IsPrime(this in sbyte number) => ((long)number).IsPrime();
 
     /// <summary>
-    /// Calcula la potencia de dos más cercana mayor o igual al número
+    /// Calculates the nearest power of two greater than or equal to the value.
     /// </summary>
-    /// <param name="value">Número de entrada. Se buscará una potencia de dos mayor o igual a este valor.</param>
-    /// <returns>Un valor <see cref="long" /> que es resultado de la operación.</returns>
+    /// <param name="value">Input value.  A power of two greater than or equal to this value will be searched for.</param>
+    /// <returns>A <see cref="long"/> value that is the result of the operation.</returns>
     public static long Nearest2Pow(in int value)
     {
         long c = 1;
@@ -274,97 +279,97 @@ public static class Algebra
     }
 
     /// <summary>
-    /// Determina si el valor es una potencia de 2.
+    /// Determines if the value is a power of 2.
     /// </summary>
-    /// <param name="value">Valor a comprobar.</param>
+    /// <param name="value">Value to check.</param>
     /// <returns>
-    /// <see langword="true"/> si el valor es una potencia de 2,
-    /// <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if the value is a power of 2,
+    /// <see langword="false"/> otherwise.
     /// </returns>
     public static bool IsTwoPow(in byte value) => value.BitCount() == 1;
 
     /// <summary>
-    /// Determina si el valor es una potencia de 2.
+    /// Determines if the value is a power of 2.
     /// </summary>
-    /// <param name="value">Valor a comprobar.</param>
+    /// <param name="value">Value to check.</param>
     /// <returns>
-    /// <see langword="true"/> si el valor es una potencia de 2,
-    /// <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if the value is a power of 2,
+    /// <see langword="false"/> otherwise.
     /// </returns>
     public static bool IsTwoPow(in short value) => value.BitCount() == 1;
 
     /// <summary>
-    /// Determina si el valor es una potencia de 2.
+    /// Determines if the value is a power of 2.
     /// </summary>
-    /// <param name="value">Valor a comprobar.</param>
+    /// <param name="value">Value to check.</param>
     /// <returns>
-    /// <see langword="true"/> si el valor es una potencia de 2,
-    /// <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if the value is a power of 2,
+    /// <see langword="false"/> otherwise.
     /// </returns>
     public static bool IsTwoPow(in int value) => value.BitCount() == 1;
 
     /// <summary>
-    /// Determina si el valor es una potencia de 2.
+    /// Determines if the value is a power of 2.
     /// </summary>
-    /// <param name="value">Valor a comprobar.</param>
+    /// <param name="value">Value to check.</param>
     /// <returns>
-    /// <see langword="true"/> si el valor es una potencia de 2,
-    /// <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if the value is a power of 2,
+    /// <see langword="false"/> otherwise.
     /// </returns>
     public static bool IsTwoPow(in long value) => value.BitCount() == 1;
 
     /// <summary>
-    /// Determina si el valor es una potencia de 2.
+    /// Determines if the value is a power of 2.
     /// </summary>
-    /// <param name="value">Valor a comprobar.</param>
+    /// <param name="value">Value to check.</param>
     /// <returns>
-    /// <see langword="true"/> si el valor es una potencia de 2,
-    /// <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if the value is a power of 2,
+    /// <see langword="false"/> otherwise.
     /// </returns>
     [CLSCompliant(false)]
     public static bool IsTwoPow(in sbyte value) => value.BitCount() == 1;
 
     /// <summary>
-    /// Determina si el valor es una potencia de 2.
+    /// Determines if the value is a power of 2.
     /// </summary>
-    /// <param name="value">Valor a comprobar.</param>
+    /// <param name="value">Value to check.</param>
     /// <returns>
-    /// <see langword="true"/> si el valor es una potencia de 2,
-    /// <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if the value is a power of 2,
+    /// <see langword="false"/> otherwise.
     /// </returns>
     [CLSCompliant(false)]
     public static bool IsTwoPow(in ushort value) => value.BitCount() == 1;
 
     /// <summary>
-    /// Determina si el valor es una potencia de 2.
+    /// Determines if the value is a power of 2.
     /// </summary>
-    /// <param name="value">Valor a comprobar.</param>
+    /// <param name="value">Value to check.</param>
     /// <returns>
-    /// <see langword="true"/> si el valor es una potencia de 2,
-    /// <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if the value is a power of 2,
+    /// <see langword="false"/> otherwise.
     /// </returns>
     [CLSCompliant(false)]
     public static bool IsTwoPow(in uint value) => value.BitCount() == 1;
 
     /// <summary>
-    /// Determina si el valor es una potencia de 2.
+    /// Determines if the value is a power of 2.
     /// </summary>
-    /// <param name="value">Valor a comprobar.</param>
+    /// <param name="value">Value to check.</param>
     /// <returns>
-    /// <see langword="true"/> si el valor es una potencia de 2,
-    /// <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if the value is a power of 2,
+    /// <see langword="false"/> otherwise.
     /// </returns>
     [CLSCompliant(false)]
     public static bool IsTwoPow(in ulong value) => value.BitCount() == 1;
 
     /// <summary>
-    /// Devuelve la primer potencia de <paramref name="powerBase" /> que es mayor que <paramref name="value" />
+    /// Returns the first power of <paramref name="powerBase"/> that is greater than <paramref name="value"/>.
     /// </summary>
-    /// <param name="value">Número objetivo</param>
-    /// <param name="powerBase">Base de potencia.</param>
+    /// <param name="value">Target number.</param>
+    /// <param name="powerBase">Power base.</param>
     /// <returns>
-    /// Un <see cref="double" /> que es la primer potencia de <paramref name="powerBase" /> que es mayor que
-    /// <paramref name="value" />
+    /// A <see cref="double"/> that is the first power of <paramref name="powerBase"/> that is greater than
+    /// <paramref name="value"/>.
     /// </returns>
     public static double NearestPowerUp(in double value, in double powerBase)
     {
@@ -376,12 +381,12 @@ public static class Algebra
     }
 
     /// <summary>
-    /// Devuelve <see langword="true" /> si todos los números son positivos.
+    /// Returns <see langword="true"/> if all numbers are positive.
     /// </summary>
-    /// <param name="values">números a comprobar.</param>
+    /// <param name="values">Numbers to check.</param>
     /// <returns>
-    /// <see langword="true" /> si todos los números de la colección son positivos,
-    /// <see langword="false" /> en caso contrario.
+    /// <see langword="true"/> if all numbers in the collection are positive,
+    /// <see langword="false"/> otherwise.
     /// </returns>
     public static bool ArePositive<T>(params T[] values) where T : struct, IComparable<T>
     {
@@ -389,12 +394,12 @@ public static class Algebra
     }
 
     /// <summary>
-    /// Devuelve <see langword="true" /> si todos los números son negativos.
+    /// Returns <see langword="true"/> if all numbers are negative.
     /// </summary>
-    /// <param name="values">números a comprobar.</param>
+    /// <param name="values">Numbers to check.</param>
     /// <returns>
-    /// <see langword="true" /> si todos los números de la colección son negativos,
-    /// <see langword="false" /> en caso contrario.
+    /// <see langword="true"/> if all numbers in the collection are negative,
+    /// <see langword="false"/> otherwise.
     /// </returns>
     public static bool AreNegative<T>(params T[] values) where T : struct, IComparable<T>
     {
@@ -402,15 +407,15 @@ public static class Algebra
     }
 
     /// <summary>
-    /// Devuelve <see langword="true" /> si todos los números son iguales a cero.
+    /// Returns <see langword="true"/> if all numbers are equal to zero.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de elementos a comprobar.
+    /// Type of elements to check.
     /// </typeparam>
-    /// <param name="values">números a comprobar.</param>
+    /// <param name="values">Numbers to check.</param>
     /// <returns>
-    /// <see langword="true" /> si todos los números de la colección son iguales a
-    /// cero, <see langword="false" /> en caso contrario.
+    /// <see langword="true"/> if all numbers in the collection are equal to
+    /// zero, <see langword="false"/> otherwise.
     /// </returns>
     public static bool AreZero<T>(params T[] values) where T : struct, IComparable<T>
     {
@@ -418,12 +423,12 @@ public static class Algebra
     }
 
     /// <summary>
-    /// Devuelve <see langword="true" /> si todos los números son negativos.
+    /// Returns <see langword="true"/> if all numbers are negative.
     /// </summary>
-    /// <param name="values">números a comprobar.</param>
+    /// <param name="values">Numbers to check.</param>
     /// <returns>
-    /// <see langword="true" /> si todos los números de la colección son negativos,
-    /// <see langword="false" /> en caso contrario.
+    /// <see langword="true"/> if all numbers in the collection are negative,
+    /// <see langword="false"/> otherwise.
     /// </returns>
     public static bool AreNegative<T>(this IEnumerable<T> values) where T : struct, IComparable<T>
     {
@@ -431,15 +436,15 @@ public static class Algebra
     }
 
     /// <summary>
-    /// Devuelve <see langword="true" /> si todos los números son iguales a cero.
+    /// Returns <see langword="true"/> if all numbers are equal to zero.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de elementos a comprobar.
+    /// Type of elements to check.
     /// </typeparam>
-    /// <param name="values">números a comprobar.</param>
+    /// <param name="values">Numbers to check.</param>
     /// <returns>
-    /// <see langword="true" /> si todos los números de la colección son iguales a
-    /// cero, <see langword="false" /> en caso contrario.
+    /// <see langword="true"/> if all numbers in the collection are equal to
+    /// zero, <see langword="false"/> otherwise.
     /// </returns>
     public static bool AreZero<T>(this IEnumerable<T> values) where T : struct, IComparable<T>
     {
@@ -447,12 +452,12 @@ public static class Algebra
     }
 
     /// <summary>
-    /// Devuelve <see langword="true" /> si todos los números son positivos.
+    /// Returns <see langword="true"/> if all numbers are positive.
     /// </summary>
-    /// <param name="values">números a comprobar.</param>
+    /// <param name="values">Numbers to check.</param>
     /// <returns>
-    /// <see langword="true" /> si todos los números de la colección son positivos,
-    /// <see langword="false" /> en caso contrario.
+    /// <see langword="true"/> if all numbers in the collection are positive,
+    /// <see langword="false"/> otherwise.
     /// </returns>
     public static bool ArePositive<T>(this IEnumerable<T> values) where T : struct, IComparable<T>
     {
@@ -460,25 +465,25 @@ public static class Algebra
     }
 
     /// <summary>
-    /// Determina si un <see cref="double" /> es un número entero.
+    /// Determines if a <see cref="double"/> is a whole number.
     /// </summary>
-    /// <param name="value">Valor a comprobar.</param>
-    /// <returns><see langword="true" /> si el valor es entero; de lo contrario, <see langword="false" /></returns>
+    /// <param name="value">Value to check.</param>
+    /// <returns><see langword="true"/> if the value is an integer; otherwise, <see langword="false"/></returns>
     public static bool IsWhole(this in double value)
     {
         return !value.ToString(CultureInfo.InvariantCulture).Contains('.');
     }
 
     /// <summary>
-    /// Determina si un <see cref="double" /> es un número real operable.
+    /// Determines if a <see cref="double"/> is a valid operable real number.
     /// </summary>
-    /// <param name="value"><see cref="double" /> a comprobar.</param>
+    /// <param name="value"><see cref="double"/> to check.</param>
     /// <returns>
-    /// <see langword="true" /> si <paramref name="value" /> es un número real
-    /// <see cref="double" /> operable, en otras palabras, si no es igual a
-    /// <see cref="double.NaN" />, <see cref="double.PositiveInfinity" /> o
-    /// <see cref="double.NegativeInfinity" />; en cuyo caso se devuelve
-    /// <see langword="false" />.
+    /// <see langword="true"/> if <paramref name="value"/> is a valid real
+    /// <see cref="double"/>, in other words, if it is not equal to
+    /// <see cref="double.NaN"/>, <see cref="double.PositiveInfinity"/> or
+    /// <see cref="double.NegativeInfinity"/>; otherwise, returns
+    /// <see langword="false"/>.
     /// </returns>
     public static bool IsValid(this in double value)
     {
@@ -486,15 +491,15 @@ public static class Algebra
     }
 
     /// <summary>
-    /// Determina si un <see cref="float" /> es un número real operable.
+    /// Determines if a <see cref="float"/> is a valid operable real number.
     /// </summary>
-    /// <param name="value"><see cref="float" /> a comprobar.</param>
+    /// <param name="value"><see cref="float"/> to check.</param>
     /// <returns>
-    /// <see langword="true" /> si <paramref name="value" /> es un número real
-    /// <see cref="float" /> operable, en otras palabras, si no es igual a
-    /// <see cref="float.NaN" />, <see cref="float.PositiveInfinity" /> o
-    /// <see cref="float.NegativeInfinity" />; en cuyo caso se devuelve
-    /// <see langword="false" />.
+    /// <see langword="true"/> if <paramref name="value"/> is a valid real
+    /// <see cref="float"/>, in other words, if it is not equal to
+    /// <see cref="float.NaN"/>, <see cref="float.PositiveInfinity"/> or
+    /// <see cref="float.NegativeInfinity"/>; otherwise, returns
+    /// <see langword="false"/>.
     /// </returns>
     public static bool IsValid(this in float value)
     {
@@ -502,16 +507,14 @@ public static class Algebra
     }
 
     /// <summary>
-    /// Determina si una colección de <see cref="double" /> son números
-    /// reales operables.
+    /// Determines if a collection of <see cref="double"/> are valid operable real numbers.
     /// </summary>
     /// <param name="values">
-    /// Colección  de <see cref="double" /> a comprobar.
+    /// Collection of <see cref="double"/> to check.
     /// </param>
     /// <returns>
-    /// <see langword="true" /> si todos los elementos de <paramref name="values" /> son
-    /// números operables, en otras palabras, si no son NaN o Infinito; en
-    /// caso contrario, se devuelve <see langword="false" />.
+    /// <see langword="true"/> if all elements of <paramref name="values"/> are
+    /// operable numbers, in other words, if they are not NaN or Infinity; otherwise, returns <see langword="false"/>.
     /// </returns>
     public static bool AreValid(params double[] values)
     {
@@ -519,16 +522,14 @@ public static class Algebra
     }
 
     /// <summary>
-    /// Determina si una colección de <see cref="float" /> son números
-    /// reales operables.
+    /// Determines if a collection of <see cref="float"/> are valid operable real numbers.
     /// </summary>
     /// <param name="values">
-    /// Colección  de <see cref="float" /> a comprobar.
+    /// Collection of <see cref="float"/> to check.
     /// </param>
     /// <returns>
-    /// <see langword="true" /> si todos los elementos de <paramref name="values" /> son
-    /// números operables, en otras palabras, si no son NaN o Infinito; en
-    /// caso contrario, se devuelve <see langword="false" />.
+    /// <see langword="true"/> if all elements of <paramref name="values"/> are
+    /// operable numbers, in other words, if they are not NaN or Infinity; otherwise, returns <see langword="false"/>.
     /// </returns>
     public static bool AreValid(params float[] values)
     {
@@ -536,16 +537,14 @@ public static class Algebra
     }
 
     /// <summary>
-    /// Determina si una colección de <see cref="float" /> son números
-    /// reales operables.
+    /// Determines if a collection of <see cref="float"/> are valid operable real numbers.
     /// </summary>
     /// <param name="values">
-    /// Colección  de <see cref="float" /> a comprobar.
+    /// Collection of <see cref="float"/> to check.
     /// </param>
     /// <returns>
-    /// <see langword="true" /> si todos los elementos de <paramref name="values" /> son
-    /// números operables, en otras palabras, si no son NaN o Infinito; en
-    /// caso contrario, se devuelve <see langword="false" />.
+    /// <see langword="true"/> if all elements of <paramref name="values"/> are
+    /// operable numbers, in other words, if they are not NaN or Infinity; otherwise, returns <see langword="false"/>.
     /// </returns>
     public static bool AreValid(this IEnumerable<float> values)
     {
@@ -553,16 +552,14 @@ public static class Algebra
     }
 
     /// <summary>
-    /// Determina si una colección de <see cref="double" /> son números
-    /// reales operables.
+    /// Determines if a collection of <see cref="double"/> are valid operable real numbers.
     /// </summary>
     /// <param name="values">
-    /// Colección  de <see cref="double" /> a comprobar.
+    /// Collection of <see cref="double"/> to check.
     /// </param>
     /// <returns>
-    /// <see langword="true" /> si todos los elementos de <paramref name="values" /> son
-    /// números operables, en otras palabras, si no son NaN o Infinito; en
-    /// caso contrario, se devuelve <see langword="false" />.
+    /// <see langword="true"/> if all elements of <paramref name="values"/> are
+    /// operable numbers, in other words, if they are not NaN or Infinity; otherwise, returns <see langword="false"/>.
     /// </returns>
     public static bool AreValid(this IEnumerable<double> values)
     {
@@ -570,15 +567,15 @@ public static class Algebra
     }
 
     /// <summary>
-    /// Devuelve <see langword="true" /> si todos los números son distintos de cero.
+    /// Returns <see langword="true"/> if all numbers are not equal to zero.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de elementos a comprobar.
+    /// Type of elements to check.
     /// </typeparam>
-    /// <param name="x">números a comprobar.</param>
+    /// <param name="x">Numbers to check.</param>
     /// <returns>
-    /// <see langword="true" /> si todos los números de la colección son distintos de
-    /// cero, <see langword="false" /> en caso contrario.
+    /// <see langword="true"/> if all numbers in the collection are not equal to
+    /// zero, <see langword="false"/> otherwise.
     /// </returns>
     public static bool AreNotZero<T>(params T[] x) where T : struct, IComparable<T>
     {
@@ -586,15 +583,15 @@ public static class Algebra
     }
 
     /// <summary>
-    /// Devuelve <see langword="true" /> si todos los números son distintos de cero.
+    /// Returns <see langword="true"/> if all numbers are not equal to zero.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de elementos a comprobar.
+    /// Type of elements to check.
     /// </typeparam>
-    /// <param name="x">números a comprobar.</param>
+    /// <param name="x">Numbers to check.</param>
     /// <returns>
-    /// <see langword="true" /> si todos los números de la colección son distintos de
-    /// cero, <see langword="false" /> en caso contrario.
+    /// <see langword="true"/> if all numbers in the collection are not equal to
+    /// zero, <see langword="false"/> otherwise.
     /// </returns>
     public static bool AreNotZero<T>(this IEnumerable<T> x) where T : struct, IComparable<T>
     {

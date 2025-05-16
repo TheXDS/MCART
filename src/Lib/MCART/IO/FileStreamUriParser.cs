@@ -33,47 +33,47 @@ using TheXDS.MCART.Types.Base;
 namespace TheXDS.MCART.IO;
 
 /// <summary>
-/// Obtiene un <see cref="Stream"/> a partir de la ruta de archivo
-/// especificada por un <see cref="Uri"/>.
+/// Retrieves a <see cref="Stream"/> from a file path specified by a 
+/// <see cref="Uri"/>.
 /// </summary>
 public class FileStreamUriParser : SimpleStreamUriParser
 {
     /// <summary>
-    /// Enumera los esquemas soportados por este
+    /// Enumerates the schemes supported by this 
     /// <see cref="StreamUriParser"/>.
     /// </summary>
     protected override IEnumerable<string> SchemeList { get; } = ["file"];
 
     /// <summary>
-    /// Abre un <see cref="Stream"/> desde el <see cref="Uri"/>
-    /// especificado.
+    /// Opens a <see cref="Stream"/> from the specified 
+    /// <see cref="Uri"/>.
     /// </summary>
     /// <param name="uri">
-    /// <see cref="Uri"/> a abrir para lectura.
+    /// The <see cref="Uri"/> to open for reading.
     /// </param>
     /// <returns>
-    /// Un <see cref="Stream"/> desde el cual puede leerse el recurso
-    /// apuntado por el <see cref="Uri"/> especificado.
+    /// A <see cref="Stream"/> from which the resource pointed to by 
+    /// the specified <see cref="Uri"/> can be read.
     /// </returns>
     /// <exception cref="FileNotFoundException">
-    /// Se produce si el recurso apuntado por <paramref name="uri"/> no
-    /// existe.
+    /// Thrown if the resource pointed to by <paramref name="uri"/> 
+    /// does not exist.
     /// </exception>
     /// <exception cref="System.Security.SecurityException">
-    /// Se produce si no se tienen los permisos suficientes para
-    /// realizar esta operación.
+    /// Thrown if sufficient permissions are not available to perform 
+    /// this operation.
     /// </exception>
     /// <exception cref="IOException">
-    /// Se produce si hay un problema de entrada/salida al abrir el
-    /// recurso apuntado por <paramref name="uri"/>.
+    /// Thrown if there is an input/output issue when opening the 
+    /// resource pointed to by <paramref name="uri"/>.
     /// </exception>
     /// <exception cref="DirectoryNotFoundException">
-    /// Se produce si el directorio apuntado en la ruta de
-    /// <paramref name="uri"/> no existe.
+    /// Thrown if the directory specified in the path of 
+    /// <paramref name="uri"/> does not exist.
     /// </exception>
     /// <exception cref="PathTooLongException">
-    /// Se produce si la longitud de la ruta de archivo excede los
-    /// límites permitidos por el sistema operativo.
+    /// Thrown if the file path length exceeds the system's allowed 
+    /// limits.
     /// </exception>
     public override Stream? Open(Uri uri)
     {

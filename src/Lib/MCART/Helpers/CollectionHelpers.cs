@@ -176,7 +176,7 @@ public static partial class CollectionHelpers
     {
         ArgumentNullException.ThrowIfNull(stringCollection);
         bool r = AnyEmpty(stringCollection, out IEnumerable<int> indexes);
-        int[] a = indexes.ToArray();
+        int[] a = [.. indexes];
         firstIndex = a.Length != 0 ? a.First() : -1;
         return r;
     }
@@ -464,7 +464,7 @@ public static partial class CollectionHelpers
     public static IEnumerable<double> ToPercentAbsolute(this IEnumerable<double> collection)
     {
         ArgumentNullException.ThrowIfNull(collection);
-        List<double> enumerable = collection.ToList();
+        List<double> enumerable = [.. collection];
         return ToPercent(enumerable, 0, enumerable.Max());
     }
 
@@ -510,7 +510,7 @@ public static partial class CollectionHelpers
     public static IEnumerable<double> ToPercent(this IEnumerable<double> collection)
     {
         ArgumentNullException.ThrowIfNull(collection);
-        List<double> enumerable = collection.ToList();
+        List<double> enumerable = [.. collection];
         return ToPercent(enumerable, enumerable.Min(), enumerable.Max());
     }
 
@@ -573,7 +573,7 @@ public static partial class CollectionHelpers
     public static IEnumerable<float> ToPercent(this IEnumerable<float> collection, in bool baseZero)
     {
         ArgumentNullException.ThrowIfNull(collection);
-        List<float> enumerable = collection.ToList();
+        List<float> enumerable = [.. collection];
         return ToPercent(enumerable, baseZero ? 0 : enumerable.Min(), enumerable.Max());
     }
 
@@ -619,7 +619,7 @@ public static partial class CollectionHelpers
     public static IEnumerable<float> ToPercent(this IEnumerable<float> collection)
     {
         ArgumentNullException.ThrowIfNull(collection);
-        List<float> enumerable = collection.ToList();
+        List<float> enumerable = [.. collection];
         return ToPercent(enumerable, enumerable.Min(), enumerable.Max());
     }
 
@@ -695,7 +695,7 @@ public static partial class CollectionHelpers
     public static IEnumerable<double> ToPercentDouble(this IEnumerable<int> collection, in bool baseZero)
     {
         ArgumentNullException.ThrowIfNull(collection);
-        List<int> enumerable = collection.ToList();
+        List<int> enumerable = [.. collection];
         return ToPercentDouble(enumerable, baseZero ? 0 : enumerable.Min(), enumerable.Max());
     }
 
@@ -784,7 +784,7 @@ public static partial class CollectionHelpers
     public static IEnumerable<double> ToPercentDouble(this IEnumerable<int> collection)
     {
         ArgumentNullException.ThrowIfNull(collection);
-        List<int> enumerable = collection.ToList();
+        List<int> enumerable = [.. collection];
         return ToPercentDouble(enumerable, 0, enumerable.Max());
     }
 
@@ -860,7 +860,7 @@ public static partial class CollectionHelpers
     public static IEnumerable<float> ToPercentSingle(this IEnumerable<int> collection, in bool baseZero)
     {
         ArgumentNullException.ThrowIfNull(collection);
-        List<int> enumerable = collection.ToList();
+        List<int> enumerable = [.. collection];
         return ToPercentSingle(enumerable, baseZero ? 0 : enumerable.Min(), enumerable.Max());
     }
 
@@ -931,7 +931,7 @@ public static partial class CollectionHelpers
     public static IEnumerable<float> ToPercentSingle(this IEnumerable<int> collection)
     {
         ArgumentNullException.ThrowIfNull(collection);
-        List<int> enumerable = collection.ToList();
+        List<int> enumerable = [.. collection];
         return ToPercentSingle(enumerable, 0, enumerable.Max());
     }
 

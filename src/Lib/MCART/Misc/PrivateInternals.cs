@@ -51,7 +51,7 @@ internal static class PrivateInternals
             try
             {
                 int c = 0;
-                result = instantiationCallback(l.Select(k => (TValue)t.ConvertTo(l[c++].Trim(), typeof(TValue))!).ToArray());
+                result = instantiationCallback.Invoke([.. l.Select(k => (TValue)t.ConvertTo(l[c++].Trim(), typeof(TValue))!)]);
                 return true;
             }
             catch
