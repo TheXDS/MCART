@@ -31,62 +31,61 @@ SOFTWARE.
 namespace TheXDS.MCART.Resources;
 
 /// <summary>
-/// Define una serie de métodos a implementar por una clase que permita
-/// obtener y extraer recursos.
+/// Defines a series of methods to be implemented by a class that allows
+/// getting and extracting resources.
 /// </summary>
-/// <typeparam name="T">Tipo de recursos a obtener.</typeparam>
+/// <typeparam name="T">Type of resources to get.</typeparam>
 public interface IUnpacker<T>
 {
     /// <summary>
-    /// Obtiene un recurso identificable.
+    /// Gets an identifiable resource.
     /// </summary>
-    /// <param name="id">Identificador del recurso.</param>
-    /// <returns>Un recurso de tipo <typeparamref name="T"/>.</returns>
+    /// <param name="id">Identifier of the resource.</param>
+    /// <returns>A resource of type <typeparamref name="T"/>.</returns>
     T Unpack(string id);
 
     /// <summary>
-    /// Extrae un recurso comprimido utilizando el compresor con el
-    /// identificador especificado.
+    /// Extracts a compressed resource using the compressor with the
+    /// specified identifier.
     /// </summary>
-    /// <param name="id">Identificador del recurso.</param>
+    /// <param name="id">Identifier of the resource.</param>
     /// <param name="compressor">
-    /// <see cref="ICompressorGetter"/> a utilizar para extraer el
-    /// recurso.
+    /// <see cref="ICompressorGetter"/> to use for extracting the
+    /// resource.
     /// </param>
     /// <returns>
-    /// Un recurso sin comprimir de tipo <typeparamref name="T"/>.
-    /// </returns>
+    /// An uncompressed resource of type <typeparamref name="T"/>.</returns>
     T Unpack(string id, ICompressorGetter compressor);
 
     /// <summary>
-    /// Intenta obtener un recurso identificable.
+    /// Tries to get an identifiable resource.
     /// </summary>
-    /// <param name="id">Identificador del recurso.</param>
+    /// <param name="id">Identifier of the resource.</param>
     /// <param name="result">
-    /// Parámetro de salida. Un recurso de tipo 
+    /// Out parameter. A resource of type
     /// <typeparamref name="T"/>.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si el recurso se extrajo 
-    /// satisfactoriamente, <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if the resource was successfully extracted,
+    /// <see langword="false"/> otherwise.
     /// </returns>
     bool TryUnpack(string id, out T result);
 
     /// <summary>
-    /// Intenta obtener un recurso identificable.
+    /// Tries to get an identifiable resource.
     /// </summary>
-    /// <param name="id">Identificador del recurso.</param>
+    /// <param name="id">Identifier of the resource.</param>
     /// <param name="result">
-    /// Parámetro de salida. Un recurso de tipo 
+    /// Out parameter. A resource of type
     /// <typeparamref name="T"/>.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si el recurso se extrajo 
-    /// satisfactoriamente, <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if the resource was successfully extracted,
+    /// <see langword="false"/> otherwise.
     /// </returns>
     /// <param name="compressor">
-    /// <see cref="ICompressorGetter"/> a utilizar para extraer el
-    /// recurso.
-    /// </param>        
+    /// <see cref="ICompressorGetter"/> to use for extracting the
+    /// resource.
+    /// </param>
     bool TryUnpack(string id, ICompressorGetter compressor, out T result);
 }

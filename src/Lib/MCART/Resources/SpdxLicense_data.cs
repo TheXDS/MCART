@@ -42,7 +42,7 @@ public partial class SpdxLicense
 
     private static readonly ReadOnlyDictionary<SpdxLicenseId, SpdxLicenseInfoItem> licenseInfo = new Dictionary<SpdxLicenseId, SpdxLicenseInfoItem>
     {
-        // las licencias que no estén en esta lista se generarán a partir del texto del Enum.
+        // The licenses that are not in this list will be generated from the text of the Enum.
         {BSD0, new("BSD Zero Clause License", null, "0BSD")},
         {AAL, "Attribution Assurance License"},
         {Adobe_2006, "Adobe Systems Incorporated Source Code License Agreement"},

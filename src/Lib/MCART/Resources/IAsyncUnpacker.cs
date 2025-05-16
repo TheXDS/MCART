@@ -31,29 +31,29 @@ SOFTWARE.
 namespace TheXDS.MCART.Resources;
 
 /// <summary>
-/// Define una serie de métodos a implementar por una clase que permita
-/// obtener y extraer recursos de forma asíncrona.
+/// Defines a series of methods to be implemented by a class that allows
+/// getting and extracting resources asynchronously.
 /// </summary>
-/// <typeparam name="T">Tipo de recursos a obtener.</typeparam>
+/// <typeparam name="T">Type of resources to get.</typeparam>
 public interface IAsyncUnpacker<T>
 {
     /// <summary>
-    /// Obtiene un recurso identificable de forma asíncrona.
+    /// Gets an identifiable resource asynchronously.
     /// </summary>
-    /// <param name="id">Identificador del recurso.</param>
-    /// <returns>Un recurso de tipo <typeparamref name="T"/>.</returns>
+    /// <param name="id">Identifier of the resource.</param>
+    /// <returns>A resource of type <typeparamref name="T"/>.</returns>
     Task<T> UnpackAsync(string id);
 
     /// <summary>
-    /// Extrae un recurso comprimido utilizando el compresor con el
-    /// identificador especificado de forma asíncrona.
+    /// Extracts a compressed resource using the compressor with the
+    /// specified identifier asynchronously.
     /// </summary>
-    /// <param name="id">Identificador del recurso.</param>
+    /// <param name="id">Identifier of the resource.</param>
     /// <param name="compressor">
-    /// <see cref="ICompressorGetter"/> a utilizar para extraer al recurso.
+    /// <see cref="ICompressorGetter"/> to use for extracting the resource.
     /// </param>
     /// <returns>
-    /// Un recurso sin comprimir de tipo <typeparamref name="T"/>.
+    /// An uncompressed resource of type <typeparamref name="T"/>.
     /// </returns>
     Task<T> UnpackAsync(string id, ICompressorGetter compressor);
 
@@ -74,11 +74,11 @@ public interface IAsyncUnpacker<T>
     /// indicates either success or failure to unpack the requested resource.
     /// </summary>
     /// <param name="id">Resource id to be unpacked.</param>
-    /// <param name="compressor">Compressor getter intance to use.</param>
+    /// <param name="compressor">Compressor getter instance to use.</param>
     /// <returns>
     /// A new <see cref="UnpackResult{T}"/> that indicates either success or
     /// failure to unpack the requested resource, as well as a reference to the
     /// unpacked resource if the extraction was successful.
     /// </returns>
     Task<UnpackResult<T>> TryUnpackAsync(string id, ICompressorGetter compressor);
-}
+} 

@@ -36,53 +36,33 @@ using St = TheXDS.MCART.Resources.Strings;
 namespace TheXDS.MCART.Resources;
 
 /// <summary>
-/// <see cref="AssemblyUnpacker{T}" /> que permite extraer archivos de
-/// texto incrustados en un ensamblado como una cadena.
+/// <see cref="AssemblyUnpacker{T}" /> that allows extracting
+/// text files embedded in an assembly as a string.
 /// </summary>
 /// <param name="assembly">
-/// <see cref="Assembly"/> desde donde se extraerán los recursos
-/// incrustados.
+/// The <see cref="Assembly"/> from which the embedded resources
+/// will be extracted.
 /// </param>
 /// <param name="path">
-/// Ruta (en formato de espacio de nombre) donde se ubicarán los
-/// recursos incrustados.
+/// The path (in namespace format) where the embedded resources
+/// will be located.
 /// </param>
 public class StringUnpacker(Assembly assembly, string path) : AssemblyUnpacker<string>(assembly, path), IAsyncUnpacker<string>
 {
-    private static Task<string> ReadAsync(TextReader r)
-    {
-        using (r) return r.ReadToEndAsync();
-    }
-
-    private static string Read(TextReader r)
-    {
-        using (r) return r.ReadToEnd();
-    }
-
-    private static StreamReader GetFailure(string id, Exception ex)
-    {
-        MemoryStream ms = new();
-        using StreamWriter sw = new(ms, Encoding.UTF8, -1, true);
-        sw.WriteLine(string.Format(St.Errors.ErrorLoadingRes, id));
-        St.Composition.ExDump(sw, ex, St.ExDumpOptions.All);
-        ms.Seek(0, SeekOrigin.Begin);
-        return new StreamReader(ms, Encoding.UTF8);
-    }
-
     /// <summary>
-    /// Obtiene un <see cref="StreamReader"/> a partir del
-    /// <paramref name="id"/> y del <paramref name="compressor"/>
-    /// especificados.
+    /// Gets a <see cref="StreamReader"/> from the specified
+    /// <paramref name="id"/> and <paramref name="compressor"/>.
     /// </summary>
     /// <param name="id">
-    /// Id del <see cref="Stream"/> del recurso incrustado a obtener.
+    /// The ID of the <see cref="Stream"/> of the embedded
+    /// resource to retrieve.
     /// </param>
     /// <param name="compressor">
-    /// Compresor específico a utilizar para leer el recurso.
+    /// The specific compressor to use for reading the resource.
     /// </param>
     /// <returns>
-    /// Un <see cref="StreamReader"/> que permite leer la secuencia 
-    /// subyacente del recurso incrustado.
+    /// A <see cref="StreamReader"/> that allows reading the
+    /// underlying sequence of the embedded resource.
     /// </returns>
     protected StreamReader GetStream(string id, ICompressorGetter compressor)
     {
@@ -90,15 +70,16 @@ public class StringUnpacker(Assembly assembly, string path) : AssemblyUnpacker<s
     }
 
     /// <summary>
-    /// Obtiene un <see cref="StreamReader"/> a partir del
-    /// <paramref name="id"/> especificado.
+    /// Gets a <see cref="StreamReader"/> from the specified
+    /// <paramref name="id"/>.
     /// </summary>
     /// <param name="id">
-    /// Id del <see cref="Stream"/> del recurso incrustado a obtener.
+    /// The ID of the <see cref="Stream"/> of the embedded
+    /// resource to retrieve.
     /// </param>
     /// <returns>
-    /// Un <see cref="StreamReader"/> que permite leer la secuencia 
-    /// subyacente del recurso incrustado.
+    /// A <see cref="StreamReader"/> that allows reading the
+    /// underlying sequence of the embedded resource.
     /// </returns>
     protected StreamReader GetStream(string id)
     {
@@ -106,24 +87,24 @@ public class StringUnpacker(Assembly assembly, string path) : AssemblyUnpacker<s
     }
 
     /// <summary>
-    /// Intenta obtener un <see cref="StreamReader"/> a partir del
-    /// <paramref name="id"/> y del <paramref name="compressor"/>
-    /// especificados.
+    /// Attempts to get a <see cref="StreamReader"/> from the
+    /// specified <paramref name="id"/> and <paramref name="compressor"/>.
     /// </summary>
     /// <param name="id">
-    /// Id del <see cref="Stream"/> del recurso incrustado a obtener.
+    /// The ID of the <see cref="Stream"/> of the embedded
+    /// resource to retrieve.
     /// </param>
     /// <param name="compressor">
-    /// Compresor específico a utilizar para leer el recurso.
+    /// The specific compressor to use for reading the resource.
     /// </param>
     /// <param name="reader">
-    /// Parámetro de salida. Un <see cref="StreamReader"/> que permite
-    /// leer la secuencia subyacente del recurso incrustado.
+    /// Output parameter. A <see cref="StreamReader"/> that allows
+    /// reading the underlying sequence of the embedded resource.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si se ha creado un
-    /// <see cref="StreamReader"/> de forma satisfactoria para el
-    /// recurso, <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if a <see cref="StreamReader"/> was
+    /// successfully created for the resource, <see langword="false"/>
+    /// otherwise.
     /// </returns>
     protected bool TryGetStream(string id, ICompressorGetter compressor, out StreamReader reader)
     {
@@ -140,20 +121,21 @@ public class StringUnpacker(Assembly assembly, string path) : AssemblyUnpacker<s
     }
 
     /// <summary>
-    /// Intenta obtener un <see cref="StreamReader"/> a partir del
-    /// <paramref name="id"/> especificado.
+    /// Attempts to get a <see cref="StreamReader"/> from the
+    /// specified <paramref name="id"/>.
     /// </summary>
     /// <param name="id">
-    /// Id del <see cref="Stream"/> del recurso incrustado a obtener.
+    /// The ID of the <see cref="Stream"/> of the embedded
+    /// resource to retrieve.
     /// </param>
     /// <param name="reader">
-    /// Parámetro de salida. Un <see cref="StreamReader"/> que permite
-    /// leer la secuencia subyacente del recurso incrustado.
+    /// Output parameter. A <see cref="StreamReader"/> that allows
+    /// reading the underlying sequence of the embedded resource.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si se ha creado un
-    /// <see cref="StreamReader"/> de forma satisfactoria para el
-    /// recurso, <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if a <see cref="StreamReader"/> was
+    /// successfully created for the resource, <see langword="false"/>
+    /// otherwise.
     /// </returns>
     protected bool TryGetStream(string id, out StreamReader reader)
     {
@@ -207,5 +189,25 @@ public class StringUnpacker(Assembly assembly, string path) : AssemblyUnpacker<s
     public async Task<UnpackResult<string>> TryUnpackAsync(string id, ICompressorGetter compressor)
     {
         return TryGetStream(id, compressor, out StreamReader? reader) ? new(true, await ReadAsync(reader)) : new(false, null);
+    }
+
+    private static Task<string> ReadAsync(TextReader r)
+    {
+        using (r) return r.ReadToEndAsync();
+    }
+
+    private static string Read(TextReader r)
+    {
+        using (r) return r.ReadToEnd();
+    }
+
+    private static StreamReader GetFailure(string id, Exception ex)
+    {
+        MemoryStream ms = new();
+        using StreamWriter sw = new(ms, Encoding.UTF8, -1, true);
+        sw.WriteLine(string.Format(St.Errors.ErrorLoadingRes, id));
+        St.Composition.ExDump(sw, ex, St.ExDumpOptions.All);
+        ms.Seek(0, SeekOrigin.Begin);
+        return new StreamReader(ms, Encoding.UTF8);
     }
 }

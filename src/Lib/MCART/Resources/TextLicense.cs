@@ -28,28 +28,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.Diagnostics.CodeAnalysis;
-using TheXDS.MCART.Misc;
-
 namespace TheXDS.MCART.Resources;
 
 /// <summary>
-/// Licencia cuyo contenido se ha especificado directamente.
+/// License whose content has been specified directly.
 /// </summary>
-/// <param name="name">Nombre descriptivo de la licencia.</param>
-/// <param name="content">Contenido de la licencia.</param>
+/// <param name="name">Descriptive name of the license.</param>
+/// <param name="content">Content of the license.</param>
 public sealed class TextLicense(string name, string? content) : License(name, null)
 {
     private readonly string? _content = content;
 
     /// <summary>
-    /// Obtiene el contenido de la licencia.
+    /// Gets the content of the license.
     /// </summary>
-    public override string LicenseContent
-    {
-        get
-        {
-            return _content ?? base.LicenseContent;
-        }
-    }
+    public override string LicenseContent => _content ?? base.LicenseContent;
 }

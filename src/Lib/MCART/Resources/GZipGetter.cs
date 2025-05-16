@@ -34,30 +34,29 @@ using TheXDS.MCART.Attributes;
 namespace TheXDS.MCART.Resources;
 
 /// <summary>
-/// <see cref="ICompressorGetter"/> que construye un
-/// <see cref="GZipStream"/> que puede ser utilizado para extraer
-/// información comprimida desde un <see cref="Stream"/>.
+/// <see cref="ICompressorGetter"/> that builds a
+/// <see cref="GZipStream"/> that can be used to extract information
+/// compressed from a <see cref="Stream"/>.
 /// </summary>
 [Tag("gzip")]
 [Tag("gz")]
 public sealed class GZipGetter : ICompressorGetter
 {
     /// <summary>
-    /// Obtiene un <see cref="GZipStream"/> para extraer información
-    /// comprimida desde <paramref name="inputStream"/>.
+    /// Gets a <see cref="GZipStream"/> to extract information
+    /// compressed from <paramref name="inputStream"/>.
     /// </summary>
-    /// <param name="inputStream">
-    /// <see cref="Stream"/> que contiene la información a extraer.
-    /// </param>
+    /// <param name="inputStream">Stream containing the information to
+    /// extract.</param>
     /// <returns>
-    /// Un <see cref="GZipStream"/> que puede utilizarse para extraer
-    /// información comprimida desde <paramref name="inputStream"/>.
+    /// A <see cref="GZipStream"/> that can be used to extract
+    /// information compressed from <paramref name="inputStream"/>.
     /// </returns>
     public Stream GetCompressor(Stream inputStream) => new GZipStream(inputStream, CompressionMode.Decompress);
+
     /// <summary>
-    /// Obtiene la extensión utilizada de forma predeterminada para un
-    /// recurso comprimido utilizando este
-    /// <see cref="ICompressorGetter"/>.
+    /// Gets the extension used by default for a compressed resource using
+    /// this <see cref="ICompressorGetter"/>.
     /// </summary>
     public string Extension => ".gzip";
 }

@@ -36,27 +36,26 @@ using TheXDS.MCART.Misc;
 namespace TheXDS.MCART.Resources;
 
 /// <summary>
-/// <see cref="AssemblyUnpacker{T}" /> que
-/// extrae recursos de texto.
+/// <see cref="AssemblyUnpacker{T}" /> that extracts text resources.
 /// </summary>
 /// <param name="assembly">
-/// <see cref="Assembly" /> desde donde se extraerán los recursos
-/// incrustados.
+/// The <see cref="Assembly"/> from which the embedded resources
+/// will be extracted.
 /// </param>
 /// <param name="path">
-/// Ruta (en formato de espacio de nombre) donde se ubicarán los
-/// recursos incrustados.
+/// The path (in namespace format) where the embedded resources
+/// will be located.
 /// </param>
 [RequiresUnreferencedCode(AttributeErrorMessages.ClassScansForTypes)]
 [RequiresDynamicCode(AttributeErrorMessages.ClassCallsDynamicCode)]
 public class TextUnpacker(Assembly assembly, string path) : AssemblyUnpacker<string>(assembly, path)
 {
     /// <summary>
-    /// Obtiene un recurso identificable.
+    /// Gets a resource identifiable by its ID.
     /// </summary>
-    /// <param name="id">Identificador del recurso.</param>
+    /// <param name="id">The identifier of the resource.</param>
     /// <returns>
-    /// Una cadena con el contenido total del recurso.
+    /// A string with the total content of the resource.
     /// </returns>
     public override string Unpack(string id)
     {
@@ -65,16 +64,16 @@ public class TextUnpacker(Assembly assembly, string path) : AssemblyUnpacker<str
     }
 
     /// <summary>
-    /// Extrae un recurso comprimido utilizando el compresor con el
-    /// identificador especificado.
+    /// Extracts a compressed resource using the compressor with the
+    /// specified identifier.
     /// </summary>
-    /// <param name="id">Identificador del recurso.</param>
+    /// <param name="id">The identifier of the resource.</param>
     /// <param name="compressor">
-    /// <see cref="ICompressorGetter" /> a utilizar para extraer al
-    /// recurso.
+    /// The <see cref="ICompressorGetter"/> to use for extracting
+    /// the resource.
     /// </param>
     /// <returns>
-    /// Un recurso sin comprimir como una cadena.
+    /// An uncompressed resource as a string.
     /// </returns>
     public override string Unpack(string id, ICompressorGetter compressor)
     {

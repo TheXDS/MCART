@@ -31,29 +31,25 @@ SOFTWARE.
 namespace TheXDS.MCART.Resources;
 
 /// <summary>
-/// Define una serie de métodos a implementar por una clase que permita
-/// obtener un <see cref="Stream"/> para extraer información comprimida
-/// desde otro <see cref="Stream"/>.
+/// Defines a series of methods to be implemented by a class that allows
+/// getting a <see cref="Stream"/> to extract compressed information
+/// from another <see cref="Stream"/>.
 /// </summary>
 public interface ICompressorGetter
 {
     /// <summary>
-    /// Obtiene un <see cref="Stream"/> para extraer información comprimida
-    /// desde <paramref name="inputStream"/>.
+    /// Gets a <see cref="Stream"/> to extract compressed information
+    /// from <paramref name="inputStream"/>.
     /// </summary>
-    /// <param name="inputStream">
-    /// <see cref="Stream"/> que contiene la información a extraer.
-    /// </param>
-    /// <returns>
-    /// Un <see cref="Stream"/> que puede utilizarse para extraer
-    /// información comprimida desde <paramref name="inputStream"/>.
-    /// </returns>
+    /// <param name="inputStream">Stream containing the information to
+    /// extract.</param>
+    /// <returns>A <see cref="Stream"/> that can be used to extract
+    /// compressed information from <paramref name="inputStream"/>.</returns>
     Stream GetCompressor(Stream inputStream);
 
     /// <summary>
-    /// Obtiene la extensión utilizada de forma predeterminada para un
-    /// recurso comprimido utilizando este
-    /// <see cref="ICompressorGetter"/>.
+    /// Gets the extension used by default for a compressed resource using
+    /// this <see cref="ICompressorGetter"/>.
     /// </summary>
     string Extension { get; }
 }

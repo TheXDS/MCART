@@ -33,19 +33,19 @@ using System.Diagnostics.CodeAnalysis;
 namespace TheXDS.MCART.Resources;
 
 /// <summary>
-/// Representa una licencia registrada dentro de los estándares de
-/// Software Package Data Exchange (SPDX).
+/// Represents a license registered within the Software Package Data Exchange (SPDX)
+/// standards.
 /// </summary>
 public partial class SpdxLicense : License, IEquatable<SpdxLicense>
 {
     /// <summary>
-    /// Obtiene una instancia de <see cref="SpdxLicense"/> que representa una
-    /// licencia del <paramref name="id"/> especificado.
+    /// Gets an instance of <see cref="SpdxLicense"/> that represents a
+    /// license with the specified <paramref name="id"/>.
     /// </summary>
-    /// <param name="id">Id de la licencia a obtener.</param>
+    /// <param name="id">Id of the license to get.</param>
     /// <returns>
-    /// Una instancia de la clase <see cref="SpdxLicense"/> que representa una
-    /// licencia del <paramref name="id"/> especificado.
+    /// An instance of the <see cref="SpdxLicense"/> class that represents a
+    /// license with the specified <paramref name="id"/>.
     /// </returns>
     public static SpdxLicense FromId(SpdxLicenseId id)
     {
@@ -65,13 +65,13 @@ public partial class SpdxLicense : License, IEquatable<SpdxLicense>
     }
 
     /// <summary>
-    /// Obtiene una instancia de <see cref="SpdxLicense"/> que representa una
-    /// licencia con el nombre especificado.
+    /// Gets an instance of <see cref="SpdxLicense"/> that represents a
+    /// license with the specified name.
     /// </summary>
-    /// <param name="name">Nombre de la licencia a obtener.</param>
+    /// <param name="name">Name of the license to get.</param>
     /// <returns>
-    /// Una instancia de la clase <see cref="SpdxLicense"/> que representa una
-    /// licencia con el nombre especificado.
+    /// An instance of the <see cref="SpdxLicense"/> class that represents a
+    /// license with the specified name.
     /// </returns>
     public static SpdxLicense FromName(string name)
     {
@@ -89,7 +89,7 @@ public partial class SpdxLicense : License, IEquatable<SpdxLicense>
     }
 
     /// <summary>
-    /// Obtiene el identificador corto de la licencia.
+    /// Gets the short identifier of the license.
     /// </summary>
     public string SpdxShortName { get; }
 
@@ -99,12 +99,12 @@ public partial class SpdxLicense : License, IEquatable<SpdxLicense>
     }
 
     /// <summary>
-    /// Comprueba la igualdad entre dos instancias de la clase <see cref="SpdxLicense"/>.
+    /// Checks equality between two instances of the <see cref="SpdxLicense"/> class.
     /// </summary>
-    /// <param name="other">El otro objeto a comparar.</param>
+    /// <param name="other">The other object to compare.</param>
     /// <returns>
-    /// <see langword="true"/> si ambas instancias son consideradas
-    /// iguales, <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if both instances are considered
+    /// equal, <see langword="false"/> otherwise.
     /// </returns>
     public bool Equals([AllowNull] SpdxLicense other)
     {

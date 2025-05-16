@@ -31,21 +31,21 @@ SOFTWARE.
 namespace TheXDS.MCART.Resources;
 
 /// <summary>
-/// <see cref="ICompressorGetter"/> que expone directamente un 
-/// <see cref="Stream"/> cuando el mismo no ha sido escrito utilizando
-/// un compresor.
+/// <see cref="ICompressorGetter"/> that exposes directly a
+/// <see cref="Stream"/> when the same has not been written using
+/// a compressor.
 /// </summary>
 public sealed class NullCompressorGetter : ICompressorGetter
 {
     /// <summary>
-    /// Obtiene un <see cref="Stream"/>  que expone a 
-    /// <paramref name="inputStream"/> directamente.
+    /// Gets a <see cref="Stream"/> that exposes
+    /// <paramref name="inputStream"/> directly.
     /// </summary>
     /// <param name="inputStream">
-    /// <see cref="Stream"/> que contiene la información a extraer.
+    /// <see cref="Stream"/> that contains the information to extract.
     /// </param>
     /// <returns>
-    /// El mismo <see cref="Stream"/> que
+    /// The same <see cref="Stream"/> as
     /// <paramref name="inputStream"/>.
     /// </returns>
     public Stream GetCompressor(Stream inputStream)
@@ -54,8 +54,7 @@ public sealed class NullCompressorGetter : ICompressorGetter
     }
 
     /// <summary>
-    /// Obtiene la extensión utilizada de forma predeterminada para un
-    /// recurso comprimido utilizando este
+    /// Gets the extension used by default for a compressed resource using this
     /// <see cref="ICompressorGetter"/>.
     /// </summary>
     public string Extension => string.Empty;

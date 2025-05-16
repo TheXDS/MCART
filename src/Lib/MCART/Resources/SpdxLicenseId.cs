@@ -31,8 +31,8 @@ SOFTWARE.
 namespace TheXDS.MCART.Resources;
 
 /// <summary>
-/// Enumera todas las licencias registradas dentro de los estándares de
-/// Software Package Data Exchange (SPDX).
+/// Enumerates all licenses registered within the Software Package Data
+/// Exchange (SPDX) standards.
 /// </summary>
 public enum SpdxLicenseId
 {

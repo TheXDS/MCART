@@ -38,32 +38,32 @@ using Str = TheXDS.MCART.Resources.Strings.Common;
 namespace TheXDS.MCART.Resources;
 
 /// <summary>
-/// Contiene recursos que generan nuevas instancias de excepción a ser
-/// lanzadas.
+/// Contains resources that generate new exception instances to be
+/// thrown.
 /// </summary>
 public static class Errors
 {
     /// <summary>
-    /// Crea una nueva instancia de un <see cref="InvalidOperationException"/>
-    /// que se produce cuando se esperaba que un tipo implemente una interfaz,
-    /// pero el mismo no la implementa.
+    /// Creates a new instance of an <see cref="InvalidOperationException"/>
+    /// that occurs when a type was expected to implement an interface,
+    /// but it did not.
     /// </summary>
-    /// <typeparam name="T">Tipo de interfaz esperada.</typeparam>
+    /// <typeparam name="T">The expected interface type.</typeparam>
     /// <returns>
-    /// Una nueva instancia de la clase
-    /// <see cref="InvalidOperationException"/>.
+    /// A new instance of the
+    /// <see cref="InvalidOperationException"/> class.
     /// </returns>
     public static InvalidOperationException InterfaceNotImplemented<T>() => InterfaceNotImplemented(typeof(T));
 
     /// <summary>
-    /// Crea una nueva instancia de un <see cref="InvalidOperationException"/>
-    /// que se produce cuando se esperaba que un tipo implemente una interfaz,
-    /// pero el mismo no la implementa.
+    /// Creates a new instance of an <see cref="InvalidOperationException"/>
+    /// that occurs when a type was expected to implement an interface,
+    /// but it did not.
     /// </summary>
-    /// <param name="t">Tipo de interfaz esperada.</param>
+    /// <param name="t">The expected interface type.</param>
     /// <returns>
-    /// Una nueva instancia de la clase
-    /// <see cref="InvalidOperationException"/>.
+    /// A new instance of the
+    /// <see cref="InvalidOperationException"/> class.
     /// </returns>
     public static InvalidOperationException InterfaceNotImplemented(Type t)
     {
@@ -71,17 +71,16 @@ public static class Errors
     }
 
     /// <summary>
-    /// Crea una nueva instancia de un <see cref="NullReferenceException"/> con
-    /// un mensaje que indica que se ha intentado des-referenciar un campo o
-    /// propiedad de un argumento y se ha obtenido <see langword="null"/>.
+    /// Creates a new <see cref="NullReferenceException"/> with a message
+    /// indicating an attempt to dereference a field or property of an
+    /// argument, which resulted in null.
     /// </summary>
-    /// <param name="valuePath">
-    /// Ruta del campo o propiedad que se ha intentado des-referenciar.
-    /// </param>
-    /// <param name="argumentName">Nombre del argumento.</param>
+    /// <param name="valuePath">Path to the field or property being
+    /// dereferenced.</param>
+    /// <param name="argumentName">Name of the argument.</param>
     /// <returns>
-    /// Una nueva instancia de la clase
-    /// <see cref="NullReferenceException"/>.
+    /// A new instance of the
+    /// <see cref="NullReferenceException"/> class.
     /// </returns>
     public static NullReferenceException NullArgumentValue(string valuePath, string argumentName)
     {
@@ -89,28 +88,27 @@ public static class Errors
     }
 
     /// <summary>
-    /// Crea una nueva instancia de un <see cref="InvalidOperationException"/>
-    /// con un mensaje predeterminado que indica que una lista debe contener a
-    /// dos objetos determinados en el contexto en que la excepción es lanzada.
+    /// Creates a new <see cref="InvalidOperationException"/> with a
+    /// default message indicating that a list must contain two specific
+    /// objects in the context in which the exception is thrown.
     /// </summary>
     /// <returns>
-    /// Una nueva instancia de la clase
-    /// <see cref="InvalidOperationException"/>.
+    /// A new instance of the
+    /// <see cref="InvalidOperationException"/> class.
     /// </returns>
     public static InvalidOperationException ListMustContainBoth()
     {
         return new(Ers.ListMustContainBoth);
     }
-    
+
     /// <summary>
-    /// Crea una nueva instancia de un
-    /// <see cref="InvalidOperationException"/> con un mensaje
-    /// predeterminado que indica que la expresión especificada no es un
-    /// selector de miembro válido.
+    /// Creates a new <see cref="InvalidOperationException"/> with a
+    /// default message indicating that the specified expression is not
+    /// a valid member selector.
     /// </summary>
     /// <returns>
-    /// Una nueva instancia de la clase
-    /// <see cref="InvalidOperationException"/>.
+    /// A new instance of the
+    /// <see cref="InvalidOperationException"/> class.
     /// </returns>
     public static InvalidOperationException InvalidSelectorExpression()
     {
@@ -118,14 +116,13 @@ public static class Errors
     }
 
     /// <summary>
-    /// Crea una nueva instancia de un <see cref="FormatException"/> con un
-    /// mensaje formateado predefinido.
+    /// Creates a new <see cref="FormatException"/> with a predefined
+    /// formatted message.
     /// </summary>
-    /// <param name="offendingFormat">
-    /// Cadena de formato que ha causado la excepción.
-    /// </param>
+    /// <param name="offendingFormat">The format string that caused the
+    /// exception.</param>
     /// <returns>
-    /// Una nueva instancia de la clase <see cref="FormatException"/>.
+    /// A new instance of the <see cref="FormatException"/> class.
     /// </returns>
     public static FormatException FormatNotSupported(string offendingFormat)
     {
@@ -133,20 +130,17 @@ public static class Errors
     }
 
     /// <summary>
-    /// Crea una nueva instancia de un <see cref="ArgumentException"/> que
-    /// indica que el valor proporcionado a un argumento no es válido.
+    /// Creates a new <see cref="ArgumentException"/> indicating that the
+    /// value provided to an argument is not valid.
     /// </summary>
-    /// <param name="argName">
-    /// Nombre del argumento para el cual se generará la excepción.
-    /// </param>
-    /// <param name="value">
-    /// Valor del argumento que ha generado la excepción.
-    /// </param>
-    /// <param name="inner">
-    /// Excepción que es la causa original de esta excepción.
-    /// </param>
+    /// <param name="argName">Name of the argument for which the exception
+    /// will be generated.</param>
+    /// <param name="value">The value of the argument that generated the
+    /// exception.</param>
+    /// <param name="inner">The exception that is the original cause of this
+    /// exception.</param>
     /// <returns>
-    /// Una nueva instancia de la clase <see cref="ArgumentException"/>.
+    /// A new instance of the <see cref="ArgumentException"/> class.
     /// </returns>
     public static ArgumentException InvalidValue(string? argName, object? value, Exception? inner = null)
     {
@@ -157,14 +151,13 @@ public static class Errors
     }
 
     /// <summary>
-    /// Crea una nueva instancia de un <see cref="ArgumentException"/> que
-    /// indica que el valor proporcionado a un argumento no es válido.
+    /// Creates a new <see cref="ArgumentException"/> indicating that the
+    /// value provided to an argument is not valid.
     /// </summary>
-    /// <param name="argName">
-    /// Nombre del argumento para el cual se generará la excepción.
-    /// </param>
+    /// <param name="argName">Name of the argument for which the exception
+    /// will be generated.</param>
     /// <returns>
-    /// Una nueva instancia de la clase <see cref="ArgumentException"/>.
+    /// A new instance of the <see cref="ArgumentException"/> class.
     /// </returns>
     public static ArgumentException InvalidValue(string argName)
     {
@@ -172,18 +165,17 @@ public static class Errors
     }
 
     /// <summary>
-    /// Crea una nueva instancia de un
-    /// <see cref="ArgumentOutOfRangeException"/> que indica que el valor
-    /// del argumento se encuentra fuera de un rango de valores
-    /// específicos.
+    /// Creates a new <see cref="ArgumentOutOfRangeException"/> indicating
+    /// that the value of the argument is outside of a specific range of
+    /// values.
     /// </summary>
-    /// <param name="argName">
-    /// Nombre del argumento para el cual se generará la excepción.
-    /// </param>
-    /// <param name="min">Valor mínimo aceptado.</param>
-    /// <param name="max">Valor máximo aceptado.</param>
+    /// <param name="argName">Name of the argument for which the exception
+    /// will be generated.</param>
+    /// <param name="min">Minimum accepted value.</param>
+    /// <param name="max">Maximum accepted value.</param>
     /// <returns>
-    /// Una nueva instancia de la clase <see cref="ArgumentOutOfRangeException"/>.
+    /// A new instance of the
+    /// <see cref="ArgumentOutOfRangeException"/> class.
     /// </returns>
     public static ArgumentOutOfRangeException ValueOutOfRange(string argName, object min, object max)
     {
@@ -191,18 +183,16 @@ public static class Errors
     }
 
     /// <summary>
-    /// Crea una nueva instancia de un
-    /// <see cref="ArgumentOutOfRangeException"/> que indica que el valor
-    /// se encuentra fuera de los valores definidos de la enumeración.
+    /// Creates a new <see cref="ArgumentOutOfRangeException"/> indicating
+    /// that the value is outside the defined values of the enumeration.
     /// </summary>
-    /// <typeparam name="T">Tipo de enumeración.</typeparam>
-    /// <param name="argName">
-    /// Nombre del argumento para el cual se generará la excepción.
-    /// </param>
-    /// <param name="offendingValue">Valor que ha causado la excepción.</param>
+    /// <typeparam name="T">The enumeration type.</typeparam>
+    /// <param name="argName">Name of the argument for which the exception
+    /// will be generated.</param>
+    /// <param name="offendingValue">Value that caused the exception.</param>
     /// <returns>
-    /// Una nueva instancia de la clase
-    /// <see cref="ArgumentOutOfRangeException"/>.
+    /// A new instance of the
+    /// <see cref="ArgumentOutOfRangeException"/> class.
     /// </returns>
     public static ArgumentOutOfRangeException UndefinedEnum<T>(string argName, T offendingValue) where T : Enum
     {
@@ -210,18 +200,16 @@ public static class Errors
     }
 
     /// <summary>
-    /// Crea una nueva instancia de un
-    /// <see cref="ArgumentOutOfRangeException"/> que indica que el valor
-    /// se encuentra fuera de los valores definidos de la enumeración.
+    /// Creates a new <see cref="ArgumentOutOfRangeException"/> indicating
+    /// that the value is outside the defined values of the enumeration.
     /// </summary>
-    /// <param name="enumType">Tipo de enumeración.</param>
-    /// <param name="argName">
-    /// Nombre del argumento para el cual se generará la excepción.
-    /// </param>
-    /// <param name="offendingValue">Valor que ha causado la excepción.</param>
+    /// <param name="enumType">The enumeration type.</param>
+    /// <param name="argName">Name of the argument for which the exception
+    /// will be generated.</param>
+    /// <param name="offendingValue">Value that caused the exception.</param>
     /// <returns>
-    /// Una nueva instancia de la clase
-    /// <see cref="ArgumentOutOfRangeException"/>.
+    /// A new instance of the
+    /// <see cref="ArgumentOutOfRangeException"/> class.
     /// </returns>
     public static ArgumentOutOfRangeException UndefinedEnum(Type enumType, string argName, Enum offendingValue)
     {
@@ -229,14 +217,13 @@ public static class Errors
     }
 
     /// <summary>
-    /// Crea una nueva instancia de un
-    /// <see cref="InvalidOperationException"/> que indica que el objeto
-    /// especificado no pudo ser escrito.
+    /// Creates a new <see cref="InvalidOperationException"/> indicating
+    /// that the specified object could not be written.
     /// </summary>
-    /// <param name="t">Tipo del objeto que no pudo ser escrito.</param>
+    /// <param name="t">Type of the object that could not be written.</param>
     /// <returns>
-    /// Una nueva instancia de la clase 
-    /// <see cref="InvalidOperationException"/>.
+    /// A new instance of the
+    /// <see cref="InvalidOperationException"/> class.
     /// </returns>
     public static InvalidOperationException CantWriteObj(Type t)
     {
@@ -244,16 +231,14 @@ public static class Errors
     }
 
     /// <summary>
-    /// Crea una nueva instancia de un
-    /// <see cref="InvalidOperationException"/> que indica que la propiedad
-    /// es de solo lectura.
+    /// Creates a new <see cref="InvalidOperationException"/> indicating that
+    /// the property is read-only.
     /// </summary>
-    /// <param name="prop">
-    /// Propiedad para la cual se ha generado la excepción.
-    /// </param>
+    /// <param name="prop">Property for which the exception has been
+    /// generated.</param>
     /// <returns>
-    /// Una nueva instancia de la clase 
-    /// <see cref="InvalidOperationException"/>.
+    /// A new instance of the
+    /// <see cref="InvalidOperationException"/> class.
     /// </returns>
     public static InvalidOperationException PropIsReadOnly(PropertyInfo prop)
     {
@@ -261,42 +246,33 @@ public static class Errors
     }
 
     /// <summary>
-    /// Crea una nueva instancia de un <see cref="MissingMemberException"/>
-    /// que indica que se ha intentado acceder a un miembro no existente en
-    /// el tipo especificado.
+    /// Creates a new <see cref="MissingMemberException"/> indicating that an
+    /// attempt has been made to access a non-existent member in the specified
+    /// type.
     /// </summary>
-    /// <param name="type">
-    /// Tipo en el cual se ha intentado acceder al miembro no existente.
-    /// </param>
-    /// <param name="missingMember">
-    /// Miembro al que se ha intentado acceder.
-    /// </param>
+    /// <param name="type">Type in which the attempt was made to access the
+    /// non-existent member.</param>
+    /// <param name="missingMember">Member that was attempted to be
+    /// accessed.</param>
     /// <returns>
-    /// Una nueva instancia de la clase 
-    /// <see cref="MissingMemberException"/>.
+    /// A new instance of the
+    /// <see cref="MissingMemberException"/> class.
     /// </returns>
     public static MissingMemberException MissingMember(Type type, MemberInfo missingMember)
     {
         return new(type.Name, missingMember.Name);
     }
 
-    internal static NullReferenceException FieldIsNull(FieldInfo j)
-    {
-        return new NullReferenceException(string.Format(Ers.FieldValueShouldNotBeNull, j.Name));
-    }
-
     /// <summary>
-    /// Crea una nueva instancia de un <see cref="InvalidTypeException"/>
-    /// que indica que el tipo especificado no es un tipo que hereda de
-    /// <see cref="Enum"/> (declarado como <see langword="enum"/>).
+    /// Creates a new <see cref="InvalidTypeException"/> indicating that the
+    /// specified type is not a type that inherits from <see cref="Enum"/>
+    /// (declared as <see langword="enum"/>).
     /// </summary>
-    /// <param name="argName">Nombre del argumento que ha producido la excepción.</param>
-    /// <param name="offendingType">
-    /// Tipo por el cual se ha producido la excepción.
-    /// </param>
+    /// <param name="argName">Name of the argument that produced the
+    /// exception.</param>
+    /// <param name="offendingType">Type for which the exception occurred.</param>
     /// <returns>
-    /// Una nueva instancia de la clase
-    /// <see cref="InvalidTypeException"/>.
+    /// A new instance of the <see cref="ArgumentException"/> class.
     /// </returns>
     public static ArgumentException EnumExpected(string argName, Type offendingType)
     {
@@ -304,12 +280,12 @@ public static class Errors
     }
 
     /// <summary>
-    /// Crea una nueva instancia de un <see cref="ArgumentException"/> que
-    /// indica que un valor mínimo es mayor al máximo al especificar un
-    /// rango de valores.
+    /// Creates a new <see cref="ArgumentException"/> indicating that a
+    /// minimum value is greater than the maximum when specifying a range of
+    /// values.
     /// </summary>
     /// <returns>
-    /// Una nueva instancia de la clase <see cref="ArgumentException"/>.
+    /// A new instance of the <see cref="ArgumentException"/> class.
     /// </returns>
     public static ArgumentException MinGtMax()
     {
@@ -317,16 +293,13 @@ public static class Errors
     }
 
     /// <summary>
-    /// Crea una nueva instancia de un
-    /// <see cref="ClassNotInstantiableException"/> indicando el tipo de la
-    /// clase que no pudo ser instanciada.
+    /// Creates a new <see cref="ClassNotInstantiableException"/> indicating
+    /// the type of the class that could not be instantiated.
     /// </summary>
-    /// <param name="class">
-    /// Tipo de la clase que no pudo ser instanciada.
-    /// </param>
+    /// <param name="class">Type of the class that could not be instantiated.</param>
     /// <returns>
-    /// Una nueva instancia de la clase
-    /// <see cref="ClassNotInstantiableException"/>.
+    /// A new instance of the
+    /// <see cref="ClassNotInstantiableException"/> class.
     /// </returns>
     public static ClassNotInstantiableException ClassNotInstantiable(Type? @class = null)
     {
@@ -334,18 +307,13 @@ public static class Errors
     }
 
     /// <summary>
-    /// Crea una nueva instancia de un
-    /// <see cref="IncompleteTypeException"/> indicando que el tipo debe
-    /// contener un
-    /// <see cref="System.Runtime.InteropServices.GuidAttribute"/> en su
-    /// declaración para ser válido en este contexto.
+    /// Creates a new <see cref="IncompleteTypeException"/> indicating that
+    /// the type must contain a <see cref="System.Runtime.InteropServices.GuidAttribute"/>
+    /// in its declaration to be valid in this context.
     /// </summary>
-    /// <param name="type">
-    /// Tipo por el cual se ha producido la excepción.
-    /// </param>
+    /// <param name="type">Type for which the exception occurred.</param>
     /// <returns>
-    /// Una nueva instancia de la clase
-    /// <see cref="IncompleteTypeException"/>.
+    /// A new instance of the <see cref="IncompleteTypeException"/> class.
     /// </returns>
     public static IncompleteTypeException MissingGuidAttribute(Type type)
     {
@@ -353,25 +321,21 @@ public static class Errors
     }
 
     /// <summary>
-    /// Crea una nueva instancia de un <see cref="TamperException"/>
-    /// indicando que la aplicación ha entrado en un estado inesperado.
+    /// Creates a new <see cref="TamperException"/> indicating that the
+    /// application has entered an unexpected state.
     /// </summary>
     /// <returns>
-    /// Una nueva instancia de la clase
-    /// <see cref="TamperException"/>.
+    /// A new instance of the <see cref="TamperException"/> class.
     /// </returns>
     public static Exception Tamper() => new TamperException();
 
     /// <summary>
-    /// Crea una nueva instancia de un <see cref="InvalidTypeException"/>
-    /// que indica que el tipo especificado no es un tipo de enumeración.
+    /// Creates a new <see cref="InvalidTypeException"/> indicating that the
+    /// specified type is not an enumeration type.
     /// </summary>
-    /// <param name="offendingType">
-    /// Tipo por el cual se ha producido la excepción.
-    /// </param>
+    /// <param name="offendingType">Type for which the exception occurred.</param>
     /// <returns>
-    /// Una nueva instancia de la clase
-    /// <see cref="InvalidTypeException"/>.
+    /// A new instance of the <see cref="InvalidTypeException"/> class.
     /// </returns>
     public static InvalidTypeException EnumerableTypeExpected(Type offendingType)
     {
@@ -379,15 +343,12 @@ public static class Errors
     }
 
     /// <summary>
-    /// Crea una nueva instancia de un <see cref="InvalidTypeException"/>
-    /// que indica que el tipo especificado no es una interfaz.
+    /// Creates a new <see cref="InvalidTypeException"/> indicating that the
+    /// specified type is not an interface.
     /// </summary>
-    /// <param name="offendingType">
-    /// Tipo por el cual se ha producido la excepción.
-    /// </param>
+    /// <param name="offendingType">Type for which the exception occurred.</param>
     /// <returns>
-    /// Una nueva instancia de la clase
-    /// <see cref="InvalidTypeException"/>.
+    /// A new instance of the <see cref="InvalidTypeException"/> class.
     /// </returns>
     public static InvalidTypeException InterfaceTypeExpected(Type offendingType)
     {
@@ -395,18 +356,14 @@ public static class Errors
     }
 
     /// <summary>
-    /// Crea una nueva instancia de un <see cref="InvalidTypeException"/>
-    /// que indica que el tipo especificado no es un tipo válido.
+    /// Creates a new <see cref="InvalidTypeException"/> indicating that the
+    /// specified type is not a valid type.
     /// </summary>
-    /// <param name="offendingType">
-    /// Tipo por el cual se ha producido la excepción.
-    /// </param>
-    /// <param name="expectedType">
-    /// Tipo esperado por el código que ha arrojado la excepción.
-    /// </param>
+    /// <param name="offendingType">Type for which the exception occurred.</param>
+    /// <param name="expectedType">Type expected by the code that threw the
+    /// exception.</param>
     /// <returns>
-    /// Una nueva instancia de la clase
-    /// <see cref="InvalidTypeException"/>.
+    /// A new instance of the <see cref="InvalidTypeException"/> class.
     /// </returns>
     public static InvalidTypeException UnexpectedType(Type offendingType, Type expectedType)
     {
@@ -414,13 +371,11 @@ public static class Errors
     }
 
     /// <summary>
-    /// Crea una nueva instancia de un
-    /// <see cref="InvalidOperationException"/> que indica que ejecutar la
-    /// operación causa una operación circular.
+    /// Creates a new <see cref="InvalidOperationException"/> indicating that
+    /// executing the operation causes a circular operation.
     /// </summary>
     /// <returns>
-    /// Una nueva instancia de la clase
-    /// <see cref="InvalidOperationException"/>.
+    /// A new instance of the <see cref="InvalidOperationException"/> class.
     /// </returns>
     public static InvalidOperationException CircularOpDetected()
     {
@@ -428,20 +383,22 @@ public static class Errors
     }
 
     /// <summary>
-    /// Crea una nueva instancia de un <see cref="TypeLoadException"/> que
-    /// indica que el tipo no pudo ser instanciado con los argumentos de
-    /// constructor provistos.
+    /// Creates a new <see cref="TypeLoadException"/> indicating that the type
+    /// could not be instantiated with the provided constructor arguments.
     /// </summary>
-    /// <param name="t"></param>
-    /// <param name="inner"></param>
+    /// <param name="t">Type that is the cause of this exception.</param>
+    /// <param name="inner">
+    /// Exception that has been trhown trying to instantiate
+    /// <paramref name="t"/>.
+    /// </param>
     /// <returns>
-    /// Una nueva instancia de la clase <see cref="TypeLoadException"/>.
+    /// A new instance of the <see cref="TypeLoadException"/> class.
     /// </returns>
     /// <remarks>
-    /// El error se capturará cuando ocurre un error dentro del
-    /// constructor del tipo a ser instanciado. Si la clase no contiene un
-    /// constructor que acepte los argumentos, llame al método
-    /// <see cref="ClassNotInstantiable(Type?)"/> en su lugar.
+    /// The error will be captured when an error occurs within the
+    /// constructor of the type to be instantiated. If the class does not
+    /// contain a constructor that accepts the arguments, call the
+    /// <see cref="ClassNotInstantiable(Type?)"/> method instead.
     /// </remarks>
     /// <seealso cref="ClassNotInstantiable(Type?)"/>
     public static TypeLoadException CannotInstanceClass(Type t, Exception? inner = null)
@@ -450,17 +407,14 @@ public static class Errors
     }
 
     /// <summary>
-    /// Crea una nueva instancia de un
-    /// <see cref="InvalidOperationException"/> que indica que la operación
-    /// duplica datos previamente existentes cuando esto no es un escenario
-    /// deseable.
+    /// Creates a new <see cref="InvalidOperationException"/> indicating that
+    /// the operation duplicates previously existing data when this is not a
+    /// desired scenario.
     /// </summary>
-    /// <param name="id">
-    /// Identificador de los datos que se han intentado duplicar.
-    /// </param>
+    /// <param name="id">Identifier of the data that has been attempted to
+    /// be duplicated.</param>
     /// <returns>
-    /// Una nueva instancia de la clase
-    /// <see cref="InvalidOperationException"/>.
+    /// A new instance of the <see cref="InvalidOperationException"/> class.
     /// </returns>
     public static InvalidOperationException DuplicateData(object id)
     {
@@ -468,17 +422,13 @@ public static class Errors
     }
 
     /// <summary>
-    /// Crea una nueva instancia de un
-    /// <see cref="InvalidReturnValueException"/> que indica que la función
-    /// especificada ha devuelto un valor inválido en este contexto.
+    /// Creates a new <see cref="InvalidReturnValueException"/> indicating that
+    /// the specified function has returned an invalid value in this context.
     /// </summary>
-    /// <param name="call">
-    /// Función que ha devuelto el valor inválido.
-    /// </param>
-    /// <param name="returnValue">Valor inválido devuelto.</param>
+    /// <param name="call">Function that has returned the invalid value.</param>
+    /// <param name="returnValue">Invalid value returned.</param>
     /// <returns>
-    /// Una nueva instancia de la clase
-    /// <see cref="InvalidReturnValueException"/>.
+    /// A new instance of the <see cref="InvalidReturnValueException"/> class.
     /// </returns>
     public static InvalidReturnValueException InvalidReturnValue(Delegate call, object? returnValue)
     {
@@ -486,20 +436,16 @@ public static class Errors
     }
 
     /// <summary>
-    /// Crea una nueva instancia de un <see cref="NotSupportedException"/>
-    /// que indica que no es posible ejecutar una escritura binaria para un
-    /// objeto del tipo especificado.
+    /// Creates a new <see cref="NotSupportedException"/> indicating that it is
+    /// not possible to execute a binary write for an object of the specified
+    /// type.
     /// </summary>
-    /// <param name="offendingType">
-    /// Tipo del objeto para el cual se ha intentado ejecutar una escritura
-    /// binaria.
-    /// </param>
-    /// <param name="alternative">
-    /// Método alternativo sugerido para ejecutar la escritura binaria.
-    /// </param>
+    /// <param name="offendingType">Type of the object for which a binary
+    /// write has been attempted.</param>
+    /// <param name="alternative">Suggested alternative method for executing
+    /// the binary write.</param>
     /// <returns>
-    /// Una nueva instancia de la clase
-    /// <see cref="NotSupportedException"/>.
+    /// A new instance of the <see cref="NotSupportedException"/> class.
     /// </returns>
     public static NotSupportedException BinaryWriteNotSupported(Type offendingType, MethodInfo alternative)
     {
@@ -507,18 +453,15 @@ public static class Errors
     }
 
     /// <summary>
-    /// Crean una nueva instancia de un
-    /// <see cref="InvalidOperationException"/> que indica que no es
-    /// posible procesar la operación debido a que la colección no
-    /// contiene elementos.
+    /// Creates a new instance of an
+    /// <see cref="InvalidOperationException"/> indicating that it is not
+    /// possible to process the operation because the collection does not
+    /// contain elements.
     /// </summary>
-    /// <param name="collection">
-    /// Colección vacía sobre la cual se ha intentado ejecutar la
-    /// operación.
-    /// </param>
+    /// <param name="collection">Empty collection on which the operation has
+    /// been attempted to be executed.</param>
     /// <returns>
-    /// Una nueva instancia de la clase
-    /// <see cref="InvalidOperationException"/>.
+    /// A new instance of the <see cref="InvalidOperationException"/> class.
     /// </returns>
     public static InvalidOperationException EmptyCollection(IEnumerable collection)
     {
@@ -539,5 +482,10 @@ public static class Errors
     public static NullItemException NullItem(int index)
     {
         return new NullItemException() { NullIndex = index };
+    }
+
+    internal static NullReferenceException FieldIsNull(FieldInfo j)
+    {
+        return new NullReferenceException(string.Format(Ers.FieldValueShouldNotBeNull, j.Name));
     }
 }

@@ -28,22 +28,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.Diagnostics.CodeAnalysis;
-using TheXDS.MCART.Misc;
 using TheXDS.MCART.Types.Base;
 using St = TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.Resources;
 
 /// <summary>
-/// Describe una licencia.
+/// Describes a license.
 /// </summary>
 /// <remarks>
 /// Initializes a new instance of the <see cref="License"/>.
 /// </remarks>
-/// <param name="name">Nombre de la licencia.</param>
+/// <param name="name">Name of the license.</param>
 /// <param name="uri">
-/// Uri que obtiene la ubicación del contenido de la licencia.
+/// Uri that obtains the location of the license content.
 /// </param>
 public class License(string name, Uri? uri) : INameable
 {
@@ -52,32 +50,32 @@ public class License(string name, Uri? uri) : INameable
     private static License? _unspecified;
 
     /// <summary>
-    /// Obtiene una referencia a una licencia no encontrada.
+    /// Gets a reference to a missing license.
     /// </summary>
     public static License MissingLicense => _missing ??= new License(St.Common.LicenseNotFound, null);
 
     /// <summary>
-    /// Obtiene una referencia a un objeto sin licencia.
+    /// Gets a reference to a license-less object.
     /// </summary>
     public static License NoLicense => _noLicense ??= new License(St.Common.NoLicense, null);
 
     /// <summary>
-    /// Obtiene una referencia a un objeto con licencia no definida.
+    /// Gets a reference to an object with an unspecified license.
     /// </summary>
     public static License Unspecified => _unspecified ??= new License(St.Common.UnspecifiedLicense, null);
 
     /// <summary>
-    /// Obtiene el nombre descriptivo de la licencia.
+    /// Gets the descriptive name of the license.
     /// </summary>
     public string Name { get; } = name;
 
     /// <summary>
-    /// Obtiene la URL de la licencia.
+    /// Gets the URL of the license.
     /// </summary>
     public Uri? LicenseUri { get; } = uri;
 
     /// <summary>
-    /// Obtiene el contenido de la licencia.
+    /// Gets the content of the license.
     /// </summary>
     public virtual string LicenseContent
     {
