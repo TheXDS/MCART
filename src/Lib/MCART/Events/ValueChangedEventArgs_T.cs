@@ -1,5 +1,5 @@
 ﻿/*
-ValueChangingEventArgs.cs
+ValueChangingEventArgs_T.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,16 +28,56 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System.ComponentModel;
+
 namespace TheXDS.MCART.Events;
 
 /// <summary>
 /// Includes event information for any event where the value of an element
 /// changes.
 /// </summary>
+/// <typeparam name="T">
+/// Type of value that will be changed.
+/// </typeparam>
 /// <param name="oldValue">
 /// Old value.
 /// </param>
 /// <param name="newValue">
 /// New value.
 /// </param>
-public class ValueChangingEventArgs(object? oldValue, object? newValue) : ValueChangingEventArgs<object?>(oldValue, newValue);
+public class ValueChangedEventArgs<T>(T oldValue, T newValue) : CancelEventArgs
+{
+    /// <summary>
+    /// Implicitly converts an object of type
+    /// <see cref="ValueChangedEventArgs{T}" /> to anobject of type
+    /// <see cref="ValueEventArgs{T}" />.
+    /// </summary>
+    /// <param name="fromValue">Object to be converted.</param>
+    /// <returns>
+    /// A new <see cref="ValueChangedEventArgs{T}" /> with the same event
+    /// information as the original <see cref="ValueChangedEventArgs{T}" />
+    /// value.
+    /// </returns>
+    public static explicit operator ValueEventArgs<T>(ValueChangedEventArgs<T> fromValue)
+    {
+        return new(fromValue.NewValue);
+    }
+
+    /// <summary>
+    /// Gets the original value.
+    /// </summary>
+    /// <returns>
+    /// The original value of type <typeparamref name="T" /> associated with
+    /// the value change.
+    /// </returns>
+    public T OldValue { get; } = oldValue;
+
+    /// <summary>
+    /// Gets the new value.
+    /// </summary>
+    /// <returns>
+    /// The new value of type <typeparamref name="T" /> associated with the
+    /// value change.
+    /// </returns>
+    public T NewValue { get; } = newValue;
+}

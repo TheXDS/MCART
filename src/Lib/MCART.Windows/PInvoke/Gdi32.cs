@@ -39,6 +39,9 @@ internal partial class Gdi32
 #if NET7_0_OR_GREATER
 
     [LibraryImport(Gdi32Dll)]
+    internal static partial IntPtr CreateRoundRectRgn(int nLeftRect, int nTopRect, int nRightRect, int nBottomRect, int nWidthEllipse, int nHeightEllipse);
+
+    [LibraryImport(Gdi32Dll)]
     internal static partial int GetDeviceCaps(IntPtr hdc, int nIndex);
     
     [LibraryImport(Gdi32Dll)] 
@@ -46,6 +49,9 @@ internal partial class Gdi32
     internal static partial bool DeleteObject(IntPtr value);
 
 #else
+
+    [DllImport("gdi32.dll")]
+    internal static extern IntPtr CreateRoundRectRgn(int nLeftRect, int nTopRect, int nRightRect, int nBottomRect, int nWidthEllipse, int nHeightEllipse);
 
     [DllImport(Gdi32Dll)]
     internal static extern int GetDeviceCaps(IntPtr hdc, int nIndex);

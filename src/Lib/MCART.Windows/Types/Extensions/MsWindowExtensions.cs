@@ -468,7 +468,7 @@ public static class MsWindowExtensions
 
     private static void SetWindowData(this IMsWindow window, WindowData data, Func<WindowStyles, WindowStyles> transform)
     {
-        if (SetWindowLong(
+        if (SetWindowLongA(
             window.Handle,
             (int)data,
             (uint)transform((WindowStyles)GetWindowLong(window.Handle, data))) == 0)

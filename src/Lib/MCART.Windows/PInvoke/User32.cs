@@ -58,11 +58,14 @@ internal partial class User32
     internal static partial int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
 
     [LibraryImport(User32Lib, SetLastError = true)]
-    internal static partial int SetWindowLong(IntPtr hwnd, int index, uint newStyle);
+    internal static partial int SetWindowLongA(IntPtr hwnd, int index, uint newStyle);
 
     [LibraryImport(User32Lib)]
     [return: MarshalAs(UnmanagedType.Bool)]
     internal static partial bool SetWindowPos(IntPtr hwnd, IntPtr hwndInsertAfter, int x, int y, int width, int height, uint flags);
+
+    [LibraryImport(User32Lib)]
+    internal static partial int SetWindowRgn(IntPtr hWnd, IntPtr hRgn, [MarshalAs(UnmanagedType.Bool)] bool bRedraw);
 
     [LibraryImport(User32Lib)]
     [return: MarshalAs(UnmanagedType.Bool)]
@@ -121,6 +124,9 @@ internal partial class User32
 
     [DllImport(User32Lib)]
     internal static extern bool SetWindowPos(IntPtr hwnd, IntPtr hwndInsertAfter, int x, int y, int width, int height, uint flags);
+
+    [DllImport(User32Lib)]
+    internal static extern int SetWindowRgn(IntPtr hWnd, IntPtr hRgn, bool bRedraw);
 
     [DllImport(User32Lib)]
     internal static extern bool ShowWindow(IntPtr hWnd, ShowWindowFlags nCmdShow);
