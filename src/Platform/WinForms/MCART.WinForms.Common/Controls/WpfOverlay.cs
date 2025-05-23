@@ -45,9 +45,9 @@ internal partial class WpfOverlay : Window
     private readonly bool _designMode;
     private Form? _target;
     private bool _extendToCaption;
-    private double horizontalOffset;
-    private double verticalOffset;
-    private double verticalSizeAdjust;
+    private int horizontalOffset;
+    private int verticalOffset;
+    private int verticalSizeAdjust;
 
     public bool ExtendToCaption
     {
@@ -138,9 +138,9 @@ internal partial class WpfOverlay : Window
         var dpi = VisualTreeHelper.GetDpi(this);
         var xScaleFactor = 1.0 / dpi.DpiScaleX;
         var yScaleFactor = 1.0 / dpi.DpiScaleY;
-        Left = location.X * xScaleFactor + horizontalOffset;
-        Top = location.Y * yScaleFactor + verticalOffset;
+        Left = System.Math.FusedMultiplyAdd(location.X, xScaleFactor, horizontalOffset);
+        Top = System.Math.FusedMultiplyAdd(location.Y, yScaleFactor, verticalOffset);
         Width = size.Width * xScaleFactor;
-        Height = size.Height * yScaleFactor + verticalSizeAdjust;
+        Height = System.Math.FusedMultiplyAdd(size.Height, yScaleFactor, verticalSizeAdjust);
     }
 }
