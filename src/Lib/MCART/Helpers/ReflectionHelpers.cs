@@ -40,6 +40,7 @@ using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Extensions;
 using static System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes;
 using static TheXDS.MCART.Misc.AttributeErrorMessages;
+using static TheXDS.MCART.Misc.PrivateInternals;
 
 namespace TheXDS.MCART.Helpers;
 
@@ -926,7 +927,7 @@ public static partial class ReflectionHelpers
     [RequiresUnreferencedCode(MethodScansForTypes)]
     public static IEnumerable<Type> GetTypes<T>(AppDomain domain)
     {
-        return typeof(T).GetDerivedTypes(domain);
+        return typeof(T).FindDerivedTypes(domain);
     }
 
     /// <summary>
@@ -1266,18 +1267,5 @@ public static partial class ReflectionHelpers
             MemberExpression m => m.Member,
             _ => throw Errors.InvalidSelectorExpression()
         };
-    }
-
-    [RequiresUnreferencedCode(MethodScansForTypes)]
-    private static IEnumerable<Type> SafeGetExportedTypes(Assembly arg)
-    {
-        try
-        {
-            return arg.GetExportedTypes();
-        }
-        catch
-        {
-            return [];
-        }
     }
 }

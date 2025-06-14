@@ -34,25 +34,23 @@ using System.Security;
 namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
-/// Extensiones de la clase <see cref="SecureString" />.
+/// Extensions for the <see cref="SecureString" /> class.
 /// </summary>
 public static class SecureStringExtensions
 {
     /// <summary>
-    /// Convierte un <see cref="SecureString" /> en un
-    /// <see cref="string" />.
+    /// Converts a <see cref="SecureString" /> to a <see cref="string" />.
     /// </summary>
     /// <param name="value">
-    /// <see cref="SecureString" /> a convertir.
+    /// The <see cref="SecureString" /> to convert.
     /// </param>
-    /// <returns>Un <see cref="string" /> de código administrado.</returns>
+    /// <returns>A managed <see cref="string" />.</returns>
     /// <remarks>
-    /// El uso de este método NO ESTÁ RECOMENDADO, ya que la conversión al
-    /// tipo <see cref="string" /> vence el propósito original de
-    /// <see cref="SecureString" />, y se provee como una
-    /// alternativa sencilla, en casos en los que el programa no dependa de
-    /// que la confidencialidad de una cadena en particular se deba
-    /// mantener durante la ejecución.
+    /// Using this method is NOT RECOMMENDED, as converting to a
+    /// <see cref="string" /> defeats the original purpose of
+    /// <see cref="SecureString" />. It's provided as a simple alternative
+    /// in cases where the program doesn't rely on maintaining the
+    /// confidentiality of a specific string during execution.
     /// </remarks>
     public static string Read(this SecureString value)
     {
@@ -69,25 +67,22 @@ public static class SecureStringExtensions
     }
 
     /// <summary>
-    /// Convierte un <see cref="SecureString" /> en un
-    /// arreglo de <see cref="short" />.
+    /// Converts a <see cref="SecureString" /> to an array of <see cref="short" />.
     /// </summary>
     /// <param name="value">
-    /// <see cref="SecureString" /> a convertir.
+    /// The <see cref="SecureString" /> to convert.
     /// </param>
-    /// <returns>
-    /// Un arreglo de <see cref="short" /> de código administrado.
-    /// </returns>
+    /// <returns>A managed array of <see cref="short" />.</returns>
     public static short[] ReadInt16(this SecureString value)
     {
         const int sz = sizeof(short);
-        List<short>? output = new();
+        List<short>? output = [];
         IntPtr valuePtr = IntPtr.Zero;
         try
         {
             valuePtr = Marshal.SecureStringToGlobalAllocUnicode(value);
             for (int i = 0; i < value.Length * sz; i += sz) output.Add(Marshal.ReadInt16(valuePtr, i));
-            return output.ToArray();
+            return [.. output];
         }
         finally
         {
@@ -96,25 +91,22 @@ public static class SecureStringExtensions
     }
 
     /// <summary>
-    /// Convierte un <see cref="SecureString" /> en un
-    /// arreglo de <see cref="char" />.
+    /// Converts a <see cref="SecureString" /> to an array of <see cref="char" />.
     /// </summary>
     /// <param name="value">
-    /// <see cref="SecureString" /> a convertir.
+    /// The <see cref="SecureString" /> to convert.
     /// </param>
-    /// <returns>
-    /// Un arreglo de <see cref="char" /> de código administrado.
-    /// </returns>
+    /// <returns>A managed array of <see cref="char" />.</returns>
     public static char[] ReadChars(this SecureString value)
     {
         const int sz = sizeof(char);
-        List<char>? output = new();
+        List<char>? output = [];
         IntPtr valuePtr = IntPtr.Zero;
         try
         {
             valuePtr = Marshal.SecureStringToGlobalAllocUnicode(value);
             for (int i = 0; i < value.Length * sz; i += sz) output.Add((char)Marshal.ReadInt16(valuePtr, i));
-            return output.ToArray();
+            return [.. output];
         }
         finally
         {
@@ -123,27 +115,24 @@ public static class SecureStringExtensions
     }
 
     /// <summary>
-    /// Convierte un <see cref="SecureString" /> en un
-    /// arreglo de <see cref="byte" />.
+    /// Converts a <see cref="SecureString" /> to an array of <see cref="byte" />.
     /// </summary>
     /// <param name="value">
-    /// <see cref="SecureString" /> a convertir.
+    /// The <see cref="SecureString" /> to convert.
     /// </param>
-    /// <returns>
-    /// Un arreglo de <see cref="byte" /> de código administrado.
-    /// </returns>
+    /// <returns>A managed array of <see cref="byte" />.</returns>
     /// <remarks>
-    /// El arreglo de bytes leídos corresponderá a una cadena UTF-16.
+    /// The byte array read corresponds to a UTF-16 string.
     /// </remarks>
     public static byte[] ReadBytes(this SecureString value)
     {
-        List<byte>? output = new();
+        List<byte>? output = [];
         IntPtr valuePtr = IntPtr.Zero;
         try
         {
             valuePtr = Marshal.SecureStringToGlobalAllocUnicode(value);
             for (int i = 0; i < value.Length * 2; i++) output.Add(Marshal.ReadByte(valuePtr, i));
-            return output.ToArray();
+            return [.. output];
         }
         finally
         {
@@ -152,16 +141,14 @@ public static class SecureStringExtensions
     }
 
     /// <summary>
-    /// Convierte un <see cref="SecureString"/> en un valor de tipo
-    /// <see cref="string"/> en formato base64.
+    /// Converts a <see cref="SecureString"/> to a Base64 formatted <see cref="string"/>.
     /// </summary>
-    /// <see cref="SecureString" /> a convertir.
-    /// <returns>
-    /// Un valor de tipo <see cref="string"/> en formato base64.
-    /// </returns>
+    /// <param name="value">
+    /// The <see cref="SecureString" /> to convert.
+    /// </param>
+    /// <returns>A Base64 formatted <see cref="string"/>.</returns>
     /// <remarks>
-    /// El arreglo de bytes leídos previo a la conversión a Base64
-    /// corresponderá a una cadena UTF-16.
+    /// The byte array read before conversion to Base64 corresponds to a UTF-16 string.
     /// </remarks>
     public static string ToBase64(this SecureString value)
     {

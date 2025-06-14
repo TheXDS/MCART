@@ -31,8 +31,7 @@ SOFTWARE.
 namespace TheXDS.MCART.Types;
 
 /// <summary>
-/// Estructura que representa un token utilizado para pausar temporalmente
-/// la ejecución de tareas.
+/// A structure that represents a token used to temporarily pause task execution.
 /// </summary>
 public readonly struct PauseToken
 {
@@ -44,19 +43,16 @@ public readonly struct PauseToken
     }
 
     /// <summary>
-    /// Obtiene un valor que indica si este <see cref="PauseToken"/> se
-    /// encuentra en estado de pausa.
+    /// Gets a value indicating whether this <see cref="PauseToken"/> is in a paused state.
     /// </summary>
     public bool IsPaused => m_source?.IsPaused ?? false;
 
     /// <summary>
-    /// Inicia el estado de pausa, esperando a que el
-    /// <see cref="PauseTokenSource"/> de origen de esta instancia salga
-    /// del estado de pausa.
+    /// Begins the pause state, waiting for the source <see cref="PauseTokenSource"/>
+    /// of this instance to exit the pause state.
     /// </summary>
     /// <returns>
-    /// Un objeto <see cref="Task"/> que finalizará cuando este token no se
-    /// encuentre en pausa.
+    /// A <see cref="Task"/> object that will complete when this token is no longer paused.
     /// </returns>
     public Task WaitWhilePausedAsync()
     {

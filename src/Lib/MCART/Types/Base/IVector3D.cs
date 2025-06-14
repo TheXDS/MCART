@@ -33,23 +33,27 @@ using System.Numerics;
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
-/// Interfaz que define propiedades comunes para estructuras de datos
-/// que describen coordenadas, vectores, magnitudes y tamaños en un
-/// espacio de tres dimensiones.
+/// Interface that defines common properties for data structures
+/// that describe coordinates, vectors, magnitudes, and sizes in a
+/// three-dimensional space.
 /// </summary>
-public interface IVector3D : IVector
+public interface IVector3D : IVector, IEquatable<Vector3>
 {
     /// <summary>
-    /// Obtiene el componente del eje Z representado por este
+    /// Gets the component of the Z axis represented by this
     /// <see cref="IVector3D"/>.
     /// </summary>
     double Z { get; }
 
     /// <summary>
-    /// Converts the current <see cref="IVector3D"/> to a <see cref="Vector3"/>.
+    /// Converts the current <see cref="IVector3D"/> to a
+    /// <see cref="Vector3"/>.
     /// </summary>
     /// <returns>
-    /// A new <see cref="Vector2"/> instance with the same X and Y values as this <see cref="IVector"/>.
+    /// A new <see cref="Vector3"/> instance with the same X, Y and Z values as
+    /// this <see cref="IVector"/>.
     /// </returns>
     Vector3 ToVector3() => new((float)X, (float)Y, (float)Z);
+
+    bool IEquatable<Vector3>.Equals(Vector3 other) => X.Equals(other.X) && Y.Equals(other.Y) && Z.Equals(other.Z);
 }

@@ -3,10 +3,6 @@ TypeExtensions.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
-Este archivo contiene numerosas extensiones para el tipo System.Type del CLR,
-supliéndolo de nueva funcionalidad previamente no existente, o de invocación
-compleja.
-
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
@@ -42,23 +38,21 @@ using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Resources;
-using static TheXDS.MCART.Misc.AttributeErrorMessages;
 using static System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes;
-using TheXDS.MCART.Misc;
+using static TheXDS.MCART.Misc.AttributeErrorMessages;
 
 namespace TheXDS.MCART.Types.Extensions;
 
 public static partial class TypeExtensions
 {
     /// <summary>
-    /// Comprueba si todos los tipos son asignables a partir del tipo
-    /// <paramref name="source" />.
+    /// Checks if all types are assignable from the <paramref name="source"/> type.
     /// </summary>
-    /// <param name="types">Lista de tipos a comprobar.</param>
-    /// <param name="source">Tipo que desea asignarse.</param>
+    /// <param name="types">List of types to check.</param>
+    /// <param name="source">Type that is being assigned.</param>
     /// <returns>
-    /// <see langword="true" /> si todos los tipos son asignables a partir de
-    /// <paramref name="source" />, <see langword="false" /> en caso contrario.
+    /// <see langword="true" /> if all types are assignable from
+    /// <paramref name="source" />, <see langword="false" /> otherwise.
     /// </returns>
     public static bool AreAllAssignable(this Type source, IEnumerable<Type> types)
     {
@@ -66,14 +60,13 @@ public static partial class TypeExtensions
     }
 
     /// <summary>
-    /// Comprueba si todos los tipos son asignables a partir del tipo
-    /// <paramref name="source" />.
+    /// Checks if all types are assignable from the <paramref name="source"/> type.
     /// </summary>
-    /// <param name="types">Lista de tipos a comprobar.</param>
-    /// <param name="source">Tipo que desea asignarse.</param>
+    /// <param name="types">List of types to check.</param>
+    /// <param name="source">Type that is being assigned.</param>
     /// <returns>
-    /// <see langword="true" /> si todos los tipos son asignables a partir de
-    /// <paramref name="source" />, <see langword="false" /> en caso contrario.
+    /// <see langword="true" /> if all types are assignable from
+    /// <paramref name="source" />, <see langword="false" /> otherwise.
     /// </returns>
     public static bool AreAllAssignable(this Type source, params Type[] types)
     {
@@ -81,12 +74,12 @@ public static partial class TypeExtensions
     }
 
     /// <summary>
-    /// Enumera los tipos asignables a partir de <paramref name="source" />.
+    /// Enumerates the types that are assignable from <paramref name="source"/>.
     /// </summary>
-    /// <param name="types">Lista de tipos a comprobar.</param>
-    /// <param name="source">Tipo que desea asignarse.</param>
+    /// <param name="types">List of types to check.</param>
+    /// <param name="source">Type that is being assigned.</param>
     /// <returns>
-    /// Un enumerador con los tipos que pueden ser asignados a partir de
+    /// An enumerator with the types that can be assigned from
     /// <paramref name="source" />.
     /// </returns>
     public static IEnumerable<Type> Assignables(this Type source, IEnumerable<Type> types)
@@ -95,12 +88,12 @@ public static partial class TypeExtensions
     }
 
     /// <summary>
-    /// Enumera los tipos asignables a partir de <paramref name="source" />.
+    /// Enumerates the types that are assignable from <paramref name="source"/>.
     /// </summary>
-    /// <param name="types">Lista de tipos a comprobar.</param>
-    /// <param name="source">Tipo que desea asignarse.</param>
+    /// <param name="types">List of types to check.</param>
+    /// <param name="source">Type that is being assigned.</param>
     /// <returns>
-    /// Un enumerador con los tipos que pueden ser asignados a partir de
+    /// An enumerator with the types that can be assigned from
     /// <paramref name="source" />.
     /// </returns>
     public static IEnumerable<Type> Assignables(this Type source, params Type[] types)
@@ -109,21 +102,18 @@ public static partial class TypeExtensions
     }
 
     /// <summary>
-    /// Obtiene el nombre completo del tipo, sin incluir la anotación
-    /// de cantidad de argumentos genéricos.
+    /// Gets the full name of the type without including the generic argument count annotation.
     /// </summary>
     /// <param name="type">
-    /// Tipo del cual obtener el nombre limpio.
+    /// Type from which to obtain the clean name.
     /// </param>
     /// <returns>
-    /// El nombre completo de tipo, incluyendo su espacio de nombres,
-    /// pero no su ensamblado ni su anotación de cantidad de argumentos
-    /// genéricos en caso de poseer una.
+    /// The full type name, including its namespace,
+    /// but not its assembly or its generic argument count annotation if present.
     /// </returns>
     public static string CleanFullName(this Type type)
     {
         var name = type.FullName ?? type.Name;
-
         if (name.Contains('`')) name = name[..name.IndexOf('`')];
         name = name.TrimEnd("&*".ToCharArray());
         if (name.EndsWith("[]")) name = name[..^2];
@@ -131,14 +121,13 @@ public static partial class TypeExtensions
     }
 
     /// <summary>
-    /// Obtiene el nombre del tipo tal cual se declararía en C#.
+    /// Gets the type name as it would be declared in C#.
     /// </summary>
     /// <param name="type">
-    /// Tipo del cual obtener la cadena de declaración.
+    /// Type from which to obtain the declaration string.
     /// </param>
     /// <returns>
-    /// Una cadena que representa la declaración del tipo utilizando 
-    /// sintaxis de C#.
+    /// A string representing the type's declaration using C# syntax.
     /// </returns>
     /// <remarks>
     /// The types will use their full name, including their namespace. Types
@@ -154,15 +143,14 @@ public static partial class TypeExtensions
     }
 
     /// <summary>
-    /// Equivalente programático de <see langword="default" />, obtiene
-    /// el valor predeterminado del tipo.
+    /// Programmatic equivalent of <see langword="default" />, gets the default value of a type.
     /// </summary>
     /// <param name="t">
-    /// <see cref="Type" /> del cual obtener el valor predeterminado.
+    /// <see cref="Type" /> from which to obtain the default value.
     /// </param>
     /// <returns>
-    /// Una nueva instancia del tipo si el mismo es un
-    /// <see langword="struct" />, o <see langword="null" /> si es una
+    /// A new instance of the type if it is a
+    /// <see langword="struct" />, or <see langword="null" /> if it's a
     /// <see langword="class" />.
     /// </returns>
     public static object? Default([DynamicallyAccessedMembers(PublicParameterlessConstructor)] this Type t)
@@ -171,40 +159,35 @@ public static partial class TypeExtensions
     }
 
     /// <summary>
-    /// Enumera a los tipos descendientes del tipo dentro del dominio
-    /// especificado.
+    /// Enumerates the descendant types of a type within the specified domain.
     /// </summary>
     /// <param name="type">
-    /// Tipo del cual buscar descendientes.
+    /// Type for which to find descendants.
     /// </param>
     /// <param name="domain">
-    /// Dominio sobre el cual realizar la búsqueda.
+    /// Domain on which to perform the search.
     /// </param>
     /// <returns>
-    /// Una secuencia con todos los tipos descendientes del tipo
-    /// especificado.
+    /// A sequence with all descendant types of the specified type.
     /// </returns>
     [RequiresUnreferencedCode(MethodScansForTypes)]
-    public static IEnumerable<Type> GetDerivedTypes(this Type type, AppDomain domain)
+    public static IEnumerable<Type> FindDerivedTypes(this Type type, AppDomain domain)
     {
         Derivates_Contract(domain);
-        return Derivates(type, domain.GetAssemblies());
+        return FindDerivedTypes(type, domain.GetAssemblies());
     }
 
     /// <summary>
-    /// Enumera a los tipos descendientes del tipo dentro de los
-    /// ensamblados especificados.
+    /// Enumerates the descendant types of a type within the specified assemblies.
     /// </summary>
     /// <param name="type">
-    /// Tipo del cual buscar descendientes.
+    /// Type for which to find descendants.
     /// </param>
     /// <param name="assemblies">
-    /// Secuencia que contiene un listado de los ensamblados en los
-    /// cuales realizar la búsqueda.
+    /// Sequence containing a list of assemblies in which to perform the search.
     /// </param>
     /// <returns>
-    /// Una secuencia con todos los tipos descendientes del tipo
-    /// especificado.
+    /// A sequence with all descendant types of the specified type.
     /// </returns>
     [RequiresUnreferencedCode(MethodScansForTypes)]
     public static IEnumerable<Type> Derivates(this Type type, IEnumerable<Assembly> assemblies)
@@ -228,19 +211,16 @@ public static partial class TypeExtensions
     }
 
     /// <summary>
-    /// Enumera a los tipos descendientes del tipo dentro de la colección
-    /// de tipos especificada.
+    /// Enumerates the descendant types of a type within the specified collection of types.
     /// </summary>
     /// <param name="type">
-    /// Tipo del cual buscar descendientes.
+    /// Type for which to find descendants.
     /// </param>
     /// <param name="types">
-    /// Secuencia que contiene un listado de los tipos en los cuales se
-    /// debe realizar la búsqueda.
+    /// Sequence containing a list of types in which to perform the search.
     /// </param>
     /// <returns>
-    /// Una secuencia con todos los tipos descendientes del tipo
-    /// especificado.
+    /// A sequence with all descendant types of the specified type.
     /// </returns>
     public static IEnumerable<Type> Derivates(this Type type, IEnumerable<Type> types)
     {
@@ -252,54 +232,49 @@ public static partial class TypeExtensions
     }
 
     /// <summary>
-    /// Enumera a los tipos descendientes del tipo dentro de los
-    /// ensamblados especificados.
+    /// Enumerates the descendant types of a specified type within given assemblies.
     /// </summary>
     /// <param name="type">
-    /// Tipo del cual buscar descendientes.
+    /// Type for which to find descendants.
     /// </param>
     /// <param name="assemblies">
-    /// Secuencia que contiene un listado de los ensamblados en los
-    /// cuales realizar la búsqueda.
+    /// Sequence containing a list of assemblies in which to perform the search.
     /// </param>
     /// <returns>
-    /// Una secuencia con todos los tipos descendientes del tipo
-    /// especificado.
+    /// A sequence with all descendant types of the specified type.
     /// </returns>
     [RequiresUnreferencedCode(MethodScansForTypes)]
-    public static IEnumerable<Type> Derivates(this Type type, params Assembly[] assemblies)
+    public static IEnumerable<Type> FindDerivedTypes(this Type type, params Assembly[] assemblies)
     {
         return Derivates(type, assemblies.AsEnumerable());
     }
 
     /// <summary>
-    /// Enumera a los tipos descendientes del tipo especificado.
+    /// Enumerates the descendant types of a specified type.
     /// </summary>
     /// <param name="type">
-    /// Tipo del cual buscar descendientes.
+    /// Type for which to find descendants.
     /// </param>
     /// <returns>
-    /// Una secuencia con todos los tipos descendientes del tipo
-    /// especificado.
+    /// A sequence with all descendant types of the specified type.
     /// </returns>
     [RequiresUnreferencedCode(MethodScansForTypes)]
     public static IEnumerable<Type> GetDerivedTypes(this Type type)
     {
-        return GetDerivedTypes(type, AppDomain.CurrentDomain);
+        return FindDerivedTypes(type, AppDomain.CurrentDomain);
     }
 
     /// <summary>
-    /// Devuelve el atributo asociado a la declaración del tipo
-    /// especificado, o en su defecto, del ensamblado que lo contiene.
+    /// Returns the attribute associated with the declaration of a specified type,
+    /// or otherwise, from the assembly that contains it.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+    /// Attribute type to retrieve. Must inherit <see cref="Attribute" />.
     /// </typeparam>
-    /// <param name="type">Objeto del cual se extraerá el atributo.</param>
+    /// <param name="type">Object from which to extract the attribute.</param>
     /// <returns>
-    /// Un atributo del tipo <typeparamref name="T" /> con los datos
-    /// asociados en la declaración del tipo; o <see langword="null" /> en caso de no
-    /// encontrarse el atributo especificado.
+    /// An attribute of type <typeparamref name="T" /> with associated data in the
+    /// type's declaration; or <see langword="null" /> if the specified attribute is not found.
     /// </returns>
     public static T? GetAttrAlt<T>(this Type type) where T : Attribute
     {
@@ -308,20 +283,18 @@ public static partial class TypeExtensions
     }
 
     /// <summary>
-    /// Obtiene el tipo de elementos contenidos por el tipo de
-    /// colección.
+    /// Gets the type of elements contained by a collection type.
     /// </summary>
     /// <param name="collectionType">
-    /// Tipo de colección del cual obtener el tipo de elementos.
+    /// Collection type from which to obtain the element type.
     /// </param>
     /// <returns>
-    /// El tipo de elementos contenidos por la colección.
+    /// The type of elements contained by the collection.
     /// </returns>
     /// <remarks>
-    /// Por convención, se asume que el tipo de elementos de una colección
-    /// está basado en los argumentos de tipo genéricos utilizados en la
-    /// definición del tipo, utilizando una convención común de colocar el
-    /// tipo de elementos al final de los argumentos de tipo.
+    /// By convention, it is assumed that the element type of a collection
+    /// is based on the generic type arguments used in its definition,
+    /// with a common convention of placing the element type at the end of the type arguments.
     /// </remarks>
 #if EnforceContracts
     [RequiresDynamicCode(MethodCallsDynamicCode)]
@@ -342,27 +315,26 @@ public static partial class TypeExtensions
     }
 
     /// <summary>
-    /// Obtiene una colección de los métodos definidos directamente en el tipo.
+    /// Gets a collection of methods defined directly in the specified type.
     /// </summary>
-    /// <param name="type">Tipo para el cual listar los métodos.</param>
+    /// <param name="type">Type for which to list the methods.</param>
     /// <param name="flags">
-    /// Banderas a utilizar para filtrar los métodos a obtener.
+    /// Flags to use for filtering the methods to retrieve.
     /// </param>
     /// <returns>
-    /// Una enumeración de los métodos definidos directamente en el tipo.
+    /// An enumeration of methods defined directly in the type.
     /// </returns>
     public static IEnumerable<MethodInfo> GetDefinedMethods([DynamicallyAccessedMembers(PublicMethods | NonPublicMethods)] this Type type, BindingFlags flags)
     {
-        return type.GetMethods(flags).Where(p => p.DeclaringType == type && p.IsSpecialName == false);
+        return type.GetMethods(flags).Where(p => p.DeclaringType == type && !p.IsSpecialName);
     }
 
     /// <summary>
-    /// Obtiene una colección de los métodos de instancia públicos definidos
-    /// directamente en el tipo.
+    /// Gets a collection of publicly defined instance methods directly in the type.
     /// </summary>
-    /// <param name="type">Tipo para el cual listar los métodos.</param>
+    /// <param name="type">Type for which to list the methods.</param>
     /// <returns>
-    /// Una enumeración de los métodos definidos directamente en el tipo.
+    /// An enumeration of methods defined directly in the type.
     /// </returns>
     public static IEnumerable<MethodInfo> GetDefinedMethods([DynamicallyAccessedMembers(PublicMethods | NonPublicMethods)] this Type type)
     {
@@ -371,14 +343,13 @@ public static partial class TypeExtensions
     }
 
     /// <summary>
-    /// Enumera todas las propiedades públicas de instancia del tipo.
+    /// Enumerates all public instance properties of the type.
     /// </summary>
     /// <param name="type">
-    /// Tipo para el cual enumerar las propiedades públicas de instancia.
+    /// Type for which to enumerate the public instance properties.
     /// </param>
     /// <returns>
-    /// Una enumeración con todas las propiedades públicas de instancia del
-    /// tipo.
+    /// An enumeration with all public instance properties of the type.
     /// </returns>
     [Sugar]
     public static IEnumerable<PropertyInfo> GetPublicProperties([DynamicallyAccessedMembers(PublicProperties)] this Type type)
@@ -388,23 +359,22 @@ public static partial class TypeExtensions
     }
 
     /// <summary>
-    /// Determina si un miembro o su ensamblado contenedor posee un atributo definido.
+    /// Determines if a member or its containing assembly has a defined attribute.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+    /// Attribute type to retrieve. Must inherit <see cref="Attribute" />.
     /// </typeparam>
     /// <param name="type">
-    /// Miembro del cual se extraerá el atributo.
+    /// Member from which to extract the attribute.
     /// </param>
     /// <param name="attribute">
-    /// Parámetro de salida. Si un atributo de tipo
-    /// <typeparamref name="T" /> ha sido encontrado, el mismo es devuelto.
-    /// Se devolverá <see langword="null" /> si el miembro no posee el atributo
-    /// especificado.
+    /// Output parameter. If an attribute of type
+    /// <typeparamref name="T" /> has been found, it is returned.
+    /// It will return <see langword="null" /> if the member does not have the specified attribute.
     /// </param>
     /// <returns>
-    /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
-    /// en caso contrario.
+    /// <see langword="true" /> if the member has the attribute, <see langword="false" />
+    /// otherwise.
     /// </returns>
     public static bool HasAttrAlt<T>(this Type type, [MaybeNullWhen(false)] out T attribute) where T : Attribute
     {
@@ -414,17 +384,17 @@ public static partial class TypeExtensions
     }
 
     /// <summary>
-    /// Determina si un miembro o su ensamblado contenedor posee un atributo definido.
+    /// Determines if a member or its containing assembly has a defined attribute.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+    /// Attribute type to retrieve. Must inherit <see cref="Attribute" />.
     /// </typeparam>
     /// <param name="type">
-    /// Miembro del cual se extraerá el atributo.
+    /// Member from which to extract the attribute.
     /// </param>
     /// <returns>
-    /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
-    /// en caso contrario.
+    /// <see langword="true" /> if the member has the attribute, <see langword="false" />
+    /// otherwise.
     /// </returns>
     public static bool HasAttrAlt<T>(this Type type) where T : Attribute
     {
@@ -432,17 +402,15 @@ public static partial class TypeExtensions
     }
 
     /// <summary>
-    /// Determina si el tipo implementa a todos los tipos especificados.
+    /// Determines if a type implements all specified types.
     /// </summary>
-    /// <param name="type">Tipo a comprobar</param>
+    /// <param name="type">Type to check</param>
     /// <param name="baseTypes">
-    /// Colección de tipos a comprobar que <paramref name="type"/>
-    /// herede.
+    /// Collection of types to verify that <paramref name="type"/> inherits from.
     /// </param>
     /// <returns>
-    /// <see langword="true" /> si <paramref name="type" /> implementa
-    /// a todos los tipos especificados, <see langword="false" /> en
-    /// caso contrario.
+    /// <see langword="true" /> if <paramref name="type" /> implements
+    /// all specified types, <see langword="false" /> otherwise.
     /// </returns>
     [RequiresDynamicCode(MethodCreatesNewTypes)]
     [RequiresUnreferencedCode(MethodCreatesNewTypes)]
@@ -452,14 +420,14 @@ public static partial class TypeExtensions
     }
 
     /// <summary>
-    /// Determina si el tipo implementa a <paramref name="baseType" /> con los argumentos de tipo genérico especificados.
+    /// Determines if a type implements <paramref name="baseType"/> with the specified generic type arguments.
     /// </summary>
-    /// <param name="type">Tipo a comprobar</param>
-    /// <param name="baseType">Herencia de tipo a verificar.</param>
-    /// <param name="typeArgs">Tipos de argumentos genéricos a utilizar para crear el tipo genérico a comprobar.</param>
+    /// <param name="type">Type to check</param>
+    /// <param name="baseType">Base type inheritance to verify.</param>
+    /// <param name="typeArgs">Generic type arguments to use for creating the generic type to check.</param>
     /// <returns>
-    /// <see langword="true" /> si <paramref name="type"/> implementa a <paramref name="baseType" />,
-    /// <see langword="false" /> en caso contrario.
+    /// <see langword="true"/> if <paramref name="type"/> implements <paramref name="baseType"/>,
+    /// <see langword="false"/> otherwise.
     /// </returns>
     [RequiresDynamicCode(MethodCreatesNewTypes)]
     [RequiresUnreferencedCode(MethodCreatesNewTypes)]
@@ -471,20 +439,19 @@ public static partial class TypeExtensions
     }
 
     /// <summary>
-    /// Determina si el tipo implementa a <paramref name="baseType" />.
+    /// Determines if a type implements <paramref name="baseType"/>.
     /// </summary>
-    /// <param name="type">Tipo a comprobar</param>
-    /// <param name="baseType">Herencia de tipo a verificar.</param>
+    /// <param name="type">Type to check</param>
+    /// <param name="baseType">Base type inheritance to verify.</param>
     /// <returns>
-    /// <see langword="true" /> si <paramref name="type" /> implementa a <paramref name="baseType" />,
-    /// <see langword="false" /> en caso contrario.
+    /// <see langword="true" /> if <paramref name="type" /> implements <paramref name="baseType" />,
+    /// <see langword="false" /> otherwise.
     /// </returns>
     [RequiresDynamicCode(MethodCreatesNewTypes)]
     [RequiresUnreferencedCode(MethodCreatesNewTypes)]
     public static bool Implements([DynamicallyAccessedMembers(Interfaces)] this Type type, Type baseType)
     {
         if (!baseType.ContainsGenericParameters) return baseType.IsAssignableFrom(type);
-
         if (baseType.GenericTypeArguments.Length == 0)
             return (type.IsConstructedGenericType && type.GetGenericTypeDefinition() == baseType) || type.GetInterfaces().Any(([DynamicallyAccessedMembers(Interfaces)] p) => p.Implements(baseType));
         Type gt = baseType.MakeGenericType(type);
@@ -492,13 +459,13 @@ public static partial class TypeExtensions
     }
 
     /// <summary>
-    /// Determina si el tipo implementa a <typeparamref name="T" />.
+    /// Determines if a type implements <typeparamref name="T"/>.
     /// </summary>
-    /// <param name="type">Tipo a comprobar</param>
-    /// <typeparam name="T">Herencia de tipo a verificar.</typeparam>
+    /// <param name="type">Type to check</param>
+    /// <typeparam name="T">Base type inheritance to verify.</typeparam>
     /// <returns>
-    /// <see langword="true" /> si <paramref name="type" /> implementa a <typeparamref name="T" />,
-    /// <see langword="false" /> en caso contrario.
+    /// <see langword="true" /> if <paramref name="type" /> implements <typeparamref name="T" />,
+    /// <see langword="false" /> otherwise.
     /// </returns>
     public static bool Implements<T>(this Type type)
     {
@@ -506,14 +473,13 @@ public static partial class TypeExtensions
     }
 
     /// <summary>
-    /// Comprueba si un tipo implementa un operador especificado por la
-    /// expresión.
+    /// Checks if a type implements an operator specified by the expression.
     /// </summary>
-    /// <param name="type">Tipo a comprobar</param>
-    /// <param name="operator">Operador a buscar en el tipo.</param>
+    /// <param name="type">Type to check</param>
+    /// <param name="operator">Operator to search in the type.</param>
     /// <returns>
-    /// <see langword="true"/> si el operador existe en el tipo,
-    /// <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if the operator exists in the type,
+    /// <see langword="false"/> otherwise.
     /// </returns>
     public static bool ImplementsOperator([DynamicallyAccessedMembers(PublicParameterlessConstructor)] this Type type, Func<Expression, Expression, BinaryExpression> @operator)
     {
@@ -534,14 +500,13 @@ public static partial class TypeExtensions
     }
 
     /// <summary>
-    /// Comprueba si alguno de los tipos especificados es asignable a partir
-    /// del tipo <paramref name="source" />.
+    /// Checks if any of the specified types are assignable from the type <paramref name="source"/>.
     /// </summary>
-    /// <param name="types">Lista de tipos a comprobar.</param>
-    /// <param name="source">Tipo que desea asignarse.</param>
+    /// <param name="types">List of types to check.</param>
+    /// <param name="source">Type that is desired to be assigned.</param>
     /// <returns>
-    /// <see langword="true" /> si el tipo <paramref name="source" /> puede ser asignado
-    /// a uno de los tipos especificados, <see langword="false" /> en caso contrario.
+    /// <see langword="true" /> if the type <paramref name="source" /> can be assigned
+    /// to one of the specified types, <see langword="false" /> otherwise.
     /// </returns>
     public static bool IsAnyAssignable(this Type source, IEnumerable<Type> types)
     {
@@ -549,14 +514,13 @@ public static partial class TypeExtensions
     }
 
     /// <summary>
-    /// Comprueba si alguno de los tipos especificados es asignable a partir
-    /// del tipo <paramref name="source" />.
+    /// Checks if any of the specified types are assignable from the type <paramref name="source" />.
     /// </summary>
-    /// <param name="types">Lista de tipos a comprobar.</param>
-    /// <param name="source">Tipo que desea asignarse.</param>
+    /// <param name="types">List of types to check.</param>
+    /// <param name="source">Type that is desired to be assigned.</param>
     /// <returns>
-    /// <see langword="true" /> si el tipo <paramref name="source" /> puede ser asignado
-    /// a uno de los tipos especificados, <see langword="false" /> en caso contrario.
+    /// <see langword="true" /> if the type <paramref name="source" /> can be assigned
+    /// to one of the specified types, <see langword="false" /> otherwise.
     /// </returns>
     public static bool IsAnyAssignable(this Type source, params Type[] types)
     {
@@ -564,29 +528,29 @@ public static partial class TypeExtensions
     }
 
     /// <summary>
-    /// Determina si el tipo hace referencia a un tipo de colección.
+    /// Determines if the type refers to a collection type.
     /// </summary>
-    /// <param name="type">Tipo a comprobar.</param>
+    /// <param name="type">Type to check.</param>
     /// <returns>
-    /// <see langword="true"/> si el tipo es un tipo de colección,
-    /// <see langword="false"/> en caso contrario.
+    /// <see langword="true" /> if the type is a collection type,
+    /// <see langword="false" /> otherwise.
     /// </returns>
     [Sugar]
     [RequiresDynamicCode(MethodCreatesNewTypes)]
     public static bool IsCollectionType([DynamicallyAccessedMembers(Interfaces)] this Type type) => type.Implements<IEnumerable>();
 
     /// <summary>
-    /// Obtiene un valor que determina si el tipo es instanciable.
+    /// Gets a value that determines if the type is instantiable.
     /// </summary>
-    /// <param name="type">Tipo a comprobar.</param>
+    /// <param name="type">Type to check.</param>
     /// <param name="constructorArgs">
-    /// Colección con los tipos de argumentos que el constructor a
-    /// buscar debe contener.
+    /// Collection with the argument types that the constructor to
+    /// search for must contain.
     /// </param>
     /// <returns>
-    /// <see langword="true" /> si el tipo es instanciable por medio de
-    /// un constructor con los parámetros del tipo especificado,
-    /// <see langword="false" /> en caso contrario.
+    /// <see langword="true" /> if the type is instantiable by means of
+    /// a constructor with parameters of the specified type,
+    /// <see langword="false" /> otherwise.
     /// </returns>
     public static bool IsInstantiable([DynamicallyAccessedMembers(PublicConstructors)] this Type type, IEnumerable<Type>? constructorArgs)
     {
@@ -594,19 +558,18 @@ public static partial class TypeExtensions
     }
 
     /// <summary>
-    /// Obtiene un valor que determina si el tipo es instanciable
-    /// utilizando un constructor que acepte los parámetros
-    /// especificados.
+    /// Gets a value that determines if the type is instantiable
+    /// using a constructor that accepts the specified parameters.
     /// </summary>
-    /// <param name="type">Tipo a comprobar.</param>
+    /// <param name="type">Type to check.</param>
     /// <param name="constructorArgs">
-    /// Colección con los tipos de argumentos que el constructor a
-    /// buscar debe contener.
+    /// Collection with the argument types that the constructor to
+    /// search for must contain.
     /// </param>
     /// <returns>
-    /// <see langword="true" /> si el tipo es instanciable por medio de
-    /// un constructor con los parámetros del tipo especificado,
-    /// <see langword="false" /> en caso contrario.
+    /// <see langword="true" /> if the type is instantiable by means of
+    /// a constructor with parameters of the specified type,
+    /// <see langword="false" /> otherwise.
     /// </returns>
     [DebuggerStepThrough]
     [Sugar]
@@ -616,13 +579,12 @@ public static partial class TypeExtensions
     }
 
     /// <summary>
-    /// Obtiene un valor que determina si el tipo es instanciable.
+    /// Gets a value that determines if the type is instantiable.
     /// </summary>
-    /// <param name="type">Tipo a comprobar.</param>
+    /// <param name="type">Type to check.</param>
     /// <returns>
-    /// <see langword="true" /> si el tipo es instanciable por medio de
-    /// un constructor sin parámetros, <see langword="false" /> en caso
-    /// contrario.
+    /// <see langword="true" /> if the type is instantiable by means of
+    /// a parameterless constructor, <see langword="false" /> otherwise.
     /// </returns>
     public static bool IsInstantiable([DynamicallyAccessedMembers(PublicConstructors)] this Type type)
     {
@@ -630,12 +592,11 @@ public static partial class TypeExtensions
     }
 
     /// <summary>
-    /// Determina si el tipo <paramref name="t" /> es de un tipo numérico
+    /// Determines if the type <paramref name="t" /> is a numeric type
     /// </summary>
-    /// <param name="t">Tipo a comprobar</param>
+    /// <param name="t">Type to check</param>
     /// <returns>
-    /// <see langword="true" /> si <paramref name="t" /> es un tipo numérico; de
-    /// lo contrario, <see langword="false" />.
+    /// <see langword="true" /> if <paramref name="t" /> is a numeric type; otherwise, <see langword="false" />.
     /// </returns>
     public static bool IsNumericType(this Type? t)
     {
@@ -656,15 +617,14 @@ public static partial class TypeExtensions
     }
 
     /// <summary>
-    /// Obtiene un valor que determina si el tipo es un tipo de valor
-    /// no primitivo.
+    /// Gets a value that determines if the type is a non-primitive value type.
     /// </summary>
     /// <param name="type">
-    /// Tipo a comprobar.
+    /// Type to check.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si el tipo es un tipo de valor no 
-    /// primitivo, <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if the type is a non-primitive value type,
+    /// <see langword="false"/> otherwise.
     /// </returns>
     [Sugar]
     public static bool IsStruct(this Type type)
@@ -673,14 +633,14 @@ public static partial class TypeExtensions
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de un objeto con un constructor que
-    /// acepte los argumentos provistos.
+    /// Initializes a new instance of an object with a constructor that
+    /// accepts the provided arguments.
     /// </summary>
-    /// <returns>La nueva instancia del tipo especificado.</returns>
-    /// <param name="type">Tipo a instanciar.</param>
+    /// <returns>The new instance of the specified type.</returns>
+    /// <param name="type">Type to instantiate.</param>
     /// <param name="parameters">
-    /// Parámetros a pasar al constructor. Se buscará
-    /// un constructor compatible para poder crear la instancia.
+    /// Parameters to pass to the constructor. A compatible
+    /// constructor will be searched for to create the instance.
     /// </param>
     [DebuggerStepThrough]
     [Sugar]
@@ -690,10 +650,10 @@ public static partial class TypeExtensions
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia del tipo en runtime especificado.
+    /// Initializes a new instance of the runtime specified type.
     /// </summary>
-    /// <returns>La nueva instancia del tipo especificado.</returns>
-    /// <param name="type">Tipo a instanciar.</param>
+    /// <returns>The new instance of the specified type.</returns>
+    /// <param name="type">Type to instantiate.</param>
     [DebuggerStepThrough]
     [Sugar]
     public static object New([DynamicallyAccessedMembers(PublicConstructors)] this Type type)
@@ -702,43 +662,41 @@ public static partial class TypeExtensions
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de un objeto con un constructor que
-    /// acepte los argumentos provistos.
+    /// Initializes a new instance of an object with a constructor that
+    /// accepts the provided arguments.
     /// </summary>
-    /// <typeparam name="T">Tipo de instancia a devolver.</typeparam>
+    /// <typeparam name="T">Type of instance to return.</typeparam>
     /// <param name="type">
-    /// Tipo a instanciar. Debe ser, heredar o implementar
-    /// el tipo especificado en <typeparamref name="T" />.
+    /// Type to instantiate. Must be, inherit from or implement
+    /// the type specified in <typeparamref name="T"/>.
     /// </param>
     /// <param name="throwOnFail">
-    /// Si se establece en <see langword="true"/>, se producirá una
-    /// excepción en caso que el tipo no pueda instanciarse con la
-    /// información provista, o se devolverá <see langword="null"/> si
-    /// se establece en <see langword="false"/>
+    /// If set to <see langword="true"/>, an exception will be thrown
+    /// if the type cannot be instantiated with the provided information,
+    /// otherwise returns <see langword="null"/> if set to <see langword="false"/>.
     /// </param>
     /// <param name="parameters">
-    /// Parámetros a pasar al constructor. Se buscará
-    /// un constructor compatible para poder crear la instancia.
+    /// Parameters to pass to the constructor. A compatible
+    /// constructor will be searched for to create the instance.
     /// </param>
     /// <returns>
-    /// Una nueva instancia del tipo especificado, o
-    /// <see langword="null"/> si ocurre un problema al instanciar el
-    /// tipo y <paramref name="throwOnFail"/> es
+    /// A new instance of the specified type, or
+    /// <see langword="null"/> if a problem occurs while instantiating the
+    /// type and <paramref name="throwOnFail"/> is
     /// <see langword="false"/>.
     /// </returns>
     /// <exception cref="TypeLoadException">
-    /// Se produce si no es posible instanciar una clase del tipo
-    /// solicitado.
+    /// Occurs if it's not possible to instantiate a class of the requested type.
     /// </exception>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="type"/> es <see langword="null"/>
-    /// y <paramref name="throwOnFail"/> es <see langword="true"/>.
+    /// Occurs if <paramref name="type"/> is <see langword="null"/>
+    /// and <paramref name="throwOnFail"/> is <see langword="true"/>.
     /// </exception>
     /// <exception cref="ClassNotInstantiableException">
-    /// Se produce si el tipo <paramref name="type"/> no puede ser
-    /// instanciado utilizando un constructor público que acepte los
-    /// parámetros especificados en <paramref name="parameters"/> y
-    /// <paramref name="throwOnFail"/> es <see langword="true"/>.
+    /// Occurs if the type <paramref name="type"/> cannot be
+    /// instantiated using a public constructor that accepts the parameters
+    /// specified in <paramref name="parameters"/> and
+    /// <paramref name="throwOnFail"/> is <see langword="true"/>.
     /// </exception>
     [DebuggerStepThrough]
     public static T? New<T>([DynamicallyAccessedMembers(PublicConstructors)] this Type type, bool throwOnFail, IEnumerable? parameters)
@@ -748,7 +706,7 @@ public static partial class TypeExtensions
         {
             New_Contract(type, throwOnFail, p);
             if (type.ContainsGenericParameters) return default;
-            return (T)type.GetConstructor(p.ToTypes().ToArray())!.Invoke(p);
+            return (T)type.GetConstructor([.. p.ToTypes()])!.Invoke(p);
         }
         catch
         {
@@ -758,22 +716,21 @@ public static partial class TypeExtensions
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de un objeto con un constructor que
-    /// acepte los argumentos provistos.
+    /// Initializes a new instance of an object with a constructor that
+    /// accepts the provided arguments.
     /// </summary>
-    /// <typeparam name="T">Tipo de instancia a devolver.</typeparam>
+    /// <typeparam name="T">Type of instance to return.</typeparam>
     /// <param name="type">
-    /// Tipo a instanciar. Debe ser, heredar o implementar
-    /// el tipo especificado en <typeparamref name="T" />.
+    /// Type to instantiate. Must be, inherit from or implement
+    /// the type specified in <typeparamref name="T"/>.
     /// </param>
     /// <param name="parameters">
-    /// Parámetros a pasar al constructor. Se buscará
-    /// un constructor compatible para poder crear la instancia.
+    /// Parameters to pass to the constructor. A compatible
+    /// constructor will be searched for to create the instance.
     /// </param>
-    /// <returns>Una nueva instancia del tipo especificado.</returns>
+    /// <returns>A new instance of the specified type.</returns>
     /// <exception cref="TypeLoadException">
-    /// Se produce si no es posible instanciar una clase del tipo
-    /// solicitado.
+    /// Occurs if it's not possible to instantiate a class of the requested type.
     /// </exception>
     [DebuggerStepThrough]
     public static T New<T>([DynamicallyAccessedMembers(PublicConstructors)] this Type type, params object?[] parameters)
@@ -782,15 +739,15 @@ public static partial class TypeExtensions
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia del tipo dinámico especificado,
-    /// devolviéndola como un <typeparamref name="T" />.
+    /// Initializes a new instance of the dynamic type specified,
+    /// returning it as a <typeparamref name="T"/>.
     /// </summary>
-    /// <returns>La nueva instancia del tipo especificado.</returns>
+    /// <returns>The new instance of the specified type.</returns>
     /// <param name="type">
-    /// Tipo a instanciar. Debe ser, heredar o implementar
-    /// el tipo especificado en <typeparamref name="T" />
+    /// Type to instantiate. Must be, inherit from or implement
+    /// the type specified in <typeparamref name="T"/>
     /// </param>
-    /// <typeparam name="T">Tipo de instancia a devolver.</typeparam>
+    /// <typeparam name="T">Type of instance to return.</typeparam>
     [DebuggerStepThrough]
     [Sugar]
     public static T New<T>([DynamicallyAccessedMembers(PublicConstructors)] this Type type)
@@ -799,48 +756,43 @@ public static partial class TypeExtensions
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de un objeto de forma asíncrona 
-    /// con un constructor que acepte los argumentos provistos.
+    /// Initializes a new instance of an object asynchronously
+    /// with a constructor that accepts the provided arguments.
     /// </summary>
-    /// <param name="type">Tipo a instanciar.</param>
+    /// <param name="type">Type to instantiate.</param>
     /// <param name="throwOnFail">
-    /// Si se establece en <see langword="true"/>, se producirá una
-    /// excepción en caso que el tipo no pueda instanciarse con la
-    /// información provista, o se devolverá <see langword="null"/> si
-    /// se establece en <see langword="false"/>
+    /// If set to <see langword="true"/>, an exception will be thrown
+    /// if the type cannot be instantiated with the provided information,
+    /// otherwise returns <see langword="null"/> if set to <see langword="false"/>.
     /// </param>
     /// <param name="parameters">
-    /// Parámetros a pasar al constructor. Se buscará
-    /// un constructor compatible para poder crear la instancia.
+    /// Parameters to pass to the constructor. A compatible
+    /// constructor will be searched for to create the instance.
     /// </param>
     /// <returns>
-    /// Una nueva instancia del tipo especificado, o
-    /// <see langword="null"/> si ocurre un problema al instanciar el
-    /// tipo y <paramref name="throwOnFail"/> es
+    /// A new instance of the specified type, or
+    /// <see langword="null"/> if a problem occurs while instantiating the
+    /// type and <paramref name="throwOnFail"/> is
     /// <see langword="false"/>.
     /// </returns>
     /// <remarks>
-    /// Utilizar este método para crear instancia asíncronamente puede ser
-    /// problemático si la ejecución normal del programa depende de qué hilo
-    /// es el propietario del objeto, por ejemplo al instanciar elementos de
-    /// UI.
+    /// Using this method to create an instance asynchronously can be problematic
+    /// if normal program execution depends on which thread owns the object,
+    /// for example when instantiating UI elements.
     /// </remarks>
     /// <exception cref="TypeLoadException">
-    /// Se produce si no es posible instanciar una clase del tipo
-    /// solicitado y <paramref name="throwOnFail"/> se establece en
-    /// <see langword="true"/>.
+    /// Occurs if it's not possible to instantiate a class of the requested type and
+    /// <paramref name="throwOnFail"/> is set to <see langword="true"/>.
     /// </exception>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="type"/> es <see langword="null"/>
-    /// y <paramref name="throwOnFail"/> se establece en
-    /// <see langword="true"/>.
+    /// Occurs if <paramref name="type"/> is <see langword="null"/>
+    /// and <paramref name="throwOnFail"/> is set to <see langword="true"/>.
     /// </exception>
     /// <exception cref="ClassNotInstantiableException">
-    /// Se produce si el tipo <paramref name="type"/> no puede ser
-    /// instanciado utilizando un constructor público que acepte los
-    /// parámetros especificados en <paramref name="parameters"/> y
-    /// <paramref name="throwOnFail"/> se establece en
-    /// <see langword="true"/>.
+    /// Occurs if the type <paramref name="type"/> cannot be
+    /// instantiated using a public constructor that accepts the parameters
+    /// specified in <paramref name="parameters"/> and
+    /// <paramref name="throwOnFail"/> is set to <see langword="true"/>.
     /// </exception>
     [DebuggerStepThrough]
     public static async Task<object?> NewAsync([DynamicallyAccessedMembers(PublicConstructors)] this Type type, bool throwOnFail, IEnumerable? parameters)
@@ -849,7 +801,7 @@ public static partial class TypeExtensions
         New_Contract(type, throwOnFail, p);
         try
         {
-            ConstructorInfo? ctor = type.GetConstructor(p.ToTypes().ToArray());
+            ConstructorInfo? ctor = type.GetConstructor([.. p.ToTypes()]);
             return await Task.Run(() => ctor?.Invoke(p) ?? throw Errors.ClassNotInstantiable());
         }
         catch (Exception e)
@@ -859,43 +811,38 @@ public static partial class TypeExtensions
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de un objeto de forma asíncrona 
-    /// con un constructor sin parámetros.
+    /// Initializes a new instance of an object asynchronously
+    /// with a parameterless constructor.
     /// </summary>
-    /// <param name="type">Tipo a instanciar.</param>
+    /// <param name="type">Type to instantiate.</param>
     /// <param name="throwOnFail">
-    /// Si se establece en <see langword="true"/>, se producirá una
-    /// excepción en caso que el tipo no pueda instanciarse con la
-    /// información provista, o se devolverá <see langword="null"/> si
-    /// se establece en <see langword="false"/>
+    /// If set to <see langword="true"/>, an exception will be thrown
+    /// if the type cannot be instantiated with the provided information,
+    /// otherwise returns <see langword="null"/> if set to <see langword="false"/>
     /// </param>
     /// <returns>
-    /// Una nueva instancia del tipo especificado, o
-    /// <see langword="null"/> si ocurre un problema al instanciar el
-    /// tipo y <paramref name="throwOnFail"/> es
+    /// A new instance of the specified type, or
+    /// <see langword="null"/> if a problem occurs while instantiating the
+    /// type and <paramref name="throwOnFail"/> is
     /// <see langword="false"/>.
     /// </returns>
     /// <remarks>
-    /// Utilizar este método para crear instancia asíncronamente puede ser
-    /// problemático si la ejecución normal del programa depende de qué hilo
-    /// es el propietario del objeto, por ejemplo al instanciar elementos de
-    /// UI.
+    /// Using this method to create an instance asynchronously can be problematic
+    /// if normal program execution depends on which thread owns the object,
+    /// for example when instantiating UI elements.
     /// </remarks>
     /// <exception cref="TypeLoadException">
-    /// Se produce si no es posible instanciar una clase del tipo
-    /// solicitado y <paramref name="throwOnFail"/> se establece en
-    /// <see langword="true"/>.
+    /// Occurs if it's not possible to instantiate a class of the requested type and
+    /// <paramref name="throwOnFail"/> is set to <see langword="true"/>.
     /// </exception>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="type"/> es <see langword="null"/>
-    /// y <paramref name="throwOnFail"/> se establece en
-    /// <see langword="true"/>.
+    /// Occurs if <paramref name="type"/> is <see langword="null"/>
+    /// and <paramref name="throwOnFail"/> is set to <see langword="true"/>.
     /// </exception>
     /// <exception cref="ClassNotInstantiableException">
-    /// Se produce si el tipo <paramref name="type"/> no puede ser
-    /// instanciado utilizando un constructor público sin parámetros y
-    /// <paramref name="throwOnFail"/> se establece en
-    /// <see langword="true"/>.
+    /// Occurs if the type <paramref name="type"/> cannot be
+    /// instantiated using a public parameterless constructor and
+    /// <paramref name="throwOnFail"/> is set to <see langword="true"/>.
     /// </exception>
     public static Task<object?> NewAsync([DynamicallyAccessedMembers(PublicConstructors)] this Type type, bool throwOnFail)
     {
@@ -903,36 +850,34 @@ public static partial class TypeExtensions
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de un objeto de forma asíncrona 
-    /// con un constructor que acepte los argumentos provistos.
+    /// Initializes a new instance of an object asynchronously
+    /// with a constructor that accepts the provided arguments.
     /// </summary>
-    /// <param name="type">Tipo a instanciar.</param>
+    /// <param name="type">Type to instantiate.</param>
     /// <param name="parameters">
-    /// Parámetros a pasar al constructor. Se buscará
-    /// un constructor compatible para poder crear la instancia.
+    /// Parameters to pass to the constructor. A compatible
+    /// constructor will be searched for to create the instance.
     /// </param>
     /// <returns>
-    /// Una nueva instancia del tipo especificado, o
-    /// <see langword="null"/> si ocurre un problema al instanciar el
-    /// tipo.
+    /// A new instance of the specified type, or
+    /// <see langword="null"/> if a problem occurs while instantiating the
+    /// type.
     /// </returns>
     /// <remarks>
-    /// Utilizar este método para crear instancia asíncronamente puede ser
-    /// problemático si la ejecución normal del programa depende de qué hilo
-    /// es el propietario del objeto, por ejemplo al instanciar elementos de
-    /// UI.
+    /// Using this method to create an instance asynchronously can be problematic
+    /// if normal program execution depends on which thread owns the object,
+    /// for example when instantiating UI elements.
     /// </remarks>
     /// <exception cref="TypeLoadException">
-    /// Se produce si no es posible instanciar una clase del tipo
-    /// solicitado.
+    /// Occurs if it's not possible to instantiate a class of the requested type.
     /// </exception>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="type"/> es <see langword="null"/>.
+    /// Occurs if <paramref name="type"/> is <see langword="null"/>.
     /// </exception>
     /// <exception cref="ClassNotInstantiableException">
-    /// Se produce si el tipo <paramref name="type"/> no puede ser
-    /// instanciado utilizando un constructor público que acepte los
-    /// parámetros especificados en <paramref name="parameters"/>.
+    /// Occurs if the type <paramref name="type"/> cannot be
+    /// instantiated using a public constructor that accepts the parameters
+    /// specified in <paramref name="parameters"/>.
     /// </exception>
     public static Task<object?> NewAsync([DynamicallyAccessedMembers(PublicConstructors)] this Type type, IEnumerable? parameters)
     {
@@ -940,31 +885,29 @@ public static partial class TypeExtensions
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de un objeto de forma asíncrona 
-    /// con un constructor sin parámetros.
+    /// Initializes a new instance of an object asynchronously
+    /// with a parameterless constructor.
     /// </summary>
-    /// <param name="type">Tipo a instanciar.</param>
+    /// <param name="type">Type to instantiate.</param>
     /// <returns>
-    /// Una nueva instancia del tipo especificado, o
-    /// <see langword="null"/> si ocurre un problema al instanciar el
-    /// tipo.
+    /// A new instance of the specified type, or
+    /// <see langword="null"/> if a problem occurs while instantiating the
+    /// type.
     /// </returns>
     /// <remarks>
-    /// Utilizar este método para crear instancia asíncronamente puede ser
-    /// problemático si la ejecución normal del programa depende de qué hilo
-    /// es el propietario del objeto, por ejemplo al instanciar elementos de
-    /// UI.
+    /// Using this method to create an instance asynchronously can be problematic
+    /// if normal program execution depends on which thread owns the object,
+    /// for example when instantiating UI elements.
     /// </remarks>
     /// <exception cref="TypeLoadException">
-    /// Se produce si no es posible instanciar una clase del tipo
-    /// solicitado.
+    /// Occurs if it's not possible to instantiate a class of the requested type.
     /// </exception>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="type"/> es <see langword="null"/>.
+    /// Occurs if <paramref name="type"/> is <see langword="null"/>.
     /// </exception>
     /// <exception cref="ClassNotInstantiableException">
-    /// Se produce si el tipo <paramref name="type"/> no puede ser
-    /// instanciado utilizando un constructor público sin parámetros.
+    /// Occurs if the type <paramref name="type"/> cannot be
+    /// instantiated using a public parameterless constructor.
     /// </exception>
     public static Task<object?> NewAsync([DynamicallyAccessedMembers(PublicConstructors)] this Type type)
     {
@@ -972,52 +915,47 @@ public static partial class TypeExtensions
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de un objeto de forma asíncrona 
-    /// con un constructor que acepte los argumentos provistos.
+    /// Initializes a new instance of an object asynchronously
+    /// with a constructor that accepts the provided arguments.
     /// </summary>
-    /// <typeparam name="T">Tipo de instancia a devolver.</typeparam>
+    /// <typeparam name="T">Type of instance to return.</typeparam>
     /// <param name="type">
-    /// Tipo a instanciar. Debe ser, heredar o implementar
-    /// el tipo especificado en <typeparamref name="T" />.
+    /// Type to instantiate. Must be, inherit from or implement
+    /// the type specified in <typeparamref name="T" />.
     /// </param>
     /// <param name="throwOnFail">
-    /// Si se establece en <see langword="true"/>, se producirá una
-    /// excepción en caso que el tipo no pueda instanciarse con la
-    /// información provista, o se devolverá <see langword="null"/> si
-    /// se establece en <see langword="false"/>
+    /// If set to <see langword="true"/>, an exception will be thrown
+    /// if the type cannot be instantiated with the provided information,
+    /// otherwise returns <see langword="null"/> if set to <see langword="false"/>
     /// </param>
     /// <param name="parameters">
-    /// Parámetros a pasar al constructor. Se buscará
-    /// un constructor compatible para poder crear la instancia.
+    /// Parameters to pass to the constructor. A compatible
+    /// constructor will be searched for to create the instance.
     /// </param>
     /// <returns>
-    /// Una nueva instancia del tipo especificado, o
-    /// <see langword="null"/> si ocurre un problema al instanciar el
-    /// tipo y <paramref name="throwOnFail"/> es
+    /// A new instance of the specified type, or
+    /// <see langword="null"/> if a problem occurs while instantiating the
+    /// type and <paramref name="throwOnFail"/> is
     /// <see langword="false"/>.
     /// </returns>
     /// <remarks>
-    /// Utilizar este método para crear instancia asíncronamente puede ser
-    /// problemático si la ejecución normal del programa depende de qué hilo
-    /// es el propietario del objeto, por ejemplo al instanciar elementos de
-    /// UI.
+    /// Using this method to create an instance asynchronously can be
+    /// problematic if normal program execution depends on which thread
+    /// owns the object, for example when instantiating UI elements.
     /// </remarks>
     /// <exception cref="TypeLoadException">
-    /// Se produce si no es posible instanciar una clase del tipo
-    /// solicitado y <paramref name="throwOnFail"/> se establece en
-    /// <see langword="true"/>.
+    /// Occurs if it's not possible to instantiate a class of the requested type and
+    /// <paramref name="throwOnFail"/> is set to <see langword="true"/>.
     /// </exception>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="type"/> es <see langword="null"/>
-    /// y <paramref name="throwOnFail"/> se establece en
-    /// <see langword="true"/>.
+    /// Occurs if <paramref name="type"/> is <see langword="null"/>
+    /// and <paramref name="throwOnFail"/> is set to <see langword="true"/>.
     /// </exception>
     /// <exception cref="ClassNotInstantiableException">
-    /// Se produce si el tipo <paramref name="type"/> no puede ser
-    /// instanciado utilizando un constructor público que acepte los
-    /// parámetros especificados en <paramref name="parameters"/> y
-    /// <paramref name="throwOnFail"/> se establece en
-    /// <see langword="true"/>.
+    /// Occurs if the type <paramref name="type"/> cannot be
+    /// instantiated using a public constructor that accepts the parameters
+    /// specified in <paramref name="parameters"/> and
+    /// <paramref name="throwOnFail"/> is set to <see langword="true"/>.
     /// </exception>
     [DebuggerStepThrough]
     public static async Task<T> NewAsync<T>([DynamicallyAccessedMembers(PublicConstructors)] this Type type, bool throwOnFail, IEnumerable? parameters)
@@ -1028,41 +966,37 @@ public static partial class TypeExtensions
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de un objeto de forma asíncrona 
-    /// con un constructor que acepte los argumentos provistos.
+    /// Initializes a new instance of an object asynchronously
+    /// with a constructor that accepts the provided arguments.
     /// </summary>
-    /// <typeparam name="T">Tipo de instancia a devolver.</typeparam>
+    /// <typeparam name="T">Type of instance to return.</typeparam>
     /// <param name="type">
-    /// Tipo a instanciar. Debe ser, heredar o implementar
-    /// el tipo especificado en <typeparamref name="T" />.
+    /// Type to instantiate. Must be, inherit from or implement
+    /// the type specified in <typeparamref name="T" />.
     /// </param>
     /// <param name="throwOnFail">
-    /// Si se establece en <see langword="true"/>, se producirá una
-    /// excepción en caso que el tipo no pueda instanciarse con la
-    /// información provista, o se devolverá <see langword="null"/> si
-    /// se establece en <see langword="false"/>
+    /// If set to <see langword="true"/>, an exception will be thrown
+    /// if the type cannot be instantiated with the provided information,
+    /// otherwise returns <see langword="null"/> if set to <see langword="false"/>
     /// </param>
     /// <returns>
-    /// Una nueva instancia del tipo especificado, o
-    /// <see langword="null"/> si ocurre un problema al instanciar el
-    /// tipo y <paramref name="throwOnFail"/> es
+    /// A new instance of the specified type, or
+    /// <see langword="null"/> if a problem occurs while instantiating the
+    /// type and <paramref name="throwOnFail"/> is
     /// <see langword="false"/>.
     /// </returns>
     /// <exception cref="TypeLoadException">
-    /// Se produce si no es posible instanciar una clase del tipo
-    /// solicitado y <paramref name="throwOnFail"/> se establece en
-    /// <see langword="true"/>.
+    /// Occurs if it's not possible to instantiate a class of the requested type and
+    /// <paramref name="throwOnFail"/> is set to <see langword="true"/>.
     /// </exception>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="type"/> es <see langword="null"/>
-    /// y <paramref name="throwOnFail"/> se establece en
-    /// <see langword="true"/>.
+    /// Occurs if <paramref name="type"/> is <see langword="null"/>
+    /// and <paramref name="throwOnFail"/> is set to <see langword="true"/>.
     /// </exception>
     /// <exception cref="ClassNotInstantiableException">
-    /// Se produce si el tipo <paramref name="type"/> no puede ser
-    /// instanciado utilizando un constructor público y
-    /// <paramref name="throwOnFail"/> se establece en
-    /// <see langword="true"/>.
+    /// Occurs if the type <paramref name="type"/> cannot be
+    /// instantiated using a public constructor and
+    /// <paramref name="throwOnFail"/> is set to <see langword="true"/>.
     /// </exception>
     public static Task<T> NewAsync<T>([DynamicallyAccessedMembers(PublicConstructors)] this Type type, bool throwOnFail)
     {
@@ -1070,34 +1004,33 @@ public static partial class TypeExtensions
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de un objeto de forma asíncrona 
-    /// con un constructor que acepte los argumentos provistos.
+    /// Initializes a new instance of an object asynchronously
+    /// with a constructor that accepts the provided arguments.
     /// </summary>
-    /// <typeparam name="T">Tipo de instancia a devolver.</typeparam>
+    /// <typeparam name="T">Type of instance to return.</typeparam>
     /// <param name="type">
-    /// Tipo a instanciar. Debe ser, heredar o implementar
-    /// el tipo especificado en <typeparamref name="T" />.
+    /// Type to instantiate. Must be, inherit from or implement
+    /// the type specified in <typeparamref name="T" />.
     /// </param>
     /// <param name="parameters">
-    /// Parámetros a pasar al constructor. Se buscará
-    /// un constructor compatible para poder crear la instancia.
+    /// Parameters to pass to the constructor. A compatible
+    /// constructor will be searched for to create the instance.
     /// </param>
     /// <returns>
-    /// Una nueva instancia del tipo especificado, o
-    /// <see langword="null"/> si ocurre un problema al instanciar el
-    /// tipo.
+    /// A new instance of the specified type, or
+    /// <see langword="null"/> if a problem occurs while instantiating the
+    /// type.
     /// </returns>
     /// <exception cref="TypeLoadException">
-    /// Se produce si no es posible instanciar una clase del tipo
-    /// solicitado.
+    /// Occurs if it's not possible to instantiate a class of the requested type.
     /// </exception>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="type"/> es <see langword="null"/>.
+    /// Occurs if <paramref name="type"/> is <see langword="null"/>.
     /// </exception>
     /// <exception cref="ClassNotInstantiableException">
-    /// Se produce si el tipo <paramref name="type"/> no puede ser
-    /// instanciado utilizando un constructor público que acepte los
-    /// parámetros especificados en <paramref name="parameters"/>.
+    /// Occurs if the type <paramref name="type"/> cannot be
+    /// instantiated using a public constructor that accepts the parameters
+    /// specified in <paramref name="parameters"/>.
     /// </exception>
     public static Task<T> NewAsync<T>([DynamicallyAccessedMembers(PublicConstructors)] this Type type, IEnumerable? parameters)
     {
@@ -1105,27 +1038,26 @@ public static partial class TypeExtensions
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de un objeto de forma asíncrona 
-    /// con un constructor que acepte los argumentos provistos.
+    /// Initializes a new instance of an object asynchronously
+    /// with a constructor that accepts the provided arguments.
     /// </summary>
-    /// <typeparam name="T">Tipo de instancia a devolver.</typeparam>
+    /// <typeparam name="T">Type of instance to return.</typeparam>
     /// <param name="type">
-    /// Tipo a instanciar. Debe ser, heredar o implementar
-    /// el tipo especificado en <typeparamref name="T" />.
+    /// Type to instantiate. Must be, inherit from or implement
+    /// the type specified in <typeparamref name="T" />.
     /// </param>
     /// <returns>
-    /// Una nueva instancia del tipo especificado.
+    /// A new instance of the specified type.
     /// </returns>
     /// <exception cref="TypeLoadException">
-    /// Se produce si no es posible instanciar una clase del tipo
-    /// solicitado.
+    /// Occurs if it's not possible to instantiate a class of the requested type.
     /// </exception>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="type"/> es <see langword="null"/>.
+    /// Occurs if <paramref name="type"/> is <see langword="null"/>.
     /// </exception>
     /// <exception cref="ClassNotInstantiableException">
-    /// Se produce si el tipo <paramref name="type"/> no puede ser
-    /// instanciado utilizando un constructor público sin parámetros.
+    /// Occurs if the type <paramref name="type"/> cannot be
+    /// instantiated using a public constructor without parameters.
     /// </exception>
     public static Task<T> NewAsync<T>([DynamicallyAccessedMembers(PublicConstructors)] this Type type)
     {
@@ -1133,12 +1065,12 @@ public static partial class TypeExtensions
     }
 
     /// <summary>
-    /// Se asegura de devolver un tipo no nullable para las estructuras.
+    /// Ensures to return a non-nullable type for structures.
     /// </summary>
-    /// <param name="t">Tipo a devolver</param>
+    /// <param name="t">Type to return</param>
     /// <returns>
-    /// El tipo subyacente de un <see cref="Nullable{T}"/>, o
-    /// <paramref name="t"/> si el tipo no es nullable.
+    /// The underlying type of a <see cref="Nullable{T}"/>, or
+    /// <paramref name="t"/> if the type is not nullable.
     /// </returns>
     [DebuggerStepThrough, Sugar]
     public static Type NotNullable(this Type t)
@@ -1148,32 +1080,29 @@ public static partial class TypeExtensions
     }
 
     /// <summary>
-    /// Resuelve un tipo de colección al tipo de sus elementos.
+    /// Resolves a collection type to the type of its elements.
     /// </summary>
     /// <param name="type">
-    /// Tipo a comprobar.
+    /// Type to check.
     /// </param>
     /// <returns>
-    /// El tipo de elementos de la colección del tipo
-    /// <paramref name="type"/>, o <paramref name="type"/> si el mismo
-    /// no es un tipo de colección.
+    /// The element type of the collection for the type
+    /// <paramref name="type"/>, or <paramref name="type"/> if it is not a
+    /// collection type.
     /// </returns>
     [Sugar]
     [RequiresDynamicCode(MethodCreatesNewTypes)]
     public static Type ResolveCollectionType([DynamicallyAccessedMembers(Interfaces)] this Type type) => type.IsCollectionType() ? type.GetCollectionType() : type;
 
     /// <summary>
-    /// Se asegura de devolver un tipo definido en tiempo de
-    /// compilación.
+    /// Ensures a type defined at compile time is returned.
     /// </summary>
     /// <param name="t">
-    /// Tipo a comprobar.
+    /// Type to check.
     /// </param>
     /// <returns>
-    /// <paramref name="t"/>, si se trata de un tipo definido en tiempo
-    /// de compilación, o un tipo base que lo sea. Se devolverá
-    /// <see langword="null"/> si no hay un tipo base definido, como en
-    /// las interfaces.
+    /// <paramref name="t"/>, if it's a type defined at compile time, or a base type that is. It will return
+    /// <see langword="null"/> if there is no base type defined, like in interfaces.
     /// </returns>
     public static Type? ResolveToDefinedType(this Type t)
     {
@@ -1181,45 +1110,41 @@ public static partial class TypeExtensions
     }
 
     /// <summary>
-    /// convierte los valores de un tipo de enumeración en una colección de
+    /// Converts the values of an enumeration type to a collection of
     /// <see cref="NamedObject{T}"/>.
     /// </summary>
-    /// <param name="type">Tipo de enumeración a convertir.</param>
+    /// <param name="type">Enumeration type to convert.</param>
     /// <returns>
-    /// Una enumeración de todos los <see cref="NamedObject{T}"/> creados a
-    /// partir de los valores del tipo de enumeración especificado.
+    /// An enumeration of all <see cref="NamedObject{T}"/> created from the values of the specified enumeration type.
     /// </returns>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="type"/> es <see langword="null"/>.
+    /// Occurs if <paramref name="type"/> is <see langword="null"/>.
     /// </exception>
     /// <exception cref="InvalidTypeException">
-    /// Se produce si <paramref name="type"/> no es un tipo de enumeración.
+    /// Occurs if <paramref name="type"/> is not an enumeration type.
     /// </exception>
     [RequiresDynamicCode(MethodCallsDynamicCode)]
     public static IEnumerable<NamedObject<Enum>> ToNamedEnum(this Type type)
     {
         ToNamedEnum_Contract(type);
-        return type.GetEnumValues().Cast<Enum>().Select(j => new NamedObject<Enum>(j, j.NameOf()));
+        return type.GetEnumValues().Cast<Enum>().Select(j => new NamedObject<Enum>(j.NameOf(), j));
     }
 
     /// <summary>
-    /// Intenta instanciar el tipo con los argumentos de constructor
-    /// especificados.
+    /// Attempts to instantiate the type with the specified constructor arguments.
     /// </summary>
-    /// <param name="t">Tipo que de intentará instanciar.</param>
+    /// <param name="t">Type that will be attempted to instantiate.</param>
     /// <param name="instance">
-    /// Parámetro de salida. Instancia que ha sido creada, o 
-    /// <see langword="null"/> si no se ha podido crear una instancia del
-    /// tipo especificado.
+    /// Output parameter. Instance created or
+    /// <see langword="null"/> if it was not possible to create an instance of the specified type.
     /// </param>
     /// <param name="args">
-    /// Argumentos a pasar al constructor. Puede omitirse o establecerse en
-    /// <see langword="null"/> para constructores sin argumentos.
+    /// Arguments to pass to the constructor. Can be omitted or set to
+    /// <see langword="null"/> for constructors with no arguments.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si fue posible instanciar el tipo y si el
-    /// mismo se ha instanciado de forma correcta, <see langword="false"/>
-    /// en caso contrario.
+    /// <see langword="true"/> if it was possible to instantiate the type and do so correctly,
+    /// <see langword="false"/> otherwise.
     /// </returns>
     [Sugar]
     public static bool TryInstance([DynamicallyAccessedMembers(PublicConstructors)] this Type t, [MaybeNullWhen(false)] out object instance, params object[]? args)
@@ -1228,25 +1153,22 @@ public static partial class TypeExtensions
     }
 
     /// <summary>
-    /// Intenta instanciar el tipo con los argumentos de constructor
-    /// especificados, devolviéndolo como un objeto de tipo
-    /// <typeparamref name="T"/>.
+    /// Attempts to instantiate the type with the specified constructor arguments,
+    /// returning it as an object of type <typeparamref name="T"/>.
     /// </summary>
-    /// <typeparam name="T">Tipo de objeto a devolver.</typeparam>
-    /// <param name="t">Tipo que de intentará instanciar.</param>
+    /// <typeparam name="T">Type of object to return.</typeparam>
+    /// <param name="t">Type that will be attempted to instantiate.</param>
     /// <param name="instance">
-    /// Parámetro de salida. Instancia que ha sido creada, o 
-    /// <see langword="null"/> si no se ha podido crear una instancia del
-    /// tipo especificado.
+    /// Output parameter. Instance created or
+    /// <see langword="null"/> if it was not possible to create an instance of the specified type.
     /// </param>
     /// <param name="args">
-    /// Argumentos a pasar al constructor. Puede omitirse o establecerse en
-    /// <see langword="null"/> para constructores sin argumentos.
+    /// Arguments to pass to the constructor. Can be omitted or set to
+    /// <see langword="null"/> for constructors with no arguments.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si fue posible instanciar el tipo y si el
-    /// mismo se ha instanciado de forma correcta, <see langword="false"/>
-    /// en caso contrario.
+    /// <see langword="true"/> if it was possible to instantiate the type and do so correctly,
+    /// <see langword="false"/> otherwise.
     /// </returns>
     public static bool TryInstance<T>([DynamicallyAccessedMembers(PublicConstructors)] this Type t, [MaybeNullWhen(false)] out T instance, params object[]? args)
     {

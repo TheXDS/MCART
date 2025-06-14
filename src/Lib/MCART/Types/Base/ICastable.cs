@@ -31,14 +31,14 @@ SOFTWARE.
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
-/// Define una serie de miembros a implementar por un objeto que
-/// permita realizar conversiones desde su tipo hacia otro.
+/// Defines a series of members to be implemented by an object that
+/// allows casting from its type to another.
 /// </summary>
 public interface ICastable : ICastable<object>
 {
     /// <summary>
-    /// Obtiene una referencia al tipo de destino de conversión para
-    /// este objeto.
+    /// Gets a reference to the target type of conversion for this 
+    /// object.
     /// </summary>
     Type TargetType { get; }
 }

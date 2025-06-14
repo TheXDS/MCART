@@ -31,102 +31,99 @@ SOFTWARE.
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
-/// Define una serie de miembros a implementar por un tipo que permita
-/// interpretar un <see cref="Uri"/> y obtener un <see cref="Stream"/>
-/// a partir del mismo.
+/// Defines a series of members to be implemented by a type that allows
+/// interpreting a <see cref="Uri"/> and obtaining a <see cref="Stream"/>
+/// from it.
 /// </summary>
 public interface IStreamUriParser
 {
     /// <summary>
-    /// Obtiene un valor que determina si el <see cref="Stream"/>
-    /// producido por este objeto requiere ser cargado por completo en
-    /// un búfer de lectura en memoria.
+    /// Gets a value that determines whether the <see cref="Stream"/>
+    /// produced by this object requires being fully loaded into an
+    /// in-memory read buffer.
     /// </summary>
     bool PreferFullTransfer { get; }
 
     /// <summary>
-    /// Obtiene un <see cref="Stream"/> que enlaza al recurso
-    /// solicitado, seleccionando el método más apropiado para obtener
-    /// dicho flujo de datos.
+    /// Gets a <see cref="Stream"/> that links to the requested resource,
+    /// selecting the most appropriate method for obtaining said data
+    /// stream.
     /// </summary>
     /// <param name="uri">
-    /// <see cref="Uri"/> a abrir para lectura.
+    /// <see cref="Uri"/> to open for reading.
     /// </param>
     /// <returns>
-    /// Un <see cref="Stream"/> desde el cual puede leerse el recurso
-    /// apuntado por el <see cref="Uri"/> especificado.
+    /// A <see cref="Stream"/> from which the resource pointed to by the
+    /// <see cref="Uri"/> specified can be read.
     /// </returns>
     Stream? GetStream(Uri uri);
 
     /// <summary>
-    /// Obtiene un <see cref="Stream"/> que enlaza al recurso
-    /// solicitado, seleccionando el método más apropiado para obtener
-    /// dicho flujo de datos.
+    /// Gets a <see cref="Stream"/> that links to the requested resource,
+    /// selecting the most appropriate method for obtaining said data
+    /// stream.
     /// </summary>
     /// <param name="uri">
-    /// <see cref="Uri"/> a abrir para lectura.
+    /// <see cref="Uri"/> to open for reading.
     /// </param>
     /// <returns>
-    /// Un <see cref="Stream"/> desde el cual puede leerse el recurso
-    /// apuntado por el <see cref="Uri"/> especificado.
+    /// A <see cref="Stream"/> from which the resource pointed to by the
+    /// <see cref="Uri"/> specified can be read.
     /// </returns>
     Task<Stream?> GetStreamAsync(Uri uri);
 
     /// <summary>
-    /// Determina si este <see cref="IStreamUriParser"/> puede crear un
-    /// <see cref="Stream"/> a partir del <see cref="Uri"/>
-    /// especificado.
+    /// Determines whether this <see cref="IStreamUriParser"/> can create a
+    /// <see cref="Stream"/> from the specified <see cref="Uri"/>.
     /// </summary>
     /// <param name="uri">
-    /// <see cref="Uri"/> a comprobar.
+    /// <see cref="Uri"/> to check.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si este <see cref="IStreamUriParser"/>
-    /// puede crear un <see cref="Stream"/> a partir del
-    /// <see cref="Uri"/> especificado, <see langword="false"/> en caso
-    /// contrario.
+    /// <see langword="true"/> if this <see cref="IStreamUriParser"/> can
+    /// create a <see cref="Stream"/> from the specified <see cref="Uri"/>,
+    /// <see langword="false"/> otherwise.
     /// </returns>
     bool Handles(Uri uri);
 
     /// <summary>
-    /// Abre un <see cref="Stream"/> desde el <see cref="Uri"/>
-    /// especificado.
+    /// Opens a <see cref="Stream"/> from the <see cref="Uri"/>
+    /// specified.
     /// </summary>
     /// <param name="uri">
-    /// <see cref="Uri"/> a abrir para lectura.
+    /// <see cref="Uri"/> to open for reading.
     /// </param>
     /// <returns>
-    /// Un <see cref="Stream"/> desde el cual puede leerse el recurso
-    /// apuntado por el <see cref="Uri"/> especificado.
+    /// A <see cref="Stream"/> from which the resource pointed to by the
+    /// <see cref="Uri"/> specified can be read.
     /// </returns>
     Stream? Open(Uri uri);
 
     /// <summary>
-    /// Abre el <see cref="Stream"/> desde el <see cref="Uri"/>
-    /// especificado, y lo carga completamente en un nuevo
-    /// <see cref="Stream"/> intermedio antes de devolverlo.
+    /// Opens the <see cref="Stream"/> from the <see cref="Uri"/>
+    /// specified, and fully loads it into a new <see cref="Stream"/>
+    /// intermediate before returning it.
     /// </summary>
     /// <param name="uri">
-    /// <see cref="Uri"/> a abrir para lectura.
+    /// <see cref="Uri"/> to open for reading.
     /// </param>
     /// <returns>
-    /// Un <see cref="Stream"/> desde el cual puede leerse el recurso
-    /// apuntado por el <see cref="Uri"/> especificado.
+    /// A <see cref="Stream"/> from which the resource pointed to by the
+    /// <see cref="Uri"/> specified can be read.
     /// </returns>
     Stream? OpenFullTransfer(Uri uri);
 
     /// <summary>
-    /// Abre el <see cref="Stream"/> desde el <see cref="Uri"/>
-    /// especificado, y lo carga completamente en un nuevo
-    /// <see cref="Stream"/> intermedio de forma asíncrona antes de
-    /// devolverlo.
+    /// Opens the <see cref="Stream"/> from the <see cref="Uri"/>
+    /// specified, and fully loads it into a new <see cref="Stream"/>
+    /// intermediate asynchronously before returning it.
     /// </summary>
     /// <param name="uri">
-    /// <see cref="Uri"/> a abrir para lectura.
+    /// <see cref="Uri"/> to open for reading.
     /// </param>
     /// <returns>
-    /// Un <see cref="Stream"/> desde el cual puede leerse el recurso
-    /// apuntado por el <see cref="Uri"/> especificado.
+    /// A <see cref="Stream"/> from which the resource pointed to by the
+    /// <see cref="Uri"/> specified can be read.
     /// </returns>
     Task<Stream?> OpenFullTransferAsync(Uri uri);
 }

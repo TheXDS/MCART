@@ -35,44 +35,40 @@ using System.Diagnostics;
 namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
-/// Extensiones de la clase <see cref="Stream"/>.
+/// Extensions for the <see cref="Stream"/> class.
 /// </summary>
 public static class StreamExtensions
 {
     /// <summary>
-    /// Destruye el contenido del <see cref="Stream"/>.
+    /// Destroys the content of the <see cref="Stream"/>.
     /// </summary>
     /// <param name="fs">
-    /// <see cref="Stream"/> a destruir.
+    /// The <see cref="Stream"/> to destroy.
     /// </param>
     /// <exception cref="IOException">
-    /// Se produce si ocurre un error de I/O durante la operación.
+    /// Thrown if an I/O error occurs during the operation.
     /// </exception>
     /// <exception cref="NotSupportedException">
-    /// Se produce si el <see cref="Stream"/> no soporta operaciones de
-    /// escritura y búsqueda, como en casos en que el mismo se ha
-    /// construido a partir de un túnel o del flujo de la consola.
+    /// Thrown if the <see cref="Stream"/> does not support writing and seeking operations,
+    /// such as when it's constructed from a pipe or console stream.
     /// </exception>
     /// <exception cref="ObjectDisposedException">
-    /// Ocurre cuando se ha intentado ejecutar esta operación sobre un
-    /// <see cref="Stream"/> que ya ha sido desechado.
+    /// Occurs when this operation is attempted on an already disposed <see cref="Stream"/>.
     /// </exception>
     [DebuggerStepThrough]
     [Sugar]
     public static void Destroy(this Stream fs) => fs.SetLength(0);
 
     /// <summary>
-    /// Salta la cantidad especificada de bytes en la secuencia desde
-    /// la posición actual.
+    /// Skips the specified number of bytes in the sequence from the current position.
     /// </summary>
     /// <param name="fs">
-    /// <see cref="Stream"/> en el cual se saltará el cursor de
-    /// lectura.
+    /// The <see cref="Stream"/> where the read cursor will be skipped.
     /// </param>
-    /// <param name="bytesToSkip">Bytes a saltar.</param>
+    /// <param name="bytesToSkip">Bytes to skip.</param>
     /// <exception cref="ArgumentOutOfRangeException">
-    /// Se produce si <paramref name="bytesToSkip"/> es menor a cero, o
-    /// si al saltar, el cursor se extiende fuera de la secuencia.
+    /// Thrown if <paramref name="bytesToSkip"/> is less than zero, or
+    /// if skipping extends the cursor beyond the sequence.
     /// </exception>
     [DebuggerStepThrough]
     [Sugar]
@@ -84,28 +80,26 @@ public static class StreamExtensions
     }
 
     /// <summary>
-    /// Lee una cadena desde la secuencia y avanza la posición de
-    /// lectura hasta después del último carácter Unicode leído.
+    /// Reads a string from the sequence and advances the read position past the last character read.
     /// </summary>
-    /// <returns>La cadena que ha sido leída.</returns>
+    /// <returns>The string that has been read.</returns>
     /// <param name="fs">
-    /// <see cref="Stream"/> desde el cual leer la cadena.
+    /// The <see cref="Stream"/> to read the string from.
     /// </param>
-    /// <param name="count">Cantidad de caracteres a leer.</param>
+    /// <param name="count">Number of characters to read.</param>
     [DebuggerStepThrough]
     [Sugar]
     public static string ReadString(this Stream fs, int count) => ReadString(fs, count, Encoding.Default);
 
     /// <summary>
-    /// Lee una cadena desde la secuencia y avanza la posición de
-    /// lectura hasta después del último carácter leído.
+    /// Reads a string from the sequence and advances the read position past the last character read.
     /// </summary>
-    /// <returns>La cadena que ha sido leída.</returns>
+    /// <returns>The string that has been read.</returns>
     /// <param name="fs">
-    /// <see cref="Stream"/> desde el cual leer la cadena.
-    /// </param>        
-    /// <param name="count">Cantidad de caracteres a leer.</param>
-    /// <param name="encoding"><see cref="Encoding"/> a utilizar.</param>
+    /// The <see cref="Stream"/> to read the string from.
+    /// </param>
+    /// <param name="count">Number of characters to read.</param>
+    /// <param name="encoding"><see cref="Encoding"/> to use.</param>
     [DebuggerStepThrough]
     public static string ReadString(this Stream fs, int count, Encoding encoding)
     {
@@ -116,66 +110,60 @@ public static class StreamExtensions
     }
 
     /// <summary>
-    /// Obtiene la cantidad de bytes restantes desde la posición
-    /// actual.
+    /// Gets the number of remaining bytes from the current position.
     /// </summary>
     /// <param name="fs">
-    /// <see cref="Stream"/> del cual se obtendrán los bytes restantes.
+    /// The <see cref="Stream"/> to get the remaining bytes from.
     /// </param>
     /// <returns>
-    /// La cantidad de bytes restantes desde la posición actual.
+    /// The number of remaining bytes from the current position.
     /// </returns>
     [DebuggerStepThrough]
     [Sugar] public static long RemainingBytes(this Stream fs) => fs.Length - fs.Position;
 
     /// <summary>
-    /// Lee asíncronamente una cadena desde la secuencia y avanza la
-    /// posición de lectura hasta después del último carácter Unicode
-    /// leído.
+    /// Asynchronously reads a string from the sequence and advances the read position past the last Unicode character read.
     /// </summary>
-    /// <returns>La cadena que ha sido leída.</returns>
+    /// <returns>The string that has been read.</returns>
     /// <param name="fs">
-    /// <see cref="Stream"/> desde el cual leer la cadena.
-    /// </param>        
-    /// <param name="count">Cantidad de caracteres a leer.</param>
+    /// The <see cref="Stream"/> to read the string from.
+    /// </param>
+    /// <param name="count">Number of characters to read.</param>
     [DebuggerStepThrough]
     [Sugar] public static Task<string> ReadStringAsync(this Stream fs, int count) => Task.Run(() => ReadString(fs, count));
 
     /// <summary>
-    /// Lee asíncronamente una cadena desde la secuencia y avanza la
-    /// posición de lectura hasta después del último carácter leído.
+    /// Asynchronously reads a string from the sequence and advances the read position past the last character read.
     /// </summary>
-    /// <returns>La cadena que ha sido leída.</returns>
+    /// <returns>The string that has been read.</returns>
     /// <param name="fs">
-    /// <see cref="Stream"/> desde el cual leer la cadena.
-    /// </param>        
-    /// <param name="count">Cantidad de caracteres a leer.</param>
-    /// <param name="encoding"><see cref="Encoding"/> a utilizar.</param>
+    /// The <see cref="Stream"/> to read the string from.
+    /// </param>
+    /// <param name="count">Number of characters to read.</param>
+    /// <param name="encoding"><see cref="Encoding"/> to use.</param>
     [DebuggerStepThrough]
     public static Task<string> ReadStringAsync(this Stream fs, int count, Encoding encoding) => Task.Run(() => ReadString(fs, count, encoding));
 
     /// <summary>
-    /// Lee asíncronamente una cadena desde la posición actual hasta el
-    /// final de la secuencia.
+    /// Asynchronously reads a string from the current position until the end of the sequence.
     /// </summary>
     /// <param name="fs">
-    /// <see cref="Stream"/> desde el cual leer la cadena.
-    /// </param>        
-    /// <returns>La cadena que ha sido leída.</returns>
+    /// The <see cref="Stream"/> to read the string from.
+    /// </param>
+    /// <returns>The string that has been read.</returns>
     [DebuggerStepThrough]
     [Sugar] public static Task<string> ReadStringToEndAsync(this Stream fs) => ReadStringToAsync(fs, fs.Length);
 
     /// <summary>
-    /// Lee asíncronamente una cadena desde la posición actual hasta 
-    /// alcanzar la posición especificada.
+    /// Asynchronously reads a string from the current position until reaching the specified position.
     /// </summary>
     /// <param name="fs">
-    /// <see cref="Stream"/> desde el cual leer la cadena.
-    /// </param>        
-    /// <param name="pos">
-    /// Posición hasta la cual se leerá la cadena.
+    /// The <see cref="Stream"/> to read the string from.
     /// </param>
-    /// <returns>La cadena que ha sido leída.</returns>
+    /// <param name="pos">
+    /// Position up to which the string will be read.
+    /// </param>
+    /// <returns>The string that has been read.</returns>
     [DebuggerStepThrough]
     public static async Task<string> ReadStringToAsync(this Stream fs, long pos)
     {
@@ -189,29 +177,25 @@ public static class StreamExtensions
     }
 
     /// <summary>
-    /// Escribe un conjunto de <see cref="byte"/> en el 
-    /// <see cref="Stream"/>.
+    /// Writes a set of <see cref="byte"/> to the <see cref="Stream"/>.
     /// </summary>
     /// <param name="fs">
-    /// <see cref="Stream"/> sobre el cual se escribirán los bytes.
+    /// The <see cref="Stream"/> to write bytes on.
     /// </param>
     /// <param name="bytes">
-    /// Colección de <see cref="byte"/> a escribir en el
-    /// <see cref="Stream"/>.
+    /// Collection of <see cref="byte"/> to write in the <see cref="Stream"/>.
     /// </param>
     [DebuggerStepThrough]
     [Sugar] public static void WriteBytes(this Stream fs, params byte[] bytes) => fs.Write(bytes, 0, bytes.Length);
 
     /// <summary>
-    /// Escribe un conjunto de secuencias de <see cref="byte"/> en el 
-    /// <see cref="Stream"/>.
+    /// Writes a set of sequences of <see cref="byte"/> to the <see cref="Stream"/>.
     /// </summary>
     /// <param name="fs">
-    /// <see cref="Stream"/> sobre el cual se escribirán los bytes.
+    /// The <see cref="Stream"/> to write bytes on.
     /// </param>
     /// <param name="bytes">
-    /// Colecciones de <see cref="byte"/> a escribir en el
-    /// <see cref="Stream"/>.
+    /// Collections of <see cref="byte"/> to write in the <see cref="Stream"/>.
     /// </param>
     [DebuggerStepThrough]
     public static void WriteSeveralBytes(this Stream fs, params byte[][] bytes)

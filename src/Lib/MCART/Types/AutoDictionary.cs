@@ -31,28 +31,30 @@ SOFTWARE.
 namespace TheXDS.MCART.Types;
 
 /// <summary>
-/// Diccionario con soporte para instanciación automática de claves no
-/// existentes.
+/// Dictionary with support for automatic instantiation 
+/// of non-existent keys.
 /// </summary>
-/// <typeparam name="TKey">Tipo de llave a utilizar.</typeparam>
+/// <typeparam name="TKey">Key type to use.</typeparam>
 /// <typeparam name="TValue">
-/// Tipo del valor contenido en este diccionario.
+/// Type of value contained in 
+/// this dictionary.
 /// </typeparam>
-public class AutoDictionary<TKey, TValue> : Dictionary<TKey, TValue> where TKey : notnull where TValue : new()
+public class AutoDictionary<TKey, TValue> : Dictionary<TKey, TValue>
+    where TKey : notnull
+    where TValue : new()
 {
     /// <summary>
-    /// Obtiene o establece el valor asociado con la llave
-    /// especificada, instanciando un nuevo valor si la misma no
-    /// existe.
+    /// Gets or sets the value associated with the specified key, instantiating
+    /// a new value if it does not exist.
     /// </summary>
     /// <param name="key">
-    /// Llave del valor a obtener o establecer.
-    /// Se creará un nuevo valor si la llave no existe.
+    /// Key of the value to get or set. A new value will be created if the key
+    /// does not exist.
     /// </param>
     /// <returns>
-    /// Valor asociado a la clave especificada. Si no se encuentra la
-    /// clave especificada, se creará un nuevo elemento con dicha
-    /// clave.
+    /// Value associated with the specified key. If the key is not found, a new
+    /// element with that key will be 
+    /// created.
     /// </returns>
     public new TValue this[TKey key]
     {

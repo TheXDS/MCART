@@ -31,24 +31,25 @@ SOFTWARE.
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
-/// Extensión de la interfaz <see cref="IDisposable"/>. Provee de toda
-/// la funcionalidad previamente disponible, e incluye algunas
-/// extensiones útiles.
+/// Extension of the <see cref="IDisposable"/> interface. Provides all 
+/// previously available functionality, and includes some useful 
+/// extensions.
 /// </summary>
 public interface IDisposableEx : IDisposable
 {
     /// <summary>
-    /// Obtiene un valor que indica si este objeto ha sido desechado.
+    /// Gets a value indicating whether this object has been disposed.
     /// </summary>
     bool IsDisposed { get; }
 
     /// <summary>
-    /// Intenta liberar los recursos de esta instancia.
+    /// Attempts to release the resources of this instance.
     /// </summary>
     /// <returns>
-    /// <see langword="true"/> si la instancia se ha desechado
-    /// correctamente, <see langword="false"/> si esta instancia ya ha sido
-    /// desechada o si ha ocurrido un error al desecharla.
+    /// <see langword="true"/> if the instance was disposed 
+    /// successfully, <see langword="false"/> if this instance has 
+    /// already been disposed or if an error occurred while disposing 
+    /// it.
     /// </returns>
     bool TryDispose()
     {

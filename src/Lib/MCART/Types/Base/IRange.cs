@@ -36,54 +36,52 @@ using TheXDS.MCART.Helpers;
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
-/// Interfaz que define un rango de valores.
+/// Interface that defines a range of values.
 /// </summary>
-/// <typeparam name="T">Tipo base del rango de valores.</typeparam>
+/// <typeparam name="T">Base type of the value range.</typeparam>
 public interface IRange<T> where T : IComparable<T>
 {
     /// <summary>
-    /// Valor máximo del rango.
+    /// Maximum value of the range.
     /// </summary>
     T Maximum { get; set; }
 
     /// <summary>
-    /// Obtiene o establece un valor que determina si el valor máximo
-    /// es parte del rango.
+    /// Gets or sets a value that determines whether the maximum value
+    /// is part of the range.
     /// </summary>
-    /// 
     bool MaxInclusive { get; set; }
 
     /// <summary>
-    /// Valor mínimo del rango.
+    /// Minimum value of the range.
     /// </summary>
     T Minimum { get; set; }
 
     /// <summary>
-    /// Obtiene o establece un valor que determina si el valor mínimo
-    /// es parte del rango.
+    /// Gets or sets a value that determines whether the minimum value
+    /// is part of the range.
     /// </summary>
     bool MinInclusive { get; set; }
 
     /// <summary>
-    /// Determina si un <see cref="IRange{T}"/> intersecta a este.
+    /// Determines if a <see cref="IRange{T}"/> intersects with this.
     /// </summary>
-    /// <param name="other">Rango a comprobar.</param>
+    /// <param name="other">Range to check.</param>
     /// <returns>
-    /// <see langword="true"/> si <paramref name="other"/> intersecta a
-    /// este <see cref="IRange{T}"/>, <see langword="false"/> en caso
-    /// contrario.
+    /// <see langword="true"/> if <paramref name="other"/> intersects
+    /// with this <see cref="IRange{T}"/>, <see langword="false"/>
+    /// otherwise.
     /// </returns>
     bool Intersects(IRange<T> other) => IsWithin(other.Maximum) || IsWithin(other.Minimum);
 
     /// <summary>
-    /// Comprueba si un valor <typeparamref name="T"/> se encuentra
-    /// dentro de este <see cref="IRange{T}"/>.
+    /// Checks if a value <typeparamref name="T"/> is within this
+    /// <see cref="IRange{T}"/>
     /// </summary>
-    /// <param name="value">Valor a comprobar.</param>
+    /// <param name="value">Value to check.</param>
     /// <returns>
-    /// <see langword="true"/> si el valor se encuentra dentro de este
-    /// <see cref="IRange{T}"/>, <see langword="false"/> en caso
-    /// contrario.
+    /// <see langword="true"/> if the value is within this
+    /// <see cref="IRange{T}"/>, <see langword="false"/> otherwise.
     /// </returns>
     bool IsWithin(T value) => value.IsBetween(Minimum, Maximum, MinInclusive, MaxInclusive);
 }

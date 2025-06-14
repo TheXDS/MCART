@@ -35,21 +35,20 @@ using TheXDS.MCART.Attributes;
 namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
-/// Extensiones varias para objetos <see cref="MemberInfo" />.
+/// Includes various extensions for the <see cref="MemberInfo" /> class.
 /// </summary>
 public static partial class MemberInfoExtensions
 {
     /// <summary>
-    /// Obtiene un nombre personalizado para un miembro.
+    /// Gets a friendly name for a member.
     /// </summary>
     /// <param name="member">
-    /// <see cref="MemberInfo" /> del cual obtener el nombre.
+    /// The <see cref="MemberInfo"/> from which to get the name.
     /// </param>
     /// <returns>
-    /// Un nombre amigable para <paramref name="member" />, o el nombre
-    /// definido para <paramref name="member" /> si no se ha definido
-    /// un nombre amigable por medio del atributo
-    /// <see cref="NameAttribute"/>.
+    /// A friendly name for <paramref name="member"/>, or the name
+    /// defined for <paramref name="member"/> if a friendly name has not been
+    /// defined using the <see cref="NameAttribute"/> attribute.
     /// </returns>
     public static string NameOf(this MemberInfo member)
     {
@@ -57,17 +56,17 @@ public static partial class MemberInfoExtensions
     }
 
     /// <summary>
-    /// Determina si un miembro posee un atributo definido.
+    /// Determines if a member has a defined attribute.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+    /// Type of attribute to return. Must inherit <see cref="Attribute"/>.
     /// </typeparam>
     /// <param name="member">
-    /// Miembro del cual se extraerá el atributo.
+    /// The member from which to extract the attribute.
     /// </param>
     /// <returns>
-    /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
-    /// en caso contrario.
+    /// <see langword="true"/> if the member has the attribute, <see langword="false"/>
+    /// otherwise.
     /// </returns>
     public static bool HasAttribute<T>(this MemberInfo member) where T : Attribute
     {
@@ -75,23 +74,22 @@ public static partial class MemberInfoExtensions
     }
 
     /// <summary>
-    /// Determina si un miembro posee un atributo definido.
+    /// Determines if a member has a defined attribute.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+    /// Type of attribute to return. Must inherit <see cref="Attribute"/>.
     /// </typeparam>
     /// <param name="member">
-    /// Miembro del cual se extraerá el atributo.
+    /// The member from which to extract the attribute.
     /// </param>
     /// <param name="attribute">
-    /// Parámetro de salida. Si un atributo de tipo
-    /// <typeparamref name="T" /> ha sido encontrado, el mismo es devuelto.
-    /// Se devolverá <see langword="null" /> si el miembro no posee el atributo
-    /// especificado.
+    /// Output parameter. If an attribute of type <typeparamref name="T"/> has
+    /// been found, it is returned. It will be returned as <see langword="null"/> if
+    /// the member does not have the specified attribute.
     /// </param>
     /// <returns>
-    /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
-    /// en caso contrario.
+    /// <see langword="true"/> if the member has the attribute, <see langword="false"/>
+    /// otherwise.
     /// </returns>
     public static bool HasAttributes<T>(this MemberInfo member, out IEnumerable<T> attribute) where T : Attribute
     {
@@ -101,23 +99,22 @@ public static partial class MemberInfoExtensions
     }
 
     /// <summary>
-    /// Determina si un miembro posee un atributo definido.
+    /// Determines if a member has a defined attribute.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+    /// Type of attribute to return. Must inherit <see cref="Attribute"/>.
     /// </typeparam>
     /// <param name="member">
-    /// Miembro del cual se extraerá el atributo.
+    /// The member from which to extract the attribute.
     /// </param>
     /// <param name="attribute">
-    /// Parámetro de salida. Si un atributo de tipo
-    /// <typeparamref name="T" /> ha sido encontrado, el mismo es devuelto.
-    /// Se devolverá <see langword="null" /> si el miembro no posee el atributo
-    /// especificado.
+    /// Output parameter. If an attribute of type <typeparamref name="T"/> has
+    /// been found, it is returned. It will be returned as <see langword="null"/> if
+    /// the member does not have the specified attribute.
     /// </param>
     /// <returns>
-    /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
-    /// en caso contrario.
+    /// <see langword="true"/> if the member has the attribute, <see langword="false"/>
+    /// otherwise.
     /// </returns>
     public static bool HasAttribute<T>(this MemberInfo member, [NotNullWhen(true)] out T? attribute) where T : notnull, Attribute
     {
@@ -127,28 +124,27 @@ public static partial class MemberInfoExtensions
     }
 
     /// <summary>
-    /// Determina si un miembro posee un atributo definido.
+    /// Determines if a member has a defined attribute.
     /// </summary>
-    /// <typeparam name="TValue">
-    /// Tipo de valor a devolver.
-    /// </typeparam>
     /// <typeparam name="TAttribute">
-    /// Tipo de atributo a buscar. Debe heredar de
-    /// <see cref="Attribute"/> y de <see cref="IValueAttribute{T}"/>.
+    /// Type of attribute to return. Must inherit from
+    /// <see cref="Attribute"/> and from <see cref="IValueAttribute{T}"/>
+    /// </typeparam>
+    /// <typeparam name="TValue">
+    /// Type of value to return.
     /// </typeparam>
     /// <param name="member">
-    /// Miembro del cual se extraerá el atributo.
+    /// The member from which to extract the attribute.
     /// </param>
     /// <param name="value">
-    /// Parámetro de salida. Si un atributo de tipo
-    /// <typeparamref name="TAttribute" /> ha sido encontrado, el valor
-    /// del mismo es devuelto.
-    /// Se devolverá <see langword="default" /> si el miembro no posee el atributo
-    /// especificado.
+    /// Output parameter. If an attribute of type <typeparamref name="TAttribute"/> has
+    /// been found, the value of the same is returned.
+    /// It will be returned as <see langword="default"/> if the member does not have the
+    /// specified attribute.
     /// </param>
     /// <returns>
-    /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
-    /// en caso contrario.
+    /// <see langword="true"/> if the member has the attribute, <see langword="false"/>
+    /// otherwise.
     /// </returns>
     public static bool HasAttrValue<TAttribute, TValue>(this MemberInfo member, out TValue value)
         where TAttribute : Attribute, IValueAttribute<TValue>
@@ -160,22 +156,22 @@ public static partial class MemberInfoExtensions
     }
 
     /// <summary>
-    /// Devuelve el atributo asociado a la declaración del objeto
-    /// especificado.
+    /// Returns the attribute associated with the declaration of the
+    /// specified object.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+    /// Type of attribute to return. Must inherit <see cref="Attribute"/>.
     /// </typeparam>
     /// <param name="member">
-    /// Miembro del cual se extraerá el atributo.
+    /// The member from which to extract the attribute.
     /// </param>
     /// <returns>
-    /// Un atributo del tipo <typeparamref name="T" /> con los datos
-    /// asociados en la declaración del miembro; o <see langword="null" /> en caso de
-    /// no encontrarse el atributo especificado.
+    /// An attribute of the type <typeparamref name="T"/> with the data
+    /// associated in the declaration of the member; or <see langword="null"/> if the
+    /// specified attribute is not found.
     /// </returns>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="member"/> es
+    /// Thrown if <paramref name="member"/> is
     /// <see langword="null"/>.
     /// </exception>
     [Sugar]
@@ -185,22 +181,22 @@ public static partial class MemberInfoExtensions
     }
 
     /// <summary>
-    /// Devuelve el atributo asociado al ensamblado especificado.
+    /// Returns the attribute associated with the assembly specified.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+    /// Type of attribute to return. Must inherit <see cref="Attribute"/>.
     /// </typeparam>
     /// <param name="member">
-    /// <see cref="MemberInfo" /> del cual se extraerá el
-    /// atributo.
+    /// <see cref="MemberInfo"/> from which to extract the
+    /// attribute.
     /// </param>
     /// <returns>
-    /// Un atributo del tipo <typeparamref name="T" /> con los datos
-    /// asociados en la declaración del ensamblado; o <see langword="null" /> en caso
-    /// de no encontrarse el atributo especificado.
+    /// An attribute of the type <typeparamref name="T"/> with the data
+    /// associated in the declaration of the assembly; or <see langword="null"/> if the
+    /// specified attribute is not found.
     /// </returns>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="member"/> es
+    /// Thrown if <paramref name="member"/> is
     /// <see langword="null"/>.
     /// </exception>
     [Sugar]

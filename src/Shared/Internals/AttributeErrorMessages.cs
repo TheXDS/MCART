@@ -46,4 +46,5 @@ internal static class AttributeErrorMessages
     public const string Net6Deprecation = "This class uses deprecated methods in .Net 6.";
     public const string UseLicenseUriAttributeInstead = "Use LicenseUriAttribute instead.";
     public const string UnsuportedClass = "The class is not supported by MCART anymore.";
+    public const string NamedObjectDeprecatedCtor = "The recommended signature for this constructor has changed. Please use NamedObject<T>(string, T) instead.";
 }

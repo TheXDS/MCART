@@ -33,11 +33,10 @@ using System.Collections;
 namespace TheXDS.MCART.Types;
 
 /// <summary>
-/// Clase que representa una colección genérica que puede contener
-/// elementos de cola al final de la misma.
+/// Class that represents a generic collection that can contain queue elements at the end.
 /// </summary>
 /// <typeparam name="T">
-/// El tipo de elementos de la colección.
+/// The type of elements in the collection.
 /// </typeparam>
 public class OpenList<T> : IList<T>
 {
@@ -45,19 +44,18 @@ public class OpenList<T> : IList<T>
     private readonly List<T> _tail = [];
 
     /// <summary>
-    /// Obtiene o establece el elemento en el índice especificado.
+    /// Gets or sets the element at the specified index.
     /// </summary>
     /// <param name="index">
-    /// Índice del elemento que se va a obtener o a establecer. Un 
-    /// índice negativo hace referencia a un elemento en la cola del
-    /// <see cref="OpenList{T}"/>.
+    /// Index of the element to get or set. A negative index refers
+    /// to an element in the queue of the <see cref="OpenList{T}"/>.
     /// </param>
     /// <returns>
-    /// El elemento en el índice especificado.
+    /// The element at the specified index.
     /// </returns>
     /// <exception cref="ArgumentOutOfRangeException">
-    /// Se produce si <paramref name="index"/> no hace referencia a un
-    /// elemento válido dentro de este <see cref="OpenList{T}"/>.
+    /// Occurs if <paramref name="index"/> does not refer to a valid
+    /// element within this <see cref="OpenList{T}"/>.
     /// </exception>
     public T this[int index]
     {
@@ -79,46 +77,44 @@ public class OpenList<T> : IList<T>
     }
 
     /// <summary>
-    /// Obtiene el número de elementos incluidos en este
-    /// <see cref="OpenList{T}"/>.
+    /// Gets the number of elements included in this <see cref="OpenList{T}"/>.
     /// </summary>
     public int Count => _head.Count + _tail.Count;
 
     /// <summary>
-    /// Obtiene un valor que indica si esta implementación de la
-    /// interfaz <see cref="ICollection{T}"/> es de solo lectura.
+    /// Gets a value indicating whether this implementation of the
+    /// interface <see cref="ICollection{T}"/> is read-only.
     /// </summary>
     /// <value>
-    /// Para la clase <see cref="OpenList{T}"/>, esta propiedad
-    /// siempre devuelve <see langword="false"/>.
+    /// For class <see cref="OpenList{T}"/>, this property always returns <see langword="false"/>.
     /// </value>
     public bool IsReadOnly => false;
 
     /// <summary>
-    /// Obtiene un valor que indica si este <see cref="OpenList{T}"/>
-    /// contiene una cola de elementos al final.
+    /// Gets a value indicating whether this <see cref="OpenList{T}"/>
+    /// contains a queue of elements at the end.
     /// </summary>
     public bool HasTail => _tail.Count != 0;
 
     /// <summary>
-    /// Enumera todos los elementos de la cabeza de este
+    /// Enumerates all elements from the head of this
     /// <see cref="OpenList{T}"/>.
     /// </summary>
-    public IEnumerable<T> Head => _head.ToArray();
+    public IEnumerable<T> Head => [.. _head];
 
     /// <summary>
-    /// Enumera todos los elementos de la cola de este
+    /// Enumerates all elements from the tail of this
     /// <see cref="OpenList{T}"/>.
     /// </summary>
-    public IEnumerable<T> Tail => _tail.ToArray();
+    public IEnumerable<T> Tail => [.. _tail];
 
     /// <summary>
-    /// Agrega un objeto a este <see cref="OpenList{T}"/>.
+    /// Adds an object to this <see cref="OpenList{T}"/>.
     /// </summary>
     /// <param name="item">
-    /// Objeto que se va a agregar a este
-    /// <see cref="OpenList{T}"/>. El valor puede ser 
-    /// <see langword="null"/> para los tipos de referencia.
+    /// Object that is going to be added to this
+    /// <see cref="OpenList{T}"/>. The value can be
+    /// <see langword="null"/> for reference types.
     /// </param>
     public void Add(T item)
     {
@@ -126,15 +122,13 @@ public class OpenList<T> : IList<T>
     }
 
     /// <summary>
-    /// Agrega un objeto al final de este
-    /// <see cref="OpenList{T}"/>, garantizando que futuras
-    /// adiciones por medio del método <see cref="Add(T)"/> no
-    /// agregarán elementos después de este.
+    /// Adds an object to the end of this <see cref="OpenList{T}"/>, ensuring that future additions via the method
+    /// <see cref="Add(T)"/> will not add elements after this one.
     /// </summary>
     /// <param name="item">
-    /// Objeto que se va a agregar al final de este
-    /// <see cref="OpenList{T}"/>. El valor puede ser 
-    /// <see langword="null"/> para los tipos de referencia.
+    /// Object that is going to be added to the end of this
+    /// <see cref="OpenList{T}"/>. The value can be
+    /// <see langword="null"/> for reference types.
     /// </param>
     public void AddTail(T item)
     {
@@ -142,8 +136,7 @@ public class OpenList<T> : IList<T>
     }
 
     /// <summary>
-    /// Quita todos los elementos de este 
-    /// <see cref="OpenList{T}"/>.
+    /// Removes all elements from this <see cref="OpenList{T}"/>.
     /// </summary>
     public void Clear()
     {
@@ -152,7 +145,7 @@ public class OpenList<T> : IList<T>
     }
 
     /// <summary>
-    /// Mueve todos los elementos de la cola a la cabeza de la colección.
+    /// Moves all elements from the tail to the head of the collection.
     /// </summary>
     public void JoinTail()
     {
@@ -161,11 +154,10 @@ public class OpenList<T> : IList<T>
     }
 
     /// <summary>
-    /// Separa la colección de elementos en una cabeza y una cola en el
-    /// índice especificado.
+    /// Separates the collection of elements into a head and a tail at the specified index.
     /// </summary>
     /// <param name="index">
-    /// Índice del elemento que será el principio de la cola.
+    /// Index of the element that will be the start of the tail.
     /// </param>
     public void SplitTail(int index)
     {
@@ -176,17 +168,14 @@ public class OpenList<T> : IList<T>
     }
 
     /// <summary>
-    /// Determina si un elemento se encuentra en este
-    /// <see cref="OpenList{T}"/>.
+    /// Determines whether an element is present in this <see cref="OpenList{T}"/>.
     /// </summary>
     /// <param name="item">
-    /// Objeto que se va a buscar en este <see cref="OpenList{T}"/>. El
-    /// valor puede ser <see langword="null"/> para los tipos de
-    /// referencia.
+    /// Object to search for in this <see cref="OpenList{T}"/>. The value can be
+    /// <see langword="null"/> for reference types.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si item se encuentra en este 
-    /// <see cref="OpenList{T}"/>; en caso contrario, 
+    /// <see langword="true"/> if item is found in this <see cref="OpenList{T}"/>; otherwise,
     /// <see langword="false"/>.
     /// </returns>
     public bool Contains(T item)
@@ -195,31 +184,26 @@ public class OpenList<T> : IList<T>
     }
 
     /// <summary>
-    /// Copia la totalidad de este <see cref="OpenList{T}"/> en una
-    /// matriz <see cref="Array"/> unidimensional compatible,
-    /// comenzando en el índice especificado de la matriz de destino.
+    /// Copies the entire contents of this <see cref="OpenList{T}"/> to a one-dimensional
+    /// <see cref="Array"/>, starting at the specified index in the destination array.
     /// </summary>
     /// <param name="array">
-    /// <see cref="Array"/> unidimensional que constituye el
-    /// destino de los elementos copiados de este
-    /// <see cref="OpenList{T}"/>. La matriz <see cref="Array"/>
-    /// debe tener una indización de base cero.
+    /// One-dimensional <see cref="Array"/> that is the destination for the copied elements from this
+    /// <see cref="OpenList{T}"/>. The <see cref="Array"/> must have zero-based indexing.
     /// </param>
     /// <param name="arrayIndex">
-    /// Índice de base cero en <paramref name="array"/> donde comienza
-    /// la copia.
+    /// Zero-based index in <paramref name="array"/> at which copying begins.
     /// </param>
     /// <exception cref="ArgumentNullException">
-    /// El valor de <paramref name="array"/> es <see langword="null"/>.
+    /// The value of <paramref name="array"/> is <see langword="null"/>.
     /// </exception>
     /// <exception cref="ArgumentOutOfRangeException">
-    /// <paramref name="arrayIndex"/> es menor que cero.
+    /// <paramref name="arrayIndex"/> is less than zero.
     /// </exception>
     /// <exception cref="ArgumentException">
-    /// El número de elementos de este <see cref="OpenList{T}"/> de
-    /// origen es mayor que el espacio disponible desde
-    /// <paramref name="arrayIndex"/> hasta el final de el 
-    /// <paramref name="array"/> de destino.
+    /// The number of elements in the source <see cref="OpenList{T}"/> is greater than
+    /// the available space from <paramref name="arrayIndex"/> to the end of the destination
+    /// <paramref name="array"/>.
     /// </exception>
     public void CopyTo(T[] array, int arrayIndex)
     {
@@ -227,12 +211,10 @@ public class OpenList<T> : IList<T>
     }
 
     /// <summary>
-    /// Devuelve un enumerador que recorre en iteración este
-    /// <see cref="OpenList{T}"/>.
+    /// Returns an enumerator that iterates through this <see cref="OpenList{T}"/>.
     /// </summary>
     /// <returns>
-    /// Estructura <see cref="IEnumerator{T}"/> para este
-    /// <see cref="OpenList{T}"/>.
+    /// An <see cref="IEnumerator{T}"/> for this <see cref="OpenList{T}"/>.
     /// </returns>
     public IEnumerator<T> GetEnumerator()
     {
@@ -240,20 +222,16 @@ public class OpenList<T> : IList<T>
     }
 
     /// <summary>
-    /// Quita la primera aparición de un objeto específico de este
-    /// <see cref="OpenList{T}"/>.
+    /// Removes the first occurrence of a specific object from this <see cref="OpenList{T}"/>.
     /// </summary>
     /// <param name="item">
-    /// Objeto que se va a quitar de este <see cref="OpenList{T}"/>. El
-    /// valor puede ser <see langword="null"/> para los tipos de
-    /// referencia.
+    /// Object to remove from this <see cref="OpenList{T}"/>. The value can be
+    /// <see langword="null"/> for reference types.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si <paramref name="item"/> se quita
-    /// correctamente; en caso contrario, <see langword="false"/>. Este
-    /// método también devuelve <see langword="false"/> si no se
-    /// encontró <paramref name="item"/> en este
-    /// <see cref="OpenList{T}"/>.
+    /// <see langword="true"/> if the <paramref name="item"/> is successfully removed;
+    /// otherwise, <see langword="false"/>. This method also returns <see langword="false"/>
+    /// if the <paramref name="item"/> was not found in this <see cref="OpenList{T}"/>.
     /// </returns>
     public bool Remove(T item)
     {
@@ -261,19 +239,17 @@ public class OpenList<T> : IList<T>
     }
 
     /// <summary>
-    /// Inserta un elemento en este <see cref="OpenList{T}"/>, en el
-    /// índice especificado.
+    /// Inserts an element into this <see cref="OpenList{T}"/> at the specified index.
     /// </summary>
     /// <param name="index">
-    /// Índice en el que debe insertarse <paramref name="item"/>.
+    /// Index at which to insert the <paramref name="item"/>.
     /// </param>
     /// <param name="item">
-    /// Objeto que se va a insertar. El valor puede ser
-    /// <see langword="null"/> para los tipos de referencia.
+    /// Object to insert. The value can be <see langword="null"/> for reference types.
     /// </param>
     /// <exception cref="ArgumentOutOfRangeException">
-    /// Se produce si <paramref name="index"/> no hace referencia a un
-    /// elemento válido dentro de este <see cref="OpenList{T}"/>.
+    /// Occurs if <paramref name="index"/> does not refer to a valid element within this
+    /// <see cref="OpenList{T}"/>.
     /// </exception>
     public void Insert(int index, T item)
     {
@@ -288,15 +264,14 @@ public class OpenList<T> : IList<T>
     }
 
     /// <summary>
-    /// Quita el elemento situado en el índice especificado de este
-    /// <see cref="OpenList{T}"/>.
+    /// Removes the element at the specified index from this <see cref="OpenList{T}"/>.
     /// </summary>
     /// <param name="index">
-    /// Índice del elemento que se va a quitar.
+    /// Index of the element to remove.
     /// </param>
     /// <exception cref="ArgumentOutOfRangeException">
-    /// Se produce si <paramref name="index"/> no hace referencia a un
-    /// elemento válido dentro de este <see cref="OpenList{T}"/>.
+    /// Occurs if <paramref name="index"/> does not refer to a valid element within this
+    /// <see cref="OpenList{T}"/>.
     /// </exception>
     public void RemoveAt(int index)
     {
@@ -311,15 +286,13 @@ public class OpenList<T> : IList<T>
     }
 
     /// <summary>
-    /// Determina el índice de base cero de un elemento específico 
-    /// dentro de el <see cref="IList{T}"/>.
+    /// Determines the zero-based index of a specific element within this <see cref="IList{T}"/>.
     /// </summary>
     /// <param name="item">
-    /// Objeto que se va a buscar en el <see cref="IList{T}"/>.
+    /// Object to search for in the <see cref="IList{T}"/>.
     /// </param>
     /// <returns>
-    /// El índice de <paramref name="item"/> si se encuentra en la
-    /// lista; de lo contrario, devuelve -1.
+    /// The index of <paramref name="item"/> if it is found in the list; otherwise, returns -1.
     /// </returns>
     public int IndexOf(T item)
     {
@@ -327,11 +300,10 @@ public class OpenList<T> : IList<T>
     }
 
     /// <summary>
-    /// Devuelve un enumerador que recorre en iteración una colección.
+    /// Returns an enumerator that iterates through a collection.
     /// </summary>
     /// <returns>
-    /// Un <see cref="IEnumerator"/> que puede usarse para recorrer en 
-    /// iteración la colección.
+    /// An <see cref="IEnumerator"/> that can be used to iterate through the collection.
     /// </returns>
     IEnumerator IEnumerable.GetEnumerator()
     {

@@ -31,8 +31,8 @@ SOFTWARE.
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
-/// Describe una serie de miembros a implementar por una clase o
-/// estructura que expone una descripción.
+/// Describes a series of members to be implemented by a class or
+/// struct that exposes a description.
 /// </summary>
 public interface IDescriptible
 {

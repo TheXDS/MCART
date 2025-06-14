@@ -33,23 +33,25 @@ using System.Diagnostics.CodeAnalysis;
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
-/// Expansión de la interfaz <see cref="ICloneable"/> que provee de un
-/// método fuertemente tipeado además de una implementación predeterminada
-/// del mismo.
+/// Extension of the <see cref="ICloneable"/> interface that provides a 
+/// strongly typed method and a default implementation of it.
 /// </summary>
 /// <typeparam name="T">
-/// Tipo de objeto resultante de la clonación. Normalmente, pero no
-/// necesariamente, es el mismo tipo que implementa esta interfaz.
-/// Si el tipo no es el mismo que implementa la interfaz, el tipo debe
-/// implementar el tipo especificado.
+/// Type of object resulting from cloning. Typically, but not 
+/// necessarily, it is the same type that implements this interface.
+/// If the type is not the same as th implementing type, it must
+/// implement the specified type.
 /// </typeparam>
-public interface ICloneable<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)]out T> : ICloneable where T : notnull, new()
+public interface ICloneable<[DynamicallyAccessedMembers(
+    DynamicallyAccessedMemberTypes.PublicFields |
+    DynamicallyAccessedMemberTypes.PublicProperties)] out T>
+    : ICloneable where T : notnull, new()
 {
     /// <summary>
-    /// Crea una copia de esta instancia.
+    /// Creates a copy of this instance.
     /// </summary>
     /// <returns>
-    /// Una copia de esta instancia de tipo <typeparamref name="T"/>.
+    /// A copy of this instance of type <typeparamref name="T"/>.
     /// </returns>
     new T Clone()
     {

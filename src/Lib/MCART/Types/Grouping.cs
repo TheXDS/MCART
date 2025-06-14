@@ -31,24 +31,25 @@ SOFTWARE.
 namespace TheXDS.MCART.Types;
 
 /// <summary>
-/// Representa una colección fuertemente tipeada de elementos que
-/// comparten una llave única.
+/// Represents a strongly typed collection of 
+/// elements that share a unique key.
 /// </summary>
 /// <typeparam name="TKey">
-/// Tipo de llave a utilizar.
+/// Type of key to use.
 /// </typeparam>
 /// <typeparam name="TElement">
-/// Tipo de elementos de la colección.
+/// Type of elements in the collection.
 /// </typeparam>
 public class Grouping<TKey, TElement> : List<TElement>, IGrouping<TKey, TElement>
 {
     /// <summary>
     /// Initializes a new instance of the 
-    /// <see cref="Grouping{TKey, TElement}"/>, estableciendo la llave a
-    /// utilizar.
+    /// <see cref="Grouping{TKey, TElement}"/>, 
+    /// setting the key to use.
     /// </summary>
     /// <param name="key">
-    /// Llave asociada a este grupo de elementos.
+    /// Key associated with this group of 
+    /// elements.
     /// </param>
     public Grouping(TKey key)
     {
@@ -57,14 +58,17 @@ public class Grouping<TKey, TElement> : List<TElement>, IGrouping<TKey, TElement
 
     /// <summary>
     /// Initializes a new instance of the 
-    /// <see cref="Grouping{TKey, TElement}"/>, estableciendo la llave a
-    /// utilizar para identificar a los elementos especificados.
+    /// <see cref="Grouping{TKey, TElement}"/>, 
+    /// setting the key to use to identify 
+    /// the specified elements.
     /// </summary>
     /// <param name="key">
-    /// Llave asociada a este grupo de elementos.
+    /// Key associated with this group of 
+    /// elements.
     /// </param>
     /// <param name="collection">
-    /// Colección a la cual asociar la llave especificada.
+    /// Collection to associate with the 
+    /// specified key.
     /// </param>
     public Grouping(TKey key, IEnumerable<TElement> collection) : base(collection)
     {
@@ -73,14 +77,17 @@ public class Grouping<TKey, TElement> : List<TElement>, IGrouping<TKey, TElement
 
     /// <summary>
     /// Initializes a new instance of the 
-    /// <see cref="Grouping{TKey, TElement}"/>, estableciendo la llave a
-    /// utilizar, además de definir la capacidad de la colección.
+    /// <see cref="Grouping{TKey, TElement}"/>, 
+    /// setting the key to use and defining 
+    /// the capacity of the collection.
     /// </summary>
     /// <param name="key">
-    /// Llave asociada a este grupo de elementos.
+    /// Key associated with this group of 
+    /// elements.
     /// </param>
     /// <param name="capacity">
-    /// Capacidad inicial de la colección subyacente.
+    /// Initial capacity of the underlying 
+    /// collection.
     /// </param>
     public Grouping(TKey key, int capacity) : base(capacity)
     {
@@ -88,49 +95,51 @@ public class Grouping<TKey, TElement> : List<TElement>, IGrouping<TKey, TElement
     }
 
     /// <summary>
-    /// Llave asociada a este grupo de elementos.
+    /// Key associated with this group of 
+    /// elements.
     /// </summary>
     public TKey Key { get; }
 
     /// <summary>
-    /// Convierte implícitamente un
-    /// <see cref="Grouping{TKey, TElement}"/> en un
-    /// <see cref="KeyValuePair{TKey, TValue}"/>.
+    /// Implicitly converts a 
+    /// <see cref="Grouping{TKey, TElement}"/> 
+    /// to a <see cref="KeyValuePair{TKey, 
+    /// TValue}"/>.
     /// </summary>
-    /// <param name="grouping">Objeto a convertir.</param>
+    /// <param name="grouping">Object to convert.</param>
     public static implicit operator KeyValuePair<TKey, IEnumerable<TElement>>(Grouping<TKey, TElement> grouping)
     {
         return new(grouping.Key, grouping);
     }
 
     /// <summary>
-    /// Convierte implícitamente un
-    /// <see cref="KeyValuePair{TKey, TValue}"/> en un
-    /// <see cref="Grouping{TKey, TElement}"/>.
+    /// Implicitly converts a 
+    /// <see cref="KeyValuePair{TKey, TValue}"/> 
+    /// to a <see cref="Grouping{TKey, TElement}"/>.
     /// </summary>
-    /// <param name="grouping">Objeto a convertir.</param>
+    /// <param name="grouping">Object to convert.</param>
     public static implicit operator Grouping<TKey, TElement>(KeyValuePair<TKey, IEnumerable<TElement>> grouping)
     {
         return new(grouping.Key, grouping.Value);
     }
 
     /// <summary>
-    /// Convierte implícitamente un
-    /// <see cref="Tuple{T1, T2}"/> en un
+    /// Implicitly converts a 
+    /// <see cref="Tuple{T1, T2}"/> to a 
     /// <see cref="Grouping{TKey, TElement}"/>.
     /// </summary>
-    /// <param name="grouping">Objeto a convertir.</param>
+    /// <param name="grouping">Object to convert.</param>
     public static implicit operator Grouping<TKey, TElement>((TKey Key, IEnumerable<TElement> Value) grouping)
     {
         return new(grouping.Key, grouping.Value);
     }
 
     /// <summary>
-    /// Convierte implícitamente un
-    /// <see cref="Grouping{TKey, TElement}"/> en un
-    /// <see cref="Tuple{T1, T2}"/>.
+    /// Implicitly converts a 
+    /// <see cref="Grouping{TKey, TElement}"/> 
+    /// to a <see cref="Tuple{T1, T2}"/>.
     /// </summary>
-    /// <param name="grouping">Objeto a convertir.</param>
+    /// <param name="grouping">Object to convert.</param>
     public static implicit operator (TKey, IEnumerable<TElement>)(Grouping<TKey, TElement> grouping)
     {
         return (grouping.Key, grouping);

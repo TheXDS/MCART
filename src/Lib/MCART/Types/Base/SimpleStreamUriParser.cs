@@ -31,32 +31,28 @@ SOFTWARE.
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
-/// Clase base para un <see cref="StreamUriParser"/> simple cuya lógica
-/// de comprobación de <see cref="Uri"/> requiere únicamente una lista
-/// de esquemas o protocolos compatibles.
+/// Base class for a simple <see cref="StreamUriParser"/> whose URI
+/// checking logic only requires a list of supported schemes or protocols.
 /// </summary>
 public abstract class SimpleStreamUriParser : StreamUriParser
 {
     /// <summary>
-    /// Enumera los protocolos aceptados de <see cref="Uri"/> para la
-    /// apertura de un nuevo <see cref="Stream"/> para la lectura del
-    /// recurso.
+    /// Enumerates the accepted protocols of <see cref="Uri"/> for opening a
+    /// new <see cref="Stream"/> to read the resource.
     /// </summary>
     protected abstract IEnumerable<string> SchemeList { get; }
 
     /// <summary>
-    /// Determina si este <see cref="StreamUriParser"/> puede crear un
-    /// <see cref="Stream"/> a partir del <see cref="Uri"/>
-    /// especificado.
+    /// Determines whether this <see cref="StreamUriParser"/> can create a
+    /// <see cref="Stream"/> from the specified <see cref="Uri"/>.
     /// </summary>
     /// <param name="uri">
-    /// <see cref="Uri"/> a comprobar.
+    /// <see cref="Uri"/> to check.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si este <see cref="StreamUriParser"/>
-    /// puede crear un <see cref="Stream"/> a partir del
-    /// <see cref="Uri"/> especificado, <see langword="false"/> en caso
-    /// contrario.
+    /// <see langword="true"/> if this <see cref="StreamUriParser"/> can
+    /// create a <see cref="Stream"/> from the specified <see cref="Uri"/>,
+    /// <see langword="false"/> otherwise.
     /// </returns>
     public override bool Handles(Uri uri)
     {

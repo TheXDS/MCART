@@ -37,20 +37,20 @@ using TheXDS.MCART.Misc;
 namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
-/// Contiene extensiones para la clase <see cref="MethodBase"/>.
+/// Contains extensions for the <see cref="MethodBase"/> class.
 /// </summary>
 public static partial class MethodBaseExtensions
 {
     /// <summary>
-    /// Obtiene un nombre completo para un método, incluyendo el tipo y
-    /// el espacio de nombres donde el mismo ha sido definido.
+    /// Gets a full name for a method, including the type and
+    /// the namespace where the same has been defined.
     /// </summary>
     /// <param name="method">
-    /// Método del cual obtener el nombre completo.
+    /// Method from which to get the full name.
     /// </param>
     /// <returns>
-    /// El nombre completo del método, incluyendo el tipo y el espacio
-    /// de nombres donde el mismo ha sido definido.
+    /// The full name of the method, including the type and the
+    /// namespace where the same has been defined.
     /// </returns>
     public static string FullName(this MethodBase method)
     {
@@ -66,28 +66,27 @@ public static partial class MethodBaseExtensions
     }
 
     /// <summary>
-    /// Determina si el método especificado ha sido invalidado en la
-    /// instancia provista.
+    /// Determines if the specified method has been overridden in the
+    /// provided instance.
     /// </summary>
     /// <param name="method">
-    /// Método a comprobar.
+    /// Method to check.
     /// </param>
     /// <param name="instance">
-    /// Instancia en la cual se debe realizar la comprobación.
-    /// Generalmente, este argumento debe ser <see langword="this"/>.
+    /// Instance in which to perform the check.
+    /// Generally, this argument should be <see langword="this"/>.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si el método ha sido invalidado en la
-    /// instancia especificada, <see langword="false"/> en caso 
-    /// contrario.
+    /// <see langword="true"/> if the method has been overridden in the
+    /// instance specified, <see langword="false"/> otherwise.
     /// </returns>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="method"/> o
-    /// <paramref name="instance"/> son <see langword="null"/>.
+    /// Thrown if <paramref name="method"/> or
+    /// <paramref name="instance"/> are <see langword="null"/>.
     /// </exception>
     /// <exception cref="InvalidTypeException">
-    /// Se produce si la definición de <paramref name="method"/> no existe
-    /// en el tipo de <paramref name="instance"/>.
+    /// Thrown if the definition of <paramref name="method"/> does not exist
+    /// in the type of <paramref name="instance"/>.
     /// </exception>
     [RequiresDynamicCode(AttributeErrorMessages.MethodCreatesNewTypes)]
     [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
@@ -96,25 +95,23 @@ public static partial class MethodBaseExtensions
         IsOverridden_Contract(method, instance);
         MethodInfo m = instance.GetType().GetMethod(method.Name, GetBindingFlags(method), null, method.GetParameters().Select(p => p.ParameterType).ToArray(), null)
             ?? throw new TamperException(new MissingMethodException(instance.GetType().Name, method.Name));
-
         return method.DeclaringType != m.DeclaringType;
     }
 
     /// <summary>
-    /// Infiere las <see cref="BindingFlags"/> utilizadas en la
-    /// definición del método.
+    /// Infers the <see cref="BindingFlags"/> used in the
+    /// definition of the method.
     /// </summary>
     /// <param name="method">
-    /// Método para el cual inferir las <see cref="BindingFlags"/>.
+    /// Method for which to infer the <see cref="BindingFlags"/>.
     /// </param>
     /// <returns>
-    /// Las <see cref="BindingFlags"/> inferidas basadas en las
-    /// propiedades del método.
+    /// The <see cref="BindingFlags"/> inferred based on the
+    /// properties of the method.
     /// </returns>
     public static BindingFlags GetBindingFlags(this MethodBase method)
     {
         BindingFlags retVal = BindingFlags.Default;
-
         void Test(MethodAttributes inFlag, BindingFlags orFlag, BindingFlags notFlags = BindingFlags.Default)
         {
             if (method.Attributes.HasFlag(inFlag))
@@ -126,23 +123,21 @@ public static partial class MethodBaseExtensions
                 retVal |= notFlags;
             }
         }
-
         Test(MethodAttributes.Public, BindingFlags.Public);
         Test(MethodAttributes.Private, BindingFlags.NonPublic);
         Test(MethodAttributes.Family, BindingFlags.NonPublic);
         Test(MethodAttributes.Static, BindingFlags.Static, BindingFlags.Instance);
-
         return retVal;
     }
 
     /// <summary>
-    /// Obtiene un arreglo con los tipos de parámetro del método.
+    /// Gets an array with the parameter types of the method.
     /// </summary>
     /// <param name="method">
-    /// Método del cual extraer la colección de tipos de parámetro.
+    /// Method from which to extract the collection of parameter types.
     /// </param>
     /// <returns>
-    /// Un arreglo con los tipos de cada uno de los parámetros del método.
+    /// An array with the types of each of the parameters of the method.
     /// </returns>
     public static Type[] GetParameterTypes(this MethodBase method)
     {

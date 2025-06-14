@@ -35,16 +35,16 @@ using TheXDS.MCART.Resources;
 namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
-/// Extensiones para todos los elementos de tipo <see cref="IList{T}" />.
+/// Extensions for all items of type <see cref="IList{T}" />.
 /// </summary>
 public static partial class ListExtensions
 {
     /// <summary>
-    /// Quita todos los elementos del tipo especificado de la
-    /// colección.
+    /// Removes all items of the specified type from the
+    /// collection.
     /// </summary>
-    /// <typeparam name="T">Tipo de elementos a remover.</typeparam>
-    /// <param name="c">Colección de la cual remover los elementos.</param>
+    /// <typeparam name="T">Type of items to remove.</typeparam>
+    /// <param name="c">Collection from which to remove items.</param>
     public static void RemoveOf<T>(this IList c)
     {
         int i = 0;
@@ -62,13 +62,13 @@ public static partial class ListExtensions
     }
 
     /// <summary>
-    /// Aplica una operación de rotación sobre el <see cref="IList{T}"/>.
+    /// Applies a rotation operation on the <see cref="IList{T}"/>.
     /// </summary>
-    /// <typeparam name="T">Tipo de elementos de la colección.</typeparam>
-    /// <param name="c">colección a rotar.</param>
+    /// <typeparam name="T">Type of items in the collection.</typeparam>
+    /// <param name="c">Collection to rotate.</param>
     /// <param name="steps">
-    /// Pasos de rotación. Un valor positivo rotará los elementos hacia la
-    /// izquierda, y uno negativo los rotará hacia la derecha.
+    /// Rotation steps. A positive value will rotate the elements to the
+    /// left, and a negative one will rotate them to the right.
     /// </param>
     public static void ApplyRotate<T>(this IList<T> c, in int steps)
     {
@@ -81,16 +81,15 @@ public static partial class ListExtensions
     }
 
     /// <summary>
-    /// Aplica una operación de desplazamiento sobre el
+    /// Applies a shift operation on the
     /// <see cref="IList{T}"/>.
     /// </summary>
-    /// <typeparam name="T">Tipo de elementos de la colección.</typeparam>
-    /// <param name="c">colección a desplazar.</param>
+    /// <typeparam name="T">Type of items in the collection.</typeparam>
+    /// <param name="c">Collection to shift.</param>
     /// <param name="steps">
-    /// Pasos de desplazamiento. Un valor positivo desplazará los elementos
-    /// hacia la izquierda, y uno negativo los desplazará hacia la derecha,
-    /// en ambos casos rellenando con valores predeterminados cada posición
-    /// vacía resultante.
+    /// Shift steps. A positive value will shift the elements
+    /// to the left, and a negative one will shift them to the right,
+    /// in both cases filling each resulting empty position with default values.
     /// </param>
     public static void ApplyShift<T>(this IList<T> c, in int steps)
     {
@@ -109,13 +108,13 @@ public static partial class ListExtensions
     }
 
     /// <summary>
-    /// Ejecuta una operación de lista en un contexto bloqueado.
+    /// Executes a list operation in a locked context.
     /// </summary>
     /// <param name="list">
-    /// Lista sobre la cual ejecutar una operación bloqueada.
+    /// List on which to execute a locked operation.
     /// </param>
     /// <param name="action">
-    /// Acción a ejecutar sobre la lista.
+    /// Action to execute on the list.
     /// </param>
     public static void Locked(this IList list, Action<IList> action)
     {
@@ -124,18 +123,17 @@ public static partial class ListExtensions
     }
 
     /// <summary>
-    /// Desordena los elementos de un <see cref="IList{T}" />.
+    /// Shuffles the elements of an <see cref="IList{T}" />.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de elementos contenidos en el <see cref="IList{T}" />.
+    /// Type of elements contained in the <see cref="IList{T}" />.
     /// </typeparam>
-    /// <param name="c"><see cref="IList{T}" /> a desordenar.</param>
+    /// <param name="c"><see cref="IList{T}" /> to shuffle.</param>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="c" /> es <see langword="null" />.
+    /// Thrown if <paramref name="c" /> is <see langword="null" />.
     /// </exception>
     /// <exception cref="EmptyCollectionException">
-    /// Se produce si <paramref name="c" /> hace referencia a una colección
-    /// vacía.
+    /// Thrown if <paramref name="c" /> refers to an empty collection.
     /// </exception>
     public static void Shuffle<T>(this IList<T> c)
     {
@@ -143,25 +141,24 @@ public static partial class ListExtensions
     }
 
     /// <summary>
-    /// Desordena los elementos de un <see cref="IList{T}" />.
+    /// Shuffles the elements of an <see cref="IList{T}" />.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de elementos contenidos en el <see cref="IList{T}" />.
+    /// Type of elements contained in the <see cref="IList{T}" />.
     /// </typeparam>
-    /// <param name="c"><see cref="IList{T}" /> a desordenar.</param>
+    /// <param name="c"><see cref="IList{T}" /> to shuffle.</param>
     /// <param name="deepness">
-    /// Profundidad del desorden. 1 es el valor más alto.
+    /// Depth of the shuffle. 1 is the highest value.
     /// </param>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="c" /> es <see langword="null" />.
+    /// Thrown if <paramref name="c" /> is <see langword="null" />.
     /// </exception>
     /// <exception cref="EmptyCollectionException">
-    /// Se produce si <paramref name="c" /> hace referencia a una colección
-    /// vacía.
+    /// Thrown if <paramref name="c" /> refers to an empty collection.
     /// </exception>
     /// <exception cref="ArgumentOutOfRangeException">
-    /// Se produce si <paramref name="deepness" /> es inferior a 1, o
-    /// superior a la cuenta de elementos de la colección a desordenar.
+    /// Thrown if <paramref name="deepness" /> is less than 1, or
+    /// greater than the count of elements in the collection to shuffle.
     /// </exception>
     public static void Shuffle<T>(this IList<T> c, in int deepness)
     {
@@ -169,48 +166,48 @@ public static partial class ListExtensions
     }
 
     /// <summary>
-    /// Desordena los elementos del intervalo especificado de un
+    /// Shuffles the elements of the specified interval of an
     /// <see cref="IList{T}" />.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de elementos contenidos en el <see cref="IList{T}" />.
+    /// Type of elements contained in the <see cref="IList{T}" />.
     /// </typeparam>
-    /// <param name="c"><see cref="IList{T}" /> a desordenar.</param>
-    /// <param name="firstIdx">Índice inicial del intervalo.</param>
-    /// <param name="lastIdx">Índice inicial del intervalo.</param>
+    /// <param name="c"><see cref="IList{T}" /> to shuffle.</param>
+    /// <param name="firstIdx">Initial index of the interval.</param>
+    /// <param name="lastIdx">Initial index of the interval.</param>
     public static void Shuffle<T>(this IList<T> c, in int firstIdx, in int lastIdx)
     {
         Shuffle(c, firstIdx, lastIdx, 1);
     }
 
     /// <summary>
-    /// Desordena los elementos del intervalo especificado de un
+    /// Shuffles the elements of the specified interval of an
     /// <see cref="IList{T}" />.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de elementos contenidos en el <see cref="IList{T}" />.
+    /// Type of elements contained in the <see cref="IList{T}" />.
     /// </typeparam>
-    /// <param name="toShuffle"><see cref="IList{T}" /> a desordenar.</param>
-    /// <param name="deepness">Profundidad del desorden. 1 es el más alto.</param>
-    /// <param name="firstIdx">Índice inicial del intervalo.</param>
-    /// <param name="lastIdx">Índice inicial del intervalo.</param>
+    /// <param name="toShuffle"><see cref="IList{T}" /> to shuffle.</param>
+    /// <param name="deepness">Depth of the shuffle. 1 is the highest.</param>
+    /// <param name="firstIdx">Initial index of the interval.</param>
+    /// <param name="lastIdx">Initial index of the interval.</param>
     public static void Shuffle<T>(this IList<T> toShuffle, in int firstIdx, in int lastIdx, in int deepness)
     {
         Shuffle(toShuffle, firstIdx, lastIdx, deepness, RandomExtensions.Rnd);
     }
 
     /// <summary>
-    /// Desordena los elementos del intervalo especificado de un
+    /// Shuffles the elements of the specified interval of an
     /// <see cref="IList{T}" />.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de elementos contenidos en el <see cref="IList{T}" />.
+    /// Type of elements contained in the <see cref="IList{T}" />.
     /// </typeparam>
-    /// <param name="toShuffle"><see cref="IList{T}" /> a desordenar.</param>
-    /// <param name="deepness">Profundidad del desorden. 1 es el más alto.</param>
-    /// <param name="firstIdx">Índice inicial del intervalo.</param>
-    /// <param name="lastIdx">Índice inicial del intervalo.</param>
-    /// <param name="random">Generador de números aleatorios a utilizar.</param>
+    /// <param name="toShuffle"><see cref="IList{T}" /> to shuffle.</param>
+    /// <param name="deepness">Depth of the shuffle. 1 is the highest.</param>
+    /// <param name="firstIdx">Initial index of the interval.</param>
+    /// <param name="lastIdx">Initial index of the interval.</param>
+    /// <param name="random">Random number generator to use.</param>
     public static void Shuffle<T>(this IList<T> toShuffle, int firstIdx, int lastIdx, in int deepness, Random random)
     {
         Shuffle_Contract(toShuffle, firstIdx, lastIdx, deepness, random);
@@ -222,12 +219,12 @@ public static partial class ListExtensions
     }
 
     /// <summary>
-    /// Intercambia la posición de dos elementos dentro de un <see cref="IList{T}"/>.
+    /// Swaps the position of two elements within an <see cref="IList{T}"/>.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <param name="collection">colección sobre la cual intercambiar la posición de dos elementos.</param>
-    /// <param name="indexA">Índice del primer elemento.</param>
-    /// <param name="indexB">Índice del segundo elemento.</param>
+    /// <param name="collection">Collection on which to swap the position of two elements.</param>
+    /// <param name="indexA">Index of the first element.</param>
+    /// <param name="indexB">Index of the second element.</param>
     public static void Swap<T>(this IList<T> collection, in int indexA, in int indexB)
     {
         if (indexA == indexB) return;
@@ -235,12 +232,12 @@ public static partial class ListExtensions
     }
 
     /// <summary>
-    /// Intercambia la posición de dos elementos dentro de un <see cref="IList{T}"/>.
+    /// Swaps the position of two elements within an <see cref="IList{T}"/>.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <param name="collection">colección sobre la cual intercambiar la posición de dos elementos.</param>
-    /// <param name="a">Primer elemento.</param>
-    /// <param name="b">Segundo elemento.</param>
+    /// <param name="collection">Collection on which to swap the position of two elements.</param>
+    /// <param name="a">First element.</param>
+    /// <param name="b">Second element.</param>
     public static void Swap<T>(this IList<T> collection, T a, T b)
     {
         if (!collection.ContainsAll(a, b)) throw Errors.ListMustContainBoth();

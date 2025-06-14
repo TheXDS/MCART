@@ -32,7 +32,6 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Resources;
-using static TheXDS.MCART.Misc.Internals;
 
 namespace TheXDS.MCART.Types.Extensions;
 

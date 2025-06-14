@@ -31,12 +31,14 @@ SOFTWARE.
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
-/// Clase base que simplifica la implementación de las interfaces
-/// <see cref="IAsyncDisposable"/> y <see cref="IDisposable"/>.
+/// Base class that simplifies the implementation of 
+/// <see cref="IAsyncDisposable"/> and <see cref="IDisposable"/> 
+/// interfaces.
 /// </summary>
 /// <remarks>
-/// Si la clase a implementar no contendrá acciones asíncronas de limpieza,
-/// utilice la clase <see cref="Disposable"/> como clase base.
+/// If the class to implement does not contain asynchronous 
+/// disposal actions, use the <see cref="Disposable"/> class as 
+/// the base class.
 /// </remarks>
 public abstract class AsyncDisposable : Disposable, IAsyncDisposable
 {
@@ -49,12 +51,12 @@ public abstract class AsyncDisposable : Disposable, IAsyncDisposable
     }
 
     /// <summary>
-    /// Realiza las operaciones de limpieza asíncrona de objetos
-    /// administrados desechables asíncronamente de esta instancia.
+    /// Performs asynchronous cleanup operations on disposable 
+    /// managed objects for this instance.
     /// </summary>
     /// <returns>
-    /// Un <see cref="ValueTask"/> que permite esperar a la operación
-    /// asíncrona.
+    /// A <see cref="ValueTask"/> that allows waiting for the 
+    /// asynchronous operation.
     /// </returns>
     protected abstract ValueTask OnDisposeAsync();
 }

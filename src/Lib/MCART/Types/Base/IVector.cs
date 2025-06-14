@@ -33,20 +33,20 @@ using System.Numerics;
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
-/// Interfaz que define propiedades comunes para estructuras de datos
-/// que describen coordenadas, vectores, magnitudes y tamaños en un
-/// espacio de dos dimensiones.
+/// Interface that defines common properties for data structures
+/// that describe coordinates, vectors, magnitudes, and sizes in a
+/// two-dimensional space.
 /// </summary>
-public interface IVector : IEquatable<IVector>
+public interface IVector : IEquatable<IVector>, IEquatable<Vector2>
 {
     /// <summary>
-    /// Obtiene el componente horizontal (eje X) representado por este
+    /// Gets the horizontal component (X axis) represented by this
     /// <see cref="IVector"/>.
     /// </summary>
     double X { get; }
 
     /// <summary>
-    /// Obtiene el componente vertical (eje Y) representado por este
+    /// Gets the vertical component (Y axis) represented by this
     /// <see cref="IVector"/>.
     /// </summary>
     double Y { get; }
@@ -55,10 +55,10 @@ public interface IVector : IEquatable<IVector>
     /// Converts the current <see cref="IVector"/> to a <see cref="Vector2"/>.
     /// </summary>
     /// <returns>
-    /// A new <see cref="Vector2"/> instance with the same X and Y values as this <see cref="IVector"/>.
+    /// A new <see cref="Vector2"/> instance with the same X and Y values as
+    /// this <see cref="IVector"/>.
     /// </returns>
-    Vector2 ToVector2()
-    {
-        return new Vector2((float)X, (float)Y);
-    }
+    Vector2 ToVector2() => new((float)X, (float)Y);
+
+    bool IEquatable<Vector2>.Equals(Vector2 other) => (X - other.X) < float.Epsilon && (Y - other.Y) < float.Epsilon;
 }

@@ -54,7 +54,7 @@ public class EnumerableExtensionsTests
         } while (l.Count > 10);
         Assert.That(l, Is.Not.EquivalentTo(c));
     }
-    
+
     [Test]
     public void Pick_contract_test()
     {
@@ -113,7 +113,7 @@ public class EnumerableExtensionsTests
             Assert.That(i, Is.AssignableFrom<int[]>());
         }));
 
-        // Este debe ser tiempo suficiente para que la tarea t1 inicie ejecución.
+        // Wait for t1 to start execution.
         await Task.Delay(250);
 
         Task t2 = Task.Run(() => l.Locked(i =>
@@ -157,7 +157,7 @@ public class EnumerableExtensionsTests
         });
         Assert.That(3, Is.EqualTo(c.Locked(p => p.Count())));
     }
-    
+
     [Test]
     public void Locked_Test4()
     {
@@ -444,7 +444,7 @@ public class EnumerableExtensionsTests
 
         List<int> l = [.. a];
         Assert.That(arrSize, Is.EqualTo(((IEnumerable)l).Count()));
-        
+
         Collection<int> c = [.. a];
         Assert.That(arrSize, Is.EqualTo(((IEnumerable)c).Count()));
 
@@ -513,5 +513,56 @@ public class EnumerableExtensionsTests
                 new("Test2"),
                 new("Test3"),
         }.IsPropertyEqual(p => p.Message), Is.False);
+    }
+
+    [Test]
+    public void Sum_with_TimeSpan_Test()
+    {
+        TimeSpan[] times = [TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(2), TimeSpan.FromSeconds(3)];
+        TimeSpan total = times.Sum();
+        Assert.That(total, Is.EqualTo(TimeSpan.FromSeconds(6)));
+    }
+
+    [Test]
+    public void Quorum_gets_quorum_on_all_equal()
+    {
+        int[] values = [1, 1, 1, 1, 1];
+        Assert.That(values.Quorum(5), Is.EqualTo(1));
+    }
+
+    [Test]
+    public void Quorum_gets_quorum_on_most_equal()
+    {
+        int[] values = [1, 1, 2, 2, 2, 2, 2, 3, 3];
+        Assert.That(values.Quorum(5), Is.EqualTo(2));
+    }
+
+    [Test]
+    public void Quorum_fails_on_no_quorum()
+    {
+        int[] values = [1, 2, 3, 4, 5];
+        Assert.Throws<InvalidOperationException>(() => values.Quorum(2));
+    }
+
+    [Test]
+    public void Quorum_fails_on_empty_collection()
+    {
+        int[] values = [];
+        Assert.Throws<InvalidOperationException>(() => values.Quorum(1));
+    }
+
+    [Test]
+    public void Quorum_contract_on_null_collection()
+    {
+        int[]? values = null;
+        Assert.Throws<ArgumentNullException>(() => values!.Quorum(1));
+    }
+
+    [TestCase(0)]
+    [TestCase(-1)]
+    public void Quorum_contract_on_zero_or_negative_quorum_size(int quorumSize)
+    {
+        int[] values = [1, 2, 3, 4, 5];
+        Assert.Throws<ArgumentOutOfRangeException>(() => values.Quorum(quorumSize));
     }
 }

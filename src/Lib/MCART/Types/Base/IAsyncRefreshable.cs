@@ -31,13 +31,13 @@ SOFTWARE.
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
-/// Describe una serie de miembros a implementar por una clase o
-/// estructura que permite refrescarse de forma asíncrona.
+/// Describes a series of members to be implemented by a class or
+/// struct that allows asynchronous refreshing.
 /// </summary>
 public interface IAsyncRefreshable : IRefreshable
 {
     /// <summary>
-    /// Refresca el estado de este objeto de forma asíncrona.
+    /// Refreshes the state of this object asynchronously.
     /// </summary>
     Task RefreshAsync();
 }

@@ -30,7 +30,6 @@ SOFTWARE.
 
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq.Expressions;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Misc;
@@ -39,17 +38,16 @@ using TheXDS.MCART.Resources;
 namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
-/// Extensiones varias para objetos <see cref="PropertyInfo" />.
+/// Various extensions for objects of type <see cref="PropertyInfo"/>.
 /// </summary>
 public static class PropertyInfoExtensions
 {
     /// <summary>
-    /// Establece el valor de la propiedad de un objeto a su valor
-    /// predeterminado.
+    /// Sets the value of a property on an object to its default value.
     /// </summary>
-    /// <param name="property">Propiedad a restablecer.</param>
+    /// <param name="property">The property to reset.</param>
     /// <param name="instance">
-    /// Instancia del objeto que contiene la propiedad.
+    /// The instance of the object containing the property.
     /// </param>
     [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
     public static void SetDefault(this PropertyInfo property, object? instance)
@@ -65,10 +63,9 @@ public static class PropertyInfoExtensions
     }
 
     /// <summary>
-    /// Establece el valor de una propiedad estática a su valor
-    /// predeterminado.
+    /// Sets the value of a static property to its default value.
     /// </summary>
-    /// <param name="property">Propiedad a restablecer.</param>
+    /// <param name="property">The property to reset.</param>
     [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
     public static void SetDefault(this PropertyInfo property)
     {
@@ -76,15 +73,14 @@ public static class PropertyInfoExtensions
     }
 
     /// <summary>
-    /// Obtiene un valor que determina si la propiedad admite lectura y
-    /// escritura.
+    /// Gets a value indicating whether the property supports read and write.
     /// </summary>
     /// <param name="property">
-    /// Propiedad a comprobar.
+    /// The property to check.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si la propiedad admite lectura y
-    /// escritura, <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if the property supports read and write;
+    /// otherwise, <see langword="false"/>.
     /// </returns>
     [Sugar]
     public static bool IsReadWrite(this PropertyInfo property)
@@ -106,7 +102,7 @@ public static class PropertyInfoExtensions
         }
     }
 
-    [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]    
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
     private static void SetDefaultValueInternal(object? instance, PropertyInfo property)
     {
         if (property.SetMethod is null)

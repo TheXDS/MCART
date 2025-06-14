@@ -34,81 +34,80 @@ using System.Reflection;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Misc;
-using static TheXDS.MCART.Misc.Internals;
 using static TheXDS.MCART.Types.Extensions.EnumerableExtensions;
 
 namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
-/// Contiene extensiones útiles para la clase <see cref="object" />.
+/// Contains useful extensions for the <see cref="object"/> class.
 /// </summary>
 public static class ObjectExtensions
 {
     /// <summary>
-    /// Determina si un objeto es cualquiera de los indicados.
+    /// Determines if an object is any of the specified ones.
     /// </summary>
     /// <returns>
-    /// <see langword="true" />si <paramref name="obj" /> es cualquiera de los
-    /// objetos especificados, <see langword="false" /> en caso contrario.
+    /// <see langword="true"/> if <paramref name="obj"/> is any of the
+    /// specified objects, <see langword="false"/> otherwise.
     /// </returns>
-    /// <param name="obj">Objeto a comprobar.</param>
-    /// <param name="objects">Lista de objetos a comparar.</param>
+    /// <param name="obj">Object to check.</param>
+    /// <param name="objects">List of objects to compare.</param>
     public static bool IsEither(this object obj, params object[] objects)
     {
         return objects.Any(p => p?.Is(obj) ?? obj is null);
     }
 
     /// <summary>
-    /// Determina si un objeto es cualquiera de los indicados.
+    /// Determines if an object is any of the specified ones.
     /// </summary>
     /// <returns>
-    /// <see langword="true" />si <paramref name="obj" /> es cualquiera de los
-    /// objetos especificados, <see langword="false" /> en caso contrario.
+    /// <see langword="true"/> if <paramref name="obj"/> is any of the
+    /// specified objects, <see langword="false"/> otherwise.
     /// </returns>
-    /// <param name="obj">Objeto a comprobar.</param>
-    /// <param name="objects">Lista de objetos a comparar.</param>
+    /// <param name="obj">Object to check.</param>
+    /// <param name="objects">List of objects to compare.</param>
     public static bool IsEither(this object obj, IEnumerable objects)
     {
         return objects.ToGeneric().Any(obj.Is);
     }
 
     /// <summary>
-    /// Determina si un objeto no es ninguno de los indicados.
+    /// Determines if an object is not any of the specified ones.
     /// </summary>
     /// <returns>
-    /// <see langword="true" />si <paramref name="obj" /> no es ninguno de los
-    /// objetos especificados, <see langword="false" /> en caso contrario.
+    /// <see langword="true"/> if <paramref name="obj"/> is not any of the
+    /// specified objects, <see langword="false"/> otherwise.
     /// </returns>
-    /// <param name="obj">Objeto a comprobar.</param>
-    /// <param name="objects">Lista de objetos a comparar.</param>
+    /// <param name="obj">Object to check.</param>
+    /// <param name="objects">List of objects to compare.</param>
     public static bool IsNeither(this object obj, params object[] objects)
     {
         return obj.IsNeither(objects.AsEnumerable());
     }
 
     /// <summary>
-    /// Determina si un objeto no es ninguno de los indicados.
+    /// Determines if an object is not any of the specified ones.
     /// </summary>
     /// <returns>
-    /// <see langword="true" />si <paramref name="obj" /> no es ninguno de los
-    /// objetos especificados, <see langword="false" /> en caso contrario.
+    /// <see langword="true"/> if <paramref name="obj"/> is not any of the
+    /// specified objects, <see langword="false"/> otherwise.
     /// </returns>
-    /// <param name="obj">Objeto a comprobar.</param>
-    /// <param name="objects">Lista de objetos a comparar.</param>
+    /// <param name="obj">Object to check.</param>
+    /// <param name="objects">List of objects to compare.</param>
     public static bool IsNeither(this object obj, IEnumerable objects)
     {
         return objects.ToGeneric().All(p => !p.Is(obj));
     }
 
     /// <summary>
-    /// Determina si <paramref name="obj1" /> es la misma instancia en
-    /// <paramref name="obj2" />.
+    /// Determines if <paramref name="obj1"/> is the same instance as
+    /// <paramref name="obj2"/>.
     /// </summary>
-    /// <param name="obj1">Objeto a comprobar.</param>
-    /// <param name="obj2">Objeto contra el cual comparar.</param>
+    /// <param name="obj1">Object to check.</param>
+    /// <param name="obj2">Object against which to compare.</param>
     /// <returns>
-    /// <see langword="true" /> si la instancia de <paramref name="obj1" /> es la misma
-    /// que <paramref name="obj2" />, <see langword="false" /> en caso contrario.
+    /// <see langword="true"/> if the instance of <paramref name="obj1"/> is the same
+    /// as <paramref name="obj2"/>, <see langword="false"/> otherwise.
     /// </returns>
     [Sugar]
     public static bool Is(this object? obj1, object? obj2)
@@ -117,16 +116,16 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// Devuelve el atributo asociado a la declaración del objeto especificado.
+    /// Retrieves the attribute associated with the declaration of the specified object.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+    /// Type of attribute to return. Must inherit from <see cref="Attribute"/>.
     /// </typeparam>
-    /// <param name="obj">Objeto del cual se extraerá el atributo.</param>
+    /// <param name="obj">Object from which the attribute will be extracted.</param>
     /// <returns>
-    /// Un atributo del tipo <typeparamref name="T" /> con los datos
-    /// asociados en la declaración del objeto; o <see langword="null" /> en caso de no
-    /// encontrarse el atributo especificado.
+    /// An attribute of the type <typeparamref name="T"/> with the
+    /// associated data in the object's declaration; or <see langword="null"/> if
+    /// the specified attribute is not found.
     /// </returns>
     [Sugar]
     [RequiresUnreferencedCode(AttributeErrorMessages.MethodGetsTypeMembersByName)]
@@ -137,14 +136,14 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// Determina si <paramref name="obj1" /> es una instancia diferente a
-    /// <paramref name="obj2" />.
+    /// Determines if <paramref name="obj1"/> is a different instance than
+    /// <paramref name="obj2"/>.
     /// </summary>
-    /// <param name="obj1">Objeto a comprobar.</param>
-    /// <param name="obj2">Objeto contra el cual comparar.</param>
+    /// <param name="obj1">Object to check.</param>
+    /// <param name="obj2">Object against which to compare.</param>
     /// <returns>
-    /// <see langword="true" /> si la instancia de <paramref name="obj1" /> no es la
-    /// misma que <paramref name="obj2" />, <see langword="false" /> en caso contrario.
+    /// <see langword="true"/> if the instance of <paramref name="obj1"/> is not the same
+    /// as <paramref name="obj2"/>, <see langword="false"/> otherwise.
     /// </returns>
     [Sugar]
     public static bool IsNot(this object? obj1, object? obj2)
@@ -153,15 +152,15 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// Determina si cualquiera de los objetos es la misma instancia que
-    /// <paramref name="obj" />.
+    /// Determines if any of the objects are the same instance as
+    /// <paramref name="obj"/>.
     /// </summary>
     /// <returns>
-    /// Un enumerador con los índices de los objetos que son la misma
-    /// instancia que <paramref name="obj" />.
+    /// An enumerator with the indices of the objects that are the same
+    /// instance as <paramref name="obj"/>.
     /// </returns>
-    /// <param name="obj">Objeto a comprobar.</param>
-    /// <param name="collection">Colección de objetos a comprobar.</param>
+    /// <param name="obj">Object to check.</param>
+    /// <param name="collection">Collection of objects to check.</param>
     public static IEnumerable<int> WhichAre(this object obj, IEnumerable<object> collection)
     {
         int c = 0;
@@ -173,31 +172,31 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// Determina si cualquiera de los objetos es la misma instancia que
-    /// <paramref name="obj" />.
+    /// Determines if any of the objects are the same instance as
+    /// <paramref name="obj"/>.
     /// </summary>
     /// <returns>
-    /// Un enumerador con los índices de los objetos que son la misma
-    /// instancia que <paramref name="obj" />.
+    /// An enumerator with the indices of the objects that are the same
+    /// instance as <paramref name="obj"/>.
     /// </returns>
-    /// <param name="obj">Objeto a comprobar.</param>
-    /// <param name="collection">Colección de objetos a comprobar.</param>
+    /// <param name="obj">Object to check.</param>
+    /// <param name="collection">Collection of objects to check.</param>
     public static IEnumerable<int> WhichAre(this object obj, params object[] collection)
     {
         return obj.WhichAre(collection.AsEnumerable());
     }
 
     /// <summary>
-    /// Enumera el valor de todas las propiedades que devuelvan valores de
-    /// tipo <typeparamref name="T" /> del objeto especificado.
+    /// Enumerates the value of all properties that return values of
+    /// type <typeparamref name="T"/> of the specified object.
     /// </summary>
-    /// <typeparam name="T">Tipo de propiedades a obtener.</typeparam>
+    /// <typeparam name="T">Type of properties to obtain.</typeparam>
     /// <param name="instance">
-    /// Instancia desde la cual obtener las propiedades.
+    /// Instance from which to obtain the properties.
     /// </param>
     /// <returns>
-    /// Una enumeración de todos los valores de tipo
-    /// <typeparamref name="T" /> del objeto.
+    /// An enumeration of all values of type
+    /// <typeparamref name="T"/> of the object.
     /// </returns>
     [Sugar]
     [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
@@ -208,23 +207,23 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// Determina si un miembro posee un atributo definido.
+    /// Determines if a member possesses an attribute defined.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+    /// Type of attribute to return. Must inherit from <see cref="Attribute"/>.
     /// </typeparam>
     /// <param name="obj">
-    /// Miembro del cual se extraerá el atributo.
+    /// Member from which the attribute will be extracted.
     /// </param>
     /// <param name="attribute">
-    /// Parámetro de salida. Si un atributo de tipo
-    /// <typeparamref name="T" /> ha sido encontrado, el mismo es devuelto.
-    /// Se devolverá <see langword="null" /> si el miembro no posee el atributo
-    /// especificado.
+    /// Out parameter. If an attribute of type
+    /// <typeparamref name="T"/> has been found, the same is returned.
+    /// Null will be returned if the member does not possess the
+    /// specified attribute.
     /// </param>
     /// <returns>
-    /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
-    /// en caso contrario.
+    /// <see langword="true"/> if the member possesses the attribute, <see langword="false"/>
+    /// otherwise.
     /// </returns>
     [RequiresUnreferencedCode(AttributeErrorMessages.MethodGetsTypeMembersByName)]
     public static bool HasAttribute<T>(this object obj, [NotNullWhen(true)] out T? attribute) where T : notnull, Attribute
@@ -240,28 +239,28 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// Determina si un miembro posee un atributo definido.
+    /// Determines if a member possesses an attribute defined.
     /// </summary>
     /// <typeparam name="TValue">
-    /// Tipo de valor a devolver.
+    /// Type of value to return.
     /// </typeparam>
     /// <typeparam name="TAttribute">
-    /// Tipo de atributo a buscar. Debe heredar de
-    /// <see cref="Attribute"/> y de <see cref="IValueAttribute{T}"/>.
+    /// Type of attribute to search for. Must inherit from
+    /// <see cref="Attribute"/> and from <see cref="IValueAttribute{T}"/>.
     /// </typeparam>
     /// <param name="obj">
-    /// Miembro del cual se extraerá el atributo.
+    /// Member from which the attribute will be extracted.
     /// </param>
     /// <param name="value">
-    /// Parámetro de salida. Si un atributo de tipo
-    /// <typeparamref name="TAttribute" /> ha sido encontrado, el valor
-    /// del mismo es devuelto.
-    /// Se devolverá <see langword="default" /> si el miembro no posee el atributo
-    /// especificado.
+    /// Out parameter. If an attribute of type
+    /// <typeparamref name="TAttribute" /> has been found, the value
+    /// of the same is returned.
+    /// Default will be returned if the member does not possess the
+    /// specified attribute.
     /// </param>
     /// <returns>
-    /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
-    /// en caso contrario.
+    /// <see langword="true"/> if the member possesses the attribute, <see langword="false"/>
+    /// otherwise.
     /// </returns>
     [RequiresUnreferencedCode(AttributeErrorMessages.MethodGetsTypeMembersByName)]
     public static bool HasAttrValue<TAttribute, TValue>(this object obj, [MaybeNullWhen(false)] out TValue value)
@@ -283,17 +282,17 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// Determina si un miembro posee un atributo definido.
+    /// Determines if a member possesses an attribute defined.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+    /// Type of attribute to return. Must inherit from <see cref="Attribute"/>.
     /// </typeparam>
     /// <param name="obj">
-    /// Miembro del cual se extraerá el atributo.
+    /// Member from which the attribute will be extracted.
     /// </param>
     /// <returns>
-    /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
-    /// en caso contrario.
+    /// <see langword="true"/> if the member possesses the attribute, <see langword="false"/>
+    /// otherwise.
     /// </returns>
     [RequiresUnreferencedCode(AttributeErrorMessages.MethodGetsTypeMembersByName)]
     public static bool HasAttribute<T>(this object obj) where T : Attribute
@@ -302,23 +301,23 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// Determina si un miembro posee un atributo definido.
+    /// Determines if a member possesses an attribute defined.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+    /// Type of attribute to return. Must inherit from <see cref="Attribute"/>.
     /// </typeparam>
     /// <param name="obj">
-    /// Miembro del cual se extraerá el atributo.
+    /// Member from which the attribute will be extracted.
     /// </param>
     /// <param name="attribute">
-    /// Parámetro de salida. Si un atributo de tipo
-    /// <typeparamref name="T" /> ha sido encontrado, el mismo es devuelto.
-    /// Se devolverá <see langword="null" /> si el miembro no posee el atributo
-    /// especificado.
+    /// Out parameter. If an attribute of type
+    /// <typeparamref name="T"/> has been found, the same is returned.
+    /// Null will be returned if the member does not possess the attribute
+    /// specified.
     /// </param>
     /// <returns>
-    /// <see langword="true" /> si el miembro posee el atributo, <see langword="false" />
-    /// en caso contrario.
+    /// <see langword="true"/> if the member possesses the attribute, <see langword="false"/>
+    /// otherwise.
     /// </returns>
     public static bool HasAttributes<T>(this object obj, [NotNullWhen(true)] out IEnumerable<T>? attribute) where T : Attribute
     {
@@ -327,19 +326,19 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// Devuelve el atributo asociado al ensamblado especificado.
+    /// Returns the attribute associated with the specified assembly.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de atributo a devolver. Debe heredar <see cref="Attribute" />.
+    /// Type of attribute to return. Must inherit from <see cref="Attribute"/>.
     /// </typeparam>
     /// <param name="member">
-    /// <see cref="object" /> del cual se extraerá el
-    /// atributo.
+    /// <see cref="object"/> from which the
+    /// attribute will be extracted.
     /// </param>
     /// <returns>
-    /// Un atributo del tipo <typeparamref name="T" /> con los datos
-    /// asociados en la declaración del ensamblado; o <see langword="null" /> en caso
-    /// de no encontrarse el atributo especificado.
+    /// An attribute of the type <typeparamref name="T"/> with the
+    /// associated data in the assembly declaration; or <see langword="null"/> in case
+    /// of not finding the specified attribute.
     /// </returns>
     [Sugar]
     public static IEnumerable<T>? GetAttributes<T>(this object member) where T : Attribute
@@ -349,19 +348,19 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// Enumera el valor de todas los campos que devuelvan valores de
-    /// tipo <typeparamref name="T" /> del objeto especificado.
+    /// Enumerates the value of all fields that return values of
+    /// type <typeparamref name="T"/> of the specified object.
     /// </summary>
-    /// <typeparam name="T">Tipo de campos a obtener.</typeparam>
+    /// <typeparam name="T">Type of fields to obtain.</typeparam>
     /// <param name="instance">
-    /// Instancia desde la cual obtener los campos.
+    /// Instance from which to obtain the fields.
     /// </param>
     /// <returns>
-    /// Una enumeración de todos los valores de tipo
-    /// <typeparamref name="T" /> del objeto.
+    /// An enumeration of all values of type
+    /// <typeparamref name="T"/> of the object.
     /// </returns>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="instance"/> es
+    /// Thrown if <paramref name="instance"/> is
     /// <see langword="null"/>.
     /// </exception>
     [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
@@ -373,26 +372,29 @@ public static class ObjectExtensions
     }
 
 #if DynamicLoading
+
     /// <summary>
-    /// Obtiene el nombre de un objeto.
+    /// Gets the name of an object.
     /// </summary>
     /// <param name="obj">
-    /// Objeto del cual obtener el nombre.
+    /// Object from which to get the name.
     /// </param>
     /// <returns>
-    /// El nombre del objeto.
+    /// The name of the object.
     /// </returns>
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
     public static string NameOf(this object obj)
     {
-        if (obj is null) throw new ArgumentNullException(nameof(obj));
-        return (obj as INameable)?.Name
-            ?? (string?)ScanNameMethod(obj.GetType())?.Invoke(null, new[] { obj })
-            ?? Types.Extensions.MemberInfoExtensions.NameOf(obj.GetType());
+        ArgumentNullException.ThrowIfNull(obj);
+        return (obj as Base.INameable)?.Name
+            ?? (string?)ScanNameMethod(obj.GetType())?.Invoke(null, [obj])
+            ?? MemberInfoExtensions.NameOf(obj.GetType());
     }
 
+    [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
     private static MethodInfo? ScanNameMethod(Type fromType)
     {
-        foreach (var j in SafeGetExportedTypes(typeof(Objects).Assembly))
+        foreach (var j in PrivateInternals.SafeGetExportedTypes(typeof(Objects).Assembly))
         {
             foreach (var k in j.GetMethods(BindingFlags.Static | BindingFlags.Public))
             {
@@ -404,5 +406,6 @@ public static class ObjectExtensions
         }
         return null;
     }
+
 #endif
 }

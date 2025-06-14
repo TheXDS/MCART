@@ -33,14 +33,12 @@ using System.ComponentModel;
 namespace TheXDS.MCART.Types.Converters;
 
 /// <summary>
-/// Permite realizar la conversión entre tipos
-/// <see cref="string" /> y
-/// <see cref="Range{T}" /> para rangos de tipo
-/// <see cref="ulong" />.
+/// Enables conversion between
+/// <see cref="string"/> and
+/// <see cref="Range{T}"/> for ranges of type
+/// <see cref="ulong"/>.
 /// </summary>
 #if CLSCompliance
 [CLSCompliant(false)]
 #endif
-public class UInt64RangeConverter : RangeConverter<ulong, UInt64Converter>
-{
-}
+public class UInt64RangeConverter : RangeConverter<ulong, UInt64Converter>;

@@ -28,6 +28,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System.Numerics;
 using TheXDS.MCART.Types.Base;
 
 namespace TheXDS.MCART.Types;
@@ -37,8 +38,19 @@ internal struct Internal3DVector : IVector3D
     public double X { get; set; }
     public double Y { get; set; }
     public double Z { get; set; }
-    public bool Equals(IVector3D? other) => X.Equals(other?.X) && Y.Equals(other.Y) && Z.Equals(other.Z);
-    public bool Equals(IVector? other) => X.Equals(other?.X) && Y.Equals(other.Y);
-    public override bool Equals(object? obj) => obj is Internal3DVector other && Equals(other);
-    public override int GetHashCode() => HashCode.Combine(X, Y, Z);
+    public readonly bool Equals(IVector3D? other) => X.Equals(other?.X) && Y.Equals(other.Y) && Z.Equals(other.Z);
+    public readonly bool Equals(IVector? other) => X.Equals(other?.X) && Y.Equals(other.Y);
+    public readonly override bool Equals(object? obj)
+    {
+        return obj switch
+        {
+            IVector3D v3d => Equals(v3d),
+            IVector v2d => Equals(v2d),
+            Vector3 v3 => ((IEquatable<Vector3>)this).Equals(v3),
+            Vector2 v2 => ((IEquatable<Vector2>)this).Equals(v2),
+            _ => false
+        };
+    }
+
+    public readonly override int GetHashCode() => HashCode.Combine(X, Y, Z);
 }

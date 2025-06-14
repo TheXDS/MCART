@@ -3,10 +3,6 @@ TimeSpanExtensions.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
-Este archivo contiene numerosas extensiones para el tipo System.DateTime del
-CLR, supliéndolo de nueva funcionalidad previamente no existente, o de
-invocación compleja.
-
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
@@ -38,21 +34,21 @@ using TheXDS.MCART.Resources.Strings;
 namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
-/// Contiene extensiones útiles de la estructura <see cref="TimeSpan"/>.
+/// Contains useful extensions for the <see cref="TimeSpan"/> structure.
 /// </summary>
 public static class TimeSpanExtensions
 {
     /// <summary>
-    /// Humaniza un <see cref="TimeSpan"/> a un valor amigable.
+    /// Converts a <see cref="TimeSpan"/> into a human-readable string.
     /// </summary>
-    /// <param name="timeSpan">Valor a humanizar.</param>
+    /// <param name="timeSpan">Value to convert.</param>
     /// <returns>
-    /// Una cadena amigable que indica los componentes de días, horas,
-    /// minutos y segundos de <paramref name="timeSpan"/>.
+    /// A user-friendly string indicating the days, hours,
+    /// minutes, and seconds components of <paramref name="timeSpan"/>.
     /// </returns>
     public static string Verbose(this in TimeSpan timeSpan)
     {
-        HashSet<string>? messages = new();
+        HashSet<string>? messages = [];
         if (timeSpan.Days > 0)
             messages.Add(Composition.Days(timeSpan.Days));
         if (timeSpan.Hours > 0)
@@ -65,21 +61,23 @@ public static class TimeSpanExtensions
     }
 
     /// <summary>
-    /// Convierte un <see cref="TimeSpan"/> en una representación de hora.
+    /// Converts a <see cref="TimeSpan"/> to its time representation.
     /// </summary>
-    /// <param name="timeSpan">Valor a convertir.</param>
-    /// <returns>Una cadena que representa una hora.</returns>
+    /// <param name="timeSpan">Value to convert.</param>
+    /// <returns>A string representing the time value.</returns>
     public static string AsTime(this in TimeSpan timeSpan)
     {
         return AsTime(timeSpan, CultureInfo.CurrentCulture);
     }
 
     /// <summary>
-    /// Convierte un <see cref="TimeSpan"/> en una representación de hora.
+    /// Converts a <see cref="TimeSpan"/> to its time representation.
     /// </summary>
-    /// <param name="timeSpan">Valor a convertir.</param>
-    /// <param name="culture">Cultura a utilizar para el formato de hora.</param>
-    /// <returns>Una cadena que representa una hora.</returns>
+    /// <param name="timeSpan">Value to convert.</param>
+    /// <param name="culture">
+    /// The culture to use for formatting the time string.
+    /// </param>
+    /// <returns>A string representing the time value.</returns>
     public static string AsTime(this in TimeSpan timeSpan, in CultureInfo culture)
     {
         string? f = $"{{0:{culture.DateTimeFormat.ShortTimePattern}}}";

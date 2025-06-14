@@ -3,10 +3,6 @@ TypeExtensions_Contracts.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
-Este archivo contiene numerosas extensiones para el tipo System.Type del CLR,
-supliéndolo de nueva funcionalidad previamente no existente, o de invocación
-compleja.
-
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
@@ -40,12 +36,11 @@ using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Misc;
 using TheXDS.MCART.Resources;
-using static TheXDS.MCART.Misc.Internals;
 
 namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
-/// Extensiones para todos los elementos de tipo <see cref="Type"/>.
+/// Extensions for all elements of type <see cref="Type"/>.
 /// </summary>
 public static partial class TypeExtensions
 {

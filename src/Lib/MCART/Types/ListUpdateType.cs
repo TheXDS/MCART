@@ -31,32 +31,32 @@ SOFTWARE.
 namespace TheXDS.MCART.Types;
 
 /// <summary>
-/// Tipo de actualización de la lista
+/// Enumerates the types of list update
 /// </summary>
 public enum ListUpdateType
 {
     /// <summary>
-    /// La lista ha sido vaciada.
+    /// List has been cleared.
     /// </summary>
     ListCleared,
     /// <summary>
-    /// Se añadieron los elementos.
+    /// Items have been added.
     /// </summary>
     ItemsAdded,
     /// <summary>
-    /// Se insertaron los elementos.
+    /// Items have been inserted.
     /// </summary>
     ItemsInserted,
     /// <summary>
-    /// Se modificaron los elementos.
+    /// Items have been modified.
     /// </summary>
     ItemsModified,
     /// <summary>
-    /// Se removieron los elementos.
+    /// Items have been removed.
     /// </summary>
     ItemsRemoved,
     /// <summary>
-    /// Se movieron los elementos.
+    /// Items have been moved.
     /// </summary>
     ItemsMoved
 }

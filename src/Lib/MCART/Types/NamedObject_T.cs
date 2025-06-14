@@ -31,7 +31,6 @@ SOFTWARE.
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using TheXDS.MCART.Attributes;
-using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Misc;
 using TheXDS.MCART.Types.Base;
 using TheXDS.MCART.Types.Extensions;
@@ -39,40 +38,47 @@ using TheXDS.MCART.Types.Extensions;
 namespace TheXDS.MCART.Types;
 
 /// <summary>
-/// Estructura que permite asignarle una etiqueta a cualquier objeto.
+/// Structure that allows labeling any object.
 /// </summary>
-/// <typeparam name="T">Tipo de objeto.</typeparam>
-/// <param name="value">Objeto a etiquetar.</param>
-/// <param name="name">Etiqueta del objeto.</param>
-public readonly struct NamedObject<T>(T value, string name) : INameable
+/// <typeparam name="T">Object type.</typeparam>
+/// <param name="name">Object's label.</param>
+/// <param name="value">Object to label.</param>
+public readonly struct NamedObject<T>(string name, T value) : INameable
 {
     /// <summary>
-    /// Inicializa una nueva instancia de la estructura
-    /// <see cref="NamedObject{T}" /> estableciendo un valor junto a una
-    /// etiqueta auto-generada a partir de
-    /// <see cref="object.ToString()" />.
+    /// Initializes a new instance of the structure <see cref="NamedObject{T}" />
+    /// by setting a value along with an auto-generated label based on <see cref="object.ToString()" />.
     /// </summary>
-    /// <param name="value">Objeto a etiquetar.</param>
+    /// <param name="value">Object to label.</param>
     [RequiresUnreferencedCode(AttributeErrorMessages.MethodGetsTypeMembersByName)]
-    public NamedObject(T value) : this(value, Infer(value))
+    public NamedObject(T value) : this(Infer(value), value)
     {
     }
 
     /// <summary>
-    /// Valor del objeto.
+    /// Initialies a new instance of the structure <see cref="NamedObject{T}" />
+    /// </summary>
+    /// <param name="value">Object to label.</param>
+    /// <param name="name">Object's label.</param>
+    [Obsolete(AttributeErrorMessages.NamedObjectDeprecatedCtor)]
+    public NamedObject(T value, string name) : this(name, value)
+    {
+    }
+
+    /// <summary>
+    /// Object's value.
     /// </summary>
     public T Value { get; } = value;
 
     /// <summary>
-    /// Etiqueta del objeto.
+    /// Object's label.
     /// </summary>
     public string Name { get; } = name;
 
     /// <summary>
-    /// Convierte implícitamente un <typeparamref name="T" /> en un
-    /// <see cref="NamedObject{T}" />.
+    /// Implicitly converts a <typeparamref name="T" /> into a <see cref="NamedObject{T}" />.
     /// </summary>
-    /// <param name="obj">Objeto a convertir.</param>
+    /// <param name="obj">Object to convert.</param>
     [RequiresUnreferencedCode(AttributeErrorMessages.MethodGetsTypeMembersByName)]
     public static implicit operator NamedObject<T>(T obj)
     {
@@ -80,103 +86,88 @@ public readonly struct NamedObject<T>(T value, string name) : INameable
     }
 
     /// <summary>
-    /// Convierte implícitamente un <see cref="NamedObject{T}" /> en un
-    /// <typeparamref name="T" />.
+    /// Implicitly converts a <see cref="NamedObject{T}" /> into a <typeparamref name="T" />.
     /// </summary>
-    /// <param name="namedObj">Objeto a convertir.</param>
+    /// <param name="namedObj">Object to convert.</param>
     public static implicit operator T(NamedObject<T> namedObj)
     {
         return namedObj.Value;
     }
 
     /// <summary>
-    /// Convierte implícitamente un <see cref="NamedObject{T}" /> en un
-    /// <see cref="string" />.
+    /// Implicitly converts a <see cref="NamedObject{T}" /> into a <see cref="string" />.
     /// </summary>
-    /// <param name="namedObj">Objeto a convertir.</param>
+    /// <param name="namedObj">Object to convert.</param>
     public static implicit operator string(NamedObject<T> namedObj)
     {
         return namedObj.Name;
     }
 
     /// <summary>
-    /// Convierte implícitamente un <see cref="NamedObject{T}" /> en un
-    /// <see cref="KeyValuePair{TKey,TValue}" />.
+    /// Implicitly converts a <see cref="NamedObject{T}" /> into a <see cref="KeyValuePair{TKey,TValue}" />.
     /// </summary>
-    /// <param name="namedObj">Objeto a convertir.</param>
+    /// <param name="namedObj">Object to convert.</param>
     public static implicit operator KeyValuePair<string, T>(NamedObject<T> namedObj)
     {
         return new(namedObj.Name, namedObj.Value);
     }
 
     /// <summary>
-    /// Convierte implícitamente un
-    /// <see cref="KeyValuePair{TKey,TValue}" /> en un
-    /// <see cref="NamedObject{T}" />.
+    /// Implicitly converts a <see cref="KeyValuePair{TKey,TValue}" /> into a <see cref="NamedObject{T}" />.
     /// </summary>
-    /// <param name="keyValuePair">Objeto a convertir.</param>
+    /// <param name="keyValuePair">Object to convert.</param>
     public static implicit operator NamedObject<T>(KeyValuePair<string, T> keyValuePair)
     {
-        return new(keyValuePair.Value, keyValuePair.Key);
+        return new(keyValuePair.Key, keyValuePair.Value);
     }
 
     /// <summary>
-    /// Convierte implícitamente un
-    /// <see cref="ValueTuple{T1, T2}" /> en un
-    /// <see cref="NamedObject{T}" />.
+    /// Implicitly converts a <see cref="ValueTuple{T1, T2}" /> into a <see cref="NamedObject{T}" />.
     /// </summary>
-    /// <param name="tuple">Objeto a convertir.</param>
+    /// <param name="tuple">Object to convert.</param>
     public static implicit operator NamedObject<T>(ValueTuple<string, T> tuple)
-    {
-        return new(tuple.Item2, tuple.Item1);
-    }
-
-    /// <summary>
-    /// Convierte implícitamente un
-    /// <see cref="ValueTuple{T1, T2}" /> en un
-    /// <see cref="NamedObject{T}" />.
-    /// </summary>
-    /// <param name="tuple">Objeto a convertir.</param>
-    public static implicit operator NamedObject<T>(ValueTuple<T, string> tuple)
     {
         return new(tuple.Item1, tuple.Item2);
     }
 
     /// <summary>
-    /// Convierte implícitamente un
-    /// <see cref="ValueTuple{T1, T2}" /> en un
-    /// <see cref="NamedObject{T}" />.
+    /// Implicitly converts a <see cref="ValueTuple{T1, T2}" /> into a <see cref="NamedObject{T}" />.
     /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
+    /// <param name="tuple">Object to convert.</param>
+    public static implicit operator NamedObject<T>(ValueTuple<T, string> tuple)
+    {
+        return new(tuple.Item2, tuple.Item1);
+    }
+
+    /// <summary>
+    /// Implicitly converts a <see cref="ValueTuple{T1, T2}" /> into a <see cref="NamedObject{T}" />.
+    /// </summary>
+    /// <param name="value">Object to convert.</param>
     public static implicit operator ValueTuple<string, T>(NamedObject<T> value)
     {
         return new(value.Name, value.Value);
     }
 
     /// <summary>
-    /// Convierte implícitamente un
-    /// <see cref="ValueTuple{T1, T2}" /> en un
-    /// <see cref="NamedObject{T}" />.
+    /// Implicitly converts a <see cref="ValueTuple{T1, T2}" /> into a <see cref="NamedObject{T}" />.
     /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
+    /// <param name="value">Object to convert.</param>
     public static implicit operator ValueTuple<T, string>(NamedObject<T> value)
     {
         return new(value.Value, value.Name);
     }
 
     /// <summary>
-    /// Compara la igualdad entre dos instancias de
-    /// <see cref="NamedObject{T}"/>.
+    /// Compares equality between two instances of <see cref="NamedObject{T}"/>.
     /// </summary>
     /// <param name="left">
-    /// Objeto a comparar.
+    /// Object to compare.
     /// </param>
     /// <param name="right">
-    /// Objeto contra el cual comparar.
+    /// Object to compare against.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si ambas instancias son consideradas
-    /// iguales, <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if both instances are considered equal, <see langword="false"/> otherwise.
     /// </returns>
     public static bool operator ==(NamedObject<T> left, NamedObject<T> right)
     {
@@ -184,18 +175,16 @@ public readonly struct NamedObject<T>(T value, string name) : INameable
     }
 
     /// <summary>
-    /// Comprueba si ambas instancias de <see cref="NamedObject{T}"/>
-    /// son consideradas distintas.
+    /// Checks if two instances of <see cref="NamedObject{T}"/> are considered different.
     /// </summary>
     /// <param name="left">
-    /// Objeto a comparar.
+    /// Object to compare.
     /// </param>
     /// <param name="right">
-    /// Objeto contra el cual comparar.
+    /// Object to compare against.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si ambas instancias son consideradas
-    /// distintas, <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if both instances are considered different, <see langword="false"/> otherwise.
     /// </returns>
     public static bool operator !=(NamedObject<T> left, NamedObject<T> right)
     {
@@ -203,13 +192,11 @@ public readonly struct NamedObject<T>(T value, string name) : INameable
     }
 
     /// <summary>
-    /// Infiere la etiqueta de un objeto.
+    /// Infers the label for an object.
     /// </summary>
-    /// <param name="obj">Objeto para el cual inferir una etiqueta.</param>
+    /// <param name="obj">Object to infer a label for.</param>
     /// <returns>
-    /// El nombre inferido del objeto, o
-    /// <see cref="object.ToString()" /> de no poderse inferir una
-    /// etiqueta adecuada.
+    /// The inferred name of the object or <see cref="object.ToString()"/> if no appropriate label can be inferred.
     /// </returns>
     [RequiresUnreferencedCode(AttributeErrorMessages.MethodGetsTypeMembersByName)]
     public static string Infer(T obj)
@@ -225,15 +212,13 @@ public readonly struct NamedObject<T>(T value, string name) : INameable
     }
 
     /// <summary>
-    /// Compara la igualdad entre este <see cref="NamedObject{T}"/> y
-    /// otro objeto.
+    /// Compares equality between this <see cref="NamedObject{T}"/> and another object.
     /// </summary>
     /// <param name="obj">
-    /// Objeto contra el cual comparar esta instancia.
+    /// Object to compare against this instance.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si ambas instancias son consideradas
-    /// iguales, <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if both instances are considered equal, <see langword="false"/> otherwise.
     /// </returns>
     public override bool Equals(object? obj)
     {
@@ -247,9 +232,9 @@ public readonly struct NamedObject<T>(T value, string name) : INameable
     }
 
     /// <summary>
-    /// Obtiene el código Hash para esta instancia.
+    /// Gets the hash code for this instance.
     /// </summary>
-    /// <returns>El código Hash para esta instancia.</returns>
+    /// <returns>The hash code for this instance.</returns>
     public override int GetHashCode()
     {
         return Value?.GetHashCode() ?? base.GetHashCode();

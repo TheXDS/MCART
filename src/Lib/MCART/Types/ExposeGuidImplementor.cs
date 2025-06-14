@@ -36,27 +36,19 @@ using TheXDS.MCART.Types.Extensions;
 namespace TheXDS.MCART.Types;
 
 /// <summary>
-/// Implementa directamente <see cref="IExposeGuid"/>.
+/// Directly implements <see cref="IExposeGuid"/>.
 /// </summary>
-public class ExposeGuidImplementor : IExposeGuid
+/// <param name="o">
+/// Object from which to expose the 
+/// Guid; typically <see langword="this"/>.
+/// </param>
+public class ExposeGuidImplementor(object o) : IExposeGuid
 {
-    private readonly Type _t;
+    private readonly Type _t = o as Type ?? o?.GetType() ?? throw new ArgumentNullException(nameof(o));
 
     /// <summary>
-    /// Initializes a new instance of the
-    /// <see cref="ExposeGuidImplementor"/>.
-    /// </summary>
-    /// <param name="o">
-    /// Objeto del cual exponer el Guid; generalmente 
-    /// <see langword="this"/>.
-    /// </param>
-    public ExposeGuidImplementor(object o)
-    {
-        _t = o as Type ?? o?.GetType() ?? throw new ArgumentNullException(nameof(o));
-    }
-
-    /// <summary>
-    /// Obtiene el <see cref="Guid"/> asociado a este objeto.
+    /// Gets the <see cref="Guid"/> associated 
+    /// with this object.
     /// </summary>
     public virtual Guid Guid
     {

@@ -31,28 +31,27 @@ SOFTWARE.
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
-/// Define una serie de miembros a implementar para un tipo que exponga
-/// información de identificación extendida.
+/// Defines a series of members to be implemented for a type that 
+/// exposes extended identification information.
 /// </summary>
 public interface IExposeExtendedInfo : IExposeInfo
 {
     /// <summary>
-    /// Obtiene un valor que indica si este 
-    /// <see cref="IExposeExtendedInfo"/> es considerado una versión
-    /// beta.
+    /// Gets a value indicating whether this 
+    /// <see cref="IExposeExtendedInfo"/> is considered a beta version.
     /// </summary>
     bool Beta { get; }
 
     /// <summary>
-    /// Obtiene un valor que indica si este <see cref="IExposeInfo"/>
-    /// cumple con el Common Language Standard (CLS).
+    /// Gets a value indicating whether this <see cref="IExposeInfo"/> 
+    /// complies with the Common Language Specification (CLS).
     /// </summary>
     bool ClsCompliant { get; }
 
     /// <summary>
-    /// Obtiene un valor que indica si este
-    /// <see cref="IExposeExtendedInfo"/> podría contener código
-    /// utilizado en contexto inseguro.
+    /// Gets a value indicating whether this 
+    /// <see cref="IExposeExtendedInfo"/> might contain code used in 
+    /// an unsafe context.
     /// </summary>
     bool Unmanaged { get; }
 }

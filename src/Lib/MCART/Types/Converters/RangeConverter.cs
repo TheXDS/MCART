@@ -33,29 +33,29 @@ using System.ComponentModel;
 namespace TheXDS.MCART.Types.Converters;
 
 /// <summary>
-/// Clase base para los convertidores de valor que permitan obtener
-/// objetos de tipo <see cref="Range{T}" /> a partir de una cadena.
+/// Base class for converters that allow obtaining
+/// <see cref="Range{T}"/> objects from a string.
 /// </summary>
 /// <typeparam name="T">
-/// Tipo del rango a obtener.
+/// Type of the range to obtain.
 /// </typeparam>
 /// <typeparam name="TConverter">
-/// Tipo de convertidor a utilizar para cargar los valores de tipo
-/// <typeparamref name="T"/> que luego se utilizarán para crear una nueva
-/// instancia de la estructura <see cref="Range{T}"/>.
+/// Type of converter to use to load values of type
+/// <typeparamref name="T"/> that will then be used to create a new
+/// instance of the <see cref="Range{T}"/> structure.
 /// </typeparam>
 public abstract class RangeConverter<T, TConverter> : BasicParseConverter<Range<T>> where T : IComparable<T> where TConverter : TypeConverter, new()
 {
     private static readonly TypeConverter Converter = new TConverter();
 
     /// <summary>
-    /// Ejecuta la conversión de la cadena al tipo de este
-    /// <see cref="BasicParseConverter{T}" />.
+    /// Executes the conversion from the string to the type of this
+    /// <see cref="BasicParseConverter{T}"/>
     /// </summary>
-    /// <param name="value">Cadena a convertir.</param>
+    /// <param name="value">String to convert.</param>
     /// <returns>
-    /// Un valor de tipo <see cref="Range{T}"/> creado a partir de la
-    /// cadena especificada.
+    /// A value of type <see cref="Range{T}"/> created from the specified
+    /// string.
     /// </returns>
     protected override Range<T> ConvertFrom(string? value)
     {

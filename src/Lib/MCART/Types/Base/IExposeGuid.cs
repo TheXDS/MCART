@@ -35,20 +35,20 @@ using TheXDS.MCART.Types.Extensions;
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
-/// Define una serie de métodos a implementar por un tipo que exponga
-/// un <see cref="Guid"/> como una propiedad de instancia.
+/// Defines a series of methods to be implemented by a type that 
+/// exposes a <see cref="Guid"/> as an instance property.
 /// </summary>
 public interface IExposeGuid
 {
     /// <summary>
-    /// Obtiene el <see cref="Guid"/> asociado a este objeto.
+    /// Gets the <see cref="Guid"/> associated with this object.
     /// </summary>
     Guid Guid
     {
         get
         {
-            Type? t = GetType();
-            GuidAttribute? g = t.GetAttribute<GuidAttribute>() ?? throw Errors.MissingGuidAttribute(t);
+            Type t = GetType();
+            GuidAttribute g = t.GetAttribute<GuidAttribute>() ?? throw Errors.MissingGuidAttribute(t);
             return new Guid(g.Value);
         }
     }

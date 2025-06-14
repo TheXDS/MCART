@@ -33,33 +33,33 @@ using System.Diagnostics.CodeAnalysis;
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
-/// Define una serie de miembros a implementar por un objeto que
-/// permita realizar conversiones desde su tipo hacia otro.
+/// Defines a series of members to be implemented by an object that
+/// allows casting from its type to another.
 /// </summary>
 /// <typeparam name="T">
-/// Tipo de destino para la conversión.
+/// Target type for the conversion.
 /// </typeparam>
 public interface ICastable<T>
 {
     /// <summary>
-    /// Convierte la instancia actual a un objeto de tipo
-    /// <typeparamref name="T"/>.
+    /// Converts the current instance to an object of type <typeparamref 
+    /// name="T"/>.
     /// </summary>
     /// <returns>
-    /// Un objeto de tipo <typeparamref name="T"/>.
+    /// An object of type <typeparamref name="T"/>.
     /// </returns>
     T Cast();
 
     /// <summary>
-    /// Intenta realizar una operación de conversión de la instancia
-    /// actual a un objeto de tipo <typeparamref name="T"/>.
+    /// Attempts to perform a conversion operation of the current 
+    /// instance to an object of type <typeparamref name="T"/>.
     /// </summary>
     /// <param name="result">
-    /// Resultado de la conversión.
+    /// Result of the conversion.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si la conversión ha sido exitosa,
-    /// <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if the conversion was successful, 
+    /// <see langword="false"/> otherwise.
     /// </returns>
     bool TryCast([MaybeNullWhen(false)] out T result)
     {

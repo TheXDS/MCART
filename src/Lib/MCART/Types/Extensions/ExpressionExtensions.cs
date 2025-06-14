@@ -33,19 +33,22 @@ using System.Linq.Expressions;
 namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
-/// Contiene extensiones útiles para la clase <see cref="Expression" />.
+/// Contains useful extensions for the <see cref="Expression"/> class.
 /// </summary>
 public static class ExpressionExtensions
 {
     /// <summary>
-    /// Evalúa la expresión.
+    /// Evaluates the expression.
     /// </summary>
-    /// <param name="e">Expresión a evaluar.</param>
+    /// <param name="e">Expression to evaluate.</param>
+    /// <param name="expressionArgs">
+    /// Arguments to pass to the expression.
+    /// </param>
     /// <returns>
-    /// El resultado de evaluar la expresión.
+    /// The result of evaluating the expression.
     /// </returns>
-    public static object? Eval(this Expression e)
+    public static object? Eval(this Expression e, params object?[]? expressionArgs)
     {
-        return Expression.Lambda(e).Compile().DynamicInvoke();
+        return Expression.Lambda(e).Compile().DynamicInvoke(expressionArgs);
     }
 }

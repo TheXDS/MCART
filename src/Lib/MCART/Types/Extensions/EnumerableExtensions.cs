@@ -31,27 +31,26 @@ SOFTWARE.
 using System.Collections;
 using System.Diagnostics.CodeAnalysis;
 using TheXDS.MCART.Attributes;
-using static TheXDS.MCART.Misc.Internals;
 
 namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
-/// Extensiones para todos los elementos de tipo
+/// Extensions for all items of type
 /// <see cref="IEnumerable{T}" />.
 /// </summary>
 public static partial class EnumerableExtensions
 {
     /// <summary>
-    /// Comprueba si la colección contiene al menos un elemento del tipo
-    /// especificado.
+    /// Checks whether the collection contains at least one element of the
+    /// specified type.
     /// </summary>
-    /// <typeparam name="T">Tipo de objeto a buscar.</typeparam>
+    /// <typeparam name="T">Type of object to search for.</typeparam>
     /// <param name="collection">
-    /// Colección de elementos a comprobar.
+    /// Collection of elements to check.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si existe un elemento del tipo especificado
-    /// en la colección, <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if there is an element of the specified type
+    /// in the collection, <see langword="false"/> otherwise.
     /// </returns>
     [Sugar]
     public static bool IsAnyOf<T>(this IEnumerable collection)
@@ -60,16 +59,16 @@ public static partial class EnumerableExtensions
     }
 
     /// <summary>
-    /// Comprueba si la colección contiene al menos un elemento del tipo
-    /// especificado.
+    /// Checks whether the collection contains at least one element of the
+    /// specified type.
     /// </summary>
     /// <param name="collection">
-    /// Colección de elementos a comprobar.
+    /// Collection of elements to check.
     /// </param>
-    /// <param name="type">Tipo de objeto a buscar.</param>
+    /// <param name="type">Type of object to search for.</param>
     /// <returns>
-    /// <see langword="true"/> si existe un elemento del tipo especificado
-    /// en la colección, <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if there is an element of the specified type
+    /// in the collection, <see langword="false"/> otherwise.
     /// </returns>
     public static bool IsAnyOf(this IEnumerable collection, Type type)
     {
@@ -81,17 +80,16 @@ public static partial class EnumerableExtensions
     }
 
     /// <summary>
-    /// Ejecuta una operación sobre una secuencia en un contexto
-    /// bloqueado.
+    /// Executes an operation on a sequence in a locked context.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de elementos de la secuencia.
+    /// Type of elements in the sequence.
     /// </typeparam>
     /// <param name="collection">
-    /// Secuencia sobre la cual ejecutar una operación bloqueada.
+    /// Sequence on which to execute a locked operation.
     /// </param>
     /// <param name="action">
-    /// Acción a ejecutar sobre la secuencia.
+    /// Action to execute on the sequence.
     /// </param>
     public static void Locked<T>(this T collection, Action<T> action) where T : IEnumerable
     {
@@ -114,20 +112,19 @@ public static partial class EnumerableExtensions
     }
 
     /// <summary>
-    /// Ejecuta una operación sobre una secuencia en un contexto
-    /// bloqueado.
+    /// Executes an operation on a sequence in a locked context.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de elementos de la secuencia.
+    /// Type of elements in the sequence.
     /// </typeparam>
     /// <typeparam name="TResult">
-    /// Tipo de resultado obtenido por la función.
+    /// Type of result obtained by the function.
     /// </typeparam>
     /// <param name="collection">
-    /// Secuencia sobre la cual ejecutar una operación bloqueada.
+    /// Sequence on which to execute a locked operation.
     /// </param>
     /// <param name="function">
-    /// Función a ejecutar sobre la secuencia.
+    /// Function to execute on the sequence.
     /// </param>
     public static TResult Locked<T, TResult>(this T collection, Func<T, TResult> function) where T : IEnumerable
     {
@@ -147,13 +144,13 @@ public static partial class EnumerableExtensions
     }
 
     /// <summary>
-    /// Obtiene la cuenta de elementos nulos dentro de una secuencia.
+    /// Gets the count of null elements within a sequence.
     /// </summary>
     /// <param name="collection">
-    /// Secuencia desde la cual obtener la cuenta de elementos nulos.
+    /// Sequence from which to get the count of null elements.
     /// </param>
     /// <returns>
-    /// La cuenta de elementos nulos dentro de la colección.
+    /// The count of null elements within the collection.
     /// </returns>
     public static int NullCount(this IEnumerable collection)
     {
@@ -167,12 +164,11 @@ public static partial class EnumerableExtensions
     }
 
     /// <summary>
-    /// Agrupa una secuencia de elementos de acuerdo al tipo de los
-    /// mismos.
+    /// Groups a sequence of elements according to their types.
     /// </summary>
-    /// <param name="c">Colección a agrupar.</param>
+    /// <param name="c">Collection to group.</param>
     /// <returns>
-    /// Una secuencia de elementos agrupados de acuerdo a su tipo.
+    /// A sequence of elements grouped according to their type.
     /// </returns>
     public static IEnumerable<IGrouping<Type, object>> GroupByType(this IEnumerable c)
     {
@@ -180,14 +176,14 @@ public static partial class EnumerableExtensions
     }
 
     /// <summary>
-    /// Enumera una colección no genérica como una genérica.
+    /// Enumerates a non-generic collection as a generic one.
     /// </summary>
     /// <param name="collection">
-    /// Colección a enumerar.
+    /// Collection to enumerate.
     /// </param>
     /// <returns>
-    /// Una enumeración con el contenido de la enumeración no genérica
-    /// expuesta como una genérica.
+    /// An enumeration with the contents of the non-generic enumeration
+    /// exposed as a generic one.
     /// </returns>
     public static IEnumerable<object?> ToGeneric(this IEnumerable collection)
     {
@@ -195,19 +191,19 @@ public static partial class EnumerableExtensions
     }
 
     /// <summary>
-    /// Obtiene al primer elemento del tipo solicitado dentro de una
-    /// colección.
+    /// Gets the first element of the requested type within a
+    /// collection.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de elemento a buscar.
+    /// Type of element to search for.
     /// </typeparam>
     /// <param name="collection">
-    /// Colección sobre la cual realizar la búsqueda.
+    /// Collection on which to perform the search.
     /// </param>
     /// <returns>
-    /// El primer elemento de tipo <typeparamref name="T"/> que sea
-    /// encontrado en la colección, o <see langword="default"/> si no se
-    /// encuentra ningún elemento del tipo especificado.
+    /// The first element of type <typeparamref name="T"/> that is
+    /// found in the collection, or <see langword="default"/> if no element
+    /// of the specified type is found.
     /// </returns>
     [Sugar]
     [return: MaybeNull]
@@ -217,13 +213,13 @@ public static partial class EnumerableExtensions
     }
 
     /// <summary>
-    /// Enumera los elementos no nulos de una colección.
+    /// Enumerates the non-null elements of a collection.
     /// </summary>
-    /// <param name="collection">Colección a enumerar.</param>
+    /// <param name="collection">Collection to enumerate.</param>
     /// <returns>
-    /// Una enumeración con los elementos de la colección, omitiendo
-    /// aquellos que sean <see langword="null"/>, o una colección vacía si
-    /// <paramref name="collection"/> es <see langword="null"/>.
+    /// An enumeration with the elements of the collection, omitting
+    /// those that are <see langword="null"/>, or a collection empty if
+    /// <paramref name="collection"/> is <see langword="null"/>.
     /// </returns>
     public static IEnumerable NotNull(this IEnumerable? collection)
     {
@@ -235,17 +231,17 @@ public static partial class EnumerableExtensions
     }
 
     /// <summary>
-    /// Compara dos colecciones y determina si sus elementos son iguales.
+    /// Compares two collections and determines if their elements are equal.
     /// </summary>
     /// <param name="collection">
-    /// Enumeración a comprobar.
+    /// Enumeration to check.
     /// </param>
     /// <param name="items">
-    /// Enumeración contra la cual comprobar.
+    /// Enumeration against which to check.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si los elementos de ambas colecciones
-    /// son iguales, <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if the elements of both collections
+    /// are equal, <see langword="false"/> otherwise.
     /// </returns>
     public static bool ItemsEqual(this IEnumerable collection, IEnumerable items)
     {
@@ -259,19 +255,19 @@ public static partial class EnumerableExtensions
     }
 
     /// <summary>
-    /// Comprueba si la enumeración <paramref name="collection"/> contiene a 
-    /// todos los elementos de la enumeración <paramref name="items"/>.
+    /// Checks if the <paramref name="collection"/> contains all
+    /// the elements of the <paramref name="items"/> collection.
     /// </summary>
     /// <param name="collection">
-    /// Enumeración a comprobar.
+    /// Enumeration to check.
     /// </param>
     /// <param name="items">
-    /// Elementos que deben existir en <paramref name="collection"/>.
+    /// Elements that must exist in <paramref name="collection"/>.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si <paramref name="collection"/> contiene a todos
-    /// los elementos de <paramref name="items"/>, <see langword="false"/>
-    /// en caso contrario.
+    /// <see langword="true"/> if <paramref name="collection"/> contains all
+    /// the elements of <paramref name="items"/>, <see langword="false"/>
+    /// otherwise.
     /// </returns>
     public static bool ContainsAll(this IEnumerable collection, IEnumerable items)
     {
@@ -279,19 +275,19 @@ public static partial class EnumerableExtensions
     }
 
     /// <summary>
-    /// Comprueba si la enumeración <paramref name="collection"/> contiene a 
-    /// todos los elementos de la enumeración <paramref name="items"/>.
+    /// Checks if the <paramref name="collection"/> contains all
+    /// the elements of the <paramref name="items"/> collection.
     /// </summary>
     /// <param name="collection">
-    /// Enumeración a comprobar.
+    /// Enumeration to check.
     /// </param>
     /// <param name="items">
-    /// Elementos que deben existir en <paramref name="collection"/>.
+    /// Elements that must exist in <paramref name="collection"/>.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si <paramref name="collection"/> contiene a todos
-    /// los elementos de <paramref name="items"/>, <see langword="false"/>
-    /// en caso contrario.
+    /// <see langword="true"/> if <paramref name="collection"/> contains all
+    /// the elements of <paramref name="items"/>, <see langword="false"/>
+    /// otherwise.
     /// </returns>
     public static bool ContainsAll(this IEnumerable collection, params object?[] items)
     {
@@ -299,20 +295,19 @@ public static partial class EnumerableExtensions
     }
 
     /// <summary>
-    /// Comprueba si la enumeración <paramref name="collection"/> contiene a 
-    /// cualquiera de los elementos de la enumeración
-    /// <paramref name="items"/>.
+    /// Checks if the <paramref name="collection"/> contains any
+    /// of the elements of the <paramref name="items"/> collection.
     /// </summary>
     /// <param name="collection">
-    /// Enumeración a comprobar.
+    /// Enumeration to check.
     /// </param>
     /// <param name="items">
-    /// Elementos que deben existir en <paramref name="collection"/>.
+    /// Elements that must exist in <paramref name="collection"/>.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si <paramref name="collection"/> contiene a
-    /// cualquiera de los elementos de <paramref name="items"/>,
-    /// <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if <paramref name="collection"/> contains any
+    /// of the elements of <paramref name="items"/>,
+    /// <see langword="false"/> otherwise.
     /// </returns>
     public static bool ContainsAny(this IEnumerable collection, IEnumerable items)
     {
@@ -320,20 +315,19 @@ public static partial class EnumerableExtensions
     }
 
     /// <summary>
-    /// Comprueba si la enumeración <paramref name="collection"/> contiene a 
-    /// cualquiera de los elementos de la enumeración
-    /// <paramref name="items"/>.
+    /// Checks if the <paramref name="collection"/> contains any
+    /// of the elements of the <paramref name="items"/> collection.
     /// </summary>
     /// <param name="collection">
-    /// Enumeración a comprobar.
+    /// Enumeration to check.
     /// </param>
     /// <param name="items">
-    /// Elementos que deben existir en <paramref name="collection"/>.
+    /// Elements that must exist in <paramref name="collection"/>.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si <paramref name="collection"/> contiene a
-    /// cualquiera de los elementos de <paramref name="items"/>,
-    /// <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if <paramref name="collection"/> contains any
+    /// of the elements of <paramref name="items"/>,
+    /// <see langword="false"/> otherwise.
     /// </returns>
     public static bool ContainsAny(this IEnumerable collection, params object?[] items)
     {
@@ -341,14 +335,14 @@ public static partial class EnumerableExtensions
     }
 
     /// <summary>
-    /// Versión no-genérica de la función
+    /// Non-generic version of the function
     /// <see cref="Enumerable.Contains{TSource}(IEnumerable{TSource}, TSource)"/>.
     /// </summary>
-    /// <param name="enumerable">Colección a comprobar.</param>
-    /// <param name="obj">Objeto a buscar dentro de la colección.</param>
+    /// <param name="enumerable">Collection to check.</param>
+    /// <param name="obj">Object to search within the collection.</param>
     /// <returns>
-    /// <see langword="true"/> si la colección contiene al objeto
-    /// especificado, <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if the collection contains the specified object,
+    /// <see langword="false"/> otherwise.
     /// </returns>
     public static bool Contains(this IEnumerable enumerable, object? obj)
     {
@@ -356,15 +350,15 @@ public static partial class EnumerableExtensions
     }
 
     /// <summary>
-    /// Versión no-genérica de la función
+    /// Non-generic version of the function
     /// <see cref="Enumerable.Count{TSource}(IEnumerable{TSource})"/>.
-    /// Obtiene la cantidad de elementos de una secuencia.
+    /// Gets the number of elements in a sequence.
     /// </summary>
     /// <param name="e">
-    /// Secuencia a comprobar. La misma será enumerada.
+    /// Sequence to check.  The same will be enumerated.
     /// </param>
     /// <returns>
-    /// La cantidad de elementos dentro de la secuencia.
+    /// The number of elements within the sequence.
     /// </returns>
     public static int Count(this IEnumerable e)
     {

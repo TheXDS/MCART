@@ -50,6 +50,6 @@ public static class NamedObject
     /// </returns>
     public static IEnumerable<NamedObject<T>> FromEnum<T>() where T : struct, Enum
     {
-        return Enum.GetValues<T>().Select(j => new NamedObject<T>(j, j.NameOf()));
+        return Enum.GetValues<T>().Select(j => new NamedObject<T>(j.NameOf(), j));
     }
 }

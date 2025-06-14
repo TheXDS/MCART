@@ -31,7 +31,6 @@ SOFTWARE.
 using System.Collections;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using static TheXDS.MCART.Misc.Internals;
 
 namespace TheXDS.MCART.Types.Extensions;
 
@@ -42,7 +41,7 @@ public static partial class EnumeratorExtensions
     [DebuggerNonUserCode]
     private static void Skip_Contract(IEnumerator enumerator, int steps)
     {
-        ArgumentNullException.ThrowIfNull(enumerator, nameof(enumerator));
-        if (steps < 0) throw new ArgumentOutOfRangeException(nameof(steps));
+        ArgumentNullException.ThrowIfNull(enumerator);
+        ArgumentOutOfRangeException.ThrowIfNegative(steps);
     }
 }

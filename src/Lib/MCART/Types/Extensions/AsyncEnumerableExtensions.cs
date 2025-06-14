@@ -31,26 +31,26 @@ SOFTWARE.
 namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
-/// Extensiones para todos los elementos de tipo
+/// Extensions for all items of type
 /// <see cref="IAsyncEnumerable{T}" />.
 /// </summary>
 public static partial class AsyncEnumerableExtensions
 {
     /// <summary>
-    /// Obtiene la cuenta de elementos de un
-    /// <see cref="IAsyncEnumerable{T}"/>, enumerándolo de forma asíncrona.
+    /// Gets the count of items from an
+    /// <see cref="IAsyncEnumerable{T}"/>, enumerating it asynchronously.
     /// </summary>
     /// <param name="e">
-    /// <see cref="IAsyncEnumerable{T}"/> para el cual obtener la cuenta de
-    /// elementos.
+    /// <see cref="IAsyncEnumerable{T}"/> for which to get the count of
+    /// items.
     /// </param>
-    /// <param name="ct">Token que permite cancelar la operación.</param>
-    /// <typeparam name="T">Tipo de elementos de la colección.</typeparam>
+    /// <param name="ct">Token that allows cancellation of the operation.</param>
+    /// <typeparam name="T">Type of items in the collection.</typeparam>
     /// <returns>
-    /// La cantidad de elementos contenidos en la colección.
+    /// The number of items contained in the collection.
     /// </returns>
     /// <exception cref="TaskCanceledException">
-    /// Ocurre cuando la tarea es cancelada.
+    /// Occurs when the task is cancelled.
     /// </exception>
     public static async ValueTask<int> CountAsync<T>(this IAsyncEnumerable<T> e, CancellationToken ct)
     {
@@ -66,19 +66,19 @@ public static partial class AsyncEnumerableExtensions
     }
 
     /// <summary>
-    /// Obtiene la cuenta de elementos de un
-    /// <see cref="IAsyncEnumerable{T}"/>, enumerándolo de forma asíncrona.
+    /// Gets the count of items from an
+    /// <see cref="IAsyncEnumerable{T}"/>, enumerating it asynchronously.
     /// </summary>
     /// <param name="e">
-    /// <see cref="IAsyncEnumerable{T}"/> para el cual obtener la cuenta de
-    /// elementos.
+    /// <see cref="IAsyncEnumerable{T}"/> for which to get the count of
+    /// items.
     /// </param>
-    /// <typeparam name="T">Tipo de elementos de la colección.</typeparam>
+    /// <typeparam name="T">Type of items in the collection.</typeparam>
     /// <returns>
-    /// La cantidad de elementos contenidos en la colección.
+    /// The number of items contained in the collection.
     /// </returns>
     /// <exception cref="TaskCanceledException">
-    /// Ocurre cuando la tarea es cancelada.
+    /// Occurs when the task is cancelled.
     /// </exception>
     public static ValueTask<int> CountAsync<T>(this IAsyncEnumerable<T> e)
     {

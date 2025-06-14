@@ -31,19 +31,19 @@ SOFTWARE.
 namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
-/// Extensiones para todos los elementos de tipo <see cref="ICollection{T}" />.
+/// Extensions for all elements of type <see cref="ICollection{T}" />.
 /// </summary>
 public static partial class CollectionExtensions
 {
     /// <summary>
-    /// Quita todos los elementos del tipo especificado de la
-    /// colección.
+    /// Removes all elements of the specified type from the
+    /// collection.
     /// </summary>
     /// <typeparam name="TItem">
-    /// Tipo de elementos contenidos en la colección.
+    /// Type of elements contained in the collection.
     /// </typeparam>
-    /// <typeparam name="TRemove">Tipo de elementos a remover.</typeparam>
-    /// <param name="collection">Colección de la cual remover los elementos.</param>
+    /// <typeparam name="TRemove">Type of elements to remove.</typeparam>
+    /// <param name="collection">Collection from which to remove the elements.</param>
     public static void RemoveOf<TItem, TRemove>(this ICollection<TItem> collection)
         where TRemove : TItem
     {
@@ -55,12 +55,12 @@ public static partial class CollectionExtensions
     }
 
     /// <summary>
-    /// Elimina todos los elementos de una colección que cumplen con una condición.
+    /// Removes all elements from a collection that satisfy a condition.
     /// </summary>
-    /// <typeparam name="T">Tipo de elementos en la colección.</typeparam>
-    /// <param name="collection">Colección a procesar.</param>
-    /// <param name="check">Función que verifica si un elemento cumple con una condición.</param>
-    /// <param name="beforeDelete">Acción a ejecutar antes de borrar a un elemento en particular.</param>
+    /// <typeparam name="T">Type of elements in the collection.</typeparam>
+    /// <param name="collection">Collection to process.</param>
+    /// <param name="check">Function that verifies if an element satisfies a condition.</param>
+    /// <param name="beforeDelete">Action to execute before deleting a particular element.</param>
     public static void RemoveAll<T>(this ICollection<T> collection, in Predicate<T>? check, in Action<T>? beforeDelete)
     {
         T[]? lst = collection.ToArray();
@@ -73,37 +73,37 @@ public static partial class CollectionExtensions
     }
 
     /// <summary>
-    /// Elimina todos los elementos de una colección.
+    /// Removes all elements from a collection.
     /// </summary>
-    /// <typeparam name="T">Tipo de elementos en la colección.</typeparam>
-    /// <param name="collection">Colección a procesar.</param>
-    /// <param name="beforeDelete">Acción a ejecutar antes de borrar a un elemento en particular.</param>
+    /// <typeparam name="T">Type of elements in the collection.</typeparam>
+    /// <param name="collection">Collection to process.</param>
+    /// <param name="beforeDelete">Action to execute before deleting a particular element.</param>
     public static void RemoveAll<T>(this ICollection<T> collection, in Action<T> beforeDelete) =>
         RemoveAll(collection, null, beforeDelete);
 
     /// <summary>
-    /// Elimina todos los elementos de una colección que cumplen con una condición.
+    /// Removes all elements from a collection that satisfy a condition.
     /// </summary>
-    /// <typeparam name="T">Tipo de elementos en la colección.</typeparam>
-    /// <param name="collection">Colección a procesar.</param>
-    /// <param name="check">Función que verifica si un elemento cumple con una condición.</param>
+    /// <typeparam name="T">Type of elements in the collection.</typeparam>
+    /// <param name="collection">Collection to process.</param>
+    /// <param name="check">Function that verifies if an element satisfies a condition.</param>
     public static void RemoveAll<T>(this ICollection<T> collection, in Predicate<T> check) =>
         RemoveAll(collection, check, null);
 
     /// <summary>
-    /// Elimina todos los elementos de una colección, individualmente.
+    /// Removes all elements from a collection, individually.
     /// </summary>
-    /// <typeparam name="T">Tipo de elementos en la colección.</typeparam>
-    /// <param name="collection">Colección a procesar.</param>
+    /// <typeparam name="T">Type of elements in the collection.</typeparam>
+    /// <param name="collection">Collection to process.</param>
     public static void RemoveAll<T>(this ICollection<T> collection) => RemoveAll(collection, null, null);
 
     /// <summary>
-    /// Devuelve el último elemento en la lista, quitándole.
+    /// Returns the last element in the list, removing it.
     /// </summary>
-    /// <returns>El último elemento en la lista.</returns>
-    /// <param name="a">Lista de la cual obtener el elemento.</param>
+    /// <returns>The last element in the list.</returns>
+    /// <param name="a">List from which to get the element.</param>
     /// <typeparam name="T">
-    /// Tipo de elementos contenidos en el <see cref="ICollection{T}" />.
+    /// Type of elements contained in the <see cref="ICollection{T}" />.
     /// </typeparam>
     public static T Pop<T>(this ICollection<T> a)
     {
@@ -113,12 +113,12 @@ public static partial class CollectionExtensions
     }
 
     /// <summary>
-    /// Devuelve el primer elemento en la lista, quitándole.
+    /// Returns the first element in the list, removing it.
     /// </summary>
-    /// <returns>El primer elemento en la lista.</returns>
-    /// <param name="a">Lista de la cual obtener el elemento.</param>
+    /// <returns>The first element in the list.</returns>
+    /// <param name="a">List from which to get the element.</param>
     /// <typeparam name="T">
-    /// Tipo de elementos contenidos en el <see cref="ICollection{T}" />.
+    /// Type of elements contained in the <see cref="ICollection{T}" />.
     /// </typeparam>
     public static T PopFirst<T>(this ICollection<T> a)
     {
@@ -128,18 +128,18 @@ public static partial class CollectionExtensions
     }
 
     /// <summary>
-    /// Alternativa a <see cref="ICollection{T}.Add(T)"/> con soporte
-    /// para sintaxis fluent.
+    /// Alternative to <see cref="ICollection{T}.Add(T)"/> with support
+    /// for fluent syntax.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de elementos contenidos en el <see cref="ICollection{T}" />.
+    /// Type of elements contained in the <see cref="ICollection{T}" />.
     /// </typeparam>
     /// <param name="collection">
-    /// Colección a la cual agregar el nuevo elemento.
+    /// Collection to which to add the new element.
     /// </param>
     /// <returns>
-    /// Una nueva instancia de <typeparamref name="T"/> q fue agregada
-    /// a la colección.
+    /// A new instance of <typeparamref name="T"/> q was added
+    /// to the collection.
     /// </returns>
     public static T Push<T>(this ICollection<T> collection) where T : new()
     {
@@ -147,40 +147,40 @@ public static partial class CollectionExtensions
     }
 
     /// <summary>
-    /// Alternativa a <see cref="ICollection{T}.Add(T)"/> con soporte
-    /// para sintaxis fluent.
+    /// Alternative to <see cref="ICollection{T}.Add(T)"/> with support
+    /// for fluent syntax.
     /// </summary>
     /// <typeparam name="TItem">
-    /// Tipo de elemento a agregar a la colección.
+    /// Type of element to add to the collection.
     /// </typeparam>
     /// <typeparam name="TCollection">
-    /// Tipo de elementos contenidos en el <see cref="ICollection{T}" />.
+    /// Type of elements contained in the <see cref="ICollection{T}" />.
     /// </typeparam>
     /// <param name="collection">
-    /// Colección a la cual agregar el nuevo elemento.
+    /// Collection to which to add the new element.
     /// </param>
-    /// <param name="value">Valor a agregar a la colección.</param>
-    /// <returns>El objeto agregado a la colección.</returns>
+    /// <param name="value">Value to add to the collection.</param>
+    /// <returns>The object added to the collection.</returns>
     public static TItem PushInto<TItem, TCollection>(this TItem value, ICollection<TCollection> collection) where TItem : TCollection
     {
         return collection.Push(value);
     }
 
     /// <summary>
-    /// Alternativa a <see cref="ICollection{T}.Add(T)"/> con soporte
-    /// para sintaxis fluent.
+    /// Alternative to <see cref="ICollection{T}.Add(T)"/> with support
+    /// for fluent syntax.
     /// </summary>
     /// <typeparam name="TItem">
-    /// Tipo de elemento a agregar a la colección.
+    /// Type of element to add to the collection.
     /// </typeparam>
     /// <typeparam name="TCollection">
-    /// Tipo de elementos contenidos en el <see cref="ICollection{T}" />.
+    /// Type of elements contained in the <see cref="ICollection{T}" />.
     /// </typeparam>
     /// <param name="collection">
-    /// Colección a la cual agregar el nuevo elemento.
+    /// Collection to which to add the new element.
     /// </param>
-    /// <param name="value">Valor a agregar a la colección.</param>
-    /// <returns>El objeto agregado a la colección.</returns>
+    /// <param name="value">Value to add to the collection.</param>
+    /// <returns>The object added to the collection.</returns>
     public static TItem Push<TItem, TCollection>(this ICollection<TCollection> collection, TItem value) where TItem : TCollection
     {
         Push_Contract(collection);
@@ -189,19 +189,19 @@ public static partial class CollectionExtensions
     }
 
     /// <summary>
-    /// Alternativa a <see cref="ICollection{T}.Add(T)"/> con soporte
-    /// para sintaxis fluent.
+    /// Alternative to <see cref="ICollection{T}.Add(T)"/> with support
+    /// for fluent syntax.
     /// </summary>
     /// <typeparam name="TItem">
-    /// Tipo de elemento a agregar a la colección.
+    /// Type of element to add to the collection.
     /// </typeparam>
     /// <typeparam name="TCollection">
-    /// Tipo de elementos contenidos en el <see cref="ICollection{T}" />.
+    /// Type of elements contained in the <see cref="ICollection{T}" />.
     /// </typeparam>
     /// <param name="collection">
-    /// Colección a la cual agregar el nuevo elemento.
+    /// Collection to which to add the new element.
     /// </param>
-    /// <returns>Una nueva instancia de tipo <typeparamref name="TItem"/> agregada a la colección.</returns>
+    /// <returns>A new instance of type <typeparamref name="TItem"/> added to the collection.</returns>
     public static TItem Push<TItem, TCollection>(this ICollection<TCollection> collection) where TItem : TCollection, new() => Push(collection, new TItem());
 
     /// <summary>
@@ -241,15 +241,15 @@ public static partial class CollectionExtensions
     }
 
     /// <summary>
-    /// Añade una copia de un conjunto de elementos al
+    /// Adds a copy of a set of elements to the
     /// <see cref="ICollection{T}"/>.
     /// </summary>
-    /// <typeparam name="T">Tipo de elementos de la colección.</typeparam>
+    /// <typeparam name="T">Type of elements in the collection.</typeparam>
     /// <param name="collection">
-    /// Colección a la cual agregar los elementos.
+    /// Collection to which to add the elements.
     /// </param>
     /// <param name="source">
-    /// Elementos a agregar a la colección.
+    /// Elements to add to the collection.
     /// </param>
     public static void AddClones<T>(this ICollection<T> collection, IEnumerable<T> source) where T : ICloneable
     {
@@ -258,14 +258,14 @@ public static partial class CollectionExtensions
     }
 
     /// <summary>
-    /// Clona un elemento y agrega la copia a una colección.
+    /// Clones an element and adds the copy to a collection.
     /// </summary>
-    /// <typeparam name="T">Tipo de elementos de la colección.</typeparam>
+    /// <typeparam name="T">Type of elements in the collection.</typeparam>
     /// <param name="collection">
-    /// Colección a la cual agregar los elementos.
+    /// Collection to which to add the elements.
     /// </param>
     /// <param name="item">
-    /// Elemento a copiar y agregar a la colección.
+    /// Element to copy and add to the collection.
     /// </param>
     public static void AddClone<T>(this ICollection<T> collection, T item) where T : ICloneable
     {

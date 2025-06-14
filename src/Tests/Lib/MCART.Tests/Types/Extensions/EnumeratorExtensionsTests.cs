@@ -37,16 +37,40 @@ public class EnumeratorExtensionsTests
     [Test]
     public void Skip_Test()
     {
-        IEnumerable<int>? a = Enumerable.Range(0, 10);
-        using IEnumerator<int>? e = a.GetEnumerator();
+        int[] a = [.. Enumerable.Range(0, 10)];
+        using IEnumerator<int>? e = a.AsEnumerable().GetEnumerator();
         e.MoveNext();
         Assert.That(0, Is.EqualTo(e.Current));
         e.MoveNext();
         Assert.That(1, Is.EqualTo(e.Current));
         Assert.That(5, Is.EqualTo(e.Skip(5)));
         Assert.That(6, Is.EqualTo(e.Current));
-        Assert.That(4, Is.EqualTo(e.Skip(10)));
-        Assert.That(10, Is.EqualTo(e.Current));
+        Assert.That(3, Is.EqualTo(e.Skip(10)));
+    }
+
+    [Test]
+    public void Skip_throws_if_steps_is_negative()
+    {
+        IEnumerable<int>? a = [];
+        using IEnumerator<int>? e = a.GetEnumerator();
         Assert.Throws<ArgumentOutOfRangeException>(() => e.Skip(-1));
+    }
+
+    [Test]
+    public void Skip_skips_zero_if_collection_is_empty()
+    {
+        IEnumerable<int>? a = [];
+        using IEnumerator<int>? e = a.GetEnumerator();
+        Assert.That(e.Skip(1), Is.Zero);
+        Assert.That(false, Is.EqualTo(e.MoveNext()));
+    }
+
+    [Test]
+    public void Skip_skips_zero_if_steps_is_zero()
+    {
+        IEnumerable<int>? a = Enumerable.Range(0, 10);
+        using IEnumerator<int>? e = a.GetEnumerator();
+        Assert.That(e.Skip(0), Is.Zero);
+        Assert.That(true, Is.EqualTo(e.MoveNext()));
     }
 }

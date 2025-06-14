@@ -31,7 +31,6 @@ SOFTWARE.
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using TheXDS.MCART.Exceptions;
-using static TheXDS.MCART.Misc.Internals;
 
 namespace TheXDS.MCART.Types.Extensions;
 

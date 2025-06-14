@@ -33,13 +33,13 @@ using System.Reflection;
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
-/// Define una serie de miembros a implementar por una clase que
-/// exponga a un ensamblado como una propiedad.
+/// Defines a series of members to be implemented by a class that
+/// exposes an assembly as a property.
 /// </summary>
 public interface IExposeAssembly
 {
     /// <summary>
-    /// Obtiene el ensamblado relacionado a este objeto.
+    /// Gets the assembly related to this object.
     /// </summary>
     Assembly Assembly { get; }
 }

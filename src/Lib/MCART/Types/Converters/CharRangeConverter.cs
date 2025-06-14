@@ -33,11 +33,9 @@ using System.ComponentModel;
 namespace TheXDS.MCART.Types.Converters;
 
 /// <summary>
-/// Permite realizar la conversión entre tipos
-/// <see cref="string" /> y
-/// <see cref="Range{T}" /> para rangos de tipo
-/// <see cref="char" />.
+/// Enables conversion between
+/// <see cref="string"/> and
+/// <see cref="Range{T}"/> for ranges of type
+/// <see cref="char"/>.
 /// </summary>
-public class CharRangeConverter : RangeConverter<char, UInt16Converter>
-{
-}
+public class CharRangeConverter : RangeConverter<char, UInt16Converter>;

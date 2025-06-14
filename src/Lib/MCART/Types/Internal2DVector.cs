@@ -28,6 +28,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System.Numerics;
 using TheXDS.MCART.Types.Base;
 
 namespace TheXDS.MCART.Types;
@@ -36,5 +37,14 @@ internal struct Internal2DVector : IVector
 {
     public double X { get; set; }
     public double Y { get; set; }
-    public bool Equals(IVector? other) => X.Equals(other?.X) && Y.Equals(other.Y);
+    public readonly override bool Equals(object? obj)
+    {
+        return obj switch
+        {
+            IVector v2d => Equals(v2d),
+            Vector2 v2 => ((IEquatable<Vector2>)this).Equals(v2),
+            _ => false
+        };
+    }
+    public readonly bool Equals(IVector? other) => X.Equals(other?.X) && Y.Equals(other.Y);
 }

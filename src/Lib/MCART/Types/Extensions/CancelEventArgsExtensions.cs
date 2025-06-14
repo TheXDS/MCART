@@ -33,31 +33,30 @@ using System.ComponentModel;
 namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
-/// Extensiones para todos los elementos de tipo
-/// <see cref="CancelEventArgs" />.
+/// Extensions for all elements of type
+/// <see cref="CancelEventArgs"/>
 /// </summary>
 public static class CancelEventArgsExtensions
 {
     /// <summary>
-    /// Ejecuta un controlador de eventos con estos argumentos, y 
-    /// continúa con otra llamada si el evento no ha sido cancelado.
+    /// Executes an event handler with these arguments, and
+    /// continues with another call if the event has not been canceled.
     /// </summary>
     /// <typeparam name="TCancelEventArgs">
-    /// Tipo que deriva de <see cref="CancelEventArgs"/> para el cual
-    /// este método es una extensión.
+    /// Type that derives from <see cref="CancelEventArgs"/> for which
+    /// this method is an extension.
     /// </typeparam>
     /// <param name="evtArgs">
-    /// Argumentos a utilizar en la llamada del evento cancelable.
+    /// Arguments to use in the call of the cancelable event.
     /// </param>
     /// <param name="handler">
-    /// Evento cancelable a ejecutar.
+    /// Cancelable event to execute.
     /// </param>
     /// <param name="sender">
-    /// Objeto que es el origen del evento a generar.
+    /// Object that is the source of the event to generate.
     /// </param>
     /// <param name="continuation">
-    /// Llamada de continuación en caso que el evento no haya sido 
-    /// cancelado.
+    /// Continuation call in case the event has not been canceled.
     /// </param>
     public static void Attempt<TCancelEventArgs>(this TCancelEventArgs evtArgs, EventHandler<TCancelEventArgs>? handler, object? sender, Action<TCancelEventArgs> continuation) where TCancelEventArgs : CancelEventArgs
     {

@@ -30,7 +30,6 @@ SOFTWARE.
 
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using TheXDS.MCART.Misc;
 using TheXDS.MCART.Resources;
 
 namespace TheXDS.MCART.Types.Extensions;

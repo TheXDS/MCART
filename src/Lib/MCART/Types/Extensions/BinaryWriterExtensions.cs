@@ -28,6 +28,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -37,12 +38,13 @@ using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Misc;
 using TheXDS.MCART.Resources;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
-/// Contiene extensiones útiles para la clase
-/// <see cref="BinaryWriter"/>.
+/// Contains useful extensions for the
+/// <see cref="BinaryWriter"/> class.
 /// </summary>
 [RequiresUnreferencedCode(AttributeErrorMessages.ClassScansForTypes)]
 [RequiresDynamicCode(AttributeErrorMessages.ClassCallsDynamicCode)]
@@ -84,14 +86,13 @@ public static partial class BinaryWriterExtensions
     ];
 
     /// <summary>
-    /// Escribe un <see cref="Guid"/> en el <see cref="BinaryWriter"/>
-    /// especificado.
+    /// Writes a <see cref="Guid"/> to the specified <see cref="BinaryWriter"/>.
     /// </summary>
     /// <param name="bw">
-    /// Instancia sobre la cual realizar la escritura.
+    /// The instance to perform the writing on.
     /// </param>
     /// <param name="value">
-    /// Valor a escribir.
+    /// The value to write.
     /// </param>
     public static void Write(this BinaryWriter bw, Guid value)
     {
@@ -99,14 +100,13 @@ public static partial class BinaryWriterExtensions
     }
 
     /// <summary>
-    /// Escribe un <see cref="DateTime"/> en el
-    /// <see cref="BinaryWriter"/> especificado.
+    /// Writes a <see cref="DateTime"/> to the specified <see cref="BinaryWriter"/>.
     /// </summary>
     /// <param name="bw">
-    /// Instancia sobre la cual realizar la escritura.
+    /// The instance to perform the writing on.
     /// </param>
     /// <param name="value">
-    /// Valor a escribir.
+    /// The value to write.
     /// </param>
     public static void Write(this BinaryWriter bw, DateTime value)
     {
@@ -114,14 +114,13 @@ public static partial class BinaryWriterExtensions
     }
 
     /// <summary>
-    /// Escribe un <see cref="TimeSpan"/> en el
-    /// <see cref="BinaryWriter"/> especificado.
+    /// Writes a <see cref="TimeSpan"/> to the specified <see cref="BinaryWriter"/>.
     /// </summary>
     /// <param name="bw">
-    /// Instancia sobre la cual realizar la escritura.
+    /// The instance to perform the writing on.
     /// </param>
     /// <param name="value">
-    /// Valor a escribir.
+    /// The value to write.
     /// </param>
     public static void Write(this BinaryWriter bw, TimeSpan value)
     {
@@ -129,14 +128,13 @@ public static partial class BinaryWriterExtensions
     }
 
     /// <summary>
-    /// Escribe un valor <see cref="Enum"/> en el
-    /// <see cref="BinaryWriter"/> especificado.
+    /// Writes an <see cref="Enum"/> value to the specified <see cref="BinaryWriter"/>.
     /// </summary>
     /// <param name="bw">
-    /// Instancia sobre la cual realizar la escritura.
+    /// The instance to perform the writing on.
     /// </param>
     /// <param name="value">
-    /// Valor a escribir.
+    /// The value to write.
     /// </param>
     public static void Write(this BinaryWriter bw, Enum value)
     {
@@ -144,14 +142,13 @@ public static partial class BinaryWriterExtensions
     }
 
     /// <summary>
-    /// Escribe un objeto serializable en el
-    /// <see cref="BinaryWriter"/> especificado.
+    /// Writes a serializable object to the specified <see cref="BinaryWriter"/>.
     /// </summary>
     /// <param name="bw">
-    /// Instancia sobre la cual realizar la escritura.
+    /// The instance to perform the writing on.
     /// </param>
     /// <param name="value">
-    /// Objeto serializable a escribir.
+    /// The serializable object to write.
     /// </param>
     [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
     [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
@@ -164,21 +161,21 @@ public static partial class BinaryWriterExtensions
     }
 
     /// <summary>
-    /// Realiza una escritura del objeto especificado, determinando
-    /// dinámicamente el método apropiado de escritura a utilizar.
+    /// Performs a write of the specified object, dynamically determining
+    /// the appropriate write method to use.
     /// </summary>
     /// <param name="bw">
-    /// Instancia sobre la cual realizar la escritura.
+    /// The instance to perform the writing on.
     /// </param>
     /// <param name="value">
-    /// Objeto a escribir.
+    /// The object to write.
     /// </param>
     /// <exception cref="InvalidOperationException">
-    /// Se produce si no ha sido posible encontrar un método que pueda
-    /// escribir el valor especificado. 
+    /// Thrown if it has not been possible to find a method that can
+    /// write the specified value.
     /// </exception>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="bw"/> o <paramref name="value"/> son
+    /// Thrown if <paramref name="bw"/> or <paramref name="value"/> are
     /// <see langword="null"/>.
     /// </exception>
     public static void DynamicWrite(this BinaryWriter bw, object value)
@@ -188,27 +185,27 @@ public static partial class BinaryWriterExtensions
     }
 
     /// <summary>
-    /// Escribe una cadena terminada en un caracter nulo (<c>'\0'</c>),
-    /// utilizando codificación UTF-8.
+    /// Writes a null-terminated string to the specified <see cref="BinaryWriter"/>,
+    /// using UTF-8 encoding.
     /// </summary>
     /// <param name="bw">
-    /// Instancia sobre la cual realizar la escritura.
+    /// The instance to perform the writing on.
     /// </param>
-    /// <param name="value">Cadena a escribir.</param>
+    /// <param name="value">The string to write.</param>
     public static void WriteNullTerminatedString(this BinaryWriter bw, string value)
     {
         WriteNullTerminatedString(bw, value, Encoding.UTF8);
     }
 
     /// <summary>
-    /// Escribe una cadena terminada en un caracter nulo (<c>'\0'</c>).
+    /// Writes a null-terminated string to the specified <see cref="BinaryWriter"/>.
     /// </summary>
     /// <param name="bw">
-    /// Instancia sobre la cual realizar la escritura.
+    /// The instance to perform the writing on.
     /// </param>
-    /// <param name="value">Cadena a escribir.</param>
+    /// <param name="value">The string to write.</param>
     /// <param name="encoding">
-    /// Codificación a utilizar para la ecritura de la cadena.
+    /// The encoding to use for writing the string.
     /// </param>
     public static void WriteNullTerminatedString(this BinaryWriter bw, string value, Encoding encoding)
     {
@@ -216,15 +213,15 @@ public static partial class BinaryWriterExtensions
     }
 
     /// <summary>
-    /// Escribe una estructura simple en el <see cref="Stream"/>
-    /// subyacente por medio de Marshaling.
+    /// Writes a simple structure to the underlying <see cref="Stream"/>
+    /// via Marshaling.
     /// </summary>
-    /// <typeparam name="T">Tipo de la estructura.</typeparam>
+    /// <typeparam name="T">Type of the structure.</typeparam>
     /// <param name="bw">
-    /// Instancia sobre la cual realizar la escritura.
+    /// The instance to perform the writing on.
     /// </param>
     /// <param name="value">
-    /// Objeto a escribir.
+    /// The object to write.
     /// </param>
     public static int MarshalWriteStruct<T>(this BinaryWriter bw, T value) where T : struct
     {
@@ -277,36 +274,21 @@ public static partial class BinaryWriterExtensions
         Marshal.FreeHGlobal(ptr);
         foreach (var j in typeof(T).GetFields())
         {
-            if (j.GetAttribute<EndiannessAttribute>() is { Value: var e })
-            {
-                switch (e)
-                {
-                    case Endianness.BigEndian when BitConverter.IsLittleEndian:
-                    case Endianness.LittleEndian when !BitConverter.IsLittleEndian:
-                        var fieldOffset = (int)Marshal.OffsetOf<T>(j.Name);
-                        var sizeOfField = Marshal.SizeOf(j.FieldType);
-                        foreach (var (index, _) in array.WithIndex())
-                        {
-                            Array.Reverse(data, fieldOffset + (sizeOf * index), sizeOfField);
-                        }
-                        break;
-                }
-            }
+            MarshalWriteStructArray_CheckFieldEndianness(j, data, array, sizeOf);
         }
         bw.Write(data);
         return data.Length;
     }
 
     /// <summary>
-    /// Escribe una estructura simple en el <see cref="Stream"/>
-    /// subyacente.
+    /// Writes a simple structure to the underlying <see cref="Stream"/>
     /// </summary>
-    /// <typeparam name="T">Tipo de la estructura.</typeparam>
+    /// <typeparam name="T">Type of the structure.</typeparam>
     /// <param name="bw">
-    /// Instancia sobre la cual realizar la escritura.
+    /// The instance to perform the writing on.
     /// </param>
     /// <param name="value">
-    /// Objeto a escribir.
+    /// The object to write.
     /// </param>
     public static void WriteStruct<T>(this BinaryWriter bw, T value) where T : struct
     {
@@ -398,5 +380,28 @@ public static partial class BinaryWriterExtensions
     private static void DynamicWriteISerializable(BinaryWriter bw, object value)
     {
         Write(bw, (ISerializable)value);
+    }
+
+    private static void MarshalWriteStructArray_CheckFieldEndianness<T>(FieldInfo j, byte[] data, T[] array, int sizeOf) where T : struct
+    {
+        if (j.GetAttribute<EndiannessAttribute>() is { Value: var e })
+        {
+            switch (e)
+            {
+                case Endianness.BigEndian when BitConverter.IsLittleEndian:
+                case Endianness.LittleEndian when !BitConverter.IsLittleEndian:
+                    MarshalWriteStructArray_SwitchFieldEndianness(j, data, array, sizeOf);
+                    break;
+            }
+        }
+    }
+    private static void MarshalWriteStructArray_SwitchFieldEndianness<T>(FieldInfo j, byte[] data, T[] array, int sizeOf) where T : struct
+    {
+        var fieldOffset = (int)Marshal.OffsetOf<T>(j.Name);
+        var sizeOfField = Marshal.SizeOf(j.FieldType);
+        foreach (var (index, _) in array.WithIndex())
+        {
+            Array.Reverse(data, fieldOffset + (sizeOf * index), sizeOfField);
+        }
     }
 }

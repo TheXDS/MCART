@@ -196,7 +196,7 @@ public class TypeExtensionsTests
     [Test]
     public void Derivates_Test()
     {
-        Type[]? t = typeof(Exception).Derivates(typeof(Exception).Assembly).ToArray();
+        Type[]? t = typeof(Exception).FindDerivedTypes(typeof(Exception).Assembly).ToArray();
         Assert.That(t, Contains.Item(typeof(ArgumentNullException)));
         Assert.That(t.Contains(typeof(TamperException)), Is.False);
         Assert.That(t.Contains(typeof(int)), Is.False);

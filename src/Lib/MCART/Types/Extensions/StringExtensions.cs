@@ -42,57 +42,49 @@ using St = TheXDS.MCART.Resources.Strings;
 namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
-/// Extensiones de la clase <see cref="string" />.
+/// Extensions for the <see cref="string" /> class.
 /// </summary>
 public static class StringExtensions
 {
     private static (string match, Func<char, bool> test)[]? matchRules;
 
     /// <summary>
-    /// Describe las opciones de búsqueda para el método
+    /// Describes search options for the method
     /// <see cref="TokenSearch(string, string, SearchOptions)" />
     /// </summary>
     [Flags]
     public enum SearchOptions
     {
         /// <summary>
-        /// Modo de búsqueda predeterminado. Se ignorará el Casing y la
-        /// cadena coincidirá con los términos de búsqueda si contiene al
-        /// menos uno de los tokens.
+        /// Default search mode. Case will be ignored and the string will match the search terms if it contains at least one of the tokens.
         /// </summary>
         Default,
 
         /// <summary>
-        /// Modo sensible al Casing. La cadena coincidirá con los términos
-        /// de búsqueda si contiene al menos uno de los tokens.
+        /// Case-sensitive search mode. The string will match the search terms if it contains at least one of the tokens.
         /// </summary>
         CaseSensitive = 1,
 
         /// <summary>
-        /// Modo de búsqueda estricto. Se ignorará el casing, y la cadena
-        /// coincidirá con los términos de búsqueda si contiene todos los
-        /// tokens especificados.
+        /// Strict search mode. Case will be ignored, and the string will match the search terms if it contains all specified tokens.
         /// </summary>
         IncludeAll = 2,
 
         /// <summary>
-        /// Interpretar los tokens por medio del operador Like
+        /// Interpret tokens using the Like operator
         /// </summary>
         WildCard = 4
     }
 
     /// <summary>
-    /// Obtiene una cadena con capitalización a partir de la cadena
-    /// proporcionada.
+    /// Gets a capitalized string from the provided string.
     /// </summary>
-    /// <param name="str">Cadena a capitalizar.</param>
+    /// <param name="str">String to capitalize.</param>
     /// <param name="keepCasing">
-    /// Si se establece en <see langword="true"/>, se mantendrá la
-    /// capitalización del resto de los caracteres de la cadena.
+    /// If set to <see langword="true"/>, maintains the casing of the rest of the characters in the string.
     /// </param>
     /// <returns>
-    /// Una nueva cadena con capitalización a partir de la cadena
-    /// proporcionada.
+    /// A new capitalized string from the provided string.
     /// </returns>
     public static string Capitalize(this string str, bool keepCasing = false)
     {
@@ -100,12 +92,12 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Elimina una ocurrencia de una cadena a los extremos de otra.
+    /// Removes an occurrence of a string from the ends of another.
     /// </summary>
-    /// <param name="str">Cadena a comprobar.</param>
-    /// <param name="toChop">Valor a cortar.</param>
+    /// <param name="str">String to check.</param>
+    /// <param name="toChop">Value to remove.</param>
     /// <returns>
-    /// Una cadena que no empiece ni termine en
+    /// A string that does not start or end with
     /// <paramref name="toChop"/>.
     /// </returns>
     public static string Chop(this string str, string toChop)
@@ -114,94 +106,95 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Elimina una ocurrencia de una cadena a los extremos de otra.
+    /// Removes an occurrence of any specified strings from the ends of another.
     /// </summary>
-    /// <param name="str">Cadena a comprobar.</param>
-    /// <param name="toChop">Valor a cortar.</param>
+    /// <param name="str">String to check.</param>
+    /// <param name="toChop">Values to remove.</param>
     /// <returns>
-    /// Una cadena que no empiece ni termine en
+    /// A string that does not start or end with
     /// <paramref name="toChop"/>.
     /// </returns>
     public static string ChopAny(this string str, params string[] toChop)
     {
         foreach (string? j in toChop)
         {
-            if (str.StartsWith(j)) return str.Remove(0, j.Length);
-            if (str.EndsWith(j)) return str.Remove(str.Length - j.Length, j.Length);
+            if (str.StartsWith(j)) return str[j.Length..];
+            if (str.EndsWith(j)) return str[..^j.Length];
         }
         return str;
     }
 
     /// <summary>
-    /// Elimina una ocurrencia de una cadena al final de otra.
+    /// Removes an occurrence of a string from the end of another.
     /// </summary>
-    /// <param name="str">Cadena a comprobar.</param>
-    /// <param name="toChop">Valor a cortar.</param>
+    /// <param name="str">String to check.</param>
+    /// <param name="toChop">Value to remove.</param>
     /// <returns>
-    /// Una cadena que no termine en <paramref name="toChop"/>.
+    /// A string that does not end with
+    /// <paramref name="toChop"/>.
     /// </returns>
     public static string ChopEnd(this string str, string toChop)
     {
-        return str.EndsWith(toChop) ? str.Remove(str.Length - toChop.Length, toChop.Length) : str;
+        return str.EndsWith(toChop) ? str[..^toChop.Length] : str;
     }
 
     /// <summary>
-    /// Elimina una ocurrencia de una cadena al final de otra.
+    /// Removes an occurrence of a string from the end of another.
     /// </summary>
-    /// <param name="str">Cadena a comprobar.</param>
-    /// <param name="toChop">Valores a cortar.</param>
+    /// <param name="str">String to check.</param>
+    /// <param name="toChop">Values to remove.</param>
     /// <returns>
-    /// Una cadena que no termine en <paramref name="toChop"/>.
+    /// A string that does not end with <paramref name="toChop"/>.
     /// </returns>
     public static string ChopEndAny(this string str, params string[] toChop)
     {
         foreach (string? j in toChop)
         {
-            if (str.EndsWith(j)) return str.Remove(str.Length - j.Length, j.Length);
+            if (str.EndsWith(j)) return str[..^j.Length];
         }
         return str;
     }
 
     /// <summary>
-    /// Elimina una ocurrencia de una cadena al principio de otra.
+    /// Removes an occurrence of a string from the beginning of another.
     /// </summary>
-    /// <param name="str">Cadena a comprobar.</param>
-    /// <param name="toChop">Valor a cortar.</param>
+    /// <param name="str">String to check.</param>
+    /// <param name="toChop">Value to remove.</param>
     /// <returns>
-    /// Una cadena que no empiece en <paramref name="toChop"/>.
+    /// A string that does not start with <paramref name="toChop"/>.
     /// </returns>
     public static string ChopStart(this string str, string toChop)
     {
-        return str.StartsWith(toChop) ? str.Remove(0, toChop.Length) : str;
+        return str.StartsWith(toChop) ? str[toChop.Length..] : str;
     }
 
     /// <summary>
-    /// Elimina una ocurrencia de una cadena al principio de otra.
+    /// Removes an occurrence of any specified strings from the beginning of another.
     /// </summary>
-    /// <param name="str">Cadena a comprobar.</param>
-    /// <param name="toChop">Valores a cortar.</param>
+    /// <param name="str">String to check.</param>
+    /// <param name="toChop">Values to remove.</param>
     /// <returns>
-    /// Una cadena que no empiece en <paramref name="toChop"/>.
+    /// A string that does not start with <paramref name="toChop"/>.
     /// </returns>
     public static string ChopStartAny(this string str, params string[] toChop)
     {
         foreach (string? j in toChop)
         {
-            if (str.StartsWith(j)) return str.Remove(0, j.Length);
+            if (str.StartsWith(j)) return str[j.Length..];
         }
         return str;
     }
 
     /// <summary>
-    /// Trunca la longitud de una cadena a un máximo de
-    /// <paramref name="length"/> caracteres.
+    /// Truncates the length of a string to a maximum of
+    /// <paramref name="length"/> characters.
     /// </summary>
-    /// <param name="str">Cadena a truncar.</param>
-    /// <param name="length">Longitud máxima de la cadena.</param>
+    /// <param name="str">String to truncate.</param>
+    /// <param name="length">Maximum length of the string.</param>
     /// <returns></returns>
     public static string Truncate(this string str, int length)
     {
-        if (length < 1) throw new ArgumentOutOfRangeException(nameof(length));
+        ArgumentOutOfRangeException.ThrowIfLessThan(length, 1);
         return
             length <= 3
             ? str.Length > length ? str[0..length] : str
@@ -211,35 +204,31 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Separa en líneas de hasta 80 caracteres el contenido de una
-    /// cadena larga.
+    /// Wraps long text content into lines of up to 80 characters.
     /// </summary>
-    /// <param name="str">Cadena a separar.</param>
+    /// <param name="str">String to wrap.</param>
     /// <returns>
-    /// Un arreglo de cadenas con el contenido de la cadena original 
-    /// separado en filas de hasta 80 caracteres.
+    /// An array of strings with the original string's content wrapped into rows of up to 80 characters.
     /// </returns>
     public static string[] TextWrap(this string str) => str.TextWrap(80);
 
     /// <summary>
-    /// Separa en líneas el contenido de una cadena larga.
+    /// Wraps long text content into lines.
     /// </summary>
-    /// <param name="str">Cadena a separar.</param>
+    /// <param name="str">String to wrap.</param>
     /// <param name="width">
-    /// Cantidad de caracteres admitidos por fila. de forma
-    /// predeterminada, es de 80 caracteres por columna.
+    /// Number of characters allowed per row. By default, it's 80 characters per column.
     /// </param>
     /// <returns>
-    /// Un arreglo de cadenas con el contenido de la cadena original 
-    /// separado en filas.
+    /// An array of strings with the original string's content wrapped into rows.
     /// </returns>
     public static string[] TextWrap(this string str, int width)
     {
-        List<string>? lines = new();
+        List<string> lines = [];
         foreach (string? word in str.Split(' '))
         {
             if ((lines.LastOrDefault() ?? string.Empty).Length + word.Length > width)
-            { 
+            {
                 lines.AddRange(word.Split(width));
             }
             else
@@ -248,30 +237,18 @@ public static class StringExtensions
                 lines[^1] += lines[^1].IsEmpty() && !word.IsEmpty() ? word : $" {word}";
             }
         }
-        return lines.ToArray();
-    }
-
-    static IEnumerable<string> Split(this string str, int chunkSize)
-    {
-        string Selector(int i)
-        {
-            int ch = i * chunkSize;
-            return str.Substring(ch,
-                ch + chunkSize > str.Length ? str.Length - ch : chunkSize);
-        }
-        return Enumerable.Range(0, (str.Length / chunkSize) + 1).Select(Selector);
+        return [.. lines];
     }
 
     /// <summary>
-    /// Determina si la cadena contiene a cualquiera de los caracteres
-    /// especificados.
+    /// Determines if a string contains any of the specified characters.
     /// </summary>
     /// <returns>
-    /// <see langword="true" /> si la cadena contiene a cualquiera de los caracteres,
-    /// <see langword="false" /> en caso contrario.
+    /// <see langword="true" /> if the string contains any of the characters,
+    /// <see langword="false" /> otherwise.
     /// </returns>
-    /// <param name="stringToCheck">Cadena a verificar.</param>
-    /// <param name="chars">Caracteres a buscar.</param>
+    /// <param name="stringToCheck">String to check.</param>
+    /// <param name="chars">Characters to search for.</param>
     [Sugar]
     public static bool ContainsAny(this string stringToCheck, params char[] chars)
     {
@@ -279,42 +256,38 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Determina si la cadena contiene a cualquiera de los caracteres
-    /// especificados.
+    /// Determines if a string contains any of the specified characters.
     /// </summary>
     /// <returns>
-    /// <see langword="true" /> si la cadena contiene a cualquiera de los caracteres,
-    /// <see langword="false" /> en caso contrario.
+    /// <see langword="true" /> if the string contains any of the characters,
+    /// <see langword="false" /> otherwise.
     /// </returns>
-    /// <param name="stringToCheck">Cadena a verificar.</param>
+    /// <param name="stringToCheck">String to check.</param>
     /// <param name="argNum">
-    /// Parámetro de salida. Si <paramref name="stringToCheck" /> contiene cualquier
-    /// carácter especificado en <paramref name="chars" />, se devolverá el
-    /// índice del argumento contenido; en caso contrario, se devuelve
-    /// <c>-1</c>.
+    /// Output parameter. If <paramref name="stringToCheck" /> contains any character specified in
+    /// <paramref name="chars" />, the index of the contained argument will be returned;
+    /// otherwise, -1 is returned.
     /// </param>
-    /// <param name="chars">Caracteres a buscar.</param>
+    /// <param name="chars">Characters to search for.</param>
     public static bool ContainsAny(this string stringToCheck, out int argNum, params char[] chars)
     {
         return stringToCheck.ContainsAny(chars, out argNum);
     }
 
     /// <summary>
-    /// Determina si la cadena contiene a cualquiera de los caracteres
-    /// especificados.
+    /// Determines if a string contains any of the specified characters.
     /// </summary>
     /// <returns>
-    /// <see langword="true" /> si la cadena contiene a cualquiera de los caracteres,
-    /// <see langword="false" /> en caso contrario.
+    /// <see langword="true" /> if the string contains any of the characters,
+    /// <see langword="false" /> otherwise.
     /// </returns>
-    /// <param name="stringToCheck">Cadena a verificar.</param>
+    /// <param name="stringToCheck">String to check.</param>
     /// <param name="argNum">
-    /// Parámetro de salida. Si <paramref name="stringToCheck" /> contiene cualquier
-    /// carácter especificado en <paramref name="chars" />, se devolverá el
-    /// índice del argumento contenido; en caso contrario, se devuelve
-    /// <c>-1</c>.
+    /// Output parameter. If <paramref name="stringToCheck" /> contains any character specified in
+    /// <paramref name="chars" />, the index of the contained argument will be returned;
+    /// otherwise, -1 is returned.
     /// </param>
-    /// <param name="chars">Caracteres a buscar.</param>
+    /// <param name="chars">Characters to search for.</param>
     public static bool ContainsAny(this string stringToCheck, IEnumerable<char> chars, out int argNum)
     {
         argNum = 0;
@@ -323,21 +296,19 @@ public static class StringExtensions
             if (stringToCheck.Contains(j)) return true;
             argNum++;
         }
-
         argNum = -1;
         return false;
     }
 
     /// <summary>
-    /// Determina si la cadena contiene a cualquiera de las cadenas
-    /// especificadas.
+    /// Determines if a string contains any of the specified strings.
     /// </summary>
     /// <returns>
-    /// <see langword="true" /> si la cadena contiene a cualquiera de los caracteres,
-    /// <see langword="false" /> en caso contrario.
+    /// <see langword="true" /> if the string contains any of the characters,
+    /// <see langword="false" /> otherwise.
     /// </returns>
-    /// <param name="stringToCheck">Cadena a verificar.</param>
-    /// <param name="strings">Cadenas a buscar.</param>
+    /// <param name="stringToCheck">String to check.</param>
+    /// <param name="strings">Strings to search for.</param>
     [Sugar]
     public static bool ContainsAny(this string stringToCheck, params string[] strings)
     {
@@ -345,15 +316,14 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Determina si la cadena contiene a cualquiera de las cadenas
-    /// especificadas.
+    /// Determines if a string contains any of the specified strings.
     /// </summary>
     /// <returns>
-    /// <see langword="true" /> si la cadena contiene a cualquiera de los caracteres,
-    /// <see langword="false" /> en caso contrario.
+    /// <see langword="true" /> if the string contains any of the characters,
+    /// <see langword="false" /> otherwise.
     /// </returns>
-    /// <param name="stringToCheck">Cadena a verificar.</param>
-    /// <param name="strings">Cadenas a buscar.</param>
+    /// <param name="stringToCheck">String to check.</param>
+    /// <param name="strings">Strings to search for.</param>
     [Sugar]
     public static bool ContainsAny(this string stringToCheck, IEnumerable<string> strings)
     {
@@ -361,42 +331,38 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Determina si la cadena contiene a cualquiera de las cadenas
-    /// especificadas.
+    /// Determines if a string contains any of the specified strings.
     /// </summary>
     /// <returns>
-    /// <see langword="true" /> si la cadena contiene a cualquiera de los caracteres,
-    /// <see langword="false" /> en caso contrario.
+    /// <see langword="true" /> if the string contains any of the characters,
+    /// <see langword="false" /> otherwise.
     /// </returns>
-    /// <param name="stringToCheck">Cadena a verificar.</param>
+    /// <param name="stringToCheck">String to check.</param>
     /// <param name="argNum">
-    /// Parámetro de salida. Si <paramref name="stringToCheck" /> contiene cualquier
-    /// carácter especificado en <paramref name="strings" />, se devolverá
-    /// el índice del argumento contenido; en caso contrario, se devuelve
-    /// <c>-1</c>.
+    /// Output parameter. If <paramref name="stringToCheck" /> contains any character specified in
+    /// <paramref name="strings" />, the index of the contained argument will be returned;
+    /// otherwise, -1 is returned.
     /// </param>
-    /// <param name="strings">Cadenas a buscar.</param>
+    /// <param name="strings">Strings to search for.</param>
     public static bool ContainsAny(this string stringToCheck, out int argNum, params string[] strings)
     {
         return stringToCheck.ContainsAny(strings, out argNum);
     }
 
     /// <summary>
-    /// Determina si la cadena contiene a cualquiera de las cadenas
-    /// especificadas.
+    /// Determines if a string contains any of the specified strings.
     /// </summary>
     /// <returns>
-    /// <see langword="true" /> si la cadena contiene a cualquiera de los caracteres,
-    /// <see langword="false" /> en caso contrario.
+    /// <see langword="true" /> if the string contains any of the characters,
+    /// <see langword="false" /> otherwise.
     /// </returns>
-    /// <param name="stringToCheck">Cadena a verificar.</param>
+    /// <param name="stringToCheck">String to check.</param>
     /// <param name="argNum">
-    /// Parámetro de salida. Si <paramref name="stringToCheck" /> contiene cualquier
-    /// carácter especificado en <paramref name="strings" />, se devolverá
-    /// el índice del argumento contenido; en caso contrario, se devuelve
-    /// <c>-1</c>.
+    /// Output parameter. If <paramref name="stringToCheck" /> contains any character specified in
+    /// <paramref name="strings" />, the index of the contained argument will be returned;
+    /// otherwise, -1 is returned.
     /// </param>
-    /// <param name="strings">Cadenas a buscar.</param>
+    /// <param name="strings">Strings to search for.</param>
     public static bool ContainsAny(this string stringToCheck, IEnumerable<string> strings, out int argNum)
     {
         argNum = 0;
@@ -405,38 +371,36 @@ public static class StringExtensions
             if (stringToCheck.Contains(j)) return true;
             argNum++;
         }
-
         argNum = -1;
         return false;
     }
 
     /// <summary>
-    /// Verifica si la cadena contiene letras.
+    /// Checks if a string contains letters.
     /// </summary>
     /// <returns>
-    /// <see langword="true" /> si la cadena contiene letras: de lo contrario,
+    /// <see langword="true" /> if the string contains letters; otherwise,
     /// <see langword="false" />.
     /// </returns>
-    /// <param name="stringToCheck">Cadena a comprobar.</param>
+    /// <param name="stringToCheck">String to check.</param>
     public static bool ContainsLetters(this string stringToCheck)
     {
         return stringToCheck.ContainsAny((St.Constants.AlphaLc.ToUpperInvariant() + St.Constants.AlphaLc).ToCharArray());
     }
 
     /// <summary>
-    /// Verifica si la cadena contiene letras.
+    /// Checks if a string contains letters.
     /// </summary>
     /// <returns>
-    /// <see langword="true" /> si la cadena contiene letras: de lo contrario,
+    /// <see langword="true" /> if the string contains letters; otherwise,
     /// <see langword="false" />.
     /// </returns>
-    /// <param name="stringToCheck">Cadena a comprobar.</param>
+    /// <param name="stringToCheck">String to check.</param>
     /// <param name="ucase">
-    /// Opcional. Especifica el tipo de comprobación a realizar. Si es
-    /// <see langword="true" />, Se tomarán en cuenta únicamente los caracteres en
-    /// mayúsculas, si es <see langword="false" />, se tomarán en cuenta únicamente  los
-    /// caracteres en minúsculas. Si se omite o se establece en <see langword="null" />,
-    /// se tomarán en cuenta ambos casos.
+    /// Optional. Specifies the type of check to perform. If set to
+    /// <see langword="true" />, only uppercase characters are considered;
+    /// if set to <see langword="false" />, only lowercase characters are considered.
+    /// If omitted or set to <see langword="null" />, both cases are considered.
     /// </param>
     public static bool ContainsLetters(this string stringToCheck, bool ucase)
     {
@@ -444,36 +408,36 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Comprueba si la cadena contiene números
+    /// Checks if a string contains numbers.
     /// </summary>
     /// <returns>
-    /// <see langword="true" /> si la cadena contiene números; de lo contrario,
+    /// <see langword="true" /> if the string contains numbers; otherwise,
     /// <see langword="false" />.
     /// </returns>
-    /// <param name="stringToCheck">Cadena a comprobar.</param>
+    /// <param name="stringToCheck">String to check.</param>
     public static bool ContainsNumbers(this string stringToCheck)
     {
 #if NativeNumbers
-        return stringToCheck.ContainsAny(string
-            .Join(null, Thread.CurrentThread.CurrentCulture.NumberFormat.NativeDigits).ToCharArray());
+    return stringToCheck.ContainsAny(string
+        .Join(null, Thread.CurrentThread.CurrentCulture.NumberFormat.NativeDigits).ToCharArray());
 #else
         return stringToCheck.ContainsAny("0123456789".ToCharArray());
 #endif
     }
 
     /// <summary>
-    /// Comprueba si un nombre podría tratarse de otro indicado.
+    /// Checks if a name could be another specified name.
     /// </summary>
     /// <returns>
-    /// Un valor porcentual que representa la probabilidad de que
-    /// <paramref name="checkName" /> haga referencia al nombre
+    /// A percentage value representing the probability that
+    /// <paramref name="checkName" /> refers to the name
     /// <paramref name="actualName" />.
     /// </returns>
-    /// <param name="checkName">Nombre a comprobar.</param>
-    /// <param name="actualName">Nombre real conocido.</param>
+    /// <param name="checkName">Name to check.</param>
+    /// <param name="actualName">Known actual name.</param>
     /// <exception cref="ArgumentNullException">
-    /// Se produce cuando <paramref name="checkName" /> o
-    /// <paramref name="actualName" /> son cadenas vacías o <see langword="null" />.
+    /// Occurs when <paramref name="checkName" /> or
+    /// <paramref name="actualName" /> are empty strings or <see langword="null" />.
     /// </exception>
     public static float CouldItBe(this string checkName, string actualName)
     {
@@ -481,27 +445,27 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Comprueba si un nombre podría tratarse de otro indicado.
+    /// Checks if a name could be another specified name.
     /// </summary>
     /// <returns>
-    /// Un valor que representa la probabilidad de que
-    /// <paramref name="checkName" /> haga referencia al nombre
+    /// A value representing the probability that
+    /// <paramref name="checkName" /> refers to the name
     /// <paramref name="actualName" />.
     /// </returns>
-    /// <param name="checkName">Nombre a comprobar.</param>
-    /// <param name="actualName">Nombre real conocido.</param>
+    /// <param name="checkName">Name to check.</param>
+    /// <param name="actualName">Known actual name.</param>
     /// <param name="tolerance">
-    /// Opcional. <see cref="float" /> entre 0.0 y 1.0 que establece el
-    /// nivel mínimo de similitud aceptado. si no se especifica, se asume
+    /// Optional. A <see cref="float" /> between 0.0 and 1.0 that sets the
+    /// minimum acceptable level of similarity. If not specified, it defaults to
     /// 75% (0.75).
     /// </param>
     /// <exception cref="ArgumentOutOfRangeException">
-    /// Se produce cuando <paramref name="tolerance" /> no es un valor entre
-    /// <c>0.0f</c> y <c>1.0f</c>.
+    /// Occurs when <paramref name="tolerance" /> is not a value between
+    /// <c>0.0f</c> and <c>1.0f</c>.
     /// </exception>
     /// <exception cref="ArgumentNullException">
-    /// Se produce cuando <paramref name="checkName" /> o
-    /// <paramref name="actualName" /> son cadenas vacías o <see langword="null" />.
+    /// Occurs when <paramref name="checkName" /> or
+    /// <paramref name="actualName" /> are empty strings or <see langword="null" />.
     /// </exception>
     public static float CouldItBe(this string checkName, string actualName, float tolerance)
     {
@@ -515,34 +479,33 @@ public static class StringExtensions
             m++;
             n += actualName.Split(' ').Select(k => j.Likeness(k)).Where(l => l > tolerance).Sum();
         }
-
         return n / m;
     }
 
     /// <summary>
-    /// Cuenta los caracteres que contiene una cadena.
+    /// Counts the characters that a string contains.
     /// </summary>
     /// <returns>
-    /// Un <see cref="int" /> con la cantidad total de caracteres de
-    /// <paramref name="chars" /> que aparecen en <paramref name="stringToCheck" />.
+    /// An <see cref="int" /> with the total number of
+    /// <paramref name="chars" /> that appear in <paramref name="stringToCheck" />.
     /// </returns>
-    /// <param name="stringToCheck">Cadena a comprobar.</param>
-    /// <param name="chars">Caracteres a contar.</param>
+    /// <param name="stringToCheck">String to check.</param>
+    /// <param name="chars">Characters to count.</param>
     public static int CountChars(this string stringToCheck, params char[] chars)
     {
         return chars.Sum(j => stringToCheck.Count(a => a == j));
     }
 
     /// <summary>
-    /// Cuenta los caracteres que contiene una cadena.
+    /// Counts the characters that a string contains.
     /// </summary>
     /// <returns>
-    /// Un <see cref="int" /> con la cantidad total de
-    /// caracteres de <paramref name="chars" /> que aparecen en
+    /// An <see cref="int" /> with the total number of
+    /// characters of <paramref name="chars" /> that appear in
     /// <paramref name="stringToCheck" />.
     /// </returns>
-    /// <param name="stringToCheck">Cadena a comprobar.</param>
-    /// <param name="chars">Caracteres a contar.</param>
+    /// <param name="stringToCheck">String to check.</param>
+    /// <param name="chars">Characters to count.</param>
     [Sugar]
     public static int CountChars(this string stringToCheck, string chars)
     {
@@ -550,13 +513,13 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Determina si una cadena contiene un valor binario.
+    /// Determines if a string contains a binary value.
     /// </summary>
-    /// <param name="str">cadena a comprobar.</param>
+    /// <param name="str">String to check.</param>
     /// <returns>
-    /// <see langword="true" /> si la cadena contiene un valor que puede
-    /// ser interpretado como un número binario,
-    /// <see langword="false" /> en caso contrario.
+    /// <see langword="true" /> if the string contains a value that can
+    /// be interpreted as a binary number,
+    /// <see langword="false" /> otherwise.
     /// </returns>
     public static bool IsBinary(this string str)
     {
@@ -566,13 +529,12 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Determina si una cadena está vacía.
+    /// Determines if a string is empty.
     /// </summary>
     /// <returns>
-    /// <see langword="true" /> si la cadena está vacía o es <see langword="null" />; de lo
-    /// contrario, <see langword="false" />.
+    /// <see langword="true" /> if the string is empty or null; otherwise, <see langword="false" />.
     /// </returns>
-    /// <param name="stringToCheck">Cadena a comprobar.</param>
+    /// <param name="stringToCheck">String to check.</param>
     [Sugar]
     public static bool IsEmpty([NotNullWhen(false)] this string? stringToCheck)
     {
@@ -580,16 +542,16 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Comprueba si la cadena tiene un formato alfanumérico básico igual
-    /// al especificado.
+    /// Checks if the string has a basic alphanumeric format equal
+    /// to the specified one.
     /// </summary>
-    /// <param name="checkString"><see cref="string" /> a comprobar.</param>
+    /// <param name="checkString"><see cref="string" /> to check.</param>
     /// <param name="format">
-    /// Formato alfanumérico básico contra el cual comparar.
+    /// Basic alphanumeric format to compare against.
     /// </param>
     /// <returns>
-    /// <see langword="true" /> si el formato de la cadena es igual al
-    /// especificado, <see langword="false" /> en caso contrario.
+    /// <see langword="true" /> if the string's format is equal to
+    /// the specified one, <see langword="false" /> otherwise.
     /// </returns>
     public static bool IsFormattedAs(this string checkString, string format)
     {
@@ -597,30 +559,30 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Comprueba si la cadena tiene un formato alfanumérico básico igual
-    /// al especificado.
+    /// Checks if the string has a basic alphanumeric format equal
+    /// to the specified one.
     /// </summary>
-    /// <param name="checkString"><see cref="string" /> a comprobar.</param>
+    /// <param name="checkString"><see cref="string" /> to check.</param>
     /// <param name="format">
-    /// Formato alfanumérico básico contra el cual comparar.
+    /// Basic alphanumeric format to compare against.
     /// </param>
     /// <param name="checkCase">
-    /// Si se establece en <see langword="true" />, se hará una evaluación
-    /// sensible al Casing de la cadena.
+    /// If set to <see langword="true" />, a case-sensitive evaluation
+    /// of the string will be performed.
     /// </param>
     /// <returns>
-    /// <see langword="true" /> si el formato de la cadena es igual al
-    /// especificado, <see langword="false" /> en caso contrario.
+    /// <see langword="true" /> if the string's format is equal to
+    /// the specified one, <see langword="false" /> otherwise.
     /// </returns>
     public static bool IsFormattedAs(this string checkString, string format, bool checkCase)
     {
-        matchRules ??= new (string match, Func<char, bool> test)[] {
+        matchRules ??= [
             new("09", p => char.IsDigit(p)),
             new("Bb", p => "01".Contains(p)),
             new("Ff", p => byte.TryParse($"{p}", NumberStyles.HexNumber, null, out _)),
             new("AX", p => char.IsUpper(p)),
             new("ax", p => char.IsLower(p))
-        };
+        ];
         string? chkS = checkCase ? checkString : checkString.ToUpperInvariant();
         string? fS = checkCase ? format : format.ToUpperInvariant();
         if (chkS.Length != fS.Length) return false;
@@ -635,13 +597,13 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Determina si una cadena contiene un valor hexadecimal.
+    /// Determines if a string contains a hexadecimal value.
     /// </summary>
-    /// <param name="str">cadena a comprobar.</param>
+    /// <param name="str">String to check.</param>
     /// <returns>
-    /// <see langword="true" /> si la cadena contiene un valor que puede
-    /// ser interpretado como un número hexadecimal,
-    /// <see langword="false" /> en caso contrario.
+    /// <see langword="true" /> if the string contains a value that can
+    /// be interpreted as a hexadecimal number,
+    /// <see langword="false" /> otherwise.
     /// </returns>
     public static bool IsHex(this string str)
     {
@@ -650,16 +612,16 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Obtiene una cadena que contenga la cantidad de caracteres
-    /// especificados desde la izquierda de la cadena.
+    /// Gets a string that contains the specified number of characters
+    /// from the left side of the string.
     /// </summary>
     /// <param name="string">
-    /// Instancia de <see cref="string" /> a procesar.
+    /// Instance of <see cref="string" /> to process.
     /// </param>
-    /// <param name="length">Longitud de caracteres a obtener.</param>
+    /// <param name="length">Length of characters to obtain.</param>
     /// <returns>
-    /// Una cadena que contiene los caracteres especificados desde la
-    /// izquierda de la cadena.
+    /// A string that contains the specified number of characters from
+    /// the left side of the string.
     /// </returns>
     public static string Left(this string @string, int length)
     {
@@ -669,26 +631,25 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Calcula el porcentaje de similitud entre dos <see cref="string" />.
+    /// Calculates the percentage of similarity between two strings.
     /// </summary>
-    /// <returns>El porcentaje de similitud entre las dos cadenas.</returns>
-    /// <param name="ofString">Cadena A a comparar.</param>
-    /// <param name="toString">Cadena B a comparar.</param>
+    /// <returns>The percentage of similarity between the two strings.</returns>
+    /// <param name="ofString">String A to compare.</param>
+    /// <param name="toString">String B to compare.</param>
     public static float Likeness(this string ofString, string toString)
     {
         return ofString.Likeness(toString, 3);
     }
 
     /// <summary>
-    /// Calcula el porcentaje de similitud entre dos <see cref="string" />.
+    /// Calculates the percentage of similarity between two strings.
     /// </summary>
-    /// <returns>El porcentaje de similitud entre las dos cadenas.</returns>
-    /// <param name="ofString">Cadena A a comparar.</param>
-    /// <param name="toString">Cadena B a comparar.</param>
+    /// <returns>The percentage of similarity between the two strings.</returns>
+    /// <param name="ofString">String A to compare.</param>
+    /// <param name="toString">String B to compare.</param>
     /// <param name="tolerance">
-    /// Rango de tolerancia de la comparación. Representa la distancia
-    /// máxima permitida de cada carácter que todavía hace a las cadenas
-    /// similares.
+    /// Tolerance range for comparison. Represents the maximum allowed
+    /// distance for each character that still makes the strings similar.
     /// </param>
     public static float Likeness(this string ofString, string toString, int tolerance)
     {
@@ -697,36 +658,35 @@ public static class StringExtensions
         foreach (char c in toString.ToUpper())
             if (ofString.Substring(steps++, tolerance).Contains(c))
                 likes++;
-
         return likes / (float)steps;
     }
 
     /// <summary>
-    /// Se asegura de devolver <see cref="string.Empty" /> si la cadena
-    /// está vacía o es nula.
+    /// Ensures to return <see cref="string.Empty" /> if the string
+    /// is empty or null.
     /// </summary>
-    /// <param name="str">Cadena a devolver.</param>
+    /// <param name="str">String to return.</param>
     /// <returns>
-    /// La cadena, o <see cref="string.Empty" /> si la cadena está
-    /// vacía o es nula.
+    /// The string, or <see cref="string.Empty" /> if the string is
+    /// empty or null.
     /// </returns>
     public static string OrEmpty(this string? str)
     {
-        return OrX(str, string.Empty) ?? string.Empty;
+        return OrElse(str, string.Empty) ?? string.Empty;
     }
 
     /// <summary>
-    /// Se asegura de devolver <see cref="string.Empty" /> si la cadena
-    /// está vacía o es nula.
+    /// Ensures to return <see cref="string.Empty" /> if the string
+    /// is empty or null.
     /// </summary>
-    /// <param name="str">Cadena a devolver.</param>
+    /// <param name="str">String to return.</param>
     /// <param name="notEmptyFormat">
-    /// Formato a aplicar en caso de que la cadena no sea
+    /// Format to apply in case the string is not
     /// <see cref="string.Empty" />.
     /// </param>
     /// <returns>
-    /// La cadena, o <see cref="string.Empty" /> si la cadena está
-    /// vacía o es nula.
+    /// The string, or <see cref="string.Empty" /> if the string is
+    /// empty or null.
     /// </returns>
     public static string OrEmpty(this string? str, string notEmptyFormat)
     {
@@ -734,29 +694,31 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Se asegura de devolver <see langword="null" /> si la cadena
-    /// está vacía.
+    /// Ensures to return <see langword="null" /> if the string
+    /// is empty.
     /// </summary>
-    /// <param name="str">Cadena a devolver.</param>
+    /// <param name="str">String to return.</param>
     /// <returns>
-    /// La cadena, o <see langword="null" /> si la cadena está vacía.
+    /// The string, or <see langword="null" /> if the string is
+    /// empty.
     /// </returns>
-    public static string? OrNull([NotNullIfNotNull("str")] this string? str)
+    public static string? OrNull([NotNullIfNotNull(nameof(str))] this string? str)
     {
-        return OrX(str, null);
+        return OrElse(str, null);
     }
 
     /// <summary>
-    /// Se asegura de devolver <see langword="null" /> si la cadena
-    /// está vacía.
+    /// Ensures to return <see langword="null" /> if the string
+    /// is empty.
     /// </summary>
-    /// <param name="str">Cadena a devolver.</param>
+    /// <param name="str">String to return.</param>
     /// <param name="notNullFormat">
-    /// Formato a aplicar en caso de que la cadena no sea
+    /// Format to apply in case the string is not
     /// <see langword="null" />.
     /// </param>
     /// <returns>
-    /// La cadena, o <see langword="null" /> si la cadena está vacía.
+    /// The string, or <see langword="null" /> if the string is
+    /// empty.
     /// </returns>
     public static string? OrNull(this string? str, string notNullFormat)
     {
@@ -764,16 +726,16 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Obtiene una cadena que contenga la cantidad de caracteres
-    /// especificados desde la izquierda de la cadena.
+    /// Gets a string that contains the specified number of characters
+    /// from the left side of the string.
     /// </summary>
     /// <param name="string">
-    /// Instancia de <see cref="string" /> a procesar.
+    /// Instance of <see cref="string" /> to process.
     /// </param>
-    /// <param name="length">Longitud de caracteres a obtener.</param>
+    /// <param name="length">Number of characters to get.</param>
     /// <returns>
-    /// Una cadena que contiene los caracteres especificados desde la
-    /// izquierda de la cadena.
+    /// A string that contains the specified number of characters from
+    /// the left side of the string.
     /// </returns>
     public static string Right(this string @string, int length)
     {
@@ -783,14 +745,16 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Separa cada carácter de una cadena con el <see cref="char" />
-    /// especificado.
+    /// Separates each character in a string with the specified
+    /// <see cref="char" />.
     /// </summary>
-    /// <param name="str">Cadena a procesar.</param>
-    /// <param name="separationChar">Carácter de separación a utilizar.</param>
+    /// <param name="str">String to process.</param>
+    /// <param name="separationChar">
+    /// Character to use for separation.
+    /// </param>
     /// <returns>
-    /// Una cadena cuyos caracteres han sido separados con el
-    /// <see cref="char" /> especificado.
+    /// A string whose characters have been separated by the
+    /// specified <see cref="char" />.
     /// </returns>
     public static string Separate(this string str, char separationChar)
     {
@@ -806,16 +770,15 @@ public static class StringExtensions
                 yield return separationChar;
             }
         }
-
-        return new string(InsertSpace().ToArray());
+        return new string([.. InsertSpace()]);
     }
 
     /// <summary>
-    /// Separa cada carácter de una cadena con un espacio en blanco.
+    /// Separates each character in a string with a space.
     /// </summary>
-    /// <param name="str">Cadena a procesar.</param>
+    /// <param name="str">String to process.</param>
     /// <returns>
-    /// Una cadena cuyos caracteres han sido separados con un espacio en blanco.
+    /// A string whose characters have been separated by a space.
     /// </returns>
     public static string Spell(this string str)
     {
@@ -823,11 +786,11 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Separa una cadena por el Casing de sus caracteres.
+    /// Splits a string based on the casing of its characters.
     /// </summary>
-    /// <param name="name">Cadena a separar.</param>
+    /// <param name="name">String to split.</param>
     /// <returns>
-    /// Una enumeración de las cadenas resultantes de la separación por Casing.
+    /// An enumeration of strings resulting from splitting by case.
     /// </returns>
     public static IEnumerable<string> SplitByCase(this string? name)
     {
@@ -836,26 +799,24 @@ public static class StringExtensions
         {
             if (char.IsUpper(c) && ch.Count != 0)
             {
-                yield return new string(ch.ToArray());
+                yield return new string([.. ch]);
                 ch.Clear();
             }
             ch.Add(c);
         }
-        if (ch.Count != 0) yield return new string(ch.ToArray());
+        if (ch.Count != 0) yield return new string([.. ch]);
     }
 
     /// <summary>
-    /// Determina si la cadena inicia con cualquiera de las cadenas
-    /// especificadas.
+    /// Determines whether the string starts with any of the specified strings.
     /// </summary>
-    /// <param name="str">Cadena a comprobar.</param>
+    /// <param name="str">String to check.</param>
     /// <param name="strings">
-    /// Colección de cadenas iniciales a determinar.
+    /// Collection of initial strings to determine.
     /// </param>
     /// <returns>
-    /// <see langword="true" /> si la cadena comienza cun cualquiera de
-    /// las cadenas especificadas, <see langword="false" /> en caso
-    /// contrario.
+    /// <see langword="true" /> if the string starts with any of
+    /// the specified strings, otherwise <see langword="false" />.
     /// </returns>
     public static bool StartsWithAny(this string str, IEnumerable<string> strings)
     {
@@ -863,17 +824,15 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Determina si la cadena inicia con cualquiera de las cadenas
-    /// especificadas.
+    /// Determines whether the string starts with any of the specified strings.
     /// </summary>
-    /// <param name="str">Cadena a comprobar.</param>
+    /// <param name="str">String to check.</param>
     /// <param name="strings">
-    /// Colección de cadenas iniciales a determinar.
+    /// Collection of initial strings to determine.
     /// </param>
     /// <returns>
-    /// <see langword="true" /> si la cadena comienza cun cualquiera de
-    /// las cadenas especificadas, <see langword="false" /> en caso
-    /// contrario.
+    /// <see langword="true" /> if the string starts with any of
+    /// the specified strings, otherwise <see langword="false" />.
     /// </returns>
     public static bool StartsWithAny(this string str, params string[] strings)
     {
@@ -881,23 +840,20 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Determina si la cadena inicia con cualquiera de las cadenas
-    /// especificadas.
+    /// Determines whether the string starts with any of the specified strings,
+    /// with case sensitivity control.
     /// </summary>
-    /// <param name="str">Cadena a comprobar.</param>
+    /// <param name="str">String to check.</param>
     /// <param name="strings">
-    /// Colección de cadenas iniciales a determinar.
+    /// Collection of initial strings to determine.
     /// </param>
     /// <param name="ignoreCase">
-    /// Si se establece en <see langword="true" />, se tomarán en cuenta
-    /// mayúsculas y minúsculas como iguales, si se establece en
-    /// <see langword="false" />, se tomará en cuenta el casing de los
-    /// caracteres de las cadenas.
+    /// If set to <see langword="true" />, the comparison is case-insensitive;
+    /// if set to <see langword="false" />, the comparison is case-sensitive.
     /// </param>
     /// <returns>
-    /// <see langword="true" /> si la cadena comienza cun cualquiera de
-    /// las cadenas especificadas, <see langword="false" /> en caso
-    /// contrario.
+    /// <see langword="true" /> if the string starts with any of
+    /// the specified strings, otherwise <see langword="false" />.
     /// </returns>
     public static bool StartsWithAny(this string str, IEnumerable<string> strings, bool ignoreCase)
     {
@@ -905,26 +861,23 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Determina si la cadena inicia con cualquiera de las cadenas
-    /// especificadas.
+    /// Determines whether the string starts with any of the specified strings,
+    /// with case sensitivity and culture control.
     /// </summary>
-    /// <param name="str">Cadena a comprobar.</param>
+    /// <param name="str">String to check.</param>
     /// <param name="strings">
-    /// Colección de cadenas iniciales a determinar.
+    /// Collection of initial strings to determine.
     /// </param>
     /// <param name="ignoreCase">
-    /// Si se establece en <see langword="true" />, se tomarán en cuenta
-    /// mayúsculas y minúsculas como iguales, si se establece en
-    /// <see langword="false" />, se tomará en cuenta el casing de los
-    /// caracteres de las cadenas.
+    /// If set to <see langword="true" />, the comparison is case-insensitive;
+    /// if set to <see langword="false" />, the comparison is case-sensitive.
     /// </param>
     /// <param name="culture">
-    /// Determina la cultura a utilizar para realizar la comprobación.
+    /// The culture to use for the comparison.
     /// </param>
     /// <returns>
-    /// <see langword="true" /> si la cadena comienza cun cualquiera de
-    /// las cadenas especificadas, <see langword="false" /> en caso
-    /// contrario.
+    /// <see langword="true" /> if the string starts with any of
+    /// the specified strings, otherwise <see langword="false" />.
     /// </returns>
     public static bool StartsWithAny(this string str, IEnumerable<string> strings, bool ignoreCase, CultureInfo culture)
     {
@@ -932,21 +885,19 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Determina si la cadena inicia con cualquiera de las cadenas
-    /// especificadas.
+    /// Determines whether the string starts with any of the specified strings,
+    /// using specified comparison options.
     /// </summary>
-    /// <param name="str">Cadena a comprobar.</param>
+    /// <param name="str">String to check.</param>
     /// <param name="strings">
-    /// Colección de cadenas iniciales a determinar.
+    /// Collection of initial strings to determine.
     /// </param>
     /// <param name="comparison">
-    /// Especifica la cultura, casing y reglas de ordenado a utilizar
-    /// para realizar la comprobación.
+    /// Specifies how the string comparison should be performed (case, culture).
     /// </param>
     /// <returns>
-    /// <see langword="true" /> si la cadena comienza cun cualquiera de
-    /// las cadenas especificadas, <see langword="false" /> en caso
-    /// contrario.
+    /// <see langword="true" /> if the string starts with any of
+    /// the specified strings, otherwise <see langword="false" />.
     /// </returns>
     public static bool StartsWithAny(this string str, IEnumerable<string> strings, StringComparison comparison)
     {
@@ -954,18 +905,17 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Realiza una búsqueda tokenizada sobre la cadena especificada.
+    /// Performs a tokenized search on the specified string.
     /// </summary>
     /// <param name="str">
-    /// Cadena en la cual buscar.
+    /// The string in which to search.
     /// </param>
     /// <param name="searchTerms">
-    /// Términos de búsqueda.
+    /// Search terms.
     /// </param>
     /// <returns>
-    /// <see langword="true" /> si la cadena coincide con los términos de
-    /// búsqueda especificados, <see langword="false" /> en caso
-    /// contrario.
+    /// <see langword="true" /> if the string matches any of the
+    /// search terms, otherwise <see langword="false" />.
     /// </returns>
     public static bool TokenSearch(this string str, string searchTerms)
     {
@@ -973,21 +923,20 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Realiza una búsqueda tokenizada sobre la cadena especificada.
+    /// Performs a tokenized search on the specified string.
     /// </summary>
     /// <param name="str">
-    /// Cadena en la cual buscar.
+    /// The string in which to search.
     /// </param>
     /// <param name="searchTerms">
-    /// Términos de búsqueda.
+    /// Search terms.
     /// </param>
     /// <param name="options">
-    /// Opciones de búsqueda.
+    /// Search options.
     /// </param>
     /// <returns>
-    /// <see langword="true" /> si la cadena coincide con los términos de
-    /// búsqueda y las opciones especificadas, <see langword="false" /> en
-    /// caso contrario.
+    /// <see langword="true" /> if the string matches any of the
+    /// specified search terms and options, otherwise <see langword="false" />.
     /// </returns>
     public static bool TokenSearch(this string str, string searchTerms, SearchOptions options)
     {
@@ -995,48 +944,45 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Realiza una búsqueda tokenizada sobre la cadena especificada.
+    /// Performs a tokenized search on the specified string.
     /// </summary>
     /// <param name="str">
-    /// Cadena en la cual buscar.
+    /// The string in which to search.
     /// </param>
     /// <param name="searchTerms">
-    /// Términos de búsqueda.
+    /// Search terms.
     /// </param>
     /// <param name="separator">
-    /// Separador de tokens.
+    /// Token separator.
     /// </param>
     /// <param name="options">
-    /// Opciones de búsqueda.
+    /// Search options.
     /// </param>
     /// <returns>
-    /// <see langword="true" /> si la cadena coincide con los términos de
-    /// búsqueda y las opciones especificadas, <see langword="false" /> en
-    /// caso contrario.
+    /// <see langword="true" /> if the string matches any of the
+    /// specified search terms and options, otherwise <see langword="false" />.
     /// </returns>
     public static bool TokenSearch(this string str, string searchTerms, char separator, SearchOptions options)
     {
         string? s = options.HasFlag(SearchOptions.CaseSensitive) ? str : str.ToUpper();
         string? t = options.HasFlag(SearchOptions.CaseSensitive) ? searchTerms : searchTerms.ToUpper();
         string[]? terms = t.Split(separator);
-
         if (options.HasFlag(SearchOptions.WildCard))
             return options.HasFlag(SearchOptions.IncludeAll)
                 ? terms.All(j => Regex.IsMatch(s, WildCardToRegular(j)))
                 : terms.Any(j => Regex.IsMatch(s, WildCardToRegular(j)));
-
         return options.HasFlag(SearchOptions.IncludeAll)
             ? terms.All(j => s.Contains(j))
             : terms.Any(j => s.Contains(j));
     }
 
     /// <summary>
-    /// Convierte un <see cref="string" /> en un <see cref="SecureString" />.
+    /// Converts a <see cref="string" /> to a <see cref="SecureString" />.
     /// </summary>
-    /// <param name="string"><see cref="string" /> a convertir.</param>
+    /// <param name="string"><see cref="string" /> to convert.</param>
     /// <returns>
-    /// Un <see cref="SecureString" /> que contiene todos los caracteres
-    /// originales de la cadena provista.
+    /// A <see cref="SecureString" /> containing all the original characters
+    /// of the provided string.
     /// </returns>
     public static SecureString ToSecureString(this string @string)
     {
@@ -1046,13 +992,13 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Permite obtener el contenido de un <see cref="string" /> como un
-    /// <see cref="Stream" /> utilizando la codificación especificada.
+    /// Allows obtaining the content of a <see cref="string" /> as a
+    /// <see cref="Stream" /> using the specified encoding.
     /// </summary>
-    /// <param name="string">Cadena a convertir.</param>
-    /// <param name="encoding">Codificación de cadena.</param>
+    /// <param name="string">String to convert.</param>
+    /// <param name="encoding">String encoding.</param>
     /// <returns>
-    /// Un <see cref="Stream" /> con el contenido de la cadena.
+    /// A <see cref="Stream" /> containing the content of the string.
     /// </returns>
     public static Stream ToStream(this string @string, Encoding encoding)
     {
@@ -1060,18 +1006,16 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Permite obtener el contenido de un <see cref="string" /> como un
-    /// <see cref="Stream" /> utilizando la codificación UTF8.
+    /// Allows obtaining the content of a <see cref="string" /> as a
+    /// <see cref="Stream" /> using UTF8 encoding.
     /// </summary>
-    /// <param name="string">Cadena a convertir.</param>
+    /// <param name="string">String to convert.</param>
     /// <returns>
-    /// Un <see cref="Stream" /> con el contenido de la cadena.
+    /// A <see cref="Stream" /> containing the content of the string.
     /// </returns>
     /// <remarks>
-    /// A pesar de que las cadenas en .Net Framework son UTF16, ciertas
-    /// funciones comunes prefieren trabajar con cadenas codificadas en
-    /// UTF8, por lo que este método utiliza dicha codificación para
-    /// realizar la conversión.
+    /// Although strings in .NET Framework are UTF16, certain common functions
+    /// prefer working with UTF8 encoded strings, so this method uses that encoding for conversion.
     /// </remarks>
     public static Stream ToStream(this string @string)
     {
@@ -1079,14 +1023,13 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Convierte esta cadena en su representación en formato base64,
-    /// especificando el <see cref="Encoding"/> a utilizar para realizar la
-    /// conversión.
+    /// Converts this string into its base64 representation,
+    /// specifying the <see cref="Encoding"/> to use for the conversion.
     /// </summary>
-    /// <param name="string">Cadena a convertir.</param>
-    /// <param name="encoding">Codificación de la cadena.</param>
+    /// <param name="string">String to convert.</param>
+    /// <param name="encoding">String encoding.</param>
     /// <returns>
-    /// Una cadena en formato base64 con el contenido de la cadena original.
+    /// A base64 formatted string containing the content of the original string.
     /// </returns>
     public static string ToBase64(this string @string, Encoding encoding)
     {
@@ -1094,27 +1037,26 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Convierte esta cadena en su representación en formato base64
-    /// utilizando <see cref="Encoding.UTF8"/>.
+    /// Converts this string into its base64 representation
+    /// using <see cref="Encoding.UTF8"/>.
     /// </summary>
-    /// <param name="string">Cadena a convertir.</param>
+    /// <param name="string">String to convert.</param>
     /// <returns>
-    /// Una cadena en formato base64 con el contenido de la cadena original.
+    /// A base64 formatted string containing the content of the original string.
     /// </returns>
     public static string ToBase64(this string @string) => @string.ToBase64(Encoding.UTF8);
 
     /// <summary>
-    /// Devuelve una nueva cadena sin los caracteres especificados.
+    /// Returns a new string without the specified characters.
     /// </summary>
     /// <param name="string">
-    /// Cadena a procesar.
+    /// String to process.
     /// </param>
     /// <param name="chars">
-    /// Caracteres a remover.
+    /// Characters to remove.
     /// </param>
     /// <returns>
-    /// Una cadena que no contiene ninguno de los caracteres
-    /// especificados.
+    /// A string that does not contain any of the specified characters.
     /// </returns>
     public static string Without(this string @string, params char[] chars)
     {
@@ -1122,17 +1064,16 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Devuelve una nueva cadena sin las cadenas especificadas.
+    /// Returns a new string without the specified substrings.
     /// </summary>
     /// <param name="string">
-    /// Cadena a procesar.
+    /// String to process.
     /// </param>
     /// <param name="strings">
-    /// Cadenas a remover.
+    /// Substrings to remove.
     /// </param>
     /// <returns>
-    /// Una cadena que no contiene ninguno de las cadenas
-    /// especificadas.
+    /// A string that does not contain any of the specified substrings.
     /// </returns>
     public static string Without(this string @string, params string[] strings)
     {
@@ -1143,13 +1084,41 @@ public static class StringExtensions
         return @string;
     }
 
-    private static string WildCardToRegular(string value)
+    /// <summary>
+    /// Converts a wildcard pattern to a regular expression pattern.
+    /// </summary>
+    /// <param name="value">Wildcard pattern.</param>
+    /// <returns>Regular expression pattern.</returns>
+    public static string WildCardToRegular(string value)
     {
         return "^" + Regex.Escape(value).Replace("\\?", ".").Replace("\\*", ".*") + "$";
     }
 
-    private static string? OrX(string? source, string? emptyRetVal)
+    /// <summary>
+    /// Returns the first non-empty string from the provided strings.
+    /// </summary>
+    /// <param name="source">Source string.</param>
+    /// <param name="emptyRetVal">Value to return if all source strings are empty.</param>
+    /// <returns>Non-empty string or default value.</returns>
+    public static string? OrElse(string? source, string? emptyRetVal)
     {
         return !source.IsEmpty() ? source : emptyRetVal;
+    }
+
+    /// <summary>
+    /// Splits this string into chunks of the specified size.
+    /// </summary>
+    /// <param name="str">String to split.</param>
+    /// <param name="chunkSize">Chunk size.</param>
+    /// <returns>Enumerable collection of string chunks.</returns>
+    public static IEnumerable<string> Split(this string str, int chunkSize)
+    {
+        string Selector(int i)
+        {
+            int ch = i * chunkSize;
+            return str.Substring(ch,
+                ch + chunkSize > str.Length ? str.Length - ch : chunkSize);
+        }
+        return Enumerable.Range(0, (str.Length / chunkSize) + 1).Select(Selector);
     }
 }

@@ -31,25 +31,25 @@ SOFTWARE.
 namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
-/// Extensiones para todos los elementos de tipo <see cref="IDictionary{TKey, TValue}" />.
+/// Extensions for all items of type <see cref="IDictionary{TKey, TValue}" />.
 /// </summary>
 public static class DictionaryExtensions
 {
     /// <summary>
-    /// Agrega un valor al diccionario.
+    /// Adds a value to the dictionary.
     /// </summary>
     /// <typeparam name="TKey">
-    /// Tipo de llave a utilizar para identificar al valor.
+    /// Key type to use to identify the value.
     /// </typeparam>
-    /// <typeparam name="TValue">Tipo de valor a agregar.</typeparam>
+    /// <typeparam name="TValue">Type of value to add.</typeparam>
     /// <param name="dictionary">
-    /// Diccionario al cual agregar el nuevo valor.
+    /// Dictionary to which to add the new value.
     /// </param>
-    /// <param name="key">Llave para identificar al nuevo valor.</param>
-    /// <param name="value">Valor a agregar.</param>
+    /// <param name="key">Key to identify the new value.</param>
+    /// <param name="value">Value to add.</param>
     /// <returns>
-    /// La misma instancia que <paramref name="value"/>, permitiendo
-    /// utilizar sintaxis Fluent.
+    /// The same instance as <paramref name="value"/>, allowing
+    /// Fluent syntax to be used.
     /// </returns>
     public static TValue Push<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue value) where TKey : notnull
     {
@@ -58,20 +58,20 @@ public static class DictionaryExtensions
     }
 
     /// <summary>
-    /// Agrega un valor al diccionario especificado.
+    /// Adds a value to the specified dictionary.
     /// </summary>
     /// <typeparam name="TKey">
-    /// Tipo de llave a utilizar para identificar al valor.
+    /// Key type to use to identify the value.
     /// </typeparam>
-    /// <typeparam name="TValue">Tipo de valor a agregar.</typeparam>
+    /// <typeparam name="TValue">Type of value to add.</typeparam>
     /// <param name="dictionary">
-    /// Diccionario al cual agregar el nuevo valor.
+    /// Dictionary to which to add the new value.
     /// </param>
-    /// <param name="key">Llave para identificar al nuevo valor.</param>
-    /// <param name="value">Valor a agregar.</param>
+    /// <param name="key">Key to identify the new value.</param>
+    /// <param name="value">Value to add.</param>
     /// <returns>
-    /// La misma instancia que <paramref name="value"/>, permitiendo
-    /// utilizar sintaxis Fluent.
+    /// The same instance as <paramref name="value"/>, allowing
+    /// Fluent syntax to be used.
     /// </returns>
     public static TValue PushInto<TKey, TValue>(this TValue value, TKey key, IDictionary<TKey, TValue> dictionary) where TKey : notnull
     {
@@ -80,53 +80,46 @@ public static class DictionaryExtensions
     }
 
     /// <summary>
-    /// Obtiene el elemento con la llave especificada del diccionario,
-    /// quitándolo.
+    /// Gets the element with the specified key from the dictionary,
+    /// removing it.
     /// </summary>
     /// <typeparam name="TKey">
-    /// Tipo de llave del objeto a obtener.
+    /// Key type of the object to get.
     /// </typeparam>
     /// <typeparam name="TValue">
-    /// Tipo de valor contenido por el diccionario.
+    /// Value type contained by the dictionary.
     /// </typeparam>
     /// <param name="dictionary">
-    /// Diccionario desde el cual obtener y remover el objeto.
+    /// Dictionary from which to get and remove the object.
     /// </param>
-    /// <param name="key">Llave del objeto a obtener.</param>
-    /// <param name="value">Valor obtenido del diccionario.</param>
+    /// <param name="key">Key of the object to get.</param>
+    /// <param name="value">Value obtained from the dictionary.</param>
     /// <returns>
-    /// <see langword="true"/> si el objeto fue quitado satisfactoriamente
-    /// del diccionario, <see langword="false"/> en caso que el diccionario
-    /// no contuviese a un elemento con la llave especificada.
+    /// <see langword="true"/> if the object was successfully removed
+    /// from the dictionary, <see langword="false"/> if the dictionary
+    /// did not contain an element with the specified key.
     /// </returns>
     public static bool Pop<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, out TValue value) where TKey : notnull
     {
-        if (!dictionary.ContainsKey(key))
-        {
-            value = default!;
-            return false;
-        }
-        value = dictionary[key];
-        return dictionary.Remove(key);
+        return dictionary.TryGetValue(key, out value!) && dictionary.Remove(key);
     }
 
     /// <summary>
-    /// Comprueba la existencia de referencias circulares en un
-    /// diccionario de objetos en forma de árbol.
+    /// Checks for circular references in a
+    /// dictionary of tree-shaped objects.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de elementos contenidos en el diccionario.
+    /// Type of elements contained in the dictionary.
     /// </typeparam>
     /// <param name="dictionary">
-    /// Diccionario en el cual realizar la comprobación.
+    /// Dictionary in which to perform the check.
     /// </param>
     /// <param name="element">
-    /// Elemento a comprobar.
-    /// </param>r
+    /// Element to check.
+    /// </param>
     /// <returns>
-    /// <see langword="false"/> si no existen referencias circulares 
-    /// dentro del diccionario, <see langword="true"/> en caso 
-    /// contrario.
+    /// <see langword="false"/> if no circular references
+    /// exist within the dictionary, <see langword="true"/> otherwise.
     /// </returns>
     public static bool CheckCircularRef<T>(this IDictionary<T, IEnumerable<T>> dictionary, T element) where T : notnull
     {
@@ -134,22 +127,21 @@ public static class DictionaryExtensions
     }
 
     /// <summary>
-    /// Comprueba la existencia de referencias circulares en un
-    /// diccionario de objetos.
+    /// Checks for circular references in a
+    /// dictionary of objects.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de elementos contenidos en el diccionario.
+    /// Type of elements contained in the dictionary.
     /// </typeparam>
     /// <param name="dictionary">
-    /// Diccionario en el cual realizar la comprobación.
+    /// Dictionary in which to perform the check.
     /// </param>
     /// <param name="element">
-    /// Elemento a comprobar.
+    /// Element to check.
     /// </param>
     /// <returns>
-    /// <see langword="false"/> si no existen referencias circulares 
-    /// dentro del diccionario, <see langword="true"/> en caso 
-    /// contrario.
+    /// <see langword="false"/> if no circular references
+    /// exist within the dictionary, <see langword="true"/> otherwise.
     /// </returns>
     public static bool CheckCircularRef<T>(this IDictionary<T, ICollection<T>> dictionary, T element) where T : notnull
     {
@@ -157,59 +149,57 @@ public static class DictionaryExtensions
     }
 
     /// <summary>
-    /// Comprueba la existencia de referencias circulares en un
-    /// diccionario de objetos.
+    /// Checks for circular references in a
+    /// dictionary of objects.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de elementos contenidos en el diccionario.
+    /// Type of elements contained in the dictionary.
     /// </typeparam>
     /// <param name="dictionary">
-    /// Diccionario en el cual realizar la comprobación.
+    /// Dictionary in which to perform the check.
     /// </param>
     /// <param name="element">
-    /// Elemento a comprobar.
+    /// Element to check.
     /// </param>
     /// <returns>
-    /// <see langword="false"/> si no existen referencias circulares 
-    /// dentro del diccionario, <see langword="true"/> en caso 
-    /// contrario.
+    /// <see langword="false"/> if no circular references
+    /// exist within the dictionary, <see langword="true"/> otherwise.
     /// </returns>
     public static bool CheckCircularRef<T>(this IEnumerable<KeyValuePair<T, IEnumerable<T>>> dictionary, T element) where T : notnull
     {
-        Dictionary<T, IEnumerable<T>>? d = new();
+        Dictionary<T, IEnumerable<T>>? d = [];
         foreach (KeyValuePair<T, IEnumerable<T>> j in dictionary) d.Add(j.Key, j.Value);
         return BranchScanFails(element, element, d, new HashSet<T>());
     }
 
     /// <summary>
-    /// Comprueba la existencia de referencias circulares en un
-    /// diccionario de objetos.
+    /// Checks for circular references in a
+    /// dictionary of objects.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de elementos contenidos en el diccionario.
+    /// Type of elements contained in the dictionary.
     /// </typeparam>
     /// <param name="dictionary">
-    /// Diccionario en el cual realizar la comprobación.
+    /// Dictionary in which to perform the check.
     /// </param>
     /// <param name="element">
-    /// Elemento a comprobar.
+    /// Element to check.
     /// </param>
     /// <returns>
-    /// <see langword="false"/> si no existen referencias circulares 
-    /// dentro del diccionario, <see langword="true"/> en caso 
-    /// contrario.
+    /// <see langword="false"/> if no circular references
+    /// exist within the dictionary, <see langword="true"/> otherwise.
     /// </returns>
     public static bool CheckCircularRef<T>(this IEnumerable<KeyValuePair<T, ICollection<T>>> dictionary, T element) where T : notnull
     {
-        Dictionary<T, IEnumerable<T>>? d = new();
+        Dictionary<T, IEnumerable<T>>? d = [];
         foreach (KeyValuePair<T, ICollection<T>> j in dictionary) d.Add(j.Key, j.Value);
         return BranchScanFails(element, element, d, new HashSet<T>());
     }
 
     private static bool BranchScanFails<T>(T a, T b, IDictionary<T, IEnumerable<T>> tree, ICollection<T> keysChecked) where T : notnull
     {
-        if (!tree.ContainsKey(b)) return false;
-        foreach (T? j in tree[b])
+        if (!tree.TryGetValue(b, out IEnumerable<T>? value)) return false;
+        foreach (T? j in value)
         {
             if (keysChecked.Contains(j)) return false;
             keysChecked.Add(j);
@@ -221,8 +211,8 @@ public static class DictionaryExtensions
 
     private static bool BranchScanFails<T>(T a, T b, IDictionary<T, ICollection<T>> tree, ICollection<T> keysChecked) where T : notnull
     {
-        if (!tree.ContainsKey(b)) return false;
-        foreach (T? j in tree[b])
+        if (!tree.TryGetValue(b, out ICollection<T>? value)) return false;
+        foreach (T? j in value)
         {
             if (keysChecked.Contains(j)) return false;
             keysChecked.Add(j);

@@ -38,20 +38,12 @@ using TheXDS.MCART.Types.Extensions;
 namespace TheXDS.MCART.Types.Converters;
 
 /// <summary>
-/// Convierte un valor de enumeración a su presentación amigable como una cadena.
+/// Converts an enumeration value to its friendly presentation as a string.
 /// </summary>
-/// <param name="type">Tipo de enumeración a describir</param>
+/// <param name="type">Type of enumeration to describe</param>
 [RequiresUnreferencedCode(AttributeErrorMessages.MethodGetsTypeMembersByName)]
 public class EnumDescriptionConverter([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)] Type type) : EnumConverter(type)
 {
-    /// <inheritdoc/>
-    public override object? ConvertTo(ITypeDescriptorContext? context, CultureInfo? culture, object? value, Type destinationType)
-    {
-        return destinationType == typeof(string) && value is Enum e 
-            ? _converters.Select(p => p.Invoke(e)).NotNull().First()
-            : base.ConvertTo(context, culture, value, destinationType);
-    }
-
     private static readonly Func<Enum, string?>[] _converters;
 
     static EnumDescriptionConverter()
@@ -63,5 +55,13 @@ public class EnumDescriptionConverter([DynamicallyAccessedMembers(DynamicallyAcc
             e => e.GetAttribute<Attributes.DescriptionAttribute>()?.Value,
             e => e.NameOf()
         ];
+    }
+
+    /// <inheritdoc/>
+    public override object? ConvertTo(ITypeDescriptorContext? context, CultureInfo? culture, object? value, Type destinationType)
+    {
+        return destinationType == typeof(string) && value is Enum e 
+            ? _converters.Select(p => p.Invoke(e)).NotNull().First()
+            : base.ConvertTo(context, culture, value, destinationType);
     }
 }

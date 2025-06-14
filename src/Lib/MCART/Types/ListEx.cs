@@ -40,81 +40,93 @@ using TheXDS.MCART.Types.Extensions;
 namespace TheXDS.MCART.Types;
 
 /// <summary>
-/// Extensión observable de la clase 
-/// <see cref="List{T}" />. Provee de toda la
-/// funcionalidad previamente disponible, e incluye algunas extensiones
-/// útiles.
+/// Observable extension of the 
+/// <see cref="List{T}" /> class. Provides all 
+/// previously available functionality and 
+/// includes some useful extensions.
 /// </summary>
 /// <typeparam name="T">
-/// Tipo de los elementos que contendrá esta lista.
+/// Type of elements this list will contain.
 /// </typeparam>
 /// <remarks>
-/// Esta clase puede considerarse como una alternativa más completa a 
-/// <see cref="ObservableCollection{T}" /> con numerosos eventos
-/// adicionales y otras extensiones.
+/// This class can be considered as a more 
+/// complete alternative to 
+/// <see cref="ObservableCollection{T}" /> with 
+/// numerous additional events and other 
+/// extensions.
 /// </remarks>
-[Obsolete(AttributeErrorMessages.UnsuportedClass), ExcludeFromCodeCoverage]
+[Obsolete(AttributeErrorMessages.UnsuportedClass),
+ ExcludeFromCodeCoverage]
 public class ListEx<T> : List<T>, ICloneable<ListEx<T>>
 {
     /// <summary>
-    /// Se produce cuando se agregará un elemento a la lista.
+    /// Occurs when an item is about to be added 
+    /// to the list.
     /// </summary>
     public event EventHandler<AddingItemEventArgs<T>>? AddingItem;
 
     /// <summary>
-    /// Se produce cuando se insertará un elemento en la lista.
+    /// Occurs when an item is about to be 
+    /// inserted into the list.
     /// </summary>
     public event EventHandler<InsertingItemEventArgs<T>>? InsertingItem;
 
     /// <summary>
-    /// Se produce cuando se modificará un elemento de la lista
+    /// Occurs when an item in the list is about 
+    /// to be modified.
     /// </summary>
     public event EventHandler<ModifyingItemEventArgs<T>>? ModifyingItem;
 
     /// <summary>
-    /// Se produce cuando se eliminará un elemento de la lista.
+    /// Occurs when an item is about to be 
+    /// removed from the list.
     /// </summary>
     public event EventHandler<RemovingItemEventArgs<T>>? RemovingItem;
 
     /// <summary>
-    /// Se produce cuando la lista será actualizada.
+    /// Occurs when the list is about to be 
+    /// updated.
     /// </summary>
     public event EventHandler<ListUpdatingEventArgs<T>>? ListUpdating;
 
     /// <summary>
-    /// Se produce cuando se ha agregado un elemento a la lista.
+    /// Occurs when an item has been added to 
+    /// the list.
     /// </summary>
     public event EventHandler<AddedItemEventArgs<T>>? AddedItem;
 
     /// <summary>
-    /// Se produce cuando se ha insertado un elemento en la lista.
+    /// Occurs when an item has been inserted 
+    /// into the list.
     /// </summary>
     public event EventHandler<InsertedItemEventArgs<T>>? InsertedItem;
 
     /// <summary>
-    /// Se produce cuando se ha modificado un elemento de la lista.
+    /// Occurs when an item in the list has been 
+    /// modified.
     /// </summary>
     public event EventHandler<ItemModifiedEventArgs<T>>? ModifiedItem;
 
     /// <summary>
-    /// Se produce cuando se ha quitado un elemento de la lista.
+    /// Occurs when an item has been removed 
+    /// from the list.
     /// </summary>
     public event EventHandler<RemovedItemEventArgs<T>>? RemovedItem;
 
     /// <summary>
-    /// Se produce cuando la lista será vaciada por medio de 
-    /// <see cref="Clear"/>.
+    /// Occurs when the list is about to be 
+    /// cleared using <see cref="Clear"/>.
     /// </summary>
     public event EventHandler<CancelEventArgs>? ListClearing;
 
     /// <summary>
-    /// Se produce cuando la lista ha sido vaciada por medio de 
-    /// <see cref="Clear"/>.
+    /// Occurs when the list has been cleared 
+    /// using <see cref="Clear"/>.
     /// </summary>
     public event EventHandler? ListCleared;
 
     /// <summary>
-    /// Se produce cuando la lista ha sido actualizada.
+    /// Occurs when the list has been updated.
     /// </summary>
     public event EventHandler<ListUpdatedEventArgs<T>>? ListUpdated;
 
@@ -125,41 +137,42 @@ public class ListEx<T> : List<T>, ICloneable<ListEx<T>>
     public ListEx() { }
 
     /// <summary>
-    /// Initializes a new instance of the
+    /// Initializes a new instance of the 
     /// <see cref="ListEx{T}" />.
     /// </summary>
     /// <param name="collection">
-    /// Colección inicial de este <see cref="ListEx{T}" />.
+    /// Initial collection for this 
+    /// <see cref="ListEx{T}" />.
     /// </param>
     public ListEx(IEnumerable<T> collection) : base(collection) { }
 
     /// <summary>
-    /// Initializes a new instance of the
+    /// Initializes a new instance of the 
     /// <see cref="ListEx{T}"/>.
     /// </summary>
-    /// <param name="initialSize">Tamaño inicial de la lista.</param>
+    /// <param name="initialSize">Initial size of the list.</param>
     public ListEx(int initialSize) : base(initialSize) { }
-    
+
     /// <summary>
-    /// Devuelve el tipo de elementos de <see cref="ListEx{T}"/>.
+    /// Returns the type of elements of 
+    /// <see cref="ListEx{T}"/>.
     /// </summary>
     /// <returns>
-    /// El tipo de elementos que este <see cref="ListEx{T}"/> puede
-    /// contener.
+    /// The type of elements that this 
+    /// <see cref="ListEx{T}"/> can contain.
     /// </returns>
     public Type ItemType => typeof(T);
 
     /// <summary>
-    /// Activa o desactiva la generación de eventos.
+    /// Enables or disables event generation.
     /// </summary>
     public bool TriggerEvents { get; set; } = true;
 
     /// <summary>
-    /// Obtiene o establece el elemento ubicado en el índice
-    /// especificado.
+    /// Gets or sets the element at the specified index.
     /// </summary>
-    /// <param name="index">Índice del elemento.</param>
-    /// <returns>El elemento en la posición especificada.</returns>
+    /// <param name="index">Index of the element.</param>
+    /// <returns>The element at the specified position.</returns>
     public new T this[int index]
     {
         get => base[index];
@@ -178,12 +191,13 @@ public class ListEx<T> : List<T>, ICloneable<ListEx<T>>
     }
 
     /// <summary>
-    /// Añade un objeto al final de la <see cref="ListEx{T}"/>.
+    /// Adds an object to the end of the 
+    /// <see cref="ListEx{T}"/>.
     /// </summary>
     /// <param name="item">
-    /// El objeto a ser añadido al final de la <see cref="ListEx{T}"/>.
-    /// El valor puede ser <see langword="null"/> para tipos de
-    /// referencia.
+    /// The object to be added to the end of the 
+    /// <see cref="ListEx{T}"/>. The value can be 
+    /// <see langword="null"/> for reference types.
     /// </param>
     public new void Add(T item)
     {
@@ -199,10 +213,10 @@ public class ListEx<T> : List<T>, ICloneable<ListEx<T>>
     }
 
     /// <summary>
-    /// Agrega todos los elementos de una colección al final de la 
+    /// Adds all elements from a collection to the end of the 
     /// <see cref="ListEx{T}"/>.
     /// </summary>
-    /// <param name="collection">Colección a añadir.</param>
+    /// <param name="collection">Collection to add.</param>
     public new void AddRange(IEnumerable<T> collection)
     {
         if (TriggerEvents)
@@ -218,10 +232,10 @@ public class ListEx<T> : List<T>, ICloneable<ListEx<T>>
     }
 
     /// <summary>
-    /// Inserta un elemento en el índice especificado.
+    /// Inserts an element at the specified index.
     /// </summary>
-    /// <param name="index">Índice de destino del nuevo elemento.</param>
-    /// <param name="item">Elemento a insertar.</param>
+    /// <param name="index">Destination index of the new element.</param>
+    /// <param name="item">Element to insert.</param>
     public new void Insert(int index, T item)
     {
         if (TriggerEvents)
@@ -236,11 +250,10 @@ public class ListEx<T> : List<T>, ICloneable<ListEx<T>>
     }
 
     /// <summary>
-    /// Inserta una colección de elementos a partir del índice
-    /// especificado.
+    /// Inserts a collection of elements starting at the specified index.
     /// </summary>
-    /// <param name="index">Índice de destino para la inserción.</param>
-    /// <param name="collection">Colección de elementos a insertar.</param>
+    /// <param name="index">Destination index for the insertion.</param>
+    /// <param name="collection">Collection of elements to insert.</param>
     public new void InsertRange(int index, IEnumerable<T> collection)
     {
         if (TriggerEvents)
@@ -256,15 +269,15 @@ public class ListEx<T> : List<T>, ICloneable<ListEx<T>>
     }
 
     /// <summary>
-    /// Quita la primera aparición de un objeto específico del 
+    /// Removes the first occurrence of a specific object from the 
     /// <see cref="ListEx{T}"/>.
     /// </summary>
     /// <param name="item">
-    /// Objeto de tipo <typeparamref name="T"/> a remover de la
-    /// colección.
+    /// Object of type <typeparamref name="T"/> to remove from the 
+    /// collection.
     /// </param>
     /// <exception cref="IndexOutOfRangeException">
-    /// Se produce si esta lista está vacía.
+    /// Occurs if this list is empty.
     /// </exception>
     public new bool Remove(T item)
     {
@@ -282,13 +295,13 @@ public class ListEx<T> : List<T>, ICloneable<ListEx<T>>
     }
 
     /// <summary>
-    /// Quita el elemento situado en el índice especificado del 
+    /// Removes the element at the specified index from the 
     /// <see cref="ListEx{T}"/>.
     /// </summary>
-    /// <param name="index">Índice del elemento a remover.</param>
+    /// <param name="index">Index of the element to remove.</param>
     /// <exception cref="IndexOutOfRangeException">
-    /// Se produce si esta lista está vacía, o si se intenta remover un
-    /// elemento de un índice que no existe.
+    /// Occurs if this list is empty, or if you try to remove an element 
+    /// at an index that does not exist.
     /// </exception>
     public new void RemoveAt(int index)
     {
@@ -305,15 +318,15 @@ public class ListEx<T> : List<T>, ICloneable<ListEx<T>>
     }
 
     /// <summary>
-    /// Quita todos los elementos que cumplen con las condiciones
-    /// definidas por el predicado especificado.
+    /// Removes all elements that match the conditions defined by the 
+    /// specified predicate.
     /// </summary>
     /// <param name="match">
-    /// Delegado <see cref="Predicate{T}"/> que define las condiciones
-    /// de los elementos que se van a quitar.
+    /// A <see cref="Predicate{T}"/> delegate that defines the conditions 
+    /// of the elements to be removed.
     /// </param>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="match"/> es <see langword="null"/>.
+    /// Occurs if <paramref name="match"/> is <see langword="null"/>.
     /// </exception>
     public new int RemoveAll(Predicate<T> match)
     {
@@ -329,7 +342,7 @@ public class ListEx<T> : List<T>, ICloneable<ListEx<T>>
     }
 
     /// <summary>
-    /// Invierte el orden de todos los elementos en este 
+    /// Reverses the order of all elements in this 
     /// <see cref="ListEx{T}"/>.
     /// </summary>
     public new void Reverse()
@@ -346,14 +359,13 @@ public class ListEx<T> : List<T>, ICloneable<ListEx<T>>
     }
 
     /// <summary>
-    /// Invierte el orden de los elementos en el intervalo
-    /// especificado.
+    /// Reverses the order of the elements in the specified range.
     /// </summary>
     /// <param name="index">
-    /// Índice inicial de base cero del intervalo que se va a invertir.
+    /// The zero-based starting index of the range to reverse.
     /// </param>
     /// <param name="count">
-    /// Número de elementos del intervalo que se va a invertir.
+    /// The number of elements in the range to reverse.
     /// </param>
     public new void Reverse(int index, int count)
     {
@@ -369,11 +381,11 @@ public class ListEx<T> : List<T>, ICloneable<ListEx<T>>
     }
 
     /// <summary>
-    /// Devuelve una copia invertida de los elementos de este 
-    /// <see cref="ListEx{T}"/> sin alterar la colección original.
+    /// Returns a reversed copy of the elements in this 
+    /// <see cref="ListEx{T}"/> without modifying the original collection.
     /// </summary>
     /// <returns>
-    /// Una copia inversa de los elementos de este 
+    /// A reversed copy of the elements in this 
     /// <see cref="ListEx{T}"/>.
     /// </returns>
     public IEnumerable<T> Reversed()
@@ -384,17 +396,18 @@ public class ListEx<T> : List<T>, ICloneable<ListEx<T>>
     }
 
     /// <summary>
-    /// Devuelve una copia invertida de los elementos de este 
-    /// <see cref="ListEx{T}"/> sin alterar la colección original.
+    /// Returns a reversed copy of the elements in the specified range 
+    /// in this <see cref="ListEx{T}"/> without modifying the original 
+    /// collection.
     /// </summary>
     /// <param name="index">
-    /// Índice inicial de base cero del intervalo que se va a invertir.
+    /// The zero-based starting index of the range to reverse.
     /// </param>
     /// <param name="count">
-    /// Número de elementos del intervalo que se va a invertir.
+    /// The number of elements in the range to reverse.
     /// </param>
     /// <returns>
-    /// Una copia inversa de los elementos de este 
+    /// A reversed copy of the elements in the specified range in this 
     /// <see cref="ListEx{T}"/>.
     /// </returns>
     public IEnumerable<T> Reversed(int index, int count)
@@ -405,17 +418,17 @@ public class ListEx<T> : List<T>, ICloneable<ListEx<T>>
     }
 
     /// <summary>
-    /// Quita el último elemento de este <see cref="ListEx{T}"/>.
+    /// Removes the last element from this <see cref="ListEx{T}"/>.
     /// </summary>
     [Sugar] public void RemoveLast() => Remove(this.Last());
 
     /// <summary>
-    /// Quita el primer elemento de este <see cref="ListEx{T}"/>.
+    /// Removes the first element from this <see cref="ListEx{T}"/>.
     /// </summary>
     [Sugar] public void RemoveFirst() => Remove(this.First());
 
     /// <summary>
-    /// Quita todos los elementos de este <see cref="ListEx{T}"/>.
+    /// Removes all elements from this <see cref="ListEx{T}"/>.
     /// </summary>
     public new void Clear()
     {
@@ -431,8 +444,8 @@ public class ListEx<T> : List<T>, ICloneable<ListEx<T>>
     }
 
     /// <summary>
-    /// Ordena todos los elementos del <see cref="ListEx{T}"/>
-    /// utilizando el comparador predeterminado.
+    /// Sorts all elements in the <see cref="ListEx{T}"/> using the default 
+    /// comparer.
     /// </summary>
     public new void Sort()
     {
@@ -448,12 +461,11 @@ public class ListEx<T> : List<T>, ICloneable<ListEx<T>>
     }
 
     /// <summary>
-    /// Ordena todos los elementos del <see cref="ListEx{T}"/>
-    /// utilizando el <see cref="Comparison{T}"/> especificado.
+    /// Sorts all elements in the <see cref="ListEx{T}"/> using the specified 
+    /// <see cref="Comparison{T}"/>.
     /// </summary>
     /// <param name="comparison">
-    /// <see cref="Comparison{T}"/> que se va a utilizar al comparar 
-    /// elementos.
+    /// A <see cref="Comparison{T}"/> to use when comparing elements.
     /// </param>
     public new void Sort(Comparison<T> comparison)
     {
@@ -469,13 +481,12 @@ public class ListEx<T> : List<T>, ICloneable<ListEx<T>>
     }
 
     /// <summary>
-    /// Ordena todos los elementos del <see cref="ListEx{T}"/>
-    /// utilizando el <see cref="IComparer{T}"/> especificado.
+    /// Sorts all elements in the <see cref="ListEx{T}"/> using the specified 
+    /// <see cref="IComparer{T}"/>.
     /// </summary>
     /// <param name="comparer">
-    /// Implementación de <see cref="IComparer{T}"/> que se va a
-    /// utilizar al comparar elementos, o <see langword="null"/> para
-    /// utilizar el comparador predeterminado.
+    /// An implementation of <see cref="IComparer{T}"/> to use when comparing 
+    /// elements, or <see langword="null"/> to use the default comparer.
     /// </param>
     public new void Sort(IComparer<T> comparer)
     {
@@ -491,19 +502,18 @@ public class ListEx<T> : List<T>, ICloneable<ListEx<T>>
     }
 
     /// <summary>
-    /// Ordena los elementos en un intervalo especificado del 
-    /// <see cref="ListEx{T}"/> utilizando el comparador especificado.
+    /// Sorts the elements in a specified range in the <see cref="ListEx{T}"/> 
+    /// using the specified comparer.
     /// </summary>
     /// <param name="index">
-    /// Índice inicial de base cero del intervalo que se va a ordenar.
+    /// The zero-based starting index of the range to sort.
     /// </param>
     /// <param name="count">
-    /// Longitud del intervalo que se va a ordenar.
+    /// The length of the range to sort.
     /// </param>
     /// <param name="comparer">
-    /// Implementación de <see cref="IComparer{T}"/> que se va a
-    /// utilizar al comparar elementos, o <see langword="null"/> para
-    /// utilizar el comparador predeterminado.
+    /// An implementation of <see cref="IComparer{T}"/> to use when comparing 
+    /// elements, or <see langword="null"/> to use the default comparer.
     /// </param>
     public new void Sort(int index, int count, IComparer<T> comparer)
     {
@@ -519,8 +529,8 @@ public class ListEx<T> : List<T>, ICloneable<ListEx<T>>
     }
 
     /// <summary>
-    /// Implementa la interfaz <see cref="ICloneable{T}"/>.
+    /// Implements the <see cref="ICloneable{T}"/> interface.
     /// </summary>
-    /// <returns>Una copia de esta instancia.</returns>
+    /// <returns>A copy of this instance.</returns>
     public ListEx<T> Clone() => [.. this.Copy()];
 }

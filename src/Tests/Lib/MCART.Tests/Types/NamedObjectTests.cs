@@ -116,7 +116,7 @@ public class NamedObjectTests
         Assert.That(v.Equals(NamedObject.FromEnum<TestEnum>().ToArray()[2]), Is.False);
         Assert.That(v.Equals(TestEnum.B));
         Assert.That(v.Equals(TestEnum.C), Is.False);
-        Assert.That(new NamedObject<int?>(null, "Test").Equals(null));
+        Assert.That(new NamedObject<int?>("Test", null).Equals(null));
         Assert.That(v.Equals(null), Is.False);
         Assert.That(v.Equals(new Exception()), Is.False);
     }
@@ -170,7 +170,7 @@ public class NamedObjectTests
     [Test]
     public void To_string_TValue_tuple_implicit_conversion()
     {
-        NamedObject<int> n = new(1, "1");
+        NamedObject<int> n = new("1", 1);
         (string Name, int Value) tuple = n;
         Assert.Multiple(() => {
             Assert.That(tuple.Name == "1");
@@ -181,7 +181,7 @@ public class NamedObjectTests
     [Test]
     public void To_TValue_string_tuple_implicit_conversion()
     {
-        NamedObject<int> n = new(1, "1");
+        NamedObject<int> n = new("1", 1);
         (int Value, string Name) tuple = n;
         Assert.Multiple(() => {
             Assert.That(tuple.Name == "1");

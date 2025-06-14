@@ -31,18 +31,18 @@ SOFTWARE.
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
-/// Define una serie de miembros a implementar por un tipo que represente
-/// un tamaño en dos dimensiones.
+/// Defines a series of members to be implemented by a type that 
+/// represents a size in two dimensions.
 /// </summary>
 public interface ISize
 {
     /// <summary>
-    /// Obtiene el componente de altura del tamaño.
+    /// Gets the height component of the size.
     /// </summary>
     double Height { get; set; }
 
     /// <summary>
-    /// Obtiene el componente de ancho del tamaño.
+    /// Gets the width component of the size.
     /// </summary>
     double Width { get; set; }
 }

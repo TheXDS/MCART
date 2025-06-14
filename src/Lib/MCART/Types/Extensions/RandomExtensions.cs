@@ -31,28 +31,27 @@ SOFTWARE.
 namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
-/// Extensiones para la clase <see cref="Random" />
+/// Extensions for the <see cref="Random" /> class.
 /// </summary>
 public static class RandomExtensions
 {
     private const string Text = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     /// <summary>
-    /// Necesario para evitar que las funciones que requieren de números
-    /// aleatorios generen objetos <see cref="Random" /> con el mismo
-    /// número de semilla basada en tiempo.
+    /// Ensures that functions requiring random numbers don't generate
+    /// <see cref="Random" /> objects with the same time-based seed.
     /// </summary>
     public static Random Rnd { get; } = new();
 
     /// <summary>
-    /// Obtiene una cadena de texto aleatorio.
+    /// Gets a random text string.
     /// </summary>
     /// <param name="r">
-    /// Instancia del objeto <see cref="Random" /> a utilizar.
+    /// Instance of the <see cref="Random" /> object to use.
     /// </param>
-    /// <param name="length">Longitud de la cadena a generar.</param>
+    /// <param name="length">Length of the string to generate.</param>
     /// <returns>
-    /// Una cadena de texto aleatorio con la longitud especificada.
+    /// A random text string with the specified length.
     /// </returns>
     public static string RndText(this Random r, in int length)
     {
@@ -62,18 +61,16 @@ public static class RandomExtensions
     }
 
     /// <summary>
-    /// Devuelve un número entero aleatorio que se encuentra dentro del 
-    /// rango especificado.
+    /// Returns a random integer within the specified range.
     /// </summary>
     /// <param name="r">
-    /// Instancia del objeto <see cref="Random" /> a utilizar.
+    /// Instance of the <see cref="Random" /> object to use.
     /// </param>
     /// <param name="range">
-    /// <see cref="Range{T}" /> de números a seleccionar.
+    /// <see cref="Range{T}" /> of numbers to select from.
     /// </param>
     /// <returns>
-    /// Un número entero aleatorio que se encuentra dentro del rango
-    /// especificado.
+    /// A random integer within the specified range.
     /// </returns>
     public static int Next(this Random r, in Range<int> range)
     {
@@ -81,15 +78,14 @@ public static class RandomExtensions
     }
 
     /// <summary>
-    /// Obtiene aleatoriamente un valor <see langword="true"/> o
-    /// <see langword="false"/>.
+    /// Gets a random value of <see langword="true" /> or
+    /// <see langword="false" />.
     /// </summary>
     /// <returns>
-    /// <see langword="true"/> o <see langword="false"/>, de manera
-    /// aleatoria.
+    /// <see langword="true" /> or <see langword="false" /> randomly.
     /// </returns>
     /// <param name="r">
-    /// Instancia del objeto <see cref="Random" /> a utilizar.
+    /// Instance of the <see cref="Random" /> object to use.
     /// </param>
     public static bool CoinFlip(this Random r)
     {

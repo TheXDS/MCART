@@ -30,31 +30,28 @@ SOFTWARE.
 
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.IO;
-using TheXDS.MCART.Misc;
 
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
-/// Clase base para un objeto que permite crear un <see cref="Stream"/>
-/// a partir de una <see cref="Uri"/>.
+/// Base class for an object that allows creating a <see cref="Stream"/>
+/// from a <see cref="Uri"/>.
 /// </summary>
 public abstract class StreamUriParser : IStreamUriParser
 {
     private static StreamUriParser[]? _knownParsers;
 
     /// <summary>
-    /// Obtiene el <see cref="StreamUriParser"/> apropiado para manejar
-    /// al <see cref="Uri"/> especificado.
+    /// Gets the appropriate <see cref="StreamUriParser"/> to handle the
+    /// specified <see cref="Uri"/>.
     /// </summary>
     /// <param name="uri">
-    /// <see cref="Uri"/> a partir del cual crear un
-    /// <see cref="Stream"/>.
+    /// <see cref="Uri"/> from which to create a <see cref="Stream"/>.
     /// </param>
     /// <returns>
-    /// Un <see cref="StreamUriParser"/> que puede crear un
-    /// <see cref="Stream"/> a partir del <see cref="Uri"/>
-    /// especificado, o <see langword="null"/> si no existe un
-    /// <see cref="StreamUriParser"/> capaz de manejar el 
+    /// A <see cref="StreamUriParser"/> that can create a <see cref="Stream"/>
+    /// from the specified <see cref="Uri"/>, or <see langword="null"/> if no
+    /// <see cref="StreamUriParser"/> is capable of handling the
     /// <see cref="Uri"/>.
     /// </returns>
     public static StreamUriParser? Infer(Uri uri)
@@ -63,18 +60,16 @@ public abstract class StreamUriParser : IStreamUriParser
     }
 
     /// <summary>
-    /// Obtiene el <see cref="StreamUriParser"/> apropiado para manejar
-    /// al <see cref="Uri"/> especificado.
+    /// Gets the appropriate <see cref="StreamUriParser"/> to handle the
+    /// specified <see cref="Uri"/>.
     /// </summary>
     /// <param name="uri">
-    /// <see cref="Uri"/> a partir del cual crear un
-    /// <see cref="Stream"/>.
+    /// <see cref="Uri"/> from which to create a <see cref="Stream"/>.
     /// </param>
     /// <returns>
-    /// Un <see cref="StreamUriParser"/> que puede crear un
-    /// <see cref="Stream"/> a partir del <see cref="Uri"/>
-    /// especificado, o <see langword="null"/> si no existe un
-    /// <see cref="StreamUriParser"/> capaz de manejar el 
+    /// A <see cref="StreamUriParser"/> that can create a <see cref="Stream"/>
+    /// from the specified <see cref="Uri"/>, or <see langword="null"/> if no
+    /// <see cref="StreamUriParser"/> is capable of handling the
     /// <see cref="Uri"/>.
     /// </returns>
     public static StreamUriParser? Infer(string uri)
@@ -83,12 +78,12 @@ public abstract class StreamUriParser : IStreamUriParser
     }
 
     /// <summary>
-    /// Abre directamente un <see cref="Stream"/> desde el cual leer el
-    /// contenido del <paramref name="uri"/>.
+    /// Directly opens a <see cref="Stream"/> from which to read the
+    /// content of the <paramref name="uri"/>.
     /// </summary>
-    /// <param name="uri">Identificador del recurso a localizar.</param>
+    /// <param name="uri">Identifier of the resource to locate.</param>
     /// <returns>
-    /// Un <see cref="Stream"/> desde el cual leer el contenido del
+    /// A <see cref="Stream"/> from which to read the content of the
     /// <paramref name="uri"/>.
     /// </returns>
     [Sugar]
@@ -98,12 +93,12 @@ public abstract class StreamUriParser : IStreamUriParser
     }
 
     /// <summary>
-    /// Abre directamente de forma asíncrona un <see cref="Stream"/>
-    /// desde el cual leer el contenido del <paramref name="uri"/>.
+    /// Directly opens a <see cref="Stream"/> asynchronously from which to read the
+    /// content of the <paramref name="uri"/>.
     /// </summary>
-    /// <param name="uri">Identificador del recurso a localizar.</param>
+    /// <param name="uri">Identifier of the resource to locate.</param>
     /// <returns>
-    /// Un <see cref="Stream"/> desde el cual leer el contenido del
+    /// A <see cref="Stream"/> from which to read the content of the
     /// <paramref name="uri"/>.
     /// </returns>
     [Sugar]
@@ -113,21 +108,19 @@ public abstract class StreamUriParser : IStreamUriParser
     }
 
     /// <summary>
-    /// Obtiene el <see cref="StreamUriParser"/> apropiado para manejar
-    /// al <see cref="Uri"/> especificado.
+    /// Gets the appropriate <see cref="StreamUriParser"/> to handle the
+    /// specified <see cref="Uri"/>.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de <see cref="StreamUriParser"/> especializado a obtener.
+    /// Type of specialized <see cref="StreamUriParser"/> to obtain.
     /// </typeparam>
     /// <param name="uri">
-    /// <see cref="Uri"/> a partir del cual crear un
-    /// <see cref="Stream"/>.
+    /// <see cref="Uri"/> from which to create a <see cref="Stream"/>.
     /// </param>
     /// <returns>
-    /// Un <see cref="StreamUriParser"/> que puede crear un
-    /// <see cref="Stream"/> a partir del <see cref="Uri"/>
-    /// especificado, o <see langword="null"/> si no existe un
-    /// <see cref="StreamUriParser"/> capaz de manejar el 
+    /// A <see cref="StreamUriParser"/> that can create a <see cref="Stream"/>
+    /// from the specified <see cref="Uri"/>, or <see langword="null"/> if no
+    /// <see cref="StreamUriParser"/> is capable of handling the
     /// <see cref="Uri"/>.
     /// </returns>
     public static T? Infer<T>(Uri uri) where T : class, IStreamUriParser
@@ -136,21 +129,19 @@ public abstract class StreamUriParser : IStreamUriParser
     }
 
     /// <summary>
-    /// Obtiene el <see cref="StreamUriParser"/> apropiado para manejar
-    /// al <see cref="Uri"/> especificado.
+    /// Gets the appropriate <see cref="StreamUriParser"/> to handle the
+    /// specified <see cref="Uri"/>.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de <see cref="StreamUriParser"/> especializado a obtener.
+    /// Type of specialized <see cref="StreamUriParser"/> to obtain.
     /// </typeparam>
     /// <param name="uri">
-    /// <see cref="Uri"/> a partir del cual crear un
-    /// <see cref="Stream"/>.
+    /// <see cref="Uri"/> from which to create a <see cref="Stream"/>.
     /// </param>
     /// <returns>
-    /// Un <see cref="StreamUriParser"/> que puede crear un
-    /// <see cref="Stream"/> a partir del <see cref="Uri"/>
-    /// especificado, o <see langword="null"/> si no existe un
-    /// <see cref="StreamUriParser"/> capaz de manejar el 
+    /// A <see cref="StreamUriParser"/> that can create a <see cref="Stream"/>
+    /// from the specified <see cref="Uri"/>, or <see langword="null"/> if no
+    /// <see cref="StreamUriParser"/> is capable of handling the
     /// <see cref="Uri"/>.
     /// </returns>
     public static T? Infer<T>(string uri) where T : class, IStreamUriParser
@@ -159,23 +150,22 @@ public abstract class StreamUriParser : IStreamUriParser
     }
 
     /// <summary>
-    /// Obtiene un valor que determina si el <see cref="Stream"/>
-    /// producido por este objeto requiere ser cargado por completo en
-    /// un búfer de lectura en memoria.
+    /// Gets a value that determines if the <see cref="Stream"/>
+    /// produced by this object requires to be loaded completely into an
+    /// in-memory read buffer.
     /// </summary>
     public virtual bool PreferFullTransfer { get; } = false;
 
     /// <summary>
-    /// Obtiene un <see cref="Stream"/> que enlaza al recurso
-    /// solicitado, seleccionando el método más apropiado para obtener
-    /// dicho flujo de datos.
+    /// Gets a <see cref="Stream"/> that links to the requested resource,
+    /// selecting the most appropriate method to obtain that data stream.
     /// </summary>
     /// <param name="uri">
-    /// <see cref="Uri"/> a abrir para lectura.
+    /// <see cref="Uri"/> to open for reading.
     /// </param>
     /// <returns>
-    /// Un <see cref="Stream"/> desde el cual puede leerse el recurso
-    /// apuntado por el <see cref="Uri"/> especificado.
+    /// A <see cref="Stream"/> from which the resource pointed to by the
+    /// <see cref="Uri"/> specified can be read.
     /// </returns>
     public Stream? GetStream(Uri uri)
     {
@@ -183,16 +173,15 @@ public abstract class StreamUriParser : IStreamUriParser
     }
 
     /// <summary>
-    /// Obtiene un <see cref="Stream"/> que enlaza al recurso
-    /// solicitado, seleccionando el método más apropiado para obtener
-    /// dicho flujo de datos.
+    /// Gets a <see cref="Stream"/> that links to the requested resource,
+    /// selecting the most appropriate method to obtain that data stream.
     /// </summary>
     /// <param name="uri">
-    /// <see cref="Uri"/> a abrir para lectura.
+    /// <see cref="Uri"/> to open for reading.
     /// </param>
     /// <returns>
-    /// Un <see cref="Stream"/> desde el cual puede leerse el recurso
-    /// apuntado por el <see cref="Uri"/> especificado.
+    /// A <see cref="Stream"/> from which the resource pointed to by the
+    /// <see cref="Uri"/> specified can be read.
     /// </returns>
     public async Task<Stream?> GetStreamAsync(Uri uri)
     {
@@ -200,46 +189,42 @@ public abstract class StreamUriParser : IStreamUriParser
     }
 
     /// <summary>
-    /// Determina si este <see cref="StreamUriParser"/> puede crear un
-    /// <see cref="Stream"/> a partir del <see cref="Uri"/>
-    /// especificado.
+    /// Determines if this <see cref="StreamUriParser"/> can create a
+    /// <see cref="Stream"/> from the specified <see cref="Uri"/>.
     /// </summary>
     /// <param name="uri">
-    /// <see cref="Uri"/> a comprobar.
+    /// <see cref="Uri"/> to check.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si este <see cref="StreamUriParser"/>
-    /// puede crear un <see cref="Stream"/> a partir del
-    /// <see cref="Uri"/> especificado, <see langword="false"/> en caso
-    /// contrario.
+    /// <see langword="true"/> if this <see cref="StreamUriParser"/>
+    /// can create a <see cref="Stream"/> from the specified
+    /// <see cref="Uri"/>, <see langword="false"/> otherwise.
     /// </returns>
     public abstract bool Handles(Uri uri);
 
     /// <summary>
-    /// Abre un <see cref="Stream"/> desde el <see cref="Uri"/>
-    /// especificado.
+    /// Opens a <see cref="Stream"/> from the specified <see cref="Uri"/>.
     /// </summary>
     /// <param name="uri">
-    /// <see cref="Uri"/> a abrir para lectura.
+    /// <see cref="Uri"/> to open for reading.
     /// </param>
     /// <returns>
-    /// Un <see cref="Stream"/> desde el cual puede leerse el recurso
-    /// apuntado por el <see cref="Uri"/> especificado.
+    /// A <see cref="Stream"/> from which the resource pointed to by the
+    /// <see cref="Uri"/> specified can be read.
     /// </returns>
     public abstract Stream? Open(Uri uri);
 
     /// <summary>
-    /// Abre el <see cref="Stream"/> desde el <see cref="Uri"/>
-    /// especificado, y lo carga completamente en un nuevo
-    /// <see cref="Stream"/> intermedio de forma asíncrona antes de
-    /// devolverlo.
+    /// Opens the <see cref="Stream"/> from the specified <see cref="Uri"/>,
+    /// and loads it completely into a new intermediate <see cref="Stream"/>
+    /// before returning it.
     /// </summary>
     /// <param name="uri">
-    /// <see cref="Uri"/> a abrir para lectura.
+    /// <see cref="Uri"/> to open for reading.
     /// </param>
     /// <returns>
-    /// Un <see cref="Stream"/> desde el cual puede leerse el recurso
-    /// apuntado por el <see cref="Uri"/> especificado.
+    /// A <see cref="Stream"/> from which the resource pointed to by the
+    /// <see cref="Uri"/> specified can be read.
     /// </returns>
     public virtual Stream? OpenFullTransfer(Uri uri)
     {
@@ -254,16 +239,16 @@ public abstract class StreamUriParser : IStreamUriParser
     }
 
     /// <summary>
-    /// Abre el <see cref="Stream"/> desde el <see cref="Uri"/>
-    /// especificado, y lo carga completamente en un nuevo
-    /// <see cref="Stream"/> intermedio antes de devolverlo.
+    /// Opens the <see cref="Stream"/> from the specified <see cref="Uri"/>,
+    /// and loads it completely into a new intermediate <see cref="Stream"/>
+    /// before returning it.
     /// </summary>
     /// <param name="uri">
-    /// <see cref="Uri"/> a abrir para lectura.
+    /// <see cref="Uri"/> to open for reading.
     /// </param>
     /// <returns>
-    /// Un <see cref="Stream"/> desde el cual puede leerse el recurso
-    /// apuntado por el <see cref="Uri"/> especificado.
+    /// A <see cref="Stream"/> from which the resource pointed to by the
+    /// <see cref="Uri"/> specified can be read.
     /// </returns>
     public virtual async Task<Stream?> OpenFullTransferAsync(Uri uri)
     {

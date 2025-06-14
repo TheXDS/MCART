@@ -31,17 +31,15 @@ SOFTWARE.
 namespace TheXDS.MCART.Types;
 
 /// <summary>
-/// Clase que permite la creación y gestión de objetos
-/// <see cref="PauseToken"/>, utilizados para pausar la ejecución 
-/// cooperativa de tareas.
+/// A class that allows for the creation and management of <see cref="PauseToken"/>
+/// objects, used for cooperatively pausing task execution.
 /// </summary>
 public class PauseTokenSource
 {
     private volatile TaskCompletionSource<bool>? m_paused;
 
     /// <summary>
-    /// Obtiene o establece un valor que indica si este origen de pausa se
-    /// encuentra en estado pausado.
+    /// Gets or sets a value indicating whether this pause source is in a paused state.
     /// </summary>
     public bool IsPaused
     {
@@ -69,8 +67,7 @@ public class PauseTokenSource
     }
 
     /// <summary>
-    /// Obtiene un nuevo <see cref="PauseToken"/> que observará el estado
-    /// de esta instancia.
+    /// Gets a new <see cref="PauseToken"/> that will observe the state of this instance.
     /// </summary>
     public PauseToken Token => new(this);
 

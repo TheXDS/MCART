@@ -34,43 +34,31 @@ using TheXDS.MCART.Types.Extensions;
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
-/// Clase base que simplifica la implementación de la interfaz
-/// <see cref="IDisposable"/>.
+/// Base class that simplifies the implementation of the 
+/// <see cref="IDisposable"/> interface.
 /// </summary>
 /// <remarks>
-/// Si la clase a implementar contendrá acciones asíncronas de limpieza,
-/// utilice la clase <see cref="AsyncDisposable"/> como clase base.
+/// If the class to implement contains asynchronous disposal 
+/// actions, use the <see cref="AsyncDisposable"/> class as 
+/// the base class.
 /// </remarks>
 public abstract class Disposable : IDisposableEx
 {
     /// <summary>
-    /// Destruye esta instancia de la clase <see cref="Disposable"/>.
-    /// </summary>
-    ~Disposable()
-    {
-        if (ShouldFinalize()) Dispose(false);
-    }
-
-    /// <summary>
-    /// Obtiene un valor que indica si este objeto ha sido desechado.
+    /// Gets a value indicating whether this object has been 
+    /// disposed.
     /// </summary>
     public bool IsDisposed { get; private set; } = false;
 
-    private bool ShouldFinalize()
-    {
-        return ReflectionHelpers.GetMethod<Action>(() => OnFinalize).IsOverride();
-    }
-
     /// <summary>
-    /// Libera los recursos utilizados por esta instancia.
+    /// Releases the resources used by this instance.
     /// </summary>
     /// <param name="disposing">
-    /// Indica si deben liberarse los recursos administrados.
+    /// Indicates whether managed resources should be released.
     /// </param>
     protected void Dispose(bool disposing)
     {
         if (IsDisposed) return;
-
         if (disposing)
         {
             OnDispose();
@@ -80,22 +68,37 @@ public abstract class Disposable : IDisposableEx
     }
 
     /// <summary>
-    /// Realiza operaciones de limpieza para objetos no administrados.
+    /// Performs cleanup operations for unmanaged objects.
     /// </summary>
     protected virtual void OnFinalize() { }
 
     /// <summary>
-    /// Realiza las operaciones de limpieza de objetos administrados
-    /// desechables de esta instancia.
+    /// Performs cleanup operations for disposable managed objects 
+    /// for this instance.
     /// </summary>
     protected abstract void OnDispose();
 
     /// <summary>
-    /// Libera los recursos utilizados por esta instancia.
+    /// Releases the resources used by this instance.
     /// </summary>
     public void Dispose()
     {
         Dispose(true);
         if (ShouldFinalize()) GC.SuppressFinalize(this);
+    }
+
+    private bool ShouldFinalize()
+    {
+        return ReflectionHelpers.GetMethod<Action>(() => OnFinalize)
+            .IsOverride();
+    }
+
+    /// <summary>
+    /// Destroys this instance of the <see cref="Disposable"/> 
+    /// class.
+    /// </summary>
+    ~Disposable()
+    {
+        if (ShouldFinalize()) Dispose(false);
     }
 }

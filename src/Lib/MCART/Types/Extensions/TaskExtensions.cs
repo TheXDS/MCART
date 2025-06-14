@@ -34,30 +34,30 @@ using TheXDS.MCART.Attributes;
 namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
-/// Extensiones para la clase <see cref="Task"/>.
+/// Extensions for the <see cref="Task"/> class.
 /// </summary>
 [DebuggerStepThrough]
 public static class TaskExtensions
 {
     /// <summary>
-    /// Agrega soporte de cancelación a las tareas que no admiten el
-    /// uso de un <see cref="CancellationToken"/> de forma nativa.
+    /// Adds cancellation support to tasks that do not natively support
+    /// using a <see cref="CancellationToken"/>.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de resultado devuelto por la tarea.
+    /// Type of result returned by the task.
     /// </typeparam>
     /// <param name="task">
-    /// Tarea a ejecutar.
+    /// Task to execute.
     /// </param>
     /// <param name="cancellationToken">
-    /// Token de cancelación.
+    /// Cancellation token.
     /// </param>
     /// <returns>
-    /// El resultado de la operación asíncrona.
+    /// The result of the asynchronous operation.
     /// </returns>
     /// <exception cref="TaskCanceledException">
-    /// Se produce cuando la tarea es cancelada por medio de
-    /// <paramref name="cancellationToken"/> antes de finalizar.
+    /// Thrown when the task is canceled using
+    /// <paramref name="cancellationToken"/> before completing.
     /// </exception>
     public static Task<T> WithCancellation<T>(this Task<T> task, CancellationToken cancellationToken)
     {
@@ -71,21 +71,21 @@ public static class TaskExtensions
     }
 
     /// <summary>
-    /// Agrega soporte de cancelación a las tareas que no admiten el
-    /// uso de un <see cref="CancellationToken"/> de forma nativa.
+    /// Adds cancellation support to tasks that do not natively support
+    /// using a <see cref="CancellationToken"/>.
     /// </summary>
     /// <param name="task">
-    /// Tarea a ejecutar.
+    /// Task to execute.
     /// </param>
     /// <param name="cancellationToken">
-    /// Token de cancelación.
+    /// Cancellation token.
     /// </param>
     /// <returns>
-    /// El resultado de la operación asíncrona.
+    /// The result of the asynchronous operation.
     /// </returns>
     /// <exception cref="TaskCanceledException">
-    /// Se produce cuando la tarea es cancelada por medio de
-    /// <paramref name="cancellationToken"/> antes de finalizar.
+    /// Thrown when the task is canceled using
+    /// <paramref name="cancellationToken"/> before completing.
     /// </exception>
     public static Task WithCancellation(this Task task, CancellationToken cancellationToken)
     {
@@ -99,13 +99,13 @@ public static class TaskExtensions
     }
 
     /// <summary>
-    /// Espera la finalización de una tarea y devuelve su resultado.
+    /// Waits for a task to complete and returns its result.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de resultado devuelto por el <see cref="Task{TResult}"/>.
+    /// Type of result returned by the <see cref="Task{TResult}"/>.
     /// </typeparam>
-    /// <param name="task">Tarea a esperar.</param>
-    /// <returns>El resultado del <see cref="Task{TResult}"/>.</returns>
+    /// <param name="task">Task to wait for.</param>
+    /// <returns>The result of the <see cref="Task{TResult}"/>.</returns>
     [Sugar]
     public static T Yield<T>(this Task<T> task)
     {
@@ -113,14 +113,14 @@ public static class TaskExtensions
     }
 
     /// <summary>
-    /// Espera la finalización de una tarea y devuelve su resultado.
+    /// Waits for a task to complete and returns its result.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de resultado devuelto por el <see cref="Task{TResult}"/>.
+    /// Type of result returned by the <see cref="Task{TResult}"/>.
     /// </typeparam>
-    /// <param name="task">Tarea a esperar.</param>
-    /// <param name="ct">Token de cancelación de la tarea.</param>
-    /// <returns>El resultado del <see cref="Task{TResult}"/>.</returns>
+    /// <param name="task">Task to wait for.</param>
+    /// <param name="ct">Cancellation token for the task.</param>
+    /// <returns>The result of the <see cref="Task{TResult}"/>.</returns>
     [Sugar]
     public static T Yield<T>(this Task<T> task, CancellationToken ct)
     {
@@ -136,17 +136,17 @@ public static class TaskExtensions
     }
 
     /// <summary>
-    /// Espera la finalización de una tarea y devuelve su resultado.
+    /// Waits for a task to complete and returns its result.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de resultado devuelto por el <see cref="Task{TResult}"/>.
+    /// Type of result returned by the <see cref="Task{TResult}"/>.
     /// </typeparam>
-    /// <param name="task">Tarea a esperar.</param>
+    /// <param name="task">Task to wait for.</param>
     /// <param name="timeout">
-    /// Cantidad de tiempo a esperar a que la tarea finalice antes de
-    /// abortarla forzosamente.
+    /// Time span to wait for the task to complete before
+    /// forcibly aborting it.
     /// </param>
-    /// <returns>El resultado del <see cref="Task{TResult}"/>.</returns>
+    /// <returns>The result of the <see cref="Task{TResult}"/>.</returns>
     [Sugar]
     public static T Yield<T>(this Task<T> task, TimeSpan timeout)
     {
@@ -154,17 +154,17 @@ public static class TaskExtensions
     }
 
     /// <summary>
-    /// Espera la finalización de una tarea y devuelve su resultado.
+    /// Waits for a task to complete and returns its result.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de resultado devuelto por el <see cref="Task{TResult}"/>.
+    /// Type of result returned by the <see cref="Task{TResult}"/>.
     /// </typeparam>
-    /// <param name="task">Tarea a esperar.</param>
+    /// <param name="task">Task to wait for.</param>
     /// <param name="msTimeout">
-    /// Cantidad de tiempo en milisegundos a esperar a que la tarea
-    /// finalice antes de abortarla forzosamente.
+    /// Time in milliseconds to wait for the task
+    /// to complete before forcibly aborting it.
     /// </param>
-    /// <returns>El resultado del <see cref="Task{TResult}"/>.</returns>
+    /// <returns>The result of the <see cref="Task{TResult}"/>.</returns>
     [Sugar]
     public static T Yield<T>(this Task<T> task, int msTimeout)
     {
@@ -172,18 +172,18 @@ public static class TaskExtensions
     }
 
     /// <summary>
-    /// Espera la finalización de una tarea y devuelve su resultado.
+    /// Waits for a task to complete and returns its result.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de resultado devuelto por el <see cref="Task{TResult}"/>.
+    /// Type of result returned by the <see cref="Task{TResult}"/>.
     /// </typeparam>
-    /// <param name="task">Tarea a esperar.</param>
+    /// <param name="task">Task to wait for.</param>
     /// <param name="msTimeout">
-    /// Cantidad de tiempo en milisegundos a esperar a que la tarea
-    /// finalice antes de abortarla forzosamente.
+    /// Time in milliseconds to wait for the task
+    /// to complete before forcibly aborting it.
     /// </param>
-    /// <param name="ct">Token de cancelación de la tarea.</param>
-    /// <returns>El resultado del <see cref="Task{TResult}"/>.</returns>
+    /// <param name="ct">Cancellation token for the task.</param>
+    /// <returns>The result of the <see cref="Task{TResult}"/>.</returns>
     [Sugar]
     public static T Yield<T>(this Task<T> task, int msTimeout, CancellationToken ct)
     {
@@ -199,14 +199,13 @@ public static class TaskExtensions
     }
 
     /// <summary>
-    /// Pone en cola una tarea.
+    /// Queues a task.
     /// </summary>
-    /// <typeparam name="T">Tipo de la tarea.</typeparam>
-    /// <param name="task">Tarea a agregar a la cola.</param>
-    /// <param name="tasks">Cola de tareas.</param>
+    /// <typeparam name="T">Type of the task.</typeparam>
+    /// <param name="task">Task to add to the queue.</param>
+    /// <param name="tasks">Queue of tasks.</param>
     /// <returns>
-    /// <paramref name="task"/>, lo cual permite realizar llamadas con
-    /// sintaxis Fluent.
+    /// <paramref name="task"/>, which allows for fluent syntax calls.
     /// </returns>
     [Sugar]
     public static T Enqueue<T>(this T task, ICollection<Task> tasks) where T : Task

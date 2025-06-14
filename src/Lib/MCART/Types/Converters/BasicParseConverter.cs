@@ -37,28 +37,27 @@ using System.Globalization;
 namespace TheXDS.MCART.Types.Converters;
 
 /// <summary>
-/// Clase base para un
-/// <see cref="TypeConverter" /> básico que
-/// permita transformar un valor de <see cref="string" /> en
-/// un <typeparamref name="T" />.
+/// Base class for a basic
+/// <see cref="TypeConverter"/> that allows transforming a value of
+/// <see cref="string"/> into a <typeparamref name="T"/>.
 /// </summary>
 /// <typeparam name="T">
-/// Tipo de elemento de salida de este
-/// <see cref="TypeConverter" />.
+/// Type of the output element of this
+/// <see cref="TypeConverter"/>.
 /// </typeparam>
 public abstract class BasicParseConverter<T> : TypeConverter
 {
     /// <summary>
-    ///   Devuelve si este convertidor puede convertir un objeto del tipo especificado al tipo de este convertidor, mediante el contexto especificado.
+    /// Returns whether this converter can convert an object of the specified type to the type of this converter, using the specified context.
     /// </summary>
     /// <param name="context">
-    ///   <see cref="ITypeDescriptorContext" /> que ofrece un contexto de formato.
+    /// <see cref="ITypeDescriptorContext"/> that provides a formatting context.
     /// </param>
     /// <param name="sourceType">
-    ///   Un <see cref="Type" /> que representa el tipo que desea convertir.
+    /// A <see cref="Type"/> representing the type to be converted.
     /// </param>
     /// <returns>
-    ///   <see langword="true" /> si este convertidor puede realizar la conversión; en caso contrario, <see langword="false" />.
+    /// <see langword="true"/> if this converter can perform the conversion; otherwise, <see langword="false"/>.
     /// </returns>
     public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType)
     {
@@ -66,16 +65,16 @@ public abstract class BasicParseConverter<T> : TypeConverter
     }
 
     /// <summary>
-    ///   Devuelve si este convertidor puede convertir el objeto al tipo especificado, con el contexto especificado.
+    /// Returns whether this converter can convert the object to the specified type, with the specified context.
     /// </summary>
     /// <param name="context">
-    ///   Interfaz <see cref="ITypeDescriptorContext" /> que ofrece un contexto de formato.
+    /// <see cref="ITypeDescriptorContext"/> interface that provides a formatting context.
     /// </param>
     /// <param name="destinationType">
-    ///   <see cref="Type" /> que representa el tipo al que se quiere convertir.
+    /// A <see cref="Type"/> representing the type to which the conversion is intended.
     /// </param>
     /// <returns>
-    ///   <see langword="true" /> si este convertidor puede realizar la conversión; en caso contrario, <see langword="false" />.
+    /// <see langword="true"/> if this converter can perform the conversion; otherwise, <see langword="false"/>.
     /// </returns>
     public override bool CanConvertTo(ITypeDescriptorContext? context, Type? destinationType)
     {
@@ -83,22 +82,22 @@ public abstract class BasicParseConverter<T> : TypeConverter
     }
 
     /// <summary>
-    ///   Convierte el objeto determinado al tipo de este convertidor usando el contexto especificado y la información de referencia cultural.
+    /// Converts the specified object to the type of this converter using the specified context and culture information.
     /// </summary>
     /// <param name="context">
-    ///   <see cref="ITypeDescriptorContext" /> que ofrece un contexto de formato.
+    /// <see cref="ITypeDescriptorContext"/> that provides a formatting context.
     /// </param>
     /// <param name="culture">
-    ///   <see cref="CultureInfo" /> que se va a usar como referencia cultural actual.
+    /// A <see cref="CultureInfo"/> to use as the current culture.
     /// </param>
     /// <param name="value">
-    ///   <see cref="object" /> que se va a convertir.
+    /// The <see cref="object"/> to be converted.
     /// </param>
     /// <returns>
-    ///   Un <see cref="object" /> que representa el valor convertido.
+    /// An <see cref="object"/> representing the converted value.
     /// </returns>
     /// <exception cref="NotSupportedException">
-    ///   No se puede realizar la conversión.
+    /// The conversion cannot be performed.
     /// </exception>
     public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
     {
@@ -106,38 +105,38 @@ public abstract class BasicParseConverter<T> : TypeConverter
     }
 
     /// <summary>
-    /// Ejecuta la conversión de la cadena al tipo de este <see cref="BasicParseConverter{T}"/>.
+    /// Executes the conversion from string to the type of this <see cref="BasicParseConverter{T}"/>.
     /// </summary>
-    /// <param name="value">Cadena a convertir.</param>
+    /// <param name="value">String to convert.</param>
     /// <returns>
-    /// Un valor de tipo <typeparamref name="T"/> creado a partir de la cadena especificada.
+    /// A value of type <typeparamref name="T"/> created from the specified string.
     /// </returns>
     protected abstract T ConvertFrom(string? value);
 
     /// <summary>
-    ///   Convierte el objeto de valor determinado al tipo especificado usando el contexto y la información de referencia cultural especificados.
+    /// Converts the specified value object to the specified type using the specified context and culture information.
     /// </summary>
     /// <param name="context">
-    ///   <see cref="ITypeDescriptorContext" /> que proporciona un contexto de formato.
+    /// <see cref="ITypeDescriptorContext"/> that provides a formatting context.
     /// </param>
     /// <param name="culture">
-    ///   Objeto <see cref="CultureInfo" />.
-    ///    Si se pasa <see langword="null" />, se supone que se va a usar la referencia cultural actual.
+    /// <see cref="CultureInfo"/> object.
+    /// If null is passed, the current culture is assumed.
     /// </param>
     /// <param name="value">
-    ///   <see cref="object" /> que se va a convertir.
+    /// The <see cref="object"/> to be converted.
     /// </param>
     /// <param name="destinationType">
-    ///   El <see cref="Type" /> para convertir el <paramref name="value" /> parámetro.
+    /// The <see cref="Type"/> to convert the <paramref name="value"/> parameter.
     /// </param>
     /// <returns>
-    ///   Un <see cref="object" /> que representa el valor convertido.
+    /// An <see cref="object"/> representing the converted value.
     /// </returns>
     /// <exception cref="ArgumentNullException">
-    ///   El parámetro <paramref name="destinationType" /> es <see langword="null" />.
+    /// The <paramref name="destinationType"/> parameter is <see langword="null"/>.
     /// </exception>
     /// <exception cref="NotSupportedException">
-    ///   No se puede realizar la conversión.
+    /// The conversion cannot be performed.
     /// </exception>
     public override object? ConvertTo(ITypeDescriptorContext? context, CultureInfo? culture, object? value, Type destinationType)
     {
@@ -146,11 +145,11 @@ public abstract class BasicParseConverter<T> : TypeConverter
     }
 
     /// <summary>
-    /// Ejecuta la conversión de la cadena al tipo de este <see cref="BasicParseConverter{T}"/>.
+    /// Executes the conversion from string to the type of this <see cref="BasicParseConverter{T}"/>.
     /// </summary>
-    /// <param name="value">Cadena a convertir.</param>
+    /// <param name="value">String to convert.</param>
     /// <returns>
-    /// La representación como cadena del objeto especificado.
+    /// The string representation of the specified object.
     /// </returns>
     protected virtual string? ConvertTo(T value)
     {

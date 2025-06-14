@@ -37,12 +37,12 @@ namespace TheXDS.MCART.Types.Extensions;
 public static partial class EnumerableExtensions
 {
     /// <summary>
-    /// Itera de manera ordenada sobre la colección.
+    /// Iterates in sorted order over the collection.
     /// </summary>
-    /// <param name="collection">Colección sobre la cual iterar</param>
-    /// <typeparam name="T">Tipo de elementos de la colección.</typeparam>
+    /// <param name="collection">Collection to iterate over</param>
+    /// <typeparam name="T">Type of elements in the collection.</typeparam>
     /// <returns>
-    /// Un objeto enumerable ordenado creado a partir de la colección.
+    /// An ordered enumerable object created from the collection.
     /// </returns>
     [Sugar]
     public static IOrderedEnumerable<T> Ordered<T>(this IEnumerable<T> collection) where T : IComparable<T>
@@ -51,19 +51,19 @@ public static partial class EnumerableExtensions
     }
 
     /// <summary>
-    /// Ejecuta una tarea de forma asíncrona sobre cada ítem a enumerar.
+    /// Executes a task asynchronously over each item to be enumerated.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de elementos de la enumeración.
+    /// Type of elements in the enumeration.
     /// </typeparam>
-    /// <param name="input">Enumeración de entrada.</param>
+    /// <param name="input">Input enumeration.</param>
     /// <param name="processor">
-    /// Tarea asíncrona que se ejecutará sobre cada ítem antes de ser
-    /// enumerado.
+    /// Asynchronous task that will be executed over each item before being
+    /// enumerated.
     /// </param>
     /// <returns>
-    /// Un <see cref="IAsyncEnumerable{T}"/> que puede utilizarse para
-    /// esperar la enumeración de cada elemento.
+    /// An <see cref="IAsyncEnumerable{T}"/> that can be used to await
+    /// the enumeration of each element.
     /// </returns>
     public static async IAsyncEnumerable<T> YieldAsync<T>(this IEnumerable<T> input, Func<T, Task> processor)
     {
@@ -76,22 +76,22 @@ public static partial class EnumerableExtensions
     }
 
     /// <summary>
-    /// Transforma una enumeración de entrada al tipo de salida requerido
-    /// de forma asíncrona.
+    /// Transforms an input enumeration to the required output type
+    /// asynchronously.
     /// </summary>
     /// <typeparam name="TIn">
-    /// Tipo de elementos de la enumeración de entrada.
+    /// Type of elements in the input enumeration.
     /// </typeparam>
     /// <typeparam name="TOut">
-    /// Tipo de elementos de la enumeración de salida.
+    /// Type of elements in the output enumeration.
     /// </typeparam>
-    /// <param name="input">Enumeración de entrada.</param>
+    /// <param name="input">Input enumeration.</param>
     /// <param name="selector">
-    /// Tarea asíncrona que transformará los datos de entrada.
+    /// Asynchronous task that will transform the input data.
     /// </param>
     /// <returns>
-    /// Un <see cref="IAsyncEnumerable{T}"/> que puede utilizarse para
-    /// esperar la enumeración de cada elemento.
+    /// An <see cref="IAsyncEnumerable{T}"/> that can be used to await
+    /// the enumeration of each element.
     /// </returns>
     public static async IAsyncEnumerable<TOut> SelectAsync<TIn, TOut>(this IEnumerable<TIn> input, Func<TIn, Task<TOut>> selector)
     {
@@ -103,20 +103,20 @@ public static partial class EnumerableExtensions
     }
 
     /// <summary>
-    /// Obtiene al primer elemento del tipo solicitado dentro de una
-    /// colección.
+    /// Gets the first element of the requested type within a
+    /// collection.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de elementos contenidos en la colección.
+    /// Type of elements contained in the collection.
     /// </typeparam>
     /// <param name="collection">
-    /// Colección sobre la cual realizar la búsqueda.
+    /// Collection over which to perform the search.
     /// </param>
-    /// <param name="type">Tipo de elemento a buscar.</param>
+    /// <param name="type">Type of element to search for.</param>
     /// <returns>
-    /// El primer elemento de tipo <paramref name="type"/> que sea
-    /// encontrado en la colección, o <see langword="default"/> si no se
-    /// encuentra ningún elemento del tipo especificado.
+    /// The first element of type <paramref name="type"/> that is
+    /// found in the collection, or <see langword="default"/> if no element
+    /// of the specified type is found.
     /// </returns>
     [return: MaybeNull]
     [RequiresDynamicCode(Misc.AttributeErrorMessages.MethodCreatesNewTypes)]
@@ -127,19 +127,19 @@ public static partial class EnumerableExtensions
     }
 
     /// <summary>
-    /// Enumera todos los elementos de la colección que sean del tipo
-    /// especificado.
+    /// Enumerates all elements of the collection that are of the
+    /// specified type.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de elementos contenidos en la colección.
+    /// Type of elements contained in the collection.
     /// </typeparam>
     /// <param name="collection">
-    /// Colección sobre la cual realizar la búsqueda.
+    /// Collection over which to perform the search.
     /// </param>
-    /// <param name="type">Tipo de elementos a devolver.</param>
+    /// <param name="type">Type of elements to return.</param>
     /// <returns>
-    /// Una enumeración de todos los elementos de la colección que sean del
-    /// tipo especificado.
+    /// An enumeration of all elements of the collection that are of the
+    /// specified type.
     /// </returns>
     public static IEnumerable<T> OfType<T>(this IEnumerable<T> collection, Type type)
     {
@@ -148,17 +148,17 @@ public static partial class EnumerableExtensions
     }
 
     /// <summary>
-    /// Enumera todos los elementos de la colección, omitiendo los
-    /// especificados.
+    /// Enumerates all elements of the collection, omitting the
+    /// specified ones.
     /// </summary>
-    /// <typeparam name="T">Tipo de elementos de la colección.</typeparam>
-    /// <param name="collection">Colección a enumerar.</param>
+    /// <typeparam name="T">Type of elements in the collection.</typeparam>
+    /// <param name="collection">Collection to enumerate.</param>
     /// <param name="exclusions">
-    /// Elementos a excluir de la colección.
+    /// Elements to exclude from the collection.
     /// </param>
     /// <returns>
-    /// Una enumeración con los elementos de la colección, omitiendo
-    /// las exclusiones especificadas.
+    /// An enumeration with the elements of the collection, omitting the
+    /// specified exclusions.
     /// </returns>
     public static IEnumerable<T> ExceptFor<T>(this IEnumerable<T> collection, params T[] exclusions)
     {
@@ -172,14 +172,14 @@ public static partial class EnumerableExtensions
     }
 
     /// <summary>
-    /// Enumera los elementos no nulos de una colección.
+    /// Enumerates the non-null elements of a collection.
     /// </summary>
-    /// <typeparam name="T">Tipo de elementos de la colección.</typeparam>
-    /// <param name="collection">Colección a enumerar.</param>
+    /// <typeparam name="T">Type of elements in the collection.</typeparam>
+    /// <param name="collection">Collection to enumerate.</param>
     /// <returns>
-    /// Una enumeración con los elementos de la colección, omitiendo
-    /// aquellos que sean <see langword="null"/>, o una colección vacía si
-    /// <paramref name="collection"/> es <see langword="null"/>.
+    /// An enumeration with the non-null elements of the collection, or an
+    /// empty collection if <paramref name="collection"/> is
+    /// <see langword="null"/>.
     /// </returns>
     public static IEnumerable<T> NotNull<T>(this IEnumerable<T?>? collection) where T : class
     {
@@ -187,14 +187,14 @@ public static partial class EnumerableExtensions
     }
 
     /// <summary>
-    /// Enumera los elementos no nulos de una colección.
+    /// Enumerates the non-null elements of a collection.
     /// </summary>
-    /// <typeparam name="T">Tipo de elementos de la colección.</typeparam>
-    /// <param name="collection">Colección a enumerar.</param>
+    /// <typeparam name="T">Type of elements in the collection.</typeparam>
+    /// <param name="collection">Collection to enumerate.</param>
     /// <returns>
-    /// Una enumeración con los elementos de la colección, omitiendo
-    /// aquellos que sean <see langword="null"/>, o una colección vacía si
-    /// <paramref name="collection"/> es <see langword="null"/>.
+    /// An enumeration with the non-null elements of the collection, or an
+    /// empty collection if <paramref name="collection"/> is
+    /// <see langword="null"/>.
     /// </returns>
     public static IEnumerable<T> NotNull<T>(this IEnumerable<T?>? collection) where T : struct
     {
@@ -202,14 +202,14 @@ public static partial class EnumerableExtensions
     }
 
     /// <summary>
-    /// Enumera la colección, y devuelve <see langword="null"/> si la
-    /// colección no contiene elementos.
+    /// Enumerates the collection, and returns <see langword="null"/> if the
+    /// collection contains no elements.
     /// </summary>
-    /// <typeparam name="T">Tipo de elementos de la colección.</typeparam>
-    /// <param name="collection">Colección a enumerar.</param>
+    /// <typeparam name="T">Type of elements in the collection.</typeparam>
+    /// <param name="collection">Collection to enumerate.</param>
     /// <returns>
-    /// Una enumeración con los elementos de la colección, o
-    /// <see langword="null"/> si la colección no contiene elementos.
+    /// An enumeration with the elements of the collection, or
+    /// <see langword="null"/> if the collection contains no elements.
     /// </returns>
     public static IEnumerable<T>? OrNull<T>(this IEnumerable<T> collection)
     {
@@ -218,15 +218,15 @@ public static partial class EnumerableExtensions
     }
 
     /// <summary>
-    /// Enumera los elementos que sean distintos de su valor
-    /// predeterminado dentro de una colección.
+    /// Enumerates the elements that are distinct from their default value
+    /// within a collection.
     /// </summary>
-    /// <typeparam name="T">Tipo de elementos de la colección.</typeparam>
-    /// <param name="collection">Colección a enumerar.</param>
+    /// <typeparam name="T">Type of elements in the collection.</typeparam>
+    /// <param name="collection">Collection to enumerate.</param>
     /// <returns>
-    /// Una enumeración con los elementos de la colección, omitiendo
-    /// aquellos que sean iguales a su valor predeterminado, o en el
-    /// caso de tipos de referencia, omitiendo aquellos que sean 
+    /// An enumeration with the elements of the collection, omitting
+    /// those that are equal to their default value, or in the
+    /// case of reference types, omitting those that are
     /// <see langword="null"/>.
     /// </returns>
     public static IEnumerable<T> NonDefaults<T>(this IEnumerable<T?> collection) where T : notnull
@@ -235,25 +235,24 @@ public static partial class EnumerableExtensions
     }
 
     /// <summary>
-    /// Obtiene un sub-rango de valores dentro de este
+    /// Gets a sub-range of values within this
     /// <see cref="IEnumerable{T}" />.
     /// </summary>
     /// <param name="from">
-    /// <see cref="IEnumerable{T}" /> desde el cual extraer la secuencia.
+    /// <see cref="IEnumerable{T}" /> from which to extract the sequence.
     /// </param>
     /// <param name="index">
-    /// Índice a partir del cual obtener el sub-rango.
+    /// Index from which to obtain the sub-range.
     /// </param>
     /// <param name="count">
-    /// Cantidad de elementos a obtener.
+    /// Quantity of elements to obtain.
     /// </param>
     /// <returns>
-    /// Un <see cref="IEnumerable{T}" /> que contiene el sub-rango
-    /// especificado.
+    /// An <see cref="IEnumerable{T}" /> that contains the specified sub-range.
     /// </returns>
     /// <exception cref="IndexOutOfRangeException">
-    /// Se produce si <paramref name="index"/> está fuera del rango de
-    /// la colección.
+    /// Thrown if <paramref name="index"/> is out of the range of the
+    /// collection.
     /// </exception>
     public static IEnumerable<T> Range<T>(this IEnumerable<T> from, int index, int count)
     {
@@ -274,15 +273,15 @@ public static partial class EnumerableExtensions
     }
 
     /// <summary>
-    /// Obtiene una copia de los elementos de este <see cref="IEnumerable{T}" />
+    /// Returns a copy of the elements of this <see cref="IEnumerable{T}" />
     /// </summary>
     /// <returns>
-    /// Copia de esta lista. Los elementos de la copia representan la misma
-    /// instancia del objeto original.
+    /// Copy of this list. The elements of the copy represent the same
+    /// instance of the original object.
     /// </returns>
-    /// <param name="collection">Colección a copiar.</param>
+    /// <param name="collection">Collection to copy.</param>
     /// <typeparam name="T">
-    /// Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
+    /// Type of elements contained in the <see cref="IEnumerable{T}" />.
     /// </typeparam>
     public static IEnumerable<T> Copy<T>(this IEnumerable<T> collection)
     {
@@ -291,15 +290,15 @@ public static partial class EnumerableExtensions
     }
 
     /// <summary>
-    /// Devuelve una versión desordenada del <see cref="IEnumerable{T}" />
-    /// sin alterar la colección original.
+    /// Returns an unsorted version of the <see cref="IEnumerable{T}" />
+    /// without altering the original collection.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
+    /// Type of elements contained in the <see cref="IEnumerable{T}" />.
     /// </typeparam>
-    /// <param name="collection"><see cref="IEnumerable{T}" /> a desordenar.</param>
+    /// <param name="collection"><see cref="IEnumerable{T}" /> to shuffle.</param>
     /// <returns>
-    /// Una versión desordenada del <see cref="IEnumerable{T}" />.
+    /// An unsorted version of the <see cref="IEnumerable{T}" />.
     /// </returns>
     public static IEnumerable<T> Shuffled<T>(this IEnumerable<T> collection)
     {
@@ -307,18 +306,18 @@ public static partial class EnumerableExtensions
     }
 
     /// <summary>
-    /// Devuelve una versión desordenada del <see cref="IEnumerable{T}" />
-    /// sin alterar la colección original.
+    /// Returns an unsorted version of the <see cref="IEnumerable{T}" />
+    /// without altering the original collection.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
+    /// Type of elements contained in the <see cref="IEnumerable{T}" />.
     /// </typeparam>
-    /// <param name="collection"><see cref="IEnumerable{T}" /> a desordenar.</param>
+    /// <param name="collection"><see cref="IEnumerable{T}" /> to shuffle.</param>
     /// <param name="deepness">
-    /// Profundidad del desorden. 1 es el más alto.
+    /// Depth of the shuffle. 1 is the highest.
     /// </param>
     /// <returns>
-    /// Una versión desordenada del <see cref="IEnumerable{T}" />.
+    /// An unsorted version of the <see cref="IEnumerable{T}" />.
     /// </returns>
     public static IEnumerable<T> Shuffled<T>(this IEnumerable<T> collection, in int deepness)
     {
@@ -327,18 +326,17 @@ public static partial class EnumerableExtensions
     }
 
     /// <summary>
-    /// Devuelve una versión desordenada del intervalo especificado de
-    /// elementos del <see cref="IEnumerable{T}" /> sin alterar la colección
-    /// original.
+    /// Returns an unsorted version of the specified range of elements of the
+    /// <see cref="IEnumerable{T}" /> without altering the original collection.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
+    /// Type of elements contained in the <see cref="IEnumerable{T}" />.
     /// </typeparam>
-    /// <param name="collection"><see cref="IEnumerable{T}" /> a desordenar.</param>
-    /// <param name="firstIdx">Índice inicial del intervalo.</param>
-    /// <param name="lastIdx">Índice inicial del intervalo.</param>
+    /// <param name="collection"><see cref="IEnumerable{T}" /> to shuffle.</param>
+    /// <param name="firstIdx">Starting index of the range.</param>
+    /// <param name="lastIdx">Starting index of the range.</param>
     /// <returns>
-    /// Una versión desordenada del intervalo especificado de elementos del
+    /// An unsorted version of the specified range of elements of the
     /// <see cref="IEnumerable{T}" />.
     /// </returns>
     public static IEnumerable<T> Shuffled<T>(this IEnumerable<T> collection, in int firstIdx, in int lastIdx)
@@ -347,22 +345,21 @@ public static partial class EnumerableExtensions
     }
 
     /// <summary>
-    /// Devuelve una versión desordenada del intervalo especificado de
-    /// elementos del <see cref="IEnumerable{T}" /> sin alterar la colección
-    /// original.
+    /// Returns an unsorted version of the specified range of elements of the
+    /// <see cref="IEnumerable{T}" /> without altering the original collection.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
+    /// Type of elements contained in the <see cref="IEnumerable{T}" />.
     /// </typeparam>
-    /// <param name="collection"><see cref="IEnumerable{T}" /> a desordenar.</param>
-    /// <param name="firstIdx">Índice inicial del intervalo.</param>
-    /// <param name="lastIdx">Índice inicial del intervalo.</param>
+    /// <param name="collection"><see cref="IEnumerable{T}" /> to shuffle.</param>
+    /// <param name="firstIdx">Starting index of the range.</param>
+    /// <param name="lastIdx">Starting index of the range.</param>
     /// <param name="deepness">
-    /// Profundidad del desorden. 1 es el más alto.
+    /// Depth of the shuffle. 1 is the highest.
     /// </param>
-    /// <param name="random">Generador de números aleatorios a utilizar.</param>
+    /// <param name="random">Random number generator to use.</param>
     /// <returns>
-    /// Una versión desordenada del intervalo especificado de elementos del
+    /// An unsorted version of the specified range of elements of the
     /// <see cref="IEnumerable{T}" />.
     /// </returns>
     public static IEnumerable<T> Shuffled<T>(this IEnumerable<T> collection, in int firstIdx, in int lastIdx, in int deepness, in Random random)
@@ -373,15 +370,15 @@ public static partial class EnumerableExtensions
     }
 
     /// <summary>
-    /// Selecciona un elemento aleatorio de la colección.
+    /// Selects a random element from the collection.
     /// </summary>
-    /// <returns>Un objeto aleatorio de la colección.</returns>
-    /// <param name="collection">Colección desde la cual seleccionar.</param>
+    /// <returns>A random object from the collection.</returns>
+    /// <param name="collection">Collection from which to select.</param>
     /// <typeparam name="T">
-    /// Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
+    /// Type of elements contained in the <see cref="IEnumerable{T}" />.
     /// </typeparam>
     /// <returns>
-    /// Un elemento aleatorio de la colección.
+    /// A random element from the collection.
     /// </returns>
     public static T Pick<T>(this IEnumerable<T> collection)
     {
@@ -389,33 +386,33 @@ public static partial class EnumerableExtensions
     }
 
     /// <summary>
-    /// Selecciona un elemento aleatorio de la colección.
+    /// Selects a random element from the collection.
     /// </summary>
-    /// <returns>Un objeto aleatorio de la colección.</returns>
+    /// <returns>A random object from the collection.</returns>
     /// <typeparam name="T">
-    /// Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
+    /// Type of elements contained in the <see cref="IEnumerable{T}" />.
     /// </typeparam>
-    /// <param name="collection">Colección desde la cual seleccionar.</param>
-    /// <param name="random">Generador de números aleatorios a utilizar.</param>
+    /// <param name="collection">Collection from which to select.</param>
+    /// <param name="random">Random number generator to use.</param>
     /// <returns>
-    /// Un elemento aleatorio de la colección.
+    /// A random element from the collection.
     /// </returns>
     public static T Pick<T>(this IEnumerable<T> collection, in Random random)
     {
-       T[] c = [.. collection];
+        T[] c = [.. collection];
         if (c.Length == 0) throw Errors.EmptyCollection(c);
         return c[random.Next(0, c.Length)];
     }
 
     /// <summary>
-    /// Selecciona un elemento aleatorio de la colección de forma asíncrona.
+    /// Selects a random element from the collection asynchronously.
     /// </summary>
-    /// <returns>Un objeto aleatorio de la colección.</returns>
+    /// <returns>A random object from the collection.</returns>
     /// <typeparam name="T">
-    /// Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
+    /// Type of elements contained in the <see cref="IEnumerable{T}" />.
     /// </typeparam>
     /// <returns>
-    /// Una tarea que puede utilizarse para monitorear la operación.
+    /// A task that can be used to monitor the operation.
     /// </returns>
     public static async Task<T> PickAsync<T>(this IEnumerable<T> collection)
     {
@@ -425,13 +422,12 @@ public static partial class EnumerableExtensions
     }
 
     /// <summary>
-    /// Crea un <see cref="ListEx{T}"/> a partir de un <see cref="IEnumerable{T}"/>.
+    /// Creates a <see cref="ListEx{T}"/> from an <see cref="IEnumerable{T}"/>.
     /// </summary>
-    /// <param name="collection">Colección a convertir</param>
-    /// <typeparam name="T">Tipo de la colección.</typeparam>
+    /// <param name="collection">Collection to convert</param>
+    /// <typeparam name="T">Type of the collection.</typeparam>
     /// <returns>
-    /// Un <see cref="ListEx{T}" /> extendido del espacio de nombres
-    /// <see cref="Extensions" />.
+    /// A <see cref="ListEx{T}" /> from the <see cref="Extensions" /> namespace.
     /// </returns>
     [Obsolete(AttributeErrorMessages.UnsuportedClass)]
     public static ListEx<T> ToExtendedList<T>(this IEnumerable<T> collection)
@@ -440,12 +436,12 @@ public static partial class EnumerableExtensions
     }
 
     /// <summary>
-    /// Crea un <see cref="List{T}"/> a partir de un <see cref="IEnumerable{T}"/> de forma asíncrona.
+    /// Creates a <see cref="List{T}"/> from an <see cref="IEnumerable{T}"/> asynchronously.
     /// </summary>
-    /// <typeparam name="T">Tipo de la colección.</typeparam>
+    /// <typeparam name="T">Type of the collection.</typeparam>
     /// <param name="enumerable"></param>
     /// <returns>
-    /// Una tarea que puede utilizarse para monitorear la operación.
+    /// A task that can be used to monitor the operation.
     /// </returns>
     public static async Task<List<T>> ToListAsync<T>(this IEnumerable<T> enumerable)
     {
@@ -453,12 +449,12 @@ public static partial class EnumerableExtensions
     }
 
     /// <summary>
-    /// Crea un <see cref="ListEx{T}"/> a partir de un <see cref="IEnumerable{T}"/> de forma asíncrona.
+    /// Creates a <see cref="ListEx{T}"/> from an <see cref="IEnumerable{T}"/> asynchronously.
     /// </summary>
-    /// <typeparam name="T">Tipo de la colección.</typeparam>
+    /// <typeparam name="T">Type of the collection.</typeparam>
     /// <param name="enumerable"></param>
     /// <returns>
-    /// Una tarea que puede utilizarse para monitorear la operación.
+    /// A task that can be used to monitor the operation.
     /// </returns>
     [Obsolete(AttributeErrorMessages.UnsuportedClass)]
     public static async Task<ListEx<T>> ToExtendedListAsync<T>(this IEnumerable<T> enumerable)
@@ -466,15 +462,14 @@ public static partial class EnumerableExtensions
         return await Task.Run(enumerable.ToExtendedList);
     }
 
-    /// <summary>Rota los elementos de un arreglo, lista o colección.</summary>
-    /// <param name="collection">Arreglo a rotar</param>
-    /// <param name="steps">Dirección y unidades de rotación.</param>
+    /// <summary>Rotates the elements of an array, list, or collection.</summary>
+    /// <param name="collection">Array to rotate</param>
+    /// <param name="steps">Direction and units of rotation.</param>
     /// <remarks>
-    /// Si <paramref name="steps" /> es positivo, la rotación ocurre de forma
-    /// ascendente; en caso contrario, descendente.
+    /// If <paramref name="steps" /> is positive, the rotation occurs upwards; otherwise, downwards.
     /// </remarks>
     /// <typeparam name="T">
-    /// Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
+    /// Type of elements contained in the <see cref="IEnumerable{T}" />.
     /// </typeparam>
     public static IEnumerable<T> Rotate<T>(this IEnumerable<T> collection, int steps)
     {
@@ -485,7 +480,6 @@ public static partial class EnumerableExtensions
                 using IEnumerator<T> e = collection.GetEnumerator();
                 e.Reset();
                 int j = 0;
-
                 while (j++ < steps) e.MoveNext();
                 while (e.MoveNext()) yield return e.Current;
                 e.Reset();
@@ -494,7 +488,6 @@ public static partial class EnumerableExtensions
                     e.MoveNext();
                     yield return e.Current;
                 }
-
                 break;
             }
             case < 0:
@@ -502,8 +495,7 @@ public static partial class EnumerableExtensions
                 List<T> c = [];
                 using IEnumerator<T> e = collection.GetEnumerator();
                 e.Reset();
-
-                // HACK: La implementación para IList<TValue> es funcional, y no requiere de trucos inusuales para rotar.
+                // HACK: The implementation for IList<TValue> is functional, and does not require unusual tricks to rotate.
                 while (e.MoveNext()) c.Add(e.Current);
                 c.ApplyRotate(steps);
                 foreach (T? i in c) yield return i;
@@ -517,15 +509,14 @@ public static partial class EnumerableExtensions
         }
     }
 
-    /// <summary>Desplaza los elementos de un arreglo, lista o colección.</summary>
-    /// <param name="collection">Arreglo a desplazar</param>
-    /// <param name="steps">Dirección y unidades de desplazamiento.</param>
+    /// <summary>Shifts the elements of an array, list, or collection.</summary>
+    /// <param name="collection">Array to shift</param>
+    /// <param name="steps">Direction and units of shift.</param>
     /// <remarks>
-    /// Si <paramref name="steps" /> es positivo, la rotación ocurre de forma
-    /// ascendente; en caso contrario, descendente.
+    /// If <paramref name="steps" /> is positive, the shift occurs upwards; otherwise, downwards.
     /// </remarks>
     /// <typeparam name="T">
-    /// Tipo de elementos contenidos en el <see cref="IEnumerable{T}" />.
+    /// Type of elements contained in the <see cref="IEnumerable{T}" />.
     /// </typeparam>
     public static IEnumerable<T> Shift<T>(this IEnumerable<T> collection, int steps)
     {
@@ -538,7 +529,12 @@ public static partial class EnumerableExtensions
                 int j = 0;
                 while (j++ < steps) e.MoveNext();
                 while (e.MoveNext()) yield return e.Current;
-                while (--j > 0) yield return default!;
+                while (--j > 0)
+                {
+                    // Yield default to avoid compilation issues when T is a value type.
+                    // This assumes default is an appropriate value for a shifted element.
+                    yield return default!;
+                }
                 break;
             }
             case < 0:
@@ -546,12 +542,15 @@ public static partial class EnumerableExtensions
                 using IEnumerator<T> e = collection.GetEnumerator();
                 e.Reset();
                 int j = 0;
-
                 List<T> c = [];
-
-                // HACK: Enumeración manual
+                // Manual enumeration
                 while (e.MoveNext()) c.Add(e.Current);
-                while (j-- > steps) yield return default!;
+                while (j-- > steps)
+                {
+                    // Yield default to avoid compilation issues when T is a value type.
+                    // This assumes default is an appropriate value for a shifted element.
+                    yield return default!;
+                }
                 j += c.Count;
                 while (j-- >= 0) yield return c.PopFirst();
                 break;
@@ -565,20 +564,20 @@ public static partial class EnumerableExtensions
     }
 
     /// <summary>
-    /// Obtiene un valor que indica si el valor de la propiedad de todos
-    /// los objetos en la colección es igual.
+    /// Gets a value that indicates whether the value of the property of all
+    /// objects in the collection is equal.
     /// </summary>
-    /// <typeparam name="T">Tipo de objetos de la colección.</typeparam>
+    /// <typeparam name="T">Type of objects in the collection.</typeparam>
     /// <param name="c">
-    /// Colección que contiene los objetos a comprobar.
+    /// Collection containing the objects to check.
     /// </param>
     /// <param name="selector">
-    /// Función selectora de valor.
+    /// Selector function.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si el valor de la propiedad de todos los
-    /// objetos de la colección es el mismo, <see langword="false"/> en 
-    /// caso contrario.
+    /// <see langword="true"/> if the value of the property of all
+    /// objects in the collection is the same, <see langword="false"/>
+    /// otherwise.
     /// </returns>
     public static bool IsPropertyEqual<T>(this IEnumerable<T> c, Func<T, object> selector)
     {
@@ -586,15 +585,15 @@ public static partial class EnumerableExtensions
     }
 
     /// <summary>
-    /// Comprueba si todos los objetos de la colección son iguales.
+    /// Checks whether all objects in the collection are equal.
     /// </summary>
-    /// <typeparam name="T">Tipo de objetos de la colección.</typeparam>
+    /// <typeparam name="T">Type of objects in the collection.</typeparam>
     /// <param name="c">
-    /// Colección que contiene los objetos a comprobar.
+    /// Collection containing the objects to check.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si todos los objetos de la colección son
-    /// iguales, <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if all objects in the collection are
+    /// equal, <see langword="false"/> otherwise.
     /// </returns>
     public static bool AreAllEqual<T>(this IEnumerable<T> c)
     {
@@ -609,21 +608,20 @@ public static partial class EnumerableExtensions
     }
 
     /// <summary>
-    /// Comprueba si la propiedad o valor dentro de todos los objetos de la
-    /// colección son iguales.
+    /// Checks whether the property or value within all objects in the
+    /// collection are equal.
     /// </summary>
-    /// <typeparam name="T">Tipo de objetos de la colección.</typeparam>
-    /// <typeparam name="TProp">Tipo de valor a comparar.</typeparam>
+    /// <typeparam name="T">Type of objects in the collection.</typeparam>
+    /// <typeparam name="TProp">Type of value to compare.</typeparam>
     /// <param name="c">
-    /// Colección que contiene los objetos a comprobar.
+    /// Collection containing the objects to check.
     /// </param>
     /// <param name="selector">
-    /// Función de selección del valor de cada objeto.
+    /// Selector function for the value of each object.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si todos los valores seleccionados a partir
-    /// de los objetos de la colección son iguales, <see langword="false"/>
-    /// en caso contrario.
+    /// <see langword="true"/> if all selected values from the objects in the
+    /// collection are equal, <see langword="false"/> otherwise.
     /// </returns>
     [Sugar]
     public static bool AreAllEqual<T, TProp>(this IEnumerable<T> c, Func<T, TProp> selector)
@@ -632,18 +630,18 @@ public static partial class EnumerableExtensions
     }
 
     /// <summary>
-    /// Encuentra el índice de un objeto dentro de una colección.
+    /// Finds the index of an object within a collection.
     /// </summary>
-    /// <typeparam name="T">Tipo de objetos de la colección.</typeparam>
+    /// <typeparam name="T">Type of objects in the collection.</typeparam>
     /// <param name="e">
-    /// Colección que contiene los objetos a comprobar.
+    /// Collection containing the objects to check.
     /// </param>
     /// <param name="item">
-    /// Ítem del cual obtener el índice.
+    /// Item to get the index of.
     /// </param>
     /// <returns>
-    /// El índice del objeto especificado, o <c>-1</c> si el objeto no
-    /// existe dentro de la colección.
+    /// The index of the specified object, or <c>-1</c> if the object does
+    /// not exist within the collection.
     /// </returns>
     public static int FindIndexOf<T>(this IEnumerable<T> e, T item)
     {
@@ -653,5 +651,64 @@ public static partial class EnumerableExtensions
             (IList<T> l, _) => l.IndexOf(item),
             _ => IndexOfEnumerable(e, item)
         };
+    }
+
+    /// <summary>
+    /// Calculates the total duration by summing all <see cref="TimeSpan"/>
+    /// values in the collection.
+    /// </summary>
+    /// <param name="collection">
+    /// The collection of <see cref="TimeSpan"/> values to sum. Cannot be
+    /// <see langword="null"/>.
+    /// </param>
+    /// <returns>
+    /// A <see cref="TimeSpan"/> representing the total duration of all
+    /// elements in the collection. Returns <see cref="TimeSpan.Zero"/> if the
+    /// collection is empty.
+    /// </returns>
+    public static TimeSpan Sum(this IEnumerable<TimeSpan> collection)
+    {
+        return collection.Aggregate(TimeSpan.Zero, (acc, timeSpan) => acc + timeSpan);
+    }
+
+    /// <summary>
+    /// Determines the most frequently occurring value in the provided collection that meets the specified quorum count.
+    /// </summary>
+    /// <typeparam name="T">The type of the values in the collection. Must be a non-nullable type.</typeparam>
+    /// <param name="values">The collection of values to evaluate. Cannot be <see langword="null"/>.</param>
+    /// <param name="quorumCount">The minimum number of occurrences required for a value to be considered a quorum.</param>
+    /// <returns>The value that meets the quorum count and occurs most frequently in the collection.</returns>
+    /// <exception cref="InvalidOperationException">Thrown if no value in the collection meets the specified quorum count.</exception>
+    public static T Quorum<T>(this IEnumerable<T> values, int quorumCount) where T : notnull
+    {
+        if (IsQuorum(values, quorumCount, out T? value)) return value;
+        throw new InvalidOperationException("No quorum found for the provided values.");
+    }
+
+    /// <summary>
+    /// Determines whether a quorum is met for a specified value in a collection.
+    /// </summary>
+    /// <remarks>This method evaluates the collection to determine if any value appears at least <paramref
+    /// name="quorumCount"/> times.  If multiple values meet the quorum, the value with the highest occurrence is
+    /// selected.  If there is a tie, the first value encountered in the collection is returned.</remarks>
+    /// <typeparam name="T">The type of elements in the collection. Must be a non-nullable type.</typeparam>
+    /// <param name="values">The collection of values to evaluate.</param>
+    /// <param name="quorumCount">The minimum number of occurrences required for a value to meet the quorum. Must be greater than or equal to 1.</param>
+    /// <param name="value">When this method returns <see langword="true"/>, contains the value that meets the quorum.  When this method
+    /// returns <see langword="false"/>, contains the default value for the type <typeparamref name="T"/>.</param>
+    /// <returns><see langword="true"/> if a value in the collection meets or exceeds the specified quorum count;  otherwise,
+    /// <see langword="false"/>.</returns>
+    public static bool IsQuorum<T>(this IEnumerable<T> values, int quorumCount, [MaybeNullWhen(false)]out T value) where T : notnull
+    {
+        ArgumentNullException.ThrowIfNull(values);
+        ArgumentOutOfRangeException.ThrowIfLessThan(quorumCount, 1);
+        var x = values.GroupBy(p => p).OrderByDescending(p => p.Count()).FirstOrDefault();
+        if (x is null || x.Count() < quorumCount)
+        {
+            value = default!;
+            return false;
+        }
+        value = x.First();
+        return true;
     }
 }

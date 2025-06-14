@@ -34,25 +34,21 @@ using TheXDS.MCART.Helpers;
 namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
-/// Extensiones de la clase <see cref="StringBuilder"/>.
+/// Extensions for the <see cref="StringBuilder"/> class.
 /// </summary>
 public static class StringBuilderFluentExtensions
 {
     /// <summary>
-    /// Concatena el texto especificado seguido del terminador de línea
-    /// predeterminado al final de esta instancia solamente si la
-    /// cadena no es <see langword="null"/>.
+    /// Appends the specified text followed by the default line terminator to the end of this instance only if the string is not <see langword="null"/>.
     /// </summary>
     /// <param name="sb">
-    /// Instancia de <see cref="StringBuilder"/> sobre la cual realizar
-    /// la operación.
+    /// Instance of <see cref="StringBuilder"/> to perform the operation on.
     /// </param>
     /// <param name="text">
-    /// Texto a concatenar. Si es <see langword="null"/>, no se
-    /// realizará ninguna acción.
+    /// Text to append. If it's <see langword="null"/>, no action will be taken.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="sb"/>.
+    /// The same instance as <paramref name="sb"/>.
     /// </returns>
     public static StringBuilder AppendLineIfNotNull(this StringBuilder sb, string? text)
     {
@@ -61,22 +57,19 @@ public static class StringBuilderFluentExtensions
     }
 
     /// <summary>
-    /// Concatena una cadena luego de aplicar una operación que separa la
-    /// cadena en filas de hasta <paramref name="width"/> caracteres.
+    /// Appends a string after applying an operation that wraps the string into lines of up to <paramref name="width"/> characters.
     /// </summary>
     /// <param name="sb">
-    /// Instancia de <see cref="StringBuilder"/> sobre la cual realizar
-    /// la operación.
+    /// Instance of <see cref="StringBuilder"/> to perform the operation on.
     /// </param>
     /// <param name="text">
-    /// Texto a concatenar. Si es <see langword="null"/>, no se
-    /// realizará ninguna acción.
+    /// Text to append. If it's <see langword="null"/>, no action will be taken.
     /// </param>
     /// <param name="width">
-    /// Longitud máxima de las líneas de texto a agregar.
+    /// Maximum length of text lines to add.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="sb"/>.
+    /// The same instance as <paramref name="sb"/>.
     /// </returns>
     public static StringBuilder AppendAndWrap(this StringBuilder sb, string? text, int width)
     {

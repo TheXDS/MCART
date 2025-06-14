@@ -3,10 +3,6 @@ NamedObjectExtensions.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
-Este archivo contiene numerosas extensiones para el tipo System.Type del CLR,
-supliéndolo de nueva funcionalidad previamente no existente, o de invocación
-compleja.
-
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
@@ -39,19 +35,19 @@ using TheXDS.MCART.Misc;
 namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
-/// Funciones misceláneas y extensiones para todos los elementos de
-/// tipo <see cref="NamedObject{T}"/>.
+/// Miscellaneous functions and extensions for all elements of
+/// the <see cref="NamedObject{T}"/> type.
 /// </summary>
 public static partial class NamedObjectExtensions
 {
     /// <summary>
-    /// Enumera todos los valores de enumeración del tipo especificado
-    /// como <see cref="NamedObject{T}"/>.
+    /// Enumerates all enumeration values of the specified type as a
+    /// <see cref="NamedObject{T}"/> .
     /// </summary>
-    /// <typeparam name="T">Tipo de enumeración a convertir.</typeparam>
+    /// <typeparam name="T">Type of enumeration to convert.</typeparam>
     /// <returns>
-    /// Una enumeración de <see cref="NamedObject{T}"/> a partir de los
-    /// valores de enumeración del tipo especificado.
+    /// An enumeration of <see cref="NamedObject{T}"/> from the enumeration
+    /// values of the specified type.
     /// </returns>
     [Sugar]
     [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
@@ -62,19 +58,19 @@ public static partial class NamedObjectExtensions
     }
 
     /// <summary>
-    /// Enumera todos los valores de enumeración del tipo especificado
-    /// como <see cref="NamedObject{T}"/>.
+    /// Enumerates all enumeration values of the specified type as a
+    /// <see cref="NamedObject{T}"/> .
     /// </summary>
-    /// <param name="t">Tipo de enumeración a convertir.</param>
+    /// <param name="t">Type of enumeration to convert.</param>
     /// <returns>
-    /// Una enumeración de <see cref="NamedObject{T}"/> a partir de los
-    /// valores de enumeración del tipo especificado.
+    /// An enumeration of <see cref="NamedObject{T}"/> from the enumeration
+    /// values of the specified type.
     /// </returns>
     [RequiresUnreferencedCode(AttributeErrorMessages.MethodGetsTypeMembersByName)]
     [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
     public static IEnumerable<NamedObject<Enum>> AsNamedEnum(this Type t)
     {
         Type? q = AsNamedEnum_Contract(t);
-        return q.GetEnumValues().OfType<Enum>().Select(p => new NamedObject<Enum>(p, p.NameOf()));
+        return q.GetEnumValues().OfType<Enum>().Select(p => new NamedObject<Enum>(p.NameOf(), p));
     }
 }

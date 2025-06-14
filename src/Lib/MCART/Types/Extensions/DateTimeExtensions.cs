@@ -38,56 +38,55 @@ using TheXDS.MCART.Helpers;
 namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
-/// Contiene extensiones útiles de la estructura <see cref="DateTime"/>.
+/// Contains useful extensions of the <see cref="DateTime"/> structure.
 /// </summary>
 public static class DateTimeExtensions
 {
     /// <summary>
-    /// Obtiene un <see cref="DateTime"/> que representa el inicio del
-    /// tiempo de Unix.
+    /// Gets a <see cref="DateTime"/> that represents the beginning of
+    /// the Unix time.
     /// </summary>
     public static readonly DateTime UnixEpoch = Epoch(1970);
 
     /// <summary>
-    /// Obtiene un <see cref="DateTime"/> que representa el inicio del
-    /// tiempo del siglo 20.
+    /// Gets a <see cref="DateTime"/> that represents the beginning of
+    /// the 20th century time.
     /// </summary>
     /// <remarks>
-    /// Se define el Century Epoch como el punto de inicio del tiempo
-    /// para muchos dispositivos de 32 bits que no siguen el estándar
-    /// de Unix, y se establece como el primero de enero del año 1900.
-    /// El estándar se definía por medio del tiempo GMT, en su ausencia
-    /// se utiliza UTC como un substituto suficientemente cercano.
+    /// The Century Epoch is defined as the starting point of time
+    /// for many 32-bit devices that do not follow the Unix standard,
+    /// and is set as the first of January of the year 1900.
+    /// The standard was defined by means of GMT time, in its absence
+    /// UTC is used as a sufficiently close substitute.
     /// </remarks>
     public static readonly DateTime CenturyEpoch = Epoch(1900);
 
     /// <summary>
-    /// Obtiene un <see cref="DateTime"/> que representa el inicio del
-    /// tiempo del siglo 21.
+    /// Gets a <see cref="DateTime"/> that represents the beginning of
+    /// the 21st century time.
     /// </summary>
     /// <remarks>
-    /// Se define el Y2K Epoch como el punto de inicio del tiempo para
-    /// los dispositivos de 32 bits que no siguen el estándar de Unix,
-    /// y se establece como el primero de enero del año 2000.
+    /// The Y2K Epoch is defined as the starting point of time for
+    /// 32-bit devices that do not follow the Unix standard,
+    /// and is set as the first of January of the year 2000.
     /// </remarks>
     public static readonly DateTime Y2KEpoch = Epoch(2000);
 
     /// <summary>
-    /// Crea un <see cref="DateTime"/> que representa el inicio del
-    /// tiempo para un año específico.
+    /// Creates a <see cref="DateTime"/> that represents the beginning of
+    /// time for a specific year.
     /// </summary>
     public static DateTime Epoch(in int year) => new(year, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
     /// <summary>
-    /// Convierte un <see cref="DateTime"/> a un Timestamp de Unix de
-    /// 64 bits.
+    /// Converts a <see cref="DateTime"/> to a 64-bit Unix Timestamp.
     /// </summary>
     /// <param name="dateTime">
-    /// Valor de tiempo a convertir.
+    /// Time value to convert.
     /// </param>
     /// <returns>
-    /// Un <see cref="long"/> que representa el valor de Timestamp de
-    /// Unix del <see cref="DateTime"/> especificado.
+    /// A <see cref="long"/> that represents the value of the Unix
+    /// Timestamp of the specified <see cref="DateTime"/>.
     /// </returns>
     public static long ToUnixTimestamp(this in DateTime dateTime)
     {
@@ -95,15 +94,15 @@ public static class DateTimeExtensions
     }
 
     /// <summary>
-    /// Convierte un <see cref="DateTime"/> a un Timestamp en
-    /// milisegundos de Unix de 64 bits.
+    /// Converts a <see cref="DateTime"/> to a 64-bit Unix Timestamp in
+    /// milliseconds.
     /// </summary>
     /// <param name="dateTime">
-    /// Valor de tiempo a convertir.
+    /// Time value to convert.
     /// </param>
     /// <returns>
-    /// Un <see cref="long"/> que representa el valor de Timestamp de
-    /// Unix en milisegundos del <see cref="DateTime"/> especificado.
+    /// A <see cref="long"/> that represents the value of the Unix
+    /// Timestamp in milliseconds of the specified <see cref="DateTime"/>.
     /// </returns>
     public static long ToUnixTimestampMs(this in DateTime dateTime)
     {
@@ -111,14 +110,13 @@ public static class DateTimeExtensions
     }
 
     /// <summary>
-    /// Obtiene un <see cref="DateTime"/> a partir de un Timestamp de Unix.
+    /// Gets a <see cref="DateTime"/> from a Unix Timestamp.
     /// </summary>
     /// <param name="seconds">
-    /// Número de segundos transcurridos desde el Epoch de Unix.
+    /// Number of seconds since the Unix Epoch.
     /// </param>
     /// <returns>
-    /// Un <see cref="DateTime"/> construido a partir del Timestamp de
-    /// Unix.
+    /// A <see cref="DateTime"/> constructed from the Unix Timestamp.
     /// </returns>
     public static DateTime FromUnixTimestamp(this in long seconds)
     {
@@ -126,14 +124,13 @@ public static class DateTimeExtensions
     }
 
     /// <summary>
-    /// Obtiene un <see cref="DateTime"/> a partir de un Timestamp de Unix.
+    /// Gets a <see cref="DateTime"/> from a Unix Timestamp.
     /// </summary>
     /// <param name="milliseconds">
-    /// Número de milisegundos transcurridos desde el Epoch de Unix.
+    /// Number of milliseconds since the Unix Epoch.
     /// </param>
     /// <returns>
-    /// Un <see cref="DateTime"/> construido a partir del Timestamp de
-    /// Unix.
+    /// A <see cref="DateTime"/> constructed from the Unix Timestamp.
     /// </returns>
     public static DateTime FromUnixTimestampMs(this in long milliseconds)
     {
@@ -141,17 +138,17 @@ public static class DateTimeExtensions
     }
 
     /// <summary>
-    /// Convierte un <see cref="DateTime"/> a un Timestamp de 64 bits.
+    /// Converts a <see cref="DateTime"/> to a 64-bit Timestamp.
     /// </summary>
     /// <param name="dateTime">
-    /// Valor de tiempo a convertir.
+    /// Time value to convert.
     /// </param>
     /// <param name="epoch">
-    /// Epoch inicial a utilizar.
+    /// Initial epoch to use.
     /// </param>
     /// <returns>
-    /// Un <see cref="long"/> que representa el valor de Timestamp del
-    /// <see cref="DateTime"/> especificado.
+    /// A <see cref="long"/> that represents the value of the Timestamp of
+    /// the specified <see cref="DateTime"/>.
     /// </returns>
     public static long ToTimestamp(this in DateTime dateTime, in DateTime epoch)
     {
@@ -159,17 +156,17 @@ public static class DateTimeExtensions
     }
 
     /// <summary>
-    /// Convierte un <see cref="DateTime"/> a un Timestamp de 64 bits.
+    /// Converts a <see cref="DateTime"/> to a 64-bit Timestamp.
     /// </summary>
     /// <param name="dateTime">
-    /// Valor de tiempo a convertir.
+    /// Time value to convert.
     /// </param>
     /// <param name="epoch">
-    /// Epoch inicial a utilizar.
+    /// Initial epoch to use.
     /// </param>
     /// <returns>
-    /// Un <see cref="long"/> que representa el valor de Timestamp del
-    /// <see cref="DateTime"/> especificado.
+    /// A <see cref="long"/> that represents the value of the Timestamp of
+    /// the specified <see cref="DateTime"/>.
     /// </returns>
     public static long ToTimestampMs(this in DateTime dateTime, in DateTime epoch)
     {
@@ -177,16 +174,16 @@ public static class DateTimeExtensions
     }
 
     /// <summary>
-    /// Obtiene un <see cref="DateTime"/> a partir de un Timestamp.
+    /// Gets a <see cref="DateTime"/> from a Timestamp.
     /// </summary>
     /// <param name="seconds">
-    /// Número de segundos transcurridos desde el Epoch especificado.
+    /// Number of seconds since the specified Epoch.
     /// </param>
     /// <param name="epoch">
-    /// Epoch inicial a utilizar.
+    /// Initial epoch to use.
     /// </param>
     /// <returns>
-    /// Un <see cref="DateTime"/> construido a partir del Timestamp.
+    /// A <see cref="DateTime"/> constructed from the Timestamp.
     /// </returns>
     public static DateTime FromTimestamp(in long seconds, in DateTime epoch)
     {
@@ -194,17 +191,16 @@ public static class DateTimeExtensions
     }
 
     /// <summary>
-    /// Obtiene un <see cref="DateTime"/> a partir de un Timestamp en
-    /// milisegundos.
+    /// Gets a <see cref="DateTime"/> from a Timestamp in milliseconds.
     /// </summary>
     /// <param name="milliseconds">
-    /// Número de segundos transcurridos desde el Epoch especificado.
+    /// Number of seconds since the specified Epoch.
     /// </param>
     /// <param name="epoch">
-    /// Epoch inicial a utilizar.
+    /// Initial epoch to use.
     /// </param>
     /// <returns>
-    /// Un <see cref="DateTime"/> construido a partir del Timestamp.
+    /// A <see cref="DateTime"/> constructed from the Timestamp.
     /// </returns>
     public static DateTime FromTimestampMs(in long milliseconds, in DateTime epoch)
     {
@@ -212,13 +208,13 @@ public static class DateTimeExtensions
     }
 
     /// <summary>
-    /// Obtiene el nombre del mes especificado.
+    /// Gets the name of the specified month.
     /// </summary>
-    /// <param name="month">Número de mes del cual obtener el nombre.</param>
-    /// <returns>El nombre del mes especificado.</returns>
+    /// <param name="month">Month number from which to get the name.</param>
+    /// <returns>The name of the month specified.</returns>
     /// <exception cref="ArgumentOutOfRangeException">
-    /// Se produce si <paramref name="month"/> no representa un número
-    /// de mes válido.
+    /// This is thrown if <paramref name="month"/> does not represent a
+    /// valid month number.
     /// </exception>
     public static string MonthName(in int month)
     {
@@ -226,14 +222,14 @@ public static class DateTimeExtensions
     }
 
     /// <summary>
-    /// Obtiene el nombre del mes especificado.
+    /// Gets the name of the specified month.
     /// </summary>
-    /// <param name="month">Número de mes del cual obtener el nombre.</param>
-    /// <param name="culture">Cultura a utilizar para obtener el nombre.</param>
-    /// <returns>El nombre del mes especificado.</returns>
+    /// <param name="month">Month number from which to get the name.</param>
+    /// <param name="culture">Culture to use to get the name.</param>
+    /// <returns>The name of the month specified.</returns>
     /// <exception cref="ArgumentOutOfRangeException">
-    /// Se produce si <paramref name="month"/> no representa un número
-    /// de mes válido.
+    /// This is thrown if <paramref name="month"/> does not represent a
+    /// valid month number.
     /// </exception>
     public static string MonthName(in int month, in CultureInfo culture)
     {

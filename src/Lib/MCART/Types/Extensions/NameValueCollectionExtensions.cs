@@ -3,10 +3,6 @@ NameValueCollectionExtensions.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
-Este archivo contiene numerosas extensiones para el tipo System.Type del CLR,
-supliéndolo de nueva funcionalidad previamente no existente, o de invocación
-compleja.
-
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
@@ -37,21 +33,21 @@ using System.Collections.Specialized;
 namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
-/// Funciones misceláneas y extensiones para todos los elementos de
-/// tipo <see cref="NameValueCollection"/>.
+/// Miscellaneous functions and extensions for all elements of
+/// the <see cref="NameValueCollection"/> type.
 /// </summary>
 public static class NameValueCollectionExtensions
 {
     /// <summary>
-    /// Convierte un <see cref="NameValueCollection"/> en una colección de
+    /// Converts a <see cref="NameValueCollection"/> into a collection of
     /// <see cref="IGrouping{TKey, TElement}"/>.
     /// </summary>
     /// <param name="nvc">
-    /// <see cref="NameValueCollection"/> a convertir.
+    /// <see cref="NameValueCollection"/> to convert.
     /// </param>
     /// <returns>
-    /// Una colección de <see cref="IGrouping{TKey, TElement}"/> con las
-    /// llaves y sus respectivos valores.
+    /// A collection of <see cref="IGrouping{TKey, TElement}"/> with the
+    /// keys and their respective values.
     /// </returns>
     public static IEnumerable<IGrouping<string?, string>> ToGroup(this NameValueCollection nvc)
     {
@@ -62,38 +58,38 @@ public static class NameValueCollectionExtensions
     }
 
     /// <summary>
-    /// Convierte un <see cref="NameValueCollection"/> en una colección de
+    /// Converts a <see cref="NameValueCollection"/> into a collection of
     /// <see cref="NamedObject{T}"/>.
     /// </summary>
     /// <param name="nvc">
-    /// <see cref="NameValueCollection"/> a convertir.
+    /// <see cref="NameValueCollection"/> to convert.
     /// </param>
     /// <returns>
-    /// Una colección de <see cref="NamedObject{T}"/> con las llaves y sus
-    /// respectivos valores.
+    /// A collection of <see cref="NamedObject{T}"/> with the keys and their
+    /// respective values.
     /// </returns>
     /// <remarks>
-    /// Este método omitirá todos aquellos valores cuyo nombre sea
+    /// This method will omit all values whose name is
     /// <see langword="null"/>.
     /// </remarks>
     public static IEnumerable<NamedObject<string[]>> ToNamedObjectCollection(this NameValueCollection nvc)
     {
         foreach (string? j in nvc.AllKeys.NotNull())
         {
-            if (nvc.GetValues(j) is { } v) yield return new NamedObject<string[]>(v, j);
+            if (nvc.GetValues(j) is { } v) yield return new NamedObject<string[]>(j, v);
         }
     }
 
     /// <summary>
-    /// Convierte un <see cref="NameValueCollection"/> en una colección de
+    /// Converts a <see cref="NameValueCollection"/> into a collection of
     /// <see cref="KeyValuePair{TKey, TValue}"/>.
     /// </summary>
     /// <param name="nvc">
-    /// <see cref="NameValueCollection"/> a convertir.
+    /// <see cref="NameValueCollection"/> to convert.
     /// </param>
     /// <returns>
-    /// Una colección de <see cref="KeyValuePair{TKey, TValue}"/> con las
-    /// llaves y sus respectivos valores.
+    /// A collection of <see cref="KeyValuePair{TKey, TValue}"/> with the
+    /// keys and their respective values.
     /// </returns>
     public static IEnumerable<KeyValuePair<string?, string>> ToKeyValuePair(this NameValueCollection nvc)
     {
@@ -104,23 +100,23 @@ public static class NameValueCollectionExtensions
     }
 
     /// <summary>
-    /// Convierte un <see cref="NameValueCollection"/> en una colección de
+    /// Converts a <see cref="NameValueCollection"/> into a collection of
     /// <see cref="Dictionary{TKey, TValue}"/>.
     /// </summary>
     /// <param name="nvc">
-    /// <see cref="NameValueCollection"/> a convertir.
+    /// <see cref="NameValueCollection"/> to convert.
     /// </param>
     /// <returns>
-    /// Una colección de <see cref="Dictionary{TKey, TValue}"/> con las
-    /// llaves y sus respectivos valores.
+    /// A collection of <see cref="Dictionary{TKey, TValue}"/> with the
+    /// keys and their respective values.
     /// </returns>
     /// <remarks>
-    /// Este método omitirá todos aquellos valores cuyo nombre sea
+    /// This method will omit all values whose name is
     /// <see langword="null"/>.
     /// </remarks>
     public static Dictionary<string, string[]> ToDictionary(this NameValueCollection nvc)
     {
-        Dictionary<string, string[]>? d = new();
+        Dictionary<string, string[]>? d = [];
         foreach (string? j in nvc.AllKeys.NotNull())
         {
             if (nvc.GetValues(j) is { } v) d.Add(j, v);

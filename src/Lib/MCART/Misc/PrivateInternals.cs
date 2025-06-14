@@ -29,6 +29,9 @@ SOFTWARE.
 */
 
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
+using static TheXDS.MCART.Misc.AttributeErrorMessages;
 
 namespace TheXDS.MCART.Misc;
 
@@ -61,5 +64,18 @@ internal static class PrivateInternals
         }
         result = default!;
         return false;
+    }
+
+    [RequiresUnreferencedCode(MethodScansForTypes)]
+    public static IEnumerable<Type> SafeGetExportedTypes(Assembly arg)
+    {
+        try
+        {
+            return arg.GetExportedTypes();
+        }
+        catch
+        {
+            return [];
+        }
     }
 }

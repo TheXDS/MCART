@@ -42,85 +42,83 @@ using CI = System.Globalization.CultureInfo;
 namespace TheXDS.MCART.Types;
 
 /// <summary>
-/// Tipo universal para un conjunto de coordenadas bidimensionales.
+/// Universal type for a set of two-dimensional coordinates.
 /// </summary>
 /// <param name="x">The x coordinate.</param>
 /// <param name="y">The y coordinate.</param>
 public struct Point(double x, double y) : IVector, IFormattable, IEquatable<Point>
 {
     /// <summary>
-    /// Obtiene un punto que no representa ninguna posición. Este campo es
-    /// de solo lectura.
+    /// Gets a point that does not represent any position. This field is read-only.
     /// </summary>
     /// <value>
-    /// Un <see cref="Point" /> con sus coordenadas establecidas en
-    /// <see cref="double.NaN"/>.
+    /// A <see cref="Point" /> with its coordinates set to <see cref="double.NaN"/>.
     /// </value>
     public static readonly Point Nowhere = new(double.NaN, double.NaN);
 
     /// <summary>
-    /// Obtiene un punto en el origen. Este campo es de solo lectura.
+    /// Gets a point at the origin. This field is read-only.
     /// </summary>
     /// <value>
-    /// Un <see cref="Point" /> con sus coordenadas en el origen.
+    /// A <see cref="Point" /> with its coordinates at the origin.
     /// </value>
     public static readonly Point Origin = new();
 
     /// <summary>
-    /// Inicializa una nueva instancia de la estructura <see cref="Point" />.
+    /// Initializes a new instance of the <see cref="Point"/> structure.
     /// </summary>
-    public Point() : this(0,0)
+    public Point() : this(0, 0)
     {
     }
 
     /// <summary>
-    /// Convierte un <see cref="Point"/> en un <see cref="System.Drawing.Point"/>.
+    /// Converts a <see cref="Point" /> to a <see cref="System.Drawing.Point" />.
     /// </summary>
-    /// <param name="x"><see cref="Point"/> a convertir.</param>
+    /// <param name="x">The <see cref="Point" /> to convert.</param>
     /// <returns>
-    /// Un <see cref="System.Drawing.Point"/> equivalente al <see cref="Point"/> especificado.
+    /// A <see cref="System.Drawing.Point" /> equivalent to the specified <see cref="Point" />.
     /// </returns>
     public static implicit operator System.Drawing.Point(Point x) => new((int)x.X, (int)x.Y);
 
     /// <summary>
-    /// Convierte un <see cref="System.Drawing.Point"/> en un <see cref="Point"/>.
+    /// Converts a <see cref="System.Drawing.Point" /> to a <see cref="Point" />.
     /// </summary>
-    /// <param name="x"><see cref="System.Drawing.Point"/> a convertir.</param>
+    /// <param name="x">The <see cref="System.Drawing.Point" /> to convert.</param>
     /// <returns>
-    /// Un <see cref="Point"/> equivalente al <see cref="System.Drawing.Point"/> especificado.
+    /// A <see cref="Point" /> equivalent to the specified <see cref="System.Drawing.Point" />.
     /// </returns>
     public static implicit operator Point(System.Drawing.Point x) => new(x.X, x.Y);
 
     /// <summary>
-    /// Realiza una operación de suma sobre los puntos.
+    /// Performs addition on points.
     /// </summary>
-    /// <param name="l">Punto 1.</param>
-    /// <param name="r">Punto 2.</param>
-    /// <returns>La suma de los vectores de los puntos.</returns>
+    /// <param name="l">Point 1.</param>
+    /// <param name="r">Point 2.</param>
+    /// <returns>The sum of the vectors of the points.</returns>
     public static Point operator +(Point l, Point r)
     {
         return new(l.X + r.X, l.Y + r.Y);
     }
 
     /// <summary>
-    /// Realiza una operación de suma sobre los puntos.
+    /// Performs addition on points.
     /// </summary>
-    /// <param name="l">Punto 1.</param>
-    /// <param name="r">Punto 2.</param>
-    /// <returns>La suma de los vectores de los puntos.</returns>
+    /// <param name="l">Point 1.</param>
+    /// <param name="r">Point 2.</param>
+    /// <returns>The sum of the vectors of the points.</returns>
     public static Point operator +(Point l, IVector r)
     {
         return new(l.X + r.X, l.Y + r.Y);
     }
 
     /// <summary>
-    /// Realiza una operación de suma sobre el punto.
+    /// Performs addition on a point.
     /// </summary>
-    /// <param name="l">Punto 1.</param>
-    /// <param name="r">Operando de suma.</param>
+    /// <param name="l">Point 1.</param>
+    /// <param name="r">Addition operand.</param>
     /// <returns>
-    /// Un nuevo <see cref="Point" /> cuyos vectores son la suma de los
-    /// vectores originales + <paramref name="r" />.
+    /// A new <see cref="Point" /> whose vectors are the sum of the original
+    /// vectors + <paramref name="r"/>.
     /// </returns>
     public static Point operator +(Point l, double r)
     {
@@ -128,22 +126,22 @@ public struct Point(double x, double y) : IVector, IFormattable, IEquatable<Poin
     }
 
     /// <summary>
-    /// Realiza una operación de resta sobre los puntos.
+    /// Performs subtraction on points.
     /// </summary>
-    /// <param name="l">Punto 1.</param>
-    /// <param name="r">Punto 2.</param>
-    /// <returns>La resta de los vectores de los puntos.</returns>
+    /// <param name="l">Point 1.</param>
+    /// <param name="r">Point 2.</param>
+    /// <returns>The difference of the vectors of the points.</returns>
     public static Point operator -(Point l, Point r)
     {
         return new(l.X - r.X, l.Y - r.Y);
     }
 
     /// <summary>
-    /// Realiza una operación de resta sobre los puntos.
+    /// Performs subtraction on points.
     /// </summary>
-    /// <param name="l">Punto 1.</param>
-    /// <param name="r">Punto 2.</param>
-    /// <returns>La resta de los vectores de los puntos.</returns>
+    /// <param name="l">Point 1.</param>
+    /// <param name="r">Point 2.</param>
+    /// <returns>The difference of the vectors of the points.</returns>
     public static Point operator -(Point l, IVector r)
     {
         return new(l.X - r.X, l.Y - r.Y);

@@ -29,7 +29,6 @@ SOFTWARE.
 */
 
 using TheXDS.MCART.Exceptions;
-using TheXDS.MCART.Misc;
 
 namespace TheXDS.MCART.Types.Extensions;
 

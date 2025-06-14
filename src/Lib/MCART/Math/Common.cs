@@ -31,7 +31,7 @@ SOFTWARE.
 namespace TheXDS.MCART.Math;
 
 /// <summary>
-/// Contiene métodos de manipulación matemática estándar.
+/// Contains general-purpose mathematical operations.
 /// </summary>
 public static partial class Common
 {

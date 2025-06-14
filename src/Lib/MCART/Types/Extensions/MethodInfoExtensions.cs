@@ -33,24 +33,24 @@ using System.Reflection;
 namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
-/// Contiene extensiones para la clase <see cref="MethodInfo"/>.
+/// Contains extensions for the <see cref="MethodInfo"/> class.
 /// </summary>
 public static partial class MethodInfoExtensions
 {
     /// <summary>
-    /// Crea un delegado del tipo especificado a partir del método.
+    /// Creates a delegate of the specified type from the method.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de delegado a obtener.
+    /// Type of delegate to obtain.
     /// </typeparam>
-    /// <param name="m">Método del cual obtener un delegado.</param>
+    /// <param name="m">Method from which to obtain a delegate.</param>
     /// <param name="targetInstance">
-    /// Objetivo de instancia al cual enlazar el delegado generado, o
-    /// <see langword="null"/> para generar un delegado de método estático.
+    /// Target instance to which to link the generated delegate, or
+    /// <see langword="null"/> to generate a static method delegate.
     /// </param>
     /// <returns>
-    /// Un delegado del tipo especificado a partir del método, o
-    /// <see langword="null"/> si no es posible realizar la conversión.
+    /// A delegate of the specified type from the method, or
+    /// <see langword="null"/> if the conversion is not possible.
     /// </returns>
     public static T? ToDelegate<T>(this MethodInfo m, object? targetInstance = null) where T : notnull, Delegate
     {
@@ -59,13 +59,13 @@ public static partial class MethodInfoExtensions
     }
 
     /// <summary>
-    /// Obtiene un valor que determina si el método no devuelve valores
-    /// (si es <see langword="void"/>).
+    /// Gets a value that determines if the method does not return values
+    /// (if it is <see langword="void"/>).
     /// </summary>
-    /// <param name="m">Método a comprobar.</param>
+    /// <param name="m">Method to check.</param>
     /// <returns>
-    /// <see langword="true"/> si el método no devuelve valores, 
-    /// <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if the method does not return values,
+    /// <see langword="false"/> otherwise.
     /// </returns>
     public static bool IsVoid(this MethodInfo m)
     {
@@ -74,12 +74,12 @@ public static partial class MethodInfoExtensions
     }
 
     /// <summary>
-    /// Determina si el método invalida a una definición base.
+    /// Determines if the method overrides a base definition.
     /// </summary>
     /// <param name="method"></param>
     /// <returns>
-    /// <see langword="true"/> si el método invalida a una definición
-    /// base, <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if the method overrides a base definition,
+    /// <see langword="false"/> otherwise.
     /// </returns>
     public static bool IsOverride(this MethodInfo method)
     {
@@ -88,18 +88,18 @@ public static partial class MethodInfoExtensions
     }
 
     /// <summary>
-    /// Comprueba que la firma de un método sea compatible con el delegado
-    /// especificado.
+    /// Checks that the signature of a method is compatible with the
+    /// specified delegate.
     /// </summary>
     /// <param name="staticMethodInfo">
-    /// <see cref="MethodInfo" /> a comprobar.
+    /// <see cref="MethodInfo" /> to check.
     /// </param>
     /// <param name="delegate">
-    /// <see cref="Type" /> del <see cref="Delegate" /> a comprobar.
+    /// <see cref="Type" /> of the <see cref="Delegate" /> to check.
     /// </param>
     /// <returns>
-    /// <see langword="true" /> si el método es compatible con la firma del
-    /// delegado especificado, <see langword="false" /> en caso contrario.
+    /// <see langword="true" /> if the method is compatible with the signature of the
+    /// specified delegate, <see langword="false" /> otherwise.
     /// </returns>
     public static bool IsSignatureCompatible(this MethodInfo staticMethodInfo, Type @delegate)
     {
@@ -107,18 +107,18 @@ public static partial class MethodInfoExtensions
     }
 
     /// <summary>
-    /// Comprueba que la firma de un método sea compatible con el delegado
-    /// especificado.
+    /// Checks that the signature of a method is compatible with the delegate
+    /// specified.
     /// </summary>
     /// <param name="staticMethodInfo">
-    /// <see cref="MethodInfo" /> a comprobar.
+    /// <see cref="MethodInfo" /> to check.
     /// </param>
     /// <typeparam name="T">
-    /// Tipo del <see cref="Delegate" /> a comprobar.
+    /// Type of the <see cref="Delegate" /> to check.
     /// </typeparam>
     /// <returns>
-    /// <see langword="true" /> si el método es compatible con la firma del
-    /// delegado especificado, <see langword="false" /> en caso contrario.
+    /// <see langword="true" /> if the method is compatible with the signature of the
+    /// specified delegate, <see langword="false" /> otherwise.
     /// </returns>
     public static bool IsSignatureCompatible<T>(this MethodInfo staticMethodInfo) where T : Delegate
     {

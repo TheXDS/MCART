@@ -31,13 +31,13 @@ SOFTWARE.
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
-/// Define una serie de miembros a implementar por un tipo que
-/// represente tamaño en tres dimensiones.
+/// Defines a series of members to be implemented by a type that
+/// represents a size in three dimensions.
 /// </summary>
 public interface ISize3D : ISize
 {
     /// <summary>
-    /// Obtiene el componente de profundidad del tamaño.
+    /// Gets the depth component of the size.
     /// </summary>
     double Depth { get; set; }
 }
