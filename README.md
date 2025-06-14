@@ -14,6 +14,7 @@ MCART
 [![Publish MCART](https://github.com/TheXDS/MCART/actions/workflows/publish.yml/badge.svg)](https://github.com/TheXDS/MCART/actions/workflows/publish.yml)
 [![Issues](https://img.shields.io/github/issues/TheXDS/MCART)](https://github.com/TheXDS/MCART/issues)
 [![MIT](https://img.shields.io/github/license/TheXDS/MCART)](https://mit-license.org/)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/TheXDS/MCART)
 
 </td>
 </tr>
