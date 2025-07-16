@@ -36,7 +36,9 @@ namespace TheXDS.MCART.Types;
 internal struct Internal2DVector : IVector
 {
     public double X { get; set; }
+
     public double Y { get; set; }
+
     public readonly override bool Equals(object? obj)
     {
         return obj switch
@@ -46,5 +48,8 @@ internal struct Internal2DVector : IVector
             _ => false
         };
     }
+
     public readonly bool Equals(IVector? other) => X.Equals(other?.X) && Y.Equals(other.Y);
+
+    public override readonly int GetHashCode() => HashCode.Combine(X, Y);
 }

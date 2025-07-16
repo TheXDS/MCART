@@ -32,7 +32,7 @@ using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
 
-namespace TheXDS.MCART.FlowDocumentExtensions.Types.Extensions;
+namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
 /// Fluent type extensions for manipulating <see cref="FlowDocument" />

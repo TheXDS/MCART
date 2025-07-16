@@ -376,6 +376,15 @@ namespace TheXDS.MCART.Resources.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No se encontró quorum para los valores provistos..
+        /// </summary>
+        public static string NoQuorum {
+            get {
+                return ResourceManager.GetString("NoQuorum", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No hay información de pila disponible..
         /// </summary>
         public static string NoStackInfo {

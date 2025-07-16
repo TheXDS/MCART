@@ -672,32 +672,60 @@ public static partial class EnumerableExtensions
     }
 
     /// <summary>
-    /// Determines the most frequently occurring value in the provided collection that meets the specified quorum count.
+    /// Determines the most frequently occurring value in the provided
+    /// collection that meets the specified quorum count.
     /// </summary>
-    /// <typeparam name="T">The type of the values in the collection. Must be a non-nullable type.</typeparam>
-    /// <param name="values">The collection of values to evaluate. Cannot be <see langword="null"/>.</param>
-    /// <param name="quorumCount">The minimum number of occurrences required for a value to be considered a quorum.</param>
-    /// <returns>The value that meets the quorum count and occurs most frequently in the collection.</returns>
-    /// <exception cref="InvalidOperationException">Thrown if no value in the collection meets the specified quorum count.</exception>
+    /// <typeparam name="T">
+    /// The type of the values in the collection. Must be a non-nullable type.
+    /// </typeparam>
+    /// <param name="values">
+    /// The collection of values to evaluate. Cannot be <see langword="null"/>.
+    /// </param>
+    /// <param name="quorumCount">
+    /// The minimum number of occurrences required for a value to be considered
+    /// a quorum.
+    /// </param>
+    /// <returns>
+    /// The value that meets the quorum count and occurs most frequently in the
+    /// collection.
+    /// </returns>
+    /// <exception cref="InvalidOperationException">
+    /// Thrown if no value in the collection meets the specified quorum count.
+    /// </exception>
     public static T Quorum<T>(this IEnumerable<T> values, int quorumCount) where T : notnull
     {
         if (IsQuorum(values, quorumCount, out T? value)) return value;
-        throw new InvalidOperationException("No quorum found for the provided values.");
+        throw Errors.NoQuorum();
     }
 
     /// <summary>
-    /// Determines whether a quorum is met for a specified value in a collection.
+    /// Determines whether a quorum is met for a specified value in a
+    /// collection.
     /// </summary>
-    /// <remarks>This method evaluates the collection to determine if any value appears at least <paramref
-    /// name="quorumCount"/> times.  If multiple values meet the quorum, the value with the highest occurrence is
-    /// selected.  If there is a tie, the first value encountered in the collection is returned.</remarks>
-    /// <typeparam name="T">The type of elements in the collection. Must be a non-nullable type.</typeparam>
+    /// <remarks>
+    /// This method evaluates the collection to determine if any value appears
+    /// at least <paramref name="quorumCount"/> times. If multiple values meet
+    /// the quorum, the value with the highest occurrence is selected. If there
+    /// is a tie, the first value encountered in the collection is returned.
+    /// </remarks>
+    /// <typeparam name="T">
+    /// The type of elements in the collection. Must be a non-nullable type.
+    /// </typeparam>
     /// <param name="values">The collection of values to evaluate.</param>
-    /// <param name="quorumCount">The minimum number of occurrences required for a value to meet the quorum. Must be greater than or equal to 1.</param>
-    /// <param name="value">When this method returns <see langword="true"/>, contains the value that meets the quorum.  When this method
-    /// returns <see langword="false"/>, contains the default value for the type <typeparamref name="T"/>.</param>
-    /// <returns><see langword="true"/> if a value in the collection meets or exceeds the specified quorum count;  otherwise,
-    /// <see langword="false"/>.</returns>
+    /// <param name="quorumCount">
+    /// The minimum number of occurrences required for a value to meet the
+    /// quorum. Must be greater than or equal to 1.
+    /// </param>
+    /// <param name="value">
+    /// When this method returns <see langword="true"/>, contains the value
+    /// that meets the quorum. When this method returns
+    /// <see langword="false"/>, contains the default value for the type
+    /// <typeparamref name="T"/>.
+    /// </param>
+    /// <returns>
+    /// <see langword="true"/> if a value in the collection meets or exceeds
+    /// the specified quorum count; otherwise, <see langword="false"/>.
+    /// </returns>
     public static bool IsQuorum<T>(this IEnumerable<T> values, int quorumCount, [MaybeNullWhen(false)]out T value) where T : notnull
     {
         ArgumentNullException.ThrowIfNull(values);

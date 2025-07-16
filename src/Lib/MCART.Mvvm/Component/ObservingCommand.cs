@@ -92,7 +92,7 @@ public partial class ObservingCommand : CommandBase
     /// <summary>
     /// Enumera las propiedades que están siendo observadas por este <see cref="ObservingCommand"/>.
     /// </summary>
-    public IEnumerable<string> ObservedProperties => _properties.ToArray();
+    public IEnumerable<string> ObservedProperties => [.. _properties];
 
     /// <summary>
     /// Define el método que determina si el comando puede ejecutarse

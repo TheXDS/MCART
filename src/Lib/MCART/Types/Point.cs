@@ -148,13 +148,13 @@ public struct Point(double x, double y) : IVector, IFormattable, IEquatable<Poin
     }
 
     /// <summary>
-    /// Realiza una operación de resta sobre el punto.
+    /// Performs subtraction operation on the point.
     /// </summary>
-    /// <param name="l">Punto 1.</param>
-    /// <param name="r">Operando de resta.</param>
+    /// <param name="l">Point 1.</param>
+    /// <param name="r">Subtraction operand.</param>
     /// <returns>
-    /// Un nuevo <see cref="Point" /> cuyos vectores son la resta de los
-    /// vectores originales - <paramref name="r" />.
+    /// A new <see cref="Point" /> with vectors being the difference of
+    /// original vectors - <paramref name="r" />.
     /// </returns>
     public static Point operator -(Point l, double r)
     {
@@ -162,35 +162,35 @@ public struct Point(double x, double y) : IVector, IFormattable, IEquatable<Poin
     }
 
     /// <summary>
-    /// Realiza una operación de multiplicación sobre los puntos.
+    /// Performs multiplication operation on points.
     /// </summary>
-    /// <param name="l">Punto 1.</param>
-    /// <param name="r">Punto 2.</param>
-    /// <returns>La multiplicación de los vectores de los puntos.</returns>
+    /// <param name="l">Point 1.</param>
+    /// <param name="r">Point 2.</param>
+    /// <returns>The product of the vectors of the points.</returns>
     public static Point operator *(Point l, Point r)
     {
         return new(l.X * r.X, l.Y * r.Y);
     }
 
     /// <summary>
-    /// Realiza una operación de multiplicación sobre los puntos.
+    /// Performs multiplication operation on points.
     /// </summary>
-    /// <param name="l">Punto 1.</param>
-    /// <param name="r">Punto 2.</param>
-    /// <returns>La multiplicación de los vectores de los puntos.</returns>
+    /// <param name="l">Point 1.</param>
+    /// <param name="r">Vector operand.</param>
+    /// <returns>The product of the vectors of the point and vector.</returns>
     public static Point operator *(Point l, IVector r)
     {
         return new(l.X * r.X, l.Y * r.Y);
     }
 
     /// <summary>
-    /// Realiza una operación de multiplicación sobre el punto.
+    /// Performs scalar multiplication on the point.
     /// </summary>
-    /// <param name="l">Punto 1.</param>
-    /// <param name="r">Operando de multiplicación.</param>
+    /// <param name="l">Point 1.</param>
+    /// <param name="r">Multiplication operand.</param>
     /// <returns>
-    /// Un nuevo <see cref="Point" /> cuyos vectores son la multiplicación
-    /// de los vectores originales * <paramref name="r" />.
+    /// A new <see cref="Point" /> with vectors being the product of
+    /// original vectors * <paramref name="r" />.
     /// </returns>
     public static Point operator *(Point l, double r)
     {
@@ -198,35 +198,35 @@ public struct Point(double x, double y) : IVector, IFormattable, IEquatable<Poin
     }
 
     /// <summary>
-    /// Realiza una operación de división sobre los puntos.
+    /// Performs division operation on points.
     /// </summary>
-    /// <param name="l">Punto 1.</param>
-    /// <param name="r">Punto 2.</param>
-    /// <returns>La división de los vectores de los puntos.</returns>
+    /// <param name="l">Point 1.</param>
+    /// <param name="r">Point 2.</param>
+    /// <returns>The quotient of the vectors of the points.</returns>
     public static Point operator /(Point l, Point r)
     {
         return new(l.X / r.X, l.Y / r.Y);
     }
 
     /// <summary>
-    /// Realiza una operación de división sobre los puntos.
+    /// Performs division operation on points.
     /// </summary>
-    /// <param name="l">Punto 1.</param>
-    /// <param name="r">Punto 2.</param>
-    /// <returns>La división de los vectores de los puntos.</returns>
+    /// <param name="l">Point 1.</param>
+    /// <param name="r">Vector operand.</param>
+    /// <returns>The quotient of the vectors of the point and vector.</returns>
     public static Point operator /(Point l, IVector r)
     {
         return new(l.X / r.X, l.Y / r.Y);
     }
 
     /// <summary>
-    /// Realiza una operación de división sobre el punto.
+    /// Performs scalar division on the point.
     /// </summary>
-    /// <param name="l">Punto 1.</param>
-    /// <param name="r">Operando de división.</param>
+    /// <param name="l">Point 1.</param>
+    /// <param name="r">Division operand.</param>
     /// <returns>
-    /// Un nuevo <see cref="Point" /> cuyos vectores son la división de los
-    /// vectores originales / <paramref name="r" />.
+    /// A new <see cref="Point" /> with vectors being the quotient of
+    /// original vectors / <paramref name="r" />.
     /// </returns>
     public static Point operator /(Point l, double r)
     {
@@ -234,35 +234,35 @@ public struct Point(double x, double y) : IVector, IFormattable, IEquatable<Poin
     }
 
     /// <summary>
-    /// Realiza una operación de residuo sobre los puntos.
+    /// Performs modulus operation on points.
     /// </summary>
-    /// <param name="l">Punto 1.</param>
-    /// <param name="r">Punto 2.</param>
-    /// <returns>El residuo de los vectores de los puntos.</returns>
+    /// <param name="l">Point 1.</param>
+    /// <param name="r">Point 2.</param>
+    /// <returns>The modulus of the vectors of the points.</returns>
     public static Point operator %(Point l, Point r)
     {
         return new(l.X % r.X, l.Y % r.Y);
     }
 
     /// <summary>
-    /// Realiza una operación de residuo sobre los puntos.
+    /// Performs modulus operation on points.
     /// </summary>
-    /// <param name="l">Punto 1.</param>
-    /// <param name="r">Punto 2.</param>
-    /// <returns>El residuo de los vectores de los puntos.</returns>
+    /// <param name="l">Point 1.</param>
+    /// <param name="r">Vector operand.</param>
+    /// <returns>The modulus of the vectors of the point and vector.</returns>
     public static Point operator %(Point l, IVector r)
     {
         return new(l.X % r.X, l.Y % r.Y);
     }
 
     /// <summary>
-    /// Realiza una operación de residuo sobre el punto.
+    /// Performs a modulus operation on the point.
     /// </summary>
-    /// <param name="l">Punto 1.</param>
-    /// <param name="r">Operando de residuo.</param>
+    /// <param name="l">Point 1.</param>
+    /// <param name="r">Modulus operand.</param>
     /// <returns>
-    /// Un nuevo <see cref="Point" /> cuyos vectores son el residuo de los
-    /// vectores originales % <paramref name="r" />.
+    /// A new <see cref="Point" /> whose vectors are the modulus of the
+    /// original vectors % <paramref name="r" />.
     /// </returns>
     public static Point operator %(Point l, double r)
     {
@@ -270,10 +270,10 @@ public struct Point(double x, double y) : IVector, IFormattable, IEquatable<Poin
     }
 
     /// <summary>
-    /// Incrementa en 1 los vectores del punto.
+    /// Increments the point's vectors by 1.
     /// </summary>
-    /// <param name="p">Punto a incrementar.</param>
-    /// <returns>Un punto con sus vectores incrementados en 1.</returns>
+    /// <param name="p">Point to increment.</param>
+    /// <returns>A point with its vectors incremented by 1.</returns>
     public static Point operator ++(Point p)
     {
         p.X++;
@@ -282,10 +282,10 @@ public struct Point(double x, double y) : IVector, IFormattable, IEquatable<Poin
     }
 
     /// <summary>
-    /// Decrementa en 1 los vectores del punto.
+    /// Decrements the point's vectors by 1.
     /// </summary>
-    /// <param name="p">Punto a decrementar.</param>
-    /// <returns>Un punto con sus vectores decrementados en 1.</returns>
+    /// <param name="p">Point to decrement.</param>
+    /// <returns>A point with its vectors decremented by 1.</returns>
     public static Point operator --(Point p)
     {
         p.X--;
@@ -294,33 +294,33 @@ public struct Point(double x, double y) : IVector, IFormattable, IEquatable<Poin
     }
 
     /// <summary>
-    /// Convierte a positivos los vectores del punto.
+    /// Converts the point's vectors to positive values.
     /// </summary>
-    /// <param name="p">Punto a operar.</param>
-    /// <returns>Un punto con sus vectores positivos.</returns>
+    /// <param name="p">Point to operate on.</param>
+    /// <returns>A point with positive vectors.</returns>
     public static Point operator +(Point p)
     {
         return new(+p.X, +p.Y);
     }
 
     /// <summary>
-    /// Invierte el signo de los vectores del punto.
+    /// Inverts the sign of the point's vectors.
     /// </summary>
-    /// <param name="p">Punto a operar.</param>
-    /// <returns>Un punto con el signo de sus vectores invertido.</returns>
+    /// <param name="p">Point to operate on.</param>
+    /// <returns>A point with inverted vector signs.</returns>
     public static Point operator -(Point p)
     {
         return new(-p.X, -p.Y);
     }
 
     /// <summary>
-    /// Compara la igualdad de los vectores de los puntos.
+    /// Compares the equality of the point vectors.
     /// </summary>
-    /// <param name="l">Objeto a comparar</param>
-    /// <param name="r">Objeto contra el cual comparar.</param>
+    /// <param name="l">Object to compare.</param>
+    /// <param name="r">Object to compare against.</param>
     /// <returns>
-    /// <see langword="true" /> si ambas instancias son iguales,
-    /// <see langword="false" /> en caso contrario.
+    /// <see langword="true" /> if both instances are equal,
+    /// <see langword="false" /> otherwise.
     /// </returns>
     public static bool operator ==(Point l, Point r)
     {
@@ -328,13 +328,13 @@ public struct Point(double x, double y) : IVector, IFormattable, IEquatable<Poin
     }
 
     /// <summary>
-    /// Compara la igualdad de los vectores de los puntos.
+    /// Compares the equality of the point vectors with a 2D vector.
     /// </summary>
-    /// <param name="l">Punto a comparar.</param>
-    /// <param name="r">Vector bidimensional contra el cual comparar.</param>
+    /// <param name="l">Point to compare.</param>
+    /// <param name="r">2D vector to compare against.</param>
     /// <returns>
-    /// <see langword="true" /> si todos los vectores de ambos puntos son iguales;
-    /// de lo contrario, <see langword="false" />.
+    /// <see langword="true" /> if all vectors of both points are equal;
+    /// otherwise, <see langword="false" />.
     /// </returns>
     public static bool operator ==(Point l, IVector r)
     {
@@ -342,13 +342,13 @@ public struct Point(double x, double y) : IVector, IFormattable, IEquatable<Poin
     }
 
     /// <summary>
-    /// Compara la diferencia de los vectores de los puntos.
+    /// Compares the difference of the point vectors.
     /// </summary>
-    /// <param name="l">Punto 1.</param>
-    /// <param name="r">Punto 2.</param>
+    /// <param name="l">Point 1.</param>
+    /// <param name="r">Point 2.</param>
     /// <returns>
-    /// <see langword="true" /> si los vectores de ambos puntos son diferentes;  de lo
-    /// contrario, <see langword="false" />.
+    /// <see langword="true" /> if the vectors of both points are different; 
+    /// otherwise, <see langword="false" />.
     /// </returns>
     public static bool operator !=(Point l, Point r)
     {
@@ -356,13 +356,13 @@ public struct Point(double x, double y) : IVector, IFormattable, IEquatable<Poin
     }
 
     /// <summary>
-    /// Compara la diferencia de los vectores de los puntos.
+    /// Compares the difference of the point vectors with a 2D vector.
     /// </summary>
-    /// <param name="l">Punto a comparar.</param>
-    /// <param name="r">Vector bidimensional contra el cual comparar.</param>
+    /// <param name="l">Point to compare.</param>
+    /// <param name="r">2D vector to compare against.</param>
     /// <returns>
-    /// <see langword="true" /> si los vectores de ambos puntos son diferentes;  de lo
-    /// contrario, <see langword="false" />.
+    /// <see langword="true" /> if the vectors of both points are different; 
+    /// otherwise, <see langword="false" />.
     /// </returns>
     public static bool operator !=(Point l, IVector r)
     {
@@ -370,27 +370,27 @@ public struct Point(double x, double y) : IVector, IFormattable, IEquatable<Poin
     }
 
     /// <summary>
-    /// Coordenada X.
+    /// X coordinate.
     /// </summary>
     public double X { get; set; } = x;
 
     /// <summary>
-    /// Coordenada Y.
+    /// Y coordinate.
     /// </summary>
     public double Y { get; set; } = y;
 
     /// <summary>
-    /// Intenta crear un <see cref="Point"/> a partir de una cadena.
+    /// Attempts to create a <see cref="Point"/> from a string.
     /// </summary>
     /// <param name="value">
-    /// Valor a partir del cual crear un <see cref="Point"/>.
+    /// The value from which to create a <see cref="Point"/>.
     /// </param>
     /// <param name="point">
-    /// <see cref="Point"/> que ha sido creado.
+    /// The created <see cref="Point"/>.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si la conversión ha tenido éxito,
-    /// <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if the conversion was successful,
+    /// <see langword="false"/> otherwise.
     /// </returns>
     public static bool TryParse(string value, out Point point)
     {
@@ -427,15 +427,15 @@ public struct Point(double x, double y) : IVector, IFormattable, IEquatable<Poin
     }
 
     /// <summary>
-    /// Crea un <see cref="Point"/> a partir de una cadena.
+    /// Creates a <see cref="Point"/> from a string.
     /// </summary>
     /// <param name="value">
-    /// Valor a partir del cual crear un <see cref="Point"/>.
+    /// The value from which to create a <see cref="Point"/>.
     /// </param>
     /// <exception cref="FormatException">
-    /// Se produce si la conversión ha fallado.
+    /// Thrown if the conversion fails.
     /// </exception>
-    /// <returns><see cref="Point"/> que ha sido creado.</returns>
+    /// <returns>The created <see cref="Point"/>.</returns>
     public static Point Parse(string value)
     {
         if (TryParse(value, out Point returnValue)) return returnValue;
@@ -443,10 +443,10 @@ public struct Point(double x, double y) : IVector, IFormattable, IEquatable<Poin
     }
 
     /// <summary>
-    /// Calcula el ángulo formado por la línea que intersecta el origen y
-    /// este <see cref="Point" /> contra el eje horizontal X.
+    /// Calculates the angle formed by the line connecting the origin and
+    /// this <see cref="Point" /> with respect to the horizontal X axis.
     /// </summary>
-    /// <returns>El ángulo calculado.</returns>
+    /// <returns>The calculated angle.</returns>
     public readonly double Angle()
     {
         double ang = Acos(X / Magnitude());
@@ -455,14 +455,14 @@ public struct Point(double x, double y) : IVector, IFormattable, IEquatable<Poin
     }
 
     /// <summary>
-    /// Compara la igualdad de los vectores de los puntos.
+    /// Compares the equality of the point vectors.
     /// </summary>
     /// <param name="other">
-    /// <see cref="Point" /> contra el cual comparar.
+    /// The <see cref="Point" /> to compare against.
     /// </param>
     /// <returns>
-    /// <see langword="true" /> si todos los vectores de ambos puntos son iguales;
-    /// de lo contrario, <see langword="false" />.
+    /// <see langword="true" /> if all vectors of both points are equal; 
+    /// otherwise, <see langword="false" />.
     /// </returns>
     public readonly bool Equals(Point other)
     {
@@ -470,72 +470,72 @@ public struct Point(double x, double y) : IVector, IFormattable, IEquatable<Poin
     }
 
     /// <summary>
-    /// Determina si el punto se encuentra dentro del rectángulo formado por
-    /// los puntos especificados.
+    /// Determines if the point is within the rectangle formed by the
+    /// specified points.
     /// </summary>
     /// <returns>
-    /// <see langword="true" /> si el punto se encuentra dentro del rectángulo
-    /// formado, <see langword="false" /> en caso contrario.
+    /// <see langword="true" /> if the point is within the rectangle; 
+    /// <see langword="false" /> otherwise.
     /// </returns>
-    /// <param name="p1">Punto 1.</param>
-    /// <param name="p2">Punto 2.</param>
+    /// <param name="p1">Point 1.</param>
+    /// <param name="p2">Point 2.</param>
     public readonly bool WithinBox(in Point p1, in Point p2)
     {
         return X.IsBetween(p1.X, p2.X) && Y.IsBetween(p1.Y, p2.Y);
     }
 
     /// <summary>
-    /// Determina si el punto se encuentra dentro del rectángulo formado por
-    /// los rangos especificados.
+    /// Determines if the point is within the rectangle defined by the
+    /// specified ranges.
     /// </summary>
     /// <returns>
-    /// <see langword="true" /> si el punto se encuentra dentro del rectángulo
-    /// formado, <see langword="false" /> en caso contrario.
+    /// <see langword="true" /> if the point is within the rectangle; 
+    /// <see langword="false" /> otherwise.
     /// </returns>
-    /// <param name="x">Rango de valores para el eje X.</param>
-    /// <param name="y">Rango de valores para el eje Y.</param>
+    /// <param name="x">Range of values for the X axis.</param>
+    /// <param name="y">Range of values for the Y axis.</param>
     public readonly bool WithinBox(in Range<double> x, in Range<double> y)
     {
         return x.IsWithin(X) && y.IsWithin(Y);
     }
 
     /// <summary>
-    /// Determina si el punto se encuentra dentro del rectángulo formado por
-    /// las coordenadas especificadas.
+    /// Determines if the point is within the rectangle defined by the
+    /// specified coordinates.
     /// </summary>
     /// <returns>
-    /// <see langword="true" /> si el punto se encuentra dentro del rectángulo
-    /// formado, <see langword="false" /> en caso contrario.
+    /// <see langword="true" /> if the point is within the rectangle; 
+    /// <see langword="false" /> otherwise.
     /// </returns>
-    /// <param name="size">Tamaño del rectángulo.</param>
-    /// <param name="topLeft">Coordenadas de esquina superior izquierda</param>
+    /// <param name="size">Size of the rectangle.</param>
+    /// <param name="topLeft">Coordinates of the top-left corner.</param>
     public readonly bool WithinBox(in Size size, in Point topLeft)
     {
         return WithinBox(topLeft.X, topLeft.Y, topLeft.X + size.Width, topLeft.Y - size.Height);
     }
 
     /// <summary>
-    /// Determina si el punto se encuentra dentro del rectángulo formado por
-    /// las coordenadas especificadas.
+    /// Determines if the point is within the rectangle defined by the
+    /// specified size.
     /// </summary>
     /// <returns>
-    /// <see langword="true" /> si el punto se encuentra dentro del rectángulo
-    /// formado, <see langword="false" /> en caso contrario.
+    /// <see langword="true" /> if the point is within the rectangle; 
+    /// <see langword="false" /> otherwise.
     /// </returns>
-    /// <param name="size">Tamaño del rectángulo.</param>
+    /// <param name="size">Size of the rectangle.</param>
     public readonly bool WithinBox(in Size size)
     {
         return WithinBox(size, new Point(-(size.Width / 2), size.Height / 2));
     }
 
     /// <summary>
-    /// Determina si el punto se encuentra dentro del círculo especificado.
+    /// Determines if the point is within the specified circle.
     /// </summary>
-    /// <param name="center">Punto central del círculo.</param>
-    /// <param name="radius">Radio del círculo.</param>
+    /// <param name="center">Center point of the circle.</param>
+    /// <param name="radius">Radius of the circle.</param>
     /// <returns>
-    /// <see langword="true" /> si el punto se encuentra dentro del círculo,
-    /// <see langword="false" /> en caso contrario.
+    /// <see langword="true" /> if the point is within the circle; 
+    /// <see langword="false" /> otherwise.
     /// </returns>
     public readonly bool WithinCircle(in Point center, in double radius)
     {
@@ -543,17 +543,17 @@ public struct Point(double x, double y) : IVector, IFormattable, IEquatable<Poin
     }
 
     /// <summary>
-    /// Determina si el punto se encuentra dentro del rectángulo formado por
-    /// las coordenadas especificadas.
+    /// Determines if the point is within the rectangle defined by the
+    /// specified coordinates.
     /// </summary>
     /// <returns>
-    /// <see langword="true" /> si el punto se encuentra dentro del rectángulo
-    /// formado, <see langword="false" /> en caso contrario.
+    /// <see langword="true" /> if the point is within the rectangle; 
+    /// <see langword="false" /> otherwise.
     /// </returns>
-    /// <param name="x1">La primer coordenada x.</param>
-    /// <param name="y1">La primer coordenada y.</param>
-    /// <param name="x2">La segunda coordenada x.</param>
-    /// <param name="y2">La segunda coordenada y.</param>
+    /// <param name="x1">The first X coordinate.</param>
+    /// <param name="y1">The first Y coordinate.</param>
+    /// <param name="x2">The second X coordinate.</param>
+    /// <param name="y2">The second Y coordinate.</param>
     public readonly bool WithinBox(in double x1, in double y1, in double x2, in double y2)
     {
         double minX, maxX, minY, maxY;
@@ -581,10 +581,10 @@ public struct Point(double x, double y) : IVector, IFormattable, IEquatable<Poin
     }
 
     /// <summary>
-    /// Calcula la magnitud de las coordenadas.
+    /// Calculates the magnitude of the coordinates.
     /// </summary>
     /// <returns>
-    /// La magnitud resultante entre el punto y el origen.
+    /// The resulting magnitude between the point and the origin.
     /// </returns>
     public readonly double Magnitude()
     {
@@ -592,13 +592,11 @@ public struct Point(double x, double y) : IVector, IFormattable, IEquatable<Poin
     }
 
     /// <summary>
-    /// Calcula la magnitud de las coordenadas desde el punto
-    /// especificado.
+    /// Calculates the magnitude of the coordinates from the specified point.
     /// </summary>
-    /// <returns>La magnitud resultante entre ambos puntos.</returns>
+    /// <returns>The resulting magnitude between both points.</returns>
     /// <param name="fromPoint">
-    /// Punto de referencia para calcular la
-    /// magnitud.
+    /// Reference point for calculating the magnitude.
     /// </param>
     public readonly double Magnitude(Point fromPoint)
     {
@@ -607,15 +605,15 @@ public struct Point(double x, double y) : IVector, IFormattable, IEquatable<Poin
     }
 
     /// <summary>
-    /// Calcula la magnitud de las coordenadas desde el punto
-    /// especificado.
+    /// Calculates the magnitude of the coordinates from the specified
+    /// coordinates.
     /// </summary>
     /// <returns>
-    /// La magnitud resultante entre el punto y las coordenadas
-    /// especificadas.
+    /// The resulting magnitude between the point and the specified
+    /// coordinates.
     /// </returns>
-    /// <param name="fromX">Coordenada X de origen.</param>
-    /// <param name="fromY">Coordenada Y de origen.</param>
+    /// <param name="fromX">X coordinate of the origin.</param>
+    /// <param name="fromY">Y coordinate of the origin.</param>
     public readonly double Magnitude(double fromX, double fromY)
     {
         double x = X - fromX, y = Y - fromY;
@@ -623,17 +621,16 @@ public struct Point(double x, double y) : IVector, IFormattable, IEquatable<Poin
     }
 
     /// <summary>
-    /// Convierte este objeto en su representación como una cadena.
+    /// Converts this object to its string representation.
     /// </summary>
-    /// <param name="format">Formato a utilizar.</param>
+    /// <param name="format">Format to use.</param>
     /// <param name="formatProvider">
-    /// Parámetro opcional.
-    /// Proveedor de formato de la cultura a utilizar para dar formato a
-    /// la representación como una cadena de este objeto. Si se omite,
-    /// se utilizará <see cref="CI.CurrentCulture" />.
+    /// Optional parameter. Culture-specific format provider to use for
+    /// formatting this object's string representation. If omitted,
+    /// <see cref="CI.CurrentCulture" /> will be used.
     /// </param>
     /// <returns>
-    /// Una representación en forma de <see cref="string" /> de este objeto.
+    /// A <see cref="string" /> representation of this object.
     /// </returns>
     public readonly string ToString(string? format, IFormatProvider? formatProvider)
     {
@@ -649,11 +646,11 @@ public struct Point(double x, double y) : IVector, IFormattable, IEquatable<Poin
     }
 
     /// <summary>
-    /// Convierte este objeto en su representación como una cadena.
+    /// Converts this object to its string representation.
     /// </summary>
-    /// <param name="format">Formato a utilizar.</param>
+    /// <param name="format">Format to use.</param>
     /// <returns>
-    /// Una representación en forma de <see cref="string" /> de este objeto.
+    /// A <see cref="string" /> representation of this object.
     /// </returns>
     public readonly string ToString(string? format)
     {
@@ -661,15 +658,15 @@ public struct Point(double x, double y) : IVector, IFormattable, IEquatable<Poin
     }
 
     /// <summary>
-    /// Indica si esta instancia y un objeto especificado son iguales.
+    /// Indicates whether this instance and a specified object are equal.
     /// </summary>
     /// <param name="obj">
-    /// Objeto que se va a compara con la instancia actual.
+    /// The object to compare with the current instance.
     /// </param>
     /// <returns>
-    /// <see langword="true" /> si esta instancia y
-    /// <paramref name="obj" /> son iguales, <see langword="false" />
-    /// en caso contrario.
+    /// <see langword="true" /> if this instance and
+    /// <paramref name="obj" /> are equal; <see langword="false" />
+    /// otherwise.
     /// </returns>
     public override readonly bool Equals(object? obj)
     {
@@ -677,19 +674,19 @@ public struct Point(double x, double y) : IVector, IFormattable, IEquatable<Poin
     }
 
     /// <summary>
-    /// Devuelve el código Hash de esta instancia.
+    /// Returns the hash code for this instance.
     /// </summary>
-    /// <returns>El código Hash de esta instancia.</returns>
+    /// <returns>The hash code for this instance.</returns>
     public override readonly int GetHashCode()
     {
         return HashCode.Combine(X, Y);
     }
 
     /// <summary>
-    /// Convierte este objeto en su representación como una cadena.
+    /// Converts this object to its string representation.
     /// </summary>
     /// <returns>
-    /// Una representación en forma de <see cref="string" /> de este objeto.
+    /// A <see cref="string" /> representation of this object.
     /// </returns>
     public override readonly string ToString()
     {
@@ -697,14 +694,14 @@ public struct Point(double x, double y) : IVector, IFormattable, IEquatable<Poin
     }
 
     /// <summary>
-    /// Compara la igualdad de los vectores.
+    /// Compares the equality of the vectors.
     /// </summary>
     /// <param name="other">
-    /// <see cref="IVector" /> contra el cual comparar.
+    /// The <see cref="IVector" /> to compare against.
     /// </param>
     /// <returns>
-    /// <see langword="true" /> si todos los vectores de ambos objetos
-    /// son iguales, <see langword="false" /> en caso contrario.
+    /// <see langword="true" /> if all vectors of both objects
+    /// are equal; <see langword="false" /> otherwise.
     /// </returns>
     public readonly bool Equals(IVector? other)
     {

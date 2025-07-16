@@ -28,7 +28,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace TheXDS.MCART.FlowDocumentExtensions.Types;
+namespace TheXDS.MCART.Types;
 
 /// <summary>
 /// Class that describes a data selector for generating a

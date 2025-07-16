@@ -484,6 +484,19 @@ public static class Errors
         return new NullItemException() { NullIndex = index };
     }
 
+    /// <summary>
+    /// Creates an <see cref="InvalidOperationException"/> indicating that a
+    /// quorum was not reached.
+    /// </summary>
+    /// <returns>
+    /// An <see cref="InvalidOperationException"/> with a message describing
+    /// the quorum failure.
+    /// </returns>
+    public static InvalidOperationException NoQuorum()
+    {
+        return new InvalidOperationException(Ers.NoQuorum);
+    }
+
     internal static NullReferenceException FieldIsNull(FieldInfo j)
     {
         return new NullReferenceException(string.Format(Ers.FieldValueShouldNotBeNull, j.Name));

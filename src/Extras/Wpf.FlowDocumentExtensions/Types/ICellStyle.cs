@@ -31,7 +31,7 @@ SOFTWARE.
 using System.Windows;
 using System.Windows.Media;
 
-namespace TheXDS.MCART.FlowDocumentExtensions.Types;
+namespace TheXDS.MCART.Types;
 
 /// <summary>
 /// Defines a set of members to be implemented by a class that

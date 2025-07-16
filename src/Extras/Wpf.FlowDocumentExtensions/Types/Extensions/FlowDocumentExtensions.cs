@@ -33,8 +33,9 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using TheXDS.MCART.Math;
+using TheXDS.MCART.Types;
 
-namespace TheXDS.MCART.FlowDocumentExtensions.Types.Extensions;
+namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
 /// Fluent type extensions for manipulating <see cref="FlowDocument" /> objects.
@@ -57,7 +58,7 @@ public static partial class FlowDocumentExtensions
         Size sz = new(dialog.PrintableAreaWidth, dialog.PrintableAreaHeight);
 
         DocumentPaginator? paginator = (fd as IDocumentPaginatorSource).DocumentPaginator;
-        paginator.PageSize = sz;
+        paginator.PageSize = sz.ToSize();
         dialog.PrintDocument(paginator, title);
     }
 
@@ -76,7 +77,7 @@ public static partial class FlowDocumentExtensions
         PrintDialog? dialog = new();
         Size sz = new(dialog.PrintableAreaWidth, dialog.PrintableAreaHeight);
         DocumentPaginator? paginator = (fd as IDocumentPaginatorSource).DocumentPaginator;
-        paginator.PageSize = sz;
+        paginator.PageSize = sz.ToSize();
         dialog.PrintDocument(paginator, title);
     }
 
@@ -194,7 +195,7 @@ public static partial class FlowDocumentExtensions
         TableRowGroup? rg = new();
 
         TableRow? headersRow = new() { FontWeight = FontWeights.Bold };
-        List<IColumnBuilder<T>>? c = columns.ToList();
+        List<IColumnBuilder<T>>? c = [.. columns];
         foreach (IColumnBuilder<T>? j in c)
         {
             tbl.Columns.Add(new TableColumn());
@@ -511,7 +512,7 @@ public static partial class FlowDocumentExtensions
             {
                 if (k.DisplayMemberBinding is not Binding b) continue;
                 object o = b.Path.Path.Split('.').Aggregate(j,
-                    (current, i) => current?.GetType().GetProperty(i)?.GetMethod?.Invoke(j, Array.Empty<object>())!);
+                    (current, i) => current?.GetType().GetProperty(i)?.GetMethod?.Invoke(j, [])!);
                 if (o is not null) row.AddCell(o.ToString()!);
             }
         }

@@ -31,7 +31,7 @@ SOFTWARE.
 using System.Windows;
 using System.Windows.Media;
 
-namespace TheXDS.MCART.FlowDocumentExtensions.Types;
+namespace TheXDS.MCART.Types;
 
 /// <summary>
 /// Common style reference for WPF.

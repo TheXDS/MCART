@@ -31,9 +31,9 @@ SOFTWARE.
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
-using TheXDS.MCART.Types.Extensions;
+using TheXDS.MCART.Types;
 
-namespace TheXDS.MCART.FlowDocumentExtensions.Types.Extensions;
+namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
 /// Fluent type extensions for manipulating

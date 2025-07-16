@@ -255,4 +255,7 @@
   <data name="ShallowCopyTo_Contract_DestinationTypeMismatch" xml:space="preserve">
     <value>El tipo de destino ({0}) no coincide con el tipo de origen ({1}).</value>
   </data>
+  <data name="NoQuorum" xml:space="preserve">
+    <value>No se encontró quorum para los valores provistos.</value>
+  </data>
 </root>
