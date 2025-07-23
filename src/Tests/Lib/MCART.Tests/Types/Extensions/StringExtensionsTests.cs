@@ -34,6 +34,7 @@ SOFTWARE.
 using System.Globalization;
 using System.Text;
 using TheXDS.MCART.Helpers;
+using TheXDS.MCART.Types.Extensions;
 using static TheXDS.MCART.Types.Extensions.SecureStringExtensions;
 using static TheXDS.MCART.Types.Extensions.StringExtensions;
 
@@ -394,5 +395,33 @@ public class StringExtensionsTests
     {
         Assert.That(string.Concat("  test  test".TextWrap()), Is.EqualTo("  test  test"));
         Assert.That(string.Concat("    test    test".TextWrap()), Is.EqualTo("    test    test"));
+    }
+
+    [Test]
+    public void TokenSearch_Test()
+    {
+        Assert.That("abc".TokenSearch("a b c"), Is.True);
+        Assert.That("abc".TokenSearch("d e f"), Is.False);
+        Assert.That("aBc".TokenSearch("A B C", SearchOptions.CaseSensitive), Is.True);
+        Assert.That("aBc".TokenSearch("A b C", SearchOptions.CaseSensitive), Is.False);
+        Assert.That("abc".TokenSearch("a b c", SearchOptions.IncludeAll), Is.True);
+        Assert.That("abc".TokenSearch("a b d", SearchOptions.IncludeAll), Is.False);
+    }
+
+    [Test]
+    public void TokenSearch_with_wildcard_test()
+    {
+        Assert.That("aa".TokenSearch("a? b? c?", SearchOptions.Wildcard), Is.True);
+        Assert.That("aa".TokenSearch("a? b? c?", SearchOptions.Wildcard | SearchOptions.IncludeAll), Is.False);
+    }
+
+    [TestCase("test.txt", "^test\\.txt$")]
+    [TestCase("test?.txt", "^test.\\.txt$")]
+    [TestCase("test*.txt", "^test.*\\.txt$")]
+    [TestCase("*.txt", "^.*\\.txt$")]
+    [TestCase("*.*", "^.*\\..*$")]
+    public void WildcardToRegular_Test(string value, string expected)
+    {
+        Assert.That(WildcardToRegEx(value), Is.EqualTo(expected));
     }
 }

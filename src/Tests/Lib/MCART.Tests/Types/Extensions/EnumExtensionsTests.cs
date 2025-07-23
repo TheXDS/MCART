@@ -101,6 +101,34 @@ public class EnumExtensionsTests
         Assert.That(((Enum)DayOfWeek.Monday).ToUnderlyingType(), Is.AssignableFrom<int>());
     }
 
+    [Test]
+    public void HasAttributes_Test()
+    {
+        Assert.Multiple(() =>
+        {
+            Assert.That(TestByteEnum.Zero.HasAttributes<NameAttribute>(out var attrs));
+            Assert.That(attrs.Single(), Is.InstanceOf<NameAttribute>());
+        });
+        Assert.Multiple(() =>
+        {
+            Assert.That(TestByteEnum.Two.HasAttributes<NameAttribute>(out var attrs), Is.False);
+            Assert.That(attrs.Any(), Is.False);
+        });
+        Assert.Multiple(() =>
+        {
+            Assert.That(((TestByteEnum)99).HasAttributes<NameAttribute>(out var attrs), Is.False);
+            Assert.That(attrs.Any(), Is.False);
+        });
+    }
+
+    [Test]
+    public void GetAttributes_Test()
+    {
+        Assert.That(TestByteEnum.Zero.GetAttributes<NameAttribute>(), Is.Not.Empty);
+        Assert.That(TestByteEnum.Two.GetAttributes<NameAttribute>(), Is.Empty);
+        Assert.That(((TestByteEnum)99).GetAttributes<NameAttribute>(), Is.Empty);
+    }
+
     private enum TestByteEnum : byte
     {
         [Name("Number Zero")] Zero,

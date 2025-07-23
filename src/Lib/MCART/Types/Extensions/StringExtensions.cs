@@ -73,7 +73,7 @@ public static class StringExtensions
         /// <summary>
         /// Interpret tokens using the Like operator
         /// </summary>
-        WildCard = 4
+        Wildcard = 4
     }
 
     /// <summary>
@@ -964,16 +964,17 @@ public static class StringExtensions
     /// </returns>
     public static bool TokenSearch(this string str, string searchTerms, char separator, SearchOptions options)
     {
-        string? s = options.HasFlag(SearchOptions.CaseSensitive) ? str : str.ToUpper();
-        string? t = options.HasFlag(SearchOptions.CaseSensitive) ? searchTerms : searchTerms.ToUpper();
+        (string? s,string? t)  = options.HasFlag(SearchOptions.CaseSensitive)
+            ? (str, searchTerms)
+            : (str.ToUpper(), searchTerms.ToUpper());
         string[]? terms = t.Split(separator);
-        if (options.HasFlag(SearchOptions.WildCard))
+        if (options.HasFlag(SearchOptions.Wildcard))
             return options.HasFlag(SearchOptions.IncludeAll)
-                ? terms.All(j => Regex.IsMatch(s, WildCardToRegular(j)))
-                : terms.Any(j => Regex.IsMatch(s, WildCardToRegular(j)));
+                ? terms.All(j => Regex.IsMatch(s, WildcardToRegEx(j)))
+                : terms.Any(j => Regex.IsMatch(s, WildcardToRegEx(j)));
         return options.HasFlag(SearchOptions.IncludeAll)
-            ? terms.All(j => s.Contains(j))
-            : terms.Any(j => s.Contains(j));
+            ? terms.All(s.Contains)
+            : terms.Any(s.Contains);
     }
 
     /// <summary>
@@ -1089,7 +1090,7 @@ public static class StringExtensions
     /// </summary>
     /// <param name="value">Wildcard pattern.</param>
     /// <returns>Regular expression pattern.</returns>
-    public static string WildCardToRegular(string value)
+    public static string WildcardToRegEx(string value)
     {
         return "^" + Regex.Escape(value).Replace("\\?", ".").Replace("\\*", ".*") + "$";
     }

@@ -33,7 +33,9 @@ SOFTWARE.
 #pragma warning disable IDE0290
 
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.InteropServices;
 using System.Text;
+using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Helpers;
 using TheXDS.MCART.Types.Extensions;
 
@@ -184,7 +186,7 @@ public class BinaryReaderExtensionsTests
     [Test]
     public void ReadBytesAt_Test()
     {
-        byte[] a = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        byte[] a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
         using MemoryStream ms = new(a);
         ms.Seek(0, SeekOrigin.Begin);
         using BinaryReader br = new(ms);
@@ -194,7 +196,7 @@ public class BinaryReaderExtensionsTests
     [Test]
     public void ReadBytesAt_contract_test()
     {
-        byte[] a = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        byte[] a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
         using MemoryStream ms = new(a);
         ms.Seek(0, SeekOrigin.Begin);
         using BinaryReader br = new(ms);
@@ -285,12 +287,32 @@ public class BinaryReaderExtensionsTests
         Assert.That("test", Is.EqualTo(v.StrProp));
     }
 
+    [Test]
+    public void MarshalReadStruct_with_endianness_test()
+    {
+        using MemoryStream ms = new([0, 0, 0, 1, 1, 0, 0, 0]);
+        using BinaryReader br = new(ms);
+        var value = br.MarshalReadStruct<EndiannessTestStruct>();
+        Assert.That(value.LittleEndianValue, Is.EqualTo(1));
+        Assert.That(value.BigEndianValue, Is.EqualTo(1));
+    }
+
     [ExcludeFromCodeCoverage]
     private struct TestStruct
     {
         public int Int32Value;
         public bool BoolValue;
         public string StringValue;
+    }
+
+    [ExcludeFromCodeCoverage]
+    [StructLayout(LayoutKind.Sequential)]
+    private struct EndiannessTestStruct
+    {
+        [Endianness(Endianness.BigEndian)]
+        public int BigEndianValue;
+        [Endianness(Endianness.LittleEndian)]
+        public int LittleEndianValue;
     }
 
     [ExcludeFromCodeCoverage]

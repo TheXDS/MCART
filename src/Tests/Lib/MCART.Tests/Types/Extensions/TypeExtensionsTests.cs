@@ -32,7 +32,10 @@ using System.Collections;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using System.Reflection;
+using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
+using TheXDS.MCART.Helpers;
+using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Extensions;
 
@@ -196,7 +199,7 @@ public class TypeExtensionsTests
     [Test]
     public void Derivates_Test()
     {
-        Type[]? t = typeof(Exception).FindDerivedTypes(typeof(Exception).Assembly).ToArray();
+        Type[]? t = [.. typeof(Exception).FindDerivedTypes(typeof(Exception).Assembly)];
         Assert.That(t, Contains.Item(typeof(ArgumentNullException)));
         Assert.That(t.Contains(typeof(TamperException)), Is.False);
         Assert.That(t.Contains(typeof(int)), Is.False);
@@ -205,6 +208,33 @@ public class TypeExtensionsTests
         Assert.That(t.Contains(typeof(Enum)), Is.False);
         Assert.That(t.Contains(typeof(AppDomain)), Is.False);
         Assert.That(t.Contains(typeof(object)), Is.False);
+    }
+
+    [Test]
+    public void GetAttrAlt_Test()
+    {
+        Assert.That(typeof(CopyrightAttribute).GetAttrAlt<AttributeUsageAttribute>(), Is.Not.Null);
+        Assert.That(typeof(CopyrightAttribute).GetAttrAlt<SpdxLicenseAttribute>(), Is.Not.Null);
+    }
+
+    [Test]
+    public void HasAttrAlt_Test()
+    {
+        Assert.That(typeof(CopyrightAttribute).HasAttrAlt<AttributeUsageAttribute>(), Is.True);
+        Assert.That(typeof(CopyrightAttribute).HasAttrAlt<SpdxLicenseAttribute>(), Is.True);
+    }
+
+    [Test]
+    public void GetDefinedMethods_Test()
+    {
+        Assert.That(typeof(Exception).GetDefinedMethods().Any(m => m.Name == nameof(Exception.ToString)));
+        Assert.That(typeof(Exception).GetDefinedMethods().Any(m => m.Name == nameof(ReferenceEquals)), Is.False);
+    }
+
+    [Test]
+    public void GetPublicProperties_Test()
+    {
+        Assert.That(typeof(Exception).GetPublicProperties().Any(p => p.Name == nameof(Exception.Message)));
     }
 
     [Test]
