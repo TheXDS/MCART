@@ -120,7 +120,7 @@ public class TypeExpression(string fullName)
         {
             var g = _genericArgs.Select(p => p.Resolve(throwOnFail));
             if (!g.IsAnyNull())
-                return tg.MakeGenericType(g.NotNull().ToArray());
+                return tg.MakeGenericType([.. g.NotNull()]);
         }
         else if (_genericArgs.Count == 0 && SearchTypeByName(_fullName) is Type t)
         {

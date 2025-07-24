@@ -739,4 +739,43 @@ public static partial class EnumerableExtensions
         value = x.First();
         return true;
     }
+
+    /// <summary>
+    /// Splits the specified collection into a specified number of slices.
+    /// </summary>
+    /// <typeparam name="T">The type of elements in the collection.</typeparam>
+    /// <param name="collection">The collection to be sliced.</param>
+    /// <param name="count">The number of slices to create.</param>
+    /// <returns>
+    /// An enumerable of slices, where each slice is an enumerable of elements
+    /// from the original collection.
+    /// </returns>
+    /// <remarks>
+    /// The elements are distributed among slices in a way that tries to make
+    /// the slices as evenly sized as possible. If the collection length is not
+    /// evenly divisible by the slice count, the remaining elements are
+    /// distributed among the slices from left to right.
+    /// </remarks>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Thrown if <paramref name="count"/> is less than or equal to zero.
+    /// </exception>
+    public static IEnumerable<IEnumerable<T>> Slice<T>(this IEnumerable<T> collection, int count)
+    {
+        ArgumentNullException.ThrowIfNull(collection);
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(count);
+        return SliceInternal(collection, count);
+    }
+
+    private static IEnumerable<IEnumerable<T>> SliceInternal<T>(IEnumerable<T> collection, int count)
+    {
+        var array = collection.ToArray();
+        var size = array.Length / count;
+        var remainder = array.Length % count;
+        for (var j = 0; j < count; j++)
+        {
+            var takeCount = size + (j < remainder ? 1 : 0);
+            var skipCount = j * size + System.Math.Min(j, remainder);
+            yield return array.Skip(skipCount).Take(takeCount);
+        }
+    }
 }

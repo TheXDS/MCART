@@ -33,16 +33,10 @@ using TheXDS.MCART.Helpers;
 
 namespace TheXDS.MCART.Tests;
 
-public abstract class StringResourceTestClass
+public abstract class StringResourceTestClass(Type resourceClass)
 {
-    private readonly Type resourceClass;
-    private readonly PropertyInfo cultureProperty;
-
-    protected StringResourceTestClass(Type resourceClass)
-    {
-        this.resourceClass = resourceClass;
-        cultureProperty =  resourceClass.GetProperty("Culture", BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static) ?? throw new TamperException();
-    }
+    private readonly Type resourceClass = resourceClass;
+    private readonly PropertyInfo cultureProperty = resourceClass.GetProperty("Culture", BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static) ?? throw new TamperException();
 
     private void SetCulture(CultureInfo culture)
     {

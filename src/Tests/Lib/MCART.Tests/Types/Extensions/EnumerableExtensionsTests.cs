@@ -565,4 +565,70 @@ public class EnumerableExtensionsTests
         int[] values = [1, 2, 3, 4, 5];
         Assert.Throws<ArgumentOutOfRangeException>(() => values.Quorum(quorumSize));
     }
+
+    [Test]
+    public void Slice_slices_collection_test()
+    {
+        var arr = Enumerable.Range(0, 10);
+        var result = arr.Slice(2).ToArray();
+        Assert.That(result, Has.Length.EqualTo(2));
+        Assert.Multiple(() =>
+        {
+            Assert.That(result[0], Is.EquivalentTo([0, 1, 2, 3, 4]));
+            Assert.That(result[1], Is.EquivalentTo([5, 6, 7, 8, 9]));
+        });
+    }
+
+    [Test]
+    public void Slice_distributes_small_remainder()
+    {
+        var arr = Enumerable.Range(0, 11);
+        var result = arr.Slice(2).ToArray();
+        Assert.That(result, Has.Length.EqualTo(2));
+        Assert.Multiple(() =>
+        {
+            Assert.That(result[0], Is.EquivalentTo([0, 1, 2, 3, 4, 5]));
+            Assert.That(result[1], Is.EquivalentTo([6, 7, 8, 9, 10]));
+        });
+    }
+
+    [Test]
+    public void Slice_distributes_large_remainder()
+    {
+        var arr = Enumerable.Range(0, 14);
+        var result = arr.Slice(5).ToArray();
+        Assert.That(result, Has.Length.EqualTo(5));
+        Assert.Multiple(() =>
+        {
+            Assert.That(result[0], Is.EquivalentTo([0, 1, 2]));
+            Assert.That(result[1], Is.EquivalentTo([3, 4, 5]));
+            Assert.That(result[2], Is.EquivalentTo([6, 7, 8]));
+            Assert.That(result[3], Is.EquivalentTo([9, 10, 11]));
+            Assert.That(result[4], Is.EquivalentTo([12, 13]));
+        });
+    }
+
+    [Test]
+    public void Slice_returns_empty_enumerations_if_collection_is_empty()
+    {
+        Assert.That(Array.Empty<int>().Slice(10), Is.EquivalentTo(Enumerable.Repeat((IEnumerable<int>)[], 10)));
+    }
+
+    [Test]
+    public void Slice_returns_entire_enumeration_if_count_equals_1()
+    {
+        var slices = Enumerable.Range(0, 5).Slice(1).ToArray();
+        Assert.That(slices, Has.Length.EqualTo(1));
+        Assert.That(slices[0], Is.EquivalentTo([0, 1, 2, 3, 4]));
+    }
+
+    [Test]
+    public void Slice_contract_Test()
+    {
+        Assert.Multiple(() =>
+        {
+            Assert.That(() => ((int[])null!).Slice(1), Throws.ArgumentNullException);
+            Assert.That(() => Enumerable.Range(0, 5).Slice(0), Throws.InstanceOf<ArgumentOutOfRangeException>());
+        });
+    }
 }
