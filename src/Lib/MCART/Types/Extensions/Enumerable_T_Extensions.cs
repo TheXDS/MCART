@@ -774,7 +774,7 @@ public static partial class EnumerableExtensions
         for (var j = 0; j < count; j++)
         {
             var takeCount = size + (j < remainder ? 1 : 0);
-            var skipCount = j * size + System.Math.Min(j, remainder);
+            var skipCount = (j * size) + System.Math.Min(j, remainder);
             yield return array.Skip(skipCount).Take(takeCount);
         }
     }
