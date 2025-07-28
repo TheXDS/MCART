@@ -27,6 +27,7 @@
 // SOFTWARE.
 
 using Moq;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using TheXDS.MCART.Component;
@@ -58,6 +59,8 @@ namespace TheXDS.MCART.Mvvm.Tests.Helpers
             private double? _nullableDoubleProperty;
             private float? _nullableFloatProperty;
             private string? _stringProperty;
+
+            public ObservableCollection<string> CollectionProp { get; } = [];
 
             public int IntProperty
             {
@@ -240,6 +243,21 @@ namespace TheXDS.MCART.Mvvm.Tests.Helpers
         }
 
         [Test]
+        public void CanExecuteIfNotZero_configures_command_test()
+        {
+            var observed = new ObservableTestClass();
+            var command = ObservingCommandBuilder
+                .Create(observed, () => { })
+                .CanExecuteIfNotZero(p => p.IntProperty)
+                .Build();
+
+            observed.IntProperty = 0;
+            Assert.That(command.CanExecute(null), Is.False);
+            observed.IntProperty = 1;
+            Assert.That(command.CanExecute(null), Is.True);
+        }
+
+        [Test]
         public void CanExecuteIfFilled_configures_command_test()
         {
             var observed = new ObservableTestClass();
@@ -337,20 +355,15 @@ namespace TheXDS.MCART.Mvvm.Tests.Helpers
         }
 
         [Test]
-        public void CanExecuteIfNotZero_configures_command_test()
+        public void CanExecuteIfNotEmpty_configures_command_test()
         {
             var observed = new ObservableTestClass();
             var command = ObservingCommandBuilder
                 .Create(observed, () => { })
-                .CanExecuteIfNotDefault(p => p.IntProperty, p => p.FloatProperty, p => p.DoubleProperty)
+                .CanExecuteIfNotEmpty(p => p.CollectionProp)
                 .Build();
-
             Assert.That(command.CanExecute(null), Is.False);
-            observed.IntProperty = 1;
-            Assert.That(command.CanExecute(null), Is.False);
-            observed.FloatProperty = 1;
-            Assert.That(command.CanExecute(null), Is.False);
-            observed.DoubleProperty = 1;
+            observed.CollectionProp.Add("Test");
             Assert.That(command.CanExecute(null), Is.True);
         }
 
