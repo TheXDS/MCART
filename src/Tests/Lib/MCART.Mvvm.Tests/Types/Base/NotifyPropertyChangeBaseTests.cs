@@ -64,15 +64,12 @@ public class NotifyPropertyChangeBaseTests
                 .RegisterPropertyChangeTrigger(() => IdAsString, () => Prefix);
         }
     }
+
     [ExcludeFromCodeCoverage]
     private class NpcTestClass2 : NotifyPropertyChanged
     {
         private int _Prop1;
 
-        /// <summary>
-        /// Gets or sets the value of the Prop1 property.
-        /// </summary>
-        /// <value>The value of the Prop1 property.</value>
         public int Prop1
         {
             get => _Prop1;
@@ -90,6 +87,7 @@ public class NotifyPropertyChangeBaseTests
                 .RegisterPropertyChangeBroadcast(() => Prop1, () => Prop1ToString2);
         }
     }
+
     [ExcludeFromCodeCoverage]
     private class BrokenNpcTestClass : NotifyPropertyChanged
     {
