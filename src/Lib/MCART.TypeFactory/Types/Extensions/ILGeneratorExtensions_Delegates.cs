@@ -88,6 +88,8 @@ public static partial class ILGeneratorExtensions
     /// </param>
     public delegate void TryBlock(ILGenerator il, Label leaveTry);
 
+    public delegate void FinallyBlock(ILGenerator il, Label leaveTry);
+
     /// <summary>
     /// Define un delegado que describe un bloque <see langword="using"/>.
     /// </summary>

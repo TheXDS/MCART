@@ -530,6 +530,7 @@ public sealed class ProgressDialog : IProgressDialog, IDisposable
     private void Show(nint owner)
     {
         _nativeProgressDialog!.StartProgressDialog(owner, nint.Zero, _flags, nint.Zero);
+        _state = ProgressDialogState.Running;
     }
 
     private void Cleanup()
@@ -549,7 +550,7 @@ public sealed class ProgressDialog : IProgressDialog, IDisposable
 
     private void ActiveDialogContract()
     {
-        if (_state == ProgressDialogState.Stopped) throw Errors.Tamper();
+        //if (_state == ProgressDialogState.Stopped) throw Errors.Tamper();
     }
 
     private ProgressDialog SetFlag(bool value, ProgressDialogFlags flags)

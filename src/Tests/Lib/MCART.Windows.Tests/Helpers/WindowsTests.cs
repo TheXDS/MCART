@@ -1,4 +1,4 @@
-// GlobalUsings.cs
+﻿// WindowsTests.cs
 //
 // This file is part of Morgan's CLR Advanced Runtime (MCART)
 //
@@ -26,4 +26,29 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-global using NUnit.Framework;
+using System.Drawing;
+using TheXDS.MCART.Component;
+using Win = TheXDS.MCART.Helpers.Windows;
+
+namespace TheXDS.MCART.Windows.Tests.Helpers;
+
+internal class WindowsTests
+{
+    [Test]
+    public void Helper_exposes_Windows_info()
+    {
+        Assert.That(Win.Info, Is.TypeOf<WindowsInfo>());
+    }
+
+    [Test]
+    public void Helper_exposes_IsAdministrator_func()
+    {
+        Assert.That(Win.IsAdministrator(), Is.TypeOf<bool>());
+    }
+
+    [Test]
+    public void Helper_exposes_PickDrawingBrush_func()
+    {
+        Assert.That(Win.PickDrawingBrush(), Is.AssignableTo<Brush>());
+    }
+}

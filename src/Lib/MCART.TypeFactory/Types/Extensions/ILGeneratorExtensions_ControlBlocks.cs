@@ -28,6 +28,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System.Collections;
 using System.Reflection.Emit;
 using TheXDS.MCART.Helpers;
 using static System.Reflection.Emit.OpCodes;
@@ -357,19 +358,19 @@ public static partial class ILGeneratorExtensions
         return ilGen
             .Call<IEnumerable<T>, Func<IEnumerator<T>>>(p => p.GetEnumerator)
             .StoreNewLocal<IEnumerator<T>>(out LocalBuilder? enumerator)
-            .Using(enumerator, (ilGen, _, @break) =>
+            .Using(enumerator, (ilGen, _, leaveForEach) =>
             {
                 ilGen
                     .BranchNewLabel(out Label moveNext)
                     .InsertNewLabel(out Label loopStart)
-                    .LoadLocalAddress(enumerator)
+                    .LoadLocal(enumerator)
                     .Call(ReflectionHelpers.GetProperty<IEnumerator<T>>(p => p.Current).GetMethod!)
                     .StoreLocal(itm);
-                foreachBlock(ilGen,itm, @break, moveNext);
+                foreachBlock.Invoke(ilGen, itm, leaveForEach, moveNext);
                 ilGen
                     .PutLabel(moveNext)
-                    .LoadLocalAddress(enumerator)
-                    .Call<IEnumerator<T>, Func<bool>>(p => p.MoveNext)
+                    .LoadLocal(enumerator)
+                    .Call<IEnumerator, Func<bool>>(p => p.MoveNext)
                     .BranchTrue(loopStart);
             });
     }
@@ -397,7 +398,13 @@ public static partial class ILGeneratorExtensions
     /// </returns>
     public static ILGenerator Using(this ILGenerator ilGen, LocalBuilder disposable, UsingBlock usingBlock)
     {
-        return ilGen.TryFinally((ilGen, @break) => usingBlock(ilGen, disposable, @break), ilGen => ilGen.Dispose(disposable));
+        return ilGen.TryFinally((ilGen, leaveTry) => usingBlock.Invoke(ilGen, disposable, leaveTry), (ilGen, leaveFinally) =>
+        {
+            ilGen
+            .LoadLocal(disposable)
+            .BranchFalse(leaveFinally)
+            .Dispose(disposable);
+        });
     }
 
     /// <summary>
@@ -423,7 +430,7 @@ public static partial class ILGeneratorExtensions
     public static ILGenerator Using<T>(this ILGenerator ilGen, UsingBlock usingBlock) where T : IDisposable, new()
     {
         ilGen.NewObject<T>().StoreNewLocal<T>(out LocalBuilder? disposable);
-        return ilGen.TryFinally((ilGen, @break) => usingBlock(ilGen, disposable, @break), ilGen => ilGen.Dispose(disposable));
+        return Using(ilGen, disposable, usingBlock);
     }
 
     /// <summary>
@@ -467,11 +474,16 @@ public static partial class ILGeneratorExtensions
     /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
     /// de sintaxis Fluent.
     /// </returns>
-    public static ILGenerator TryFinally(this ILGenerator ilGen, TryBlock tryBlock, Action<ILGenerator> finallyBlock)
+    public static ILGenerator TryFinally(this ILGenerator ilGen, TryBlock tryBlock, FinallyBlock finallyBlock)
     {
-        tryBlock(ilGen, ilGen.BeginExceptionBlock());
+        var leaveTry = ilGen.BeginExceptionBlock();
+        tryBlock.Invoke(ilGen, leaveTry);
+        ilGen.Leave(leaveTry);
         ilGen.BeginFinallyBlock();
-        finallyBlock(ilGen);
+        var leaveFinally = ilGen.DefineLabel();
+        finallyBlock.Invoke(ilGen, leaveFinally);
+        ilGen.PutLabel(leaveFinally);
+        ilGen.Emit(Endfinally);
         ilGen.EndExceptionBlock();
         return ilGen;
     }

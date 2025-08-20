@@ -506,6 +506,6 @@ public class WindowsInfo : INameable, IDescriptible, IExposeInfo
             int.Parse(t[8..10]),
             int.Parse(t[10..12]),
             int.Parse(t[12..14]),
-            int.Parse(t[14..17]));
+            int.Parse(t[15..18]));
     }
 }

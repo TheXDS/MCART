@@ -1,4 +1,4 @@
-// GlobalUsings.cs
+﻿// AssemblyAnnotations.cs
 //
 // This file is part of Morgan's CLR Advanced Runtime (MCART)
 //
@@ -26,4 +26,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-global using NUnit.Framework;
+using System.Runtime.CompilerServices;
+
+[assembly:InternalsVisibleTo("MCART.Windows.Tests")]

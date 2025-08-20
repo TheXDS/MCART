@@ -26,6 +26,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using System.Reflection;
 using TheXDS.MCART.Types.Extensions;
 
 namespace TheXDS.MCART.TypeFactory.Tests.Types.Extensions;
@@ -33,38 +34,51 @@ namespace TheXDS.MCART.TypeFactory.Tests.Types.Extensions;
 public partial class ILGeneratorExtensions_Tests : TypeFactoryTestClassBase
 {
     [Test]
+    public void NewArray_with_explicit_size_test()
+    {
+        var (builder, il) = NewTestMethod();
+        var cf = builder.DefineField("Arr", typeof(int[]), FieldAttributes.Public);
+        il
+            .NewArray<int>(3, out var arrLocal)
+            .SetField(cf, i => i.LoadLocal(arrLocal))
+            .Return();
+        var obj = InvokeTestMethod(builder);
+        Assert.That(GetField(obj, "Arr"), Is.EquivalentTo(new int[3]));
+    }
+
+    [Test]
     public void NewArray_T_with_local_store_test()
     {
-        var testCallBack = BuildTest<int[]>(new[] { typeof(int) }, il => il.LoadArg1().NewArray<int>(out var arr).LoadLocal(arr).Return());
-        Assert.That(testCallBack.Invoke(new object[] { 3 }), Is.EquivalentTo(new int[3]));
-        Assert.That(testCallBack.Invoke(new object[] { 5 }), Is.EquivalentTo(new int[5]));
-        Assert.That(testCallBack.Invoke(new object[] { 7 }), Is.EquivalentTo(new int[7]));
+        var testCallBack = BuildTest<int[]>([typeof(int)], il => il.LoadArg1().NewArray<int>(out var arr).LoadLocal(arr).Return());
+        Assert.That(testCallBack.Invoke([3]), Is.EquivalentTo(new int[3]));
+        Assert.That(testCallBack.Invoke([5]), Is.EquivalentTo(new int[5]));
+        Assert.That(testCallBack.Invoke([7]), Is.EquivalentTo(new int[7]));
     }
 
     [Test]
     public void NewArray_T_test()
     {
-        var testCallBack = BuildTest<int[]>(new[] { typeof(int) }, il => il.LoadArg1().NewArray<int>().Return());
-        Assert.That(testCallBack.Invoke(new object[] { 3 }), Is.EquivalentTo(new int[3]));
-        Assert.That(testCallBack.Invoke(new object[] { 5 }), Is.EquivalentTo(new int[5]));
-        Assert.That(testCallBack.Invoke(new object[] { 7 }), Is.EquivalentTo(new int[7]));
+        var testCallBack = BuildTest<int[]>([typeof(int)], il => il.LoadArg1().NewArray<int>().Return());
+        Assert.That(testCallBack.Invoke([3]), Is.EquivalentTo(new int[3]));
+        Assert.That(testCallBack.Invoke([5]), Is.EquivalentTo(new int[5]));
+        Assert.That(testCallBack.Invoke([7]), Is.EquivalentTo(new int[7]));
     }
 
     [Test]
     public void NewArray_with_local_store_test()
     {
-        var testCallBack = BuildTest<int[]>(new[] { typeof(int) }, il => il.LoadArg1().NewArray(typeof(int), out var arr).LoadLocal(arr).Return());
-        Assert.That(testCallBack.Invoke(new object[] { 3 }), Is.EquivalentTo(new int[3]));
-        Assert.That(testCallBack.Invoke(new object[] { 5 }), Is.EquivalentTo(new int[5]));
-        Assert.That(testCallBack.Invoke(new object[] { 7 }), Is.EquivalentTo(new int[7]));
+        var testCallBack = BuildTest<int[]>([typeof(int)], il => il.LoadArg1().NewArray(typeof(int), out var arr).LoadLocal(arr).Return());
+        Assert.That(testCallBack.Invoke([3]), Is.EquivalentTo(new int[3]));
+        Assert.That(testCallBack.Invoke([5]), Is.EquivalentTo(new int[5]));
+        Assert.That(testCallBack.Invoke([7]), Is.EquivalentTo(new int[7]));
     }
 
     [Test]
     public void NewArray_test()
     {
-        var testCallBack = BuildTest<int[]>(new[] { typeof(int) }, il => il.LoadArg1().NewArray(typeof(int)).Return());
-        Assert.That(testCallBack.Invoke(new object[] { 3 }), Is.EquivalentTo(new int[3]));
-        Assert.That(testCallBack.Invoke(new object[] { 5 }), Is.EquivalentTo(new int[5]));
-        Assert.That(testCallBack.Invoke(new object[] { 7 }), Is.EquivalentTo(new int[7]));
+        var testCallBack = BuildTest<int[]>([typeof(int)], il => il.LoadArg1().NewArray(typeof(int)).Return());
+        Assert.That(testCallBack.Invoke([3]), Is.EquivalentTo(new int[3]));
+        Assert.That(testCallBack.Invoke([5]), Is.EquivalentTo(new int[5]));
+        Assert.That(testCallBack.Invoke([7]), Is.EquivalentTo(new int[7]));
     }
 }

@@ -217,6 +217,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "old", "old", "{0ED0A9C1-004
 		..\docs\articles\old\ROADMAP.md = ..\docs\articles\old\ROADMAP.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MCART.Windows.Tests", "Tests\Lib\MCART.Windows.Tests\MCART.Windows.Tests.csproj", "{975A39FA-70EF-49CE-A2D9-790EDAA1B90F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -355,6 +357,10 @@ Global
 		{0BDEBC66-2A28-4FC4-A52D-3994F2B0E991}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0BDEBC66-2A28-4FC4-A52D-3994F2B0E991}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0BDEBC66-2A28-4FC4-A52D-3994F2B0E991}.Release|Any CPU.Build.0 = Release|Any CPU
+		{975A39FA-70EF-49CE-A2D9-790EDAA1B90F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{975A39FA-70EF-49CE-A2D9-790EDAA1B90F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{975A39FA-70EF-49CE-A2D9-790EDAA1B90F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{975A39FA-70EF-49CE-A2D9-790EDAA1B90F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -424,6 +430,7 @@ Global
 		{B2359786-724A-4530-A117-125AFC274C65} = {0151F8B9-B358-4654-B5CB-6FB9D02DF004}
 		{0BDEBC66-2A28-4FC4-A52D-3994F2B0E991} = {628D40FB-AA87-4DA7-AF16-4F57A9FADD9C}
 		{0ED0A9C1-004C-4D10-9226-6240ED23B7BB} = {8D205061-EEC6-4A1F-9F9F-E3AB164446B0}
+		{975A39FA-70EF-49CE-A2D9-790EDAA1B90F} = {4928BEED-2E64-4181-827D-9017F2FA3BE5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {63BB1063-9448-4D86-ADAF-29683E2E7E73}
@@ -454,6 +461,7 @@ Global
 		Platform\Shared\Xaml\Xaml.projitems*{8817fb6f-3fcb-43c9-9054-b47d4deb0f20}*SharedItemsImports = 13
 		Shared\AssemblyInfo\AssemblyInfo.projitems*{967afaa3-ded3-4ec0-9401-7193b318fce8}*SharedItemsImports = 13
 		Shared\AssemblyInfo\AssemblyInfo.projitems*{96f6fd64-bbab-4513-821d-6ee518274c78}*SharedItemsImports = 5
+		Tests\TestShared\TestShared.projitems*{975a39fa-70ef-49ce-a2d9-790edaa1b90f}*SharedItemsImports = 5
 		Shared\AssemblyInfo\AssemblyInfo.projitems*{9ad59451-bcf9-42fb-be09-e6189020131f}*SharedItemsImports = 5
 		Tests\Platform\Shared\Xaml.Tests\Xaml.Tests.projitems*{b2359786-724a-4530-a117-125afc274c65}*SharedItemsImports = 5
 		Tests\TestShared\TestShared.projitems*{b2359786-724a-4530-a117-125afc274c65}*SharedItemsImports = 5

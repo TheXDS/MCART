@@ -53,7 +53,7 @@ public abstract class TypeFactoryTestClassBase
     protected static object InvokeTestMethod(TypeBuilder builder, [CallerMemberName] string name = null!)
     {
         var obj = builder.New();
-        obj.GetType().GetMethod(name)!.Invoke(obj, Array.Empty<object>());
+        obj.GetType().GetMethod(name)!.Invoke(obj, []);
         return obj;
     }
 

@@ -300,6 +300,15 @@ public static partial class ILGeneratorExtensions
     [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
     public static ILGenerator NewArray<T>(this ILGenerator ilGen, out LocalBuilder local) => NewArray(ilGen, typeof(T), out local);
 
+    [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
+    public static ILGenerator NewArray<T>(this ILGenerator ilGen, int length, out LocalBuilder local) => NewArray(ilGen, length, typeof(T), out local);
+    
+    [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
+    public static ILGenerator NewArray(this ILGenerator ilGen, int length, Type arrayType, out LocalBuilder local)
+    {
+        return ilGen.LoadConstant(length).NewArray(arrayType, out local);
+    }
+
     /// <summary>
     /// Inserta una operación de inicialización de un arreglo unidimensional
     /// del tipo especificado en la secuencia del lenguaje intermedio de

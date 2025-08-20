@@ -26,7 +26,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using System.Collections.Generic;
+using System.Numerics;
 using System.Reflection;
+using System.Reflection.Emit;
+using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Types.Extensions;
 using static TheXDS.MCART.Types.Extensions.ILGeneratorExtensions;
 
@@ -83,7 +87,7 @@ public partial class ILGeneratorExtensions_Tests : TypeFactoryTestClassBase
     [TestCase(5, 10)]
     public void For_block_test(int limit, int expectedValue)
     {
-        var (builder, il) = NewTestMethod();       
+        var (builder, il) = NewTestMethod();
         var cf = builder.DefineField("Counter", typeof(int), FieldAttributes.Public);
         var j = il.DeclareLocal(typeof(int));
 
@@ -103,6 +107,24 @@ public partial class ILGeneratorExtensions_Tests : TypeFactoryTestClassBase
     }
 
     [Test]
+    public void Foreach_block_test_Byte() => Foreach_block_test(p => (byte)p, ILGeneratorExtensions.StoreElement);
+
+    [Test]
+    public void Foreach_block_test_Int16() => Foreach_block_test(p => (short)p, ILGeneratorExtensions.StoreElement);
+
+    [Test]
+    public void Foreach_block_test_Int32() => Foreach_block_test(p => p, ILGeneratorExtensions.StoreElement);
+
+    [Test]
+    public void Foreach_block_test_Int64() => Foreach_block_test(p => (long)p, ILGeneratorExtensions.StoreElement);
+
+    [Test]
+    public void Foreach_block_test_Single() => Foreach_block_test(p => (float)p, ILGeneratorExtensions.StoreElement, il => il.Emit(OpCodes.Conv_I4));
+
+    [Test]
+    public void Foreach_block_test_Double() => Foreach_block_test(p => (double)p, ILGeneratorExtensions.StoreElement, il => il.Emit(OpCodes.Conv_I4));
+
+    [Test]
     public void Try_block_without_exceptions()
     {
         var (builder, il) = NewTestMethod();
@@ -110,8 +132,8 @@ public partial class ILGeneratorExtensions_Tests : TypeFactoryTestClassBase
         var cf = builder.DefineField("CatchTriggered", typeof(bool), FieldAttributes.Public);
         il.TryCatch(
             (il, _) => il.SetField(tf, il => il.LoadConstant(true))
-            , new[] { new KeyValuePair<Type, TryBlock>(typeof(Exception),
-            (il, _) => il.SetField(cf, il => il.LoadConstant(true))) }).Return();
+            , [ new KeyValuePair<Type, TryBlock>(typeof(Exception),
+            (il, _) => il.SetField(cf, il => il.LoadConstant(true))) ]).Return();
         var obj = InvokeTestMethod(builder);
         Assert.That(GetField(obj, "TryTriggered"), Is.EqualTo(true));
         Assert.That(GetField(obj, "CatchTriggered"), Is.EqualTo(false));
@@ -124,12 +146,13 @@ public partial class ILGeneratorExtensions_Tests : TypeFactoryTestClassBase
         var tf = builder.DefineField("TryTriggered", typeof(bool), FieldAttributes.Public);
         var cf = builder.DefineField("CatchTriggered", typeof(bool), FieldAttributes.Public);
         il.TryCatch(
-            (il, _) => {
+            (il, _) =>
+            {
                 il.ThrowException(typeof(Exception));
                 il.SetField(tf, il => il.LoadConstant(true));
             }
-            , new[] { new KeyValuePair<Type, TryBlock>(typeof(Exception),
-            (il, _) => il.SetField(cf, il => il.LoadConstant(true))) }).Return();
+            , [ new KeyValuePair<Type, TryBlock>(typeof(Exception),
+            (il, _) => il.SetField(cf, il => il.LoadConstant(true))) ]).Return();
         var obj = InvokeTestMethod(builder);
         Assert.That(GetField(obj, "TryTriggered"), Is.EqualTo(false));
         Assert.That(GetField(obj, "CatchTriggered"), Is.EqualTo(true));
@@ -143,7 +166,7 @@ public partial class ILGeneratorExtensions_Tests : TypeFactoryTestClassBase
         var cf = builder.DefineField("FinallyTriggered", typeof(bool), FieldAttributes.Public);
         il.TryFinally(
             (il, _) => il.SetField(tf, il => il.LoadConstant(true)),
-            il => il.SetField(cf, il => il.LoadConstant(true))).Return();
+            (il, _) => il.SetField(cf, il => il.LoadConstant(true))).Return();
         var obj = InvokeTestMethod(builder);
         Assert.That(GetField(obj, "TryTriggered"), Is.EqualTo(true));
         Assert.That(GetField(obj, "FinallyTriggered"), Is.EqualTo(true));
@@ -157,8 +180,8 @@ public partial class ILGeneratorExtensions_Tests : TypeFactoryTestClassBase
         var cf = builder.DefineField("CatchTriggered", typeof(bool), FieldAttributes.Public);
         il.TryCatch(
             (il, exit) => il.Leave(exit).SetField(tf, il => il.LoadConstant(true))
-            , new[] { new KeyValuePair<Type, TryBlock>(typeof(Exception),
-            (il, _) => il.SetField(cf, il => il.LoadConstant(true))) }).Return();
+            , [ new KeyValuePair<Type, TryBlock>(typeof(Exception),
+            (il, _) => il.SetField(cf, il => il.LoadConstant(true))) ]).Return();
         var obj = InvokeTestMethod(builder);
         Assert.That(GetField(obj, "TryTriggered"), Is.EqualTo(false));
         Assert.That(GetField(obj, "CatchTriggered"), Is.EqualTo(false));
@@ -173,8 +196,8 @@ public partial class ILGeneratorExtensions_Tests : TypeFactoryTestClassBase
         var ff = builder.DefineField("FinallyTriggered", typeof(bool), FieldAttributes.Public);
         il.TryCatchFinally(
             (il, _) => il.SetField(tf, il => il.LoadConstant(true))
-            , new[] { new KeyValuePair<Type, TryBlock>(typeof(Exception),
-            (il, _) => il.SetField(cf, il => il.LoadConstant(true))) },
+            , [ new KeyValuePair<Type, TryBlock>(typeof(Exception),
+            (il, _) => il.SetField(cf, il => il.LoadConstant(true))) ],
             il => il.SetField(ff, il => il.LoadConstant(true))).Return();
         var obj = InvokeTestMethod(builder);
         Assert.That(GetField(obj, "TryTriggered"), Is.EqualTo(true));
@@ -190,16 +213,53 @@ public partial class ILGeneratorExtensions_Tests : TypeFactoryTestClassBase
         var cf = builder.DefineField("CatchTriggered", typeof(bool), FieldAttributes.Public);
         var ff = builder.DefineField("FinallyTriggered", typeof(bool), FieldAttributes.Public);
         il.TryCatchFinally(
-            (il, _) => {
+            (il, _) =>
+            {
                 il.ThrowException(typeof(Exception));
                 il.SetField(tf, il => il.LoadConstant(true));
             }
-            , new[] { new KeyValuePair<Type, TryBlock>(typeof(Exception),
-            (il, _) => il.SetField(cf, il => il.LoadConstant(true))) },
+            , [ new KeyValuePair<Type, TryBlock>(typeof(Exception),
+            (il, _) => il.SetField(cf, il => il.LoadConstant(true))) ],
             il => il.SetField(ff, il => il.LoadConstant(true))).Return();
         var obj = InvokeTestMethod(builder);
         Assert.That(GetField(obj, "TryTriggered"), Is.EqualTo(false));
         Assert.That(GetField(obj, "CatchTriggered"), Is.EqualTo(true));
         Assert.That(GetField(obj, "FinallyTriggered"), Is.EqualTo(true));
+    }
+
+    [Test]
+    public void Throw_throws_exception()
+    {
+        var (builder, il) = NewTestMethod();
+        il.Throw<TamperException>();
+        Assert.That(() => InvokeTestMethod(builder), Throws.TargetInvocationException.With.InnerException.TypeOf<TamperException>());
+    }
+
+    private static void Foreach_block_test<T>(Func<int, T> convertCallback, Func<ILGenerator, int, T, ILGenerator> storeCallback, Action<ILGenerator>? convertIl = null) where T : unmanaged, INumber<T>
+    {
+        var (builder, il) = NewTestMethod();
+        var cf = builder.DefineField("Counter", typeof(int), FieldAttributes.Public);
+        il.NewArray<T>(3, out var arr);
+        il.LoadLocal(arr);
+        storeCallback.Invoke(il, 0, convertCallback.Invoke(1));
+        il.LoadLocal(arr);
+        storeCallback.Invoke(il, 1, convertCallback.Invoke(2));
+        il.LoadLocal(arr);
+        storeCallback.Invoke(il, 2, convertCallback.Invoke(3));
+        il.LoadLocal(arr).Call<Func<T[], IEnumerable<T>>>(Enumerable.AsEnumerable)
+            .ForEach<T>((il, item, @break, @continue) =>
+            {
+                il
+                    .LoadArg0()
+                    .GetField(cf)
+                    .LoadLocal(item);
+                convertIl?.Invoke(il);
+                il
+                    .Add()
+                    .StoreField(cf);
+            }).Return();
+
+        var obj = InvokeTestMethod(builder);
+        Assert.That(GetField(obj, "Counter"), Is.EqualTo(6));
     }
 }

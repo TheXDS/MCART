@@ -54,7 +54,7 @@ public static partial class ILGeneratorExtensions
     /// <returns></returns>
     public static ILGenerator Dispose(this ILGenerator ilGen, LocalBuilder disposable)
     {
-        return ilGen.LoadLocalAddress(disposable).Call<IDisposable, Action>(p => p.Dispose);
+        return ilGen.LoadLocal(disposable).Call<IDisposable, Action>(p => p.Dispose);
     }
 
     /// <summary>
@@ -246,6 +246,174 @@ public static partial class ILGeneratorExtensions
     {
         ilGen.OneLiner(Ldlen).OneLiner(Conv_I4);
         return ilGen;
+    }
+
+    /// <summary>
+    /// Inserts an operation to store an element into an array at the specified
+    /// index onto the Microsoft® IL (MSIL) instruction stream.
+    /// </summary>
+    /// <param name="ilGen">
+    /// Microsoft® IL (MSIL) instruction stream generator onto which to insert
+    /// the operation.
+    /// </param>
+    /// <param name="index">
+    /// Index of the element in the array to be set.
+    /// </param>
+    /// <param name="element">Value to be set.</param>
+    /// <returns>
+    /// The same instance as <paramref name="ilGen"/>, allowing for Fluent
+    /// syntax.
+    /// </returns>
+    public static ILGenerator StoreElement(this ILGenerator ilGen, int index, byte element)
+    {
+        return ilGen
+            .LoadConstant(index)
+            .LoadConstant(element)
+            .StoreInt8Element();
+    }
+
+    /// <summary>
+    /// Inserts an operation to store an element into an array at the specified
+    /// index onto the Microsoft® IL (MSIL) instruction stream.
+    /// </summary>
+    /// <param name="ilGen">
+    /// Microsoft® IL (MSIL) instruction stream generator onto which to insert
+    /// the operation.
+    /// </param>
+    /// <param name="index">
+    /// Index of the element in the array to be set.
+    /// </param>
+    /// <param name="element">Value to be set.</param>
+    /// <returns>
+    /// The same instance as <paramref name="ilGen"/>, allowing for Fluent
+    /// syntax.
+    /// </returns>
+    public static ILGenerator StoreElement(this ILGenerator ilGen, int index, short element)
+    {
+        return ilGen
+            .LoadConstant(index)
+            .LoadConstant(element)
+            .StoreInt16Element();
+    }
+
+    /// <summary>
+    /// Inserts an operation to store an element into an array at the specified
+    /// index onto the Microsoft® IL (MSIL) instruction stream.
+    /// </summary>
+    /// <param name="ilGen">
+    /// Microsoft® IL (MSIL) instruction stream generator onto which to insert
+    /// the operation.
+    /// </param>
+    /// <param name="index">
+    /// Index of the element in the array to be set.
+    /// </param>
+    /// <param name="element">Value to be set.</param>
+    /// <returns>
+    /// The same instance as <paramref name="ilGen"/>, allowing for Fluent
+    /// syntax.
+    /// </returns>
+    public static ILGenerator StoreElement(this ILGenerator ilGen, int index, int element)
+    {
+        return ilGen
+            .LoadConstant(index)
+            .LoadConstant(element)
+            .StoreInt32Element();
+    }
+
+    /// <summary>
+    /// Inserts an operation to store an element into an array at the specified
+    /// index onto the Microsoft® IL (MSIL) instruction stream.
+    /// </summary>
+    /// <param name="ilGen">
+    /// Microsoft® IL (MSIL) instruction stream generator onto which to insert
+    /// the operation.
+    /// </param>
+    /// <param name="index">
+    /// Index of the element in the array to be set.
+    /// </param>
+    /// <param name="element">Value to be set.</param>
+    /// <returns>
+    /// The same instance as <paramref name="ilGen"/>, allowing for Fluent
+    /// syntax.
+    /// </returns>
+    public static ILGenerator StoreElement(this ILGenerator ilGen, int index, long element)
+    {
+        return ilGen
+            .LoadConstant(index)
+            .LoadConstant(element)
+            .StoreInt64Element();
+    }
+
+    /// <summary>
+    /// Inserts an operation to store an element into an array at the specified
+    /// index onto the Microsoft® IL (MSIL) instruction stream.
+    /// </summary>
+    /// <param name="ilGen">
+    /// Microsoft® IL (MSIL) instruction stream generator onto which to insert
+    /// the operation.
+    /// </param>
+    /// <param name="index">
+    /// Index of the element in the array to be set.
+    /// </param>
+    /// <param name="element">Value to be set.</param>
+    /// <returns>
+    /// The same instance as <paramref name="ilGen"/>, allowing for Fluent
+    /// syntax.
+    /// </returns>
+    public static ILGenerator StoreElement(this ILGenerator ilGen, int index, float element)
+    {
+        return ilGen
+            .LoadConstant(index)
+            .LoadConstant(element)
+            .StoreFloatElement();
+    }
+
+    /// <summary>
+    /// Inserts an operation to store an element into an array at the specified
+    /// index onto the Microsoft® IL (MSIL) instruction stream.
+    /// </summary>
+    /// <param name="ilGen">
+    /// Microsoft® IL (MSIL) instruction stream generator onto which to insert
+    /// the operation.
+    /// </param>
+    /// <param name="index">
+    /// Index of the element in the array to be set.
+    /// </param>
+    /// <param name="element">Value to be set.</param>
+    /// <returns>
+    /// The same instance as <paramref name="ilGen"/>, allowing for Fluent
+    /// syntax.
+    /// </returns>
+    public static ILGenerator StoreElement(this ILGenerator ilGen, int index, double element)
+    {
+        return ilGen
+            .LoadConstant(index)
+            .LoadConstant(element)
+            .StoreDoubleElement();
+    }
+
+    /// <summary>
+    /// Inserts an operation to store an element into an array at the specified
+    /// index onto the Microsoft® IL (MSIL) instruction stream.
+    /// </summary>
+    /// <param name="ilGen">
+    /// Microsoft® IL (MSIL) instruction stream generator onto which to insert
+    /// the operation.
+    /// </param>
+    /// <param name="index">
+    /// Index of the element in the array to be set.
+    /// </param>
+    /// <param name="element">Value to be set.</param>
+    /// <returns>
+    /// The same instance as <paramref name="ilGen"/>, allowing for Fluent
+    /// syntax.
+    /// </returns>
+    public static ILGenerator StoreElement(this ILGenerator ilGen, int index, object element)
+    {
+        return ilGen
+            .LoadConstant(index)
+            .LoadConstant(element)
+            .StoreRefElement();
     }
 
     /// <summary>

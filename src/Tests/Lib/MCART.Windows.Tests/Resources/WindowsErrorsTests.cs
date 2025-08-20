@@ -1,4 +1,4 @@
-// GlobalUsings.cs
+﻿// WindowsErrorsTests.cs
 //
 // This file is part of Morgan's CLR Advanced Runtime (MCART)
 //
@@ -26,4 +26,16 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-global using NUnit.Framework;
+using TheXDS.MCART.Resources;
+using TheXDS.MCART.Tests;
+
+namespace TheXDS.MCART.Windows.Tests.Resources;
+
+internal class WindowsErrorsTests : ExceptionResourceTestClass
+{
+    [Test]
+    public void OffsetCountOutsideBuffer_Test()
+    {
+        TestException(WindowsErrors.OffsetCountOutsideBuffer());
+    }
+}
