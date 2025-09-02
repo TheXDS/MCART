@@ -31,6 +31,7 @@ SOFTWARE.
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
+using System.Runtime.InteropServices;
 using TheXDS.MCART.Exceptions;
 using TheXDS.MCART.Types;
 using TheXDS.MCART.Types.Extensions;
@@ -42,6 +43,39 @@ public class EnumerableExtensionsTests
     private static readonly string[] SelectAsyncInputArray = ["a", "B", "c"];
     private static readonly int[] ArrayFrom101To103 = [101, 102, 103];
     private static readonly int[] ArrayFrom121To123 = [121, 122, 123];
+
+    [Test]
+    public void Interleave_extension_test()
+    {
+        int[] a = [1, 3, 5];
+        int[] b = [2, 4, 6, 8, 10];
+        Assert.That(a.Interleave(b), Is.EquivalentTo([1, 2, 3, 4, 5, 6, 8, 10]));
+        Assert.That(b.Interleave(a), Is.EquivalentTo([2, 1, 4, 3, 6, 5, 8, 10]));
+    }
+
+    [Test]
+    public void Interleave_extension_contract_test()
+    {
+        int[] a = [1, 3, 5];
+        Assert.Throws<ArgumentNullException>(() => _ = a.Interleave(null!));
+        Assert.Throws<ArgumentNullException>(() => _ = ((IEnumerable<int>)null!).Interleave(a));
+    }
+
+    [Test]
+    public void Interleave_with_array_test()
+    {
+        int[] a = [1, 3, 5, 7, 9];
+        int[] b = [2, 4, 6, 8, 10];
+        Assert.That(EnumerableExtensions.Interleave([a,b]), Is.EquivalentTo([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]));
+    }
+
+    [Test]
+    public void Interleave_with_array_contract_test()
+    {
+        int[] a = [1, 3, 5];
+        Assert.Throws<ArgumentNullException>(() => _ = EnumerableExtensions.Interleave<int>(null!));
+        Assert.Throws<ArgumentNullException>(() => _ = EnumerableExtensions.Interleave([a, null!]));
+    }
 
     [Test]
     public void Pick_Test()

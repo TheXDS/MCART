@@ -52,4 +52,16 @@ public static partial class EnumerableExtensions
     {
         ArgumentNullException.ThrowIfNull(e, nameof(e));
     }
+
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
+    private static void Interleave_Contract<T>(IEnumerable<IEnumerable<T>> collections)
+    {
+        ArgumentNullException.ThrowIfNull(collections);
+        foreach (var j in collections)
+        {
+            ArgumentNullException.ThrowIfNull(j, nameof(collections));
+        }
+    }
 }

@@ -26,6 +26,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Exceptions;
@@ -383,6 +384,52 @@ public static partial class EnumerableExtensions
     public static T Pick<T>(this IEnumerable<T> collection)
     {
         return Pick(collection, RandomExtensions.Rnd);
+    }
+
+    /// <summary>
+    /// Interleaves two sequences into a single sequence.
+    /// </summary>
+    /// <typeparam name="T">Type of elements in the sequences.</typeparam>
+    /// <param name="first">First sequence.</param>
+    /// <param name="second">Second sequence</param>
+    /// <returns>
+    /// An enumeration where the elements of both sequences are interleaved.
+    /// </returns>
+    [Sugar]
+    public static IEnumerable<T> Interleave<T>(this IEnumerable<T> first, IEnumerable<T> second)
+    {
+        return Interleave([first, second]);
+    }
+
+    /// <summary>
+    /// Interleaves a collection of sequences into a single sequence.
+    /// </summary>
+    /// <typeparam name="T">Type of elements in the sequences.</typeparam>
+    /// <param name="collections">Enumeration of sequences to interleave</param>
+    /// <returns>
+    /// An enumeration where the elements of all sequences are interleaved.
+    /// </returns>
+    public static IEnumerable<T> Interleave<T>(this IEnumerable<IEnumerable<T>> collections)
+    {
+        Interleave_Contract(collections);
+        static IEnumerable<TValue> InterleaveInternal<TValue>(IEnumerable<IEnumerable<TValue>> collections)
+        {
+            var i = 0;
+            var c = collections.Select(p => p.ToArray());
+            var max = c.Max(p => p.Length);
+            while (i < max)
+            {
+                foreach (var channel in c)
+                {
+                    if (channel.Length > i)
+                    {
+                        yield return channel[i];
+                    }
+                }
+                i++;
+            }
+        }
+        return InterleaveInternal(collections);
     }
 
     /// <summary>

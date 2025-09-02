@@ -47,10 +47,18 @@ internal struct ColorRef
     /// <param name="r">The intensity of the red color.</param>
     /// <param name="g">The intensity of the green color.</param>
     /// <param name="b">The intensity of the blue color.</param>
-    public ColorRef(byte r, byte g, byte b)
+    public ColorRef(byte r, byte g, byte b) : this(r, g, b, 0)
     {
-        Value = 0;
-        A = 0;
+    }
+
+    /// <summary>Initializes a new instance of the <see cref="ColorRef"/> struct.</summary>
+    /// <param name="r">The intensity of the red color.</param>
+    /// <param name="g">The intensity of the green color.</param>
+    /// <param name="b">The intensity of the blue color.</param>
+    /// <param name="a">Inverted value of the alpha component of the color. </param>
+    public ColorRef(byte r, byte g, byte b, byte a)
+    {
+        A = a;
         R = r;
         G = g;
         B = b;
