@@ -39,9 +39,9 @@ using TheXDS.MCART.Types.Extensions;
 namespace TheXDS.MCART.Types;
 
 /// <summary>
-/// Representa una expresión que puede resolverse a un tipo definido.
+/// Represents an expression that can be resolved to a defined type.
 /// </summary>
-/// <param name="fullName">Nombre completo del tipo al que esta expresión hace referencia.</param>
+/// <param name="fullName">Full name of the type this expression references.</param>
 public class TypeExpression(string fullName)
 {
     private readonly string _fullName = fullName;
@@ -49,11 +49,11 @@ public class TypeExpression(string fullName)
 
     /// <summary>
     /// Initializes a new instance of the
-    /// <see cref="TypeExpression"/>, utilizando el tipo especificado como
+    /// <see cref="TypeExpression"/>, using the specified type as
     /// base.
     /// </summary>
     /// <param name="type">
-    /// Tipo a partir del cual generar el <see cref="TypeExpression"/>.
+    /// Type from which to generate the <see cref="TypeExpression"/>.
     /// </param>
     public TypeExpression(Type type)
         : this(type.FullName ?? type.Name)
@@ -62,55 +62,52 @@ public class TypeExpression(string fullName)
     }
 
     /// <summary>
-    /// Convierte implícitamente un <see cref="TypeExpression"/> en un 
+    /// Implicitly converts a <see cref="TypeExpression"/> to a 
     /// <see cref="Type"/>.
     /// </summary>
-    /// <param name="expression">Objeto a convertir.</param>
+    /// <param name="expression">Object to convert.</param>
     [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
     [RequiresDynamicCode(AttributeErrorMessages.MethodCreatesNewTypes)]
     public static implicit operator Type(TypeExpression expression) => expression.Resolve();
 
     /// <summary>
-    /// Obtiene el nombre completo del tipo.
+    /// Gets the full name of the type.
     /// </summary>
     public string FullName => _fullName;
 
     /// <summary>
-    /// Obtiene el nombre del tipo.
+    /// Gets the name of the type.
     /// </summary>
     public string Name => _fullName.Split(".").Last();
 
     /// <summary>
-    /// Obtiene el espacio de nombres del tipo.
+    /// Gets the namespace of the type.
     /// </summary>
     public string Namespace => _fullName.ChopEnd($".{Name}");
 
     /// <summary>
-    /// Obtiene una colección por medio de la cual se pueden obtener y
-    /// establecer los argumentos de tipo a incluir al tratar de resolver un
-    /// tipo.
+    /// Gets a collection through which generic type arguments can be
+    /// retrieved and set when resolving a type.
     /// </summary>
     public ICollection<TypeExpression> GenericArgs => _genericArgs;
 
     /// <summary>
-    /// Resuelve un tipo a partir de esta expresión.
+    /// Resolves a type from this expression.
     /// </summary>
     /// <param name="throwOnFail">
-    /// <see langword="true"/> para lanzar una excepción si no es posible
-    /// resolver la expresión de tipo representada por esta instancia,
-    /// <see langword="false"/> para retornar <see langword="null"/> en su
-    /// lugar.
+    /// <see langword="true"/> to throw an exception if it is not possible
+    /// to resolve the type expression represented by this instance,
+    /// <see langword="false"/> to return <see langword="null"/> instead.
     /// </param>
     /// <returns>
-    /// Un tipo resuelto a partir de esta expresión, o <see langword="null"/>
-    /// en caso de no poder resolverse la expresión representada por esta
-    /// instancia si <paramref name="throwOnFail"/> se establece en 
-    /// <see langword="false"/>.
+    /// A resolved type from this expression, or <see langword="null"/>
+    /// if the expression cannot be resolved if <paramref name="throwOnFail"/>
+    /// is set to <see langword="false"/>.
     /// </returns>
     /// <exception cref="MissingTypeException">
-    /// Se produce si no ha sido posible resolver el tipo a partir de la
-    /// expresión representada por esta instancia si
-    /// <paramref name="throwOnFail"/> se establece en <see langword="true"/>.
+    /// Thrown if it was not possible to resolve the type from the
+    /// expression represented by this instance if
+    /// <paramref name="throwOnFail"/> is set to <see langword="true"/>.
     /// </exception>
     [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
     [RequiresDynamicCode(AttributeErrorMessages.MethodCreatesNewTypes)]
@@ -130,12 +127,12 @@ public class TypeExpression(string fullName)
     }
 
     /// <summary>
-    /// Resuelve un tipo a partir de esta expresión.
+    /// Resolves a type from this expression.
     /// </summary>
-    /// <returns>Un tipo resuelto a partir de esta expresión.</returns>
+    /// <returns>A resolved type from this expression.</returns>
     /// <exception cref="MissingTypeException">
-    /// Se produce si no ha sido posible resolver el tipo a partir de la
-    /// expresión representada por esta instancia.
+    /// Thrown if it was not possible to resolve the type from the
+    /// expression represented by this instance.
     /// </exception>
     [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
     [RequiresDynamicCode(AttributeErrorMessages.MethodCreatesNewTypes)]

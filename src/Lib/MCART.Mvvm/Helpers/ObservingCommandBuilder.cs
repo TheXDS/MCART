@@ -40,16 +40,28 @@ namespace TheXDS.MCART.Helpers;
 /// </summary>
 public static class ObservingCommandBuilder
 {
+    private static Action<object?> Try<TParam>(Action<TParam> action) where TParam : notnull
+    {
+        return p =>
+        {
+            if (p is TParam x) action.Invoke(x);
+        };
+    }
+
+    private static Func<object?, Task> Try<TParam>(Func<TParam, Task> action) where TParam : notnull
+    {
+        return p => (p is TParam x) ? action.Invoke(x) : Task.CompletedTask;
+    }
+
     /// <summary>
-    /// Crea un nuevo <see cref="ObservingCommandBuilder{T}"/>.
+    /// Creates a new <see cref="ObservingCommandBuilder{T}"/> instance.
     /// </summary>
-    /// <typeparam name="T">Tipo del objeto que será observado.</typeparam>
-    /// <param name="observedObject">Objeto observado.</param>
-    /// <param name="action">Acción a asociar al comando.</param>
+    /// <typeparam name="T">Type of observed object.</typeparam>
+    /// <param name="observedObject">Observed object instance.</param>
+    /// <param name="action">Action to execute upon command invocation.</param>
     /// <returns>
-    /// Un nuevo <see cref="ObservingCommandBuilder{T}"/> que puede
-    /// utilizarse para configurar y crear un
-    /// <see cref="ObservingCommand"/>.
+    /// A new <see cref="ObservingCommandBuilder{T}"/> instance that can be
+    /// used to configure and create an <see cref="ObservingCommand"/>.
     /// </returns>
     public static ObservingCommandBuilder<T> Create<T>(this T observedObject, Action action) where T : INotifyPropertyChanged
     {
@@ -57,15 +69,14 @@ public static class ObservingCommandBuilder
     }
 
     /// <summary>
-    /// Crea un nuevo <see cref="ObservingCommandBuilder{T}"/>.
+    /// Creates a new <see cref="ObservingCommandBuilder{T}"/> instance.
     /// </summary>
-    /// <typeparam name="T">Tipo del objeto que será observado.</typeparam>
-    /// <param name="observedObject">Objeto observado.</param>
-    /// <param name="action">Acción a asociar al comando.</param>
+    /// <typeparam name="T">Type of observed object.</typeparam>
+    /// <param name="observedObject">Observed object instance.</param>
+    /// <param name="action">Action to execute upon command invocation.</param>
     /// <returns>
-    /// Un nuevo <see cref="ObservingCommandBuilder{T}"/> que puede
-    /// utilizarse para configurar y crear un
-    /// <see cref="ObservingCommand"/>.
+    /// A new <see cref="ObservingCommandBuilder{T}"/> instance that can be
+    /// used to configure and create an <see cref="ObservingCommand"/>.
     /// </returns>
     public static ObservingCommandBuilder<T> Create<T>(this T observedObject, Action<object?> action) where T : INotifyPropertyChanged
     {
@@ -73,34 +84,76 @@ public static class ObservingCommandBuilder
     }
 
     /// <summary>
-    /// Crea un nuevo <see cref="ObservingCommandBuilder{T}"/>.
+    /// Creates a new <see cref="ObservingCommandBuilder{T}"/> instance.
     /// </summary>
-    /// <typeparam name="T">Tipo del objeto que será observado.</typeparam>
-    /// <param name="observedObject">Objeto observado.</param>
-    /// <param name="action">Acción a asociar al comando.</param>
+    /// <typeparam name="T">Type of observed object.</typeparam>
+    /// <param name="observedObject">Observed object instance.</param>
+    /// <param name="task">Task to execute upon command invocation.</param>
     /// <returns>
-    /// Un nuevo <see cref="ObservingCommandBuilder{T}"/> que puede
-    /// utilizarse para configurar y crear un
-    /// <see cref="ObservingCommand"/>.
+    /// A new <see cref="ObservingCommandBuilder{T}"/> instance that can be
+    /// used to configure and create an <see cref="ObservingCommand"/>.
     /// </returns>
-    public static ObservingCommandBuilder<T> Create<T>(this T observedObject, Func<Task> action) where T : INotifyPropertyChanged
+    public static ObservingCommandBuilder<T> Create<T>(this T observedObject, Func<Task> task) where T : INotifyPropertyChanged
     {
-        return new ObservingCommandBuilder<T>(observedObject, action);
+        return new ObservingCommandBuilder<T>(observedObject, task);
     }
 
     /// <summary>
-    /// Crea un nuevo <see cref="ObservingCommandBuilder{T}"/>.
+    /// Creates a new <see cref="ObservingCommandBuilder{T}"/> instance.
     /// </summary>
-    /// <typeparam name="T">Tipo del objeto que será observado.</typeparam>
-    /// <param name="observedObject">Objeto observado.</param>
-    /// <param name="action">Acción a asociar al comando.</param>
+    /// <typeparam name="T">Type of observed object.</typeparam>
+    /// <param name="observedObject">Observed object instance.</param>
+    /// <param name="task">Task to execute upon command invocation.</param>
     /// <returns>
-    /// Un nuevo <see cref="ObservingCommandBuilder{T}"/> que puede
-    /// utilizarse para configurar y crear un
-    /// <see cref="ObservingCommand"/>.
+    /// A new <see cref="ObservingCommandBuilder{T}"/> instance that can be
+    /// used to configure and create an <see cref="ObservingCommand"/>.
     /// </returns>
-    public static ObservingCommandBuilder<T> Create<T>(this T observedObject, Func<object?, Task> action) where T : INotifyPropertyChanged
+    public static ObservingCommandBuilder<T> Create<T>(this T observedObject, Func<object?, Task> task) where T : INotifyPropertyChanged
     {
-        return new ObservingCommandBuilder<T>(observedObject, action);
+        return new ObservingCommandBuilder<T>(observedObject, task);
+    }
+
+    /// <summary>
+    /// Creates a new <see cref="ObservingCommandBuilder{T}"/> instance and
+    /// configures it to only be executable when the parameter type is exactly
+    /// the expected type for the command callback.
+    /// </summary>
+    /// <typeparam name="T">Type of observed object.</typeparam>
+    /// <typeparam name="TParam">
+    /// Type of parameter accepted by the command. Must be non-null.
+    /// </typeparam>
+    /// <param name="observedObject">Observed object instance.</param>
+    /// <param name="action">Action to execute upon command invocation.</param>
+    /// <returns>
+    /// A new <see cref="ObservingCommandBuilder{T}"/> instance that can be
+    /// used to configure and create an <see cref="ObservingCommand"/>.
+    /// </returns>
+    public static ObservingCommandBuilder<T> Create<T, TParam>(this T observedObject, Action<TParam> action)
+        where T : INotifyPropertyChanged
+        where TParam : notnull
+    {
+        return new ObservingCommandBuilder<T>(observedObject, Try(action)).CanExecute(p => p is TParam);
+    }
+
+    /// <summary>
+    /// Creates a new <see cref="ObservingCommandBuilder{T}"/> instance and
+    /// configures it to only be executable when the parameter type is exactly
+    /// the expected type for the command callback.
+    /// </summary>
+    /// <typeparam name="T">Type of observed object.</typeparam>
+    /// <typeparam name="TParam">
+    /// Type of parameter accepted by the command. Must be non-null.
+    /// </typeparam>
+    /// <param name="observedObject">Observed object instance.</param>
+    /// <param name="task">Task to execute upon command invocation.</param>
+    /// <returns>
+    /// A new <see cref="ObservingCommandBuilder{T}"/> instance that can be
+    /// used to configure and create an <see cref="ObservingCommand"/>.
+    /// </returns>
+    public static ObservingCommandBuilder<T> Create<T, TParam>(this T observedObject, Func<TParam, Task> task)
+        where T : INotifyPropertyChanged
+        where TParam : notnull
+    {
+        return new ObservingCommandBuilder<T>(observedObject, Try(task)).CanExecute(p => p is TParam);
     }
 }

@@ -30,7 +30,8 @@ using System.Reflection;
 
 namespace TheXDS.MCART.Tests;
 
-public class EventTestEntry<TObject, TEventArgs> : IEventTestEntry<TObject, TEventArgs> where TEventArgs : EventArgs
+public class EventTestEntry<TObject, TEventArgs>(Type eventHandlerType, string eventName, bool firedExpected = true, Action<TEventArgs>? eventArgsAssertions = null)
+    : IEventTestEntry<TObject, TEventArgs> where TEventArgs : EventArgs
 {
     private EventInfo? eventInfo;
     private EventTriggerTest<TEventArgs>? trigger;
@@ -38,21 +39,13 @@ public class EventTestEntry<TObject, TEventArgs> : IEventTestEntry<TObject, TEve
 
     public EventTestEntry(Type eventHandlerType, string eventName, Action<TEventArgs>? eventArgsAssertions) : this(eventHandlerType, eventName, true, eventArgsAssertions) { }
 
-    public EventTestEntry(Type eventHandlerType, string eventName, bool firedExpected = true, Action<TEventArgs>? eventArgsAssertions = null)
-    {
-        EventHandlerType = eventHandlerType;
-        EventName = eventName;
-        FiredExpected = firedExpected;
-        EventArgsAssertions = eventArgsAssertions;
-    }
+    public Type EventHandlerType { get; } = eventHandlerType;
 
-    public Type EventHandlerType { get; }
+    public string EventName { get; } = eventName;
 
-    public string EventName { get; }
+    public bool FiredExpected { get; } = firedExpected;
 
-    public bool FiredExpected { get; }
-
-    public Action<TEventArgs>? EventArgsAssertions { get; }
+    public Action<TEventArgs>? EventArgsAssertions { get; } = eventArgsAssertions;
 
     void IEventTestEntry<TObject, TEventArgs>.SetupEventHandling(TObject obj)
     {

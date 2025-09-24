@@ -40,72 +40,72 @@ using CI = System.Globalization.CultureInfo;
 namespace TheXDS.MCART.Types;
 
 /// <summary>
-/// Estructura universal que describe el tamaño de un objeto en ancho y
-/// alto en un espacio de dos dimensiones.
+/// Universal structure that describes the size of an object in width and
+/// height in a two-dimensional space.
 /// </summary>
-/// <param name="width">Valor de ancho.</param>
-/// <param name="height">Valor de alto.</param>
+/// <param name="width">Width value.</param>
+/// <param name="height">Height value.</param>
 public struct Size(double width, double height) : IFormattable, IEquatable<Size>, IEquatable<ISize>, IEquatable<IVector>, ISize, IVector
 {
     /// <summary>
-    /// Obtiene un valor que no representa ningún tamaño. Este campo es
-    /// de solo lectura.
+    /// Gets a value that does not represent any size. This field is
+    /// read-only.
     /// </summary>
     public static readonly Size Nothing = new(double.NaN, double.NaN);
 
     /// <summary>
-    /// Obtiene un valor que representa un tamaño nulo. Este campo es
-    /// de solo lectura.
+    /// Gets a value that represents a null size. This field is
+    /// read-only.
     /// </summary>
     public static readonly Size Zero = new(0, 0);
 
     /// <summary>
-    /// Obtiene un valor que representa un tamaño infinito. Este campo
-    /// es de solo lectura.
+    /// Gets a value that represents an infinite size. This field
+    /// is read-only.
     /// </summary>
     public static readonly Size Infinity = new(double.PositiveInfinity, double.PositiveInfinity);
 
     /// <summary>
-    /// Realiza una operación de suma sobre los puntos.
+    /// Performs an addition operation on the points.
     /// </summary>
-    /// <param name="l">Punto 1.</param>
-    /// <param name="r">Punto 2.</param>
-    /// <returns>La suma de los vectores de los puntos.</returns>
+    /// <param name="l">Point 1.</param>
+    /// <param name="r">Point 2.</param>
+    /// <returns>The sum of the vectors of the points.</returns>
     public static Size operator +(Size l, Size r)
     {
         return new(l.Width + r.Width, l.Height + r.Height);
     }
 
     /// <summary>
-    /// Realiza una operación de suma sobre los puntos.
+    /// Performs an addition operation on the points.
     /// </summary>
-    /// <param name="l">Punto 1.</param>
-    /// <param name="r">Punto 2.</param>
-    /// <returns>La suma de los vectores de los puntos.</returns>
+    /// <param name="l">Point 1.</param>
+    /// <param name="r">Point 2.</param>
+    /// <returns>The sum of the vectors of the points.</returns>
     public static Size operator +(Size l, ISize r)
     {
         return new(l.Width + r.Width, l.Height + r.Height);
     }
 
     /// <summary>
-    /// Realiza una operación de suma sobre los puntos.
+    /// Performs an addition operation on the points.
     /// </summary>
-    /// <param name="l">Punto 1.</param>
-    /// <param name="r">Punto 2.</param>
-    /// <returns>La suma de los vectores de los puntos.</returns>
+    /// <param name="l">Point 1.</param>
+    /// <param name="r">Point 2.</param>
+    /// <returns>The sum of the vectors of the points.</returns>
     public static Size operator +(Size l, IVector r)
     {
         return new(l.Width + r.X, l.Height + r.Y);
     }
 
     /// <summary>
-    /// Realiza una operación de suma sobre el punto.
+    /// Performs an addition operation on the point.
     /// </summary>
-    /// <param name="l">Punto 1.</param>
-    /// <param name="r">Operando de suma.</param>
+    /// <param name="l">Point 1.</param>
+    /// <param name="r">Addition operand.</param>
     /// <returns>
-    /// Un nuevo <see cref="Size" /> cuyos vectores son la suma de los
-    /// vectores originales + <paramref name="r" />.
+    /// A new <see cref="Size" /> whose vectors are the sum of the
+    /// original vectors + <paramref name="r" />.
     /// </returns>
     public static Size operator +(Size l, double r)
     {
@@ -113,35 +113,35 @@ public struct Size(double width, double height) : IFormattable, IEquatable<Size>
     }
 
     /// <summary>
-    /// Realiza una operación de resta sobre los puntos.
+    /// Performs a subtraction operation on the points.
     /// </summary>
-    /// <param name="l">Punto 1.</param>
-    /// <param name="r">Punto 2.</param>
-    /// <returns>La resta de los vectores de los puntos.</returns>
+    /// <param name="l">Point 1.</param>
+    /// <param name="r">Point 2.</param>
+    /// <returns>The difference of the vectors of the points.</returns>
     public static Size operator -(Size l, Size r)
     {
         return new(l.Width - r.Width, l.Height - r.Height);
     }
 
     /// <summary>
-    /// Realiza una operación de resta sobre los puntos.
+    /// Performs a subtraction operation on the points.
     /// </summary>
-    /// <param name="l">Punto 1.</param>
-    /// <param name="r">Punto 2.</param>
-    /// <returns>La resta de los vectores de los puntos.</returns>
+    /// <param name="l">Point 1.</param>
+    /// <param name="r">Point 2.</param>
+    /// <returns>The difference of the vectors of the points.</returns>
     public static Size operator -(Size l, ISize r)
     {
         return new(l.Width - r.Width, l.Height - r.Height);
     }
 
     /// <summary>
-    /// Realiza una operación de resta sobre el punto.
+    /// Performs a subtraction operation on the point.
     /// </summary>
-    /// <param name="l">Punto 1.</param>
-    /// <param name="r">Operando de resta.</param>
+    /// <param name="l">Point 1.</param>
+    /// <param name="r">Subtraction operand.</param>
     /// <returns>
-    /// Un nuevo <see cref="Size" /> cuyos vectores son la resta de los
-    /// vectores originales - <paramref name="r" />.
+    /// A new <see cref="Size" /> whose vectors are the difference of the
+    /// original vectors - <paramref name="r" />.
     /// </returns>
     public static Size operator -(Size l, double r)
     {
@@ -149,46 +149,46 @@ public struct Size(double width, double height) : IFormattable, IEquatable<Size>
     }
 
     /// <summary>
-    /// Realiza una operación de resta sobre los puntos.
+    /// Performs a subtraction operation on the points.
     /// </summary>
-    /// <param name="l">Punto 1.</param>
-    /// <param name="r">Punto 2.</param>
-    /// <returns>La resta de los vectores de los puntos.</returns>
+    /// <param name="l">Point 1.</param>
+    /// <param name="r">Point 2.</param>
+    /// <returns>The difference of the vectors of the points.</returns>
     public static Size operator -(Size l, IVector r)
     {
         return new(l.Width - r.X, l.Height - r.Y);
     }
 
     /// <summary>
-    /// Realiza una operación de multiplicación sobre los puntos.
+    /// Performs a multiplication operation on the points.
     /// </summary>
-    /// <param name="l">Punto 1.</param>
-    /// <param name="r">Punto 2.</param>
-    /// <returns>La multiplicación de los vectores de los puntos.</returns>
+    /// <param name="l">Point 1.</param>
+    /// <param name="r">Point 2.</param>
+    /// <returns>The multiplication of the vectors of the points.</returns>
     public static Size operator *(Size l, Size r)
     {
         return new(l.Width * r.Width, l.Height * r.Height);
     }
 
     /// <summary>
-    /// Realiza una operación de multiplicación sobre los puntos.
+    /// Performs a multiplication operation on the points.
     /// </summary>
-    /// <param name="l">Punto 1.</param>
-    /// <param name="r">Punto 2.</param>
-    /// <returns>La multiplicación de los vectores de los puntos.</returns>
+    /// <param name="l">Point 1.</param>
+    /// <param name="r">Point 2.</param>
+    /// <returns>The multiplication of the vectors of the points.</returns>
     public static Size operator *(Size l, ISize r)
     {
         return new(l.Width * r.Width, l.Height * r.Height);
     }
 
     /// <summary>
-    /// Realiza una operación de multiplicación sobre el punto.
+    /// Performs a multiplication operation on the point.
     /// </summary>
-    /// <param name="l">Punto 1.</param>
-    /// <param name="r">Operando de multiplicación.</param>
+    /// <param name="l">Point 1.</param>
+    /// <param name="r">Multiplication operand.</param>
     /// <returns>
-    /// Un nuevo <see cref="Size" /> cuyos vectores son la multiplicación
-    /// de los vectores originales * <paramref name="r" />.
+    /// A new <see cref="Size" /> whose vectors are the multiplication
+    /// of the original vectors * <paramref name="r" />.
     /// </returns>
     public static Size operator *(Size l, double r)
     {
@@ -196,46 +196,46 @@ public struct Size(double width, double height) : IFormattable, IEquatable<Size>
     }
 
     /// <summary>
-    /// Realiza una operación de multiplicación sobre los puntos.
+    /// Performs a multiplication operation on the points.
     /// </summary>
-    /// <param name="l">Punto 1.</param>
-    /// <param name="r">Punto 2.</param>
-    /// <returns>La multiplicación de los vectores de los puntos.</returns>
+    /// <param name="l">Point 1.</param>
+    /// <param name="r">Point 2.</param>
+    /// <returns>The multiplication of the vectors of the points.</returns>
     public static Size operator *(Size l, IVector r)
     {
         return new(l.Width * r.X, l.Height * r.Y);
     }
 
     /// <summary>
-    /// Realiza una operación de división sobre los puntos.
+    /// Performs a division operation on the points.
     /// </summary>
-    /// <param name="l">Punto 1.</param>
-    /// <param name="r">Punto 2.</param>
-    /// <returns>La división de los vectores de los puntos.</returns>
+    /// <param name="l">Point 1.</param>
+    /// <param name="r">Point 2.</param>
+    /// <returns>The division of the vectors of the points.</returns>
     public static Size operator /(Size l, Size r)
     {
         return new(l.Width / r.Width, l.Height / r.Height);
     }
 
     /// <summary>
-    /// Realiza una operación de división sobre los puntos.
+    /// Performs a division operation on the points.
     /// </summary>
-    /// <param name="l">Punto 1.</param>
-    /// <param name="r">Punto 2.</param>
-    /// <returns>La división de los vectores de los puntos.</returns>
+    /// <param name="l">Point 1.</param>
+    /// <param name="r">Point 2.</param>
+    /// <returns>The division of the vectors of the points.</returns>
     public static Size operator /(Size l, ISize r)
     {
         return new(l.Width / r.Width, l.Height / r.Height);
     }
 
     /// <summary>
-    /// Realiza una operación de división sobre el punto.
+    /// Performs a division operation on the point.
     /// </summary>
-    /// <param name="l">Punto 1.</param>
-    /// <param name="r">Operando de división.</param>
+    /// <param name="l">Point 1.</param>
+    /// <param name="r">Division operand.</param>
     /// <returns>
-    /// Un nuevo <see cref="Size" /> cuyos vectores son la división de
-    /// los vectores originales / <paramref name="r" />.
+    /// A new <see cref="Size" /> whose vectors are the division of
+    /// the original vectors / <paramref name="r" />.
     /// </returns>
     public static Size operator /(Size l, double r)
     {
@@ -243,46 +243,46 @@ public struct Size(double width, double height) : IFormattable, IEquatable<Size>
     }
 
     /// <summary>
-    /// Realiza una operación de división sobre los puntos.
+    /// Performs a division operation on the points.
     /// </summary>
-    /// <param name="l">Punto 1.</param>
-    /// <param name="r">Punto 2.</param>
-    /// <returns>La división de los vectores de los puntos.</returns>
+    /// <param name="l">Point 1.</param>
+    /// <param name="r">Point 2.</param>
+    /// <returns>The division of the vectors of the points.</returns>
     public static Size operator /(Size l, IVector r)
     {
         return new(l.Width / r.X, l.Height / r.Y);
     }
 
     /// <summary>
-    /// Realiza una operación de residuo sobre los puntos.
+    /// Performs a remainder operation on the points.
     /// </summary>
-    /// <param name="l">Punto 1.</param>
-    /// <param name="r">Punto 2.</param>
-    /// <returns>El residuo de los vectores de los puntos.</returns>
+    /// <param name="l">Point 1.</param>
+    /// <param name="r">Point 2.</param>
+    /// <returns>The remainder of the vectors of the points.</returns>
     public static Size operator %(Size l, Size r)
     {
         return new(l.Width % r.Width, l.Height % r.Height);
     }
 
     /// <summary>
-    /// Realiza una operación de residuo sobre los puntos.
+    /// Performs a remainder operation on the points.
     /// </summary>
-    /// <param name="l">Punto 1.</param>
-    /// <param name="r">Punto 2.</param>
-    /// <returns>El residuo de los vectores de los puntos.</returns>
+    /// <param name="l">Point 1.</param>
+    /// <param name="r">Point 2.</param>
+    /// <returns>The remainder of the vectors of the points.</returns>
     public static Size operator %(Size l, ISize r)
     {
         return new(l.Width % r.Width, l.Height % r.Height);
     }
 
     /// <summary>
-    /// Realiza una operación de residuo sobre el punto.
+    /// Performs a remainder operation on the point.
     /// </summary>
-    /// <param name="l">Punto 1.</param>
-    /// <param name="r">Operando de residuo.</param>
+    /// <param name="l">Point 1.</param>
+    /// <param name="r">Remainder operand.</param>
     /// <returns>
-    /// Un nuevo <see cref="Size" /> cuyos vectores son el residuo de los
-    /// vectores originales % <paramref name="r" />.
+    /// A new <see cref="Size" /> whose vectors are the remainder of the
+    /// original vectors % <paramref name="r" />.
     /// </returns>
     public static Size operator %(Size l, double r)
     {
@@ -290,13 +290,13 @@ public struct Size(double width, double height) : IFormattable, IEquatable<Size>
     }
 
     /// <summary>
-    /// Realiza una operación de residuo sobre los puntos.
+    /// Performs a remainder operation on the points.
     /// </summary>
-    /// <param name="l">Punto 1.</param>
-    /// <param name="r">Punto 2.</param>
+    /// <param name="l">Point 1.</param>
+    /// <param name="r">Point 2.</param>
     /// <returns>
-    /// Un nuevo <see cref="Size" /> cuyos vectores son el residuo de los
-    /// vectores originales % <paramref name="r" />.
+    /// A new <see cref="Size" /> whose vectors are the remainder of the
+    /// original vectors % <paramref name="r" />.
     /// </returns>
     public static Size operator %(Size l, IVector r)
     {
@@ -304,10 +304,10 @@ public struct Size(double width, double height) : IFormattable, IEquatable<Size>
     }
 
     /// <summary>
-    /// Incrementa en 1 los vectores del punto.
+    /// Increments by 1 the vectors of the point.
     /// </summary>
-    /// <param name="p">Punto a incrementar.</param>
-    /// <returns>Un punto con sus vectores incrementados en 1.</returns>
+    /// <param name="p">Point to increment.</param>
+    /// <returns>A point with its vectors incremented by 1.</returns>
     public static Size operator ++(Size p)
     {
         p.Width++;
@@ -316,10 +316,10 @@ public struct Size(double width, double height) : IFormattable, IEquatable<Size>
     }
 
     /// <summary>
-    /// Decrementa en 1 los vectores del punto.
+    /// Decrements by 1 the vectors of the point.
     /// </summary>
-    /// <param name="p">Punto a decrementar.</param>
-    /// <returns>Un punto con sus vectores decrementados en 1.</returns>
+    /// <param name="p">Point to decrement.</param>
+    /// <returns>A point with its vectors decremented by 1.</returns>
     public static Size operator --(Size p)
     {
         p.Width--;
@@ -328,37 +328,37 @@ public struct Size(double width, double height) : IFormattable, IEquatable<Size>
     }
 
     /// <summary>
-    /// Convierte a positivos los vectores del punto.
+    /// Converts to positive the vectors of the point.
     /// </summary>
-    /// <param name="p">Punto a operar.</param>
-    /// <returns>Un punto con sus vectores positivos.</returns>
+    /// <param name="p">Point to operate.</param>
+    /// <returns>A point with its vectors positive.</returns>
     public static Size operator +(Size p)
     {
         return new(+p.Width, +p.Height);
     }
 
     /// <summary>
-    /// Invierte el signo de los vectores del punto.
+    /// Inverts the sign of the vectors of the point.
     /// </summary>
-    /// <param name="p">Punto a operar.</param>
-    /// <returns>Un punto con el signo de sus vectores invertido.</returns>
+    /// <param name="p">Point to operate.</param>
+    /// <returns>A point with the sign of its vectors inverted.</returns>
     public static Size operator -(Size p)
     {
         return new(-p.Width, -p.Height);
     }
 
     /// <summary>
-    /// Compara la igualdad entre dos instancias de <see cref="Size"/>.
+    /// Compares equality between two instances of <see cref="Size"/>.
     /// </summary>
     /// <param name="size1">
-    /// Primer elemento a comparar.
+    /// First element to compare.
     /// </param>
     /// <param name="size2">
-    /// Segundo elemento a comparar.
+    /// Second element to compare.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si los tamaños representados en ambos
-    /// objetos son iguales, <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if the sizes represented in both
+    /// objects are equal, <see langword="false"/> otherwise.
     /// </returns>
     public static bool operator ==(Size size1, ISize size2)
     {
@@ -366,17 +366,17 @@ public struct Size(double width, double height) : IFormattable, IEquatable<Size>
     }
 
     /// <summary>
-    /// Compara la igualdad entre dos instancias de <see cref="Size"/>.
+    /// Compares equality between two instances of <see cref="Size"/>.
     /// </summary>
     /// <param name="size1">
-    /// Primer elemento a comparar.
+    /// First element to compare.
     /// </param>
     /// <param name="size2">
-    /// Segundo elemento a comparar.
+    /// Second element to compare.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si los tamaños representados en ambos
-    /// objetos son iguales, <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if the sizes represented in both
+    /// objects are equal, <see langword="false"/> otherwise.
     /// </returns>
     public static bool operator ==(Size size1, Size size2)
     {
@@ -384,17 +384,17 @@ public struct Size(double width, double height) : IFormattable, IEquatable<Size>
     }
 
     /// <summary>
-    /// Compara la igualdad entre dos instancias de <see cref="Size"/>.
+    /// Compares equality between two instances of <see cref="Size"/>.
     /// </summary>
     /// <param name="size1">
-    /// Primer elemento a comparar.
+    /// First element to compare.
     /// </param>
     /// <param name="size2">
-    /// Segundo elemento a comparar.
+    /// Second element to compare.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si los tamaños representados en ambos
-    /// objetos son iguales, <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if the sizes represented in both
+    /// objects are equal, <see langword="false"/> otherwise.
     /// </returns>
     public static bool operator ==(Size size1, IVector size2)
     {
@@ -402,19 +402,18 @@ public struct Size(double width, double height) : IFormattable, IEquatable<Size>
     }
 
     /// <summary>
-    /// Compara la desigualdad entre dos instancias de 
+    /// Compares inequality between two instances of 
     /// <see cref="Size"/>.
     /// </summary>
     /// <param name="size1">
-    /// Primer elemento a comparar.
+    /// First element to compare.
     /// </param>
     /// <param name="size2">
-    /// Segundo elemento a comparar.
+    /// Second element to compare.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si los tamaños representados en ambos
-    /// objetos son distintos, <see langword="false"/> en caso
-    /// contrario.
+    /// <see langword="true"/> if the sizes represented in both
+    /// objects are different, <see langword="false"/> otherwise.
     /// </returns>
     public static bool operator !=(Size size1, IVector size2)
     {
@@ -422,19 +421,18 @@ public struct Size(double width, double height) : IFormattable, IEquatable<Size>
     }
 
     /// <summary>
-    /// Compara la desigualdad entre dos instancias de 
+    /// Compares inequality between two instances of 
     /// <see cref="Size"/>.
     /// </summary>
     /// <param name="size1">
-    /// Primer elemento a comparar.
+    /// First element to compare.
     /// </param>
     /// <param name="size2">
-    /// Segundo elemento a comparar.
+    /// Second element to compare.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si los tamaños representados en ambos
-    /// objetos son distintos, <see langword="false"/> en caso
-    /// contrario.
+    /// <see langword="true"/> if the sizes represented in both
+    /// objects are different, <see langword="false"/> otherwise.
     /// </returns>
     public static bool operator !=(Size size1, Size size2)
     {
@@ -442,19 +440,18 @@ public struct Size(double width, double height) : IFormattable, IEquatable<Size>
     }
 
     /// <summary>
-    /// Compara la desigualdad entre dos instancias de 
+    /// Compares inequality between two instances of 
     /// <see cref="Size"/>.
     /// </summary>
     /// <param name="size1">
-    /// Primer elemento a comparar.
+    /// First element to compare.
     /// </param>
     /// <param name="size2">
-    /// Segundo elemento a comparar.
+    /// Second element to compare.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si los tamaños representados en ambos
-    /// objetos son distintos, <see langword="false"/> en caso
-    /// contrario.
+    /// <see langword="true"/> if the sizes represented in both
+    /// objects are different, <see langword="false"/> otherwise.
     /// </returns>
     public static bool operator !=(Size size1, ISize size2)
     {
@@ -462,11 +459,11 @@ public struct Size(double width, double height) : IFormattable, IEquatable<Size>
     }
 
     /// <summary>
-    /// Convierte implícitamente un objeto
-    /// <see cref="System.Drawing.Size"/> en un <see cref="Size"/>.
+    /// Implicitly converts a <see cref="System.Drawing.Size"/> object
+    /// to a <see cref="Size"/>.
     /// </summary>
     /// <param name="size">
-    /// Objeto a convertir.
+    /// Object to convert.
     /// </param>
     public static implicit operator System.Drawing.Size(Size size)
     {
@@ -474,11 +471,11 @@ public struct Size(double width, double height) : IFormattable, IEquatable<Size>
     }
 
     /// <summary>
-    /// Convierte implícitamente un objeto
-    /// <see cref="System.Drawing.SizeF"/> en un <see cref="Size"/>.
+    /// Implicitly converts a <see cref="System.Drawing.SizeF"/> object
+    /// to a <see cref="Size"/>.
     /// </summary>
     /// <param name="size">
-    /// Objeto a convertir.
+    /// Object to convert.
     /// </param>
     public static implicit operator System.Drawing.SizeF(Size size)
     {
@@ -486,11 +483,11 @@ public struct Size(double width, double height) : IFormattable, IEquatable<Size>
     }
 
     /// <summary>
-    /// Convierte implícitamente un objeto
-    /// <see cref="Size"/> en un <see cref="System.Drawing.Size"/>.
+    /// Implicitly converts a <see cref="Size"/> object to a
+    /// <see cref="System.Drawing.Size"/>.
     /// </summary>
     /// <param name="size">
-    /// Objeto a convertir.
+    /// Object to convert.
     /// </param>
     public static implicit operator Size(System.Drawing.Size size)
     {
@@ -498,11 +495,11 @@ public struct Size(double width, double height) : IFormattable, IEquatable<Size>
     }
 
     /// <summary>
-    /// Convierte implícitamente un objeto
-    /// <see cref="Size"/> en un <see cref="System.Drawing.SizeF"/>.
+    /// Implicitly converts a <see cref="Size"/> object to a
+    /// <see cref="System.Drawing.SizeF"/>.
     /// </summary>
     /// <param name="size">
-    /// Objeto a convertir.
+    /// Object to convert.
     /// </param>
     public static implicit operator Size(System.Drawing.SizeF size)
     {
@@ -510,44 +507,43 @@ public struct Size(double width, double height) : IFormattable, IEquatable<Size>
     }
 
     /// <summary>
-    /// Obtiene el componente de altura del tamaño.
+    /// Gets the height component of the size.
     /// </summary>
     public double Height { get; set; } = height;
 
     /// <summary>
-    /// Obtiene el componente de ancho del tamaño.
+    /// Gets the width component of the size.
     /// </summary>
     public double Width { get; set; } = width;
 
     /// <summary>
-    /// Calcula el área cuadrada representada por este tamaño.
+    /// Calculates the square area represented by this size.
     /// </summary>
     public readonly double SquareArea => Height * Width;
 
     /// <summary>
-    /// Calcula el perímetro cuadrado representado por este tamaño.
+    /// Calculates the square perimeter represented by this size.
     /// </summary>
     public readonly double SquarePerimeter => (Height * 2) + (Width * 2);
 
     /// <summary>
-    /// Determina si esta instancia representa un tamaño nulo.
+    /// Determines if this instance represents a null size.
     /// </summary>
     /// <returns>
-    /// <see langword="true"/> si el tamaño es nulo,
-    /// <see langword="false"/> si el tamaño contiene área, y
-    /// <see langword="null"/> si alguna magnitud está indefinida.
+    /// <see langword="true"/> if the size is null,
+    /// <see langword="false"/> if the size contains area, and
+    /// <see langword="null"/> if any magnitude is undefined.
     /// </returns>
     public readonly bool? IsZero => Height.IsValid() && Height == 0 && Width.IsValid() && Width == 0;
 
     /// <summary>
-    /// Obtiene un valor que indica si el tamaño es válido en un contexto
-    /// físico real.
+    /// Gets a value indicating whether the size is valid in a real physical context.
     /// </summary>
     public readonly bool IsReal => Height.IsValid() && Height > 0 && Width.IsValid() && Width > 0;
 
     /// <summary>
-    /// Obtiene un valor que indica si todas las magnitudes de tamaño de esta
-    /// instancia son válidas.
+    /// Gets a value indicating whether all size magnitudes of this
+    /// instance are valid.
     /// </summary>
     public readonly bool IsValid => Height.IsValid() && Width.IsValid();
 
@@ -556,15 +552,15 @@ public struct Size(double width, double height) : IFormattable, IEquatable<Size>
     readonly double IVector.Y => Height;
 
     /// <summary>
-    /// Determina si esta instancia de <see cref="Size"/> es igual a
-    /// otra.
+    /// Determines if this instance of <see cref="Size"/> is equal to
+    /// another.
     /// </summary>
     /// <param name="other">
-    /// Instancia de <see cref="Size"/> contra la cual comparar.
+    /// Instance of <see cref="Size"/> to compare against.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si los tamaños representados en ambos
-    /// objetos son iguales, <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if the sizes represented in both
+    /// objects are equal, <see langword="false"/> otherwise.
     /// </returns>
     public readonly bool Equals(Size other)
     {
@@ -573,15 +569,15 @@ public struct Size(double width, double height) : IFormattable, IEquatable<Size>
     }
 
     /// <summary>
-    /// Determina si esta instancia de <see cref="ISize3D"/> es igual a
-    /// otra.
+    /// Determines if this instance of <see cref="ISize3D"/> is equal to
+    /// another.
     /// </summary>
     /// <param name="other">
-    /// Instancia de <see cref="ISize3D"/> contra la cual comparar.
+    /// Instance of <see cref="ISize3D"/> to compare against.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si los tamaños representados en ambos
-    /// objetos son iguales, <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if the sizes represented in both
+    /// objects are equal, <see langword="false"/> otherwise.
     /// </returns>
     public readonly bool Equals(ISize? other)
     {
@@ -591,15 +587,15 @@ public struct Size(double width, double height) : IFormattable, IEquatable<Size>
     }
 
     /// <summary>
-    /// Determina si esta instancia de <see cref="IVector3D"/> es igual a
-    /// otra.
+    /// Determines if this instance of <see cref="IVector3D"/> is equal to
+    /// another.
     /// </summary>
     /// <param name="other">
-    /// Instancia de <see cref="IVector3D"/> contra la cual comparar.
+    /// Instance of <see cref="IVector3D"/> to compare against.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si los tamaños representados en ambos
-    /// objetos son iguales, <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if the sizes represented in both
+    /// objects are equal, <see langword="false"/> otherwise.
     /// </returns>
     public readonly bool Equals(IVector? other)
     {
@@ -609,14 +605,14 @@ public struct Size(double width, double height) : IFormattable, IEquatable<Size>
     }
 
     /// <summary>
-    /// Indica si esta instancia y un objeto especificado son iguales.
+    /// Indicates whether this instance and a specified object are equal.
     /// </summary>
     /// <param name="obj">
-    /// Objeto que se va a compara con la instancia actual.
+    /// Object to compare with the current instance.
     /// </param>
     /// <returns>
-    /// <see langword="true" /> si esta instancia y <paramref name="obj" /> son iguales;
-    /// de lo contrario, <see langword="false" />.
+    /// <see langword="true" /> if this instance and <paramref name="obj" /> are equal;
+    /// otherwise, <see langword="false" />.
     /// </returns>
     public override readonly bool Equals(object? obj)
     {
@@ -625,10 +621,10 @@ public struct Size(double width, double height) : IFormattable, IEquatable<Size>
     }
 
     /// <summary>
-    /// Devuelve el código hash generado para esta instancia.
+    /// Returns the hash code generated for this instance.
     /// </summary>
     /// <returns>
-    /// Un código hash que representa a esta instancia.
+    /// A hash code that represents this instance.
     /// </returns>
     public override readonly int GetHashCode()
     {
@@ -636,15 +632,15 @@ public struct Size(double width, double height) : IFormattable, IEquatable<Size>
     }
 
     /// <summary>
-    /// Crea un <see cref="Size"/> a partir de una cadena.
+    /// Creates a <see cref="Size"/> from a string.
     /// </summary>
     /// <param name="value">
-    /// Valor a partir del cual crear un <see cref="Size"/>.
+    /// Value to create a <see cref="Size"/> from.
     /// </param>
     /// <exception cref="FormatException">
-    /// Se produce si la conversión ha fallado.
+    /// Thrown if the conversion failed.
     /// </exception>
-    /// <returns><see cref="Size"/> que ha sido creado.</returns>
+    /// <returns>The created <see cref="Size"/>.</returns>
     public static Size Parse(string value)
     {
         if (TryParse(value, out Size returnValue)) return returnValue;
@@ -652,10 +648,10 @@ public struct Size(double width, double height) : IFormattable, IEquatable<Size>
     }
 
     /// <summary>
-    /// Convierte este objeto en su representación como una cadena.
+    /// Converts this object to its string representation.
     /// </summary>
     /// <returns>
-    /// Una representación en forma de <see cref="string" /> de este objeto.
+    /// A string representation of this object.
     /// </returns>
     public override readonly string ToString()
     {
@@ -663,11 +659,11 @@ public struct Size(double width, double height) : IFormattable, IEquatable<Size>
     }
 
     /// <summary>
-    /// Convierte este objeto en su representación como una cadena.
+    /// Converts this object to its string representation.
     /// </summary>
-    /// <param name="format">Formato a utilizar.</param>
+    /// <param name="format">Format to use.</param>
     /// <returns>
-    /// Una representación en forma de <see cref="string" /> de este objeto.
+    /// A string representation of this object.
     /// </returns>
     public readonly string ToString(string? format)
     {
@@ -675,17 +671,16 @@ public struct Size(double width, double height) : IFormattable, IEquatable<Size>
     }
 
     /// <summary>
-    /// Convierte este objeto en su representación como una cadena.
+    /// Converts this object to its string representation.
     /// </summary>
-    /// <param name="format">Formato a utilizar.</param>
+    /// <param name="format">Format to use.</param>
     /// <param name="formatProvider">
-    /// Parámetro opcional.
-    /// Proveedor de formato de la cultura a utilizar para dar formato a
-    /// la representación como una cadena de este objeto. Si se omite,
-    /// se utilizará <see cref="CI.CurrentCulture" />.
+    /// Optional parameter. Format provider for the culture to use for formatting
+    /// the string representation of this object. If omitted,
+    /// <see cref="CI.CurrentCulture" /> will be used.
     /// </param>
     /// <returns>
-    /// Una representación en forma de <see cref="string" /> de este objeto.
+    /// A string representation of this object.
     /// </returns>
     public readonly string ToString(string? format, IFormatProvider? formatProvider)
     {
@@ -701,17 +696,17 @@ public struct Size(double width, double height) : IFormattable, IEquatable<Size>
     }
 
     /// <summary>
-    /// Intenta crear un <see cref="Size"/> a partir de una cadena.
+    /// Attempts to create a <see cref="Size"/> from a string.
     /// </summary>
     /// <param name="value">
-    /// Valor a partir del cual crear un <see cref="Size"/>.
+    /// Value to create a <see cref="Size"/> from.
     /// </param>
     /// <param name="size">
-    /// <see cref="Size"/> que ha sido creado.
+    /// The created <see cref="Size"/>.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si la conversión ha tenido éxito,
-    /// <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if the conversion was successful,
+    /// <see langword="false"/> otherwise.
     /// </returns>
     public static bool TryParse(string? value, out Size size)
     {

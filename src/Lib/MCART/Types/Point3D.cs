@@ -41,111 +41,104 @@ using CI = System.Globalization.CultureInfo;
 namespace TheXDS.MCART.Types;
 
 /// <summary>
-/// Tipo universal para un conjunto de coordenadas tridimensionales.
+/// Universal type for a set of three-dimensional coordinates.
 /// </summary>
 /// <remarks>
-/// Esta estructura se declara como parcial, para permitir a cada
-/// implementación de MCART definir métodos para convertir a la clase
-/// correspondiente para los diferentes tipos de UI disponibles.
+/// This structure is declared as partial to allow each MCART
+/// implementation to define methods for converting to the
+/// corresponding class for different available UI types.
 /// </remarks>
-/// <param name="x">Coordenada X.</param>
-/// <param name="y">Coordenada Y.</param>
-/// <param name="z">Coordenada Z.</param>
+/// <param name="x">X coordinate.</param>
+/// <param name="y">Y coordinate.</param>
+/// <param name="z">Z coordinate.</param>
 public partial struct Point3D(double x, double y, double z) : IFormattable, IEquatable<Point3D>, IVector3D
 {
     /// <summary>
-    /// Obtiene un punto que no representa ninguna posición. Este campo es
-    /// de solo lectura.
+    /// Gets a point that represents no position. This field is read-only.
     /// </summary>
     /// <value>
-    /// Un <see cref="Point3D" /> con sus coordenadas establecidas en
+    /// A <see cref="Point3D"/> with all coordinates set to
     /// <see cref="double.NaN"/>.
     /// </value>
     public static readonly Point3D Nowhere = new(double.NaN, double.NaN, double.NaN);
 
     /// <summary>
-    /// Obtiene un punto en el origen. Este campo es de solo lectura.
+    /// Gets a point at the origin. This field is read-only.
     /// </summary>
     /// <value>
-    /// Un <see cref="Point3D" /> con sus coordenadas en el origen.
+    /// A <see cref="Point3D"/> with coordinates at the origin.
     /// </value>
     public static readonly Point3D Origin = new(0, 0, 0);
 
     /// <summary>
-    /// Obtiene un punto en el origen bidimensional. Este campo es de
-    /// solo lectura.
+    /// Gets a point at the 2D origin. This field is read-only.
     /// </summary>
     /// <value>
-    /// Un <see cref="Point3D" /> con sus coordenadas en el origen 
-    /// bidimensional.
+    /// A <see cref="Point3D"/> with coordinates at the 2D origin.
     /// </value>
     public static readonly Point3D Origin2D = new(0, 0, double.NaN);
 
     /// <summary>
-    /// Inicializa una nueva instancia de la estructura
-    /// <see cref="Point3D" /> para un par de coordenadas bidimensionales.
+    /// Initializes a new instance of the <see cref="Point3D"/> structure
+    /// for a pair of two-dimensional coordinates.
     /// </summary>
-    /// <param name="x">Coordenada X.</param>
-    /// <param name="y">Coordenada Y.</param>
+    /// <param name="x">X coordinate.</param>
+    /// <param name="y">Y coordinate.</param>
     public Point3D(double x, double y) : this(x, y, double.NaN)
     {
     }
 
     /// <summary>
-    /// Realiza una operación de suma sobre los puntos.
+    /// Performs addition operation on points.
     /// </summary>
-    /// <param name="l">Punto 1.</param>
-    /// <param name="r">Punto 2.</param>
-    /// <returns>La suma de los vectores de los puntos.</returns>
+    /// <param name="l">First point.</param>
+    /// <param name="r">Second point.</param>
+    /// <returns>The sum of the vectors from the points.</returns>
     public static Point3D operator +(Point3D l, Point3D r)
     {
         return new(l.X + r.X, l.Y + r.Y, l.Z + r.Z);
     }
 
     /// <summary>
-    /// Realiza una operación de suma sobre los puntos.
+    /// Performs addition operation on a point and a vector.
     /// </summary>
-    /// <param name="l">Punto 1.</param>
-    /// <param name="r">Punto 2.</param>
-    /// <returns>La suma de los vectores de los puntos.</returns>
+    /// <param name="l">Point.</param>
+    /// <param name="r">Vector.</param>
+    /// <returns>The sum of the point's vectors and the vector.</returns>
     public static Point3D operator +(Point3D l, IVector3D r)
     {
         return new(l.X + r.X, l.Y + r.Y, l.Z + r.Z);
     }
 
     /// <summary>
-    /// Realiza una operación de suma sobre el punto.
+    /// Performs addition operation on a point and a scalar.
     /// </summary>
-    /// <param name="l">Punto 1.</param>
-    /// <param name="r">Operando de suma.</param>
-    /// <returns>
-    /// Un nuevo <see cref="Point3D" /> cuyos vectores son la suma de los
-    /// vectores originales + <paramref name="r" />.
-    /// </returns>
+    /// <param name="l">Point.</param>
+    /// <param name="r">Scalar value.</param>
+    /// <returns>A new <see cref="Point3D"/> with each coordinate increased by r.</returns>
     public static Point3D operator +(Point3D l, double r)
     {
         return new(l.X + r, l.Y + r, l.Z + r);
     }
 
     /// <summary>
-    /// Realiza una operación de resta sobre los puntos.
+    /// Performs subtraction operation on a point and a vector.
     /// </summary>
-    /// <param name="l">Punto 1.</param>
-    /// <param name="r">Punto 2.</param>
-    /// <returns>La resta de los vectores de los puntos.</returns>
+    /// <param name="l">Point.</param>
+    /// <param name="r">Vector.</param>
+    /// <returns>The difference of the point's vectors and the vector.</returns>
     public static Point3D operator -(Point3D l, IVector3D r)
     {
         return new(l.X - r.X, l.Y - r.Y, l.Z - r.Z);
     }
 
     /// <summary>
-    /// Realiza una operación de resta sobre el punto.
+    /// Performs subtraction operation on a point and a scalar.
     /// </summary>
-    /// <param name="l">Punto 1.</param>
-    /// <param name="r">Operando de resta.</param>
+    /// <param name="l">Point.</param>
+    /// <param name="r">Scalar value.</param>
     /// <returns>
-    /// Un nuevo <see cref="Point3D" /> cuyos vectores son la resta de los
-    /// vectores originales - <paramref name="r" />.
+    /// A new <see cref="Point3D"/> with each coordinate decreased by r.
     /// </returns>
     public static Point3D operator -(Point3D l, double r)
     {
@@ -153,24 +146,23 @@ public partial struct Point3D(double x, double y, double z) : IFormattable, IEqu
     }
 
     /// <summary>
-    /// Realiza una operación de multiplicación sobre los puntos.
+    /// Performs multiplication operation on a point and a vector.
     /// </summary>
-    /// <param name="l">Punto 1.</param>
-    /// <param name="r">Punto 2.</param>
-    /// <returns>La multiplicación de los vectores de los puntos.</returns>
+    /// <param name="l">First point.</param>
+    /// <param name="r">Second vector.</param>
+    /// <returns>The product of the vectors from the point and vector.</returns>
     public static Point3D operator *(Point3D l, IVector3D r)
     {
         return new(l.X * r.X, l.Y * r.Y, l.Z * r.Z);
     }
 
     /// <summary>
-    /// Realiza una operación de multiplicación sobre el punto.
+    /// Performs multiplication operation on a point and a scalar.
     /// </summary>
-    /// <param name="l">Punto 1.</param>
-    /// <param name="r">Operando de multiplicación.</param>
+    /// <param name="l">Point.</param>
+    /// <param name="r">Scalar value.</param>
     /// <returns>
-    /// Un nuevo <see cref="Point3D" /> cuyos vectores son la multiplicación
-    /// de los vectores originales * <paramref name="r" />.
+    /// A new <see cref="Point3D"/> with each coordinate multiplied by r.
     /// </returns>
     public static Point3D operator *(Point3D l, double r)
     {
@@ -178,24 +170,23 @@ public partial struct Point3D(double x, double y, double z) : IFormattable, IEqu
     }
 
     /// <summary>
-    /// Realiza una operación de división sobre los puntos.
+    /// Performs division operation on a point and a vector.
     /// </summary>
-    /// <param name="l">Punto 1.</param>
-    /// <param name="r">Punto 2.</param>
-    /// <returns>La división de los vectores de los puntos.</returns>
+    /// <param name="l">First point.</param>
+    /// <param name="r">Second vector.</param>
+    /// <returns>The quotient of the vectors from the point and vector.</returns>
     public static Point3D operator /(Point3D l, IVector3D r)
     {
         return new(l.X / r.X, l.Y / r.Y, l.Z / r.Z);
     }
 
     /// <summary>
-    /// Realiza una operación de división sobre el punto.
+    /// Performs division operation on a point and a scalar.
     /// </summary>
-    /// <param name="l">Punto 1.</param>
-    /// <param name="r">Operando de división.</param>
+    /// <param name="l">Point.</param>
+    /// <param name="r">Scalar value.</param>
     /// <returns>
-    /// Un nuevo <see cref="Point3D" /> cuyos vectores son la división de
-    /// los vectores originales / <paramref name="r" />.
+    /// A new <see cref="Point3D"/> with each coordinate divided by r.
     /// </returns>
     public static Point3D operator /(Point3D l, double r)
     {
@@ -203,24 +194,23 @@ public partial struct Point3D(double x, double y, double z) : IFormattable, IEqu
     }
 
     /// <summary>
-    /// Realiza una operación de residuo sobre los puntos.
+    /// Performs modulo operation on a point and a vector.
     /// </summary>
-    /// <param name="l">Punto 1.</param>
-    /// <param name="r">Punto 2.</param>
-    /// <returns>El residuo de los vectores de los puntos.</returns>
+    /// <param name="l">First point.</param>
+    /// <param name="r">Second vector.</param>
+    /// <returns>The remainder of the vectors from the point and vector.</returns>
     public static Point3D operator %(Point3D l, IVector3D r)
     {
         return new(l.X % r.X, l.Y % r.Y, l.Z % r.Z);
     }
 
     /// <summary>
-    /// Realiza una operación de residuo sobre el punto.
+    /// Performs modulo operation on a point and a scalar.
     /// </summary>
-    /// <param name="l">Punto 1.</param>
-    /// <param name="r">Operando de residuo.</param>
+    /// <param name="l">Point.</param>
+    /// <param name="r">Scalar value.</param>
     /// <returns>
-    /// Un nuevo <see cref="Point3D" /> cuyos vectores son el residuo de los
-    /// vectores originales % <paramref name="r" />.
+    /// A new <see cref="Point3D"/> with each coordinate modulo r.
     /// </returns>
     public static Point3D operator %(Point3D l, double r)
     {
@@ -228,10 +218,10 @@ public partial struct Point3D(double x, double y, double z) : IFormattable, IEqu
     }
 
     /// <summary>
-    /// Incrementa en 1 los vectores del punto.
+    /// Increments all coordinates of the point by one.
     /// </summary>
-    /// <param name="p">Punto a incrementar.</param>
-    /// <returns>Un punto con sus vectores incrementados en 1.</returns>
+    /// <param name="p">Point to increment.</param>
+    /// <returns>A point with all coordinates incremented by one.</returns>
     public static Point3D operator ++(Point3D p)
     {
         p.X++;
@@ -241,10 +231,10 @@ public partial struct Point3D(double x, double y, double z) : IFormattable, IEqu
     }
 
     /// <summary>
-    /// Decrementa en 1 los vectores del punto.
+    /// Decrements all coordinates of the point by one.
     /// </summary>
-    /// <param name="p">Punto a decrementar.</param>
-    /// <returns>Un punto con sus vectores decrementados en 1.</returns>
+    /// <param name="p">Point to decrement.</param>
+    /// <returns>A point with all coordinates decremented by one.</returns>
     public static Point3D operator --(Point3D p)
     {
         p.X--;
@@ -254,33 +244,33 @@ public partial struct Point3D(double x, double y, double z) : IFormattable, IEqu
     }
 
     /// <summary>
-    /// Convierte a positivos los vectores del punto.
+    /// Converts all coordinates of the point to positive values.
     /// </summary>
-    /// <param name="p">Punto a operar.</param>
-    /// <returns>Un punto con sus vectores positivos.</returns>
+    /// <param name="p">Point to operate on.</param>
+    /// <returns>A point with all coordinates positive.</returns>
     public static Point3D operator +(Point3D p)
     {
         return new(+p.X, +p.Y, +p.Z);
     }
 
     /// <summary>
-    /// Invierte el signo de los vectores del punto.
+    /// Inverts the sign of all coordinates of the point.
     /// </summary>
-    /// <param name="p">Punto a operar.</param>
-    /// <returns>Un punto con el signo de sus vectores invertido.</returns>
+    /// <param name="p">Point to operate on.</param>
+    /// <returns>A point with inverted signs of all coordinates.</returns>
     public static Point3D operator -(Point3D p)
     {
         return new(-p.X, -p.Y, -p.Z);
     }
 
     /// <summary>
-    /// Compara la igualdad de los vectores de los puntos.
+    /// Compares the equality of vectors from both points.
     /// </summary>
-    /// <param name="l">Punto 1.</param>
-    /// <param name="r">Punto 2.</param>
+    /// <param name="l">First point.</param>
+    /// <param name="r">Second vector.</param>
     /// <returns>
-    /// <see langword="true" /> si todos los vectores de ambos puntos son iguales;
-    /// de lo contrario, <see langword="false" />.
+    /// <see langword="true" /> if all coordinates from both points are equal;
+    /// otherwise, <see langword="false" />.
     /// </returns>
     public static bool operator ==(Point3D l, IVector3D r)
     {
@@ -288,13 +278,13 @@ public partial struct Point3D(double x, double y, double z) : IFormattable, IEqu
     }
 
     /// <summary>
-    /// Compara la diferencia de los vectores de los puntos.
+    /// Compares the inequality of vectors from both points.
     /// </summary>
-    /// <param name="l">Punto 1.</param>
-    /// <param name="r">Punto 2.</param>
+    /// <param name="l">First point.</param>
+    /// <param name="r">Second vector.</param>
     /// <returns>
-    /// <see langword="true" /> si los vectores de ambos puntos son diferentes;  de lo
-    /// contrario, <see langword="false" />.
+    /// <see langword="true" /> if coordinates from both points are different;
+    /// otherwise, <see langword="false" />.
     /// </returns>
     public static bool operator !=(Point3D l, IVector3D r)
     {
@@ -302,56 +292,56 @@ public partial struct Point3D(double x, double y, double z) : IFormattable, IEqu
     }
 
     /// <summary>
-    /// Convierte implícitamente un <see cref="Point3D"/> en un
+    /// Implicitly converts a <see cref="Point3D"/> to a
     /// <see cref="Point"/>.
     /// </summary>
-    /// <param name="p">Objeto a convertir.</param>
+    /// <param name="p">Object to convert.</param>
     /// <returns>
-    /// Un nuevo <see cref="Point"/> con los mismos valores de
-    /// <see cref="X"/> y <see cref="Y"/> que el <see cref="Point3D"/>
-    /// original.
+    /// A new <see cref="Point"/> with the same values of
+    /// <see cref="X"/> and <see cref="Y"/> as the original
+    /// <see cref="Point3D"/>.
     /// </returns>
     public static implicit operator Point(Point3D p) => new(p.X, p.Y);
 
     /// <summary>
-    /// Convierte implícitamente un <see cref="Point"/> en un
+    /// Implicitly converts a <see cref="Point"/> to a
     /// <see cref="Point3D"/>.
     /// </summary>
-    /// <param name="p">Objeto a convertir.</param>
+    /// <param name="p">Object to convert.</param>
     /// <returns>
-    /// Un nuevo <see cref="Point3D"/> con los mismos valores de
-    /// <see cref="X"/> y <see cref="Y"/> que el <see cref="Point"/>
-    /// original, y valor en <see cref="Z"/> de <see cref="double.NaN"/>.
+    /// A new <see cref="Point3D"/> with the same values of
+    /// <see cref="X"/> and <see cref="Y"/> as the original
+    /// <see cref="Point"/>, and a <see cref="Z"/> value of <see cref="double.NaN"/>.
     /// </returns>
     public static implicit operator Point3D(Point p) => new(p.X, p.Y, double.NaN);
 
     /// <summary>
-    /// Coordenada X.
+    /// X coordinate.
     /// </summary>
     public double X { get; set; } = x;
 
     /// <summary>
-    /// Coordenada Y.
+    /// Y coordinate.
     /// </summary>
     public double Y { get; set; } = y;
 
     /// <summary>
-    /// Coordenada Z.
+    /// Z coordinate.
     /// </summary>
     public double Z { get; set; } = z;
 
     /// <summary>
-    /// Intenta crear un <see cref="Point3D"/> a partir de una cadena.
+    /// Attempts to create a <see cref="Point3D"/> from a string.
     /// </summary>
     /// <param name="value">
-    /// Valor a partir del cual crear un <see cref="Point3D"/>.
+    /// Value from which to create a <see cref="Point3D"/>.
     /// </param>
     /// <param name="point">
-    /// <see cref="Point3D"/> que ha sido creado.
+    /// <see cref="Point3D"/> that has been created.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si la conversión ha tenido éxito,
-    /// <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if the conversion was successful,
+    /// <see langword="false"/> otherwise.
     /// </returns>
     public static bool TryParse(string value, out Point3D point)
     {
@@ -396,15 +386,15 @@ public partial struct Point3D(double x, double y, double z) : IFormattable, IEqu
     }
 
     /// <summary>
-    /// Crea un <see cref="Point3D"/> a partir de una cadena.
+    /// Creates a <see cref="Point3D"/> from a string.
     /// </summary>
     /// <param name="value">
-    /// Valor a partir del cual crear un <see cref="Point"/>.
+    /// Value from which to create a <see cref="Point"/>.
     /// </param>
     /// <exception cref="FormatException">
-    /// Se produce si la conversión ha fallado.
+    /// Occurs if the conversion fails.
     /// </exception>
-    /// <returns><see cref="Point3D"/> que ha sido creado.</returns>
+    /// <returns><see cref="Point3D"/> that has been created.</returns>
     public static Point3D Parse(string value)
     {
         if (TryParse(value, out Point3D retVal)) return retVal;
@@ -412,14 +402,14 @@ public partial struct Point3D(double x, double y, double z) : IFormattable, IEqu
     }
 
     /// <summary>
-    /// Compara la igualdad de los vectores de los puntos.
+    /// Compares the equality of vectors from both points.
     /// </summary>
     /// <param name="other">
-    /// <see cref="Point3D" /> contra el cual comparar.
+    /// <see cref="Point3D" /> to compare against.
     /// </param>
     /// <returns>
-    /// <see langword="true" /> si todos los vectores de ambos puntos son iguales;
-    /// de lo contrario, <see langword="false" />.
+    /// <see langword="true" /> if all coordinates from both points are equal;
+    /// otherwise, <see langword="false" />.
     /// </returns>
     public readonly bool Equals(Point3D other)
     {
@@ -427,34 +417,34 @@ public partial struct Point3D(double x, double y, double z) : IFormattable, IEqu
     }
 
     /// <summary>
-    /// Determina si el punto se encuentra dentro del cubo formado por los
-    /// puntos tridimensionales especificados.
+    /// Determines whether the point is within the cube formed by the specified
+    /// 3D points.
     /// </summary>
     /// <returns>
-    /// <see langword="true" /> si el punto se encuentra dentro del cubo formado,
-    /// <see langword="false" /> en caso contrario.
+    /// <see langword="true" /> if the point is within the cube formed,
+    /// <see langword="false" /> otherwise.
     /// </returns>
-    /// <param name="p1">Punto 1.</param>
-    /// <param name="p2">Punto 2.</param>
+    /// <param name="p1">First point.</param>
+    /// <param name="p2">Second point.</param>
     public readonly bool WithinCube(Point3D p1, Point3D p2)
     {
         return X.IsBetween(p1.X, p2.X) && Y.IsBetween(p1.Y, p2.Y) && Z.IsBetween(p1.Z, p2.Z);
     }
 
     /// <summary>
-    /// Determina si el punto se encuentra dentro del cubo formado por los
-    /// puntos tridimensionales especificados.
+    /// Determines whether the point is within the cube formed by the specified
+    /// 3D points.
     /// </summary>
     /// <returns>
-    /// <see langword="true" /> si el punto se encuentra dentro del cubo formado,
-    /// <see langword="false" /> en caso contrario.
+    /// <see langword="true" /> if the point is within the cube formed,
+    /// <see langword="false" /> otherwise.
     /// </returns>
-    /// <param name="x1">La primer coordenada x.</param>
-    /// <param name="y1">La primer coordenada y.</param>
-    /// <param name="z1">La primer coordenada z.</param>
-    /// <param name="x2">La segunda coordenada x.</param>
-    /// <param name="y2">La segunda coordenada y.</param>
-    /// <param name="z2">La segunda coordenada z.</param>
+    /// <param name="x1">The first X coordinate.</param>
+    /// <param name="y1">The first Y coordinate.</param>
+    /// <param name="z1">The first Z coordinate.</param>
+    /// <param name="x2">The second X coordinate.</param>
+    /// <param name="y2">The second Y coordinate.</param>
+    /// <param name="z2">The second Z coordinate.</param>
     public readonly bool WithinCube(in double x1, in double y1, in double z1, in double x2, in double y2, in double z2)
     {
         double[] x = [.. new[] { x1, x2 }.Ordered()];
@@ -464,31 +454,31 @@ public partial struct Point3D(double x, double y, double z) : IFormattable, IEqu
     }
 
     /// <summary>
-    /// Determina si el punto se encuentra dentro del rectángulo formado por
-    /// los rangos especificados.
+    /// Determines whether the point is within the rectangle formed by the
+    /// specified ranges.
     /// </summary>
     /// <returns>
-    /// <see langword="true" /> si el punto se encuentra dentro del rectángulo
-    /// formado, <see langword="false" /> en caso contrario.
+    /// <see langword="true" /> if the point is within the rectangle
+    /// formed, <see langword="false" /> otherwise.
     /// </returns>
-    /// <param name="x">Rango de valores para el eje X.</param>
-    /// <param name="y">Rango de valores para el eje Y.</param>
-    /// <param name="z">Rango de valores para el eje Z.</param>
+    /// <param name="x">Range of values for the X axis.</param>
+    /// <param name="y">Range of values for the Y axis.</param>
+    /// <param name="z">Range of values for the Z axis.</param>
     public readonly bool WithinCube(Range<double> x, Range<double> y, Range<double> z)
     {
         return x.IsWithin(X) && y.IsWithin(Y) && z.IsWithin(Z);
     }
 
     /// <summary>
-    /// Determina si el punto se encuentra dentro del rectángulo formado por
-    /// las coordenadas especificadas.
+    /// Determines whether the point is within the rectangle formed by the
+    /// specified coordinates.
     /// </summary>
     /// <returns>
-    /// <see langword="true" /> si el punto se encuentra dentro del rectángulo
-    /// formado, <see langword="false" /> en caso contrario.
+    /// <see langword="true" /> if the point is within the rectangle
+    /// formed, <see langword="false" /> otherwise.
     /// </returns>
-    /// <param name="size">Tamaño del rectángulo.</param>
-    /// <param name="topLeftFront">Coordenadas de esquina superior izquierda frontal</param>
+    /// <param name="size">Size of the rectangle.</param>
+    /// <param name="topLeftFront">Coordinates of the top-left front corner</param>
     public readonly bool WithinCube(in Size3D size, in Point3D topLeftFront)
     {
         double[] x = [.. new[] { topLeftFront.X, topLeftFront.X + size.Width }.Ordered()];
@@ -498,27 +488,27 @@ public partial struct Point3D(double x, double y, double z) : IFormattable, IEqu
     }
 
     /// <summary>
-    /// Determina si el punto se encuentra dentro del rectángulo formado por
-    /// las coordenadas especificadas.
+    /// Determines whether the point is within the rectangle formed by the
+    /// specified coordinates.
     /// </summary>
     /// <returns>
-    /// <see langword="true" /> si el punto se encuentra dentro del rectángulo
-    /// formado, <see langword="false" /> en caso contrario.
+    /// <see langword="true" /> if the point is within the rectangle
+    /// formed, <see langword="false" /> otherwise.
     /// </returns>
-    /// <param name="size">Tamaño del rectángulo.</param>
+    /// <param name="size">Size of the rectangle.</param>
     public readonly bool WithinCube(in Size3D size)
     {
         return WithinCube(size, new Point3D(-(size.Width / 2), size.Height / 2, size.Depth / 2));
     }
 
     /// <summary>
-    /// Determina si el punto se encuentra dentro de la esfera especificada.
+    /// Determines whether the point is within the specified sphere.
     /// </summary>
-    /// <param name="center">Punto central de la esfera.</param>
-    /// <param name="radius">Radio del círculo.</param>
+    /// <param name="center">Center point of the sphere.</param>
+    /// <param name="radius">Radius of the sphere.</param>
     /// <returns>
-    /// <see langword="true" /> si el punto se encuentra dentro de la esfera,
-    /// <see langword="false" /> en caso contrario.
+    /// <see langword="true" /> if the point is within the sphere,
+    /// <see langword="false" /> otherwise.
     /// </returns>
     public readonly bool WithinSphere(Point3D center, double radius)
     {
@@ -526,10 +516,10 @@ public partial struct Point3D(double x, double y, double z) : IFormattable, IEqu
     }
 
     /// <summary>
-    /// Calcula la magnitud de las coordenadas.
+    /// Calculates the magnitude of the coordinates.
     /// </summary>
     /// <returns>
-    /// La magnitud resultante entre el punto y el origen.
+    /// The resulting magnitude between the point and the origin.
     /// </returns>
     public readonly double Magnitude()
     {
@@ -537,13 +527,12 @@ public partial struct Point3D(double x, double y, double z) : IFormattable, IEqu
     }
 
     /// <summary>
-    /// Calcula la magnitud de las coordenadas desde el punto
-    /// especificado.
+    /// Calculates the magnitude of the coordinates from the specified point.
     /// </summary>
-    /// <returns>La magnitud resultante entre ambos puntos.</returns>
+    /// <returns>The resulting magnitude between both points.</returns>
     /// <param name="fromPoint">
-    /// Punto de referencia para calcular la
-    /// magnitud.
+    /// Reference point to calculate the
+    /// magnitude.
     /// </param>
     public readonly double Magnitude(Point3D fromPoint)
     {
@@ -552,16 +541,14 @@ public partial struct Point3D(double x, double y, double z) : IFormattable, IEqu
     }
 
     /// <summary>
-    /// Calcula la magnitud de las coordenadas desde el punto
-    /// especificado.
+    /// Calculates the magnitude of the coordinates from the specified point.
     /// </summary>
     /// <returns>
-    /// La magnitud resultante entre el punto y las coordenadas
-    /// especificadas.
+    /// The resulting magnitude between the point and the specified coordinates.
     /// </returns>
-    /// <param name="fromX">Coordenada X de origen.</param>
-    /// <param name="fromY">Coordenada Y de origen.</param>
-    /// <param name="fromZ">Coordenada Z de origen.</param>
+    /// <param name="fromX">Source X coordinate.</param>
+    /// <param name="fromY">Source Y coordinate.</param>
+    /// <param name="fromZ">Source Z coordinate.</param>
     public readonly double Magnitude(double fromX, double fromY, double fromZ)
     {
         double x = X - fromX, y = Y - fromY, z = Z - fromZ;
@@ -569,14 +556,14 @@ public partial struct Point3D(double x, double y, double z) : IFormattable, IEqu
     }
 
     /// <summary>
-    /// Indica si esta instancia y un objeto especificado son iguales.
+    /// Indicates whether this instance and a specified object are equal.
     /// </summary>
     /// <param name="obj">
-    /// Objeto que se va a compara con la instancia actual.
+    /// The object to compare with the current instance.
     /// </param>
     /// <returns>
-    /// <see langword="true" /> si esta instancia y <paramref name="obj" /> son iguales;
-    /// de lo contrario, <see langword="false" />.
+    /// <see langword="true" /> if this instance and <paramref name="obj" /> are equal;
+    /// otherwise, <see langword="false" />.
     /// </returns>
     public override readonly bool Equals(object? obj)
     {
@@ -584,19 +571,19 @@ public partial struct Point3D(double x, double y, double z) : IFormattable, IEqu
     }
 
     /// <summary>
-    /// Devuelve el código Hash de esta instancia.
+    /// Returns the hash code for this instance.
     /// </summary>
-    /// <returns>El código Hash de esta instancia.</returns>
+    /// <returns>The hash code for this instance.</returns>
     public override readonly int GetHashCode()
     {
         return HashCode.Combine(X, Y, Z);
     }
 
     /// <summary>
-    /// Convierte este objeto en su representación como una cadena.
+    /// Converts this object to its string representation.
     /// </summary>
     /// <returns>
-    /// Una representación en forma de <see cref="string" /> de este objeto.
+    /// A <see cref="string" /> representation of this object.
     /// </returns>
     public override readonly string ToString()
     {
@@ -604,11 +591,11 @@ public partial struct Point3D(double x, double y, double z) : IFormattable, IEqu
     }
 
     /// <summary>
-    /// Convierte este objeto en su representación como una cadena.
+    /// Converts this object to its string representation.
     /// </summary>
-    /// <param name="format">Formato a utilizar.</param>
+    /// <param name="format">Format to use.</param>
     /// <returns>
-    /// Una representación en forma de <see cref="string" /> de este objeto.
+    /// A <see cref="string" /> representation of this object.
     /// </returns>
     public readonly string ToString(string? format)
     {
@@ -616,17 +603,17 @@ public partial struct Point3D(double x, double y, double z) : IFormattable, IEqu
     }
 
     /// <summary>
-    /// Convierte este objeto en su representación como una cadena.
+    /// Converts this object to its string representation.
     /// </summary>
-    /// <param name="format">Formato a utilizar.</param>
+    /// <param name="format">Format to use.</param>
     /// <param name="formatProvider">
-    /// Parámetro opcional.
-    /// Proveedor de formato de la cultura a utilizar para dar formato a
-    /// la representación como una cadena de este objeto. Si se omite,
-    /// se utilizará <see cref="CI.CurrentCulture" />.
+    /// Optional parameter.
+    /// Format provider of the culture to use for formatting
+    /// the string representation of this object. If omitted,
+    /// <see cref="CI.CurrentCulture" /> will be used.
     /// </param>
     /// <returns>
-    /// Una representación en forma de <see cref="string" /> de este objeto.
+    /// A <see cref="string" /> representation of this object.
     /// </returns>
     public readonly string ToString(string? format, IFormatProvider? formatProvider)
     {
@@ -642,26 +629,26 @@ public partial struct Point3D(double x, double y, double z) : IFormattable, IEqu
     }
 
     /// <summary>
-    /// Indica si esta instancia y un objeto especificado son iguales.
+    /// Indicates whether this instance and a specified object are equal.
     /// </summary>
     /// <param name="other">
-    /// Objeto que se va a compara con la instancia actual.
+    /// The object to compare with the current instance.
     /// </param>
     /// <returns>
-    /// <see langword="true" /> si esta instancia y <paramref name="other" /> son iguales;
-    /// de lo contrario, <see langword="false" />.
+    /// <see langword="true" /> if this instance and <paramref name="other" /> are equal;
+    /// otherwise, <see langword="false" />.
     /// </returns>
-    public readonly bool Equals(IVector? other) => other is not null && X.Equals(other.X) && Y.Equals(other.Y) && !Z.IsValid();
+    public readonly bool Equals(IVector? other) => other is not null && X.Equals(other.X) && Y.Equals(other.Y);
 
     /// <summary>
-    /// Indica si esta instancia y un objeto especificado son iguales.
+    /// Indicates whether this instance and a specified object are equal.
     /// </summary>
     /// <param name="other">
-    /// Objeto que se va a compara con la instancia actual.
+    /// The object to compare with the current instance.
     /// </param>
     /// <returns>
-    /// <see langword="true" /> si esta instancia y <paramref name="other" /> son iguales;
-    /// de lo contrario, <see langword="false" />.
+    /// <see langword="true" /> if this instance and <paramref name="other" /> are equal;
+    /// otherwise, <see langword="false" />.
     /// </returns>
     public readonly bool Equals(IVector3D? other) => other is not null && X.Equals(other.X) && Y.Equals(other.Y) && Z.Equals(other.Z);
 

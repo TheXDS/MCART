@@ -3,8 +3,8 @@ Range.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
-Este archivo define la estructura Range<TValue>, la cual permite representar rangos
-de valores.
+This file defines the Range<TValue> structure, which allows representing
+value ranges.
 
 Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
@@ -41,67 +41,64 @@ using TheXDS.MCART.Types.Base;
 namespace TheXDS.MCART.Types;
 
 /// <summary>
-/// Define un rango de valores.
+/// Defines a range of values.
 /// </summary>
-/// <typeparam name="T">Tipo base del rango de valores.</typeparam>
+/// <typeparam name="T">Base type of the value range.</typeparam>
 public struct Range<T> : IRange<T>, IEquatable<IRange<T>>, ICloneable<Range<T>> where T : IComparable<T>
 {
     private T _minimum;
     private T _maximum;
 
     /// <summary>
-    /// Inicializa una nueva instancia de la estructura <see cref="Range{T}" />
+    /// Initializes a new instance of the <see cref="Range{T}" /> structure.
     /// </summary>
-    /// <param name="maximum">Valor máximo del rango, inclusive.</param>
+    /// <param name="maximum">Maximum value of the range, inclusive.</param>
     public Range(T maximum) : this(default!, maximum, true, true) { }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la estructura <see cref="Range{T}" />
+    /// Initializes a new instance of the <see cref="Range{T}" /> structure.
     /// </summary>
-    /// <param name="minimum">Valor mínimo del rango, inclusive.</param>
-    /// <param name="maximum">Valor máximo del rango, inclusive.</param>
+    /// <param name="minimum">Minimum value of the range, inclusive.</param>
+    /// <param name="maximum">Maximum value of the range, inclusive.</param>
     public Range(T minimum, T maximum) : this(minimum, maximum, true, true) { }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la estructura
-    /// <see cref="Range{T}" />
+    /// Initializes a new instance of the <see cref="Range{T}" /> structure.
     /// </summary>
-    /// <param name="maximum">Valor máximo del rango.</param>
+    /// <param name="maximum">Maximum value of the range.</param>
     /// <param name="inclusive">
-    /// Si se establece en <see langword="true"/>, el valor máximo será
-    /// incluido dentro del rango.
+    /// If set to <see langword="true"/>, the maximum value will be
+    /// included in the range.
     /// </param>
     public Range(T maximum, bool inclusive) : this(default!, maximum, inclusive, inclusive)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la estructura
-    /// <see cref="Range{T}" />
+    /// Initializes a new instance of the <see cref="Range{T}" /> structure.
     /// </summary>
-    /// <param name="minimum">Valor mínimo del rango.</param>
-    /// <param name="maximum">Valor máximo del rango.</param>
+    /// <param name="minimum">Minimum value of the range.</param>
+    /// <param name="maximum">Maximum value of the range.</param>
     /// <param name="inclusive">
-    /// Si se establece en <see langword="true" />, los valores mínimo y
-    /// máximo serán incluidos dentro del rango.
+    /// If set to <see langword="true" />, both minimum and maximum values
+    /// will be included in the range.
     /// </param>
     public Range(T minimum, T maximum, bool inclusive) : this(minimum, maximum, inclusive, inclusive)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la estructura
-    /// <see cref="Range{T}"/>
+    /// Initializes a new instance of the <see cref="Range{T}"/> structure.
     /// </summary>
-    /// <param name="minimum">Valor mínimo del rango.</param>
-    /// <param name="maximum">Valor máximo del rango.</param>
+    /// <param name="minimum">Minimum value of the range.</param>
+    /// <param name="maximum">Maximum value of the range.</param>
     /// <param name="minInclusive">
-    /// Si se establece en <see langword="true"/>, el valor mínimo será
-    /// incluido dentro del rango.
+    /// If set to <see langword="true"/>, the minimum value will be
+    /// included in the range.
     /// </param>
     /// <param name="maxInclusive">
-    /// Si se establece en <see langword="true"/>, el valor máximo será
-    /// incluido dentro del rango.
+    /// If set to <see langword="true"/>, the maximum value will be
+    /// included in the range.
     /// </param>
     public Range(T minimum, T maximum, bool minInclusive, bool maxInclusive)
     {
@@ -113,14 +110,13 @@ public struct Range<T> : IRange<T>, IEquatable<IRange<T>>, ICloneable<Range<T>> 
     }
 
     /// <summary>
-    /// Compara la igualdad entre dos instancias de
-    /// <see cref="Range{T}"/>.
+    /// Compares two instances of <see cref="Range{T}"/> for equality.
     /// </summary>
-    /// <param name="left">Objeto a comparar</param>
-    /// <param name="right">Objeto contra el cual comparar.</param>
+    /// <param name="left">Object to compare.</param>
+    /// <param name="right">Object to compare against.</param>
     /// <returns>
-    /// <see langword="true" /> si ambas instancias son iguales,
-    /// <see langword="false" /> en caso contrario.
+    /// <see langword="true" /> if both instances are equal,
+    /// <see langword="false" /> otherwise.
     /// </returns>
     public static bool operator ==(Range<T> left, Range<T> right)
     {
@@ -128,14 +124,14 @@ public struct Range<T> : IRange<T>, IEquatable<IRange<T>>, ICloneable<Range<T>> 
     }
 
     /// <summary>
-    /// Compara dos instancias de <see cref="Range{T}"/>, y devuelve
-    /// <see langword="true"/> si son distintas la una de la otra.
+    /// Compares two instances of <see cref="Range{T}"/>, and returns
+    /// <see langword="true"/> if they are different from each other.
     /// </summary>
-    /// <param name="left">Objeto a comparar</param>
-    /// <param name="right">Objeto contra el cual comparar.</param>
+    /// <param name="left">Object to compare.</param>
+    /// <param name="right">Object to compare against.</param>
     /// <returns>
-    /// <see langword="true" /> si ambas instancias son distintas,
-    /// <see langword="false" /> en caso contrario.
+    /// <see langword="true" /> if both instances are different,
+    /// <see langword="false" /> otherwise.
     /// </returns>
     public static bool operator !=(Range<T> left, Range<T> right)
     {
@@ -143,7 +139,7 @@ public struct Range<T> : IRange<T>, IEquatable<IRange<T>>, ICloneable<Range<T>> 
     }
 
     /// <summary>
-    /// Valor mínimo del rango.
+    /// Minimum value of the range.
     /// </summary>
     public T Minimum
     {
@@ -156,7 +152,7 @@ public struct Range<T> : IRange<T>, IEquatable<IRange<T>>, ICloneable<Range<T>> 
     }
 
     /// <summary>
-    /// Valor máximo del rango.
+    /// Maximum value of the range.
     /// </summary>
     public T Maximum
     {
@@ -169,22 +165,22 @@ public struct Range<T> : IRange<T>, IEquatable<IRange<T>>, ICloneable<Range<T>> 
     }
 
     /// <summary>
-    /// Obtiene o establece un valor que determina si el valor mínimo
-    /// es parte del rango.
+    /// Gets or sets a value that determines whether the minimum value
+    /// is part of the range.
     /// </summary>
     public bool MinInclusive { get; set; }
 
     /// <summary>
-    /// Obtiene o establece un valor que determina si el valor máximo
-    /// es parte del rango.
+    /// Gets or sets a value that determines whether the maximum value
+    /// is part of the range.
     /// </summary>
     public bool MaxInclusive { get; set; }
 
     /// <summary>
-    /// Convierte este <see cref="Range{T}"/> en su representación como una cadena.
+    /// Converts this <see cref="Range{T}"/> to its string representation.
     /// </summary>
     /// <returns>
-    /// Una representación de este <see cref="Range{T}"/> como una cadena.
+    /// A string representation of this <see cref="Range{T}"/>.
     /// </returns>
     public override readonly string ToString()
     {
@@ -192,12 +188,12 @@ public struct Range<T> : IRange<T>, IEquatable<IRange<T>>, ICloneable<Range<T>> 
     }
 
     /// <summary>
-    /// Comprueba si un valor <typeparamref name="T"/> se encuentra dentro de este <see cref="Range{T}"/>.
+    /// Checks if a <typeparamref name="T"/> value is within this <see cref="Range{T}"/>.
     /// </summary>
-    /// <param name="value">Valor a comprobar.</param>
+    /// <param name="value">Value to check.</param>
     /// <returns>
-    /// <see langword="true"/> si el valor se encuentra dentro de este <see cref="Range{T}"/>,
-    /// <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if the value is within this <see cref="Range{T}"/>,
+    /// <see langword="false"/> otherwise.
     /// </returns>
     public readonly bool IsWithin(T value)
     {
@@ -205,15 +201,15 @@ public struct Range<T> : IRange<T>, IEquatable<IRange<T>>, ICloneable<Range<T>> 
     }
 
     /// <summary>
-    /// Crea un <see cref="Range{T}"/> a partir de una cadena.
+    /// Creates a <see cref="Range{T}"/> from a string.
     /// </summary>
     /// <param name="value">
-    /// Valor a partir del cual crear un <see cref="Range{T}"/>.
+    /// Value from which to create a <see cref="Range{T}"/>.
     /// </param>
     /// <exception cref="FormatException">
-    /// Se produce si la conversión ha fallado.
+    /// Thrown if the conversion fails.
     /// </exception>
-    /// <returns><see cref="Range{T}"/> que ha sido creado.</returns>
+    /// <returns>The created <see cref="Range{T}"/>.</returns>
     [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
     [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
     public static Range<T> Parse(string value)
@@ -223,17 +219,17 @@ public struct Range<T> : IRange<T>, IEquatable<IRange<T>>, ICloneable<Range<T>> 
     }
 
     /// <summary>
-    /// Intenta crear un <see cref="Range{T}"/> a partir de una cadena.
+    /// Attempts to create a <see cref="Range{T}"/> from a string.
     /// </summary>
     /// <param name="value">
-    /// Valor a partir del cual crear un <see cref="Range{T}"/>.
+    /// Value from which to create a <see cref="Range{T}"/>.
     /// </param>
     /// <param name="range">
-    /// <see cref="Range{T}"/> que ha sido creado.
+    /// The created <see cref="Range{T}"/>.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si la conversión ha tenido éxito,
-    /// <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if the conversion succeeded,
+    /// <see langword="false" /> otherwise.
     /// </returns>
     [RequiresUnreferencedCode(AttributeErrorMessages.MethodScansForTypes)]
     [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
@@ -243,7 +239,7 @@ public struct Range<T> : IRange<T>, IEquatable<IRange<T>>, ICloneable<Range<T>> 
     }
 
     /// <summary>
-    /// Combina este <see cref="Range{T}"/> con otro.
+    /// Combines this <see cref="Range{T}"/> with another.
     /// </summary>
     /// <param name="other"></param>
     /// <returns></returns>
@@ -253,11 +249,11 @@ public struct Range<T> : IRange<T>, IEquatable<IRange<T>>, ICloneable<Range<T>> 
     }
 
     /// <summary>
-    /// Obtiene un rango de intersección a partir de este y otro rango especificado.
+    /// Gets an intersection range from this and another specified range.
     /// </summary>
-    /// <param name="other">Rango a intersectar.</param>
+    /// <param name="other">Range to intersect.</param>
     /// <returns>
-    /// La intersección entre este rango y <paramref name="other"/>.
+    /// The intersection between this range and <paramref name="other"/>.
     /// </returns>
     public readonly Range<T> Intersect(IRange<T> other)
     {
@@ -265,13 +261,12 @@ public struct Range<T> : IRange<T>, IEquatable<IRange<T>>, ICloneable<Range<T>> 
     }
 
     /// <summary>
-    /// Determina si un <see cref="Range{T}"/> intersecta a este.
+    /// Determines if a <see cref="Range{T}"/> intersects with this one.
     /// </summary>
-    /// <param name="other">Rango a comprobar.</param>
+    /// <param name="other">Range to check.</param>
     /// <returns>
-    /// <see langword="true"/> si <paramref name="other"/> intersecta a
-    /// este <see cref="Range{T}"/>, <see langword="false"/> en caso
-    /// contrario.
+    /// <see langword="true"/> if <paramref name="other"/> intersects this
+    /// <see cref="Range{T}"/>, <see langword="false"/> otherwise.
     /// </returns>
     public readonly bool Intersects(IRange<T> other)
     {
@@ -279,13 +274,13 @@ public struct Range<T> : IRange<T>, IEquatable<IRange<T>>, ICloneable<Range<T>> 
     }
 
     /// <summary>
-    /// Une dos rangos de valores.
+    /// Unites two value ranges.
     /// </summary>
-    /// <param name="left">Operador de la izquierda.</param>
-    /// <param name="right">Operador de la derecha.</param>
+    /// <param name="left">Left operand.</param>
+    /// <param name="right">Right operand.</param>
     /// <returns>
-    /// La unión de ambos <see cref="Range{T}"/>. Si los rangos no
-    /// intersectan, se incluirán todos los valores faltantes.
+    /// The union of both <see cref="Range{T}"/>. If the ranges don't
+    /// intersect, all missing values will be included.
     /// </returns>
     public static Range<T> operator +(Range<T> left, Range<T> right)
     {
@@ -293,15 +288,15 @@ public struct Range<T> : IRange<T>, IEquatable<IRange<T>>, ICloneable<Range<T>> 
     }
 
     /// <summary>
-    /// Indica si esta instancia y un objeto especificado son iguales.
+    /// Indicates whether this instance and a specified object are equal.
     /// </summary>
     /// <param name="obj">
-    /// Objeto que se va a compara con la instancia actual.
+    /// The object to compare with the current instance.
     /// </param>
     /// <returns>
-    /// <see langword="true" /> si esta instancia y
-    /// <paramref name="obj" /> son iguales, <see langword="false" />
-    /// en caso contrario.
+    /// <see langword="true" /> if this instance and
+    /// <paramref name="obj" /> are equal, <see langword="false" />
+    /// otherwise.
     /// </returns>
     public override readonly bool Equals(object? obj)
     {
@@ -309,24 +304,24 @@ public struct Range<T> : IRange<T>, IEquatable<IRange<T>>, ICloneable<Range<T>> 
     }
 
     /// <summary>
-    /// Devuelve el código Hash de esta instancia.
+    /// Returns the hash code for this instance.
     /// </summary>
-    /// <returns>El código Hash de esta instancia.</returns>
+    /// <returns>The hash code for this instance.</returns>
     public override readonly int GetHashCode()
     {
         return HashCode.Combine(Minimum, Maximum, MinInclusive, MaxInclusive);
     }
 
     /// <summary>
-    /// Indica si esta instancia y un objeto especificado son iguales.
+    /// Indicates whether this instance and a specified object are equal.
     /// </summary>
     /// <param name="other">
-    /// Objeto que se va a compara con la instancia actual.
+    /// The object to compare with the current instance.
     /// </param>
     /// <returns>
-    /// <see langword="true" /> si esta instancia y
-    /// <paramref name="other" /> son iguales, <see langword="false" />
-    /// en caso contrario.
+    /// <see langword="true" /> if this instance and
+    /// <paramref name="other" /> are equal, <see langword="false" />
+    /// otherwise.
     /// </returns>
     public readonly bool Equals(IRange<T>? other)
     {

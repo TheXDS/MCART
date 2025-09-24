@@ -26,7 +26,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using Moq;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
@@ -117,6 +116,9 @@ namespace TheXDS.MCART.Mvvm.Tests.Helpers
             Assert.That(ObservingCommandBuilder.Create(new ObservableTestClass(), _ => { }), Is.InstanceOf<ObservingCommandBuilder<ObservableTestClass>>());
             Assert.That(ObservingCommandBuilder.Create(new ObservableTestClass(), () => Task.CompletedTask), Is.InstanceOf<ObservingCommandBuilder<ObservableTestClass>>());
             Assert.That(ObservingCommandBuilder.Create(new ObservableTestClass(), _ => Task.CompletedTask), Is.InstanceOf<ObservingCommandBuilder<ObservableTestClass>>());
+            Assert.That(ObservingCommandBuilder.Create(new ObservableTestClass(), (int _) => { }), Is.InstanceOf<ObservingCommandBuilder<ObservableTestClass>>());
+            Assert.That(ObservingCommandBuilder.Create(new ObservableTestClass(), (int _) => Task.CompletedTask), Is.InstanceOf<ObservingCommandBuilder<ObservableTestClass>>());
+
         }
 
         [Test]

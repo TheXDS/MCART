@@ -35,9 +35,8 @@ using S = System.Timers;
 namespace TheXDS.MCART.Types;
 
 /// <summary>
-/// Extensión de la clase <see cref="TimerEx" />. provee de toda
-/// la funcionalidad previamente disponible, e incluye algunas extensiones
-/// útiles.
+/// Extension of the <see cref="TimerEx" /> class. Provides all previously
+/// available functionality, and includes some useful extensions.
 /// </summary>
 public class TimerEx : S.Timer, IDisposableEx
 {
@@ -51,19 +50,19 @@ public class TimerEx : S.Timer, IDisposableEx
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="TimerEx" /> y 
-    /// establece la propiedad <see cref="S.Timer.Interval" />
-    /// en el número de milisegundos especificado.
+    /// Initializes a new instance of the <see cref="TimerEx" /> and 
+    /// sets the <see cref="S.Timer.Interval" /> property
+    /// to the specified number of milliseconds.
     /// </summary>
     /// <param name="interval">
-    /// Tiempo, en milisegundos, entre eventos. Este valor debe ser mayor
-    /// que cero y menor que <see cref="F:System.Int32.MaxValue" />.
+    /// Time, in milliseconds, between events. This value must be greater
+    /// than zero and less than <see cref="F:System.Int32.MaxValue" />.
     /// </param>
     public TimerEx(double interval) : base(interval) { }
 
     /// <summary>
-    /// Obtiene o establece un valor que indica si este <see cref="TimerEx"/>
-    /// debe generar el evento <see cref="S.Timer.Elapsed"/>.
+    /// Gets or sets a value indicating whether this <see cref="TimerEx"/>
+    /// should raise the <see cref="S.Timer.Elapsed"/> event.
     /// </summary>
     public new bool Enabled
     {
@@ -76,18 +75,18 @@ public class TimerEx : S.Timer, IDisposableEx
     }
 
     /// <summary>
-    /// Obtiene un valor que indica si este objeto ha sido desechado.
+    /// Gets a value indicating whether this object has been disposed.
     /// </summary>
     public bool IsDisposed { get; private set; }
 
     /// <summary>
-    /// Indica el momento de inicio de este <see cref="TimerEx"/>.
+    /// Indicates the start time of this <see cref="TimerEx"/>.
     /// </summary>
     public DateTime? StartTime { get; private set; }
 
     /// <summary>
-    /// Indica la cantidad de tiempo disponible antes de cumplir con el 
-    /// intervalo establecido en 
+    /// Indicates the amount of time remaining before meeting the 
+    /// interval set in 
     /// <see cref="S.Timer.Interval"/>.
     /// </summary>
     public TimeSpan? TimeLeft
@@ -100,9 +99,9 @@ public class TimerEx : S.Timer, IDisposableEx
     }
 
     /// <summary>
-    /// Empieza a generar el evento 
-    /// <see cref="S.Timer.Elapsed"/> al establecer 
-    /// <see cref="Enabled"/> en <see langword="true"/>.
+    /// Starts generating the 
+    /// <see cref="S.Timer.Elapsed"/> event by setting 
+    /// <see cref="Enabled"/> to <see langword="true"/>.
     /// </summary>
     public new void Start()
     {
@@ -111,8 +110,8 @@ public class TimerEx : S.Timer, IDisposableEx
     }
 
     /// <summary>
-    /// Deja de generar el evento <see cref="S.Timer.Elapsed"/>
-    /// al establecer <see cref="Enabled"/> en <see langword="false"/>.
+    /// Stops generating the <see cref="S.Timer.Elapsed"/>
+    /// event by setting <see cref="Enabled"/> to <see langword="false"/>.
     /// </summary>
     public new void Stop()
     {
@@ -121,7 +120,7 @@ public class TimerEx : S.Timer, IDisposableEx
     }
 
     /// <summary>
-    /// Reinicia este <see cref="TimerEx"/>.
+    /// Resets this <see cref="TimerEx"/>.
     /// </summary>
     public void Reset()
     {
