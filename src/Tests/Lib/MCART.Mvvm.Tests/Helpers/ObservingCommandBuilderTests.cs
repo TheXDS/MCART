@@ -118,7 +118,26 @@ namespace TheXDS.MCART.Mvvm.Tests.Helpers
             Assert.That(ObservingCommandBuilder.Create(new ObservableTestClass(), _ => Task.CompletedTask), Is.InstanceOf<ObservingCommandBuilder<ObservableTestClass>>());
             Assert.That(ObservingCommandBuilder.Create(new ObservableTestClass(), (int _) => { }), Is.InstanceOf<ObservingCommandBuilder<ObservableTestClass>>());
             Assert.That(ObservingCommandBuilder.Create(new ObservableTestClass(), (int _) => Task.CompletedTask), Is.InstanceOf<ObservingCommandBuilder<ObservableTestClass>>());
+        }
 
+        [TestCase(1, true)]
+        [TestCase("Test", false)]
+        public void ObservingCommand_With_strongly_typed_parameter_test(object parameter, bool expectedExecution)
+        {
+            var executed = false;
+            var command = ObservingCommandBuilder.Create(new ObservableTestClass(), (int _) => executed = true).Build();
+            command.Execute(parameter);
+            Assert.That(executed, Is.EqualTo(expectedExecution));
+        }
+
+        [TestCase(1, true)]
+        [TestCase("Test", false)]
+        public void ObservingCommand_With_strongly_typed_parameter_func_test(object parameter, bool expectedExecution)
+        {
+            var executed = false;
+            var command = ObservingCommandBuilder.Create(new ObservableTestClass(), (int _) => { executed = true; return Task.CompletedTask; }).Build();
+            command.Execute(parameter);
+            Assert.That(executed, Is.EqualTo(expectedExecution));
         }
 
         [Test]
