@@ -33,76 +33,87 @@ using System.Reflection.Emit;
 namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
-/// Contiene extensiones útiles para la generación de código por medio
-/// de la clase <see cref="ILGenerator"/>.
+/// Contains useful extensions for code generation through the 
+/// <see cref="ILGenerator"/> class.
 /// </summary>
 public static partial class ILGeneratorExtensions
 {
     /// <summary>
-    /// Define un delegado que describe un bloque <see langword="for"/>.
+    /// Defines a delegate that describes a <see langword="for"/> block.
     /// </summary>
     /// <param name="il">
-    /// Referencia al generador de instrucciones en el cual se inserta el
-    /// código del bloque <see langword="for"/>.
+    /// Reference to the instruction generator where the <see langword="for"/>
+    /// block code is inserted.
     /// </param>
     /// <param name="accumulator">
-    /// Referencia al acumulador del ciclo.
+    /// Reference to the loop accumulator.
     /// </param>
     /// <param name="break">
-    /// Etiqueta de salida del bloque <see langword="for"/>.
+    /// Exit label for the <see langword="for"/> block.
     /// </param>
     /// <param name="next">
-    /// Etiqueta de continuación del bloque <see langword="for"/>.
+    /// Continuation label for the <see langword="for"/> block.
     /// </param>
     public delegate void ForBlock(ILGenerator il, LocalBuilder accumulator, Label @break, Label next);
 
     /// <summary>
-    /// Define un delegado que describe un bloque <see langword="foreach"/>.
+    /// Defines a delegate that describes a <see langword="foreach"/> block.
     /// </summary>
     /// <param name="il">
-    /// Referencia al generador de instrucciones en el cual se inserta el
-    /// código del bloque <see langword="foreach"/>.
+    /// Reference to the instruction generator where the <see langword="foreach"/>
+    /// block code is inserted.
     /// </param>
     /// <param name="item">
-    /// Referencia al acumulador del ciclo.
+    /// Reference to the loop accumulator.
     /// </param>
     /// <param name="break">
-    /// Etiqueta de salida del bloque <see langword="foreach"/>. Debe ser
-    /// invocada por medio de <see cref="Leave(ILGenerator, Label)"/>.
+    /// Exit label for the <see langword="foreach"/> block. Must be invoked
+    /// through <see cref="Leave(ILGenerator, Label)"/>.
     /// </param>
     /// <param name="continue">
-    /// Etiqueta de continuación del bloque <see langword="foreach"/>.
+    /// Continuation label for the <see langword="foreach"/> block.
     /// </param>
     public delegate void ForEachBlock(ILGenerator il, LocalBuilder item, Label @break, Label @continue);
 
     /// <summary>
-    /// Define un delegado que describe un bloque <see langword="try"/>.
+    /// Defines a delegate that describes a <see langword="try"/> block.
     /// </summary>
     /// <param name="il">
-    /// Referencia al generador de instrucciones en el cual se inserta el
-    /// código del bloque <see langword="try"/>.
+    /// Reference to the instruction generator where the <see langword="try"/>
+    /// block code is inserted.
     /// </param>
     /// <param name="leaveTry">
-    /// Etiqueta de salida del bloque <see langword="try"/>. Debe ser
-    /// invocada por medio de <see cref="Leave(ILGenerator, Label)"/>.
+    /// Exit label for the <see langword="try"/> block. Must be invoked
+    /// through <see cref="Leave(ILGenerator, Label)"/>.
     /// </param>
     public delegate void TryBlock(ILGenerator il, Label leaveTry);
 
+    /// <summary>
+    /// Defines a delegate that describes a <see langword="finally"/> block.
+    /// </summary>
+    /// <param name="il">
+    /// Reference to the instruction generator where the <see langword="finally"/>
+    /// block code is inserted.
+    /// </param>
+    /// <param name="leaveTry">
+    /// Exit label for the <see langword="finally"/> block. Must be invoked
+    /// through <see cref="Leave(ILGenerator, Label)"/>.
+    /// </param>
     public delegate void FinallyBlock(ILGenerator il, Label leaveTry);
 
     /// <summary>
-    /// Define un delegado que describe un bloque <see langword="using"/>.
+    /// Defines a delegate that describes a <see langword="using"/> block.
     /// </summary>
     /// <param name="il">
-    /// Referencia al generador de instrucciones en el cual se inserta el
-    /// código del bloque <see langword="using"/>.
+    /// Reference to the instruction generator where the <see langword="using"/>
+    /// block code is inserted.
     /// </param>
     /// <param name="disposable">
-    /// Referencia al elemento desechable dentro del bloque <see langword="using"/>.
+    /// Reference to the disposable element within the <see langword="using"/> block.
     /// </param>
     /// <param name="leaveTry">
-    /// Etiqueta de salida del bloque <see langword="using"/>. Debe ser
-    /// invocada por medio de <see cref="Leave(ILGenerator, Label)"/>.
+    /// Exit label for the <see langword="using"/> block. Must be invoked
+    /// through <see cref="Leave(ILGenerator, Label)"/>.
     /// </param>
     public delegate void UsingBlock(ILGenerator il, LocalBuilder disposable, Label leaveTry);
 }

@@ -41,17 +41,17 @@ using static TheXDS.MCART.Resources.Errors;
 namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
-/// Contiene extensiones útiles para la generación de código por medio
-/// de la clase <see cref="ILGenerator"/>.
+/// Contains useful extensions for code generation using the
+/// <see cref="ILGenerator"/> class.
 /// </summary>
 public static partial class ILGeneratorExtensions
 {
     /// <summary>
-    /// Registra un <see cref="IConstantLoader"/> para el método
-    /// <see cref="LoadConstant{T}(ILGenerator, T)"/>.
+    /// Registers an <see cref="IConstantLoader"/> for the
+    /// <see cref="LoadConstant{T}(ILGenerator, T)"/> method.
     /// </summary>
     /// <param name="loader">
-    /// <see cref="IConstantLoader"/> a registrar.
+    /// The <see cref="IConstantLoader"/> to register.
     /// </param>
     public static void RegisterConstantLoader(IConstantLoader loader)
     {
@@ -59,22 +59,21 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta la inicialización de una variable local en la secuencia del
-    /// lenguaje intermedio de Microsoft® (MSIL).
+    /// Inserts the initialization of a local variable in the Microsoft®
+    /// Intermediate Language (MSIL) sequence.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar la inicialización de
-    /// una variable local.
+    /// The instruction sequence in which to insert the local variable
+    /// initialization.
     /// </param>
     /// <param name="local">
-    /// Variable local en la cual almacenar el valor.
+    /// The local variable in which to store the value.
     /// </param>
     /// <param name="value">
-    /// Valor constante a almacenar en la variable local.
+    /// The constant value to store in the local variable.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, enabling fluent syntax.
     /// </returns>
     public static ILGenerator InitLocal(this ILGenerator ilGen, LocalBuilder local, object? value)
     {
@@ -82,22 +81,21 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta la inicialización de una nueva variable local en la
-    /// secuencia del lenguaje intermedio de Microsoft® (MSIL).
+    /// Inserts the initialization of a new local variable in the Microsoft®
+    /// Intermediate Language (MSIL) sequence.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar la inicialización de
-    /// una nueva variable local.
-    /// </param>
-    /// <param name="local">
-    /// Variable local en la cual almacenar el valor.
+    /// The instruction sequence in which to insert the local variable
+    /// initialization.
     /// </param>
     /// <param name="value">
-    /// Valor constante a almacenar en la variable local.
+    /// The constant value to store in the local variable.
+    /// </param>
+    /// <param name="local">
+    /// The local variable in which to store the value.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, enabling fluent syntax.
     /// </returns>
     public static ILGenerator InitNewLocal<T>(this ILGenerator ilGen, T value, out LocalBuilder local)
     {
@@ -105,29 +103,27 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta una constante en la secuencia del lenguaje intermedio 
-    /// de Microsoft® (MSIL).
+    /// Inserts a constant in the Microsoft® Intermediate Language (MSIL)
+    /// sequence.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de valor constante a insertar.
+    /// The type of constant value to insert.
     /// </typeparam>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar la carga de la
-    /// constante.
+    /// The instruction sequence in which to insert the constant load.
     /// </param>
     /// <param name="value">
-    /// Valor constante a insertar.
+    /// The constant value to insert.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, enabling fluent syntax.
     /// </returns>
     /// <exception cref="NotImplementedException">
-    /// Se produce al intentar cargar un valor constante desconocido.
+    /// Thrown when attempting to load an unknown constant value.
     /// </exception>
     /// <exception cref="InvalidOperationException">
-    /// Se produce al intentar cargar un valor que no es constante, como
-    /// una instancia de objeto.
+    /// Thrown when attempting to load a non-constant value, such as an object
+    /// instance.
     /// </exception>
     public static ILGenerator LoadConstant<T>(this ILGenerator ilGen, T value)
     {
@@ -148,16 +144,14 @@ public static partial class ILGeneratorExtensions
     }
     
     /// <summary>
-    /// Inserta una serie de instrucciones que aumentarán el valor del valor
-    /// actualmente en la pila en 1 en la secuencia del lenguaje intermedio de
-    /// Microsoft® (MSIL).
+    /// Inserts a series of instructions that will increment the value on the
+    /// stack by 1 in the Microsoft® Intermediate Language (MSIL) sequence.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar la serie de operaciones.
+    /// The instruction sequence in which to insert the operations.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, enabling fluent syntax.
     /// </returns>
     public static ILGenerator Increment(this ILGenerator ilGen)
     {
@@ -165,20 +159,19 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta una serie de instrucciones que aumentarán el valor de una
-    /// variable local en 1 en la secuencia del lenguaje intermedio de
-    /// Microsoft® (MSIL).
+    /// Inserts a series of instructions that will increment the value of a
+    /// local variable by 1 in the Microsoft® Intermediate Language (MSIL)
+    /// sequence.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar la serie de operaciones.
+    /// The instruction sequence in which to insert the operations.
     /// </param>
     /// <param name="local">
-    /// Referencia a la variable local sobre la cual ejecutar la operación de 
-    /// incremento.
+    /// Reference to the local variable on which to perform the increment
+    /// operation.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, enabling fluent syntax.
     /// </returns>
     public static ILGenerator Increment(this ILGenerator ilGen, LocalBuilder local)
     {
@@ -186,29 +179,27 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta una constante en la secuencia del lenguaje intermedio 
-    /// de Microsoft® (MSIL).
+    /// Inserts a constant in the Microsoft® Intermediate Language (MSIL)
+    /// sequence.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar la carga de la
-    /// constante.
+    /// The instruction sequence in which to insert the constant load.
     /// </param>
     /// <param name="t">
-    /// Tipo de valor constante a insertar.
+    /// The type of constant value to insert.
     /// </param>
     /// <param name="value">
-    /// Valor constante a insertar.
+    /// The constant value to insert.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, enabling fluent syntax.
     /// </returns>
     /// <exception cref="NotImplementedException">
-    /// Se produce al intentar cargar un valor constante desconocido.
+    /// Thrown when attempting to load an unknown constant value.
     /// </exception>
     /// <exception cref="InvalidOperationException">
-    /// Se produce al intentar cargar un valor que no es constante, como
-    /// una instancia de objeto.
+    /// Thrown when attempting to load a non-constant value, such as an object
+    /// instance.
     /// </exception>
     public static ILGenerator LoadConstant(this ILGenerator ilGen, Type t, object? value)
     {
@@ -228,31 +219,29 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta una constante en la secuencia del lenguaje intermedio 
-    /// de Microsoft® (MSIL).
+    /// Inserts a constant in the Microsoft® Intermediate Language (MSIL)
+    /// sequence.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar la carga de la
-    /// constante.
+    /// The instruction sequence in which to insert the constant load.
     /// </param>
     /// <param name="value">
-    /// Valor constante a insertar.
+    /// The constant value to insert.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, enabling fluent syntax.
     /// </returns>
     /// <exception cref="NotImplementedException">
-    /// Se produce al intentar cargar un valor constante desconocido.
+    /// Thrown when attempting to load an unknown constant value.
     /// </exception>
     /// <exception cref="InvalidOperationException">
-    /// Se produce al intentar cargar un valor que no es constante, como
-    /// una instancia de objeto.
+    /// Thrown when attempting to load a non-constant value, such as an object
+    /// instance.
     /// </exception>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="value"/> es <see langword="null"/>.
-    /// Si necesita cargar un valor constante <see langword="null"/>,
-    /// utilice el método <see cref="LoadNull(ILGenerator)"/>.
+    /// Thrown if <paramref name="value"/> is <see langword="null"/>. To load a
+    /// <see langword="null"/> constant value, use the
+    /// <see cref="LoadNull(ILGenerator)"/> method instead.
     /// </exception>
     public static ILGenerator LoadConstant(this ILGenerator ilGen, object? value)
     {
@@ -261,48 +250,93 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta una operación de carga de la constante
-    /// <see langword="null"/> en la secuencia del lenguaje intermedio de
-    /// Microsoft® (MSIL).
+    /// Inserts a load operation of the constant
+    /// <see langword="null"/> in the Microsoft® Intermediate Language (MSIL)
+    /// sequence.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar la operación.
+    /// The instruction sequence in which to insert the operation.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, enabling fluent syntax.
     /// </returns>
     public static ILGenerator LoadNull(this ILGenerator ilGen) => OneLiner(ilGen, Ldnull);
 
     /// <summary>
-    /// Inserta una operación de inicialización de un arreglo unidimensional
-    /// del tipo especificado en la secuencia del lenguaje intermedio de
-    /// Microsoft® (MSIL).
+    /// Inserts a one-dimensional array initialization operation of the
+    /// specified type in the Microsoft® Intermediate Language (MSIL) sequence.
     /// </summary>
-    /// <typeparam name="T">Tipo del nuevo arreglo.</typeparam>
+    /// <typeparam name="T">The type of the new array.</typeparam>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar la operación.
+    /// The instruction sequence in which to insert the operation.
     /// </param>
     /// <param name="local">
-    /// Parámetro que contiene la variable local generada para almacenar el
-    /// nuevo arreglo.
+    /// Parameter that contains the local variable generated to store the new
+    /// array.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, enabling fluent syntax.
     /// </returns>
     /// <remarks>
-    /// La operación requiere que la pila contenga la cantidad de elementos que
-    /// el arreglo debe contener expresado como un valor <see cref="int"/>.
+    /// The operation requires the stack to contain the number of elements that
+    /// the array should contain, expressed as an <see cref="int"/> value.
     /// <br/><br/>
-    /// Uso de pila neto: -1
+    /// Net stack usage: -1
     /// </remarks>
     [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
     public static ILGenerator NewArray<T>(this ILGenerator ilGen, out LocalBuilder local) => NewArray(ilGen, typeof(T), out local);
 
+    /// <summary>
+    /// Inserts a one-dimensional array initialization operation of the
+    /// specified type in the Microsoft® Intermediate Language (MSIL) sequence.
+    /// </summary>
+    /// <typeparam name="T">The type of the new array.</typeparam>
+    /// <param name="ilGen">
+    /// The instruction sequence in which to insert the operation.
+    /// </param>
+    /// <param name="length">
+    /// The number of elements that the array should contain.
+    /// </param>
+    /// <param name="local">
+    /// Parameter that contains the local variable generated to store the new
+    /// array.
+    /// </param>
+    /// <returns>
+    /// The same instance as <paramref name="ilGen"/>, enabling fluent syntax.
+    /// </returns>
+    /// <remarks>
+    /// The operation requires the stack to contain the number of elements that
+    /// the array should contain, expressed as an <see cref="int"/> value.
+    /// <br/><br/>
+    /// Net stack usage: -1
+    /// </remarks>
     [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
     public static ILGenerator NewArray<T>(this ILGenerator ilGen, int length, out LocalBuilder local) => NewArray(ilGen, length, typeof(T), out local);
-    
+
+    /// <summary>
+    /// Inserts a one-dimensional array initialization operation of the
+    /// specified type in the Microsoft® Intermediate Language (MSIL) sequence.
+    /// </summary>
+    /// <param name="ilGen">
+    /// The instruction sequence in which to insert the operation.
+    /// </param>
+    /// <param name="length">
+    /// The number of elements that the array should contain.
+    /// </param>
+    /// <param name="arrayType">The type of the new array.</param>
+    /// <param name="local">
+    /// Parameter that contains the local variable generated to store the new
+    /// array.
+    /// </param>
+    /// <returns>
+    /// The same instance as <paramref name="ilGen"/>, enabling fluent syntax.
+    /// </returns>
+    /// <remarks>
+    /// The operation requires the stack to contain the number of elements that
+    /// the array should contain, expressed as an <see cref="int"/> value.
+    /// <br/><br/>
+    /// Net stack usage: -1
+    /// </remarks>
     [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
     public static ILGenerator NewArray(this ILGenerator ilGen, int length, Type arrayType, out LocalBuilder local)
     {
@@ -310,41 +344,38 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta una operación de inicialización de un arreglo unidimensional
-    /// del tipo especificado en la secuencia del lenguaje intermedio de
-    /// Microsoft® (MSIL).
+    /// Inserts a one-dimensional array initialization operation of the
+    /// specified type in the Microsoft® Intermediate Language (MSIL) sequence.
     /// </summary>
-    /// <typeparam name="T">Tipo del nuevo arreglo.</typeparam>
+    /// <typeparam name="T">The type of the new array.</typeparam>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar la operación.
+    /// The instruction sequence in which to insert the operation.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, enabling fluent syntax.
     /// </returns>
     /// <remarks>
-    /// La operación requiere que la pila contenga la cantidad de elementos que
-    /// el arreglo debe contener expresado como un valor <see cref="int"/>.
+    /// The operation requires the stack to contain the number of elements that
+    /// the array should contain, expressed as an <see cref="int"/> value.
     /// <br/><br/>
-    /// Uso de pila neto: 0
+    /// Net stack usage: 0
     /// </remarks>
     public static ILGenerator NewArray<T>(this ILGenerator ilGen) => NewArray(ilGen, typeof(T));
 
     /// <summary>
-    /// Inserta una operación de inicialización de un arreglo unidimensional
-    /// del tipo especificado en la secuencia del lenguaje intermedio de
-    /// Microsoft® (MSIL).
+    /// Inserts a one-dimensional array initialization operation of the
+    /// specified type in the Microsoft® Intermediate Language (MSIL) sequence.
     /// </summary>
-    /// <param name="arrayType">Tipo del nuevo arreglo.</param>
+    /// <param name="arrayType">The type of the new array.</param>
     /// <param name="local">
-    /// Parámetro que contiene la variable local generada para almacenar el nuevo arreglo.
+    /// Parameter that contains the local variable generated to store the new
+    /// array.
     /// </param>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar la operación.
+    /// The instruction sequence in which to insert the operation.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, enabling fluent syntax.
     /// </returns>
     [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
     public static ILGenerator NewArray(this ILGenerator ilGen, Type arrayType, out LocalBuilder local)
@@ -353,23 +384,21 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta una operación de inicialización de un arreglo unidimensional
-    /// del tipo especificado en la secuencia del lenguaje intermedio de
-    /// Microsoft® (MSIL).
+    /// Inserts a one-dimensional array initialization operation of the
+    /// specified type in the Microsoft® Intermediate Language (MSIL) sequence.
     /// </summary>
-    /// <param name="arrayType">Tipo del nuevo arreglo.</param>
+    /// <param name="arrayType">The type of the new array.</param>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar la operación.
+    /// The instruction sequence in which to insert the operation.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, enabling fluent syntax.
     /// </returns>
     /// <remarks>
-    /// La operación requiere que la pila contenga la cantidad de elementos que
-    /// el arreglo debe contener expresado como un valor <see cref="int"/>.
+    /// The operation requires the stack to contain the number of elements that
+    /// the array should contain, expressed as an <see cref="int"/> value.
     /// <br/><br/>
-    /// Uso de pila neto: 0
+    /// Net stack usage: 0
     /// </remarks>
     public static ILGenerator NewArray(this ILGenerator ilGen, Type arrayType)
     {
@@ -378,19 +407,17 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta la instanciación de un objeto en la secuencia del
-    /// lenguaje intermedio de Microsoft® (MSIL).
+    /// Inserts an object instantiation operation in the Microsoft® Intermediate
+    /// Language (MSIL) sequence.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar la instanciación
-    /// del objeto.
+    /// The instruction sequence in which to insert the object instantiation.
     /// </param>
     /// <param name="newObjectType">
-    /// Tipo de objeto a instanciar.
+    /// The type of object to instantiate.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, enabling fluent syntax.
     /// </returns>
     public static ILGenerator NewObj(this ILGenerator ilGen, Type newObjectType)
     {
@@ -399,19 +426,17 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta la instanciación de un objeto en la secuencia del
-    /// lenguaje intermedio de Microsoft® (MSIL).
+    /// Inserts an object instantiation operation in the Microsoft® Intermediate
+    /// Language (MSIL) sequence.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de objeto a instanciar.
+    /// The type of object to instantiate.
     /// </typeparam>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar la instanciación
-    /// del objeto.
+    /// The instruction sequence in which to insert the object instantiation.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, enabling fluent syntax.
     /// </returns>
     public static ILGenerator NewObj<T>(this ILGenerator ilGen)
     {
@@ -419,27 +444,24 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta la instanciación de un objeto en la secuencia del
-    /// lenguaje intermedio de Microsoft® (MSIL).
+    /// Inserts an object instantiation operation in the Microsoft® Intermediate
+    /// Language (MSIL) sequence.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de objeto a instanciar.
+    /// The type of object to instantiate.
     /// </typeparam>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar la instanciación
-    /// del objeto.
+    /// The instruction sequence in which to insert the object instantiation.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, enabling fluent syntax.
     /// </returns>
     /// <exception cref="ClassNotInstantiableException">
-    /// Se produce si la clase no es instanciable, o si no existe un 
-    /// constructor que acepte los argumentos especificados.
-    /// También puede producirse si uno de los parámetros es un objeto,
-    /// y no contiene un constructor predeterminado sin argumentos, en
-    /// cuyo caso, la excepción indicará el tipo que no puede
-    /// instanciarse.
+    /// Thrown if the class is not instantiable, or if there is no constructor
+    /// that accepts the specified arguments. This exception can also be thrown
+    /// if one of the parameters is an object without a parameterless
+    /// constructor, in which case the exception will indicate the type that
+    /// cannot be instantiated.
     /// </exception>
     public static ILGenerator NewObject<T>(this ILGenerator ilGen)
     {
@@ -447,30 +469,27 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta la instanciación de un objeto en la secuencia del
-    /// lenguaje intermedio de Microsoft® (MSIL).
+    /// Inserts an object instantiation operation in the Microsoft® Intermediate
+    /// Language (MSIL) sequence.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de objeto a instanciar.
+    /// The type of object to instantiate.
     /// </typeparam>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar la instanciación
-    /// del objeto.
+    /// The instruction sequence in which to insert the object instantiation.
     /// </param>
     /// <param name="args">
-    /// Argumentos a pasar al constructor del objeto.
+    /// Arguments to pass to the object's constructor.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, enabling fluent syntax.
     /// </returns>
     /// <exception cref="ClassNotInstantiableException">
-    /// Se produce si la clase no es instanciable, o si no existe un 
-    /// constructor que acepte los argumentos especificados.
-    /// También puede producirse si uno de los parámetros es un objeto,
-    /// y no contiene un constructor predeterminado sin argumentos, en
-    /// cuyo caso, la excepción indicará el tipo que no puede
-    /// instanciarse.
+    /// Thrown if the class is not instantiable, or if there is no constructor
+    /// that accepts the specified arguments. This exception can also be thrown
+    /// if one of the parameters is an object without a parameterless
+    /// constructor, in which case the exception will indicate the type that
+    /// cannot be instantiated.
     /// </exception>
     public static ILGenerator NewObject<T>(this ILGenerator ilGen, IEnumerable args)
     {
@@ -478,89 +497,26 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta la instanciación de un objeto en la secuencia del
-    /// lenguaje intermedio de Microsoft® (MSIL).
-    /// </summary>
-    /// <typeparam name="T">
-    /// Tipo de objeto a instanciar.
-    /// </typeparam>
-    /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar la instanciación
-    /// del objeto.
-    /// </param>
-    /// <param name="args">
-    /// Argumentos a pasar al constructor del objeto.
-    /// </param>
-    /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
-    /// </returns>
-    /// <exception cref="ClassNotInstantiableException">
-    /// Se produce si la clase no es instanciable, o si no existe un 
-    /// constructor que acepte los argumentos especificados.
-    /// También puede producirse si uno de los parámetros es un objeto,
-    /// y no contiene un constructor predeterminado sin argumentos, en
-    /// cuyo caso, la excepción indicará el tipo que no puede
-    /// instanciarse.
-    /// </exception>
-    public static ILGenerator NewObject<T>(this ILGenerator ilGen, object?[] args)
-    {
-        return NewObject(ilGen, typeof(T), args);
-    }
-
-    /// <summary>
-    /// Inserta la instanciación de un objeto en la secuencia del
-    /// lenguaje intermedio de Microsoft® (MSIL).
-    /// </summary>
-    /// <typeparam name="T">
-    /// Tipo de objeto a instanciar.
-    /// </typeparam>
-    /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar la instanciación
-    /// del objeto.
-    /// </param>
-    /// <param name="args">
-    /// Tipo de argumentos aceptados por el constructor del objeto a utilizar.
-    /// </param>
-    /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
-    /// </returns>
-    /// <exception cref="ClassNotInstantiableException">
-    /// Se produce si la clase no es instanciable, o si no existe un 
-    /// constructor que acepte los argumentos especificados.
-    /// También puede producirse si uno de los parámetros es un objeto,
-    /// y no contiene un constructor predeterminado sin argumentos, en
-    /// cuyo caso, la excepción indicará el tipo que no puede
-    /// instanciarse.
-    /// </exception>
-    public static ILGenerator NewObject<T>(this ILGenerator ilGen, Type[] args)
-    {
-        return NewObject(ilGen, typeof(T), args);
-    }
-
-    /// <summary>
-    /// Inserta la instanciación de un objeto en la secuencia del
-    /// lenguaje intermedio de Microsoft® (MSIL).
+    /// Inserts the instantiation of an object into the Microsoft® 
+    /// Intermediate Language (MSIL) stream.
     /// </summary>
     /// <param name="type">
-    /// Tipo de objeto a instanciar.
+    /// The type of object to instantiate.
     /// </param>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar la instanciación
-    /// del objeto.
+    /// The instruction stream where the object instantiation will be 
+    /// inserted.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, allowing for 
+    /// Fluent syntax usage.
     /// </returns>
     /// <exception cref="ClassNotInstantiableException">
-    /// Se produce si la clase no es instanciable, o si no existe un 
-    /// constructor que acepte los argumentos especificados.
-    /// También puede producirse si uno de los parámetros es un objeto,
-    /// y no contiene un constructor predeterminado sin argumentos, en
-    /// cuyo caso, la excepción indicará el tipo que no puede
-    /// instanciarse.
+    /// Thrown if the class is not instantiable, or if there is no 
+    /// constructor that accepts the specified arguments. It may also 
+    /// occur if one of the parameters is an object that does not have 
+    /// a parameterless constructor, in which case the exception will 
+    /// indicate the type that cannot be instantiated.
     /// </exception>
     public static ILGenerator NewObject(this ILGenerator ilGen, Type type)
     {
@@ -568,30 +524,29 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta la instanciación de un objeto en la secuencia del
-    /// lenguaje intermedio de Microsoft® (MSIL).
+    /// Inserts the instantiation of an object into the Microsoft® 
+    /// Intermediate Language (MSIL) stream.
     /// </summary>
     /// <param name="type">
-    /// Tipo de objeto a instanciar.
+    /// The type of object to instantiate.
     /// </param>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar la instanciación
-    /// del objeto.
+    /// The instruction stream where the object instantiation will be 
+    /// inserted.
     /// </param>
     /// <param name="args">
-    /// Argumentos a pasar al constructor del objeto.
+    /// Arguments to pass to the object's constructor.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, allowing for 
+    /// Fluent syntax usage.
     /// </returns>
     /// <exception cref="ClassNotInstantiableException">
-    /// Se produce si la clase no es instanciable, o si no existe un 
-    /// constructor que acepte los argumentos especificados.
-    /// También puede producirse si uno de los parámetros es un objeto,
-    /// y no contiene un constructor predeterminado sin argumentos, en
-    /// cuyo caso, la excepción indicará el tipo que no puede
-    /// instanciarse.
+    /// Thrown if the class is not instantiable, or if there is no 
+    /// constructor that accepts the specified arguments. It may also 
+    /// occur if one of the parameters is an object that does not have 
+    /// a parameterless constructor, in which case the exception will 
+    /// indicate the type that cannot be instantiated.
     /// </exception>
     public static ILGenerator NewObject(this ILGenerator ilGen, Type type, IEnumerable args)
     {
@@ -599,30 +554,29 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta la instanciación de un objeto en la secuencia del
-    /// lenguaje intermedio de Microsoft® (MSIL).
+    /// Inserts the instantiation of an object into the Microsoft® 
+    /// Intermediate Language (MSIL) stream.
     /// </summary>
     /// <param name="type">
-    /// Tipo de objeto a instanciar.
+    /// The type of object to instantiate.
     /// </param>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar la instanciación
-    /// del objeto.
+    /// The instruction stream where the object instantiation will be 
+    /// inserted.
     /// </param>
     /// <param name="args">
-    /// Argumentos a pasar al constructor del objeto.
+    /// Arguments to pass to the object's constructor.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, allowing for 
+    /// Fluent syntax usage.
     /// </returns>
     /// <exception cref="ClassNotInstantiableException">
-    /// Se produce si la clase no es instanciable, o si no existe un 
-    /// constructor que acepte los argumentos especificados.
-    /// También puede producirse si uno de los parámetros es un objeto,
-    /// y no contiene un constructor predeterminado sin argumentos, en
-    /// cuyo caso, la excepción indicará el tipo que no puede
-    /// instanciarse.
+    /// Thrown if the class is not instantiable, or if there is no 
+    /// constructor that accepts the specified arguments. It may also 
+    /// occur if one of the parameters is an object that does not have 
+    /// a parameterless constructor, in which case the exception will 
+    /// indicate the type that cannot be instantiated.
     /// </exception>
     public static ILGenerator NewObject(this ILGenerator ilGen, Type type, object?[] args)
     {
@@ -641,30 +595,29 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta la instanciación de un objeto en la secuencia del
-    /// lenguaje intermedio de Microsoft® (MSIL).
+    /// Inserts the instantiation of an object into the Microsoft® 
+    /// Intermediate Language (MSIL) stream.
     /// </summary>
     /// <param name="type">
-    /// Tipo de objeto a instanciar.
+    /// The type of object to instantiate.
     /// </param>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar la instanciación
-    /// del objeto.
+    /// The instruction stream where the object instantiation will be 
+    /// inserted.
     /// </param>
     /// <param name="args">
-    /// Tipo de argumentos aceptados por el constructor del objeto a utilizar.
+    /// The types of arguments accepted by the object's constructor.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, allowing for 
+    /// Fluent syntax usage.
     /// </returns>
     /// <exception cref="ClassNotInstantiableException">
-    /// Se produce si la clase no es instanciable, o si no existe un 
-    /// constructor que acepte los argumentos especificados.
-    /// También puede producirse si uno de los parámetros es un objeto,
-    /// y no contiene un constructor predeterminado sin argumentos, en
-    /// cuyo caso, la excepción indicará el tipo que no puede
-    /// instanciarse.
+    /// Thrown if the class is not instantiable, or if there is no 
+    /// constructor that accepts the specified arguments. It may also 
+    /// occur if one of the parameters is an object that does not have 
+    /// a parameterless constructor, in which case the exception will 
+    /// indicate the type that cannot be instantiated.
     /// </exception>
     public static ILGenerator NewObject(this ILGenerator ilGen, Type type, Type[] args)
     {
