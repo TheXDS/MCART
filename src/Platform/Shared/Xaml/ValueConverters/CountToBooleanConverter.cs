@@ -1,5 +1,5 @@
 ﻿/*
-NotifyPropertyChange.cs
+CountToBooleanConverter.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -28,38 +28,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.ComponentModel;
+using System.Globalization;
+using TheXDS.MCART.ValueConverters.Base;
 
-namespace TheXDS.MCART.Types.Base;
+namespace TheXDS.MCART.ValueConverters;
 
 /// <summary>
-/// Base class for objects that can notify about a property's value
-/// change both before and after the change occurs.
+/// Converts a value representing a count into a boolean indicating whether the
+/// count is greater than zero.
 /// </summary>
-public abstract class NotifyPropertyChange : NotifyPropertyChangeBase, INotifyPropertyChanging, INotifyPropertyChanged
+public sealed class CountToBooleanConverter : IOneWayValueConverter<int, bool>
 {
     /// <inheritdoc/>
-    public event PropertyChangingEventHandler? PropertyChanging;
-
-    /// <inheritdoc/>
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    /// <inheritdoc/>
-    protected sealed override void RaisePropertyChangeEvent(in string propertyName, in PropertyChangeNotificationType type)
+    public bool Convert(int value, object? parameter, CultureInfo? culture)
     {
-        ArgumentException.ThrowIfNullOrWhiteSpace(propertyName);
-        if (type == PropertyChangeNotificationType.PropertyChanging)
-        {
-            PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(propertyName));
-        }
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-
-    /// <inheritdoc/>
-    protected override void OnDoChange<T>(ref T field, T value, string propertyName)
-    {
-        Change_Notify(propertyName, PropertyChangeNotificationType.PropertyChanging);
-        field = value;
-        Change_Notify(propertyName, PropertyChangeNotificationType.PropertyChanged);
+        return value > 0;
     }
 }

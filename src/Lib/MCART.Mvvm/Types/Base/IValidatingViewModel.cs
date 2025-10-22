@@ -33,16 +33,16 @@ using System.ComponentModel;
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
-/// Define una serie de miembros a implementar por un tipo que implemente un
-/// ViewModel que provee de servicios de validación de datos.
+/// Defines members to be implemented by a type that represents a ViewModel
+/// which provides data validation services.
 /// </summary>
 public interface IValidatingViewModel : INotifyPropertyChanged
 {
     /// <summary>
-    /// Obtiene el origen de validación para esta instancia.
+    /// Gets the validation source for this instance.
     /// </summary>
     /// <remarks>
-    /// Esta propiedad debe establecerse en el constructor del ViewModel de la siguiente manera:
+    /// This property should be set in the ViewModel constructor like this:
     /// <code lang="csharp">
     /// ErrorSource = new ValidationSource&lt;TViewModel&gt;(this);
     /// </code>

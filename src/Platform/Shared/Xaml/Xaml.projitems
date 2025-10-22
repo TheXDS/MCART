@@ -19,6 +19,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\BooleanInverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\BooleanToObjectConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\BoolFlagConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\CountToBooleanConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\DivideConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\ErrorManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\FromStringConverter.cs" />

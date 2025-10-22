@@ -33,22 +33,22 @@ using System.Collections.Specialized;
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
-/// Define una serie de miembros a implementar por una clase que defina
-/// un envoltorio observable sobre un <see cref="IList{T}"/>.
+/// Defines members to be implemented by a class that provides an
+/// observable wrapper around an <see cref="IList{T}"/>.
 /// </summary>
 public interface IObservableListWrap<T> : INotifyCollectionChanged, IList<T>, IRefreshable
 {
     /// <summary>
-    /// Obtiene una referencia a la lista subyacente de este envoltorio
-    /// observable.
+    /// Gets a reference to the underlying list used by this observable
+    /// wrapper.
     /// </summary>
     IList<T> UnderlyingList { get; }
 
     /// <summary>
-    /// Sustituye la lista subyacente por una nueva.
+    /// Replaces the underlying list with a new one.
     /// </summary>
     /// <param name="newCollection">
-    /// Lista a establecer como la lista subyacente.
+    /// The list to set as the new underlying list.
     /// </param>
     void Substitute(IList<T> newCollection);
 }

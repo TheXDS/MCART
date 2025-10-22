@@ -39,26 +39,26 @@ using NcchEa = System.Collections.Specialized.NotifyCollectionChangedEventArgs;
 namespace TheXDS.MCART.Types;
 
 /// <summary>
-/// Envuelve una lista para proveerla de notificación de cambios en el
-/// contenido de la colección.
+/// Wraps a list to provide notifications when the collection's
+/// content changes.
 /// </summary>
 [DebuggerStepThrough]
 public class ObservableListWrap : ObservableWrapBase, IList, INotifyCollectionChanged
 {
     /// <summary>
-    /// Inicializa una nueva instancia de la clase 
-    /// <see cref="ObservableListWrap"/>.
+    /// Initializes a new instance of the
+    /// <see cref="ObservableListWrap"/> class.
     /// </summary>
     public ObservableListWrap()
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase 
-    /// <see cref="ObservableListWrap"/>.
+    /// Initializes a new instance of the
+    /// <see cref="ObservableListWrap"/> class.
     /// </summary>
     /// <param name="list">
-    /// Lista a establecer como la lista subyacente.
+    /// List to use as the underlying list.
     /// </param>
     public ObservableListWrap(IList list)
     {
@@ -66,21 +66,20 @@ public class ObservableListWrap : ObservableWrapBase, IList, INotifyCollectionCh
     }
 
     /// <summary>
-    /// Obtiene acceso directo a la lista subyacente controlada por
-    /// este <see cref="ObservableListWrap"/>.
+    /// Gets direct access to the underlying list managed by this
+    /// <see cref="ObservableListWrap"/>.
     /// </summary>
     public IList? UnderlyingList { get; private set; }
 
     /// <summary>
-    /// Permite acceder de forma indexada al contenido de este
+    /// Provides indexed access to the contents of this
     /// <see cref="ObservableListWrap"/>.
     /// </summary>
     /// <param name="index">
-    /// Índice del elemento a obtener o establecer.
+    /// Index of the element to get or set.
     /// </param>
     /// <returns>
-    /// El elemento encontrado en el índice especificado dentro de la
-    /// colección.
+    /// The element at the specified index in the collection.
     /// </returns>
     public object? this[int index]
     {
@@ -94,52 +93,49 @@ public class ObservableListWrap : ObservableWrapBase, IList, INotifyCollectionCh
     }
 
     /// <summary>
-    /// Obliga a refrescar el estado de un elemento dentro de la lista.
+    /// Forces a refresh of the item at the specified index.
     /// </summary>
-    /// <param name="index">Índice del elemento a refrescar.</param>
+    /// <param name="index">Index of the item to refresh.</param>
     public void RefreshAt(int index)
     {
         RefreshItem(this[index]);
     }
 
     /// <summary>
-    /// Obtiene un valor que determina si esta lista es de tamaño fijo.
+    /// Gets a value indicating whether this list has a fixed size.
     /// </summary>
     public bool IsFixedSize => GetUnderlyingList().IsFixedSize;
 
     /// <summary>
-    /// Obtiene un valor que determina si esta lista es de solo
-    /// lectura.
+    /// Gets a value indicating whether this list is read-only.
     /// </summary>
     public bool IsReadOnly => GetUnderlyingList().IsReadOnly;
 
     /// <summary>
-    /// Obtiene la cuenta de elementos contenidos dentro de la
-    /// colección.
+    /// Gets the number of elements contained in the collection.
     /// </summary>
     public int Count => GetUnderlyingList().Count;
 
     /// <summary>
-    /// Obtiene un valor que indica si el acceso a esta
-    /// <see cref="ICollection"/> es sincronizado (seguro para
-    /// multihilo).
+    /// Gets a value indicating whether access to this
+    /// <see cref="ICollection"/> is synchronized (thread safe).
     /// </summary>
     public bool IsSynchronized => GetUnderlyingList().IsSynchronized;
 
     /// <summary>
-    /// Obtiene un objeto que puede ser utilizado para sincronizar el
-    /// acceso al <see cref="ICollection"/>.
+    /// Gets an object that can be used to synchronize access to the
+    /// <see cref="ICollection"/>.
     /// </summary>
     public object SyncRoot => GetUnderlyingList().SyncRoot;
 
     /// <summary>
-    /// Agrega un elemento a este <see cref="ObservableListWrap"/>.
+    /// Adds an item to this <see cref="ObservableListWrap"/>.
     /// </summary>
     /// <param name="value">
-    /// Valor a agregar a este <see cref="ObservableListWrap"/>.
+    /// Value to add to this <see cref="ObservableListWrap"/>.
     /// </param>
     /// <returns>
-    /// El índice en el cual ha sido agregado el elemento.
+    /// The index at which the item was added.
     /// </returns>
     public int Add(object? value)
     {
@@ -150,8 +146,7 @@ public class ObservableListWrap : ObservableWrapBase, IList, INotifyCollectionCh
     }
 
     /// <summary>
-    /// Quita todos los elementos de este
-    /// <see cref="ObservableListWrap"/>.
+    /// Removes all items from this <see cref="ObservableListWrap"/>.
     /// </summary>
     public void Clear()
     {
@@ -161,16 +156,15 @@ public class ObservableListWrap : ObservableWrapBase, IList, INotifyCollectionCh
     }
 
     /// <summary>
-    /// Determina si este <see cref="ObservableListWrap"/> contiene un
-    /// valor especificado.
+    /// Determines whether this <see cref="ObservableListWrap"/> contains a
+    /// specified value.
     /// </summary>
     /// <param name="value">
-    /// Valor a comprobar.
+    /// Value to check for.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si este <see cref="ObservableListWrap"/>
-    /// contiene el valor especificado, <see langword="false"/> en caso
-    /// contrario.
+    /// <see langword="true"/> if this <see cref="ObservableListWrap"/>
+    /// contains the specified value; otherwise <see langword="false"/>.
     /// </returns>
     public override bool Contains(object? value)
     {
@@ -178,13 +172,12 @@ public class ObservableListWrap : ObservableWrapBase, IList, INotifyCollectionCh
     }
 
     /// <summary>
-    /// Copia el contenido de este <see cref="ObservableListWrap"/> a
-    /// un arreglo, iniciando en un índice en particular dentro del
-    /// arreglo.
+    /// Copies the elements of this <see cref="ObservableListWrap"/> to an
+    /// array, starting at a particular array index.
     /// </summary>
-    /// <param name="array">Arreglo de destino de la copia.</param>
+    /// <param name="array">Destination array for the copy.</param>
     /// <param name="index">
-    /// Índice dentro del arreglo desde el cual iniciar a copiar.
+    /// Index in the destination array at which to start copying.
     /// </param>
     public void CopyTo(Array array, int index)
     {
@@ -192,10 +185,10 @@ public class ObservableListWrap : ObservableWrapBase, IList, INotifyCollectionCh
     }
 
     /// <summary>
-    /// Obtiene un enumerador que itera sobre la colección.
+    /// Returns an enumerator that iterates through the collection.
     /// </summary>
     /// <returns>
-    /// Un enumerador que puede ser utilizado para iterar sobre la colección.
+    /// An enumerator that can be used to iterate through the collection.
     /// </returns>
     protected override IEnumerator OnGetEnumerator()
     {
@@ -203,16 +196,14 @@ public class ObservableListWrap : ObservableWrapBase, IList, INotifyCollectionCh
     }
 
     /// <summary>
-    /// Obtiene el índice de un elemento específico dentro de este
+    /// Returns the index of a specific item in this
     /// <see cref="ObservableListWrap"/>.
     /// </summary>
     /// <param name="value">
-    /// Valor del cual obtener el índice dentro de este
-    /// <see cref="ObservableListWrap"/>.
+    /// Value whose index to get in this <see cref="ObservableListWrap"/>.
     /// </param>
     /// <returns>
-    /// El índice del elemento dentro de este
-    /// <see cref="ObservableListWrap"/>.
+    /// The index of the item in this <see cref="ObservableListWrap"/>.
     /// </returns>
     public override int IndexOf(object? value)
     {
@@ -220,14 +211,14 @@ public class ObservableListWrap : ObservableWrapBase, IList, INotifyCollectionCh
     }
 
     /// <summary>
-    /// Inserta un elemento dentro de este
-    /// <see cref="ObservableListWrap"/> en el índice especificado.
+    /// Inserts an item into this <see cref="ObservableListWrap"/> at the
+    /// specified index.
     /// </summary>
     /// <param name="index">
-    /// Índice en el cual realizar la inserción.
+    /// The index at which to insert the item.
     /// </param>
     /// <param name="value">
-    /// Valor a insertar en este <see cref="ObservableListWrap"/>.
+    /// Value to insert into this <see cref="ObservableListWrap"/>.
     /// </param>
     public void Insert(int index, object? value)
     {
@@ -237,10 +228,10 @@ public class ObservableListWrap : ObservableWrapBase, IList, INotifyCollectionCh
     }
 
     /// <summary>
-    /// Quita un elemento de este <see cref="ObservableListWrap"/>.
+    /// Removes an item from this <see cref="ObservableListWrap"/>.
     /// </summary>
     /// <param name="value">
-    /// valor a quitar de este <see cref="ObservableListWrap"/>.
+    /// Value to remove from this <see cref="ObservableListWrap"/>.
     /// </param>
     public void Remove(object? value)
     {
@@ -254,11 +245,11 @@ public class ObservableListWrap : ObservableWrapBase, IList, INotifyCollectionCh
     }
 
     /// <summary>
-    /// Quita el elemento en el índice especificado de este
+    /// Removes the item at the specified index from this
     /// <see cref="ObservableListWrap"/>.
     /// </summary>
     /// <param name="index">
-    /// Índice del elemento a remover.
+    /// Index of the item to remove.
     /// </param>
     public void RemoveAt(int index)
     {
@@ -269,7 +260,7 @@ public class ObservableListWrap : ObservableWrapBase, IList, INotifyCollectionCh
     }
 
     /// <summary>
-    /// Obliga a notificar un cambio en la lista.
+    /// Forces notification that the list has changed.
     /// </summary>
     public override void Refresh()
     {
@@ -279,10 +270,10 @@ public class ObservableListWrap : ObservableWrapBase, IList, INotifyCollectionCh
     }
 
     /// <summary>
-    /// Sustituye la lista subyacente por una nueva.
+    /// Replaces the underlying list with a new one.
     /// </summary>
     /// <param name="newList">
-    /// Lista a establecer como la lista subyacente.
+    /// List to set as the underlying list.
     /// </param>
     public void Substitute(IList newList)
     {

@@ -28,26 +28,25 @@
 
 using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Resources.Strings;
-namespace TheXDS.MCART.Tests.Attributes
+namespace TheXDS.MCART.Tests.Attributes;
+
+public class LocalizedDescriptionAttribute_tests
 {
-    public class LocalizedDescriptionAttribute_tests
+    [Test]
+    public void Instancing_test()
     {
-        [Test]
-        public void Instancing_test()
-        {
-            LocalizedDescriptionAttribute attr = new(nameof(Common.AboutMCART), typeof(Common));
-            Assert.That(attr, Is.InstanceOf<LocalizedDescriptionAttribute>());
-            Assert.That(attr, Is.AssignableTo<IValueAttribute<string>>());
-            Assert.That(attr, Is.AssignableTo<Attribute>());
-        }
-        
-        [Test]
-        public void Description_test()
-        {
-            LocalizedDescriptionAttribute attr = new(nameof(Common.AboutMCART), typeof(Common));
-            IValueAttribute<string> iattr = attr;
-            Assert.That(attr.Description, Is.EqualTo(Common.AboutMCART));
-            Assert.That(iattr.Value, Is.EqualTo(attr.Description));
-        }
+        LocalizedDescriptionAttribute attr = new(nameof(Common.AboutMCART), typeof(Common));
+        Assert.That(attr, Is.InstanceOf<LocalizedDescriptionAttribute>());
+        Assert.That(attr, Is.AssignableTo<IValueAttribute<string>>());
+        Assert.That(attr, Is.AssignableTo<Attribute>());
+    }
+    
+    [Test]
+    public void Description_test()
+    {
+        LocalizedDescriptionAttribute attr = new(nameof(Common.AboutMCART), typeof(Common));
+        IValueAttribute<string> iattr = attr;
+        Assert.That(attr.Description, Is.EqualTo(Common.AboutMCART));
+        Assert.That(iattr.Value, Is.EqualTo(attr.Description));
     }
 }

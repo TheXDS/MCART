@@ -36,8 +36,7 @@ using TheXDS.MCART.Types.Extensions;
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
-/// Ejecuta validaciones de datos dentro de un 
-/// <see cref="IValidatingViewModel"/>.
+/// Executes data validations within an <see cref="IValidatingViewModel"/>.
 /// </summary>
 public abstract class ValidationSource : INotifyDataErrorInfo
 {
@@ -98,22 +97,21 @@ public abstract class ValidationSource : INotifyDataErrorInfo
     public bool HasErrors => _errors.Count != 0;
 
     /// <summary>
-    /// Indica si el objeto a comprobar ha pasado todas las pruebas de validación.
+    /// Indicates whether the object under validation has passed all
+    /// validation checks.
     /// </summary>
     public bool PassesValidation => !HasErrors;
 
     /// <summary>
-    /// Obtiene una colección de los errores de validación para la
-    /// propiedad especificada.
+    /// Gets a collection of validation error messages for the specified
+    /// property.
     /// </summary>
     /// <param name="propertyName">
-    /// Nombre de la propiedad para la cual se deben obtener los mensajes de
-    /// error.
+    /// Name of the property to retrieve error messages for.
     /// </param>
     /// <returns>
-    /// Una enumeración de los mensajes de error para la propiedad
-    /// especificada, o una enumeración vacía si la propiedad no contiene
-    /// errores.
+    /// An enumeration of error messages for the specified property, or an
+    /// empty enumeration if the property has no errors.
     /// </returns>
     public IEnumerable<string> this[string propertyName] => _errors.TryGetValue(propertyName, out List<string>? l) ? l.ToArray() : [];
 
@@ -123,11 +121,11 @@ public abstract class ValidationSource : INotifyDataErrorInfo
     }
 
     /// <summary>
-    /// Ejecuta una comprobación de errores de validación.
+    /// Executes validation checks for all configured validation entries.
     /// </summary>
     /// <returns>
-    /// <see langword="true"/> si todas las validaciones han sido exitosas,
-    /// <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if all validations passed; <see
+    /// langword="false"/> otherwise.
     /// </returns>
     public bool CheckErrors()
     {
@@ -139,17 +137,16 @@ public abstract class ValidationSource : INotifyDataErrorInfo
     }
 
     /// <summary>
-    /// Enumera los errores de validación para la propiedad
-    /// <paramref name="propertyName"/>, o todos los errores de validación.
+    /// Enumerates validation errors for the specified property or for all
+    /// properties.
     /// </summary>
     /// <param name="propertyName">
-    /// Nombre de la propiedad para la cual obtener los errores de
-    /// validación. Si es una cadena vacía o <see langword="null"/>, se
-    /// devolverán los errores de validación de todas las propiedades.
+    /// Property name to get validation errors for. If null or empty, errors
+    /// for all properties are returned.
     /// </param>
     /// <returns>
-    /// Una enumeración con todos los errores de validación de la propiedad
-    /// o de la instancia.
+    /// An enumeration with all validation errors for the property or the
+    /// instance.
     /// </returns>
     public IEnumerable GetErrors(string? propertyName)
     {
@@ -157,12 +154,12 @@ public abstract class ValidationSource : INotifyDataErrorInfo
     }
 
     /// <summary>
-    /// Enumera los errores de validación para todas las propiedades
-    /// configuradas del ViewModel observado.
+    /// Enumerates validation error messages for all configured properties
+    /// of the observed ViewModel.
     /// </summary>
     /// <returns>
-    /// Una colección con todos los errores de validación para el ViewModel
-    /// observado.
+    /// A collection with all validation error messages for the observed
+    /// ViewModel.
     /// </returns>
     public IEnumerable<string> GetErrors() => GetErrors(null).Cast<string>();
 
@@ -176,6 +173,7 @@ public abstract class ValidationSource : INotifyDataErrorInfo
             ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(e.PropertyName));
         }
     }
+
     private void AppendErrors(IValidationEntry entry, object? value)
     {
         _errors.Remove(entry.Property.Name);

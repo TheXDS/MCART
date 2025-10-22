@@ -40,8 +40,8 @@ using St = TheXDS.MCART.Resources.Strings.MvvmErrors;
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
-/// Clase base que permite definir un ViewModel que provee de servicios de
-/// formulario y validación de datos.
+/// Base class for view models that provide form services and data
+/// validation.
 /// </summary>
 public abstract class FormViewModelBase : ViewModelBase, INotifyDataErrorInfo
 {
@@ -52,39 +52,33 @@ public abstract class FormViewModelBase : ViewModelBase, INotifyDataErrorInfo
     }
 
     /// <summary>
-    /// Define una serie de miembros disponibles para configurar una regla
-    /// de validación.
+    /// Defines a set of members available to configure a validation
+    /// rule.
     /// </summary>
-    /// <typeparam name="T">Tipo de propiedad.</typeparam>
+    /// <typeparam name="T">Property type.</typeparam>
     protected interface IValidationEntry<T>
     {
         /// <summary>
-        /// Agrega una regla de validación al registro.
+        /// Adds a validation rule to the entry.
         /// </summary>
         /// <param name="rule">
-        /// FUnción que realiza la validación. Debe devolver 
-        /// <see langword="true"/> si una propiedad supera la prueba,
-        /// <see langword="false"/> en caso contrario.
+        /// Function that performs validation. Must return
+        /// <see langword="true"/> if the value passes the test,
+        /// <see langword="false"/> otherwise.
         /// </param>
-        /// <param name="error">
-        /// Mensaje de error a presentar si la validación falla.
-        /// </param>
-        /// <returns>
-        /// Esta misma regla, permitiendo el uso de sintaxis Fluent.
-        /// </returns>
+        /// <param name="error">Error message to present if validation fails.</param>
+        /// <returns>This same entry to allow fluent chaining.</returns>
         IValidationEntry<T> AddRule(Func<T, bool> rule, string error);
 
         /// <summary>
-        /// Agrega una regla de validación al registro.
+        /// Adds a validation rule to the entry.
         /// </summary>
         /// <param name="rule">
-        /// FUnción que realiza la validación. Debe devolver 
-        /// <see langword="true"/> si una propiedad supera la prueba,
-        /// <see langword="false"/> en caso contrario.
+        /// Function that performs validation. Must return
+        /// <see langword="true"/> if the value passes the test,
+        /// <see langword="false"/> otherwise.
         /// </param>
-        /// <returns>
-        /// Esta misma regla, permitiendo el uso de sintaxis Fluent.
-        /// </returns>
+        /// <returns>This same entry to allow fluent chaining.</returns>
         IValidationEntry<T> AddRule(Func<T, bool> rule);
     }
 
@@ -128,22 +122,23 @@ public abstract class FormViewModelBase : ViewModelBase, INotifyDataErrorInfo
     public event EventHandler<DataErrorsChangedEventArgs>? ErrorsChanged;
 
     /// <summary>
-    /// Returns this instance, required for proper
+    /// Returns this instance; required for proper
     /// <see cref="INotifyPropertyChanged"/> implementation.
     /// </summary>
     public INotifyDataErrorInfo ErrorSource => this;
 
     /// <summary>
-    /// Gets a value indicating whether this instance has any validation errors.
+    /// Gets a value indicating whether this instance has any validation
+    /// errors.
     /// </summary>
     public bool HasErrors => _errors.Count != 0;
 
     /// <summary>
-    /// Checks for validation errors.
+    /// Runs all validations and returns whether they all passed.
     /// </summary>
     /// <returns>
-    /// <see langword="true"/> if all validations passed,
-    /// <see langword="false"/> otherwise.
+    /// <see langword="true"/> if all validations passed and there is at
+    /// least one rule; otherwise, <see langword="false"/>.
     /// </returns>
     public bool CheckErrors()
     {
@@ -162,16 +157,16 @@ public abstract class FormViewModelBase : ViewModelBase, INotifyDataErrorInfo
     /// <summary>
     /// Enumerates the errors for the provided property name, or for all
     /// properties if <paramref name="propertyName"/> is
-    /// <see langword="null"/>.
+    /// <see langword="null"/> or empty.
     /// </summary>
     /// <param name="propertyName">
     /// Name of the property for which to get the errors. If it is an empty
-    /// string or <see langword="null"/>, this method will return all
-    /// validation errors.
+    /// string or <see langword="null"/>, this method returns all validation
+    /// errors.
     /// </param>
     /// <returns>
-    /// An enumeration of all validation errors for the specified property
-    /// or for all properties.
+    /// An enumeration of all validation error messages for the specified
+    /// property or for all properties.
     /// </returns>
     public IEnumerable GetErrors(string? propertyName)
     {
@@ -187,22 +182,19 @@ public abstract class FormViewModelBase : ViewModelBase, INotifyDataErrorInfo
     }
 
     /// <summary>
-    /// Reemplaza el método 
-    /// <see cref="NotifyPropertyChangeBase.Change{T}(ref T, T, string)"/>,
-    /// permitiendo la ejecución de validaciones sobre una propiedad.
+    /// Overrides <see cref="NotifyPropertyChangeBase.Change{T}(ref T, T, string)"/>
+    /// to run validations for a property when its value changes.
     /// </summary>
-    /// <typeparam name="T">Type of backing field.</typeparam>
-    /// <param name="backingStore">
-    /// Field that holds the property value.
-    /// </param>
-    /// <param name="value">Value to be set.</param>
+    /// <typeparam name="T">Type of the backing field.</typeparam>
+    /// <param name="backingStore">Field that holds the property value.</param>
+    /// <param name="value">Value to set.</param>
     /// <param name="propertyName">
-    /// Name of the property. This parameter should be omitted always,
-    /// unless you need to specify a different property to be notified.
+    /// Name of the property. This parameter should normally be omitted
+    /// (compiler-inferred) unless a different property must be notified.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> if the property did change its value,
-    /// <see langword="false"/> otherwise.
+    /// <see langword="true"/> if the property value changed; otherwise,
+    /// <see langword="false"/>.
     /// </returns>
     protected override void OnDoChange<T>(ref T backingStore, T value, string propertyName)
     {
@@ -218,15 +210,15 @@ public abstract class FormViewModelBase : ViewModelBase, INotifyDataErrorInfo
     }
 
     /// <summary>
-    /// Registers a property validation ruleset.
+    /// Registers a validation ruleset for a property.
     /// </summary>
     /// <typeparam name="T">Property type.</typeparam>
     /// <param name="propertySelector">
-    /// Expression that selects the property to be configured.
+    /// Expression that selects the property to configure.
     /// </param>
     /// <returns>
-    /// An object which allows the configuration of the validation rules to
-    /// be applied to the selected property.
+    /// An object that allows configuring the validation rules to apply to
+    /// the selected property.
     /// </returns>
     protected IValidationEntry<T> RegisterValidation<T>(Expression<Func<T>> propertySelector)
     {
@@ -236,14 +228,14 @@ public abstract class FormViewModelBase : ViewModelBase, INotifyDataErrorInfo
     }
 
     /// <summary>
-    /// Tells to the validation engine that validation will affect the
-    /// specified commands.
+    /// Informs the validation engine which commands are affected by
+    /// validation failures.
     /// </summary>
     /// <param name="commands">
-    /// Collection of commands to be affected by validation failures.
+    /// Commands that should be disabled when validation fails.
     /// </param>
     /// <remarks>
-    /// Please call this method after instancing the commands.
+    /// Call this method after instantiating the commands.
     /// </remarks>
     protected void ValidationAffects(params SimpleCommand[] commands)
     {

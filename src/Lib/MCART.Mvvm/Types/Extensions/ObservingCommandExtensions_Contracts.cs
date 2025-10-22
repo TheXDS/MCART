@@ -36,7 +36,6 @@ using System.Runtime.CompilerServices;
 using TheXDS.MCART.Component;
 using TheXDS.MCART.Resources;
 using static TheXDS.MCART.Helpers.ReflectionHelpers;
-using static TheXDS.MCART.Misc.Internals;
 
 namespace TheXDS.MCART.Types.Extensions;
 

@@ -33,22 +33,20 @@ using System.Collections.Specialized;
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
-/// Define una serie de miembros a implementar por una clase que defina
-/// un envoltorio observable sobre un <see cref="ICollection{T}"/>.
+/// Defines members to be implemented by a class that provides an
+/// observable wrapper around an <see cref="ICollection{T}"/>.
 /// </summary>
 public interface IObservableCollectionWrap<T> : INotifyCollectionChanged, ICollection<T>, IRefreshable
 {
     /// <summary>
-    /// Obtiene una referencia a la colección subyacente de este
-    /// envoltorio observable.
+    /// Gets a reference to the underlying collection held by this
+    /// observable wrapper.
     /// </summary>
     ICollection<T> UnderlyingCollection { get; }
 
     /// <summary>
-    /// Sustituye la colección subyacente por una nueva.
+    /// Replaces the underlying collection with a new one.
     /// </summary>
-    /// <param name="newCollection">
-    /// Colección a establecer como la colección subyacente.
-    /// </param>
+    /// <param name="newCollection">Collection to set as the underlying one.</param>
     void Substitute(ICollection<T> newCollection);
 }

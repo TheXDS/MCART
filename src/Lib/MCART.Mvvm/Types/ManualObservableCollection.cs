@@ -34,12 +34,12 @@ using System.Collections.Specialized;
 namespace TheXDS.MCART.Types;
 
 /// <summary>
-/// Implementa un envoltorio con notificación de cambio de colección de forma
-/// manual para cualquier objeto que implemente <see cref="IEnumerable{T}"/>.
+/// Implements a manually notified observable wrapper for any object that
+/// implements <see cref="IEnumerable{T}"/>.
 /// </summary>
-/// <typeparam name="T">Tipo de objetos de la colección.</typeparam>
+/// <typeparam name="T">Type of items in the collection.</typeparam>
 /// <param name="source">
-/// Colección a exponer por medio de esta instancia.
+/// Collection to expose through this instance.
 /// </param>
 public class ManualObservableCollection<T>(IEnumerable<T> source) : IEnumerable<T>, INotifyCollectionChanged
 {
@@ -55,18 +55,19 @@ public class ManualObservableCollection<T>(IEnumerable<T> source) : IEnumerable<
     }
 
     /// <summary>
-    /// Notifica a los escuchas registrados que la colección ha cambiado.
+    /// Notifies registered listeners that the collection has changed.
     /// </summary>
     public void NotifyChange()
     {
-        NotifyChange(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+        NotifyChange(new NotifyCollectionChangedEventArgs(
+            NotifyCollectionChangedAction.Reset));
     }
 
     /// <summary>
-    /// Notifica a los escuchas registrados que la colección ha cambiado.
+    /// Notifies registered listeners that the collection has changed.
     /// </summary>
     /// <param name="args">
-    /// Argumentos de cambio de colección a pasar a los escuchas del evento
+    /// Collection change arguments to pass to subscribers of
     /// <see cref="CollectionChanged"/>.
     /// </param>
     public void NotifyChange(NotifyCollectionChangedEventArgs args)

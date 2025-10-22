@@ -31,24 +31,22 @@ using TheXDS.MCART.Types.Base;
 namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
-/// Extensiones para todos los elementos de tipo
-/// <see cref="IValidationEntry{T}" /> que proveen de métodos de configuración
-/// especiales para reglas de validación.
+/// Extensions for all elements implementing
+/// <see cref="IValidationEntry{T}"/> that provide helper methods to
+/// configure validation rules.
 /// </summary>
 public static class ValidationSourceExtensions
 {
     /// <summary>
-    /// Registra una regla de validación que indica que la cadena no debe ser
-    /// <see langword="null"/> ni <see cref="string.Empty"/>.
+    /// Registers a validation rule that requires the string to be neither
+    /// <see langword="null"/> nor <see cref="string.Empty"/>.
     /// </summary>
-    /// <param name="rule">Instancia de reglas de validación.</param>
+    /// <param name="rule">Validation entry instance.</param>
     /// <param name="error">
-    /// Mensaje de error a mostrar cuando la cadena no pase esta regla de
-    /// validación.
+    /// Error message to show when the string fails this validation rule.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="rule"/>, permitiendo el uso de
-    /// sintaxis Fluent.
+    /// The same instance as <paramref name="rule"/>, enabling fluent syntax.
     /// </returns>
     public static IValidationEntry<string> NotEmpty(this IValidationEntry<string?> rule, string error)
     {

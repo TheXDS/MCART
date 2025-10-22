@@ -36,40 +36,41 @@ using NcchEa = System.Collections.Specialized.NotifyCollectionChangedEventArgs;
 namespace TheXDS.MCART.Types;
 
 /// <summary>
-/// Envuelve una lista genérica para proveerla de notificación de
-/// cambios en el contenido de la colección.
+/// Wraps a generic list to provide notifications when the collection's
+/// content changes.
 /// </summary>
-/// <typeparam name="T">Tipo de elementos de la lista.</typeparam>
+/// <typeparam name="T">Type of elements in the list.</typeparam>
 [DebuggerStepThrough]
 public class ObservableListWrap<T> : ObservableWrap<T, IList<T>>, IList<T>
 {
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="ObservableListWrap{T}"/>.
+    /// Initializes a new instance of the
+    /// <see cref="ObservableListWrap{T}"/> class.
     /// </summary>
     public ObservableListWrap()
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="ObservableListWrap{T}"/>.
+    /// Initializes a new instance of the
+    /// <see cref="ObservableListWrap{T}"/> class.
     /// </summary>
-    /// <param name="collection"></param>
+    /// <param name="collection">
+    /// Collection to use as the underlying list.
+    /// </param>
     public ObservableListWrap(IList<T> collection) : base(collection)
     {
     }
 
     /// <summary>
-    /// Permite acceder de forma indexada al contenido de este
+    /// Provides indexed access to the contents of this
     /// <see cref="ObservableListWrap{T}"/>.
     /// </summary>
     /// <param name="index">
-    /// Índice del elemento a obtener o establecer.
+    /// Index of the element to get or set.
     /// </param>
     /// <returns>
-    /// El elemento encontrado en el índice especificado dentro de la
-    /// colección.
+    /// The element at the specified index in the collection.
     /// </returns>
     public T this[int index]
     {
@@ -84,39 +85,39 @@ public class ObservableListWrap<T> : ObservableWrap<T, IList<T>>, IList<T>
     }
 
     /// <summary>
-    /// Determina el índice de un elemento específico dentro del
+    /// Returns the index of a specific item in this
     /// <see cref="ObservableListWrap{T}"/>.
     /// </summary>
     /// <param name="item">
-    /// Elemento del cual obtener el índice.
+    /// Item whose index to get.
     /// </param>
     /// <returns>
-    /// El índice del elemento especificado.
+    /// The index of the specified item.
     /// </returns>
     public int IndexOf(T item) => UnderlyingCollection?.IndexOf(item) ?? -1;
 
     /// <summary>
-    /// Determina si la secuencia subyacente contiene al elemento
-    /// especificado.
+    /// Determines whether the underlying sequence contains the specified
+    /// item.
     /// </summary>
     /// <param name="item">
-    /// Elemento a buscar dentro de la secuencia.
+    /// Item to locate in the sequence.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si la secuencia contiene al elemento
-    /// especificado, <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if the sequence contains the specified
+    /// item; otherwise <see langword="false"/>.
     /// </returns>
     public override bool Contains(T item) => UnderlyingCollection?.Contains(item) ?? false;
 
     /// <summary>
-    /// Inserta un elemento dentro de este
-    /// <see cref="ObservableListWrap{T}"/> en un índice específico.
+    /// Inserts an item into this <see cref="ObservableListWrap{T}"/> at
+    /// the specified index.
     /// </summary>
     /// <param name="index">
-    /// Posición en la cual insertar el nuevo elemento.
+    /// Position at which to insert the new item.
     /// </param>
     /// <param name="item">
-    /// Elemento a insertar en el índice especificado.
+    /// Item to insert at the specified index.
     /// </param>
     public void Insert(int index, T item)
     {
@@ -127,11 +128,11 @@ public class ObservableListWrap<T> : ObservableWrap<T, IList<T>>, IList<T>
     }
 
     /// <summary>
-    /// Quita el elemento de este <see cref="ObservableListWrap{T}"/>
-    /// en el índice especificado.
+    /// Removes the item at the specified index from this
+    /// <see cref="ObservableListWrap{T}"/>.
     /// </summary>
     /// <param name="index">
-    /// Índice del elemento a remover.
+    /// Index of the item to remove.
     /// </param>
     public void RemoveAt(int index)
     {

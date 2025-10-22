@@ -37,7 +37,7 @@ using TheXDS.MCART.Types.Base;
 using TheXDS.MCART.Types.Extensions;
 using static TheXDS.MCART.Helpers.ReflectionHelpers;
 
-namespace TheXDS.MCART.Tests;
+namespace TheXDS.MCART.ViewModelFactory.Tests;
 
 public class ViewModelFactoryTests
 {
@@ -111,6 +111,26 @@ public class ViewModelFactoryTests
         ((INotifyPropertyChanged)npcInstance).PropertyChanged -= OnPropertyChanged;
         Assert.That(evt, Is.Not.Null);
         Assert.That("Name", Is.EqualTo(evt!.Value.Arguments.PropertyName));
+        Assert.That("Test", Is.EqualTo((string)npcInstance.Name));
+    }
+
+    [Test]
+    public void AddNpcProperty_overloads_Test()
+    {
+        ITypeBuilder<NpcBaseClass> t = _factory.NewType<NpcBaseClass>("NpcBaseTestClass");
+        t.AddNpcProperty("Name", typeof(string), null);
+        t.AddNpcProperty("Age", typeof(int), MemberAccess.Public, null);
+        t.AddNpcProperty("Email", typeof(string), MemberAccess.Public, false, null);
+        dynamic npcInstance = t.New();
+        (object? Sender, PropertyChangedEventArgs Arguments)? evt = null;
+        void OnPropertyChanged(object? sender, PropertyChangedEventArgs e) => evt = (sender, e);
+        ((INotifyPropertyChanged)npcInstance).PropertyChanged += OnPropertyChanged;
+        npcInstance.Name = "Test";
+        Assert.That(evt, Is.Not.Null);
+        Assert.That("Name", Is.EqualTo(evt!.Value.Arguments.PropertyName));
+        npcInstance.Email = "email@test.com";
+        Assert.That("Email", Is.EqualTo(evt!.Value.Arguments.PropertyName));
+        ((INotifyPropertyChanged)npcInstance).PropertyChanged -= OnPropertyChanged;
         Assert.That("Test", Is.EqualTo((string)npcInstance.Name));
     }
 

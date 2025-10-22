@@ -28,46 +28,17 @@
 
 using Ers = TheXDS.MCART.Resources.Strings.MvvmErrors;
 
-namespace TheXDS.MCART.Resources
-{
-    internal static class MvvmErrors
-    {
-        /// <summary>
-        /// Crea una nueva instancia de un
-        /// <see cref="InvalidOperationException"/> con un mensaje
-        /// predeterminado que indica que la llamada al método 
-        /// <see cref="Types.Base.NotifyPropertyChangeBase.Change{T}(ref T, T, string)"/> 
-        /// es inválida porque se ha llamado desde fuera de un bloque
-        /// <see langword="set"/> de una propiedad en un objeto que hereda de
-        /// <see cref="Types.Base.NotifyPropertyChangeBase"/> o de una de sus
-        /// clases derivadas.
-        /// </summary>
-        /// <returns>
-        /// Una nueva instancia de la clase
-        /// <see cref="InvalidOperationException"/>.
-        /// </returns>
-        public static InvalidOperationException PropSetMustCall()
-        {
-            return new(Ers.PropSetMustCall);
-        }
+namespace TheXDS.MCART.Resources;
 
-        /// <summary>
-        /// Crea una nueva instancia de un
-        /// <see cref="InvalidOperationException"/> con un mensaje
-        /// predeterminado que indica que la llamada al método 
-        /// <see cref="Types.Base.NotifyPropertyChangeBase.Change{T}(ref T, T, string)"/> 
-        /// es inválida porque se ha llamado desde una propiedad distinta a la que
-        /// ha cambiado de valor, o bien, se ha especificado un valor para el
-        /// argumento <c>propertyName</c> y este no coincide con el nombre de la
-        /// propiedad actual.
-        /// </summary>
-        /// <returns>
-        /// Una nueva instancia de la clase
-        /// <see cref="InvalidOperationException"/>.
-        /// </returns>
-        public static InvalidOperationException PropChangeSame()
-        {
-            return new(Ers.PropChangeSame);
-        }
+internal static class MvvmErrors
+{
+    public static InvalidOperationException PropSetMustCall()
+    {
+        return new(Ers.PropSetMustCall);
+    }
+
+    public static InvalidOperationException PropChangeSame()
+    {
+        return new(Ers.PropChangeSame);
     }
 }

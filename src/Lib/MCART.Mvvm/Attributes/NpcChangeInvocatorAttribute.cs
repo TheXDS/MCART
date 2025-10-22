@@ -33,8 +33,8 @@ using TheXDS.MCART.Types.Base;
 namespace TheXDS.MCART.Attributes;
 
 /// <summary>
-/// Marca un método como la invocación de cambio de valor de propiedad en
-/// una clase que herede de <see cref="NotifyPropertyChangeBase"/>.
+/// Marks a method as the property value change invoker in a class that
+/// inherits from <see cref="NotifyPropertyChangeBase"/>.
 /// </summary>
 [AttributeUsage(AttributeTargets.Method, Inherited = true)]
 public sealed class NpcChangeInvocatorAttribute : Attribute

@@ -29,28 +29,28 @@
 namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
-/// Extensiones para todos los elementos de tipo <see cref="ICollection{T}" />
-/// que incluyen funcionalidad asociada a la arquitectura MVVM.
+/// Extensions for all <see cref="ICollection{T}"/> instances that add
+/// functionality useful in MVVM scenarios.
 /// </summary>
 public static partial class MvvmCollectionExtensions
 {
     /// <summary>
-    /// Obtiene un <see cref="ObservableCollectionWrap{T}"/> que envuelve a la
-    /// colección especificada.
+    /// Gets an <see cref="ObservableCollectionWrap{T}"/> that wraps the
+    /// specified collection.
     /// </summary>
-    /// <typeparam name="T">Tipo de elementos de la colección.</typeparam>
+    /// <typeparam name="T">Type of elements in the collection.</typeparam>
     /// <param name="collection">
-    /// Colección a envolver dentro del
+    /// Collection to wrap inside an
     /// <see cref="ObservableCollectionWrap{T}"/>.
     /// </param>
     /// <returns>
-    /// Un <see cref="ObservableCollectionWrap{T}"/> que envuelve a la colección
-    /// para brindar notificaciones de cambio por medio de la interfaz
+    /// An <see cref="ObservableCollectionWrap{T}"/> that wraps the
+    /// collection to provide change notifications via
     /// <see cref="System.Collections.Specialized.INotifyCollectionChanged"/>.
     /// </returns>
     public static ObservableCollectionWrap<T> ToObservable<T>(this ICollection<T> collection)
     {
         ToObservable_Contract(collection);
-        return new(collection);
+        return [.. collection];
     }
 }

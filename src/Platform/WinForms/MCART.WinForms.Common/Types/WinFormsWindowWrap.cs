@@ -28,43 +28,39 @@
 
 using TheXDS.MCART.Types.Base;
 
-namespace TheXDS.MCART.Types
+namespace TheXDS.MCART.Types;
+
+/// <summary>
+/// Wraps a Windows Forms <see cref="Form"/> to provide additional window
+/// management services.
+/// </summary>
+/// <param name="window">Form to wrap.</param>
+public class WinFormsWindowWrap(Form window) : IWinFormsWindow
 {
+    private readonly Form _window = window;
+
+    /// <inheritdoc/>
+    public FormWindowState WindowState => _window.WindowState;
+
+    Form IWinFormsWindow.Itself => _window;
+
     /// <summary>
-    /// Envuelve una ventana de Windows Forms para brindar servicios
-    /// adicionales de gestión de ventana.
+    /// Implicitly converts a <see cref="WinFormsWindowWrap"/> to a
+    /// <see cref="Form"/>.
     /// </summary>
-    /// <remarks>
-    /// Inicializa una nueva instancia de la clase <see cref="WinFormsWindowWrap"/>.
-    /// </remarks>
-    /// <param name="window">Ventana a envolver.</param>
-    public class WinFormsWindowWrap(Form window) : IWinFormsWindow
+    /// <param name="wrap">Object to convert.</param>
+    public static implicit operator Form(WinFormsWindowWrap wrap)
     {
-        private readonly Form _window = window;
+        return wrap._window;
+    }
 
-        /// <inheritdoc/>
-        public FormWindowState WindowState => _window.WindowState;
-        
-        Form IWinFormsWindow.Itself => _window;
-
-        /// <summary>
-        /// Convierte implícitamente un <see cref="WinFormsWindowWrap"/> en un
-        /// <see cref="Form"/>.
-        /// </summary>
-        /// <param name="wrap">Objeto a convertir.</param>
-        public static implicit operator Form(WinFormsWindowWrap wrap)
-        {
-            return wrap._window;
-        }
-
-        /// <summary>
-        /// Convierte implícitamente un <see cref="Form"/> en un
-        /// <see cref="WinFormsWindowWrap"/>.
-        /// </summary>
-        /// <param name="window">Objeto a convertir.</param>
-        public static implicit operator WinFormsWindowWrap(Form window)
-        {
-            return new WinFormsWindowWrap(window);
-        }
+    /// <summary>
+    /// Implicitly converts a <see cref="Form"/> to a
+    /// <see cref="WinFormsWindowWrap"/>.
+    /// </summary>
+    /// <param name="window">Object to convert.</param>
+    public static implicit operator WinFormsWindowWrap(Form window)
+    {
+        return new WinFormsWindowWrap(window);
     }
 }

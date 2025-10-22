@@ -33,13 +33,13 @@ using System.ComponentModel;
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
-/// Define una serie de métodos a implementar por una clase que exponga
-/// una entidad dentro de una clase ViewModel del patrón MVVM.
+/// Defines methods to be implemented by a class that exposes an
+/// entity within an MVVM ViewModel.
 /// </summary>
 public interface IEntityViewModel : INotifyPropertyChanged
 {
     /// <summary>
-    /// Instancia de la entidad controlada por este ViewModel.
+    /// The entity instance managed by this ViewModel.
     /// </summary>
     object? Entity { get; set; }
 }

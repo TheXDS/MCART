@@ -26,12 +26,16 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using static TheXDS.MCART.Misc.Internals;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 namespace TheXDS.MCART.Types.Extensions;
 
 public static partial class MvvmCollectionExtensions
 {
+    [Conditional("EnforceContracts")]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DebuggerNonUserCode]
     private static void ToObservable_Contract<T>(this ICollection<T> collection)
     {
         ArgumentNullException.ThrowIfNull(collection, nameof(collection));

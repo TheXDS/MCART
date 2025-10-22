@@ -33,54 +33,50 @@ using System.Windows.Input;
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
-/// Clase base para las implementaciones de la interfaz
-/// <see cref="ICommand"/> en MCART.
+/// Base class for MCART implementations of the
+/// <see cref="ICommand"/> interface.
 /// </summary>
-/// <param name="action">
-/// Acción a asociar a este comando.
-/// </param>
+/// <param name="action">Action to associate with this command.</param>
 public abstract class CommandBase(Action<object?> action) : ICommand
 {
     private readonly Action<object?> _action = action ?? throw new ArgumentNullException(nameof(action));
 
     /// <summary>
-    /// Se produce cuando hay cambios que influyen en si el comando
-    /// debería ejecutarse o no.
+    /// Raised when changes occur that affect whether the command
+    /// should execute.
     /// </summary>
     public event EventHandler? CanExecuteChanged;
 
     /// <summary>
-    /// Define el método que determina si el comando puede ejecutarse
-    /// en su estado actual.
+    /// Determines whether the command can execute in its current
+    /// state.
     /// </summary>
     /// <param name="parameter">
-    /// Datos que usa el comando. Si el comando no exige pasar los
-    /// datos, se puede establecer este objeto en
-    /// <see langword="null" />.
+    /// Data used by the command. If the command does not require
+    /// data, this object can be set to <see langword="null"/>.
     /// </param>
     /// <returns>
-    /// <see langword="true" /> si se puede ejecutar este comando; de
-    /// lo contrario, <see langword="false" />.
+    /// <see langword="true"/> if this command can execute;
+    /// otherwise, <see langword="false"/>.
     /// </returns>
     public abstract bool CanExecute(object? parameter);
 
     /// <summary>
-    /// Define el método que determina si el comando puede ejecutarse
-    /// en su estado actual.
+    /// Determines whether the command can execute in its current
+    /// state.
     /// </summary>
     /// <returns>
-    /// <see langword="true" /> si se puede ejecutar este comando; de
-    /// lo contrario, <see langword="false" />.
+    /// <see langword="true"/> if this command can execute;
+    /// otherwise, <see langword="false"/>.
     /// </returns>
     public bool CanExecute() => CanExecute(null);
 
     /// <summary>
-    /// Ejecuta el método asociado a la invocación de este comando.
+    /// Executes the action associated with this command.
     /// </summary>
     /// <param name="parameter">
-    /// Datos que usa el comando. Si el comando no exige pasar los
-    /// datos, se puede establecer este objeto en
-    /// <see langword="null" />.
+    /// Data used by the command. If the command does not require
+    /// data, this object can be set to <see langword="null"/>.
     /// </param>
     public virtual void Execute(object? parameter)
     {
@@ -88,21 +84,19 @@ public abstract class CommandBase(Action<object?> action) : ICommand
     }
 
     /// <summary>
-    /// Ejecuta el método asociado a la invocación de este comando.
+    /// Executes the action associated with this command.
     /// </summary>
     public void Execute() => Execute(null);
 
     /// <summary>
-    /// Comprueba si la acción puede ejecutarse, y de ser así, la ejecuta.
+    /// Checks whether the action can execute and, if so, executes it.
     /// </summary>
     /// <param name="arg">
-    /// Argumentos a utilizar para comprobar y para ejecutar la acción
-    /// asociada a este comando.
+    /// Argument to use both for the check and for executing the action.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si se ha ejecutado la acción luego de
-    /// comprobar la posibilidad de ejecutarla, <see langword="false"/> en
-    /// caso contrario.
+    /// <see langword="true"/> if the action was executed after
+    /// checking; otherwise, <see langword="false"/>.
     /// </returns>
     public bool TryExecute(object? arg)
     {
@@ -115,17 +109,16 @@ public abstract class CommandBase(Action<object?> action) : ICommand
     }
 
     /// <summary>
-    /// Comprueba si la acción puede ejecutarse, y de ser así, la ejecuta.
+    /// Checks whether the action can execute and, if so, executes it.
     /// </summary>
     /// <returns>
-    /// <see langword="true"/> si se ha ejecutado la acción luego de
-    /// comprobar la posibilidad de ejecutarla, <see langword="false"/> en
-    /// caso contrario.
+    /// <see langword="true"/> if the action was executed after
+    /// checking; otherwise, <see langword="false"/>.
     /// </returns>
     public bool TryExecute() => TryExecute(null);
 
     /// <summary>
-    /// Invoca el evento <see cref="CanExecuteChanged"/>.
+    /// Raises the <see cref="CanExecuteChanged"/> event.
     /// </summary>
     protected void RaiseCanExecuteChanged()
     {

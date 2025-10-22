@@ -38,74 +38,62 @@ using static TheXDS.MCART.Misc.Internals;
 namespace TheXDS.MCART.Component;
 
 /// <summary>
-/// Describe un comando que observa a un objeto que implemente
-/// <see cref="INotifyPropertyChanged" /> y
-/// escucha cualquier cambio ocurrido en el valor de sus propiedades
-/// para habilitar o deshabilitar automáticamente la ejecución del
-/// comando.
+/// Describes a command that observes an object implementing
+/// <see cref="INotifyPropertyChanged"/> and listens for any changes
+/// to its property values to automatically enable or disable
+/// command execution.
 /// </summary>
-public partial class ObservingCommand : CommandBase
+/// <param name="observedSource">The data source to observe.</param>
+/// <param name="action">The action to execute.</param>
+public partial class ObservingCommand(INotifyPropertyChanged observedSource, Action<object?> action) : CommandBase(action)
 {
     private Func<INotifyPropertyChanged, object?, bool>? _canExecute;
     private readonly HashSet<string> _properties = [];
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="ObservingCommand" />.
+    /// Initializes a new instance of <see cref="ObservingCommand"/>.
     /// </summary>
-    /// <param name="observedSource">Origen de datos observado.</param>
-    /// <param name="action">Acción a ejecutar.</param>
+    /// <param name="observedSource">The data source to observe.</param>
+    /// <param name="action">The action to execute.</param>
     public ObservingCommand(INotifyPropertyChanged observedSource, Action action) : this(observedSource, _ => action()) { }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="ObservingCommand" />.
+    /// Initializes a new instance of <see cref="ObservingCommand"/>.
     /// </summary>
-    /// <param name="observedSource">Origen de datos observado.</param>
-    /// <param name="task">Tarea a ejecutar.</param>
+    /// <param name="observedSource">The data source to observe.</param>
+    /// <param name="task">The asynchronous task to execute.</param>
     public ObservingCommand(INotifyPropertyChanged observedSource, Func<Task> task) : this(observedSource, (Action<object?>)(async _ => await task())) { }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="ObservingCommand" />.
+    /// Initializes a new instance of <see cref="ObservingCommand"/>.
     /// </summary>
-    /// <param name="observedSource">Origen de datos observado.</param>
-    /// <param name="task">Tarea a ejecutar.</param>
+    /// <param name="observedSource">The data source to observe.</param>
+    /// <param name="task">The asynchronous task to execute.</param>
     public ObservingCommand(INotifyPropertyChanged observedSource, Func<object?, Task> task) : this(observedSource, (Action<object?>)(async o => await task(o))) { }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="ObservingCommand" />.
+    /// Reference to the data source observed by this
+    /// <see cref="ObservingCommand"/>.
     /// </summary>
-    /// <param name="observedSource">Origen de datos observado.</param>
-    /// <param name="action">Acción a ejecutar.</param>
-    public ObservingCommand(INotifyPropertyChanged observedSource, Action<object?> action) : base(action)
-    {
-        ObservedSource = NullChecked(observedSource);
-    }
+    public INotifyPropertyChanged ObservedSource { get; } = NullChecked(observedSource);
 
     /// <summary>
-    /// Referencia al origen de datos observado por este <see cref="ObservingCommand"/>.
-    /// </summary>
-    public INotifyPropertyChanged ObservedSource { get; }
-
-    /// <summary>
-    /// Enumera las propiedades que están siendo observadas por este <see cref="ObservingCommand"/>.
+    /// Enumerates the property names being observed by this
+    /// <see cref="ObservingCommand"/>.
     /// </summary>
     public IEnumerable<string> ObservedProperties => [.. _properties];
 
     /// <summary>
-    /// Define el método que determina si el comando puede ejecutarse
-    /// en su estado actual.
+    /// Sets the method that determines whether the command can execute
+    /// in its current state.
     /// </summary>
     /// <param name="parameter">
-    /// Datos que usa el comando. Si el comando no exige pasar los
-    /// datos, se puede establecer este objeto en
-    /// <see langword="null" />.
+    /// Data used by the command. If the command does not require data,
+    /// this object can be set to <see langword="null"/>.
     /// </param>
     /// <returns>
-    /// <see langword="true" /> si se puede ejecutar este comando; de
-    /// lo contrario, <see langword="false" />.
+    /// <see langword="true"/> if this command can execute; otherwise,
+    /// <see langword="false"/>.
     /// </returns>
     public override bool CanExecute(object? parameter)
     {
@@ -113,15 +101,11 @@ public partial class ObservingCommand : CommandBase
     }
 
     /// <summary>
-    /// Registra una nueva propiedad a observar en este comando.
+    /// Registers one or more property names to observe for this command.
     /// </summary>
-    /// <param name="properties">
-    /// Nombre(s) de la(s) propiedad(es) a observar.
-    /// </param>
-    /// <returns>
-    /// Esta misma instancia, lo que permite usar esta función con
-    /// sintaxis fluent.
-    /// </returns>
+    /// <param name="properties">The name(s) of the property(ies) to
+    /// observe.</param>
+    /// <returns>This same instance to allow fluent usage.</returns>
     public ObservingCommand RegisterObservedProperty(params string[] properties)
     {
         foreach (string? j in properties.NotEmpty())
@@ -132,12 +116,12 @@ public partial class ObservingCommand : CommandBase
     }
 
     /// <summary>
-    /// Registra una nueva propiedad a observar en este comando.
+    /// Registers a property to observe for this command using a lambda
+    /// expression that selects the property.
     /// </summary>
-    /// <param name="property">Nombre de la propiedad a observar.</param>
+    /// <param name="property">Expression selecting the property to observe.</param>
     /// <returns>
-    /// Esta misma instancia, lo que permite usar esta función con
-    /// sintaxis fluent.
+    /// This same instance, allowing fluent call chaining.
     /// </returns>
     public ObservingCommand RegisterObservedProperty(Expression<Func<object?>> property)
     {
@@ -147,16 +131,14 @@ public partial class ObservingCommand : CommandBase
     }
 
     /// <summary>
-    /// Establece la función de comprobación a ejecutar cuando se desee
-    /// saber si es posible ejecutar el comando.
+    /// Sets the check function used to determine whether the command can
+    /// execute.
     /// </summary>
     /// <param name="canExecute">
-    /// Función a ejecutar para determinar la posibilidad de ejecutar
-    /// el comando.
+    /// Function used to determine whether the command can execute.
     /// </param>
     /// <returns>
-    /// Esta misma instancia, lo que permite usar esta función con
-    /// sintaxis fluent.
+    /// This same instance, allowing fluent call chaining.
     /// </returns>
     public ObservingCommand SetCanExecute(Func<bool> canExecute)
     {
@@ -165,16 +147,15 @@ public partial class ObservingCommand : CommandBase
     }
 
     /// <summary>
-    /// Establece la función de comprobación a ejecutar cuando se desee
-    /// saber si es posible ejecutar el comando.
+    /// Sets the check function used to determine whether the command can
+    /// execute.
     /// </summary>
     /// <param name="canExecute">
-    /// Función a ejecutar para determinar la posibilidad de ejecutar
-    /// el comando.
+    /// Function that receives the command parameter and returns whether
+    /// the command can execute.
     /// </param>
     /// <returns>
-    /// Esta misma instancia, lo que permite usar esta función con
-    /// sintaxis fluent.
+    /// This same instance, allowing fluent call chaining.
     /// </returns>
     public ObservingCommand SetCanExecute(Func<object?, bool> canExecute)
     {
@@ -183,16 +164,16 @@ public partial class ObservingCommand : CommandBase
     }
 
     /// <summary>
-    /// Establece la función de comprobación a ejecutar cuando se desee
-    /// saber si es posible ejecutar el comando.
+    /// Sets the check function used to determine whether the command can
+    /// execute.
     /// </summary>
     /// <param name="canExecute">
-    /// Función a ejecutar para determinar la posibilidad de ejecutar
-    /// el comando.
+    /// Function that receives the observed source and the command
+    /// parameter and returns whether the command can execute. Pass
+    /// <see langword="null"/> to remove the check.
     /// </param>
     /// <returns>
-    /// Esta misma instancia, lo que permite usar esta función con
-    /// sintaxis fluent.
+    /// This same instance, allowing fluent call chaining.
     /// </returns>
     public ObservingCommand SetCanExecute(Func<INotifyPropertyChanged, object?, bool>? canExecute)
     {
@@ -209,8 +190,8 @@ public partial class ObservingCommand : CommandBase
     }
 
     /// <summary>
-    /// Desconecta la función establecida para comprobar la posibilidad
-    /// de ejecutar este comando.
+    /// Disconnects the check function used to determine whether the
+    /// command can execute.
     /// </summary>
     public void UnsetCanExecute() => SetCanExecute((Func<INotifyPropertyChanged, object?, bool>?)null);
 

@@ -31,46 +31,43 @@ SOFTWARE.
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
-/// Define una serie de miembros a implementar por un tipo que permita
-/// configurar reglas de validación para una propiedad.
+/// Defines members to be implemented by a type that allows configuring
+/// validation rules for a property.
 /// </summary>
-/// <typeparam name="T">Tipo de la propiedad seleccionada.</typeparam>
+/// <typeparam name="T">Type of the selected property.</typeparam>
 public interface IValidationEntry<T>
 {
     /// <summary>
-    /// Agrega una regla de validación para la propiedad seleccionada.
+    /// Adds a validation rule for the selected property.
     /// </summary>
     /// <param name="rule">
-    /// Función que ejecuta la validación. La función debe devolver 
-    /// <see langword="true"/> si la propiedad pasa satisfactoriamente
-    /// la prueba, <see langword="false"/> en caso contrario. Si la
-    /// función de evaluación devuelve <see langword="null"/>, se
-    /// detendrá la evaluación de cualquier regla posterior que no ha
-    /// sido ejecutada aún.
+    /// Function that performs the validation. The function must return
+    /// <see langword="true"/> if the value passes the test,
+    /// <see langword="false"/> otherwise. If the evaluator returns
+    /// <see langword="null"/>, evaluation of any remaining rules that
+    /// have not yet run will stop.
     /// </param>
     /// <param name="error">
-    /// Mensaje de error a mostrarse si la regla falla.
+    /// Error message to display if the rule fails.
     /// </param>
     /// <returns>
-    /// La misma instancia de regla de validación, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same validation-entry instance to allow Fluent syntax.
     /// </returns>
     IValidationEntry<T> AddRule(Func<T, bool?> rule, string error);
 
     /// <summary>
-    /// Agrega una regla de validación para la propiedad seleccionada.
+    /// Adds a validation rule for the selected property.
     /// </summary>
     /// <param name="rule">
-    /// Función que ejecuta la validación. La función debe devolver 
-    /// <see langword="true"/> si la propiedad pasa satisfactoriamente
-    /// la prueba, <see langword="false"/> en caso contrario.
+    /// Function that performs the validation. The function must return
+    /// <see langword="true"/> if the value passes the test,
+    /// <see langword="false"/> otherwise.
     /// </param>
     /// <param name="error">
-    /// Mensaje de error a mostrarse si la regla falla.
+    /// Error message to display if the rule fails.
     /// </param>
     /// <returns>
-    /// La misma instancia de regla de validación, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same validation-entry instance to allow Fluent syntax.
     /// </returns>
     IValidationEntry<T> AddRule(Func<T, bool> rule, string error) => AddRule(p => (bool?)rule(p), error);
 }

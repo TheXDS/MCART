@@ -31,16 +31,14 @@ SOFTWARE.
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
-/// Define una serie de métodos a implementar por una clase que exponga
-/// una entidad dentro de una clase ViewModel del patrón MVVM.
+/// Defines members to be implemented by a class that exposes an
+/// entity within an MVVM ViewModel.
 /// </summary>
-/// <typeparam name="T">
-/// Tipo de entidad a controlar.
-/// </typeparam>
+/// <typeparam name="T">Type of entity to manage.</typeparam>
 public interface IEntityViewModel<T> : IEntityViewModel
 {
     /// <summary>
-    /// Instancia de la entidad controlada por este ViewModel.
+    /// The entity instance managed by this ViewModel.
     /// </summary>
     new T Entity { get; set; }
 

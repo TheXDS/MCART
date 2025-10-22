@@ -37,20 +37,20 @@ using NcchEa = System.Collections.Specialized.NotifyCollectionChangedEventArgs;
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
-/// Clase base para los envoltorios observables de colecciones.
+/// Base class for observable collection wrappers.
 /// </summary>
 [DebuggerStepThrough]
 public abstract class ObservableWrapBase : NotifyPropertyChanged, INotifyCollectionChanged, IEnumerable
 {
     /// <summary>
-    /// Se produce al ocurrir un cambio en la colección.
+    /// Occurs when the collection changes.
     /// </summary>
     public event NotifyCollectionChangedEventHandler? CollectionChanged;
 
     /// <summary>
-    /// Genera el evento <see cref="CollectionChanged"/>.
+    /// Raises the <see cref="CollectionChanged"/> event.
     /// </summary>
-    /// <param name="eventArgs">Argumentos del evento.</param>
+    /// <param name="eventArgs">Event arguments.</param>
     protected void RaiseCollectionChanged(NcchEa eventArgs)
     {
         CollectionChanged?.Invoke(this, eventArgs);
@@ -60,22 +60,20 @@ public abstract class ObservableWrapBase : NotifyPropertyChanged, INotifyCollect
     public IEnumerator GetEnumerator() => OnGetEnumerator();
 
     /// <summary>
-    /// Obtiene un enumerador que itera sobre la colección.
+    /// Gets an enumerator that iterates through the collection.
     /// </summary>
     /// <returns>
-    /// Un enumerador que puede ser utilizado para iterar sobre la colección.
+    /// An enumerator that can be used to iterate over the collection.
     /// </returns>
     protected abstract IEnumerator OnGetEnumerator();
 
     /// <summary>
-    /// Obtiene el índice del elemento especificado.
+    /// Gets the index of the specified item.
     /// </summary>
-    /// <param name="item">
-    /// Elemento para el cual buscar el índice.
-    /// </param>
+    /// <param name="item">Item for which to find the index.</param>
     /// <returns>
-    /// El índice del elemento especificado, o <c>-1</c> si el elemento
-    /// no se encuentra en la colección.
+    /// The index of the specified item, or <c>-1</c> if the item is
+    /// not found in the collection.
     /// </returns>
     public virtual int IndexOf(object item)
     {
@@ -89,12 +87,9 @@ public abstract class ObservableWrapBase : NotifyPropertyChanged, INotifyCollect
     }
 
     /// <summary>
-    /// Obliga a refrescar el estado de un elemento dentro de la
-    /// colección.
+    /// Forces refresh of a single item within the collection.
     /// </summary>
-    /// <param name="item">
-    /// Elemento a refrescar.
-    /// </param>
+    /// <param name="item">Item to refresh.</param>
     public void RefreshItem(object? item)
     {
         if (item is null || !Contains(item)) return;
@@ -110,15 +105,13 @@ public abstract class ObservableWrapBase : NotifyPropertyChanged, INotifyCollect
     }
 
     /// <summary>
-    /// Determina si la secuencia subyacente contiene al elemento
-    /// especificado.
+    /// Determines whether the underlying sequence contains the
+    /// specified item.
     /// </summary>
-    /// <param name="item">
-    /// Elemento a buscar dentro de la secuencia.
-    /// </param>
+    /// <param name="item">Item to locate in the sequence.</param>
     /// <returns>
-    /// <see langword="true"/> si la secuencia contiene al elemento
-    /// especificado, <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if the sequence contains the specified
+    /// item; otherwise, <see langword="false"/>.
     /// </returns>
     public virtual bool Contains(object item)
     {

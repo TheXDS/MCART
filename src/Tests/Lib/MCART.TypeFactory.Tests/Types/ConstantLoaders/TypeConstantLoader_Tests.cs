@@ -26,18 +26,17 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace TheXDS.MCART.TypeFactory.Tests.Types.ConstantLoaders
+namespace TheXDS.MCART.TypeFactory.Tests.Types.ConstantLoaders;
+
+public class TypeConstantLoader_Tests : ConstantLoaderTestBase<Type>
 {
-    public class TypeConstantLoader_Tests : ConstantLoaderTestBase<Type>
+    private static IEnumerable<Type> GetValues()
     {
-        private static IEnumerable<Type> GetValues()
-        {
-            yield return typeof(object);
-            yield return typeof(int);
-        }
-    
-        public TypeConstantLoader_Tests() : base(GetValues)
-        {
-        }
+        yield return typeof(object);
+        yield return typeof(int);
+    }
+
+    public TypeConstantLoader_Tests() : base(GetValues)
+    {
     }
 }

@@ -34,27 +34,25 @@ using TheXDS.MCART.Helpers;
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
-/// Ejecuta validaciones de datos dentro de un 
-/// <see cref="IValidatingViewModel"/>.
+/// Executes data validations within an <see cref="IValidatingViewModel"/>.
 /// </summary>
 /// <typeparam name="T">
-/// Tipo de ViewModel cuyos datos serán validados con esta instancia.
+/// The ViewModel type whose data will be validated by this instance.
 /// </typeparam>
 /// <param name="npcSource">
-/// Instancia que es el origen de los datos de validación.
+/// Instance that is the source of validation data.
 /// </param>
 public sealed class ValidationSource<T>(T npcSource) : ValidationSource(npcSource) where T : IValidatingViewModel
 {
     /// <summary>
-    /// Registra un conjunto de reglas en la instancia de validación.
+    /// Registers a set of rules in the validation instance.
     /// </summary>
-    /// <typeparam name="TValue">Tipo de la propiedad.</typeparam>
+    /// <typeparam name="TValue">Type of the property.</typeparam>
     /// <param name="propertySelector">
-    /// Expresión que selecciona la propiedad a configurar.
+    /// Expression that selects the property to configure.
     /// </param>
     /// <returns>
-    /// La misma instancia de validación, lo cual permite utilizar sintaxis
-    /// Fluent.
+    /// The same validation-instance to allow Fluent syntax.
     /// </returns>
     public IValidationEntry<TValue> RegisterValidation<TValue>(Expression<Func<T, TValue>> propertySelector)
     {
@@ -64,15 +62,14 @@ public sealed class ValidationSource<T>(T npcSource) : ValidationSource(npcSourc
     }
 
     /// <summary>
-    /// Enumera los errores de validación para la propiedad
-    /// <paramref name="propertySelector"/>.
+    /// Enumerates validation errors for the specified property.
     /// </summary>
     /// <param name="propertySelector">
-    /// Propiedad para la cual obtener los errores de validación.
+    /// Property for which to obtain validation errors.
     /// </param>
     /// <returns>
-    /// Una enumeración con todos los errores de validación de la propiedad
-    /// seleccionada.
+    /// An enumeration with all validation errors for the selected
+    /// property.
     /// </returns>
     public IEnumerable<string> GetErrors(Expression<Func<T, object?>> propertySelector)
     {

@@ -37,42 +37,40 @@ using NcchEa = System.Collections.Specialized.NotifyCollectionChangedEventArgs;
 namespace TheXDS.MCART.Types;
 
 /// <summary>
-/// Envuelve un diccionario para proveerlo de eventos de notificación
-/// de cambio de propiedad y contenido.
+/// Wraps a dictionary to provide property and collection changed
+/// notification events.
 /// </summary>
 /// <typeparam name="TKey">
-/// Tipo de índice del diccionario.
+/// Type of the dictionary keys.
 /// </typeparam>
 /// <typeparam name="TValue">
-/// Tipo de elementos contenidos dentro del diccionario.
+/// Type of elements contained in the dictionary.
 /// </typeparam>
 public class ObservableDictionaryWrap<TKey, TValue> : ObservableWrap<KeyValuePair<TKey, TValue>, IDictionary<TKey, TValue>>, IDictionary<TKey, TValue> where TKey : notnull
 {
     /// <summary>
-    /// Inicializa una nueva instancia de la clase 
-    /// <see cref="ObservableDictionaryWrap{TKey, TValue}"/>.
+    /// Initializes a new instance of the
+    /// <see cref="ObservableDictionaryWrap{TKey, TValue}"/> class.
     /// </summary>
     public ObservableDictionaryWrap() { }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase 
-    /// <see cref="ObservableDictionaryWrap{TKey, TValue}"/>.
+    /// Initializes a new instance of the
+    /// <see cref="ObservableDictionaryWrap{TKey, TValue}"/> class.
     /// </summary>
     /// <param name="collection">
-    /// Colección a utilizar como el diccionario subyacente.
+    /// Collection to use as the underlying dictionary.
     /// </param>
     public ObservableDictionaryWrap(IDictionary<TKey, TValue> collection) : base(collection) { }
 
     /// <summary>
-    /// Obtiene o establece el valor del objeto en el índice
-    /// especificado dentro del diccionario.
+    /// Gets or sets the value at the specified key in the dictionary.
     /// </summary>
     /// <param name="key">
-    /// Índice del valor a obtener/establecer.
+    /// Key of the value to get or set.
     /// </param>
     /// <returns>
-    /// El valor encontrado en el índice especificado dentro del
-    /// diccionario.
+    /// The value found at the specified key in the dictionary.
     /// </returns>
     public TValue this[TKey key]
     {
@@ -98,23 +96,23 @@ public class ObservableDictionaryWrap<TKey, TValue> : ObservableWrap<KeyValuePai
     }
 
     /// <summary>
-    /// Obtiene una colección con todas las llaves del diccionario.
+    /// Gets a collection containing all keys in the dictionary.
     /// </summary>
     public ICollection<TKey> Keys => UnderlyingCollection?.Keys ?? [];
 
     /// <summary>
-    /// Obtiene una colección con todos los valores del diccionario.
+    /// Gets a collection containing all values in the dictionary.
     /// </summary>
     public ICollection<TValue> Values => UnderlyingCollection?.Values ?? [];
 
     /// <summary>
-    /// Agrega un valor a este diccionario en el índice especificado.
+    /// Adds a value to this dictionary with the specified key.
     /// </summary>
     /// <param name="key">
-    /// Índice a utilizar.
+    /// Key to use.
     /// </param>
     /// <param name="value">
-    /// Valor a agregar al diccionario.
+    /// Value to add to the dictionary.
     /// </param>
     public void Add(TKey key, TValue value)
     {
@@ -125,28 +123,28 @@ public class ObservableDictionaryWrap<TKey, TValue> : ObservableWrap<KeyValuePai
     }
 
     /// <summary>
-    /// Determina si el índice existe en el diccionario.
+    /// Determines whether the specified key exists in the dictionary.
     /// </summary>
     /// <param name="key">
-    /// Índice a buscar dentro del diccionario.
+    /// Key to look for in the dictionary.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si el índice existe dentro del
-    /// diccionario, <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if the key exists in the dictionary;
+    /// otherwise <see langword="false"/>.
     /// </returns>
     public bool ContainsKey(TKey key) => UnderlyingCollection?.ContainsKey(key) ?? false;
 
     /// <summary>
-    /// Quita al elemento con el índice especificado del diccionario.
+    /// Removes the element with the specified key from the dictionary.
     /// </summary>
     /// <param name="key">
-    /// Índice a quitar.
+    /// Key to remove.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si se ha quitado el índice del
-    /// diccionario exitosamente, <see langword="false"/> si el índice
-    /// no existía en el diccionario o si ocurre otro problema al
-    /// intentar realizar la operación.
+    /// <see langword="true"/> if the key was successfully removed from
+    /// the dictionary; <see langword="false"/> if the key did not exist
+    /// in the dictionary or if another error occurred while attempting
+    /// the operation.
     /// </returns>
     /// 
     public bool Remove(TKey key)
@@ -160,23 +158,23 @@ public class ObservableDictionaryWrap<TKey, TValue> : ObservableWrap<KeyValuePai
     }
 
     /// <summary>
-    /// Intenta obtener un valor dentro del diccionario.
+    /// Attempts to get a value from the dictionary.
     /// </summary>
-    /// <param name="key">Índice del valor a obtener.</param>
+    /// <param name="key">Key of the value to get.</param>
     /// <param name="value">
-    /// Parámetro de salida. Valor obtenido del diccionario en el
-    /// índice especificado.
+    /// Output parameter. Value obtained from the dictionary at the
+    /// specified key.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si se ha obtenido el valor del
-    /// diccionario correctamente, <see langword="false"/> si el índice
-    /// no existía en el diccionario o si ocurre otro problema
-    /// obteniendo el valor.
+    /// <see langword="true"/> if the value was obtained from the
+    /// dictionary successfully; <see langword="false"/> if the key did
+    /// not exist in the dictionary or if another error occurred while
+    /// obtaining the value.
     /// </returns>
     public bool TryGetValue(TKey key, [MaybeNullWhen(false)] out TValue value)
     {
-        if (UnderlyingCollection is not null) 
-        { 
+        if (UnderlyingCollection is not null)
+        {
             return UnderlyingCollection.TryGetValue(key, out value!);
         }
         value = default!;

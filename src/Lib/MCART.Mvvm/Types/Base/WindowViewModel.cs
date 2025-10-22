@@ -31,7 +31,7 @@ SOFTWARE.
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
-/// ViewModel con propiedades básicas de gestión de la ventana.
+/// ViewModel with basic window management properties.
 /// </summary>
 public class WindowViewModel : ViewModelBase
 {
@@ -39,7 +39,7 @@ public class WindowViewModel : ViewModelBase
     private Size _size;
 
     /// <summary>
-    /// Obtiene o establece el título de la ventana.
+    /// Gets or sets the window title.
     /// </summary>
     public string Title
     {
@@ -48,7 +48,7 @@ public class WindowViewModel : ViewModelBase
     }
 
     /// <summary>
-    /// Obtiene o establece la altura deseada de la ventana.
+    /// Gets or sets the desired window height.
     /// </summary>
     public double WindowHeight
     {
@@ -62,7 +62,7 @@ public class WindowViewModel : ViewModelBase
     }
 
     /// <summary>
-    /// Obtiene o establece el ancho deseado de la ventana.
+    /// Gets or sets the desired window width.
     /// </summary>
     public double WindowWidth
     {
@@ -76,7 +76,7 @@ public class WindowViewModel : ViewModelBase
     }
 
     /// <summary>
-    /// Obtiene o establece el tamaño deseado de la ventana.
+    /// Gets or sets the desired window size.
     /// </summary>
     public Size WindowSize
     {

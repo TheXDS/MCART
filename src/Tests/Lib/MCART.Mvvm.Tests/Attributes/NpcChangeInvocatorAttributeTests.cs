@@ -30,17 +30,16 @@ using TheXDS.MCART.Attributes;
 using TheXDS.MCART.Types.Base;
 using TheXDS.MCART.Types.Extensions;
 
-namespace TheXDS.MCART.Mvvm.Tests.Attributes
+namespace TheXDS.MCART.Mvvm.Tests.Attributes;
+
+public class NpcChangeInvocatorAttributeTests
 {
-    public class NpcChangeInvocatorAttributeTests
+    [Test]
+    public void NpcChangeInvocatorAttribute_test()
     {
-        [Test]
-        public void NpcChangeInvocatorAttribute_test()
-        {
-            var attribute = typeof(NotifyPropertyChangeBase)
-                .GetMethod("Change", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!
-                .GetAttribute<NpcChangeInvocatorAttribute>();
-            Assert.That(attribute, Is.AssignableTo<Attribute>());
-        }
+        var attribute = typeof(NotifyPropertyChangeBase)
+            .GetMethod("Change", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!
+            .GetAttribute<NpcChangeInvocatorAttribute>();
+        Assert.That(attribute, Is.AssignableTo<Attribute>());
     }
 }

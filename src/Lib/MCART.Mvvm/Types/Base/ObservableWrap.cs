@@ -38,52 +38,51 @@ using NcchEa = System.Collections.Specialized.NotifyCollectionChangedEventArgs;
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
-/// Clase base para los envoltorios observables de colecciones.
+/// Base class for observable collection wrappers.
 /// </summary>
-/// <typeparam name="T">Tipo de elementos de la colección.</typeparam>
-/// <typeparam name="TCollection">Tipo de colección.</typeparam>
+/// <typeparam name="T">Type of elements in the collection.</typeparam>
+/// <typeparam name="TCollection">Type of the collection.</typeparam>
 [DebuggerStepThrough]
 public abstract class ObservableWrap<T, TCollection> : ObservableWrapBase, ICollection<T> where TCollection : ICollection<T>
 {
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="ObservableWrap{T, TCollection}"/>.
+    /// Initializes a new instance of the
+    /// <see cref="ObservableWrap{T, TCollection}"/> class.
     /// </summary>
     protected ObservableWrap()
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase 
-    /// <see cref="ObservableWrap{T, TCollection}"/>.
+    /// Initializes a new instance of the
+    /// <see cref="ObservableWrap{T, TCollection}"/> class.
     /// </summary>
-    /// <param name="collection"></param>
+    /// <param name="collection">Initial underlying collection.</param>
     protected ObservableWrap(TCollection collection)
     {
         UnderlyingCollection = collection;
     }
 
     /// <summary>
-    /// Obtiene acceso directo a la colección subyacente envuelta por
-    /// este <see cref="ObservableWrap{T, TCollection}"/>.
+    /// Gets direct access to the underlying collection wrapped by this
+    /// <see cref="ObservableWrap{T, TCollection}"/>.
     /// </summary>
     public TCollection? UnderlyingCollection { get; private set; } = default;
 
     /// <summary>
-    /// Obtiene la cuenta de elementos contenidos dentro de la
-    /// colección.
+    /// Gets the number of elements contained in the collection.
     /// </summary>
     public int Count => UnderlyingCollection?.Count ?? 0;
 
     /// <summary>
-    /// Obtiene un valor que indica si la colección es de solo lectura.
+    /// Gets a value indicating whether the collection is read-only.
     /// </summary>
     public bool IsReadOnly => UnderlyingCollection?.IsReadOnly ?? true;
 
     /// <summary>
-    /// Agrega un nuevo elemento al final de la colección.
+    /// Adds a new item to the end of the collection.
     /// </summary>
-    /// <param name="item">Elemento a agregar.</param>
+    /// <param name="item">Item to add.</param>
     public void Add(T item)
     {
         if (UnderlyingCollection is null) throw new InvalidOperationException();
@@ -93,7 +92,7 @@ public abstract class ObservableWrap<T, TCollection> : ObservableWrapBase, IColl
     }
 
     /// <summary>
-    /// Limpia la colección.
+    /// Clears the collection.
     /// </summary>
     public void Clear()
     {
@@ -104,11 +103,11 @@ public abstract class ObservableWrap<T, TCollection> : ObservableWrapBase, IColl
     }
 
     /// <summary>
-    /// Copia el contenido de esta colección sobre un arreglo.
+    /// Copies the elements of this collection to an array.
     /// </summary>
-    /// <param name="array">Destino de la copia.</param>
+    /// <param name="array">Destination array.</param>
     /// <param name="arrayIndex">
-    /// Índice donde empezar a copiar elementos.
+    /// Index in the destination at which copying begins.
     /// </param>
     public void CopyTo(T[] array, int arrayIndex)
     {
@@ -116,15 +115,14 @@ public abstract class ObservableWrap<T, TCollection> : ObservableWrapBase, IColl
     }
 
     /// <summary>
-    /// Quita un elemento de la colección.
+    /// Removes an item from the collection.
     /// </summary>
-    /// <param name="item">Elemento a quitar.</param>
+    /// <param name="item">Item to remove.</param>
     /// <returns>
-    /// <see langword="true"/> si el elemento ha sido quitado
-    /// exitosamente de la colección, <see langword="false"/> en caso
-    /// contrario. También se devuelve <see langword="false"/> si el
-    /// elemento no existía en la <see cref="ICollection{T}"/>
-    /// original.
+    /// <see langword="true"/> if the item was successfully removed from
+    /// the collection; <see langword="false"/> otherwise. Also returns
+    /// <see langword="false"/> if the item did not exist in the original
+    /// <see cref="ICollection{T}"/>.
     /// </returns>
     public bool Remove(T item)
     {
@@ -141,10 +139,10 @@ public abstract class ObservableWrap<T, TCollection> : ObservableWrapBase, IColl
     }
 
     /// <summary>
-    /// Obtiene un enumerador que itera sobre la colección.
+    /// Gets an enumerator that iterates through the collection.
     /// </summary>
     /// <returns>
-    /// Un enumerador que puede ser utilizado para iterar sobre la colección.
+    /// An enumerator that can be used to iterate over the collection.
     /// </returns>
     public new IEnumerator<T> GetEnumerator()
     {
@@ -152,10 +150,10 @@ public abstract class ObservableWrap<T, TCollection> : ObservableWrapBase, IColl
     }
 
     /// <summary>
-    /// Obtiene un enumerador que itera sobre la colección.
+    /// Gets an enumerator that iterates through the collection.
     /// </summary>
     /// <returns>
-    /// Un enumerador que puede ser utilizado para iterar sobre la colección.
+    /// An enumerator that can be used to iterate over the collection.
     /// </returns>
     protected override IEnumerator OnGetEnumerator()
     {
@@ -163,7 +161,7 @@ public abstract class ObservableWrap<T, TCollection> : ObservableWrapBase, IColl
     }
 
     /// <summary>
-    /// Obliga a notificar un cambio en la colección.
+    /// Forces a notification that the collection has changed.
     /// </summary>
     public override void Refresh()
     {
@@ -172,10 +170,10 @@ public abstract class ObservableWrap<T, TCollection> : ObservableWrapBase, IColl
     }
 
     /// <summary>
-    /// Sustituye la colección subyacente por una nueva.
+    /// Replaces the underlying collection with a new one.
     /// </summary>
     /// <param name="newCollection">
-    /// Colección a establecer como la colección subyacente.
+    /// The collection to set as the underlying collection.
     /// </param>
     public void Substitute(TCollection? newCollection)
     {
@@ -183,19 +181,19 @@ public abstract class ObservableWrap<T, TCollection> : ObservableWrapBase, IColl
         RaiseCollectionChanged(new NcchEa(Reset));
         UnderlyingCollection = newCollection;
         if (newCollection is not null)
-        { 
+        {
             RaiseCollectionChanged(new NcchEa(Nccha.Add, (IList)newCollection));
         }
         Notify(nameof(Count));
     }
 
     /// <summary>
-    /// Elimina todos los elementos de la colección subyacente y los
-    /// reemplaza con los elementos de la colección especificada.
+    /// Removes all items from the underlying collection and replaces
+    /// them with the items from the specified collection.
     /// </summary>
     /// <param name="newCollection">
-    /// Colección con los elementos a agregar a la colección
-    /// subyacente.
+    /// Collection whose items will be added to the underlying
+    /// collection.
     /// </param>
     public void Replace(TCollection newCollection)
     {
@@ -213,15 +211,13 @@ public abstract class ObservableWrap<T, TCollection> : ObservableWrapBase, IColl
     }
 
     /// <summary>
-    /// Determina si la secuencia subyacente contiene al elemento
-    /// especificado.
+    /// Determines whether the underlying sequence contains the specified
+    /// item.
     /// </summary>
-    /// <param name="item">
-    /// Elemento a buscar dentro de la secuencia.
-    /// </param>
+    /// <param name="item">Item to locate in the sequence.</param>
     /// <returns>
-    /// <see langword="true"/> si la secuencia contiene al elemento
-    /// especificado, <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if the sequence contains the specified
+    /// item; otherwise, <see langword="false"/>.
     /// </returns>
     public virtual bool Contains(T item) => UnderlyingCollection?.Contains(item) ?? false;
 }

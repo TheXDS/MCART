@@ -37,7 +37,7 @@ using TheXDS.MCART.Helpers;
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
-/// Clase base para la creación de ViewModels.
+/// Base class for creating ViewModels.
 /// </summary>
 public abstract partial class ViewModelBase : NotifyPropertyChanged
 {
@@ -45,8 +45,7 @@ public abstract partial class ViewModelBase : NotifyPropertyChanged
     private readonly Dictionary<string, HashSet<Action>> _observeRegistry = [];
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase 
-    /// <see cref="ViewModelBase"/>.
+    /// Initializes a new instance of the <see cref="ViewModelBase"/> class.
     /// </summary>
     protected ViewModelBase()
     {
@@ -54,8 +53,8 @@ public abstract partial class ViewModelBase : NotifyPropertyChanged
     }
 
     /// <summary>
-    /// Obtiene un valor que indica si este <see cref="ViewModelBase"/>
-    /// está ocupado.
+    /// Gets a value indicating whether this <see cref="ViewModelBase"/> is
+    /// busy.
     /// </summary>
     public bool IsBusy
     {
@@ -64,23 +63,23 @@ public abstract partial class ViewModelBase : NotifyPropertyChanged
     }
 
     /// <summary>
-    /// Registra una propiedad con notificación de cambio de valor para ser
-    /// observada y manejada por el delegado especificado.
+    /// Registers a property with change notification to be observed and
+    /// handled by the specified delegate.
     /// </summary>
-    /// <typeparam name="T">Tipo de la propiedad.</typeparam>
+    /// <typeparam name="T">Type of the property.</typeparam>
     /// <param name="propertySelector">
-    /// Función selectora de la propiedad a observar.
+    /// Selector function for the property to observe.
     /// </param>
     /// <param name="handler">
-    /// Delegado a invocar cuando la propiedad haya cambiado.
+    /// Delegate to invoke when the property has changed.
     /// </param>
     /// <exception cref="InvalidArgumentException">
-    /// Se produce si la función de selección de propiedad no ha
-    /// seleccionado un miembro válido de la instancia a configurar.
+    /// Thrown if the property selector does not select a valid member on
+    /// the instance to configure.
     /// </exception>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="propertySelector"/> o
-    /// <paramref name="handler"/> son <see langword="null"/>.
+    /// Thrown if <paramref name="propertySelector"/> or
+    /// <paramref name="handler"/> is <see langword="null"/>.
     /// </exception>
     protected void Observe<T>(Expression<Func<T>> propertySelector, Action handler)
     {
@@ -89,26 +88,25 @@ public abstract partial class ViewModelBase : NotifyPropertyChanged
     }
 
     /// <summary>
-    /// Registra una propiedad con notificación de cambio de valor para ser
-    /// observada y manejada por el delegado especificado.
+    /// Registers properties with change notification to be observed and
+    /// handled by the specified delegate.
     /// </summary>
     /// <param name="propertySelectors">
-    /// Funciones selectoras de las propiedades a observar.
+    /// Selector functions for the properties to observe.
     /// </param>
     /// <param name="handler">
-    /// Delegado a invocar cuando cualquiera de las propiedades haya cambiado.
+    /// Delegate to invoke when any of the properties has changed.
     /// </param>
     /// <exception cref="InvalidArgumentException">
-    /// Se produce si la función de selección de propiedad no ha
-    /// seleccionado un miembro válido de la instancia a configurar.
+    /// Thrown if a property selector did not select a valid member on the
+    /// instance to configure.
     /// </exception>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="propertySelectors"/> o
-    /// <paramref name="handler"/> son <see langword="null"/>.
+    /// Thrown if <paramref name="propertySelectors"/> or
+    /// <paramref name="handler"/> is <see langword="null"/>.
     /// </exception>
     /// <exception cref="EmptyCollectionException">
-    /// Se produce si <paramref name="propertySelectors"/> no contiene
-    /// elementos.
+    /// Thrown if <paramref name="propertySelectors"/> contains no elements.
     /// </exception>
     protected void Observe(Expression<Func<object?>>[] propertySelectors, Action handler)
     {
@@ -120,22 +118,20 @@ public abstract partial class ViewModelBase : NotifyPropertyChanged
     }
 
     /// <summary>
-    /// Registra una propiedad con notificación de cambio de valor para ser
-    /// observada y manejada por el delegado especificado.
+    /// Registers a property with change notification to be observed and
+    /// handled by the specified delegate.
     /// </summary>
-    /// <param name="propertyName">
-    /// Nombre de la propiedad a observar.
-    /// </param>
+    /// <param name="propertyName">Name of the property to observe.</param>
     /// <param name="handler">
-    /// Delegado a invocar cuando la propiedad haya cambiado.
+    /// Delegate to invoke when the property has changed.
     /// </param>
     /// <exception cref="InvalidArgumentException">
-    /// Se produce si <paramref name="propertyName"/> es una cadena vacía o
-    /// una cadena de espacios.
+    /// Thrown if <paramref name="propertyName"/> is an empty or whitespace
+    /// string.
     /// </exception>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="propertyName"/> o 
-    /// <paramref name="handler"/> son  <see langword="null"/>.
+    /// Thrown if <paramref name="propertyName"/> or 
+    /// <paramref name="handler"/> is <see langword="null"/>.
     /// </exception>
     protected void Observe(string propertyName, Action handler)
     {
@@ -149,23 +145,20 @@ public abstract partial class ViewModelBase : NotifyPropertyChanged
     }
 
     /// <summary>
-    /// Registra una propiedad con notificación de cambio de valor para ser
-    /// observada y manejada por el delegado especificado.
+    /// Registers properties with change notification to be observed and
+    /// handled by the specified delegate.
     /// </summary>
-    /// <param name="propertyNames">
-    /// Nombres de las propiedades a observar.
-    /// </param>
+    /// <param name="propertyNames">Names of the properties to observe.</param>
     /// <param name="handler">
-    /// Delegado a invocar cuando cualquiera de las propiedades haya cambiado.
+    /// Delegate to invoke when any of the properties has changed.
     /// </param>
     /// <exception cref="InvalidArgumentException">
-    /// Se produce si cualquiera de los elementos de
-    /// <paramref name="propertyNames"/> es <see langword="null"/>, una cadena
-    /// vacía o una cadena de espacios.
+    /// Thrown if any element of <paramref name="propertyNames"/> is
+    /// <see langword="null"/>, an empty string, or whitespace.
     /// </exception>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="propertyNames"/> o 
-    /// <paramref name="handler"/> son <see langword="null"/>.
+    /// Thrown if <paramref name="propertyNames"/> or 
+    /// <paramref name="handler"/> is <see langword="null"/>.
     /// </exception>
     protected void Observe(string[] propertyNames, Action handler)
     {
@@ -182,25 +175,24 @@ public abstract partial class ViewModelBase : NotifyPropertyChanged
     }
 
     /// <summary>
-    /// Registra una propiedad con notificación de cambio de valor para ser
-    /// observada y manejada por el delegado especificado.
+    /// Registers a property with change notification to be observed and
+    /// handled by the specified delegate.
     /// </summary>
-    /// <typeparam name="T">Tipo de la propiedad.</typeparam>
-    /// <param name="source">Origen observado.</param>
+    /// <typeparam name="T">Type of the property.</typeparam>
+    /// <param name="source">Observed source.</param>
     /// <param name="propertySelector">
-    /// Función selectora de la propiedad a observar.
+    /// Selector function for the property to observe.
     /// </param>
     /// <param name="handler">
-    /// Delegado a invocar cuando la propiedad haya cambiado.
+    /// Delegate to invoke when the property has changed.
     /// </param>
     /// <exception cref="InvalidArgumentException">
-    /// Se produce si la función de selección de propiedad no ha
-    /// seleccionado un miembro válido de la instancia a configurar.
+    /// Thrown if the property selector does not select a valid member on
+    /// the instance to configure.
     /// </exception>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="source"/>,
-    /// <paramref name="propertySelector"/> o <paramref name="handler"/>
-    /// son <see langword="null"/>.
+    /// Thrown if <paramref name="source"/>, <paramref name="propertySelector"/>,
+    /// or <paramref name="handler"/> is <see langword="null"/>.
     /// </exception>
     protected void ObserveFrom<T>(T source, Expression<Func<T, object?>> propertySelector, Action handler) where T : notnull, INotifyPropertyChanged
     {
@@ -209,22 +201,17 @@ public abstract partial class ViewModelBase : NotifyPropertyChanged
     }
 
     /// <summary>
-    /// Registra una propiedad con notificación de cambio de valor para ser
-    /// observada y manejada por el delegado especificado.
+    /// Registers a property with change notification to be observed and
+    /// handled by the specified delegate.
     /// </summary>
-    /// <param name="source">Origen observado.</param>
-    /// <param name="property">Propiedad a observar.</param>
+    /// <param name="source">Observed source.</param>
+    /// <param name="property">Property to observe.</param>
     /// <param name="handler">
-    /// Delegado a invocar cuando la propiedad haya cambiado.
+    /// Delegate to invoke when the property has changed.
     /// </param>
     /// <exception cref="ArgumentNullException">
-    /// Se produce si <paramref name="source"/>,
-    /// <paramref name="property"/> o <paramref name="handler"/> son 
-    /// <see langword="null"/>.
-    /// </exception>
-    /// <exception cref="MissingMemberException">
-    /// Se produce si la propiedad no ha sido encontrada en la instancia a
-    /// configurar.
+    /// Thrown if <paramref name="source"/>, <paramref name="property"/>,
+    /// or <paramref name="handler"/> is <see langword="null"/>.
     /// </exception>
     protected void ObserveFrom(INotifyPropertyChanged source, PropertyInfo property, Action handler)
     {
@@ -233,10 +220,10 @@ public abstract partial class ViewModelBase : NotifyPropertyChanged
     }
 
     /// <summary>
-    /// Ejecuta una acción controlando automáticamente el estado de
-    /// 'ocupado' de este ViewModel.
+    /// Executes an action while automatically managing the 'busy' state
+    /// of this ViewModel.
     /// </summary>
-    /// <param name="action">Acción a ejecutar.</param>
+    /// <param name="action">Action to execute.</param>
     protected void BusyOp(Action action)
     {
         BusyOp_Contract(action);
@@ -246,13 +233,13 @@ public abstract partial class ViewModelBase : NotifyPropertyChanged
     }
 
     /// <summary>
-    /// Ejecuta una tarea controlando automáticamente el estado de
-    /// 'ocupado' de este ViewModel.
+    /// Executes a task while automatically managing the 'busy' state of
+    /// this ViewModel.
     /// </summary>
-    /// <param name="task">Tarea a ejecutar.</param>
+    /// <param name="task">Task to execute.</param>
     /// <returns>
-    /// Un <see cref="Task"/> que puede utilizarse para monitorear la
-    /// operación asíncrona.
+    /// A <see cref="Task"/> that can be awaited to monitor the async
+    /// operation.
     /// </returns>
     protected async Task BusyOp(Task task)
     {
@@ -263,14 +250,12 @@ public abstract partial class ViewModelBase : NotifyPropertyChanged
     }
 
     /// <summary>
-    /// Ejecuta una función controlando automáticamente el estado de
-    /// 'ocupado' de este ViewModel
+    /// Executes a function while automatically managing the 'busy' state
+    /// of this ViewModel.
     /// </summary>
-    /// <typeparam name="T">Tipo de resultado de la función.</typeparam>
-    /// <param name="function">Función a ejecutar.</param>
-    /// <returns>
-    /// El resultado de ejecutar la función especificada.
-    /// </returns>
+    /// <typeparam name="T">Type of the function result.</typeparam>
+    /// <param name="function">Function to execute.</param>
+    /// <returns>The result returned by the specified function.</returns>
     protected T BusyOp<T>(Func<T> function)
     {
         BusyOp_Contract(function);
@@ -281,16 +266,14 @@ public abstract partial class ViewModelBase : NotifyPropertyChanged
     }
 
     /// <summary>
-    /// Ejecuta una tarea que devuelve un resultado controlando
-    /// automáticamente el estado de 'ocupado' de este ViewModel.
+    /// Executes a task that returns a result while automatically managing
+    /// the 'busy' state of this ViewModel.
     /// </summary>
-    /// <typeparam name="T">
-    /// Tipo de resultado devuelto por la tarea.
-    /// </typeparam>
-    /// <param name="task">Tarea a ejecutar.</param>
+    /// <typeparam name="T">Type of the task result.</typeparam>
+    /// <param name="task">Task to execute.</param>
     /// <returns>
-    /// Un <see cref="Task"/> que puede utilizarse para monitorear la
-    /// operación asíncrona.
+    /// A <see cref="Task{T}"/> that can be awaited to monitor the async
+    /// operation.
     /// </returns>
     protected async Task<T> BusyOp<T>(Task<T> task)
     {
@@ -314,7 +297,7 @@ public abstract partial class ViewModelBase : NotifyPropertyChanged
     }
 
     /// <summary>
-    /// Destruye esta instancia de la clase <see cref="ViewModelBase"/>.
+    /// Finalizes this instance of the <see cref="ViewModelBase"/> class.
     /// </summary>
     ~ViewModelBase()
     {

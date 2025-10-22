@@ -34,22 +34,22 @@ using static System.Reflection.BindingFlags;
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
-/// Clase base para un <see cref="ViewModelBase"/> cuyos campos de
-/// almacenamiento sean parte de un modelo de entidad.
+/// Base class for a <see cref="ViewModelBase"/> whose backing fields
+/// are part of an entity model.
 /// </summary>
 /// <typeparam name="T">
-/// Tipo de entidad a utilizar como almacenamiento interno de este
+/// The entity type used as the internal backing store for this
 /// ViewModel.
 /// </typeparam>
 public class EntityViewModel<T> : ViewModelBase, IEntityViewModel<T>
 {
-    private static readonly HashSet<PropertyInfo> _modelProperties = new(typeof(T).GetProperties(Public | Instance).Where(p => p.CanRead));
+    private static readonly HashSet<PropertyInfo> _modelProperties = [.. typeof(T).GetProperties(Public | Instance).Where(p => p.CanRead)];
     private static IEnumerable<PropertyInfo> WritableProperties => _modelProperties.Where(p => p.CanWrite);
 
     private T _entity = default!;
 
     /// <summary>
-    /// Instancia de la entidad controlada por este ViewModel.
+    /// The entity instance managed by this ViewModel.
     /// </summary>
     public virtual T Entity
     {
@@ -58,12 +58,12 @@ public class EntityViewModel<T> : ViewModelBase, IEntityViewModel<T>
     }
 
     /// <summary>
-    /// Edita la instancia de <typeparamref name="T"/> dentro de este
-    /// ViewModel.
+    /// Copies values from the provided <typeparamref name="T"/> into the
+    /// entity instance held by this ViewModel.
     /// </summary>
     /// <param name="entity">
-    /// Entidad con los nuevos valores a establecer en la entidad
-    /// actualmente establecida en la propiedad <see cref="Entity"/>.
+    /// The entity containing new values to apply to the current
+    /// <see cref="Entity"/> instance.
     /// </param>
     public virtual void Update(T entity)
     {
@@ -75,8 +75,8 @@ public class EntityViewModel<T> : ViewModelBase, IEntityViewModel<T>
     }
 
     /// <summary>
-    /// Notifica al sistema que las propiedades de este
-    /// <see cref="EntityViewModel{T}"/> han cambiado.
+    /// Notifies that properties of this
+    /// <see cref="EntityViewModel{T}"/> have changed.
     /// </summary>
     public override void Refresh()
     {
@@ -88,12 +88,10 @@ public class EntityViewModel<T> : ViewModelBase, IEntityViewModel<T>
     }
 
     /// <summary>
-    /// Convierte implícitamente un <see cref="EntityViewModel{T}"/>
-    /// en un <typeparamref name="T"/>.
+    /// Implicitly converts an <see cref="EntityViewModel{T}"/> to
+    /// <typeparamref name="T"/>.
     /// </summary>
-    /// <param name="vm">
-    /// <see cref="EntityViewModel{T}"/> a convertir.
-    /// </param>
+    /// <param name="vm">The <see cref="EntityViewModel{T}"/> to convert.</param>
     public static implicit operator T(EntityViewModel<T> vm)
     {
         return vm.Entity;
