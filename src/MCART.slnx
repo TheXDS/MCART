@@ -1,0 +1,145 @@
+<Solution>
+  <Folder Name="/Extras/">
+    <Project Path="Extras/ComplexTypes/ComplexTypes.csproj" />
+    <Project Path="Extras/Security.Argon2/Security.Argon2.csproj" />
+    <Project Path="Extras/ViewModelFactory/ViewModelFactory.csproj" />
+    <Project Path="Extras/Wpf.CommonDialogs/Wpf.CommonDialogs.csproj" />
+    <Project Path="Extras/Wpf.Controls.ModernWindow/Wpf.Controls.ModernWindow.csproj" />
+    <Project Path="Extras/Wpf.Controls.WebCamPane/Wpf.Controls.WebCamPane.csproj" />
+    <Project Path="Extras/Wpf.ExtraValueConverters/Wpf.ExtraValueConverters.csproj" />
+    <Project Path="Extras/Wpf.FlowDocumentExtensions/Wpf.FlowDocumentExtensions.csproj" />
+    <Project Path="Extras/Wpf.Win19041/Wpf.Win19041.csproj" />
+  </Folder>
+  <Folder Name="/Lib/">
+    <Project Path="Lib/MCART.Coloring/MCART.Coloring.csproj" />
+    <Project Path="Lib/MCART.Mvvm/MCART.Mvvm.csproj" />
+    <Project Path="Lib/MCART.Security/MCART.Security.csproj" />
+    <Project Path="Lib/MCART.TypeFactory/MCART.TypeFactory.csproj" />
+    <Project Path="Lib/MCART.UI/MCART.UI.csproj" />
+    <Project Path="Lib/MCART.Windows/MCART.Windows.csproj" />
+    <Project Path="Lib/MCART/MCART.csproj" />
+  </Folder>
+  <Folder Name="/Platform/" />
+  <Folder Name="/Platform/Avalonia/">
+    <Project Path="Platform/Avalonia/MCART.Avalonia.Common/MCART.Avalonia.Common.csproj" />
+    <Project Path="Platform/Avalonia/MCART.Avalonia.Controls/MCART.Avalonia.Controls.csproj" />
+  </Folder>
+  <Folder Name="/Platform/Shared/">
+    <Project Path="Platform/Shared/Xaml/Xaml.shproj" />
+  </Folder>
+  <Folder Name="/Platform/Winforms/">
+    <Project Path="Platform/WinForms/MCART.WinForms.Common/MCART.WinForms.Common.csproj" />
+  </Folder>
+  <Folder Name="/Platform/Wpf/">
+    <Project Path="Platform/Wpf/MCART.Wpf.Common/MCART.Wpf.Common.csproj" />
+    <Project Path="Platform/Wpf/MCART.Wpf.Controls/MCART.Wpf.Controls.csproj" />
+    <Project Path="Platform/Wpf/MCART.Wpf.Mvvm/MCART.Wpf.Mvvm.csproj" />
+  </Folder>
+  <Folder Name="/Shared/">
+    <Project Path="Shared/AssemblyInfo/AssemblyInfo.shproj" />
+    <Project Path="Shared/Internals/Internals.shproj" />
+  </Folder>
+  <Folder Name="/Solution items/">
+    <File Path=".editorconfig" />
+  </Folder>
+  <Folder Name="/Solution items/CI/" />
+  <Folder Name="/Solution items/CI/GitHub/">
+    <File Path="../.github/FUNDING.yml" />
+    <File Path="../.github/workflows/build.yml" />
+    <File Path="../.github/workflows/docfx.yml" />
+    <File Path="../.github/workflows/publish.yml" />
+  </Folder>
+  <Folder Name="/Solution items/Docs/">
+    <File Path="../LICENSE" />
+    <File Path="../README.md" />
+  </Folder>
+  <Folder Name="/Solution items/Docs/art/">
+    <File Path="../Art/MCART.ico" />
+    <File Path="../Art/MCART.png" />
+    <File Path="../Art/MCARTBadge.png" />
+    <File Path="../Art/MCARTPlugin.png" />
+  </Folder>
+  <Folder Name="/Solution items/Docs/docs/">
+    <File Path="../docs/docfx.json" />
+    <File Path="../docs/index.md" />
+    <File Path="../docs/toc.yml" />
+  </Folder>
+  <Folder Name="/Solution items/Docs/docs/api/">
+    <File Path="../docs/api/index.md" />
+  </Folder>
+  <Folder Name="/Solution items/Docs/docs/articles/">
+    <File Path="../docs/articles/CONTRIBUTING.md" />
+    <File Path="../docs/articles/intro.md" />
+    <File Path="../docs/articles/TECHINFO.md" />
+    <File Path="../docs/articles/toc.yml" />
+  </Folder>
+  <Folder Name="/Solution items/Docs/docs/articles/old/">
+    <File Path="../docs/articles/old/CHANGELOG.md" />
+    <File Path="../docs/articles/old/readme.md" />
+    <File Path="../docs/articles/old/ROADMAP.md" />
+  </Folder>
+  <Folder Name="/Solution items/Targets-src/">
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Build.targets" />
+  </Folder>
+  <Folder Name="/Solution items/Targets-src/Extras/">
+    <File Path="Extras/Directory.Build.props" />
+    <File Path="Extras/Directory.Build.targets" />
+  </Folder>
+  <Folder Name="/Solution items/Targets-src/Lib/">
+    <File Path="Lib/Directory.Build.props" />
+    <File Path="Lib/Directory.Build.targets" />
+  </Folder>
+  <Folder Name="/Solution items/Targets-src/Platform/" />
+  <Folder Name="/Solution items/Targets-src/Platform/Avalonia/">
+    <File Path="Platform/Avalonia/Directory.Build.targets" />
+  </Folder>
+  <Folder Name="/Solution items/Targets-src/Tests/">
+    <File Path="Tests/Directory.Build.targets" />
+  </Folder>
+  <Folder Name="/Solution items/Targets/">
+    <File Path="Targets/BuildPaths.props" />
+    <File Path="Targets/CompileOptions.targets" />
+    <File Path="Targets/GlobalDirectives.targets" />
+    <File Path="Targets/PackageInfo.props" />
+    <File Path="Targets/PackageVersion.props" />
+    <File Path="Targets/Shared.targets" />
+  </Folder>
+  <Folder Name="/Solution items/vs-snippets/">
+    <File Path="../vs-snippets/cctor.snippet" />
+    <File Path="../vs-snippets/nchk.snippet" />
+    <File Path="../vs-snippets/obscmd.snippet" />
+    <File Path="../vs-snippets/offendex.snippet" />
+    <File Path="../vs-snippets/pnpc.snippet" />
+    <File Path="../vs-snippets/pnpcf.snippet" />
+    <File Path="../vs-snippets/scmd.snippet" />
+    <File Path="../vs-snippets/scst.snippet" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="Tests/TestShared/TestShared.shproj" />
+  </Folder>
+  <Folder Name="/Tests/Extras/">
+    <Project Path="Tests/Extras/ComplexTypes.Tests/ComplexTypes.Tests.csproj" />
+    <Project Path="Tests/Extras/Security.Argon2.Tests/MCART.Security.Argon2.Tests.csproj" />
+    <Project Path="Tests/Extras/ViewModelFactory.Tests/ViewModelFactory.Tests.csproj" />
+    <Project Path="Tests/Extras/Wpf.Win19041.Tests/Wpf.Win19041.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Tests/Lib/">
+    <Project Path="Tests/Lib/MCART.Coloring.Tests/MCART.Coloring.Tests.csproj" />
+    <Project Path="Tests/Lib/MCART.Mvvm.Tests/MCART.Mvvm.Tests.csproj" />
+    <Project Path="Tests/Lib/MCART.Security.Tests/MCART.Security.Tests.csproj" />
+    <Project Path="Tests/Lib/MCART.Tests/MCART.Tests.csproj" />
+    <Project Path="Tests/Lib/MCART.TypeFactory.Tests/MCART.TypeFactory.Tests.csproj" />
+    <Project Path="Tests/Lib/MCART.Windows.Tests/MCART.Windows.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Tests/Platform/" />
+  <Folder Name="/Tests/Platform/Avalonia/">
+    <Project Path="Tests/Platform/Avalonia/MCART.Avalonia.Common.Tests/MCART.Avalonia.Common.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Tests/Platform/Shared/">
+    <Project Path="Tests/Platform/Shared/Xaml.Tests/Xaml.Tests.shproj" />
+  </Folder>
+  <Folder Name="/Tests/Platform/Wpf/">
+    <Project Path="Tests/Platform/Wpf/MCART.Wpf.Common.Tests/MCART.Wpf.Common.Tests.csproj" />
+  </Folder>
+</Solution>
