@@ -34,67 +34,66 @@ using TheXDS.MCART.Types.Extensions;
 namespace TheXDS.MCART.Security;
 
 /// <summary>
-/// Define una serie de miembros a implementar por un tipo que provea de 
-/// métodos para generar Hashes a partir de contraseñas que puedan ser
-/// almacenados de forma segura.
+/// Defines a set of members that a type must implement to generate
+/// hashes from passwords that can be stored securely.
 /// </summary>
 public interface IPasswordStorage
 {
     /// <summary>
-    /// Obtiene el nombre del algoritmo.
+    /// Gets the algorithm name.
     /// </summary>
     string AlgId => GetType().Name.ChopEndAny("PasswordStorage", "Storage").ToUpperInvariant();
 
     /// <summary>
-    /// Obtiene la configuración a partir del bloque especificado, haciendo
-    /// avanzar el lector la cantidad de bytes requeridos por la configuración
-    /// de esta instancia.
+    /// Obtains configuration from the specified block, advancing the
+    /// reader by the number of bytes required by this instance's
+    /// configuration.
     /// </summary>
     /// <param name="reader">
-    /// Objeto a partir del cual leer los valores de configuración.
+    /// Object from which configuration values are read.
     /// </param>
     void ConfigureFrom(BinaryReader reader);
 
     /// <summary>
-    /// Vuelca los valores de configuración en formato binario.
+    /// Writes configuration values in binary format.
     /// </summary>
     /// <returns>
-    /// Un arreglo de bytes a partir del cual se puede volver a construir el
-    /// objeto que contiene los valores de configuración de derivación de
-    /// claves para esta instancia.
+    /// A byte array that can be used to reconstruct the key‑derivation
+    /// configuration for this instance.
     /// </returns>
     byte[] DumpSettings();
 
     /// <summary>
-    /// Genera un blob binario que puede ser almacenado en una base de datos.
+    /// Generates a binary blob that can be stored in a database.
     /// </summary>
     /// <param name="input">
-    /// Contraseña a partir de la cual derivar una clave.
+    /// Password from which to derive a key.
     /// </param>
     /// <returns>
-    /// Un arreglo de bytes con la clave derivada a partir de la contraseña 
-    /// especificada.</returns>
+    /// A byte array containing the key derived from the specified
+    /// password.
+    /// </returns>
     byte[] Generate(byte[] input);
 
     /// <summary>
-    /// Genera un blob binario que puede ser almacenado en una base de datos.
+    /// Generates a binary blob that can be stored in a database.
     /// </summary>
     /// <param name="input">
-    /// Contraseña a partir de la cual derivar una clave.
+    /// Password from which to derive a key.
     /// </param>
     /// <returns>
-    /// Un arreglo de bytes con la clave derivada a partir de la contraseña 
-    /// especificada.</returns>
+    /// A byte array containing the key derived from the specified
+    /// password.
+    /// </returns>
     byte[] Generate(SecureString input) => Generate(System.Text.Encoding.UTF8.GetBytes(input.Read()));
 
     /// <summary>
-    /// Obtiene un valor que indica la cantidad de bytes de clave que esta
-    /// instancia generará.
+    /// Gets the number of key bytes this instance will generate.
     /// </summary>
     int KeyLength { get; }
 
     /// <summary>
-    /// Obtiene un objeto que contiene la configuración del algoritmo.
+    /// Gets an object containing the algorithm configuration.
     /// </summary>
     public object? Settings => null;
 }

@@ -33,18 +33,17 @@ using St = TheXDS.MCART.Resources.Strings.SecurityErrors;
 namespace TheXDS.MCART.Resources;
 
 /// <summary>
-/// Contiene distintas excepciones que pueden ser lanzadas por MCART.Security.
+/// Contains various exceptions that may be thrown by MCART.Security.
 /// </summary>
 public static class SecurityErrors
 {
     /// <summary>
-    /// Crea una nueva instancia de un <see cref="InvalidTypeException"/>
-    /// que se produce cuando no es posible configurar un objeto
-    /// <see cref="IPasswordStorage"/>.
+    /// Creates a new instance of an <see cref="InvalidTypeException"/>
+    /// that is thrown when an <see cref="IPasswordStorage"/> object cannot be configured.
     /// </summary>
-    /// <param name="t">Tipo del objeto que se intentó configurar.</param>
+    /// <param name="t">The type of the object that was attempted to be configured.</param>
     /// <returns>
-    /// Una nueva instancia de la clase <see cref="InvalidTypeException"/>.
+    /// A new instance of the <see cref="InvalidTypeException"/> class.
     /// </returns>
     public static InvalidTypeException CannotConfigurePwStorage(Type t)
     {

@@ -37,26 +37,20 @@ using static System.Reflection.Emit.OpCodes;
 
 namespace TheXDS.MCART.Types.Extensions;
 
-/// <summary>
-/// Contiene extensiones útiles para la generación de código por medio
-/// de la clase <see cref="ILGenerator"/>.
-/// </summary>
 public static partial class ILGeneratorExtensions
 {
     /// <summary>
-    /// Inserta la carga de la referencia a una variable local en la
-    /// secuencia del lenguaje intermedio de Microsoft® (MSIL).
+    /// Inserts the loading of a local variable's address into the MSIL
+    /// instruction stream.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar la carga de la
-    /// referencia.
+    /// The ILGenerator instance where the address load will be inserted.
     /// </param>
     /// <param name="local">
-    /// Variable local para la cual cargar la referencia.
+    /// Local variable for which to load the reference.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same ILGenerator instance, enabling fluent syntax.
     /// </returns>
     public static ILGenerator LoadLocalAddress(this ILGenerator ilGen, LocalBuilder local)
     {
@@ -65,19 +59,17 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta la carga del valor de una variable local en la secuencia
-    /// del lenguaje intermedio de Microsoft® (MSIL).
+    /// Inserts the loading of a local variable's value into the MSIL
+    /// instruction stream.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar la carga del
-    /// valor.
+    /// The ILGenerator instance where the value load will be inserted.
     /// </param>
     /// <param name="local">
-    /// Variable local desde la cual cargar el valor.
+    /// Local variable from which to load the value.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same ILGenerator instance, enabling fluent syntax.
     /// </returns>
     public static ILGenerator LoadLocal(this ILGenerator ilGen, LocalBuilder local)
     {
@@ -86,19 +78,17 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta el almacenamiento de un valor a una variable local en la
-    /// secuencia del lenguaje intermedio de Microsoft® (MSIL).
+    /// Inserts the storage of a value into a local variable in the MSIL
+    /// instruction stream.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar el almacenamiento de
-    /// un valor.
+    /// The ILGenerator instance where the value will be stored.
     /// </param>
     /// <param name="local">
-    /// Variable local en la cual almacenar el valor.
+    /// Local variable where the value will be stored.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same ILGenerator instance, enabling fluent syntax.
     /// </returns>
     public static ILGenerator StoreLocal(this ILGenerator ilGen, LocalBuilder local)
     {
@@ -107,19 +97,20 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta el almacenamiento de un valor a una nueva variable local en
-    /// la secuencia del lenguaje intermedio de Microsoft® (MSIL).
+    /// Declares a new local variable of type T, stores a value into it,
+    /// and returns the ILGenerator instance for fluent usage.
     /// </summary>
+    /// <typeparam name="T">
+    /// The type of the local variable to declare.
+    /// </typeparam>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar el almacenamiento de
-    /// un valor.
+    /// The ILGenerator instance where the value will be stored.
     /// </param>
     /// <param name="local">
-    /// Variable local en la cual almacenar el valor.
+    /// The newly declared local variable that will hold the value.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same ILGenerator instance, enabling fluent syntax.
     /// </returns>
     public static ILGenerator StoreNewLocal<T>(this ILGenerator ilGen, out LocalBuilder local)
     {
@@ -129,22 +120,20 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta el almacenamiento de un valor a una nueva variable local en
-    /// la secuencia del lenguaje intermedio de Microsoft® (MSIL).
+    /// Declares a new local variable of the specified type, stores a value
+    /// into it, and returns the ILGenerator instance for fluent usage.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar el almacenamiento de
-    /// un valor.
+    /// The ILGenerator instance where the value will be stored.
     /// </param>
     /// <param name="localType">
-    /// Tipo de la variable local a declarar.
+    /// Type of the local variable to declare.
     /// </param>
     /// <param name="local">
-    /// Variable local en la cual almacenar el valor.
+    /// The newly declared local variable that will hold the value.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same ILGenerator instance, enabling fluent syntax.
     /// </returns>
     public static ILGenerator StoreNewLocal(this ILGenerator ilGen, Type localType, out LocalBuilder local)
     {
@@ -154,26 +143,24 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta la carga del valor de un campo en la secuencia del lenguaje
-    /// intermedio de Microsoft® (MSIL).
+    /// Inserts the load of a field value into the MSIL instruction stream.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar la carga del valor.
+    /// The ILGenerator sequence where the value load will be inserted.
     /// </param>
     /// <param name="field">
-    /// Campo desde el cual cargar el valor.
+    /// The field from which to load the value.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same ILGenerator instance, enabling fluent syntax.
     /// </returns>
     /// <remarks>
-    /// Este método determinará automáticamente si es necesario agregar una
-    /// referencia a <see langword="this"/> (<see langword="Me"/> en Visual
-    /// Basic) en caso que el campo sea estático, por lo que no debe insertar
-    /// la llamada a cargar la instancia (<see cref="LoadArg0(ILGenerator)"/>).
+    /// This method automatically determines whether a reference to
+    /// <see langword="this"/> (<see langword="Me"/> in Visual Basic) is
+    /// required when the field is static; therefore, it should not
+    /// insert a call to load the instance (<see cref="LoadArg0(ILGenerator)"/>).
     /// <br/><br/>
-    /// Uso neto de pila: -1
+    /// Net stack effect: -1
     /// </remarks>
     public static ILGenerator LoadField(this ILGenerator ilGen, FieldInfo field)
     {
@@ -182,26 +169,24 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta la carga del valor de un campo en la secuencia del lenguaje
-    /// intermedio de Microsoft® (MSIL).
+    /// Inserts the load of a field value into the MSIL instruction stream.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar la carga del valor.
+    /// The ILGenerator sequence where the value load will be inserted.
     /// </param>
     /// <param name="field">
-    /// Campo desde el cual cargar el valor.
+    /// The field from which to load the value.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same ILGenerator instance, enabling fluent syntax.
     /// </returns>
     /// <remarks>
-    /// Este método determinará automáticamente si es necesario agregar una
-    /// referencia a <see langword="this"/> (<see langword="Me"/> en Visual
-    /// Basic) en caso que el campo sea estático, por lo que no debe insertar
-    /// la llamada a cargar la instancia (<see cref="LoadArg0(ILGenerator)"/>).
+    /// This method automatically determines whether a reference to
+    /// <see langword="this"/> (<see langword="Me"/> in Visual Basic) is
+    /// required when the field is static; therefore, it should not
+    /// insert a call to load the instance (<see cref="LoadArg0(ILGenerator)"/>).
     /// <br/><br/>
-    /// Uso neto de pila: -1
+    /// Net stack effect: -1
     /// </remarks>
     public static ILGenerator GetField(this ILGenerator ilGen, FieldInfo field)
     {
@@ -209,28 +194,26 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta el almacenamiento de un valor a un campo en la secuencia
-    /// del lenguaje intermedio de Microsoft® (MSIL).
+    /// Inserts the storage of a value into a field in the MSIL instruction
+    /// stream.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar el almacenamiento de
-    /// un valor.
+    /// The ILGenerator sequence where the value will be stored.
     /// </param>
     /// <param name="field">
-    /// Campo en el cual almacenar el valor.
+    /// The field into which to store the value.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same ILGenerator instance, enabling fluent syntax.
     /// </returns>
     /// <remarks>
-    /// Este método requiere que la pila contenga el valor a almacenar en la
-    /// parte superior, seguido inmediatamente de una referencia a la instancia
-    /// en caso que el campo sea de instancia. Si el campo es estático, no se
-    /// requiere una referencia a <see langword="this"/> (<see langword="Me"/>
-    /// en Visual Basic).
+    /// This method requires that the stack contain the value to store at
+    /// the top, immediately followed by a reference to the instance if
+    /// the field is an instance field. If the field is static, no
+    /// reference to <see langword="this"/> (<see langword="Me"/> in Visual
+    /// Basic) is required.
     /// <br/><br/>
-    /// Uso neto de pila: -1
+    /// Net stack effect: -1
     /// </remarks>
     /// <seealso cref="LoadArg0(ILGenerator)"/>
     /// <seealso cref="StoreField(ILGenerator, FieldInfo, Action{ILGenerator})"/>
@@ -241,30 +224,29 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta el almacenamiento de un valor a un campo en la secuencia
-    /// del lenguaje intermedio de Microsoft® (MSIL).
+    /// Inserts the storage of a value into a field in the Microsoft
+    /// Intermediate Language (MSIL) instruction sequence.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar el almacenamiento de
-    /// un valor.
+    /// Instruction sequence where the value will be stored.
     /// </param>
     /// <param name="field">
-    /// Campo en el cual almacenar el valor.
+    /// Field into which to store the value.
     /// </param>
     /// <param name="value">
-    /// Llamada que cargará el valor a almacenar en el campo.
+    /// Callback that will load the value to be stored in the field.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same <see cref="ILGenerator"/> instance as <paramref name="ilGen"/>,
+    /// enabling fluent syntax.
     /// </returns>
     /// <remarks>
-    /// Este método no determinará automáticamente si es necesario agregar una
-    /// referencia a <see langword="this"/> (<see langword="Me"/> en Visual
-    /// Basic) en caso que el campo sea estático, por lo que debe insertar
-    /// la llamada a cargar la instancia (<see cref="LoadArg0(ILGenerator)"/>).
+    /// This method does not automatically insert a reference to
+    /// <see langword="this"/> (<see langword="Me"/> in Visual Basic) when the
+    /// field is static; the caller must insert the instance load
+    /// (<see cref="LoadArg0(ILGenerator)"/>).
     /// <br/><br/>
-    /// Uso neto de pila: -1
+    /// Net stack effect: -1
     /// </remarks>
     /// <seealso cref="SetField(ILGenerator, FieldInfo, Action{ILGenerator})"/>
     public static ILGenerator StoreField(this ILGenerator ilGen, FieldInfo field, Action<ILGenerator> value)
@@ -274,30 +256,29 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta el almacenamiento de un valor a un campo en la secuencia
-    /// del lenguaje intermedio de Microsoft® (MSIL).
+    /// Inserts the storage of a value into a field in the Microsoft
+    /// Intermediate Language (MSIL) instruction sequence.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar el almacenamiento de
-    /// un valor.
+    /// Instruction sequence where the value will be stored.
     /// </param>
     /// <param name="field">
-    /// Campo en el cual almacenar el valor.
+    /// Field into which to store the value.
     /// </param>
     /// <param name="value">
-    /// Llamada que cargará el valor a almacenar en el campo.
+    /// Callback that will load the value to be stored in the field.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same <see cref="ILGenerator"/> instance as <paramref name="ilGen"/>,
+    /// enabling fluent syntax.
     /// </returns>
     /// <remarks>
-    /// Este método no determinará automáticamente si es necesario agregar una
-    /// referencia a <see langword="this"/> (<see langword="Me"/> en Visual
-    /// Basic) en caso que el campo sea estático, por lo que debe insertar
-    /// la llamada a cargar la instancia (<see cref="LoadArg0(ILGenerator)"/>).
+    /// This method does not automatically determine whether a reference
+    /// to <see langword="this"/> (<see langword="Me"/> in Visual Basic) is
+    /// needed for static fields; the caller must insert the instance
+    /// load (<see cref="LoadArg0(ILGenerator)"/>).
     /// <br/><br/>
-    /// Uso neto de pila: -1
+    /// Net stack effect: -1
     /// </remarks>
     /// <seealso cref="SetField(ILGenerator, FieldInfo, Func{ILGenerator, ILGenerator})"/>
     [Sugar]
@@ -307,32 +288,30 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta el almacenamiento de un valor a un campo en la secuencia
-    /// del lenguaje intermedio de Microsoft® (MSIL), determinando 
-    /// automáticamente si es necesario insertar una referencia a
-    /// <see langword="this"/>.
+    /// Inserts the storage of a value into a field in the Microsoft
+    /// Intermediate Language (MSIL) instruction sequence, automatically
+    /// determining whether a reference to <see langword="this"/> is required.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar el almacenamiento de
-    /// un valor.
+    /// Instruction sequence where the value storage will be inserted.
     /// </param>
     /// <param name="field">
-    /// Campo en el cual almacenar el valor.
+    /// Field into which to store the value.
     /// </param>
     /// <param name="value">
-    /// Llamada que cargará el valor a almacenar en el campo.
+    /// Callback that will load the value to be stored in the field.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same <see cref="ILGenerator"/> instance as <paramref name="ilGen"/>,
+    /// enabling fluent syntax.
     /// </returns>
     /// <remarks>
-    /// Este método determinará automáticamente si es necesario agregar una
-    /// referencia a <see langword="this"/> (<see langword="Me"/> en Visual
-    /// Basic) en caso que el campo sea estático, por lo que no debe insertar
-    /// la llamada a cargar la instancia (<see cref="LoadArg0(ILGenerator)"/>).
+    /// This method automatically determines if a reference to
+    /// <see langword="this"/> (<see langword="Me"/> in Visual Basic) is
+    /// needed for non‑static fields; the instance load is omitted for
+    /// static fields.
     /// <br/><br/>
-    /// Uso neto de pila: -1
+    /// Net stack effect: -1
     /// </remarks>
     /// <seealso cref="StoreField(ILGenerator, FieldInfo, Func{ILGenerator, ILGenerator})"/>
     public static ILGenerator SetField(this ILGenerator ilGen, FieldInfo field, Func<ILGenerator, ILGenerator> value)
@@ -342,32 +321,29 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta el almacenamiento de un valor a un campo en la secuencia
-    /// del lenguaje intermedio de Microsoft® (MSIL), determinando 
-    /// automáticamente si es necesario insertar una referencia a
-    /// <see langword="this"/>.
+    /// Inserts the storage of a value into a field in the Microsoft Intermediate
+    /// Language (MSIL) sequence, automatically determining whether a reference
+    /// to <see langword="this"/> is required.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar el almacenamiento de
-    /// un valor.
+    /// The ILGenerator instance to which the field storage will be inserted.
     /// </param>
     /// <param name="field">
-    /// Campo en el cual almacenar el valor.
+    /// The field into which to store the value.
     /// </param>
     /// <param name="value">
-    /// Llamada que cargará el valor a almacenar en el campo.
+    /// Callback that loads the value to be stored in the field.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same <see cref="ILGenerator"/> instance as <paramref name="ilGen"/>,
+    /// enabling fluent syntax.
     /// </returns>
     /// <remarks>
-    /// Este método determinará automáticamente si es necesario agregar una
-    /// referencia a <see langword="this"/> (<see langword="Me"/> en Visual
-    /// Basic) en caso que el campo sea estático, por lo que no debe insertar
-    /// la llamada a cargar la instancia (<see cref="LoadArg0(ILGenerator)"/>).
+    /// This method automatically determines if a reference to
+    /// <see langword="this"/> (<see langword="Me"/> in Visual Basic) is needed
+    /// for non‑static fields; the instance load is omitted for static fields.
     /// <br/><br/>
-    /// Uso neto de pila: -1
+    /// Net stack effect: -1
     /// </remarks>
     /// <seealso cref="StoreField(ILGenerator, FieldInfo, Action{ILGenerator})"/>
     public static ILGenerator SetField(this ILGenerator ilGen, FieldInfo field, Action<ILGenerator> value)
@@ -377,31 +353,29 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta el almacenamiento de un valor a una propiedad en la
-    /// secuencia del lenguaje intermedio de Microsoft® (MSIL).
+    /// Inserts the storage of a value into a property in the Microsoft
+    /// Intermediate Language (MSIL) sequence.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar el almacenamiento de
-    /// un valor.
+    /// The ILGenerator instance to which the property storage will be inserted.
     /// </param>
     /// <param name="prop">
-    /// Propiedad en la cual almacenar el valor.
+    /// The property into which to store the value.
     /// </param>
     /// <param name="value">
-    /// Llamada que cargará el valor a almacenar en la propiedad.
+    /// Callback that loads the value to be stored in the property.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same <see cref="ILGenerator"/> instance as <paramref name="ilGen"/>,
+    /// enabling fluent syntax.
     /// </returns>
     /// <remarks>
-    /// Este método determinará automáticamente si es necesario agregar una
-    /// referencia a <see langword="this"/> (<see langword="Me"/> en Visual
-    /// Basic) en caso que la propiedad sea estática, por lo que no debe
-    /// insertar la llamada a cargar la instancia por medio de
-    /// (<see cref="LoadArg0(ILGenerator)"/>).
+    /// This method automatically determines if a reference to
+    /// <see langword="this"/> (<see langword="Me"/> in Visual Basic) is required
+    /// for non‑static properties; the instance load is omitted for static
+    /// properties.
     /// <br/><br/>
-    /// Uso neto de pila: -1
+    /// Net stack effect: -1
     /// </remarks>
     public static ILGenerator StoreProperty(this ILGenerator ilGen, PropertyInfo prop, Action<ILGenerator> value)
     {
@@ -411,28 +385,26 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta el almacenamiento de un valor a una propiedad en la
-    /// secuencia del lenguaje intermedio de Microsoft® (MSIL).
+    /// Stores a value into a property in the Microsoft Intermediate Language (MSIL) sequence.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar el almacenamiento de
-    /// un valor.
+    /// The ILGenerator instance to which the property storage will be inserted.
     /// </param>
     /// <param name="prop">
-    /// Propiedad en la cual almacenar el valor.
+    /// The property into which to store the value.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same <see cref="ILGenerator"/> instance as <paramref name="ilGen"/>,
+    /// enabling fluent syntax.
     /// </returns>
     /// <remarks>
-    /// Este método requiere que la pila contenga el valor a almacenar en la
-    /// parte superior, seguido inmediatamente de una referencia a la instancia
-    /// en caso que la propiedad sea de instancia. Si la propiedad es estática,
-    /// no se requiere una referencia a <see langword="this"/>
-    /// (<see langword="Me"/> en Visual Basic).
+    /// This method requires the value to be stored to be on the top of the
+    /// stack, immediately followed by a reference to the instance if the
+    /// property is an instance property. If the property is static, no
+    /// reference to <see langword="this"/> (<see langword="Me"/> in Visual
+    /// Basic) is required.
     /// <br/><br/>
-    /// Uso neto de pila: -1
+    /// Net stack effect: -1
     /// </remarks>
     /// <seealso cref="LoadArg0(ILGenerator)"/>
     /// <seealso cref="StoreProperty(ILGenerator, PropertyInfo, Action{ILGenerator})"/>
@@ -442,31 +414,29 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta el almacenamiento de un valor a una propiedad en la
-    /// secuencia del lenguaje intermedio de Microsoft® (MSIL).
+    /// Inserts the storage of a value into a property in the Microsoft
+    /// Intermediate Language (MSIL) sequence.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar el almacenamiento de
-    /// un valor.
+    /// The ILGenerator instance to which the property storage will be inserted.
     /// </param>
     /// <param name="prop">
-    /// Propiedad en la cual almacenar el valor.
+    /// The property into which the value will be stored.
     /// </param>
     /// <param name="value">
-    /// Llamada que cargará el valor a almacenar en la propiedad.
+    /// Callback that loads the value to be stored in the property.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same <see cref="ILGenerator"/> instance as <paramref name="ilGen"/>,
+    /// enabling fluent syntax.
     /// </returns>
     /// <remarks>
-    /// Este método determinará automáticamente si es necesario agregar una
-    /// referencia a <see langword="this"/> (<see langword="Me"/> en Visual
-    /// Basic) en caso que la propiedad sea estática, por lo que no debe
-    /// insertar la llamada a cargar la instancia por medio de
-    /// (<see cref="LoadArg0(ILGenerator)"/>).
+    /// This method automatically determines whether a reference to
+    /// <see langword="this"/> (<see langword="Me"/> in Visual Basic) must
+    /// be added for instance properties; no reference is loaded for static
+    /// properties.
     /// <br/><br/>
-    /// Uso neto de pila: -1
+    /// Net stack effect: -1
     /// </remarks>
     [Sugar]
     public static ILGenerator StoreProperty(this ILGenerator ilGen, PropertyInfo prop, Func<ILGenerator, ILGenerator> value)
@@ -475,19 +445,17 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta la carga de la referencia a un campo en la secuencia del
-    /// lenguaje intermedio de Microsoft® (MSIL).
+    /// Inserts the load of the address of a field into the IL sequence.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar la carga de la
-    /// referencia.
+    /// The ILGenerator instance to which the field address will be loaded.
     /// </param>
     /// <param name="field">
-    /// Campo para el cual cargar la referencia.
+    /// The field for which the address is loaded.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same <see cref="ILGenerator"/> instance as <paramref name="ilGen"/>,
+    /// enabling fluent syntax.
     /// </returns>
     public static ILGenerator LoadFieldAddress(this ILGenerator ilGen, FieldInfo field)
     {
@@ -495,18 +463,17 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta la carga del valor de una propiedad en la secuencia del
-    /// lenguaje intermedio de Microsoft® (MSIL).
+    /// Inserts the load of a property value into the IL sequence.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar la carga del valor.
+    /// The ILGenerator instance to which the property value will be loaded.
     /// </param>
     /// <param name="property">
-    /// Propiedad desde la cual cargar el valor.
+    /// The property from which the value is loaded.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same <see cref="ILGenerator"/> instance as <paramref name="ilGen"/>,
+    /// enabling fluent syntax.
     /// </returns>
     public static ILGenerator LoadProperty(this ILGenerator ilGen, PropertyInfo property)
     {
@@ -516,18 +483,17 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta la carga del valor de una propiedad en la secuencia del
-    /// lenguaje intermedio de Microsoft® (MSIL).
+    /// Inserts the load of a property value into the IL sequence.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar la carga del valor.
+    /// The ILGenerator instance to which the property value will be loaded.
     /// </param>
     /// <param name="property">
-    /// Propiedad desde la cual cargar el valor.
+    /// The property from which the value is loaded.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same <see cref="ILGenerator"/> instance as <paramref name="ilGen"/>,
+    /// enabling fluent syntax.
     /// </returns>
     public static ILGenerator LoadProperty(this ILGenerator ilGen, PropertyBuildInfo property)
     {
@@ -535,21 +501,23 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta la carga del valor de una propiedad en la secuencia del
-    /// lenguaje intermedio de Microsoft® (MSIL).
+    /// Inserts the load of a property value into the Microsoft
+    /// Intermediate Language (MSIL) sequence.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de objeto desde el cual seleccionar la propiedad a cargar.
+    /// Type of object from which the property to load is selected.
     /// </typeparam>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar la carga del valor.
+    /// The ILGenerator instance to which the property value will be
+    /// loaded.
     /// </param>
     /// <param name="propertySelector">
-    /// Expresión que indica qué propiedad del tipo debe devolverse.
+    /// Expression indicating which property of the type should be
+    /// returned.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same <see cref="ILGenerator"/> instance as <paramref name="ilGen"/>,
+    /// enabling fluent syntax.
     /// </returns>
     public static ILGenerator LoadProperty<T>(this ILGenerator ilGen, Expression<Func<T, object?>> propertySelector)
     {
@@ -557,102 +525,97 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta la carga del argumento con índice 0 de un método en la
-    /// secuencia del lenguaje intermedio de Microsoft® (MSIL).
+    /// Inserts the load of argument with index 0 of a method into the
+    /// Microsoft Intermediate Language (MSIL) sequence.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar la operación.
+    /// The ILGenerator instance to which the operation will be inserted.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same <see cref="ILGenerator"/> instance as <paramref name="ilGen"/>,
+    /// enabling fluent syntax.
     /// </returns>
     /// <remarks>
-    /// Para métodos de instancia, esta llamada cargará una referencia a la
-    /// instancia actual, para métodos estáticos se cargará el primer
-    /// parámetro.
+    /// For instance methods, this call loads a reference to the current
+    /// instance; for static methods it loads the first parameter.
     /// <br/><br/>
-    /// Uso de pila neto: 1
+    /// Net stack usage: 1
     /// </remarks>
     public static ILGenerator LoadArg0(this ILGenerator ilGen) => OneLiner(ilGen, Ldarg_0);
 
     /// <summary>
-    /// Inserta la carga del argumento con índice 1 de un método en la
-    /// secuencia del lenguaje intermedio de Microsoft® (MSIL).
+    /// Inserts the load of argument with index 1 of a method into the
+    /// Microsoft Intermediate Language (MSIL) sequence.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar la operación.
+    /// The ILGenerator instance to which the operation will be inserted.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same <see cref="ILGenerator"/> instance as <paramref name="ilGen"/>,
+    /// enabling fluent syntax.
     /// </returns>
     /// <remarks>
-    /// Para métodos de instancia, esta llamada cargará al primer argumento del
-    /// método, para métodos estáticos se cargará el segundo parámetro.
+    /// For instance methods, this call loads the first argument of the
+    /// method; for static methods it loads the second parameter.
     /// <br/><br/>
-    /// Uso de pila neto: 1
+    /// Net stack usage: 1
     /// </remarks>
     public static ILGenerator LoadArg1(this ILGenerator ilGen) => OneLiner(ilGen, Ldarg_1);
 
     /// <summary>
-    /// Inserta la carga del argumento con índice 2 de un método en la
-    /// secuencia del lenguaje intermedio de Microsoft® (MSIL).
+    /// Inserts the load of argument with index 2 of a method into the
+    /// Microsoft Intermediate Language (MSIL) sequence.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar la operación.
+    /// The ILGenerator instance to which the operation will be inserted.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same <see cref="ILGenerator"/> instance as <paramref name="ilGen"/>,
+    /// enabling fluent syntax.
     /// </returns>
     /// <remarks>
-    /// Para métodos de instancia, esta llamada cargará al segundo argumento
-    /// del método, para métodos estáticos se cargará el tercer parámetro.
+    /// For instance methods, this call loads the second argument of the
+    /// method; for static methods it loads the third parameter.
     /// <br/><br/>
-    /// Uso de pila neto: 1
+    /// Net stack usage: 1
     /// </remarks>
     public static ILGenerator LoadArg2(this ILGenerator ilGen) => OneLiner(ilGen, Ldarg_2);
 
     /// <summary>
-    /// Inserta la carga del tercer argumento de un método en la secuencia
-    /// del lenguaje intermedio de Microsoft® (MSIL).
+    /// Inserts the load of the third argument of a method into the
+    /// Microsoft Intermediate Language (MSIL) sequence.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar la operación.
+    /// The ILGenerator instance to which the operation will be inserted.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same <see cref="ILGenerator"/> instance as <paramref name="ilGen"/>,
+    /// enabling fluent syntax.
     /// </returns>
     /// <remarks>
-    /// Para métodos de instancia, esta llamada cargará al tercer argumento del
-    /// método, para métodos estáticos se cargará el cuarto parámetro.
+    /// For instance methods, this call loads the third argument of the
+    /// method; for static methods it loads the fourth parameter.
     /// <br/><br/>
-    /// Uso de pila neto: 1
+    /// Net stack usage: 1
     /// </remarks>
     public static ILGenerator LoadArg3(this ILGenerator ilGen) => OneLiner(ilGen, Ldarg_3);
 
     /// <summary>
-    /// Inserta la carga de un argumento en la secuencia del lenguaje
-    /// intermedio de Microsoft® (MSIL).
+    /// Inserts the load of an argument into the Microsoft Intermediate Language (MSIL) sequence.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar la operación.
+    /// The ILGenerator instance into which the operation will be inserted.
     /// </param>
     /// <param name="argIndex">
-    /// Índice del argumento a cargar en la pila. El valor de <c>0</c>
-    /// cargará una referencia a la instancia del tipo actual (el valor
-    /// <see langword="this"/>) cuando se llama desde un método de instancia,
-    /// causando que los parámetros del método empiecen desde el índice
-    /// <c>1</c>.
+    /// Index of the argument to load onto the stack. A value of 0 will load a
+    /// reference to the current instance (the value this) when called from an
+    /// instance method, causing the method parameters to start at index 1.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same <paramref name="ilGen"/> instance, allowing fluent syntax.
     /// </returns>
     /// <remarks>
-    /// Uso de pila neto: 1
+    /// Net stack usage: 1.
     /// </remarks>
     public static ILGenerator LoadArg(this ILGenerator ilGen, short argIndex)
     {
@@ -662,20 +625,18 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta la carga de la referencia a un argumento en la secuencia
-    /// del lenguaje intermedio de Microsoft® (MSIL).
+    /// Inserts the load of a reference to an argument into the Microsoft
+    /// Intermediate Language (MSIL) sequence.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar la operación.
+    /// The ILGenerator instance into which the operation will be inserted.
     /// </param>
     /// <param name="argIndex">
-    /// Índice del argumento para el cual cargar una referencia. El valor
-    /// de <c>0</c> cargará una referencia a la instancia del tipo actual
-    /// (el valor <see langword="this"/>).
+    /// Index of the argument for which to load a reference. A value of 0 will
+    /// load a reference to the current instance (the value this).
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same <paramref name="ilGen"/> instance, allowing fluent syntax.
     /// </returns>
     public static ILGenerator LoadArgAddress(this ILGenerator ilGen, short argIndex)
     {
@@ -685,16 +646,16 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta la carga de un parámetro en la secuencia del lenguaje
-    /// intermedio de Microsoft® (MSIL).
+    /// Inserts the load of a parameter into the Microsoft Intermediate Language (MSIL) sequence.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar la operación.
+    /// The ILGenerator instance into which the operation will be inserted.
     /// </param>
-    /// <param name="parameter">Parámetro a cargar.</param>
+    /// <param name="parameter">
+    /// The parameter to load.
+    /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same <paramref name="ilGen"/> instance, allowing fluent syntax.
     /// </returns>
     public static ILGenerator LoadParameter(this ILGenerator ilGen, ParameterInfo parameter)
     {

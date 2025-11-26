@@ -35,22 +35,18 @@ using static System.Reflection.Emit.OpCodes;
 namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
-/// Contiene extensiones útiles para la manipulación de constructores de
-/// campos por medio de la clase <see cref="FieldBuilder"/>.
+/// Provides useful extensions for manipulating field constructors via the
+/// <see cref="FieldBuilder"/> class.
 /// </summary>
 public static class FieldBuilderExtensions
 {
     /// <summary>
-    /// Inicializa un campo dentro del generador de código especificado.
+    /// Initializes a field within the specified IL generator.
     /// </summary>
-    /// <param name="field">Campo a inicializar.</param>
-    /// <param name="ilGen">
-    /// Generador de código a utilizar para inicializar el campo.
-    /// Generalmente, debe tratarse de un constructor de clase.
-    /// </param>
-    /// <param name="value">
-    /// Valor constante con el cual debe inicializarse el campo.
-    /// </param>
+    /// <param name="field">Field to initialize.</param>
+    /// <param name="ilGen">IL generator used to initialize the field. Usually
+    /// it should be a class constructor.</param>
+    /// <param name="value">Constant value with which the field should be initialized.</param>
     public static void InitField(this FieldBuilder field, ILGenerator ilGen, object value)
     {
         ilGen.Emit(Ldarg_0);
@@ -59,20 +55,14 @@ public static class FieldBuilderExtensions
     }
 
     /// <summary>
-    /// Inicializa un campo dentro del generador de código especificado.
+    /// Initializes a field within the specified IL generator.
     /// </summary>
-    /// <param name="field">Campo a inicializar.</param>
-    /// <param name="ilGen">
-    /// Generador de código a utilizar para inicializar el campo.
-    /// Generalmente, debe tratarse de un constructor de clase.
-    /// </param>
-    /// <param name="instanceType">Tipo de objeto a instanciar.</param>
-    /// <param name="args">
-    /// Argumentos a pasar al constructor del tipo especificado.
-    /// </param>
-    /// <exception cref="InvalidTypeException">
-    /// Se produce si el tipo no es instanciable.
-    /// </exception>
+    /// <param name="field">Field to initialize.</param>
+    /// <param name="ilGen">IL generator used to initialize the field. Usually
+    /// it should be a class constructor.</param>
+    /// <param name="instanceType">Type of object to instantiate.</param>
+    /// <param name="args">Arguments to pass to the constructor of the specified type.</param>
+    /// <exception cref="InvalidTypeException">Thrown if the type is not instantiable.</exception>
     public static void InitField(this FieldBuilder field, ILGenerator ilGen, Type instanceType, params object[] args)
     {
         if (instanceType.IsAbstract) throw new InvalidTypeException(instanceType);
@@ -82,14 +72,12 @@ public static class FieldBuilderExtensions
     }
 
     /// <summary>
-    /// Inicializa un campo dentro del generador de código especificado.
+    /// Initializes a field within the specified IL generator.
     /// </summary>
-    /// <typeparam name="T">Tipo de valor u objeto a instanciar.</typeparam>
-    /// <param name="field">Campo a inicializar.</param>
-    /// <param name="ilGen">
-    /// Generador de código a utilizar para inicializar el campo.
-    /// Generalmente, debe tratarse de un constructor de clase.
-    /// </param>
+    /// <typeparam name="T">Type of value or object to instantiate.</typeparam>
+    /// <param name="field">Field to initialize.</param>
+    /// <param name="ilGen">IL generator used to initialize the field. Usually
+    /// it should be a class constructor.</param>
     public static void InitField<T>(this FieldBuilder field, ILGenerator ilGen) where T : new()
     {
         if (typeof(T).IsValueType) InitField(field, ilGen, default(T)!);

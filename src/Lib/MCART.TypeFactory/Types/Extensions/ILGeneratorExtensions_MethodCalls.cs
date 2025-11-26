@@ -38,32 +38,26 @@ using Op = System.Reflection.Emit.OpCodes;
 
 namespace TheXDS.MCART.Types.Extensions;
 
-/// <summary>
-/// Contiene extensiones útiles para la generación de código por medio
-/// de la clase <see cref="ILGenerator"/>.
-/// </summary>
 public static partial class ILGeneratorExtensions
 {
     /// <summary>
-    /// Inserta una llamada al método de instancia especificado en la
-    /// secuencia del lenguaje intermedio de Microsoft® (MSIL).
+    /// Inserts a call to the specified instance method into the Microsoft®
+    /// Intermediate Language (MSIL) instruction stream.
     /// </summary>
     /// <typeparam name="TClass">
-    /// Clase en la que reside el método de instancia.
+    /// Class in which the instance method resides.
     /// </typeparam>
     /// <typeparam name="TMethod">
-    /// Delegado que describe al método a llamar.
+    /// Delegate that describes the method to call.
     /// </typeparam>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar la llamada al método
-    /// de instancia.
+    /// Instruction sequence in which to insert the instance method call.
     /// </param>
     /// <param name="methodSelector">
-    /// Expresión que permite seleccionar al método de instancia a llamar.
+    /// Expression that selects the instance method to call.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, enabling fluent syntax.
     /// </returns>
     public static ILGenerator Call<TClass, TMethod>(this ILGenerator ilGen, Expression<Func<TClass, TMethod>> methodSelector) where TMethod : Delegate
     {
@@ -71,39 +65,33 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta una llamada al constructor de instancia especificado del
-    /// tipo base en la secuencia del lenguaje intermedio de Microsoft®
-    /// (MSIL).
+    /// Inserts a call to the specified base type instance constructor into
+    /// the Microsoft® Intermediate Language (MSIL) instruction stream.
     /// </summary>
     /// <typeparam name="TClass">
-    /// Clase desde la cual se llamará al constructor de instancia del tipo
-    /// base.
+    /// Class from which the base type constructor will be called.
     /// </typeparam>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar la llamada al método
-    /// de instancia.
+    /// Instruction sequence in which to insert the base constructor call.
     /// </param>
     /// <param name="baseCtorArgs">
-    /// Arreglo de tipos de argumentos del constructor a llamar.
+    /// Array of argument types for the constructor to call.
     /// </param>
     /// <param name="parameterLoadCallback">
-    /// Llamada a ejecutar para insertar la carga de argumentos a pasar al constructor base.
+    /// Callback to insert the loading of arguments to pass to the base
+    /// constructor.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, enabling fluent syntax.
     /// </returns>
     /// <remarks>
-    /// Al llamar a este método, se insertará automáticamente la llamada a la
-    /// referencia actual (<see cref="LoadArg0(ILGenerator)"/>) cuando
-    /// <paramref name="baseCtorArgs"/> no sea una colección vacía y
-    /// <paramref name="parameterLoadCallback"/> haga referencia a un método a
-    /// llamar para cargar los parámetros del constructor, o cuando
-    /// <paramref name="baseCtorArgs"/> sea una colección vacía y
-    /// <paramref name="parameterLoadCallback"/> se establezca en
-    /// <see langword="null"/>. De lo contrario, deberá insertar la carga de
-    /// <c>Arg0</c> y todos los argumentos a pasar al constructor antes de
-    /// realizar esta llamada.
+    /// When calling this method, the current reference (<see cref="LoadArg0(ILGenerator)"/>) will
+    /// automatically be inserted when <paramref name="baseCtorArgs"/> is not empty
+    /// and <paramref name="parameterLoadCallback"/> refers to a method that
+    /// loads the constructor arguments, or when <paramref name="baseCtorArgs"/> is
+    /// empty and <paramref name="parameterLoadCallback"/> is <see langword="null"/>.
+    /// Otherwise, you must insert the loading of <c>Arg0</c> and all arguments
+    /// before performing this call.
     /// </remarks>
     public static ILGenerator CallBaseCtor<TClass>(this ILGenerator ilGen, Type[] baseCtorArgs, Action<ILGenerator>? parameterLoadCallback)
     {
@@ -125,41 +113,35 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta una llamada al constructor de instancia del tipo base sin
-    /// argumentos en la secuencia del lenguaje intermedio de Microsoft®
-    /// (MSIL).
+    /// Inserts a call to the parameterless base type instance constructor
+    /// into the Microsoft® Intermediate Language (MSIL) instruction stream.
     /// </summary>
     /// <typeparam name="TClass">
-    /// Clase desde la cual se llamará al constructor de instancia del tipo
-    /// base.
+    /// Class from which the base type constructor will be called.
     /// </typeparam>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar la llamada al método
-    /// de instancia.
+    /// Instruction sequence in which to insert the base constructor call.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, enabling fluent syntax.
     /// </returns>
     public static ILGenerator CallBaseCtor<TClass>(this ILGenerator ilGen) => CallBaseCtor<TClass>(ilGen, Type.EmptyTypes, null);
 
     /// <summary>
-    /// Inserta una llamada al método estático especificado en la secuencia
-    /// del lenguaje intermedio de Microsoft® (MSIL).
+    /// Inserts a call to the specified static method into the Microsoft®
+    /// Intermediate Language (MSIL) instruction stream.
     /// </summary>
     /// <typeparam name="TMethod">
-    /// Delegado que describe al método a llamar.
+    /// Delegate that describes the method to call.
     /// </typeparam>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar la llamada al método
-    /// estático.
+    /// Instruction sequence into which the static method call is inserted.
     /// </param>
     /// <param name="methodSelector">
-    /// Expresión que permite seleccionar al método estático a llamar.
+    /// Expression that selects the static method to call.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, enabling fluent syntax.
     /// </returns>
     public static ILGenerator Call<TMethod>(this ILGenerator ilGen, Expression<Func<TMethod>> methodSelector) where TMethod : Delegate
     {
@@ -167,22 +149,20 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta una llamada al método estático especificado en la secuencia
-    /// del lenguaje intermedio de Microsoft® (MSIL).
+    /// Inserts a call to the specified static method into the Microsoft®
+    /// Intermediate Language (MSIL) instruction stream.
     /// </summary>
     /// <typeparam name="TMethod">
-    /// Delegado que describe al método a llamar.
+    /// Delegate that describes the method to call.
     /// </typeparam>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar la llamada al método
-    /// estático.
+    /// Instruction sequence into which the static method call is inserted.
     /// </param>
     /// <param name="method">
-    /// Método estático a llamar.
+    /// Static method to call.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, enabling fluent syntax.
     /// </returns>
     public static ILGenerator Call<TMethod>(this ILGenerator ilGen, TMethod method) where TMethod : Delegate
     {
@@ -190,16 +170,16 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta una llamada al método especificado.
+    /// Inserts a call to the specified method.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar la llamada al método
-    /// estático.
+    /// Instruction sequence into which the method call is inserted.
     /// </param>
-    /// <param name="method">Método a llamar.</param>
+    /// <param name="method">
+    /// Method to call.
+    /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, enabling fluent syntax.
     /// </returns>
     public static ILGenerator Call(this ILGenerator ilGen, MethodInfo method)
     {
@@ -208,15 +188,16 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta una llamada explícitamente virtual al método especificado.
+    /// Inserts an explicitly virtual call to the specified method.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar la llamada.
+    /// Instruction sequence into which the call is inserted.
     /// </param>
-    /// <param name="method">Método a llamar.</param>
+    /// <param name="method">
+    /// Method to call.
+    /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, enabling fluent syntax.
     /// </returns>
     public static ILGenerator CallVirt(this ILGenerator ilGen, MethodInfo method)
     {

@@ -32,10 +32,6 @@ using System.Reflection.Emit;
 
 namespace TheXDS.MCART.Types.Extensions;
 
-/// <summary>
-/// Contains useful extensions for code generation through the 
-/// <see cref="ILGenerator"/> class.
-/// </summary>
 public static partial class ILGeneratorExtensions
 {
     /// <summary>

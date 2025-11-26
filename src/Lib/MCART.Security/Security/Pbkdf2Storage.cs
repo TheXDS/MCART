@@ -34,27 +34,26 @@ using TheXDS.MCART.Types.Extensions;
 namespace TheXDS.MCART.Security;
 
 /// <summary>
-/// Deriva claves a partir de contraseñas utilizando el algoritmo PBKDF2.
+/// Derives keys from passwords using the PBKDF2 algorithm.
 /// </summary>
 /// <remarks>
-/// Inicializa una nueva instancia de la clase <see cref="Pbkdf2Storage"/>,
-/// especificando la configuración del algoritmo de derivación de claves a
-/// utilizar.
+/// Initializes a new instance of the <see cref="Pbkdf2Storage"/> class,
+/// specifying the key‑derivation algorithm configuration to use.
 /// </remarks>
 /// <param name="settings">
-/// Configuración del algoritmo de derivación de claves a utilizar.
+/// The key‑derivation algorithm configuration to use.
 /// </param>
 public class Pbkdf2Storage(Pbkdf2Settings settings) : IPasswordStorage<Pbkdf2Settings>
 {
     private const string DEFAULT_HASH_ALG = "SHA512";
 
     /// <summary>
-    /// Obtiene un <see cref="Pbkdf2Settings"/> que representa la configuración
-    /// predeterminada recomendada para derivar claves de almacenamiento.
+    /// Gets a <see cref="Pbkdf2Settings"/> representing the recommended
+    /// default configuration for key derivation in storage.
     /// </summary>
     /// <returns>
-    /// Un <see cref="Pbkdf2Settings"/> que representa la configuración
-    /// predeterminada recomendada.
+    /// A <see cref="Pbkdf2Settings"/> that represents the recommended
+    /// default configuration.
     /// </returns>
     public static Pbkdf2Settings GetDefaultSettings()
     {
@@ -68,9 +67,9 @@ public class Pbkdf2Storage(Pbkdf2Settings settings) : IPasswordStorage<Pbkdf2Set
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="Pbkdf2Storage"/>,
-    /// estableciendo la configuración del algoritmo de derivación de claves a
-    /// los valores predeterminados.
+    /// Initializes a new instance of the <see cref="Pbkdf2Storage"/> class,
+    /// setting the key‑derivation algorithm configuration to the default
+    /// values.
     /// </summary>
     public Pbkdf2Storage() : this(GetDefaultSettings())
     {

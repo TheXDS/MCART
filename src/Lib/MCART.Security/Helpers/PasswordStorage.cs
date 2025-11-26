@@ -36,9 +36,8 @@ using TheXDS.MCART.Types.Extensions;
 namespace TheXDS.MCART.Helpers;
 
 /// <summary>
-/// Contiene métodos para crear Salty Hashes de contraseñas que son
-/// seguros para ser almacenados, así como también comprobar la validez
-/// de una contraseña.
+/// Contains methods for creating Salty Hashes of passwords that are
+/// safe to store, as well as verifying a password’s validity.
 /// </summary>
 public static partial class PasswordStorage
 {
@@ -74,15 +73,15 @@ public static partial class PasswordStorage
     }
 
     /// <summary>
-    /// Crea un Hash seguro para almacenar la contraseña.
+    /// Creates a secure hash for storing a password.
     /// </summary>
     /// <typeparam name="T">
-    /// Algoritmo de derivación de claves a utilizar.
+    /// Key‑derivation algorithm to use.
     /// </typeparam>
-    /// <param name="password">Contraseña a almacenar.</param>
+    /// <param name="password">Password to store.</param>
     /// <returns>
-    /// Un arreglo de bytes que puede ser almacenado de forma segura en una
-    /// base de datos que luego puede utilizarse para verificar una contraseña.
+    /// A byte array that can be safely stored in a database and later used
+    /// to verify a password.
     /// </returns>
     public static byte[] CreateHash<T>(SecureString password) where T : IPasswordStorage, new()
     {
@@ -90,17 +89,17 @@ public static partial class PasswordStorage
     }
 
     /// <summary>
-    /// Crea un Hash seguro para almacenar la contraseña.
+    /// Creates a secure hash for storing a password.
     /// </summary>
     /// <param name="algorithm">
-    /// Algoritmo de derivación de claves a utilizar.
+    /// Key‑derivation algorithm to use.
     /// </param>
-    /// <param name="password">Contraseña a almacenar.</param>
+    /// <param name="password">Password to store.</param>
     /// <returns>
-    /// Un arreglo de bytes que puede ser almacenado de forma segura en una
-    /// base de datos que luego puede utilizarse para verificar una contraseña.
-    /// El arreglo incluye información sobre el algoritmo de derivación
-    /// utilizado, además de todos los valores de configuración del mismo.
+    /// A byte array that can be safely stored in a database and later used
+    /// to verify a password. The array includes information about the
+    /// derivation algorithm used, as well as all of its configuration
+    /// parameters.
     /// </returns>
     public static byte[] CreateHash(IPasswordStorage algorithm, SecureString password)
     {
@@ -114,21 +113,21 @@ public static partial class PasswordStorage
     }
 
     /// <summary>
-    /// Verifica una contraseña.
+    /// Verifies a password.
     /// </summary>
     /// <param name="password">
-    /// Contraseña a verificar.
+    /// Password to verify.
     /// </param>
     /// <param name="hash">
-    /// Hash contra el cual comparar. Debe incluir información sobre el
-    /// algoritmo de derivación utilizado, además de cualquier valor de 
-    /// configuración requerido por el mismo.
+    /// Hash to compare against. It must contain information about the
+    /// key‑derivation algorithm used, as well as any required configuration
+    /// values.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si la contraseña es válida,
-    /// <see langword="false"/> en caso contrario, o
-    /// <see langword="null"/> si hay un problema al verificar la
-    /// contraseña, como ser, debido a tampering.
+    /// <see langword="true"/> if the password is valid,
+    /// <see langword="false"/> otherwise, or
+    /// <see langword="null"/> if an error occurs during verification
+    /// (e.g., due to tampering).
     /// </returns>
     public static bool? VerifyPassword(SecureString password, byte[] hash)
     {

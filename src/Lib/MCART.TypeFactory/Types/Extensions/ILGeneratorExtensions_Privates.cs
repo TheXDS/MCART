@@ -37,10 +37,6 @@ using static System.Reflection.Emit.OpCodes;
 
 namespace TheXDS.MCART.Types.Extensions;
 
-/// <summary>
-/// Contiene extensiones útiles para la generación de código por medio
-/// de la clase <see cref="ILGenerator"/>.
-/// </summary>
 public static partial class ILGeneratorExtensions
 {
     private static readonly HashSet<IConstantLoader> _constantLoaders = new(ReflectionHelpers.FindAllObjects<IConstantLoader>(), new ConstantLoaderComparer());

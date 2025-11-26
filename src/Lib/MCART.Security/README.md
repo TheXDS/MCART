@@ -12,7 +12,7 @@ MCART.Security is a specialized library within the MCART ecosystem, designed to 
 - **Cross-Platform**: Fully compatible with Windows, macOS, and Linux.
 
 ## Getting Started
-Here’s a simple example demonstrating how to use MCART.Security to hash and verify a password:
+Here's a simple example demonstrating how to use MCART.Security to hash and verify a password:
 
 
 ```csharp

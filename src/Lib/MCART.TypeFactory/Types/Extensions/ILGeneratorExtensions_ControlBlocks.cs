@@ -36,27 +36,22 @@ using Op = System.Reflection.Emit.OpCodes;
 
 namespace TheXDS.MCART.Types.Extensions;
 
-/// <summary>
-/// Contiene extensiones útiles para la generación de código por medio
-/// de la clase <see cref="ILGenerator"/>.
-/// </summary>
 public static partial class ILGeneratorExtensions
 {
     /// <summary>
-    /// Inserta un bloque <see langword="if"/> estructurado en la secuencia
-    /// del lenguaje intermedio de Microsoft® (MSIL).
+    /// Inserts a structured <see langword="if"/> block into the Microsoft®
+    /// IL instruction sequence.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar el bloque
-    /// <see langword="if"/>.
+    /// ILGenerator where the <see langword="if"/> block will be inserted.
     /// </param>
     /// <param name="trueBranch">
-    /// Acción que permite definir las instrucciones a insertar cuando el
-    /// valor superior de la pila sea evaluado como <see langword="true"/>.
+    /// Action that defines the instructions to insert when the top value
+    /// on the stack evaluates to <see langword="true"/>.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, enabling fluent
+    /// syntax.
     /// </returns>
     public static ILGenerator If(this ILGenerator ilGen, Action<ILGenerator> trueBranch)
     {
@@ -66,25 +61,23 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta un bloque <see langword="if"/> estructurado en la secuencia
-    /// del lenguaje intermedio de Microsoft® (MSIL).
+    /// Inserts a structured <see langword="if"/> block into the Microsoft®
+    /// IL instruction sequence.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar el bloque
-    /// <see langword="if"/>.
+    /// ILGenerator where the <see langword="if"/> block will be inserted.
     /// </param>
     /// <param name="trueBranch">
-    /// Acción que permite definir las instrucciones a insertar cuando el
-    /// valor superior de la pila sea evaluado como <see langword="true"/>.
+    /// Action that defines the instructions to insert when the top value
+    /// on the stack evaluates to <see langword="true"/>.
     /// </param>
     /// <param name="falseBranch">
-    /// Acción que permite definir las instrucciones a insertar cuando el
-    /// valor superior de la pila sea evaluado como
-    /// <see langword="false"/>.
+    /// Action that defines the instructions to insert when the top value
+    /// evaluates to <see langword="false"/>.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, enabling fluent
+    /// syntax.
     /// </returns>
     public static ILGenerator If(this ILGenerator ilGen, Action<ILGenerator> trueBranch, Action<ILGenerator> falseBranch)
     {
@@ -100,37 +93,35 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta un bloque <see langword="for"/> estructurado en la
-    /// secuencia del lenguaje intermedio de Microsoft® (MSIL).
+    /// Inserts a structured <see langword="for"/> block into the Microsoft®
+    /// IL instruction sequence.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar el bloque
-    /// <see langword="for"/>.
+    /// ILGenerator where the <see langword="for"/> block will be inserted.
     /// </param>
     /// <param name="accumulator">
-    /// Variable local a utilizar como acumulador del bloque
-    /// <see langword="for"/>.
+    /// Local variable used as the accumulator for the <see langword="for"/>
+    /// block.
     /// </param>
     /// <param name="initialValue">
-    /// Valor al cual inicializar el acumulador.
+    /// Value used to initialize the accumulator.
     /// </param>
     /// <param name="condition">
-    /// Acción que permite definir la evaluación inicial del bloque
-    /// <see langword="for"/>.
+    /// Action that defines the initial evaluation of the <see langword="for"/>
+    /// block.
     /// </param>
     /// <param name="incrementor">
-    /// Acción que permite definir la acción de incremento a ejecutar al
-    /// final del bloque <see langword="for"/>.
+    /// Action that defines the increment operation to execute at the end
+    /// of each <see langword="for"/> iteration.
     /// </param>
     /// <param name="forBlock">
-    /// Acción que permite definir las acciones a ejecutar dentro del
-    /// bloque <see langword="for"/>. La acción incluye un parámetro que
-    /// puede usarse como la etiqueta de salida para finalizar el bloque
-    /// <see langword="for"/>.
+    /// Action that defines the statements to execute inside the <see
+    /// langword="for"/> block. The action receives a parameter that can be
+    /// used as the exit label to terminate the block.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, enabling fluent
+    /// syntax.
     /// </returns>
     public static ILGenerator For(this ILGenerator ilGen, LocalBuilder accumulator, object? initialValue, Action<ILGenerator> condition, Action<ILGenerator> incrementor, ForBlock forBlock)
     {
@@ -149,38 +140,33 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta un bloque <see langword="for"/> estructurado en la
-    /// secuencia del lenguaje intermedio de Microsoft® (MSIL).
+    /// Inserts a structured <see langword="for"/> block into the Microsoft®
+    /// IL instruction sequence.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar el bloque
-    /// <see langword="for"/>.
+    /// ILGenerator where the <see langword="for"/> block will be inserted.
     /// </param>
     /// <param name="initialValue">
-    /// Valor inicial del acumulador del bloque <see langword="for"/>.
+    /// Initial value of the accumulator for the <see langword="for"/> block.
     /// </param>
     /// <param name="condition">
-    /// Acción que permite definir la evaluación inicial del bloque
-    /// <see langword="for"/>. La acción incluye una referencia al 
-    /// <see cref="FieldBuilder"/> del acumulador del bloque
-    /// <see langword="for"/>.
+    /// Action that defines the initial evaluation of the <see langword="for"/> 
+    /// block. The action receives a reference to the <see cref="FieldBuilder"/> 
+    /// of the accumulator.
     /// </param>
     /// <param name="incrementor">
-    /// Acción que permite definir la acción de incremento a ejecutar al
-    /// final del bloque <see langword="for"/>. La acción incluye una referencia al 
-    /// <see cref="FieldBuilder"/> del acumulador del bloque
-    /// <see langword="for"/>.
+    /// Action that defines the increment operation to execute at the end of 
+    /// each <see langword="for"/> iteration. The action receives a reference 
+    /// to the <see cref="FieldBuilder"/> of the accumulator.
     /// </param>
     /// <param name="forBlock">
-    /// Acción que permite definir las acciones a ejecutar dentro del
-    /// bloque <see langword="for"/>. La acción incluye una referencia al 
-    /// <see cref="FieldBuilder"/> del acumulador del bloque
-    /// <see langword="for"/> y un parámetro que puede usarse como la
-    /// etiqueta de salida para finalizar el bloque <see langword="for"/>.
+    /// Action that defines the statements to execute inside the <see
+    /// langword="for"/> block. The action receives a reference to the <see
+    /// cref="FieldBuilder"/> of the accumulator and a parameter that can be 
+    /// used as the exit label to terminate the block.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, enabling fluent syntax.
     /// </returns>
     public static ILGenerator For<T>(this ILGenerator ilGen, T initialValue, Action<LocalBuilder> condition, Action<LocalBuilder> incrementor, ForBlock forBlock)
     {
@@ -199,32 +185,28 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta un bloque <see langword="for"/> estructurado en la
-    /// secuencia del lenguaje intermedio de Microsoft® (MSIL).
+    /// Inserts a structured <see langword="for"/> block into the Microsoft®
+    /// IL instruction sequence.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar el bloque
-    /// <see langword="for"/>.
+    /// ILGenerator where the <see langword="for"/> block will be inserted.
     /// </param>
     /// <param name="initialValue">
-    /// Valor inicial del acumulador del bloque <see langword="for"/>.
+    /// Initial value of the accumulator for the <see langword="for"/> block.
     /// </param>
     /// <param name="condition">
-    /// Acción que permite definir la evaluación inicial del bloque
-    /// <see langword="for"/>. La acción incluye una referencia al 
-    /// <see cref="FieldBuilder"/> del acumulador del bloque
-    /// <see langword="for"/>.
+    /// Action that defines the initial evaluation of the <see langword="for"/> 
+    /// block. The action receives a reference to the <see cref="FieldBuilder"/> 
+    /// of the accumulator.
     /// </param>
     /// <param name="forBlock">
-    /// Acción que permite definir las acciones a ejecutar dentro del
-    /// bloque <see langword="for"/>. La acción incluye una referencia al 
-    /// <see cref="FieldBuilder"/> del acumulador del bloque
-    /// <see langword="for"/> y un parámetro que puede usarse como la
-    /// etiqueta de salida para finalizar el bloque <see langword="for"/>.
+    /// Action that defines the statements to execute inside the <see
+    /// langword="for"/> block. The action receives a reference to the <see
+    /// cref="FieldBuilder"/> of the accumulator and a parameter that can be 
+    /// used as the exit label to terminate the block.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, enabling fluent syntax.
     /// </returns>
     public static ILGenerator For<T>(this ILGenerator ilGen, T initialValue, Action<LocalBuilder> condition, ForBlock forBlock)
     {
@@ -232,30 +214,28 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta un bloque <see langword="for"/> estructurado simple con un
-    /// acumulador <see cref="int"/> en la secuencia del lenguaje
-    /// intermedio de Microsoft® (MSIL).
+    /// Inserts a simple structured <see langword="for"/> block with an
+    /// <see cref="int"/> accumulator into the Microsoft® Intermediate
+    /// Language (MSIL) instruction sequence.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar el bloque
-    /// <see langword="for"/>.
+    /// The IL instruction sequence into which the <see langword="for"/> block
+    /// will be inserted.
     /// </param>
     /// <param name="startValue">
-    /// Valor inicial del acumulador, inclusive.
+    /// The inclusive starting value of the accumulator.
     /// </param>
     /// <param name="endValue">
-    /// Valor final del acumulador, inclusive.
+    /// The inclusive ending value of the accumulator.
     /// </param>
     /// <param name="forBlock">
-    /// Acción que permite definir las acciones a ejecutar dentro del
-    /// bloque <see langword="for"/>. La acción incluye una referencia al 
-    /// <see cref="FieldBuilder"/> del acumulador del bloque
-    /// <see langword="for"/> y un parámetro que puede usarse como la
-    /// etiqueta de salida para finalizar el bloque <see langword="for"/>.
+    /// Action that defines the instructions to execute inside the
+    /// <see langword="for"/> block. It receives the <see cref="LocalBuilder"/>
+    /// of the accumulator and a label that can be used as the exit label
+    /// to break the loop.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same <paramref name="ilGen"/> instance, enabling fluent syntax.
     /// </returns>
     public static ILGenerator For(this ILGenerator ilGen, int startValue, int endValue, ForBlock forBlock)
     {
@@ -278,27 +258,25 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta un bloque <see langword="for"/> estructurado simple con un
-    /// acumulador <see cref="int"/> en la secuencia del lenguaje
-    /// intermedio de Microsoft® (MSIL).
+    /// Inserts a simple structured <see langword="for"/> block with an
+    /// <see cref="int"/> accumulator into the Microsoft® Intermediate
+    /// Language (MSIL) instruction sequence.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar el bloque
-    /// <see langword="for"/>.
+    /// The IL instruction sequence into which the <see langword="for"/> block
+    /// will be inserted.
     /// </param>
     /// <param name="range">
-    /// Rango de valores a utilizar en el acumulador.
+    /// The range of values to use for the accumulator.
     /// </param>
     /// <param name="forBlock">
-    /// Acción que permite definir las acciones a ejecutar dentro del
-    /// bloque <see langword="for"/>. La acción incluye una referencia al 
-    /// <see cref="FieldBuilder"/> del acumulador del bloque
-    /// <see langword="for"/> y un parámetro que puede usarse como la
-    /// etiqueta de salida para finalizar el bloque <see langword="for"/>.
+    /// Action that defines the instructions to execute inside the
+    /// <see langword="for"/> block. It receives the <see cref="LocalBuilder"/>
+    /// of the accumulator and a label that can be used as the exit label
+    /// to break the loop.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same <paramref name="ilGen"/> instance, enabling fluent syntax.
     /// </returns>
     public static ILGenerator For(this ILGenerator ilGen, Range<int> range, ForBlock forBlock)
     {
@@ -331,26 +309,24 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta un bloque <see langword="foreach"/> estructurado en la
-    /// secuencia del lenguaje intermedio de Microsoft® (MSIL).
+    /// Inserts a structured <see langword="foreach"/> block into the Microsoft
+    /// Intermediate Language (MSIL) sequence.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar el bloque
-    /// <see langword="for"/>.
+    /// The instruction sequence into which the <see langword="foreach"/> block
+    /// will be inserted.
     /// </param>
     /// <param name="foreachBlock">
-    /// Delegado que permite definir las acciones a ejecutar dentro del
-    /// bloque <see langword="foreach"/>. La acción incluye una referencia al 
-    /// <see cref="LocalBuilder"/> del elemento actual del bloque
-    /// <see langword="foreach"/>.
+    /// Delegate that defines the actions to execute inside the
+    /// <see langword="foreach"/> block. The action receives a reference to the
+    /// <see cref="LocalBuilder"/> representing the current element.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, enabling fluent syntax.
     /// </returns>
     /// <remarks>
-    /// Esta instrucción espera que el valor en la parte superior de la
-    /// pila implemente la interfaz <see cref="IEnumerable{T}"/>.
+    /// This instruction expects the value on the top of the stack to implement
+    /// <see cref="IEnumerable{T}"/>.
     /// </remarks>
     public static ILGenerator ForEach<T>(this ILGenerator ilGen, ForEachBlock foreachBlock)
     {
@@ -376,25 +352,23 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta un bloque <see langword="using"/> estructurado en la
-    /// secuencia del lenguaje intermedio de Microsoft® (MSIL).
+    /// Inserts a structured <see langword="using"/> block into the Microsoft
+    /// Intermediate Language (MSIL) sequence.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar el bloque
-    /// <see langword="using"/>.
+    /// The instruction sequence into which the <see langword="using"/> block
+    /// will be inserted.
     /// </param>
     /// <param name="disposable">
-    /// Referencia a un <see cref="LocalBuilder"/> que contiene la instancia
-    /// del objeto desechable a utilizar dentro del bloque 
-    /// <see langword="using"/>.
+    /// Reference to a <see cref="LocalBuilder"/> holding the disposable
+    /// instance used within the <see langword="using"/> block.
     /// </param>
     /// <param name="usingBlock">
-    /// Delegado que define las acciones a ejecutar dentro del bloque
-    /// <see langword="using"/>.
+    /// Delegate that defines the actions to execute inside the
+    /// <see langword="using"/> block.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, enabling fluent syntax.
     /// </returns>
     public static ILGenerator Using(this ILGenerator ilGen, LocalBuilder disposable, UsingBlock usingBlock)
     {
@@ -408,24 +382,23 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta un bloque <see langword="using"/> estructurado en la
-    /// secuencia del lenguaje intermedio de Microsoft® (MSIL).
+    /// Inserts a structured <see langword="using"/> block into the Microsoft
+    /// Intermediate Language (MSIL) sequence.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de objeto desechable a instanciar para utilizar dentro del
-    /// bloque <see langword="using"/>.
+    /// Type of disposable object to instantiate for use within the
+    /// <see langword="using"/> block.
     /// </typeparam>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar el bloque
-    /// <see langword="using"/>.
+    /// The instruction sequence into which the <see langword="using"/> block
+    /// will be inserted.
     /// </param>
     /// <param name="usingBlock">
-    /// Delegado que define las acciones a ejecutar dentro del bloque
-    /// <see langword="using"/>.
+    /// Delegate that defines the actions to execute inside the
+    /// <see langword="using"/> block.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, enabling fluent syntax.
     /// </returns>
     public static ILGenerator Using<T>(this ILGenerator ilGen, UsingBlock usingBlock) where T : IDisposable, new()
     {
@@ -434,16 +407,16 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta un salto de transferencia de control incondicional que sale
-    /// de una región protegida de código (generalmente un bloque
-    /// <see langword="try"/> o <see langword="catch"/>) en la secuencia
-    /// del lenguaje intermedio de Microsoft® (MSIL).
+    /// Inserts an unconditional control‑transfer instruction that exits a
+    /// protected code region (typically a <see langword="try"/> or
+    /// <see langword="catch"/> block) into the Microsoft Intermediate
+    /// Language (MSIL) sequence.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar el salto.
+    /// The instruction sequence into which the jump will be inserted.
     /// </param>
-    /// <param name="label"></param>
-    /// <returns></returns>
+    /// <param name="label">Destination label for the jump.</param>
+    /// <returns>The same <paramref name="ilGen"/> instance, enabling fluent syntax.</returns>
     public static ILGenerator Leave(this ILGenerator ilGen, Label label)
     {
         ilGen.Emit(Op.Leave, label);
@@ -451,28 +424,24 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta un bloque <see langword="try"/>/<see langword="finally"/>
-    /// estructurado en la secuencia del lenguaje intermedio de Microsoft®
-    /// (MSIL).
+    /// Inserts a structured <see langword="try"/>/<see langword="finally"/> block
+    /// into the Microsoft Intermediate Language (MSIL) sequence.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar el bloque
-    /// <see langword="try"/>.
+    /// The instruction sequence into which the <see langword="try"/> block
+    /// will be inserted.
     /// </param>
     /// <param name="tryBlock">
-    /// Acción que permite definir las instrucciones a insertar en el
-    /// bloque <see langword="try"/>. La acción incluye un parámetro que
-    /// puede usarse como la etiqueta de salida para finalizar el bloque
-    /// <see langword="try"/> por medio de una instrucción
-    /// <see cref="Leave(ILGenerator, Label)"/>.
+    /// Action that defines the instructions to emit in the <see langword="try"/>
+    /// block. The action receives a label that may be used as the exit
+    /// target via <see cref="Leave(ILGenerator, Label)"/>.
     /// </param>
     /// <param name="finallyBlock">
-    /// Acción que permite definir las instrucciones a insertar en el
-    /// bloque <see langword="finally"/>.
+    /// Action that defines the instructions to emit in the <see langword="finally"/>
+    /// block.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same <paramref name="ilGen"/> instance, enabling fluent syntax.
     /// </returns>
     public static ILGenerator TryFinally(this ILGenerator ilGen, TryBlock tryBlock, FinallyBlock finallyBlock)
     {
@@ -489,30 +458,25 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta un bloque <see langword="try"/>/<see langword="catch"/>
-    /// estructurado en la secuencia del lenguaje intermedio de Microsoft®
-    /// (MSIL).
+    /// Inserts a structured <see langword="try"/>/<see langword="catch"/> block
+    /// into the Microsoft Intermediate Language (MSIL) sequence.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar el bloque
-    /// <see langword="for"/>.
+    /// The instruction sequence into which the <see langword="try"/> block
+    /// will be inserted.
     /// </param>
     /// <param name="tryBlock">
-    /// Acción que permite definir las instrucciones a insertar en el
-    /// bloque <see langword="try"/>. La acción incluye un parámetro que
-    /// puede usarse como la etiqueta de salida para finalizar el bloque
-    /// <see langword="try"/> por medio de una instrucción
-    /// <see cref="Leave(ILGenerator, Label)"/>.
+    /// Action that defines the instructions to emit in the <see langword="try"/>
+    /// block. The action receives a label that may be used as the exit
+    /// target via <see cref="Leave(ILGenerator, Label)"/>.
     /// </param>
     /// <param name="catchBlocks">
-    /// Colección de bloques <see langword="catch"/> a insertar. Cada
-    /// acción incluye un parámetro que puede usarse como la etiqueta de
-    /// salida para finalizar el bloque <see langword="catch"/> por medio
-    /// de una instrucción <see cref="Leave(ILGenerator, Label)"/>.
+    /// Collection of <see langword="catch"/> blocks to insert. Each action
+    /// receives a label that may be used as the exit target via
+    /// <see cref="Leave(ILGenerator, Label)"/>.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same <paramref name="ilGen"/> instance, enabling fluent syntax.
     /// </returns>
     public static ILGenerator TryCatch(this ILGenerator ilGen, TryBlock tryBlock, IEnumerable<KeyValuePair<Type, TryBlock>> catchBlocks)
     {
@@ -522,35 +486,30 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta un bloque
-    /// <see langword="try"/>/<see langword="catch"/>/<see langword="finally"/>
-    /// estructurado en la secuencia del lenguaje intermedio de Microsoft®
-    /// (MSIL).
+    /// Inserts a structured <see langword="try"/>/<see langword="catch"/>
+    /// /<see langword="finally"/> block into the Microsoft Intermediate
+    /// Language (MSIL) sequence.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar el bloque
-    /// <see langword="try"/>.
+    /// The instruction sequence into which the <see langword="try"/> block
+    /// will be inserted.
     /// </param>
     /// <param name="tryBlock">
-    /// Acción que permite definir las instrucciones a insertar en el
-    /// bloque <see langword="try"/>. La acción incluye un parámetro que
-    /// puede usarse como la etiqueta de salida para finalizar el bloque
-    /// <see langword="try"/> por medio de una instrucción
-    /// <see cref="Leave(ILGenerator, Label)"/>.
+    /// Action that defines the instructions to emit in the <see langword="try"/>
+    /// block. The action receives a label that may be used as the exit
+    /// target via <see cref="Leave(ILGenerator, Label)"/>.
     /// </param>
     /// <param name="catchBlocks">
-    /// Colección de bloques <see langword="catch"/> a insertar. Cada
-    /// acción incluye un parámetro que puede usarse como la etiqueta de
-    /// salida para finalizar el bloque <see langword="catch"/> por medio
-    /// de una instrucción <see cref="Leave(ILGenerator, Label)"/>.
+    /// Collection of <see langword="catch"/> blocks to insert. Each action
+    /// receives a label that may be used as the exit target via
+    /// <see cref="Leave(ILGenerator, Label)"/>.
     /// </param>
     /// <param name="finallyBlock">
-    /// Acción que permite definir las instrucciones a insertar en el
-    /// bloque <see langword="finally"/>.
+    /// Action that defines the instructions to emit in the <see langword="finally"/>
+    /// block.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same <paramref name="ilGen"/> instance, enabling fluent syntax.
     /// </returns>
     public static ILGenerator TryCatchFinally(this ILGenerator ilGen, TryBlock tryBlock, IEnumerable<KeyValuePair<Type, TryBlock>> catchBlocks, Action<ILGenerator> finallyBlock)
     {
@@ -562,20 +521,18 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta la istanciación y lanzamiento de una excepción sin argumentos
-    /// en la secuencia del lenguaje intermedio de Microsoft® (MSIL).
+    /// Emits code that creates and throws an exception with no arguments
+    /// into the Microsoft Intermediate Language (MSIL) sequence.
     /// </summary>
     /// <typeparam name="T">
-    /// Tipo de la excepción a lanzar. Debe contener un constructor publico sin
-    /// parámetros.
+    /// The exception type to throw. Must have a public parameterless
+    /// constructor.
     /// </typeparam>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar lanzamiento de la
-    /// excepción.
+    /// The instruction sequence into which the throw will be emitted.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same <paramref name="ilGen"/> instance, enabling fluent syntax.
     /// </returns>
     public static ILGenerator Throw<T>(this ILGenerator ilGen) where T: Exception, new()
     {
@@ -583,16 +540,15 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta el lanzamiento de una excepción ya instanciada en la pila en la
-    /// secuencia del lenguaje intermedio de Microsoft® (MSIL).
+    /// Emits a throw instruction for an exception that is already
+    /// instantiated on the stack into the Microsoft Intermediate Language
+    /// (MSIL) sequence.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar lanzamiento de la
-    /// excepción.
+    /// The instruction sequence into which the throw will be emitted.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same <paramref name="ilGen"/> instance, enabling fluent syntax.
     /// </returns>
     public static ILGenerator Throw(this ILGenerator ilGen) => OneLiner(ilGen, Op.Throw);
 }

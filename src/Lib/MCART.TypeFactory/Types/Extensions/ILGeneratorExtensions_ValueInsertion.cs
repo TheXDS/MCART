@@ -40,10 +40,6 @@ using static TheXDS.MCART.Resources.Errors;
 
 namespace TheXDS.MCART.Types.Extensions;
 
-/// <summary>
-/// Contains useful extensions for code generation using the
-/// <see cref="ILGenerator"/> class.
-/// </summary>
 public static partial class ILGeneratorExtensions
 {
     /// <summary>

@@ -34,24 +34,24 @@ using static System.Reflection.Emit.OpCodes;
 namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
-/// Contiene extensiones útiles para la generación de código por medio
-/// de la clase <see cref="ILGenerator"/>.
+/// Contains useful extensions for code generation via the
+/// <see cref="ILGenerator"/> class.
 /// </summary>
 public static partial class ILGeneratorExtensions
 {
     /// <summary>
-    /// Define e inserta una nueva etiqueta en la secuencia del lenguaje
-    /// intermedio de Microsoft® (MSIL).
+    /// Defines and inserts a new label into the Microsoft Intermediate
+    /// Language (MSIL) instruction sequence.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar la nueva etiqueta.
+    /// Instruction sequence into which to insert the new label.
     /// </param>
     /// <param name="label">
-    /// Etiqueta que ha sido definida e insertada.
+    /// Label that has been defined and inserted.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, enabling Fluent
+    /// syntax.
     /// </returns>
     public static ILGenerator InsertNewLabel(this ILGenerator ilGen, out Label label)
     {
@@ -59,18 +59,18 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta la etiqueta en la secuencia del lenguaje intermedio (MSIL) 
-    /// de Microsoft® en la posición actual.
+    /// Inserts a label into the MSIL instruction sequence at the current
+    /// position.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar la etiqueta.
+    /// Instruction sequence into which to insert the label.
     /// </param>
     /// <param name="label">
-    /// Etiqueta que será insertada.
+    /// Label to be inserted.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, enabling Fluent
+    /// syntax.
     /// </returns>
     public static ILGenerator PutLabel(this ILGenerator ilGen, Label label)
     {
@@ -79,19 +79,18 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta un salto de transferencia de control incondicional en la
-    /// secuencia del lenguaje intermedio de Microsoft® (MSIL) a una 
-    /// etiqueta.
+    /// Inserts an unconditional control‑transfer jump into the MSIL
+    /// instruction sequence to a label.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar el salto.
+    /// Instruction sequence into which to insert the jump.
     /// </param>
     /// <param name="label">
-    /// Etiqueta que será el destino del salto.
+    /// Label that will be the target of the jump.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, enabling Fluent
+    /// syntax.
     /// </returns>
     public static ILGenerator Branch(this ILGenerator ilGen, Label label)
     {
@@ -100,20 +99,19 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta un salto condicional de transferencia de control en la
-    /// secuencia del lenguaje intermedio de Microsoft® (MSIL) a una nueva
-    /// etiqueta, realizando el salto si el valor en la parte superior de
-    /// la pila se evalúa como <see langword="true"/>.
+    /// Inserts a conditional control‑transfer jump into the MSIL
+    /// instruction sequence to a new label, jumping if the value on
+    /// top of the stack evaluates to <see langword="true"/>.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar el salto.
+    /// Instruction sequence into which to insert the jump.
     /// </param>
     /// <param name="label">
-    /// Etiqueta que será el destino del salto.
+    /// Label that will be the target of the jump.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, enabling Fluent
+    /// syntax.
     /// </returns>
     public static ILGenerator BranchTrue(this ILGenerator ilGen, Label label)
     {
@@ -121,20 +119,19 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta un salto condicional de transferencia de control en la
-    /// secuencia del lenguaje intermedio de Microsoft® (MSIL) a una nueva
-    /// etiqueta, realizando el salto si el valor en la parte superior de
-    /// la pila se evalúa como <see langword="true"/>.
+    /// Inserts a conditional control‑transfer jump into the MSIL
+    /// instruction sequence to a new label, jumping if the value on
+    /// top of the stack evaluates to <see langword="true"/>.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar el salto.
+    /// Instruction sequence into which to insert the jump.
     /// </param>
     /// <param name="label">
-    /// Nueva etiqueta que será el destino del salto.
+    /// New label that will be the target of the jump.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, enabling Fluent
+    /// syntax.
     /// </returns>
     public static ILGenerator BranchTrueNewLabel(this ILGenerator ilGen, out Label label)
     {
@@ -142,20 +139,20 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta un salto condicional de transferencia de control en la
-    /// secuencia del lenguaje intermedio de Microsoft® (MSIL) a una nueva
-    /// etiqueta, realizando el salto si el valor en la parte superior de
-    /// la pila se evalúa como <see langword="false"/>.
+    /// Inserts a conditional control‑transfer jump into the Microsoft
+    /// Intermediate Language (MSIL) instruction sequence to a new
+    /// label, jumping if the value on top of the stack evaluates to
+    /// <see langword="false"/>.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar el salto.
+    /// Instruction sequence into which to insert the jump.
     /// </param>
     /// <param name="label">
-    /// Etiqueta que será el destino del salto.
+    /// Label that will be the target of the jump.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, enabling Fluent
+    /// syntax.
     /// </returns>
     public static ILGenerator BranchFalse(this ILGenerator ilGen, Label label)
     {
@@ -163,20 +160,19 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta un salto condicional de transferencia de control en la
-    /// secuencia del lenguaje intermedio de Microsoft® (MSIL) a una nueva
-    /// etiqueta, realizando el salto si el valor en la parte superior de
-    /// la pila se evalúa como <see langword="false"/>.
+    /// Inserts a conditional control‑transfer jump into the MSIL
+    /// instruction sequence to a new label, jumping if the value on
+    /// top of the stack evaluates to <see langword="false"/>.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar el salto.
+    /// Instruction sequence into which to insert the jump.
     /// </param>
     /// <param name="label">
-    /// Nueva etiqueta que será el destino del salto.
+    /// New label that will be the target of the jump.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, enabling Fluent
+    /// syntax.
     /// </returns>
     public static ILGenerator BranchFalseNewLabel(this ILGenerator ilGen, out Label label)
     {
@@ -184,21 +180,20 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta un salto condicional de transferencia de control en la
-    /// secuencia del lenguaje intermedio de Microsoft® (MSIL) a una nueva
-    /// etiqueta; realizando el salto si luego de comparar los dos valores
-    /// en la parte superior de la pila, el primero resulta ser mayor que
-    /// el segundo.
+    /// Inserts a conditional control‑transfer jump into the MSIL
+    /// instruction sequence to a new label; jumping if, after comparing
+    /// the two values on top of the stack, the first is greater than
+    /// the second.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar el salto.
+    /// Instruction sequence into which to insert the jump.
     /// </param>
     /// <param name="label">
-    /// Etiqueta que será el destino del salto.
+    /// Label that will be the target of the jump.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, enabling Fluent
+    /// syntax.
     /// </returns>
     public static ILGenerator BranchGreaterThan(this ILGenerator ilGen, Label label)
     {
@@ -206,21 +201,20 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta un salto condicional de transferencia de control en la
-    /// secuencia del lenguaje intermedio de Microsoft® (MSIL) a una nueva
-    /// etiqueta; realizando el salto si luego de comparar los dos valores
-    /// en la parte superior de la pila, el primero resulta ser mayor que
-    /// el segundo.
+    /// Inserts a conditional control‑transfer jump into the MSIL
+    /// instruction sequence to a new label; jumping if, after comparing
+    /// the two values on top of the stack, the first is greater than
+    /// the second.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar el salto.
+    /// Instruction sequence into which to insert the jump.
     /// </param>
     /// <param name="label">
-    /// Nueva etiqueta que será el destino del salto.
+    /// New label that will be the target of the jump.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, enabling Fluent
+    /// syntax.
     /// </returns>
     public static ILGenerator BranchGreaterThanNewLabel(this ILGenerator ilGen, out Label label)
     {
@@ -228,21 +222,20 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta un salto condicional de transferencia de control en la
-    /// secuencia del lenguaje intermedio de Microsoft® (MSIL) a una nueva
-    /// etiqueta; realizando el salto si luego de comparar los dos valores
-    /// en la parte superior de la pila, el primero resulta ser menor que
-    /// el segundo.
+    /// Inserts a conditional control‑transfer jump into the MSIL
+    /// instruction sequence to a new label; jumping if, after comparing
+    /// the two values on top of the stack, the first is less than the
+    /// second.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar el salto.
+    /// Instruction sequence into which to insert the jump.
     /// </param>
     /// <param name="label">
-    /// Etiqueta que será el destino del salto.
+    /// Label that will be the target of the jump.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, enabling Fluent
+    /// syntax.
     /// </returns>
     public static ILGenerator BranchLessThan(this ILGenerator ilGen, Label label)
     {
@@ -250,21 +243,19 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta un salto condicional de transferencia de control en la
-    /// secuencia del lenguaje intermedio de Microsoft® (MSIL) a una nueva
-    /// etiqueta; realizando el salto si luego de comparar los dos valores
-    /// en la parte superior de la pila, el primero resulta ser menor que
-    /// el segundo.
+    /// Inserts a conditional branch to a new label in a Microsoft® IL
+    /// sequence, branching when the top two stack values are compared
+    /// and the first is less than the second.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar el salto.
+    /// The ILGenerator where the branch will be inserted.
     /// </param>
     /// <param name="label">
-    /// Nueva etiqueta que será el destino del salto.
+    /// The new label that will become the branch destination.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, enabling fluent
+    /// syntax.
     /// </returns>
     public static ILGenerator BranchLessThanNewLabel(this ILGenerator ilGen, out Label label)
     {
@@ -272,21 +263,18 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta un salto condicional de transferencia de control en la
-    /// secuencia del lenguaje intermedio de Microsoft® (MSIL) a una nueva
-    /// etiqueta; realizando el salto si luego de comparar los dos valores
-    /// en la parte superior de la pila, el primero resulta ser igual al
-    /// segundo.
+    /// Inserts a conditional branch to a label in a Microsoft® IL
+    /// sequence, branching when the top two stack values are equal.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar el salto.
+    /// The ILGenerator where the branch will be inserted.
     /// </param>
     /// <param name="label">
-    /// Etiqueta que será el destino del salto.
+    /// The label that will become the branch destination.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, enabling fluent
+    /// syntax.
     /// </returns>
     public static ILGenerator BranchEqual(this ILGenerator ilGen, Label label)
     {
@@ -294,21 +282,18 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta un salto condicional de transferencia de control en la
-    /// secuencia del lenguaje intermedio de Microsoft® (MSIL) a una nueva
-    /// etiqueta; realizando el salto si luego de comparar los dos valores
-    /// en la parte superior de la pila, el primero resulta ser igual al
-    /// segundo.
+    /// Inserts a conditional branch to a new label in a Microsoft® IL
+    /// sequence, branching when the top two stack values are equal.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar el salto.
+    /// The ILGenerator where the branch will be inserted.
     /// </param>
     /// <param name="label">
-    /// Nueva etiqueta que será el destino del salto.
+    /// The new label that will become the branch destination.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, enabling fluent
+    /// syntax.
     /// </returns>
     public static ILGenerator BranchEqualNewLabel(this ILGenerator ilGen, out Label label)
     {
@@ -316,21 +301,19 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta un salto condicional de transferencia de control en la
-    /// secuencia del lenguaje intermedio de Microsoft® (MSIL) a una nueva
-    /// etiqueta; realizando el salto si luego de comparar los dos valores
-    /// en la parte superior de la pila, el primero resulta ser mayor o
-    /// igual que el segundo.
+    /// Inserts a conditional branch to a label in a Microsoft® IL
+    /// sequence, branching when the top two stack values are compared
+    /// and the first is greater than or equal to the second.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar el salto.
+    /// The ILGenerator where the branch will be inserted.
     /// </param>
     /// <param name="label">
-    /// Etiqueta que será el destino del salto.
+    /// The label that will become the branch destination.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, enabling fluent
+    /// syntax.
     /// </returns>
     public static ILGenerator BranchGreaterThanOrEqual(this ILGenerator ilGen, Label label)
     {
@@ -338,21 +321,19 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta un salto condicional de transferencia de control en la
-    /// secuencia del lenguaje intermedio de Microsoft® (MSIL) a una nueva
-    /// etiqueta; realizando el salto si luego de comparar los dos valores
-    /// en la parte superior de la pila, el primero resulta ser mayor o
-    /// igual que el segundo.
+    /// Inserts a conditional branch to a new label in a Microsoft® IL
+    /// sequence, branching when the top two stack values are compared
+    /// and the first is greater than or equal to the second.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar el salto.
+    /// The ILGenerator where the branch will be inserted.
     /// </param>
     /// <param name="label">
-    /// Nueva etiqueta que será el destino del salto.
+    /// The new label that will become the branch destination.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, enabling fluent
+    /// syntax.
     /// </returns>
     public static ILGenerator BranchGreaterThanOrEqualNewLabel(this ILGenerator ilGen, out Label label)
     {
@@ -360,21 +341,19 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta un salto condicional de transferencia de control en la
-    /// secuencia del lenguaje intermedio de Microsoft® (MSIL) a una nueva
-    /// etiqueta; realizando el salto si luego de comparar los dos valores
-    /// en la parte superior de la pila, el primero resulta ser menor o
-    /// igual que el segundo.
+    /// Inserts a conditional branch in a Microsoft® IL sequence to a new
+    /// label, branching when the top two stack values are compared and the
+    /// first is less than or equal to the second.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar el salto.
+    /// The ILGenerator where the branch will be inserted.
     /// </param>
     /// <param name="label">
-    /// Etiqueta que será el destino del salto.
+    /// The label that will be the branch destination.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, enabling fluent
+    /// syntax.
     /// </returns>
     public static ILGenerator BranchLessThanOrEqual(this ILGenerator ilGen, Label label)
     {
@@ -382,21 +361,19 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta un salto condicional de transferencia de control en la
-    /// secuencia del lenguaje intermedio de Microsoft® (MSIL) a una nueva
-    /// etiqueta; realizando el salto si luego de comparar los dos valores
-    /// en la parte superior de la pila, el primero resulta ser menor o
-    /// igual que el segundo.
+    /// Inserts a conditional branch in a Microsoft® IL sequence to a new
+    /// label, branching when the top two stack values are compared and the
+    /// first is less than or equal to the second.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar el salto.
+    /// The ILGenerator where the branch will be inserted.
     /// </param>
     /// <param name="label">
-    /// Nueva etiqueta que será el destino del salto.
+    /// The new label that will be the branch destination.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, enabling fluent
+    /// syntax.
     /// </returns>
     public static ILGenerator BranchLessThanOrEqualNewLabel(this ILGenerator ilGen, out Label label)
     {
@@ -404,21 +381,19 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta un salto condicional de transferencia de control en la
-    /// secuencia del lenguaje intermedio de Microsoft® (MSIL) a una nueva
-    /// etiqueta; realizando el salto si luego de comparar los dos valores
-    /// en la parte superior de la pila, el primero resulta ser distinto al
-    /// segundo.
+    /// Inserts a conditional branch in a Microsoft® IL sequence to a new
+    /// label, branching when the top two stack values are compared and the
+    /// first is not equal to the second.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar el salto.
+    /// The ILGenerator where the branch will be inserted.
     /// </param>
     /// <param name="label">
-    /// Etiqueta que será el destino del salto.
+    /// The label that will be the branch destination.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, enabling fluent
+    /// syntax.
     /// </returns>
     public static ILGenerator BranchNotEqual(this ILGenerator ilGen, Label label)
     {
@@ -426,21 +401,19 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta un salto condicional de transferencia de control en la
-    /// secuencia del lenguaje intermedio de Microsoft® (MSIL) a una nueva
-    /// etiqueta; realizando el salto si luego de comparar los dos valores
-    /// en la parte superior de la pila, el primero resulta ser distinto al
-    /// segundo.
+    /// Inserts a conditional branch in a Microsoft® IL sequence to a new
+    /// label, branching when the top two stack values are compared and the
+    /// first is not equal to the second.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar el salto.
+    /// The ILGenerator where the branch will be inserted.
     /// </param>
     /// <param name="label">
-    /// Nueva etiqueta que será el destino del salto.
+    /// The new label that will be the branch destination.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, enabling fluent
+    /// syntax.
     /// </returns>
     public static ILGenerator BranchNotEqualNewLabel(this ILGenerator ilGen, out Label label)
     {
@@ -448,19 +421,18 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserta un salto de transferencia de control incondicional en la
-    /// secuencia del lenguaje intermedio de Microsoft® (MSIL) a una nueva
-    /// etiqueta.
+    /// Inserts an unconditional branch in a Microsoft® IL sequence to a
+    /// new label.
     /// </summary>
     /// <param name="ilGen">
-    /// Secuencia de instrucciones en la cual insertar el salto.
+    /// The ILGenerator where the branch will be inserted.
     /// </param>
     /// <param name="label">
-    /// Nueva etiqueta que será el destino del salto.
+    /// The new label that will be the branch destination.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="ilGen"/>, permitiendo el uso
-    /// de sintaxis Fluent.
+    /// The same instance as <paramref name="ilGen"/>, enabling fluent
+    /// syntax.
     /// </returns>
     public static ILGenerator BranchNewLabel(this ILGenerator ilGen, out Label label)
     {

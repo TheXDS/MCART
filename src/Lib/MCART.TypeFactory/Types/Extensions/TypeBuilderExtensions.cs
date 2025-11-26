@@ -38,17 +38,17 @@ using Errors = TheXDS.MCART.Resources.TypeFactoryErrors;
 namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
-/// Contiene extensiones útiles para la generación de miembros por medio
-/// de la clase <see cref="TypeBuilder"/>.
+/// Provides useful extensions for generating members using the
+/// <see cref="TypeBuilder"/> class.
 /// </summary>
 public static class TypeBuilderExtensions
 {
     /// <summary>
-    /// Inicializa una nueva instancia del tipo en runtime especificado.
+    /// Initializes a new instance of the specified runtime type.
     /// </summary>
-    /// <returns>La nueva instancia del tipo especificado.</returns>
+    /// <returns>The new instance of the specified type.</returns>
     /// <param name="tb">
-    /// <see cref="TypeBuilder"/> desde el cual instanciar un nuevo objeto.
+    /// <see cref="TypeBuilder"/> from which to instantiate a new object.
     /// </param>
     [DebuggerStepThrough]
     [Sugar]
@@ -59,19 +59,18 @@ public static class TypeBuilderExtensions
     }
 
     /// <summary>
-    /// Determina si el método es reemplazable.
+    /// Determines whether the specified method can be overridden.
     /// </summary>
     /// <returns>
-    /// <see langword="true"/> si el método es reemplazable
-    /// <see langword="false"/> en caso contrario, o
-    /// <see langword="null"/> si el método no existe en la clase base
-    /// del constructor de tipos.
+    /// <see langword="true"/> if the method can be overridden; 
+    /// <see langword="false"/> otherwise; or <see langword="null"/> if the
+    /// method does not exist in the base class.
     /// </returns>
     /// <param name="tb">
-    /// Constructor de tipo sobre el cual ejecutar la consulta.
+    /// Type constructor on which to perform the query.
     /// </param>
-    /// <param name="method">Nombre del método a buscar.</param>
-    /// <param name="args">Tipo de argumentos del método a buscar.</param>
+    /// <param name="method">Name of the method to search for.</param>
+    /// <param name="args">Types of the method's arguments.</param>
     public static bool? Overridable(this TypeBuilder tb, string method, params Type[] args)
     {
         MethodInfo? bm = tb.BaseType?.GetMethod(method, args);
@@ -80,23 +79,22 @@ public static class TypeBuilderExtensions
     }
 
     /// <summary>
-    /// Agrega una propiedad automática al tipo.
+    /// Adds an auto‑implemented property to the type.
     /// </summary>
     /// <param name="tb">
-    /// Constructor del tipo en el cual crear la nueva propiedad
-    /// automática.
+    /// <see cref="TypeBuilder"/> in which to create the new auto‑implemented
+    /// property.
     /// </param>
-    /// <param name="name">Nombre de la nueva propiedad.</param>
-    /// <param name="type">Tipo de la nueva propiedad.</param>
-    /// <param name="access">Nivel de acceso de la nueva propiedad.</param>
+    /// <param name="name">Name of the new property.</param>
+    /// <param name="type">Type of the new property.</param>
+    /// <param name="access">Access level of the new property.</param>
     /// <param name="virtual">
-    /// Si se establece en <see langword="true"/>, la propiedad será
-    /// definida como virtual, por lo que podrá ser reemplazada en una
-    /// clase derivada. 
+    /// If <see langword="true"/>, the property will be defined as virtual and
+    /// can be overridden in a derived class.
     /// </param>
     /// <returns>
-    /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
-    /// la propiedad que ha sido construida.
+    /// A <see cref="PropertyBuildInfo"/> that contains information about the
+    /// constructed property.
     /// </returns>
     public static PropertyBuildInfo AddAutoProperty(this TypeBuilder tb, string name, Type type, MemberAccess access, bool @virtual)
     {
@@ -108,18 +106,18 @@ public static class TypeBuilderExtensions
     }
 
     /// <summary>
-    /// Agrega una propiedad automática al tipo.
+    /// Adds an auto‑implemented property to the type.
     /// </summary>
     /// <param name="tb">
-    /// Constructor del tipo en el cual crear la nueva propiedad
-    /// automática.
+    /// <see cref="TypeBuilder"/> in which to create the new auto‑implemented
+    /// property.
     /// </param>
-    /// <param name="name">Nombre de la nueva propiedad.</param>
-    /// <param name="type">Tipo de la nueva propiedad.</param>
-    /// <param name="access">Nivel de acceso de la nueva propiedad.</param>
+    /// <param name="name">Name of the new property.</param>
+    /// <param name="type">Type of the new property.</param>
+    /// <param name="access">Access level of the new property.</param>
     /// <returns>
-    /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
-    /// la propiedad que ha sido construida.
+    /// A <see cref="PropertyBuildInfo"/> that contains information about the
+    /// constructed property.
     /// </returns>
     public static PropertyBuildInfo AddAutoProperty(this TypeBuilder tb, string name, Type type, MemberAccess access)
     {
@@ -127,17 +125,17 @@ public static class TypeBuilderExtensions
     }
 
     /// <summary>
-    /// Agrega una propiedad automática pública al tipo.
+    /// Adds a public auto‑implemented property to the type.
     /// </summary>
     /// <param name="tb">
-    /// Constructor del tipo en el cual crear la nueva propiedad
-    /// automática.
+    /// <see cref="TypeBuilder"/> in which to create the new auto‑implemented
+    /// property.
     /// </param>
-    /// <param name="name">Nombre de la nueva propiedad.</param>
-    /// <param name="type">Tipo de la nueva propiedad.</param>
+    /// <param name="name">Name of the new property.</param>
+    /// <param name="type">Type of the new property.</param>
     /// <returns>
-    /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
-    /// la propiedad que ha sido construida.
+    /// A <see cref="PropertyBuildInfo"/> that contains information about the
+    /// constructed property.
     /// </returns>
     public static PropertyBuildInfo AddAutoProperty(this TypeBuilder tb, string name, Type type)
     {
@@ -145,17 +143,16 @@ public static class TypeBuilderExtensions
     }
 
     /// <summary>
-    /// Agrega una propiedad automática pública al tipo.
+    /// Adds a public auto‑implemented property to the type.
     /// </summary>
-    /// <typeparam name="T">Tipo de la nueva propiedad.</typeparam>
+    /// <typeparam name="T">Type of the new property.</typeparam>
     /// <param name="tb">
-    /// Constructor del tipo en el cual crear la nueva propiedad
-    /// automática.
+    /// Type constructor in which to create the new auto‑implemented property.
     /// </param>
-    /// <param name="name">Nombre de la nueva propiedad.</param>
+    /// <param name="name">Name of the new property.</param>
     /// <returns>
-    /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
-    /// la propiedad que ha sido construida.
+    /// A <see cref="PropertyBuildInfo"/> that contains information about the
+    /// constructed property.
     /// </returns>
     public static PropertyBuildInfo AddAutoProperty<T>(this TypeBuilder tb, string name)
     {
@@ -163,51 +160,50 @@ public static class TypeBuilderExtensions
     }
 
     /// <summary>
-    /// Agrega una sustitución para el método especificado.
+    /// Adds an override for the specified method.
     /// </summary>
     /// <param name="tb">
-    /// Constructor del tipo en el cual crear la nueva propiedad
-    /// automática.
+    /// Type constructor in which to create the override.
     /// </param>
     /// <param name="method">
-    /// Método a sustituir. Debe existir en el tipo base.
+    /// Method to override. Must exist in the base type.
     /// </param>
-    /// <returns></returns>
+    /// <returns>
+    /// A <see cref="MethodBuildInfo"/> representing the new method.
+    /// </returns>
     public static MethodBuildInfo AddOverride(this TypeBuilder tb, MethodInfo method)
     {
-        MethodBuilder newMethod = tb.DefineMethod(method.Name, GetNonAbstract(method), method.IsVoid() ? null : method.ReturnType, method.GetParameters().Select(p => p.ParameterType).ToArray());
+        MethodBuilder newMethod = tb.DefineMethod(method.Name, GetNonAbstract(method), method.IsVoid() ? null : method.ReturnType, [.. method.GetParameters().Select(p => p.ParameterType)]);
         tb.DefineMethodOverride(newMethod, method);
         return new MethodBuildInfo(tb, newMethod);
     }
 
     /// <summary>
-    /// Agrega una propiedad al tipo sin implementaciones de
-    /// <see langword="get"/> ni <see langword="set"/> establecidas.
+    /// Adds a property to the type without <see langword="get"/> or
+    /// <see langword="set"/> implementations.
     /// </summary>
     /// <param name="tb">
-    /// Constructor del tipo en el cual crear la nueva propiedad.
+    /// Type constructor in which to create the property.
     /// </param>
-    /// <param name="name">Nombre de la nueva propiedad.</param>
-    /// <param name="type">Tipo de la nueva propiedad.</param>
+    /// <param name="name">Name of the new property.</param>
+    /// <param name="type">Type of the new property.</param>
     /// <param name="writable">
-    /// <see langword="true"/> para crear una propiedad que contiene
-    /// accesor de escritura (accesor <see langword="set"/>),
-    /// <see langword="false"/> para no incluir un accesor de escritura en
-    /// la propiedad.
+    /// <see langword="true"/> to create a property that includes a
+    /// write accessor (<see langword="set"/>); <see langword="false"/> to omit
+    /// the write accessor.
     /// </param>
-    /// <param name="access">Nivel de acceso de la nueva propiedad.</param>
+    /// <param name="access">Access level of the new property.</param>
     /// <param name="virtual">
-    /// Si se establece en <see langword="true"/>, la propiedad será
-    /// definida como virtual, por lo que podrá ser reemplazada en una
-    /// clase derivada. 
+    /// If <see langword="true"/>, the property will be virtual and can be
+    /// overridden in derived classes.
     /// </param>
     /// <returns>
-    /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
-    /// la propiedad que ha sido construida.
+    /// A <see cref="PropertyBuildInfo"/> that contains information about the
+    /// constructed property.
     /// </returns>
     /// <remarks>
-    /// La propiedad generada requerirá que se implementen los accesores
-    /// antes de construir el tipo.
+    /// The generated property requires that the accessors be
+    /// implemented before the type is built.
     /// </remarks>
     public static PropertyBuildInfo AddProperty(this TypeBuilder tb, string name, Type type, bool writable, MemberAccess access, bool @virtual)
     {
@@ -215,33 +211,30 @@ public static class TypeBuilderExtensions
     }
 
     /// <summary>
-    /// Agrega una propiedad al tipo sin implementaciones de
-    /// <see langword="get"/> ni <see langword="set"/> establecidas.
+    /// Adds a property to the type without <see langword="get"/> or
+    /// <see langword="set"/> implementations.
     /// </summary>
-    /// <typeparam name="T">Tipo de la nueva propiedad.</typeparam>
+    /// <typeparam name="T">Type of the new property.</typeparam>
     /// <param name="tb">
-    /// Constructor del tipo en el cual crear la nueva propiedad.
+    /// Type constructor in which to create the property.
     /// </param>
-    /// <param name="name">Nombre de la nueva propiedad.</param>
+    /// <param name="name">Name of the new property.</param>
     /// <param name="writable">
-    /// <see langword="true"/> para crear una propiedad que contiene
-    /// accesor de escritura (accesor <see langword="set"/>),
-    /// <see langword="false"/> para no incluir un accesor de escritura en
-    /// la propiedad.
+    /// <see langword="true"/> to include a write accessor
+    /// (<see langword="set"/>); <see langword="false"/> to omit it.
     /// </param>
-    /// <param name="access">Nivel de acceso de la nueva propiedad.</param>
+    /// <param name="access">Access level of the new property.</param>
     /// <param name="virtual">
-    /// Si se establece en <see langword="true"/>, la propiedad será
-    /// definida como virtual, por lo que podrá ser reemplazada en una
-    /// clase derivada. 
+    /// If <see langword="true"/>, the property will be virtual and can be
+    /// overridden in derived classes.
     /// </param>
     /// <returns>
-    /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
-    /// la propiedad que ha sido construida.
+    /// A <see cref="PropertyBuildInfo"/> that contains information about the
+    /// constructed property.
     /// </returns>
     /// <remarks>
-    /// La propiedad generada requerirá que se implementen los accesores
-    /// antes de construir el tipo.
+    /// The generated property requires that the accessors be implemented
+    /// before building the type.
     /// </remarks>
     public static PropertyBuildInfo AddProperty<T>(this TypeBuilder tb, string name, bool writable, MemberAccess access, bool @virtual)
     {
@@ -249,28 +242,25 @@ public static class TypeBuilderExtensions
     }
 
     /// <summary>
-    /// Agrega una propiedad al tipo sin implementaciones de
-    /// <see langword="get"/> ni <see langword="set"/> establecidas.
+    /// Adds a property to the type without implementations of get or set.
     /// </summary>
-    /// <typeparam name="T">Tipo de la nueva propiedad.</typeparam>
+    /// <typeparam name="T">Type of the new property.</typeparam>
     /// <param name="tb">
-    /// Constructor del tipo en el cual crear la nueva propiedad.
+    /// Type builder in which to create the new property.
     /// </param>
-    /// <param name="name">Nombre de la nueva propiedad.</param>
+    /// <param name="name">Name of the new property.</param>
     /// <param name="writable">
-    /// <see langword="true"/> para crear una propiedad que contiene
-    /// accesor de escritura (accesor <see langword="set"/>),
-    /// <see langword="false"/> para no incluir un accesor de escritura en
-    /// la propiedad.
+    /// <see langword="true"/> to create a property that contains a write
+    /// accessor (set); <see langword="false"/> to omit the write accessor.
     /// </param>
-    /// <param name="access">Nivel de acceso de la nueva propiedad.</param>
+    /// <param name="access">Access level of the new property.</param>
     /// <returns>
-    /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
-    /// la propiedad que ha sido construida.
+    /// A <see cref="PropertyBuildInfo"/> that contains information about the
+    /// property that has been built.
     /// </returns>
     /// <remarks>
-    /// La propiedad generada requerirá que se implementen los accesores
-    /// antes de construir el tipo.
+    /// The generated property requires that the accessors be implemented
+    /// before the type is built.
     /// </remarks>
     public static PropertyBuildInfo AddProperty<T>(this TypeBuilder tb, string name, bool writable, MemberAccess access)
     {
@@ -278,27 +268,24 @@ public static class TypeBuilderExtensions
     }
 
     /// <summary>
-    /// Agrega una propiedad al tipo sin implementaciones de
-    /// <see langword="get"/> ni <see langword="set"/> establecidas.
+    /// Adds a property to the type without implementations of get or set.
     /// </summary>
-    /// <typeparam name="T">Tipo de la nueva propiedad.</typeparam>
+    /// <typeparam name="T">Type of the new property.</typeparam>
     /// <param name="tb">
-    /// Constructor del tipo en el cual crear la nueva propiedad.
+    /// Type builder in which to create the new property.
     /// </param>
-    /// <param name="name">Nombre de la nueva propiedad.</param>
+    /// <param name="name">Name of the new property.</param>
     /// <param name="writable">
-    /// <see langword="true"/> para crear una propiedad que contiene
-    /// accesor de escritura (accesor <see langword="set"/>),
-    /// <see langword="false"/> para no incluir un accesor de escritura en
-    /// la propiedad.
+    /// <see langword="true"/> to create a property that contains a write
+    /// accessor (set); <see langword="false"/> to omit the write accessor.
     /// </param>
     /// <returns>
-    /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
-    /// la propiedad que ha sido construida.
+    /// A <see cref="PropertyBuildInfo"/> that contains information about the
+    /// property that has been built.
     /// </returns>
     /// <remarks>
-    /// La propiedad generada requerirá que se implementen los accesores
-    /// antes de construir el tipo.
+    /// The generated property requires that the accessors be implemented
+    /// before the type is built.
     /// </remarks>
     public static PropertyBuildInfo AddProperty<T>(this TypeBuilder tb, string name, bool writable)
     {
@@ -306,21 +293,20 @@ public static class TypeBuilderExtensions
     }
 
     /// <summary>
-    /// Agrega una propiedad al tipo sin implementaciones de
-    /// <see langword="get"/> ni <see langword="set"/> establecidas.
+    /// Adds a property to the type without implementations of get or set.
     /// </summary>
-    /// <typeparam name="T">Tipo de la nueva propiedad.</typeparam>
+    /// <typeparam name="T">Type of the new property.</typeparam>
     /// <param name="tb">
-    /// Constructor del tipo en el cual crear la nueva propiedad.
+    /// Type builder in which to create the new property.
     /// </param>
-    /// <param name="name">Nombre de la nueva propiedad.</param>
+    /// <param name="name">Name of the new property.</param>
     /// <returns>
-    /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
-    /// la propiedad que ha sido construida.
+    /// A <see cref="PropertyBuildInfo"/> that contains information about the
+    /// property that has been built.
     /// </returns>
     /// <remarks>
-    /// La propiedad generada requerirá que se implementen los accesores
-    /// antes de construir el tipo.
+    /// The generated property requires that the accessors be implemented
+    /// before the type is built.
     /// </remarks>
     public static PropertyBuildInfo AddProperty<T>(this TypeBuilder tb, string name)
     {
@@ -328,21 +314,20 @@ public static class TypeBuilderExtensions
     }
 
     /// <summary>
-    /// Agrega una propiedad computada al tipo.
+    /// Adds a computed property to the type.
     /// </summary>
-    /// <typeparam name="T">Tipo de la nueva propiedad.</typeparam>
+    /// <typeparam name="T">Type of the new property.</typeparam>
     /// <param name="tb">
-    /// Constructor del tipo en el cual crear la nueva propiedad.
+    /// Type builder in which to create the new property.
     /// </param>
-    /// <param name="name">Nombre de la nueva propiedad.</param>
+    /// <param name="name">Name of the new property.</param>
     /// <param name="getterDefinition">
-    /// Acción que implementará las instrucciones a ejecutar dentro del
-    /// método asociado al accesor <see langword="get"/> de la propiedad 
-    /// computada.
+    /// Action that implements the instructions to be executed inside the
+    /// get accessor of the computed property.
     /// </param>
     /// <returns>
-    /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
-    /// la propiedad que ha sido construida.
+    /// A <see cref="PropertyBuildInfo"/> that contains information about the
+    /// property that has been built.
     /// </returns>
     public static PropertyBuildInfo AddComputedProperty<T>(this TypeBuilder tb, string name, Action<ILGenerator> getterDefinition)
     {
@@ -350,21 +335,20 @@ public static class TypeBuilderExtensions
     }
 
     /// <summary>
-    /// Agrega una propiedad computada al tipo.
+    /// Adds a computed property to the type.
     /// </summary>
     /// <param name="tb">
-    /// Constructor del tipo en el cual crear la nueva propiedad.
+    /// Type builder in which to create the new property.
     /// </param>
-    /// <param name="name">Nombre de la nueva propiedad.</param>
-    /// <param name="type">Tipo de la nueva propiedad.</param>
+    /// <param name="name">Name of the new property.</param>
+    /// <param name="type">Type of the new property.</param>
     /// <param name="getterDefinition">
-    /// Acción que implementará las instrucciones a ejecutar dentro del
-    /// método asociado al accesor <see langword="get"/> de la propiedad 
-    /// computada.
+    /// Action that implements the instructions to be executed inside
+    /// the get accessor of the computed property.
     /// </param>
     /// <returns>
-    /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
-    /// la propiedad que ha sido construida.
+    /// A <see cref="PropertyBuildInfo"/> that contains information about
+    /// the property that has been built.
     /// </returns>
     public static PropertyBuildInfo AddComputedProperty(this TypeBuilder tb, string name, Type type, Action<ILGenerator> getterDefinition)
     {
@@ -374,17 +358,17 @@ public static class TypeBuilderExtensions
     }
 
     /// <summary>
-    /// Agrega una propiedad con un valor constante.
+    /// Adds a property with a constant value.
     /// </summary>
-    /// <typeparam name="T">Tipo de la nueva propiedad.</typeparam>
+    /// <typeparam name="T">Type of the new property.</typeparam>
     /// <param name="tb">
-    /// Constructor del tipo en el cual crear la nueva propiedad.
+    /// Type builder in which to create the new property.
     /// </param>
-    /// <param name="name">Nombre de la nueva propiedad.</param>
-    /// <param name="value">Valor constante a asignar.</param>
+    /// <param name="name">Name of the new property.</param>
+    /// <param name="value">Constant value to assign.</param>
     /// <returns>
-    /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
-    /// la propiedad que ha sido construida.
+    /// A <see cref="PropertyBuildInfo"/> that contains information about
+    /// the property that has been built.
     /// </returns>
     public static PropertyBuildInfo AddConstantProperty<T>(this TypeBuilder tb, string name, T value)
     {
@@ -392,17 +376,17 @@ public static class TypeBuilderExtensions
     }
 
     /// <summary>
-    /// Agrega una propiedad con un valor constante.
+    /// Adds a property with a constant value.
     /// </summary>
     /// <param name="tb">
-    /// Constructor del tipo en el cual crear la nueva propiedad.
+    /// Type builder in which to create the new property.
     /// </param>
-    /// <param name="name">Nombre de la nueva propiedad.</param>
-    /// <param name="type">Tipo de la nueva propiedad.</param>
-    /// <param name="value">Valor constante a asignar.</param>
+    /// <param name="name">Name of the new property.</param>
+    /// <param name="type">Type of the new property.</param>
+    /// <param name="value">Constant value to assign.</param>
     /// <returns>
-    /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
-    /// la propiedad que ha sido construida.
+    /// A <see cref="PropertyBuildInfo"/> that contains information about
+    /// the property that has been built.
     /// </returns>
     public static PropertyBuildInfo AddConstantProperty(this TypeBuilder tb, string name, Type type, object? value)
     {
@@ -412,16 +396,16 @@ public static class TypeBuilderExtensions
     }
 
     /// <summary>
-    /// Agrega una propiedad pública de solo escritura al tipo.
+    /// Adds a public write‑only property to the type.
     /// </summary>
     /// <param name="tb">
-    /// Constructor del tipo en el cual crear la nueva propiedad.
+    /// Type builder in which to create the new property.
     /// </param>
-    /// <param name="name">Nombre de la nueva propiedad.</param>
-    /// <param name="type">Tipo de la nueva propiedad.</param>
+    /// <param name="name">Name of the new property.</param>
+    /// <param name="type">Type of the new property.</param>
     /// <returns>
-    /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
-    /// la propiedad que ha sido construida.
+    /// A <see cref="PropertyBuildInfo"/> that contains information about
+    /// the property that has been built.
     /// </returns>
     public static PropertyBuildInfo AddWriteOnlyProperty(this TypeBuilder tb, string name, Type type)
     {
@@ -429,17 +413,19 @@ public static class TypeBuilderExtensions
     }
 
     /// <summary>
-    /// Agrega una propiedad de solo escritura al tipo.
+    /// Adds a write‑only property to the type.
     /// </summary>
     /// <param name="tb">
-    /// Constructor del tipo en el cual crear la nueva propiedad.
+    /// Type builder in which to create the new property.
     /// </param>
-    /// <param name="name">Nombre de la nueva propiedad.</param>
-    /// <param name="type">Tipo de la nueva propiedad.</param>
-    /// <param name="access">Nivel de acceso de la nueva propiedad.</param>
+    /// <param name="name">Name of the new property.</param>
+    /// <param name="type">Type of the new property.</param>
+    /// <param name="access">
+    /// Access level of the new property.
+    /// </param>
     /// <returns>
-    /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
-    /// la propiedad que ha sido construida.
+    /// A <see cref="PropertyBuildInfo"/> that contains information about
+    /// the property that has been built.
     /// </returns>
     public static PropertyBuildInfo AddWriteOnlyProperty(this TypeBuilder tb, string name, Type type, MemberAccess access)
     {
@@ -447,21 +433,21 @@ public static class TypeBuilderExtensions
     }
 
     /// <summary>
-    /// Agrega una propiedad pública de solo escritura al tipo.
+    /// Adds a public write‑only property to the type.
     /// </summary>
     /// <param name="tb">
-    /// Constructor del tipo en el cual crear la nueva propiedad.
+    /// Type builder in which to create the new property.
     /// </param>
-    /// <param name="name">Nombre de la nueva propiedad.</param>
-    /// <param name="type">Tipo de la nueva propiedad.</param>
+    /// <param name="name">Name of the new property.</param>
+    /// <param name="type">Type of the new property.</param>
     /// <param name="virtual">
-    /// Si se establece en <see langword="true"/>, la propiedad será
-    /// definida como virtual, por lo que podrá ser reemplazada en una
-    /// clase derivada. 
+    /// If set to <see langword="true"/>, the property will be
+    /// declared virtual, allowing it to be overridden in a derived
+    /// class.
     /// </param>
     /// <returns>
-    /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
-    /// la propiedad que ha sido construida.
+    /// A <see cref="PropertyBuildInfo"/> that contains information about
+    /// the property that has been built.
     /// </returns>
     public static PropertyBuildInfo AddWriteOnlyProperty(this TypeBuilder tb, string name, Type type, bool @virtual)
     {
@@ -469,22 +455,21 @@ public static class TypeBuilderExtensions
     }
 
     /// <summary>
-    /// Agrega una propiedad de solo escritura al tipo.
+    /// Adds a write‑only property to the type.
     /// </summary>
     /// <param name="tb">
-    /// Constructor del tipo en el cual crear la nueva propiedad.
+    /// TypeBuilder in which the new property will be created.
     /// </param>
-    /// <param name="name">Nombre de la nueva propiedad.</param>
-    /// <param name="type">Tipo de la nueva propiedad.</param>
-    /// <param name="access">Nivel de acceso de la nueva propiedad.</param>
+    /// <param name="name">Name of the new property.</param>
+    /// <param name="type">Type of the new property.</param>
+    /// <param name="access">Access level of the new property.</param>
     /// <param name="virtual">
-    /// Si se establece en <see langword="true"/>, la propiedad será
-    /// definida como virtual, por lo que podrá ser reemplazada en una
-    /// clase derivada. 
+    /// If set to <see langword="true"/>, the property is defined as virtual,
+    /// so it can be overridden in a derived class.
     /// </param>
     /// <returns>
-    /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
-    /// la propiedad que ha sido construida.
+    /// A <see cref="PropertyBuildInfo"/> that contains information about
+    /// the property that has been built.
     /// </returns>
     public static PropertyBuildInfo AddWriteOnlyProperty(this TypeBuilder tb, string name, Type type, MemberAccess access, bool @virtual)
     {
@@ -492,33 +477,28 @@ public static class TypeBuilderExtensions
     }
 
     /// <summary>
-    /// Inserta explícitamente un constructor público sin argumentos al
-    /// tipo.
+    /// Explicitly inserts a public parameterless constructor into the type.
     /// </summary>
     /// <param name="tb">
-    /// <see cref="TypeBuilder"/> en el cual se definirá el nuevo constructor.
+    /// <see cref="TypeBuilder"/> in which the new constructor will be defined.
     /// </param>
     /// <returns>
-    /// Un <see cref="ILGenerator"/> que permite definir las instrucciones
-    /// del constructor.
+    /// An <see cref="ILGenerator"/> that allows defining the constructor's instructions.
     /// </returns>
     public static ILGenerator AddPublicConstructor(this TypeBuilder tb) => AddPublicConstructor(tb, Type.EmptyTypes);
 
     /// <summary>
-    /// Inserta explícitamente un constructor público al tipo,
-    /// especificando los argumentos requeridos por el mismo.
+    /// Explicitly inserts a public constructor into the type,
+    /// specifying the required arguments.
     /// </summary>
     /// <param name="tb">
-    /// <see cref="TypeBuilder"/> en el cual se definirá el nuevo
-    /// constructor.
+    /// <see cref="TypeBuilder"/> in which the new constructor will be defined.
     /// </param>
     /// <param name="arguments">
-    /// Arreglo con los tipos de argumentos aceptados por el nuevo
-    /// constructor.
+    /// Array of types of arguments accepted by the new constructor.
     /// </param>
     /// <returns>
-    /// Un <see cref="ILGenerator"/> que permite definir las instrucciones
-    /// del constructor.
+    /// An <see cref="ILGenerator"/> that allows defining the constructor's instructions.
     /// </returns>
     public static ILGenerator AddPublicConstructor(this TypeBuilder tb, params Type[] arguments)
     {
@@ -526,26 +506,23 @@ public static class TypeBuilderExtensions
     }
 
     /// <summary>
-    /// Implementa explícitamente un método abstracto.
+    /// Explicitly implements an abstract method.
     /// </summary>
     /// <param name="tb">
-    /// <see cref="TypeBuilder"/> en el cual se implementará de forma
-    /// explícita el método abstracto.
+    /// <see cref="TypeBuilder"/> in which the abstract method will be explicitly implemented.
     /// </param>
     /// <param name="method">
-    /// Método abstracto a implementar. El <see cref="TypeBuilder"/>
-    /// especificado debe implementar la interfaz en la cual está definido
-    /// el método.
+    /// Abstract method to implement. The specified TypeBuilder must
+    /// implement the interface in which the method is defined.
     /// </param>
     /// <returns>
-    /// Un <see cref="MethodBuildInfo"/> que contiene información sobre
-    /// el método que ha sido implementado de forma explícita.
+    /// A <see cref="MethodBuildInfo"/> that contains information about
+    /// the method that has been explicitly implemented.
     /// </returns>
     /// <exception cref="InvalidOperationException">
-    /// Se produce si <paramref name="tb"/> no implementa o hereda la
-    /// interfaz en la cual se ha definido el método
-    /// <paramref name="method"/>, o si <paramref name="method"/> no es un
-    /// miembro definido en una interfaz.
+    /// Thrown if <paramref name="tb"/> does not implement or inherit the interface
+    /// in which <paramref name="method"/> is defined, or if <paramref name="method"/>
+    /// is not a member defined in an interface.
     /// </exception>
     public static MethodBuildInfo ExplicitImplementMethod(this TypeBuilder tb, MethodInfo method)
     {
@@ -562,17 +539,17 @@ public static class TypeBuilderExtensions
     }
 
     /// <summary>
-    /// Define un método que no devuelve valor.
+    /// Defines a method that returns no value.
     /// </summary>
     /// <param name="tb">
-    /// <see cref="TypeBuilder"/> en el cual se creará el nuevo método.
+    /// <see cref="TypeBuilder"/> in which the new method will be created.
     /// </param>
-    /// <param name="name">Nombre del nuevo método.</param>
+    /// <param name="name">Name of the new method.</param>
     /// <param name="parameterTypes">
-    /// Tipo de los parámetros aceptados por el método.
+    /// Type of the parameters accepted by the method.
     /// </param>
     /// <returns>
-    /// Un <see cref="MethodBuilder"/> con el que se podrá definir al método.
+    /// A <see cref="MethodBuilder"/> with which the method can be defined.
     /// </returns>
     [Sugar]
     public static MethodBuilder DefineVoidMethod(this TypeBuilder tb, string name, params Type[] parameterTypes)
@@ -581,20 +558,20 @@ public static class TypeBuilderExtensions
     }
 
     /// <summary>
-    /// Define un método que devuelve un tipo especificado.
+    /// Defines a method that returns a specified type.
     /// </summary>
     /// <typeparam name="TResult">
-    /// Tipo de resultado devuelto por el método.
+    /// Result type returned by the method.
     /// </typeparam>
     /// <param name="tb">
-    /// <see cref="TypeBuilder"/> en el cual se creará el nuevo método.
+    /// <see cref="TypeBuilder"/> in which the new method will be created.
     /// </param>
-    /// <param name="name">Nombre del nuevo método.</param>
+    /// <param name="name">Name of the new method.</param>
     /// <param name="parameterTypes">
-    /// Tipo de los parámetros aceptados por el método.
+    /// Types of the parameters accepted by the method.
     /// </param>
     /// <returns>
-    /// Un <see cref="MethodBuilder"/> con el que se podrá definir al método.
+    /// A <see cref="MethodBuilder"/> with which the method can be defined.
     /// </returns>
     [Sugar]
     public static MethodBuilder DefineMethod<TResult>(this TypeBuilder tb, string name, params Type[] parameterTypes)
@@ -603,16 +580,16 @@ public static class TypeBuilderExtensions
     }
 
     /// <summary>
-    /// Agrega un evento al tipo.
+    /// Adds an event to the type.
     /// </summary>
     /// <param name="builder">
-    /// <see cref="TypeBuilder"/> en el cual se creará el nuevo evento y sus
-    /// métodos auxiliares requeridos.
+    /// <see cref="TypeBuilder"/> in which the new event and its required helper
+    /// methods will be created.
     /// </param>
-    /// <param name="name">Nombre del nuevo evento.</param>
+    /// <param name="name">Name of the new event.</param>
     /// <returns>
-    /// Un <see cref="EventBuildInfo"/> que contiene información sobre el
-    /// evento que ha sido definido.
+    /// An <see cref="EventBuildInfo"/> that contains information about the event
+    /// that has been defined.
     /// </returns>
     public static EventBuildInfo AddEvent(this TypeBuilder builder, string name)
     {
@@ -620,19 +597,19 @@ public static class TypeBuilderExtensions
     }
 
     /// <summary>
-    /// Agrega un evento al tipo.
+    /// Adds an event to the type.
     /// </summary>
     /// <typeparam name="TEventArgs">
-    /// Tipo de argumentos de evento a pasar cuando se produzca el evento.
+    /// Type of event arguments to pass when the event occurs.
     /// </typeparam>
     /// <param name="builder">
-    /// <see cref="TypeBuilder"/> en el cual se creará el nuevo evento y sus
-    /// métodos auxiliares requeridos.
+    /// <see cref="TypeBuilder"/> in which the new event and its required helper
+    /// methods will be created.
     /// </param>
-    /// <param name="name">Nombre del nuevo evento.</param>
+    /// <param name="name">Name of the new event.</param>
     /// <returns>
-    /// Un <see cref="EventBuildInfo"/> que contiene información sobre el
-    /// evento que ha sido definido.
+    /// An <see cref="EventBuildInfo"/> that contains information about the event
+    /// that has been defined.
     /// </returns>
     public static EventBuildInfo AddEvent<TEventArgs>(this TypeBuilder builder, string name) where TEventArgs : EventArgs
     {
@@ -640,26 +617,24 @@ public static class TypeBuilderExtensions
     }
 
     /// <summary>
-    /// Agrega un evento al tipo.
+    /// Adds an event to the type.
     /// </summary>
     /// <typeparam name="TEventHandler">
-    /// Delegado del manejador de eventos. Debe seguir la firma estándar de un
-    /// manejador de eventos, es decir, debe ser un método con tipo de retorno
-    /// <see langword="void"/>, y debe contener un argumento de tipo
-    /// <see cref="object"/>) y un argumento de tipo
-    /// <typeparamref name="TEventArgs"/>.
+    /// Event handler delegate. Must follow the standard event handler signature,
+    /// i.e. a <see langword="void"/>-returning method that takes an
+    /// <see cref="object"/> sender and a <typeparamref name="TEventArgs"/> argument.
     /// </typeparam>
     /// <typeparam name="TEventArgs">
-    /// Tipo de argumentos de evento a pasar cuando se produzca el evento.
+    /// Type of event arguments to pass when the event occurs.
     /// </typeparam>
     /// <param name="builder">
-    /// <see cref="TypeBuilder"/> en el cual se creará el nuevo evento y sus
-    /// métodos auxiliares requeridos.
+    /// <see cref="TypeBuilder"/> in which the new event and its required helper
+    /// methods will be created.
     /// </param>
-    /// <param name="name">Nombre del nuevo evento.</param>
+    /// <param name="name">Name of the new event.</param>
     /// <returns>
-    /// Un <see cref="EventBuildInfo"/> que contiene información sobre el
-    /// evento que ha sido definido.
+    /// An <see cref="EventBuildInfo"/> that contains information about the event
+    /// that has been defined.
     /// </returns>
     public static EventBuildInfo AddEvent<TEventHandler, TEventArgs>(this TypeBuilder builder, string name) where TEventHandler : Delegate where TEventArgs : EventArgs
     {
@@ -667,31 +642,28 @@ public static class TypeBuilderExtensions
     }
 
     /// <summary>
-    /// Agrega un evento al tipo.
+    /// Adds an event to the type.
     /// </summary>
     /// <typeparam name="TEventHandler">
-    /// Delegado del manejador de eventos. Debe seguir la firma estándar de un
-    /// manejador de eventos, es decir, debe ser un método con tipo de retorno
-    /// <see langword="void"/>, y debe contener un argumento de tipo
-    /// <typeparamref name="TSender"/> (generalmente, se prefiere el tipo
-    /// <see cref="object"/>) y un argumento de tipo
-    /// <typeparamref name="TEventArgs"/>.
+    /// Event handler delegate. Must follow the standard event handler signature,
+    /// i.e. a <see langword="void"/>-returning method that takes a <typeparamref
+    /// name="TSender"/> (typically <see cref="object"/>) and a
+    /// <typeparamref name="TEventArgs"/> argument.
     /// </typeparam>
     /// <typeparam name="TSender">
-    /// Tipo del objeto que genera el evento. Puede utilizarse
-    /// <see cref="object"/>.
+    /// Type of the object that raises the event. Defaults to <see cref="object"/>.
     /// </typeparam>
     /// <typeparam name="TEventArgs">
-    /// Tipo de argumentos de evento a pasar cuando se produzca el evento.
+    /// Type of event arguments to pass when the event occurs.
     /// </typeparam>
     /// <param name="builder">
-    /// <see cref="TypeBuilder"/> en el cual se creará el nuevo evento y sus
-    /// métodos auxiliares requeridos.
+    /// <see cref="TypeBuilder"/> in which the new event and its required helper
+    /// methods will be created.
     /// </param>
-    /// <param name="name">Nombre del nuevo evento.</param>
+    /// <param name="name">Name of the new event.</param>
     /// <returns>
-    /// Un <see cref="EventBuildInfo"/> que contiene información sobre el
-    /// evento que ha sido definido.
+    /// An <see cref="EventBuildInfo"/> that contains information about the event
+    /// that has been defined.
     /// </returns>
     public static EventBuildInfo AddEvent<TEventHandler, TSender, TEventArgs>(this TypeBuilder builder, string name) where TEventHandler : Delegate where TEventArgs : EventArgs
     {

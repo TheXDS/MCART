@@ -36,27 +36,22 @@ using Errors = TheXDS.MCART.Resources.TypeFactoryErrors;
 namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
-/// Contiene extensiones útiles para objetos de tipo
-/// <see cref="PropertyBuildInfo"/>.
+/// Contains useful extensions for objects of type PropertyBuildInfo.
 /// </summary>
 public static class PropertyBuildInfoExtensions
 {
     /// <summary>
-    /// Crea un campo de almacenamiento para la propiedad y configura el
-    /// método <see langword="get"/> de la propiedad para leer el valor del
-    /// mismo.
+    /// Creates a backing field for the property and configures the property's
+    /// get method to read its value.
     /// </summary>
     /// <param name="builder">
-    /// <see cref="PropertyBuildInfo"/> en el cual se definirá el campo de
-    /// almacenamiento.
+    /// PropertyBuildInfo on which the backing field will be defined.
     /// </param>
     /// <param name="field">
-    /// <see cref="FieldBuilder"/> generado que representa al campo de
-    /// almacenamiento.
+    /// FieldBuilder generated that represents the backing field.
     /// </param>
     /// <returns>
-    /// La misma instancia que <paramref name="builder"/>, permitiendo el
-    /// uso de sintaxis Fluent.
+    /// The same instance as <paramref name="builder"/>, enabling Fluent syntax.
     /// </returns>
     public static PropertyBuildInfo WithBackingField(this PropertyBuildInfo builder, out FieldBuilder field)
     {
@@ -68,12 +63,18 @@ public static class PropertyBuildInfoExtensions
     }
 
     /// <summary>
-    /// Construye un esqueleto para el setter de una propiedad que notifica el cambio de su valor.
+    /// Builds a skeleton for a property's setter that notifies of its value
+    /// change.
     /// </summary>
-    /// <param name="prop">Propiedad para la cual definir el nuevo setter con notificación de cambio de valor.</param>
-    /// <param name="valueProvider"></param>
-    /// <param name="valueSetter"></param>
-    /// <param name="propertyType"></param>
+    /// <param name="prop">Property for which to define the new setter with
+    /// value change notification.</param>
+    /// <param name="valueProvider">
+    /// Block to invoke to provide the value to the setter.
+    /// </param>
+    /// <param name="valueSetter">
+    /// Block to execute to insert the value into the backing field.
+    /// </param>
+    /// <param name="propertyType">Type of the property.</param>
     public static void BuildNpcPropSetterSkeleton(this PropertyBuildInfo prop, IlBlockWithExitLabel valueProvider, IlBlockWithExitLabel valueSetter, Type propertyType)
     {
         var setRet = prop.Setter!.DefineLabel();

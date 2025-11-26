@@ -39,21 +39,23 @@ using TheXDS.MCART.Types.Extensions;
 namespace TheXDS.MCART.Helpers;
 
 /// <summary>
-/// Contiene métodos auxiliares útiles para la construcción de tipos.
+/// Contains helper methods useful for constructing types.
 /// </summary>
 [RequiresDynamicCode(AttributeErrorMessages.ClassCallsDynamicCode)]
 public static class TypeFactoryHelpers
-{    
+{
     private static readonly TypeFactory _factory = new(true);
 
     /// <summary>
-    /// Combina las propiedades y métodos públicos de una colección de
-    /// objetos.
+    /// Combines the public properties and methods of a collection of
+    /// objects into a single dynamically‑generated wrapper.
     /// </summary>
-    /// <param name="instances">Instancias a combinar.</param>
+    /// <param name="instances">
+    /// The instances to merge into the new wrapper type.
+    /// </param>
     /// <returns>
-    /// Un nuevo objeto recompilado que incluye todas las propiedades y
-    /// métodos públicos de todos los tipos especificados.
+    /// A newly compiled object that exposes all public properties and
+    /// methods of the supplied types.
     /// </returns>
     public static object Merge(params object[] instances)
     {

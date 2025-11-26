@@ -1,4 +1,4 @@
-﻿// CredentialDialog.cs
+// CredentialDialog.cs
 //
 // This file is part of Morgan's CLR Advanced Runtime (MCART)
 //
@@ -32,13 +32,10 @@ using System.Security;
 namespace TheXDS.MCART.Helpers;
 
 /// <summary>
-/// Contiene información sobre el resultado de un cuadro de diálogo que obtiene
-/// credenciales del usuario.
+/// Contains information about the result of a dialog box that obtains credentials from the user.
 /// </summary>
-/// <param name="Username">Nombre de usuario.</param>
-/// <param name="Password">Contraseña.</param>
-/// <param name="Save">
-/// Indica si el usuario desea guardar las credenciales provistas.
-/// </param>
+/// <param name="Username">Username.</param>
+/// <param name="Password">Password.</param>
+/// <param name="Save">Indicates whether the user wants to store the supplied credentials.</param>
 [ExcludeFromCodeCoverage]
 public readonly record struct CredentialBoxResult(string Username, SecureString Password, bool Save);

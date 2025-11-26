@@ -31,28 +31,31 @@ SOFTWARE.
 namespace TheXDS.MCART.Security;
 
 /// <summary>
-/// Define una serie de miembros a implementar por un tipo que implementa
-/// <see cref="IPasswordStorage"/> que incluya información de configuración del
-/// algoritmo de derivación de clave.
+/// Defines a set of members to be implemented by a type that implements
+/// <see cref="IPasswordStorage"/> and that exposes configuration data for
+/// a key‑derivation algorithm.
 /// </summary>
 /// <typeparam name="T">
-/// Tipo que contiene los valores de configuración. Se recomienda el uso de
-/// tipos <see langword="record"/> con propiedades no mutables.
+/// The type that holds the configuration values.  It is *recommended* to
+/// use <see langword="record"/> or <see langword="record"/>
+/// <see langword="struct"/> types with immutable
+/// properties for safety.
 /// </typeparam>
 public interface IPasswordStorage<T> : IPasswordStorage where T : struct
 {
     /// <summary>
-    /// Obtiene una referencia a la configuración activa de esta instancia.
+    /// Gets a reference to the active configuration of this instance.
     /// </summary>
     new T Settings { get; set; }
 
     object IPasswordStorage.Settings => Settings;
 
     /// <summary>
-    /// Obtiene la configuración a partir del bloque especificado.
+    /// Configure this instance from a block of data that represents the
+    /// serialized configuration.
     /// </summary>
     /// <param name="data">
-    /// Bloque de memoria que contiene los valores de configuración.
+    /// A read‑only span of bytes that contains the configuration block.
     /// </param>
     void ConfigureFrom(ReadOnlySpan<byte> data)
     {

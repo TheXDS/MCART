@@ -31,19 +31,12 @@ SOFTWARE.
 namespace TheXDS.MCART.Security;
 
 /// <summary>
-/// Contiene valores de configuración a utilizar para derivar contraseñas
-/// utilizando el algoritmo PBKDF2.
+/// Contains configuration values used to derive passwords with PBKDF2.
 /// </summary>
-/// <param name="Salt">Bloque de sal a utilizar para derivar la clave.</param>
-/// <param name="Iterations">
-/// Iteraciones de PBKDF2 a ejecutar para derivar la clave.
-/// </param>
-/// <param name="HashFunction">
-/// Nombre del algoritmo hash a utilizar para derivar la clave.
-/// </param>
-/// <param name="DerivedKeyLength">
-/// Cantidad de bytes a derivar.
-/// </param>
+/// <param name="Salt">Salt block used for key derivation.</param>
+/// <param name="Iterations">Number of PBKDF2 iterations.</param>
+/// <param name="HashFunction">Name of the hash algorithm used.</param>
+/// <param name="DerivedKeyLength">Number of bytes to derive.</param>
 public readonly record struct Pbkdf2Settings(
     byte[] Salt,
     int Iterations,
