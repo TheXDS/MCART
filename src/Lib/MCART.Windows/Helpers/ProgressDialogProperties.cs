@@ -31,29 +31,34 @@ using System.Diagnostics.CodeAnalysis;
 namespace TheXDS.MCART.Helpers;
 
 /// <summary>
-/// Provee de información sobre las propiedades a establecer al inicializar un
-/// nuevo diálogo de progreso nativo de Microsoft Windows.
+/// Provides information about the properties used when initializing a new
+/// native Microsoft Windows progress dialog.
 /// </summary>
 /// <param name="CancelButton">
-/// Indica si el cuadro de diálogo debe contener un botón para cancelar.
+/// Indicates whether the dialog should contain a cancel button.
 /// </param>
 /// <param name="Marquee">
-/// Indica si la barra de progreso del diálogo se mostrará en estado de
-/// progreso indeterminado.
+/// Indicates whether the dialog's progress bar should display in an
+/// indeterminate marquee state.
 /// </param>
 /// <param name="MinimizeButton">
-/// Indica si el diálogo incluirá un botón para minimizar la ventana del
-/// diálogo.
+/// Indicates whether the dialog should include a minimize button.
 /// </param>
 /// <param name="Modal">
-/// Indica si el diálogo será mostrado en modo modal.
+/// Indicates whether the dialog should be displayed modally.
 /// </param>
 /// <param name="ProgressBar">
-/// Indica si el diálogo contendrá una barra de progreso.
+/// Indicates whether the dialog should contain a progress bar.
 /// </param>
 /// <param name="ShowTimeRemaining">
-/// Indica si se mostrará el tiempo restante de la operación en la tercera
-/// línea del diálogo.
+/// Indicates whether the remaining time of the operation should be shown
+/// in the dialog's third line.
 /// </param>
 [ExcludeFromCodeCoverage]
-public readonly record struct ProgressDialogProperties(bool CancelButton, bool Marquee, bool MinimizeButton, bool Modal, bool ProgressBar = true, bool ShowTimeRemaining = true) { }
+public readonly record struct ProgressDialogProperties(
+    bool CancelButton,
+    bool Marquee,
+    bool MinimizeButton,
+    bool Modal,
+    bool ProgressBar = true,
+    bool ShowTimeRemaining = true);

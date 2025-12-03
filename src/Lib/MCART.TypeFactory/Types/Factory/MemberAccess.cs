@@ -31,25 +31,28 @@ SOFTWARE.
 namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
-/// Enumeración simplificada de niveles de acceso para un miembro.
+/// Simplified enumeration of access levels for a member.
 /// </summary>
 public enum MemberAccess
 {
     /// <summary>
-    /// Miembro privado.
+    /// Private member.
     /// </summary>
     Private,
+
     /// <summary>
-    /// Miembro protegido, solo disponible en clases derivadas.
+    /// Protected member, only available in derived classes.
     /// </summary>
     Protected,
+
     /// <summary>
-    /// Miembro interno, disponible de forma pública únicamente para el
-    /// ensamblado que contiene al tipo.
+    /// Internal member, publicly accessible only to the assembly
+    /// containing the type.
     /// </summary>
     Internal,
+
     /// <summary>
-    /// Miembro público.
+    /// Public member.
     /// </summary>
     Public
 }

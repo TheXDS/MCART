@@ -34,7 +34,8 @@ using static System.Reflection.Emit.OpCodes;
 namespace TheXDS.MCART.Types.Extensions.ConstantLoaders;
 
 /// <summary>
-/// Loads a constant value of type <see cref="int"/> into the MSIL instruction sequence.
+/// <see cref="ConstantLoader{T}"/> that allows loading a <see cref="int"/>
+/// constant value.
 /// </summary>
 public class Int32ConstantLoader : ConstantLoader<int>
 {

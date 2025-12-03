@@ -34,47 +34,35 @@ using System.Reflection.Emit;
 namespace TheXDS.MCART.Types;
 
 /// <summary>
-/// Clase base que contiene información compartida de construcción de un
-/// miembro de clase.
+/// Base class containing shared information for building a class member.
 /// </summary>
-public abstract class MemberBuildInfo<T> where T : MemberInfo
+/// <remarks>
+/// Initializes a new instance of the <see cref="MemberBuildInfo{T}"/> class.
+/// </remarks>
+/// <param name="typeBuilder">
+/// TypeBuilder in which this member was defined.
+/// </param>
+/// <param name="member">
+/// Reference to the member that has been defined.
+/// </param>
+public abstract class MemberBuildInfo<T>(TypeBuilder typeBuilder, T member) where T : MemberInfo
 {
     /// <summary>
-    /// Referencia al <see cref="System.Reflection.Emit.TypeBuilder"/> en
-    /// el cual se ha construido la propiedad.
+    /// Reference to the TypeBuilder where this member was defined.
     /// </summary>
-    public TypeBuilder TypeBuilder { get; }
+    public TypeBuilder TypeBuilder { get; } = typeBuilder;
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="MemberBuildInfo{T}"/>.
+    /// Reference to the MemberInfo used to build this member.
     /// </summary>
-    /// <param name="typeBuilder">
-    /// <see cref="System.Reflection.Emit.TypeBuilder"/> en donde se ha
-    /// definido este miembro.
-    /// </param>
-    /// <param name="member">
-    /// Referencia al miembro que ha sido definido.
-    /// </param>
-    protected MemberBuildInfo(TypeBuilder typeBuilder, T member)
-    {
-        TypeBuilder = typeBuilder;
-        Member = member;
-    }
+    public T Member { get; } = member;
 
     /// <summary>
-    /// Referencia al <see cref="PropertyBuilder"/> utilizado para
-    /// construir a la propiedad.
-    /// </summary>
-    public T Member { get; }
-
-    /// <summary>
-    /// Convierte implícitamente un valor <typeparamref name="T"/>
-    /// en un <see cref="MemberBuildInfo{T}"/>.
+    /// Implicitly converts a <see cref="MemberBuildInfo{T}"/> to its
+    /// underlying member.
     /// </summary>
     /// <param name="buildInfo">
-    /// <typeparamref name="T"/> desde el cual extraer el
-    /// <see cref="MemberBuildInfo{T}"/>.
+    /// <see cref="MemberBuildInfo{T}"/> from which to extract the member.
     /// </param>
     public static implicit operator T(MemberBuildInfo<T> buildInfo) => buildInfo.Member;
 }

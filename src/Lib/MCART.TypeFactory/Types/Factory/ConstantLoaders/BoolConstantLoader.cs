@@ -34,21 +34,11 @@ using static System.Reflection.Emit.OpCodes;
 namespace TheXDS.MCART.Types.Extensions.ConstantLoaders;
 
 /// <summary>
-/// <see cref="ConstantLoader{T}"/> que permite cargar un valor
-/// booleano.
+/// <see cref="ConstantLoader{T}"/> that allows loading a <see cref="bool"/>
+/// constant value.
 /// </summary>
 public class BoolConstantLoader : ConstantLoader<bool>
 {
-    /// <summary>
-    /// Carga el valor constante especificado en el flujo de
-    /// instrucciones MSIL.
-    /// </summary>
-    /// <param name="il">
-    /// Flujo de instrucciones MSIL en el cual cargar el valor
-    /// constante.
-    /// </param>
-    /// <param name="value">
-    /// Valor constante a cargar.
-    /// </param>
+    /// <inheritdoc/>
     public override void Emit(ILGenerator il, bool value) => il.Emit(value ? Ldc_I4_1 : Ldc_I4_0);
 }

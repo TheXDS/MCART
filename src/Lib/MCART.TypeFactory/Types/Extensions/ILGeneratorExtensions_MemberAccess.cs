@@ -41,7 +41,7 @@ public static partial class ILGeneratorExtensions
 {
     /// <summary>
     /// Inserts the loading of a local variable's address into the MSIL
-    /// instruction stream.
+    /// instruction sequence.
     /// </summary>
     /// <param name="ilGen">
     /// The ILGenerator instance where the address load will be inserted.
@@ -60,7 +60,7 @@ public static partial class ILGeneratorExtensions
 
     /// <summary>
     /// Inserts the loading of a local variable's value into the MSIL
-    /// instruction stream.
+    /// instruction sequence.
     /// </summary>
     /// <param name="ilGen">
     /// The ILGenerator instance where the value load will be inserted.
@@ -79,7 +79,7 @@ public static partial class ILGeneratorExtensions
 
     /// <summary>
     /// Inserts the storage of a value into a local variable in the MSIL
-    /// instruction stream.
+    /// instruction sequence.
     /// </summary>
     /// <param name="ilGen">
     /// The ILGenerator instance where the value will be stored.
@@ -143,7 +143,7 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserts the load of a field value into the MSIL instruction stream.
+    /// Inserts the load of a field value into the MSIL instruction sequence.
     /// </summary>
     /// <param name="ilGen">
     /// The ILGenerator sequence where the value load will be inserted.
@@ -169,7 +169,7 @@ public static partial class ILGeneratorExtensions
     }
 
     /// <summary>
-    /// Inserts the load of a field value into the MSIL instruction stream.
+    /// Inserts the load of a field value into the MSIL instruction sequence.
     /// </summary>
     /// <param name="ilGen">
     /// The ILGenerator sequence where the value load will be inserted.

@@ -36,54 +36,53 @@ using static System.Reflection.MethodAttributes;
 namespace TheXDS.MCART.Types;
 
 /// <summary>
-/// Contiene información sobre la definición de eventos en tipos construidos en
-/// Runtime.
+/// Contains information about event definitions in types built at runtime.
 /// </summary>
 public class EventBuildInfo
 {
     /// <summary>
-    /// Contiene el nombre definido para el evento representado por esta
-    /// instancia.
+    /// The name defined for the event represented by this instance.
     /// </summary>
     public string Name { get; }
 
     /// <summary>
-    /// Obtiene una referencia al campo utilizado para contener la referencia
-    /// activa del manejador de eventos a llamar cuando se produzca el evento.
+    /// Gets a reference to the field used to hold the active event
+    /// handler that is invoked when the event occurs.
     /// </summary>
     public FieldBuilder HandlerField { get; }
 
     /// <summary>
-    /// Obtiene una referencia a un método a utilizar para generar el evento
-    /// representado por esta instancia.
+    /// Gets a reference to the method used to raise the event
+    /// represented by this instance.
     /// </summary>
     /// <remarks>
-    /// El delegado representado por esta propiedad será compatible con la
-    /// firma <see cref="Action{T1, T2}"/> donde el primer argumento de tipo
-    /// será un tipo en particular u <see cref="object"/>, y el segundo será 
-    /// <see cref="EventArgs"/> o un tipo que derive de esta clase.
+    /// The delegate represented by this property will be compatible
+    /// with the Action&lt;T1, T2&gt; signature where the first type
+    /// argument will be a specific type or <see cref="object"/>, and
+    /// the second will be <see cref="EventArgs"/> or a type derived
+    /// from it.
     /// </remarks>
     public MethodBuilder RaiseMethod { get; }
 
     /// <summary>
-    /// Obtiene una referencia al método utilizado para subscribir un manejador
-    /// de eventos al evento representado por esta instancia.
+    /// Gets a reference to the method used to subscribe an event
+    /// handler to the event represented by this instance.
     /// </summary>
     /// <remarks>
-    /// El delegado representado por esta propiedad será compatible con la
-    /// firma <see cref="Action{T}"/> donde el primer argumento de tipo
-    /// será <see cref="EventArgs"/> o un tipo que derive de esta clase.
+    /// The delegate represented by this property will be compatible
+    /// with the Action&lt;T&gt; signature where the type argument will
+    /// be <see cref="EventArgs"/> or a type derived from it.
     /// </remarks>
     public MethodBuilder AddMethod { get; }
 
     /// <summary>
-    /// Obtiene una referencia al método utilizado para remover la subscripción
-    /// de un manejador de eventos al evento representado por esta instancia.
+    /// Gets a reference to the method used to unsubscribe an event
+    /// handler from the event represented by this instance.
     /// </summary>
     /// <remarks>
-    /// El delegado representado por esta propiedad será compatible con la
-    /// firma <see cref="Action{T}"/> donde el primer argumento de tipo
-    /// será <see cref="EventArgs"/> o un tipo que derive de esta clase.
+    /// The delegate represented by this property will be compatible
+    /// with the Action&lt;T&gt; signature where the type argument will
+    /// be <see cref="EventArgs"/> or a type derived from it.
     /// </remarks>
     public MethodBuilder RemoveMethod { get; }
 
@@ -97,32 +96,32 @@ public class EventBuildInfo
     }
 
     /// <summary>
-    /// Crea un nuevo evento en el <see cref="TypeBuilder"/> especificado,
-    /// agregando los métodos accesorios requeridos por el mismo.
+    /// Creates a new event on the specified
+    /// <see cref="TypeBuilder"/>, adding the required accessor
+    /// methods.
     /// </summary>
     /// <typeparam name="TEventHandler">
-    /// Delegado del manejador de eventos. Debe seguir la firma estándar de un
-    /// manejador de eventos, es decir, debe ser un método con tipo de retorno
-    /// <see langword="void"/>, y debe contener un argumento de tipo
-    /// <typeparamref name="TSender"/> (generalmente, se prefiere el tipo
-    /// <see cref="object"/>) y un argumento de tipo
-    /// <typeparamref name="TEventArgs"/>.
+    /// The event handler delegate. It must follow the standard
+    /// event handler signature, i.e. a void method with a
+    /// <typeparamref name="TSender"/> argument (commonly
+    /// <see cref="object"/>) and a <typeparamref name="TEventArgs"/>
+    /// argument.
     /// </typeparam>
     /// <typeparam name="TSender">
-    /// Tipo del objeto que genera el evento. Puede utilizarse
+    /// The type of the object that raises the event. Can be
     /// <see cref="object"/>.
     /// </typeparam>
     /// <typeparam name="TEventArgs">
-    /// Tipo de argumentos de evento a pasar cuando se produzca el evento.
+    /// The event argument type passed when the event occurs.
     /// </typeparam>
     /// <param name="builder">
-    /// <see cref="TypeBuilder"/> en el cual se creará el nuevo evento y sus
-    /// métodos auxiliares requeridos.
+    /// The <see cref="TypeBuilder"/> on which the event and its
+    /// required accessor methods will be defined.
     /// </param>
-    /// <param name="name">Nombre del nuevo evento.</param>
+    /// <param name="name">The name of the new event.</param>
     /// <returns>
-    /// Un <see cref="EventBuildInfo"/> que contiene información sobre el
-    /// evento que ha sido definido.
+    /// An <see cref="EventBuildInfo"/> containing information about
+    /// the event that has been defined.
     /// </returns>
     public static EventBuildInfo Create<TEventHandler, TSender, TEventArgs>(TypeBuilder builder, string name) where TEventHandler : Delegate where TEventArgs : EventArgs
     {

@@ -34,18 +34,11 @@ using static System.Reflection.Emit.OpCodes;
 namespace TheXDS.MCART.Types.Extensions.ConstantLoaders;
 
 /// <summary>
-/// Carga un valor constante <see cref="short"/> en la secuencia de
-/// instrucciones MSIL.
+/// <see cref="ConstantLoader{T}"/> that allows loading a <see cref="short"/>
+/// constant value.
 /// </summary>
 public class Int16ConstantLoader : ConstantLoader<short>
 {
-    /// <summary>
-    /// Carga un valor constante <see cref="short"/> en la secuencia de
-    /// instrucciones MSIL.
-    /// </summary>
-    /// <param name="il">Generador de IL a utilizar.</param>
-    /// <param name="value">
-    /// Valor constante a cargar en la secuencia de instrucciones.
-    /// </param>
+    /// <inheritdoc/>
     public override void Emit(ILGenerator il, short value) => il.Emit(Ldc_I4, unchecked((int)value));
 }

@@ -1,4 +1,4 @@
-﻿// COLORREF.cs
+﻿// ColorRef.cs
 //
 // This file is part of Morgan's CLR Advanced Runtime (MCART)
 //
@@ -31,45 +31,22 @@ using System.Runtime.InteropServices;
 namespace TheXDS.MCART.PInvoke.Models;
 
 [StructLayout(LayoutKind.Explicit, Size = 4)]
-internal struct ColorRef
+internal struct ColorRef(byte r, byte g, byte b, byte a)
 {
     [FieldOffset(0)] private uint Value;
 
-    [FieldOffset(0)] public byte R;
+    [FieldOffset(0)] public byte R = r;
 
-    [FieldOffset(1)] public byte G;
+    [FieldOffset(1)] public byte G = g;
 
-    [FieldOffset(2)] public byte B;
+    [FieldOffset(2)] public byte B = b;
 
-    [FieldOffset(3)] public byte A;
+    [FieldOffset(3)] public byte A = a;
 
-    /// <summary>Initializes a new instance of the <see cref="ColorRef"/> struct.</summary>
-    /// <param name="r">The intensity of the red color.</param>
-    /// <param name="g">The intensity of the green color.</param>
-    /// <param name="b">The intensity of the blue color.</param>
     public ColorRef(byte r, byte g, byte b) : this(r, g, b, 0)
     {
     }
 
-    /// <summary>Initializes a new instance of the <see cref="ColorRef"/> struct.</summary>
-    /// <param name="r">The intensity of the red color.</param>
-    /// <param name="g">The intensity of the green color.</param>
-    /// <param name="b">The intensity of the blue color.</param>
-    /// <param name="a">Inverted value of the alpha component of the color. </param>
-    public ColorRef(byte r, byte g, byte b, byte a)
-    {
-        A = a;
-        R = r;
-        G = g;
-        B = b;
-    }
-
-    /// <summary>A method to darken a color by a percentage of the difference between the color and Black.</summary>
-    /// <param name="percent">The percentage by which to darken the original color.</param>
-    /// <returns>
-    /// The return color's Alpha value will be unchanged, but the RGB content will have been increased by the specified percentage. If
-    /// percent is 100 then the returned Color will be Black with original Alpha.
-    /// </returns>
     public ColorRef Darken(float percent)
     {
         if (percent < 0 || percent > 1.0)
@@ -80,12 +57,6 @@ internal struct ColorRef
         byte Conv(byte c) => (byte)(c - (int)(c * percent));
     }
 
-    /// <summary>A method to lighten a color by a percentage of the difference between the color and Black.</summary>
-    /// <param name="percent">The percentage by which to lighten the original color.</param>
-    /// <returns>
-    /// The return color's Alpha value will be unchanged, but the RGB content will have been decreased by the specified percentage. If
-    /// percent is 100 then the returned Color will be White with original Alpha.
-    /// </returns>
     public ColorRef Lighten(float percent)
     {
         if (percent < 0 || percent > 1.0)

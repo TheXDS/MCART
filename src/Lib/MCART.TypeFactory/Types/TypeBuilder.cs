@@ -38,26 +38,25 @@ using TheXDS.MCART.Types.Extensions;
 namespace TheXDS.MCART.Types;
 
 /// <summary>
-/// <see cref="TypeBuilder"/> que incluye información fuertemente tipeada
-/// sobre su clase base.
+/// TypeBuilder that includes strongly typed information about its base
+/// class.
 /// </summary>
 /// <typeparam name="T">
-/// Clase base del tipo a construir.
+/// Base class of the type to be built.
 /// </typeparam>
 public class TypeBuilder<T> : ITypeBuilder<T>
 {
     /// <summary>
-    /// <see cref="TypeBuilder"/> subyacente de esta instancia.
+    /// Underlying TypeBuilder of this instance.
     /// </summary>
     public TypeBuilder Builder { get; }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    ///  <see cref="TypeBuilder{T}"/> especificando al
-    ///  <see cref="TypeBuilder"/> subyacente a asociar.
+    /// Initializes a new instance of the <see cref="TypeBuilder{T}"/> class
+    /// by specifying the underlying <see cref="TypeBuilder"/> to associate.
     /// </summary>
     /// <param name="builder">
-    /// <see cref="TypeBuilder"/> subyacente a asociar.
+    /// Underlying <see cref="TypeBuilder"/> to associate.
     /// </param>
     public TypeBuilder(TypeBuilder builder) : this(builder, true)
     {
@@ -73,27 +72,27 @@ public class TypeBuilder<T> : ITypeBuilder<T>
     }
 
     /// <summary>
-    /// Convierte implícitamente un <see cref="TypeBuilder{T}"/> en un
+    /// Implicitly converts a <see cref="TypeBuilder{T}"/> into a
     /// <see cref="TypeBuilder"/>.
     /// </summary>
     /// <param name="builder">
-    /// <see cref="TypeBuilder"/> a convertir.
+    /// <see cref="TypeBuilder"/> to convert.
     /// </param>
     public static implicit operator TypeBuilder(TypeBuilder<T> builder) => builder.Builder;
 
     /// <summary>
-    /// Convierte implícitamente un <see cref="TypeBuilder"/> en un
+    /// Implicitly converts a <see cref="TypeBuilder"/> into a
     /// <see cref="TypeBuilder{T}"/>.
     /// </summary>
     /// <param name="builder">
-    /// <see cref="TypeBuilder"/> a convertir.
+    /// <see cref="TypeBuilder"/> to convert.
     /// </param>
     public static implicit operator TypeBuilder<T>(TypeBuilder builder) => new(builder);
 
     /// <summary>
-    /// Inicializa una nueva instancia del tipo en runtime especificado.
+    /// Creates a new instance of the specified runtime type.
     /// </summary>
-    /// <returns>La nueva instancia del tipo especificado.</returns>
+    /// <returns>The new instance of the specified type.</returns>
     [DebuggerStepThrough]
     [Sugar]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]

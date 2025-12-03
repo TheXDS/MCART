@@ -39,7 +39,7 @@ using TheXDS.MCART.Types.Extensions;
 namespace TheXDS.MCART.Types;
 
 /// <summary>
-/// Fábrica de tipos. Permite definir y compilar nuevos tipos en Runtime.
+/// Type factory. Allows defining and compiling new types at runtime.
 /// </summary>
 public class TypeFactory : IExposeAssembly
 {
@@ -52,34 +52,29 @@ public class TypeFactory : IExposeAssembly
     private readonly AssemblyBuilder _assembly;
 
     /// <summary>
-    /// Obtiene una referencia al ensamblado dinámico generado en el cual 
-    /// se cargarán los tipos construidos por medio de este
-    /// <see cref="TypeFactory"/>.
+    /// Gets a reference to the dynamic assembly where types built by this
+    /// <see cref="TypeFactory"/> are loaded.
     /// </summary>
     public Assembly Assembly => _assembly;
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase 
-    /// <see cref="TypeFactory"/>.
+    /// Initializes a new instance of the <see cref="TypeFactory"/> class.
     /// </summary>
     [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
     public TypeFactory() : this("TheXDS.MCART.Types._Generated") { }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase 
-    /// <see cref="TypeFactory"/>.
+    /// Initializes a new instance of the <see cref="TypeFactory"/> class.
     /// </summary>
-    /// <param name="namespace"></param>
+    /// <param name="namespace">Namespace to use for the types to be built.</param>
     [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
     public TypeFactory(string @namespace) : this(@namespace, true) { }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase 
-    /// <see cref="TypeFactory"/>.
+    /// Initializes a new instance of the <see cref="TypeFactory"/> class.
     /// </summary>
     /// <param name="useGuid">
-    /// <see langword="true"/> para adjuntar un Guid al final del nombre de
-    /// los tipos generados por medio de este <see cref="TypeFactory"/>.
+    /// True to append a GUID to generated type names.
     /// </param>
     [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
     public TypeFactory(bool useGuid) : this()
@@ -88,15 +83,11 @@ public class TypeFactory : IExposeAssembly
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase 
-    /// <see cref="TypeFactory"/>.
+    /// Initializes a new instance of the <see cref="TypeFactory"/> class.
     /// </summary>
-    /// <param name="namespace">
-    /// Espacio de nombres a utilizar para los tipos a construir.
-    /// </param>
+    /// <param name="namespace">Namespace to use for the types to be built.</param>
     /// <param name="useGuid">
-    /// <see langword="true"/> para adjuntar un Guid al final del nombre de
-    /// los tipos generados por medio de este <see cref="TypeFactory"/>.
+    /// True to append a GUID to generated type names.
     /// </param>
     [RequiresDynamicCode(AttributeErrorMessages.MethodCallsDynamicCode)]
     public TypeFactory(string @namespace, bool useGuid)
@@ -116,16 +107,16 @@ public class TypeFactory : IExposeAssembly
     }
 
     /// <summary>
-    /// Crea una nueva clase pública.
+    /// Creates a new public class.
     /// </summary>
-    /// <param name="name">Nombre de la nueva clase.</param>
-    /// <param name="baseType">Tipo base de la nueva clase.</param>
+    /// <param name="name">Name of the new class.</param>
+    /// <param name="baseType">Base type of the new class.</param>
     /// <param name="interfaces">
-    /// Interfaces a implementar por la nueva clase.
+    /// Interfaces to implement by the new class.
     /// </param>
     /// <returns>
-    /// Un <see cref="TypeBuilder"/> por medio del cual se podrá definir a
-    /// los miembros de la nueva clase.
+    /// A <see cref="TypeBuilder"/> that can be used to define members of the
+    /// new class.
     /// </returns>
     public TypeBuilder NewType(string name, Type baseType, IEnumerable<Type> interfaces)
     {
@@ -133,18 +124,17 @@ public class TypeFactory : IExposeAssembly
     }
 
     /// <summary>
-    /// Crea una nueva clase pública.
+    /// Creates a new public class.
     /// </summary>
-    /// <param name="name">Nombre de la nueva clase.</param>
-    /// <typeparam name="T">Tipo base de la nueva clase.</typeparam>
+    /// <param name="name">Name of the new class.</param>
+    /// <typeparam name="T">Base type of the new class.</typeparam>
     /// <param name="interfaces">
-    /// Interfaces a implementar por la nueva clase. Puede establecerse en
-    /// <see langword="null"/> para no implementar ninguna interfaz
-    /// adicional.
+    /// Interfaces to implement by the new class. Can be set to null to
+    /// implement no additional interface.
     /// </param>
     /// <returns>
-    /// Un <see cref="TypeBuilder{T}"/> por medio del cual se podrá definir a
-    /// los miembros de la nueva clase.
+    /// A <see cref="TypeBuilder{T}"/> that can be used to define members of the
+    /// new class.
     /// </returns>
     public ITypeBuilder<T> NewType<T>(string name, IEnumerable<Type>? interfaces)
     {
@@ -152,13 +142,13 @@ public class TypeFactory : IExposeAssembly
     }
 
     /// <summary>
-    /// Crea una nueva clase pública.
+    /// Creates a new public class.
     /// </summary>
-    /// <param name="name">Nombre de la nueva clase.</param>
-    /// <typeparam name="T">Tipo base de la nueva clase.</typeparam>
+    /// <param name="name">Name of the new class.</param>
+    /// <typeparam name="T">Base type of the new class.</typeparam>
     /// <returns>
-    /// Un <see cref="TypeBuilder{T}"/> por medio del cual se podrá definir a
-    /// los miembros de la nueva clase.
+    /// A <see cref="TypeBuilder{T}"/> that can be used to define members
+    /// of the new class.
     /// </returns>
     public ITypeBuilder<T> NewType<T>(string name)
     {
@@ -166,12 +156,12 @@ public class TypeFactory : IExposeAssembly
     }
 
     /// <summary>
-    /// Crea una nueva clase pública.
+    /// Creates a new public class.
     /// </summary>
-    /// <param name="name">Nombre de la nueva clase.</param>
+    /// <param name="name">Name of the new class.</param>
     /// <returns>
-    /// Un <see cref="TypeBuilder"/> por medio del cual se podrá definir a
-    /// los miembros de la nueva clase.
+    /// A <see cref="TypeBuilder"/> that can be used to define members of
+    /// the new class.
     /// </returns>
     public TypeBuilder NewClass(string name)
     {
@@ -179,15 +169,13 @@ public class TypeFactory : IExposeAssembly
     }
 
     /// <summary>
-    /// Crea una nueva clase pública.
+    /// Creates a new public class.
     /// </summary>
-    /// <param name="name">Nombre de la nueva clase.</param>
-    /// <param name="interfaces">
-    /// Interfaces a implementar por la nueva clase.
-    /// </param>
+    /// <param name="name">Name of the new class.</param>
+    /// <param name="interfaces">Interfaces to implement.</param>
     /// <returns>
-    /// Un <see cref="TypeBuilder"/> por medio del cual se podrá definir a
-    /// los miembros de la nueva clase.
+    /// A <see cref="TypeBuilder"/> that can be used to define members of
+    /// the new class.
     /// </returns>
     public TypeBuilder NewClass(string name, IEnumerable<Type> interfaces)
     {
@@ -195,13 +183,14 @@ public class TypeFactory : IExposeAssembly
     }
 
     /// <summary>
-    /// Crea una nueva clase pública, especificando el tipo base o interfaz única de la misma.
+    /// Creates a new public class, specifying the base type or single
+    /// interface to implement.
     /// </summary>
-    /// <typeparam name="T">Tipo base o interfaz a implementar.</typeparam>
-    /// <param name="name">Nombre de la nueva clase.</param>
+    /// <typeparam name="T">Base type or interface to implement.</typeparam>
+    /// <param name="name">Name of the new class.</param>
     /// <returns>
-    /// Un <see cref="ITypeBuilder{T}"/> por medio del cual se podrá definir a
-    /// los miembros de la nueva clase.
+    /// An <see cref="ITypeBuilder{T}"/> that can be used to define members
+    /// of the new class.
     /// </returns>
     public ITypeBuilder<T> NewClass<T>(string name)
     {

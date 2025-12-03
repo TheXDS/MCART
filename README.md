@@ -71,13 +71,13 @@ To compile MCART, the [SDK for .NET 8.0](https://dotnet.microsoft.com/) or a lat
 
 ### Compiling MCART
 ```sh
-dotnet build ./src/MCART.sln
+dotnet build ./src/MCART.slnx
 ```
 The binaries will be found in the `Build` folder at the root of the repository.
 
 ### Executing tests
 ```sh
-dotnet test ./src/MCART.sln
+dotnet test ./src/MCART.slnx
 ```
 #### Coverage Report
 It is possible to obtain a local code coverage report. To do this, it is necessary to install [`ReportGenerator`](https://github.com/danielpalme/ReportGenerator), which will read the results of the test execution and generate a web page with the coverage results.
@@ -88,7 +88,7 @@ dotnet tool install -g dotnet-reportgenerator-globaltool
 ```
 After installing `ReportGenerator`, it will be possible to run the following command:
 ```sh
-dotnet test ./src/MCART.sln --collect:"XPlat Code Coverage" --results-directory:./Build/Tests ; reportgenerator.exe -reports:./Build/Tests/*/coverage.cobertura.xml -targetdir:./Build/Coverage/
+dotnet test ./src/MCART.slnx --collect:"XPlat Code Coverage" --results-directory:./Build/Tests ; reportgenerator -reports:./Build/Tests/*/coverage.cobertura.xml -targetdir:./Build/Coverage/
 ```
 The coverage results will be stored in `./Build/Coverage`
 

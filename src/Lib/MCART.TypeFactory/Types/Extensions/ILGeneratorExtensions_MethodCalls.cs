@@ -42,7 +42,7 @@ public static partial class ILGeneratorExtensions
 {
     /// <summary>
     /// Inserts a call to the specified instance method into the Microsoft®
-    /// Intermediate Language (MSIL) instruction stream.
+    /// Intermediate Language (MSIL) instruction sequence.
     /// </summary>
     /// <typeparam name="TClass">
     /// Class in which the instance method resides.
@@ -66,7 +66,7 @@ public static partial class ILGeneratorExtensions
 
     /// <summary>
     /// Inserts a call to the specified base type instance constructor into
-    /// the Microsoft® Intermediate Language (MSIL) instruction stream.
+    /// the Microsoft® Intermediate Language (MSIL) instruction sequence.
     /// </summary>
     /// <typeparam name="TClass">
     /// Class from which the base type constructor will be called.
@@ -114,7 +114,7 @@ public static partial class ILGeneratorExtensions
 
     /// <summary>
     /// Inserts a call to the parameterless base type instance constructor
-    /// into the Microsoft® Intermediate Language (MSIL) instruction stream.
+    /// into the Microsoft® Intermediate Language (MSIL) instruction sequence.
     /// </summary>
     /// <typeparam name="TClass">
     /// Class from which the base type constructor will be called.
@@ -129,7 +129,7 @@ public static partial class ILGeneratorExtensions
 
     /// <summary>
     /// Inserts a call to the specified static method into the Microsoft®
-    /// Intermediate Language (MSIL) instruction stream.
+    /// Intermediate Language (MSIL) instruction sequence.
     /// </summary>
     /// <typeparam name="TMethod">
     /// Delegate that describes the method to call.
@@ -150,7 +150,7 @@ public static partial class ILGeneratorExtensions
 
     /// <summary>
     /// Inserts a call to the specified static method into the Microsoft®
-    /// Intermediate Language (MSIL) instruction stream.
+    /// Intermediate Language (MSIL) instruction sequence.
     /// </summary>
     /// <typeparam name="TMethod">
     /// Delegate that describes the method to call.

@@ -47,4 +47,5 @@ internal static class AttributeErrorMessages
     public const string UseLicenseUriAttributeInstead = "Use LicenseUriAttribute instead.";
     public const string UnsuportedClass = "The class is not supported by MCART anymore.";
     public const string NamedObjectDeprecatedCtor = "The recommended signature for this constructor has changed. Please use NamedObject<T>(string, T) instead.";
+    public const string Win10NoServicePack = "Since Windows 10, Service Pack version numbers are no longer provided. Use the Build number instead.";
 }

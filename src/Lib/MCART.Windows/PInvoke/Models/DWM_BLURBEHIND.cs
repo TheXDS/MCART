@@ -1,4 +1,4 @@
-﻿// COLORREF.cs
+﻿// DWM_BLURBEHIND.cs
 //
 // This file is part of Morgan's CLR Advanced Runtime (MCART)
 //
@@ -31,25 +31,17 @@ using System.Runtime.InteropServices;
 namespace TheXDS.MCART.PInvoke.Models;
 
 [StructLayout(LayoutKind.Sequential)]
-internal struct DWM_BLURBEHIND
+internal struct DWM_BLURBEHIND(bool enabled)
 {
-    public DWM_BLURBEHIND_Mask dwFlags;
+    public DWM_BLURBEHIND_Mask dwFlags = DWM_BLURBEHIND_Mask.DWM_BB_ENABLE;
 
     [MarshalAs(UnmanagedType.Bool)]
-    public bool fEnable;
+    public bool fEnable = enabled;
 
-    public nint hRgnBlur;
+    public nint hRgnBlur = nint.Zero;
 
     [MarshalAs(UnmanagedType.Bool)]
-    public bool fTransitionOnMaximized;
-
-    public DWM_BLURBEHIND(bool enabled)
-    {
-        fEnable = enabled;
-        hRgnBlur = nint.Zero;
-        fTransitionOnMaximized = false;
-        dwFlags = DWM_BLURBEHIND_Mask.DWM_BB_ENABLE;
-    }
+    public bool fTransitionOnMaximized = false;
 
     public bool TransitionOnMaximized
     {

@@ -39,8 +39,8 @@ using St = TheXDS.MCART.Resources.Strings.Common;
 namespace TheXDS.MCART.Helpers;
 
 /// <summary>
-/// Incluye métodos que permiten acceso a un cuadro de diálogo nativo de
-/// Windows que solicita credenciales genéricas al usuario.
+/// Includes methods that provide access to a native Windows dialog
+/// that requests generic credentials from the user.
 /// </summary>
 [ExcludeFromCodeCoverage]
 public static class CredentialDialog
@@ -75,24 +75,20 @@ public static class CredentialDialog
         int maxUserName = MaxLength;
         int maxDomain = MaxLength;
         int maxPassword = MaxLength;
-
         bool result = CredUi.CredUnPackAuthenticationBuffer(0, outCredBuffer, outCredSize, usernameBuf, ref maxUserName, domainBuf, ref maxDomain, passwordBuf, ref maxPassword);
-        //SecureZeroMem(outCredBuffer, outCredSize);
         Ole32.CoTaskMemFree(outCredBuffer);
-
         return result ? (usernameBuf.ToString(), passwordBuf.ToString().ToSecureString()) : (null, null);
     }
 
     /// <summary>
-    /// Solicita credenciales al usuario.
+    /// Requests credentials from the user.
     /// </summary>
     /// <param name="props">
-    /// Propiedades que indican la presentación y comportamiento del diálogo.
+    /// Properties that indicate the presentation and behavior of the dialog.
     /// </param>
     /// <returns>
-    /// Un <see cref="CredentialBoxResult"/> con las credenciales introducidas
-    /// por el usuario, o <see langword="null"/> si el usuario cancela la
-    /// operación o no introduce ninguna credencial.
+    /// A <see cref="CredentialBoxResult"/> with the credentials entered by the user,
+    /// or <see langword="null"/> if the user cancels or does not enter any credentials.
     /// </returns>
     public static CredentialBoxResult? GetCredentials(CredentialDialogProperties props)
     {

@@ -34,19 +34,12 @@ using static System.Reflection.Emit.OpCodes;
 namespace TheXDS.MCART.Types.Extensions.ConstantLoaders;
 
 /// <summary>
-/// Carga un valor constante <see cref="sbyte"/> en la secuencia de
-/// instrucciones MSIL.
+/// <see cref="ConstantLoader{T}"/> that allows loading a <see cref="sbyte"/>
+/// constant value.
 /// </summary>
 [CLSCompliant(false)]
 public class SByteConstantLoader : ConstantLoader<sbyte>
 {
-    /// <summary>
-    /// Carga un valor constante <see cref="sbyte"/> en la secuencia de
-    /// instrucciones MSIL.
-    /// </summary>
-    /// <param name="il">Generador de IL a utilizar.</param>
-    /// <param name="value">
-    /// Valor constante a cargar en la secuencia de instrucciones.
-    /// </param>
+    /// <inheritdoc/>
     public override void Emit(ILGenerator il, sbyte value) => il.Emit(Ldc_I4_S, value);
 }

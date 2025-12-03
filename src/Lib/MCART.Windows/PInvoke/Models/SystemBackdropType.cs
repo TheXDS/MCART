@@ -31,34 +31,34 @@ SOFTWARE.
 namespace TheXDS.MCART.PInvoke.Models;
 
 /// <summary>
-/// Enumera los distintos tipos de fondo que se pueden aplicar al fondo de una
-/// ventana.
+/// Enumerates the various backdrop types that can be applied to a window’s
+/// background.
 /// </summary>
 [CLSCompliant(false)]
 public enum SystemBackdropType : uint
 {
     /// <summary>
-    /// Fondo automático. Windows determinará el tipo de fondo a dibujar.
+    /// Automatic background. Windows determines the type to draw.
     /// </summary>
     Auto = 0,
 
     /// <summary>
-    /// No dibujar fondo.
+    /// Do not draw a background.
     /// </summary>
     None = 1,
 
     /// <summary>
-    /// Fondo de ventana principal.
+    /// Background for the main window.
     /// </summary>
     MainWindow = 2,
 
     /// <summary>
-    /// Fondo de ventana secundaria.
+    /// Background for a transient window.
     /// </summary>
     TransientWindow = 3,
 
     /// <summary>
-    /// Fondo de ventana con pestañas.
+    /// Background for a tabbed window.
     /// </summary>
     TabbedWindow = 4
 }

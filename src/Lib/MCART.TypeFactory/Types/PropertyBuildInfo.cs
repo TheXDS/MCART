@@ -37,72 +37,69 @@ using static TheXDS.MCART.Types.TypeBuilderHelpers;
 namespace TheXDS.MCART.Types;
 
 /// <summary>
-/// Contiene información acerca de la construcción de una propiedad.
+/// Contains information about the construction of a property.
 /// </summary>
 public class PropertyBuildInfo : MemberBuildInfo<PropertyBuilder>
 {
     /// <summary>
-    /// Referencia al <see cref="FieldBuilder"/> utilizado para
-    /// construir el campo de almacenamiento de la propiedad en caso de
-    /// utilizar uno.
+    /// Reference to the <see cref="FieldBuilder"/> used to create the
+    /// backing field for the property, if one is employed.
     /// </summary>
     /// <value>
-    /// El <see cref="FieldBuilder"/> del campo de almacenamiento, o
-    /// <see langword="null"/> si la propiedad no utiliza un campo para
-    /// almacenar su valor actual.
+    /// The <see cref="FieldBuilder"/> of the backing field, or
+    /// <see langword="null"/> if the property does not use a field to
+    /// store its current value.
     /// </value>
     public FieldBuilder? Field { get; }
 
     /// <summary>
-    /// Referencia al <see cref="ILGenerator"/> del método
-    /// <see langword="get"/> de la propiedad.
+    /// Reference to the <see cref="ILGenerator"/> of the property's
+    /// <see langword="get"/> method.
     /// </summary>
     /// <value>
-    /// Un <see cref="ILGenerator"/> que puede utilizarse para definir el
-    /// método <see langword="get"/> de la propiedad, o
-    /// <see langword="null"/> si la propiedad es definida como una
-    /// propiedad automática o si la propiedad no contiene un método
-    /// <see langword="get"/>.
+    /// An <see cref="ILGenerator"/> that can be used to define the
+    /// property's <see langword="get"/> method, or
+    /// <see langword="null"/> if the property is auto‑implemented or
+    /// if the property has no <see langword="get"/> method.
     /// </value>
     public ILGenerator? Getter { get; }
 
     /// <summary>
-    /// Referencia al <see cref="ILGenerator"/> del método
-    /// <see langword="set"/> de la propiedad.
+    /// Reference to the <see cref="ILGenerator"/> of the property's
+    /// <see langword="set"/> method.
     /// </summary>
     /// <value>
-    /// Un <see cref="ILGenerator"/> que puede utilizarse para definir el
-    /// método <see langword="set"/> de la propiedad, o
-    /// <see langword="null"/> si la propiedad es definida como una
-    /// propiedad automática o si la propiedad no contiene un método
-    /// <see langword="set"/>.
+    /// An <see cref="ILGenerator"/> that can be used to define the
+    /// property's <see langword="set"/> method, or
+    /// <see langword="null"/> if the property is auto‑implemented or
+    /// if the property has no <see langword="set"/> method.
     /// </value>
     public ILGenerator? Setter { get; }
 
     /// <summary>
-    /// Convierte implícitamente un valor <see cref="PropertyBuildInfo"/>
-    /// en un <see cref="FieldInfo"/>.
+    /// Implicitly converts a <see cref="PropertyBuildInfo"/> to a
+    /// <see cref="FieldInfo"/>.
     /// </summary>
     /// <param name="buildInfo">
-    /// <see cref="PropertyBuildInfo"/> desde el cual extraer el
+    /// The <see cref="PropertyBuildInfo"/> from which to extract the
     /// <see cref="FieldInfo"/>.
     /// </param>
     public static implicit operator FieldInfo?(PropertyBuildInfo buildInfo) => buildInfo.Field;
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase 
-    /// <see cref="PropertyBuildInfo"/>.
+    /// Initializes a new instance of the <see cref="PropertyBuildInfo"/>
+    /// class.
     /// </summary>
     /// <param name="typeBuilder">
-    /// Instancia de <see cref="TypeBuilder"/> en la cual se ha definido la
-    /// propiedad.
+    /// The <see cref="TypeBuilder"/> instance where the property was
+    /// defined.
     /// </param>
     /// <param name="property">
-    /// <see cref="PropertyBuilder"/> que describe a la propiedad que ha sido
-    /// creada.
+    /// The <see cref="PropertyBuilder"/> that describes the property
+    /// that has been created.
     /// </param>
     /// <param name="field">
-    /// Campo de almacenamiento definido para la propiedad.
+    /// The backing field defined for the property.
     /// </param>
     public PropertyBuildInfo(TypeBuilder typeBuilder, PropertyBuilder property, FieldBuilder field) : this(typeBuilder, property)
     {
@@ -110,44 +107,44 @@ public class PropertyBuildInfo : MemberBuildInfo<PropertyBuilder>
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase 
-    /// <see cref="PropertyBuildInfo"/>.
+    /// Initializes a new instance of the <see cref="PropertyBuildInfo"/>
+    /// class.
     /// </summary>
     /// <param name="typeBuilder">
-    /// Instancia de <see cref="TypeBuilder"/> en la cual se ha definido la
-    /// propiedad.
+    /// The <see cref="TypeBuilder"/> instance where the property was
+    /// defined.
     /// </param>
     /// <param name="property">
-    /// <see cref="PropertyBuilder"/> que describe a la propiedad que ha sido
-    /// creada.
+    /// The <see cref="PropertyBuilder"/> that describes the property
+    /// that has been created.
     /// </param>
     /// <param name="getter">
-    /// <see cref="ILGenerator"/> que permite definir el código a ejecutar para
-    /// el bloque <see langword="get"/> de la propiedad.
+    /// The <see cref="ILGenerator"/> that allows the code for the
+    /// property's <see langword="get"/> block to be defined.
     /// </param>
     public PropertyBuildInfo(TypeBuilder typeBuilder, PropertyBuilder property, ILGenerator getter) : this(typeBuilder, property, getter, null)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase 
-    /// <see cref="PropertyBuildInfo"/>.
+    /// Initializes a new instance of the <see cref="PropertyBuildInfo"/> 
+    /// class.
     /// </summary>
     /// <param name="typeBuilder">
-    /// Instancia de <see cref="TypeBuilder"/> en la cual se ha definido la
-    /// propiedad.
+    /// Instance of <see cref="TypeBuilder"/> where the property was
+    /// defined.
     /// </param>
     /// <param name="property">
-    /// <see cref="PropertyBuilder"/> que describe a la propiedad que ha sido
-    /// creada.
+    /// <see cref="PropertyBuilder"/> that describes the property that has
+    /// been created.
     /// </param>
     /// <param name="getter">
-    /// <see cref="ILGenerator"/> que permite definir el código a ejecutar para
-    /// el bloque <see langword="get"/> de la propiedad.
+    /// <see cref="ILGenerator"/> that allows the code for the property's
+    /// <see langword="get"/> block to be defined.
     /// </param>
     /// <param name="setter">
-    /// <see cref="ILGenerator"/> que permite definir el código a ejecutar para
-    /// el bloque <see langword="set"/> de la propiedad.
+    /// <see cref="ILGenerator"/> that allows the code for the property's
+    /// <see langword="set"/> block to be defined.
     /// </param>
     public PropertyBuildInfo(TypeBuilder typeBuilder, PropertyBuilder property, ILGenerator? getter, ILGenerator? setter) : this(typeBuilder, property)
     {
@@ -160,33 +157,31 @@ public class PropertyBuildInfo : MemberBuildInfo<PropertyBuilder>
     }
 
     /// <summary>
-    /// Crea una propiedad en el tipo sin implementaciones de
-    /// <see langword="get"/> ni <see langword="set"/> establecidas.
+    /// Creates a property in the type with no get or set
+    /// implementations initially defined.
     /// </summary>
     /// <param name="tb">
-    /// Constructor del tipo en el cual crear la nueva propiedad.
+    /// Type builder in which to create the new property.
     /// </param>
-    /// <param name="name">Nombre de la nueva propiedad.</param>
-    /// <param name="type">Tipo de la nueva propiedad.</param>
+    /// <param name="name">Name of the new property.</param>
+    /// <param name="type">Type of the new property.</param>
     /// <param name="writable">
-    /// <see langword="true"/> para crear una propiedad que contiene
-    /// accesor de escritura (accesor <see langword="set"/>),
-    /// <see langword="false"/> para no incluir un accesor de escritura en
-    /// la propiedad.
+    /// <see langword="true"/> to create a property that contains a
+    /// write accessor (set accessor); <see langword="false"/> to omit
+    /// a write accessor.
     /// </param>
-    /// <param name="access">Nivel de acceso de la nueva propiedad.</param>
+    /// <param name="access">Access level of the new property.</param>
     /// <param name="virtual">
-    /// Si se establece en <see langword="true"/>, la propiedad será
-    /// definida como virtual, por lo que podrá ser reemplazada en una
-    /// clase derivada. 
+    /// If <see langword="true"/>, the property is defined as virtual,
+    /// allowing it to be overridden in a derived class.
     /// </param>
     /// <returns>
-    /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
-    /// la propiedad que ha sido construida.
+    /// A <see cref="PropertyBuildInfo"/> that contains information
+    /// about the constructed property.
     /// </returns>
     /// <remarks>
-    /// La propiedad generada requerirá que se implementen los accesores
-    /// antes de construir el tipo.
+    /// The generated property will require the accessors to be
+    /// implemented before the type is created.
     /// </remarks>
     public static PropertyBuildInfo Create(TypeBuilder tb, string name, Type type, bool writable, MemberAccess access, bool @virtual)
     {
@@ -205,22 +200,21 @@ public class PropertyBuildInfo : MemberBuildInfo<PropertyBuilder>
     }
 
     /// <summary>
-    /// Crea una propiedad de solo escritura en el tipo.
+    /// Creates a write‑only property in the type.
     /// </summary>
     /// <param name="tb">
-    /// Constructor del tipo en el cual crear la nueva propiedad.
+    /// Type builder in which to create the new property.
     /// </param>
-    /// <param name="name">Nombre de la nueva propiedad.</param>
-    /// <param name="type">Tipo de la nueva propiedad.</param>
-    /// <param name="access">Nivel de acceso de la nueva propiedad.</param>
+    /// <param name="name">Name of the new property.</param>
+    /// <param name="type">Type of the new property.</param>
+    /// <param name="access">Access level of the new property.</param>
     /// <param name="virtual">
-    /// Si se establece en <see langword="true"/>, la propiedad será
-    /// definida como virtual, por lo que podrá ser reemplazada en una
-    /// clase derivada. 
+    /// If <see langword="true"/>, the property is defined as virtual
+    /// and can be overridden in a derived class.
     /// </param>
     /// <returns>
-    /// Un <see cref="PropertyBuildInfo"/> que contiene información sobre
-    /// la propiedad que ha sido construida.
+    /// A <see cref="PropertyBuildInfo"/> that contains information
+    /// about the constructed property.
     /// </returns>
     public static PropertyBuildInfo CreateWriteOnly(TypeBuilder tb, string name, Type type, MemberAccess access, bool @virtual)
     {
@@ -240,7 +234,7 @@ public class PropertyBuildInfo : MemberBuildInfo<PropertyBuilder>
     private static MethodBuilder MkSet(TypeBuilder tb, string name, Type t, MemberAccess a, bool v)
     {
         string? n = $"set_{name}";
-        return tb.DefineMethod(n, MkPFlags(tb, n, a, v), null, new[] { t });
+        return tb.DefineMethod(n, MkPFlags(tb, n, a, v), null, [t]);
     }
 
     private static MethodAttributes MkPFlags(TypeBuilder tb, string n, MemberAccess a, bool v)

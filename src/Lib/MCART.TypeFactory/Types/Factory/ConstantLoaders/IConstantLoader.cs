@@ -33,24 +33,23 @@ using System.Reflection.Emit;
 namespace TheXDS.MCART.Types.Extensions.ConstantLoaders;
 
 /// <summary>
-/// Define una serie de miembros a implementar por un tipo que permita
-/// cargar valores constantes en una secuencia de instrucciones MSIL.
+/// Defines a set of members that must be implemented by a type that
+/// can load constant values into an MSIL instruction sequence.
 /// </summary>
 public interface IConstantLoader
 {
     /// <summary>
-    /// Carga un valor constante en la secuencia de instrucciones MSIL.
+    /// Loads a constant value into the MSIL instruction sequence.
     /// </summary>
-    /// <param name="il">Generador de IL a utilizar.</param>
+    /// <param name="il">IL generator to use.</param>
     /// <param name="value">
-    /// Valor constante a cargar en la secuencia de instrucciones.
+    /// Constant value to load into the instruction sequence.
     /// </param>
     void Emit(ILGenerator il, object? value);
 
     /// <summary>
-    /// Obtiene el tipo de constante que este 
-    /// <see cref="IConstantLoader"/> es capaz de cargar en la
-    /// secuencia de instrucciones MSIL.
+    /// Gets the type of constant that this <see cref="IConstantLoader"/> can
+    /// load into the MSIL instruction sequence.
     /// </summary>
     Type ConstantType { get; }
 
@@ -59,8 +58,8 @@ public interface IConstantLoader
     /// </summary>
     /// <param name="value">Value to be loaded.</param>
     /// <returns>
-    /// <see langword="true"/> if the specified value van be loaded using this
-    /// instance,<see langword="false"/> otherwise.
+    /// <see langword="true"/> if the specified value can be loaded using this
+    /// instance, <see langword="false"/> otherwise.
     /// </returns>
     bool CanLoadConstant(object? value);
 }

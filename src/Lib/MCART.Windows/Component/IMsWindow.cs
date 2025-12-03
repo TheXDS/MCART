@@ -36,25 +36,24 @@ using static TheXDS.MCART.PInvoke.User32;
 namespace TheXDS.MCART.Component;
 
 /// <summary>
-/// Define una serie de miembros a implementar por un tipo que represente
-/// una ventana de Microsoft Windows.
+/// Defines a set of members to be implemented by a type that
+/// represents a Microsoft Windows window.
 /// </summary>
 public interface IMsWindow : IWindow
 {
     /// <summary>
-    /// Obtiene el Handle por medio del cual la ventana puede ser
-    /// manipulada.
+    /// Gets the handle through which the window can be manipulated.
     /// </summary>
     IntPtr Handle { get; }
 
     /// <summary>
-    /// Obtiene o establece el margen interior de espaciado entre los 
-    /// bordes de la ventana y su contenido.
+    /// Gets or sets the interior margin that spaces the window's
+    /// borders from its content.
     /// </summary>
     Margins Padding { get; set; }
 
     /// <summary>
-    /// Obtiene o establece el tamaño de la ventana.
+    /// Gets or sets the window size.
     /// </summary>
     Size IWindow.Size
     {
@@ -70,8 +69,8 @@ public interface IMsWindow : IWindow
     }
 
     /// <summary>
-    /// Obtiene o establece la posición de la ventana en coordenadas
-    /// absolutas de pantalla.
+    /// Gets or sets the window position in absolute screen
+    /// coordinates.
     /// </summary>
     Types.Point IWindow.Location
     {
@@ -87,7 +86,7 @@ public interface IMsWindow : IWindow
     }
 
     /// <summary>
-    /// Oculta la ventana sin cerrarla.
+    /// Hides the window without closing it.
     /// </summary>
     void IWindow.Hide()
     {
@@ -95,7 +94,7 @@ public interface IMsWindow : IWindow
     }
 
     /// <summary>
-    /// Maximiza la ventana.
+    /// Maximizes the window.
     /// </summary>
     void IWindow.Maximize()
     {
@@ -103,7 +102,7 @@ public interface IMsWindow : IWindow
     }
 
     /// <summary>
-    /// Minimiza la ventana.
+    /// Minimizes the window.
     /// </summary>
     void IWindow.Minimize()
     {
@@ -111,7 +110,7 @@ public interface IMsWindow : IWindow
     }
 
     /// <summary>
-    /// Restaura el tamaño de la ventana.
+    /// Restores the window to its previous size.
     /// </summary>
     void IWindow.Restore()
     {
@@ -119,7 +118,7 @@ public interface IMsWindow : IWindow
     }
 
     /// <summary>
-    /// Cambia el estado de la ventana entre Maximizar y Restaurar.
+    /// Toggles the window between maximized and restored states.
     /// </summary>
     void IWindow.ToggleMaximize()
     {

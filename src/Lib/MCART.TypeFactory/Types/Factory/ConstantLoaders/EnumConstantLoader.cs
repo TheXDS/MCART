@@ -33,7 +33,8 @@ using System.Reflection.Emit;
 namespace TheXDS.MCART.Types.Extensions.ConstantLoaders;
 
 /// <summary>
-/// Loads a constant value of type <see cref="Enum"/> into the MSIL instruction sequence.
+/// <see cref="ConstantLoader{T}"/> that allows loading an <see cref="Enum"/>
+/// constant value.
 /// </summary>
 public class EnumConstantLoader : ConstantLoader<Enum>
 {

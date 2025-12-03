@@ -33,34 +33,35 @@ using System.Runtime.InteropServices;
 namespace TheXDS.MCART.PInvoke.Models;
 
 /// <summary>
-/// Define una serie de márgenes aplicables a ventanas de Microsoft Windows.
+/// Defines a set of margins that can be applied to Microsoft Windows
+/// windows.
 /// </summary>
 [StructLayout(LayoutKind.Sequential)]
 public struct Margins
 {
     /// <summary>
-    /// Describe el margen izquierdo.
+    /// Left margin.
     /// </summary>
     public int Left;
 
     /// <summary>
-    /// Describe el margen derecho.
+    /// Right margin.
     /// </summary>
     public int Right;
 
     /// <summary>
-    /// Describe el margen superior.
+    /// Top margin.
     /// </summary>
     public int Top;
 
     /// <summary>
-    /// Describe el margen inferior.
+    /// Bottom margin.
     /// </summary>
     public int Bottom;
 
     /// <summary>
-    /// Inicialiiza una nueva instancia de la estructura <see cref="Margins"/>.
+    /// Initializes a new instance of the <see cref="Margins"/> structure.
     /// </summary>
-    /// <param name="allMargins"></param>
+    /// <param name="allMargins">Value for all margins.</param>
     public Margins(int allMargins) => Left = Right = Top = Bottom = allMargins;
 }

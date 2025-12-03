@@ -33,24 +33,24 @@ using TheXDS.MCART.Types.Extensions.ConstantLoaders;
 namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
-/// Permite comparar la igualdad entre dos 
-/// <see cref="IConstantLoader"/> basado en el tipo de constante que
-/// ambos son capaces de cargar.
+/// Allows comparing equality between two
+/// <see cref="IConstantLoader"/> based on the type of constant that
+/// both can load.
 /// </summary>
 public class ConstantLoaderComparer : IEqualityComparer<IConstantLoader>
 {
     /// <summary>
-    /// Compara dos instancias de <see cref="IConstantLoader"/>.
+    /// Compares two <see cref="IConstantLoader"/> instances.
     /// </summary>
     /// <param name="x">
-    /// Primer objeto a comparar.
+    /// First object to compare.
     /// </param>
     /// <param name="y">
-    /// Segundo objeto a comparar.
+    /// Second object to compare.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si ambos objetos cargan constantes del
-    /// mismo tipo, <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if both objects load constants of the same
+    /// type, <see langword="false"/> otherwise.
     /// </returns>
     public bool Equals(IConstantLoader? x, IConstantLoader? y)
     {
@@ -58,16 +58,15 @@ public class ConstantLoaderComparer : IEqualityComparer<IConstantLoader>
     }
 
     /// <summary>
-    /// Obtiene el código hash de una instancia de 
-    /// <see cref="IConstantLoader"/> que puede ser utilizado para
-    /// comparar el tipo de constante que el objeto es capaz de cargar.
+    /// Gets the hash code of an <see cref="IConstantLoader"/> instance
+    /// that can be used to compare the type of constant that the object
+    /// is capable of loading.
     /// </summary>
     /// <param name="obj">
-    /// Objeto desde el cual obtener el código hash.
+    /// Object from which to obtain the hash code.
     /// </param>
     /// <returns>
-    /// El código hash del tipo de constante que el objeto es capaz de
-    /// cargar.
+    /// The hash code of the constant type that the object can load.
     /// </returns>
     public int GetHashCode(IConstantLoader obj)
     {

@@ -33,30 +33,29 @@ using System.Reflection.Emit;
 namespace TheXDS.MCART.Types.Extensions.ConstantLoaders;
 
 /// <summary>
-/// Clase abstracta que define un objeto que permite cargar un valor 
-/// constante en la secuencia de instrucciones MSIL.
+/// Abstract class that defines an object capable of loading a constant
+/// value into the MSIL instruction sequence.
 /// </summary>
-/// <typeparam name="T">Tipo de constante a cargar.</typeparam>
+/// <typeparam name="T">Type of constant to load.</typeparam>
 public abstract class ConstantLoader<T> : IConstantLoader, IEquatable<IConstantLoader>
 {
     /// <inheritdoc/>
     public bool CanLoadConstant(object? value) => value is T;
 
     /// <summary>
-    /// Obtiene una referencia al tipo de constante que esta instancia
-    /// puede cargar en la secuencia de instrucciones MSIL.
+    /// Gets a reference to the constant type that this instance can
+    /// load into the MSIL instruction sequence.
     /// </summary>
     public Type ConstantType => typeof(T);
 
     /// <summary>
-    /// Carga un valor constante en la secuencia de instrucciones MSIL.
+    /// Loads a constant value into the MSIL instruction sequence.
     /// </summary>
     /// <param name="il">
-    /// Generador de código a utilizar.
+    /// Code generator to use.
     /// </param>
     /// <param name="value">
-    /// Valor constante a cargar. Debe ser de tipo 
-    /// <typeparamref name="T"/>.
+    /// Constant value to load. Must be of type <typeparamref name="T"/>.
     /// </param>
     public void Emit(ILGenerator il, object? value)
     {
@@ -64,29 +63,27 @@ public abstract class ConstantLoader<T> : IConstantLoader, IEquatable<IConstantL
     }
 
     /// <summary>
-    /// Carga un valor constante en la secuencia de instrucciones MSIL.
+    /// Loads a <typeparamref name="T"/> constant value into the MSIL
+    /// instruction sequence.
     /// </summary>
-    /// <param name="il">
-    /// Generador de código a utilizar.
-    /// </param>
+    /// <param name="il">The IL generator to use.</param>
     /// <param name="value">
-    /// Valor constante a cargar.
+    /// The constant value to load into the instruction sequence.
     /// </param>
     public abstract void Emit(ILGenerator il, T value);
 
     /// <summary>
-    /// Comprueba la igualdad entre esta instancia y otro 
-    /// <see cref="IConstantLoader"/> basado en el tipo de constante
-    /// que ambos son capaces de cargar.
+    /// Determines whether this instance and another
+    /// <see cref="IConstantLoader"/> are equal based on the constant
+    /// type that they can both load.
     /// </summary>
     /// <param name="other">
-    /// Una instancia de <see cref="IConstantLoader"/> contra la cual
-    /// comparar.
+    /// An instance of <see cref="IConstantLoader"/> to compare against.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si ambos <see cref="IConstantLoader"/>
-    /// permiten cargar el mismo tipo de valores,
-    /// <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if both <see cref="IConstantLoader"/>
+    /// instances can load the same type of values,
+    /// <see langword="false"/> otherwise.
     /// </returns>
     public bool Equals(IConstantLoader? other)
     {

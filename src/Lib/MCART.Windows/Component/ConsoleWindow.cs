@@ -35,23 +35,22 @@ using static TheXDS.MCART.PInvoke.Kernel32;
 namespace TheXDS.MCART.Component;
 
 /// <summary>
-/// Clase auxiliar envolvente que permite realizar llamadas de gestión de
-/// la ventana de consola de la aplicación.
+/// Helper wrapper class that enables console window management
+/// operations for the application.
 /// </summary>
 public class ConsoleWindow : IMsWindow
 {
     private Margins _margins;
 
-    /// <summary>
-    /// Obtiene un valor que indica si la aplicación tiene acceso a la
-    /// consola.
-    /// </summary>
-    public static bool HasConsole => GetConsoleWindow() != IntPtr.Zero;
-
     internal ConsoleWindow()
     {
         if (Handle == IntPtr.Zero) AllocConsole();
     }
+
+    /// <summary>
+    /// Indicates whether the application has access to the console.
+    /// </summary>
+    public static bool HasConsole => GetConsoleWindow() != IntPtr.Zero;
 
     /// <inheritdoc/>
     public IntPtr Handle => GetConsoleWindow();
@@ -68,7 +67,7 @@ public class ConsoleWindow : IMsWindow
     }
 
     /// <summary>
-    /// Cierra la ventana de consola.
+    /// Closes the console window.
     /// </summary>
     public void Close()
     {

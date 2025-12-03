@@ -33,33 +33,32 @@ using System.Reflection.Emit;
 namespace TheXDS.MCART.Types;
 
 /// <summary>
-/// Contiene información acerca de la construcción de un método.
+/// Contains information about the construction of a method.
 /// </summary>
 public class MethodBuildInfo : MemberBuildInfo<MethodBuilder>
 {
     /// <summary>
-    /// Referencia al generador de código del método.
+    /// Reference to the IL generator of the method.
     /// </summary>
     public ILGenerator Il { get; }
 
     /// <summary>
-    /// Obtiene un valor que indica si el método descrito por esta
-    /// instancia es una función (si su tipo de retorno no es
-    /// <see langword="void"/>).
+    /// Gets a value indicating whether the method described by this
+    /// instance is a function (i.e., its return type is not
+    /// <see langword="null"/>).
     /// </summary>
     /// <value>
-    /// <see langword="true"/> si el método tiene un tipo de retorno,
-    /// <see langword="false"/> si el tipo de retorno del método es
-    /// <see langword="void"/>).
+    /// <see langword="true"/> if the method has a return type,
+    /// <see langword="false"/> if the method’s return type is void.
     /// </value>
     public bool IsFunction => Member.ReturnType != typeof(void);
 
     /// <summary>
-    /// Obtiene el tipo de retorno del método.
+    /// Gets the return type of the method.
     /// </summary>
     /// <value>
-    /// El tipo retornado por el método, o <see langword="null"/> si el
-    /// método no devuelve ningún valor (si su tipo de retorno no es
+    /// The type returned by the method, or <see langword="null"/> if the
+    /// method does not return a value (i.e., its return type is
     /// <see langword="void"/>).
     /// </value>
     public Type? ReturnType => Member.ReturnType is { } r && r != typeof(void) ? r : null;

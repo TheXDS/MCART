@@ -29,87 +29,82 @@
 namespace TheXDS.MCART.Helpers;
 
 /// <summary>
-/// Define una serie de miembros a implementar por un tipo que provea de
-/// funcionalidad de reporte de progreso de una operación en un cuadro de
-/// diálogo nativo de Microsoft Windows.
+/// Define a series of members to be implemented by a type that provides
+/// functionality for reporting progress of an operation in a native
+/// Microsoft Windows dialog.
 /// </summary>
 public interface IProgressDialog
 {
     /// <summary>
-    /// Obtiene o establece el título del diálogo.
+    /// Gets or sets the dialog's title.
     /// </summary>
     string Title { get; set; }
 
     /// <summary>
-    /// Obtiene o establece el valor que representa el máximo en la barra de
-    /// progreso del diálogo.
+    /// Gets or sets the maximum value displayed in the progress bar.
     /// </summary>
     int Maximum { get; set; }
 
     /// <summary>
-    /// Obtiene o establece un valor que indica si se deben compactar las
-    /// líneas de texto en caso que superen el ancho disponible en el diálogo.
+    /// Gets or sets a value indicating whether text lines should be compressed
+    /// if they exceed the available width.
     /// </summary>
     bool CompactPaths { get; set; }
 
     /// <summary>
-    /// Obtiene o establece el mensaje a mostrar cuando se solicita la
-    /// cancelación de la operación en progreso.
+    /// Gets or sets the message displayed when the operation in progress is
+    /// canceled.
     /// </summary>
     string CancelMessage { get; set; }
 
     /// <summary>
-    /// Obtiene o establece el valor actual de progreso del diálobo.
+    /// Gets or sets the current progress value of the dialog.
     /// </summary>
     int Value { get; set; }
 
     /// <summary>
-    /// Obtiene o establece un valor que indica si el diálogo debe cerrarse
-    /// automáticamente al alcanzar un progreso del 100%.
+    /// Gets or sets a value indicating whether the dialog should automatically
+    /// close upon reaching 100% progress.
     /// </summary>
     bool AutoClose { get; set; }
 
     /// <summary>
-    /// Obtiene o establece el valor de la primera línea de texto del cuadro de
-    /// diálogo.
+    /// Gets or sets the value of the third line of text in the dialog.
     /// </summary>
     /// <exception cref="InvalidOperationException">
-    /// Se produce si se intenta establecer el valor de esta línea cuando el
-    /// diálogo ha sido configurado para mostrar el tiempo restante en la
-    /// tercera línea.
+    /// Thrown when attempting to set this line's value while the dialog
+    /// displays remaining time on the third line.
     /// </exception>
     string Line3 { get; set; }
 
     /// <summary>
-    /// Obtiene o establece el valor de la segunda línea de texto del cuadro de
-    /// diálogo.
+    /// Gets or sets the value of the second line of text in the dialog.
     /// </summary>
     string Line2 { get; set; }
 
     /// <summary>
-    /// Obtiene o establece el valor de la tercera línea de texto del cuadro de
-    /// diálogo.
+    /// Gets or sets the value of the first line of text in the dialog.
     /// </summary>
     string Line1 { get; set; }
 
     /// <summary>
-    /// Obtiene un valor que indica si se ha solicitado la cancelación de la
-    /// operación actualmente en curso.
+    /// Gets a value indicating whether the user has requested cancellation of
+    /// the current operation.
     /// </summary>
     bool HasUserCancelled { get; }
 
     /// <summary>
-    /// Cierra el diálogo de progreso de operación.
+    /// Closes the progress dialog.
     /// </summary>
     void Close();
 
     /// <summary>
-    /// Indica que la operación ha sido pausada.
+    /// Indicates that the operation has been paused.
     /// </summary>
     void Pause();
 
     /// <summary>
-    /// Indica que una operación previamente pausada continuará.
+    /// Indicates that a previously paused operation will continue.
     /// </summary>
     void Resume();
 }

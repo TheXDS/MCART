@@ -1,5 +1,5 @@
 ﻿/*
-PInvoke.cs
+WindowCornerPreference.cs
 
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
@@ -31,28 +31,28 @@ SOFTWARE.
 namespace TheXDS.MCART.PInvoke.Models;
 
 /// <summary>
-/// Enumera las posibles configuiraciones de dibujado de esquinas en las ventanas.
+/// Enumerates the possible corner drawing configurations for windows.
 /// </summary>
 [CLSCompliant(false)]
 public enum WindowCornerPreference : uint
 {
     /// <summary>
-    /// Dejar que el sistema determine automáticamente cómo se dibujarán las esquinas.
+    /// Let the system automatically determine how corners are drawn.
     /// </summary>
     Default = 0,
 
     /// <summary>
-    /// No redondear las esquinas.
+    /// Do not round corners.
     /// </summary>
     DoNotRound = 1,
 
     /// <summary>
-    /// Redondear las esquinas, si es apropiado.
+    /// Round corners, if appropriate.
     /// </summary>
     Round = 2,
 
     /// <summary>
-    /// Redondear las esquinas con un radio pequeño, si es apropiado.
+    /// Round corners with a small radius, if appropriate.
     /// </summary>
     RoundSmall = 3
 }

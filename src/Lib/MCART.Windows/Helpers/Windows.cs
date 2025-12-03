@@ -43,26 +43,25 @@ using static TheXDS.MCART.PInvoke.User32;
 namespace TheXDS.MCART.Helpers;
 
 /// <summary>
-/// Contiene una serie de métodos auxiliares de la API de Microsoft
-/// Windows.
+/// Contains a set of helper methods for the Microsoft Windows API.
 /// </summary>
 public static class Windows
 {
     private static WindowsInfo? _winInfo;
 
     /// <summary>
-    /// Obtiene un objeto que expone información variada acerca de Windows.
+    /// Obtains an object that exposes varied information about
+    /// Windows.
     /// </summary>
     public static WindowsInfo Info => _winInfo ??= new WindowsInfo();
 
     /// <summary>
-    /// Comprueba si el contexto de ejecución actual de la aplicación
-    /// contiene permisos administrativos.
+    /// Checks whether the current execution context of the
+    /// application contains administrative permissions.
     /// </summary>
     /// <returns>
-    /// <see langword="true"/> si la aplicación está siendo ejecutada con
-    /// permisos administrativos, <see langword="false"/> en caso
-    /// contrario.
+    /// <see langword="true"/> if the application runs with
+    /// administrative privileges, otherwise <see langword="false"/>.
     /// </returns>
     public static bool IsAdministrator()
     {
@@ -72,9 +71,9 @@ public static class Windows
     }
 
     /// <summary>
-    /// Libera un objeto COM.
+    /// Releases a COM object.
     /// </summary>
-    /// <param name="obj">Objeto COM a liberar.</param>
+    /// <param name="obj">COM object to release.</param>
     public static void ReleaseComObject(object obj)
     {
         try
@@ -88,49 +87,55 @@ public static class Windows
     }
 
     /// <summary>
-    /// Abre una consola para la aplicación.
+    /// Opens a console for the application.
     /// </summary>
-    /// <returns><see langword="true"/> si la llamada obtuvo correctamente una consola, <see langword="false"/> en caso contrario.</returns>
+    /// <returns>
+    /// <see langword="true"/> if a console was successfully allocated,
+    /// otherwise <see langword="false"/>.
+    /// </returns>
     /// <remarks>
-    /// Esta función es exclusiva para sistemas operativos Microsoft
-    /// Windows®.
+    /// This function is exclusive to Microsoft Windows® operating
+    /// systems.
     /// </remarks>
     public static bool TryAllocateConsole() => AllocConsole();
 
     /// <summary>
-    /// Libera la consola de la aplicación.
+    /// Frees the console of the application.
     /// </summary>
-    /// <returns><see langword="true"/> si la llamada liberó correctamente la consola, <see langword="false"/> en caso contrario.</returns>
+    /// <returns>
+    /// <see langword="true"/> if the console was successfully freed,
+    /// otherwise <see langword="false"/>.
+    /// </returns>
     /// <remarks>
-    /// Esta función es exclusiva para sistemas operativos Microsoft
-    /// Windows®.
+    /// This function is exclusive to Microsoft Windows® operating
+    /// systems.
     /// </remarks>
     public static bool TryFreeConsole() => FreeConsole();
 
     /// <summary>
-    /// Obtiene un objeto que permite controlar la ventana de la consola.
+    /// Obtains an object that allows controlling the console window.
     /// </summary>
     /// <returns>
-    /// Un objeto que permite controlar la ventana de la consola.
+    /// An object that controls the console window.
     /// </returns>
     public static ConsoleWindow GetConsoleWindow() => new();
 
     /// <summary>
-    /// Obtiene el factor de escala de la interfaz gráfica.
+    /// Obtains the GUI scaling factor.
     /// </summary>
     /// <returns>
-    /// Un valor <see cref="float"/> que representa el factor de escala
-    /// utilizado para dibujar la interfaz gráfica del sistema.
+    /// A <see cref="float"/> that represents the system GUI scaling
+    /// factor.
     /// </returns>
     [Sugar] public static float GetScalingFactor() => GetScalingFactor(IntPtr.Zero);
 
     /// <summary>
-    /// Obtiene el factor de escala de la ventana especificada.
+    /// Obtains the scaling factor of the specified window.
     /// </summary>
-    /// <param name="window">Ventana a verificar.</param>
+    /// <param name="window">Window to check.</param>
     /// <returns>
-    /// Un valor <see cref="float"/> que representa el factor de escala
-    /// utilizado para dibujar la ventana especificada.
+    /// A <see cref="float"/> representing the scaling factor used
+    /// to draw the specified window.
     /// </returns>
     public static float GetScalingFactor(this IMsWindow window)
     {
@@ -138,51 +143,50 @@ public static class Windows
     }
 
     /// <summary>
-    /// Obtiene la resolución horizontal de la pantalla en DPI.
+    /// Obtains the horizontal screen resolution in DPI.
     /// </summary>
     /// <returns>
-    /// Un valor entero que indica la resolución horizontal de la
-    /// pantalla en Puntos Por Pulgada (DPI).
+    /// An integer indicating the horizontal screen resolution in
+    /// Dots Per Inch (DPI).
     /// </returns>
     [Sugar] public static int GetXDpi() => GetXDpi(IntPtr.Zero);
 
     /// <summary>
-    /// Obtiene la resolución vertical de la pantalla en DPI.
+    /// Gets the vertical screen resolution in DPI.
     /// </summary>
     /// <returns>
-    /// Un valor entero que indica la resolución vertical de la
-    /// pantalla en Puntos Por Pulgada (DPI).
+    /// An integer indicating the vertical screen resolution in
+    /// Dots Per Inch (DPI).
     /// </returns>
     [Sugar] public static int GetYDpi() => GetXDpi(IntPtr.Zero);
 
     /// <summary>
-    /// Obtiene la resolución horizontal de la ventana en DPI.
+    /// Gets the horizontal resolution of the window in DPI.
     /// </summary>
-    /// <param name="hwnd">Identificador de ventana a verificar.</param>
+    /// <param name="hwnd">Window identifier to check.</param>
     /// <returns>
-    /// Un valor entero que indica la resolución horizontal de la
-    /// ventana  en Puntos Por Pulgada (DPI).
+    /// An integer indicating the horizontal window resolution in
+    /// Dots Per Inch (DPI).
     /// </returns>
     public static int GetXDpi(IntPtr hwnd) => GetDeviceCaps(Graphics.FromHwnd(hwnd).GetHdc(), 88);
 
     /// <summary>
-    /// Obtiene la resolución vertical de la ventana en DPI.
+    /// Gets the vertical resolution of the window in DPI.
     /// </summary>
-    /// <param name="hwnd">Identificador de ventana a verificar.</param>
+    /// <param name="hwnd">Window identifier to check.</param>
     /// <returns>
-    /// Un valor entero que indica la resolución vertical de la ventana
-    /// en Puntos Por Pulgada (DPI).
+    /// An integer indicating the vertical window resolution in
+    /// Dots Per Inch (DPI).
     /// </returns>
     public static int GetYDpi(IntPtr hwnd) => GetDeviceCaps(Graphics.FromHwnd(hwnd).GetHdc(), 90);
 
     /// <summary>
-    /// Obtiene las resolución horizontal y vertical de la ventana en 
-    /// DPI.
+    /// Gets the horizontal and vertical resolution of the window in DPI.
     /// </summary>
-    /// <param name="hwnd">Identificador de ventana a verificar.</param>
+    /// <param name="hwnd">Window identifier to check.</param>
     /// <returns>
-    /// Un <see cref="Point"/> que indica la resolución de la ventana
-    /// en Puntos Por Pulgada (DPI).
+    /// A <see cref="Types.Size"/> that indicates the window resolution
+    /// in Dots Per Inch (DPI).
     /// </returns>
     public static Types.Size GetDpi(IntPtr hwnd)
     {
@@ -191,20 +195,19 @@ public static class Windows
     }
 
     /// <summary>
-    /// Obtiene las resolución horizontal y vertical de la pantalla en
-    /// DPI.
+    /// Gets the horizontal and vertical screen resolution in DPI.
     /// </summary>
     /// <returns>
-    /// Un <see cref="Point"/> que indica la resolución de la pantalla
-    /// en Puntos Por Pulgada (DPI).
+    /// A <see cref="Types.Size"/> that indicates the screen resolution
+    /// in Dots Per Inch (DPI).
     /// </returns>
     [Sugar] public static Types.Size GetDpi() => GetDpi(IntPtr.Zero);
 
     /// <summary>
-    /// Devuelve un <see cref="Brush"/> aleatorio.
+    /// Returns a randomly chosen drawing brush.
     /// </summary>
     /// <returns>
-    /// Un <see cref="Brush"/> seleccionado aleatoriamente.
+    /// A <see cref="Brush"/> selected at random.
     /// </returns>
     public static Brush PickDrawingBrush()
     {
@@ -212,11 +215,11 @@ public static class Windows
     }
 
     /// <summary>
-    /// Obtiene las coordenadas absolutas del cursor en la pantalla.
+    /// Gets the absolute cursor coordinates on the screen.
     /// </summary>
     /// <returns>
-    /// Un <see cref="Types.Point"/> con las coordenadas absolutas del
-    /// cursor en la pantalla.
+    /// A <see cref="Types.Point"/> containing the cursor's absolute
+    /// screen coordinates.
     /// </returns>
     public static Types.Point GetCursorPosition()
     {
@@ -224,9 +227,11 @@ public static class Windows
     }
 
     /// <summary>
-    /// Obtiene el color de acento de las ventanas establecido actualmente.
+    /// Gets the current Aero accent color of Windows.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>
+    /// The current Aero accent color as a <see cref="Types.Color"/>.
+    /// </returns>
     public static Types.Color GetAeroAccentColor()
     {
         if (DwmGetColorizationColor(out var color, out var transparent) != 0) return Color.Transparent;
@@ -236,36 +241,33 @@ public static class Windows
     }
 
     /// <summary>
-    /// Intenta borrar un objeto dado su Handle específico.
+    /// Attempts to delete a Windows object by its specific handle.
     /// </summary>
-    /// <param name="hwnd">
-    /// Handle del objeto de Windows a borrar.
-    /// </param>
+    /// <param name="hwnd">Handle of the Windows object to delete.</param>
     /// <returns>
-    /// <see langword="true"/> si la operación ha sido exitosa,
-    /// <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if the operation succeeded; otherwise,
+    /// <see langword="false"/>.
     /// </returns>
     public static bool TryDeleteObject(IntPtr hwnd)
     {
         return DeleteObject(hwnd);
     }
 
-    private static float GetScalingFactor(IntPtr handle)
-    {
-        IntPtr h = Graphics.FromHwnd(handle).GetHdc();
-        return (float)GetDeviceCaps(h, 10) / GetDeviceCaps(h, 117);
-    }
-
     /// <summary>
-    /// Comprueba si la composición de ventanas está disponible en el
-    /// sistema.
+    /// Checks whether window composition is available on the system.
     /// </summary>
     /// <returns>
-    /// <see langword="true"/> si la composición de ventanas está
-    /// disponible, <see langword="false"/> en caso contrario.
+    /// <see langword="true"/> if window composition is enabled;
+    /// otherwise, <see langword="false"/>.
     /// </returns>
     public static bool IsCompositionEnabled()
     {
         return DwmIsCompositionEnabled();
+    }
+
+    private static float GetScalingFactor(IntPtr handle)
+    {
+        IntPtr h = Graphics.FromHwnd(handle).GetHdc();
+        return (float)GetDeviceCaps(h, 10) / GetDeviceCaps(h, 117);
     }
 }

@@ -33,6 +33,7 @@ SOFTWARE.
 using Microsoft.Win32;
 using System.Management;
 using System.Runtime.CompilerServices;
+using TheXDS.MCART.Misc;
 using TheXDS.MCART.Resources;
 using TheXDS.MCART.Types.Base;
 using static TheXDS.MCART.PInvoke.Kernel32;
@@ -40,7 +41,7 @@ using static TheXDS.MCART.PInvoke.Kernel32;
 namespace TheXDS.MCART.Component;
 
 /// <summary>
-/// Expone información detallada sobre Windows.
+/// Exposes detailed information about Windows.
 /// </summary>
 public class WindowsInfo : INameable, IDescriptible, IExposeInfo
 {
@@ -48,125 +49,113 @@ public class WindowsInfo : INameable, IDescriptible, IExposeInfo
     private readonly ManagementObject _managementObject = new ManagementClass(@"Win32_OperatingSystem").GetInstances().OfType<ManagementObject>().FirstOrDefault() ?? throw new PlatformNotSupportedException();
 
     /// <summary>
-    /// Obtiene una cadena que representa el dispositivo de arranque
-    /// del equipo.
+    /// Gets a string that represents the system's boot device.
     /// </summary>
     public string BootDevice => GetFromWmi<string>();
 
     /// <summary>
-    /// Obtiene una cadena que representa la rama de compilación desde
-    /// la cual se origina esta versión de Windows.
+    /// Gets a string that represents the build branch from which this Windows
+    /// version originates.
     /// </summary>
     public string BuildBranch => GetFromReg<string>();
 
     /// <summary>
-    /// Obtiene un <see cref="Guid"/> que identifica a esta versión de
-    /// Windows.
+    /// Gets a <see cref="Guid"/> that identifies this Windows version.
     /// </summary>
     public Guid BuildGUID => Guid.Parse(GetFromReg<string>());
 
     /// <summary>
-    /// Obtiene una cadena que representa el laboratorio de
-    /// compilación desde el cual se origina esta versión de Windows.
+    /// Gets a string that represents the build lab from which this Windows
+    /// version originates.
     /// </summary>
     public string BuildLab => GetFromReg<string>();
 
     /// <summary>
-    /// Obtiene una cadena con formato extendido que representa el
-    /// laboratorio de compilación desde el cual se origina esta 
-    /// versión de Windows.
+    /// Gets an extended-formatted string that represents the build lab
+    /// from which this Windows version originates.
     /// </summary>
     public string BuildLabEx => GetFromReg<string>();
 
     /// <summary>
-    /// Obtiene una cadena que representa el número de compilación de
-    /// Windows.
+    /// Gets a string that represents the Windows build number.
     /// </summary>
     public string BuildNumber => GetFromWmi<string>();
 
     /// <summary>
-    /// Obtiene una cadena que representa el tipo de compilación de
-    /// Windows.
+    /// Gets a string that represents the Windows build type.
     /// </summary>
     public string BuildType => GetFromWmi<string>();
 
     /// <summary>
-    /// Obtiene una etiqueta para esta versión de Windows.
+    /// Gets a label for this Windows version.
     /// </summary>
     public string Caption => GetFromWmi<string>();
 
     /// <summary>
-    /// Obtiene una cadena que representa la página de códigos
-    /// configurada para Windows.
+    /// Gets a string that represents the code page configured for Windows.
     /// </summary>
     public string CodeSet => GetFromWmi<string>();
 
     /// <summary>
-    /// Obtiene el código de país configurado para esta instancia de
-    /// Windows.
+    /// Gets the country code configured for this Windows instance.
     /// </summary>
     public string CountryCode => GetFromWmi<string>();
 
     /// <summary>
-    /// Obtiene la zona horaria actualmente configurada en Windows.
+    /// Gets the currently configured time zone in Windows.
     /// </summary>
     public short CurrentTimeZone => GetFromWmi<short>();
 
     /// <summary>
-    /// Obtiene un valor que indica si DEP se encuentra habilitado para
-    /// aplicaciones de 32 bits.
+    /// Gets a value indicating whether DEP is enabled for 32-bit applications.
     /// </summary>
     public bool DEP32bit => GetFromWmi<bool>("DataExecutionPrevention_32BitApplications");
 
     /// <summary>
-    /// Obtiene un valor que indica si DEP se encuentra habilitado.
+    /// Gets a value indicating whether DEP is available.
     /// </summary>
     public bool DEPAvailable => GetFromWmi<bool>("DataExecutionPrevention_Available");
 
     /// <summary>
-    /// Obtiene un valor que indica la presencia de controladores DEP
-    /// en el sistema.
+    /// Gets a value indicating the presence of DEP drivers in the system.
     /// </summary>
     public bool DEPDrivers => GetFromWmi<bool>("DataExecutionPrevention_Drivers");
 
     /// <summary>
-    /// Obtiene un valor que representa la política DEP activa en el
-    /// equipo.
+    /// Gets a value representing the active DEP policy on the system.
     /// </summary>
     public byte DEPPolicy => GetFromWmi<byte>("DataExecutionPrevention_SupportPolicy");
 
     /// <summary>
-    /// Obtiene un valor que indica si esta versión de Windows se ha
-    /// iniciado con depuración de Kernel activada.
+    /// Gets a value indicating whether this Windows version was started with
+    /// kernel debugging enabled.
     /// </summary>
     public bool Debug => GetFromWmi<bool>();
 
     /// <summary>
-    /// Obtiene una cadena que describe a esta versión de Windows.
+    /// Gets a string that describes this Windows version.
     /// </summary>
     public string Description => GetFromWmi<string>();
 
     /// <summary>
-    /// Obtiene un valor que indica si Windows se está ejecutando en un
-    /// entorno distribuido.
+    /// Gets a value indicating whether Windows is running in a distributed
+    /// environment.
     /// </summary>
     public bool Distributed => GetFromWmi<bool>();
 
     /// <summary>
-    /// Obtiene un valor que representa la edición de esta instancia de
-    /// Windows.
+    /// Gets a value that represents the edition of this Windows instance.
     /// </summary>
     public string EditionID => GetFromReg<string>();
 
     /// <summary>
-    /// Obtiene un valor que representa el nivel de encriptado del
-    /// sistema.
+    /// Gets a value that represents the system's encryption level.
     /// </summary>
     [CLSCompliant(false)]
     public uint EncryptionLevel => GetFromWmi<uint>();
 
     /// <summary>
-    /// Obtiene el tipo de firmware con el cual el equipo ha sido arrancado.
+    /// Gets the firmware type with which the computer was booted.
     /// </summary>
     public FirmwareType FirmwareType
     {
@@ -181,303 +170,283 @@ public class WindowsInfo : INameable, IDescriptible, IExposeInfo
     }
 
     /// <summary>
-    /// Obtiene un valor que indica la cantidad de "empuje" adicional
-    /// que una aplicación en primer plano recibirá por parte del
-    /// sistema operativo.
+    /// Gets a value that indicates the amount of foreground application
+    /// boost the operating system will provide.
     /// </summary>
     public byte ForegroundApplicationBoost => GetFromWmi<byte>();
 
     /// <summary>
-    /// Obtiene un valor que indica la cantidad de memoria física
-    /// disponible, en bytes.
+    /// Gets a value that indicates the amount of available physical memory,
+    /// in bytes.
     /// </summary>
     [CLSCompliant(false)]
     public ulong FreePhysicalMemory => GetFromWmi<ulong>();
 
     /// <summary>
-    /// Obtiene la cantidad de espacio en bytes que existe en archivos 
-    /// de paginación.
+    /// Gets the amount of paging file space, in bytes.
     /// </summary>
     [CLSCompliant(false)]
     public ulong FreeSpaceInPagingFiles => GetFromWmi<ulong>();
 
     /// <summary>
-    /// Obtiene la cantidad de memoria virtual disponible para el
-    /// sistema, en bytes.
+    /// Gets the amount of available virtual memory, in bytes.
     /// </summary>
     [CLSCompliant(false)]
     public ulong FreeVirtualMemory => GetFromWmi<ulong>();
 
     /// <summary>
-    /// Obtiene una cadena que representa el tipo de instalación de
-    /// esta instancia de Windows.
+    /// Gets a string that represents the installation type of this
+    /// Windows instance.
     /// </summary>
     public string InstallationType => GetFromReg<string>();
 
     /// <summary>
-    /// Obtiene la fecha y hora de instalación de Windows en este
-    /// equipo.
+    /// Gets the installation date and time of Windows on this computer.
     /// </summary>
     public DateTime InstallDate => DateFromWmi();
 
     /// <summary>
-    /// Obtiene la fecha y hora del último arranque del equipo.
+    /// Gets the last boot-up time of the computer.
     /// </summary>
     public DateTime LastBootUpTime => DateFromWmi();
 
     /// <summary>
-    /// Obtiene la fecha y hora locales del equipo a partir de la
-    /// información reportada por WMI.
+    /// Gets the local date and time of the computer as reported by WMI.
     /// </summary>
     public DateTime LocalDateTime => DateFromWmi();
 
     /// <summary>
-    /// Obtiene una cadena que representa el lenguaje local del equipo.
+    /// Gets a string that represents the local language of the computer.
     /// </summary>
     public string Locale => GetFromWmi<string>();
 
     /// <summary>
-    /// Obtiene el nombre del fabricante del equipo.
+    /// Gets the name of the computer's manufacturer.
     /// </summary>
     public string Manufacturer => GetFromWmi<string>();
 
     /// <summary>
-    /// Obtiene la cantidad máxima de procesos que el sistema operativo
-    /// es capaz de gestionar.
+    /// Gets the maximum number of processes that the operating system can
+    /// manage.
     /// </summary>
     [CLSCompliant(false)]
     public uint MaxNumberOfProcesses => GetFromWmi<uint>();
 
     /// <summary>
-    /// Obtiene el tamaño máximo de memoria que se le puede asignar a
-    /// un proceso en este equipo.
+    /// Gets the maximum memory size that can be assigned to a process on this computer.
     /// </summary>
     [CLSCompliant(false)]
     public uint MaxProcessMemorySize => GetFromWmi<uint>();
 
     /// <summary>
-    /// Obtiene una colección de los lenguajes MUI disponibles en esta 
-    /// instalación de Windows.
+    /// Gets a collection of the MUI languages available in this Windows installation.
     /// </summary>
     public string[] MUILanguages => GetFromWmi<string[]>();
 
     /// <summary>
-    /// Obtiene un nombre descriptivo para esta instalación de Windows.
+    /// Gets a descriptive name for this Windows installation.
     /// </summary>
     public string Name => GetFromWmi<string>();
 
     /// <summary>
-    /// Obtiene la cantidad de procesos existentes actualmente en el
-    /// sistema.
+    /// Gets the number of processes currently existing in the system.
     /// </summary>
     [CLSCompliant(false)]
     public uint NumberOfProcesses => GetFromWmi<uint>();
 
     /// <summary>
-    /// Obtiene la cantidad de usuarios registrados en el sistema.
+    /// Gets the number of users registered on the system.
     /// </summary>
     [CLSCompliant(false)]
     public uint NumberOfUsers => GetFromWmi<uint>();
 
     /// <summary>
-    /// Obtiene un número de producto (SKU) que identifica a Windows.
+    /// Gets a product SKU that identifies Windows.
     /// </summary>
     [CLSCompliant(false)]
     public uint OperatingSystemSKU => GetFromWmi<uint>();
 
     /// <summary>
-    /// Obtiene el nombre de la organización registrada en el equipo.
+    /// Gets the name of the organization registered on the computer.
     /// </summary>
     public string Organization => GetFromWmi<string>();
 
     /// <summary>
-    /// Obtiene el nombre de la arquitectura del sistema operativo.
+    /// Gets the operating system architecture name.
     /// </summary>
     public string OSArchitecture => GetFromWmi<string>();
 
     /// <summary>
-    /// Obtiene un valor que representa el idioma del sistema 
-    /// operativo.
+    /// Gets a value that represents the system language.
     /// </summary>
     [CLSCompliant(false)]
     public uint OSLanguage => GetFromWmi<uint>();
 
     /// <summary>
-    /// Obtiene un valor que describe la suite de productos a la cual
-    /// pertenece este sistema operativo.
+    /// Gets a value that describes the product suite to which this OS belongs.
     /// </summary>
     [CLSCompliant(false)]
     public uint OSProductSuite => GetFromWmi<uint>();
 
     /// <summary>
-    /// Obtiene un valor que representa el tipo de sistema operativo.
+    /// Gets a value that represents the operating system type.
     /// </summary>
     [CLSCompliant(false)]
     public ushort OSType => GetFromWmi<ushort>();
 
     /// <summary>
-    /// Obtiene un valor que indica si este sistema operativo es
-    /// portátil.
+    /// Gets a value indicating whether this operating system is portable.
     /// </summary>
     public bool PortableOperatingSystem => GetFromWmi<bool>();
 
     /// <summary>
-    /// Obtiene el valor "Primary" desde la instrumentación de Windows.
+    /// Gets the Primary value from Windows instrumentation.
     /// </summary>
     /// <returns>
-    /// El valor "Primary" desde la instrumentación de Windows.
+    /// The Primary value from Windows instrumentation.
     /// </returns>
     public bool Primary => GetFromWmi<bool>();
 
     /// <summary>
-    /// Obtiene un valor que representa el tipo de producto que es este
-    /// sistema operativo.
+    /// Gets a value that represents the product type of this OS.
     /// </summary>
     [CLSCompliant(false)]
     public uint ProductType => GetFromWmi<uint>();
 
     /// <summary>
-    /// Obtiene el nombre del usuario registrado en Windows.
+    /// Gets the registered user name in Windows.
     /// </summary>
     public string RegisteredUser => GetFromWmi<string>();
 
     /// <summary>
-    /// Obtiene una cadena que identifica a la distribución de esta
-    /// versión de Windows.
+    /// Gets a string that identifies the distribution of this Windows version.
     /// </summary>
     public string ReleaseId => GetFromReg<string>();
 
     /// <summary>
-    /// Obtiene el número de serie del equipo.
+    /// Gets the serial number of the computer.
     /// </summary>
     public string SerialNumber => GetFromWmi<string>();
 
     /// <summary>
-    /// Obtiene el número mayor de Service Pack de Windows.
+    /// Gets the major Service Pack number of Windows.
     /// </summary>
     [CLSCompliant(false)]
-    [Obsolete("Desde Windows 10 ya no se proporcionan números de versión de Service Pack.")]
+    [Obsolete(AttributeErrorMessages.Win10NoServicePack)]
     public ushort ServicePackMajorVersion => GetFromWmi<ushort>();
 
     /// <summary>
-    /// Obtiene el número menor de Service Pack de Windows.
+    /// Gets the minor Service Pack number of Windows.
     /// </summary>
     [CLSCompliant(false)]
-    [Obsolete("Desde Windows 10 ya no se proporcionan números de versión de Service Pack.")]
+    [Obsolete(AttributeErrorMessages.Win10NoServicePack)]
     public ushort ServicePackMinorVersion => GetFromWmi<ushort>();
 
     /// <summary>
-    /// Obtiene el tamaño ocupado por los archivos de paginación en el
-    /// almacenamiento local del equipo.
+    /// Gets the size occupied by paging files on the computer’s local storage.
     /// </summary>
     [CLSCompliant(false)]
     public ulong SizeStoredInPagingFiles => GetFromWmi<ulong>();
 
     /// <summary>
-    /// Obtiene una cadena que representa el estado actual del sistema
-    /// operativo.
+    /// Gets a string that represents the current operating system state.
     /// </summary>
     public string Status => GetFromWmi<string>();
 
     /// <summary>
-    /// Obtiene un valor que se puede utilizar para determinar el valor
-    /// de Suite del sistema operativo al ser aplicado como una
-    /// máscara sobre <see cref="OSProductSuite"/>.
+    /// Gets a value that can be used as a mask for the OS product suite,
+    /// when applied to <see cref="OSProductSuite"/>.
     /// </summary>
     [CLSCompliant(false)]
     public uint SuiteMask => GetFromWmi<uint>();
 
     /// <summary>
-    /// Obtiene una cadena que representa al dispositivo de
-    /// almacenamiento donde se encuentra instalado Windows.
+    /// Gets a string that represents the storage device where Windows is installed.
     /// </summary>
     public string SystemDevice => GetFromWmi<string>();
 
     /// <summary>
-    /// Obtiene la ruta de directorio del sistema operativo.
+    /// Gets the operating system directory path.
     /// </summary>
     public string SystemDirectory => GetFromWmi<string>();
 
     /// <summary>
-    /// Obtiene la letra de unidad donde se encuentra instalado el
-    /// sistema operativo.
+    /// Gets the drive letter on which the operating system is installed.
     /// </summary>
     public string SystemDrive => GetFromWmi<string>();
 
     /// <summary>
-    /// Obtiene el tamaño total de la memoria virtual.
+    /// Gets the total size of virtual memory.
     /// </summary>
     [CLSCompliant(false)]
     public ulong TotalVirtualMemorySize => GetFromWmi<ulong>();
 
     /// <summary>
-    /// Obtiene el tamaño total de memoria que es visible al sistema.
+    /// Gets the total size of memory visible to the system.
     /// </summary>
     [CLSCompliant(false)]
     public ulong TotalVisibleMemorySize => GetFromWmi<ulong>();
 
     /// <summary>
-    /// Obtiene el valor "UBR" desde la instrumentación de Windows.
+    /// Gets the UBR value from Windows instrumentation.
     /// </summary>
     /// <returns>
-    /// El valor "UBR" desde la instrumentación de Windows.
+    /// The UBR value from Windows instrumentation.
     /// </returns>
     public int UBR => GetFromReg<int>();
 
     /// <summary>
-    /// Obtiene la versión del sistema operativo.
+    /// Gets the operating system version.
     /// </summary>
     public Version Version => Version.Parse($"{GetFromWmi<string>()}.{UBR}");
 
     /// <summary>
-    /// Obtiene la ruta del directorio de Windows.
+    /// Gets the Windows directory path.
     /// </summary>
     public string WindowsDirectory => GetFromWmi<string>();
 
     /// <summary>
-    /// Obtiene al fabricante del sistema operativo.
+    /// Gets the operating system manufacturer.
     /// </summary>
-    public IEnumerable<string> Authors => new[] { Manufacturer };
+    public IEnumerable<string> Authors => [Manufacturer];
 
     /// <summary>
-    /// Obtiene la nota de copyright asociada a Windows.
+    /// Gets the copyright notice associated with Windows.
     /// </summary>
     public string Copyright => @$"Copyright © {Manufacturer}";
 
     /// <summary>
-    /// Obtiene el texto de licencia asociado a Windows.
+    /// Gets the license text associated with Windows.
     /// </summary>
     public License License => new("Microsoft Windows EULA", new Uri(GetWinLicensePath()));
 
     /// <summary>
-    /// Obtiene un valor que determina si Windows incluye un CLUF
+    /// Gets a value indicating whether Windows includes a CLUF.
     /// </summary>
     public bool HasLicense => File.Exists(GetWinLicensePath());
 
     /// <summary>
-    /// Obtiene un valor que indica si Windows cumple con el CLS.
+    /// Gets a value that indicates whether Windows is CLS compliant.
     /// </summary>
     /// <remarks>
-    /// Esta función siempre devolverá <see langword="false"/>, debido
-    /// a que grandes porciones de Microsoft Windows fueron escritas
-    /// utilizando C/C++, y no C# u otros lenguajes CLR.
+    /// This function will always return <see langword="false"/>, because
+    /// large portions of Microsoft Windows were written in C/C++, not C#
+    /// or other CLR languages.
     /// </remarks>
     public bool ClsCompliant => false;
 
     /// <summary>
-    /// Obtiene la versión descriptiva informacional de Windows.
+    /// Gets the informational descriptive version of Windows.
     /// </summary>
     public string? InformationalVersion => $"{Version}-{BuildLabEx}";
 
     /// <summary>
-    /// Enumera las licencias de terceros incluidas con el sistema
-    /// operativo.
+    /// Enumerates third‑party licenses included with the operating system.
     /// </summary>
     public IEnumerable<License>? ThirdPartyLicenses => null;
 
     /// <summary>
-    /// Obtiene un valor que indica si Microsoft Windows incluye licencias 
-    /// de terceros.
+    /// Gets a value that indicates whether Microsoft Windows includes third‑party licenses.
     /// </summary>
     public bool Has3rdPartyLicense => false;
 

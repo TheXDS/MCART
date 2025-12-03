@@ -31,12 +31,11 @@ SOFTWARE.
 using System.Reflection;
 using TheXDS.MCART.Types.Extensions;
 using static System.Reflection.MethodAttributes;
-using static TheXDS.MCART.Misc.Internals;
 
 namespace TheXDS.MCART.Types;
 
 /// <summary>
-/// Contiene funciones auxiliares para la construcción de tipos en Runtime.
+/// Contains helper functions for building types at runtime.
 /// </summary>
 public static class TypeBuilderHelpers
 {
@@ -55,13 +54,15 @@ public static class TypeBuilderHelpers
     }
 
     /// <summary>
-    /// Obtiene un atributo de método a partir del valor de acceso
-    /// especificado.
+    /// Retrieves a method attribute based on the specified access level.
     /// </summary>
+    /// <param name="access">
+    /// Desired access level for the method.
+    /// </param>
     /// <returns>
-    /// Un atributo de método con el nivel de acceso especificado.
+    /// A <see cref="MethodAttributes"/> value with the specified access
+    /// level.
     /// </returns>
-    /// <param name="access">Nivel de acceso deseado para el método.</param>
     public static MethodAttributes Access(MemberAccess access)
     {
         return access switch

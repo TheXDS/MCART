@@ -31,27 +31,27 @@ SOFTWARE.
 namespace TheXDS.MCART.Component;
 
 /// <summary>
-/// Enumera los posibles tipos de firmware que podría utilizar un equipo.
+/// Enumerates the possible firmware types a system may use.
 /// </summary>
 public enum FirmwareType
 {
     /// <summary>
-    /// Tipo de firmware desconocido.
+    /// Unknown firmware type.
     /// </summary>
     FirmwareTypeUnknown,
 
     /// <summary>
-    /// Firmware clásico BIOS
+    /// Classic BIOS firmware.
     /// </summary>
     FirmwareTypeBios,
 
     /// <summary>
-    /// Firmware UEFI
+    /// UEFI firmware.
     /// </summary>
     FirmwareTypeUefi,
 
     /// <summary>
-    /// Valor máximo de la enumeración.
+    /// Maximum enumeration value.
     /// </summary>
     FirmwareTypeMax
 }

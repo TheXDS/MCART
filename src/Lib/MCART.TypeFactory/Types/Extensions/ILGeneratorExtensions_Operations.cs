@@ -54,7 +54,7 @@ public static partial class ILGeneratorExtensions
 
     /// <summary>
     /// Inserts an addition operation into the Microsoft® Intermediate Language (MSIL)
-    /// instruction stream.
+    /// instruction sequence.
     /// </summary>
     /// <param name="ilGen">
     /// The instruction sequence into which the operation is inserted.
@@ -69,7 +69,7 @@ public static partial class ILGeneratorExtensions
 
     /// <summary>
     /// Inserts a subtraction operation into the Microsoft® Intermediate Language (MSIL)
-    /// instruction stream.
+    /// instruction sequence.
     /// </summary>
     /// <param name="ilGen">
     /// The instruction sequence into which the operation is inserted.
@@ -84,7 +84,7 @@ public static partial class ILGeneratorExtensions
 
     /// <summary>
     /// Inserts a multiplication operation into the Microsoft® Intermediate Language (MSIL)
-    /// instruction stream.
+    /// instruction sequence.
     /// </summary>
     /// <param name="ilGen">
     /// The instruction sequence into which the operation is inserted.
@@ -99,7 +99,7 @@ public static partial class ILGeneratorExtensions
 
     /// <summary>
     /// Inserts a division operation into the Microsoft® Intermediate Language (MSIL)
-    /// instruction stream.
+    /// instruction sequence.
     /// </summary>
     /// <param name="ilGen">
     /// The instruction sequence into which the operation is inserted.
@@ -114,7 +114,7 @@ public static partial class ILGeneratorExtensions
 
     /// <summary>
     /// Inserts a remainder operation into the Microsoft® Intermediate Language (MSIL)
-    /// instruction stream.
+    /// instruction sequence.
     /// </summary>
     /// <param name="ilGen">
     /// The instruction sequence into which the operation is inserted.
@@ -130,7 +130,7 @@ public static partial class ILGeneratorExtensions
 
     /// <summary>
     /// Inserts a NOP instruction into the Microsoft® Intermediate Language
-    /// (MSIL) instruction stream.
+    /// (MSIL) instruction sequence.
     /// </summary>
     /// <param name="ilGen">
     /// Instruction sequence into which the operation is inserted.
@@ -169,7 +169,7 @@ public static partial class ILGeneratorExtensions
     /// <summary>
     /// Inserts an equality comparison operation between two values at the
     /// top of the stack into the Microsoft® Intermediate Language (MSIL)
-    /// instruction stream.
+    /// instruction sequence.
     /// </summary>
     /// <param name="ilGen">
     /// Instruction sequence into which the operation is inserted.
@@ -182,7 +182,7 @@ public static partial class ILGeneratorExtensions
     /// <summary>
     /// Inserts a greater‑than comparison operation between two values at the
     /// top of the stack into the Microsoft® Intermediate Language (MSIL)
-    /// instruction stream.
+    /// instruction sequence.
     /// </summary>
     /// <param name="ilGen">
     /// Instruction sequence into which the operation is inserted.
@@ -195,7 +195,7 @@ public static partial class ILGeneratorExtensions
     /// <summary>
     /// Inserts a less‑than comparison operation between two values at the
     /// top of the stack into the Microsoft® Intermediate Language (MSIL)
-    /// instruction stream.
+    /// instruction sequence.
     /// </summary>
     /// <param name="ilGen">
     /// Instruction sequence into which the operation is inserted.
@@ -229,7 +229,7 @@ public static partial class ILGeneratorExtensions
 
     /// <summary>
     /// Inserts an operation that stores a byte element in an array at the
-    /// specified index onto the Microsoft® IL (MSIL) instruction stream.
+    /// specified index onto the Microsoft® IL (MSIL) instruction sequence.
     /// </summary>
     /// <param name="ilGen">
     /// Microsoft® IL (MSIL) instruction stream generator onto which to insert
@@ -252,7 +252,7 @@ public static partial class ILGeneratorExtensions
 
     /// <summary>
     /// Inserts an operation that stores a short element in an array at the
-    /// specified index onto the Microsoft® IL (MSIL) instruction stream.
+    /// specified index onto the Microsoft® IL (MSIL) instruction sequence.
     /// </summary>
     /// <param name="ilGen">
     /// Microsoft® IL (MSIL) instruction stream generator onto which to insert
@@ -275,7 +275,7 @@ public static partial class ILGeneratorExtensions
 
     /// <summary>
     /// Inserts an operation that stores an int element in an array at the
-    /// specified index onto the Microsoft® IL (MSIL) instruction stream.
+    /// specified index onto the Microsoft® IL (MSIL) instruction sequence.
     /// </summary>
     /// <param name="ilGen">
     /// Microsoft® IL (MSIL) instruction stream generator onto which to insert
@@ -298,7 +298,7 @@ public static partial class ILGeneratorExtensions
 
     /// <summary>
     /// Inserts an operation that stores a long element in an array at the
-    /// specified index onto the Microsoft® IL (MSIL) instruction stream.
+    /// specified index onto the Microsoft® IL (MSIL) instruction sequence.
     /// </summary>
     /// <param name="ilGen">
     /// Microsoft® IL (MSIL) instruction stream generator onto which to insert
@@ -321,7 +321,7 @@ public static partial class ILGeneratorExtensions
 
     /// <summary>
     /// Inserts an operation to store an element into an array at the specified
-    /// index onto the Microsoft® IL (MSIL) instruction stream.
+    /// index onto the Microsoft® IL (MSIL) instruction sequence.
     /// </summary>
     /// <param name="ilGen">
     /// Microsoft® IL (MSIL) instruction stream generator onto which to insert
@@ -345,7 +345,7 @@ public static partial class ILGeneratorExtensions
 
     /// <summary>
     /// Inserts an operation to store an element into an array at the specified
-    /// index onto the Microsoft® IL (MSIL) instruction stream.
+    /// index onto the Microsoft® IL (MSIL) instruction sequence.
     /// </summary>
     /// <param name="ilGen">
     /// Microsoft® IL (MSIL) instruction stream generator onto which to insert
@@ -369,7 +369,7 @@ public static partial class ILGeneratorExtensions
 
     /// <summary>
     /// Inserts an operation to store an element into an array at the specified
-    /// index onto the Microsoft® IL (MSIL) instruction stream.
+    /// index onto the Microsoft® IL (MSIL) instruction sequence.
     /// </summary>
     /// <param name="ilGen">
     /// Microsoft® IL (MSIL) instruction stream generator onto which to insert
@@ -394,7 +394,7 @@ public static partial class ILGeneratorExtensions
     /// <summary>
     /// Inserts an operation that stores a <see cref="byte"/> or
     /// <see cref="sbyte"/> value into an array at the specified index in the
-    /// Microsoft® Intermediate Language (MSIL) instruction stream.
+    /// Microsoft® Intermediate Language (MSIL) instruction sequence.
     /// </summary>
     /// <param name="ilGen">
     /// Instruction stream into which the operation is inserted.
@@ -415,7 +415,7 @@ public static partial class ILGeneratorExtensions
     /// <summary>
     /// Inserts an operation that stores a <see cref="short"/> or
     /// <see cref="ushort"/> value into an array at the specified index in the
-    /// Microsoft® Intermediate Language (MSIL) instruction stream.
+    /// Microsoft® Intermediate Language (MSIL) instruction sequence.
     /// </summary>
     /// <param name="ilGen">
     /// Instruction stream into which the operation is inserted.
@@ -436,7 +436,7 @@ public static partial class ILGeneratorExtensions
     /// <summary>
     /// Inserts an operation that stores an <see cref="int"/> or
     /// <see cref="uint"/> value into an array at the specified index in the
-    /// Microsoft® Intermediate Language (MSIL) instruction stream.
+    /// Microsoft® Intermediate Language (MSIL) instruction sequence.
     /// </summary>
     /// <param name="ilGen">
     /// Instruction stream into which the operation is inserted.
@@ -457,7 +457,7 @@ public static partial class ILGeneratorExtensions
     /// <summary>
     /// Inserts an operation that stores a <see cref="long"/> or
     /// <see cref="ulong"/> value into an array at the specified index in the
-    /// Microsoft® Intermediate Language (MSIL) instruction stream.
+    /// Microsoft® Intermediate Language (MSIL) instruction sequence.
     /// </summary>
     /// <param name="ilGen">
     /// Instruction stream into which the operation is inserted.
@@ -478,7 +478,7 @@ public static partial class ILGeneratorExtensions
     /// <summary>
     /// Inserts an operation that stores a <see cref="float"/> value into an
     /// array at the specified index in the Microsoft® Intermediate Language
-    /// (MSIL) instruction stream.
+    /// (MSIL) instruction sequence.
     /// </summary>
     /// <param name="ilGen">
     /// Instruction stream into which the operation is inserted.
@@ -499,7 +499,7 @@ public static partial class ILGeneratorExtensions
     /// <summary>
     /// Inserts an operation that stores a <see cref="double"/> value into an
     /// array at the specified index in the Microsoft® Intermediate Language
-    /// (MSIL) instruction stream.
+    /// (MSIL) instruction sequence.
     /// </summary>
     /// <param name="ilGen">
     /// Instruction stream into which the operation is inserted.
@@ -520,7 +520,7 @@ public static partial class ILGeneratorExtensions
     /// <summary>
     /// Inserts an operation that stores a reference to an object into an
     /// array at the specified index in the Microsoft® Intermediate Language
-    /// (MSIL) instruction stream.
+    /// (MSIL) instruction sequence.
     /// </summary>
     /// <param name="ilGen">
     /// Instruction stream into which the operation is inserted.
@@ -540,7 +540,7 @@ public static partial class ILGeneratorExtensions
 
     /// <summary>
     /// Inserts the current method's return instruction into the MSIL
-    /// instruction stream.
+    /// instruction sequence.
     /// </summary>
     /// <param name="ilGen">
     /// Instruction stream into which the operation is inserted.
@@ -553,7 +553,7 @@ public static partial class ILGeneratorExtensions
 
     /// <summary>
     /// Inserts the current method's return instruction into the MSIL
-    /// instruction stream, optionally marking an exit label.
+    /// instruction sequence, optionally marking an exit label.
     /// </summary>
     /// <param name="ilGen">
     /// Instruction stream into which the operation is inserted.
@@ -576,7 +576,7 @@ public static partial class ILGeneratorExtensions
     /// <summary>
     /// Inserts an operation that converts the value at the top of the stack
     /// to a <see cref="byte"/> in the Microsoft® Intermediate Language
-    /// (MSIL) instruction stream.
+    /// (MSIL) instruction sequence.
     /// </summary>
     /// <param name="ilGen">
     /// Instruction stream into which the operation is inserted.
@@ -590,7 +590,7 @@ public static partial class ILGeneratorExtensions
     /// <summary>
     /// Inserts an operation that converts the value at the top of the stack
     /// to a <see cref="sbyte"/> in the Microsoft® Intermediate Language
-    /// (MSIL) instruction stream.
+    /// (MSIL) instruction sequence.
     /// </summary>
     /// <param name="ilGen">
     /// Instruction stream into which the operation is inserted.
@@ -604,7 +604,7 @@ public static partial class ILGeneratorExtensions
     /// <summary>
     /// Inserts an operation that converts the value at the top of the stack
     /// to a <see cref="short"/> in the Microsoft® Intermediate Language
-    /// (MSIL) instruction stream.
+    /// (MSIL) instruction sequence.
     /// </summary>
     /// <param name="ilGen">
     /// Instruction stream into which the operation is inserted.
@@ -618,7 +618,7 @@ public static partial class ILGeneratorExtensions
     /// <summary>
     /// Inserts an operation that converts the value at the top of the stack
     /// to a <see cref="ushort"/> in the Microsoft® Intermediate Language
-    /// (MSIL) instruction stream.
+    /// (MSIL) instruction sequence.
     /// </summary>
     /// <param name="ilGen">
     /// Instruction stream into which the operation is inserted.
@@ -632,7 +632,7 @@ public static partial class ILGeneratorExtensions
     /// <summary>
     /// Inserts an operation that converts the value at the top of the stack
     /// to a <see cref="int"/> in the Microsoft® Intermediate Language
-    /// (MSIL) instruction stream.
+    /// (MSIL) instruction sequence.
     /// </summary>
     /// <param name="ilGen">
     /// Instruction stream into which the operation is inserted.
@@ -646,7 +646,7 @@ public static partial class ILGeneratorExtensions
     /// <summary>
     /// Inserts an operation that converts the value at the top of the stack
     /// to a <see cref="uint"/> in the Microsoft® Intermediate Language
-    /// (MSIL) instruction stream.
+    /// (MSIL) instruction sequence.
     /// </summary>
     /// <param name="ilGen">
     /// Instruction stream into which the operation is inserted.
@@ -660,7 +660,7 @@ public static partial class ILGeneratorExtensions
     /// <summary>
     /// Inserts an operation that converts the value at the top of the stack
     /// to a <see cref="long"/> in the Microsoft® Intermediate Language
-    /// (MSIL) instruction stream.
+    /// (MSIL) instruction sequence.
     /// </summary>
     /// <param name="ilGen">
     /// Instruction stream into which the operation is inserted.
@@ -674,7 +674,7 @@ public static partial class ILGeneratorExtensions
     /// <summary>
     /// Inserts an operation that converts the value at the top of the stack
     /// to a <see cref="ulong"/> in the Microsoft® Intermediate Language
-    /// (MSIL) instruction stream.
+    /// (MSIL) instruction sequence.
     /// </summary>
     /// <param name="ilGen">
     /// Instruction stream into which the operation is inserted.
@@ -688,7 +688,7 @@ public static partial class ILGeneratorExtensions
     /// <summary>
     /// Inserts an operation that converts the value at the top of the stack
     /// to a <see cref="float"/> in the Microsoft® Intermediate Language
-    /// (MSIL) instruction stream.
+    /// (MSIL) instruction sequence.
     /// </summary>
     /// <param name="ilGen">
     /// Instruction stream into which the operation is inserted.
@@ -702,7 +702,7 @@ public static partial class ILGeneratorExtensions
     /// <summary>
     /// Inserts an operation that converts the value at the top of the stack
     /// to a <see cref="double"/> in the Microsoft® Intermediate Language
-    /// (MSIL) instruction stream.
+    /// (MSIL) instruction sequence.
     /// </summary>
     /// <param name="ilGen">
     /// Instruction stream into which the operation is inserted.

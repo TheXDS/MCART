@@ -34,69 +34,59 @@ using TheXDS.MCART.Types.Extensions;
 namespace TheXDS.MCART.Security.Cryptography;
 
 /// <summary>
-/// Implementa un flujo que lee y escribe información encriptada en RSA
-/// sobre un <see cref="Stream"/> especificado.
+/// Implements a stream that reads and writes RSA‑encrypted
+/// information on a specified <see cref="Stream"/>.
 /// </summary>
-public partial class RSACryptoStream : Stream, IDisposable
+/// <param name="underlyingStream">
+/// The underlying <see cref="Stream"/> on which to perform
+/// read/write operations.
+/// </param>
+/// <param name="rsa">
+/// The <see cref="RSACryptoServiceProvider"/> instance used to
+/// perform encryption/decryption.
+/// </param>
+public partial class RSACryptoStream(Stream underlyingStream, RSACryptoServiceProvider rsa) : Stream, IDisposable
 {
-    private readonly Stream _stream;
-    private readonly RSACryptoServiceProvider _rsa;
+    private readonly Stream _stream = underlyingStream;
+    private readonly RSACryptoServiceProvider _rsa = rsa;
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="RSACryptoStream"/>.
+    /// Initializes a new instance of the
+    /// <see cref="RSACryptoStream"/> class.
     /// </summary>
     /// <param name="underlyingStream">
-    /// <see cref="Stream"/> subyacente sobre el cual realizar las
-    /// operaciones de lectura/escritura.
+    /// The underlying <see cref="Stream"/> on which to perform
+    /// read/write operations.
     /// </param>
     public RSACryptoStream(Stream underlyingStream) : this(underlyingStream, new RSACryptoServiceProvider())
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="RSACryptoStream"/>.
+    /// Initializes a new instance of the
+    /// <see cref="RSACryptoStream"/> class.
     /// </summary>
     /// <param name="underlyingStream">
-    /// <see cref="Stream"/> subyacente sobre el cual realizar las
-    /// operaciones de lectura/escritura.
-    /// </param>
-    /// <param name="rsa">
-    /// Instancia de <see cref="RSACryptoServiceProvider"/> a utilizar
-    /// para realizar las operaciones de encriptado/desencriptado.
-    /// </param>
-    public RSACryptoStream(Stream underlyingStream, RSACryptoServiceProvider rsa)
-    {
-        _stream = underlyingStream;
-        _rsa = rsa;
-    }
-
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="RSACryptoStream"/>.
-    /// </summary>
-    /// <param name="underlyingStream">
-    /// <see cref="Stream"/> subyacente sobre el cual realizar las
-    /// operaciones de lectura/escritura.
+    /// The underlying <see cref="Stream"/> on which to perform
+    /// read/write operations.
     /// </param>
     /// <param name="keySize">
-    /// Tamaño de la clave a generar para el RSA.
+    /// The key size to generate for the RSA algorithm.
     /// </param>
     public RSACryptoStream(Stream underlyingStream, int keySize) : this(underlyingStream, new RSACryptoServiceProvider(keySize))
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="RSACryptoStream"/>.
+    /// Initializes a new instance of the
+    /// <see cref="RSACryptoStream"/> class.
     /// </summary>
     /// <param name="underlyingStream">
-    /// <see cref="Stream"/> subyacente sobre el cual realizar las
-    /// operaciones de lectura/escritura.
+    /// The underlying <see cref="Stream"/> on which to perform
+    /// read/write operations.
     /// </param>
     /// <param name="keyBlob">
-    /// Blob binario con las claves a utilizar en el RSA.
+    /// A binary blob containing the RSA keys to use.
     /// </param>
     public RSACryptoStream(Stream underlyingStream, byte[] keyBlob) : this(underlyingStream, new RSACryptoServiceProvider())
     {
@@ -104,15 +94,15 @@ public partial class RSACryptoStream : Stream, IDisposable
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="RSACryptoStream"/>.
+    /// Initializes a new instance of the
+    /// <see cref="RSACryptoStream"/> class.
     /// </summary>
     /// <param name="underlyingStream">
-    /// <see cref="Stream"/> subyacente sobre el cual realizar las
-    /// operaciones de lectura/escritura.
+    /// The underlying <see cref="Stream"/> on which to perform
+    /// read/write operations.
     /// </param>
     /// <param name="parameters">
-    /// Parámetros de configuración a utilizar para el RSA.
+    /// Configuration parameters to use for RSA.
     /// </param>
     public RSACryptoStream(Stream underlyingStream, RSAParameters parameters) : this(underlyingStream, new RSACryptoServiceProvider())
     {
@@ -120,77 +110,76 @@ public partial class RSACryptoStream : Stream, IDisposable
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="RSACryptoStream"/>.
+    /// Initializes a new instance of the
+    /// <see cref="RSACryptoStream"/> class.
     /// </summary>
     /// <param name="underlyingStream">
-    /// <see cref="Stream"/> subyacente sobre el cual realizar las
-    /// operaciones de lectura/escritura.
+    /// The underlying <see cref="Stream"/> on which to perform
+    /// read/write operations.
     /// </param>
     /// <param name="parameters">
-    /// Parámetros de configuración a utilizar para el RSA.
+    /// Configuration parameters to use for RSA.
     /// </param>
     public RSACryptoStream(Stream underlyingStream, CspParameters parameters) : this(underlyingStream, new RSACryptoServiceProvider(parameters))
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="RSACryptoStream"/>.
+    /// Initializes a new instance of the <see cref="RSACryptoStream"/> class.
     /// </summary>
     /// <param name="underlyingStream">
-    /// <see cref="Stream"/> subyacente sobre el cual realizar las
-    /// operaciones de lectura/escritura.
+    /// The underlying <see cref="Stream"/> on which read/write operations are performed.
     /// </param>
     /// <param name="dwKeySize">
-    /// Longitud de las llaves a generar para el RSA.
+    /// Length of the keys to generate for RSA.
     /// </param>
     /// <param name="parameters">
-    /// Parámetros de configuración a utilizar para el RSA.
+    /// Configuration parameters to use for RSA.
     /// </param>
     public RSACryptoStream(Stream underlyingStream, int dwKeySize, CspParameters parameters) : this(underlyingStream, new RSACryptoServiceProvider(dwKeySize, parameters))
     {
     }
 
     /// <summary>
-    /// Obtiene una referencia al <see cref="Stream"/> en el cual esta 
-    /// instancia lee y escribe datos.
+    /// Gets a reference to the <see cref="Stream"/> in which this
+    /// instance reads and writes data.
     /// </summary>
     public Stream BaseStream => _stream;
 
     /// <summary>
-    /// Obtiene un valor que indica si este <see cref="Stream"/> puede 
-    /// ser leído.
+    /// Gets a value that indicates whether this <see cref="Stream"/> can be read.
     /// </summary>
     public override bool CanRead => _stream.CanRead && !_rsa.PublicOnly;
 
     /// <summary>
-    /// Obtiene un valor que indica si este <see cref="Stream"/>
-    /// permite desplazarse por el contenido del mismo.
+    /// Gets a value that indicates whether this <see cref="Stream"/> allows
+    /// seeking through its content.
     /// </summary>
     public override bool CanSeek => false;
 
     /// <summary>
-    /// Obtiene un valor que indica si se puede escribir sobre este
+    /// Gets a value that indicates whether data can be written to this
     /// <see cref="Stream"/>.
     /// </summary>
     public override bool CanWrite => _stream.CanWrite;
 
     /// <summary>
-    /// Obtiene la longitud de este <see cref="Stream"/>.
+    /// Gets the length of this <see cref="Stream"/>.
     /// </summary>
     public override long Length => throw new NotSupportedException();
 
     /// <summary>
-    /// Obtiene o establece la posición del cursor dentro de este
-    /// <see cref="Stream"/>.
+    /// Gets or sets the current position within this <see cref="Stream"/>.
     /// </summary>
-    public override long Position { get => throw new NotSupportedException(); set => throw new NotSupportedException(); }
+    public override long Position
+    {
+        get => throw new NotSupportedException();
+        set => throw new NotSupportedException();
+    }
 
     /// <summary>
-    /// Vacía los búferes de escritura de este <see cref="Stream"/>
-    /// causando que la información del mismo sea escrita en el
-    /// dispositivo subyacente.
+    /// Flushes the write buffers of this <see cref="Stream"/>, causing
+    /// any buffered data to be written to the underlying device.
     /// </summary>
     public override void Flush()
     {
@@ -198,14 +187,12 @@ public partial class RSACryptoStream : Stream, IDisposable
     }
 
     /// <summary>
-    /// Lee la totalidad de los datos de este <see cref="Stream"/>.
+    /// Reads the entire content of this <see cref="Stream"/>.
     /// </summary>
-    /// <param name="buffer">Búfer de salida de datos.</param>
-    /// <param name="offset">Offset sobre el cual empezar a escribir datos.</param>
-    /// <param name="count">Cantidad máxima de bytes a escribir en el búfer de salida.</param>
-    /// <returns>
-    /// La cantidad de bytes escritos en el búfer de salida.
-    /// </returns>
+    /// <param name="buffer">Output data buffer.</param>
+    /// <param name="offset">Offset at which to begin writing data.</param>
+    /// <param name="count">Maximum number of bytes to write to the output buffer.</param>
+    /// <returns>The number of bytes read into the output buffer.</returns>
     public override int Read(byte[] buffer, int offset, int count)
     {
         byte[]? a = ReadToEnd().Take(count).ToArray();
@@ -214,10 +201,10 @@ public partial class RSACryptoStream : Stream, IDisposable
     }
 
     /// <summary>
-    /// Lee todo el contenido de este <see cref="Stream"/>.
+    /// Reads the entire content of this <see cref="Stream"/>.
     /// </summary>
     /// <returns>
-    /// El contenido leído de este <see cref="Stream"/>.
+    /// The data read from this <see cref="Stream"/>.
     /// </returns>
     public byte[] ReadToEnd()
     {
@@ -231,7 +218,7 @@ public partial class RSACryptoStream : Stream, IDisposable
         }
         else
         {
-            List<byte>? l = new();
+            List<byte>? l = [];
             int r;
             while (true)
             {
@@ -239,22 +226,22 @@ public partial class RSACryptoStream : Stream, IDisposable
                 if (r == -1) break;
                 l.Add((byte)r);
             }
-            a = l.ToArray();
+            a = [.. l];
         }
         return _rsa.Decrypt(a, true);
     }
 
     /// <summary>
-    /// Desplaza el cursor del lectura dentro de este <see cref="Stream"/>.
+    /// Seeks within the readable cursor of this <see cref="Stream"/>.
     /// </summary>
     /// <param name="offset">
-    /// Número de posiciones a desplazar el cursor.
+    /// The number of positions to move the cursor.
     /// </param>
     /// <param name="origin">
-    /// Punto de origen del desplazamiento.
+    /// The origin point for the offset.
     /// </param>
     /// <returns>
-    /// La cantidad de bytes que el cursor se ha desplazado.
+    /// The number of bytes the cursor has moved.
     /// </returns>
     public override long Seek(long offset, SeekOrigin origin)
     {
@@ -262,7 +249,7 @@ public partial class RSACryptoStream : Stream, IDisposable
     }
 
     /// <summary>
-    /// Establece la longitud de este <see cref="Stream"/>.
+    /// Sets the length of this <see cref="Stream"/>.
     /// </summary>
     /// <param name="value"></param>
     public override void SetLength(long value)
@@ -271,16 +258,16 @@ public partial class RSACryptoStream : Stream, IDisposable
     }
 
     /// <summary>
-    /// Escribe una secuencia de datos en este <see cref="Stream"/>.
+    /// Writes a sequence of data to this <see cref="Stream"/>.
     /// </summary>
     /// <param name="buffer">
-    /// Búfer de datos a escribir.
+    /// The data buffer to write.
     /// </param>
     /// <param name="offset">
-    /// Offset desde el cual leer los datos a escribir.
+    /// The offset from which to read the data to write.
     /// </param>
     /// <param name="count">
-    /// Cantidad de bytes a escribir.
+    /// The number of bytes to write.
     /// </param>
     public override void Write(byte[] buffer, int offset, int count)
     {

@@ -33,7 +33,6 @@ SOFTWARE.
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using TheXDS.MCART.Resources;
-using static TheXDS.MCART.Misc.Internals;
 
 namespace TheXDS.MCART.Security.Cryptography;
 
@@ -46,8 +45,8 @@ public partial class RSACryptoStream
     {
         ArgumentNullException.ThrowIfNull(buffer, nameof(buffer));
         if (offset + count > buffer.Length) throw WindowsErrors.OffsetCountOutsideBuffer();
-        if (offset < 0) throw new ArgumentOutOfRangeException(nameof(offset));
-        if (count < 0) throw new ArgumentOutOfRangeException(nameof(count));
+        ArgumentOutOfRangeException.ThrowIfNegative(offset);
+        ArgumentOutOfRangeException.ThrowIfNegative(count);
         if (!CanWrite) throw new NotSupportedException();
     }
 

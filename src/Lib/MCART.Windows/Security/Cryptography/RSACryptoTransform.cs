@@ -35,26 +35,26 @@ using TheXDS.MCART.Types.Extensions;
 namespace TheXDS.MCART.Security.Cryptography;
 
 /// <summary>
-/// Implementa una transformación criptográfica para encriptar datos
-/// por medio del algoritmo RSA.
+/// Implements a cryptographic transformation that encrypts data using
+/// the RSA algorithm.
 /// </summary>
 public class RSACryptoTransform : Disposable, ICryptoTransform
 {
     /// <summary>
-    /// Instancia un nuevo <see cref="CryptoStream"/> utilizando la
-    /// instancia de <see cref="RSACryptoServiceProvider"/> para crear
-    /// un nuevo <see cref="RSACryptoTransform"/>.
+    /// Instantiates a new <see cref="CryptoStream"/> using the
+    /// <see cref="RSACryptoServiceProvider"/> instance to create a new
+    /// <see cref="RSACryptoTransform"/>.
     /// </summary>
     /// <param name="stream">
-    /// Flujo sobre el cual escribir los datos encriptados.
+    /// Stream on which to write the encrypted data.
     /// </param>
     /// <param name="rsa">
-    /// Instancia de <see cref="RSACryptoServiceProvider"/> a utilizar
-    /// para construir el nuevo <see cref="RSACryptoTransform"/>
+    /// <see cref="RSACryptoServiceProvider"/> instance to use for
+    /// constructing the new <see cref="RSACryptoTransform"/>.
     /// </param>
     /// <returns>
-    /// Un nuevo <see cref="CryptoStream"/> con el destino y el objeto
-    /// de transformación especificados.
+    /// A new <see cref="CryptoStream"/> with the specified destination
+    /// and transformation object.
     /// </returns>
     public static CryptoStream ToStream(Stream stream, RSACryptoServiceProvider rsa)
     {
@@ -65,15 +65,14 @@ public class RSACryptoTransform : Disposable, ICryptoTransform
     private readonly RSACryptoServiceProvider _rsa;
 
     /// <summary>
-    /// Obtiene los parámetros RSA para este
-    /// <see cref="RSACryptoTransform"/>.
+    /// Gets the RSA parameters for this <see cref="RSACryptoTransform"/>.
     /// </summary>
     /// <param name="includePrivateParameters">
-    /// Indica si deben incluirse los parámetros de clave privada en el
-    /// valor exportado.
+    /// Indicates whether to include private key parameters in the exported
+    /// value.
     /// </param>
     /// <returns>
-    /// Los parámetros RSA para este <see cref="RSACryptoTransform"/>.
+    /// The RSA parameters for this <see cref="RSACryptoTransform"/>.
     /// </returns>
     public RSAParameters GetRSAParameters(bool includePrivateParameters)
     {
@@ -81,15 +80,14 @@ public class RSACryptoTransform : Disposable, ICryptoTransform
     }
 
     /// <summary>
-    /// Obtiene los parámetros RSA para este
-    /// <see cref="RSACryptoTransform"/>.
+    /// Exports the RSA CSP blob for this <see cref="RSACryptoTransform"/>.
     /// </summary>
     /// <param name="includePrivateParameters">
-    /// Indica si deben incluirse los parámetros de clave privada en el
-    /// valor exportado.
+    /// Indicates whether to include private key parameters in the exported
+    /// value.
     /// </param>
     /// <returns>
-    /// Los parámetros RSA para este <see cref="RSACryptoTransform"/>.
+    /// The RSA CSP blob for this <see cref="RSACryptoTransform"/>.
     /// </returns>
     public byte[] GetRSACspBlob(bool includePrivateParameters)
     {
@@ -97,17 +95,16 @@ public class RSACryptoTransform : Disposable, ICryptoTransform
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="RSACryptoTransform"/>, generando una clave RSA de
-    /// 4096 bits.
+    /// Initializes a new instance of the <see cref="RSACryptoTransform"/> class,
+    /// generating a 4096‑bit RSA key.
     /// </summary>
     public RSACryptoTransform() : this(4096)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="RSACryptoTransform"/>.
+    /// Initializes a new instance of the <see cref="RSACryptoTransform"/> class
+    /// with the supplied <see cref="RSACryptoServiceProvider"/>.
     /// </summary>
     public RSACryptoTransform(RSACryptoServiceProvider rsa)
     {
@@ -115,24 +112,22 @@ public class RSACryptoTransform : Disposable, ICryptoTransform
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="RSACryptoTransform"/> especificando el tamaño a
-    /// utilizar para generar las claves RSA.
+    /// Initializes a new instance of the <see cref="RSACryptoTransform"/> class
+    /// with the specified RSA key size.
     /// </summary>
-    /// <param name="keySize">Tamaño de la clave RSA a generar.</param>
+    /// <param name="keySize">Size of the RSA key to generate.</param>
     public RSACryptoTransform(int keySize)
     {
         _rsa = new RSACryptoServiceProvider(keySize);
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="RSACryptoTransform"/>, especificando un blob de
-    /// bytes con el contenido de la configuración a utilizar para
-    /// inicializar el RSA.
+    /// Initializes a new instance of the <see cref="RSACryptoTransform"/> class
+    /// using the specified byte blob containing RSA configuration
+    /// information.
     /// </summary>
     /// <param name="keyBlob">
-    /// Blob binario de configuración de las claves RSA.
+    /// Binary CSP blob that contains the RSA key configuration.
     /// </param>
     public RSACryptoTransform(byte[] keyBlob)
     {
@@ -141,13 +136,10 @@ public class RSACryptoTransform : Disposable, ICryptoTransform
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="RSACryptoTransform"/>, especificando los parámetros
-    /// de configuración a utilizar para inicializar el RSA.
+    /// Initializes a new instance of the <see cref="RSACryptoTransform"/> class,
+    /// specifying the RSA parameters to use for initialization.
     /// </summary>
-    /// <param name="parameters">
-    /// Parámetros de inicialización del RSA.
-    /// </param>
+    /// <param name="parameters">RSA initialization parameters.</param>
     public RSACryptoTransform(RSAParameters parameters)
     {
         _rsa = new RSACryptoServiceProvider();
@@ -155,56 +147,50 @@ public class RSACryptoTransform : Disposable, ICryptoTransform
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="RSACryptoTransform"/>, especificando los parámetros
-    /// de configuración a utilizar para inicializar el RSA.
+    /// Initializes a new instance of the <see cref="RSACryptoTransform"/> class,
+    /// specifying the CspParameters to use for initialization.
     /// </summary>
-    /// <param name="parameters">
-    /// Parámetros de inicialización del RSA.
-    /// </param>
+    /// <param name="parameters">CspParameters for the RSA provider.</param>
     public RSACryptoTransform(CspParameters parameters)
     {
         _rsa = new RSACryptoServiceProvider(parameters);
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="RSACryptoTransform"/>, especificando los parámetros
-    /// de configuración a utilizar para inicializar el RSA.
+    /// Initializes a new instance of the <see cref="RSACryptoTransform"/> class,
+    /// specifying the key size and CspParameters for initialization.
     /// </summary>
-    /// <param name="dwKeySize">Tamaño de la clave RSA a utilizar.</param>
-    /// <param name="parameters">
-    /// Parámetros de inicialización del RSA.
-    /// </param>
+    /// <param name="dwKeySize">RSA key size to use.</param>
+    /// <param name="parameters">CspParameters for the RSA provider.</param>
     public RSACryptoTransform(int dwKeySize, CspParameters parameters)
     {
         _rsa = new RSACryptoServiceProvider(dwKeySize, parameters);
     }
 
     /// <summary>
-    /// Indica si este <see cref="ICryptoTransform"/> puede ser
-    /// reutilizado para transformar más de un bloque.
+    /// Indicates whether this <see cref="ICryptoTransform"/> can be reused to
+    /// transform more than one block.
     /// </summary>
     public bool CanReuseTransform => true;
 
     /// <summary>
-    /// Indica si este <see cref="ICryptoTransform"/> puede transformar
-    /// múltiples bloques.
+    /// Indicates whether this <see cref="ICryptoTransform"/> can transform
+    /// multiple blocks.
     /// </summary>
     public bool CanTransformMultipleBlocks => true;
 
     /// <summary>
-    /// Obtiene el tamaño de entrada del bloque a transformar.
+    /// Gets the input block size for the transformation.
     /// </summary>
     public int InputBlockSize => (_rsa.KeySize / 8) - 42;
 
     /// <summary>
-    /// Obtiene el tamaño de salida del bloque.
+    /// Gets the output block size for the transformation.
     /// </summary>
     public int OutputBlockSize => _rsa.KeySize / 8;
 
     /// <summary>
-    /// Libera los recursos utilizados por este objeto.
+    /// Releases all resources used by this object.
     /// </summary>
     protected override void OnDispose()
     {
@@ -212,48 +198,46 @@ public class RSACryptoTransform : Disposable, ICryptoTransform
     }
 
     /// <summary>
-    /// Efectúa la transformación de un bloque de datos.
+    /// Performs the transformation of a block of data.
     /// </summary>
-    /// <param name="inputBuffer">Búfer de datos a transformar.</param>
+    /// <param name="inputBuffer">Input data buffer.</param>
     /// <param name="inputOffset">
-    /// Offset del búfer de entrada a partir del cual tomar datos.
+    /// Offset within the input buffer from which to begin reading data.
     /// </param>
     /// <param name="inputCount">
-    /// Cantidad de bytes del búfer de entrada a tomar para la
-    /// transformación.
+    /// Number of bytes from the input buffer to transform.
     /// </param>
     /// <param name="outputBuffer">
-    /// Búfer de salida de la transformación.
+    /// Output buffer for the transformed data.
     /// </param>
     /// <param name="outputOffset">
-    /// Offset del búfer de salida en el cual empezar a escribir datos.
+    /// Offset within the output buffer at which to start writing.
     /// </param>
     /// <returns>
-    /// La cantidad de bytes escritos en el búfer de salida.
+    /// The number of bytes written to the output buffer.
     /// </returns>
     public int TransformBlock(byte[] inputBuffer, int inputOffset, int inputCount, byte[] outputBuffer, int outputOffset)
     {
-        byte[]? b = _rsa.Encrypt(inputBuffer.Range(inputOffset, inputCount).ToArray(), true);
+        byte[]? b = _rsa.Encrypt([.. inputBuffer.Range(inputOffset, inputCount)], true);
         b.CopyTo(outputBuffer, outputOffset);
         return b.Length;
     }
 
     /// <summary>
-    /// Efectúa la transformación de un bloque de datos.
+    /// Performs the transformation of the final block of data.
     /// </summary>
-    /// <param name="inputBuffer">Búfer de datos a transformar.</param>
+    /// <param name="inputBuffer">Input data buffer.</param>
     /// <param name="inputOffset">
-    /// Offset del búfer de entrada a partir del cual tomar datos.
+    /// Offset within the input buffer from which to begin reading.
     /// </param>
     /// <param name="inputCount">
-    /// Cantidad de bytes del búfer de entrada a tomar para la
-    /// transformación.
+    /// Number of bytes from the input buffer to transform.
     /// </param>
     /// <returns>
-    /// Un bloque de datos con el resultado de la transformación.
+    /// The transformed data block.
     /// </returns>
     public byte[] TransformFinalBlock(byte[] inputBuffer, int inputOffset, int inputCount)
     {
-        return _rsa.Encrypt(inputBuffer.Range(inputOffset, inputCount).ToArray(), true);
+        return _rsa.Encrypt([.. inputBuffer.Range(inputOffset, inputCount)], true);
     }
 }
