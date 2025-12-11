@@ -137,6 +137,8 @@ public static class MsWindowExtensions
     /// </summary>
     /// <param name="window">Window instance to modify.</param>
     /// <param name="backdropType">
+    /// Type of backdrop to apply.
+    /// </param>
     [SupportedOSPlatform("windows10.0.22523")]
     [CLSCompliant(false)]
     public static void SetBackdropType(this IMsWindow window, SystemBackdropType backdropType)
