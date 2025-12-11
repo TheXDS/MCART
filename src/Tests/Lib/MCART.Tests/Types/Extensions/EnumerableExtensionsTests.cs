@@ -558,6 +558,73 @@ public class EnumerableExtensionsTests
     }
 
     [Test]
+    public void IsQuorum_gets_quorum_on_all_equal()
+    {
+        int[] values = [1, 1, 1, 1, 1];
+        var result = values.IsQuorum(5, out int quorum);
+        using (Assert.EnterMultipleScope())
+        {
+            Assert.That(result, Is.True);
+            Assert.That(quorum, Is.EqualTo(1));
+        }
+    }
+
+    [Test]
+    public void IsQuorum_gets_quorum_on_most_equal()
+    {
+        int[] values = [1, 1, 2, 2, 2, 2, 2, 3, 3];
+        var result = values.IsQuorum(5, out int quorum);
+        using (Assert.EnterMultipleScope())
+        {
+            Assert.That(result, Is.True);
+            Assert.That(quorum, Is.EqualTo(2));
+        }
+    }
+
+    [Test]
+    public void IsQuorum_gets_quorum_candidate()
+    {
+        int[] values = [1, 1, 2, 2, 2, 2, 3, 3, 3];
+        var result = values.IsQuorum(5, out int quorum);
+        using (Assert.EnterMultipleScope())
+        {
+            Assert.That(result, Is.False);
+            Assert.That(quorum, Is.EqualTo(2));
+        }
+    }
+
+    [Test]
+    public void IsQuorum_returns_false_on_no_quorum()
+    {
+        int[] values = [1, 2, 3, 4, 5];
+        var result = values.IsQuorum(5, out _);
+        Assert.That(result, Is.False);
+    }
+
+    [Test]
+    public void IsQuorum_returns_false_on_empty_collection()
+    {
+        int[] values = [];
+        var result = values.IsQuorum(5, out _);
+        Assert.That(result, Is.False);
+    }
+
+    [Test]
+    public void IsQuorum_contract_on_null_collection()
+    {
+        int[]? values = null;
+        Assert.Throws<ArgumentNullException>(() => values!.IsQuorum(1, out _));
+    }
+
+    [TestCase(0)]
+    [TestCase(-1)]
+    public void IsQuorum_contract_on_zero_or_negative_quorum_size(int quorumSize)
+    {
+        int[] values = [1, 2, 3, 4, 5];
+        Assert.Throws<ArgumentOutOfRangeException>(() => values.IsQuorum(quorumSize, out _));
+    }
+
+    [Test]
     public void Quorum_gets_quorum_on_all_equal()
     {
         int[] values = [1, 1, 1, 1, 1];

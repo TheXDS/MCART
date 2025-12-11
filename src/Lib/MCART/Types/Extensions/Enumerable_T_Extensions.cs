@@ -778,13 +778,13 @@ public static partial class EnumerableExtensions
         ArgumentNullException.ThrowIfNull(values);
         ArgumentOutOfRangeException.ThrowIfLessThan(quorumCount, 1);
         var x = values.GroupBy(p => p).OrderByDescending(p => p.Count()).FirstOrDefault();
-        if (x is null || x.Count() < quorumCount)
+        if (x is null)
         {
-            value = default!;
+            value = default;
             return false;
         }
-        value = x.First();
-        return true;
+        value = x.FirstOrDefault();
+        return x.Count() >= quorumCount;
     }
 
     /// <summary>
