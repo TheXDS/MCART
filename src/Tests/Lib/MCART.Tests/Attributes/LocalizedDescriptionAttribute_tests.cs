@@ -49,4 +49,11 @@ public class LocalizedDescriptionAttribute_tests
         Assert.That(attr.Description, Is.EqualTo(Common.AboutMCART));
         Assert.That(iattr.Value, Is.EqualTo(attr.Description));
     }
+
+    [Test]
+    public void Description_returns_string_for_undefined_strings()
+    {
+        LocalizedDescriptionAttribute attr = new("ClearlyUndefinedTestString", typeof(Common));
+        Assert.That(attr.Description, Is.EqualTo($"[[ClearlyUndefinedTestString]]"));
+    }
 }

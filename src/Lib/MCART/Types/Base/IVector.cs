@@ -60,5 +60,7 @@ public interface IVector : IEquatable<IVector>, IEquatable<Vector2>
     /// </returns>
     Vector2 ToVector2() => new((float)X, (float)Y);
 
-    bool IEquatable<Vector2>.Equals(Vector2 other) => (X - other.X) < float.Epsilon && (Y - other.Y) < float.Epsilon;
+    bool IEquatable<Vector2>.Equals(Vector2 other) => System.Math.Abs(X - other.X) < float.Epsilon && System.Math.Abs(Y - other.Y) < float.Epsilon;
+
+    bool IEquatable<IVector>.Equals(IVector? other) => other is not null && X.Equals(other.X) && Y.Equals(other.Y);
 }

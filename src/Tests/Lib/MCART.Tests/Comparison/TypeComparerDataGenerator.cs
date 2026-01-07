@@ -40,5 +40,8 @@ public class TypeComparerDataGenerator : ComparerDataGenerator<object>
         yield return (1.0, 2.0, true);
         yield return (new Exception("test 1"), new Uri("about:blank"), false);
         yield return (1.0, 2f, false);
+        yield return (null!, 'X', false);
+        yield return ("TEST", null!, false);
+        yield return (null!, null!, true);
     }
 }

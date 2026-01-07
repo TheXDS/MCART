@@ -32,7 +32,7 @@ public class ByteConstantLoader_Tests : ConstantLoaderTestBase<byte>
 {
     private static IEnumerable<byte> GetValues()
     {
-        return new byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, byte.MaxValue };
+        return [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, byte.MaxValue];
     }
     
     public ByteConstantLoader_Tests() : base(GetValues)

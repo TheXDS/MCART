@@ -34,9 +34,9 @@ public abstract class ComparerTestBase<TValue, TEq> where TValue : notnull where
 {
     protected void RunTest(TValue x, TValue y, bool equal)
     {
-        TEq? eq = new();
-        int xh = eq.GetHashCode(x);
-        int yh = eq.GetHashCode(y);
+        TEq eq = new();
+        int? xh = x is not null ? eq.GetHashCode(x) : 0;
+        int? yh = y is not null ? eq.GetHashCode(y) : 0;
         Assert.That(equal, Is.EqualTo(eq.Equals(x, y)));
         Assert.That(equal, Is.EqualTo(xh == yh));
     }

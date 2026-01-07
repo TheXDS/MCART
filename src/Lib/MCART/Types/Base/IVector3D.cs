@@ -37,7 +37,7 @@ namespace TheXDS.MCART.Types.Base;
 /// that describe coordinates, vectors, magnitudes, and sizes in a
 /// three-dimensional space.
 /// </summary>
-public interface IVector3D : IVector, IEquatable<Vector3>
+public interface IVector3D : IVector, IEquatable<IVector3D>, IEquatable<Vector3>
 {
     /// <summary>
     /// Gets the component of the Z axis represented by this
@@ -55,5 +55,11 @@ public interface IVector3D : IVector, IEquatable<Vector3>
     /// </returns>
     Vector3 ToVector3() => new((float)X, (float)Y, (float)Z);
 
-    bool IEquatable<Vector3>.Equals(Vector3 other) => X.Equals(other.X) && Y.Equals(other.Y) && Z.Equals(other.Z);
+    bool IEquatable<Vector3>.Equals(Vector3 other) => System.Math.Abs(X - other.X) < float.Epsilon && System.Math.Abs(Y - other.Y) < float.Epsilon && System.Math.Abs(Z - other.Z) < float.Epsilon;
+
+    bool IEquatable<IVector3D>.Equals(IVector3D? other) => other is not null && X.Equals(other.X) && Y.Equals(other.Y) && Z.Equals(other.Z);
+
+    bool IEquatable<Vector2>.Equals(Vector2 other) => double.IsNaN(Z) && System.Math.Abs(X - other.X) < float.Epsilon && System.Math.Abs(Y - other.Y) < float.Epsilon;
+
+    bool IEquatable<IVector>.Equals(IVector? other) => other is not null && double.IsNaN(Z) && X.Equals(other.X) && Y.Equals(other.Y);
 }

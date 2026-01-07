@@ -28,8 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#pragma warning disable CS8974
-
 using System.Collections;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
@@ -123,6 +121,16 @@ public class ErrorsTests : ExceptionResourceTestClass
     public void EnumerableTypeExpected_Test(Type testType)
     {
         InvalidTypeException ex = TestException(E.EnumerableTypeExpected(testType));
+        Assert.That(ex.OffendingObject, Is.EqualTo(testType));
+    }
+
+    [Theory]
+    [TestCase(typeof(int))]
+    [TestCase(typeof(float))]
+    [TestCase(typeof(Delegate))]
+    public void InterfaceTypeExpected_Test(Type testType)
+    {
+        InvalidTypeException ex = TestException(E.InterfaceTypeExpected(testType));
         Assert.That(ex.OffendingObject, Is.EqualTo(testType));
     }
 
@@ -226,6 +234,13 @@ public class ErrorsTests : ExceptionResourceTestClass
         
         ex = TestException(E.InvalidValue("argName"));
         Assert.That(ex.ParamName, Is.EqualTo("argName"));
+    }
+
+    [Test]
+    public void NullItemException_test()
+    {
+        var ex = TestException(E.NullItem(2));
+        Assert.That(ex.NullIndex, Is.EqualTo(2));
     }
 
     [Test]

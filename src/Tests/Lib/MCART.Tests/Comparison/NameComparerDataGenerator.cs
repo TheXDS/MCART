@@ -40,5 +40,8 @@ public class NameComparerDataGenerator : ComparerDataGenerator<INameable>
     {
         yield return (new Nameable("test"), new Nameable("test"), true);
         yield return (new Nameable("test1"), new Nameable("test2"), false);
+        yield return (null!, new Nameable("test"), false);
+        yield return (new Nameable("test"), null!, false);
+        yield return (null!, null!, true);
     }
 }

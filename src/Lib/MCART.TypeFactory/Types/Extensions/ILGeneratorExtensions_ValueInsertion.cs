@@ -203,6 +203,11 @@ public static partial class ILGeneratorExtensions
         {
             cl.Emit(ilGen, value);
         }
+        else if (t.IsEnum)
+        {
+            Type underlyingType = Enum.GetUnderlyingType(t);
+            LoadConstant(ilGen, underlyingType, Convert.ChangeType(value, underlyingType)!);         
+        }
         else if (t.IsStruct())
         {
             ilGen.Emit(Newobj, t.GetConstructor(Type.EmptyTypes) ?? throw ClassNotInstantiable(t));
