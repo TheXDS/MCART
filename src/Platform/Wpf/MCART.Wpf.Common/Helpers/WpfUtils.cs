@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2025 César Andrés Morgan
+Copyright © 2011 - 2026 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -40,21 +40,20 @@ using C = TheXDS.MCART.Math.Geometry;
 namespace TheXDS.MCART.Helpers;
 
 /// <summary>
-/// Contiene varias herramientas de UI para utilizar en proyectos de
-/// Windows Presentation Framework.
+/// Contains several UI tools for use in Windows Presentation Framework projects.
 /// </summary>
 public static class WpfUtils
 {
     private static readonly IEnumerable<StreamUriParser> _uriParsers = ReflectionHelpers.FindAllObjects<StreamUriParser>();
 
     /// <summary>
-    /// Creates a new <see cref="BitmapImage"/> from a <see cref="Stream" />.
+    /// Creates a new <see cref="BitmapImage"/> from a <see cref="Stream"/>.
     /// </summary>
     /// <param name="stream">
-    /// <see cref="Stream" /> with the image content.
+    /// <see cref="Stream"/> with the image content.
     /// </param>
     /// <returns>
-    /// A new <see cref="BitmapImage"/> created from the <see cref="Stream" />.
+    /// A new <see cref="BitmapImage"/> created from the <see cref="Stream"/>.
     /// </returns>
     public static BitmapImage? GetBitmap(Stream? stream)
     {
@@ -75,13 +74,13 @@ public static class WpfUtils
     }
 
     /// <summary>
-    /// Obtiene una imagen a partir de un <see cref="Uri" />.
+    /// Obtains an image from a <see cref="Uri"/>.
     /// </summary>
     /// <param name="uri">
-    /// <see cref="Stream" /> con el contenido de la imagen.
+    /// <see cref="Uri"/> with the image content.
     /// </param>
     /// <returns>
-    /// La imagen que ha sido leída desde el <see cref="Stream" />.
+    /// The image that has been read from the <see cref="Uri"/>.
     /// </returns>
     public static BitmapImage? GetBitmap(Uri uri)
     {
@@ -95,13 +94,13 @@ public static class WpfUtils
     }
 
     /// <summary>
-    /// Obtiene una imagen a partir de una ruta especificada.
+    /// Obtains an image from a specified path.
     /// </summary>
     /// <param name="path">
-    /// <see cref="Stream" /> con el contenido de la imagen.
+    /// Path to the image file.
     /// </param>
     /// <returns>
-    /// La imagen que ha sido leída desde el <see cref="Stream" />.
+    /// The image that has been read from the specified path.
     /// </returns>
     public static BitmapImage? GetBitmap(string path)
     {
@@ -110,14 +109,13 @@ public static class WpfUtils
     }
 
     /// <summary>
-    /// Obtiene una imagen a partir de un <see cref="Uri" /> de forma
-    /// asíncrona.
+    /// Obtains an image from a <see cref="Uri"/> asynchronously.
     /// </summary>
     /// <param name="uri">
-    /// <see cref="Stream" /> con el contenido de la imagen.
+    /// <see cref="Uri"/> with the image content.
     /// </param>
     /// <returns>
-    /// La imagen que ha sido leída desde el <see cref="Stream" />.
+    /// The image that has been read from the <see cref="Uri"/>.
     /// </returns>
     public static async Task<BitmapImage?> GetBitmapAsync(Uri uri)
     {
@@ -131,12 +129,10 @@ public static class WpfUtils
     }
 
     /// <summary>
-    /// Devuelve una colección de los códecs de mapas de bits disponibles.
-    /// Soporta cargar códecs desde cualquier ensamblado cargado.
+    /// Returns a collection of available bitmap encoders. Supports loading encoders from any loaded assembly.
     /// </summary>
     /// <returns>
-    /// Una lista con una nueva instancia de todos los códecs de mapa de
-    /// bits disponibles.
+    /// A list with a new instance of all available bitmap encoders.
     /// </returns>
     public static IEnumerable<BitmapEncoder> GetBitmapEncoders()
     {
@@ -144,19 +140,16 @@ public static class WpfUtils
     }
 
     /// <summary>
-    /// Genera un arco de círculo que puede usarse en Windows Presentation
-    /// Framework.
+    /// Generates a circle arc that can be used in Windows Presentation Framework.
     /// </summary>
-    /// <param name="radius">Radio del arco a generar.</param>
-    /// <param name="startAngle">Ángulo inicial del arco.</param>
-    /// <param name="endAngle">Ángulo final del arco.</param>
+    /// <param name="radius">Radius of the arc to generate.</param>
+    /// <param name="startAngle">Initial angle of the arc.</param>
+    /// <param name="endAngle">Final angle of the arc.</param>
     /// <param name="thickness">
-    /// Grosor del trazo del arco. Ayuda a balancear el grosor del trazo y
-    /// el radio para lograr un tamaño más consistente.
+    /// Thickness of the arc stroke. Helps balance the stroke thickness and radius to achieve a more consistent size.
     /// </param>
     /// <returns>
-    /// Un <see cref="PathGeometry" /> que contiene el arco generado por
-    /// esta función.
+    /// A <see cref="PathGeometry"/> that contains the arc generated by this function.
     /// </returns>
     public static PathGeometry GetCircleArc(double radius, double startAngle, double endAngle, double thickness)
     {

@@ -6,7 +6,7 @@
 //      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 //
 // Released under the MIT License (MIT)
-// Copyright © 2011 - 2025 César Andrés Morgan
+// Copyright © 2011 - 2026 César Andrés Morgan
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of
 // this software and associated documentation files (the “Software”), to deal in
@@ -57,7 +57,7 @@ public static class DependencyObjectHelpers
     /// Callback to execute whenever a value needs to be coerced.
     /// </param>
     /// <param name="validate">
-    /// Callback to execute whenever a value need to be validated before 
+    /// Callback to execute whenever a value needs to be validated before 
     /// assigning the dependency property.
     /// </param>
     /// <returns>A new dependency property.</returns>
@@ -95,7 +95,7 @@ public static class DependencyObjectHelpers
     /// Callback to execute whenever a value needs to be coerced.
     /// </param>
     /// <param name="validate">
-    /// Callback to execute whenever a value need to be validated before 
+    /// Callback to execute whenever a value needs to be validated before 
     /// assigning the dependency property.
     /// </param>
     /// <returns>A new dependency property.</returns>
@@ -132,7 +132,7 @@ public static class DependencyObjectHelpers
     /// Callback to execute whenever a value needs to be coerced.
     /// </param>
     /// <param name="validate">
-    /// Callback to execute whenever a value need to be validated before 
+    /// Callback to execute whenever a value needs to be validated before 
     /// assigning the dependency property.
     /// </param>
     /// <returns>A new dependency property.</returns>
@@ -171,7 +171,7 @@ public static class DependencyObjectHelpers
     /// Callback to execute whenever a value needs to be coerced.
     /// </param>
     /// <param name="validate">
-    /// Callback to execute whenever a value need to be validated before 
+    /// Callback to execute whenever a value needs to be validated before 
     /// assigning the dependency property.
     /// </param>
     /// <returns>A new dependency property.</returns>
@@ -256,7 +256,7 @@ public static class DependencyObjectHelpers
     /// Callback to execute whenever a value needs to be coerced.
     /// </param>
     /// <param name="validate">
-    /// Callback to execute whenever a value need to be validated before
+    /// Callback to execute whenever a value needs to be validated before
     /// assigning the dependency property.
     /// </param>
     /// <returns>
@@ -298,7 +298,7 @@ public static class DependencyObjectHelpers
     /// Callback to execute whenever a value needs to be coerced.
     /// </param>
     /// <param name="validate">
-    /// Callback to execute whenever a value need to be validated before
+    /// Callback to execute whenever a value needs to be validated before
     /// assigning the dependency property.
     /// </param>
     /// <returns>

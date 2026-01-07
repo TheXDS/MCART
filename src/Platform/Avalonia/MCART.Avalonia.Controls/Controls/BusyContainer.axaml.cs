@@ -6,7 +6,7 @@
 //      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 //
 // Released under the MIT License (MIT)
-// Copyright © 2011 - 2025 César Andrés Morgan
+// Copyright © 2011 - 2026 César Andrés Morgan
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of
 // this software and associated documentation files (the “Software”), to deal in
@@ -27,6 +27,7 @@
 // SOFTWARE.
 
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Templates;
 using Avalonia.Layout;
@@ -39,7 +40,7 @@ namespace TheXDS.MCART.Controls;
 /// <summary>
 /// Control that displays either normal or busy content.
 /// </summary>
-public class BusyContainer : TemplatedControl
+public class BusyContainer : ContentControl
 {
     private static IBrush GetDefaultBusyBackground()
     {
@@ -91,66 +92,11 @@ public class BusyContainer : TemplatedControl
         AvaloniaProperty.Register<BusyContainer, bool>(nameof(IsBusy));
 
     /// <summary>
-    /// Identifies the <see cref="ContentTemplate"/> styled property.
+    /// Initializes a new instance of the <see cref="BusyContainer"/> class.
     /// </summary>
-    public static readonly StyledProperty<IDataTemplate?> ContentTemplateProperty =
-        AvaloniaProperty.Register<BusyContainer, IDataTemplate?>(nameof(ContentTemplate));
-
-    /// <summary>
-    /// Identifies the <see cref="Content"/> styled property.
-    /// </summary>
-    public static readonly StyledProperty<object?> ContentProperty =
-        AvaloniaProperty.Register<BusyContainer, object?>(nameof(Content));
-
-    /// <summary>
-    /// Identifies the <see cref="HorizontalContentAlignment"/> styled property.
-    /// </summary>
-    public static readonly StyledProperty<HorizontalAlignment> HorizontalContentAlignmentProperty =
-        AvaloniaProperty.Register<BusyContainer, HorizontalAlignment>(nameof(HorizontalContentAlignment), HorizontalAlignment.Center);
-
-    /// <summary>
-    /// Identifies the <see cref="VerticalContentAlignment"/> styled property.
-    /// </summary>
-    public static readonly StyledProperty<VerticalAlignment> VerticalContentAlignmentProperty =
-        AvaloniaProperty.Register<BusyContainer, VerticalAlignment>(nameof(VerticalContentAlignment), VerticalAlignment.Center);
-
-    /// <summary>
-    /// Gets or sets the desired horizontal alignment for the content being
-    /// presented on this control. 
-    /// </summary>
-    public HorizontalAlignment HorizontalContentAlignment
+    public BusyContainer()
     {
-        get => GetValue(HorizontalContentAlignmentProperty);
-        set => SetValue(HorizontalContentAlignmentProperty, value);
-    }
-
-    /// <summary>
-    /// Gets or sets the desired vertical alignment for the content being
-    /// presented on this control. 
-    /// </summary>
-    public VerticalAlignment VerticalContentAlignment
-    {
-        get => GetValue(VerticalContentAlignmentProperty);
-        set => SetValue(VerticalContentAlignmentProperty, value);
-    }
-
-    /// <summary>
-    /// Gets or sets the content being presented on this control.
-    /// </summary>
-    public object? Content
-    {
-        get => GetValue(ContentProperty);
-        set => SetValue(ContentProperty, value);
-    }
-
-    /// <summary>
-    /// Gets or sets the template to be applied to the content being presented
-    /// on this control.
-    /// </summary>
-    public IDataTemplate? ContentTemplate
-    {
-        get => GetValue(ContentTemplateProperty);
-        set => SetValue(ContentTemplateProperty, value);
+        BusyContent = new BusyIndicator();
     }
 
     /// <summary>

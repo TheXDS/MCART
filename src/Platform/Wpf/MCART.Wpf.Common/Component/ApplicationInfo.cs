@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2025 César Andrés Morgan
+Copyright © 2011 - 2026 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -37,7 +37,7 @@ using TheXDS.MCART.Types.Base;
 namespace TheXDS.MCART.Component;
 
 /// <summary>
-/// Expone la información de ensamblado de una aplicación de WPF.
+/// Exposes assembly information of a WPF application.
 /// </summary>
 public class ApplicationInfo : ApplicationInfoBase<Application>, IExposeExtendedGuiInfo<UIElement?>
 {
@@ -57,66 +57,62 @@ public class ApplicationInfo : ApplicationInfoBase<Application>, IExposeExtended
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="ApplicationInfo" />.
+    /// Initializes a new instance of the <see cref="ApplicationInfo"/> class.
     /// </summary>
     /// <param name="application">
-    /// Aplicación de la cual se mostrará la información.
+    /// Application from which information will be displayed.
     /// </param>
     public ApplicationInfo(Application application) : base(application, null) { }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="ApplicationInfo" />.
+    /// Initializes a new instance of the <see cref="ApplicationInfo"/> class.
     /// </summary>
     /// <param name="application">
-    /// Aplicación de la cual se mostrará la información.
+    /// Application from which information will be displayed.
     /// </param>
     /// <param name="inferIcon">
-    /// <see langword="true"/> para intentar determinar el ícono de la
-    /// aplicación, <see langword="false"/> para no mostrar un ícono.
+    /// true to attempt to determine the app's icon, false to not display an icon.
     /// </param>
-    public ApplicationInfo(Application application, bool inferIcon) : this(application, inferIcon ? InferIcon(application.GetType().Assembly) : null) { }
+    public ApplicationInfo(Application application, bool inferIcon)
+        : this(application, inferIcon ? InferIcon(application.GetType().Assembly) : null) { }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="ApplicationInfo"/>.
+    /// Initializes a new instance of the <see cref="ApplicationInfo"/> class.
     /// </summary>
     /// <param name="application">
-    /// Aplicación de la cual se mostrará la información.
+    /// Application from which information will be displayed.
     /// </param>
-    /// <param name="icon">Ícono a mostrar de la aplicación.</param>
+    /// <param name="icon">Icon to display for the application.</param>
     public ApplicationInfo(Application application, UIElement? icon)
         : this(application.GetType().Assembly, icon) { }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="ApplicationInfo"/>
+    /// Initializes a new instance of the <see cref="ApplicationInfo"/> class.
     /// </summary>
     /// <param name="assembly">
-    /// Ensamblado del cual se mostrará la información.
+    /// Assembly from which information will be displayed.
     /// </param>
-    /// <param name="icon">Ícono a mostrar del ensamblado.</param>
-    public ApplicationInfo(Assembly assembly, UIElement? icon) : base(assembly, GetIconFromOS(assembly))
+    /// <param name="icon">Icon to display for the assembly.</param>
+    public ApplicationInfo(Assembly assembly, UIElement? icon)
+        : base(assembly, GetIconFromOS(assembly))
     {
         Icon = icon;
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="ApplicationInfo" />.
+    /// Initializes a new instance of the <see cref="ApplicationInfo"/> class.
     /// </summary>
     /// <param name="assembly">
-    /// Ensamblado del cual se mostrará la información.
+    /// Assembly from which information will be displayed.
     /// </param>
     /// <param name="inferIcon">
-    /// <see langword="true"/> para intentar determinar el ícono del
-    /// ensamblado, <see langword="false"/> para no mostrar un ícono.
+    /// true to attempt to determine the assembly's icon, false to not display an icon.
     /// </param>
-    public ApplicationInfo(Assembly assembly, bool inferIcon) : this(assembly, inferIcon ? InferIcon(assembly) : null) { }
+    public ApplicationInfo(Assembly assembly, bool inferIcon)
+        : this(assembly, inferIcon ? InferIcon(assembly) : null) { }
 
     /// <summary>
-    /// Obtiene un ícono opcional a mostrar que describe al elemento.
+    /// Gets an optional icon to display that describes the element.
     /// </summary>
     public new virtual UIElement? Icon { get; }
 }

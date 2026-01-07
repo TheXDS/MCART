@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2025 César Andrés Morgan
+Copyright © 2011 - 2026 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -36,13 +36,13 @@ using TheXDS.MCART.Types.Base;
 namespace TheXDS.MCART.IO;
 
 /// <summary>
-/// Traduce un URI de recursos incrustados (pack://) a un
-/// <see cref="Stream"/> de lectura para un recurso incrustado.
+/// Translates a packed resource URI (pack://) into a read Stream for an
+/// embedded resource.
 /// </summary>
 public class PackStreamUriParser : SimpleStreamUriParser
 {
     /// <summary>
-    /// Inicializa la clase <see cref="PackStreamUriParser"/>
+    /// Initializes the <see cref="PackStreamUriParser"/> class.
     /// </summary>
     static PackStreamUriParser()
     {
@@ -53,7 +53,7 @@ public class PackStreamUriParser : SimpleStreamUriParser
     }
 
     /// <summary>
-    /// Enumera los esquemas de URI soportados por este 
+    /// Enumerates the URI schemes supported by this
     /// <see cref="StreamUriParser"/>.
     /// </summary>
     protected override IEnumerable<string> SchemeList
@@ -65,16 +65,17 @@ public class PackStreamUriParser : SimpleStreamUriParser
     }
 
     /// <summary>
-    /// Abre un <see cref="Stream"/> que permita leer el recurso incrustado
-    /// referenciado por el <see cref="Uri"/> especificado.
+    /// Opens a <see cref="Stream"/> that allows reading the embedded
+    /// resource referenced by the specified <see cref="Uri"/>.
     /// </summary>
     /// <param name="uri">
-    /// <see cref="Uri"/> que indica la ubicación del recurso incrustado.
+    /// The <see cref="Uri"/> that indicates the location of the embedded
+    /// resource.
     /// </param>
     /// <returns>
-    /// Un <see cref="Stream"/> desde el cual es posible leer el recurso
-    /// incrustado, o <see langword="null"/> si el <see cref="Uri"/> no
-    /// apunta a un recurso incrustado válido.
+    /// A <see cref="Stream"/> from which the embedded resource can be read,
+    /// or <see langword="null"/> if the <see cref="Uri"/> does not point to a
+    /// valid embedded resource.
     /// </returns>
     public override Stream? Open(Uri uri)
     {

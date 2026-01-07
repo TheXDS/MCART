@@ -7,7 +7,7 @@ Author(s):
      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2025 César Andrés Morgan
+Copyright © 2011 - 2026 César Andrés Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -33,8 +33,8 @@ using System.Windows.Markup;
 namespace TheXDS.MCART.Component;
 
 /// <summary>
-/// Define una extensión de Markup XAML que permite obtener valores de
-/// enumeración como una colección.
+/// Provides a XAML markup extension that exposes the values of an
+/// enumeration as a collection.
 /// </summary>
 public partial class EnumValueProvider : MarkupExtension
 {

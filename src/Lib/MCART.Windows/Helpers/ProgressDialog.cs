@@ -6,7 +6,7 @@
 //      César Andrés Morgan <xds_xps_ivx@hotmail.com>
 //
 // Released under the MIT License (MIT)
-// Copyright © 2011 - 2025 César Andrés Morgan
+// Copyright © 2011 - 2026 César Andrés Morgan
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of
 // this software and associated documentation files (the “Software”), to deal in
@@ -37,8 +37,8 @@ using TheXDS.MCART.Windows.Resources.Strings;
 namespace TheXDS.MCART.Helpers;
 
 /// <summary>
-/// Clase que permite interactuar con un cuadro de diálogo nativo de Microsoft
-/// Windows que muestra el progreso de una operación.
+/// Class that allows interacting with a native Microsoft Windows dialog
+/// that displays the progress of an operation.
 /// </summary>
 [ExcludeFromCodeCoverage]
 public sealed class ProgressDialog : IProgressDialog, IDisposable
@@ -46,19 +46,19 @@ public sealed class ProgressDialog : IProgressDialog, IDisposable
     private static readonly Type progressDialogType = Type.GetTypeFromCLSID(new Guid("{F8383852-FCD3-11d1-A6B9-006097DF5BD4}")) ?? throw new NotSupportedException();
 
     /// <summary>
-    /// Ejecuta una operación que reporta su estado utilizando un diálogo de
-    /// progreso nativo de Windows.
+    /// Executes an operation that reports its status using a native Windows
+    /// progress dialog.
     /// </summary>
     /// <param name="owner">
-    /// Referencia al propietario del nuevo diálogo.
+    /// Reference to the owner of the new dialog.
     /// </param>
     /// <param name="properties">
-    /// Referencia al método a utilizar para inicializar el nuevo diálogo.
+    /// Reference to the method used to initialize the new dialog.
     /// </param>
     /// <param name="operationCallback">
-    /// Referencia al método de operación a ejecutar. El parámetro del método 
-    /// será un objeto que permitirá interactuar con el diálogo nativo de
-    /// Windows.
+    /// Reference to the operation method to execute. The method's parameter
+    /// will be an object that allows interaction with the native Windows
+    /// dialog.
     /// </param>
     public static void Run(nint owner, ProgressDialogProperties properties, Action<IProgressDialog> operationCallback)
     {
@@ -67,22 +67,22 @@ public sealed class ProgressDialog : IProgressDialog, IDisposable
     }
 
     /// <summary>
-    /// Ejecuta una operación que reporta su estado utilizando un diálogo de
-    /// progreso nativo de Windows.
+    /// Executes an operation that reports its status using a native Windows
+    /// progress dialog.
     /// </summary>
     /// <param name="owner">
-    /// Referencia al propietario del nuevo diálogo.
+    /// Reference to the owner of the new dialog.
     /// </param>
     /// <param name="properties">
-    /// Referencia al método a utilizar para inicializar el nuevo diálogo.
+    /// Reference to the method used to initialize the new dialog.
     /// </param>
     /// <param name="operationCallback">
-    /// Referencia al método de operación a ejecutar. El parámetro del método 
-    /// será un objeto que permitirá interactuar con el diálogo nativo de
-    /// Windows.
+    /// Reference to the operation method to execute. The method's parameter
+    /// will be an object that allows interaction with the native Windows
+    /// dialog.
     /// </param>
     /// <returns>
-    /// El resultado de la operación.
+    /// The result of the operation.
     /// </returns>
     public static T Run<T>(nint owner, ProgressDialogProperties properties, Func<IProgressDialog, T> operationCallback)
     {
@@ -91,23 +91,23 @@ public sealed class ProgressDialog : IProgressDialog, IDisposable
     }
 
     /// <summary>
-    /// Ejecuta una operación asíncrona que reporta su estado utilizando un
-    /// diálogo de progreso nativo de Windows.
+    /// Executes an asynchronous operation that reports its status using a
+    /// native Windows progress dialog.
     /// </summary>
     /// <param name="owner">
-    /// Referencia al propietario del nuevo diálogo.
+    /// Reference to the owner of the new dialog.
     /// </param>
     /// <param name="properties">
-    /// Referencia al método a utilizar para inicializar el nuevo diálogo.
+    /// Reference to the method used to initialize the new dialog.
     /// </param>
     /// <param name="operationCallback">
-    /// Referencia al método de operación a ejecutar. El parámetro del método 
-    /// será un objeto que permitirá interactuar con el diálogo nativo de
-    /// Windows.
+    /// Reference to the operation method to execute. The method's parameter
+    /// will be an object that allows interaction with the native Windows
+    /// dialog.
     /// </param>
     /// <returns>
-    /// Un objeto <see cref="Task"/> que puede utilizarse para esperar la
-    /// completación de la operación asíncrona.
+    /// A <see cref="Task"/> that can be awaited to complete the asynchronous
+    /// operation.
     /// </returns>
     public static Task Run(nint owner, ProgressDialogProperties properties, Func<IProgressDialog, Task> operationCallback)
     {
@@ -115,23 +115,23 @@ public sealed class ProgressDialog : IProgressDialog, IDisposable
     }
 
     /// <summary>
-    /// Ejecuta una operación asíncrona que reporta su estado utilizando un
-    /// diálogo de progreso nativo de Windows.
+    /// Executes an asynchronous operation that reports its status using a
+    /// native Windows progress dialog.
     /// </summary>
     /// <param name="owner">
-    /// Referencia al propietario del nuevo diálogo.
+    /// Reference to the owner of the new dialog.
     /// </param>
     /// <param name="properties">
-    /// Referencia al método a utilizar para inicializar el nuevo diálogo.
+    /// Reference to the method used to initialize the new dialog.
     /// </param>
     /// <param name="operationCallback">
-    /// Referencia al método de operación a ejecutar. El parámetro del método 
-    /// será un objeto que permitirá interactuar con el diálogo nativo de
-    /// Windows.
+    /// Reference to the operation method to execute. The method's parameter
+    /// will be an object that allows interaction with the native Windows
+    /// dialog.
     /// </param>
     /// <returns>
-    /// Un objeto <see cref="Task{TResult}"/> que puede utilizarse para esperar
-    /// la completación de la operación asíncrona.
+    /// A <see cref="Task{TResult}"/> that can be awaited to complete the
+    /// asynchronous operation.
     /// </returns>
     public static Task<T> Run<T>(nint owner, ProgressDialogProperties properties, Func<IProgressDialog, Task<T>> operationCallback)
     {
@@ -139,15 +139,15 @@ public sealed class ProgressDialog : IProgressDialog, IDisposable
     }
 
     /// <summary>
-    /// Ejecuta una operación que reporta su estado utilizando un diálogo de
-    /// progreso nativo de Windows.
+    /// Executes an operation that reports its status using a native Windows
+    /// progress dialog.
     /// </summary>
-    /// <param name="owner">Referencia al propietario del nuevo diálogo.</param>
+    /// <param name="owner">Reference to the owner of the new dialog.</param>
     /// <param name="properties">
-    /// Referencia al método a utilizar para inicializar el nuevo diálogo.
+    /// Reference to the method used to initialize the new dialog.
     /// </param>
     /// <param name="operationCallback">
-    /// Referencia al método de operación a ejecutar. El parámetro del método será un objeto que permitirá interactuar con el diálogo nativo de Windows.
+    /// Reference to the operation method to execute.
     /// </param>
     public static void Run(IMsWindow? owner, ProgressDialogProperties properties, Action<IProgressDialog> operationCallback)
     {
@@ -155,14 +155,13 @@ public sealed class ProgressDialog : IProgressDialog, IDisposable
     }
 
     /// <summary>
-    /// Ejecuta una operación que reporta su estado utilizando un diálogo de
-    /// progreso nativo de Windows.
+    /// Executes an operation that reports its status using a native Windows
+    /// progress dialog.
     /// </summary>
     /// <param name="properties">
-    /// Referencia al método a utilizar para inicializar el nuevo diálogo.
-    /// </param>
+    /// Reference to the method used to initialize the new dialog.</param>
     /// <param name="operationCallback">
-    /// Referencia al método de operación a ejecutar. El parámetro del método será un objeto que permitirá interactuar con el diálogo nativo de Windows.
+    /// Reference to the operation method to execute.
     /// </param>
     public static void Run(ProgressDialogProperties properties, Action<IProgressDialog> operationCallback)
     {
@@ -170,87 +169,71 @@ public sealed class ProgressDialog : IProgressDialog, IDisposable
     }
 
     /// <summary>
-    /// Ejecuta una operación que reporta su estado utilizando un diálogo de
-    /// progreso nativo de Windows.
+    /// Executes an operation that reports its status using a native Windows progress
+    /// dialog.
     /// </summary>
-    /// <param name="progressDialog">
-    /// Referencia al método de operación a ejecutar. El parámetro del método será un objeto que permitirá interactuar con el diálogo nativo de Windows.
-    /// </param>
+    /// <param name="progressDialog">Reference to the operation method to execute.</param>
     public static void Run(Action<IProgressDialog> progressDialog)
     {
         Run(null, new ProgressDialogProperties(), progressDialog);
     }
 
     /// <summary>
-    /// Ejecuta una operación que reporta su estado utilizando un diálogo de
-    /// progreso nativo de Windows.
+    /// Executes an operation that reports its status using a native Windows progress
+    /// dialog.
     /// </summary>
-    /// <param name="owner">Referencia al propietario del nuevo diálogo.</param>
-    /// <param name="properties">
-    /// Referencia al método a utilizar para inicializar el nuevo diálogo.
-    /// </param>
-    /// <param name="operationCallback">
-    /// Referencia al método de operación a ejecutar. El parámetro del método será un objeto que permitirá interactuar con el diálogo nativo de Windows.
-    /// </param>
-    /// <returns>
-    /// El resultado de la operación.
-    /// </returns>
+    /// <param name="owner">Reference to the owner of the new dialog.</param>
+    /// <param name="properties">Reference to the method used to initialize the new
+    /// dialog.</param>
+    /// <param name="operationCallback">Reference to the operation method to execute.</param>
+    /// <returns>The result of the operation.</returns>
     public static T Run<T>(IMsWindow? owner, ProgressDialogProperties properties, Func<IProgressDialog, T> operationCallback)
     {
         return Run(owner?.Handle ?? Process.GetCurrentProcess().MainWindowHandle, properties, operationCallback);
     }
 
     /// <summary>
-    /// Ejecuta una operación que reporta su estado utilizando un diálogo de
-    /// progreso nativo de Windows.
+    /// Executes an operation that reports its status using a native Windows progress
+    /// dialog.
     /// </summary>
-    /// <param name="properties">
-    /// Referencia al método a utilizar para inicializar el nuevo diálogo.
-    /// </param>
-    /// <param name="operationCallback">
-    /// Referencia al método de operación a ejecutar. El parámetro del método será un objeto que permitirá interactuar con el diálogo nativo de Windows.
-    /// </param>
-    /// <returns>
-    /// El resultado de la operación.
-    /// </returns>
+    /// <param name="properties">Reference to the method used to initialize the new
+    /// dialog.</param>
+    /// <param name="operationCallback">Reference to the operation method to execute.</param>
+    /// <returns>The result of the operation.</returns>
     public static T Run<T>(ProgressDialogProperties properties, Func<IProgressDialog, T> operationCallback)
     {
         return Run(null, properties, operationCallback);
     }
 
     /// <summary>
-    /// Ejecuta una operación que reporta su estado utilizando un diálogo de
-    /// progreso nativo de Windows.
+    /// Executes an operation that reports its status using a native Windows progress
+    /// dialog.
     /// </summary>
-    /// <param name="progressDialog">
-    /// Referencia al método de operación a ejecutar. El parámetro del método será un objeto que permitirá interactuar con el diálogo nativo de Windows.
-    /// </param>
-    /// <returns>
-    /// El resultado de la operación.
-    /// </returns>
+    /// <param name="progressDialog">Reference to the operation method to execute.</param>
+    /// <returns>The result of the operation.</returns>
     public static T Run<T>(Func<IProgressDialog, T> progressDialog)
     {
         return Run(null, new ProgressDialogProperties(), progressDialog);
     }
 
     /// <summary>
-    /// Ejecuta una operación asíncrona que reporta su estado utilizando un
-    /// diálogo de progreso nativo de Windows.
+    /// Executes an asynchronous operation that reports its status using a native
+    /// Windows progress dialog.
     /// </summary>
     /// <param name="owner">
-    /// Referencia al propietario del nuevo diálogo.
+    /// Reference to the owner of the new dialog.
     /// </param>
     /// <param name="properties">
-    /// Referencia al método a utilizar para inicializar el nuevo diálogo.
+    /// Reference to the method used to initialize the new dialog.
     /// </param>
     /// <param name="operationCallback">
-    /// Referencia al método de operación a ejecutar. El parámetro del método 
-    /// será un objeto que permitirá interactuar con el diálogo nativo de
-    /// Windows.
+    /// Reference to the operation method to execute. The method's parameter
+    /// will be an object that allows interaction with the native Windows
+    /// dialog.
     /// </param>
     /// <returns>
-    /// Un objeto <see cref="Task"/> que puede utilizarse para esperar la
-    /// completación de la operación asíncrona.
+    /// A <see cref="Task"/> that can be awaited to complete the asynchronous
+    /// operation.
     /// </returns>
     public static Task Run(IMsWindow? owner, ProgressDialogProperties properties, Func<IProgressDialog, Task> operationCallback)
     {
@@ -258,20 +241,20 @@ public sealed class ProgressDialog : IProgressDialog, IDisposable
     }
 
     /// <summary>
-    /// Ejecuta una operación asíncrona que reporta su estado utilizando un
-    /// diálogo de progreso nativo de Windows.
+    /// Executes an asynchronous operation that reports its status using a native
+    /// Windows progress dialog.
     /// </summary>
     /// <param name="properties">
-    /// Referencia al método a utilizar para inicializar el nuevo diálogo.
+    /// Reference to the method used to initialize the new dialog.
     /// </param>
     /// <param name="operationCallback">
-    /// Referencia al método de operación a ejecutar. El parámetro del método 
-    /// será un objeto que permitirá interactuar con el diálogo nativo de
-    /// Windows.
+    /// Reference to the operation method to execute. The method's parameter
+    /// will be an object that allows interaction with the native Windows
+    /// dialog.
     /// </param>
     /// <returns>
-    /// Un objeto <see cref="Task"/> que puede utilizarse para esperar la
-    /// completación de la operación asíncrona.
+    /// A <see cref="Task"/> that can be awaited to complete the asynchronous
+    /// operation.
     /// </returns>
     public static Task Run(ProgressDialogProperties properties, Func<IProgressDialog, Task> operationCallback)
     {
@@ -279,17 +262,17 @@ public sealed class ProgressDialog : IProgressDialog, IDisposable
     }
 
     /// <summary>
-    /// Ejecuta una operación asíncrona que reporta su estado utilizando un
-    /// diálogo de progreso nativo de Windows.
+    /// Executes an asynchronous operation that reports its status using a native
+    /// Windows progress dialog.
     /// </summary>
     /// <param name="operationCallback">
-    /// Referencia al método de operación a ejecutar. El parámetro del método 
-    /// será un objeto que permitirá interactuar con el diálogo nativo de
-    /// Windows.
+    /// Reference to the operation method to execute. The method's parameter
+    /// will be an object that allows interaction with the native Windows
+    /// dialog.
     /// </param>
     /// <returns>
-    /// Un objeto <see cref="Task"/> que puede utilizarse para esperar la
-    /// completación de la operación asíncrona.
+    /// A <see cref="Task"/> that can be awaited to complete the asynchronous
+    /// operation.
     /// </returns>
     public static Task Run(Func<IProgressDialog, Task> operationCallback)
     {
@@ -297,23 +280,23 @@ public sealed class ProgressDialog : IProgressDialog, IDisposable
     }
 
     /// <summary>
-    /// Ejecuta una operación asíncrona que reporta su estado utilizando un
-    /// diálogo de progreso nativo de Windows.
+    /// Executes an asynchronous operation that reports its status using a native
+    /// Windows progress dialog.
     /// </summary>
     /// <param name="owner">
-    /// Referencia al propietario del nuevo diálogo.
+    /// Reference to the owner of the new dialog.
     /// </param>
     /// <param name="properties">
-    /// Referencia al método a utilizar para inicializar el nuevo diálogo.
+    /// Reference to the method used to initialize the new dialog.
     /// </param>
     /// <param name="operationCallback">
-    /// Referencia al método de operación a ejecutar. El parámetro del método 
-    /// será un objeto que permitirá interactuar con el diálogo nativo de
-    /// Windows.
+    /// Reference to the operation method to execute. The method's parameter
+    /// will be an object that allows interaction with the native Windows
+    /// dialog.
     /// </param>
     /// <returns>
-    /// Un objeto <see cref="Task{TResult}"/> que puede utilizarse para esperar
-    /// la completación de la operación asíncrona.
+    /// A <see cref="Task{TResult}"/> that can be awaited to complete the
+    /// asynchronous operation and return a result.
     /// </returns>
     public static Task<T> Run<T>(IMsWindow? owner, ProgressDialogProperties properties, Func<IProgressDialog, Task<T>> operationCallback)
     {
@@ -321,20 +304,20 @@ public sealed class ProgressDialog : IProgressDialog, IDisposable
     }
 
     /// <summary>
-    /// Ejecuta una operación asíncrona que reporta su estado utilizando un
-    /// diálogo de progreso nativo de Windows.
+    /// Executes an asynchronous operation that reports its status using a native
+    /// Windows progress dialog.
     /// </summary>
     /// <param name="properties">
-    /// Referencia al método a utilizar para inicializar el nuevo diálogo.
+    /// Reference to the method used to initialize the new dialog.
     /// </param>
     /// <param name="operationCallback">
-    /// Referencia al método de operación a ejecutar. El parámetro del método 
-    /// será un objeto que permitirá interactuar con el diálogo nativo de
-    /// Windows.
+    /// Reference to the operation method to execute. The method's parameter
+    /// will be an object that allows interaction with the native Windows
+    /// dialog.
     /// </param>
     /// <returns>
-    /// Un objeto <see cref="Task{TResult}"/> que puede utilizarse para esperar
-    /// la completación de la operación asíncrona.
+    /// A <see cref="Task{TResult}"/> that can be awaited to complete the
+    /// asynchronous operation and return a result.
     /// </returns>
     public static Task<T> Run<T>(ProgressDialogProperties properties, Func<IProgressDialog, Task<T>> operationCallback)
     {
@@ -342,17 +325,17 @@ public sealed class ProgressDialog : IProgressDialog, IDisposable
     }
 
     /// <summary>
-    /// Ejecuta una operación asíncrona que reporta su estado utilizando un
-    /// diálogo de progreso nativo de Windows.
+    /// Executes an asynchronous operation that reports its status using a
+    /// native Windows progress dialog.
     /// </summary>
     /// <param name="operationCallback">
-    /// Referencia al método de operación a ejecutar. El parámetro del método 
-    /// será un objeto que permitirá interactuar con el diálogo nativo de
-    /// Windows.
+    /// Reference to the operation method to execute. The method's parameter
+    /// will be an object that allows interaction with the native Windows
+    /// dialog.
     /// </param>
     /// <returns>
-    /// Un objeto <see cref="Task{TResult}"/> que puede utilizarse para esperar
-    /// la completación de la operación asíncrona.
+    /// A <see cref="Task{TResult}"/> that can be awaited to complete the
+    /// asynchronous operation and return a result.
     /// </returns>
     public static Task<T> Run<T>(Func<IProgressDialog, Task<T>> operationCallback)
     {

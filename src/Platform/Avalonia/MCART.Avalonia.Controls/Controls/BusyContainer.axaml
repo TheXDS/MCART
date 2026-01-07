@@ -2,11 +2,18 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mcart="http://schemas.thexds.local/mcart">
-    <Style Selector="mcart|BusyContainer">
-        <Setter Property="Template">
-            <ControlTemplate>
-                <Panel>
-                    <Panel.Resources>
+	<Design.PreviewWith>
+		<Panel>
+			<mcart:BusyContainer IsBusy="True">
+				<TextBlock Margin="50,0,50,100">Non-busy content</TextBlock>
+			</mcart:BusyContainer>
+		</Panel>
+	</Design.PreviewWith>
+	<Style Selector="mcart|BusyContainer">
+		<Setter Property="Template">
+			<ControlTemplate>
+				<Panel>
+					<Panel.Resources>
                         <mcart:BooleanInverter x:Key="binv"/>
                     </Panel.Resources>
                     <ContentPresenter
@@ -25,8 +32,8 @@
                         VerticalAlignment="Center"
                         Content="{TemplateBinding BusyContent}"
                         IsVisible="{TemplateBinding IsBusy}"/>
-                </Panel>
-            </ControlTemplate>
-        </Setter>
-    </Style>
+				</Panel>
+			</ControlTemplate>
+		</Setter>
+	</Style>
 </Styles>
