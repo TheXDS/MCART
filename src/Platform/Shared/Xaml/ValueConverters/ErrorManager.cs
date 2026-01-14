@@ -48,7 +48,7 @@ public partial class ErrorManager
         if (value is null) return null;
         if (value is not INotifyDataErrorInfo vm) throw new ArgumentException(null, nameof(value));
         if (parameter is not string pn) throw new ArgumentException(null, nameof(parameter));
-        List<string>? e = vm.GetErrors(pn).OfType<string>().ToList();
+        List<string>? e = [.. vm.GetErrors(pn).OfType<string>()];
         return e.Count != 0 ? string.Join(Environment.NewLine, e) : null;
     }
 

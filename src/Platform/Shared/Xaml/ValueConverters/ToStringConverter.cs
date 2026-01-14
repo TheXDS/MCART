@@ -33,23 +33,27 @@ using System.Globalization;
 namespace TheXDS.MCART.ValueConverters;
 
 /// <summary>
-/// Convierte un valor a su representación como un <see cref="string" />.
+/// Converts a value to its string representation.
 /// </summary>
 public sealed partial class ToStringConverter
 {
     /// <summary>
-    /// Convierte cualquier objeto en un <see cref="string" />
+    /// Converts any object to a <see cref="string"/>.
     /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="targetType">Tipo del destino.</param>
+    /// <param name="value">
+    /// Object to convert.
+    /// </param>
+    /// <param name="targetType">
+    /// Target type.
+    /// </param>
     /// <param name="parameter">
-    /// Parámetros personalizados a utilizar para realizar la conversión.
+    /// Custom parameters used for the conversion.
     /// </param>
     /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
+    /// <see cref="CultureInfo"/> used for the conversion.
     /// </param>
     /// <returns>
-    /// Un <see cref="string" /> que representa al objeto.
+    /// A <see cref="string"/> that represents the object.
     /// </returns>
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
@@ -57,20 +61,24 @@ public sealed partial class ToStringConverter
     }
 
     /// <summary>
-    /// Intenta una conversión de <see cref="string" /> a un objeto del tipo
-    /// de destino especificado.
+    /// Attempts to convert a <see cref="string"/> to an object of the
+    /// specified target type.
     /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="targetType">Tipo del destino.</param>
+    /// <param name="value">
+    /// Object to convert.
+    /// </param>
+    /// <param name="targetType">
+    /// Target type.
+    /// </param>
     /// <param name="parameter">
-    /// Parámetros personalizados a utilizar para realizar la conversión.
+    /// Custom parameters used for the conversion.
     /// </param>
     /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
+    /// <see cref="CultureInfo"/> used for the conversion.
     /// </param>
     /// <returns>
-    /// Si la conversión desde <see cref="string" /> tuvo éxito, se
-    /// devolverá al objeto, se devolverá <see langword="null" /> en caso contrario.
+    /// If the conversion from string succeeds, the object is returned; otherwise
+    /// <see langword="null"/> is returned.
     /// </returns>
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {

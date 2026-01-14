@@ -37,25 +37,25 @@ using TheXDS.MCART.Resources;
 namespace TheXDS.MCART.ValueConverters;
 
 /// <summary>
-/// Permite compartir un recurso de <see cref="Brush" /> entre controles,
-/// ajustando la opacidad del enlace de datos.
+/// Allows sharing a <see cref="Brush"/> resource between controls, adjusting
+/// the opacity of the data binding.
 /// </summary>
 public sealed class BrushOpacityAdjust : IValueConverter
 {
     /// <summary>
-    /// Aplica la nueva opacidad al <see cref="Brush" />.
+    /// Applies the new opacity to the <see cref="Brush"/>.
     /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="targetType">Tipo del destino.</param>
+    /// <param name="value">Object to convert.</param>
+    /// <param name="targetType">Target type.</param>
     /// <param name="parameter">
-    /// Parámetros personalizados para este <see cref="IValueConverter" />.
+    /// Custom parameters for this <see cref="IValueConverter"/>.
     /// </param>
     /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
+    /// <see cref="CultureInfo"/> to use for conversion.
     /// </param>
     /// <returns>
-    /// Un nuevo <see cref="Brush" /> con la opacidad establecida en este
-    /// <see cref="BrushOpacityAdjust" />.
+    /// A new <see cref="Brush"/> with the opacity set in this
+    /// <see cref="BrushOpacityAdjust"/>.
     /// </returns>
     public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
@@ -68,18 +68,18 @@ public sealed class BrushOpacityAdjust : IValueConverter
     }
 
     /// <summary>
-    /// Devuelve un <see cref="Brush" /> con 100% opacidad.
+    /// Returns a <see cref="Brush"/> with 100% opacity.
     /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="targetType">Tipo del destino.</param>
+    /// <param name="value">Object to convert.</param>
+    /// <param name="targetType">Target type.</param>
     /// <param name="parameter">
-    /// Parámetros personalizados para este <see cref="IValueConverter" />.
+    /// Custom parameters for this <see cref="IValueConverter"/>.
     /// </param>
     /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
+    /// <see cref="CultureInfo"/> to use for conversion.
     /// </param>
     /// <returns>
-    /// Un nuevo <see cref="Brush" /> con la opacidad al 100%.
+    /// A new <see cref="Brush"/> with opacity set to 100%.
     /// </returns>
     public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {

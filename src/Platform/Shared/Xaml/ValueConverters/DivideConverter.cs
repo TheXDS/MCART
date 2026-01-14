@@ -35,28 +35,28 @@ using TheXDS.MCART.ValueConverters.Base;
 namespace TheXDS.MCART.ValueConverters;
 
 /// <summary>
-/// Permite la adición de propiedades numéricas.
+/// Enables the addition of numeric properties.
 /// </summary>
 public sealed partial class DivideConverter : PrimitiveMathOpConverterBase
 {
     /// <summary>
-    /// Devuelve la división entre <paramref name="value" /> y
-    /// <paramref name="parameter" />.
+    /// Returns the division of <paramref name="value"/> by
+    /// <paramref name="parameter"/>.
     /// </summary>
-    /// <param name="value">Primer operando de la división.</param>
-    /// <param name="targetType">Tipo del destino.</param>
-    /// <param name="parameter">Segundo operando de la división.</param>
+    /// <param name="value">First operand of the division.</param>
+    /// <param name="targetType">Target type.</param>
+    /// <param name="parameter">Second operand of the division.</param>
     /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
+    /// <see cref="CultureInfo"/> to use for the conversion.
     /// </param>
     /// <exception cref="ArgumentException">
-    /// Se produce si no es posible realizar la división.
+    /// Thrown if the division cannot be performed.
     /// </exception>
     /// <exception cref="DivideByZeroException">
-    /// Se produce si <paramref name="parameter"/> se evalúa como cero.
+    /// Thrown if <paramref name="parameter"/> evaluates to zero.
     /// </exception>
     /// <returns>
-    /// La división de <paramref name="value"/> y el operando especificado.
+    /// The division of <paramref name="value"/> by the specified operand.
     /// </returns>
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo? culture)
     {
@@ -64,22 +64,22 @@ public sealed partial class DivideConverter : PrimitiveMathOpConverterBase
     }
 
     /// <summary>
-    /// Revierte la operación de división aplicada a
-    /// <paramref name="value" />.
+    /// Reverses the division operation applied to
+    /// <paramref name="value"/>.
     /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="targetType">Tipo del destino.</param>
+    /// <param name="value">Object to convert.</param>
+    /// <param name="targetType">Target type.</param>
     /// <param name="parameter">
-    /// Parámetros personalizados a utilizar para la conversión.
+    /// Custom parameters used for the conversion.
     /// </param>
     /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
+    /// <see cref="CultureInfo"/> to use for the conversion.
     /// </param>
     /// <exception cref="ArgumentException">
-    /// Se produce si no es posible realizar la división.
+    /// Thrown if the division cannot be performed.
     /// </exception>
     /// <returns>
-    /// El valor de <paramref name="value"/> antes de la división.
+    /// The value of <paramref name="value"/> before the division.
     /// </returns>
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {

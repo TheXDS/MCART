@@ -34,29 +34,28 @@ using TheXDS.MCART.Resources;
 namespace TheXDS.MCART.ValueConverters;
 
 /// <summary>
-/// Determina si un objeto es una instancia del tipo provisto, y devuelve
-/// <see langword="true" /> si lo es.
+/// Determines if an object is an instance of the provided type,
+/// returning <see langword="true" /> if it is.
 /// </summary>
 public sealed partial class StrictTypeBooleanConverter
 {
     /// <summary>
-    /// Determina si un objeto es una instancia del tipo provisto.
+    /// Determines if an object is an instance of the provided type.
     /// </summary>
     /// <param name="value">
-    /// Valor generado por el origen de enlace.
+    /// Value produced by the binding source.
     /// </param>
     /// <param name="targetType">
-    /// El tipo de la propiedad del destino de enlace.
+    /// The type of the target binding property.
     /// </param>
     /// <param name="parameter">
-    /// Parámetro de convertidor que se va a usar.
+    /// Converter parameter to be used.
     /// </param>
     /// <param name="culture">
-    /// Referencia cultural que se va a usar en el convertidor.
+    /// Culture reference to be used in the converter.
     /// </param>
     /// <returns>
-    /// <see langword="true" /> si el objeto es una instancia del
-    /// tipo provisto, <see langword="false" /> en caso contrario.
+    /// true if the object is an instance of the provided type, false otherwise.
     /// </returns>
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
@@ -66,9 +65,11 @@ public sealed partial class StrictTypeBooleanConverter
 
     /// <inheritdoc/>
     /// <returns>
-    /// Este método siempre genera un <see cref="InvalidOperationException" />.
+    /// This method always throws an <see cref="InvalidOperationException" />.
     /// </returns>
-    /// <exception cref="InvalidOperationException">Este método siempre genera esta excepción al ser llamado.</exception>
+    /// <exception cref="InvalidOperationException">
+    /// This method always throws this exception when called.
+    /// </exception>
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         throw new InvalidOperationException();

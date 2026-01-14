@@ -38,21 +38,14 @@ using TheXDS.MCART.Types.Extensions;
 namespace TheXDS.MCART.Controls;
 
 /// <summary>
-/// <see cref="Panel" /> que permite organizar los controles como una
-/// línea justificada con sobreflujo, opcionalmente aplicando una
-/// transformación proporcional a los mismos.
+/// A <see cref="Panel"/> that arranges child elements as a justified
+/// line with overflow, optionally applying proportional scaling.
 /// </summary>
 /// <remarks>
-/// Implementación de referencia original por "Surfin Bird".
+/// Original reference implementation by "Surfin Bird".
 /// </remarks>
 public class StretchyWrapPanel : Panel
 {
-    /* Cambios:
-     * Streamlining del código
-     * Escritura de documentación
-     * Corrección de errores
-     */
-
     private struct UvSize
     {
         internal UvSize(Orientation orientation, StretchyWrapPanel host, UIElement element)
@@ -107,14 +100,14 @@ public class StretchyWrapPanel : Panel
     }
 
     /// <summary>
-    /// Identifica a la propiedad de dependencia <see cref="ItemHeight" />
+    /// Identifies the dependency property for <see cref="ItemHeight"/>.
     /// </summary>
     public static readonly DependencyProperty ItemHeightProperty = DependencyProperty.Register(nameof(ItemHeight),
         typeof(double), typeof(StretchyWrapPanel),
         new FrameworkPropertyMetadata(double.NaN, FrameworkPropertyMetadataOptions.AffectsMeasure));
 
     /// <summary>
-    /// Obtiene o establece la altura de los elementos hijos de este <see cref="Panel" />.
+    /// Gets or sets the height of child items in this <see cref="Panel"/>.
     /// </summary>
     [TypeConverter(typeof(LengthConverter))]
     public double ItemHeight
@@ -124,14 +117,15 @@ public class StretchyWrapPanel : Panel
     }
 
     /// <summary>
-    /// Identifica a la propiedad de dependencia <see cref="ItemWidth" />.
+    /// Identifies the dependency property for <see cref="ItemWidth"/>.
     /// </summary>
     public static readonly DependencyProperty ItemWidthProperty = DependencyProperty.Register(nameof(ItemWidth),
         typeof(double), typeof(StretchyWrapPanel),
         new FrameworkPropertyMetadata(double.NaN, FrameworkPropertyMetadataOptions.AffectsMeasure));
 
     /// <summary>
-    /// Obtiene o establece la longitud a aplicar a los elementos hijos de este <see cref="Panel" />.
+    /// Gets or sets the width to apply to child items in this
+    /// <see cref="Panel"/>.
     /// </summary>
     [TypeConverter(typeof(LengthConverter))]
     public double ItemWidth
@@ -141,7 +135,7 @@ public class StretchyWrapPanel : Panel
     }
 
     /// <summary>
-    /// Identifica a la propiedad de dependencia <see cref="Orientation" />
+    /// Identifies the dependency property for <see cref="Orientation"/>.
     /// </summary>
     public static readonly DependencyProperty OrientationProperty = StackPanel.OrientationProperty.AddOwner(
         typeof(StretchyWrapPanel),
@@ -154,7 +148,7 @@ public class StretchyWrapPanel : Panel
     }
 
     /// <summary>
-    /// Obtiene o establece la orientación de la colocación de elementos en este <see cref="Panel" />.
+    /// Gets or sets the orientation used to place child elements.
     /// </summary>
     public Orientation Orientation
     {
@@ -163,7 +157,8 @@ public class StretchyWrapPanel : Panel
     }
 
     /// <summary>
-    /// Identifica a la propiedad de dependencia <see cref="StretchProportionally" />.
+    /// Identifies the dependency property for
+    /// <see cref="StretchProportionally"/>.
     /// </summary>
     public static readonly DependencyProperty StretchProportionallyProperty = DependencyProperty.Register(
         nameof(StretchProportionally), typeof(bool),
@@ -175,7 +170,7 @@ public class StretchyWrapPanel : Panel
     }
 
     /// <summary>
-    /// Obtiene o establece un valor que indica si los controles hijos se alargarán proporcionalmente entre sí.
+    /// Gets or sets whether child elements are stretched proportionally.
     /// </summary>
     public bool StretchProportionally
     {
@@ -187,15 +182,12 @@ public class StretchyWrapPanel : Panel
     private bool _stretchProportionally = true;
 
     /// <summary>
-    /// Si se reemplaza en una clase derivada, coloca los elementos
-    /// secundarios y determina un tamaño para una clase derivada
-    /// <see cref="FrameworkElement" />.
+    /// When overridden, positions child elements and determines a size
+    /// for a derived <see cref="FrameworkElement"/>.
     /// </summary>
-    /// <param name="finalSize">
-    /// Área final dentro del elemento primario que este elemento debe usar
-    /// para organizarse a sí mismo y a sus elementos secundarios.
+    /// <param name="finalSize">The final area within the parent element.
     /// </param>
-    /// <returns>Tamaño real usado.</returns>
+    /// <returns>The actual size used.</returns>
     protected override Size ArrangeOverride(Size finalSize)
     {
         int i = 0;
@@ -249,14 +241,14 @@ public class StretchyWrapPanel : Panel
     }
 
     /// <summary>
-    ///   Si se reemplaza en una clase derivada, mide el tamaño del diseño necesario para los elementos secundarios y determina un tamaño para la clase derivada <see cref="FrameworkElement" />.
+    /// When overridden, measures the size required for child elements
+    /// and determines a size for the derived
+    /// <see cref="FrameworkElement"/>.
     /// </summary>
-    /// <param name="constraint">
-    ///   Tamaño disponible que este elemento puede otorgar a los elementos secundarios.
-    ///    Se puede usar infinito como valor para indicar que el elemento se ajustará a cualquier contenido disponible.
-    /// </param>
+    /// <param name="constraint">Available size for child elements. Use
+    /// infinity to indicate unlimited space.</param>
     /// <returns>
-    ///   Tamaño que este elemento determina que necesita durante el diseño, según sus cálculos de los tamaños de los elementos secundarios.
+    /// The size required during layout based on child measurements.
     /// </returns>
     protected override Size MeasureOverride(Size constraint)
     {

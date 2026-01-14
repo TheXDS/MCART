@@ -34,8 +34,8 @@ using TheXDS.MCART.Types.Extensions;
 namespace TheXDS.MCART.Component;
 
 /// <summary>
-/// Define una extensión de Markup XAML que permite obtener valores de
-/// enumeración como una colección de <see cref="NamedObject{T}"/>.
+/// Defines a XAML markup extension that allows obtaining enum values as a
+/// collection of <see cref="NamedObject{T}"/>.
 /// </summary>
 public class NamedEnumValueProvider : EnumValueProvider
 {

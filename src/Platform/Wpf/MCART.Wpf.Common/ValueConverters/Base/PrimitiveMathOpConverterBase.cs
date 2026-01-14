@@ -31,10 +31,8 @@ SOFTWARE.
 namespace TheXDS.MCART.ValueConverters.Base;
 
 /// <summary>
-/// Clase base que permite la creación de
-/// <see cref="System.Windows.Data.IValueConverter"/>
-/// para operaciones matemáticas numéricas.
+/// Base class that facilitates the creation of
+/// <see cref="System.Windows.Data.IValueConverter"/> implementations
+/// for numeric mathematical operations.
 /// </summary>
-public abstract partial class PrimitiveMathOpConverterBase
-{
-}
+public abstract partial class PrimitiveMathOpConverterBase;

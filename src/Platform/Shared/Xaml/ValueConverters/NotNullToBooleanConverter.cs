@@ -34,25 +34,24 @@ using TheXDS.MCART.Types.Extensions;
 namespace TheXDS.MCART.ValueConverters;
 
 /// <summary>
-/// Devuelve <see langword="true" /> si el elemento a convertir no es <see langword="null" />
+/// Returns <see langword="true" /> if the element to convert is not <see langword="null" />.
 /// </summary>
 public sealed partial class NotNullToBooleanConverter
 {
     /// <summary>
-    /// Obtiene un <see cref="bool" /> a partir del valor.
+    /// Obtains a <see cref="bool" /> from the value.
     /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="targetType">Tipo del destino.</param>
+    /// <param name="value">Object to convert.</param>
+    /// <param name="targetType">Target type.</param>
     /// <param name="parameter">
-    /// Parámetros personalizados a utilizar para realizar la conversión.
+    /// Custom parameters used for the conversion.
     /// </param>
     /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
+    /// <see cref="CultureInfo" /> to use for the conversion.
     /// </param>
     /// <returns>
-    /// <see langword="false"/> si el elemento es
-    /// <see langword="null" />, <see langword="true"/> en caso
-    /// contrario.
+    /// <see langword="false" /> if the element is <see langword="null" />,
+    /// <see langword="true" /> otherwise.
     /// </returns>
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
@@ -60,26 +59,27 @@ public sealed partial class NotNullToBooleanConverter
     }
 
     /// <summary>
-    /// Realiza una conversión inversa de esta instancia.
+    /// Performs the inverse conversion for this instance.
     /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="targetType">Tipo del destino.</param>
+    /// <param name="value">Object to convert.</param>
+    /// <param name="targetType">Target type.</param>
     /// <param name="parameter">
-    /// Parámetros personalizados a utilizar para la conversión.
+    /// Custom parameters used for the conversion.
     /// </param>
     /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
+    /// <see cref="CultureInfo" /> to use for the conversion.
     /// </param>
     /// <exception cref="InvalidCastException">
-    /// Se produce si <paramref name="value" /> no es un <see cref="bool" />.
+    /// Thrown if <paramref name="value" /> is not a <see cref="bool" />.
     /// </exception>
     /// <exception cref="TypeLoadException">
-    /// Se produce si <paramref name="targetType" /> no es una clase o estructura instanciable con un constructor sin
-    /// parámetros.
+    /// Thrown if <paramref name="targetType" /> is not an instantiable class or
+    /// struct with a parameterless constructor.
     /// </exception>
     /// <returns>
-    /// Una nueva instancia de tipo <paramref name="targetType" /> si <paramref name="value" /> se evalúa como
-    /// <see langword="false" />, <see langword="null" /> en caso contrario.
+    /// A new instance of type <paramref name="targetType" /> if
+    /// <paramref name="value" /> evaluates as <see langword="false" />,
+    /// <see langword="null" /> otherwise.
     /// </returns>
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {

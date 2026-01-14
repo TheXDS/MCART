@@ -37,28 +37,28 @@ using TheXDS.MCART.Types;
 namespace TheXDS.MCART.ValidationRules;
 
 /// <summary>
-/// Comprueba que un valor se encuentre dentro de un rango de valores.
+/// Checks that a value is within a specified range of values.
 /// </summary>
-/// <typeparam name="T">Tipo de valor a comprobar.</typeparam>
+/// <typeparam name="T">Type of value to check.</typeparam>
 [DefaultProperty(nameof(Range))]
 public class InRange<T> : ValidationRule where T : IComparable<T>
 {
     /// <summary>
-    /// Rango de valores admitidos.
+    /// Range of allowed values.
     /// </summary>
     public Range<T> Range { get; set; }
 
     /// <summary>
-    /// Si se reemplaza en una clase derivada, realiza comprobaciones de validación en un valor.
+    /// If overridden in a derived class, performs validation checks on a value.
     /// </summary>
     /// <param name="value">
-    /// Valor del destino de enlace que se comprobará.
+    /// Value of the binding target that will be checked.
     /// </param>
     /// <param name="cultureInfo">
-    /// Referencia cultural que usará en esta regla.
+    /// Culture information used by this rule.
     /// </param>
     /// <returns>
-    /// Objeto <see cref="ValidationResult" />.
+    /// ValidationResult instance.
     /// </returns>
     public override ValidationResult Validate(object value, CultureInfo cultureInfo)
     {

@@ -35,25 +35,25 @@ using System.Windows.Media.Imaging;
 namespace TheXDS.MCART.Helpers;
 
 /// <summary>
-/// Contiene extensiones para la clase <see cref="Visual"/>.
+/// Contains extensions for the Visual class.
 /// </summary>
 public static class VisualExtensions
 {
     /// <summary>
-    /// Crea un mapa de bits de un <see cref="Visual" />.
+    /// Renders a Visual to a RenderTargetBitmap.
     /// </summary>
     /// <param name="visual">
-    /// <see cref="Visual" /> a renderizar.
+    /// The Visual to render.
     /// </param>
     /// <param name="size">
-    /// Tamaño del canvas en donde se renderizará el control.
+    /// Size of the canvas where the visual will be rendered.
     /// </param>
     /// <param name="dpi">
-    /// Valor de puntos por pulgada a utilizar para crear el mapa de bits.
+    /// Dots‑per‑inch value used to create the bitmap.
     /// </param>
     /// <returns>
-    /// Un objeto <see cref="RenderTargetBitmap" /> que contiene una imagen
-    /// renderizada de <paramref name="visual" />.
+    /// A RenderTargetBitmap containing the rendered image of the
+    /// specified Visual.
     /// </returns>
     public static RenderTargetBitmap Render(this Visual visual, Size size, int dpi)
     {

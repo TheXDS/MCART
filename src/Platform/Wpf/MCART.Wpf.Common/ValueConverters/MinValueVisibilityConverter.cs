@@ -33,14 +33,7 @@ using System.Windows;
 namespace TheXDS.MCART.ValueConverters;
 
 /// <summary>
-/// Convierte un valor <see cref="double" /> en un <see cref="Visibility" />
+/// Converts a <see cref="double"/> value to a <see cref="Visibility"/>.
 /// </summary>
-public sealed class MinValueVisibilityConverter : ThresholdConverter<double, Visibility>
-{
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="MinSizeVisibilityConverter" />.
-    /// </summary>
-    public MinValueVisibilityConverter() : base(Visibility.Collapsed, Visibility.Visible, Visibility.Visible)
-    {
-    }
-}
+public sealed class MinValueVisibilityConverter()
+    : ThresholdConverter<double, Visibility>(Visibility.Collapsed, Visibility.Visible, Visibility.Visible);

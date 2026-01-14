@@ -34,15 +34,7 @@ using TheXDS.MCART.ValueConverters.Base;
 namespace TheXDS.MCART.ValueConverters;
 
 /// <summary>
-/// Invierte un valor de <see cref="Visibility" />.
+/// Inverts a value of <see cref="Visibility"/>.
 /// </summary>
-public sealed class VisibilityInverter : Inverter<Visibility>
-{
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="VisibilityInverter" />.
-    /// </summary>
-    public VisibilityInverter() : base(Visibility.Visible, Visibility.Collapsed)
-    {
-    }
-}
+public sealed class VisibilityInverter()
+    : Inverter<Visibility>(Visibility.Visible, Visibility.Collapsed);

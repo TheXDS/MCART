@@ -35,29 +35,28 @@ using TheXDS.MCART.Types.Extensions;
 namespace TheXDS.MCART.ValueConverters.Base;
 
 /// <summary>
-/// Define una serie de miembros a implementar por un tipo que permita
-/// convertir valores desde y hacia tipos específicos en ambos sentidos.
+/// Defines a set of members to be implemented by a type that can convert
+/// values from and to specific types in both directions.
 /// </summary>
-/// <typeparam name="TIn">Tipo de entrada de la conversión.</typeparam>
-/// <typeparam name="TOut">Tipo de salida de la conversión.</typeparam>
+/// <typeparam name="TIn">Input type of the conversion.</typeparam>
+/// <typeparam name="TOut">Output type of the conversion.</typeparam>
 public interface IValueConverter<TIn, TOut> : IOneWayValueConverter<TIn, TOut>
 {
     /// <summary>
-    /// Realiza una conversión inversa entre el valor de destino y el de origen.
+    /// Performs the reverse conversion between the target value and the source value.
     /// </summary>
     /// <param name="value">
-    /// Valor producido por el origen del enlace.
+    /// Value produced by the binding source.
     /// </param>
     /// <param name="parameter">
-    /// Parámetro pasado al convertidor a utilizar.
+    /// Parameter passed to the converter.
     /// </param>
     /// <param name="culture">
-    /// La cultura a utilizar en el convertidor.
+    /// Culture to use for the conversion.
     /// </param>
     /// <returns>
-    /// Un valor convertido. Si no se puede llevar a cabo la conversión,
-    /// se devuelve el valor predeterminado del tipo
-    /// <typeparamref name="TIn"/>.
+    /// The converted value. If the conversion cannot be performed,
+    /// the default value of type <typeparamref name="TIn"/> is returned.
     /// </returns>
     TIn ConvertBack(TOut value, object? parameter, CultureInfo culture);
 

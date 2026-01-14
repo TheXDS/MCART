@@ -38,68 +38,70 @@ using TheXDS.MCART.Types.Extensions;
 namespace TheXDS.MCART.ValueConverters;
 
 /// <summary>
-/// Clase base para un convertidor de valores que digitalice un valor
-/// arbitrario de entrada.
+/// Base class for a converter that thresholds an arbitrary input value.
 /// </summary>
 /// <typeparam name="TIn">
-/// Tipo de valores de entrada.
+/// Type of input values.
 /// </typeparam>
 /// <typeparam name="TOut">
-/// Tipo de valores de salida.
+/// Type of output values.
 /// </typeparam>
 /// <param name="belowValue">
-/// Valor a devolver cuando el valor de entrada sea menor al umbral.
+/// Value to return when the input value is less than the threshold.
 /// </param>
 /// <param name="aboveValue">
-/// Valor a devolver cuando el valor de entrada sea mayor al umbral.
+/// Value to return when the input value is greater than the threshold.
 /// </param>
 /// <param name="atValue">
-/// Valor a devolver cuando el valor de entrada sea igual al umbral.
+/// Value to return when the input value equals the threshold.
 /// </param>
 public partial class ThresholdConverter<TIn, TOut>(TOut belowValue, TOut aboveValue, TOut? atValue) where TIn : IComparable<TIn> where TOut : struct
 {
     /// <summary>
-    /// Valor a devolver cuando el valor de entrada sea mayor al umbral.
+    /// Value to return when the input value is greater than the threshold.
     /// </summary>
     public TOut AboveValue { get; } = aboveValue;
 
     /// <summary>
-    /// Valor a devolver cuando el valor de entrada sea igual al umbral.
+    /// Value to return when the input value equals the threshold.
     /// </summary>
     public TOut? AtValue { get; } = atValue;
 
     /// <summary>
-    /// Valor a devolver cuando el valor de entrada sea menor al umbral.
+    /// Value to return when the input value is less than the threshold.
     /// </summary>
     public TOut BelowValue { get; } = belowValue;
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="ThresholdConverter{TIn, TOut}" />
+    /// Initializes a new instance of the
+    /// <see cref="ThresholdConverter{TIn,TOut}"/> class.
     /// </summary>
     /// <param name="belowValue">
-    /// Valor a devolver cuando el valor de entrada sea menor o igual al
-    /// umbral.
+    /// Value to return when the input value is less than or equal to
+    /// the threshold.
     /// </param>
     /// <param name="aboveValue">
-    /// Valor a devolver cuando el valor de entrada sea mayor al umbral.
+    /// Value to return when the input value is greater than the threshold.
     /// </param>
     public ThresholdConverter(TOut belowValue, TOut aboveValue) : this(belowValue, aboveValue, null)
     {
     }
 
     /// <summary>
-    /// Realiza una comparación del valor de entrada contra un valor
-    /// especificado como el umbral.
+    /// Compares the input value against a specified threshold value.
     /// </summary>
-    /// <param name="value">Valor actual a comparar.</param>
+    /// <param name="value">
+    /// Current value to compare.
+    /// </param>
     /// <param name="parameter">
-    /// Valor de umbral. debe ser del mismo tipo que <paramref name="value" />.
+    /// Threshold value; must be the same type as <paramref name="value"/>.
     /// </param>
     /// <param name="culture">
-    /// Este parámetro es ignorado.
-    /// Referencia cultural que se va a usar en el convertidor.
+    /// This parameter is ignored. Culture reference used by the converter.
     /// </param>
-    /// <returns></returns>
+    /// <returns>
+    /// The thresholded output value.
+    /// </returns>
     public TOut Convert(TIn value, object? parameter, CultureInfo? culture)
     {
         return value switch
@@ -109,7 +111,7 @@ public partial class ThresholdConverter<TIn, TOut>(TOut belowValue, TOut aboveVa
                 -1 => BelowValue,
                 0 => AtValue ?? BelowValue,
                 1 => AboveValue,
-                _ => throw new InvalidReturnValueException(nameof(IComparable<TIn>.CompareTo)),
+                _ => throw new InvalidReturnValueException(nameof(IComparable<TIn>.CompareTo))
             },
             null => throw new ArgumentNullException(nameof(value))
         };

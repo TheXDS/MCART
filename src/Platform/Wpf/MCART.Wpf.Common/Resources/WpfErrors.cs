@@ -33,19 +33,18 @@ using Ers = TheXDS.MCART.Wpf.Resources.Strings.WpfErrors;
 namespace TheXDS.MCART.Resources;
 
 /// <summary>
-/// Contiene una serie de miembros que instancian excepciones que pueden
-/// producirse dentro de MCART.WPF.
+/// Contains members that create exceptions that may occur within MCART.WPF.
 /// </summary>
 public static class WpfErrors
 {
     /// <summary>
-    /// Obtiene un error que ocurre cuando no se ha encontrado un Id
-    /// correspondiente a un recurso solicitado.
+    /// Gets an error that occurs when an Id corresponding to a requested
+    /// resource is not found.
     /// </summary>
-    /// <param name="id">Id del recurso que no ha sido encontrado.</param>
-    /// <param name="argName">Nombre del argumento que ha fallado.</param>
+    /// <param name="id">Id of the resource that was not found.</param>
+    /// <param name="argName">Name of the argument that failed.</param>
     /// <returns>
-    /// Una nueva instancia de la clase <see cref="ArgumentException"/>.
+    /// A new instance of the <see cref="ArgumentException"/> class.
     /// </returns>
     public static Exception ResourceNotFound(string id, string argName)
     {

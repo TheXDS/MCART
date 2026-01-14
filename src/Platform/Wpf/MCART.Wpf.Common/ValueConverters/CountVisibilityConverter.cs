@@ -35,76 +35,63 @@ using System.Windows.Data;
 namespace TheXDS.MCART.ValueConverters;
 
 /// <summary>
-/// Convierte un valor <see cref="int" />  a <see cref="Visibility" />
+/// Converts an <see cref="int"/> value to <see cref="Visibility"/>.
 /// </summary>
-public sealed class CountVisibilityConverter : IValueConverter
+/// <param name="withItems">
+/// The <see cref="Visibility"/> to use when the count is greater than
+/// zero.
+/// </param>
+/// <param name="withoutItems">
+/// The <see cref="Visibility"/> to use when the count is zero.
+/// </param>
+public sealed class CountVisibilityConverter(Visibility withItems, Visibility withoutItems) : IValueConverter
 {
     /// <summary>
-    /// Obtiene o establece el <see cref="Visibility" /> a devolver en caso
-    /// de que la cuenta de elementos sea mayor a cero.
+    /// Gets or sets the <see cref="Visibility"/> returned when the item
+    /// count is greater than zero.
     /// </summary>
-    public Visibility WithItems { get; set; }
+    public Visibility WithItems { get; set; } = withItems;
 
     /// <summary>
-    /// Obtiene o establece el <see cref="Visibility" /> a devolver en caso
-    /// de que la cuenta de elementos sea igual a cero.
+    /// Gets or sets the <see cref="Visibility"/> returned when the item
+    /// count is zero.
     /// </summary>
-    public Visibility WithoutItems { get; set; }
+    public Visibility WithoutItems { get; set; } = withoutItems;
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="CountVisibilityConverter" />.
+    /// Initializes a new instance of the <see cref="CountVisibilityConverter"/>
+    /// class.
     /// </summary>
     public CountVisibilityConverter() : this(Visibility.Visible, Visibility.Collapsed)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="CountVisibilityConverter" />.
+    /// Initializes a new instance of the <see cref="CountVisibilityConverter"/>
+    /// class.
     /// </summary>
     /// <param name="withItems">
-    /// <see cref="Visibility" /> a utilizar en caso de que la cuenta sea
-    /// mayor a cero.
+    /// The <see cref="Visibility"/> to use when the count is greater than
+    /// zero.
     /// </param>
-    public CountVisibilityConverter(Visibility withItems = Visibility.Visible) : this(withItems,
-        Visibility.Collapsed)
+    public CountVisibilityConverter(Visibility withItems = Visibility.Visible) : this(withItems, Visibility.Collapsed)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="CountVisibilityConverter" />.
+    /// Gets a <see cref="Visibility"/> from a count value.
     /// </summary>
-    /// <param name="withItems">
-    /// <see cref="Visibility" /> a utilizar en caso de que la cuenta sea
-    /// mayor a cero.
-    /// </param>
-    /// <param name="withoutItems">
-    /// <see cref="Visibility" /> a utilizar en caso de que la cuenta sea
-    /// igual a cero.
-    /// </param>
-    public CountVisibilityConverter(Visibility withItems, Visibility withoutItems)
-    {
-        WithItems = withItems;
-        WithoutItems = withoutItems;
-    }
-
-    /// <summary>
-    /// Obtiene un <see cref="Visibility" /> a partir de un valor de cuenta.
-    /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="targetType">Tipo del destino.</param>
+    /// <param name="value">Object to convert.</param>
+    /// <param name="targetType">Target type.</param>
     /// <param name="parameter">
-    /// Parámetros personalizados para este <see cref="IValueConverter" />.
+    /// Custom parameters for this <see cref="IValueConverter"/>.
     /// </param>
     /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
+    /// <see cref="CultureInfo"/> to use for conversion.
     /// </param>
     /// <returns>
-    /// <see cref="WithItems" /> si <paramref name="value" /> es mayor
-    /// a
-    /// cero, <see cref="WithoutItems" /> en caso contrario.
+    /// <see cref="WithItems"/> if <paramref name="value"/> is greater than
+    /// zero, <see cref="WithoutItems"/> otherwise.
     /// </returns>
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
@@ -113,19 +100,19 @@ public sealed class CountVisibilityConverter : IValueConverter
     }
 
     /// <summary>
-    /// Infiere una cuenta de elementos basado en el <see cref="Visibility" /> provisto.
+    /// Infers a count of items based on the provided <see cref="Visibility"/>.
     /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="targetType">Tipo del destino.</param>
+    /// <param name="value">Object to convert.</param>
+    /// <param name="targetType">Target type.</param>
     /// <param name="parameter">
-    /// Parámetros personalizados para este <see cref="IValueConverter" />.
+    /// Custom parameters for this <see cref="IValueConverter"/>.
     /// </param>
     /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
+    /// <see cref="CultureInfo"/> to use for conversion.
     /// </param>
     /// <returns>
-    /// <c>1</c> si <paramref name="value" /> es igual a
-    /// <see cref="WithItems" />, <c>0</c> en caso contrario.
+    /// <c>1</c> if <paramref name="value"/> equals <see cref="WithItems"/>,
+    /// <c>0</c> otherwise.
     /// </returns>
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {

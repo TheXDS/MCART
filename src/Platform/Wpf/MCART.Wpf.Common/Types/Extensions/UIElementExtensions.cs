@@ -34,19 +34,17 @@ using System.Windows.Media.Imaging;
 namespace TheXDS.MCART.Helpers;
 
 /// <summary>
-/// Contiene extensiones para la clase <see cref="UIElement"/>.
+/// Contains extensions for the UIElement class.
 /// </summary>
 public static class UIElementExtensions
 {
     /// <summary>
-    /// Crea un mapa de bits de un <see cref="UIElement" />.
+    /// Renders a UIElement to a RenderTargetBitmap.
     /// </summary>
-    /// <param name="u">
-    /// <see cref="UIElement" /> a renderizar.
-    /// </param>
+    /// <param name="u">The UIElement to render.</param>
     /// <returns>
-    /// Un objeto <see cref="RenderTargetBitmap" /> que contiene una imagen
-    /// renderizada de <paramref name="u" />.
+    /// A RenderTargetBitmap that contains the rendered image of
+    /// the specified UIElement.
     /// </returns>
     public static RenderTargetBitmap Render(this UIElement u)
     {

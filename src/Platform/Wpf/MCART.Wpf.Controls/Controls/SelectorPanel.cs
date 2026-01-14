@@ -37,8 +37,7 @@ using TheXDS.MCART.Math;
 namespace TheXDS.MCART.Controls;
 
 /// <summary>
-/// Control que permite seleccionar el contenido a mostrar basado en un valor
-/// de índice.
+/// Control that selects which content to display based on an index.
 /// </summary>
 [ContentProperty(nameof(Items))]
 public class SelectorPanel : ItemsControl
@@ -57,7 +56,7 @@ public class SelectorPanel : ItemsControl
         new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender | FrameworkPropertyMetadataOptions.AffectsArrange));
 
     /// <summary>
-    /// Identifica a la propiedad de dependencia <see cref="SelectedIndex"/>.
+    /// Identifies the <see cref="SelectedIndex"/> dependency property.
     /// </summary>
     public static readonly DependencyProperty SelectedIndexProperty = DependencyProperty.Register(
         nameof(SelectedIndex),
@@ -71,13 +70,14 @@ public class SelectorPanel : ItemsControl
         OnValidateSelectedIndex);
 
     /// <summary>
-    /// Identifica a la propiedad de dependencia <see cref="SelectedItem"/>.
+    /// Identifies the <see cref="SelectedItem"/> dependency property.
     /// </summary>
     public static readonly DependencyProperty SelectedItemProperty = SelectedItemPropertyKey.DependencyProperty;
 
     /// <summary>
-    /// Obtiene o establece el índice del elemento a mostrar en este control.
+    /// Gets or sets the index of the element to display in this control.
     /// </summary>
+    /// <value>The zero‑based index of the selected element, or -1 if none is selected.</value>
     public int SelectedIndex
     {
         get => (int)GetValue(SelectedIndexProperty);
@@ -85,14 +85,15 @@ public class SelectorPanel : ItemsControl
     }
 
     /// <summary>
-    /// Obtiene una referencia al elemento mostrado actualmente en el control.
+    /// Gets a reference to the currently displayed item in the control.
     /// </summary>
+    /// <value>The item currently selected, or <see langword="null"/> if none is selected.</value>
     public object? SelectedItem
     {
         get => GetValue(SelectedItemProperty);
         protected set => SetValue(SelectedItemPropertyKey, value);
     }
-
+    
     /// <inheritdoc/>
     protected override void OnInitialized(EventArgs e)
     {

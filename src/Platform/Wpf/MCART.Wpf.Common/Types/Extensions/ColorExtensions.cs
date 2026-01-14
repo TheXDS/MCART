@@ -30,33 +30,29 @@ SOFTWARE.
 
 using System.Windows.Media;
 using TheXDS.MCART.Math;
-using B = System.Windows.Media.Brush;
 using C = TheXDS.MCART.Types.Color;
 using D = System.Windows.Media.Color;
 
 namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
-/// Extensiones de conversión de colores de MCART en
-/// <see cref="D"/>.
+/// Color conversion extensions for MCART in <see cref="D"/>.
 /// </summary>
 public static class WpfColorExtensions
 {
     /// <summary>
-    /// Convierte una estructura <see cref="C"/> en un
-    /// <see cref="D"/>.
+    /// Converts a <see cref="C"/> structure into a <see cref="D"/>.
     /// </summary>
-    /// <param name="c"><see cref="C"/> a convertir.</param>
+    /// <param name="c">The <see cref="C"/> to convert.</param>
     public static D Color(this C c)
     {
         return D.FromScRgb(c.ScA, c.ScR, c.ScG, c.ScB);
     }
 
     /// <summary>
-    /// Convierte una estructura <see cref="D"/> en un
-    /// <see cref="C"/>.
+    /// Converts a <see cref="D"/> structure into a <see cref="C"/>.
     /// </summary>
-    /// <param name="c"><see cref="D"/> a convertir.</param>
+    /// <param name="c">The <see cref="D"/> to convert.</param>
     public static C ToMcartColor(this D c)
     {
         return new C(
@@ -67,10 +63,9 @@ public static class WpfColorExtensions
     }
 
     /// <summary>
-    /// Convierte un <see cref="SolidColorBrush"/> en un
-    /// <see cref="C"/>.
+    /// Converts a <see cref="SolidColorBrush"/> into a <see cref="C"/>.
     /// </summary>
-    /// <param name="c"><see cref="D"/> a convertir.</param>
+    /// <param name="c">The <see cref="SolidColorBrush"/> to convert.</param>
     public static C ToMcartColor(this SolidColorBrush c)
     {
         return new C(
@@ -81,13 +76,13 @@ public static class WpfColorExtensions
     }
 
     /// <summary>
-    /// Convierte una estructura <see cref="C"/> en un
-    /// <see cref="B"/>.
+    /// Creates a solid-color <see cref="SolidColorBrush"/> from a
+    /// <see cref="C"/> structure.
     /// </summary>
-    /// <param name="c"><see cref="C"/> a convertir.</param>
+    /// <param name="c">The <see cref="C"/> to convert.</param>
     /// <returns>
-    /// Un <see cref="B"/> de color sólido equivalente al
-    /// <see cref="C"/> original.
+    /// A <see cref="SolidColorBrush"/> that is the equivalent solid-color
+    /// brush for the original <see cref="C"/>.
     /// </returns>
     public static SolidColorBrush Brush(this C c)
     {
@@ -95,12 +90,12 @@ public static class WpfColorExtensions
     }
 
     /// <summary>
-    /// Mezcla todos los colores de un <see cref="GradientBrush"/> en
-    /// un <see cref="C"/>.
+    /// Blends all colors of a <see cref="GradientBrush"/> into a single
+    /// <see cref="C"/>.
     /// </summary>
-    /// <param name="g"></param>
+    /// <param name="g">The <see cref="GradientBrush"/> to blend.</param>
     /// <returns>
-    /// Un <see cref="C"/> que es la mezcla de todos los colores del
+    /// A <see cref="C"/> that is the blend of all colors in the
     /// <see cref="GradientBrush"/>.
     /// </returns>
     public static C Blend(this GradientBrush g)

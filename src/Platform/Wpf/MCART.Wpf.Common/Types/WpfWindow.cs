@@ -34,9 +34,8 @@ using TheXDS.MCART.Types.Base;
 namespace TheXDS.MCART.Types;
 
 /// <summary>
-/// Extiende la clase <see cref="Window"/> para implementar la interfaz
-/// <see cref="IWpfWindow"/>.
+/// Extends the Window class to implement the IWpfWindow interface.
 /// </summary>
-public class WpfWindow: Window, IWpfWindow
+public class WpfWindow : Window, IWpfWindow
 {
 }

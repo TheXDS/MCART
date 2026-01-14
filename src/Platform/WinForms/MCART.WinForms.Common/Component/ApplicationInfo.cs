@@ -33,71 +33,66 @@ using System.Reflection;
 namespace TheXDS.MCART.Component;
 
 /// <summary>
-/// Expone la información de ensamblado de una aplicación de Windows Forms.
+/// Exposes the assembly information of a Windows Forms application.
 /// </summary>
 public class ApplicationInfo : ApplicationInfoBase<Application>
 {
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="ApplicationInfo"/>.
+    /// Initializes a new instance of the <see cref="ApplicationInfo"/> class.
     /// </summary>
     /// <param name="application">
-    /// Aplicación de la cual se mostrará la información.
+    /// The application whose information will be displayed.
     /// </param>
     public ApplicationInfo(Application application) : base(application)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="ApplicationInfo"/>.
+    /// Initializes a new instance of the <see cref="ApplicationInfo"/> class.
     /// </summary>
     /// <param name="application">
-    /// Aplicación de la cual se mostrará la información.
+    /// The application whose information will be displayed.
     /// </param>
-    /// <param name="icon">Ícono a mostrar de la aplicación.</param>
+    /// <param name="icon">The icon to display for the application.</param>
     public ApplicationInfo(Application application, Icon? icon) : base(application, icon)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="ApplicationInfo"/>.
+    /// Initializes a new instance of the <see cref="ApplicationInfo"/> class.
     /// </summary>
     /// <param name="application">
-    /// Aplicación de la cual se mostrará la información.
+    /// The application whose information will be displayed.
     /// </param>
     /// <param name="inferIcon">
-    /// <see langword="true"/> para intentar determinar el ícono de la
-    /// aplicación, <see langword="false"/> para no mostrar un ícono.
+    /// <see langword="true"/> to attempt to determine the application's icon,
+    /// <see langword="false"/> to display no icon.
     /// </param>
     public ApplicationInfo(Application application, bool inferIcon) : base(application, inferIcon)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="ApplicationInfo"/>.
+    /// Initializes a new instance of the <see cref="ApplicationInfo"/> class.
     /// </summary>
     /// <param name="assembly">
-    /// Ensamblado del cual se mostrará la información.
+    /// The assembly whose information will be displayed.
     /// </param>
     /// <param name="inferIcon">
-    /// <see langword="true"/> para intentar determinar el ícono del
-    /// ensamblado, <see langword="false"/> para no mostrar un ícono.
+    /// <see langword="true"/> to attempt to determine the assembly's icon,
+    /// <see langword="false"/> to display no icon.
     /// </param>
     public ApplicationInfo(Assembly assembly, bool inferIcon) : base(assembly, inferIcon)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="ApplicationInfo"/>.
+    /// Initializes a new instance of the <see cref="ApplicationInfo"/> class.
     /// </summary>
     /// <param name="assembly">
-    /// Ensamblado del cual se mostrará la información.
+    /// The assembly whose information will be displayed.
     /// </param>
-    /// <param name="icon">Ícono a mostrar del ensamblado.</param>
+    /// <param name="icon">The icon to display for the assembly.</param>
     public ApplicationInfo(Assembly assembly, Icon? icon) : base(assembly, icon)
     {
     }

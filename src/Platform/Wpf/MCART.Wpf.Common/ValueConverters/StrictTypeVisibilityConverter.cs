@@ -36,29 +36,29 @@ using TheXDS.MCART.Resources;
 namespace TheXDS.MCART.ValueConverters;
 
 /// <summary>
-/// Determina si un objeto es una instancia del tipo provisto, y devuelve
-/// <see cref="Visibility.Visible" /> si lo es.
+/// Determines whether an object is an instance of the supplied type and
+/// returns <see cref="Visibility.Visible"/> if it is.
 /// </summary>
 public sealed class StrictTypeVisibilityConverter : IValueConverter
 {
     /// <summary>
-    /// Determina si un objeto es una instancia del tipo provisto.
+    /// Determines if an object is an instance of the provided type.
     /// </summary>
     /// <param name="value">
-    /// Valor generado por el origen de enlace.
+    /// Value produced by the binding source.
     /// </param>
     /// <param name="targetType">
-    /// El tipo de la propiedad del destino de enlace.
+    /// The type of the binding target property.
     /// </param>
     /// <param name="parameter">
-    /// Parámetro de convertidor que se va a usar.
+    /// Converter parameter to use.
     /// </param>
     /// <param name="culture">
-    /// Referencia cultural que se va a usar en el convertidor.
+    /// Culture information to use in the converter.
     /// </param>
     /// <returns>
-    /// <see cref="Visibility.Visible" /> si el objeto es una instancia del
-    /// tipo provisto, <see cref="Visibility.Collapsed" /> en caso contrario.
+    /// <see cref="Visibility.Visible"/> if the object is an instance of
+    /// the provided type; otherwise <see cref="Visibility.Collapsed"/>.
     /// </returns>
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
@@ -67,27 +67,29 @@ public sealed class StrictTypeVisibilityConverter : IValueConverter
     }
 
     /// <summary>
-    /// Implementa <see cref="IValueConverter.ConvertBack" />.
+    /// Implements <see cref="IValueConverter.ConvertBack"/>.
     /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="targetType">Tipo del destino.</param>
+    /// <param name="value">Object to convert.</param>
+    /// <param name="targetType">Target type.</param>
     /// <param name="parameter">
-    /// Parámetros personalizados para este <see cref="IValueConverter" />.
+    /// Custom parameters for this <see cref="IValueConverter"/>.
     /// </param>
     /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
+    /// <see cref="CultureInfo"/> to use for conversion.
     /// </param>
     /// <exception cref="InvalidCastException">
-    /// Se produce si <paramref name="value" /> no es un <see cref="Visibility" />.
+    /// Thrown if <paramref name="value"/> is not a <see cref="Visibility"/>.
     /// </exception>
     /// <exception cref="TypeLoadException">
-    /// Se produce si <paramref name="targetType" /> no es una clase o estructura instanciable con un constructor sin
-    /// parámetros.
+    /// Thrown if <paramref name="targetType"/> is not a class or struct that can
+    /// be instantiated with a parameterless constructor.
     /// </exception>
     /// <returns>
-    /// Este método siempre genera un <see cref="InvalidOperationException" />.
+    /// This method always throws an <see cref="InvalidOperationException"/>.
     /// </returns>
-    /// <exception cref="InvalidOperationException">Este método siempre genera esta excepción al ser llamado.</exception>
+    /// <exception cref="InvalidOperationException">
+    /// This method always throws this exception when called.
+    /// </exception>
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
         throw new InvalidOperationException();

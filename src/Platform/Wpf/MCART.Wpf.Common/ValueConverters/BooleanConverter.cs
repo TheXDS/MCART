@@ -32,6 +32,4 @@ using System.Windows.Data;
 
 namespace TheXDS.MCART.ValueConverters;
 
-public partial class BooleanConverter<T> : IValueConverter
-{
-}
+public partial class BooleanConverter<T> : IValueConverter;

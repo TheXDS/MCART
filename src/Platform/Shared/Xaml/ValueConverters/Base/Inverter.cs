@@ -33,17 +33,19 @@ using System.Globalization;
 namespace TheXDS.MCART.ValueConverters.Base;
 
 /// <summary>
-/// Clase base para crear convertidores de valores que inviertan el valor
-/// de una propiedad de dependencia.
+/// Base class for creating value converters that invert the value of a dependency property.
 /// </summary>
-/// <typeparam name="T">Tipo de valor a invertir.</typeparam>
+/// <typeparam name="T">
+/// The type of value to invert.
+/// </typeparam>
 /// <remarks>
-/// Inicializa una nueva instancia de la clase
-/// <see cref="Inverter{T}" />.
+/// Initializes a new instance of the <see cref="Inverter{T}"/> class.
 /// </remarks>
-/// <param name="yayValue">Valor invertible.</param>
+/// <param name="yayValue">
+/// The value that can be inverted.
+/// </param>
 /// <param name="nayValue">
-/// Valor inverso de <paramref name="yayValue" />.
+/// The inverse value of <paramref name="yayValue"/>.
 /// </param>
 public abstract partial class Inverter<T>(T yayValue, T nayValue) where T : struct
 {

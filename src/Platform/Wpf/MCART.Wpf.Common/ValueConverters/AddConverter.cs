@@ -33,8 +33,6 @@ using System.Windows.Data;
 namespace TheXDS.MCART.ValueConverters;
 
 /// <summary>
-/// Permite la adición de propiedades numéricas.
+/// Allows the addition of numeric properties.
 /// </summary>
-public sealed partial class AddConverter : IValueConverter
-{
-}
+public sealed partial class AddConverter : IValueConverter;

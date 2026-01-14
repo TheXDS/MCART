@@ -33,12 +33,12 @@ using TheXDS.MCART.ValueConverters.Base;
 namespace TheXDS.MCART.ValueConverters;
 
 /// <summary>
-/// Invierte un valor booleano
+/// Inverts a boolean value.
 /// </summary>
 public sealed class BooleanInverter : Inverter<bool>
 {
     /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="BooleanInverter" />.
+    /// Initializes a new instance of the <see cref="BooleanInverter" /> class.
     /// </summary>
     public BooleanInverter() : base(true, false)
     {

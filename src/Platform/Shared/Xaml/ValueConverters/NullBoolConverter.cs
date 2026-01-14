@@ -33,37 +33,39 @@ using System.Globalization;
 namespace TheXDS.MCART.ValueConverters;
 
 /// <summary>
-/// Clase base para crear convertidores de valores booleanos que pueden ser
-/// <see langword="null" />.
+/// Base class for creating boolean value converters that can be null.
 /// </summary>
-/// <typeparam name="T">Tipo de valores a convertir.</typeparam>
+/// <typeparam name="T">Type of values to convert.</typeparam>
 public sealed partial class NullBoolConverter<T>
 {
     /// <summary>
-    /// Obtiene o establece el valor que equivale a <see langword="false" /> en este
+    /// Gets or sets the value that represents
+    /// <see langword="false" /> in this
     /// <see cref="NullBoolConverter{T}" />.
     /// </summary>
     public T False { get; set; }
 
     /// <summary>
-    /// Obtiene o establece el valor que equivale a <see langword="null" /> en este
+    /// Gets or sets the value that represents
+    /// <see langword="null" /> in this
     /// <see cref="NullBoolConverter{T}" />.
     /// </summary>
     public T Null { get; set; }
 
     /// <summary>
-    /// Obtiene o establece el valor que equivale a <see langword="true" /> en este
+    /// Gets or sets the value that represents
+    /// <see langword="true" /> in this
     /// <see cref="NullBoolConverter{T}" />.
     /// </summary>
     public T True { get; set; }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="NullBoolConverter{T}" />, configurando los valores que
-    /// corresponderán a <see langword="true" /> y <see langword="false" />.
+    /// Initializes a new instance of the
+    /// <see cref="NullBoolConverter{T}" /> class, setting the values that
+    /// correspond to <see langword="true" /> and <see langword="false" />.
     /// </summary>
-    /// <param name="trueValue">Valor equivalente a <see langword="true" />.</param>
-    /// <param name="falseValue">Valor equivalente a <see langword="false" />.</param>
+    /// <param name="trueValue">Value equivalent to <see langword="true" />.</param>
+    /// <param name="falseValue">Value equivalent to <see langword="false" />.</param>
     public NullBoolConverter(T trueValue, T falseValue = default!)
     {
         True = trueValue;
@@ -71,13 +73,14 @@ public sealed partial class NullBoolConverter<T>
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="NullBoolConverter{T}" />, configurando los valores que
-    /// corresponderán a <see langword="true" /> y <see langword="false" />.
+    /// Initializes a new instance of the
+    /// <see cref="NullBoolConverter{T}" /> class, setting the values that
+    /// correspond to <see langword="true" />, <see langword="false" /> and
+    /// <see langword="null" />.
     /// </summary>
-    /// <param name="trueValue">Valor equivalente a <see langword="true" />.</param>
-    /// <param name="falseValue">Valor equivalente a <see langword="false" />.</param>
-    /// <param name="nullValue">Valor equivalente a <see langword="null" />.</param>
+    /// <param name="trueValue">Value equivalent to <see langword="true" />.</param>
+    /// <param name="falseValue">Value equivalent to <see langword="false" />.</param>
+    /// <param name="nullValue">Value equivalent to <see langword="null" />.</param>
     public NullBoolConverter(T trueValue, T falseValue, T nullValue)
     {
         True = trueValue;
@@ -86,22 +89,17 @@ public sealed partial class NullBoolConverter<T>
     }
 
     /// <summary>
-    /// Convierte un valor a <see cref="Nullable{T}" />.
+    /// Converts a value to <see cref="Nullable{T}" />.
     /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="targetType">Tipo del destino.</param>
-    /// <param name="parameter">
-    /// Parámetros personalizados a utilizar para realizar la conversión.
-    /// </param>
-    /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
-    /// </param>
+    /// <param name="value">Object to convert.</param>
+    /// <param name="targetType">Target type.</param>
+    /// <param name="parameter">Custom parameters used for the conversion.</param>
+    /// <param name="culture"><see cref="CultureInfo" /> used for the conversion.</param>
     /// <returns>
-    /// <see cref="NullBoolConverter{T}.True" /> si <paramref name="value" /> es
-    /// <see langword="true" />,
-    /// <see cref="NullBoolConverter{T}.False" /> si <paramref name="value" /> es
-    /// <see langword="false" />,
-    /// <see cref="NullBoolConverter{T}.Null" /> si <paramref name="value" /> es
+    /// <see cref="NullBoolConverter{T}.True" /> if <paramref name="value" /> is
+    /// <see langword="true" />, <see cref="NullBoolConverter{T}.False" /> if
+    /// <paramref name="value" /> is <see langword="false" />, and
+    /// <see cref="NullBoolConverter{T}.Null" /> if <paramref name="value" /> is
     /// <see langword="null" />.
     /// </returns>
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
@@ -115,23 +113,18 @@ public sealed partial class NullBoolConverter<T>
     }
 
     /// <summary>
-    /// Convierte un <see cref="bool" /> al tipo establecido para este
-    /// <see cref="BooleanConverter{T}" />.
+    /// Converts a <see cref="bool" /> to the type set for this
+    /// <see cref="NullBoolConverter{T}" />.
     /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="targetType">Tipo del destino.</param>
-    /// <param name="parameter">
-    /// Parámetros personalizados a utilizar para realizar la conversión.
-    /// </param>
-    /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
-    /// </param>
+    /// <param name="value">Object to convert.</param>
+    /// <param name="targetType">Target type.</param>
+    /// <param name="parameter">Custom parameters used for the conversion.</param>
+    /// <param name="culture"><see cref="CultureInfo" /> used for the conversion.</param>
     /// <returns>
-    /// <see langword="true" /> si <paramref name="value" /> es
-    /// <see cref="NullBoolConverter{T}.True" />,
-    /// <see langword="false" /> si <paramref name="value" /> es
-    /// <see cref="NullBoolConverter{T}.False" />,
-    /// <see langword="null" /> si <paramref name="value" /> es
+    /// <see langword="true" /> if <paramref name="value" /> is
+    /// <see cref="NullBoolConverter{T}.True" />, <see langword="false" /> if
+    /// <paramref name="value" /> is <see cref="NullBoolConverter{T}.False" />,
+    /// and <see langword="null" /> if <paramref name="value" /> is
     /// <see cref="NullBoolConverter{T}.Null" />.
     /// </returns>
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)

@@ -37,16 +37,18 @@ using TheXDS.MCART.Attributes;
 namespace TheXDS.MCART.Helpers;
 
 /// <summary>
-/// Contiene extensiones para la clase <see cref="FrameworkElement"/>.
+/// Contains extension methods for the <see cref="FrameworkElement"/>
+/// class.
 /// </summary>
 public static class FrameworkElementExtensions
 {
     /// <summary>
-    /// Enlaza una propiedad de dependencia de un <see cref="DependencyObject" /> a un <see cref="FrameworkElement" />.
+    /// Binds a dependency property on the element to a source
+    /// <see cref="DependencyObject"/>.
     /// </summary>
-    /// <param name="obj">Objeto destino del enlace</param>
-    /// <param name="dp">Propiedad de dependencia a enlazar.</param>
-    /// <param name="source">origen del enlace.</param>
+    /// <param name="obj">Target element of the binding.</param>
+    /// <param name="dp">Dependency property to bind.</param>
+    /// <param name="source">Binding source object.</param>
     [Sugar]
     public static void Bind(this FrameworkElement obj, DependencyProperty dp, DependencyObject source)
     {
@@ -54,12 +56,13 @@ public static class FrameworkElementExtensions
     }
 
     /// <summary>
-    /// Enlaza una propiedad de dependencia de un <see cref="DependencyObject" /> a un <see cref="FrameworkElement" />.
+    /// Binds a dependency property on the element to a source
+    /// <see cref="DependencyObject"/> using the specified mode.
     /// </summary>
-    /// <param name="obj">Objeto destino del enlace</param>
-    /// <param name="dp">Propiedad de dependencia a enlazar.</param>
-    /// <param name="source">origen del enlace.</param>
-    /// <param name="mode">Modo del enlace.</param>
+    /// <param name="obj">Target element of the binding.</param>
+    /// <param name="dp">Dependency property to bind.</param>
+    /// <param name="source">Binding source object.</param>
+    /// <param name="mode">Binding mode to use.</param>
     [Sugar]
     public static void Bind(this FrameworkElement obj, DependencyProperty dp, DependencyObject source, BindingMode mode)
     {
@@ -67,12 +70,12 @@ public static class FrameworkElementExtensions
     }
 
     /// <summary>
-    /// Enlaza una propiedad de dependencia de un <see cref="DependencyObject" /> a un
-    /// <see cref="INotifyPropertyChanged" />.
+    /// Binds a dependency property on the element to a source that
+    /// implements <see cref="INotifyPropertyChanged"/>.
     /// </summary>
-    /// <param name="obj">Objeto destino del enlace</param>
-    /// <param name="dp">Propiedad de dependencia a enlazar.</param>
-    /// <param name="source">origen del enlace.</param>
+    /// <param name="obj">Target element of the binding.</param>
+    /// <param name="dp">Dependency property to bind.</param>
+    /// <param name="source">Source implementing INotifyPropertyChanged.</param>
     [Sugar]
     public static void Bind(this FrameworkElement obj, DependencyProperty dp, INotifyPropertyChanged source)
     {
@@ -80,13 +83,14 @@ public static class FrameworkElementExtensions
     }
 
     /// <summary>
-    /// Enlaza una propiedad de dependencia de un <see cref="INotifyPropertyChanged" /> a un
-    /// <see cref="FrameworkElement" />.
+    /// Binds a dependency property on the element to a source that
+    /// implements <see cref="INotifyPropertyChanged"/>, with the
+    /// specified binding mode.
     /// </summary>
-    /// <param name="obj">Objeto destino del enlace</param>
-    /// <param name="dp">Propiedad de dependencia a enlazar.</param>
-    /// <param name="source">origen del enlace.</param>
-    /// <param name="mode">Modo del enlace.</param>
+    /// <param name="obj">Target element of the binding.</param>
+    /// <param name="dp">Dependency property to bind.</param>
+    /// <param name="source">Source implementing INotifyPropertyChanged.</param>
+    /// <param name="mode">Binding mode to use.</param>
     [Sugar]
     public static void Bind(this FrameworkElement obj, DependencyProperty dp, INotifyPropertyChanged source, BindingMode mode)
     {
@@ -94,12 +98,13 @@ public static class FrameworkElementExtensions
     }
 
     /// <summary>
-    /// Enlaza una propiedad de dependencia de un <see cref="DependencyObject" /> a un <see cref="FrameworkElement" />.
+    /// Binds the specified target dependency property to a source
+    /// dependency property on a <see cref="DependencyObject"/>.
     /// </summary>
-    /// <param name="obj">Objeto destino del enlace</param>
-    /// <param name="targetDp">Propiedad de dependencia de destino del enlace.</param>
-    /// <param name="source">origen del enlace.</param>
-    /// <param name="sourceDp">Propiedad de dependencia de destino del enlace.</param>
+    /// <param name="obj">Target element of the binding.</param>
+    /// <param name="targetDp">Target dependency property.</param>
+    /// <param name="source">Binding source object.</param>
+    /// <param name="sourceDp">Source dependency property.</param>
     [Sugar]
     public static void Bind(this FrameworkElement obj, DependencyProperty targetDp, DependencyObject source, DependencyProperty sourceDp)
     {
@@ -107,13 +112,15 @@ public static class FrameworkElementExtensions
     }
 
     /// <summary>
-    /// Enlaza una propiedad de dependencia de un <see cref="DependencyObject" /> a un <see cref="FrameworkElement" />.
+    /// Binds the specified target dependency property to a source
+    /// dependency property on a <see cref="DependencyObject"/>, using
+    /// the provided binding mode.
     /// </summary>
-    /// <param name="obj">Objeto destino del enlace</param>
-    /// <param name="targetDp">Propiedad de dependencia de destino del enlace.</param>
-    /// <param name="source">origen del enlace.</param>
-    /// <param name="sourceDp">Propiedad de dependencia de destino del enlace.</param>
-    /// <param name="mode">Modo del enlace.</param>
+    /// <param name="obj">Target element of the binding.</param>
+    /// <param name="targetDp">Target dependency property.</param>
+    /// <param name="source">Binding source object.</param>
+    /// <param name="sourceDp">Source dependency property.</param>
+    /// <param name="mode">Binding mode to use.</param>
     [Sugar]
     public static void Bind(this FrameworkElement obj, DependencyProperty targetDp, DependencyObject source, DependencyProperty sourceDp, BindingMode mode)
     {
@@ -121,13 +128,14 @@ public static class FrameworkElementExtensions
     }
 
     /// <summary>
-    /// Enlaza una propiedad de dependencia de un <see cref="INotifyPropertyChanged" /> a un
-    /// <see cref="FrameworkElement" />.
+    /// Binds the specified target dependency property to a source
+    /// property on an object that implements
+    /// <see cref="INotifyPropertyChanged"/>, using two-way binding.
     /// </summary>
-    /// <param name="obj">Objeto destino del enlace</param>
-    /// <param name="targetDp">Propiedad de dependencia de destino del enlace.</param>
-    /// <param name="source">origen del enlace.</param>
-    /// <param name="sourceDp">Propiedad de dependencia de destino del enlace.</param>
+    /// <param name="obj">Target element of the binding.</param>
+    /// <param name="targetDp">Target dependency property.</param>
+    /// <param name="source">Source implementing INotifyPropertyChanged.</param>
+    /// <param name="sourceDp">Source dependency property.</param>
     [Sugar]
     public static void Bind(this FrameworkElement obj, DependencyProperty targetDp, INotifyPropertyChanged source, DependencyProperty sourceDp)
     {
@@ -135,14 +143,15 @@ public static class FrameworkElementExtensions
     }
 
     /// <summary>
-    /// Enlaza una propiedad de dependencia de un <see cref="INotifyPropertyChanged" /> a un
-    /// <see cref="FrameworkElement" />.
+    /// Binds the specified target dependency property to a source
+    /// property on an object that implements
+    /// <see cref="INotifyPropertyChanged"/>, using the specified mode.
     /// </summary>
-    /// <param name="obj">Objeto destino del enlace</param>
-    /// <param name="targetDp">Propiedad de dependencia de destino del enlace.</param>
-    /// <param name="source">origen del enlace.</param>
-    /// <param name="sourceDp">Propiedad de dependencia de destino del enlace.</param>
-    /// <param name="mode">Modo del enlace.</param>
+    /// <param name="obj">Target element of the binding.</param>
+    /// <param name="targetDp">Target dependency property.</param>
+    /// <param name="source">Source implementing INotifyPropertyChanged.</param>
+    /// <param name="sourceDp">Source dependency property.</param>
+    /// <param name="mode">Binding mode to use.</param>
     [Sugar]
     public static void Bind(this FrameworkElement obj, DependencyProperty targetDp, INotifyPropertyChanged source, DependencyProperty sourceDp, BindingMode mode)
     {
@@ -150,13 +159,14 @@ public static class FrameworkElementExtensions
     }
 
     /// <summary>
-    /// Enlaza una propiedad de dependencia de un <see cref="object" /> a un <see cref="FrameworkElement" />.
+    /// Binds a target dependency property on the element to a property
+    /// on an arbitrary source object using the given binding mode.
     /// </summary>
-    /// <param name="obj">Objeto destino del enlace</param>
-    /// <param name="targetDp">Propiedad de dependencia de destino del enlace.</param>
-    /// <param name="source">origen del enlace.</param>
-    /// <param name="sourceDp">Propiedad de dependencia de destino del enlace.</param>
-    /// <param name="mode">Modo del enlace.</param>
+    /// <param name="obj">Target element of the binding.</param>
+    /// <param name="targetDp">Target dependency property.</param>
+    /// <param name="source">Binding source object.</param>
+    /// <param name="sourceDp">Source dependency property.</param>
+    /// <param name="mode">Binding mode to use.</param>
     [Sugar]
     public static void Bind(this FrameworkElement obj, DependencyProperty targetDp, object source, DependencyProperty sourceDp, BindingMode mode)
     {
@@ -169,14 +179,12 @@ public static class FrameworkElementExtensions
     }
 
     /// <summary>
-    /// Crea un mapa de bits de un <see cref="FrameworkElement" />.
+    /// Creates a bitmap from a <see cref="FrameworkElement"/>.
     /// </summary>
-    /// <param name="f">
-    /// <see cref="FrameworkElement" /> a renderizar.
-    /// </param>
+    /// <param name="f">The <see cref="FrameworkElement"/> to render.</param>
     /// <returns>
-    /// Un objeto <see cref="RenderTargetBitmap" /> que contiene una imagen
-    /// renderizada de <paramref name="f" />.
+    /// A <see cref="RenderTargetBitmap"/> containing a rendered image of
+    /// <paramref name="f"/>.
     /// </returns>
     public static RenderTargetBitmap Render(this FrameworkElement f)
     {
@@ -184,17 +192,14 @@ public static class FrameworkElementExtensions
     }
 
     /// <summary>
-    /// Crea un mapa de bits de un <see cref="FrameworkElement" />.
+    /// Creates a bitmap from a <see cref="FrameworkElement"/>, using the
+    /// specified DPI value.
     /// </summary>
-    /// <param name="f">
-    /// <see cref="FrameworkElement" /> a renderizar.
-    /// </param>
-    /// <param name="dpi">
-    /// Valor de puntos por pulgada a utilizar para crear el mapa de bits.
-    /// </param>
+    /// <param name="f">The <see cref="FrameworkElement"/> to render.</param>
+    /// <param name="dpi">Dots-per-inch value for the bitmap.</param>
     /// <returns>
-    /// Un objeto <see cref="RenderTargetBitmap" /> que contiene una imagen
-    /// renderizada de <paramref name="f" />.
+    /// A <see cref="RenderTargetBitmap"/> containing a rendered image of
+    /// <paramref name="f"/>.
     /// </returns>
     public static RenderTargetBitmap Render(this FrameworkElement f, int dpi)
     {
@@ -202,25 +207,17 @@ public static class FrameworkElementExtensions
     }
 
     /// <summary>
-    /// Crea un mapa de bits de un <see cref="FrameworkElement" />
-    /// estableciendo el tamaño en el cual se dibujará el control, por lo
-    /// que no necesita haberse mostrado en la interfaz de usuario.
+    /// Creates a bitmap of a <see cref="FrameworkElement"/> by setting
+    /// the size at which the control will be drawn, so it does not need
+    /// to be visible in the UI.
     /// </summary>
-    /// <param name="f">
-    /// <see cref="FrameworkElement" /> a renderizar.
-    /// </param>
-    /// <param name="inSize">
-    /// Tamaño del control a renderizar.
-    /// </param>
-    /// <param name="outSize">
-    /// Tamaño del canvas en donde se renderizará el control.
-    /// </param>
-    /// <param name="dpi">
-    /// Valor de puntos por pulgada a utilizar para crear el mapa de bits.
-    /// </param>
+    /// <param name="f">The <see cref="FrameworkElement"/> to render.</param>
+    /// <param name="inSize">Size used to measure the control.</param>
+    /// <param name="outSize">Canvas size to render the control onto.</param>
+    /// <param name="dpi">Dots-per-inch value for the bitmap.</param>
     /// <returns>
-    /// Un objeto <see cref="RenderTargetBitmap" /> que contiene una imagen
-    /// renderizada de <paramref name="f" />.
+    /// A <see cref="RenderTargetBitmap"/> containing a rendered image of
+    /// <paramref name="f"/>.
     /// </returns>
     public static RenderTargetBitmap Render(this FrameworkElement f, Size inSize, Size outSize, int dpi)
     {

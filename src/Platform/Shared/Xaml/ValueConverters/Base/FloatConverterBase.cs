@@ -33,18 +33,18 @@ using TheXDS.MCART.Helpers;
 namespace TheXDS.MCART.ValueConverters.Base;
 
 /// <summary>
-/// Clase base que incluye un método para obtener un <see cref="float"/>.
+/// Base class that includes a method to obtain a <see cref="float"/>.
 /// </summary>
 public abstract class FloatConverterBase
 {
     /// <summary>
-    /// Convierte un valor a un <see cref="float"/>.
+    /// Converts a value to a <see cref="float"/>.
     /// </summary>
     /// <param name="value">
-    /// Valor desde el cual obtener un <see cref="float"/>.
+    /// Value from which to obtain a <see cref="float"/>.
     /// </param>
     /// <returns>
-    /// Un <see cref="float"/> obtenido a partir del valor brindado.
+    /// A <see cref="float"/> derived from the supplied value.
     /// </returns>
     protected static float GetFloat(object? value)
     {

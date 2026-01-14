@@ -26,7 +26,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using System.Windows;
 using System.Windows.Markup;
 
 [assembly: XmlnsDefinition("http://schemas.thexds.local/mcart", "TheXDS.MCART.ValidationRules", AssemblyName = "MCART.Wpf.Mvvm")]

@@ -38,18 +38,17 @@ using Img = System.Drawing.Image;
 namespace TheXDS.MCART.Helpers;
 
 /// <summary>
-/// Contiene extensiones para la clase <see cref="Img"/>.
+/// Contains extensions for the Img class.
 /// </summary>
 public static class System_Drawing_ImageExtensions
 {
     /// <summary>
-    /// Convierte un <see cref="System.Drawing.Image" /> en un
-    /// <see cref="BitmapImage" />.
+    /// Converts a System.Drawing.Image into a BitmapImage.
     /// </summary>
-    /// <param name="image"><see cref="System.Drawing.Image" /> a convertir.</param>
+    /// <param name="image">The System.Drawing.Image to convert.</param>
     /// <returns>
-    /// Un <see cref="BitmapImage" /> que contiene la imagen obtenida desde
-    /// un <see cref="System.Drawing.Image" />.
+    /// A BitmapImage containing the image obtained from the
+    /// System.Drawing.Image.
     /// </returns>
     public static BitmapImage ToImage(this Img image)
     {
@@ -66,13 +65,12 @@ public static class System_Drawing_ImageExtensions
     }
 
     /// <summary>
-    /// Convierte un <see cref="System.Drawing.Image" /> en un
-    /// <see cref="BitmapSource" />.
+    /// Converts a System.Drawing.Image into a BitmapSource.
     /// </summary>
-    /// <param name="image"><see cref="System.Drawing.Image" /> a convertir.</param>
+    /// <param name="image">The System.Drawing.Image to convert.</param>
     /// <returns>
-    /// Un <see cref="BitmapImage" /> que contiene la imagen obtenida desde
-    /// un <see cref="System.Drawing.Image" />.
+    /// A BitmapSource containing the image obtained from the
+    /// System.Drawing.Image.
     /// </returns>
     public static BitmapSource ToSource(this Img image)
     {
@@ -90,13 +88,12 @@ public static class System_Drawing_ImageExtensions
     }
 
     /// <summary>
-    /// Convierte un <see cref="System.Drawing.Image" /> en un
-    /// <see cref="Visual" />.
+    /// Converts a System.Drawing.Image into a Visual.
     /// </summary>
-    /// <param name="image"><see cref="System.Drawing.Image" /> a convertir.</param>
+    /// <param name="image">The System.Drawing.Image to convert.</param>
     /// <returns>
-    /// Un <see cref="Visual" /> que contiene la imagen obtenida desde
-    /// un <see cref="System.Drawing.Image" />.
+    /// A Visual that contains the image obtained from the
+    /// System.Drawing.Image.
     /// </returns>
     public static Visual ToVisual(this Img image)
     {

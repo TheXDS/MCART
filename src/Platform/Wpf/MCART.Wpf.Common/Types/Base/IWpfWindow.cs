@@ -37,22 +37,22 @@ using TheXDS.MCART.PInvoke.Models;
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
-/// Define una serie de miembros accesorios a implementar dentro de las
-/// ventanas de WPF.
+/// Defines a set of auxiliary members that must be implemented by
+/// WPF windows.
 /// </summary>
 /// <remarks>
-/// Esta interfaz solo debe ser implementada por objetos que deriven de la
-/// clase <see cref="Window"/> o de una de sus clases derivadas.
+/// This interface should only be implemented by objects that derive
+/// from <see cref="Window"/> or one of its subclasses.
 /// </remarks>
 public interface IWpfWindow : IMsWindow
 {
     /// <summary>
-    /// Obtiene una referencia directa a la ventana.
+    /// Gets a direct reference to the window.
     /// </summary>
     Window Itself => this as Window ?? throw new InvalidTypeException(GetType());
 
     /// <summary>
-    /// Obtiene el tamaño actual de la ventana.
+    /// Gets the current size of the window.
     /// </summary>
     Size ActualSise => new(Itself.ActualWidth, Itself.ActualHeight);
 
@@ -119,12 +119,12 @@ public interface IWpfWindow : IMsWindow
     }
 
     /// <summary>
-    /// Obtiene un valor que indica el estado de la ventana.
+    /// Gets a value that indicates the window state.
     /// </summary>
     WindowState WindowState { get; }
 
     /// <summary>
-    /// Inicia una operación de arrastre de la ventana.
+    /// Starts a window drag operation.
     /// </summary>
     void DragMove() => Itself.DragMove();
 }

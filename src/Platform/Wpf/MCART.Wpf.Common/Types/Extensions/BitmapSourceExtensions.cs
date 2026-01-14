@@ -31,21 +31,20 @@ SOFTWARE.
 using System.IO;
 using System.Windows.Media.Imaging;
 
-namespace TheXDS.MCART.Helpers;
+namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
-/// Contiene extensiones para la clase <see cref="BitmapSource"/>.
+/// Contains extensions for the BitmapSource class.
 /// </summary>
 public static class BitmapSourceExtensions
 {
     /// <summary>
-    /// Convierte un <see cref="BitmapSource" /> en un
-    /// <see cref="BitmapImage" />.
+    /// Converts a <see cref="BitmapSource"/> into a <see cref="BitmapImage"/>.
     /// </summary>
-    /// <param name="bs"><see cref="BitmapSource" /> a convertir.</param>
+    /// <param name="bs">The <see cref="BitmapSource"/> to convert.</param>
     /// <returns>
-    /// Un <see cref="BitmapImage" /> que contiene la imagen obtenida desde
-    /// un <see cref="BitmapSource" />.
+    /// A <see cref="BitmapImage"/> that contains the image obtained from the
+    /// specified <see cref="BitmapSource"/>.
     /// </returns>
     public static BitmapImage ToImage(this BitmapSource bs)
     {

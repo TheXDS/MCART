@@ -33,25 +33,25 @@ using System.Globalization;
 namespace TheXDS.MCART.ValueConverters;
 
 /// <summary>
-/// Convierte un <see cref="double" /> en un <see cref="string" />,
-/// opcionalmente mostrando una etiqueta si el valor es inferior a cero.
+/// Converts a <see cref="double"/> to a <see cref="string"/>, optionally
+/// displaying a label if the value is less than zero.
 /// </summary>
 public sealed partial class LabeledDoubleConverter
 {
     /// <summary>
-    /// Convierte un <see cref="double" /> en un <see cref="string" />,
-    /// opcionalmente mostrando una etiqueta si el valor es inferior a cero.
+    /// Converts a <see cref="double"/> to a <see cref="string"/>,
+    /// optionally showing a label when the value is negative.
     /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="targetType">Tipo del destino.</param>
+    /// <param name="value">Object to convert.</param>
+    /// <param name="targetType">Target type.</param>
     /// <param name="parameter">
-    /// Etiqueta a mostrar en caso que el valor sea inferior a cero.
+    /// Label to display if the value is less than zero.
     /// </param>
     /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
+    /// <see cref="CultureInfo"/> to use during the conversion.
     /// </param>
     /// <returns>
-    /// El valor de <paramref name="value"/> como una cadena.
+    /// The value of <paramref name="value"/> represented as a string.
     /// </returns>
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
@@ -65,19 +65,19 @@ public sealed partial class LabeledDoubleConverter
     }
 
     /// <summary>
-    /// Revierte la conversión realizada por este objeto.
+    /// Reverses the conversion performed by this object.
     /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="targetType">Tipo del destino.</param>
+    /// <param name="value">Object to convert.</param>
+    /// <param name="targetType">Target type.</param>
     /// <param name="parameter">
-    /// Función opcional de transformación de valor.
+    /// Optional value transformation function.
     /// </param>
     /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
+    /// <see cref="CultureInfo"/> to use during the conversion.
     /// </param>
     /// <returns>
-    /// Un <see cref="double" /> cuyo valor es equivalente a la cadena
-    /// proporcionada.
+    /// A <see cref="double"/> whose value is equivalent to the provided
+    /// string.
     /// </returns>
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {

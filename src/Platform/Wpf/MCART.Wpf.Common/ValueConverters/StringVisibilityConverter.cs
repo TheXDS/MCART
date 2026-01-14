@@ -29,7 +29,6 @@ SOFTWARE.
 */
 
 using System.Globalization;
-using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Data;
 using TheXDS.MCART.Types.Extensions;
@@ -37,42 +36,42 @@ using TheXDS.MCART.Types.Extensions;
 namespace TheXDS.MCART.ValueConverters;
 
 /// <summary>
-/// Convierte un <see cref="string" /> a un <see cref="Visibility" />.
+/// Converts a <see cref="string" /> to a <see cref="Visibility" />.
 /// </summary>
 public sealed class StringVisibilityConverter : IValueConverter
 {
     /// <summary>
-    /// Obtiene o establece el <see cref="Visibility" /> a devolver cuando
-    /// el <see cref="string" /> esté vacío.
+    /// Gets or sets the <see cref="Visibility" /> to return when the
+    /// <see cref="string" /> is empty.
     /// </summary>
     public Visibility Empty { get; set; }
 
     /// <summary>
-    /// Obtiene o establece el <see cref="Visibility" /> a devolver cuando
-    /// el <see cref="string" /> no esté vacío.
+    /// Gets or sets the <see cref="Visibility" /> to return when the
+    /// <see cref="string" /> is not empty.
     /// </summary>
     public Visibility NotEmpty { get; set; }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="StringVisibilityConverter" />.
+    /// Initializes a new instance of the
+    /// <see cref="StringVisibilityConverter" /> class.
     /// </summary>
     /// <param name="empty">
-    /// <see cref="Visibility" /> a devolver cuando la cadena esté vacía.
+    /// <see cref="Visibility" /> to return when the string is empty.
     /// </param>
     public StringVisibilityConverter(Visibility empty) : this(empty, Visibility.Visible)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="StringVisibilityConverter" />.
+    /// Initializes a new instance of the
+    /// <see cref="StringVisibilityConverter" /> class.
     /// </summary>
     /// <param name="empty">
-    /// <see cref="Visibility" /> a devolver cuando la cadena esté vacía.
+    /// <see cref="Visibility" /> to return when the string is empty.
     /// </param>
     /// <param name="notEmpty">
-    /// <see cref="Visibility" /> a devolver cuando la cadena no esté vacía.
+    /// <see cref="Visibility" /> to return when the string is not empty.
     /// </param>
     public StringVisibilityConverter(Visibility empty, Visibility notEmpty)
     {
@@ -81,11 +80,11 @@ public sealed class StringVisibilityConverter : IValueConverter
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="StringVisibilityConverter" />.
+    /// Initializes a new instance of the
+    /// <see cref="StringVisibilityConverter" /> class.
     /// </summary>
     /// <param name="inverted">
-    /// Inversión de valores de <see cref="Visibility" />.
+    /// Whether to invert the visibility values.
     /// </param>
     public StringVisibilityConverter(bool inverted)
     {
@@ -102,8 +101,8 @@ public sealed class StringVisibilityConverter : IValueConverter
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="StringVisibilityConverter" />.
+    /// Initializes a new instance of the
+    /// <see cref="StringVisibilityConverter" /> class.
     /// </summary>
     public StringVisibilityConverter()
     {
@@ -112,20 +111,19 @@ public sealed class StringVisibilityConverter : IValueConverter
     }
 
     /// <summary>
-    /// Obtiene un <see cref="Visibility" /> a partir del valor.
+    /// Gets a <see cref="Visibility" /> based on the value.
     /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="targetType">Tipo del destino.</param>
+    /// <param name="value">Object to convert.</param>
+    /// <param name="targetType">Type of the target.</param>
     /// <param name="parameter">
-    /// Parámetros personalizados para este <see cref="IValueConverter" />.
+    /// Custom parameters for this <see cref="IValueConverter" />.
     /// </param>
     /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
+    /// <see cref="CultureInfo" /> to use for conversion.
     /// </param>
     /// <returns>
-    /// <see cref="Empty" /> si <paramref name="value" /> es una
-    /// cadena
-    /// vacía, <see cref="NotEmpty" /> en caso contrario.
+    /// <see cref="Empty" /> if <paramref name="value" /> is an empty string,
+    /// otherwise <see cref="NotEmpty" />.
     /// </returns>
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
@@ -133,19 +131,19 @@ public sealed class StringVisibilityConverter : IValueConverter
     }
 
     /// <summary>
-    /// Infiere un valor basado en el <see cref="Visibility" /> provisto.
+    /// Infers a value based on the provided <see cref="Visibility" />.
     /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="targetType">Tipo del destino.</param>
+    /// <param name="value">Object to convert.</param>
+    /// <param name="targetType">Type of the target.</param>
     /// <param name="parameter">
-    /// Parámetros personalizados para este <see cref="IValueConverter" />.
+    /// Custom parameters for this <see cref="IValueConverter" />.
     /// </param>
     /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
+    /// <see cref="CultureInfo" /> to use for conversion.
     /// </param>
     /// <returns>
-    /// <c>value.ToString()</c> si <paramref name="value" /> no es una
-    /// cadena vacía, <see cref="F:System.String.Empty" /> en caso contrario.
+    /// <c>value.ToString()</c> if <paramref name="value" /> equals
+    /// <see cref="NotEmpty" />, otherwise <see cref="F:System.String.Empty" />.
     /// </returns>
     public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {

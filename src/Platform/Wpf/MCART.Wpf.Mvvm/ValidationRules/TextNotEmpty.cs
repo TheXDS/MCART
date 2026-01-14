@@ -37,21 +37,21 @@ using static TheXDS.MCART.Types.Extensions.StringExtensions;
 namespace TheXDS.MCART.ValidationRules;
 
 /// <summary>
-/// Regla que verifica que un valor de texto no se encuentre vacío.
+/// Rule that verifies that a text value is not empty.
 /// </summary>
 public class TextNotEmpty : ValidationRule
 {
     /// <summary>
-    /// Si se reemplaza en una clase derivada, realiza comprobaciones de validación en un valor.
+    /// If overridden in a derived class, performs validation checks on a value.
     /// </summary>
     /// <param name="value">
-    /// Valor del destino de enlace que se comprobará.
+    /// The binding target value that will be checked.
     /// </param>
     /// <param name="cultureInfo">
-    /// Referencia cultural que usará en esta regla.
+    /// The culture reference that will be used in this rule.
     /// </param>
     /// <returns>
-    /// Objeto <see cref="ValidationResult" />.
+    /// A <see cref="ValidationResult"/> instance.
     /// </returns>
     public override ValidationResult Validate(object value, CultureInfo cultureInfo)
     {

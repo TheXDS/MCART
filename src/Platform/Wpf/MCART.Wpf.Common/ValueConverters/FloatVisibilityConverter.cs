@@ -35,50 +35,50 @@ using System.Windows.Data;
 namespace TheXDS.MCART.ValueConverters;
 
 /// <summary>
-/// Convierte un valor <see cref="float" /> a <see cref="Visibility" />.
+/// Converts a <see cref="float"/> to a <see cref="Visibility"/>.
 /// </summary>
 public sealed class FloatVisibilityConverter : IValueConverter
 {
     /// <summary>
-    /// Obtiene o establece el <see cref="Visibility" /> a devolver cuando
-    /// el valor sea mayor a cero.
+    /// Gets or sets the <see cref="Visibility"/> returned when the value is
+    /// greater than zero.
     /// </summary>
     public Visibility Positives { get; set; }
 
     /// <summary>
-    /// Obtiene o establece el <see cref="Visibility" /> a devolver cuando
-    /// el valor sea menor o igual a cero.
+    /// Gets or sets the <see cref="Visibility"/> returned when the value is
+    /// less than or equal to zero.
     /// </summary>
     public Visibility ZeroOrNegatives { get; set; }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="FloatVisibilityConverter" />.
+    /// Initializes a new instance of the <see cref="FloatVisibilityConverter"/> 
+    /// class.
     /// </summary>
     public FloatVisibilityConverter() : this(Visibility.Visible, Visibility.Collapsed)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="FloatVisibilityConverter" />.
+    /// Initializes a new instance of the <see cref="FloatVisibilityConverter"/> 
+    /// class.
     /// </summary>
     /// <param name="positives">
-    /// <see cref="Visibility" /> a utilizar para valores positivos.
+    /// The <see cref="Visibility"/> to use for positive values.
     /// </param>
     public FloatVisibilityConverter(Visibility positives) : this(positives, Visibility.Visible)
     {
     }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="FloatVisibilityConverter" />.
+    /// Initializes a new instance of the <see cref="FloatVisibilityConverter"/> 
+    /// class.
     /// </summary>
     /// <param name="positives">
-    /// <see cref="Visibility" /> a utilizar para valores positivos.
+    /// The <see cref="Visibility"/> to use for positive values.
     /// </param>
     /// <param name="zeroOrNegatives">
-    /// <see cref="Visibility" /> a utilizar para cero y valores negativos.
+    /// The <see cref="Visibility"/> to use for zero and negative values.
     /// </param>
     public FloatVisibilityConverter(Visibility positives, Visibility zeroOrNegatives)
     {
@@ -87,20 +87,15 @@ public sealed class FloatVisibilityConverter : IValueConverter
     }
 
     /// <summary>
-    /// Obtiene un <see cref="Visibility" /> a partir del valor.
+    /// Gets a <see cref="Visibility"/> based on the numeric value.
     /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="targetType">Tipo del destino.</param>
-    /// <param name="parameter">
-    /// Parámetros personalizados para este <see cref="IValueConverter" />.
-    /// </param>
-    /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
-    /// </param>
+    /// <param name="value">Object to convert.</param>
+    /// <param name="targetType">The target type.</param>
+    /// <param name="parameter">Custom parameters for this <see cref="IValueConverter"/>.</param>
+    /// <param name="culture">The <see cref="CultureInfo"/> used for conversion.</param>
     /// <returns>
-    /// <see cref="P:System.Windows.Converters.FloatVisibilityConverter.Positives" /> si <paramref name="value" /> es mayor
-    /// a
-    /// cero, <see cref="P:System.Windows.Converters.FloatVisibilityConverter.ZeroOrNegatives" /> en caso contrario.
+    /// The <see cref="Positives"/> value if <paramref name="value"/> is greater
+    /// than zero; otherwise the <see cref="ZeroOrNegatives"/> value.
     /// </returns>
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
@@ -109,19 +104,15 @@ public sealed class FloatVisibilityConverter : IValueConverter
     }
 
     /// <summary>
-    /// Infiere un valor basado en el <see cref="Visibility" /> provisto.
+    /// Infers a float value based on the supplied <see cref="Visibility"/>.
     /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="targetType">Tipo del destino.</param>
-    /// <param name="parameter">
-    /// Parámetros personalizados para este <see cref="IValueConverter" />.
-    /// </param>
-    /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
-    /// </param>
+    /// <param name="value">Object to convert.</param>
+    /// <param name="targetType">The target type.</param>
+    /// <param name="parameter">Custom parameters for this <see cref="IValueConverter"/>.</param>
+    /// <param name="culture">The <see cref="CultureInfo"/> used for conversion.</param>
     /// <returns>
-    /// <c>1.0f</c> si <paramref name="value" /> es igual a
-    /// <see cref="P:System.Windows.Converters.FloatVisibilityConverter.Positives" />, <c>0.0f</c> en caso contrario.
+    /// <c>1.0f</c> if <paramref name="value"/> equals <see cref="Positives"/>;
+    /// otherwise <c>0.0f</c>.
     /// </returns>
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {

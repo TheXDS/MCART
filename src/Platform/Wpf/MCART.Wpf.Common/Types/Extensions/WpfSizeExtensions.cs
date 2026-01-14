@@ -33,20 +33,18 @@ using W = System.Windows;
 namespace TheXDS.MCART.Types.Extensions;
 
 /// <summary>
-/// Extensiones de la clase <see cref="Size"/> para WPF.
+/// Extensions for the Size class for WPF.
 /// </summary>
 public static class WpfSizeExtensions
 {
     /// <summary>
-    /// Convierte un <see cref="Size"/> en un
-    /// <see cref="W.Size"/>.
+    /// Converts a Size to a W.Size.
     /// </summary>
     /// <param name="size">
-    /// <see cref="Size"/> a convertir.
+    /// The Size to convert.
     /// </param>
     /// <returns>
-    /// Un nuevo <see cref="W.Size"/> creado a partir del
-    /// <see cref="Size"/> especificado.
+    /// A new W.Size created from the specified Size.
     /// </returns>
     public static W.Size ToSize(this Size size)
     {
@@ -54,15 +52,13 @@ public static class WpfSizeExtensions
     }
 
     /// <summary>
-    /// Convierte un <see cref="W.Size"/> en un
-    /// <see cref="Size"/>.
+    /// Converts a W.Size to a Size.
     /// </summary>
     /// <param name="size">
-    /// <see cref="W.Size"/> a convertir.
+    /// The W.Size to convert.
     /// </param>
     /// <returns>
-    /// Un nuevo <see cref="Size"/> creado a partir del
-    /// <see cref="W.Size"/> especificado.
+    /// A new Size created from the specified W.Size.
     /// </returns>
     public static Size ToMcartSize(this W.Size size)
     {

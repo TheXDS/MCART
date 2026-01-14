@@ -34,18 +34,30 @@ using TheXDS.MCART.ValueConverters.Base;
 namespace TheXDS.MCART.ValueConverters;
 
 /// <summary>
-/// Implementa un convertidor de valores que convierte objetos entre los tipos
-/// <c><see cref="bool"/>?</c> y <c><see cref="bool"/></c>.
+/// Implements a value converter that converts objects between types
+/// <c><see cref="bool"/>?</c> and <c><see cref="bool"/></c>.
 /// </summary>
 public class NullableBoolToBoolConverter : IValueConverter<bool?, bool>
 {
-    /// <inheritdoc/>
+    /// <summary>
+    /// Converts a nullable bool to a bool.
+    /// </summary>
+    /// <param name="value">The nullable bool value.</param>
+    /// <param name="parameter">Optional parameter (not used).</param>
+    /// <param name="culture">Optional culture (not used).</param>
+    /// <returns>False if value is null; otherwise, the bool value.</returns>
     public bool Convert(bool? value, object? parameter, CultureInfo? culture)
     {
         return value ?? false;
     }
 
-    /// <inheritdoc/>
+    /// <summary>
+    /// Converts a bool to a nullable bool.
+    /// </summary>
+    /// <param name="value">The bool value.</param>
+    /// <param name="parameter">Optional parameter (not used).</param>
+    /// <param name="culture">Optional culture (not used).</param>
+    /// <returns>The nullable bool representation of the value.</returns>
     public bool? ConvertBack(bool value, object? parameter, CultureInfo? culture)
     {
         return value;

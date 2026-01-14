@@ -33,47 +33,46 @@ using System.Globalization;
 namespace TheXDS.MCART.ValueConverters;
 
 /// <summary>
-/// Clase base para crear convertidores de valores booleanos.
+/// Base class for creating boolean value converters.
 /// </summary>
 /// <typeparam name="T">
-/// Tipo de valores a convertir. Deben ser estructuras o enumeraciones.
+/// Type of values to convert. Must be structs or enums.
 /// </typeparam>
 /// <remarks>
-/// Inicializa una nueva instancia de la clase
-/// <see cref="BooleanConverter{T}" />, configurando los valores que
-/// corresponderán a <see langword="true" /> y <see langword="false" />.
+/// Initializes a new instance of the <see cref="BooleanConverter{T}" /> class,
+/// configuring the values that correspond to <see langword="true" /> and
+/// <see langword="false" />.
 /// </remarks>
-/// <param name="trueValue">Valor equivalente a <see langword="true" />.</param>
-/// <param name="falseValue">Valor equivalente a <see langword="false" />.</param>
+/// <param name="trueValue">Value equivalent to <see langword="true" />.</param>
+/// <param name="falseValue">Value equivalent to <see langword="false" />.</param>
 public partial class BooleanConverter<T>(T trueValue, T falseValue = default) where T : struct
 {
     /// <summary>
-    /// Obtiene o establece el valor que equivale a <see langword="false" /> en este
-    /// <see cref="BooleanConverter{T}" />.
+    /// Gets or sets the value that corresponds to <see langword="false" /> in
+    /// this <see cref="BooleanConverter{T}" />.
     /// </summary>
     public T False { get; set; } = falseValue;
 
     /// <summary>
-    /// Obtiene o establece el valor que equivale a <see langword="true" /> en este
-    /// <see cref="BooleanConverter{T}" />.
+    /// Gets or sets the value that corresponds to <see langword="true" /> in
+    /// this <see cref="BooleanConverter{T}" />.
     /// </summary>
     public T True { get; set; } = trueValue;
 
     /// <summary>
-    /// Convierte un <see cref="bool" /> a un objeto.
+    /// Converts a <see cref="bool" /> to an object.
     /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="targetType">Tipo del destino.</param>
+    /// <param name="value">Object to convert.</param>
+    /// <param name="targetType">Target type.</param>
     /// <param name="parameter">
-    /// Parámetros personalizados para realizar la conversión.
+    /// Custom parameters for performing the conversion.
     /// </param>
     /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
+    /// <see cref="CultureInfo" /> to use for the conversion.
     /// </param>
     /// <returns>
-    /// <see cref="True" />, si el objeto es de tipo
-    /// <see cref="bool" /> y su
-    /// valor es <see langword="true" />; en caso contrario, se devuelve
+    /// <see cref="True" /> if the object is of type <see cref="bool" />
+    /// and its value is <see langword="true" />; otherwise, returns
     /// <see cref="False" />.
     /// </returns>
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo? culture)
@@ -83,19 +82,19 @@ public partial class BooleanConverter<T>(T trueValue, T falseValue = default) wh
     }
 
     /// <summary>
-    /// Convierte un objeto en un <see cref="bool" />.
+    /// Converts an object to a <see cref="bool" />.
     /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="targetType">Tipo del destino.</param>
+    /// <param name="value">Object to convert.</param>
+    /// <param name="targetType">Target type.</param>
     /// <param name="parameter">
-    /// Parámetros personalizados para realizar la conversión.
+    /// Custom parameters for performing the conversion.
     /// </param>
     /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
+    /// <see cref="CultureInfo" /> to use for the conversion.
     /// </param>
     /// <returns>
-    /// <see langword="true" /> si el objeto es igual a <see cref="True" />;
-    /// <see langword="false" /> en caso contrario.
+    /// <see langword="true" /> if the object equals <see cref="True" />;
+    /// <see langword="false" /> otherwise.
     /// </returns>
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo? culture)
     {

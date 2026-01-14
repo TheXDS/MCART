@@ -34,8 +34,7 @@ using TheXDS.MCART.Types.Base;
 namespace TheXDS.MCART.Types;
 
 /// <summary>
-/// Implementa un objeto cerrable con capacidad de finalizar la aplicación en
-/// ejecución.
+/// Implements a closable object that can terminate a running application.
 /// </summary>
 public sealed class AppCloseTrigger : ICloseable
 {

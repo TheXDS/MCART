@@ -35,21 +35,19 @@ using TheXDS.MCART.Types.Extensions;
 namespace TheXDS.MCART.ValueConverters.Base;
 
 /// <summary>
-/// Define una serie de miembros a implementar por un tipo que permita
-/// convertir valores de un tipo específico de entrada.
+/// Defines members that must be implemented by a type capable of
+/// converting values from a specific input type.
 /// </summary>
-/// <typeparam name="TIn">Tipo de entrada de la conversión.</typeparam>
+/// <typeparam name="TIn">The input type of the conversion.</typeparam>
 public interface IInValueConverter<TIn> : IValueConverter
 {
     /// <summary>
-    /// Obtiene una referencia al tipo de objeto de entrada que puede ser
-    /// convertido.
+    /// Gets a reference to the input type that can be converted.
     /// </summary>
     Type SourceType => typeof(TIn);
 
     /// <summary>
-    /// Obtiene una referencia al tipo de salida producido por este 
-    /// convertidor.
+    /// Gets a reference to the output type produced by this converter.
     /// </summary>
     Type TargetType { get; }
 
@@ -60,18 +58,22 @@ public interface IInValueConverter<TIn> : IValueConverter
     }
 
     /// <summary>
-    /// Convierte un valor.
+    /// Converts a value.
     /// </summary>
     /// <param name="value">
-    /// Valor producido por el origen del enlace.
+    /// Value produced by the binding source.
     /// </param>
-    /// <param name="targetType">El tipo objetivo de la propiedad enlazada.</param>
+    /// <param name="targetType">
+    /// The target type of the bound property.
+    /// </param>
     /// <param name="parameter">
-    /// Parámetro pasado al convertidor a utilizar.
+    /// Parameter passed to the converter.
     /// </param>
     /// <param name="culture">
-    /// La cultura a utilizar en el convertidor.
+    /// The culture to use for the conversion.
     /// </param>
-    /// <returns></returns>
+    /// <returns>
+    /// The converted value or <c>null</c> if the conversion fails.
+    /// </returns>
     object? Convert(TIn value, Type targetType, object? parameter, CultureInfo? culture);
 }

@@ -35,25 +35,24 @@ using TheXDS.MCART.ValueConverters.Base;
 namespace TheXDS.MCART.ValueConverters;
 
 /// <summary>
-/// Permite la substracción de propiedades numéricas.
+/// Provides subtraction of numeric properties.
 /// </summary>
 public sealed partial class SubtractConverter : PrimitiveMathOpConverterBase
 {
     /// <summary>
-    /// Devuelve la resta entre <paramref name="value" /> y
+    /// Returns the subtraction between <paramref name="value" /> and
     /// <paramref name="parameter" />.
     /// </summary>
-    /// <param name="value">Primer operando de la resta.</param>
-    /// <param name="targetType">Tipo del destino.</param>
-    /// <param name="parameter">Segundo operando de la resta.</param>
-    /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
-    /// </param>
+    /// <param name="value">First operand of the subtraction.</param>
+    /// <param name="targetType">Target type.</param>
+    /// <param name="parameter">Second operand of the subtraction.</param>
+    /// <param name="culture"><see cref="CultureInfo" /> used for the conversion.</param>
     /// <exception cref="ArgumentException">
-    /// Se produce si no es posible realizar la resta.
+    /// Thrown if the subtraction cannot be performed.
     /// </exception>
     /// <returns>
-    /// La resta de <paramref name="value" /> y el operando especificado.
+    /// The result of subtracting <paramref name="parameter" /> from
+    /// <paramref name="value" />.
     /// </returns>
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo? culture)
     {
@@ -61,21 +60,19 @@ public sealed partial class SubtractConverter : PrimitiveMathOpConverterBase
     }
 
     /// <summary>
-    /// Revierte la operación de resta aplicada a <paramref name="value"/>.
+    /// Reverses the subtraction operation applied to <paramref name="value"/>.
     /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="targetType">Tipo del destino.</param>
+    /// <param name="value">Object to convert.</param>
+    /// <param name="targetType">Target type.</param>
     /// <param name="parameter">
-    /// Parámetros personalizados a utilizar para realizar la conversión.
+    /// Custom parameters used for the conversion.
     /// </param>
-    /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
-    /// </param>
+    /// <param name="culture"><see cref="CultureInfo" /> used for the conversion.</param>
     /// <exception cref="ArgumentException">
-    /// Se produce si no es posible realizar la resta.
+    /// Thrown if the subtraction cannot be performed.
     /// </exception>
     /// <returns>
-    /// El valor de <paramref name="value" /> antes de la resta.
+    /// The value of <paramref name="value" /> before the subtraction.
     /// </returns>
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {

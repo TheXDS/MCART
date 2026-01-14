@@ -31,8 +31,8 @@ using TheXDS.MCART.Types.Base;
 namespace TheXDS.MCART.Types;
 
 /// <summary>
-/// Wraps a Windows Forms <see cref="Form"/> to provide additional window
-/// management services.
+/// Wraps a Windows Forms <see cref="Form"/> to provide additional
+/// window management services.
 /// </summary>
 /// <param name="window">Form to wrap.</param>
 public class WinFormsWindowWrap(Form window) : IWinFormsWindow

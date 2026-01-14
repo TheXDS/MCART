@@ -38,12 +38,12 @@ using static TheXDS.MCART.Misc.PrivateInternals;
 namespace TheXDS.MCART.Controls;
 
 /// <summary>
-/// Control simple que indica al usuario que la aplicación está ocupada.
+/// Simple control that indicates the application is busy to the user.
 /// </summary>
 public class BusyIndicator : RingControlBase
 {
     /// <summary>
-    /// Identifica a la propiedad de dependencia <see cref="ArcAngle" />.
+    /// Identifies the dependency property for <see cref="ArcAngle"/>.
     /// </summary>
     public static readonly DependencyProperty ArcAngleProperty = DependencyProperty.Register(nameof(ArcAngle),
         typeof(double), typeof(BusyIndicator),
@@ -51,14 +51,14 @@ public class BusyIndicator : RingControlBase
         ChkAngle);
 
     /// <summary>
-    /// Identifica a la propiedad de dependencia <see cref="Running" />.
+    /// Identifies the dependency property for <see cref="Running"/>.
     /// </summary>
     public static readonly DependencyProperty RunningProperty = DependencyProperty.Register(nameof(Running),
         typeof(bool), typeof(BusyIndicator),
         new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.AffectsRender));
 
     /// <summary>
-    /// Identifica a la propiedad de dependencia <see cref="Stroke2" />.
+    /// Identifies the dependency property for <see cref="Stroke2"/>.
     /// </summary>
     public static readonly DependencyProperty Stroke2Property = DependencyProperty.Register(nameof(Stroke2),
         typeof(Brush), typeof(BusyIndicator),
@@ -76,7 +76,7 @@ public class BusyIndicator : RingControlBase
     private Path? path = null;
 
     /// <summary>
-    /// Obtiene o establece el ángulo de cierre del arco de este control.
+    /// Gets or sets the closing angle of this control's arc.
     /// </summary>
     public double ArcAngle
     {
@@ -85,8 +85,7 @@ public class BusyIndicator : RingControlBase
     }
 
     /// <summary>
-    /// Obtiene o establece un valor que indica si el control se dibujará
-    /// en su estado secundario.
+    /// Gets or sets whether the control is drawn in its alternate state.
     /// </summary>
     public bool Running
     {
@@ -95,8 +94,8 @@ public class BusyIndicator : RingControlBase
     }
 
     /// <summary>
-    /// Obtiene o establece el <see cref="Brush" /> a aplicar al estado
-    /// secundario de el control.
+    /// Gets or sets the <see cref="Brush"/> applied to the control's
+    /// alternate state.
     /// </summary>
     public Brush? Stroke2
     {

@@ -34,15 +34,7 @@ using System.Windows.Controls;
 namespace TheXDS.MCART.ValueConverters;
 
 /// <summary>
-/// Inverso de <see cref="BooleanToVisibilityConverter" />
+/// Inverse of <see cref="BooleanToVisibilityConverter" />.
 /// </summary>
-public sealed class BooleanToInvVisibilityConverter : BooleanConverter<Visibility>
-{
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="BooleanToInvVisibilityConverter" />.
-    /// </summary>
-    public BooleanToInvVisibilityConverter() : base(Visibility.Collapsed)
-    {
-    }
-}
+public sealed class BooleanToInvVisibilityConverter()
+    : BooleanConverter<Visibility>(Visibility.Collapsed);

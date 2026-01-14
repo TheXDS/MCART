@@ -36,28 +36,27 @@ using System.Windows;
 namespace TheXDS.MCART.ValueConverters;
 
 /// <summary>
-/// Para un <see cref="ContentControl" /> o un <see cref="Panel" />,
-/// obtiene un valor <see cref="Visibility.Visible" /> si al menos un
-/// control hijo directo es visible.
+/// For a <see cref="ContentControl"/> or a <see cref="Panel"/>,
+/// returns a <see cref="Visibility.Visible"/> value if at least one
+/// direct child control is visible.
 /// </summary>
 public sealed class AnyContentVisibilityConverter : IValueConverter
 {
     /// <summary>
-    /// Obtiene un valor <see cref="Visibility.Visible" /> si al menos un
-    /// control hijo directo es visible.
+    /// Returns a <see cref="Visibility.Visible"/> value if at least one
+    /// direct child control is visible.
     /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="targetType">Tipo del destino.</param>
+    /// <param name="value">Object to convert.</param>
+    /// <param name="targetType">Type of the target binding.</param>
     /// <param name="parameter">
-    /// Parámetros personalizados para este <see cref="IValueConverter" />.
+    /// Converter parameter that will be used.
     /// </param>
     /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
+    /// Culture used for the conversion.
     /// </param>
     /// <returns>
-    /// Un nuevo <see cref="Visibility.Visible" /> si al
-    /// menos un hijo directo del control es visible,
-    /// <see cref="Visibility.Collapsed" /> en caso contrario.
+    /// A new <see cref="Visibility.Visible"/> if at least one direct child
+    /// of the control is visible, otherwise <see cref="Visibility.Collapsed"/>.
     /// </returns>
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
@@ -74,21 +73,23 @@ public sealed class AnyContentVisibilityConverter : IValueConverter
         };
     }
 
-    /// <summary>Convierte un valor.</summary>
-    /// <param name="value">
-    /// Valor generado por el destino de enlace.
-    /// </param>
-    /// <param name="targetType">Tipo al que se va a convertir.</param>
+    /// <summary>
+    /// Implements <see cref="IMultiValueConverter.ConvertBack"/>.
+    /// </summary>
+    /// <param name="value">Object to convert.</param>
+    /// <param name="targetType">Type of the target binding.</param>
     /// <param name="parameter">
-    /// Parámetro de convertidor que se va a usar.
+    /// Converter parameter that will be used.
     /// </param>
     /// <param name="culture">
-    /// Referencia cultural que se va a usar en el convertidor.
+    /// Culture used for the conversion.
     /// </param>
     /// <returns>
-    /// Valor convertido.
-    /// Si el método devuelve <see langword="null" />, se usa el valor nulo válido.
+    /// This method always throws an <see cref="InvalidOperationException"/>.
     /// </returns>
+    /// <exception cref="InvalidOperationException">
+    /// This method always throws this exception when called.
+    /// </exception>
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
         throw new InvalidOperationException();

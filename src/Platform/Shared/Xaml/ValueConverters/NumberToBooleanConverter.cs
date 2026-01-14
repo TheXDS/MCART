@@ -33,24 +33,22 @@ using System.Globalization;
 namespace TheXDS.MCART.ValueConverters;
 
 /// <summary>
-/// Convierte directamente un número a <see cref="bool" />
+/// Converts a number directly to <see cref="bool" />.
 /// </summary>
 public sealed partial class NumberToBooleanConverter
 {
     /// <summary>
-    /// Convierte un <see cref="int" /> en un <see cref="bool" />.
+    /// Converts an <see cref="int" /> to a <see cref="bool" />.
     /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="targetType">Tipo del destino.</param>
+    /// <param name="value">Object to convert.</param>
+    /// <param name="targetType">Target type.</param>
     /// <param name="parameter">
-    /// Parámetros personalizados a utilizar para realizar la conversión.
+    /// Custom parameters used for the conversion.
     /// </param>
-    /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
-    /// </param>
+    /// <param name="culture"><see cref="CultureInfo" /> used for the conversion.</param>
     /// <returns>
-    /// <see langword="true" /> si <paramref name="value" /> es distinto de cero,
-    /// <see langword="false" /> en caso contrario.
+    /// <see langword="true" /> if <paramref name="value" /> is non‑zero, 
+    /// <see langword="false" /> otherwise.
     /// </returns>
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
@@ -58,19 +56,17 @@ public sealed partial class NumberToBooleanConverter
     }
 
     /// <summary>
-    /// Infiere un valor <see cref="int" />a partir de un <see cref="bool" />.
+    /// Infers an <see cref="int" /> value from a <see cref="bool" />.
     /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="targetType">Tipo del destino.</param>
+    /// <param name="value">Object to convert.</param>
+    /// <param name="targetType">Target type.</param>
     /// <param name="parameter">
-    /// Parámetros personalizados a utilizar para realizar la conversión.
+    /// Custom parameters used for the conversion.
     /// </param>
-    /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
-    /// </param>
+    /// <param name="culture"><see cref="CultureInfo" /> used for the conversion.</param>
     /// <returns>
-    /// <c>-1</c> si <paramref name="value" /> es <see langword="true" />, <c>0</c> en
-    /// caso contrario.
+    /// <c>-1</c> if <paramref name="value" /> is <see langword="true" />, 
+    /// <c>0</c> otherwise.
     /// </returns>
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {

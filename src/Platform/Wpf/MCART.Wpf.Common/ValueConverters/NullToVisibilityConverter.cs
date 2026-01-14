@@ -36,25 +36,26 @@ using TheXDS.MCART.Types.Extensions;
 namespace TheXDS.MCART.ValueConverters;
 
 /// <summary>
-/// Devuelve <see cref="Visibility.Visible" /> si el elemento a convertir es <see langword="null" />
+/// Returns <see cref="Visibility.Visible" /> if the element to convert is
+/// <see langword="null" />; otherwise returns
+/// <see cref="Visibility.Collapsed" />.
 /// </summary>
 public sealed class NullToVisibilityConverter : IValueConverter
 {
     /// <summary>
-    /// Obtiene un <see cref="Visibility" /> a partir del valor.
+    /// Gets a <see cref="Visibility"/> from the value.
     /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="targetType">Tipo del destino.</param>
+    /// <param name="value">Object to convert.</param>
+    /// <param name="targetType">Target type.</param>
     /// <param name="parameter">
-    /// Parámetros personalizados para este <see cref="IValueConverter" />.
+    /// Custom parameters for this <see cref="IValueConverter"/>.
     /// </param>
     /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
+    /// <see cref="CultureInfo"/> to use for conversion.
     /// </param>
     /// <returns>
-    /// <see cref="Visibility.Visible" /> si el elemento es
-    /// <see langword="null" />, <see cref="Visibility.Collapsed" /> en caso
-    /// contrario.
+    /// <see cref="Visibility.Visible"/> if the element is
+    /// <see langword="null"/>, <see cref="Visibility.Collapsed"/> otherwise.
     /// </returns>
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
@@ -62,26 +63,28 @@ public sealed class NullToVisibilityConverter : IValueConverter
     }
 
     /// <summary>
-    /// Implementa <see cref="IValueConverter.ConvertBack" />.
+    /// Implements <see cref="IValueConverter.ConvertBack"/>.
     /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="targetType">Tipo del destino.</param>
+    /// <param name="value">Object to convert.</param>
+    /// <param name="targetType">Target type.</param>
     /// <param name="parameter">
-    /// Parámetros personalizados para este <see cref="IValueConverter" />.
+    /// Custom parameters for this <see cref="IValueConverter"/>.
     /// </param>
     /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
+    /// <see cref="CultureInfo"/> to use for conversion.
     /// </param>
     /// <exception cref="InvalidCastException">
-    /// Se produce si <paramref name="value" /> no es un <see cref="Visibility" />.
+    /// Thrown if <paramref name="value"/> is not a
+    /// <see cref="Visibility"/>.
     /// </exception>
     /// <exception cref="TypeLoadException">
-    /// Se produce si <paramref name="targetType" /> no es una clase o estructura instanciable con un constructor sin
-    /// parámetros.
+    /// Thrown if <paramref name="targetType"/> is not a class or struct that can
+    /// be instantiated with a parameterless constructor.
     /// </exception>
     /// <returns>
-    /// Una nueva instancia de tipo <paramref name="targetType" /> si <paramref name="value" /> se evalúa como
-    /// <see cref="Visibility.Visible" />, <see langword="null" /> en caso contrario.
+    /// A new instance of type <paramref name="targetType"/> if
+    /// <paramref name="value"/> is <see cref="Visibility.Visible"/>;
+    /// otherwise <see langword="null"/>.
     /// </returns>
     public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {

@@ -39,21 +39,19 @@ using TheXDS.MCART.Types.Extensions;
 namespace TheXDS.MCART.Helpers;
 
 /// <summary>
-/// Contiene extensiones para las clases <see cref="Window"/> y
-/// <see cref="IWpfWindow"/>.
+/// Contains extensions for the Window and IWpfWindow classes.
 /// </summary>
 public static class WpfWindowExtensions
 {
     /// <summary>
-    /// Ejecuta una operación de arrastre de la ventana.
+    /// Performs a window drag operation.
     /// </summary>
     /// <param name="window">
-    /// Ventana a arrastrar.
+    /// The window to drag.
     /// </param>
     /// <param name="e">
-    /// Argumentos de arrastre generado en el evento 
-    /// <see cref="UIElement.MouseDown"/> del control a utilizar como punto
-    /// de arrastre.
+    /// Drag arguments generated in the <see cref="UIElement.MouseDown"/> event
+    /// of the control used as the drag point.
     /// </param>
     public static void PerformWindowDrag(this Window? window, MouseButtonEventArgs e)
     {
@@ -61,27 +59,24 @@ public static class WpfWindowExtensions
     }
 
     /// <summary>
-    /// Ejecuta una operación de arrastre de la ventana.
+    /// Performs a window drag operation.
     /// </summary>
     /// <param name="window">
-    /// Ventana a arrastrar.
+    /// The window to drag.
     /// </param>
     /// <param name="rightChromeWidth">
-    /// Ancho del área a la izquierda del cromo de la ventana para excluir
-    /// del cálculo de posición de arrastre. Se utiliza al restaurar una
-    /// ventana maximizada cuando la misma utiliza un cromo definido por el
-    /// usuario, en cuyo caso este valor es la suma del ancho de los
-    /// controles a la izquierda del cromo de la ventana.
+    /// Width of the area left of the window chrome to exclude from the
+    /// drag position calculation. Used when restoring a maximized
+    /// window that has user‑defined chrome; it equals the sum of the
+    /// widths of controls left of the chrome.
     /// </param>
     /// <param name="e">
-    /// Argumentos de arrastre generado en el evento 
-    /// <see cref="UIElement.MouseDown"/> del control a utilizar como punto
-    /// de arrastre.
+    /// Drag arguments generated in the <see cref="UIElement.MouseDown"/> event
+    /// of the control used as the drag point.
     /// </param>
     /// <remarks>
-    /// Este método puede utilizarse enlazado a un evento
-    /// <see cref="UIElement.MouseDown"/> de un control que pueda
-    /// utilizarse como punto de arrastre para una ventana de WPF.
+    /// This method can be attached to a <see cref="UIElement.MouseDown"/> event
+    /// of a control that can serve as a drag point for a WPF window.
     /// </remarks>
     public static void PerformWindowDrag(this Window? window, int rightChromeWidth, MouseButtonEventArgs e)
     {
@@ -101,15 +96,15 @@ public static class WpfWindowExtensions
     }
 
     /// <summary>
-    /// Habilita el botón de ayuda de las ventanas de Windows y conecta
-    /// un manejador de eventos al mismo.
+    /// Enables the Windows help button on a window and attaches a
+    /// handler for its click event.
     /// </summary>
     /// <param name="window">
-    /// Ventana en la cual habilitar el botón de ayuda.
+    /// Window in which to enable the help button.
     /// </param>
     /// <param name="handler">
-    /// Delegado con la acción a ejecutar al hacer clic en el botón de
-    /// ayuda de la ventana.
+    /// Delegate that defines the action to execute when the window's
+    /// help button is clicked.
     /// </param>
     public static void HookHelp(this IWpfWindow window, HandledEventHandler handler)
     {
@@ -119,15 +114,15 @@ public static class WpfWindowExtensions
     }
 
     /// <summary>
-    /// Habilita el botón de ayuda de las ventanas de Windows y conecta
-    /// un manejador de eventos al mismo.
+    /// Enables the Windows help button on a window and attaches a
+    /// handler for its click event.
     /// </summary>
     /// <param name="window">
-    /// Ventana en la cual habilitar el botón de ayuda.
+    /// Window in which to enable the help button.
     /// </param>
     /// <param name="handler">
-    /// Delegado con la acción a ejecutar al hacer clic en el botón de
-    /// ayuda de la ventana.
+    /// Delegate that defines the action to execute when the window's
+    /// help button is clicked.
     /// </param>
     public static void HookHelp(this Window window, HandledEventHandler handler)
     {

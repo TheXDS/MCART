@@ -34,10 +34,10 @@ using System.Windows.Data;
 namespace TheXDS.MCART.ValueConverters.Base;
 
 /// <summary>
-/// Define una serie de miembros a implementar por un tipo que permita
-/// convertir valores hacia un tipo específico de salida.
+/// Defines a set of members to be implemented by a type that can convert
+/// values to a specific output type.
 /// </summary>
-/// <typeparam name="TOut">Tipo de salida de la conversión.</typeparam>
+/// <typeparam name="TOut">The output type of the conversion.</typeparam>
 public interface IOutValueConverter<TOut> : IValueConverter
 {
     /// <inheritdoc/>
@@ -47,27 +47,25 @@ public interface IOutValueConverter<TOut> : IValueConverter
     }
 
     /// <summary>
-    /// Convierte un valor.
+    /// Converts a value.
     /// </summary>
     /// <param name="value">
-    /// Valor producido por el origen del enlace.
+    /// Value produced by the binding source.
     /// </param>
     /// <param name="parameter">
-    /// Parámetro pasado al convertidor a utilizar.
+    /// Parameter passed to the converter.
     /// </param>
     /// <param name="culture">
-    /// La cultura a utilizar en el convertidor.
+    /// Culture to use for the conversion.
     /// </param>
     /// <returns>
-    /// Un valor convertido. Si no se puede llevar a cabo la conversión,
-    /// se devuelve el valor predeterminado del tipo
-    /// <typeparamref name="TOut"/>.
+    /// The converted value. If the conversion cannot be performed, the
+    /// default value of type <typeparamref name="TOut"/> is returned.
     /// </returns>
     TOut Convert(object? value, object? parameter, CultureInfo? culture);
 
     /// <summary>
-    /// Obtiene una referencia al tipo de salida producido por este 
-    /// convertidor.
+    /// Gets a reference to the output type produced by this converter.
     /// </summary>
     Type TargetType => typeof(TOut);
 }

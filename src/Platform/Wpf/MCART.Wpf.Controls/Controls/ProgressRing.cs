@@ -39,20 +39,21 @@ using static TheXDS.MCART.Misc.PrivateInternals;
 namespace TheXDS.MCART.Controls;
 
 /// <summary>
-/// Control que muestra un anillo de progreso.
+/// Control that displays a progress ring.
 /// </summary>
 [ContentProperty(nameof(InnerContent))]
 public class ProgressRing : RingControlBase
 {
     /// <summary>
-    /// Identifica a la propiedad de dependencia <see cref="RingBackground" />.
+    /// Identifies the dependency property for
+    /// <see cref="RingBackground"/>.
     /// </summary>
     public static readonly DependencyProperty RingBackgroundProperty = DependencyProperty.Register(
         nameof(RingBackground), typeof(Brush), typeof(ProgressRing),
         new FrameworkPropertyMetadata(SystemColors.InactiveSelectionHighlightBrush, FrameworkPropertyMetadataOptions.AffectsRender));
 
     /// <summary>
-    /// Identifica a la propiedad de dependencia 
+    /// Identifies the dependency property for
     /// <see cref="IsIndeterminate"/>.
     /// </summary>
     public static readonly DependencyProperty IsIndeterminateProperty = DependencyProperty.Register(
@@ -60,7 +61,7 @@ public class ProgressRing : RingControlBase
         new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.AffectsRender, UpdateLayout));
 
     /// <summary>
-    /// Identifica a la propiedad de dependencia 
+    /// Identifies the dependency property for
     /// <see cref="InnerContent"/>.
     /// </summary>
     public static readonly DependencyProperty InnerContentProperty = DependencyProperty.Register(
@@ -68,7 +69,7 @@ public class ProgressRing : RingControlBase
         new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsArrange));
 
     /// <summary>
-    /// Identifica a la propiedad de dependencia <see cref="Sweep"/>.
+    /// Identifies the dependency property for <see cref="Sweep"/>.
     /// </summary>
     public static readonly DependencyProperty SweepProperty = DependencyProperty.Register(
         nameof(Sweep), typeof(SweepDirection), typeof(ProgressRing),
@@ -76,21 +77,21 @@ public class ProgressRing : RingControlBase
         typeof(SweepDirection).IsEnumDefined);
 
     /// <summary>
-    /// Identifica a la propiedad de dependencia <see cref="Maximum" />.
+    /// Identifies the dependency property for <see cref="Maximum"/>.
     /// </summary>
     public static readonly DependencyProperty MaximumProperty = DependencyProperty.Register(nameof(Maximum),
         typeof(double), typeof(ProgressRing),
         new FrameworkPropertyMetadata(100.0, FrameworkPropertyMetadataOptions.AffectsRender, UpdateLayout), IsDoubleValid);
 
     /// <summary>
-    /// Identifica a la propiedad de dependencia <see cref="Minimum" />.
+    /// Identifies the dependency property for <see cref="Minimum"/>.
     /// </summary>
     public static readonly DependencyProperty MinimumProperty = DependencyProperty.Register(nameof(Minimum),
         typeof(double), typeof(ProgressRing),
         new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.AffectsRender, UpdateLayout), IsDoubleValid);
 
     /// <summary>
-    /// Identifica a la propiedad de dependencia <see cref="Value" />.
+    /// Identifies the dependency property for <see cref="Value"/>.
     /// </summary>
     public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(nameof(Value),
         typeof(double), typeof(ProgressRing),
@@ -107,7 +108,7 @@ public class ProgressRing : RingControlBase
     private Ellipse? ringBg;
 
     /// <summary>
-    /// Obtiene o establece el contenido interno a mostrar en el área interna del control.
+    /// Gets or sets the inner content shown inside the control.
     /// </summary>
     public object? InnerContent
     {
@@ -116,8 +117,8 @@ public class ProgressRing : RingControlBase
     }
 
     /// <summary>
-    /// Obtiene o establece el <see cref="Brush"/> a utilizar para dibujar
-    /// el relleno del anillo de este <see cref="ProgressRing"/>.
+    /// Gets or sets the <see cref="Brush"/> used to draw the ring's
+    /// fill.
     /// </summary>
     public Brush RingBackground
     {
@@ -126,8 +127,7 @@ public class ProgressRing : RingControlBase
     }
 
     /// <summary>
-    /// Obtiene o establece la dirección en la cual se rellenará este
-    /// <see cref="ProgressRing"/>. 
+    /// Gets or sets the direction the ring is filled.
     /// </summary>
     public SweepDirection Sweep
     {
@@ -136,8 +136,8 @@ public class ProgressRing : RingControlBase
     }
 
     /// <summary>
-    /// Obtiene o establece un valor que indica si se mostrará un estado
-    /// indeterminado en este <see cref="ProgressRing"/>.
+    /// Gets or sets whether this <see cref="ProgressRing"/> shows an
+    /// indeterminate state.
     /// </summary>
     public bool IsIndeterminate
     {
@@ -146,7 +146,7 @@ public class ProgressRing : RingControlBase
     }
 
     /// <summary>
-    /// Obtiene o establece el valor máximo de este
+    /// Gets or sets the maximum value of this
     /// <see cref="ProgressRing"/>.
     /// </summary>
     public double Maximum
@@ -156,7 +156,7 @@ public class ProgressRing : RingControlBase
     }
 
     /// <summary>
-    /// Obtiene o establece el valor mínimo de este
+    /// Gets or sets the minimum value of this
     /// <see cref="ProgressRing"/>.
     /// </summary>
     public double Minimum
@@ -166,7 +166,7 @@ public class ProgressRing : RingControlBase
     }
 
     /// <summary>
-    /// Obtiene o establece el valor mínimo de este
+    /// Gets or sets the current value of this
     /// <see cref="ProgressRing"/>.
     /// </summary>
     public double Value

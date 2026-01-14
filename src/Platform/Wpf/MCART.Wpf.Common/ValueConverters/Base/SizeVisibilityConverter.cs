@@ -36,10 +36,12 @@ using T = TheXDS.MCART.Types;
 namespace TheXDS.MCART.ValueConverters.Base;
 
 /// <summary>
-/// Clase base para convertidores de valores que tomen un valor <see cref="T.Size" /> para determinar un
-/// valor de tipo <see cref="Visibility" /> basado en un umbral.
+/// Base class for value converters that take a <see cref="T.Size"/> to determine a
+/// <see cref="Visibility"/> value based on a threshold.
 /// </summary>
-public abstract class SizeVisibilityConverter : IValueConverter
+/// <param name="below">Value to return when the size is below the threshold.</param>
+/// <param name="above">Value to return when the size is above the threshold.</param>
+public abstract class SizeVisibilityConverter(Visibility below, Visibility above) : IValueConverter
 {
     private record class ConvertParser(Type TargetType, Func<object, T.Size> ConvertCallback)
     {
@@ -49,33 +51,22 @@ public abstract class SizeVisibilityConverter : IValueConverter
         }
     }
 
-    private readonly Visibility _above;
-    private readonly Visibility _below;
+    private readonly Visibility _above = above;
+    private readonly Visibility _below = below;
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase <see cref="SizeVisibilityConverter" />.
+    /// Converts a <see cref="T.Size"/> to a <see cref="Visibility"/> based on a threshold value.
     /// </summary>
-    /// <param name="below">Valor a devolver por debajo del umbral.</param>
-    /// <param name="above">Valor a devolver por encima del umbral.</param>
-    protected SizeVisibilityConverter(Visibility below, Visibility above)
-    {
-        _below = below;
-        _above = above;
-    }
-
-    /// <summary>
-    /// Convierte un <see cref="T.Size" /> a un <see cref="Visibility" /> basado en un valor de umbral.
-    /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="targetType">Tipo del destino.</param>
+    /// <param name="value">Object to convert.</param>
+    /// <param name="targetType">Type of the destination.</param>
     /// <param name="parameter">
-    /// Parámetros personalizados para este <see cref="IValueConverter" />.
+    /// Custom parameters for this <see cref="IValueConverter"/>.
     /// </param>
     /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
+    /// The <see cref="CultureInfo"/> used for the conversion.
     /// </param>
     /// <returns>
-    /// El valor de <see cref="Visibility" /> calculado a partir del tamaño especificado.
+    /// The <see cref="Visibility"/> value calculated from the specified size.
     /// </returns>
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
@@ -107,18 +98,18 @@ public abstract class SizeVisibilityConverter : IValueConverter
     }
 
     /// <summary>
-    /// Infiere un valor basado en el <see cref="Visibility" /> provisto.
+    /// Infers a value based on the provided <see cref="Visibility"/>.
     /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="targetType">Tipo del destino.</param>
+    /// <param name="value">Object to convert.</param>
+    /// <param name="targetType">Type of the destination.</param>
     /// <param name="parameter">
-    /// Parámetros personalizados para este <see cref="IValueConverter" />.
+    /// Custom parameters for this <see cref="IValueConverter"/>.
     /// </param>
     /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
+    /// The <see cref="CultureInfo"/> used for the conversion.
     /// </param>
     /// <returns>
-    /// Un valor de <see cref="T.Size" /> inferido a partir del valor de entrada.
+    /// An inferred <see cref="T.Size"/> value derived from the input value.
     /// </returns>
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {

@@ -35,25 +35,25 @@ using TheXDS.MCART.ValueConverters.Base;
 namespace TheXDS.MCART.ValueConverters;
 
 /// <summary>
-/// Permite la adición de propiedades numéricas.
+/// Allows the addition of numeric properties.
 /// </summary>
 public sealed partial class AddConverter : PrimitiveMathOpConverterBase
 {
     /// <summary>
-    /// Devuelve la suma entre <paramref name="value" /> y
-    /// <paramref name="parameter" />.
+    /// Returns the sum of <paramref name="value"/> and
+    /// <paramref name="parameter"/>.
     /// </summary>
-    /// <param name="value">Primer operando de la suma.</param>
-    /// <param name="targetType">Tipo del destino.</param>
-    /// <param name="parameter">Segundo operando de la suma.</param>
+    /// <param name="value">First operand of the sum.</param>
+    /// <param name="targetType">Type of the destination.</param>
+    /// <param name="parameter">Second operand of the sum.</param>
     /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
+    /// <see cref="CultureInfo"/> used for the conversion.
     /// </param>
     /// <exception cref="ArgumentException">
-    /// Se produce si no es posible realizar la suma.
+    /// Thrown if the sum cannot be performed.
     /// </exception>
     /// <returns>
-    /// La suma de <paramref name="value" /> y el operando especificado.
+    /// The sum of <paramref name="value"/> and the specified operand.
     /// </returns>
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo? culture)
     {
@@ -61,21 +61,21 @@ public sealed partial class AddConverter : PrimitiveMathOpConverterBase
     }
 
     /// <summary>
-    /// Revierte la operación de suma aplicada a <paramref name="value"/>.
+    /// Reverses the addition operation applied to <paramref name="value"/>.
     /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="targetType">Tipo del destino.</param>
+    /// <param name="value">Object to convert.</param>
+    /// <param name="targetType">Type of the destination.</param>
     /// <param name="parameter">
-    /// Parámetros personalizados a utilizar para la conversión.
+    /// Custom parameters to use for the conversion.
     /// </param>
     /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
+    /// <see cref="CultureInfo"/> used for the conversion.
     /// </param>
     /// <exception cref="ArgumentException">
-    /// Se produce si no es posible realizar la resta.
+    /// Thrown if the subtraction cannot be performed.
     /// </exception>
     /// <returns>
-    /// El valor de <paramref name="value" /> antes de la suma.
+    /// The value of <paramref name="value"/> before the addition.
     /// </returns>
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {

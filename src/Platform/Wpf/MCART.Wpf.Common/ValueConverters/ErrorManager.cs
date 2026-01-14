@@ -32,6 +32,4 @@ using System.Windows.Data;
 
 namespace TheXDS.MCART.ValueConverters;
 
-public partial class ErrorManager : IValueConverter
-{
-}
+public partial class ErrorManager : IValueConverter;

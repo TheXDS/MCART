@@ -36,36 +36,44 @@ namespace TheXDS.MCART.ValueConverters.Base;
 public abstract partial class Inverter<T> : IValueConverter
 {
     /// <summary>
-    /// Invierte el valor de  un <typeparamref name="T" />.
+    /// Inverts the value of a <typeparamref name="T"/>.
     /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="targetType">Tipo del destino.</param>
+    /// <param name="value">
+    /// Object to convert.
+    /// </param>
+    /// <param name="targetType">
+    /// Target type.
+    /// </param>
     /// <param name="parameter">
-    /// Parámetros personalizados para este <see cref="IValueConverter" />.
+    /// Custom parameters for this <see cref="IValueConverter"/>.
     /// </param>
     /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
+    /// <see cref="CultureInfo"/> to use for the conversion.
     /// </param>
     /// <returns>
-    /// Un <typeparamref name="T" /> cuyo valor es el inverso de
-    /// <paramref name="value" />.
+    /// A <typeparamref name="T"/> whose value is the inverse of
+    /// <paramref name="value"/>.
     /// </returns>
     public partial object? Convert(object? value, Type targetType, object? parameter, CultureInfo? culture);
 
     /// <summary>
-    /// Invierte el valor de  un <typeparamref name="T" />.
+    /// Inverts the value of a <typeparamref name="T"/>.
     /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="targetType">Tipo del destino.</param>
+    /// <param name="value">
+    /// Object to convert.
+    /// </param>
+    /// <param name="targetType">
+    /// Target type.
+    /// </param>
     /// <param name="parameter">
-    /// Parámetros personalizados para este <see cref="IValueConverter" />.
+    /// Custom parameters for this <see cref="IValueConverter"/>.
     /// </param>
     /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
+    /// <see cref="CultureInfo"/> to use for the conversion.
     /// </param>
     /// <returns>
-    /// Un <typeparamref name="T" /> cuyo valor es el inverso de
-    /// <paramref name="value" />.
+    /// A <typeparamref name="T"/> whose value is the inverse of
+    /// <paramref name="value"/>.
     /// </returns>
     public partial object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo? culture);
 }

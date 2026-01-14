@@ -33,14 +33,14 @@ using System.Windows;
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
-/// ViewModel con propiedades básicas de gestión de la ventana.
+/// ViewModel with basic window‑management properties.
 /// </summary>
 public abstract class WpfWindowViewModel : WindowViewModel
 {
     private WindowState _windowState;
 
     /// <summary>
-    /// Obtiene o establece el estado de la ventana.
+    /// Gets or sets the window state.
     /// </summary>
     public WindowState WindowState
     {

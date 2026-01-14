@@ -35,39 +35,41 @@ using TheXDS.MCART.ValueConverters.Base;
 namespace TheXDS.MCART.ValueConverters;
 
 /// <summary>
-/// Permite la multiplicación de propiedades numéricas.
+/// Enables the multiplication of numeric properties.
 /// </summary>
 public sealed partial class MultiplyConverter : PrimitiveMathOpConverterBase
 {
     /// <summary>
-    /// Devuelve la multiplicación entre <paramref name="value" /> y
-    /// <paramref name="parameter" />.
+    /// Returns the product of <paramref name="value"/> and
+    /// <paramref name="parameter"/>.
     /// </summary>
-    /// <param name="value">Primer operando de la multiplicación.</param>
-    /// <param name="targetType">Tipo del destino.</param>
-    /// <param name="parameter">Segundo operando de la multiplicación.</param>
+    /// <param name="value">First operand of the multiplication.</param>
+    /// <param name="targetType">Target type.</param>
+    /// <param name="parameter">Second operand of the multiplication.</param>
     /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
+    /// <see cref="CultureInfo"/> to use during the conversion.
     /// </param>
-    /// <returns>La multiplicación de <paramref name="value" /> y el operando especificado.</returns>
+    /// <returns>
+    /// The product of <paramref name="value"/> and the specified operand.
+    /// </returns>
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo? culture)
     {
         return Operate(value, targetType, parameter, culture, Expression.Multiply);
     }
 
     /// <summary>
-    /// Revierte la operación de suma aplicada a <paramref name="value" />.
+    /// Reverses the multiplication applied to <paramref name="value"/>.
     /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="targetType">Tipo del destino.</param>
+    /// <param name="value">Object to convert.</param>
+    /// <param name="targetType">Target type.</param>
     /// <param name="parameter">
-    /// Parámetros personalizados a utilizar para realizar la conversión.
+    /// Custom parameters used to perform the conversion.
     /// </param>
     /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
+    /// <see cref="CultureInfo"/> to use during the conversion.
     /// </param>
     /// <returns>
-    /// El valor de <paramref name="value" /> antes de la suma.
+    /// The value of <paramref name="value"/> before the multiplication.
     /// </returns>
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo? culture)
     {

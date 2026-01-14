@@ -35,24 +35,28 @@ using TheXDS.MCART.Wpf.Resources.Strings;
 namespace TheXDS.MCART.ValidationRules;
 
 /// <summary>
-/// Regla que verifica que un valor sea numérico.
+/// Rule that verifies a value is numeric.
 /// </summary>
 public class IsNumber : ValidationRule
 {
     /// <summary>
-    ///   Si se reemplaza en una clase derivada, realiza comprobaciones de validación en un valor.
+    /// If overridden in a derived class, performs validation checks on a
+    /// value.
     /// </summary>
     /// <param name="value">
-    ///   Valor del destino de enlace que se comprobará.
+    /// Value of the binding target that will be checked.
     /// </param>
     /// <param name="cultureInfo">
-    ///   Referencia cultural que usará en esta regla.
+    /// Culture information used by this rule.
     /// </param>
     /// <returns>
-    ///   Objeto <see cref="ValidationResult" />.
+    /// ValidationResult instance.
     /// </returns>
     public override ValidationResult Validate(object value, CultureInfo cultureInfo)
     {
-        return new ValidationResult(value?.GetType().IsPrimitive ?? false || value?.GetType() == typeof(decimal), WpfErrors.RequiredNumber);
+        return new ValidationResult(
+            value?.GetType().IsPrimitive ?? false ||
+            value?.GetType() == typeof(decimal),
+            WpfErrors.RequiredNumber);
     }
 }

@@ -33,47 +33,35 @@ using System.Windows.Input;
 namespace TheXDS.MCART.Component;
 
 /// <summary>
-/// Describe un comando estándar de implementación común bajo el
-/// paradigma MVVM en Wpf.
+/// Describes a standard RelayCommand implementation commonly used under
+/// the MVVM pattern in WPF.
 /// </summary>
-public class RelayCommand : ICommand
+/// <param name="action">Command to execute.</param>
+/// <param name="canExecute">
+/// Function that determines whether the command can be executed.
+/// </param>
+public class RelayCommand(Action<object?> action, Func<object?, bool>? canExecute) : ICommand
 {
-    readonly Action<object?> _action;
-    readonly Func<object?, bool>? _canExecute;
+    private readonly Action<object?> _action = action ?? throw new ArgumentNullException(nameof(action));
+    private readonly Func<object?, bool>? _canExecute = canExecute;
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="RelayCommand"/>.
+    /// Initializes a new instance of the <see cref="RelayCommand"/> class.
     /// </summary>
-    /// <param name="action">Comando a ejecutar.</param>
+    /// <param name="action">Command to execute.</param>
     public RelayCommand(Action<object?> action) : this(action, null) { }
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="RelayCommand"/>.
-    /// </summary>
-    /// <param name="action">Comando a ejecutar.</param>
-    /// <param name="canExecute">
-    /// Función que determina si el comando puede ser ejecutado.
-    /// </param>
-    public RelayCommand(Action<object?> action, Func<object?, bool>? canExecute)
-    {
-        _action = action ?? throw new ArgumentNullException(nameof(action));
-        _canExecute = canExecute;
-    }
-
-    /// <summary>
-    /// Define el método que determina si el comando puede ejecutarse
-    /// en su estado actual.
+    /// Defines the method that determines whether the command can execute
+    /// in its current state.
     /// </summary>
     /// <param name="parameter">
-    /// Datos que usa el comando. Si el comando no exige pasar los
-    /// datos, se puede establecer este objeto en
-    /// <see langword="null" />.
+    /// Data used by the command. If the command does not require
+    /// data, this object can be set to <see langword="null"/>.
     /// </param>
     /// <returns>
-    /// <see langword="true" /> si se puede ejecutar este comando; de
-    /// lo contrario, <see langword="false" />.
+    /// <see langword="true"/> if the command can execute; otherwise
+    /// <see langword="false"/>.
     /// </returns>
     public bool CanExecute(object? parameter)
     {
@@ -81,8 +69,7 @@ public class RelayCommand : ICommand
     }
 
     /// <summary>
-    /// Se produce cuando hay cambios que influyen en si el comando
-    /// debería ejecutarse o no.
+    /// Occurs when changes affect whether the command should execute.
     /// </summary>
     public event EventHandler? CanExecuteChanged
     {
@@ -91,17 +78,16 @@ public class RelayCommand : ICommand
     }
 
     /// <summary>
-    /// Define el método al que se llamará cuando se invoque el comando.
+    /// Defines the method to call when the command is invoked.
     /// </summary>
     /// <param name="parameter">
-    /// Datos que usa el comando. Si el comando no exige pasar los
-    /// datos, se puede establecer este objeto en
-    /// <see langword="null" />.
+    /// Data used by the command. If the command does not require data,
+    /// this object can be set to <see langword="null"/>.
     /// </param>
     public void Execute(object? parameter) { _action(parameter); }
 
     /// <summary>
-    /// Obliga al comando a evaluar <see cref="CanExecute(object)"/>.
+    /// Forces the command to re-evaluate <see cref="CanExecute(object)"/>.
     /// </summary>
     public static void RaiseCanExecuteChanged()
     {

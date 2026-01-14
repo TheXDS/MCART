@@ -39,8 +39,7 @@ using TheXDS.MCART.Math;
 namespace TheXDS.MCART.Controls;
 
 /// <summary>
-/// Contenedor que permite bloquear el contenido mientras la aplicación
-/// se encuentre ocupada.
+/// Container that blocks its content while the application is busy.
 /// </summary>
 public class BusyContainer : ContentControl
 {
@@ -56,7 +55,7 @@ public class BusyContainer : ContentControl
         new PropertyMetadata(null, null, CoerceBusyBackground));
 
     /// <summary>
-    /// Identifica a la propiedad de dependencia <see cref="BusyBackground"/>.
+    /// Identifies the dependency property for <see cref="BusyBackground"/>.
     /// </summary>
     public static readonly DependencyProperty BusyBackgroundProperty = DependencyProperty.Register(
         nameof(BusyBackground),
@@ -65,8 +64,7 @@ public class BusyContainer : ContentControl
         new PropertyMetadata(SystemColors.AppWorkspaceBrush, OnChangeCurrentBusyBackground));
 
     /// <summary>
-    /// Identifica a la propiedad de dependencia
-    /// <see cref="BusyContent"/>.
+    /// Identifies the dependency property for <see cref="BusyContent"/>.
     /// </summary>
     public static readonly DependencyProperty BusyContentProperty = DependencyProperty.Register(
         nameof(BusyContent),
@@ -75,7 +73,8 @@ public class BusyContainer : ContentControl
         new PropertyMetadata(null));
 
     /// <summary>
-    /// Identifica a la propiedad de dependencia <see cref="BusyContentStringFormat"/>.
+    /// Identifies the dependency property for
+    /// <see cref="BusyContentStringFormat"/>.
     /// </summary>
     public static readonly DependencyProperty BusyContentStringFormatProperty = DependencyProperty.Register(
         nameof(BusyContentStringFormat),
@@ -84,7 +83,7 @@ public class BusyContainer : ContentControl
         new PropertyMetadata(null));
 
     /// <summary>
-    /// Identifica a la propiedad de dependencia <see cref="BusyEffect"/>.
+    /// Identifies the dependency property for <see cref="BusyEffect"/>.
     /// </summary>
     public static readonly DependencyProperty BusyEffectProperty = DependencyProperty.Register(
         nameof(BusyEffect), 
@@ -93,7 +92,7 @@ public class BusyContainer : ContentControl
         new PropertyMetadata(new BlurEffect() { Radius = 5.0 }, OnChangeCurrentBusyEffect));
 
     /// <summary>
-    /// Identifica a la propiedad de dependencia <see cref="BusyOpacity"/>.
+    /// Identifies the dependency property for <see cref="BusyOpacity"/>.
     /// </summary>
     public static readonly DependencyProperty BusyOpacityProperty = DependencyProperty.Register(
         nameof(BusyOpacity),
@@ -102,7 +101,7 @@ public class BusyContainer : ContentControl
         new PropertyMetadata(0.0, OnChangedBusyOpacity, CoerceBusyOpacity), ChkBusyOpacity);
 
     /// <summary>
-    /// Identifica a la propiedad de dependencia <see cref="IsBusy"/>.
+    /// Identifies the dependency property for <see cref="IsBusy"/>.
     /// </summary>
     public static readonly DependencyProperty IsBusyProperty = DependencyProperty.Register(
         nameof(IsBusy),
@@ -111,17 +110,19 @@ public class BusyContainer : ContentControl
         new PropertyMetadata(false, OnChangeCurrentBusyEffect));
 
     /// <summary>
-    /// Identifica a la propiedad de dependencia de solo lectura <see cref="CurrentBusyEffect"/>.
+    /// Identifies the read-only dependency property
+    /// <see cref="CurrentBusyEffect"/>.
     /// </summary>
     public static readonly DependencyProperty CurrentBusyEffectProperty = _currentBusyEffectPropertyKey.DependencyProperty;
 
     /// <summary>
-    /// Identifica a la propiedad de dependencia de solo lectura <see cref="CurrentBusyBackground"/>.
+    /// Identifies the read-only dependency property
+    /// <see cref="CurrentBusyBackground"/>.
     /// </summary>
     public static readonly DependencyProperty CurrentBusyBackgroundProperty = _currentBusyBackgroundPropertyKey.DependencyProperty;
 
     /// <summary>
-    /// Inicializa la clase <see cref="BusyContainer"/>.
+    /// Static constructor for <see cref="BusyContainer"/>.
     /// </summary>
     static BusyContainer()
     {
@@ -131,8 +132,7 @@ public class BusyContainer : ContentControl
     }
 
     /// <summary>
-    /// Obtiene o establece el contenido a mostrar cuando el control se
-    /// encuentre ocupado.
+    /// Gets or sets the content to display while the control is busy.
     /// </summary>
     public object BusyContent
     {
@@ -141,8 +141,7 @@ public class BusyContainer : ContentControl
     }
 
     /// <summary>
-    /// Obtiene o establece el formato a utilizar para mostrar el
-    /// contenido ocupado de este control.
+    /// Gets or sets the format string for the busy content display.
     /// </summary>
     public string BusyContentStringFormat
     {
@@ -151,8 +150,7 @@ public class BusyContainer : ContentControl
     }
 
     /// <summary>
-    /// Obtiene o establece el efecto a aplicar al contenido cuando
-    /// este control se encuentre ocupado.
+    /// Gets or sets the effect applied to content while busy.
     /// </summary>
     public Effect BusyEffect
     {
@@ -161,9 +159,8 @@ public class BusyContainer : ContentControl
     }
 
     /// <summary>
-    /// Obtiene o establece un valor que indica la opacidad de la capa de
-    /// fondo a mostrar cuando la propiedad <see cref="IsBusy"/> se haya
-    /// establecido en <see langword="true"/>.
+    /// Gets or sets the opacity of the background overlay shown when
+    /// <see cref="IsBusy"/> is true.
     /// </summary>
     public double BusyOpacity
     {
@@ -172,9 +169,8 @@ public class BusyContainer : ContentControl
     }
 
     /// <summary>
-    /// Obtiene o establece un valor que indica el <see cref="Brush"/> a
-    /// mostrar en la capa de fondo cuando la propiedad 
-    /// <see cref="IsBusy"/> se haya establecido en <see langword="true"/>.
+    /// Gets or sets the <see cref="Brush"/> for the background overlay
+    /// displayed when <see cref="IsBusy"/> is true.
     /// </summary>
     public Brush BusyBackground
     {
@@ -183,19 +179,18 @@ public class BusyContainer : ContentControl
     }
 
     /// <summary>
-    /// Obtiene el efecto actualmente aplicado al estado de ocupado del control.
+    /// Gets the effect currently applied when the control is busy.
     /// </summary>
     public Effect CurrentBusyEffect => (Effect)GetValue(CurrentBusyEffectProperty);
 
     /// <summary>
-    /// Obtiene el <see cref="Brush"/> actualmente aplicado al estado de
-    /// ocupado del control.
+    /// Gets the <see cref="Brush"/> currently applied when the control
+    /// is busy.
     /// </summary>
     public Brush CurrentBusyBackground => (Brush)GetValue(CurrentBusyBackgroundProperty);
 
     /// <summary>
-    /// Obtiene o establece un valor que coloca este contenedor en
-    /// estado de ocupado.
+    /// Gets or sets a value indicating whether this container is busy.
     /// </summary>
     public bool IsBusy
     {

@@ -33,9 +33,7 @@ using System.Windows.Data;
 namespace TheXDS.MCART.ValueConverters;
 
 /// <summary>
-/// Convierte un <see cref="double" /> en un <see cref="string" />,
-/// opcionalmente mostrando una etiqueta si el valor es inferior a cero.
+/// Converts a <see cref="double"/> to a <see cref="string"/>,
+/// optionally appending a label when the value is less than zero.
 /// </summary>
-public sealed partial class LabeledDoubleConverter : IValueConverter
-{
-}
+public sealed partial class LabeledDoubleConverter : IValueConverter;

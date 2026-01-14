@@ -35,11 +35,11 @@ using TheXDS.MCART.Types.Extensions;
 namespace TheXDS.MCART.ValueConverters.Base;
 
 /// <summary>
-/// Define una serie de miembros a implementar por un tipo que permita
-/// convertir valores desde y hacia tipos específicos en un solo sentido.
+/// Defines a set of members to be implemented by a type that can convert
+/// values from and to specific types in one direction.
 /// </summary>
-/// <typeparam name="TIn">Tipo de entrada de la conversión.</typeparam>
-/// <typeparam name="TOut">Tipo de salida de la conversión.</typeparam>
+/// <typeparam name="TIn">Input type of the conversion.</typeparam>
+/// <typeparam name="TOut">Output type of the conversion.</typeparam>
 public interface IOneWayValueConverter<TIn, TOut> : IInValueConverter<TIn>, IOutValueConverter<TOut>
 {
     /// <inheritdoc/>
@@ -64,31 +64,30 @@ public interface IOneWayValueConverter<TIn, TOut> : IInValueConverter<TIn>, IOut
     }
 
     /// <summary>
-    /// Convierte un valor.
+    /// Converts a value.
     /// </summary>
     /// <param name="value">
-    /// Valor producido por el origen del enlace.
+    /// Value produced by the binding source.
     /// </param>
     /// <param name="parameter">
-    /// Parámetro pasado al convertidor a utilizar.
+    /// Parameter passed to the converter.
     /// </param>
     /// <param name="culture">
-    /// La cultura a utilizar en el convertidor.
+    /// Culture to use for the conversion.
     /// </param>
     /// <returns>
-    /// Un valor convertido. Si no se puede llevar a cabo la conversión,
-    /// se devuelve el valor predeterminado del tipo
-    /// <typeparamref name="TOut"/>.
+    /// The converted value. If the conversion cannot be performed,
+    /// the default value of <typeparamref name="TOut"/> is returned.
     /// </returns>
     TOut Convert(TIn value, object? parameter, CultureInfo? culture);
 
     /// <inheritdoc/>
     /// <remarks>
-    /// En la implementación predeterminada de esta interfaz, este método
-    /// siempre arrojará <see cref="InvalidOperationException"/>.
+    /// In the default implementation of this interface, this method
+    /// always throws <see cref="InvalidOperationException"/>.
     /// </remarks>
     /// <exception cref="InvalidOperationException">
-    /// Este método siempre arrojará <see cref="InvalidOperationException"/>.
+    /// This method always throws <see cref="InvalidOperationException"/>.
     /// </exception>
     object? IValueConverter.ConvertBack(object? value, Type targetType, object? parameter, CultureInfo? culture)
     {

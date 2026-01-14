@@ -35,26 +35,18 @@ using System.Xml;
 namespace TheXDS.MCART.Resources;
 
 /// <summary>
-/// Extrae recursos incrustados Xaml desde el ensamblado especificado.
+/// Extracts embedded XAML resources from the specified assembly.
 /// </summary>
-/// <param name="assembly">
-/// <see cref="Assembly" /> de origen de los recursos incrustados.
-/// </param>
-/// <param name="path">
-/// Ruta (como espacio de nombre) donde se ubican los recursos
-/// incrustados.
-/// </param>
+/// <param name="assembly">Source assembly of embedded resources.</param>
+/// <param name="path">Path (as a namespace) where embedded resources are located.</param>
 public class XamlUnpacker(Assembly assembly, string path) : AssemblyUnpacker<object>(assembly, path)
 {
     /// <summary>
-    /// Extrae un recurso XAML con el id especificado.
+    /// Extracts a XAML resource with the specified id.
     /// </summary>
-    /// <param name="id">
-    /// Id del recurso XAML a extraer.
-    /// </param>
+    /// <param name="id">Id of the XAML resource to extract.</param>
     /// <returns>
-    /// Un objeto que ha sido descrito a partir del XAML con el id
-    /// especificado.
+    /// An object described from the XAML with the specified id.
     /// </returns>
     public override object Unpack(string id)
     {
@@ -63,18 +55,12 @@ public class XamlUnpacker(Assembly assembly, string path) : AssemblyUnpacker<obj
     }
 
     /// <summary>
-    /// Extrae un recurso XAML con el id especificado.
+    /// Extracts a XAML resource with the specified id using the given compressor.
     /// </summary>
-    /// <param name="id">
-    /// Id del recurso XAML a extraer.
-    /// </param>
-    /// <param name="compressor">
-    /// <see cref="ICompressorGetter"/> a utilizar para extraer el
-    /// recurso XAML.
-    /// </param>
+    /// <param name="id">Id of the XAML resource to extract.</param>
+    /// <param name="compressor">ICompressorGetter to use for extracting the XAML resource.</param>
     /// <returns>
-    /// Un objeto que ha sido descrito a partir del XAML con el id
-    /// especificado.
+    /// An object described from the XAML with the specified id.
     /// </returns>
     public override object Unpack(string id, ICompressorGetter compressor)
     {

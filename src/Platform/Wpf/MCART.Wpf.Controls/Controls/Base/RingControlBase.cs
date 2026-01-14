@@ -36,32 +36,36 @@ using TheXDS.MCART.Math;
 namespace TheXDS.MCART.Controls.Base;
 
 /// <summary>
-/// Clase base que define una serie de miembros a implementar por un control gráfico de anillos.
+/// Base class that defines members to implement for ring-style
+/// graphical controls.
 /// </summary>
 public abstract class RingControlBase : Control
 {
     /// <summary>
-    /// Identifica a la propiedad de dependencia <see cref="Radius" />.
+    /// Identifies the attached dependency property for
+    /// <see cref="Radius"/>.
     /// </summary>
     public static readonly DependencyProperty RadiusProperty = DependencyProperty.Register(nameof(Radius),
         typeof(double), typeof(RingControlBase),
         new FrameworkPropertyMetadata(24.0, FrameworkPropertyMetadataOptions.AffectsMeasure, UpdateFullLayout, CoerceRadius), ChkDblValue);
 
     /// <summary>
-    /// Identifica a la propiedad de dependencia <see cref="Thickness" />.
+    /// Identifies the attached dependency property for
+    /// <see cref="Thickness"/>.
     /// </summary>
     public static readonly DependencyProperty ThicknessProperty = DependencyProperty.Register(nameof(Thickness),
         typeof(double), typeof(RingControlBase),
         new FrameworkPropertyMetadata(4.0, FrameworkPropertyMetadataOptions.AffectsMeasure, UpdateThicknessLayout, CoerceThickness), ChkDblValue);
 
     /// <summary>
-    /// Identifica a la propiedad de dependencia <see cref="Stroke" />.
+    /// Identifies the dependency property for the control's
+    /// <see cref="Stroke"/> brush.
     /// </summary>
     public static readonly DependencyProperty StrokeProperty = DependencyProperty.Register(nameof(Stroke),
         typeof(Brush), typeof(RingControlBase), new PropertyMetadata(SystemColors.HighlightBrush));
 
     /// <summary>
-    /// Obtiene o establece el radio de este control.
+    /// Gets or sets the radius of this control.
     /// </summary>
     public double Radius
     {
@@ -70,7 +74,7 @@ public abstract class RingControlBase : Control
     }
 
     /// <summary>
-    /// Obtiene o establece el grosor de los elementos de este control.
+    /// Gets or sets the thickness of the control's visual elements.
     /// </summary>
     public double Thickness
     {
@@ -79,7 +83,7 @@ public abstract class RingControlBase : Control
     }
 
     /// <summary>
-    /// Obtiene o establece el <see cref="Brush" /> a aplicar al control.
+    /// Gets or sets the <see cref="Brush"/> applied to the control.
     /// </summary>
     public Brush? Stroke
     {
@@ -105,14 +109,11 @@ public abstract class RingControlBase : Control
     }
 
     /// <summary>
-    /// Define un método que puede agregarse a los metadatos de la propiedad de
-    /// dependencia para llamarse cuando el valor de una propiedad de
-    /// dependencia cambie de valor.
+    /// Update callback that can be attached to dependency property
+    /// metadata to be invoked when a property value changes.
     /// </summary>
-    /// <param name="d">Objeto que es el origen del evento.</param>
-    /// <param name="_">
-    /// Argumentos de cambio de valor de la propiedad de dependencia.
-    /// </param>
+    /// <param name="d">Source object of the event.</param>
+    /// <param name="_">Dependency property change arguments.</param>
     protected static void UpdateLayout(DependencyObject d, DependencyPropertyChangedEventArgs _)
     {
         if (d is not RingControlBase p) return;
@@ -120,12 +121,10 @@ public abstract class RingControlBase : Control
     }
 
     /// <summary>
-    /// Actualiza el estado visual completo del control.
+    /// Updates the control's full visual state.
     /// </summary>
-    /// <param name="d">Objeto que es el origen del evento.</param>
-    /// <param name="e">
-    /// Argumentos de cambio de valor de la propiedad de dependencia.
-    /// </param>
+    /// <param name="d">Source object of the event.</param>
+    /// <param name="e">Dependency property change arguments.</param>
     protected static void UpdateFullLayout(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
         if (d is not RingControlBase) return;
@@ -137,12 +136,11 @@ public abstract class RingControlBase : Control
     }
 
     /// <summary>
-    /// Actualiza el estado de grosor de los anillos del control de anillo.
+    /// Updates the thickness-related visual state of the ring
+    /// control.
     /// </summary>
-    /// <param name="d">Objeto que es el origen del evento.</param>
-    /// <param name="e">
-    /// Argumentos de cambio de valor de la propiedad de dependencia.
-    /// </param>
+    /// <param name="d">Source object of the event.</param>
+    /// <param name="e">Dependency property change arguments.</param>
     protected static void UpdateThicknessLayout(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
         if (d is null) return;
@@ -151,7 +149,7 @@ public abstract class RingControlBase : Control
     }
 
     /// <summary>
-    /// Establece el tamaño del control.
+    /// Sets the control's computed size based on its radius.
     /// </summary>
     protected void SetControlSize()
     {
@@ -159,11 +157,11 @@ public abstract class RingControlBase : Control
     }
 
     /// <summary>
-    /// Cuando se invalida en una clase base, actualiza las figuras que
-    /// componen al control.
+    /// When invalidated by a base class, updates the shapes that make up
+    /// the control.
     /// </summary>
-    /// <param name="radius">Radio del control.</param>
-    /// <param name="thickness">Grosor de las líneas del control.</param>
+    /// <param name="radius">Control radius.</param>
+    /// <param name="thickness">Thickness of the control's lines.</param>
     protected abstract void OnLayoutUpdate(double radius, double thickness);
 
     /// <inheritdoc/>

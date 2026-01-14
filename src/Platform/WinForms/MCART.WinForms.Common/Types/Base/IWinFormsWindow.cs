@@ -33,17 +33,16 @@ using TheXDS.MCART.PInvoke.Models;
 namespace TheXDS.MCART.Types.Base;
 
 /// <summary>
-/// Define una serie de miembros accesorios a implementar dentro de las
-/// ventanas de Windows Forms.
+/// Defines a set of accessor members to be implemented within Windows Forms windows.
 /// </summary>
 /// <remarks>
-/// Esta interfaz solo debe ser implementada por objetos que deriven de la
-/// clase <see cref="Form"/> o de una de sus clases derivadas.
-/// </remarks>
+/// This interface should only be implemented by objects that derive from the
+/// <see cref="Form"/> class or one of its derived classes.
+/// </remarks>  
 public interface IWinFormsWindow : IMsWindow
 {
     /// <summary>
-    /// Obtiene una referencia directa a la ventana.
+    /// Gets a direct reference to the underlying window.
     /// </summary>
     Form Itself => this as Form ?? throw new InvalidTypeException(GetType());
     
@@ -111,7 +110,7 @@ public interface IWinFormsWindow : IMsWindow
     }
 
     /// <summary>
-    /// Obtiene un valor que indica el estado de la ventana.
+    /// Gets a value that indicates the window's state.
     /// </summary>
     FormWindowState WindowState { get; }
 }

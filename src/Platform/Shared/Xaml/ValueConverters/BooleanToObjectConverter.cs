@@ -33,29 +33,29 @@ using System.Globalization;
 namespace TheXDS.MCART.ValueConverters;
 
 /// <summary>
-/// Obtiene un objeto solamente si el valor original a convertir es 
-/// igual a <see langword="true"/>.
+/// Obtains an object only when the original value to convert is equal to
+/// <see langword="true"/>.
 /// </summary>
 public sealed partial class BooleanToObjectConverter
 {
     /// <summary>
-    /// Devuelve un objeto de acuerdo a un valor booleano.
+    /// Returns an object according to a boolean value.
     /// </summary>
     /// <param name="value">
-    /// Valor booleano a comprobar.
+    /// Boolean value to evaluate.
     /// </param>
     /// <param name="targetType">
-    /// Tipo objetivo de la conversión.
+    /// Target type of the conversion.
     /// </param>
     /// <param name="parameter">
-    /// Objeto a devolver si <c><paramref name="value"/> == <see langword="true"/></c>.
+    /// Object to return if <c><paramref name="value"/> == <see langword="true"/></c>.
     /// </param>
     /// <param name="culture">
-    /// Cultura a utilizar durante la conversión.
+    /// Culture used during the conversion.
     /// </param>
     /// <returns>
-    /// <paramref name="parameter"/> si <c><paramref name="value"/> == <see langword="true"/></c>,
-    /// <see langword="null"/> en caso contrario.
+    /// <paramref name="parameter"/> if <c><paramref name="value"/> == <see langword="true"/></c>,
+    /// <see langword="null"/> otherwise.
     /// </returns>
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
@@ -63,25 +63,24 @@ public sealed partial class BooleanToObjectConverter
     }
 
     /// <summary>
-    /// Devuelve <see langword="true"/> si un objeto no es 
+    /// Returns <see langword="true"/> if an object is not
     /// <see langword="null"/>.
     /// </summary>
     /// <param name="value">
-    /// Objeto a comprobar.
+    /// Object to check.
     /// </param>
     /// <param name="targetType">
-    /// Tipo objetivo.
+    /// Target type.
     /// </param>
     /// <param name="parameter">
-    /// Parámetro de conversión.
+    /// Conversion parameter.
     /// </param>
     /// <param name="culture">
-    /// Cultura a utilizar durante la conversión.
+    /// Culture used during the conversion.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si el objeto no es
-    /// <see langword="null"/>, <see langword="false"/> en caso
-    /// contrario.
+    /// <see langword="true"/> if the object is not <see langword="null"/>,
+    /// <see langword="false"/> otherwise.
     /// </returns>
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {

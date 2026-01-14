@@ -35,26 +35,26 @@ using System.Windows.Data;
 namespace TheXDS.MCART.ValueConverters;
 
 /// <summary>
-/// Convierte un <see cref="double" /> en un <see cref="Thickness" />.
+/// Converts a <see cref="double"/> to a <see cref="Thickness"/>.
 /// </summary>
 public sealed class DoubleMarginConverter : IValueConverter
 {
     /// <summary>
-    /// Convierte un <see cref="double" /> en un <see cref="Thickness" />.
+    /// Converts a <see cref="double"/> to a <see cref="Thickness"/>.
     /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="targetType">Tipo del destino.</param>
+    /// <param name="value">The object to convert.</param>
+    /// <param name="targetType">The target type.</param>
     /// <param name="parameter">
-    /// Función opcional de transformación de valor. Debe ser de tipo
-    /// <see cref="Func{T, TResult}" /> donde el tipo de argumento y el
-    /// tipo devuelto sean ambos <see cref="double" />.
+    /// An optional value‑transforming function. Must be of type
+    /// <see cref="Func{T,TResult}"/> where the argument and return
+    /// types are both <see cref="double"/>.
     /// </param>
     /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
+    /// The <see cref="CultureInfo"/> used for conversion.
     /// </param>
     /// <returns>
-    /// Un <see cref="Thickness" /> uniforme cuyos valores de grosor son
-    /// iguales al valor especificado.
+    /// A uniform <see cref="Thickness"/> whose sides are equal to the
+    /// supplied value.
     /// </returns>
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
@@ -63,19 +63,19 @@ public sealed class DoubleMarginConverter : IValueConverter
     }
 
     /// <summary>
-    /// Revierte la conversión realizada por este objeto.
+    /// Reverts the conversion performed by this converter.
     /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="targetType">Tipo del destino.</param>
+    /// <param name="value">The object to convert.</param>
+    /// <param name="targetType">The target type.</param>
     /// <param name="parameter">
-    /// Función opcional de transformación de valor.
+    /// Optional value‑transforming function.
     /// </param>
     /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
+    /// The <see cref="CultureInfo"/> used for conversion.
     /// </param>
     /// <returns>
-    /// Un <see cref="double" /> cuyo valor es el promedio del grosor
-    /// establecido en el <see cref="Thickness" /> especificado.
+    /// A <see cref="double"/> whose value is the average of the
+    /// <see cref="Thickness"/> sides.
     /// </returns>
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {

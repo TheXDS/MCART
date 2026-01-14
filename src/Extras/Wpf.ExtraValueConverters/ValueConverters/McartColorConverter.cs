@@ -40,27 +40,51 @@ using static TheXDS.MCART.Misc.AttributeErrorMessages;
 namespace TheXDS.MCART.ValueConverters;
 
 /// <summary>
-/// Convierte valores desde y hacia objetos de tipo
-/// <see cref="MT.Color"/>.
+/// Converts values to and from objects of type <see cref="MT.Color"/>.
 /// </summary>
 [RequiresUnreferencedCode(ClassScansForTypes)]
 public sealed class McartColorConverter : IValueConverter
 {
-    private static readonly Dictionary<Type, IInValueConverter<MT.Color>> _converters = ReflectionHelpers.FindAllObjects<IInValueConverter<MT.Color>>().ToDictionary(p => p.TargetType);
+    private static readonly Dictionary<Type, IInValueConverter<MT.Color>> _converters =
+        ReflectionHelpers.FindAllObjects<IInValueConverter<MT.Color>>()
+            .ToDictionary(p => p.TargetType);
 
-    /// <inheritdoc/>
+    /// <summary>
+    /// Converts a value to the specified target type.
+    /// </summary>
+    /// <param name="value">The value to convert.</param>
+    /// <param name="targetType">The type to which the value should be converted.</param>
+    /// <param name="parameter">Optional converter parameter.</param>
+    /// <param name="culture">The culture to use in the conversion.</param>
+    /// <returns>
+    /// The converted value, or the default value of <paramref name="targetType"/>
+    /// if conversion is not possible.
+    /// </returns>
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo? culture)
     {
         if (value is not MT.Color c) return targetType.Default();
         if (targetType.IsAssignableFrom(value?.GetType())) return value;
-        return _converters.TryGetValue(targetType, out var converter) ? converter.Convert(c, targetType, parameter, culture) : targetType.Default();
+        return _converters.TryGetValue(targetType, out var converter)
+            ? converter.Convert(c, targetType, parameter, culture)
+            : targetType.Default();
     }
 
-    /// <inheritdoc/>
+    /// <summary>
+    /// Converts a value back to <see cref="MT.Color"/>.
+    /// </summary>
+    /// <param name="value">The value to convert back.</param>
+    /// <param name="targetType">The type to which the value should be converted.</param>
+    /// <param name="parameter">Optional converter parameter.</param>
+    /// <param name="culture">The culture to use in the conversion.</param>
+    /// <returns>
+    /// The converted value, or null if the target type is not <see cref="MT.Color"/>.
+    /// </returns>
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo? culture)
     {
         if (targetType != typeof(MT.Color)) return null;
         if (targetType.IsAssignableFrom(value?.GetType())) return value;
-        return _converters.TryGetValue(targetType, out var converter) ? converter.ConvertBack(value, targetType, parameter, culture) : targetType.Default();
+        return _converters.TryGetValue(targetType, out var converter)
+            ? converter.ConvertBack(value, targetType, parameter, culture)
+            : targetType.Default();
     }
 }

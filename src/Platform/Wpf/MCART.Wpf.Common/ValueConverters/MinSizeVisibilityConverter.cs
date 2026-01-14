@@ -34,15 +34,7 @@ using TheXDS.MCART.ValueConverters.Base;
 namespace TheXDS.MCART.ValueConverters;
 
 /// <summary>
-/// Oculta un control si su tamaño es inferior al umbral especificado.
+/// Hides a control if its size is below the specified threshold.
 /// </summary>
-public sealed class MinSizeVisibilityConverter : SizeVisibilityConverter
-{
-    /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="MinSizeVisibilityConverter" />.
-    /// </summary>
-    public MinSizeVisibilityConverter() : base(Visibility.Collapsed, Visibility.Visible)
-    {
-    }
-}
+public sealed class MinSizeVisibilityConverter()
+    : SizeVisibilityConverter(Visibility.Collapsed, Visibility.Visible);

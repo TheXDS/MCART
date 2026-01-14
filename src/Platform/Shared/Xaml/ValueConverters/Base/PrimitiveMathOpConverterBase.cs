@@ -4,10 +4,10 @@ PrimitiveMathOpConverterBase.cs
 This file is part of Morgan's CLR Advanced Runtime (MCART)
 
 Author(s):
-     César Andrés Morgan <xds_xps_ivx@hotmail.com>
+     CÃ©sar AndrÃ©s Morgan <xds_xps_ivx@hotmail.com>
 
 Released under the MIT License (MIT)
-Copyright © 2011 - 2026 César Andrés Morgan
+Copyright Â© 2011 - 2026 CÃ©sar AndrÃ©s Morgan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -37,13 +37,17 @@ namespace TheXDS.MCART.ValueConverters.Base;
 public abstract partial class PrimitiveMathOpConverterBase
 {
     /// <summary>
-    /// Delegado que describe una función que genera una expresión binaria.
+    /// Delegate that describes a function that builds a binary expression.
     /// </summary>
-    /// <param name="opA">Primer operando de la expresión binaria.</param>
-    /// <param name="opB">Segundo operando de la expresión binaria.</param>
+    /// <param name="opA">
+    /// First operand of the binary expression.
+    /// </param>
+    /// <param name="opB">
+    /// Second operand of the binary expression.
+    /// </param>
     /// <returns>
-    /// Una expresión binaria que ejecuta una operación numérica sobre los
-    /// operandos especificados.
+    /// A binary expression that performs a numeric operation on the
+    /// specified operands.
     /// </returns>
     protected delegate BinaryExpression ExpressionBuilder(Expression opA, Expression opB);
 
@@ -90,34 +94,36 @@ public abstract partial class PrimitiveMathOpConverterBase
     }
 
     /// <summary>
-    /// Ejecuta una operación numérica sobre los objetos especificados.
+    /// Executes a numeric operation on the specified objects.
     /// </summary>
-    /// <param name="value">Primer operando.</param>
-    /// <param name="targetType">
-    /// Tipo objetivo del enlace de propiedad.
+    /// <param name="value">
+    /// First operand.
     /// </param>
-    /// <param name="parameter">Segundo operando.</param>
+    /// <param name="targetType">
+    /// Target type of the property binding.
+    /// </param>
+    /// <param name="parameter">
+    /// Second operand.
+    /// </param>
     /// <param name="culture">
-    /// Información cultural a utilizar durante la conversión.
+    /// Cultural information to use during the conversion.
     /// </param>
     /// <param name="func">
-    /// Operación matemática a realizar.
+    /// Mathematical operation to perform.
     /// </param>
     /// <returns>
-    /// El resultado de la operación matemática solicitada con los
-    /// operandos especificados, <see cref="double.NaN"/> o
-    /// <see cref="float.NaN"/> si ocurre un error en la operación y el
-    /// tipo objetivo es <see cref="double"/> o <see cref="float"/>
-    /// respectivamente.
+    /// The result of the requested mathematical operation with the
+    /// specified operands, <see cref="double.NaN"/> or
+    /// <see cref="float.NaN"/> if an error occurs in the operation and
+    /// the target type is <see cref="double"/> or <see cref="float"/>
+    /// respectively.
     /// </returns>
     /// <exception cref="OverflowException">
-    /// Se produce si la operación resulta en desbordamiento del tipo
-    /// objetivo.
+    /// Thrown if the operation results in an overflow of the target type.
     /// </exception>
     /// <exception cref="NotSupportedException">
-    /// Se produce si la operación resulta en error debido a operandos
-    /// inválidos y el tipo objetivo no es <see cref="double"/> ni
-    /// <see cref="float"/>.
+    /// Thrown if the operation fails due to invalid operands and the
+    /// target type is neither <see cref="double"/> nor <see cref="float"/>.
     /// </exception>
     protected static object? Operate(object? value, Type targetType, object? parameter, CultureInfo? culture, ExpressionBuilder func)
     {

@@ -35,57 +35,57 @@ using System.Windows.Controls;
 namespace TheXDS.MCART.Component;
 
 /// <summary>
-/// Contiene una serie de propiedades de dependencia adjuntas para
-/// monitorear y controlar un <see cref="PasswordBox"/>.
+/// Contains a set of attached dependency properties used to monitor
+/// and control a <see cref="PasswordBox"/>.
 /// </summary>
 public class PasswordBoxMonitor : DependencyObject
 {
     /// <summary>
-    /// Enumera los distintos niveles de monitoreo de contraseña.
+    /// Defines the different password monitoring levels.
     /// </summary>
     [Flags]
     public enum MonitorLevel : byte
     {
         /// <summary>
-        /// Ninguno. El <see cref="PasswordBox"/> no será monitoreado.
+        /// None. The <see cref="PasswordBox"/> will not be monitored.
         /// </summary>
         None,
 
         /// <summary>
-        /// Longitud de contraseña. Únicamente se expondrá la propiedad
-        /// <see cref="PasswordLengthProperty"/>.
+        /// Password length only. Only the
+        /// <see cref="PasswordLengthProperty"/> is exposed.
         /// </summary>
         Length,
 
         /// <summary>
-        /// Contraseña de texto plano. Monitorea el contenido de la
-        /// contraseña de texto plano del <see cref="PasswordBox"/>.
+        /// Plain-text password. Monitors the
+        /// <see cref="PasswordBox"/>'s plain-text password content.
         /// </summary>
         Password,
 
         /// <summary>
-        /// Contraseña de texto plano y longitud de contraseña.
+        /// Plain-text password and password length.
         /// </summary>
         PasswordAndLength,
 
         /// <summary>
-        /// Contraseña segura. Monitorea el contenido de la contraseña
-        /// segura del <see cref="PasswordBox"/>.
+        /// Secure password. Monitors the
+        /// <see cref="PasswordBox"/>'s secure password content.
         /// </summary>
         SecurePassword,
 
         /// <summary>
-        /// Contraseña segura y longitud de contraseña.
+        /// Secure password and password length.
         /// </summary>
         SecurePasswordAndLength,
 
         /// <summary>
-        /// Contraseña segura y contraseña de texto plano.
+        /// Secure password and plain-text password.
         /// </summary>
         SecurePasswordAndPassword,
 
         /// <summary>
-        /// Contraseña segura, contraseña de texto plano y longitud de contraseña.
+        /// Secure password, plain-text password, and password length.
         /// </summary>
         All
     }
@@ -94,48 +94,48 @@ public class PasswordBoxMonitor : DependencyObject
         "IsMonitoring", typeof(bool), typeof(PasswordBoxMonitor), new PropertyMetadata(false));
 
     /// <summary>
-    /// Permite monitorear un <see cref="PasswordBox"/>.
+    /// Enables monitoring of a <see cref="PasswordBox"/>.
     /// </summary>
     public static readonly DependencyProperty MonitoringProperty = DependencyProperty.RegisterAttached(
         "Monitoring", typeof(MonitorLevel), typeof(PasswordBoxMonitor), new PropertyMetadata(MonitorLevel.None, OnMonitoringChanged), ValidateMonitorValue);
 
     /// <summary>
-    /// Obtiene la longitud de la contraseña presentada en el
+    /// Gets the length of the password currently shown in the
     /// <see cref="PasswordBox"/>.
     /// </summary>
     public static readonly DependencyProperty PasswordLengthProperty = DependencyProperty.RegisterAttached(
         "PasswordLength", typeof(int), typeof(PasswordBoxMonitor), new PropertyMetadata(0));
 
     /// <summary>
-    /// Emula una propiedad <see cref="PasswordBox.Password"/> vinculable.
+    /// Emulates a bindable version of <see cref="PasswordBox.Password"/>.
     /// </summary>
     public static readonly DependencyProperty PasswordProperty = DependencyProperty.RegisterAttached(
         "Password", typeof(string), typeof(PasswordBoxMonitor), new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
     /// <summary>
-    /// Emula una propiedad <see cref="PasswordBox.SecurePassword"/> vinculable.
+    /// Emulates a bindable version of
+    /// <see cref="PasswordBox.SecurePassword"/>.
     /// </summary>
     public static readonly DependencyProperty SecurePasswordProperty = DependencyProperty.RegisterAttached(
         "SecurePassword", typeof(SecureString), typeof(PasswordBoxMonitor), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
     /// <summary>
-    /// Obtiene una propiedad que indica si el <see cref="PasswordBox"/>
-    /// está siendo monitoreado.
+    /// Identifies a property that indicates whether the
+    /// <see cref="PasswordBox"/> is being monitored.
     /// </summary>
     public static readonly DependencyProperty IsMonitoringDependencyProperty = IsMonitoringDependencyPropertyKey.DependencyProperty;
 
     /// <summary>
-    /// Obtiene un valor que indica si el <see cref="PasswordBox"/> está
-    /// siendo monitoreado.
+    /// Gets whether the specified <see cref="PasswordBox"/> is being
+    /// monitored.
     /// </summary>
     /// <param name="obj">
-    /// Instancia para la cual obtener el valor de la propiedad de
-    /// dependencia adjunta.
+    /// The instance to read the attached dependency property's value
+    /// from.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> si esta instancia monitorea al
-    /// <see cref="PasswordBox"/> especificado, <see langword="false"/> en
-    /// caso contrario.
+    /// <see langword="true"/> if the instance monitors the specified
+    /// <see cref="PasswordBox"/>, otherwise <see langword="false"/>.
     /// </returns>
     public static bool GetIsMonitoring(DependencyObject obj)
     {
@@ -143,15 +143,15 @@ public class PasswordBoxMonitor : DependencyObject
     }
 
     /// <summary>
-    /// Obtiene el valor de la propiedad de dependencia adjunta
+    /// Gets the value of the attached dependency property
     /// <see cref="MonitoringProperty"/>.
     /// </summary>
     /// <param name="obj">
-    /// Instancia para la cual obtener el valor de la propiedad de
-    /// dependencia adjunta.
+    /// The instance to read the attached dependency property's value
+    /// from.
     /// </param>
     /// <returns>
-    /// El valor de monitoreo activo para el <see cref="PasswordBox"/>.
+    /// The active monitoring level for the <see cref="PasswordBox"/>.
     /// </returns>
     public static MonitorLevel GetMonitoring(DependencyObject obj)
     {
@@ -159,30 +159,30 @@ public class PasswordBoxMonitor : DependencyObject
     }
 
     /// <summary>
-    /// Establece el valor de la propiedad de dependencia adjunta
-    /// <see cref="MonitoringProperty"/> para el objeto especificado.
+    /// Sets the value of the attached dependency property
+    /// <see cref="MonitoringProperty"/> on the specified object.
     /// </summary>
     /// <param name="obj">
-    /// Objeto para el cual establecer el valor de la propiedad de
-    /// dependencia adjunta.
+    /// The object on which to set the attached dependency property
+    /// value.
     /// </param>
-    /// <param name="value">Valor de la propiedad de dependencia adjunta.</param>
+    /// <param name="value">The value to set for the attached property.</param>
     public static void SetMonitoring(DependencyObject obj, MonitorLevel value)
     {
         obj.SetValue(MonitoringProperty, value);
     }
 
     /// <summary>
-    /// Obtiene el valor de la propiedad de dependencia adjunta
+    /// Gets the value of the attached dependency property
     /// <see cref="PasswordLengthProperty"/>.
     /// </summary>
     /// <param name="obj">
-    /// Instancia para la cual obtener el valor de la propiedad de
-    /// dependencia adjunta.
+    /// The instance to read the attached dependency property's value
+    /// from.
     /// </param>
     /// <returns>
-    /// La longitud de la contraseña para el <see cref="PasswordBox"/>
-    /// monitoreado.
+    /// The password length for the monitored
+    /// <see cref="PasswordBox"/>.
     /// </returns>
     public static int GetPasswordLength(DependencyObject obj)
     {
@@ -190,30 +190,29 @@ public class PasswordBoxMonitor : DependencyObject
     }
 
     /// <summary>
-    /// Establece el valor de la propiedad de dependencia adjunta
-    /// <see cref="PasswordLengthProperty"/> para el objeto especificado.
+    /// Sets the value of the attached dependency property
+    /// <see cref="PasswordLengthProperty"/> on the specified object.
     /// </summary>
     /// <param name="obj">
-    /// Objeto para el cual establecer el valor de la propiedad de
-    /// dependencia adjunta.
+    /// The object on which to set the attached dependency property
+    /// value.
     /// </param>
-    /// <param name="value">Valor de la propiedad de dependencia adjunta.</param>
+    /// <param name="value">The value to set for the attached property.</param>
     public static void SetPasswordLength(DependencyObject obj, int value)
     {
         obj.SetValue(PasswordLengthProperty, value);
     }
 
     /// <summary>
-    /// Obtiene el valor de la propiedad de dependencia adjunta
+    /// Gets the value of the attached dependency property
     /// <see cref="PasswordProperty"/>.
     /// </summary>
     /// <param name="obj">
-    /// Instancia para la cual obtener el valor de la propiedad de
-    /// dependencia adjunta.
+    /// The instance to read the attached dependency property's value
+    /// from.
     /// </param>
     /// <returns>
-    /// La contraseña establecida en el <see cref="PasswordBox"/>
-    /// monitoreado.
+    /// The password set on the monitored <see cref="PasswordBox"/>.
     /// </returns>
     public static string GetPassword(DependencyObject obj)
     {
@@ -221,30 +220,30 @@ public class PasswordBoxMonitor : DependencyObject
     }
 
     /// <summary>
-    /// Establece el valor de la propiedad de dependencia adjunta
-    /// <see cref="PasswordProperty"/> para el objeto especificado.
+    /// Sets the value of the attached dependency property
+    /// <see cref="PasswordProperty"/> on the specified object.
     /// </summary>
     /// <param name="obj">
-    /// Objeto para el cual establecer el valor de la propiedad de
-    /// dependencia adjunta.
+    /// The object on which to set the attached dependency property
+    /// value.
     /// </param>
-    /// <param name="value">Valor de la propiedad de dependencia adjunta.</param>
+    /// <param name="value">The value to set for the attached property.</param>
     public static void SetPassword(DependencyObject obj, string value)
     {
         obj.SetValue(PasswordProperty, value);
     }
 
     /// <summary>
-    /// Obtiene el valor de la propiedad de dependencia adjunta
+    /// Gets the value of the attached dependency property
     /// <see cref="SecurePasswordProperty"/>.
     /// </summary>
     /// <param name="obj">
-    /// Instancia para la cual obtener el valor de la propiedad de
-    /// dependencia adjunta.
+    /// The instance to read the attached dependency property's value
+    /// from.
     /// </param>
     /// <returns>
-    /// La contraseña establecida en el <see cref="PasswordBox"/>
-    /// monitoreado.
+    /// The secure password set on the monitored
+    /// <see cref="PasswordBox"/>.
     /// </returns>
     public static SecureString GetSecurePassword(DependencyObject obj)
     {
@@ -252,14 +251,14 @@ public class PasswordBoxMonitor : DependencyObject
     }
 
     /// <summary>
-    /// Establece el valor de la propiedad de dependencia adjunta
-    /// <see cref="SecurePasswordProperty"/> para el objeto especificado.
+    /// Sets the value of the attached dependency property
+    /// <see cref="SecurePasswordProperty"/> on the specified object.
     /// </summary>
     /// <param name="obj">
-    /// Objeto para el cual establecer el valor de la propiedad de
-    /// dependencia adjunta.
+    /// The object on which to set the attached dependency property
+    /// value.
     /// </param>
-    /// <param name="value">Valor de la propiedad de dependencia adjunta.</param>
+    /// <param name="value">The value to set for the attached property.</param>
     public static void SetSecurePassword(DependencyObject obj, SecureString value)
     {
         obj.SetValue(SecurePasswordProperty, value);

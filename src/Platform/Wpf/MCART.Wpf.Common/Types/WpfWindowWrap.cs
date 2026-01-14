@@ -34,10 +34,10 @@ using TheXDS.MCART.Types.Base;
 namespace TheXDS.MCART.Types;
 
 /// <summary>
-/// Envuelve una ventana de Windows Presentation Framework para brindar
-/// servicios adicionales de gestión de ventana.
+/// Wraps a Windows Presentation Framework <see cref="Window"/> to provide
+/// additional window‑management services.
 /// </summary>
-/// <param name="window">Ventana a envolver.</param>
+/// <param name="window">Window to wrap.</param>
 public class WpfWindowWrap(Window window) : IWpfWindow
 {
     private readonly Window _window = window;
@@ -48,20 +48,18 @@ public class WpfWindowWrap(Window window) : IWpfWindow
     Window IWpfWindow.Itself => _window;
 
     /// <summary>
-    /// Convierte implícitamente un <see cref="WpfWindowWrap"/> en un
-    /// <see cref="Window"/>.
+    /// Implicitly converts a <see cref="WpfWindowWrap"/> to a <see cref="Window"/>.
     /// </summary>
-    /// <param name="wrap">Objeto a convertir.</param>
+    /// <param name="wrap">Object to convert.</param>
     public static implicit operator Window(WpfWindowWrap wrap)
     {
         return wrap._window;
     }
 
     /// <summary>
-    /// Convierte implícitamente un <see cref="Window"/> en un
-    /// <see cref="WpfWindowWrap"/>.
+    /// Implicitly converts a <see cref="Window"/> to a <see cref="WpfWindowWrap"/>.
     /// </summary>
-    /// <param name="window">Objeto a convertir.</param>
+    /// <param name="window">Object to convert.</param>
     public static implicit operator WpfWindowWrap(Window window)
     {
         return new WpfWindowWrap(window);

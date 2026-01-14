@@ -34,56 +34,54 @@ using TheXDS.MCART.Types.Extensions;
 namespace TheXDS.MCART.ValueConverters;
 
 /// <summary>
-/// Clase base para crear convertidores de valores booleanos que analizan
-/// banderas de una enumeración.
+/// Base class for creating boolean converters that parse flag enums.
 /// </summary>
 /// <typeparam name="T">
-/// Tipo de valores a convertir. Deben ser enumeraciones.
+/// Type of values to convert. Must be an enumeration.
 /// </typeparam>
-/// <param name="trueValue">Valor equivalente a <see langword="true" />.</param>
+/// <param name="trueValue">Value equivalent to <see langword="true"/>.
+/// </param>
 /// <exception cref="InvalidOperationException">
-/// Se produce si el tipo especificado al instanciar esta clase no es
-/// una enumeración.
+/// Thrown if the type specified when instantiating this class is not
+/// an enumeration.
 /// </exception>
 public partial class BoolFlagConverter<T>(T trueValue) where T : Enum
 {
     /// <summary>
-    /// Obtiene o establece el valor que equivale a <see langword="true" /> en este
-    /// <see cref="BoolFlagConverter{T}" />.
+    /// Gets or sets the value that corresponds to <see langword="true"/>
+    /// in this <see cref="BoolFlagConverter{T}"/>.
     /// </summary>
     public T True { get; set; } = trueValue;
 
     /// <summary>
-    /// Inicializa una nueva instancia de la clase
-    /// <see cref="BoolFlagConverter{T}" />.
+    /// Initializes a new instance of the <see cref="BoolFlagConverter{T}"/> class.
     /// </summary>
     /// <exception cref="InvalidOperationException">
-    /// Se produce si el tipo especificado al instanciar esta clase no es
-    /// una enumeración.
+    /// Thrown if the type specified when instantiating this class is not
+    /// an enumeration.
     /// </exception>
     public BoolFlagConverter() : this((T)typeof(T).Default()!)
     {
     }
 
     /// <summary>
-    /// Convierte un valor a <see cref="bool" />.
+    /// Converts a value to <see cref="bool"/>.
     /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="targetType">Tipo del destino.</param>
+    /// <param name="value">Object to convert.</param>
+    /// <param name="targetType">Target type of the conversion.</param>
     /// <param name="parameter">
-    /// Parámetros personalizados a utilizar para la conversión.
+    /// Custom parameters used for the conversion.
     /// </param>
     /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
+    /// <see cref="CultureInfo"/> to use during the conversion.
     /// </param>
     /// <returns>
-    /// Si no se ha establecido un valor para <see cref="P:System.Windows.Converters.BoolFlagConverter`1.True" />, se
-    /// devolverá <see langword="true" /> si hay alguna bandera activa, o <see langword="false" />
-    /// en caso contrario. Si se estableció un valor para
-    /// <see cref="P:System.Windows.Converters.BoolFlagConverter`1.True" />, se devolverá <see langword="true" /> solo si
-    /// dicha(s)
-    /// bandera(s) se encuentra(n) activa(s), <see langword="false" /> en caso
-    /// contrario.
+    /// If no value has been set for <see cref="P:System.Windows.Converters.BoolFlagConverter`1.True"/>,
+    /// returns <see langword="true"/> if any flag is active, otherwise
+    /// <see langword="false"/>. If a value has been set for
+    /// <see cref="P:System.Windows.Converters.BoolFlagConverter`1.True"/>, returns
+    /// <see langword="true"/> only when that flag (or flags) is active,
+    /// otherwise <see langword="false"/>.
     /// </returns>
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
@@ -92,21 +90,21 @@ public partial class BoolFlagConverter<T>(T trueValue) where T : Enum
     }
 
     /// <summary>
-    /// Convierte un <see cref="bool" /> al tipo establecido para este
-    /// <see cref="BoolFlagConverter{T}" />.
+    /// Converts a <see cref="bool"/> to the type defined for this
+    /// <see cref="BoolFlagConverter{T}"/>.
     /// </summary>
-    /// <param name="value">Objeto a convertir.</param>
-    /// <param name="targetType">Tipo del destino.</param>
+    /// <param name="value">Object to convert.</param>
+    /// <param name="targetType">Target type of the conversion.</param>
     /// <param name="parameter">
-    /// Parámetros personalizados a utilizar para la conversión.
+    /// Custom parameters to use for the conversion.
     /// </param>
     /// <param name="culture">
-    /// <see cref="CultureInfo" /> a utilizar para la conversión.
+    /// <see cref="CultureInfo"/> to use during the conversion.
     /// </param>
     /// <returns>
-    /// Si <paramref name="value" /> es <see langword="true" />, se devuelve la(s)
-    /// bandera(s) a ser detectada(s), en caso de haberse establecido un
-    /// valor para <see cref="P:System.Windows.Converters.BoolFlagConverter`1.True" />, o en caso contrario, se devolverá
+    /// If <paramref name="value"/> is <see langword="true"/>, returns the
+    /// flag(s) to be detected; if a value has been set for
+    /// <see cref="P:System.Windows.Converters.BoolFlagConverter`1.True"/>, otherwise returns
     /// <c>default</c>.
     /// </returns>
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
