@@ -31,12 +31,58 @@ SOFTWARE.
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
+using TheXDS.MCART.Types.Base;
+using TheXDS.MCART.Types.Extensions;
 using static TheXDS.MCART.Misc.AttributeErrorMessages;
 
 namespace TheXDS.MCART.Misc;
 
 internal static class PrivateInternals
 {
+    public static (T, bool) ParseVector<T>(string? value, byte values, Func<double[], T> ctor) where T : IVectorConstants<T>
+    {
+        T result = default!;
+        switch (value)
+        {
+            case nameof(T.Nothing):
+            case "":
+            case null:
+                result = T.Nothing;
+                break;
+            case nameof(T.Zero):
+            case "0":
+                result = T.Zero;
+                break;
+            case nameof(T.PositiveInfinity):
+            case "Infinity":
+            case "∞":
+            case "+∞":
+                result = T.PositiveInfinity;
+                break;
+            case nameof(T.NegativeInfinity):
+            case "-∞":
+                result = T.NegativeInfinity;
+                break;
+            default:
+                string[]? separators =
+                [
+                    ", ",
+                    "; ",
+                    " - ",
+                    " : ",
+                    " | ",
+                    " ",
+                    ",",
+                    ";",
+                    ":",
+                    "|",
+                ];
+                var parsed = PrivateInternals.TryParseValues<double, T>(new DoubleConverter(), separators, value.Without("()[]{}".ToCharArray()), values, ctor, out result);
+                return (result, parsed);
+        }
+        return (result, true);
+    }
+
     public static bool TryParseValues<TValue, TResult>(TypeConverter t, string[] separators, string value, in byte items, Func<TValue[], TResult> instantiationCallback, out TResult result)
     {
 #if EnforceContracts && DEBUG

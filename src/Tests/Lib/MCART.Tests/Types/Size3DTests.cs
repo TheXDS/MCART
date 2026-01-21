@@ -47,7 +47,7 @@ public class Size3DTests
         }
         Test(Size3D.Nothing, double.NaN);
         Test(Size3D.Zero, 0.0);
-        Test(Size3D.Infinity, double.PositiveInfinity);
+        Test(Size3D.PositiveInfinity, double.PositiveInfinity);
     }
 
     [Theory]
@@ -99,7 +99,7 @@ public class Size3DTests
     public void TryParseInfinity_Test(string data)
     {
         Assert.That(Size3D.TryParse(data, out Size3D p));
-        Assert.That(Size3D.Infinity, Is.EqualTo(p));
+        Assert.That(Size3D.PositiveInfinity, Is.EqualTo(p));
     }
 
     [Test]
@@ -386,7 +386,7 @@ public class Size3DTests
         Assert.That(new Size3D(1, 2, double.PositiveInfinity).IsZero, Is.False);
         Assert.That(new Size3D(1, 2, double.NaN).IsZero, Is.False);
         Assert.That(Size3D.Nothing.IsZero, Is.False);
-        Assert.That(Size3D.Infinity.IsZero, Is.False);
+        Assert.That(Size3D.PositiveInfinity.IsZero, Is.False);
     }
 
     [Test]
@@ -398,7 +398,7 @@ public class Size3DTests
         Assert.That(new Size3D(1, 2, double.PositiveInfinity).IsReal, Is.False);
         Assert.That(new Size3D(1, 2, double.NaN).IsReal, Is.False);
         Assert.That(Size3D.Nothing.IsReal, Is.False);
-        Assert.That(Size3D.Infinity.IsReal, Is.False);
+        Assert.That(Size3D.PositiveInfinity.IsReal, Is.False);
     }
 
     [Test]
@@ -410,7 +410,7 @@ public class Size3DTests
         Assert.That(new Size3D(1, 2, double.PositiveInfinity).IsValid, Is.False);
         Assert.That(new Size3D(1, 2, double.NaN).IsValid, Is.False);
         Assert.That(Size3D.Nothing.IsValid, Is.False);
-        Assert.That(Size3D.Infinity.IsValid, Is.False);
+        Assert.That(Size3D.PositiveInfinity.IsValid, Is.False);
     }
 
     [TestCase(1, 1, 1, 6)]

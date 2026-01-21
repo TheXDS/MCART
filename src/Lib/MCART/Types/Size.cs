@@ -45,7 +45,7 @@ namespace TheXDS.MCART.Types;
 /// </summary>
 /// <param name="width">Width value.</param>
 /// <param name="height">Height value.</param>
-public struct Size(double width, double height) : IFormattable, IEquatable<Size>, IEquatable<ISize>, IEquatable<IVector>, ISize, IVector
+public struct Size(double width, double height) : IFormattable, IEquatable<Size>, IEquatable<ISize>, IEquatable<IVector>, ISize, IVector, IVectorConstants<Size>
 {
     /// <summary>
     /// Gets a value that does not represent any size. This field is
@@ -63,7 +63,13 @@ public struct Size(double width, double height) : IFormattable, IEquatable<Size>
     /// Gets a value that represents an infinite size. This field
     /// is read-only.
     /// </summary>
-    public static readonly Size Infinity = new(double.PositiveInfinity, double.PositiveInfinity);
+    public static readonly Size PositiveInfinity = new(double.PositiveInfinity, double.PositiveInfinity);
+
+    /// <summary>
+    /// Gets a value that represents a negative infinite size. This field
+    /// is read-only.
+    /// </summary>
+    public static readonly Size NegativeInfinity = new(double.NegativeInfinity, double.NegativeInfinity);
 
     /// <summary>
     /// Performs an addition operation on the points.
@@ -551,6 +557,14 @@ public struct Size(double width, double height) : IFormattable, IEquatable<Size>
 
     readonly double IVector.Y => Height;
 
+    static Size IVectorConstants<Size>.Nothing => Nothing;
+
+    static Size IVectorConstants<Size>.Zero => Zero;
+
+    static Size IVectorConstants<Size>.PositiveInfinity => PositiveInfinity;
+
+    static Size IVectorConstants<Size>.NegativeInfinity => NegativeInfinity;
+
     /// <summary>
     /// Determines if this instance of <see cref="Size"/> is equal to
     /// another.
@@ -710,39 +724,9 @@ public struct Size(double width, double height) : IFormattable, IEquatable<Size>
     /// </returns>
     public static bool TryParse(string? value, out Size size)
     {
-        switch (value)
-        {
-            case nameof(Nothing):
-            case "":
-            case null:
-                size = Nothing;
-                break;
-            case nameof(Zero):
-            case "0":
-                size = Zero;
-                break;
-            case nameof(Infinity):
-            case "PositiveInfinity":
-            case "∞":
-                size = Infinity;
-                break;
-            default:
-                string[]? separators =
-                [
-                    ", ",
-                    "; ",
-                    " - ",
-                    " : ",
-                    " | ",
-                    " ",
-                    ",",
-                    ";",
-                    ":",
-                    "|",
-                ];
-                return PrivateInternals.TryParseValues<double, Size>(new DoubleConverter(), separators, value.Without("()[]{}".ToCharArray()), 2, l => new(l[0], l[1]), out size);
-        }
-        return true;
+        (var parsed, var result) = PrivateInternals.ParseVector(value, 2, l => new Size(l[0], l[1]));
+        size = parsed;
+        return result;
     }
 
     /// <summary>

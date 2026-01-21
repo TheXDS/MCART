@@ -46,7 +46,7 @@ public class SizeTests
         }
         Test(Size.Nothing, double.NaN);
         Test(Size.Zero, 0.0);
-        Test(Size.Infinity, double.PositiveInfinity);
+        Test(Size.PositiveInfinity, double.PositiveInfinity);
     }
 
     [Theory]
@@ -97,7 +97,7 @@ public class SizeTests
     public void TryParseInfinity_Test(string data)
     {
         Assert.That(Size.TryParse(data, out Size p));
-        Assert.That(Size.Infinity, Is.EqualTo(p));
+        Assert.That(Size.PositiveInfinity, Is.EqualTo(p));
     }
 
     [Test]
@@ -384,7 +384,7 @@ public class SizeTests
         Assert.That(new Size(1, double.PositiveInfinity).IsZero, Is.False);
         Assert.That(new Size(1, double.NaN).IsZero, Is.False);
         Assert.That(Size.Nothing.IsZero, Is.False);
-        Assert.That(Size.Infinity.IsZero, Is.False);
+        Assert.That(Size.PositiveInfinity.IsZero, Is.False);
     }
 
     [Test]
@@ -396,7 +396,7 @@ public class SizeTests
         Assert.That(new Size(1, double.PositiveInfinity).IsReal, Is.False);
         Assert.That(new Size(1, double.NaN).IsReal, Is.False);
         Assert.That(Size.Nothing.IsReal, Is.False);
-        Assert.That(Size.Infinity.IsReal, Is.False);
+        Assert.That(Size.PositiveInfinity.IsReal, Is.False);
     }
 
     [Test]
@@ -408,7 +408,7 @@ public class SizeTests
         Assert.That(new Size(1, double.PositiveInfinity).IsValid, Is.False);
         Assert.That(new Size(1, double.NaN).IsValid, Is.False);
         Assert.That(Size.Nothing.IsValid, Is.False);
-        Assert.That(Size.Infinity.IsValid, Is.False);
+        Assert.That(Size.PositiveInfinity.IsValid, Is.False);
     }
 
     [Theory]

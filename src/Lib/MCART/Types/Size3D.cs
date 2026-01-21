@@ -28,7 +28,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.ComponentModel;
 using System.Numerics;
 using TheXDS.MCART.Math;
 using TheXDS.MCART.Misc;
@@ -46,7 +45,7 @@ namespace TheXDS.MCART.Types;
 /// <param name="width">Width value.</param>
 /// <param name="height">Height value.</param>
 /// <param name="depth">Depth value.</param>
-public struct Size3D(double width, double height, double depth) : IFormattable, IEquatable<Size3D>, IEquatable<ISize3D>, IEquatable<IVector3D>, ISize3D, IVector3D
+public struct Size3D(double width, double height, double depth) : IFormattable, IEquatable<Size3D>, IEquatable<ISize3D>, IEquatable<IVector3D>, ISize3D, IVector3D, IVectorConstants<Size3D>
 {
     /// <summary>
     /// Gets a value that does not represent any size. This field is
@@ -64,7 +63,13 @@ public struct Size3D(double width, double height, double depth) : IFormattable, 
     /// Gets a value that represents an infinite size. This field
     /// is read-only.
     /// </summary>
-    public static readonly Size3D Infinity = new(double.PositiveInfinity, double.PositiveInfinity, double.PositiveInfinity);
+    public static readonly Size3D PositiveInfinity = new(double.PositiveInfinity, double.PositiveInfinity, double.PositiveInfinity);
+
+    /// <summary>
+    /// Gets a value that represents a negative infinite size. This field
+    /// is read-only.
+    /// </summary>
+    public static readonly Size3D NegativeInfinity = new(double.NegativeInfinity, double.NegativeInfinity, double.NegativeInfinity);
 
     /// <summary>
     /// Performs an addition operation on the points.
@@ -674,39 +679,9 @@ public struct Size3D(double width, double height, double depth) : IFormattable, 
     /// </returns>
     public static bool TryParse(string? value, out Size3D size)
     {
-        switch (value)
-        {
-            case nameof(Nothing):
-            case "":
-            case null:
-                size = Nothing;
-                break;
-            case nameof(Zero):
-            case "0":
-                size = Zero;
-                break;
-            case nameof(Infinity):
-            case "PositiveInfinity":
-            case "∞":
-                size = Infinity;
-                break;
-            default:
-                string[]? separators =
-                [
-                    ", ",
-                    "; ",
-                    " - ",
-                    " : ",
-                    " | ",
-                    " ",
-                    ",",
-                    ";",
-                    ":",
-                    "|",
-                ];
-                return PrivateInternals.TryParseValues<double, Size3D>(new DoubleConverter(), separators, value.Without("()[]{}".ToCharArray()), 3, l => new(l[0], l[1], l[2]), out size);
-        }
-        return true;
+        (var parsed, var result) = PrivateInternals.ParseVector(value, 3, l => new Size3D(l[0], l[1], l[2]));
+        size = parsed;
+        return result;
     }
 
     /// <summary>
@@ -720,6 +695,14 @@ public struct Size3D(double width, double height, double depth) : IFormattable, 
     /// </summary>
     /// <param name="p"><see cref="Vector3"/> value to be converted.</param>
     public static implicit operator Size3D(Vector3 p) => new(p.X, p.Y, p.Z);
+
+    static Size3D IVectorConstants<Size3D>.Nothing => Nothing;
+
+    static Size3D IVectorConstants<Size3D>.Zero => Zero;
+
+    static Size3D IVectorConstants<Size3D>.PositiveInfinity => PositiveInfinity;
+
+    static Size3D IVectorConstants<Size3D>.NegativeInfinity => NegativeInfinity;
 
     readonly bool IEquatable<IVector>.Equals(IVector? other) => other is not null && Width == other.X && Height == other.Y;
 }
