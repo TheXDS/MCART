@@ -57,7 +57,7 @@ public static class DependencyObjectHelpers
     /// Callback to execute whenever a value needs to be coerced.
     /// </param>
     /// <param name="validate">
-    /// Callback to execute whenever a value needs to be validated before 
+    /// Callback to execute whenever a value needs to be validated before
     /// assigning the dependency property.
     /// </param>
     /// <returns>A new dependency property.</returns>
@@ -95,7 +95,7 @@ public static class DependencyObjectHelpers
     /// Callback to execute whenever a value needs to be coerced.
     /// </param>
     /// <param name="validate">
-    /// Callback to execute whenever a value needs to be validated before 
+    /// Callback to execute whenever a value needs to be validated before
     /// assigning the dependency property.
     /// </param>
     /// <returns>A new dependency property.</returns>
@@ -132,7 +132,7 @@ public static class DependencyObjectHelpers
     /// Callback to execute whenever a value needs to be coerced.
     /// </param>
     /// <param name="validate">
-    /// Callback to execute whenever a value needs to be validated before 
+    /// Callback to execute whenever a value needs to be validated before
     /// assigning the dependency property.
     /// </param>
     /// <returns>A new dependency property.</returns>
@@ -144,7 +144,7 @@ public static class DependencyObjectHelpers
         ValidateValueCallback? validate = null)
         where TOwner : DependencyObject
     {
-        return DependencyProperty.Register(name, typeof(TValue), typeof(TOwner), new PropertyMetadata(defaultValue, changedValue, coerceValue), validate);
+        return DependencyProperty.Register(name, typeof(TValue), typeof(TOwner), new FrameworkPropertyMetadata(defaultValue, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, changedValue, coerceValue), validate);
     }
 
     /// <summary>
@@ -171,7 +171,7 @@ public static class DependencyObjectHelpers
     /// Callback to execute whenever a value needs to be coerced.
     /// </param>
     /// <param name="validate">
-    /// Callback to execute whenever a value needs to be validated before 
+    /// Callback to execute whenever a value needs to be validated before
     /// assigning the dependency property.
     /// </param>
     /// <returns>A new dependency property.</returns>
