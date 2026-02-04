@@ -9,6 +9,8 @@
     <Import_RootNamespace>Xaml.Tests</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)component\EnumValueProviderTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Component\NamedEnumValueProviderTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\AddConverterTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\Base\PrimitiveMathOpConverterBaseTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\BooleanConverterTests.cs" />
