@@ -70,7 +70,7 @@ public class NamedEnumValueProviderTests
     }
 
     [Test]
-    public void EnumValueProvider_returns_empty_on_null_enum_type()
+    public void NamedEnumValueProvider_returns_empty_on_null_enum_type()
     {
         var provider = new NamedEnumValueProvider() { EnumType = null };
         var values = provider.ProvideValue(null!);
