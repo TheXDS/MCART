@@ -31,6 +31,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using Microsoft.VisualStudio.TestPlatform.Utilities;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using TheXDS.MCART.Exceptions;
@@ -478,13 +479,14 @@ public class CollectionHelpersTests
     {
         Assert.That(((object?[])["1", 2]).IsAnyNull(), Is.False);
         Assert.That(((object?[])["1", null]).IsAnyNull(), Is.True);
+        Assert.That(CollectionHelpers.IsAnyNull(null), Is.True);
+
     }
 
     [Test]
     public void IsAnyNull_with_int_index_out_test()
     {
-        int index;
-        Assert.That(((object?[])["1", 2]).IsAnyNull(out index), Is.False);
+        Assert.That(((object?[])["1", 2]).IsAnyNull(out int index), Is.False);
         Assert.That(index, Is.EqualTo(-1));
         Assert.That(((object?[])["1", 2, null]).IsAnyNull(out index), Is.True);
         Assert.That(index, Is.EqualTo(2));
@@ -503,10 +505,17 @@ public class CollectionHelpersTests
     [Test]
     public void NotEmpty_string_Test()
     {
-        string?[]? i = new[] { "1", "2", null, "", "3" };
-        string[]? o = new[] { "1", "2", "3" };
-
+        string?[]? i = ["1", "2", null, "", "3"];
+        string[]? o = ["1", "2", "3"];
         Assert.That(o, Is.EqualTo(i.NotEmpty()));
+    }
+
+    [Test]
+    public void NotEmpty_collection_Test()
+    {
+        string?[] input = ["1", "", null, "2"];
+        string[] output = ["1", "2"];
+        Assert.That(input.NotEmpty(), Is.EquivalentTo(output));
     }
 
     [Test]

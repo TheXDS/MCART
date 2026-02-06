@@ -55,20 +55,21 @@ public class CommonTest
     }
 
     [Theory]
-    [TestCase(0,1024,ByteUnitType.Binary,"1.0 KiB")]
-    [TestCase(0,1000,ByteUnitType.Decimal,"1.0 KB")]
-    [TestCase(1,1024,ByteUnitType.Binary,"1.0 MiB")]
-    [TestCase(1,1000,ByteUnitType.Decimal,"1.0 MB")]
+    [TestCase(0, 1024, ByteUnitType.Binary,"1.0 KiB")]
+    [TestCase(0, 1000, ByteUnitType.Decimal,"1.0 KB")]
+    [TestCase(1, 1024, ByteUnitType.Binary,"1.0 MiB")]
+    [TestCase(1, 1000, ByteUnitType.Decimal,"1.0 MB")]
     public void ByteUnits_Test(byte mag, int val, ByteUnitType unit, string output)
     {
+        Assert.That(output, Is.EqualTo(Common.ByteUnits(val, unit, CultureInfo.InvariantCulture)));
         Assert.That(output, Is.EqualTo(Common.ByteUnits(val, unit, mag, CultureInfo.InvariantCulture)));
     }
     
     [Theory]
-    [TestCase(0,1536,ByteUnitType.Binary,"1.5 KiB")]
-    [TestCase(0,1500,ByteUnitType.Decimal,"1.5 KB")]
-    [TestCase(1,1536,ByteUnitType.Binary,"1.5 MiB")]
-    [TestCase(1,1500,ByteUnitType.Decimal,"1.5 MB")]
+    [TestCase(0, 1536, ByteUnitType.Binary,"1.5 KiB")]
+    [TestCase(0, 1500, ByteUnitType.Decimal,"1.5 KB")]
+    [TestCase(1, 1536, ByteUnitType.Binary,"1.5 MiB")]
+    [TestCase(1, 1500, ByteUnitType.Decimal,"1.5 MB")]
     public void ByteUnits_custom_culture_Test(byte mag, int val, ByteUnitType unit, string output)
     {
         Assert.That(output, Is.EqualTo(Common.ByteUnits(val, unit, mag, CultureInfo.InvariantCulture)));
@@ -85,23 +86,23 @@ public class CommonTest
     public void SequenceTest()
     {
         Assert.That(
-            new[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 },
+            (int[])[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
             Is.EqualTo(Sequence(10)));
 
         Assert.That(
-            new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 },
+            (int[])[1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
             Is.EqualTo(Sequence(1, 10)));
 
         Assert.That(
-            new[] { 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 },
+            (int[])[10, 9, 8, 7, 6, 5, 4, 3, 2, 1],
             Is.EqualTo(Sequence(10, 1)));
 
         Assert.That(
-            new[] { 1, 3, 5, 7, 9 },
+            (int[])[1, 3, 5, 7, 9],
             Is.EqualTo(Sequence(1, 10, 2)));
 
         Assert.That(
-            new[] { 10, 8, 6, 4, 2 },
+            (int[])[10, 8, 6, 4, 2],
             Is.EqualTo(Sequence(10, 1, 2)));
 
         Assert.Throws<ArgumentOutOfRangeException>(() => _ = Sequence(1, 10, 0).ToList());
@@ -215,10 +216,7 @@ public class CommonTest
     [Test]
     public void CollectionListedTest()
     {
-        string output = new[]
-        {
-            "This", "is", "a", "test"
-        }.Listed();
+        string output = ((string[])[ "This", "is", "a", "test" ]).Listed();
         Assert.That(
             $"This{Environment.NewLine}is{Environment.NewLine}a{Environment.NewLine}test",
             Is.EqualTo(output));
@@ -231,10 +229,10 @@ public class CommonTest
         Assert.That(AnyEmpty("T", "e", "s", "t"), Is.False);
 
         Assert.That(AnyEmpty(out IEnumerable<int> i1, "Test", string.Empty, ""));
-        Assert.That(new[] { 1, 2 }, Is.EqualTo(i1));
+        Assert.That((int[])[1, 2], Is.EqualTo(i1));
 
         Assert.That(AnyEmpty(out IEnumerable<int> i2, null, string.Empty, ""));
-        Assert.That(new[] { 0, 1, 2 }, Is.EqualTo(i2));
+        Assert.That((int[])[0, 1, 2], Is.EqualTo(i2));
 
         Assert.That(AnyEmpty(out IEnumerable<int> i3, "T", "e", "s", "t"), Is.False);
         Assert.That(Array.Empty<int>(), Is.EqualTo(i3));
@@ -565,13 +563,13 @@ public class CommonTest
     [Test]
     public void AnyEmptyTest()
     {
-        string?[] array = new[] { "0", null, "2", "3", null, "5" };
-        Assert.That(new[] { "0", "1", "2" }.AnyEmpty(out int i), Is.False);
+        string?[] array = ["0", null, "2", "3", null, "5"];
+        Assert.That(((string[])["0", "1", "2"]).AnyEmpty(out int i), Is.False);
         Assert.That(-1, Is.EqualTo(i));
         Assert.That(array.AnyEmpty(out int index));
         Assert.That(1, Is.EqualTo(index));
         Assert.That(array.AnyEmpty(out IEnumerable<int> indexes));
-        Assert.That(new[] { 1, 4 }, Is.EqualTo(indexes.ToArray()));
+        Assert.That(((int[])[1, 4]), Is.EqualTo(indexes.ToArray()));
 
         Assert.That(AnyEmpty(out int idx, array));
         Assert.That(1, Is.EqualTo(idx));
