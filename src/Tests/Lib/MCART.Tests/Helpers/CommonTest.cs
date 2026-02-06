@@ -61,7 +61,6 @@ public class CommonTest
     [TestCase(1, 1000, ByteUnitType.Decimal,"1.0 MB")]
     public void ByteUnits_Test(byte mag, int val, ByteUnitType unit, string output)
     {
-        Assert.That(output, Is.EqualTo(Common.ByteUnits(val, unit, CultureInfo.InvariantCulture)));
         Assert.That(output, Is.EqualTo(Common.ByteUnits(val, unit, mag, CultureInfo.InvariantCulture)));
     }
     
