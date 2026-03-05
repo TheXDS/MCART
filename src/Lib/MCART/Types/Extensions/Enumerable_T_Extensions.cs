@@ -788,6 +788,32 @@ public static partial class EnumerableExtensions
     }
 
     /// <summary>
+    /// Combines multiple sequences into a single sequence by concatenating
+    /// their elements.
+    /// </summary>
+    /// <remarks>
+    /// This method flattens a collection of collections into a single
+    /// sequence, making it easier to iterate over all elements. The order of
+    /// elements in the resulting sequence matches the order in the input
+    /// collections.
+    /// </remarks>
+    /// <typeparam name="T">
+    /// The type of the elements contained in the input sequences.
+    /// </typeparam>
+    /// <param name="collections">
+    /// An enumerable collection of sequences whose elements are to be
+    /// concatenated into a single sequence. Cannot be <see langword="null"/>.
+    /// </param>
+    /// <returns>
+    /// An enumerable sequence containing all elements from the input
+    /// sequences, in the order they appear.
+    /// </returns>
+    public static IEnumerable<T> Joint<T>(this IEnumerable<IEnumerable<T>> collections)
+    {
+        return collections.SelectMany(p => p);
+    }
+
+    /// <summary>
     /// Splits the specified collection into a specified number of slices.
     /// </summary>
     /// <typeparam name="T">The type of elements in the collection.</typeparam>

@@ -78,6 +78,15 @@ public class EnumerableExtensionsTests
     }
 
     [Test]
+    public void Joint_joins_collections_of_collections()
+    {
+        int[] a = [1, 2, 3];
+        int[] b = [4, 5, 6];
+        int[][] c = [a, b, [7, 8, 9]];
+        Assert.That(c.Joint(), Is.EquivalentTo([1, 2, 3, 4, 5, 6, 7, 8, 9]));
+    }
+
+    [Test]
     public void Pick_Test()
     {
         int[] c = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
