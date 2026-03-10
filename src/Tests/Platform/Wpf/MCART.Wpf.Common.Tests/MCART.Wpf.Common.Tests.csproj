@@ -4,6 +4,9 @@
 		<UseWPF>true</UseWPF>
 		<EnableWindowsTargeting>true</EnableWindowsTargeting>
 	</PropertyGroup>
+	<PropertyGroup Condition="$([MSBuild]::IsOSPlatform('Windows')) == false">
+		<IsTestProject>false</IsTestProject>
+	</PropertyGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\..\Platform\Wpf\MCART.Wpf.Common\MCART.Wpf.Common.csproj" />
 	</ItemGroup>
