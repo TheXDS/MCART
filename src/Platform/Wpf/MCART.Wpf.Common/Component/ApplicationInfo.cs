@@ -41,7 +41,7 @@ namespace TheXDS.MCART.Component;
 /// </summary>
 public class ApplicationInfo : ApplicationInfoBase<Application>, IExposeExtendedGuiInfo<UIElement?>
 {
-    private static UIElement? InferIcon(Assembly asm)
+    private static Image? InferIcon(Assembly asm)
     {
         if (GetIconFromOS(asm) is not { } systemIcon) return null;
         using (systemIcon)

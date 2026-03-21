@@ -30,4 +30,3 @@ public abstract class ModernWindow : Window, IWpfWindow
         set => SetValue(TitleBarContentProperty, value);
     }
 }
-

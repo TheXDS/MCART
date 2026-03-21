@@ -98,4 +98,3 @@ public class TitleBarControl : ContentControl
         WindowReference?.Close();
     }
 }
-

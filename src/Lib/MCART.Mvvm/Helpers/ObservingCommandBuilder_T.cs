@@ -106,7 +106,7 @@ public partial class ObservingCommandBuilder<T> where T : INotifyPropertyChanged
     public ObservingCommandBuilder<T> ListensTo<TValue>(params Expression<Func<T, TValue>>[] properties)
     {
         ListensToProperty_Contract(properties);
-        command.RegisterObservedProperty(properties.Select(GetProperty).Select(p => p.Name).ToArray());
+        command.RegisterObservedProperty([.. properties.Select(GetProperty).Select(p => p.Name)]);
         return this;
     }
 
@@ -340,7 +340,7 @@ public partial class ObservingCommandBuilder<T> where T : INotifyPropertyChanged
         }
         IsBuilt_Contract();
         var props = observedObject.GetType().GetProperties().Where(p => p.CanRead && p.CanWrite);
-        command.RegisterObservedProperty(props.Select(p => p.Name).ToArray());
+        command.RegisterObservedProperty([.. props.Select(p => p.Name)]);
         canExecuteTree.Add(_ => props.Select(p => p.GetValue(observedObject)).All(IsFilled));
         return this;
     }
