@@ -27,7 +27,7 @@ jobs:
     - name: Build MCART
       run: dotnet build $env:Solution_Name --configuration=$env:Configuration
     - name: Test MCART
-      run: dotnet test $env:Solution_Name --no-build --collect:"XPlat Code Coverage" --results-directory .\Build\tests -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover -- -maxcpucount:1
+      run: dotnet test $env:Solution_Name --no-build --collect:"XPlat Code Coverage" --results-directory .\Build\tests -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura -- -maxcpucount:1
     - name: Upload code coverage report
       run: foreach ($j in (ls .\Build\tests\ -Directory)) { codecov -f "$($j.FullName)\coverage.opencover.xml" }
       env:
