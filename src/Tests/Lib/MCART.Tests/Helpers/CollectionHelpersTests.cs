@@ -480,7 +480,6 @@ public class CollectionHelpersTests
         Assert.That(((object?[])["1", 2]).IsAnyNull(), Is.False);
         Assert.That(((object?[])["1", null]).IsAnyNull(), Is.True);
         Assert.That(CollectionHelpers.IsAnyNull(null), Is.True);
-
     }
 
     [Test]
@@ -495,8 +494,7 @@ public class CollectionHelpersTests
     [Test]
     public void IsAnyNull_with_index_collection_out_test()
     {
-        IEnumerable<int> index;
-        Assert.That(((object?[])["1", 2]).IsAnyNull(out index), Is.False);
+        Assert.That(((object?[])["1", 2]).IsAnyNull(out IEnumerable<int> index), Is.False);
         Assert.That(index, Is.Empty);
         Assert.That(((object?[])["1", 2, null, null]).IsAnyNull(out index), Is.True);
         Assert.That(index, Is.EquivalentTo((int[])[2, 3]));
@@ -530,7 +528,7 @@ public class CollectionHelpersTests
         MethodInfo a = typeof(TestMethods).GetMethod("A")!;
         MethodInfo b = typeof(TestMethods).GetMethod("B")!;
         MethodInfo c = typeof(TestMethods).GetMethod("C")!;
-        MethodInfo[] l = typeof(TestMethods).GetMethods().WithSignature<Func<byte>>(new TestMethods()).Select(p => p.Method).ToArray();
+        MethodInfo[] l = [.. typeof(TestMethods).GetMethods().WithSignature<Func<byte>>(new TestMethods()).Select(p => p.Method)];
         Assert.That(2, Is.EqualTo(l.Length));
         Assert.That(l.Contains(a));
         Assert.That(l.Contains(b), Is.False);
@@ -543,7 +541,7 @@ public class CollectionHelpersTests
         MethodInfo a = typeof(StaticTestMethods).GetMethod("A")!;
         MethodInfo b = typeof(StaticTestMethods).GetMethod("B")!;
         MethodInfo c = typeof(StaticTestMethods).GetMethod("C")!;
-        MethodInfo[] l = typeof(StaticTestMethods).GetMethods().WithSignature<Func<byte>>().Select(p => p.Method).ToArray();
+        MethodInfo[] l = [.. typeof(StaticTestMethods).GetMethods().WithSignature<Func<byte>>().Select(p => p.Method)];
         Assert.That(2, Is.EqualTo(l.Length));
         Assert.That(l.Contains(a));
         Assert.That(l.Contains(b), Is.False);
