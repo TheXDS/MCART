@@ -11,15 +11,19 @@ jobs:
       Configuration: Release
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
     - name: Install .NET
-      uses: actions/setup-dotnet@v4
+      uses: actions/setup-dotnet@v5
       with:
         dotnet-version: 8.0.x
     - name: Create NuGet Packages
-      run: dotnet pack $env:Solution_Name --configuration=${{ env.Configuration }} -p:Version=${{ github.ref_name }} -p:RepositoryBranch=${{ github.ref }} -p:RepositoryCommit=${{ github.sha }} -p:ContinuousIntegrationBuild=true
+      run: dotnet pack $env:Solution_Name --configuration=${{ env.Configuration }} -p:Version=${{ github.ref_name }} -p:RepositoryBranch=${{ github.ref }} -p:RepositoryCommit=${{ github.sha }}
+    - name: Upload artifact
+      uses: actions/upload-artifact@v7
+      with:
+        name: MCART-nuget-packages
+        path: Build/bin/**/*.nupkg
     - name: Push packages to GitHub
       run: dotnet nuget push "Build/**/*.nupkg" -k ${{ secrets.GITHUB_TOKEN }} --skip-duplicate --source "https://nuget.pkg.github.com/TheXDS/"
     - name: Push packages to NuGet
       run: dotnet nuget push "Build/**/*.nupkg" -k ${{ secrets.NUGET_TOKEN }} --skip-duplicate --source "https://api.nuget.org/v3/index.json"
-

@@ -18,17 +18,17 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Setup Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
       - name: setup-docfx
         uses: clFaster/docfx-setup-action@v1
       - name: build-docfx
         uses: clFaster/docfx-build-action@v1
         with:
-          docfx-file-path: docs/docfx.json          
+          docfx-file-path: docs/docfx.json
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: 'docs/_site/'
       - name: Deploy to GitHub Pages
