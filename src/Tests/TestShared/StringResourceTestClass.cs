@@ -33,6 +33,14 @@ using TheXDS.MCART.Helpers;
 
 namespace TheXDS.MCART.Tests;
 
+/// <summary>
+/// Base test class for testing string resource translations.
+/// </summary>
+/// <remarks>
+/// This abstract class provides functionality for testing string resources
+/// in different cultures. It verifies that resource properties are correctly
+/// populated for various cultures and that translations are not null or empty.
+/// </remarks>
 public abstract class StringResourceTestClass(Type resourceClass)
 {
     private readonly Type resourceClass = resourceClass;
@@ -48,6 +56,15 @@ public abstract class StringResourceTestClass(Type resourceClass)
         return (CultureInfo)cultureProperty.GetValue(null)!;
     }
 
+    /// <summary>
+    /// Tests translations for the specified culture.
+    /// </summary>
+    /// <param name="culture">The culture to test.</param>
+    /// <remarks>
+    /// This method verifies that the resource class correctly handles
+    /// translations for the specified culture. It checks that the culture
+    /// is properly set and that all string properties are not null or empty.
+    /// </remarks>
     [TestCase("es-MX")]
     [TestCase("en-US")]
     public void Translations_Test(string culture)

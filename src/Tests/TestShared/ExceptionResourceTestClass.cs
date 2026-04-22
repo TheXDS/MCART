@@ -33,14 +33,6 @@ namespace TheXDS.MCART.Tests;
 
 public abstract class ExceptionResourceTestClass
 {
-    /// <summary>
-    /// Ejecuta una prueba básica sobre la excepción especificada.
-    /// </summary>
-    /// <typeparam name="T">Tipo de excepción.</typeparam>
-    /// <param name="exception">
-    /// Excepción para la cual ejecutar las pruebas unitarias básicas.
-    /// </param>
-    /// <returns>La misma instancia que <paramref name="exception"/>.</returns>
     protected static T TestException<T>(T exception)
     {
         Assert.That(exception,

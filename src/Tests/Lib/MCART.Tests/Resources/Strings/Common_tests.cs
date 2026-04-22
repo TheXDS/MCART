@@ -30,6 +30,4 @@ using TheXDS.MCART.Resources.Strings;
 
 namespace TheXDS.MCART.Tests.Resources.Strings;
 
-public class Common_tests : StringResourceTestClass<Common>
-{
-}
+public class Common_tests : StringResourceTestClass<Common>;

@@ -34,32 +34,6 @@ namespace TheXDS.MCART.Tests;
 
 public static class EventTestHelpers
 {
-    /// <summary>
-    /// Ejecuta la validación de un evento.
-    /// </summary>
-    /// <typeparam name="TObject">
-    /// Tipo de objeto para el cual comprobar el evento.
-    /// </typeparam>
-    /// <typeparam name="TEventHandler">
-    /// Tipo delegado del manejador de eventos.
-    /// </typeparam>
-    /// <typeparam name="TEventArgs">
-    /// Tipo de argumentos de evento del manejador de eventos. Debe heredar de
-    /// <see cref="EventArgs"/>.
-    /// </typeparam>
-    /// <param name="obj">Objeto para el cual comprobar el evento.</param>
-    /// <param name="eventName">Nombre del evento a comprobar.</param>
-    /// <param name="testDelegate">Delegado de prueba.</param>
-    /// <param name="firedExpected">
-    /// Si se establece en <see langword="true"/>, se verificará que el evento
-    /// sea disparado, <see langword="false"/> verificará que el evento no sea
-    /// generado.
-    /// </param>
-    /// <returns>
-    /// Un objeto de tipo <typeparamref name="TEventArgs"/> con los argumentos
-    /// del evento producido, o <see langword="null"/> en caso que no se
-    /// produzca el evento.
-    /// </returns>
     public static TEventArgs? TestEvent<TObject, TEventHandler, TEventArgs>(TObject obj, string eventName, Action<TObject> testDelegate, bool firedExpected = true)
         where TObject : class
         where TEventHandler : Delegate
@@ -71,24 +45,6 @@ public static class EventTestHelpers
         return args;
     }
 
-    /// <summary>
-    /// Ejecuta la validación de un evento de cambio de valor de propiedad.
-    /// </summary>
-    /// <typeparam name="TObject">
-    /// Tipo de objeto para el cual comprobar el evento.
-    /// </typeparam>
-    /// <param name="obj">Objeto para el cual comprobar el evento.</param>
-    /// <param name="testDelegate">Delegado de prueba.</param>
-    /// <param name="firedExpected">
-    /// Si se establece en <see langword="true"/>, se verificará que el evento
-    /// sea disparado, <see langword="false"/> verificará que el evento no sea
-    /// generado.
-    /// </param>
-    /// <returns>
-    /// Un objeto de tipo <typeparamref name="PropertyChangedEventArgs"/> con
-    /// los argumentos del evento producido, o <see langword="null"/> en caso
-    /// que no se produzca el evento.
-    /// </returns>
     public static PropertyChangedEventArgs? TestNpcProperty<TObject>(TObject obj, Action<TObject> testDelegate,
         bool firedExpected = true)
         where TObject : class, INotifyPropertyChanged
@@ -96,31 +52,6 @@ public static class EventTestHelpers
         return TestEvent<TObject, PropertyChangedEventHandler, PropertyChangedEventArgs>(obj, nameof(INotifyPropertyChanged.PropertyChanged), testDelegate, firedExpected);
     }
 
-    /// <summary>
-    /// Ejecuta la validación de un evento de cambio de valor de propiedad.
-    /// </summary>
-    /// <typeparam name="TObject">
-    /// Tipo de objeto para el cual comprobar el evento.
-    /// </typeparam>
-    /// <typeparam name="TValue">
-    /// Tipo de valor de la propiedad a comprobar.
-    /// </typeparam>
-    /// <param name="obj">Objeto para el cual comprobar el evento.</param>
-    /// <param name="propertySelector">
-    /// Selector de la propiedad a comprobar.
-    /// </param>
-    /// <param name="setTestValue">
-    /// Valor de prueba. Se intentará establecer la propiedad a este valor.
-    /// </param>
-    /// <param name="firedExpected">
-    /// Si se establece en <see langword="true"/>, se verificará que el evento
-    /// sea disparado, <see langword="false"/> verificará que el evento no sea
-    /// generado.
-    /// </param>
-    /// <param name="additionalPropChangeNotifications">
-    /// Arreglo opcional de notificaciones adicionales que se deberían producir
-    /// al cambiar el valor de la propiedad seleccionada.
-    /// </param>
     public static void TestNpcProperty<TObject, TValue>(TObject obj, Expression<Func<TObject, TValue>> propertySelector, TValue setTestValue, bool firedExpected = true, params string[] additionalPropChangeNotifications)
         where TObject : class, INotifyPropertyChanged
     {
@@ -140,31 +71,6 @@ public static class EventTestHelpers
         else Assert.That(props, Is.EquivalentTo(allProps));
     }
 
-    /// <summary>
-    /// Ejecuta la validación de un evento de cambio de valor de propiedad.
-    /// </summary>
-    /// <typeparam name="TObject">
-    /// Tipo de objeto para el cual comprobar el evento.
-    /// </typeparam>
-    /// <typeparam name="TValue">
-    /// Tipo de valor de la propiedad a comprobar.
-    /// </typeparam>
-    /// <param name="obj">Objeto para el cual comprobar el evento.</param>
-    /// <param name="propertySelector">
-    /// Selector de la propiedad a comprobar.
-    /// </param>
-    /// <param name="setTestValue">
-    /// Valor de prueba. Se intentará establecer la propiedad a este valor.
-    /// </param>
-    /// <param name="firedExpected">
-    /// Si se establece en <see langword="true"/>, se verificará que el evento
-    /// sea disparado, <see langword="false"/> verificará que el evento no sea
-    /// generado.
-    /// </param>
-    /// <param name="additionalPropChangeNotifications">
-    /// Arreglo opcional de notificaciones adicionales que se deberían producir
-    /// al cambiar el valor de la propiedad seleccionada.
-    /// </param>
     public static void TestNpcProperty<TObject, TValue>(TObject obj, Expression<Func<TObject, TValue>> propertySelector,
         TValue setTestValue, bool firedExpected = true, params Expression<Func<TObject, object?>>[] additionalPropChangeNotifications)
         where TObject : class, INotifyPropertyChanged
@@ -173,32 +79,7 @@ public static class EventTestHelpers
             obj, propertySelector, setTestValue, firedExpected,
             additionalPropChangeNotifications.Select(p => ReflectionHelpers.GetProperty(p).Name).ToArray());
     }
- 
-    /// <summary>
-    /// Ejecuta la validación de un evento de cambio de valor de propiedad.
-    /// </summary>
-    /// <typeparam name="TObject">
-    /// Tipo de objeto para el cual comprobar el evento.
-    /// </typeparam>
-    /// <typeparam name="TValue">
-    /// Tipo de valor de la propiedad a comprobar.
-    /// </typeparam>
-    /// <param name="obj">Objeto para el cual comprobar el evento.</param>
-    /// <param name="propertySelector">
-    /// Selector de la propiedad a comprobar.
-    /// </param>
-    /// <param name="setTestValue">
-    /// Valor de prueba. Se intentará establecer la propiedad a este valor.
-    /// </param>
-    /// <param name="firedExpected">
-    /// Si se establece en <see langword="true"/>, se verificará que el evento
-    /// sea disparado, <see langword="false"/> verificará que el evento no sea
-    /// generado.
-    /// </param>
-    /// <param name="additionalPropChangeNotifications">
-    /// Arreglo opcional de notificaciones adicionales que se deberían producir
-    /// al cambiar el valor de la propiedad seleccionada.
-    /// </param>
+
     public static void TestNpcProperty<TObject, TValue>(TObject obj, Expression<Func<TObject, TValue>> propertySelector,
         TValue setTestValue, params Expression<Func<TObject, object?>>[] additionalPropChangeNotifications)
         where TObject : class, INotifyPropertyChanged
@@ -210,31 +91,7 @@ public static class EventTestHelpers
             obj, propertySelector, setTestValue, false,
             additionalPropChangeNotifications.Select(p => ReflectionHelpers.GetProperty(p).Name).ToArray());
     }
-    
-    /// <summary>
-    /// Ejecuta la validación de un evento de cambio de valor de propiedad.
-    /// </summary>
-    /// <typeparam name="TObject">
-    /// Tipo de objeto para el cual comprobar el evento.
-    /// </typeparam>
-    /// <typeparam name="TValue">
-    /// Tipo de valor de la propiedad a comprobar.
-    /// </typeparam>
-    /// <param name="propertySelector">
-    /// Selector de la propiedad a comprobar.
-    /// </param>
-    /// <param name="setTestValue">
-    /// Valor de prueba. Se intentará establecer la propiedad a este valor.
-    /// </param>
-    /// <param name="firedExpected">
-    /// Si se establece en <see langword="true"/>, se verificará que el evento
-    /// sea disparado, <see langword="false"/> verificará que el evento no sea
-    /// generado.
-    /// </param>
-    /// <param name="additionalPropChangeNotifications">
-    /// Arreglo opcional de notificaciones adicionales que se deberían producir
-    /// al cambiar el valor de la propiedad seleccionada.
-    /// </param>
+
     public static void TestNpcProperty<TObject, TValue>(Expression<Func<TObject, TValue>> propertySelector,
         TValue setTestValue, bool firedExpected = true, params Expression<Func<TObject, object?>>[] additionalPropChangeNotifications)
         where TObject : class, INotifyPropertyChanged, new()
@@ -243,26 +100,7 @@ public static class EventTestHelpers
             new TObject(), propertySelector, setTestValue, firedExpected,
             additionalPropChangeNotifications);
     }
-    
-    /// <summary>
-    /// Ejecuta la validación de un evento de cambio de valor de propiedad.
-    /// </summary>
-    /// <typeparam name="TObject">
-    /// Tipo de objeto para el cual comprobar el evento.
-    /// </typeparam>
-    /// <typeparam name="TValue">
-    /// Tipo de valor de la propiedad a comprobar.
-    /// </typeparam>
-    /// <param name="propertySelector">
-    /// Selector de la propiedad a comprobar.
-    /// </param>
-    /// <param name="setTestValue">
-    /// Valor de prueba. Se intentará establecer la propiedad a este valor.
-    /// </param>
-    /// <param name="additionalPropChangeNotifications">
-    /// Arreglo opcional de notificaciones adicionales que se deberían producir
-    /// al cambiar el valor de la propiedad seleccionada.
-    /// </param>
+
     public static void TestNpcProperty<TObject, TValue>(Expression<Func<TObject, TValue>> propertySelector,
         TValue setTestValue, params Expression<Func<TObject, object?>>[] additionalPropChangeNotifications)
         where TObject : class, INotifyPropertyChanged, new()
@@ -274,16 +112,6 @@ public static class EventTestHelpers
             additionalPropChangeNotifications);
     }
 
-    /// <summary>
-    /// Ejecuta una validación de múltiples eventos.
-    /// </summary>
-    /// <typeparam name="TObject">
-    /// Tipo de objeto para el cual comprobar los eventos.
-    /// </typeparam>
-    /// <param name="obj">Objeto para el cual comprobar los eventos.</param>
-    /// <param name="testDelegate">
-    /// Delegado de prueba de debería generar los eventos a comprobar.</param>
-    /// <param name="events">Eventos a comprobar.</param>
     public static void TestEvents<TObject>(TObject obj, Action<TObject> testDelegate, IEnumerable<IEventTestEntry<TObject, EventArgs>> events)
         where TObject : class
     {
@@ -299,16 +127,6 @@ public static class EventTestHelpers
         }
     }
 
-    /// <summary>
-    /// Ejecuta una validación de múltiples eventos.
-    /// </summary>
-    /// <typeparam name="TObject">
-    /// Tipo de objeto para el cual comprobar los eventos.
-    /// </typeparam>
-    /// <param name="obj">Objeto para el cual comprobar los eventos.</param>
-    /// <param name="testDelegate">
-    /// Delegado de prueba de debería generar los eventos a comprobar.</param>
-    /// <param name="events">Eventos a comprobar.</param>
     public static void TestEvents<TObject>(TObject obj, Action<TObject> testDelegate, params IEventTestEntry<TObject, EventArgs>[] events)
            where TObject : class
     {

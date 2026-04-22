@@ -30,6 +30,11 @@ using System.Reflection;
 
 namespace TheXDS.MCART.Tests;
 
+/// <summary>
+/// Represents a test entry for verifying event handling functionality.
+/// </summary>
+/// <typeparam name="TObject">The type of object that raises the event.</typeparam>
+/// <typeparam name="TEventArgs">The type of event arguments raised by the event.</typeparam>
 public class EventTestEntry<TObject, TEventArgs>(Type eventHandlerType, string eventName, bool firedExpected = true, Action<TEventArgs>? eventArgsAssertions = null)
     : IEventTestEntry<TObject, TEventArgs> where TEventArgs : EventArgs
 {
@@ -37,16 +42,39 @@ public class EventTestEntry<TObject, TEventArgs>(Type eventHandlerType, string e
     private EventTriggerTest<TEventArgs>? trigger;
     private Delegate? eventHandler;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="EventTestEntry{TObject, TEventArgs}"/> class.
+    /// </summary>
+    /// <param name="eventHandlerType">The type of the event handler delegate.</param>
+    /// <param name="eventName">The name of the event to test.</param>
+    /// <param name="firedExpected">A value indicating whether the event is expected to be fired.</param>
+    /// <param name="eventArgsAssertions">Optional assertions to perform on event arguments.</param>
     public EventTestEntry(Type eventHandlerType, string eventName, Action<TEventArgs>? eventArgsAssertions) : this(eventHandlerType, eventName, true, eventArgsAssertions) { }
 
+    /// <summary>
+    /// Gets the type of the event handler associated with the event.
+    /// </summary>
     public Type EventHandlerType { get; } = eventHandlerType;
 
+    /// <summary>
+    /// Gets the name of the event being tested.
+    /// </summary>
     public string EventName { get; } = eventName;
 
+    /// <summary>
+    /// Gets a value indicating whether the event is expected to be fired.
+    /// </summary>
     public bool FiredExpected { get; } = firedExpected;
 
+    /// <summary>
+    /// Gets the assertions to perform on event arguments, if any.
+    /// </summary>
     public Action<TEventArgs>? EventArgsAssertions { get; } = eventArgsAssertions;
 
+    /// <summary>
+    /// Sets up event handling for the specified object.
+    /// </summary>
+    /// <param name="obj">The object for which to set up event handling.</param>
     void IEventTestEntry<TObject, TEventArgs>.SetupEventHandling(TObject obj)
     {
         eventInfo = typeof(TObject).GetEvent(EventName);
@@ -55,11 +83,15 @@ public class EventTestEntry<TObject, TEventArgs>(Type eventHandlerType, string e
             Assert.Fail();
             return;
         }
-        trigger = new EventTriggerTest<TEventArgs>();
+        trigger = [];
         eventHandler = Delegate.CreateDelegate(EventHandlerType, trigger, trigger.EventCallback, true)!;
         eventInfo.AddEventHandler(obj, eventHandler);
     }
 
+    /// <summary>
+    /// Tears down event handling for the specified object.
+    /// </summary>
+    /// <param name="obj">The object for which to tear down event handling.</param>
     void IEventTestEntry<TObject, TEventArgs>.TeardownEventHandling(TObject obj)
     {
         eventInfo?.RemoveEventHandler(obj, eventHandler);

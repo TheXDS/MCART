@@ -28,9 +28,13 @@
 
 namespace TheXDS.MCART.Tests;
 
-public abstract class StringResourceTestClass<T> : StringResourceTestClass where T : notnull
-{
-    protected StringResourceTestClass() : base(typeof(T))
-    {
-    }
-}
+/// <summary>
+/// Base test class for testing string resource translations.
+/// </summary>
+/// <remarks>
+/// This abstract class provides functionality for testing string resources
+/// in different cultures. It verifies that resource properties are correctly
+/// populated for various cultures and that translations are not null or empty.
+/// </remarks>
+/// <typeparam name="T">The type of resource class to test.</typeparam>
+public abstract class StringResourceTestClass<T>() : StringResourceTestClass(typeof(T)) where T : notnull;

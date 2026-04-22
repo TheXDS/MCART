@@ -28,15 +28,37 @@
 
 namespace TheXDS.MCART.Tests;
 
+/// <summary>
+/// Defines a contract for test entries that verify event handling functionality.
+/// </summary>
+/// <typeparam name="TObject">The type of object that raises the event.</typeparam>
+/// <typeparam name="TEventArgs">The type of event arguments raised by the event.</typeparam>
 public interface IEventTestEntry<TObject, out TEventArgs> where TEventArgs : EventArgs
 {
+    /// <summary>
+    /// Gets the type of the event handler associated with the event.
+    /// </summary>
     Type EventHandlerType { get; }
 
+    /// <summary>
+    /// Gets the name of the event being tested.
+    /// </summary>
     string EventName { get; }
 
+    /// <summary>
+    /// Gets a value indicating whether the event is expected to be fired.
+    /// </summary>
     bool FiredExpected { get; }
 
+    /// <summary>
+    /// Sets up event handling for the specified object.
+    /// </summary>
+    /// <param name="obj">The object for which to set up event handling.</param>
     void SetupEventHandling(TObject obj);
 
+    /// <summary>
+    /// Tears down event handling for the specified object.
+    /// </summary>
+    /// <param name="obj">The object for which to tear down event handling.</param>
     void TeardownEventHandling(TObject obj);
 }
