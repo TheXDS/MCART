@@ -106,7 +106,7 @@ public partial class WebCamPane : Control
     /// </summary>
     public static readonly DependencyProperty IsBusyProperty = IsBusyPropertyKey.DependencyProperty;
 
-    private static object? CoerceResolution(DependencyObject d, object baseValue)
+    private static VideoCapabilities? CoerceResolution(DependencyObject d, object baseValue)
     {
         var w = (WebCamPane)d;
         return baseValue is VideoCapabilities sz && w.SelectedVideoDevice?.VideoCapabilities is { } vc
