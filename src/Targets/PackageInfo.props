@@ -26,6 +26,7 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<None Include="$(Root)Art\MCART.png" Pack="true" PackagePath="\"/>
+		<None Include="$(Root)LICENSE" Pack="true" PackagePath="\"/>
 		<None Condition="Exists('README.md')" Include="README.md" Pack="true" PackagePath="\"/>
 	</ItemGroup>
 </Project>
