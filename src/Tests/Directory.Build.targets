@@ -6,6 +6,8 @@
 		<NoInternals>true</NoInternals>
 		<NoAsmInfo>true</NoAsmInfo>
 		<Nullable>enable</Nullable>
+		<DebugType>embedded</DebugType>
+		<DebugSymbols>false</DebugSymbols>
 	</PropertyGroup>
 	<PropertyGroup Condition="$(MSBuildProjectName.StartsWith('TheXDS.MCART'))=='False'">
 		<RootNamespace>TheXDS.MCART.$(MSBuildProjectName)</RootNamespace>
