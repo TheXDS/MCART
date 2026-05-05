@@ -632,6 +632,63 @@ public static partial class EnumerableExtensions
     }
 
     /// <summary>
+    /// Scans the array for the first occurrence of a sequence of elements, and returns
+    /// the index of the first element of the sequence if found; otherwise, -1.
+    /// </summary>
+    /// <typeparam name="T">Type of elements in the array and sequence.</typeparam>
+    /// <param name="inputArray">Sequence to search within.</param>
+    /// <param name="toFind">Sequence of elements to find.</param>
+    /// <returns>Index of the first element of the sequence if found; otherwise, -1.</returns>
+    public static int IndexOfArray<T>(this IEnumerable<T> inputArray, IEnumerable<T> toFind)
+    {
+        ArgumentNullException.ThrowIfNull(inputArray);
+        ArgumentNullException.ThrowIfNull(toFind);
+        var array = inputArray as T[] ?? [.. inputArray];
+        var pattern = toFind as T[] ?? [.. toFind];
+        if (array.Length == 0 || pattern.Length == 0) throw new InvalidOperationException();
+        int n = array.Length;
+        int m = pattern.Length;
+        if (m > n) return -1;
+        var comparer = EqualityComparer<T>.Default;
+        int[] lps = new int[m];
+        for (int i = 1, len = 0; i < m;)
+        {
+            if (comparer.Equals(pattern[i], pattern[len]))
+            {
+                lps[i++] = ++len;
+            }
+            else if (len > 0)
+            {
+                len = lps[len - 1];
+            }
+            else
+            {
+                lps[i++] = 0;
+            }
+        }
+        for (int i = 0, j = 0; i < n;)
+        {
+            if (comparer.Equals(array[i], pattern[j]))
+            {
+                i++;
+                j++;
+
+                if (j == m)
+                    return i - j;
+            }
+            else if (j > 0)
+            {
+                j = lps[j - 1];
+            }
+            else
+            {
+                i++;
+            }
+        }
+        return -1;
+    }
+
+    /// <summary>
     /// Checks whether all objects in the collection are equal.
     /// </summary>
     /// <typeparam name="T">Type of objects in the collection.</typeparam>

@@ -508,11 +508,85 @@ public class EnumerableExtensionsTests
         Assert.That(new[] { "test", "1234", "abcd" }.AreAllEqual(p => p.Length));
     }
 
+    [TestCase(100, 10, 3, 9, Description = "Tiny array match")]
+    [TestCase(1000, 100, 30, 99, Description = "Small array match")]
+    [TestCase(10000, 1000, 300, 999, Description = "Medium array match")]
+    [TestCase(100000, 10000, 3000, 9999, Description = "Large array match")]
+    public void IndexOfArray_Test(int arraysize, int sequenceStart, int sequenceLength, int expectedIndex)
+    {
+        int[] bigArray = [..Enumerable.Range(1, arraysize)];
+        int[] smallArray = [.. Enumerable.Range(sequenceStart, sequenceLength)];
+        Assert.That(bigArray.IndexOfArray(smallArray), Is.EqualTo(expectedIndex));
+    }
+
+    [Test]
+    public void IndexOfArray_NotFound_Test()
+    {
+        int[] bigArray = [..Enumerable.Range(1, 100)];
+        int[] smallArray = [101, 102, 103];
+        Assert.That(bigArray.IndexOfArray(smallArray), Is.EqualTo(-1));
+    }
+
+    [Test]
+    public void IndexOfArray_EmptySmallArray_Test()
+    {
+        int[] bigArray = [..Enumerable.Range(1, 100)];
+        int[] smallArray = [];
+        Assert.That(()=>bigArray.IndexOfArray(smallArray), Throws.InvalidOperationException);
+    }
+
+    [Test]
+    public void IndexOfArray_NullSmallArray_Test()
+    {
+        int[] bigArray = [..Enumerable.Range(1, 100)];
+        int[]? smallArray = null;
+        Assert.That(() => bigArray.IndexOfArray(smallArray!), Throws.ArgumentNullException);
+    }
+
+    [Test]
+    public void IndexOfArray_NullBigArray_Test()
+    {
+        int[]? bigArray = null;
+        int[] smallArray = [1, 2, 3];
+        Assert.That(() => bigArray!.IndexOfArray(smallArray), Throws.ArgumentNullException);
+    }
+
+    [Test]
+    public void IndexOfArray_SmallArrayLargerThanBigArray_Test()
+    {
+        int[] bigArray = [1, 2, 3];
+        int[] smallArray = [1, 2, 3, 4];
+        Assert.That(bigArray.IndexOfArray(smallArray), Is.EqualTo(-1));
+    }
+
+    [Test]
+    public void IndexOfArray_SmallArraySameAsBigArray_Test()
+    {
+        int[] bigArray = [1, 2, 3];
+        int[] smallArray = [1, 2, 3];
+        Assert.That(bigArray.IndexOfArray(smallArray), Is.EqualTo(0));
+    }
+
+    [Test]
+    public void IndexOfArray_SmallArrayAtEndOfBigArray_Test()
+    {
+        int[] bigArray = [1, 2, 3, 4, 5];
+        int[] smallArray = [4, 5];
+        Assert.That(bigArray.IndexOfArray(smallArray), Is.EqualTo(3));
+    }
+
+    [Test]
+    public void IndexOfArray_SmallArrayAtStartOfBigArray_Test()
+    {
+        int[] bigArray = [1, 2, 3, 4, 5];
+        int[] smallArray = [1, 2];
+        Assert.That(bigArray.IndexOfArray(smallArray), Is.EqualTo(0));
+    }
+
     [Test]
     public void Rotate_Test()
     {
         int[] c = [1, 2, 3, 4, 5];
-
         Assert.That(c.Rotate(0), Is.EquivalentTo([1, 2, 3, 4, 5]));
         Assert.That(c.Rotate(1), Is.EquivalentTo([2, 3, 4, 5, 1]));
         Assert.That(c.Rotate(2), Is.EquivalentTo([3, 4, 5, 1, 2]));
