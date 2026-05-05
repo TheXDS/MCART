@@ -56,16 +56,6 @@ public readonly struct NamedObject<T>(string name, T value) : INameable
     }
 
     /// <summary>
-    /// Initialies a new instance of the structure <see cref="NamedObject{T}" />
-    /// </summary>
-    /// <param name="value">Object to label.</param>
-    /// <param name="name">Object's label.</param>
-    [Obsolete(AttributeErrorMessages.NamedObjectDeprecatedCtor)]
-    public NamedObject(T value, string name) : this(name, value)
-    {
-    }
-
-    /// <summary>
     /// Object's value.
     /// </summary>
     public T Value { get; } = value;

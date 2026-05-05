@@ -407,16 +407,6 @@ public class EnumerableExtensionsTests
         Assert.Throws<IndexOutOfRangeException>(() => _ = c.Range(99, 5).ToArray());
     }
 
-    [Obsolete]
-    [Test]
-    public void ToExtendedList_Test()
-    {
-        ListEx<int> c = new[] { 1, 2, 3 }.ToExtendedList();
-
-        Assert.That(c, Is.AssignableFrom<ListEx<int>>());
-        Assert.That(3, Is.EqualTo(c.Count));
-    }
-
     [Test]
     public void FindIndexOf_Test()
     {

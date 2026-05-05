@@ -469,20 +469,6 @@ public static partial class EnumerableExtensions
     }
 
     /// <summary>
-    /// Creates a <see cref="ListEx{T}"/> from an <see cref="IEnumerable{T}"/>.
-    /// </summary>
-    /// <param name="collection">Collection to convert</param>
-    /// <typeparam name="T">Type of the collection.</typeparam>
-    /// <returns>
-    /// A <see cref="ListEx{T}" /> from the <see cref="Extensions" /> namespace.
-    /// </returns>
-    [Obsolete(AttributeErrorMessages.UnsuportedClass)]
-    public static ListEx<T> ToExtendedList<T>(this IEnumerable<T> collection)
-    {
-        return [.. collection];
-    }
-
-    /// <summary>
     /// Creates a <see cref="List{T}"/> from an <see cref="IEnumerable{T}"/> asynchronously.
     /// </summary>
     /// <typeparam name="T">Type of the collection.</typeparam>
@@ -493,20 +479,6 @@ public static partial class EnumerableExtensions
     public static async Task<List<T>> ToListAsync<T>(this IEnumerable<T> enumerable)
     {
         return await Task.Run(enumerable.ToList);
-    }
-
-    /// <summary>
-    /// Creates a <see cref="ListEx{T}"/> from an <see cref="IEnumerable{T}"/> asynchronously.
-    /// </summary>
-    /// <typeparam name="T">Type of the collection.</typeparam>
-    /// <param name="enumerable"></param>
-    /// <returns>
-    /// A task that can be used to monitor the operation.
-    /// </returns>
-    [Obsolete(AttributeErrorMessages.UnsuportedClass)]
-    public static async Task<ListEx<T>> ToExtendedListAsync<T>(this IEnumerable<T> enumerable)
-    {
-        return await Task.Run(enumerable.ToExtendedList);
     }
 
     /// <summary>Rotates the elements of an array, list, or collection.</summary>
